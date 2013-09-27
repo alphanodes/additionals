@@ -1,0 +1,15 @@
+<div class="users box">
+	<%
+	if @list_title %><h2><%= @list_title %></h2><% end
+  users.each {|user| %>
+		<div class="user box <%= cycle("odd", "even") %>">
+      <div style="float: left; display: block; margin-right: 5px;"><%= avatar(user, :size => "50") %></div>
+      <div class="user line" style="font-weight: bold;"><%= link_to(user.firstname + ' ' + user.lastname, '/users/' + user.id.to_s()) %></div>
+      <% if user['role'] %><div class="user line"><%= l(:field_role) %>: <%= user['role'].join(", ").html_safe %></div><% end %>
+      <div class="user line"><%= l(:field_login) %>: <%= link_to user.login, '/users/' + user.id.to_s() %></div>
+			<% if !user.pref.hide_mail %>
+			<div class="user line"><%= l(:field_mail) %>: <%= mail_to(h(user.mail), nil, :encode => 'javascript') %></div>
+			<% end %>
+		</div><%
+  } %>
+</div>

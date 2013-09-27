@@ -1,0 +1,17 @@
+<%
+
+wiki_skeletal = ''
+
+wiki_skeletal << Setting.plugin_redmine_tweaks['project_wiki_skeletal']
+
+if wiki_skeletal != ''
+%>
+
+<div class="box">
+<h3><%= l(:label_project_wiki_skeletal) %></h3>
+<p>
+  <%= textilizable(wiki_skeletal).html_safe %>
+</p>
+</div>
+
+<% end %>

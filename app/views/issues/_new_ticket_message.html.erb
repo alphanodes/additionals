@@ -1,0 +1,11 @@
+<% if @issue.new_ticket_message != '' %>
+
+<div class="nodata nodata-left">
+  <%= textilizable(issue.new_ticket_message).html_safe %>
+</div>
+
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'application', :plugin => 'redmine_tweaks' %>
+<% end %>
+
+<% end %>

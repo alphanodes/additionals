@@ -1,0 +1,33 @@
+# English strings
+en:
+  label_project_list: "Project list"
+  label_user_list: "User list"
+  label_settings_general: "Common"
+  label_settings_content: "Content"
+  label_external_urls: "External urls"
+  external_url_default: "Default behavior"
+  external_url_new_window: "Open in new window"
+  external_url_anonymize: "Anonymize referrer"
+  external_urls_info_html: "Legt das Verhalten für externe URLs fest."
+  label_custom_help_url: "Custom Help URL"
+  custom_help_url_info_html: "After changing this URL, you have to restart the webserver to activate it."
+  label_show_task_board_link: "Show task board in top menu"
+  show_task_board_link_info_html: 'A wiki page will be used as task board. The project identifier has to be "common" and the wiki page "Task_board". You can use <a class="external" href="http://www.r-labs.org/projects/wiki_lists/wiki/Wiki_Lists_en">Wiki Lists</a> macros to generate ticket lists.'  
+  label_remove_mypage: "Remove MyPage from top menu"
+  remove_mypage_info: 'Sometimes it is more useful to hide the "My Page" link in order to introduce the task board. The task board advantage is that tickets can be listed according to their status.'
+  label_account_login: "Text for login page"
+  account_login_info: "This text message will be shown at the login page and should be used for registration information. These settings are active in all projects."
+  label_new_ticket_message: "Note for new tickets"
+  new_ticket_message_info: "A note will be shown to everyone who wants to add a new ticket. For example you can enter acceptance tests or ticket rules here. These settings are used project wide."
+  label_project_wiki_skeletal: "Project guide"
+  project_wiki_skeletal_info: "Here you can add your text, which will be shown on the project overview page. For example you can link to a wiki page, which is/should be project wide available to every team member. The aim is to reach a better project standard and to maintain a unique wiki structure."
+  label_global_sidebar: "Global sidebar"
+  global_sidebar_info: "Enter a project wide available text message here. This sidebar text will be displayed at the project overview, the ticket pages and the wiki pages."
+  label_global_wiki_sidebar: "Global wiki sidebar"
+  global_wiki_sidebar_info: 'Enter a project wide available text message for your wiki sidebar, here. This sidebar text will be displayed at the wiki pages only. Use this space for Macros like "Last changed pages" for example. In case a project specific sidebar is used (wiki page), this will be preferably displayed in the sidebar instead.'
+  label_global_wiki_header: "Project wide wiki header"
+  global_wiki_header_info: 'Enter a project wide wiki header here. In case a project specific wiki header is used by "Wiki Extensions" this will be preferably displayed instead.'
+  label_global_wiki_footer: "Project wide wiki footer"
+  global_wiki_footer_info: 'Enter a project wide wiki footer here. In case a project specific wiki footer is used by "Wiki Extensions" this will be preferably displayed instead.'
+  label_disabled_modules: "Disabled modules"
+  disabled_modules_info: "Modules, which should not be available for selection within the projects. Are these modules already activated in existing projetcs you have to restart the settings after changing and saving them."  

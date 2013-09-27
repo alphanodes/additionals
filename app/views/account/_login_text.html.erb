@@ -1,0 +1,13 @@
+<%
+
+login_text = ''
+login_text << Setting.plugin_redmine_tweaks['account_login_bottom']
+
+if login_text != ''
+%>
+<br />
+<div class="login-tweaks">
+  <%= textilizable(login_text).html_safe %>
+</div>
+
+<% end %>

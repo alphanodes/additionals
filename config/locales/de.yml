@@ -1,0 +1,33 @@
+# German strings
+de:
+  label_project_list: "Projektliste"
+  label_user_list: "Benutzerliste"
+  label_settings_general: "Allgemein"
+  label_settings_content: "Inhalt"
+  label_external_urls: "Externe URLs"
+  external_url_default: "Standard Verhalten"
+  external_url_new_window: "In neuen Fenster"
+  external_url_anonymize: "Referrer anonymisieren"
+  external_urls_info_html: "Legt das Verhalten für externe URLs fest."  
+  label_custom_help_url: "URL zur Hilfeseite"
+  custom_help_url_info_html: "Diese URL wird für den <em>Hilfe</em> Eintrag im Topmenü verwendet. Bitte den Webserver neu starten, wenn die URL geändert wurde."
+  label_show_task_board_link: "Taskboard im Topmenü anzeigen"
+  show_task_board_link_info_html: 'As task board a wiki page will be used. Die Projektkennung muss "common" sein und die Wikiseite "Task_board" heißen. Verwenden Sie <a class="external" href="http://www.r-labs.org/projects/wiki_lists/wiki/Wiki_Lists_en">Wiki Lists</a> Makros, um Ticketlisten zu generieren.'  
+  label_remove_mypage: "Entferne 'Meine Seite' aus dem Topmenü"
+  remove_mypage_info: 'Manchmal ist es hilfreich, dass die "Meine Seite" nicht angezeigt wird, um den Einsatz eines Task Boards einzuführen. Der Vorteil eines Task Boards liegt darin, dass Tickets nach Status gelistet werden können.'
+  label_account_login: "Text für Anmeldeseite"
+  account_login_info: "Dieser Text wir auf der Anmeldeseite angezeigt, um z.B. Informationen für die Anmeldung oder Registrierung zu hinterlegen. Diese Einstellung ist projektübergreifend und ist in allen Projekten aktiv."
+  label_new_ticket_message: "Hinweistext für neue Tickets"
+  new_ticket_message_info: "Ein Hinweis, der beim Erstellen neuer Tickets angezeigt wird. Es kann beispielsweise auf Akzeptanztests oder Richtlinien zum Erstellen der Tickets hingewiesen werden. Dieser Einstellung ist projektübergreifend und ist in allen Projekten aktiv."
+  label_project_wiki_skeletal: "Projektwegweiser"
+  project_wiki_skeletal_info: "Hier kann ein Text hinterlegt werden, der auf der Übersichtsprojektseite angezeigt wird. Verweisen Sie beispielsweise auf bestimmte Wiki Seiten, welche projektübergreifend vorhanden sind/sein sollten. Ziel sollte eine Standardisierung in den Projekten und eine einheitliche Wiki-Struktur sein."
+  label_global_sidebar: "Projektübergreifender Sidebar Inhalt"
+  global_sidebar_info: "Hier kann für die Sidebar ein projektübergreifender Text hinterlegt werden. Der hier hinterlegte Sidebar Inhalt wird auf der Projektübersichtsseite, auf den Ticketseiten und den Wikiseiten angezeigt."
+  label_global_wiki_sidebar: "Projektübergreifender Wiki-Sidebar Inhalt"
+  global_wiki_sidebar_info: 'Hier kann für die Wiki Sidebar ein projektübergreifender Text hinterlegt werden. Diese Sidebar wird nur auf den Wiki Seiten angezeigt und kann z.B. für  Makros wie "Zuletzt geänderte Seiten" verwendet werden. Wird eine projektspezifische Sidebar angelegt (über eine Wiki Seite), dann wird diese anstelle der projektübergreifenden Sidebar angezeigt.'
+  label_global_wiki_header: "Projektübergreifender Wiki Header"
+  global_wiki_header_info: 'Hier kann ein projektübergreifender Wiki Header hinterlegt werden. Wird über "Wiki Extensions" ein projektspezifischer Header angelegt, wird dieser immer vorzugsweise vor dem projektübergreifenden Header verwendet.'
+  label_global_wiki_footer: "Projektübergreifender Wiki Footer"
+  global_wiki_footer_info: 'Hier kann ein projektübergreifender Wiki Footer hinterlegt werden. Wird über "Wiki Extensions" ein projektspezifischer Footer angelegt, wird dieser anstelle des projektübergreifenden Footers verwendet.'
+  label_disabled_modules: "Deaktivierte Module"
+  disabled_modules_info: "Module, die nicht zur Auswahl innerhalb der Projekte zur Verfügung stehen sollen. Sind in bestehenden Projekten schon diese Module aktiviert worden, werden die Einstellungen für diese Projekte erst nach erneuten Abspeichern der jeweiligen Projekteinstellungen aktiv."

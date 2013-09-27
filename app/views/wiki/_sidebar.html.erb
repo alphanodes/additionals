@@ -1,0 +1,18 @@
+<% if @wiki && @wiki.sidebar -%>
+  <%= textilizable @wiki.sidebar.content, :text %>
+<% end -%>
+
+<h3><%= l(:label_wiki) %></h3>
+
+<%= link_to l(:field_start_page), {:action => 'show', :id => nil} %><br />
+<%= link_to l(:label_index_by_title), {:action => 'index'} %><br />
+<%= link_to l(:label_index_by_date), {:controller => 'wiki', :project_id => @project, :action => 'date_index'} %><br />
+
+<% sidebar = '' + Setting.plugin_redmine_tweaks['global_sidebar']
+if sidebar != ''
+%>
+<div class="sidebar-tweaks">
+  <%= textilizable(sidebar).html_safe %>
+</div>
+<br />
+<% end %>

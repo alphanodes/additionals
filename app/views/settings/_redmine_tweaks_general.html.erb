@@ -1,0 +1,34 @@
+<p>
+  <%= content_tag(:label, l(:label_external_urls)) %>
+  <%= select_tag 'settings[external_urls]', options_for_select({
+              l(:external_url_default) => "0",
+              l(:external_url_new_window) => "1",
+              l(:external_url_anonymize) => "2"
+              }, @settings['external_urls']) %>
+  <em class="info"><%= t(:external_urls_info_html) %></em>
+</p>
+
+<p>
+  <%= content_tag(:label, l(:label_custom_help_url)) %>
+  <%= text_field_tag('settings[custom_help_url]', @settings[:custom_help_url], :size => 60) %>
+  <em class="info"><%= t(:custom_help_url_info_html) %></em>
+</p>
+
+<p>
+  <%= content_tag(:label, l(:label_show_task_board_link)) %>
+  <%= check_box_tag 'settings[show_task_board_link]', 1, @settings[:show_task_board_link] %>
+  <em class="info"><%= t(:show_task_board_link_info_html) %></em>
+</p>    
+
+<p>
+  <%= content_tag(:label, l(:label_remove_mypage)) %>
+  <%= check_box_tag 'settings[remove_mypage]', 1, @settings[:remove_mypage] %>
+  <em class="info"><%= l(:remove_mypage_info) %></em>
+</p>    
+
+<p>
+<% disabled_modules = Struct.new(:id, :name) %>  
+  <%= content_tag(:label, l(:label_disabled_modules)) %>
+	<%= select_tag("settings[disabled_modules]", options_from_collection_for_select(Redmine::AccessControl.available_project_modules.collect {|m| disabled_modules.new(m, l_or_humanize(m, :prefix => "project_module_").to_s) }, :id, :name, @settings[:disabled_modules]), { :multiple=> true, :style => "height: 300px;" }) %>
+  <em class="info"><%= l(:disabled_modules_info) %></em>
+</p>    

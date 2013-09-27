@@ -16,19 +16,15 @@
 * anonymize referrer for external urls
 
 
-## Compatibility
-
-Tested with Redmine 2.3.3
-
-
-## Required plugins
+## Requirements
 
 * Wiki extensions plugin: http://www.r-labs.org/projects/r-labs/wiki/Wiki_Extensions_en
+* Redmine version >= 2.3.3
 
 
 ## Installation
 
-Check all required plugins!
+Check the requirements!
 
 Download the sources and put them to your vendor/plugins folder.
 

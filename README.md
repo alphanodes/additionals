@@ -1,21 +1,34 @@
 # Redmine tweaks plugin
 
-* option to remove "my page" from top menu
-* Customize "Help" url in top menu
 * use "Project guide" on project overview page
-* Set info message above new ticket (e.g. for guidelines)
+* global header for all projects
+* global footer for all projects
+* welcome text for login page
+* global sidebar content support
+* set info message above new ticket (e.g. for guidelines)
 * Wiki user macros
 * Wiki project macros
 * Wiki date macros
-* Disable (hide) modules for projects
+* option to remove "my page" from top menu
+* customize "Help" url in top menu
+* disable (hide) modules for projects
 * open external urls in new window
 * anonymize referrer for external urls
+
 
 ## Compatibility
 
 Tested with Redmine 2.3.3
 
+
+## Required plugins
+
+* Wiki extensions plugin: http://www.r-labs.org/projects/r-labs/wiki/Wiki_Extensions_en
+
+
 ## Installation
+
+Check all required plugins!
 
 Download the sources and put them to your vendor/plugins folder.
 
@@ -23,12 +36,6 @@ Download the sources and put them to your vendor/plugins folder.
     $ git clone git://github.com/alexandermeindl/redmine_tweaks.git plugins/redmine_tweaks
 
 Restart Redmine and have a fun!
-
-
-## Optional plugins
-
-* Wiki extensions plugin: http://www.r-labs.org/projects/r-labs/wiki/Wiki_Extensions_en
-* Wiki Lists plugin: http://www.r-labs.org/projects/wiki_lists/wiki/Wiki_Lists
 
 
 ## Usage

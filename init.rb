@@ -47,7 +47,11 @@ Redmine::Plugin.register :redmine_tweaks do
 
   # required redmine version
   requires_redmine :version_or_higher => '2.3.3'
-  
+
+  # for formating (div/hr)
+  # ! does not work with plugin redmine_wiki_extensions
+  # requires_redmine_plugin :redmine_wiki_extensions, :version_or_higher => '0.6.4'
+   
   # Add Task board
   menu :top_menu, :task_board, { :controller => 'wiki', :action => 'show', :id => 'Task_board', :project_id => 'common' },
     :if => Proc.new{User.current.allowed_to?({:controller => 'wiki', :action => 'show', :id => 'Task_board', :project_id => 'common'}, nil, {:global => true}) && RedmineTweaks.settings[:show_task_board_link] }

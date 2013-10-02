@@ -88,6 +88,10 @@ Note: Redmine must be restarted after changing "Custom Help URL"</tt> value befo
 
 ## Changelog
 
+### 0.4.1
+
+- Fix problem with my page permission
+
 ### 0.4.0
 
 - First public release

@@ -18,7 +18,6 @@
 
 ## Requirements
 
-* Wiki extensions plugin: http://www.r-labs.org/projects/r-labs/wiki/Wiki_Extensions_en
 * Redmine version >= 2.3.3
 
 
@@ -87,6 +86,10 @@ Note: Redmine must be restarted after changing "Custom Help URL"</tt> value befo
 
 
 ## Changelog
+
+### 0.4.2
+
+- no requirements of Wiki extensions plugin anymore
 
 ### 0.4.1
 

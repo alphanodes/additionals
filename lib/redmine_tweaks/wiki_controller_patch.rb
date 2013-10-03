@@ -37,7 +37,7 @@ module RedmineTweaks
       
       wiki_header = '' + Setting.plugin_redmine_tweaks['global_wiki_header']
       
-      if WikiExtensionsUtil.is_enabled?(@project)
+      if Object.const_defined?('WikiExtensionsUtil') && WikiExtensionsUtil.is_enabled?(@project)
         header = @wiki.find_page('Header')
         if header
           return
@@ -60,7 +60,7 @@ module RedmineTweaks
       
       wiki_footer = '' + Setting.plugin_redmine_tweaks['global_wiki_footer']
       
-      if WikiExtensionsUtil.is_enabled?(@project)
+      if Object.const_defined?('WikiExtensionsUtil') && WikiExtensionsUtil.is_enabled?(@project)
         footer = @wiki.find_page('Footer')
         if footer
           return

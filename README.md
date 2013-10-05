@@ -87,6 +87,10 @@ Note: Redmine must be restarted after changing "Custom Help URL"</tt> value befo
 
 ## Changelog
 
+### 0.4.3
+
+- global gantt and calendar bugfix
+
 ### 0.4.2
 
 - no requirements of Wiki extensions plugin anymore

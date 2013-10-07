@@ -12,7 +12,7 @@ de:
   label_custom_help_url: "URL zur Hilfeseite"
   custom_help_url_info_html: "Diese URL wird für den <em>Hilfe</em> Eintrag im Topmenü verwendet. Bitte den Webserver neu starten, wenn die URL geändert wurde."
   label_show_task_board_link: "Taskboard im Topmenü anzeigen"
-  show_task_board_link_info_html: 'As task board a wiki page will be used. Die Projektkennung muss "common" sein und die Wikiseite "Task_board" heißen. Verwenden Sie <a class="external" href="http://www.r-labs.org/projects/wiki_lists/wiki/Wiki_Lists_en">Wiki Lists</a> Makros, um Ticketlisten zu generieren.'  
+  show_task_board_link_info_html: 'Eine Taskboard Wiki Seite wird verwendet. Die Projektkennung muss "common" sein und die Wikiseite "Task_board" heißen. Verwenden Sie <a class="external" href="http://www.r-labs.org/projects/wiki_lists/wiki/Wiki_Lists_en">Wiki Lists</a> Makros, um Ticketlisten zu generieren.'  
   label_remove_mypage: "Entferne 'Meine Seite' aus dem Topmenü"
   remove_mypage_info: 'Manchmal ist es hilfreich, dass die "Meine Seite" nicht angezeigt wird, um den Einsatz eines Task Boards einzuführen. Der Vorteil eines Task Boards liegt darin, dass Tickets nach Status gelistet werden können.'
   label_account_login: "Text für Anmeldeseite"

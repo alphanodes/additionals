@@ -17,7 +17,9 @@ module RedmineTweaks
     module Redmine
       module Info
         class << self
-          def help_url; !Setting.plugin_redmine_tweaks['custom_help_url'].blank? ? Setting.plugin_redmine_tweaks['custom_help_url'] : 'http://www.redmine.org/guide' end
+          def help_url
+            Setting.plugin_redmine_tweaks['custom_help_url'] || 'http://www.redmine.org/guide'
+          end
         end
       end
     end

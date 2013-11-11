@@ -87,6 +87,13 @@ Note: Redmine must be restarted after changing "Custom Help URL"</tt> value befo
 
 ## Changelog
 
+### 0.4.4
+
+- installation error fixed
+- description update for link handling
+- help url now opens in new windows
+- sidebar error has been fixed, if no wiki page already exist
+
 ### 0.4.3
 
 - global gantt and calendar bugfix

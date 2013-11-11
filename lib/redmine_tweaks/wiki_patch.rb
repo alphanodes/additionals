@@ -8,7 +8,7 @@ end
 require_dependency 'wiki'
 
 module RedmineTweaks
-  
+
   module WikiPatch
     def self.included(base) # :nodoc:
       base.send(:include, InstanceMethodsForRedmineTweaksWiki)
@@ -26,14 +26,13 @@ module RedmineTweaks
       unless @sidebar && @sidebar.content
         wiki_sidebar = '' + Setting.plugin_redmine_tweaks['global_wiki_sidebar']
         @sidebar ||= find_page('Wiki', :with_redirect => false)
-        if !wiki_sidebar.nil?
-          @sidebar ||= find_page('Wiki', :with_redirect => false)
+        if wiki_sidebar != '' && @sidebar.try(:content)
           @sidebar.content.text = wiki_sidebar;
         end
       else
-        sidebar_without_redmine_tweaks  
+        sidebar_without_redmine_tweaks
       end
     end
   end
-  
+
 end

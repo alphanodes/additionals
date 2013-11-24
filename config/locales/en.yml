@@ -14,9 +14,9 @@ en:
   label_show_task_board_link: "Show task board in top menu"
   show_task_board_link_info_html: 'A wiki page will be used as task board. The project identifier has to be "common" and the wiki page "Task_board". You can use <a class="external" href="http://www.r-labs.org/projects/wiki_lists/wiki/Wiki_Lists_en">Wiki Lists</a> macros to generate ticket lists.'  
   label_remove_mypage: "Remove 'My Page' from top menu"
-  label_remove_mypage: "Remove 'Help' from top menu"
+  label_help_mypage: "Remove 'Help' from top menu"
   remove_mypage_info: 'Sometimes it is more useful to hide the "My Page" link in order to introduce the task board. The task board advantage is that tickets can be listed according to their status.'
-  remove_mypage_info: "Remove the item 'Help' from the top menu."
+  remove_help_info: "Remove the item 'Help' from the top menu."
   label_account_login: "Text for login page"
   account_login_info: "This text message will be shown at the login page and should be used for registration information. These settings are active in all projects."
   label_new_ticket_message: "Note for new tickets"

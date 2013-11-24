@@ -24,13 +24,14 @@ Redmine::Plugin.register :redmine_tweaks do
   name 'Redmine Tweaks'
   author 'AlphaNodes GmbH'
   description 'Wiki and content extensions'
-  version '0.4.4'
+  version '0.4.5'
   author_url 'http://alphanodes.com/'
   url 'http://github.com/alexandermeindl/redmine_tweaks'
 
   default_settings = {
     'external_urls' => '0',
     'custom_help_url' => 'http://alphanodes.de/redmine-buch',
+    'remove_help' => false,
     'show_task_board_link' => false,
     'remove_mypage' => false,
     'disabled_modules' => nil,
@@ -45,7 +46,7 @@ Redmine::Plugin.register :redmine_tweaks do
   settings(:default => default_settings, :partial => 'settings/redmine_tweaks')
 
   # required redmine version
-  requires_redmine :version_or_higher => '2.3.3'
+  requires_redmine :version_or_higher => '2.4.1'
 
   # Add Task board
   menu :top_menu, :task_board, { :controller => 'wiki', :action => 'show', :id => 'Task_board', :project_id => 'common' },
@@ -75,7 +76,9 @@ if ActiveRecord::Base.connection.table_exists?(:settings)
   #
   # We now use overridden module RedmineCustomHelpUrl::Redmine::Info instead of directly calling
   # Setting.plugin_redmine_custom_help_url['custom_help_url']
-  Redmine::Plugin.find('redmine_tweaks').menu :top_menu, :help, RedmineTweaks::CustomHelpUrl::Redmine::Info.help_url, :html => {:target => '_blank'}, :last => true
+  unless RedmineTweaks.settings[:remove_help]
+	  Redmine::Plugin.find('redmine_tweaks').menu :top_menu, :help, RedmineTweaks::CustomHelpUrl::Redmine::Info.help_url, :html => {:target => '_blank'}, :last => true
+  end
 
   require 'settings_helper'
   SettingsHelper.send :include, RedmineTweaksHelper

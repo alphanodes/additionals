@@ -87,6 +87,11 @@ Note: Redmine must be restarted after changing "Custom Help URL"</tt> value befo
 
 ## Changelog
 
+### 0.4.5
+
+- option to remove help menu item
+- Redmine 2.4.1 required
+
 ### 0.4.4
 
 - installation error fixed

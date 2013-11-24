@@ -15,6 +15,12 @@
 </p>
 
 <p>
+  <%= content_tag(:label, l(:label_remove_help)) %>
+  <%= check_box_tag 'settings[remove_help]', 1, @settings[:remove_help] %>
+  <em class="info"><%= l(:remove_help_info) %></em>
+</p>    
+
+<p>
   <%= content_tag(:label, l(:label_show_task_board_link)) %>
   <%= check_box_tag 'settings[show_task_board_link]', 1, @settings[:show_task_board_link] %>
   <em class="info"><%= t(:show_task_board_link_info_html) %></em>

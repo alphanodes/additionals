@@ -41,7 +41,6 @@ if Setting.plugin_redmine_tweaks[:disabled_modules].nil? or !Setting.plugin_redm
 end
 %>
 <%= hidden_field_tag 'project[enabled_module_names][]', '' %>
-<%= javascript_tag 'observeProjectModules()' %>
 </fieldset>
 <% end %>
 
@@ -90,4 +89,16 @@ end
       });
     });
   <% end %>
+<% end %>
+
+<%= javascript_tag do %>
+$(document).ready(function() {
+  $('#project_enabled_module_names_issue_tracking').on('change', function(){
+    if ($(this).attr('checked')){
+      $('#project_trackers, #project_issue_custom_fields').show();
+    } else {
+      $('#project_trackers, #project_issue_custom_fields').hide();
+    }
+  }).trigger('change');
+});
 <% end %>

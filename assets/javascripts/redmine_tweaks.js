@@ -1,16 +1,12 @@
-(function()
+$(function()
 {
 	/**
 	 * New window
 	 */
-	 var handleNewWindow = function()
-	 {
-		 this.target = '_blank';
-	 }
-	
-	// redmine uses jQuery so use it.
-	jQuery(document).ready(function()
+	var handleNewWindow = function()
 	{
-		jQuery('div.attachments a, a.external').each(handleNewWindow);
-	});
-})();
+		this.target = '_blank';
+	}
+	
+	$('div.attachments a, a.external').each(handleNewWindow);
+});

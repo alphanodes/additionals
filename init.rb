@@ -24,7 +24,7 @@ Redmine::Plugin.register :redmine_tweaks do
   name 'Redmine Tweaks'
   author 'AlphaNodes GmbH'
   description 'Wiki and content extensions'
-  version '0.4.5'
+  version '0.4.6'
   author_url 'http://alphanodes.com/'
   url 'http://github.com/alexandermeindl/redmine_tweaks'
 
@@ -76,8 +76,10 @@ if ActiveRecord::Base.connection.table_exists?(:settings)
   #
   # We now use overridden module RedmineCustomHelpUrl::Redmine::Info instead of directly calling
   # Setting.plugin_redmine_custom_help_url['custom_help_url']
-  unless RedmineTweaks.settings[:remove_help]
+  Rails.configuration.to_prepare do
+    unless RedmineTweaks.settings[:remove_help]
 	  Redmine::Plugin.find('redmine_tweaks').menu :top_menu, :help, RedmineTweaks::CustomHelpUrl::Redmine::Info.help_url, :html => {:target => '_blank'}, :last => true
+    end
   end
 
   require 'settings_helper'

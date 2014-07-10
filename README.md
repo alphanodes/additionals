@@ -87,6 +87,10 @@ Note: Redmine must be restarted after changing "Custom Help URL"</tt> value befo
 
 ## Changelog
 
+### 0.4.6
+
+- initialize plugins settings now works with other plugins
+
 ### 0.4.5
 
 - option to remove help menu item

@@ -10,7 +10,7 @@
     url = Setting.plugin_redmine_tweaks['custom_menu'+i.to_s+'_url']
     name = Setting.plugin_redmine_tweaks['custom_menu'+i.to_s+'_name']
     title = Setting.plugin_redmine_tweaks['custom_menu'+i.to_s+'_title']
-    unless name.empty? || url.empty?
+    unless name.nil? || name.empty? || url.empty?
 
       if Redmine::MenuManager.map(:top_menu).exists?(name.to_sym)
         Redmine::MenuManager.map(:top_menu).delete(name.to_sym)

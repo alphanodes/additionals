@@ -9,3 +9,9 @@
     padding: 10px 0;
     text-align: right;
 }
+
+/* Footer */
+.tweak-footer {
+    text-align: center;
+    font-size: 90%;
+}

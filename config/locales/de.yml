@@ -36,5 +36,7 @@ de:
   global_wiki_header_info: 'Hier kann ein projektübergreifender Wiki Header hinterlegt werden. Wird über "Wiki Extensions" ein projektspezifischer Header angelegt, wird dieser immer vorzugsweise vor dem projektübergreifenden Header verwendet.'
   label_global_wiki_footer: "Projektübergreifender Wiki Footer"
   global_wiki_footer_info: 'Hier kann ein projektübergreifender Wiki Footer hinterlegt werden. Wird über "Wiki Extensions" ein projektspezifischer Footer angelegt, wird dieser anstelle des projektübergreifenden Footers verwendet.'
+  label_global_footer: "Projektübergreifender Footer"
+  global_footer_info: 'Hier kann ein projektübergreifender Footer hinterlegt werden, z.B. um einen Verweis auf die Datenschutzbestimmungen zu setzen.'
   label_disabled_modules: "Deaktivierte Module"
   disabled_modules_info: "Module, die nicht zur Auswahl innerhalb der Projekte zur Verfügung stehen sollen. Sind in bestehenden Projekten schon diese Module aktiviert worden, werden die Einstellungen für diese Projekte erst nach erneuten Abspeichern der jeweiligen Projekteinstellungen aktiv."

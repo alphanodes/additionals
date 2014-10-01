@@ -36,5 +36,7 @@ en:
   global_wiki_header_info: 'Enter a project wide wiki header here. In case a project specific wiki header is used by "Wiki Extensions" this will be preferably displayed instead.'
   label_global_wiki_footer: "Project wide wiki footer"
   global_wiki_footer_info: 'Enter a project wide wiki footer here. In case a project specific wiki footer is used by "Wiki Extensions" this will be preferably displayed instead.'
+  label_global_footer: "Project wide footer"
+  global_footer_info: 'Enter a project wide wiki footer here.'
   label_disabled_modules: "Disabled modules"
   disabled_modules_info: "Modules, which should not be available for selection within the projects. Are these modules already activated in existing projetcs you have to restart the settings after changing and saving them."  

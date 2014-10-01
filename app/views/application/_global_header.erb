@@ -1,0 +1,33 @@
+<% if Setting.plugin_redmine_tweaks['external_urls'] == '1' %>
+<%= javascript_include_tag('redmine_tweaks.js', :plugin => :redmine_tweaks) %>
+<% elsif Setting.plugin_redmine_tweaks['external_urls'] == '2' %>
+<%= javascript_include_tag('redmine_tweaks_anonymize.js', :plugin => :redmine_tweaks) %>
+<% end %>
+<%= stylesheet_link_tag 'application', :plugin => 'redmine_tweaks' %>
+
+<%
+5.times do |i|
+    url = Setting.plugin_redmine_tweaks['custom_menu'+i.to_s+'_url']
+    name = Setting.plugin_redmine_tweaks['custom_menu'+i.to_s+'_name']
+    title = Setting.plugin_redmine_tweaks['custom_menu'+i.to_s+'_title']
+    unless name.empty? || url.empty?
+
+      if Redmine::MenuManager.map(:top_menu).exists?(name.to_sym)
+        Redmine::MenuManager.map(:top_menu).delete(name.to_sym)
+      end
+
+      html_options =  {}
+      if url.include? "://"
+        html_options[:class] =  'external'
+      end
+      unless title.empty?
+        html_options[:title] =  title
+      end
+      Redmine::MenuManager.map(:top_menu).push name, url, :html => html_options, :before => :help
+   end
+end
+%>
+
+<% if Setting.plugin_redmine_tweaks['add_go_to_top'] %>
+<a id="gototop"></a>
+<% end %>

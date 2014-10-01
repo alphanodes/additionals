@@ -87,6 +87,12 @@ Note: Redmine must be restarted after changing "Custom Help URL"</tt> value befo
 
 ## Changelog
 
+### 0.4.7
+
+- added jump to top link
+- top menu item configuration has been added
+- footer configuration (e.g. for imprint url) has been added
+
 ### 0.4.6
 
 - initialize plugins settings now works with other plugins

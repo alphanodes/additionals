@@ -1,2 +1,11 @@
 
 .nodata.nodata-left { text-align: left; }
+
+/* Go to top link */
+.gototop {
+    border-top: 1px solid #eee;
+    display: block;
+    margin-top: 20px;
+    padding: 10px 0;
+    text-align: right;
+}

@@ -4,15 +4,20 @@ en:
   label_user_list: "User list"
   label_settings_general: "Common"
   label_settings_content: "Content"
+  label_settings_menu: "Menu"
+  label_menu_entry: "Menu item"
+  label_top_menu_help: "Here you can define new top menu items. Please restart the webserver, if you change or remove the name of a link."
+  label_optional: "optional"
+  label_add_go_to_top: 'Add "Go to top" link'
+  label_go_to_top: "Go to top"
+  label_add_go_to_top_info: 'If you have a lot of long pages, it is helpful to add a jump to top link.'
   label_external_urls: "External urls"
   external_url_default: "Default behavior"
   external_url_new_window: "Open in new window"
   external_url_anonymize: "Anonymize referrer"
-  external_urls_info_html: "Legt das Verhalten für externe URLs fest."
+  external_urls_info_html: "Specifies the behavior for external urls."
   label_custom_help_url: "Custom Help URL"
   custom_help_url_info_html: "After changing this URL, you have to restart the webserver to activate it. If no URL is specified, the default help URL will be used."
-  label_show_task_board_link: "Show task board in top menu"
-  show_task_board_link_info_html: 'A wiki page will be used as task board. The project identifier has to be "common" and the wiki page "Task_board". You can use <a class="external" href="http://www.r-labs.org/projects/wiki_lists/wiki/Wiki_Lists_en">Wiki Lists</a> macros to generate ticket lists.'  
   label_remove_mypage: "Remove 'My Page' from top menu"
   label_remove_help: "Remove 'Help' from top menu"
   remove_mypage_info: 'Sometimes it is more useful to hide the "My Page" link in order to introduce the task board. The task board advantage is that tickets can be listed according to their status.'

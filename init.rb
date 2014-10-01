@@ -6,33 +6,19 @@ require_dependency 'redmine_tweaks/project_macros'
 require_dependency 'redmine_tweaks/user_macros'
 require_dependency 'redmine_tweaks/date_macros'
 
-Rails.configuration.to_prepare do
-
-  Issue.send(:include, RedmineTweaks::IssuePatch) unless Issue.include?(RedmineTweaks::IssuePatch)
-
-  unless Wiki.included_modules.include? RedmineTweaks::WikiPatch
-    Wiki.send(:include, RedmineTweaks::WikiPatch)
-  end
-
-  unless WikiController.included_modules.include? RedmineTweaks::WikiControllerPatch
-    WikiController.send(:include, RedmineTweaks::WikiControllerPatch)
-  end
-
-end
-
 Redmine::Plugin.register :redmine_tweaks do
   name 'Redmine Tweaks'
   author 'AlphaNodes GmbH'
   description 'Wiki and content extensions'
-  version '0.4.6'
+  version '0.4.7'
   author_url 'http://alphanodes.com/'
   url 'http://github.com/alexandermeindl/redmine_tweaks'
 
   default_settings = {
     'external_urls' => '0',
-    'custom_help_url' => 'http://alphanodes.de/redmine-buch',
+    'custom_help_url' => 'http://www.redmine.org/guide',
     'remove_help' => false,
-    'show_task_board_link' => false,
+    'add_go_to_top' => false,
     'remove_mypage' => false,
     'disabled_modules' => nil,
     'account_login_bottom' => '',
@@ -41,16 +27,20 @@ Redmine::Plugin.register :redmine_tweaks do
     'global_sidebar' => '',
     'global_wiki_sidebar' => '',
     'global_wiki_header' => '',
-    'global_wiki_footer' => ''
+    'global_wiki_footer' => '',
+    'global_footer' => ''
   }
+
+  5.times do |i|
+    default_settings['custom_menu'+i.to_s+'_name'] = '';
+    default_settings['custom_menu'+i.to_s+'_url'] = '';
+    default_settings['custom_menu'+i.to_s+'_title'] = '';
+  end
+
   settings(:default => default_settings, :partial => 'settings/redmine_tweaks')
 
   # required redmine version
-  requires_redmine :version_or_higher => '2.4.1'
-
-  # Add Task board
-  menu :top_menu, :task_board, { :controller => 'wiki', :action => 'show', :id => 'Task_board', :project_id => 'common' },
-    :if => Proc.new{User.current.allowed_to?({:controller => 'wiki', :action => 'show', :id => 'Task_board', :project_id => 'common'}, nil, {:global => true}) && RedmineTweaks.settings[:show_task_board_link] }
+  requires_redmine :version_or_higher => '2.4.6'
 
   # remove help menu (it will be added later again)
   delete_menu_item(:top_menu, :help)
@@ -78,8 +68,19 @@ if ActiveRecord::Base.connection.table_exists?(:settings)
   # Setting.plugin_redmine_custom_help_url['custom_help_url']
   Rails.configuration.to_prepare do
     unless RedmineTweaks.settings[:remove_help]
-	  Redmine::Plugin.find('redmine_tweaks').menu :top_menu, :help, RedmineTweaks::CustomHelpUrl::Redmine::Info.help_url, :html => {:target => '_blank'}, :last => true
+	    Redmine::Plugin.find('redmine_tweaks').menu :top_menu, :help, RedmineTweaks::CustomHelpUrl::Redmine::Info.help_url, :html => {:target => '_blank'}, :last => true
     end
+
+    Issue.send(:include, RedmineTweaks::IssuePatch) unless Issue.include?(RedmineTweaks::IssuePatch)
+
+    unless Wiki.included_modules.include? RedmineTweaks::WikiPatch
+      Wiki.send(:include, RedmineTweaks::WikiPatch)
+    end
+
+    unless WikiController.included_modules.include? RedmineTweaks::WikiControllerPatch
+      WikiController.send(:include, RedmineTweaks::WikiControllerPatch)
+    end
+
   end
 
   require 'settings_helper'

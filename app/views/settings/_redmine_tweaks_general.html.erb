@@ -18,19 +18,19 @@
   <%= content_tag(:label, l(:label_remove_help)) %>
   <%= check_box_tag 'settings[remove_help]', 1, @settings[:remove_help] %>
   <em class="info"><%= l(:remove_help_info) %></em>
-</p>    
+</p>
 
 <p>
-  <%= content_tag(:label, l(:label_show_task_board_link)) %>
-  <%= check_box_tag 'settings[show_task_board_link]', 1, @settings[:show_task_board_link] %>
-  <em class="info"><%= t(:show_task_board_link_info_html) %></em>
-</p>    
+  <%= content_tag(:label, l(:label_add_go_to_top)) %>
+  <%= check_box_tag 'settings[add_go_to_top]', 1, @settings[:add_go_to_top] %>
+  <em class="info"><%= t(:label_add_go_to_top_info) %></em>
+</p>
 
 <p>
   <%= content_tag(:label, l(:label_remove_mypage)) %>
   <%= check_box_tag 'settings[remove_mypage]', 1, @settings[:remove_mypage] %>
   <em class="info"><%= l(:remove_mypage_info) %></em>
-</p>    
+</p>
 
 <p>
 <% disabled_modules = Struct.new(:id, :name) %>  

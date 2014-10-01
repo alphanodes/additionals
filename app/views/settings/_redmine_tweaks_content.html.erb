@@ -39,3 +39,9 @@
   <%= text_area_tag 'settings[global_wiki_footer]', @settings[:global_wiki_footer], :class => 'wiki-edit', :rows => 5 %> 
   <em class="info"><%= l(:global_wiki_footer_info) %></em>
 </p>
+
+<p>
+  <%= content_tag(:label, l(:label_global_footer)) %>
+  <%= text_area_tag 'settings[global_footer]', @settings[:global_footer], :class => 'wiki-edit', :rows => 5 %>
+  <em class="info"><%= l(:global_footer_info) %></em>
+</p>

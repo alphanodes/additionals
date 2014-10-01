@@ -4,6 +4,13 @@ de:
   label_user_list: "Benutzerliste"
   label_settings_general: "Allgemein"
   label_settings_content: "Inhalt"
+  label_settings_menu: "Menü"
+  label_menu_entry: "Menüpunkt"
+  label_top_menu_help: "Hier können Menüpunkte festgelegt werden, die im Top-Menü angezeigt werden. Bitte den <strong>Webserver neu starten</strong>, wenn ein Name geändert wurde oder ein Eintrag gelöscht wurde."
+  label_optional: "optional"
+  label_add_go_to_top: '"Nach oben" Link hinzufügen'
+  label_go_to_top: "Nach oben"
+  label_add_go_to_top_info: 'Bei langen Seiten ist es hilfreich, wenn ein Link zur Verfügung steht, mit dem man zum Seitenanfang springen kann.'
   label_external_urls: "Externe URLs"
   external_url_default: "Standard Verhalten"
   external_url_new_window: "In neuen Fenster"
@@ -11,8 +18,6 @@ de:
   external_urls_info_html: "Legt das Verhalten für externe URLs fest."
   label_custom_help_url: "URL zur Hilfeseite"
   custom_help_url_info_html: 'Diese URL wird für den <em>Hilfe</em> Eintrag im Topmenü verwendet. Bitte den <strong>Webserver neu starten</strong>, wenn die URL geändert wurde. Um eine deutsche Hilfe zu benutzen, kann hier z.B. <a class="external" href="http://alphanodes.de/redmine-buch">http://alphanodes.de/redmine-buch</a> eingetragen werden. Wenn hier nichts eingetragen wird, wird die Standard URL verwendet.'
-  label_show_task_board_link: "Taskboard im Topmenü anzeigen"
-  show_task_board_link_info_html: 'Eine Taskboard Wiki Seite wird verwendet. Die Projektkennung muss "common" sein und die Wikiseite "Task_board" heißen. Verwenden Sie <a class="external" href="http://www.r-labs.org/projects/wiki_lists/wiki/Wiki_Lists_en">Wiki Lists</a> Makros, um Ticketlisten zu generieren.'
   label_remove_help: "Entferne 'Hilfe' aus dem Topmenü"
   label_remove_mypage: "Entferne 'Meine Seite' aus dem Topmenü"
   remove_help_info: "Den Menüpunkt 'Hilfe' aus dem Topmenü entfernen."

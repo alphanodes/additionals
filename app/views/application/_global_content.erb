@@ -1,0 +1,5 @@
+<% if User.current.logged? || !Setting.login_required? %>
+<% if Setting.plugin_redmine_tweaks['add_go_to_top'] %>
+<a href="#gototop" class="gototop"><%= l(:label_go_to_top) %></a>
+<% end %>
+<% end %>

@@ -1,0 +1,14 @@
+
+<p><%= l(:label_top_menu_help) %></p>
+
+
+<% 5.times do |i| %>
+<fieldset>
+  <legend><b><%=h l(:label_menu_entry) %> #<%= i+1  %></b></legend>
+<div>
+<p><label><%=h l(:field_name)%></label><%= text_field_tag('settings[custom_menu'+i.to_s+'_name]', @settings['custom_menu'+i.to_s+'_name'], :size => 40) %></p>
+<p><label><%=h l(:field_url)%></label><%= text_field_tag('settings[custom_menu'+i.to_s+'_url]', @settings['custom_menu'+i.to_s+'_url'], :size => 80) %></p>
+<p><label><%=h l(:field_title)%></label><%= text_field_tag('settings[custom_menu'+i.to_s+'_title]', @settings['custom_menu'+i.to_s+'_title'], :size => 80) %><i>(<%=l(:label_optional)%>)</i></p>
+</div>
+</fieldset>
+<% end %>

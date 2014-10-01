@@ -11,6 +11,7 @@
 * Wiki date macros
 * option to remove "my page" from top menu
 * customize "Help" url in top menu
+* customize top menu items
 * disable (hide) modules for projects
 * open external urls in new window
 * anonymize referrer for external urls
@@ -18,7 +19,7 @@
 
 ## Requirements
 
-* Redmine version >= 2.3.3
+* Redmine version >= 2.4.6
 
 
 ## Installation

@@ -9,7 +9,7 @@ unless wiki_skeletal.empty?
 
 <div class="box">
 <% unless skeletal_title.empty? %>
-  <h3><%= l(:label_project_wiki_skeletal) %></h3>
+  <h3><%= l(skeletal_title) %></h3>
 <% end %>
 <p>
   <%= textilizable(wiki_skeletal).html_safe %>

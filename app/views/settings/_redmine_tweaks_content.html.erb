@@ -17,6 +17,11 @@
 </p>
 
 <p>
+  <%= content_tag(:label, l(:label_project_wiki_skeletal_title)) %>
+  <%= text_field_tag('settings[project_wiki_skeletal_title]', @settings['project_wiki_skeletal_title'], :size => 60) %>
+</p>
+
+<p>
   <%= content_tag(:label, l(:label_global_sidebar)) %>
   <%= text_area_tag 'settings[global_sidebar]', @settings[:global_sidebar], :class => 'wiki-edit', :rows => 10 %> 
   <em class="info"><%= l(:global_sidebar_info) %></em>

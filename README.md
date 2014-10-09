@@ -77,6 +77,13 @@ Macro to get current date, year, month, day
 {{current_weekday}} := current weekday
 {{current_weeknumber}} := current week number (The week starts with Monday)
 
+### Youtube macros
+
+{youtube(wvsboPUjrGc)}} := youtube video with video wvsboPUjrGc (iframe) and default size 640x360
+{{youtube(wvsboPUjrGc,853,480)}} := youtube video with size 853x480
+{{youtube(wvsboPUjrGc,853,480,1)}} := youtube video with size 853x480 and autoplay
+{{youtube(wvsboPUjrGc,,,1)}} := youtube video with size 853x480 and autoplay
+
 
 ### Custom help URL
 
@@ -87,6 +94,11 @@ Note: Redmine must be restarted after changing "Custom Help URL"</tt> value befo
 
 
 ## Changelog
+
+### 0.4.8
+
+- added youtube macro
+- project guide subject can be defined for project overview page
 
 ### 0.4.7
 

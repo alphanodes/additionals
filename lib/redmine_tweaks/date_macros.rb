@@ -1,7 +1,5 @@
 # Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013  AlphaNodes GmbH
-
-require 'redmine'
+# Copyright (C) 2013,2014  AlphaNodes GmbH
 
 module RedmineTweaks
   Redmine::WikiFormatting::Macros.register do
@@ -9,22 +7,14 @@ module RedmineTweaks
     desc <<-EOHELP
 Display current dates.  Examples:
 
-  !{{current_year}}
-    current year
-  !{{current_month}}
-    current month
-  !{{current_day}}
-    current day
-  !{{current_day}}
-    current day
-  !{{current_hour}}
-    current hour
-  !{{current_minute}}
-    current minute
-  !{{current_weekday}}
-    current weekday
-  !{{current_weeknumber}}
-    current week number (1 - 52) The week starts with Monday
+  {{current_year}}       current year
+  {{current_month}}      current month
+  {{current_day}}        current day
+  {{current_day}}        current day
+  {{current_hour}}       current hour
+  {{current_minute}}     current minute
+  {{current_weekday}}    current weekday
+  {{current_weeknumber}} current week number (1 - 52) The week starts with Monday
 EOHELP
 
     macro :current_year do |obj, args|

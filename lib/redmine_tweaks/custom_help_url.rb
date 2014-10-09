@@ -1,5 +1,5 @@
 # Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013  AlphaNodes GmbH
+# Copyright (C) 2013,214  AlphaNodes GmbH
 
 require_dependency 'redmine/info'
 

@@ -1,16 +1,12 @@
 # -*- encoding : utf-8 -*-
 require 'redmine'
-
 require_dependency 'redmine_tweaks/hooks'
-require_dependency 'redmine_tweaks/project_macros'
-require_dependency 'redmine_tweaks/user_macros'
-require_dependency 'redmine_tweaks/date_macros'
 
 Redmine::Plugin.register :redmine_tweaks do
   name 'Redmine Tweaks'
   author 'AlphaNodes GmbH'
   description 'Wiki and content extensions'
-  version '0.4.7'
+  version '0.4.8'
   author_url 'http://alphanodes.com/'
   url 'http://github.com/alexandermeindl/redmine_tweaks'
 
@@ -23,6 +19,7 @@ Redmine::Plugin.register :redmine_tweaks do
     'disabled_modules' => nil,
     'account_login_bottom' => '',
     'new_ticket_message' => 'Don\'t forget to define acceptance criteria!',
+    'project_wiki_skeletal_title' => 'Project guide',
     'project_wiki_skeletal' => 'Go to admin area and define a nice wiki text here as a fixed skeletal for all projects.',
     'global_sidebar' => '',
     'global_wiki_sidebar' => '',
@@ -80,9 +77,15 @@ if ActiveRecord::Base.connection.table_exists?(:settings)
     unless WikiController.included_modules.include? RedmineTweaks::WikiControllerPatch
       WikiController.send(:include, RedmineTweaks::WikiControllerPatch)
     end
-
   end
 
   require 'settings_helper'
   SettingsHelper.send :include, RedmineTweaksHelper
+end
+
+ActionDispatch::Reloader.to_prepare do
+  require_dependency 'redmine_tweaks/project_macros'
+  require_dependency 'redmine_tweaks/user_macros'
+  require_dependency 'redmine_tweaks/date_macros'
+  require_dependency 'redmine_tweaks/youtube_macros'
 end

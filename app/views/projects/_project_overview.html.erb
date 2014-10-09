@@ -1,14 +1,16 @@
 <%
 
 wiki_skeletal = ''
-
-wiki_skeletal << Setting.plugin_redmine_tweaks['project_wiki_skeletal']
-
-if wiki_skeletal != ''
+skeletal_title = ''
+wiki_skeletal << Setting.plugin_redmine_tweaks['project_wiki_skeletal'].to_s
+skeletal_title << Setting.plugin_redmine_tweaks['project_wiki_skeletal_title'].to_s
+unless wiki_skeletal.empty?
 %>
 
 <div class="box">
-<h3><%= l(:label_project_wiki_skeletal) %></h3>
+<% unless skeletal_title.empty? %>
+  <h3><%= l(:label_project_wiki_skeletal) %></h3>
+<% end %>
 <p>
   <%= textilizable(wiki_skeletal).html_safe %>
 </p>

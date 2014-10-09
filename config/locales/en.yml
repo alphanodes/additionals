@@ -27,6 +27,7 @@ en:
   label_new_ticket_message: "Note for new tickets"
   new_ticket_message_info: "A note will be shown to everyone who wants to add a new ticket. For example you can enter acceptance tests or ticket rules here. These settings are used project wide."
   label_project_wiki_skeletal: "Project guide"
+  label_project_wiki_skeletal_title: "Project guide title"
   project_wiki_skeletal_info: "Here you can add your text, which will be shown on the project overview page. For example you can link to a wiki page, which is/should be project wide available to every team member. The aim is to reach a better project standard and to maintain a unique wiki structure."
   label_global_sidebar: "Global sidebar"
   global_sidebar_info: "Enter a project wide available text message here. This sidebar text will be displayed at the project overview, the ticket pages and the wiki pages."

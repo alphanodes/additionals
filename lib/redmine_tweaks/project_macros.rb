@@ -1,7 +1,5 @@
 # Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013  AlphaNodes GmbH
-
-require 'redmine'
+# Copyright (C) 2013,2014  AlphaNodes GmbH
 
 module RedmineTweaks
   Redmine::WikiFormatting::Macros.register do
@@ -9,11 +7,12 @@ module RedmineTweaks
     desc <<-EOHELP
 Display projects.  Examples:
 
-  !{{list_projects}}
+  {{list_projects}}
   ...List all project, which I am member of
 
-  !{{list_projects(My project list)}}
+  {{list_projects(My project list)}}
   ...List all project with title "My project list", which I am member of
+
 EOHELP
 
     macro :list_projects do |obj, args|

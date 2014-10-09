@@ -1,7 +1,5 @@
 # Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013  AlphaNodes GmbH
-
-require 'redmine'
+# Copyright (C) 2013,2014  AlphaNodes GmbH
 
 module RedmineTweaks
   Redmine::WikiFormatting::Macros.register do
@@ -9,20 +7,21 @@ module RedmineTweaks
     desc <<-EOHELP
 Display users.  Examples:
 
-  !{{list_users}}
+  {{list_users}}
   ...List all users for all projects
 
-  !{{list_users(123)}}
+  {{list_users(123)}}
   ...A box showing all members for the project 123
 
-  !{{list_users(the-identifier)}}
+  {{list_users(the-identifier)}}
   ...A box showing all members for the project with the identifier of 'the-identifier'
 
-  !{{list_users('My project name')}}
+  {{list_users('My project name')}}
   ...A box showing all members for the project named 'My project name'
 
-  !{{list_users('My project name', Manager)}}
+  {{list_users('My project name', Manager)}}
   ...A box showing all managers for the project named 'My project name'
+
 EOHELP
 
     macro :list_users do |obj, args|

@@ -27,6 +27,7 @@ de:
   label_new_ticket_message: "Hinweistext für neue Tickets"
   new_ticket_message_info: "Ein Hinweis, der beim Erstellen neuer Tickets angezeigt wird. Es kann beispielsweise auf Akzeptanztests oder Richtlinien zum Erstellen der Tickets hingewiesen werden. Dieser Einstellung ist projektübergreifend und ist in allen Projekten aktiv."
   label_project_wiki_skeletal: "Projektwegweiser"
+  label_project_wiki_skeletal_title: "Projektwegweiser Titel"
   project_wiki_skeletal_info: "Hier kann ein Text hinterlegt werden, der auf der Übersichtsprojektseite angezeigt wird. Verweisen Sie beispielsweise auf bestimmte Wiki Seiten, welche projektübergreifend vorhanden sind/sein sollten. Ziel sollte eine Standardisierung in den Projekten und eine einheitliche Wiki-Struktur sein."
   label_global_sidebar: "Projektübergreifender Sidebar Inhalt"
   global_sidebar_info: "Hier kann für die Sidebar ein projektübergreifender Text hinterlegt werden. Der hier hinterlegte Sidebar Inhalt wird auf der Projektübersichtsseite, auf den Ticketseiten und den Wikiseiten angezeigt."

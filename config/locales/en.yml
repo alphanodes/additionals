@@ -34,10 +34,10 @@ en:
   label_global_wiki_sidebar: "Global wiki sidebar"
   global_wiki_sidebar_info: 'Enter a project wide available text message for your wiki sidebar, here. This sidebar text will be displayed at the wiki pages only. Use this space for Macros like "Last changed pages" for example. In case a project specific sidebar is used (wiki page), this will be preferably displayed in the sidebar instead.'
   label_global_wiki_header: "Project wide wiki header"
-  global_wiki_header_info: 'Enter a project wide wiki header here. In case a project specific wiki header is used by "Wiki Extensions" this will be preferably displayed instead.'
+  global_wiki_header_info: 'Enter a project wide wiki header here. In case a project specific wiki header is used by "Wiki Extensions", this will be preferably displayed instead.'
   label_global_wiki_footer: "Project wide wiki footer"
-  global_wiki_footer_info: 'Enter a project wide wiki footer here. In case a project specific wiki footer is used by "Wiki Extensions" this will be preferably displayed instead.'
+  global_wiki_footer_info: 'Enter a project wide wiki footer here. In case a project specific wiki footer is used by "Wiki Extensions", this will be preferably displayed instead.'
   label_global_footer: "Project wide footer"
   global_footer_info: 'Enter a project wide wiki footer here.'
   label_disabled_modules: "Disabled modules"
-  disabled_modules_info: "Modules, which should not be available for selection within the projects. Are these modules already activated in existing projetcs you have to restart the settings after changing and saving them."  
+  disabled_modules_info: "Modules which should not be available for selection within the projects. If these modules already activated in existing projects, you will have to change and re-save the respective project settings first."

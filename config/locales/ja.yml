@@ -1,0 +1,43 @@
+# Japanese strings
+ja:
+  label_project_list: "プロジェクト一覧"
+  label_user_list: "ユーザ一覧"
+  label_settings_general: "共通"
+  label_settings_content: "コンテンツ"
+  label_settings_menu: "メニュー"
+  label_menu_entry: "メニュー項目"
+  label_top_menu_help: "ここで新しいトップメニューの項目を定義出来ます。リンクの追加・削除を行った場合、ウェブサーバを再起動してください。"
+  label_optional: "任意"
+  label_add_go_to_top: '「トップへ」リンクを追加する'
+  label_go_to_top: "トップへ"
+  label_add_go_to_top_info: '長いページが多い場合、「トップへ」のリンクは役立ちます。'
+  label_external_urls: "外部URL"
+  external_url_default: "規程の扱い"
+  external_url_new_window: "新しいウインドウで開く"
+  external_url_anonymize: "レフェラーを匿名化"
+  external_urls_info_html: "外部URLの扱いを指定する。"
+  label_custom_help_url: "カスタムヘルプURL"
+  custom_help_url_info_html: "このURLを変更した後、反映するためにウェブサーバを再起動しなければなりません。URLの指定がない場合、規程のヘルプURLが使用されます。"
+  label_remove_mypage: "「マイ・ページ」をトップメニューから外す"
+  label_remove_help: "「ヘルプ」をトップメニューから外す"
+  remove_mypage_info: 'タスクボードを導入するために、「マイ・ページ」のリンクを隠した方が便利な場合があります。タスクボードにより、ステータス毎の順番並び替えに出来るメリットがあります。'
+  remove_help_info: "「ヘルプ」項目をトップメニューから外す"
+  label_account_login: "ログイン画面の文章"
+  account_login_info: "この文章は、ログイン画面で表示され、登録情報の掲載を目的にしています。これらの設定は全プロジェクトで有効です。"
+  label_new_ticket_message: "新規チケットのメモ"
+  new_ticket_message_info: "新規チケットを登録したいときに表示されるメモ書き。例えば、チケット入力のルールや承認規程を掲載する目的にでも使えます。これらの設定は全プロジェクトで有効です。"
+  label_project_wiki_skeletal: "プロジェクトガイド"
+  label_project_wiki_skeletal_title: "プロジェクトガイドタイトル"
+  project_wiki_skeletal_info: "この文章は、プロジェクト概要のページに表示されます。例えば、メンバー全員に公開されているWikiページ等のリンクを貼る等の使い方があります。一つのWiki構造を維持する事で、プロジェクト基準を良くする事が目的です。"
+  label_global_sidebar: "グローバルサイドバー"
+  global_sidebar_info: "この文章はプロジェクト全体で表示されます。このサイドバーの文章は、プロジェクト概要・チケット関連ページ・Wiki関連ページに表示されます。"
+  label_global_wiki_sidebar: "グローバルWikiサイドバー"
+  global_wiki_sidebar_info: 'プロジェクト全体のWikiサイドバーで使用される文章を入力する。このサイドバー文章は、Wikiページのみに表示されます。例えば、「直近変更されたページ」等のマクロで使う事をお勧めします。もしプロジェクト特有のサイドバーが使用されている場合でも、こちらの文章がサイドバーで優先的に表示されます。'
+  label_global_wiki_header: "プロジェクト全体Wikiヘッダー"
+  global_wiki_header_info: 'プロジェクトのWikiヘッダーをここで入力する。「Wiki Extensions」等のプロジェクト特有のWikiヘッダーが使用されている場合、こちらの文章が優先的に表示されます。'
+  label_global_wiki_footer: "プロジェクト全体Wikiフッター"
+  global_wiki_footer_info: 'プロジェクトのWikiフッターをここで入力する。「Wiki Extensions」等のプロジェクト特有のWikiフッターが使用されている場合、こちらの文章が優先的に表示されます。'
+  label_global_footer: "プロジェクト全体フッター"
+  global_footer_info: 'プロジェクト全体のWikiフッターをここに入力する'
+  label_disabled_modules: "無効化したいモジュール"
+  disabled_modules_info: "プロジェクト内で選択させたくないモジュール。もしこのモジュールが既存のプロジェクトで既に有効な場合、設定変更した上で、ウェブサーバを再起動しなければなりません。"

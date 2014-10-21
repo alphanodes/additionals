@@ -6,7 +6,7 @@ de:
   label_settings_content: "Inhalt"
   label_settings_menu: "Menü"
   label_menu_entry: "Menüpunkt"
-  label_top_menu_help_html: "Hier können Menüpunkte festgelegt werden, die im Top-Menü angezeigt werden. Bitte den <strong>Webserver neu starten</strong>, wenn ein Name geändert wurde oder ein Eintrag gelöscht wurde."
+  label_top_menu_help_html: "Hier können Menüpunkte festgelegt werden, die im Top-Menü angezeigt werden. Bitte den <strong>Webserver neu starten</strong>, wenn ein Eintrag gelöscht wurde."
   label_optional: "optional"
   label_add_go_to_top: '"Nach oben" Link hinzufügen'
   label_go_to_top: "Nach oben"

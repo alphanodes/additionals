@@ -6,7 +6,7 @@ en:
   label_settings_content: "Content"
   label_settings_menu: "Menu"
   label_menu_entry: "Menu item"
-  label_top_menu_help_html: "Here you can define new top menu items. Please <strong>restart the webserver</strong>, if you change or remove the name of a link."
+  label_top_menu_help_html: "Here you can define new top menu items. Please <strong>restart the webserver</strong>, if you remove a menu item."
   label_optional: "optional"
   label_add_go_to_top: 'Add "Go to top" link'
   label_go_to_top: "Go to top"

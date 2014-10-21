@@ -7,13 +7,16 @@
 
 <%
 5.times do |i|
-    url = Setting.plugin_redmine_tweaks['custom_menu'+i.to_s+'_url']
-    name = Setting.plugin_redmine_tweaks['custom_menu'+i.to_s+'_name']
-    title = Setting.plugin_redmine_tweaks['custom_menu'+i.to_s+'_title']
+  
+    menu_name = 'custom_menu'+i.to_s
+    url = Setting.plugin_redmine_tweaks[menu_name+'_url']
+    name = Setting.plugin_redmine_tweaks[menu_name+'_name']
+    title = Setting.plugin_redmine_tweaks[menu_name+'_title']
     unless name.nil? || name.empty? || url.empty?
 
-      if Redmine::MenuManager.map(:top_menu).exists?(name.to_sym)
-        Redmine::MenuManager.map(:top_menu).delete(name.to_sym)
+
+      if Redmine::MenuManager.map(:top_menu).exists?(menu_name.to_sym)
+        Redmine::MenuManager.map(:top_menu).delete(menu_name.to_sym)
       end
 
       html_options =  {}
@@ -23,7 +26,7 @@
       unless title.empty?
         html_options[:title] =  title
       end
-      Redmine::MenuManager.map(:top_menu).push name, url, :html => html_options, :before => :help
+      Redmine::MenuManager.map(:top_menu).push menu_name, url, :caption => name.to_s, :html => html_options, :before => :help
    end
 end
 %>

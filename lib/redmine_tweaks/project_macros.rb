@@ -19,13 +19,9 @@ EOHELP
       
       @list_title = args[0]
       
-#      @projects = Project.all(:conditions => Project.visible_condition(User.current)).sort
-#      @projects = Project.visible(User.current).find(:all, :order => "projects.name")
-
-scope = Project  
-scope = scope.active
-@projects = scope.visible(User.current).find(:all, :order => "projects.name")
-#@projects = scope.visible.order('lft').all
+      scope = Project  
+      scope = scope.active
+      @projects = scope.visible(User.current).find(:all, :order => "projects.name")
 
       return '' if @projects.nil?
       

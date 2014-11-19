@@ -40,12 +40,10 @@ EOHELP
         raw_users = User.active.find(:all, :conditions => ["#{User.table_name}.id IN (SELECT DISTINCT user_id FROM members WHERE project_id=(?))", project.id]).sort
         return '' if raw_users.nil?
 
-#return content_tag('div', 'Test', :class => 'warning')
-
         users = [];
         raw_users.each {|user| 
           user['role'] = user.roles_for_project(project)
-          if !roles_limit.present? or WikiUserMacros.check_role_matches(user['role'], roles_limit)
+          if !roles_limit.present? or RedmineTweaks.check_role_matches(user['role'], roles_limit)
             users <<  user
           end
         }
@@ -62,7 +60,7 @@ EOHELP
     end
   end  
   
-  def RedmineTweaks.check_role_matches(roles, filters)
+  def self.check_role_matches(roles, filters)
     filters.gsub('|', ',' ).split(',').each {|filter|
       roles.each {|role|
         if filter.to_s() == role.to_s()

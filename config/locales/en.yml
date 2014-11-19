@@ -41,3 +41,8 @@ en:
   global_footer_info: 'Enter a project wide wiki footer here.'
   label_disabled_modules: "Disabled modules"
   disabled_modules_info: "Modules which should not be available for selection within the projects. If these modules already activated in existing projects, you will have to change and re-save the respective project settings first."
+  label_oveview_text_title: "Overview page title"
+  label_oveview_text: "Overview page"
+  overview_text_info: "Here you can add your text, which will be shown on the overview page. For example you can link to a wiki page."
+  label_settings_macros: "Macros"
+  label_top_macros_help_html: "Here you get a list of all avaiable Redmine macros of your installation, which are provided by Redmine and the Redmine plugins."  

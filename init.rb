@@ -6,7 +6,7 @@ Redmine::Plugin.register :redmine_tweaks do
   name 'Redmine Tweaks'
   author 'AlphaNodes GmbH'
   description 'Wiki and content extensions'
-  version '0.4.8'
+  version '0.4.9'
   author_url 'http://alphanodes.com/'
   url 'http://github.com/alexandermeindl/redmine_tweaks'
 
@@ -18,6 +18,8 @@ Redmine::Plugin.register :redmine_tweaks do
     'remove_mypage' => false,
     'disabled_modules' => nil,
     'account_login_bottom' => '',
+    'overview_text_title' => '',
+    'overview_text' => '',
     'new_ticket_message' => 'Don\'t forget to define acceptance criteria!',
     'project_wiki_skeletal_title' => 'Project guide',
     'project_wiki_skeletal' => 'Go to admin area and define a nice wiki text here as a fixed skeletal for all projects.',

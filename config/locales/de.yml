@@ -41,3 +41,8 @@ de:
   global_footer_info: 'Hier kann ein projektübergreifender Footer hinterlegt werden, z.B. um einen Verweis auf die Datenschutzbestimmungen zu setzen.'
   label_disabled_modules: "Deaktivierte Module"
   disabled_modules_info: "Module, die nicht zur Auswahl innerhalb der Projekte zur Verfügung stehen sollen. Sind in bestehenden Projekten schon diese Module aktiviert worden, werden die Einstellungen für diese Projekte erst nach erneuten Abspeichern der jeweiligen Projekteinstellungen aktiv."
+  label_oveview_text_title: "Übersichtsseite Titel"
+  label_oveview_text: "Übersichtsseite"
+  overview_text_info: "Hier kann ein Text hinterlegt werden, der auf der Übersichtsseite angezeigt wird. Verweisen Sie beispielsweise auf bestimmte Wiki Seiten."
+  label_settings_macros: "Makros"
+  label_top_macros_help_html: "Hier sind alle Makros aufgelistet, welche über Redmine selbst oder Plugins bereitgestellt werden (nicht nur über Redmine Tweaks). Diese Makros können in allen Texten innerhalb Redmines verwendet werden (sofern diese im jeweiligen Kontext Sinn machen)."

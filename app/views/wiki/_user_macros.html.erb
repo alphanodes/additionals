@@ -1,6 +1,6 @@
 <div class="users box">
 	<%
-	if @list_title %><h2><%= @list_title %></h2><% end
+	if @list_title %><h3><%= @list_title %></h3><% end
   users.each {|user| %>
 		<div class="user box <%= cycle("odd", "even") %>">
       <div style="float: left; display: block; margin-right: 5px;"><%= avatar(user, :size => "50") %></div>

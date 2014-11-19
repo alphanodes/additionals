@@ -5,6 +5,17 @@
 </p>
 
 <p>
+  <%= content_tag(:label, l(:label_oveview_text_title)) %>
+  <%= text_field_tag('settings[oveview_text_title]', @settings['oveview_text_title'], :size => 60) %>
+</p>
+
+<p>
+  <%= content_tag(:label, l(:label_oveview_text)) %>
+  <%= text_area_tag 'settings[overview_text]', @settings[:overview_text], :class => 'wiki-edit', :rows => 10 %> 
+  <em class="info"><%= l(:overview_text_info) %></em>
+</p>
+
+<p>
   <%= content_tag(:label, l(:label_new_ticket_message)) %>
   <%= text_area_tag 'settings[new_ticket_message]', @settings[:new_ticket_message], :class => 'wiki-edit', :rows => 10 %>
   <em class="info"><%= l(:new_ticket_message_info) %></em>

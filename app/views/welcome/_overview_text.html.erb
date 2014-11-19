@@ -1,0 +1,16 @@
+<%
+overview_text = Setting.plugin_redmine_tweaks['overview_text'].to_s
+overview_title = Setting.plugin_redmine_tweaks['oveview_text_title'].to_s
+unless overview_text.empty?
+%>
+
+<div class="box">
+<% unless overview_title.empty? %>
+  <h3><%= overview_title.html_safe %></h3>
+<% end %>
+<p>
+  <%= textilizable(overview_text).html_safe %>
+</p>
+</div>
+
+<% end %>

@@ -22,7 +22,6 @@ EOHELP
       @projects = Project.all(:conditions => Project.visible_condition(User.current)).sort
       return '' if @projects.nil?
       
-      @html_options = {}
       @html_options = {:class => 'external'}
       
       render :partial => 'wiki/project_macros', :locals => {:projects => @projects, :html_options => @html_options, :list_title => @list_title}

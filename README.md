@@ -95,6 +95,12 @@ Note: Redmine must be restarted after changing "Custom Help URL"</tt> value befo
 
 ## Changelog
 
+### 0.4.9
+
+- added overview text field
+- fix style for "goto top"
+- added macro overview help page
+
 ### 0.4.8
 
 - added youtube macro

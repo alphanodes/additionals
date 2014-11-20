@@ -1,13 +1,9 @@
 <%
-
-sidebar = ''
-sidebar << Setting.plugin_redmine_tweaks['global_sidebar']
-
-if sidebar != ''
+sidebar = Setting.plugin_redmine_tweaks['global_sidebar']
+unless sidebar.blank?
 %>
 <br />
 <div class="sidebar-tweaks">
   <%= textilizable(sidebar).html_safe %>
 </div>
-
 <% end %>

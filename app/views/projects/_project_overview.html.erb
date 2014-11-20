@@ -1,14 +1,12 @@
 <%
 
-wiki_skeletal = ''
-skeletal_title = ''
-wiki_skeletal << Setting.plugin_redmine_tweaks['project_wiki_skeletal'].to_s
-skeletal_title << Setting.plugin_redmine_tweaks['project_wiki_skeletal_title'].to_s
-unless wiki_skeletal.empty?
+wiki_skeletal = Setting.plugin_redmine_tweaks['project_wiki_skeletal']
+skeletal_title = Setting.plugin_redmine_tweaks['project_wiki_skeletal_title']
+unless wiki_skeletal.blank?
 %>
 
 <div class="box">
-<% unless skeletal_title.empty? %>
+<% unless skeletal_title.blank? %>
   <h3><%= skeletal_title.html_safe %></h3>
 <% end %>
 <p>

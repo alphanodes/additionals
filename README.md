@@ -100,6 +100,7 @@ Note: Redmine must be restarted after changing "Custom Help URL"</tt> value befo
 - added overview text field
 - fix style for "goto top"
 - added macro overview help page
+- fix compatiblity problems with sidebar and other plugins
 
 ### 0.4.8
 

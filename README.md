@@ -9,6 +9,8 @@
 * Wiki user macros
 * Wiki project macros
 * Wiki date macros
+* Wiki Garfield marco
+* Wiki Youtube marco
 * option to remove "my page" from top menu
 * customize "Help" url in top menu
 * customize top menu items
@@ -77,7 +79,13 @@ Macro to get current date, year, month, day
 {{current_weekday}} := current weekday
 {{current_weeknumber}} := current week number (The week starts with Monday)
 
-### Youtube macros
+### Garfield macro
+
+{{garfield}} := show Garfield strip of the current day
+{{garfield(2014,10,31)}} := show Garfield strip of 31/12/2014
+
+
+### Youtube macro
 
 {youtube(wvsboPUjrGc)}} := youtube video with video wvsboPUjrGc (iframe) and default size 640x360
 {{youtube(wvsboPUjrGc,853,480)}} := youtube video with size 853x480
@@ -94,6 +102,12 @@ Note: Redmine must be restarted after changing "Custom Help URL"</tt> value befo
 
 
 ## Changelog
+
+### 0.5.0
+
+- Redmine 2.6.x compatiblity
+- URL fixes
+- Garfield macro has been added 
 
 ### 0.4.9
 

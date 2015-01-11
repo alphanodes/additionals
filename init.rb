@@ -6,9 +6,9 @@ Redmine::Plugin.register :redmine_tweaks do
   name 'Redmine Tweaks'
   author 'AlphaNodes GmbH'
   description 'Wiki and content extensions'
-  version '0.4.9'
-  author_url 'http://alphanodes.com/'
-  url 'http://github.com/alexandermeindl/redmine_tweaks'
+  version '0.5.0'
+  author_url 'https://alphanodes.com/'
+  url 'https://github.com/alexandermeindl/redmine_tweaks'
 
   default_settings = {
     'external_urls' => '0',
@@ -89,5 +89,6 @@ ActionDispatch::Reloader.to_prepare do
   require_dependency 'redmine_tweaks/project_macros'
   require_dependency 'redmine_tweaks/user_macros'
   require_dependency 'redmine_tweaks/date_macros'
+  require_dependency 'redmine_tweaks/garfield_macros'
   require_dependency 'redmine_tweaks/youtube_macros'
 end

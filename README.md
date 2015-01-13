@@ -17,7 +17,7 @@
 * disable (hide) modules for projects
 * open external urls in new window
 * anonymize referrer for external urls
-
+* Hide role in project memberbox
 
 ## Requirements
 
@@ -102,6 +102,10 @@ Note: Redmine must be restarted after changing "Custom Help URL"</tt> value befo
 
 
 ## Changelog
+
+### 0.5.1
+
+- "Hide role in memberbox" has been added
 
 ### 0.5.0
 

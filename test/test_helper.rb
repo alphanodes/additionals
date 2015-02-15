@@ -1,4 +1,4 @@
-# Load the normal Rails helper
+# Load the Redmine helper
 require 'ci/reporter/rake/test_unit'
 require 'ci/reporter/rake/test_unit_loader'
-require File.expand_path(File.dirname(__FILE__) + '/../../../../test/test_helper')
+require File.expand_path(File.dirname(__FILE__) + '/../../../test/test_helper')

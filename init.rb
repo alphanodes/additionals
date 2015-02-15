@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 require 'redmine'
-require_dependency 'redmine_tweaks/hooks'
 
 Redmine::Plugin.register :redmine_tweaks do
   name 'Redmine Tweaks'
@@ -56,7 +55,13 @@ Redmine::Plugin.register :redmine_tweaks do
 end
 
 ActionDispatch::Callbacks.to_prepare do
+  require_dependency 'redmine_tweaks/hooks'
   require_dependency 'redmine_tweaks/custom_help_url'
+  require_dependency 'redmine_tweaks/project_macros'
+  require_dependency 'redmine_tweaks/user_macros'
+  require_dependency 'redmine_tweaks/date_macros'
+  require_dependency 'redmine_tweaks/garfield_macros'
+  require_dependency 'redmine_tweaks/youtube_macros'
 end
 
 if ActiveRecord::Base.connection.table_exists?(:settings)
@@ -88,10 +93,3 @@ if ActiveRecord::Base.connection.table_exists?(:settings)
   SettingsHelper.send :include, RedmineTweaksHelper
 end
 
-ActionDispatch::Reloader.to_prepare do
-  require_dependency 'redmine_tweaks/project_macros'
-  require_dependency 'redmine_tweaks/user_macros'
-  require_dependency 'redmine_tweaks/date_macros'
-  require_dependency 'redmine_tweaks/garfield_macros'
-  require_dependency 'redmine_tweaks/youtube_macros'
-end

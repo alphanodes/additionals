@@ -5,7 +5,7 @@ Redmine::Plugin.register :redmine_tweaks do
   name 'Redmine Tweaks'
   author 'AlphaNodes GmbH'
   description 'Wiki and content extensions'
-  version '0.5.1'
+  version '0.5.2'
   author_url 'https://alphanodes.com/'
   url 'https://github.com/alexandermeindl/redmine_tweaks'
 
@@ -29,8 +29,12 @@ Redmine::Plugin.register :redmine_tweaks do
     'global_footer' => ''
   }
 
-    permission :hide_in_memberbox, {}
-    permission :show_hidden_roles_in_memberbox, {}
+  permission :hide_in_memberbox, {}
+  permission :show_hidden_roles_in_memberbox, {}
+
+  project_module :issue_tracking do
+    permission :edit_closed_issues, {}
+  end
 
   5.times do |i|
     default_settings['custom_menu'+i.to_s+'_name'] = '';

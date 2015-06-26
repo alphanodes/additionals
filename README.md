@@ -103,6 +103,10 @@ Note: Redmine must be restarted after changing "Custom Help URL"</tt> value befo
 
 ## Changelog
 
+### 0.5.2
+
+- "Edit closed issue" permission has been added
+
 ### 0.5.1
 
 - "Hide role in memberbox" has been added

@@ -48,4 +48,5 @@ en:
   label_top_macros_help_html: "Here you get a list of all avaiable Redmine macros of your installation, which are provided by Redmine and the Redmine plugins."  
   permission_hide_in_memberbox: "Hide in memberbox"
   permission_show_hidden_roles_in_memberbox: "Show hidden roles in memberbox"
+  permission_edit_closed_issues: "Edit closed issues"
   

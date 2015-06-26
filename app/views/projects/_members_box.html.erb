@@ -1,13 +1,22 @@
   <% if @users_by_role.any? %>
 
-  <div class="members box">
+<%
+@view_roles = []
+@users_by_role.keys.sort.each do |role|
+  if !role.permissions.include?(:hide_in_memberbox) ||
+    (role.permissions.include?(:hide_in_memberbox) && User.current.allowed_to?(:show_hidden_roles_in_memberbox, @project))
+    @view_roles << role
+  end
+end
+
+if @view_roles.count>0
+%>
+    <div class="members box">
     <h3><%=l(:label_member_plural)%></h3>
-    <p><% @users_by_role.keys.sort.each do |role| %>
-    <% if !role.permissions.include?(:hide_in_memberbox) ||
-      (role.permissions.include?(:hide_in_memberbox) && User.current.allowed_to?(:show_hidden_roles_in_memberbox, @project)) %>
+    <p><% @view_roles.each do |role| %>
     <%=h role %>: <%= @users_by_role[role].sort.collect{|u| link_to_user u}.join(", ").html_safe %><br />
-    <% end %>
     <% end %></p>
   </div>
+<% end %>
   
-  <% end %>
+<% end %>

@@ -6,7 +6,7 @@ de:
   label_settings_content: "Inhalt"
   label_settings_menu: "Menü"
   label_menu_entry: "Menüpunkt"
-  label_top_menu_help_html: "Hier können Menüpunkte festgelegt werden, die im Top-Menü angezeigt werden. Bitte den <strong>Webserver neu starten</strong>, wenn ein Eintrag gelöscht wurde."
+  label_top_menu_help_html: "Hier können Menüpunkte festgelegt werden, die im Top-Menü angezeigt werden. Bitte den <strong>Webserver neu starten</strong>, wenn ein Eintrag gelöscht oder Berechtigungen verändert wurde."
   label_optional: "optional"
   label_add_go_to_top: '"Nach oben" Link hinzufügen'
   label_go_to_top: "Nach oben"
@@ -49,3 +49,4 @@ de:
   permission_hide_in_memberbox: "In Memberbox ausblenden"
   permission_show_hidden_roles_in_memberbox: "Versteckte Rollen in Memberbox anzeigen"
   permission_edit_closed_issues: "Geschlossene Tickets bearbeiten"
+  menu_roles_info: "Nur den ausgewählten Rollen wird der Menüpunkt angezeigt. Sobald ein Mitglied in einem Projekt die Role besitzt, wird der Menupunkt angezeigt."

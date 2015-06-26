@@ -106,6 +106,7 @@ Note: Redmine must be restarted after changing "Custom Help URL"</tt> value befo
 ### 0.5.2
 
 - "Edit closed issue" permission has been added
+- Permissions supported for top menu items
 
 ### 0.5.1
 

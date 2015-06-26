@@ -7,7 +7,15 @@
 <div>
 <p><label><%=h l(:field_name)%></label><%= text_field_tag('settings[custom_menu'+i.to_s+'_name]', @settings['custom_menu'+i.to_s+'_name'], :size => 40) %></p>
 <p><label><%=h l(:field_url)%></label><%= text_field_tag('settings[custom_menu'+i.to_s+'_url]', @settings['custom_menu'+i.to_s+'_url'], :size => 80) %></p>
-<p><label><%=h l(:field_title)%></label><%= text_field_tag('settings[custom_menu'+i.to_s+'_title]', @settings['custom_menu'+i.to_s+'_title'], :size => 80) %><i>(<%=l(:label_optional)%>)</i></p>
+<p><label><%=h l(:field_title)%></label><%= text_field_tag('settings[custom_menu'+i.to_s+'_title]', @settings['custom_menu'+i.to_s+'_title'], :size => 80) %> <i>(<%=l(:label_optional)%>)</i></p>
+
+<p><label><%=h l(:label_permissions)%></label>
+  <% permission_field = 'custom_menu'+i.to_s+'_roles' %>
+  <% menu_roles = Struct.new(:id, :name) %>
+	<%= select_tag('settings['+permission_field+']', options_from_collection_for_select(Role.sorted.collect {|m| menu_roles.new(m.id, m.name) }, :id, :name, @settings[permission_field]), { :multiple=> true, :style => "height: 100px;" }) %>
+  <em class="info"><%= l(:menu_roles_info) %></em>
+</p>    
+
 </div>
 </fieldset>
 <% end %>

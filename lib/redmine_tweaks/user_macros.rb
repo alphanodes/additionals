@@ -5,22 +5,25 @@ module RedmineTweaks
   Redmine::WikiFormatting::Macros.register do
     
     desc <<-EOHELP
-Display users.  Examples:
+Display users.
+
+Syntax:
+
+  {{list_users(PROJECT_NAME, title=My user list, role=ROLE_NAME)}}
+
+  PROJECT_NAME can be project identifier, project name or project id
+
+  Examples:
 
   {{list_users}}
-  ...List all users for all projects
-
-  {{list_users(123)}}
-  ...A box showing all members for the project 123
+  ...List all users for all projects (with the current user permission)
 
   {{list_users(the-identifier)}}
   ...A box showing all members for the project with the identifier of 'the-identifier'
 
-  {{list_users('My project name')}}
-  ...A box showing all members for the project named 'My project name'
-
-  {{list_users('My project name', Manager)}}
-  ...A box showing all managers for the project named 'My project name'
+  {{list_users(the-identifier, Manager)}}
+  ...A box showing all members for the project with the identifier of 'the-identifier', which
+  have the role "Manager"
 
 EOHELP
 

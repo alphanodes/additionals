@@ -107,7 +107,7 @@ Note: Redmine must be restarted after changing "Custom Help URL"</tt> value befo
 
 - Redmine 3.0.x and 3.1.x supported
 - "New issue" link with list_projects macro
-- Parameter syntax changed for list_users and list_projects marcos (sorry for that)
+- Parameter syntax changed for list_users and list_projects macros (sorry for that)
 
 ### 0.5.2
 

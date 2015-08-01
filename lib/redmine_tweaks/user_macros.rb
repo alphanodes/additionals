@@ -25,9 +25,10 @@ Display users.  Examples:
 EOHELP
 
     macro :list_users do |obj, args|
+      args, options = extract_macro_options(args, :role, :title)
+
       project_id = args[0]
-      roles_limit = args[1]
-      @list_title = args[2]
+      user_roles = []
 
       if project_id.present?
         project_id.strip!
@@ -37,26 +38,28 @@ EOHELP
         project ||= Project.visible.find_by_name(project_id)
         return '' if project.nil?
 
-        raw_users = User.active.find(:all, :conditions => ["#{User.table_name}.id IN (SELECT DISTINCT user_id FROM members WHERE project_id=(?))", project.id]).sort
+        raw_users = User.active.where(["#{User.table_name}.id IN (SELECT DISTINCT user_id FROM members WHERE project_id=(?))", project.id]).sort
         return '' if raw_users.nil?
 
-        users = [];
+        users = []
         raw_users.each {|user| 
-          user['role'] = user.roles_for_project(project)
-          if !roles_limit.present? or RedmineTweaks.check_role_matches(user['role'], roles_limit)
+          user_roles[user.id] = user.roles_for_project(project)
+          if !options[:role].present? or RedmineTweaks.check_role_matches(user_roles[user.id], options[:role])
             users <<  user
           end
         }
       else
-        project_ids = Project.all(:conditions => Project.visible_condition(User.current)).collect(&:id)
+        project_ids = Project.visible.collect(&:id)
         if project_ids.any?
           # members of the user's projects
-          users = User.active.find(:all, :conditions => ["#{User.table_name}.id IN (SELECT DISTINCT user_id FROM members WHERE project_id IN (?))", project_ids]).sort
+          users = User.active.where(["#{User.table_name}.id IN (SELECT DISTINCT user_id FROM members WHERE project_id IN (?))", project_ids]).sort
         else
           return ''
         end
       end
-      render :partial => 'wiki/user_macros', :locals => {:users => users}
+      render :partial => 'wiki/user_macros', :locals => {:users => users,
+        :user_roles => user_roles,
+        :list_title => options[:title]}
     end
   end  
   

@@ -49,9 +49,9 @@ Restart Redmine and have a fun!
 
 {{list_users(123)}} or {{list_users(identifier)}} or {{list_users(My project)}} := Lists all users of the project with project id 123 (or identifier or project name)
 
-{{list_users(123, Manager)}} := Lists all users of the project with project id 123 and the role "Manager". If you want to use multiple roles as filters, you have to use a | as separator.
+{{list_users(123, title=Manager)}} := Lists all users of the project with project id 123 and the role "Manager". If you want to use multiple roles as filters, you have to use a | as separator.
 
-{{list_users(123, Manager, Manager only)}} := Lists all users of the project with project id 123 and the role "Manager" and adds the heading "Manager only"
+{{list_users(123, title=Manager, role=Manager only)}} := Lists all users of the project with project id 123 and the role "Manager" and adds the heading "Manager only"
 
 
 ### Project list macros
@@ -62,7 +62,7 @@ Lists projects of current user
 
 {{list_projects}} := lists all projects of current users
 
-{{list_projects(My title)}} := lists all projects of current users and adds the heading "My title"
+{{list_projects(title=My title)}} := lists all projects of current users and adds the heading "My title"
 
 
 ### Wiki date macros
@@ -102,6 +102,12 @@ Note: Redmine must be restarted after changing "Custom Help URL"</tt> value befo
 
 
 ## Changelog
+
+### 0.5.3
+
+- Redmine 3.0.x and 3.1.x supported
+- "New issue" link with list_projects macro
+- Parameter syntax changed for list_users and list_projects marcos (sorry for that)
 
 ### 0.5.2
 

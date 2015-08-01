@@ -49,8 +49,8 @@ end
 <fieldset class="box tabular" id="project_trackers"><legend><%=l(:label_tracker_plural)%></legend>
 <% @trackers.each do |tracker| %>
     <label class="floating">
-    <%= check_box_tag 'project[tracker_ids][]', tracker.id, @project.trackers.include?(tracker), :id => nil %>
-    <%=h tracker %>
+    <%= check_box_tag 'project[tracker_ids][]', tracker.id, @project.trackers.to_a.include?(tracker), :id => nil %>
+    <%= tracker %>        
     </label>
 <% end %>
 <%= hidden_field_tag 'project[tracker_ids][]', '' %>
@@ -64,7 +64,11 @@ end
   <%= check_box_tag 'project[issue_custom_field_ids][]', custom_field.id, (@project.all_issue_custom_fields.include? custom_field),
         :disabled => (custom_field.is_for_all? ? "disabled" : nil),
         :id => nil %>
-  <%=h custom_field.name %>
+  <% if ActiveRecord::VERSION::MAJOR < 4 %>
+      <%= custom_field.name %>
+  <% else %>
+      <%= custom_field_name_tag(custom_field) %>
+  <% end %>
   </label>
 <% end %>
 <%= hidden_field_tag 'project[issue_custom_field_ids][]', '' %>

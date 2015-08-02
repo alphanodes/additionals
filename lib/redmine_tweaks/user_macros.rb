@@ -21,9 +21,13 @@ Syntax:
   {{list_users(the-identifier)}}
   ...A box showing all members for the project with the identifier of 'the-identifier'
 
-  {{list_users(the-identifier, Manager)}}
+  {{list_users(the-identifier, role=Manager)}}
   ...A box showing all members for the project with the identifier of 'the-identifier', which
   have the role "Manager"
+
+  {{list_users(the-identifier, title=My user list)}}
+  ...A box showing all members for the project with the identifier of 'the-identifier' and with
+  box title "My user list"
 
 EOHELP
 

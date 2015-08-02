@@ -22,7 +22,7 @@
 ## Requirements
 
 * Redmine version >= 2.4.6
-
+* Ruby >= 2.0.0
 
 ## Installation
 

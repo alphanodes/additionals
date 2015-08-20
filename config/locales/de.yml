@@ -62,4 +62,4 @@ de:
     errors:
       messages:
         issue_cannot_close_with_open_children: "Das Ticket kann nicht geschlossen werden, bevor nicht alle Untertickets geschlossen wurden."
-        issue_assigned_to_requires_status_change: "Die Änderungen von \"Zugewiesen an\" erfordert auch eine Änderung des Ticketstatus."
+        issue_assigned_to_requires_status_change: "Die Änderung von \"Zugewiesen an\" erfordert auch eine Änderung des Ticketstatus."

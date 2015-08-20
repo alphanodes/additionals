@@ -18,6 +18,10 @@
 * open external urls in new window
 * anonymize referrer for external urls
 * Hide role in project memberbox
+* Configurable issue rules
+** closing issue with open sub issues
+** change assigned_to_ automatically, if issue status changes
+** assigned_to has changed, but status change is required, too
 
 ## Requirements
 
@@ -102,6 +106,12 @@ Note: Redmine must be restarted after changing "Custom Help URL"</tt> value befo
 
 
 ## Changelog
+
+### 0.5.4
+
+- issue rule added for closing issue with open sub issues
+- issue rule added for status change
+- issue rule added for assigned_to change_
 
 ### 0.5.3
 

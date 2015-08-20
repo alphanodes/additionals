@@ -5,6 +5,7 @@ en:
   label_settings_general: "Common"
   label_settings_content: "Content"
   label_settings_menu: "Menu"
+  label_settings_rules: "Issue rules"
   label_menu_entry: "Menu item"
   label_top_menu_help_html: "Here you can define new top menu items. Please <strong>restart the webserver</strong>, if you remove a menu item or change permissions."
   label_optional: "optional"
@@ -18,10 +19,10 @@ en:
   external_urls_info_html: "Specifies the behavior for external urls."
   label_custom_help_url: "Custom Help URL"
   custom_help_url_info_html: "After changing this URL, you have to restart the webserver to activate it. If no URL is specified, the default help URL will be used."
-  label_remove_mypage: "Remove 'My Page' from top menu"
   label_remove_help: "Remove 'Help' from top menu"
-  remove_mypage_info: 'Sometimes it is more useful to hide the "My Page" link in order to introduce the task board. The task board advantage is that tickets can be listed according to their status.'
+  label_remove_mypage: "Remove 'My Page' from top menu"
   remove_help_info: "Remove the item 'Help' from the top menu."
+  remove_mypage_info: 'Sometimes it is more useful to hide the "My Page" link in order to introduce the task board. The task board advantage is that tickets can be listed according to their status.'
   label_account_login: "Text for login page"
   account_login_info: "This text message will be shown at the login page and should be used for registration information. These settings are active in all projects."
   label_new_ticket_message: "Note for new tickets"
@@ -50,4 +51,15 @@ en:
   permission_show_hidden_roles_in_memberbox: "Show hidden roles in memberbox"
   permission_edit_closed_issues: "Edit closed issues"
   menu_roles_info: "Only members of selected roles will see this menu entry."
-  
+  label_rule_issue_close_with_open_children: Issues with open sub-issues cannot be closed
+  top_rules_help: "Here you can define rules, which are used in issues of all projects."
+  top_content_help: "Here you can define texts, which will be displayed in diverse areas of Redmine."
+  label_rule_issue_status_change: "If \"Assigned to\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
+  rule_issue_status_change_info: "Use Case: issues should be automatically assigned to autor, if the status changes to \"Approval\"."
+  label_rule_issue_assigned_to_change: "If \"Assigned to\" has changed and the issue status is unchanged with status x, than the user gets a message, that a status change is required"
+  rule_issue_assigned_to_change_info: "Use Case: issue status \"In Progress\" should only assigned from user the user itselve, who is working on the issue. If someone else already was assigend to the issue with \"In progress\" and assign the issue to another user, the other user is not really working on it - in most of the cases."
+  activerecord:
+    errors:
+      messages:
+        issue_cannot_close_with_open_children: "This issue can only be closed, if all sub-issues ared closed, too."
+        issue_assigned_to_requires_status_change: "Changing \"Assigned to\" requires a change of the issue status, too."

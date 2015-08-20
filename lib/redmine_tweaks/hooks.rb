@@ -18,5 +18,4 @@ module RedmineTweaks
   end
 
   def self.settings() Setting[:plugin_redmine_tweaks] end
-
 end

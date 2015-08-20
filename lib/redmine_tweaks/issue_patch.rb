@@ -9,6 +9,9 @@ module RedmineTweaks
         base.send(:include, InstanceMethods)
         base.class_eval do
           alias_method_chain :editable?, :closed_edit
+          validate :validate_open_sub_issues
+          validate :validate_assigned_to_changed
+          before_save :change_status_with_assigned_to_change
         end
       end
 
@@ -29,6 +32,34 @@ module RedmineTweaks
         @new_ticket_message = ''
         @new_ticket_message << Setting.plugin_redmine_tweaks['new_ticket_message']
       end
-    end
 
+      private
+      
+      def validate_open_sub_issues
+        return true unless RedmineTweaks.settings[:issue_close_with_open_children]
+        if subject.present? && closing? && descendants.find { |d| !d.closed? }
+          errors.add :base, :issue_cannot_close_with_open_children
+        end
+      end
+      
+      def validate_assigned_to_changed
+        return true unless RedmineTweaks.settings[:issue_assigned_to_change]
+        return true if RedmineTweaks.settings[:issue_assigned_to_x].nil?
+        if assigned_to_id_changed? && !status_id_changed? && (RedmineTweaks.settings[:issue_assigned_to_x].include?status_id.to_s)
+          errors.add :base, :issue_assigned_to_requires_status_change
+        end
+      end
+      
+      def change_status_with_assigned_to_change
+        return true unless RedmineTweaks.settings[:issue_status_change]
+        return true if RedmineTweaks.settings[:issue_status_x].nil?
+        return true if RedmineTweaks.settings[:issue_status_y].nil?
+        if !assigned_to_id_changed? &&
+            status_id_changed? &&
+            (RedmineTweaks.settings[:issue_status_x].include?status_id_was.to_s) &&
+            RedmineTweaks.settings[:issue_status_y].to_i == status_id
+          self.assigned_to = author
+        end
+      end
+    end
 end

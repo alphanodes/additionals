@@ -5,6 +5,7 @@ de:
   label_settings_general: "Allgemein"
   label_settings_content: "Inhalt"
   label_settings_menu: "Menü"
+  label_settings_rules: "Ticketregeln"
   label_menu_entry: "Menüpunkt"
   label_top_menu_help_html: "Hier können Menüpunkte festgelegt werden, die im Top-Menü angezeigt werden. Bitte den <strong>Webserver neu starten</strong>, wenn ein Eintrag gelöscht oder Berechtigungen verändert wurde."
   label_optional: "optional"
@@ -50,3 +51,15 @@ de:
   permission_show_hidden_roles_in_memberbox: "Versteckte Rollen in Memberbox anzeigen"
   permission_edit_closed_issues: "Geschlossene Tickets bearbeiten"
   menu_roles_info: "Nur den ausgewählten Rollen wird der Menüpunkt angezeigt. Sobald ein Mitglied in einem Projekt die Role besitzt, wird der Menupunkt angezeigt."
+  label_rule_issue_close_with_open_children: Tickets mit offenen Untertickets können nicht geschlossen werden
+  top_rules_help: "Hier können Regeln konfiguriert werden, die den Umgang mit Tickets festlegen. Sobald eine Regel aktiviert wurde, wirkt sich diese auf alle Projekte aus."
+  top_content_help: "Hier können Texte hinterlegt werden, welche an unterschiedlichen Stellen in Redmine ausgegeben werden."
+  label_rule_issue_status_change: "Wird \"Zugewiesen an\" nicht verändert und der Ticketstatus von x auf y geändert, dann wird das Ticket automatisch dem Ersteller zugewiesen"
+  rule_issue_status_change_info: "Use Case: Zur Abnahme der Tickets sollen alle Tickets automatisch dem Ersteller des Tickets zugeordnet werden, sofern kein anderer Benutzer ausgewählt wird."
+  label_rule_issue_assigned_to_change: "Wird \"Zugewiesen an\" verändert und der Ticketstatus unverändert den Status x besitzt, dann wird eine Meldung ausgeben, dass ein Statuswechsel notwendig ist"
+  rule_issue_assigned_to_change_info: "Use Case: Wenn ein Bearbeiter das Ticket auf \"In Progress\" stehen hat und weist dieses Ticket jemand anderen zu, dann würde bei dem anderen Benutzer das Ticket immer noch auf \"In Progress\" stehen. Das will man eventuell unterbinden, da dieser selbst nie entschieden hat an diesem Ticket zu arbeiten und sehr wahrscheinlich auch gar nicht daran arbeitet."
+  activerecord:
+    errors:
+      messages:
+        issue_cannot_close_with_open_children: "Das Ticket kann nicht geschlossen werden, bevor nicht alle Untertickets geschlossen wurden."
+        issue_assigned_to_requires_status_change: "Die Änderungen von \"Zugewiesen an\" erfordert auch eine Änderung des Ticketstatus."

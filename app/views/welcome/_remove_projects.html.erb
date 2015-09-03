@@ -1,0 +1,19 @@
+<% unless Setting.plugin_redmine_tweaks['remove_latest_projects'] %>
+
+  <div class="projects box">
+  <h3><%=l(:label_project_latest)%></h3>
+    <ul>
+    <% for project in @projects %>
+      <% @project = project %>
+      <li>
+      <%= link_to_project project %> (<%= format_time(project.created_on) %>)
+      <div class="wiki">
+        <%= textilizable project.short_description, :project => project %>
+      </div>
+      </li>
+    <% end %>
+    <% @project = nil %>
+    </ul>
+   </div>
+
+<% end %>

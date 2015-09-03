@@ -25,8 +25,9 @@
 
 ## Requirements
 
-* Redmine version >= 2.4.6
+* Redmine version >= 2.6.0
 * Ruby >= 2.0.0
+* Gem package: see PluginGemfile
 
 ## Installation
 
@@ -36,6 +37,7 @@ Download the sources and put them to your vendor/plugins folder.
 
     $ cd {REDMINE_ROOT}
     $ git clone git://github.com/alexandermeindl/redmine_tweaks.git plugins/redmine_tweaks
+    $ bundle install --without development test
 
 Restart Redmine and have a fun!
 
@@ -106,6 +108,13 @@ Note: Redmine must be restarted after changing "Custom Help URL"</tt> value befo
 
 
 ## Changelog
+
+### 0.5.5
+
+- dependency with deface (used to overview views)
+- fixed garfield caching macro probem
+- you can add content to overview page now (top and bottom)
+- some content and view optimization (removed wiki_sidebar compatiblitity problems with other Redmine plugins)
 
 ### 0.5.4
 

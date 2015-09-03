@@ -8,31 +8,33 @@
 </p>
 
 <p>
-  <%= content_tag(:label, l(:label_oveview_text_title)) %>
-  <%= text_field_tag('settings[oveview_text_title]', @settings['oveview_text_title'], :size => 60) %>
-</p>
-
-<p>
-  <%= content_tag(:label, l(:label_oveview_text)) %>
-  <%= text_area_tag 'settings[overview_text]', @settings[:overview_text], :class => 'wiki-edit', :rows => 10 %> 
-  <em class="info"><%= l(:overview_text_info) %></em>
-</p>
-
-<p>
   <%= content_tag(:label, l(:label_new_ticket_message)) %>
   <%= text_area_tag 'settings[new_ticket_message]', @settings[:new_ticket_message], :class => 'wiki-edit', :rows => 10 %>
   <em class="info"><%= l(:new_ticket_message_info) %></em>
 </p>
 
 <p>
-  <%= content_tag(:label, l(:label_project_wiki_skeletal)) %>
-  <%= text_area_tag 'settings[project_wiki_skeletal]', @settings[:project_wiki_skeletal], :class => 'wiki-edit', :rows => 10 %>  
-  <em class="info"><%= l(:project_wiki_skeletal_info) %></em>
+  <%= content_tag(:label, l(:label_overview_right)) %>
+  <%= text_area_tag 'settings[overview_right]', @settings[:overview_right], :class => 'wiki-edit', :rows => 10 %> 
+  <em class="info"><%= l(:overview_right_info) %></em>
 </p>
 
 <p>
-  <%= content_tag(:label, l(:label_project_wiki_skeletal_title)) %>
-  <%= text_field_tag('settings[project_wiki_skeletal_title]', @settings['project_wiki_skeletal_title'], :size => 60) %>
+  <%= content_tag(:label, l(:label_overview_top)) %>
+  <%= text_area_tag 'settings[overview_top]', @settings[:overview_top], :class => 'wiki-edit', :rows => 10 %> 
+  <em class="info"><%= l(:overview_top_info) %></em>
+</p>
+
+<p>
+  <%= content_tag(:label, l(:label_overview_bottom)) %>
+  <%= text_area_tag 'settings[overview_bottom]', @settings[:overview_bottom], :class => 'wiki-edit', :rows => 10 %> 
+  <em class="info"><%= l(:overview_bottom_info) %></em>
+</p>
+
+<p>
+  <%= content_tag(:label, l(:label_project_overview_content)) %>
+  <%= text_area_tag 'settings[project_overview_content]', @settings[:project_overview_content], :class => 'wiki-edit', :rows => 10 %>  
+  <em class="info"><%= l(:project_overview_content_info) %></em>
 </p>
 
 <p>

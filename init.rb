@@ -5,7 +5,7 @@ Redmine::Plugin.register :redmine_tweaks do
   name 'Redmine Tweaks'
   author 'AlphaNodes GmbH'
   description 'Wiki and content extensions'
-  version '0.5.4'
+  version '0.5.5'
   author_url 'https://alphanodes.com/'
   url 'https://github.com/alexandermeindl/redmine_tweaks'
 
@@ -13,15 +13,17 @@ Redmine::Plugin.register :redmine_tweaks do
     'external_urls' => '0',
     'custom_help_url' => 'http://www.redmine.org/guide',
     'remove_help' => false,
+    'remove_news_box' => false,
+    'remove_lastest_projects' => false,
     'add_go_to_top' => false,
     'remove_mypage' => false,
     'disabled_modules' => nil,
     'account_login_bottom' => '',
-    'overview_text_title' => '',
-    'overview_text' => '',
     'new_ticket_message' => 'Don\'t forget to define acceptance criteria!',
-    'project_wiki_skeletal_title' => 'Project guide',
-    'project_wiki_skeletal' => 'Go to admin area and define a nice wiki text here as a fixed skeletal for all projects.',
+    'overview_right' => '',
+    'overview_top' => '',
+    'overview_bottom' => '',
+    'project_overview_content' => 'Go to admin area and define a nice wiki text here as a fixed skeletal for all projects.',
     'global_sidebar' => '',
     'global_wiki_sidebar' => '',
     'global_wiki_header' => '',
@@ -45,7 +47,7 @@ Redmine::Plugin.register :redmine_tweaks do
   settings(:default => default_settings, :partial => 'settings/redmine_tweaks')
 
   # required redmine version
-  requires_redmine :version_or_higher => '2.4.6'
+  requires_redmine :version_or_higher => '2.6.0'
 
   # remove help menu (it will be added later again)
   delete_menu_item(:top_menu, :help)
@@ -95,5 +97,14 @@ if ActiveRecord::Base.connection.table_exists?(:settings)
 
   require 'settings_helper'
   SettingsHelper.send :include, RedmineTweaksHelper
+end
+
+# Little hack for deface in redmine:
+# - redmine plugins are not railties nor engines, so deface overrides are not detected automatically
+# - deface doesn't support direct loading anymore ; it unloads everything at boot so that reload in dev works
+# - hack consists in adding "app/overrides" path of all plugins in Redmine's main #paths
+Rails.application.paths["app/overrides"] ||= []
+Dir.glob("#{Rails.root}/plugins/*/app/overrides").each do |dir|
+  Rails.application.paths["app/overrides"] << dir unless Rails.application.paths["app/overrides"].include?(dir)
 end
 

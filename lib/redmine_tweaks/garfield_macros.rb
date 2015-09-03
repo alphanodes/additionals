@@ -52,9 +52,9 @@ EOHELP
     unless File.file?(local_path)
       Net::HTTP.start(host) { |http|
         resp = http.get('/comics/ga/' + yyyy + '/' + filename + '.' + type)
-        open(local_path, 'wb' ) { |file|
-          file.write(resp.body)
-        }
+        unless resp.code=="404"
+          open(local_path, 'wb' ) { |file|file.write(resp.body) }
+        end
       }
     end
     { :name => filename, :type => type }

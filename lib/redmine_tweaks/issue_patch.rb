@@ -41,15 +41,18 @@ module RedmineTweaks
           errors.add :base, :issue_cannot_close_with_open_children
         end
       end
-      
+
       def validate_assigned_to_changed
         return true unless RedmineTweaks.settings[:issue_assigned_to_change]
         return true if RedmineTweaks.settings[:issue_assigned_to_x].nil?
-        if assigned_to_id_changed? && !status_id_changed? && (RedmineTweaks.settings[:issue_assigned_to_x].include?status_id.to_s)
+        if assigned_to_id_changed? && 
+          !status_id_changed? &&
+          !assigned_to_id_was.blank? &&
+          (RedmineTweaks.settings[:issue_assigned_to_x].include?status_id.to_s)
           errors.add :base, :issue_assigned_to_requires_status_change
         end
       end
-      
+
       def change_status_with_assigned_to_change
         return true unless RedmineTweaks.settings[:issue_status_change]
         return true if RedmineTweaks.settings[:issue_status_x].nil?

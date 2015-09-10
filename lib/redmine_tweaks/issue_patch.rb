@@ -10,7 +10,7 @@ module RedmineTweaks
         base.class_eval do
           alias_method_chain :editable?, :closed_edit
           validate :validate_open_sub_issues
-          validate :validate_assigned_to_changed
+          validate :validate_current_user_status
           before_save :change_status_with_assigned_to_change
         end
       end
@@ -42,14 +42,12 @@ module RedmineTweaks
         end
       end
 
-      def validate_assigned_to_changed
-        return true unless RedmineTweaks.settings[:issue_assigned_to_change]
-        return true if RedmineTweaks.settings[:issue_assigned_to_x].nil?
-        if assigned_to_id_changed? && 
-          !status_id_changed? &&
-          !assigned_to_id_was.blank? &&
-          (RedmineTweaks.settings[:issue_assigned_to_x].include?status_id.to_s)
-          errors.add :base, :issue_assigned_to_requires_status_change
+      def validate_current_user_status
+        return true unless RedmineTweaks.settings[:issue_current_user_status]
+        return true if RedmineTweaks.settings[:issue_assign_to_x].nil?
+        if (RedmineTweaks.settings[:issue_assign_to_x].include?status_id.to_s) &&
+          (assigned_to_id.blank? || assigned_to_id != User.current.id)
+          errors.add :base, :issue_current_user_status
         end
       end
 

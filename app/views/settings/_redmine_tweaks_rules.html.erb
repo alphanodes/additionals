@@ -21,10 +21,10 @@
 <br /><br />
 
 <p>
-  <%= content_tag(:label, l(:label_rule_issue_assigned_to_change)) %>
-  <%= check_box_tag 'settings[issue_assigned_to_change]', 1, @settings[:issue_assigned_to_change] %>
+  <%= content_tag(:label, l(:label_rule_issue_current_user_status)) %>
+  <%= check_box_tag 'settings[issue_current_user_status]', 1, @settings[:issue_current_user_status] %>
   <span style="vertical-align: top; margin-left: 15px;">
-  <%= l(:field_status) %> x: <%= select_tag 'settings[issue_assigned_to_x]', options_for_select(rule_status.collect{|column| [column.name, column.id]}, @settings[:issue_assigned_to_x]), :multiple => true,  :size => 6, :style => "width:150px" %>
+  <%= l(:field_status) %> x: <%= select_tag 'settings[issue_assign_to_x]', options_for_select(rule_status.collect{|column| [column.name, column.id]}, @settings[:issue_assign_to_x]), :multiple => true,  :size => 6, :style => "width:150px" %>
   </span>
 </p>
-<em class="info"><%= t(:rule_issue_assigned_to_change_info) %></em>
+<em class="info"><%= t(:rule_issue_current_user_status_info) %></em>

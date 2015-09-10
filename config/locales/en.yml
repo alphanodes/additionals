@@ -34,7 +34,7 @@ en:
   label_project_overview_content: "Project guide"
   project_overview_content_info: "Here you can add your text, which will be shown on the project overview page. For example you can link to a wiki page, which is/should be project wide available to every team member. The aim is to reach a better project standard and to maintain a unique wiki structure."
   label_global_sidebar: "Global sidebar"
-  global_sidebar_info: "Enter a project wide available text message here. This sidebar text will be displayed at the project overview, the ticket pages and the wiki pages."
+  global_sidebar_info: "Enter a project wide available text message here. This sidebar text will be displayed at the project overview, the issue pages and the wiki pages."
   label_global_wiki_sidebar: "Global wiki sidebar"
   global_wiki_sidebar_info: 'Enter a project wide available text message for your wiki sidebar, here. This sidebar text will be displayed at the wiki pages only. Use this space for Macros like "Last changed pages" for example. In case a project specific sidebar is used (wiki page), this will be preferably displayed in the sidebar instead.'
   label_global_wiki_header: "Project wide wiki header"
@@ -52,20 +52,20 @@ en:
   overview_top_info: "Here you can add your text, which will be shown on the overview page at the top. For example you can link to a wiki page."
   overview_bottom_info: "Here you can add your text, which will be shown on the overview page at the bottom. For example you can link to a wiki page."
   label_settings_macros: "Macros"
-  label_top_macros_help_html: "Here you get a list of all avaiable Redmine macros of your installation, which are provided by Redmine and the Redmine plugins."  
+  label_top_macros_help_html: "Here you get a list of all available Redmine macros of your installation, which are provided by Redmine and the Redmine plugins."  
   permission_hide_in_memberbox: "Hide in memberbox"
-  permission_show_hidden_roles_in_memberbox: "Show hidden roles in memberbox"
+  permission_show_hidden_roles_in_memberbox: "Show hidden roles in member box"
   permission_edit_closed_issues: "Edit closed issues"
   menu_roles_info: "Only members of selected roles will see this menu entry."
   label_rule_issue_close_with_open_children: Issues with open sub-issues cannot be closed
   top_rules_help: "Here you can define rules, which are used in issues of all projects."
   top_content_help: "Here you can define texts, which will be displayed in diverse areas of Redmine."
-  label_rule_issue_status_change: "If \"Assigned to\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
+  label_rule_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
   rule_issue_status_change_info: "Use Case: issues should be automatically assigned to autor, if the status changes to \"Approval\"."
-  label_rule_issue_assigned_to_change: "If \"Assigned to\" has changed and the issue status is unchanged with status x, than the user gets a message, that a status change is required"
-  rule_issue_assigned_to_change_info: "Use Case: issue status \"In Progress\" should only assigned from user the user itselve, who is working on the issue. If someone else already was assigend to the issue with \"In progress\" and assign the issue to another user, the other user is not really working on it - in most of the cases."
+  label_rule_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
+  rule_issue_current_user_status_info: "Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."
   activerecord:
     errors:
       messages:
-        issue_cannot_close_with_open_children: "This issue can only be closed, if all sub-issues ared closed, too."
-        issue_assigned_to_requires_status_change: "Changing \"Assigned to\" requires a change of the issue status, too."
+        issue_cannot_close_with_open_children: "This issue can only be closed, if all sub-issues are closed, too."
+        issue_current_user_status: "The selected status requires that the \"Assignee\" is yourself."

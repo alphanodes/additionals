@@ -30,7 +30,9 @@ module RedmineTweaks
 
       def new_ticket_message
         @new_ticket_message = ''
-        @new_ticket_message << Setting.plugin_redmine_tweaks['new_ticket_message']
+        unless Setting.plugin_redmine_tweaks['new_ticket_message'].blank?
+          @new_ticket_message << Setting.plugin_redmine_tweaks['new_ticket_message']
+        end
       end
 
       private

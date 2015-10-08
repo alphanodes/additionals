@@ -1,5 +1,4 @@
 # Load the Redmine helper
-require 'ci/reporter/rake/test_unit'
 require File.expand_path(File.dirname(__FILE__) + '/../../../test/test_helper')
 
 class RedmineTweaks::TestCase

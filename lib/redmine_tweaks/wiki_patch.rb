@@ -13,7 +13,6 @@ module RedmineTweaks
     def self.included(base) # :nodoc:
       base.send(:include, InstanceMethodsForRedmineTweaksWiki)
       base.class_eval do
-        unloadable # Send unloadable so it will not be unloaded in development
         alias_method_chain :sidebar, :redmine_tweaks
       end
     end

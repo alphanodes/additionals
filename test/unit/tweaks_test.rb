@@ -1,3 +1,6 @@
+# Redmine Tweaks plugin for Redmine
+# Copyright (C) 2013-2015 AlphaNodes GmbH
+
 require File.expand_path('../../test_helper', __FILE__)
 
 class TweaksTest < ActiveSupport::TestCase

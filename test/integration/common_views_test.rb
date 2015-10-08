@@ -1,0 +1,46 @@
+# Redmine Tweaks plugin for Redmine
+# Copyright (C) 2013-2015 AlphaNodes GmbH
+
+require File.expand_path('../../test_helper', __FILE__)
+require File.expand_path(File.dirname(__FILE__) + '/../../../../test/test_helper')
+
+
+class CommonViewsTest < ActiveRecord::VERSION::MAJOR >= 4 ? Redmine::ApiTest::Base : ActionController::IntegrationTest
+  fixtures :projects,
+           :users, :email_addresses,
+           :roles,
+           :members,
+           :member_roles,
+           :trackers,
+           :projects_trackers,
+           :enabled_modules,
+           :issue_statuses,
+           :issues,
+           :enumerations,
+           :custom_fields,
+           :custom_values,
+           :custom_fields_trackers
+
+  def setup
+    RedmineTweaks::TestCase.prepare
+
+    @request    = ActionController::TestRequest.new
+    @response   = ActionController::TestResponse.new
+    @request.env['HTTP_REFERER'] = '/'
+  end
+
+  test "View user" do
+    log_user("admin", "admin")
+    get "/users/2"
+    assert_response :success
+  end
+
+  test "View issue" do
+    log_user("admin", "admin")
+    EnabledModule.create(:project_id => 1, :name => 'issue_tracking')
+    issue = Issue.where(:id => 1).first
+    issue.save
+    get "/issues/1"
+    assert_response :success
+  end
+end

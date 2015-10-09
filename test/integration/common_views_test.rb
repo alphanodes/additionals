@@ -2,8 +2,6 @@
 # Copyright (C) 2013-2015 AlphaNodes GmbH
 
 require File.expand_path('../../test_helper', __FILE__)
-require File.expand_path(File.dirname(__FILE__) + '/../../../../test/test_helper')
-
 
 class CommonViewsTest < ActiveRecord::VERSION::MAJOR >= 4 ? Redmine::ApiTest::Base : ActionController::IntegrationTest
   fixtures :projects,

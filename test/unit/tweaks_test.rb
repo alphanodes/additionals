@@ -11,6 +11,7 @@ class TweaksTest < ActiveSupport::TestCase
             :enabled_modules
 
   def setup
+
     @admin = User.find(1)
     @jsmith = User.find(2)
     @dlopper = User.find(3)

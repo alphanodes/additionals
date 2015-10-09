@@ -3,7 +3,6 @@
 
 module RedmineTweaks
   Redmine::WikiFormatting::Macros.register do
-    
     desc <<-EOHELP
 Display projects.
 
@@ -29,16 +28,16 @@ EOHELP
       @projects = RedmineTweaks.load_projects
       return '' if @projects.nil?
 
-      @html_options = {:class => 'external'}
-      render :partial => 'wiki/project_macros', :locals => {:projects => @projects,
-        :list_title => options[:title],
-        :with_create_issue => options[:with_create_issue]}
+      @html_options = { class: 'external' }
+      render partial: 'wiki/project_macros', locals:  { projects: @projects,
+                                                        list_title: options[:title],
+                                                        with_create_issue: options[:with_create_issue] }
     end
   end
 
   def self.load_projects
     if ActiveRecord::VERSION::MAJOR < 4
-      all_projects = Project.active.visible(User.current).find(:all, :order => "projects.name")
+      all_projects = Project.active.visible(User.current).find(:all, order: 'projects.name')
     else
       all_projects = Project.visible.sorted
     end
@@ -50,5 +49,4 @@ EOHELP
     end
     my_projects
   end
-
 end

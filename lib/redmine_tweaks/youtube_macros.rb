@@ -1,9 +1,9 @@
 # Redmine Tweaks plugin for Redmine
 # Copyright (C) 2013-2015 AlphaNodes GmbH
 
+# RedmineTweak Youtube macro
 module RedmineTweaks
   Redmine::WikiFormatting::Macros.register do
-    
     desc <<-EOHELP
 Youtube macro to include youtube video.
 
@@ -20,7 +20,7 @@ Youtube macro to include youtube video.
 EOHELP
 
     # Register youtube macro
-    macro :youtube do |youtube_wiki_content, args|
+    macro :youtube do |_youtube_wiki_content, args|
       h = 360
       w = 640
       if args.length >= 1
@@ -31,17 +31,16 @@ EOHELP
           h = args[2]
         end
 
-        unless args[3].nil? || args[3] == 1
-          src = "//www.youtube.com/embed/" + v + "?autoplay=1"
+        if args[3].nil? || args[3] == 1
+          src = '//www.youtube-nocookie.com/embed/' + v
         else
-          src = "//www.youtube-nocookie.com/embed/" + v
+          src = '//www.youtube.com/embed/' + v + '?autoplay=1'
         end
 
-        content_tag(:iframe, '', :width=>w, :height=>h, :src=>src, :frameborder=>0, :allowfullscreen=>"true" )
+        content_tag(:iframe, '', width: w, height: h, src: src, frameborder: 0, allowfullscreen: 'true')
       else
-        out = "<pre>Error in youtube macro. The correct usage is {{youtube(&lt;video key&gt;,[&lt;width&gt;,&lt;height&gt;])}}.</pre>"
+        '<pre>Error in youtube macro. The correct usage is {{youtube(&lt;video key&gt;,[&lt;width&gt;,&lt;height&gt;])}}.</pre>'
       end
-
     end
   end
 end

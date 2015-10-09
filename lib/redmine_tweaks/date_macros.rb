@@ -3,7 +3,6 @@
 
 module RedmineTweaks
   Redmine::WikiFormatting::Macros.register do
-    
     desc <<-EOHELP
 Display current dates.  Examples:
 
@@ -19,38 +18,37 @@ EOHELP
 
     macro :current_year do |obj, args|
       @current_date = Time.now.year
-      render :partial => 'wiki/date_macros', :locals => { :current_date => @current_date }
+      render partial: 'wiki/date_macros', locals: { current_date: @current_date }
     end
 
     macro :current_month do |obj, args|
       @current_date = Time.now.month
-      render :partial => 'wiki/date_macros', :locals => { :current_date => @current_date }
+      render partial: 'wiki/date_macros', locals: { current_date: @current_date }
     end
 
     macro :current_day do |obj, args|
       @current_date = Time.now.day
-      render :partial => 'wiki/date_macros', :locals => { :current_date => @current_date }
+      render partial: 'wiki/date_macros', locals: { current_date: @current_date }
     end
 
     macro :current_hour do |obj, args|
       @current_date = Time.now.hour
-      render :partial => 'wiki/date_macros', :locals => { :current_date => @current_date }
+      render partial: 'wiki/date_macros', locals: { current_date: @current_date }
     end
 
     macro :current_min do |obj, args|
       @current_date = Time.now.min
-      render :partial => 'wiki/date_macros', :locals => { :current_date => @current_date }
+      render partial: 'wiki/date_macros', locals: { current_date: @current_date }
     end
 
     macro :current_weekday do |obj, args|
       @current_date = day_name Time.now.wday
-      render :partial => 'wiki/date_macros', :locals => { :current_date => @current_date }
+      render partial: 'wiki/date_macros', locals: { current_date: @current_date }
     end
 
     macro :current_weeknumber do |obj, args|
       @current_date = Date.today.cweek
-      render :partial => 'wiki/date_macros', :locals => { :current_date => @current_date }
+      render partial: 'wiki/date_macros', locals: { current_date: @current_date }
     end
-
-  end  
+  end
 end

@@ -3,6 +3,7 @@
 
 require File.expand_path('../../test_helper', __FILE__)
 
+# Redmine Tweaks integration tests
 class CommonViewsTest < ActiveRecord::VERSION::MAJOR >= 4 ? Redmine::ApiTest::Base : ActionController::IntegrationTest
   fixtures :projects,
            :users, :email_addresses,
@@ -27,18 +28,18 @@ class CommonViewsTest < ActiveRecord::VERSION::MAJOR >= 4 ? Redmine::ApiTest::Ba
     @request.env['HTTP_REFERER'] = '/'
   end
 
-  test "View user" do
-    log_user("admin", "admin")
-    get "/users/2"
+  test 'View user' do
+    log_user('admin', 'admin')
+    get '/users/2'
     assert_response :success
   end
 
-  test "View issue" do
-    log_user("admin", "admin")
-    EnabledModule.create(:project_id => 1, :name => 'issue_tracking')
-    issue = Issue.where(:id => 1).first
+  test 'View issue' do
+    log_user('admin', 'admin')
+    EnabledModule.create(project_id: 1, name: 'issue_tracking')
+    issue = Issue.where(id: 1).first
     issue.save
-    get "/issues/1"
+    get '/issues/1'
     assert_response :success
   end
 end

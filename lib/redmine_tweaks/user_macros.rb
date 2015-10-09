@@ -3,7 +3,6 @@
 
 module RedmineTweaks
   Redmine::WikiFormatting::Macros.register do
-    
     desc <<-EOHELP
 Display users.
 
@@ -39,7 +38,7 @@ EOHELP
 
       if project_id.present?
         project_id.strip!
-        
+
         project = Project.visible.find_by_id(project_id)
         project ||= Project.visible.find_by_identifier(project_id)
         project ||= Project.visible.find_by_name(project_id)
@@ -49,10 +48,10 @@ EOHELP
         return '' if raw_users.nil?
 
         users = []
-        raw_users.each {|user| 
+        raw_users.each {|user|
           user_roles[user.id] = user.roles_for_project(project)
-          if !options[:role].present? or RedmineTweaks.check_role_matches(user_roles[user.id], options[:role])
-            users <<  user
+          if !options[:role].present? || RedmineTweaks.check_role_matches(user_roles[user.id], options[:role])
+            users << user
           end
         }
       else
@@ -64,20 +63,20 @@ EOHELP
           return ''
         end
       end
-      render :partial => 'wiki/user_macros', :locals => {:users => users,
-        :user_roles => user_roles,
-        :list_title => options[:title]}
+      render partial: 'wiki/user_macros', locals: { users: users,
+                                                    user_roles: user_roles,
+                                                    list_title: options[:title] }
     end
-  end  
-  
+  end
+
   def self.check_role_matches(roles, filters)
-    filters.gsub('|', ',' ).split(',').each {|filter|
+    filters.gsub('|', ',').split(',').each {|filter|
       roles.each {|role|
-        if filter.to_s() == role.to_s()
+        if filter.to_s == role.to_s
           return true
         end
       }
     }
-    return false 
+    return false
   end
 end

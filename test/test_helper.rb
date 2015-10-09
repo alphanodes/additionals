@@ -2,6 +2,7 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/../../../test/test_helper')
 
+# Redmine Tweaks helper class for tests
 class RedmineTweaks::TestCase
   include ActionDispatch::TestProcess
   def self.plugin_fixtures(plugin, *fixture_names)
@@ -20,26 +21,26 @@ class RedmineTweaks::TestCase
     ActionController::TestUploadedFile.new(ActiveSupport::TestCase.fixture_path + "/files/#{name}", mime, true)
   end
 
-  def self.is_arrays_equal(a1, a2)
+  def self.arrays_equal?(a1, a2)
     (a1 - a2) - (a2 - a1) == []
   end
 
-  def self.create_fixtures(fixtures_directory, table_names, class_names = {})
+  def self.create_fixtures(fixtures_directory, table_names, _class_names = {})
     if ActiveRecord::VERSION::MAJOR >= 4
-      ActiveRecord::FixtureSet.create_fixtures(fixtures_directory, table_names, class_names = {})
+      ActiveRecord::FixtureSet.create_fixtures(fixtures_directory, table_names, _class_names = {})
     else
-      ActiveRecord::Fixtures.create_fixtures(fixtures_directory, table_names, class_names = {})
+      ActiveRecord::Fixtures.create_fixtures(fixtures_directory, table_names, _class_names = {})
     end
   end
-  
+
   def self.prepare
-    Role.where(:id => [1, 2]).each do |r|
+    Role.where(id: [1, 2]).each do |r|
       r.permissions << :view_issues
       r.save
     end
-    
-    Project.where(:id => [1, 2]).each do |project|
-      EnabledModule.create(:project => project, :name => 'issue_tracking')
+
+    Project.where(id: [1, 2]).each do |project|
+      EnabledModule.create(project: project, name: 'issue_tracking')
     end
   end
 end

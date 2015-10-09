@@ -24,5 +24,5 @@ end
 
 # Now include the namespace module into Redmine::Info module
 unless Redmine::Info.included_modules.include? RedmineTweaks::CustomHelpUrl::Redmine::Info
-    Redmine::Info.send(:include, RedmineTweaks::CustomHelpUrl::Redmine::Info)
+  Redmine::Info.send(:include, RedmineTweaks::CustomHelpUrl::Redmine::Info)
 end

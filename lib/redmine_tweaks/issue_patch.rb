@@ -2,9 +2,7 @@
 # Copyright (C) 2013-2015 AlphaNodes GmbH
 
 module RedmineTweaks
-
     module IssuePatch
-
       def self.included(base)
         base.send(:include, InstanceMethods)
         base.class_eval do
@@ -36,7 +34,7 @@ module RedmineTweaks
       end
 
       private
-      
+
       def validate_open_sub_issues
         return true unless RedmineTweaks.settings[:issue_close_with_open_children]
         if subject.present? && closing? && descendants.find { |d| !d.closed? }

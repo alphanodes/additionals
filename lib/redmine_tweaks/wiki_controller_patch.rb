@@ -8,7 +8,6 @@ end
 require_dependency 'wiki_controller'
 
 module RedmineTweaks
-  
   module WikiControllerPatch
     def self.included(base) # :nodoc:
       base.send(:include, InstanceMethodsForRedmineTweaksWikiController)
@@ -19,9 +18,8 @@ module RedmineTweaks
   end
 
   module InstanceMethodsForRedmineTweaksWikiController
-
     def respond_to_with_redmine_tweaks(&block)
-      if @project and @content
+      if @project && @content
         if (@_action_name == 'show')
           redmine_tweaks_include_header
           redmine_tweaks_include_footer
@@ -33,9 +31,8 @@ module RedmineTweaks
     private
 
     def redmine_tweaks_include_header
-      
       wiki_header = '' + Setting.plugin_redmine_tweaks['global_wiki_header']
-      
+
       if Object.const_defined?('WikiExtensionsUtil') && WikiExtensionsUtil.is_enabled?(@project)
         header = @wiki.find_page('Header')
         if header
@@ -56,9 +53,8 @@ module RedmineTweaks
     end
 
     def redmine_tweaks_include_footer
-      
       wiki_footer = '' + Setting.plugin_redmine_tweaks['global_wiki_footer']
-      
+
       if Object.const_defined?('WikiExtensionsUtil') && WikiExtensionsUtil.is_enabled?(@project)
         footer = @wiki.find_page('Footer')
         if footer
@@ -76,5 +72,4 @@ module RedmineTweaks
       end
     end
   end
-  
 end

@@ -7,8 +7,6 @@ require_dependency 'redmine_tweaks_helper'
 module RedmineTweaks
   
   Redmine::WikiFormatting::Macros.register do
-    
-    
     desc <<-EOHELP
 Garfield macro to include garfield strip of the day.
 
@@ -26,14 +24,14 @@ EOHELP
     macro :garfield do |obj, args|
       
       case args.length
-      when 3 then file = RedmineTweaks.get_garfield(Date.parse(args[2] + '-'+ args[1] + '-' + args[0]))
+      when 3 then file = RedmineTweaks.get_garfield(Date.parse(args[2] + '-' + args[1] + '-' + args[0]))
       when 0 then file = RedmineTweaks.get_garfield(Date.today)
       else
-        out = "<pre>Error in garfield macro. The correct usage is {{garfield([&lt;yyyy&gt;,&lt;mm&gt;,&lt;dd&gt;])}}.</pre>"
+        out = '<pre>Error in garfield macro. The correct usage is {{garfield([&lt;yyyy&gt;,&lt;mm&gt;,&lt;dd&gt;])}}.</pre>'
       end
 
-      image = url_for(:controller=>'garfield', :action=>'show', :name => file[:name], :type => file[:type])
-      content_tag(:img, '', :alt=>"Garfield strip #{file[:name]}", :class=>'garfield', :src=>image)
+      image = url_for(controller: 'garfield', action: 'show', name: file[:name], type: file[:type])
+      content_tag(:img, '', alt: "Garfield strip #{file[:name]}", class: 'garfield', src: image)
     end
   end
     
@@ -53,10 +51,10 @@ EOHELP
       Net::HTTP.start(host) { |http|
         resp = http.get('/comics/ga/' + yyyy + '/' + filename + '.' + type)
         unless resp.code=="404"
-          open(local_path, 'wb' ) { |file|file.write(resp.body) }
+          open(local_path, 'wb' ) { |file| file.write(resp.body) }
         end
       }
     end
-    { :name => filename, :type => type }
+    { name: filename, type: type }
   end
 end

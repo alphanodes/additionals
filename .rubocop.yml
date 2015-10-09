@@ -1,0 +1,20 @@
+Metrics/LineLength:
+  Max: 140
+
+# Offense count: 34
+# Configuration parameters: CountComments.
+Metrics/MethodLength:
+  Max: 60
+
+# Offense count: 11
+Metrics/CyclomaticComplexity:
+  Max: 13
+  
+# Offense count: 10
+Metrics/PerceivedComplexity:
+  Max: 14
+
+# Offense count: 15
+Metrics/AbcSize:
+  Max: 25
+  

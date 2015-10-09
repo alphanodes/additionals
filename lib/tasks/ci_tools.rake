@@ -5,8 +5,8 @@ namespace :redmine_tweaks do
       require 'ci/reporter/rake/minitest'
     rescue Exception => e
     else
+      puts 'Prepare jenkins jobs...'
 #      ENV['CI_REPORTS'] = Rails.root.join('log/reports').to_s
-      ENV['NAME'] = 'redmine_tweaks'
     end
 
     task all: ['ci:setup:minitest', 'redmine:plugins:test']

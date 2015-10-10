@@ -2,6 +2,7 @@
 # Copyright (C) 2013-2015 AlphaNodes GmbH
 
 module RedmineTweaks
+  module Patches
     module IssuePatch
       def self.included(base)
         base.send(:include, InstanceMethods)
@@ -15,7 +16,7 @@ module RedmineTweaks
 
       # Instance methods with helper functions
       module InstanceMethods
-        def editable_with_closed_edit?(user=User.current)
+        def editable_with_closed_edit?(user = User.current)
           if editable_without_closed_edit?(user)
             if self.closed?
               user.allowed_to?(:edit_closed_issues, project)
@@ -57,11 +58,16 @@ module RedmineTweaks
         return true if RedmineTweaks.settings[:issue_status_x].nil?
         return true if RedmineTweaks.settings[:issue_status_y].nil?
         if !assigned_to_id_changed? &&
-            status_id_changed? &&
-            (RedmineTweaks.settings[:issue_status_x].include?status_id_was.to_s) &&
-            RedmineTweaks.settings[:issue_status_y].to_i == status_id
+          status_id_changed? &&
+          (RedmineTweaks.settings[:issue_status_x].include?status_id_was.to_s) &&
+          RedmineTweaks.settings[:issue_status_y].to_i == status_id
           self.assigned_to = author
         end
       end
     end
+  end
+end
+
+unless Issue.included_modules.include? RedmineTweaks::Patches::IssuePatch
+  Issue.send(:include, RedmineTweaks::Patches::IssuePatch)
 end

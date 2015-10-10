@@ -1,5 +1,8 @@
-# -*- encoding : utf-8 -*-
+# Redmine Tweaks plugin for Redmine
+# Copyright (C) 2013-2015 AlphaNodes GmbH
+
 require 'redmine'
+require 'redmine_tweaks'
 
 Redmine::Plugin.register :redmine_tweaks do
   name 'Redmine Tweaks'
@@ -59,52 +62,3 @@ Redmine::Plugin.register :redmine_tweaks do
 
   RedCloth3::ALLOWED_TAGS << "div"
 end
-
-ActionDispatch::Callbacks.to_prepare do
-  require_dependency 'redmine_tweaks/hooks'
-  require_dependency 'redmine_tweaks/custom_help_url'
-  require_dependency 'redmine_tweaks/project_macros'
-  require_dependency 'redmine_tweaks/user_macros'
-  require_dependency 'redmine_tweaks/date_macros'
-  require_dependency 'redmine_tweaks/garfield_macros'
-  require_dependency 'redmine_tweaks/youtube_macros'
-end
-
-if ActiveRecord::Base.connection.table_exists?(:settings)
-  # Workaround inability to access Setting.plugin_name['setting'], both directly as well as via overridden
-  # module containing the call to Setting.*, before completed plugin registration since we use a call to either:
-  # * Setting.plugin_redmine_custom_help_url['custom_help_url'] or (and replaced by)
-  # * RedmineCustomHelpUrl::Redmine::Info.help_url,
-  # which both can *only* be accessed *after* completed plugin registration (http://www.redmine.org/issues/7104)
-  #
-  # We now use overridden module RedmineCustomHelpUrl::Redmine::Info instead of directly calling
-  # Setting.plugin_redmine_custom_help_url['custom_help_url']
-  Rails.configuration.to_prepare do
-    unless RedmineTweaks.settings[:remove_help]
-	    Redmine::Plugin.find('redmine_tweaks').menu :top_menu, :help, RedmineTweaks::CustomHelpUrl::Redmine::Info.help_url, :html => {:target => '_blank'}, :last => true
-    end
-
-    Issue.send(:include, RedmineTweaks::IssuePatch) unless Issue.include?(RedmineTweaks::IssuePatch)
-
-    unless Wiki.included_modules.include? RedmineTweaks::WikiPatch
-      Wiki.send(:include, RedmineTweaks::WikiPatch)
-    end
-
-    unless WikiController.included_modules.include? RedmineTweaks::WikiControllerPatch
-      WikiController.send(:include, RedmineTweaks::WikiControllerPatch)
-    end
-  end
-
-  require 'settings_helper'
-  SettingsHelper.send :include, RedmineTweaksHelper
-end
-
-# Little hack for deface in redmine:
-# - redmine plugins are not railties nor engines, so deface overrides are not detected automatically
-# - deface doesn't support direct loading anymore ; it unloads everything at boot so that reload in dev works
-# - hack consists in adding "app/overrides" path of all plugins in Redmine's main #paths
-Rails.application.paths["app/overrides"] ||= []
-Dir.glob("#{Rails.root}/plugins/*/app/overrides").each do |dir|
-  Rails.application.paths["app/overrides"] << dir unless Rails.application.paths["app/overrides"].include?(dir)
-end
-

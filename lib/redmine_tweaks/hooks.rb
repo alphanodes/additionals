@@ -2,9 +2,7 @@
 # Copyright (C) 2013-2015 AlphaNodes GmbH
 
 module RedmineTweaks
-
   class RedmineTweaksHookListener < Redmine::Hook::ViewListener
-
     render_on(:view_layouts_base_html_head, partial: 'global_header')
     render_on(:view_layouts_base_content, partial: 'global_content')
     render_on(:view_layouts_base_body_bottom, partial: 'global_footer')
@@ -17,5 +15,7 @@ module RedmineTweaks
     render_on(:view_projects_show_sidebar_bottom, partial: 'global_sidebar')
   end
 
-  def self.settings() Setting[:plugin_redmine_tweaks] end
+  def self.settings
+    Setting[:plugin_redmine_tweaks]
+  end
 end

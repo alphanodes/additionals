@@ -3,9 +3,8 @@
 
 require 'net/http'
 
-# Wiki macro definition
+# Garfield wiki macros
 module RedmineTweaks
-  # Garfield wiki macros
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
       desc <<-EOHELP

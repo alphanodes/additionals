@@ -42,23 +42,26 @@ Redmine::Plugin.register :redmine_tweaks do
   end
 
   5.times do |i|
-    default_settings['custom_menu'+i.to_s+'_name'] = '';
-    default_settings['custom_menu'+i.to_s+'_url'] = '';
-    default_settings['custom_menu'+i.to_s+'_title'] = '';
+    default_settings['custom_menu' + i.to_s + '_name'] = ''
+    default_settings['custom_menu' + i.to_s + '_url'] = ''
+    default_settings['custom_menu' + i.to_s + '_title'] = ''
   end
 
-  settings(:default => default_settings, :partial => 'settings/redmine_tweaks')
+  settings(default: default_settings, partial: 'settings/redmine_tweaks')
 
   # required redmine version
-  requires_redmine :version_or_higher => '2.6.0'
+  requires_redmine version_or_higher: '2.6.0'
 
   # remove help menu (it will be added later again)
   delete_menu_item(:top_menu, :help)
 
   # remove my page
   delete_menu_item(:top_menu, :my_page)
-  menu :top_menu, :my_page, { :controller => 'my', :action => 'page'}, :via => :get,
-   :if => Proc.new{User.current && !RedmineTweaks.settings[:remove_mypage] }
+  menu :top_menu,
+       :my_page,
+       { controller: 'my', action: 'page' },
+       via: :get,
+       if: proc { User.current && !RedmineTweaks.settings[:remove_mypage] }
 
-  RedCloth3::ALLOWED_TAGS << "div"
+  RedCloth3::ALLOWED_TAGS << 'div'
 end

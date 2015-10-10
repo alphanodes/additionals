@@ -115,6 +115,7 @@ Note: Redmine must be restarted after changing "Custom Help URL"</tt> value befo
 - fixed garfield caching macro probem
 - you can add content to overview page now (top and bottom)
 - some content and view optimization (removed wiki_sidebar compatiblitity problems with other Redmine plugins)
+- Code cleanups and refactoring
 
 ### 0.5.4
 

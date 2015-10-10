@@ -17,4 +17,6 @@ Metrics/PerceivedComplexity:
 # Offense count: 15
 Metrics/AbcSize:
   Max: 25
-  
+
+Style/Documentation:
+  Enabled: false

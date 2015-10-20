@@ -22,6 +22,7 @@ if ActiveRecord::Base.connection.table_exists?(:settings)
     require 'redmine_tweaks/wiki_macros/user_macros'
     require 'redmine_tweaks/wiki_macros/date_macros'
     require 'redmine_tweaks/wiki_macros/garfield_macros'
+    require 'redmine_tweaks/wiki_macros/vimeo_macros'
     require 'redmine_tweaks/wiki_macros/youtube_macros'
 
     unless RedmineTweaks.settings[:remove_help]

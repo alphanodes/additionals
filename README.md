@@ -10,7 +10,9 @@
 * Wiki project macros
 * Wiki date macros
 * Wiki Garfield marco
+* Wiki Gist marco
 * Wiki Youtube marco
+* Wiki Vimeo marco
 * option to remove "my page" from top menu
 * customize "Help" url in top menu
 * customize top menu items
@@ -90,14 +92,22 @@ Macro to get current date, year, month, day
 {{garfield}} := show Garfield strip of the current day
 {{garfield(2014,10,31)}} := show Garfield strip of 31/12/2014
 
+### Gist macro
+
+{{gist(6737338)}} := Show Github gist 6737338
+{{gist(plentz/6737338)}} := Show Github gist 6737338
 
 ### Youtube macro
 
-{youtube(wvsboPUjrGc)}} := youtube video with video wvsboPUjrGc (iframe) and default size 640x360
-{{youtube(wvsboPUjrGc,853,480)}} := youtube video with size 853x480
-{{youtube(wvsboPUjrGc,853,480,1)}} := youtube video with size 853x480 and autoplay
-{{youtube(wvsboPUjrGc,,,1)}} := youtube video with size 853x480 and autoplay
+{{youtube(wvsboPUjrGc)}} := youtube video with video wvsboPUjrGc (iframe) and default size 640x360
+{{youtube(wvsboPUjrGc, width=853, height=480)}} := youtube video with size 853x480
+{{youtube(wvsboPUjrGc, autoplay=1)}} := youtube video and autoplay
 
+### Vimeo macro
+
+{{vimeo(142849533)}} := vimeo video with video 142849533 (iframe) and default size 640x360
+{{vimeo(142849533, width=853, height=480)}} := vimeo video with size 853x480
+{{vimeo(142849533, autoplay=1)}} := vimeo video and autoplay
 
 ### Custom help URL
 
@@ -113,6 +123,7 @@ Note: Redmine must be restarted after changing "Custom Help URL"</tt> value befo
 
 - system information uptime and uname have been added
 - gist macro support
+- vimeo macro support
 
 ### 0.5.5
 

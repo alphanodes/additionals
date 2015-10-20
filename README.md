@@ -109,6 +109,11 @@ Note: Redmine must be restarted after changing "Custom Help URL"</tt> value befo
 
 ## Changelog
 
+### 0.5.6
+
+- system information uptime and uname have been added
+- gist macro support
+
 ### 0.5.5
 
 - dependency with deface (used to overview views)

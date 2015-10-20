@@ -26,7 +26,7 @@ module RedmineTweaks
         when 3 then file = RedmineTweaks.get_garfield(Date.parse(args[2] + '-' + args[1] + '-' + args[0]))
         when 0 then file = RedmineTweaks.get_garfield(Time.zone.today)
         else
-          out = '<pre>Error in garfield macro. The correct usage is {{garfield([&lt;yyyy&gt;,&lt;mm&gt;,&lt;dd&gt;])}}.</pre>'
+          return '<pre>Error in garfield macro. The correct usage is {{garfield([&lt;yyyy&gt;,&lt;mm&gt;,&lt;dd&gt;])}}.</pre>'
         end
 
         image = url_for(controller: 'garfield', action: 'show', name: file[:name], type: file[:type])

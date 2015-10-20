@@ -17,6 +17,7 @@ if ActiveRecord::Base.connection.table_exists?(:settings)
     require 'redmine_tweaks/patches/issue_patch'
     require 'redmine_tweaks/patches/wiki_patch'
     require 'redmine_tweaks/patches/wiki_controller_patch'
+    require 'redmine_tweaks/wiki_macros/gist'
     require 'redmine_tweaks/wiki_macros/project_macros'
     require 'redmine_tweaks/wiki_macros/user_macros'
     require 'redmine_tweaks/wiki_macros/date_macros'

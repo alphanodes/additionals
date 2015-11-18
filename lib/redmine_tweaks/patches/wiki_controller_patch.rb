@@ -21,7 +21,7 @@ module RedmineTweaks
     module InstanceMethodsForRedmineTweaksWikiController
       def respond_to_with_redmine_tweaks(&block)
         if @project && @content
-          if (@_action_name == 'show')
+          if @_action_name == 'show'
             redmine_tweaks_include_header
             redmine_tweaks_include_footer
           end

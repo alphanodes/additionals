@@ -58,9 +58,9 @@ module RedmineTweaks
         return true if RedmineTweaks.settings[:issue_status_x].nil?
         return true if RedmineTweaks.settings[:issue_status_y].nil?
         if !assigned_to_id_changed? &&
-          status_id_changed? &&
-          (RedmineTweaks.settings[:issue_status_x].include?status_id_was.to_s) &&
-          RedmineTweaks.settings[:issue_status_y].to_i == status_id
+           status_id_changed? &&
+           (RedmineTweaks.settings[:issue_status_x].include?status_id_was.to_s) &&
+           RedmineTweaks.settings[:issue_status_y].to_i == status_id
           self.assigned_to = author
         end
       end

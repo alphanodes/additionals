@@ -64,7 +64,15 @@ de:
   rule_issue_status_change_info: "Use Case: Zur Abnahme der Tickets sollen alle Tickets automatisch dem Ersteller des Tickets zugeordnet werden, sofern kein anderer Benutzer ausgewählt wird."
   label_rule_issue_current_user_status: "Der Ticketstatus x ist nur erlaubt, wenn \"Zugewiesen an\" der aktuelle Benutzer zugewiesen wird."
   rule_issue_current_user_status_info: "Use Case: Ein Benutzer soll nur den Status auf \"In Progress\" selbst stellen können, um damit anzuzeigen, dass er an dem Ticket (gerade) arbeitet."
-  days: Tage
+  minutes:
+    one: Minute
+    other: Minuten
+  hours:
+    one: Stunde
+    other: Stunden
+  days:
+    one: Tag
+    other: Tage
   label_system_info: Systeminformation
   label_uptime: Betriebszeit
   activerecord:

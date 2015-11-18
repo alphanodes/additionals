@@ -8,7 +8,27 @@ module RedmineTweaks
       if windows_platform?
         `net stats srv | find "Statist"`
       else
-        "#{`uptime | awk '{print $3}'`} #{l(:days)}"
+        if File.exist?('/proc/uptime')
+          secs = "#{`cat /proc/uptime`}".to_i
+          min = 0
+          hours = 0
+          days = 0
+          if secs>0
+            min = (secs / 60).round
+            hours = (secs / 3600).round
+            days = (secs / 86400).round
+          end
+          if days >= 1
+            "#{days} #{l(:days, count: days)}"
+          elsif hours >= 1
+            "#{hours} #{l(:hours, count: hours)}"
+          else
+            "#{min} #{l(:minutes, count: min)}"
+          end
+        else
+          days = "#{`uptime | awk '{print $3}'`}".to_i.round
+          "#{days} #{l(:days, count: days)}"
+        end
       end
     end
 

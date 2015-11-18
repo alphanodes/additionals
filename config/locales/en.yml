@@ -64,7 +64,15 @@ en:
   rule_issue_status_change_info: "Use Case: issues should be automatically assigned to autor, if the status changes to \"Approval\"."
   label_rule_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
   rule_issue_current_user_status_info: "Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."
-  days: days
+  minutes:
+    one: minute
+    other: minutes
+  hours:
+    one: hour
+    other: hours
+  days:
+    one: day
+    other: days
   label_system_info: System info
   label_uptime: Uptime
   activerecord:

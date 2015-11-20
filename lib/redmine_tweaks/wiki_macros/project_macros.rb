@@ -42,7 +42,7 @@ module RedmineTweaks
     if ActiveRecord::VERSION::MAJOR < 4
       all_projects = Project.active.visible(User.current).find(:all, order: 'projects.name')
     else
-      all_projects = Project.visible.sorted
+      all_projects = Project.active.visible.sorted
     end
     my_projects = []
     all_projects.each do |p|

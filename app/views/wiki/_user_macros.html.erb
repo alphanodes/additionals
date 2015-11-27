@@ -8,7 +8,7 @@
       <% if user_roles[user.id] %><div class="user line"><%= l(:field_role) %>: <%= user_roles[user.id].join(", ").html_safe %></div><% end %>
       <div class="user line"><%= l(:field_login) %>: <%= link_to user.login, '/users/' + user.id.to_s() %></div>
 			<% if !user.pref.hide_mail %>
-			<div class="user line"><%= l(:field_mail) %>: <%= mail_to(h(user.mail), nil, :encode => 'javascript') %></div>
+			<div class="user line"><%= l(:field_mail) %>: <%= mail_to("#{user.mail}", nil, :encode => 'javascript') %></div>
 			<% end %>
 		</div><%
   } %>

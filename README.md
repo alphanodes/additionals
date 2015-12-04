@@ -1,6 +1,6 @@
 # Redmine tweaks plugin
 
-[![Dependency Status](https://gemnasium.com/alexandermeindl/redmine_tweaks.svg)](https://gemnasium.com/alexandermeindl/redmine_tweaks)
+[![Dependency Status](https://gemnasium.com/alexandermeindl/redmine_tweaks.svg)](https://gemnasium.com/alexandermeindl/redmine_tweaks) [![Build Status](https://drone.io/github.com/alexandermeindl/redmine_tweaks/status.png)](https://drone.io/github.com/alexandermeindl/redmine_tweaks/latest)
 
 * use "Project guide" on project overview page
 * global header for all projects

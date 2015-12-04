@@ -6,7 +6,7 @@ require File.expand_path('../../test_helper', __FILE__)
 # Redmine Tweaks functional tests
 class WikiControllerTest < ActionController::TestCase
   fixtures :projects,
-           :users, :email_addresses,
+           :users,
            :roles,
            :members,
            :member_roles,

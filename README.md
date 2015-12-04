@@ -1,5 +1,7 @@
 # Redmine tweaks plugin
 
+[![Dependency Status](https://gemnasium.com/alexandermeindl/redmine_tweaks.svg)](https://gemnasium.com/alexandermeindl/redmine_tweaks)
+
 * use "Project guide" on project overview page
 * global header for all projects
 * global footer for all projects
@@ -158,7 +160,7 @@ Note: Redmine must be restarted after changing "Custom Help URL"</tt> value befo
 
 - Redmine 2.6.x compatiblity
 - URL fixes
-- Garfield macro has been added 
+- Garfield macro has been added
 
 ### 0.4.9
 

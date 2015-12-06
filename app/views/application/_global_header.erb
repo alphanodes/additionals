@@ -1,14 +1,18 @@
-<% if Setting.plugin_redmine_tweaks['external_urls'] == '1' %>
-<%= javascript_include_tag('redmine_tweaks.js', :plugin => :redmine_tweaks) %>
-<% elsif Setting.plugin_redmine_tweaks['external_urls'] == '2' %>
-<%= javascript_include_tag('redmine_tweaks_anonymize.js', :plugin => :redmine_tweaks) %>
+<% if Setting.plugin_redmine_tweaks['external_urls'].to_i > 0 %>
+<%= javascript_include_tag('redirect.js', :plugin => :redmine_tweaks) %>
 <% end %>
-<%= stylesheet_link_tag 'application', :plugin => 'redmine_tweaks' %>
+<% if Setting.plugin_redmine_tweaks['external_urls'].to_i == 2 %>
+<%= javascript_include_tag('noreferrer.js', :plugin => :redmine_tweaks) %>
+<% end %>
+<%= stylesheet_link_tag 'tweaks', :plugin => 'redmine_tweaks' %>
+<%= stylesheet_link_tag 'bootstrap-datepicker3.min.css', :plugin => 'redmine_tweaks' %>
+<%= javascript_include_tag('bootstrap-datepicker.min.js', :plugin => :redmine_tweaks) %>
+<% locale = User.current.language.blank? ? ::I18n.locale : User.current.language %>
+<%= javascript_include_tag("locales/bootstrap-datepicker.#{locale}.min.js", :plugin => :redmine_tweaks) unless locale == 'en' %>
 
 <%
 user_roles = User.current.memberships.collect {|m| m.roles}.flatten.uniq
 5.times do |i|
-  
     menu_name = 'custom_menu'+i.to_s
     url = Setting.plugin_redmine_tweaks[menu_name+'_url']
     name = Setting.plugin_redmine_tweaks[menu_name+'_name']

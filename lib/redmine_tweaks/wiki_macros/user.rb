@@ -46,7 +46,9 @@ module RedmineTweaks
           project ||= Project.visible.find_by_name(project_id)
           return '' if project.nil?
 
-          raw_users = User.active.where(["#{User.table_name}.id IN (SELECT DISTINCT user_id FROM members WHERE project_id=(?))", project.id]).sort
+          raw_users = User.active
+                      .where(["#{User.table_name}.id IN (SELECT DISTINCT user_id FROM members WHERE project_id=(?))", project.id])
+                      .sort
           return '' if raw_users.nil?
 
           users = []
@@ -60,7 +62,9 @@ module RedmineTweaks
           project_ids = Project.visible.collect(&:id)
           return '' unless project_ids.any?
           # members of the user's projects
-          users = User.active.where(["#{User.table_name}.id IN (SELECT DISTINCT user_id FROM members WHERE project_id IN (?))", project_ids]).sort
+          users = User.active
+                  .where(["#{User.table_name}.id IN (SELECT DISTINCT user_id FROM members WHERE project_id IN (?))", project_ids])
+                  .sort
         end
         render partial: 'wiki/user_macros', locals: { users: users,
                                                       user_roles: user_roles,

@@ -17,21 +17,16 @@ module RedmineTweaks
       # Instance methods with helper functions
       module InstanceMethods
         def editable_with_closed_edit?(user = User.current)
-          if editable_without_closed_edit?(user)
-            if self.closed?
-              user.allowed_to?(:edit_closed_issues, project)
-            else
-              true
-            end
-          end
+          return unless editable_without_closed_edit?(user)
+          true unless self.closed?
+          user.allowed_to?(:edit_closed_issues, project)
         end
       end
 
       def new_ticket_message
         @new_ticket_message = ''
-        unless Setting.plugin_redmine_tweaks['new_ticket_message'].blank?
-          @new_ticket_message << Setting.plugin_redmine_tweaks['new_ticket_message']
-        end
+        message = Setting.plugin_redmine_tweaks['new_ticket_message']
+        @new_ticket_message << message unless message.blank?
       end
 
       private

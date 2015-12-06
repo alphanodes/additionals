@@ -1,4 +1,3 @@
-
 .nodata.nodata-left { text-align: left; }
 
 /* Go to top link */
@@ -15,4 +14,8 @@
 .tweak-footer {
     text-align: center;
     font-size: 90%;
+}
+
+.month-calendar {
+  display:inline-block;
 }

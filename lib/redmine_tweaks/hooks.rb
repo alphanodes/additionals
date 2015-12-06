@@ -1,6 +1,9 @@
 # Redmine Tweaks plugin for Redmine
 # Copyright (C) 2013-2015 AlphaNodes GmbH
 
+require 'redmine'
+require 'application_helper'
+
 module RedmineTweaks
   class RedmineTweaksHookListener < Redmine::Hook::ViewListener
     render_on(:view_layouts_base_html_head, partial: 'global_header')

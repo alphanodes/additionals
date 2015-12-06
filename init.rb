@@ -8,7 +8,7 @@ Redmine::Plugin.register :redmine_tweaks do
   name 'Redmine Tweaks'
   author 'AlphaNodes GmbH'
   description 'Wiki and content extensions'
-  version '0.5.5'
+  version '0.5.6'
   author_url 'https://alphanodes.com/'
   url 'https://github.com/alexandermeindl/redmine_tweaks'
 

@@ -11,19 +11,26 @@ if ActiveRecord::Base.connection.table_exists?(:settings)
   # We now use overridden module RedmineCustomHelpUrl::Redmine::Info instead of directly calling
   # Setting.plugin_redmine_custom_help_url['custom_help_url']
   Rails.configuration.to_prepare do
+    require 'redmine_tweaks/patches/application_helper_patch'
     require 'redmine_tweaks/helpers/tweaks_helper'
     require 'redmine_tweaks/hooks'
     require 'redmine_tweaks/patches/custom_help_url'
     require 'redmine_tweaks/patches/issue_patch'
     require 'redmine_tweaks/patches/wiki_patch'
     require 'redmine_tweaks/patches/wiki_controller_patch'
+
+    require 'redmine_tweaks/wiki_macros/calendar'
+    require 'redmine_tweaks/wiki_macros/date'
+    require 'redmine_tweaks/wiki_macros/garfield'
     require 'redmine_tweaks/wiki_macros/gist'
-    require 'redmine_tweaks/wiki_macros/project_macros'
-    require 'redmine_tweaks/wiki_macros/user_macros'
-    require 'redmine_tweaks/wiki_macros/date_macros'
-    require 'redmine_tweaks/wiki_macros/garfield_macros'
-    require 'redmine_tweaks/wiki_macros/vimeo_macros'
-    require 'redmine_tweaks/wiki_macros/youtube_macros'
+    require 'redmine_tweaks/wiki_macros/last_updated_at'
+    require 'redmine_tweaks/wiki_macros/last_updated_by'
+    require 'redmine_tweaks/wiki_macros/project'
+    require 'redmine_tweaks/wiki_macros/recently_updated'
+    require 'redmine_tweaks/wiki_macros/twitter'
+    require 'redmine_tweaks/wiki_macros/user'
+    require 'redmine_tweaks/wiki_macros/vimeo'
+    require 'redmine_tweaks/wiki_macros/youtube'
 
     unless RedmineTweaks.settings[:remove_help]
       Redmine::Plugin.find('redmine_tweaks')

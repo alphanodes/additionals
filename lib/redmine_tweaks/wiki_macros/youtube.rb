@@ -1,26 +1,25 @@
 # Redmine Tweaks plugin for Redmine
 # Copyright (C) 2013-2015 AlphaNodes GmbH
 
-# Vimeo wiki macros
+# Youtube wiki macros
 module RedmineTweaks
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
       desc <<-EOHELP
-  Vimeo macro to include vimeo video.
+  Youtube macro to include youtube video.
 
     Syntax:
 
-    {{vimeo(<video key> [, width=640, height=360, autoplay=BOOL])}}
+    {{youtube(<video key> [, width=640, height=360, autoplay=BOOL])}}
 
     Examples:
 
-    {{vimeo(142849533)}} show video with default size 640x360
-    {{vimeo(142849533, width=853, height=480)}} show video with user defined size
-    {{vimeo(142849533, autoplay=true)}} autoplay video
+    {{youtube(KMU0tzLwhbE)}} show video with default size 640x360
+    {{youtube(KMU0tzLwhbE, width=853, height=480)}} show video with user defined size
+    {{youtube(KMU0tzLwhbE, autoplay=true)}} autoplay video
   EOHELP
 
-      # Register vimeo macro
-      macro :vimeo do |_obj, args|
+      macro :youtube do |_obj, args|
         args, options = extract_macro_options(args, :width, :height, :autoplay)
 
         width = 640
@@ -35,14 +34,14 @@ module RedmineTweaks
         if (options[:width].blank? && !options[:height].blank?) ||
            (!options[:width].blank? && options[:height].blank?) ||
            args.length < 1
-          fail 'The correct usage is {{vimeo(<video key>[, width=x, height=y])}}'
+          fail 'The correct usage is {{youtube(<video key>[, width=x, height=y])}}'
         end
 
         v = args[0]
         if autoplay
-          src = '//player.vimeo.com/video/' + v + '?autoplay=1'
+          src = '//www.youtube.com/embed/' + v + '?autoplay=1'
         else
-          src = '//player.vimeo.com/video/' + v
+          src = '//www.youtube-nocookie.com/embed/' + v
         end
         content_tag(:iframe, '', width: width, height: height, src: src, frameborder: 0, allowfullscreen: 'true')
       end

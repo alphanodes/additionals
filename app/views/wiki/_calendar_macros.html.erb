@@ -1,0 +1,15 @@
+<div id="month-calendar-<%= id %>" class="month-calendar"></div>
+
+<%= javascript_tag do %>
+  $('#month-calendar-<%= id %>').datepicker({
+      language: "<%= locale %>",
+      calendarWeeks: <%= options[:show_weeks] %>,
+      todayHighlight: true,
+      multidate: true,
+      disableTouchKeyboard: true,
+      defaultViewDate: { year: <%= options[:year] %>, month: <%= options[:month] %>, day: 1 }
+  });
+  <% unless selected.empty? %>
+    $('#month-calendar-<%= id %>').datepicker('setDates', <%= selected %>);
+  <% end %>
+<% end %>

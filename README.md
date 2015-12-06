@@ -48,6 +48,11 @@ Restart Redmine and have a fun!
 
 ## Usage
 
+### User macro
+
+* user#1 links to user profile
+* user:admin links to user profile
+
 ### User list macros
 
 * users
@@ -99,6 +104,20 @@ Macro to get current date, year, month, day
 {{gist(6737338)}} := Show Github gist 6737338
 {{gist(plentz/6737338)}} := Show Github gist 6737338
 
+### Recently updated wiki pages
+
+{{recently_updated}} macro displays the list of the pages that were changed within last 5 days. If you specify the argument like {{recently_updated(10)}}, it displays the pages that were changed within 10 days.
+
+### Last updated by
+{{last_updated_by}} macro displays the name of user who updated the wiki page.
+
+### Last updated at
+{{last_updated_at}} macro displays the timestamp when the wiki page was updated.
+
+### Twitter macro
+
+{{twitter('alphanodes')}} := links the twitter profile alphanodes
+
 ### Youtube macro
 
 {{youtube(wvsboPUjrGc)}} := youtube video with video wvsboPUjrGc (iframe) and default size 640x360
@@ -117,97 +136,3 @@ Macro to get current date, year, month, day
 
 Change help url in top menu to custom url.
 Note: Redmine must be restarted after changing "Custom Help URL"</tt> value before the new url is used.
-
-
-## Changelog
-
-### 0.5.6
-
-- system information uptime and uname have been added
-- gist macro support
-- vimeo macro support
-
-### 0.5.5
-
-- dependency with deface (used to overview views)
-- fixed garfield caching macro probem
-- you can add content to overview page now (top and bottom)
-- some content and view optimization (removed wiki_sidebar compatiblitity problems with other Redmine plugins)
-- Code cleanups and refactoring
-
-### 0.5.4
-
-- issue rule added for closing issue with open sub issues
-- issue rule added for status change
-- issue rule added for assigned_to change_
-
-### 0.5.3
-
-- Redmine 3.0.x and 3.1.x supported
-- "New issue" link with list_projects macro
-- Parameter syntax changed for list_users and list_projects macros (sorry for that)
-
-### 0.5.2
-
-- "Edit closed issue" permission has been added
-- Permissions supported for top menu items
-
-### 0.5.1
-
-- "Hide role in memberbox" has been added
-
-### 0.5.0
-
-- Redmine 2.6.x compatiblity
-- URL fixes
-- Garfield macro has been added
-
-### 0.4.9
-
-- added overview text field
-- fix style for "goto top"
-- added macro overview help page
-- fix compatiblity problems with sidebar and other plugins
-
-### 0.4.8
-
-- added youtube macro
-- project guide subject can be defined for project overview page
-
-### 0.4.7
-
-- added jump to top link
-- top menu item configuration has been added
-- footer configuration (e.g. for imprint url) has been added
-
-### 0.4.6
-
-- initialize plugins settings now works with other plugins
-
-### 0.4.5
-
-- option to remove help menu item
-- Redmine 2.4.1 required
-
-### 0.4.4
-
-- installation error fixed
-- description update for link handling
-- help url now opens in new windows
-- sidebar error has been fixed, if no wiki page already exist
-
-### 0.4.3
-
-- global gantt and calendar bugfix
-
-### 0.4.2
-
-- no requirements of Wiki extensions plugin anymore
-
-### 0.4.1
-
-- Fix problem with my page permission
-
-### 0.4.0
-
-- First public release

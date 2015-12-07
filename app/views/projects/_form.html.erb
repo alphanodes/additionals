@@ -20,6 +20,12 @@
 <p><%= f.check_box :inherit_members %></p>
 <% end %>
 
+<% if Redmine::VERSION.to_s >= '3.2' %>
+<% if @project.safe_attribute?('default_version_id') && (default_version_options = project_default_version_options(@project)).present? %>
+  <p><%= f.select :default_version_id, project_default_version_options(@project), :include_blank => true %></p>
+<% end %>
+<% end %>
+
 <%= wikitoolbar_for 'project_description' %>
 
 <% @project.custom_field_values.each do |value| %>
@@ -64,7 +70,7 @@ end
   <%= check_box_tag 'project[issue_custom_field_ids][]', custom_field.id, (@project.all_issue_custom_fields.include? custom_field),
         :disabled => (custom_field.is_for_all? ? "disabled" : nil),
         :id => nil %>
-  <% if ActiveRecord::VERSION::MAJOR < 4 %>
+  <% if Redmine::VERSION.to_s < '3.0' %>
       <%= custom_field.name %>
   <% else %>
       <%= custom_field_name_tag(custom_field) %>

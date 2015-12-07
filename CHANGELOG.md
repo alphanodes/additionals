@@ -4,6 +4,7 @@
 
 ### 0.5.6
 
+- Redmine 3.2.x compatibility
 - user macro has been added (user#1 or user:admin)
 - recently_updated has been added
 - lastupdated_by has been added
@@ -18,9 +19,9 @@
 ### 0.5.5
 
 - dependency with deface (used to overview views)
-- fixed garfield caching macro probem
+- fixed garfield caching macro problem
 - you can add content to overview page now (top and bottom)
-- some content and view optimization (removed wiki_sidebar compatiblitity problems with other Redmine plugins)
+- some content and view optimization (removed wiki_sidebar compatibility problems with other Redmine plugins)
 - Code cleanups and refactoring
 
 ### 0.5.4
@@ -46,7 +47,7 @@
 
 ### 0.5.0
 
-- Redmine 2.6.x compatiblity
+- Redmine 2.6.x compatibility
 - URL fixes
 - Garfield macro has been added
 
@@ -55,7 +56,7 @@
 - added overview text field
 - fix style for "goto top"
 - added macro overview help page
-- fix compatiblity problems with sidebar and other plugins
+- fix compatibility problems with sidebar and other plugins
 
 ### 0.4.8
 
@@ -86,7 +87,7 @@
 
 ### 0.4.3
 
-- global gantt and calendar bugfix
+- global gantt and calendar bug fix
 
 ### 0.4.2
 

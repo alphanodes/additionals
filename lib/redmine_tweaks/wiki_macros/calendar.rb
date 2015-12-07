@@ -6,7 +6,8 @@ module RedmineTweaks
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
       desc <<-EOHELP
-  Display calendar.  Examples:
+  Display calendar (only works on wiki pages)
+    Examples:
 
     {{calendar}}                    show calendar for current date
     {{calendar(year=2014,month=6)}} show calendar for Juni in year 2014
@@ -17,6 +18,7 @@ module RedmineTweaks
 
       macro :calendar do |_obj, args|
         args, options = extract_macro_options(args, :show_weeks, :year, :month, :select)
+        fail 'Only works on wiki page' unless controller_name == 'wiki' && action_name == 'show'
 
         options[:show_weeks] = 'false' if options[:show_weeks].blank?
         options[:year] = "#{Time.zone.now.year}" if options[:year].blank?

@@ -18,7 +18,7 @@ module RedmineTweaks
       module InstanceMethods
         def editable_with_closed_edit?(user = User.current)
           return unless editable_without_closed_edit?(user)
-          true unless self.closed?
+          return true unless self.closed?
           user.allowed_to?(:edit_closed_issues, project)
         end
       end

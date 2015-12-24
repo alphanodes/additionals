@@ -59,7 +59,7 @@ en:
   menu_roles_info: "Only members of selected roles will see this menu entry."
   label_rule_issue_close_with_open_children: Issues with open sub-issues cannot be closed
   top_rules_help: "Here you can define rules, which are used in issues of all projects."
-  top_content_help: "Here you can define texts, which will be displayed in diverse areas of Redmine."
+  top_content_help: "Here you can define texts, which will be displayed in diverse areas of Redmine. Use simple text, macros and wiki syntax for your content."
   label_rule_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
   rule_issue_status_change_info: "Use Case: issues should be automatically assigned to autor, if the status changes to \"Approval\"."
   label_rule_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."

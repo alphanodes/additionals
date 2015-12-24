@@ -13,6 +13,7 @@ module RedmineTweaks
     {{calendar(year=2014,month=6)}} show calendar for Juni in year 2014
     {{calendar(show_weeks=true)}}   show calendar with week numbers
     {{calendar(select=2015-07-12 2015-07-31, show_weeks=true)}} preselect dates and show week numbers
+    {{calendar(select=2016-03-13:2016-03-27)}} preselect dates between 2016/3/13 and 2016/3/27
 
   EOHELP
 
@@ -37,14 +38,33 @@ module RedmineTweaks
   end
 
   def self.convert_string2date(string)
-    s = string.split
+    if string.include? ':'
+      selected = convert_string2period(string)
+    else
+      selected = convert_string2dates(string)
+    end
+    selected.join(', ')
+  end
+
+  def self.convert_string2period(string)
+    s = string.split ':'
+    fail 'missing date' if s[0].blank? || s[1].blank?
+    tstart = Date.strptime(s[0], '%Y-%m-%d')
+    fail 'invalid start date' if tstart.nil?
+    tend = Date.strptime(s[1], '%Y-%m-%d')
+    fail 'invalid start date' if tend.nil?
+    (tstart..tend).map { |date| "new Date(#{date.year},#{date.month - 1},#{date.mday})" }
+  end
+
+  def self.convert_string2dates(string)
     selected = []
+    s = string.split
     s.each do |d|
       con = Date.strptime(d, '%Y-%m-%d')
       unless con.nil?
         selected << "new Date(#{con.year},#{con.month - 1},#{con.mday})"
       end
     end
-    selected.join(', ')
+    selected
   end
 end

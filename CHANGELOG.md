@@ -2,6 +2,10 @@
 
 ## Changelog
 
+### 0.5.7
+
+- date period support for calendar macro
+
 ### 0.5.6
 
 - Redmine 3.2.x compatibility

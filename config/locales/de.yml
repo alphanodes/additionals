@@ -59,7 +59,7 @@ de:
   menu_roles_info: "Nur den ausgewählten Rollen wird der Menüpunkt angezeigt. Sobald ein Mitglied in einem Projekt die Rolle besitzt, wird der Menüpunkt angezeigt."
   label_rule_issue_close_with_open_children: Tickets mit offenen Untertickets können nicht geschlossen werden
   top_rules_help: "Hier können Regeln konfiguriert werden, die den Umgang mit Tickets festlegen. Sobald eine Regel aktiviert wurde, wirkt sich diese auf alle Projekte aus."
-  top_content_help: "Hier können Texte hinterlegt werden, welche an unterschiedlichen Stellen in Redmine ausgegeben werden."
+  top_content_help: "Hier können Texte hinterlegt werden, welche an unterschiedlichen Stellen in Redmine ausgegeben werden. Verwenden Sie einfachen Text, Makros oder Wikisyntax für die Inhalte."
   label_rule_issue_status_change: "Wird \"Zugewiesen an\" nicht verändert und der Ticketstatus von x auf y geändert, dann wird das Ticket automatisch dem Ersteller zugewiesen"
   rule_issue_status_change_info: "Use Case: Zur Abnahme der Tickets sollen alle Tickets automatisch dem Ersteller des Tickets zugeordnet werden, sofern kein anderer Benutzer ausgewählt wird."
   label_rule_issue_current_user_status: "Der Ticketstatus x ist nur erlaubt, wenn \"Zugewiesen an\" der aktuelle Benutzer zugewiesen wird."

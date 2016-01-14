@@ -7,9 +7,9 @@ module RedmineTweaks
     Redmine::WikiFormatting::Macros.register do
       desc <<-EOHELP
       Displays a date that updated the page.
-        {{lastupdated_at}}
-        {{lastupdated_at(project_name, wiki_page)}}
-        {{lastupdated_at(project_identifier, wiki_page)}}
+        {{last_updated_at}}
+        {{last_updated_at(project_name, wiki_page)}}
+        {{last_updated_at(project_identifier, wiki_page)}}
       EOHELP
 
       macro :last_updated_at do |obj, args|

@@ -4,6 +4,7 @@
 
 ### 0.5.7
 
+- Wiki footer bug fixed with missing line break at the end of page
 - date period support for calendar macro
 
 ### 0.5.6

@@ -60,7 +60,7 @@ module RedmineTweaks
         end
 
         text = @content.text
-        text << "\n"
+        text << "\n\n"
         text << '<div id="wiki_extentions_footer">'
         text << "\n\n"
         text << wiki_footer

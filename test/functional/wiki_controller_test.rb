@@ -186,6 +186,7 @@ class WikiControllerTest < ActionController::TestCase
 
   def test_show_with_garfield_macro
     @request.session[:user_id] = 1
+    RedmineTweaks.settings['garfield_source_host'] = 'garfield.com'
     @page.content.text = '{{garfield(2015-10-20)}}'
     @page.content.save!
     get :show, project_id: 1, id: @page_name

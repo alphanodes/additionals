@@ -11,6 +11,7 @@
 * Wiki user macros
 * Wiki project macros
 * Wiki date macros
+* Wiki Garfield marco
 * Wiki Gist marco
 * Wiki Youtube marco
 * Wiki Vimeo marco
@@ -100,6 +101,11 @@ Macro to get current date, year, month, day
 {{current_min}} := current minute
 {{current_weekday}} := current weekday
 {{current_weeknumber}} := current week number (The week starts with Monday)
+
+### Garfield macro
+
+{{garfield}} := show Garfield strip of the current day
+{{garfield(2014-10-31)}} := show Garfield strip of 31/12/2014
 
 ### Gist macro
 

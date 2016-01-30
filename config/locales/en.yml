@@ -64,6 +64,8 @@ en:
   rule_issue_status_change_info: "Use Case: issues should be automatically assigned to autor, if the status changes to \"Approval\"."
   label_rule_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
   rule_issue_current_user_status_info: "Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."
+  label_garfield_source: Garfield source host
+  garfield_source_info: "Enter the server here (only host name), by which the single comics by the use of SSL are offered. Please make sure to respect the particular terms of use and copyright laws."
   minutes:
     one: minute
     other: minutes

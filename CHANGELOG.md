@@ -4,7 +4,7 @@
 
 ### 0.5.7
 
-- Removed Garfield macro because of legal concerns
+- Custom source URL for Garfield source
 - Wiki footer bug fixed with missing line break at the end of page
 - date period support for calendar macro
 - Code cleanups

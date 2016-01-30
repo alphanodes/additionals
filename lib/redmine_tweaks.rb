@@ -21,6 +21,7 @@ if ActiveRecord::Base.connection.table_exists?(:settings)
 
     require 'redmine_tweaks/wiki_macros/calendar'
     require 'redmine_tweaks/wiki_macros/date'
+    require 'redmine_tweaks/wiki_macros/garfield'
     require 'redmine_tweaks/wiki_macros/gist'
     require 'redmine_tweaks/wiki_macros/last_updated_at'
     require 'redmine_tweaks/wiki_macros/last_updated_by'

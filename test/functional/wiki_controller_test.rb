@@ -1,5 +1,5 @@
 # Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013-2015 AlphaNodes GmbH
+# Copyright (C) 2013-2016 AlphaNodes GmbH
 
 require File.expand_path('../../test_helper', __FILE__)
 
@@ -191,17 +191,6 @@ class WikiControllerTest < ActionController::TestCase
     get :show, project_id: 1, id: @page_name
     assert_response :success
     assert_template 'show'
-    assert_select 'div.wiki span.current-date', "#{Time.zone.today.cweek}"
-  end
-
-  def test_show_with_garfield_macro
-    @request.session[:user_id] = 1
-    @page.content.text = '{{garfield(2015,10,20)}}'
-    @page.content.save!
-    get :show, project_id: 1, id: @page_name
-    assert_response :success
-    assert_template 'show'
-    assert_select 'div.wiki img.garfield'
-    assert_select 'img[src=?]', '/garfield/ga151020/gif'
+    assert_select 'div.wiki span.current-date', Time.zone.today.cweek.to_s
   end
 end

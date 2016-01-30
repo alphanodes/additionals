@@ -1,5 +1,5 @@
 # Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013-2015 AlphaNodes GmbH
+# Copyright (C) 2013-2016 AlphaNodes GmbH
 
 # Calendar wiki macros
 module RedmineTweaks
@@ -22,8 +22,8 @@ module RedmineTweaks
         fail 'Only works on wiki page' unless controller_name == 'wiki' && action_name == 'show'
 
         options[:show_weeks] = 'false' if options[:show_weeks].blank?
-        options[:year] = "#{Time.zone.now.year}" if options[:year].blank?
-        options[:month] = "#{Time.zone.now.month}" if options[:month].blank?
+        options[:year] = Time.zone.now.year.to_s if options[:year].blank?
+        options[:month] = Time.zone.now.month.to_s if options[:month].blank?
         options[:month] = options[:month].to_i - 1
 
         selected = ''
@@ -38,11 +38,11 @@ module RedmineTweaks
   end
 
   def self.convert_string2date(string)
-    if string.include? ':'
-      selected = convert_string2period(string)
-    else
-      selected = convert_string2dates(string)
-    end
+    selected = if string.include? ':'
+                 convert_string2period(string)
+               else
+                 convert_string2dates(string)
+               end
     selected.join(', ')
   end
 

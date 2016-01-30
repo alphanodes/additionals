@@ -1,5 +1,5 @@
 # Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013-2015 AlphaNodes GmbH
+# Copyright (C) 2013-2016 AlphaNodes GmbH
 
 if ActiveRecord::Base.connection.table_exists?(:settings)
   # Workaround inability to access Setting.plugin_name['setting'], both directly as well as via overridden
@@ -21,7 +21,6 @@ if ActiveRecord::Base.connection.table_exists?(:settings)
 
     require 'redmine_tweaks/wiki_macros/calendar'
     require 'redmine_tweaks/wiki_macros/date'
-    require 'redmine_tweaks/wiki_macros/garfield'
     require 'redmine_tweaks/wiki_macros/gist'
     require 'redmine_tweaks/wiki_macros/last_updated_at'
     require 'redmine_tweaks/wiki_macros/last_updated_by'
@@ -34,7 +33,11 @@ if ActiveRecord::Base.connection.table_exists?(:settings)
 
     unless RedmineTweaks.settings[:remove_help]
       Redmine::Plugin.find('redmine_tweaks')
-        .menu :top_menu, :help, RedmineTweaks::Patches::CustomHelpUrl::Redmine::Info.help_url, html: { target: '_blank' }, last: true
+                     .menu :top_menu,
+                           :help,
+                           RedmineTweaks::Patches::CustomHelpUrl::Redmine::Info.help_url,
+                           html: { target: '_blank' },
+                           last: true
     end
   end
 end

@@ -1,5 +1,5 @@
 # Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013-2015 AlphaNodes GmbH
+# Copyright (C) 2013-2016 AlphaNodes GmbH
 
 module RedmineTweaks
   module Patches
@@ -18,7 +18,7 @@ module RedmineTweaks
       module InstanceMethods
         def editable_with_closed_edit?(user = User.current)
           return unless editable_without_closed_edit?(user)
-          return true unless self.closed?
+          return true unless closed?
           user.allowed_to?(:edit_closed_issues, project)
         end
       end
@@ -42,8 +42,8 @@ module RedmineTweaks
         return true unless RedmineTweaks.settings[:issue_current_user_status]
         return true if RedmineTweaks.settings[:issue_assign_to_x].nil?
         if (assigned_to_id_changed? || status_id_changed?) &&
-          (RedmineTweaks.settings[:issue_assign_to_x].include?status_id.to_s) &&
-          (assigned_to_id.blank? || assigned_to_id != User.current.id)
+           (RedmineTweaks.settings[:issue_assign_to_x].include?status_id.to_s) &&
+           (assigned_to_id.blank? || assigned_to_id != User.current.id)
           errors.add :base, :issue_current_user_status
         end
       end

@@ -1,5 +1,5 @@
 # Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013-2015  AlphaNodes GmbH
+# Copyright (C) 2013-2016 AlphaNodes GmbH
 
 # Redmine Tweak helper functions
 module RedmineTweaks
@@ -7,28 +7,26 @@ module RedmineTweaks
     def system_uptime
       if windows_platform?
         `net stats srv | find "Statist"`
-      else
-        if File.exist?('/proc/uptime')
-          secs = "#{`cat /proc/uptime`}".to_i
-          min = 0
-          hours = 0
-          days = 0
-          if secs > 0
-            min = (secs / 60).round
-            hours = (secs / 3_600).round
-            days = (secs / 86_400).round
-          end
-          if days >= 1
-            "#{days} #{l(:days, count: days)}"
-          elsif hours >= 1
-            "#{hours} #{l(:hours, count: hours)}"
-          else
-            "#{min} #{l(:minutes, count: min)}"
-          end
-        else
-          days = "#{`uptime | awk '{print $3}'`}".to_i.round
-          "#{days} #{l(:days, count: days)}"
+      elsif File.exist?('/proc/uptime')
+        secs = "#{`cat /proc/uptime`}".to_i
+        min = 0
+        hours = 0
+        days = 0
+        if secs > 0
+          min = (secs / 60).round
+          hours = (secs / 3_600).round
+          days = (secs / 86_400).round
         end
+        if days >= 1
+          "#{days} #{l(:days, count: days)}"
+        elsif hours >= 1
+          "#{hours} #{l(:hours, count: hours)}"
+        else
+          "#{min} #{l(:minutes, count: min)}"
+        end
+      else
+        days = "#{`uptime | awk '{print $3}'`}".to_i.round
+        "#{days} #{l(:days, count: days)}"
       end
     end
 

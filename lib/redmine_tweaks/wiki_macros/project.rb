@@ -1,5 +1,5 @@
 # Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013-2015 AlphaNodes GmbH
+# Copyright (C) 2013-2016 AlphaNodes GmbH
 
 # Project wiki macros
 module RedmineTweaks
@@ -39,11 +39,11 @@ module RedmineTweaks
   end
 
   def self.load_projects
-    if ActiveRecord::VERSION::MAJOR < 4
-      all_projects = Project.active.visible(User.current).find(:all, order: 'projects.name')
-    else
-      all_projects = Project.active.visible.sorted
-    end
+    all_projects = if ActiveRecord::VERSION::MAJOR < 4
+                     Project.active.visible(User.current).find(:all, order: 'projects.name')
+                   else
+                     Project.active.visible.sorted
+                   end
     my_projects = []
     all_projects.each do |p|
       my_projects << p if User.current.member_of?(p)

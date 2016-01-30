@@ -1,10 +1,6 @@
 # Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013-2015 AlphaNodes GmbH
+# Copyright (C) 2013-2016 AlphaNodes GmbH
 
-begin
-  require_dependency 'application'
-rescue LoadError
-end
 require_dependency 'wiki_controller'
 
 module RedmineTweaks

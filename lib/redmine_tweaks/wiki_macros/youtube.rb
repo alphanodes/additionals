@@ -1,5 +1,5 @@
 # Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013-2015 AlphaNodes GmbH
+# Copyright (C) 2013-2016 AlphaNodes GmbH
 
 # Youtube wiki macros
 module RedmineTweaks
@@ -38,11 +38,11 @@ module RedmineTweaks
         end
 
         v = args[0]
-        if autoplay
-          src = '//www.youtube.com/embed/' + v + '?autoplay=1'
-        else
-          src = '//www.youtube-nocookie.com/embed/' + v
-        end
+        src = if autoplay
+                '//www.youtube.com/embed/' + v + '?autoplay=1'
+              else
+                '//www.youtube-nocookie.com/embed/' + v
+              end
         content_tag(:iframe, '', width: width, height: height, src: src, frameborder: 0, allowfullscreen: 'true')
       end
     end

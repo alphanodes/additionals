@@ -1,5 +1,5 @@
 # Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013-2015 AlphaNodes GmbH
+# Copyright (C) 2013-2016 AlphaNodes GmbH
 
 # User wiki macros
 module RedmineTweaks
@@ -47,8 +47,8 @@ module RedmineTweaks
           return '' if project.nil?
 
           raw_users = User.active
-                      .where(["#{User.table_name}.id IN (SELECT DISTINCT user_id FROM members WHERE project_id=(?))", project.id])
-                      .sort
+                          .where(["#{User.table_name}.id IN (SELECT DISTINCT user_id FROM members WHERE project_id=(?))", project.id])
+                          .sort
           return '' if raw_users.nil?
 
           users = []
@@ -63,8 +63,8 @@ module RedmineTweaks
           return '' unless project_ids.any?
           # members of the user's projects
           users = User.active
-                  .where(["#{User.table_name}.id IN (SELECT DISTINCT user_id FROM members WHERE project_id IN (?))", project_ids])
-                  .sort
+                      .where(["#{User.table_name}.id IN (SELECT DISTINCT user_id FROM members WHERE project_id IN (?))", project_ids])
+                      .sort
         end
         render partial: 'wiki/user_macros', locals: { users: users,
                                                       user_roles: user_roles,

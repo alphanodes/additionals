@@ -4,8 +4,10 @@
 
 ### 0.5.7
 
+- Removed Garfield macro because of legal concerns
 - Wiki footer bug fixed with missing line break at the end of page
 - date period support for calendar macro
+- Code cleanups
 
 ### 0.5.6
 

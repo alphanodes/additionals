@@ -2,20 +2,27 @@
 
 /* Go to top link */
 .gototop {
-    border-top: 1px solid #eee;
-    display: block;
-    margin-top: 20px;
-    padding: 10px 0;
-    text-align: right;
-    clear: both;
+  border-top: 1px solid #eee;
+  display: block;
+  margin-top: 20px;
+  padding: 10px 0;
+  text-align: right;
+  clear: both;
 }
 
 /* Footer */
 .tweak-footer {
-    text-align: center;
-    font-size: 90%;
+  text-align: center;
+  font-size: 90%;
 }
 
 .month-calendar {
   display:inline-block;
+}
+
+.login-tweaks {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 490px;
+  font-size: 95%;
 }

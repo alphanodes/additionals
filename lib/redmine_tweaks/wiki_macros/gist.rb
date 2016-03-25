@@ -8,7 +8,7 @@ module RedmineTweaks
       desc 'gist embed'
 
       macro :gist do |_obj, args|
-        fail 'The correct usage is {{gist(<gist_id>)}}' if args.length < 1
+        raise 'The correct usage is {{gist(<gist_id>)}}' if args.empty?
         javascript_tag(nil, src: "https://gist.github.com/#{args[0]}.js")
       end
     end

@@ -17,7 +17,7 @@ module RedmineTweaks
         project = page.project
         return nil unless project
         days = 5
-        days = args[0].strip.to_i if args.length > 0
+        days = args[0].strip.to_i unless args.empty?
 
         return '' if days < 1
 

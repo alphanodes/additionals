@@ -21,12 +21,12 @@ module RedmineTweaks
   EOHELP
 
       macro :garfield do |_obj, args|
-        if args.length > 0
-          fail 'The correct usage is {{garfield([<yyyy>-<mm>-<dd>])}}' if args[0].blank? || args.length != 1
-          gdate = Date.strptime(args[0], '%Y-%m-%d')
-          fail 'invalid date' if gdate.nil?
-        else
+        if args.empty?
           gdate = Time.zone.today
+        else
+          raise 'The correct usage is {{garfield([<yyyy>-<mm>-<dd>])}}' if args[0].blank? || args.length != 1
+          gdate = Date.strptime(args[0], '%Y-%m-%d')
+          raise 'invalid date' if gdate.nil?
         end
 
         file = RedmineTweaks.get_garfield(gdate)
@@ -38,7 +38,7 @@ module RedmineTweaks
 
   def self.get_garfield(date)
     if Setting.plugin_redmine_tweaks['garfield_source_host'].blank?
-      fail 'Missing garfield source setting.'
+      raise 'Missing garfield source setting.'
     end
 
     filename = "#{date.strftime('%Y')}-#{date.strftime('%m')}-#{date.strftime('%d')}"

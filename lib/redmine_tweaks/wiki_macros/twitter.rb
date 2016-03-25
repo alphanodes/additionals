@@ -10,7 +10,7 @@ module RedmineTweaks
         {{twitter(user_name)}}
   EOHELP
       macro :twitter do |_obj, args|
-        fail 'The correct usage is {{twitter(<user_name>)}}' if args.length < 1
+        raise 'The correct usage is {{twitter(<user_name>)}}' if args.empty?
         user_name = args[0].strip
         link_to(h("@#{user_name}"), "https://twitter.com/#{user_name}", class: 'external twitter')
       end

@@ -14,10 +14,10 @@ module RedmineTweaks
 
       macro :last_updated_at do |obj, args|
         return '' unless @project
-        if args.length == 0
+        if args.empty?
           page = obj
         else
-          fail '{{last_updated_at(project_identifier, wiki_page)}}' if args.length < 2
+          raise '{{last_updated_at(project_identifier, wiki_page)}}' if args.length < 2
           project_name = args[0].strip
           page_name = args[1].strip
           project = Project.find_by_name(project_name)

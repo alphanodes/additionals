@@ -33,8 +33,8 @@ module RedmineTweaks
 
         if (options[:width].blank? && !options[:height].blank?) ||
            (!options[:width].blank? && options[:height].blank?) ||
-           args.length < 1
-          fail 'The correct usage is {{youtube(<video key>[, width=x, height=y])}}'
+           args.empty?
+          raise 'The correct usage is {{youtube(<video key>[, width=x, height=y])}}'
         end
 
         v = args[0]

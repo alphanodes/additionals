@@ -8,7 +8,7 @@ Redmine::Plugin.register :redmine_tweaks do
   name 'Redmine Tweaks'
   author 'AlphaNodes GmbH'
   description 'Wiki and content extensions'
-  version '0.5.7'
+  version '0.5.8-dev'
   author_url 'https://alphanodes.com/'
   url 'https://github.com/alexandermeindl/redmine_tweaks'
 
@@ -62,7 +62,9 @@ Redmine::Plugin.register :redmine_tweaks do
        :my_page,
        { controller: 'my', action: 'page' },
        via: :get,
-       if: proc { User.current && !RedmineTweaks.settings[:remove_mypage] }
+       if: proc { User.current.logged? && !RedmineTweaks.settings[:remove_mypage] }
+
+  menu :admin_menu, :tweaks, { controller: 'settings', action: 'plugin', id: 'redmine_tweaks' }, caption: :label_tweaks
 
   RedCloth3::ALLOWED_TAGS << 'div'
 end

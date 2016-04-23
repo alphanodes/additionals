@@ -52,7 +52,60 @@ module RedmineTweaks
       end
       view_roles
     end
+
+    def add_top_menu_custom_item(i, user_roles)
+      menu_name = 'custom_menu' + i.to_s
+      item = {
+        url: Setting.plugin_redmine_tweaks[menu_name + '_url'],
+        name: Setting.plugin_redmine_tweaks[menu_name + '_name'],
+        title: Setting.plugin_redmine_tweaks[menu_name + '_title'],
+        roles: Setting.plugin_redmine_tweaks[menu_name + '_roles']
+      }
+
+      unless item[:name].blank? || item[:url].blank? || item[:roles].nil?
+        show_entry = false
+        item[:roles].each do |role|
+          if user_roles.empty? && role.to_i == Role::BUILTIN_ANONYMOUS
+            show_entry = true
+            break
+          elsif User.current.logged? && role.to_i == Role::BUILTIN_NON_MEMBER
+            # if user is logged in and non_member is active in item,
+            # always show it
+            show_entry = true
+            break
+          end
+
+          user_roles.each do |user_role|
+            if role.to_i == user_role.id.to_i
+              show_entry = true
+              break
+            end
+          end
+          break if show_entry == true
+        end
+        handle_top_menu_item(menu_name, item, show_entry)
+      end
+    end
+
+    def handle_top_menu_item(menu_name, item, show_entry = false)
+      if Redmine::MenuManager.map(:top_menu).exists?(menu_name.to_sym)
+        Redmine::MenuManager.map(:top_menu).delete(menu_name.to_sym)
+      end
+
+      if show_entry
+        html_options = {}
+        html_options[:class] = 'external' if item[:url].include? '://'
+        html_options[:title] = item[:title] unless item[:title].blank?
+        Redmine::MenuManager.map(:top_menu).push menu_name,
+                                                 item[:url],
+                                                 caption: item[:name].to_s,
+                                                 html: html_options,
+                                                 before: :help
+      end
+    end
   end
 end
 
-ActionView::Base.send :include, RedmineTweaks::Helper
+unless ActionView::Base.included_modules.include?(RedmineTweaks::Helper)
+  ActionView::Base.send(:include, RedmineTweaks::Helper)
+end

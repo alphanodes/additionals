@@ -9,41 +9,7 @@
 <%
 user_roles = User.current.memberships.collect {|m| m.roles}.flatten.uniq
 5.times do |i|
-    menu_name = 'custom_menu'+i.to_s
-    url = Setting.plugin_redmine_tweaks[menu_name+'_url']
-    name = Setting.plugin_redmine_tweaks[menu_name+'_name']
-    title = Setting.plugin_redmine_tweaks[menu_name+'_title']
-    roles = Setting.plugin_redmine_tweaks[menu_name+'_roles']
-
-    unless name.nil? || name.empty? || url.empty? || roles.nil?
-      show_entry = false
-      roles.each do |role|
-        user_roles.each do |user_role|
-          if role.to_i == user_role.id.to_i
-            show_entry = true
-            break
-          end
-        end
-        if show_entry == true
-          break
-        end
-      end
-
-      if Redmine::MenuManager.map(:top_menu).exists?(menu_name.to_sym)
-        Redmine::MenuManager.map(:top_menu).delete(menu_name.to_sym)
-      end
-
-      if show_entry
-        html_options =  {}
-        if url.include? "://"
-          html_options[:class] =  'external'
-        end
-        unless title.empty?
-          html_options[:title] =  title
-        end
-        Redmine::MenuManager.map(:top_menu).push menu_name, url, :caption => name.to_s, :html => html_options, :before => :help
-      end
-   end
+  add_top_menu_custom_item(i, user_roles)
 end
 %>
 

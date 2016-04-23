@@ -120,7 +120,7 @@ class WikiControllerTest < ActionController::TestCase
 
   def test_show_with_projects_macro
     @request.session[:user_id] = 1
-    @page.content.text = '{{list_projects}}'
+    @page.content.text = '{{projects}}'
     @page.content.save!
     get :show, project_id: 1, id: @page_name
     assert_response :success

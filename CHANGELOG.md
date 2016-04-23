@@ -7,6 +7,8 @@
 - Fixed top menu items permissions for anonymous and non member #29
 - Fixed bug with overwriting application handler, which cases problem with other plugins
 - Tweaks link added to admin menu
+- replaced user macro with {{user}} syntax (old syntax user#id is not supported anymore)
+- more formats for user macro and avatar support
 
 ### 0.5.7
 

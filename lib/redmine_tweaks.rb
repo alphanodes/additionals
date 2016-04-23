@@ -12,7 +12,6 @@ if ActiveRecord::Base.connection.table_exists?(:settings)
   # Setting.plugin_redmine_custom_help_url['custom_help_url']
   Rails.configuration.to_prepare do
     # Patches
-    require_dependency 'redmine_tweaks/patches/application_helper_patch'
     require_dependency 'redmine_tweaks/patches/custom_help_url'
     require_dependency 'redmine_tweaks/patches/issue_patch'
     require_dependency 'redmine_tweaks/patches/wiki_patch'
@@ -35,6 +34,7 @@ if ActiveRecord::Base.connection.table_exists?(:settings)
     require_dependency 'redmine_tweaks/wiki_macros/recently_updated'
     require_dependency 'redmine_tweaks/wiki_macros/twitter'
     require_dependency 'redmine_tweaks/wiki_macros/user'
+    require_dependency 'redmine_tweaks/wiki_macros/users'
     require_dependency 'redmine_tweaks/wiki_macros/vimeo'
     require_dependency 'redmine_tweaks/wiki_macros/youtube'
 

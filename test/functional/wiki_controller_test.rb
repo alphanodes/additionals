@@ -108,9 +108,9 @@ class WikiControllerTest < ActionController::TestCase
     assert_select 'div.month-calendar'
   end
 
-  def test_show_with_list_users_macro
+  def test_show_with_members_macro
     @request.session[:user_id] = 1
-    @page.content.text = '{{list_users}}'
+    @page.content.text = '{{members}}'
     @page.content.save!
     get :show, project_id: 1, id: @page_name
     assert_response :success

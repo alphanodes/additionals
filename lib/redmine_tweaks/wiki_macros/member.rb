@@ -1,7 +1,7 @@
 # Redmine Tweaks plugin for Redmine
 # Copyright (C) 2013-2016 AlphaNodes GmbH
 
-# Users wiki macros
+# Member wiki macros
 module RedmineTweaks
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
@@ -10,29 +10,29 @@ module RedmineTweaks
 
   Syntax:
 
-    {{list_users(PROJECT_NAME, title=My user list, role=ROLE_NAME)}}
+    {{members(PROJECT_NAME, title=My user list, role=ROLE_NAME)}}
 
     PROJECT_NAME can be project identifier, project name or project id
 
     Examples:
 
-    {{list_users}}
-    ...List all users for all projects (with the current user permission)
+    {{members}}
+    ...List all members for all projects (with the current user permission)
 
-    {{list_users(the-identifier)}}
+    {{members(the-identifier)}}
     ...A box showing all members for the project with the identifier of 'the-identifier'
 
-    {{list_users(the-identifier, role=Manager)}}
+    {{members(the-identifier, role=Manager)}}
     ...A box showing all members for the project with the identifier of 'the-identifier', which
     have the role "Manager"
 
-    {{list_users(the-identifier, title=My user list)}}
+    {{members(the-identifier, title=My user list)}}
     ...A box showing all members for the project with the identifier of 'the-identifier' and with
     box title "My user list"
 
   EOHELP
 
-      macro :list_users do |_obj, args|
+      macro :members do |_obj, args|
         args, options = extract_macro_options(args, :role, :title)
 
         project_id = args[0]

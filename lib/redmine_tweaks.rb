@@ -34,7 +34,7 @@ if ActiveRecord::Base.connection.table_exists?(:settings)
     require_dependency 'redmine_tweaks/wiki_macros/recently_updated'
     require_dependency 'redmine_tweaks/wiki_macros/twitter'
     require_dependency 'redmine_tweaks/wiki_macros/user'
-    require_dependency 'redmine_tweaks/wiki_macros/users'
+    require_dependency 'redmine_tweaks/wiki_macros/member'
     require_dependency 'redmine_tweaks/wiki_macros/vimeo'
     require_dependency 'redmine_tweaks/wiki_macros/youtube'
 

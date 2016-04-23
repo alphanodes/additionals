@@ -9,6 +9,7 @@
 * global sidebar content support
 * set info message above new ticket (e.g. for guidelines)
 * Wiki user macros
+* Wiki member macros
 * Wiki project macros
 * Wiki date macros
 * Wiki Garfield marco
@@ -61,17 +62,16 @@ Restart Redmine and have a fun!
 
   You can use format with the same options as for system settings.
 
-### Users list macros
+### Members macros
 
-* users
 * project members
 
 #### Description
 
-* {{list_users}} := lists all users of the current users project
-* {{list_users(123)}} or {{list_users(identifier)}} or {{list_users(My project)}} := Lists all users of the project with project id 123 (or identifier or project name)
-* {{list_users(123, title=Manager)}} := Lists all users of the project with project id 123 and the role "Manager". If you want to use multiple roles as filters, you have to use a | as separator.
-* {{list_users(123, title=Manager, role=Manager only)}} := Lists all users of the project with project id 123 and the role "Manager" and adds the heading "Manager only"
+* {{members}} := lists all members of the current users project
+* {{members(123)}} or {{members(identifier)}} or {{members(My project)}} := Lists all members of the project with project id 123 (or identifier or project name)
+* {{members(123, title=Manager)}} := Lists all members of the project with project id 123 and the role "Manager". If you want to use multiple roles as filters, you have to use a | as separator.
+* {{members(123, title=Manager, role=Manager only)}} := Lists all members of the project with project id 123 and the role "Manager" and adds the heading "Manager only"
 
 
 ### Project list macros

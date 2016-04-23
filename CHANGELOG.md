@@ -9,6 +9,7 @@
 - Tweaks link added to admin menu
 - replaced user macro with {{user}} syntax (old syntax user#id is not supported anymore)
 - more formats for user macro and avatar support
+- rename list_users in members
 
 ### 0.5.7
 

@@ -1,7 +1,7 @@
 # Redmine Tweaks plugin for Redmine
 # Copyright (C) 2013-2016 AlphaNodes GmbH
 
-# User wiki macros
+# Users wiki macros
 module RedmineTweaks
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do

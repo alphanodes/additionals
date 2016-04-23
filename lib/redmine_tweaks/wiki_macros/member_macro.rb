@@ -6,11 +6,11 @@ module RedmineTweaks
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
       desc <<-EOHELP
-  Display users.
+  Display members.
 
   Syntax:
 
-    {{members(PROJECT_NAME, title=My user list, role=ROLE_NAME)}}
+    {{members([PROJECT_NAME, title=My members list, role=ROLE_NAME)]}}
 
     PROJECT_NAME can be project identifier, project name or project id
 

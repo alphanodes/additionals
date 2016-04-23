@@ -8,7 +8,16 @@ module RedmineTweaks
       desc <<-EOHELP
       Displays a list of pages that were updated recently.
         {{recently_updated}}
-        {{recently_updated(number_of_days)}}
+        {{recently_updated([number_of_days])}}
+
+        Examples:
+
+        {{recently_updated}}
+        ...List last updated pages (of the last 5 days)
+
+        {{recently_updated(15)}}
+        ...List last updated pages of the last 15 days
+
       EOHELP
 
       macro :recently_updated do |obj, args|

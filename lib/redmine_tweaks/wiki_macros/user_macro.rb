@@ -7,7 +7,8 @@ module RedmineTweaks
     Redmine::WikiFormatting::Macros.register do
       desc "Display link to user profile\n\n" \
            "Syntax:\n\n" \
-           "{{user(user id or username [, format=USER_FORMAT, avatar=BOOL])}}\n\n" \
+           "{{user(USER_NAME [, format=USER_FORMAT, avatar=BOOL])}}\n\n" \
+           "USER_NAME can be user id or user name (login name)\n" \
            "USER_FORMATS\n" \
            "- system (use system settings) (default)\n- " +
            User::USER_FORMATS.keys.join("\n- ") + "\n\n" \

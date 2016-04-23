@@ -74,14 +74,14 @@ Restart Redmine and have a fun!
 * {{members(123, title=Manager, role=Manager only)}} := Lists all members of the project with project id 123 and the role "Manager" and adds the heading "Manager only"
 
 
-### Project list macros
+### Project macros
 
 Lists projects of current user
 
 #### Description
 
-* {{list_projects}} := lists all projects of current users
-* {{list_projects(title=My title)}} := lists all projects of current users and adds the heading "My title"
+* {{projects}} := lists all projects of current users
+* {{projects(title=My title)}} := lists all projects of current users and adds the heading "My title"
 
 ### Calendar macro
 

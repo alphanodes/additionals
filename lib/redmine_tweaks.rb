@@ -30,13 +30,13 @@ if ActiveRecord::Base.connection.table_exists?(:settings)
     require_dependency 'redmine_tweaks/wiki_macros/gist'
     require_dependency 'redmine_tweaks/wiki_macros/last_updated_at'
     require_dependency 'redmine_tweaks/wiki_macros/last_updated_by'
-    require_dependency 'redmine_tweaks/wiki_macros/project'
+    require_dependency 'redmine_tweaks/wiki_macros/member_macro'
+    require_dependency 'redmine_tweaks/wiki_macros/project_macro'
     require_dependency 'redmine_tweaks/wiki_macros/recently_updated'
     require_dependency 'redmine_tweaks/wiki_macros/twitter'
+    require_dependency 'redmine_tweaks/wiki_macros/user_macro'
     require_dependency 'redmine_tweaks/wiki_macros/vimeo'
     require_dependency 'redmine_tweaks/wiki_macros/youtube'
-    require_dependency 'redmine_tweaks/wiki_macros/user_macro'
-    require_dependency 'redmine_tweaks/wiki_macros/member_macro'
 
     unless RedmineTweaks.settings[:remove_help]
       Redmine::Plugin.find('redmine_tweaks')

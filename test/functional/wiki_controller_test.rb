@@ -118,7 +118,7 @@ class WikiControllerTest < ActionController::TestCase
     assert_select 'div.wiki div.user'
   end
 
-  def test_show_with_list_projects_macro
+  def test_show_with_projects_macro
     @request.session[:user_id] = 1
     @page.content.text = '{{list_projects}}'
     @page.content.save!

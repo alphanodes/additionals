@@ -10,22 +10,22 @@ module RedmineTweaks
 
   Syntax:
 
-    {{list_projects(title=My project list,with_create_issue=BOOL)}}
+    {{projects([title=My project list, with_create_issue=BOOL])}}
 
   Examples:
 
-    {{list_projects}}
+    {{projects}}
     ...List all project, which I am member of
 
-    {{list_projects(title=My project list)}}
+    {{projects(title=My project list)}}
     ...List all project with title "My project list", which I am member of
 
-    {{list_projects(with_create_issue=true)}}
+    {{projects(with_create_issue=true)}}
     ...List all project with link to create new issue, which I am member of
 
   EOHELP
 
-      macro :list_projects do |_obj, args|
+      macro :projects do |_obj, args|
         args, options = extract_macro_options(args, :title, :with_create_issue)
         @projects = RedmineTweaks.load_projects
         return '' if @projects.nil?

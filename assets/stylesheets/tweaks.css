@@ -1,4 +1,5 @@
 .nodata.nodata-left { text-align: left; }
+#admin-menu a.tweaks { background-image: url(../images/tweaks.png); }
 
 /* Go to top link */
 .gototop {

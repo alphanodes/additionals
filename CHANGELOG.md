@@ -2,6 +2,12 @@
 
 ## Changelog
 
+### 0.5.8-dev
+
+- Fixed top menu items permissions for anonymous and non member #29
+- Fixed bug with overwriting application handler, which cases problem with other plugins
+- Tweaks link added to admin menu
+
 ### 0.5.7
 
 - Custom source URL for Garfield source

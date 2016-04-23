@@ -11,18 +11,15 @@ module RedmineTweaks
         base.class_eval do
           alias_method_chain :parse_redmine_links, :tweaks
 
-          def link_to_user_static(user, display, format, only_path)
+          def link_to_user_static(user, display, format)
             name = display || user.name(format)
             if user.active?
-              # user_id = user.login.match(%r{^[a-z0-9_\-]+$}i) ? user.login.downcase : user
-              link = link_to(h(name),
-                             # { only_path: only_path, controller: 'users', action: 'show', id: user_id },
-                             user_path(user),
-                             class: user.css_classes)
+              link_to(h(name),
+                      user_path(user),
+                      class: user.css_classes)
             else
-              link = h(name)
+              h(name)
             end
-            link
           end
         end
       end
@@ -63,19 +60,13 @@ module RedmineTweaks
               end
               if sep == '#'
                 oid = identifier.to_i
-                case prefix
-                when 'user'
-                  if user = User.find_by_id(oid)
-                    link = link_to_user_static(user, display, format, only_path)
-                  end
+                if prefix == 'user' && user = User.find_by_id(oid)
+                  link = link_to_user_static(user, display, format)
                 end
               elsif sep == ':'
                 oname = identifier.gsub(%r{^"(.*)"$}, '\\1')
-                case prefix
-                when 'user'
-                  if user = User.find_by_login(oname)
-                    link = link_to_user_static(user, display, format, only_path)
-                  end
+                if prefix == 'user' && user = User.find_by_login(oname)
+                  link = link_to_user_static(user, display, format)
                 end
               end
             end

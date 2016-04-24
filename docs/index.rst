@@ -12,16 +12,20 @@ Welcome to Redmine Tweaks Plugin
 
 Tweaks for wiki and content including new macros for `Redmine`_.
 
+* Documentation: https://redmine-tweaks.readthedocs.org
+* Redmine.org plugin page: https://www.redmine.org/plugins/redmine_tweaks
+* Github: https://github.com/alexandermeindl/redmine_tweaks
+
+
 .. image:: https://gemnasium.com/alexandermeindl/redmine_tweaks.svg
    :target: https://gemnasium.com/alexandermeindl/redmine_tweaks
 
 .. image:: https://drone.io/github.com/alexandermeindl/redmine_tweaks/status.png
    :target: https://drone.io/github.com/alexandermeindl/redmine_tweaks/latest
 
-* Documentation: https://redmine-tweaks.readthedocs.org
-* Redmine.org plugin page: https://www.redmine.org/plugins/redmine_tweaks
-* Github: https://github.com/alexandermeindl/redmine_tweaks
-
+.. image:: https://readthedocs.org/projects/redmine-tweaks/badge/?version=latest
+   :target: http://redmine-tweaks.readthedocs.org/en/latest/?badge=latest
+   :alt: Documentation Status
 
 Requirements
 ------------
@@ -85,9 +89,6 @@ Contacts and Support
 
 I will be glad to get your feedback, `pull requests <https://github.com/alexandermeindl/redmine_tweaks/pulls>`_, `issues <https://github.com/alexandermeindl/redmine_tweaks/issues>`_, whatever. Feel free to contact me for any questions.
 
-
-Table of contents
------------------
 
 .. toctree::
     :maxdepth: 2

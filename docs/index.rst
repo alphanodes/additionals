@@ -3,8 +3,6 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-.. role:: ref(emphasis)
-
 .. _Redmine: https://www.redmine.org
 .. _Ruby: https://www.ruby-lang.org
 
@@ -35,7 +33,7 @@ Requirements
   >= 2.6.0
 - `Ruby`_
   >= 2.0.0
-- Gem packages
+- Gem packages:
   see `PluginGemfile <https://github.com/alexandermeindl/redmine_tweaks/blob/master/PluginGemfile>`_
 
 

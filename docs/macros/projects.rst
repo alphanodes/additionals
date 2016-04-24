@@ -3,9 +3,30 @@ Projects
 
 Projects wiki macro for Redmine.
 
-Lists projects of current user
+.. function:: {{projects([title=TITLE, with_create_issue=BOOL])}}
 
-#### Description
+    Lists projects of the current user
 
-* {{projects}} := lists all projects of current users
-* {{projects(title=My title)}} := lists all projects of current users and adds the heading "My title"
+    :param string title: title to use for project list
+    :param bool with_create_issue: show link to create new issue, if true
+
+Examples
+++++++++
+
+List all projects of the current users
+
+.. code-block:: smarty
+
+  {{projects}}
+
+List all projects of the current users and adds the heading "My project list"
+
+.. code-block:: smarty
+
+  {{projects(title=My project list)}}
+
+List all project with link to create new issue, which I am member of
+
+.. code-block:: smarty
+
+  {{projects(with_create_issue=true)}}

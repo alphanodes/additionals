@@ -1,4 +1,26 @@
-Recently updated wiki pages
----------------------------
+Recently updated
+----------------
 
-{{recently_updated}} macro displays the list of the pages that were changed within last 5 days. If you specify the argument like {{recently_updated(10)}}, it displays the pages that were changed within 10 days.
+Recently updated wiki macro for Redmine.
+
+.. function:: {{recently_updated([days])}}
+
+    show the list of the pages that were changed recently.
+
+    :param int days: number of days, which should be used. Default is 5.
+
+
+Examples
+++++++++
+
+List last updated pages (of the last 5 days)
+
+.. code-block:: smarty
+
+  {{recently_updated}}
+
+List last updated pages of the last 15 days
+
+.. code-block:: smarty
+
+  {{recently_updated(15)}}

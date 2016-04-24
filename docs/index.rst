@@ -41,7 +41,7 @@ Download the sources and put them to your plugins folder.
   $ git clone git://github.com/alexandermeindl/redmine_tweaks.git plugins/redmine_tweaks
   $ bundle install --without development test
 
-More information about installation of Redmine plugins, you can find in the official `Redmine plugin documentation <https://www.redmine.org/projects/redmine/wiki/Plugins`_.
+More information about installation of Redmine plugins, you can find in the official `Redmine plugin documentation <https://www.redmine.org/projects/redmine/wiki/Plugins>`_.
 
 Features
 --------
@@ -52,12 +52,13 @@ Features
 * welcome text for login page
 * global sidebar content support
 * set info message above new ticket (e.g. for guidelines)
-* Wiki user macros
-* Wiki member macros
-* Wiki project macros
 * Wiki date macros
 * Wiki Garfield marco
 * Wiki Gist marco
+* Wiki members macro
+* Wiki projects macro
+* Wiki twitter macro
+* Wiki user macro
 * Wiki Youtube marco
 * Wiki Vimeo marco
 * option to remove "my page" from top menu

@@ -20,29 +20,29 @@ List all members for all projects (with the current user permission)
 
   {{members}}
 
-List all members for the project with the identifier of 'myproject'
+List all members for the project with the identifier of ``myproject``
 
 .. code-block:: smarty
 
   {{members(myproject)}}
 
-List all members for the project with the identifier of 'myproject', which
-have the role "Manager"
+List all members for the project with the identifier of ``myproject``, which
+have the role ``Manager``
 
 .. code-block:: smarty
 
   {{members(myproject, role=Manager)}}
 
 
-List all members for the project with the identifier of 'myproject', which
-have the role "Manager" or "Team"
+List all members for the project with the identifier of ``myproject``, which
+have the role ``Manager`` or ``Team``
 
 .. code-block:: smarty
 
   {{members(myproject, role=Manager|Team)}}
 
-List all members for the project with name 'My project title' and with
-  box title "My member list"
+List all members for the project with name ``My project title`` and with
+  box title ``My member list``
 
 .. code-block:: smarty
 

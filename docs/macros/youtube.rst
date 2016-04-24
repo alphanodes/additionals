@@ -15,7 +15,7 @@ Youtube wiki macro for Redmine.
 Examples
 ++++++++
 
-Youtube video with video wvsboPUjrGc (iframe) and default size 640x360
+Youtube video with video ``wvsboPUjrGc`` (iframe) and default size 640x360
 
 .. code-block:: smarty
 
@@ -27,7 +27,7 @@ Youtube video with size 853x480
 
   {{youtube(wvsboPUjrGc, width=853, height=480)}}
 
-Youtube video and autoplay
+Youtube video with auto play
 
 .. code-block:: smarty
 

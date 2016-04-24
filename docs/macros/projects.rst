@@ -19,7 +19,7 @@ List all projects of the current users
 
   {{projects}}
 
-List all projects of the current users and adds the heading "My project list"
+List all projects of the current users and adds the heading ``My project list``
 
 .. code-block:: smarty
 

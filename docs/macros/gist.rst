@@ -13,13 +13,13 @@ Github gist wiki macro for Redmine.
 Examples
 ++++++++
 
-show Github gist 6737338 (without user name)
+show Github gist ``6737338`` (without user name)
 
 .. code-block:: smarty
 
   {{gist(6737338)}}
 
-Show Github gist 6737338 (with user name)
+Show Github gist ``plentz/6737338`` (with user name)
 
 .. code-block:: smarty
 

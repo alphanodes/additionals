@@ -38,17 +38,15 @@ Requirements
 Installation
 ------------
 
-Install redmine_tweaks
-
-Check the requirements!
-
-Download the sources and put them to your plugins folder.
+Install redmine_tweaks plugin for Redmine.
 
 .. code-block:: bash
 
   $ cd $REDMINE_ROOT
   $ git clone git://github.com/alexandermeindl/redmine_tweaks.git plugins/redmine_tweaks
   $ bundle install --without development test
+
+Restart your application server (apache with passenger, nginx with passenger, unicorn, puma, etc.) and it redmine_tweaks is ready to use.
 
 More information about installation of Redmine plugins, you can find in the official `Redmine plugin documentation <https://www.redmine.org/projects/redmine/wiki/Plugins>`_.
 
@@ -92,8 +90,7 @@ I will be glad to get your feedback, `pull requests <https://github.com/alexande
 
 .. toctree::
     :maxdepth: 2
-
     manual
     macros
-    support
+    new_feature
     changelog

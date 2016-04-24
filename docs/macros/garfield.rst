@@ -19,7 +19,7 @@ show Garfield strip of the current day
 
   {{garfield}}
 
-show Garfield strip of 31/12/2014
+show Garfield strip of ``31/12/2014``
 
 .. code-block:: smarty
 

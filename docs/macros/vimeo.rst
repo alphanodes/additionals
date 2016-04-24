@@ -15,7 +15,7 @@ Vimeo wiki macro for Redmine.
 Examples
 ++++++++
 
-Vimeo video with video 142849533 (iframe) and default size 640x360
+Vimeo video with video ``142849533`` (iframe) and default size 640x360
 
 .. code-block:: smarty
 

@@ -20,7 +20,7 @@ show calendar for current date
 
   {{calendar}}
 
-show calendar for Juni in year 2014
+show calendar for Juni in year ``2014``
 
 .. code-block:: smarty
 

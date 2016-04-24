@@ -12,7 +12,7 @@ Twitter wiki macro for Redmine.
 Examples
 ++++++++
 
-Show link to twitter profile @alphanodes
+Show link to twitter profile ``@alphanodes``
 
 .. code-block:: smarty
 

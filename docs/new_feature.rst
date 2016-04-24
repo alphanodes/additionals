@@ -1,7 +1,7 @@
 You need a feature
 ==================
 
-.. _AlphaNodes GmbH: https://alphanodes.com
+.. _AlphaNodes: https://alphanodes.com
 .. _Open-source: https://opensource.org/osd
 
 Redmine Tweaks is `Open-source`_ and it is available at `Github <https://github.com/alexandermeindl/redmine_tweaks>`_
@@ -12,5 +12,5 @@ The plugin is maintained by `AlphaNodes`_ for free as far as possible. In case y
 and you are not capable of implementing it yourself, you can request this feature from `AlphaNodes`_.
 
 We are an `Open-source`_ company from Munich and we usually are getting payed for our
-time we spent on development. As we know our plugin at it best we are glad to take this job from you. In case the requested plugin changes still
+time we spent on development. As we know our plugin at its best we are glad to take this job from you. In case the requested plugin changes still
 fit to the plugin purpose. Please, contact us in case you are interested in plugin development.

@@ -12,9 +12,6 @@ Welcome to Redmine Tweaks Plugin
 .. image:: https://drone.io/github.com/alexandermeindl/redmine_tweaks/status.png
     :target: https://drone.io/github.com/alexandermeindl/redmine_tweaks/latest
 
-.. toctree::
-   :maxdepth: 2
-
 
 Requirements
 ============
@@ -40,12 +37,19 @@ Download the sources and put them to your plugins folder.
   $ bundle install --without development test
 
 
+Contacts and Support
+====================
+
+I will be glad to get your feedback, `pull requests <https://github.com/alexandermeindl/redmine_tweaks/pulls>`_, `issues <https://github.com/alexandermeindl/redmine_tweaks/issues>`_, whatever. Feel free to contact me for any questions.
+
+
 Table of contents
 -----------------
 
 .. toctree::
     :maxdepth: 2
 
+    index
     features
     macros
     changelog

@@ -35,7 +35,7 @@ Requirements
 - `Ruby`_
   >= 2.0.0
 - `Gem packages`_
-  see PluginGemfile
+  see `PluginGemfile <https://github.com/alexandermeindl/redmine_tweaks/blob/master/PluginGemfile>`_
 
 
 Installation

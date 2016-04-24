@@ -1,7 +1,7 @@
 Macros
 ======
 
-These macros are available with Redmine Tweaks plugins.
+These wiki macros are available with Redmine Tweaks plugins.
 
 .. include:: macros/calendar.rst
 .. include:: macros/date.rst

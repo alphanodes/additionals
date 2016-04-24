@@ -23,6 +23,7 @@ redmine_tweaks features
 * anonymize referrer for external urls
 * Hide role in project memberbox
 * Configurable issue rules
+
 ** closing issue with open sub issues
-** change assigned_to_ automatically, if issue status changes
+** change assigned_to automatically, if issue status changes
 ** assigned_to has changed, but status change is required, too

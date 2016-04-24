@@ -1,3 +1,8 @@
+Macros
+======
+
+These macros are available with Redmine Tweaks plugins.
+
 User macro
 ----------
 

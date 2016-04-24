@@ -1,5 +1,5 @@
-redmine_tweaks features
------------------------
+Features
+========
 
 * use "Project guide" on project overview page
 * global header for all projects

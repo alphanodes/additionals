@@ -14,7 +14,7 @@ Welcome to Redmine Tweaks Plugin
 
 
 Requirements
-============
+------------
 
 * Redmine version >= 2.6.0
 * Ruby >= 2.0.0
@@ -22,7 +22,7 @@ Requirements
 
 
 Installation
-============
+------------
 
 Install redmine_tweaks
 
@@ -38,7 +38,7 @@ Download the sources and put them to your plugins folder.
 
 
 Contacts and Support
-====================
+--------------------
 
 I will be glad to get your feedback, `pull requests <https://github.com/alexandermeindl/redmine_tweaks/pulls>`_, `issues <https://github.com/alexandermeindl/redmine_tweaks/issues>`_, whatever. Feel free to contact me for any questions.
 

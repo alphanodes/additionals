@@ -4,12 +4,13 @@
    contain the root `toctree` directive.
 
 .. _Redmine: https://www.redmine.org
+.. _Ruby: https://www.ruby-lang.org
+.. _Gem packages: https://rubygems.org/
 
 Welcome to Redmine Tweaks Plugin
 ================================
 
 Tweaks for wiki and content including new macros for `Redmine`_.
-
 
 .. image:: https://gemnasium.com/alexandermeindl/redmine_tweaks.svg
    :target: https://gemnasium.com/alexandermeindl/redmine_tweaks
@@ -17,13 +18,17 @@ Tweaks for wiki and content including new macros for `Redmine`_.
 .. image:: https://drone.io/github.com/alexandermeindl/redmine_tweaks/status.png
    :target: https://drone.io/github.com/alexandermeindl/redmine_tweaks/latest
 
+* Documentation: https://redmine-tweaks.readthedocs.org
+* Redmine.org plugin page: https://www.redmine.org/plugins/redmine_tweaks
+* Github: https://github.com/alexandermeindl/redmine_tweaks
+
 
 Requirements
 ------------
 
 * Redmine version >= 2.6.0
-* Ruby >= 2.0.0
-* Gem package: see PluginGemfile
+* `Ruby`_ >= 2.0.0
+* `Gem packages`_: see PluginGemfile
 
 
 Installation

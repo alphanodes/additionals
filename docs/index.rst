@@ -82,10 +82,10 @@ Features
   * assigned_to has changed, but status change is required, too
 
 
-Contacts and Support
+Contact and Support
 --------------------
 
-I will be glad to get your feedback, `pull requests <https://github.com/alexandermeindl/redmine_tweaks/pulls>`_, `issues <https://github.com/alexandermeindl/redmine_tweaks/issues>`_, whatever. Feel free to contact me for any questions.
+I am glad about your feedback on the plugin, `pull requests <https://github.com/alexandermeindl/redmine_tweaks/pulls>`_, `issues <https://github.com/alexandermeindl/redmine_tweaks/issues>`_, whatever. Feel free to contact me for any questions.
 
 
 .. toctree::

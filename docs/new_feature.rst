@@ -1,14 +1,16 @@
 You need a feature
 ==================
 
-.. _AlphaNodes: https://alphanodes.com
+.. _AlphaNodes GmbH: https://alphanodes.com
 .. _Open-source: https://opensource.org/osd
 
-Redmine Tweaks is `Open-source`_ and is available at `Github <https://github.com/alexandermeindl/redmine_tweaks>`_
+Redmine Tweaks is `Open-source`_ and it is available at `Github <https://github.com/alexandermeindl/redmine_tweaks>`_
 
-If you want to get new features in it or want to change something, you can provide a pull request.
+If you want to implement new features in it or if you want to change something, you can provide a pull request.
 
-We at `AlphaNodes`_ maintain this plugin for free as far as possible. If you want a feature, which is not available,
-you can request this feature from `AlphaNodes`_. We are an `Open-source`_ company and we life from getting payed for our
-time we spent on development. We know our plugin at best and we are glad to take a job from you, if the changes fits
-to the plugin.
+The plugin is maintained by `AlphaNodes`_ for free as far as possible. In case you want a feature, which is not available
+and you are not capable of implementing it yourself, you can request this feature from `AlphaNodes`_.
+
+We are an `Open-source`_ company from Munich and we usually are getting payed for our
+time we spent on development. As we know our plugin at it best we are glad to take this job from you. In case the requested plugin changes still
+fit to the plugin purpose. Please, contact us in case you are interested in plugin development.

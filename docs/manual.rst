@@ -63,9 +63,15 @@ Here you can define new top menu items.
 
 .. note:: Please restart the webserver, if you remove a menu item or change permissions.
 
-This area offers you the possibility to add up to 5 additional menu items to your Redmine main menu. The following input fields are availabe:
+This area offers you the possibility to add up to 5 additional menu items to your Redmine main menu. The following input fields are available for each entry:
 
 * Name
 * URL
 * Title (optional)
-* Permissions: here you select one ore more existing roles to which the menu item will be displayed
+* Permissions: here you select one ore more existing roles to which the menu item will be displayed.
+
+Macro section
+-------------
+
+Because it's sometimes hard to remember what kind of macros you can use in your Redmine installation we implemented the macro section.
+Here is simply displayed a list of all available Redmine macros of your installation, which are provided by Redmine in general and the installed Redmine plugins.

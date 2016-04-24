@@ -38,7 +38,7 @@ Requirements
 Installation
 ------------
 
-Install redmine_tweaks plugin for Redmine.
+Install ``redmine_tweaks`` plugin for `Redmine`_.
 
 .. code-block:: bash
 
@@ -46,7 +46,7 @@ Install redmine_tweaks plugin for Redmine.
   $ git clone git://github.com/alexandermeindl/redmine_tweaks.git plugins/redmine_tweaks
   $ bundle install --without development test
 
-Restart your application server (apache with passenger, nginx with passenger, unicorn, puma, etc.) and it redmine_tweaks is ready to use.
+Restart your application server (apache with passenger, nginx with passenger, unicorn, puma, etc.) and ``redmine_tweaks`` is ready to use.
 
 More information about installation of Redmine plugins, you can find in the official `Redmine plugin documentation <https://www.redmine.org/projects/redmine/wiki/Plugins>`_.
 

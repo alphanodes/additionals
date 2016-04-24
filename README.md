@@ -25,10 +25,3 @@ Download the sources and put them to your vendor/plugins folder.
     $ bundle install --without development test
 
 Restart Redmine and have a fun!
-
-### Custom help URL
-
-### Description
-
-Change help url in top menu to custom url.
-Note: Redmine must be restarted after changing "Custom Help URL"</tt> value before the new url is used.

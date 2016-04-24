@@ -15,12 +15,14 @@ Examples
 show calendar for current date
 
 .. code-block:: smarty
+
     {{calendar}}
 
 show calendar for Juni in year 2014
 
 .. code-block:: smarty
-    {{calendar(year=2014,month=6)}}
+
+  {{calendar(year=2014,month=6)}}
 
 show calendar with week numbers
 

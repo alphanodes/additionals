@@ -90,6 +90,7 @@ I will be glad to get your feedback, `pull requests <https://github.com/alexande
 
 .. toctree::
     :maxdepth: 2
+
     manual
     macros
     new_feature

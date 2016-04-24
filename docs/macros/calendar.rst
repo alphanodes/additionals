@@ -1,5 +1,7 @@
-Calendar macro
---------------
+Calendar
+--------
+
+Calendar wiki macros for Redmine.
 
 .. function:: {{calendar([year=YEAR, month=MONTH, show_weeks=BOOL, select=DATE])}}
 

@@ -1,7 +1,7 @@
-Date macros
------------
+Date
+----
 
-Macro to get current date, year, month, day
+Date wiki macros for Redmine.
 
 .. function:: {{current_year}}
 

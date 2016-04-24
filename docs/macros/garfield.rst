@@ -1,5 +1,7 @@
-Garfield macro
---------------
+Garfield
+--------
+
+Garfield wiki macro for Redmine.
 
 .. function:: {{garfield([date])}}
 

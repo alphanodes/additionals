@@ -30,9 +30,12 @@ Tweaks for wiki and content including new macros for `Redmine`_.
 Requirements
 ------------
 
-* Redmine version >= 2.6.0
-* `Ruby`_ >= 2.0.0
-* `Gem packages`_: see PluginGemfile
+- Redmine version
+  >= 2.6.0
+- `Ruby`_
+  >= 2.0.0
+- `Gem packages`_
+  see PluginGemfile
 
 
 Installation

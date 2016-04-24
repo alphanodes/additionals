@@ -49,7 +49,7 @@ Changelog
 
 - issue rule added for closing issue with open sub issues
 - issue rule added for status change
-- issue rule added for assigned_to change_
+- issue rule added for assigned_to change
 
 0.5.3
 +++++

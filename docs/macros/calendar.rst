@@ -16,7 +16,7 @@ show calendar for current date
 
 .. code-block:: smarty
 
-    {{calendar}}
+  {{calendar}}
 
 show calendar for Juni in year 2014
 
@@ -27,14 +27,17 @@ show calendar for Juni in year 2014
 show calendar with week numbers
 
 .. code-block:: smarty
-    {{calendar(show_weeks=true)}}
+
+  {{calendar(show_weeks=true)}}
 
 preselect dates and show week numbers
 
 .. code-block:: smarty
-    {{calendar(select=2015-07-12 2015-07-31, show_weeks=true)}}
+
+  {{calendar(select=2015-07-12 2015-07-31, show_weeks=true)}}
 
 preselect dates between 2016/3/13 and 2016/3/27
 
 .. code-block:: smarty
-    {{calendar(select=2016-03-13:2016-03-27)}}
+
+  {{calendar(select=2016-03-13:2016-03-27)}}

@@ -5,13 +5,7 @@ These macros are available with Redmine Tweaks plugins.
 
 .. include:: macros/calendar.rst
 .. include:: macros/date.rst
-
-Garfield macro
---------------
-
-* {{garfield}} := show Garfield strip of the current day
-* {{garfield(2014-10-31)}} := show Garfield strip of 31/12/2014
-
+.. include:: macros/garfield.rst
 
 Gist macro
 ----------

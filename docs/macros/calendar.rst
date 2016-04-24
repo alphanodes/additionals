@@ -19,12 +19,12 @@ show calendar for current date
 
 show calendar for Juni in year 2014
 
-.. code-block:: trac-wiki
+.. code-block::
     {{calendar(year=2014,month=6)}}
 
 show calendar with week numbers
 
-.. code-block:: trac-wiki
+.. code-block
     {{calendar(show_weeks=true)}}
 
 preselect dates and show week numbers

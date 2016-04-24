@@ -95,4 +95,5 @@ I will be glad to get your feedback, `pull requests <https://github.com/alexande
 
     manual
     macros
+    support
     changelog

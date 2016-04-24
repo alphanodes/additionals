@@ -3,6 +3,8 @@ Macros
 
 These wiki macros are available with Redmine Tweaks plugins.
 
+If a parameter is in brackets, this parameter is optional.
+
 .. include:: macros/calendar.rst
 .. include:: macros/date.rst
 .. include:: macros/garfield.rst

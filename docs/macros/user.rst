@@ -26,31 +26,31 @@ Link to user profile with id 1 and show user avatar
 
   {{user(1, avatar=true)}}
 
-Link to user profile with login name `admin` and show user avatar
+Link to user profile with login name ``admin`` and show user avatar
 
 .. code-block:: smarty
 
   {{user(admin, avatar=true)}}
 
-Link to user profile with login name `admin` with username as link text
+Link to user profile with login name ``admin`` with username as link text
 
 .. code-block:: smarty
 
   {{user(admin, format=username)}}
 
-Link to user profile with login name `admin` with first name as link text
+Link to user profile with login name ``admin`` with first name as link text
 
 .. code-block:: smarty
 
   {{user(admin, format=firstname)}}
 
-Link to user profile with login name `admin` with last name as link text
+Link to user profile with login name ``admin`` with last name as link text
 
 .. code-block:: smarty
 
   {{user(admin, format=lastname)}}
 
-Link to user profile with login name `admin` with first name and last name as link text
+Link to user profile with login name ``admin`` with first name and last name as link text
 
 .. code-block:: smarty
 

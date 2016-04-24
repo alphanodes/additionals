@@ -43,3 +43,29 @@ Issue rules section
 -------------------
 
 Here you can define rules, which are used in issues of all projects.
+
+The following options are available at the moment:
+
+* Issues with open sub-issues cannot be closed
+* If "Assignee" is unchanged and the issue status changed from x to y, than the author is assigned to the issue.
+
+.. note:: Use Case for this option: issues should be automatically assigned to autor, if the status changes to "Approval".
+
+* Current issue status x is only allowed if "Assignee" is the current user.
+
+.. note:: Use Case here: Users are only allowed to change the status to "In Progress" if they are the person who is actually working on the issue right now.
+
+
+Menu section
+------------
+
+Here you can define new top menu items.
+
+.. note:: Please restart the webserver, if you remove a menu item or change permissions.
+
+This area offers you the possibility to add up to 5 additional menu items to your Redmine main menu. The following input fields are availabe:
+
+* Name
+* URL
+* Title (optional)
+* Permissions: here you select one ore more existing roles to which the menu item will be displayed

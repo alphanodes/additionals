@@ -3,18 +3,19 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-.. image:: https://gemnasium.com/alexandermeindl/redmine_tweaks.svg
-   :target: https://gemnasium.com/alexandermeindl/redmine_tweaks
-
-.. image:: https://drone.io/github.com/alexandermeindl/redmine_tweaks/status.png
-   :target: https://drone.io/github.com/alexandermeindl/redmine_tweaks/latest
-
 .. _Redmine: https://www.redmine.org
 
 Welcome to Redmine Tweaks Plugin
 ================================
 
 Tweaks for wiki and content including new macros for `Redmine`_.
+
+
+.. image:: https://gemnasium.com/alexandermeindl/redmine_tweaks.svg
+   :target: https://gemnasium.com/alexandermeindl/redmine_tweaks
+
+.. image:: https://drone.io/github.com/alexandermeindl/redmine_tweaks/status.png
+   :target: https://drone.io/github.com/alexandermeindl/redmine_tweaks/latest
 
 
 Requirements
@@ -39,6 +40,8 @@ Download the sources and put them to your plugins folder.
   $ cd $REDMINE_ROOT
   $ git clone git://github.com/alexandermeindl/redmine_tweaks.git plugins/redmine_tweaks
   $ bundle install --without development test
+
+More information about installation of Redmine plugins, you can find in the official `Redmine plugin documentation <https://www.redmine.org/projects/redmine/wiki/Plugins`_.
 
 Features
 --------

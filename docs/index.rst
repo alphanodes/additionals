@@ -3,10 +3,14 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to redmine_tweaks's documentation!
-==========================================
+Welcome to Redmine Tweaks Plugin
+================================
 
-Contents:
+.. image:: https://gemnasium.com/alexandermeindl/redmine_tweaks.svg
+    :target: https://gemnasium.com/alexandermeindl/redmine_tweaks
+
+.. image:: https://drone.io/github.com/alexandermeindl/redmine_tweaks/status.png
+    :target: https://drone.io/github.com/alexandermeindl/redmine_tweaks/latest
 
 .. toctree::
    :maxdepth: 2
@@ -25,16 +29,23 @@ Installation
 
 Install redmine_tweaks
 
+Check the requirements!
+
+Download the sources and put them to your plugins folder.
+
 .. code-block:: bash
 
-	$ cd $REDMINE_ROOT
+  $ cd $REDMINE_ROOT
   $ git clone git://github.com/alexandermeindl/redmine_tweaks.git plugins/redmine_tweaks
   $ bundle install --without development test
 
 
-Indices and tables
-==================
+Table of contents
+-----------------
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+.. toctree::
+    :maxdepth: 2
+
+    features
+    macros
+    changelog

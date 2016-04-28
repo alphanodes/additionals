@@ -11,7 +11,7 @@ Changelog
 - more formats for user macro and avatar support
 - rename list_users to members
 - rename list_projects to projects
-- new documentation on https://redmine-tweaks.readthedocs.org
+- new documentation on https://redmine-tweaks.readthedocs.io
 
 0.5.7
 +++++

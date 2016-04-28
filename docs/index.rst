@@ -12,7 +12,7 @@ Welcome to Redmine Tweaks Plugin
 
 Tweaks for wiki and content including new macros for `Redmine`_.
 
-* Documentation: https://redmine-tweaks.readthedocs.org
+* Documentation: https://redmine-tweaks.readthedocs.io
 * Redmine.org plugin page: https://www.redmine.org/plugins/redmine_tweaks
 * Github: https://github.com/alexandermeindl/redmine_tweaks
 
@@ -23,8 +23,8 @@ Tweaks for wiki and content including new macros for `Redmine`_.
 .. image:: https://drone.io/github.com/alexandermeindl/redmine_tweaks/status.png
    :target: https://drone.io/github.com/alexandermeindl/redmine_tweaks/latest
 
-.. image:: https://readthedocs.org/projects/redmine-tweaks/badge/?version=latest
-   :target: http://redmine-tweaks.readthedocs.org/en/latest/?badge=latest
+.. image:: https://readthedocs.io/projects/redmine-tweaks/badge/?version=latest
+   :target: http://redmine-tweaks.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
 
 Requirements

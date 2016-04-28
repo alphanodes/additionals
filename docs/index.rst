@@ -23,7 +23,7 @@ Tweaks for wiki and content including new macros for `Redmine`_.
 .. image:: https://drone.io/github.com/alexandermeindl/redmine_tweaks/status.png
    :target: https://drone.io/github.com/alexandermeindl/redmine_tweaks/latest
 
-.. image:: https://readthedocs.io/projects/redmine-tweaks/badge/?version=latest
+.. image:: https://readthedocs.org/projects/redmine-tweaks/badge/?version=latest
    :target: http://redmine-tweaks.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
 

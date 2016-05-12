@@ -1,6 +1,5 @@
 <% content_for :header_tags do %>
   <%= stylesheet_link_tag 'bootstrap-datepicker3.min.css', plugin: 'redmine_tweaks' %>
   <%= javascript_include_tag('bootstrap-datepicker.min.js', plugin: 'redmine_tweaks') %>
-  <% locale = User.current.language.blank? ? ::I18n.locale : User.current.language %>
-  <%= javascript_include_tag("locales/bootstrap-datepicker.#{locale}.min.js", plugin: 'redmine_tweaks') unless locale == 'en' %>
+  <%= bootstrap_datepicker_locale %>
 <% end %>

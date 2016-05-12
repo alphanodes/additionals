@@ -12,6 +12,7 @@ Changelog
 - rename list_users to members
 - rename list_projects to projects
 - new documentation on https://redmine-tweaks.readthedocs.io
+- updated bootstrap-datepicker and fixed zh locale problem
 
 0.5.7
 +++++

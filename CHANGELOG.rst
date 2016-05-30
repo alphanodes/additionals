@@ -13,6 +13,7 @@ Changelog
 - rename list_projects to projects
 - new documentation on https://redmine-tweaks.readthedocs.io
 - updated bootstrap-datepicker and fixed zh locale problem
+- html validation error has been fixed
 
 0.5.7
 +++++

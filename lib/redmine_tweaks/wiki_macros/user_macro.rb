@@ -29,7 +29,7 @@ module RedmineTweaks
 
         user = User.find_by_id(user_id)
         user ||= User.find_by_login(user_id)
-        return '' if user.nil?
+        return 'N/A' if user.nil?
 
         name = if options[:format].blank?
                  user.name

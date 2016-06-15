@@ -65,6 +65,7 @@ Features
 * set info message above new ticket (e.g. for guidelines)
 * Wiki date macros
 * Wiki Gist marco
+* Wiki issue macro
 * Wiki members macro
 * Wiki projects macro
 * Wiki Slideshare marco

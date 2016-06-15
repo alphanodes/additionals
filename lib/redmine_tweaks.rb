@@ -27,6 +27,7 @@ if ActiveRecord::Base.connection.table_exists?(:settings)
     require_dependency 'redmine_tweaks/wiki_macros/calendar'
     require_dependency 'redmine_tweaks/wiki_macros/date'
     require_dependency 'redmine_tweaks/wiki_macros/gist'
+    require_dependency 'redmine_tweaks/wiki_macros/issue_macro'
     require_dependency 'redmine_tweaks/wiki_macros/last_updated_at'
     require_dependency 'redmine_tweaks/wiki_macros/last_updated_by'
     require_dependency 'redmine_tweaks/wiki_macros/member_macro'

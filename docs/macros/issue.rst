@@ -1,4 +1,4 @@
-User
+Issue
 ----
 
 Issue wiki macro for Redmine.

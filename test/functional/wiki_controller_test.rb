@@ -166,7 +166,29 @@ class WikiControllerTest < ActionController::TestCase
     assert_response :success
     assert_template 'show'
     assert_select 'a[href=?]', '/issues/1',
-                  text: 'Cannot print recipes'
+                  text: 'Can\'t print recipes'
+  end
+
+  def test_show_issue_with_id
+    @request.session[:user_id] = 1
+    @page.content.text = '{{issue(1, format=link)}}'
+    @page.content.save!
+    get :show, project_id: 1, id: @page_name
+    assert_response :success
+    assert_template 'show'
+    assert_select 'a[href=?]', '/issues/1',
+                  text: 'Can\'t print recipes #1'
+  end
+
+  def test_show_issue_with_id_default
+    @request.session[:user_id] = 1
+    @page.content.text = '{{issue(1)}}'
+    @page.content.save!
+    get :show, project_id: 1, id: @page_name
+    assert_response :success
+    assert_template 'show'
+    assert_select 'a[href=?]', '/issues/1',
+                  text: 'Can\'t print recipes #1'
   end
 
   def test_show_user_with_id

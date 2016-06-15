@@ -42,7 +42,7 @@ module RedmineTweaks
               else
                 '//www.slideshare.net/slideshow/embed_code/' + v
               end
-        content_tag(:iframe, '', width: width, height: height, src: src, frameborder: 0, allowfullscreen: 'true', allowScriptAccess: 'always')
+        content_tag(:iframe, '', width: width, height: height, src: src, frameborder: 0, allowfullscreen: 'true')
       end
     end
   end

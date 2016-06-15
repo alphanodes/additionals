@@ -35,7 +35,6 @@ The following options are available to be edited by users with admin rights:
 * Remove "My Page" from top menu
 * Remove "Latest projects" from overview page
 * Add "Go to top" link. If you have a lot of long pages, it is helpful to add a jump to top link.
-* ``Garfield source host``. Enter the server here (only host name), by which the single comics by the use of SSL are offered. Please make sure to respect the particular terms of use and copyright laws.
 * ``Disable modules``, which should not be available for selection within the projects. If these modules already activated in existing projects, you will have to change and re-save the respective project settings first.
 
 

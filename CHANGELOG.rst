@@ -14,6 +14,8 @@ Changelog
 - new documentation on https://redmine-tweaks.readthedocs.io
 - updated bootstrap-datepicker and fixed zh locale problem
 - html validation error has been fixed
+- remove garfield support (because there is no image source server available)
+- slideshare wiki macro has been added
 
 0.5.7
 +++++

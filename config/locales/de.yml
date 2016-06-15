@@ -64,8 +64,6 @@ de:
   rule_issue_status_change_info: "Use Case: Zur Abnahme der Tickets sollen alle Tickets automatisch dem Ersteller des Tickets zugeordnet werden, sofern kein anderer Benutzer ausgewählt wird."
   label_rule_issue_current_user_status: "Der Ticketstatus x ist nur erlaubt, wenn \"Zugewiesen an\" der aktuelle Benutzer zugewiesen wird."
   rule_issue_current_user_status_info: "Use Case: Ein Benutzer soll nur den Status auf \"In Progress\" selbst stellen können, um damit anzuzeigen, dass er an dem Ticket (gerade) arbeitet."
-  label_garfield_source: Garfield Quellserver
-  garfield_source_info: "Geben Sie hier die Server (nur den Hostnamen an), über welchen per SSL die einzelnen Comics angeboten werden. Bitte beachten Sie unbedingt die Nutzungsbedingungen des Anbieters."
   minutes:
     one: Minute
     other: Minuten

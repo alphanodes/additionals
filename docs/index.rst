@@ -64,10 +64,10 @@ Features
 * global sidebar content support
 * set info message above new ticket (e.g. for guidelines)
 * Wiki date macros
-* Wiki Garfield marco
 * Wiki Gist marco
 * Wiki members macro
 * Wiki projects macro
+* Wiki Slideshare marco
 * Wiki twitter macro
 * Wiki user macro
 * Wiki Youtube marco

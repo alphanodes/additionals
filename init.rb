@@ -20,7 +20,6 @@ Redmine::Plugin.register :redmine_tweaks do
     'remove_lastest_projects' => false,
     'add_go_to_top' => false,
     'remove_mypage' => false,
-    'garfield_source_host' => '',
     'disabled_modules' => nil,
     'account_login_bottom' => '',
     'new_ticket_message' => 'Don\'t forget to define acceptance criteria!',

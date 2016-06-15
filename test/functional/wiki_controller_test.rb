@@ -160,35 +160,35 @@ class WikiControllerTest < ActionController::TestCase
 
   def test_show_issue
     @request.session[:user_id] = 1
-    @page.content.text = '{{issue(1, format=short)}}'
+    @page.content.text = '{{issue(2, format=short)}}'
     @page.content.save!
     get :show, project_id: 1, id: @page_name
     assert_response :success
     assert_template 'show'
-    assert_select 'a[href=?]', '/issues/1',
-                  text: 'Can\'t print recipes'
+    assert_select 'a[href=?]', '/issues/2',
+                  text: 'Add ingredients categories'
   end
 
   def test_show_issue_with_id
     @request.session[:user_id] = 1
-    @page.content.text = '{{issue(1, format=link)}}'
+    @page.content.text = '{{issue(2, format=link)}}'
     @page.content.save!
     get :show, project_id: 1, id: @page_name
     assert_response :success
     assert_template 'show'
-    assert_select 'a[href=?]', '/issues/1',
-                  text: 'Can\'t print recipes #1'
+    assert_select 'a[href=?]', '/issues/2',
+                  text: 'Add ingredients categories #2'
   end
 
   def test_show_issue_with_id_default
     @request.session[:user_id] = 1
-    @page.content.text = '{{issue(1)}}'
+    @page.content.text = '{{issue(2)}}'
     @page.content.save!
     get :show, project_id: 1, id: @page_name
     assert_response :success
     assert_template 'show'
-    assert_select 'a[href=?]', '/issues/1',
-                  text: 'Can\'t print recipes #1'
+    assert_select 'a[href=?]', '/issues/2',
+                  text: 'Add ingredients categories #2'
   end
 
   def test_show_user_with_id

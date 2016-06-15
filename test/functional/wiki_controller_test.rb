@@ -55,12 +55,12 @@ class WikiControllerTest < ActionController::TestCase
 
   def test_show_with_slideshare_macro
     @request.session[:user_id] = 1
-    @page.content.text = '{{slideshare(AcCT6LfBvwE9w7)}}'
+    @page.content.text = '{{slideshare(57941706)}}'
     @page.content.save!
     get :show, project_id: 1, id: @page_name
     assert_response :success
     assert_template 'show'
-    assert_select 'iframe[src=?]', '//de.slideshare.net/slideshow/embed_code/key/AcCT6LfBvwE9w7'
+    assert_select 'iframe[src=?]', '//www.slideshare.net/slideshow/embed_code/57941706'
   end
 
   def test_show_with_twitter_macro

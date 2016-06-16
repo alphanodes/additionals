@@ -47,8 +47,7 @@ module RedmineTweaks
                end
 
         if options[:format].blank? || options[:format] != 'text'
-          link_to(text, issue_url(issue, only_path: true),
-                  class: issue.css_classes)
+          link_to(text, issue_url(issue), class: issue.css_classes)
         else
           text
         end

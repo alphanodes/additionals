@@ -33,9 +33,9 @@ module RedmineTweaks
 
       def validate_open_sub_issues
         return true unless RedmineTweaks.settings[:issue_close_with_open_children]
-        if subject.present? && closing? && descendants.find { |d| !d.closed? }
-          errors.add :base, :issue_cannot_close_with_open_children
-        end
+        errors.add :base, :issue_cannot_close_with_open_children if subject.present? &&
+                                                                    closing? &&
+                                                                    descendants.find { |d| !d.closed? }
       end
 
       def validate_current_user_status

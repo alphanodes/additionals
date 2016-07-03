@@ -81,3 +81,5 @@ de:
         issue_cannot_close_with_open_children: "Das Ticket kann nicht geschlossen werden, bevor nicht alle Untertickets geschlossen wurden."
         issue_current_user_status: "Der ausgewählte Status erfordert, dass \"Zugewiesen an\" Dir selbst zugeordnet wird."
   label_tweaks: Tweaks
+  label_rule_issue_auto_assign: Wird "Zugewiesen an" nicht zugewiesen und der neue Ticketstatus ist x, dann wird dem erste Benutzer mit der festgelegten Rolle das Ticket zugewiesen.
+  rule_issue_auto_assign_info: 'Use Case: Der Ticketersteller weiss nicht, wem er das Ticket zurordnen soll bzw. wer Zuständig für das Ticket ist. Das neue Ticket mit dem Status "To Do" wird automatisch einem der Benutzer mit der Rolle Projektmanager zugewiesen.'

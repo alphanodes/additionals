@@ -17,6 +17,7 @@ Changelog
 - remove garfield support (because there is no image source server available)
 - slideshare wiki macro has been added
 - issue wiki macro has been added
+- autoassign issue if no assignee is selected
 
 0.5.7
 +++++

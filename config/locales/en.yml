@@ -81,5 +81,5 @@ en:
         issue_cannot_close_with_open_children: "This issue can only be closed, if all sub-issues are closed, too."
         issue_current_user_status: "The selected status requires that the \"Assignee\" is yourself."
   label_tweaks: Tweaks
-  label_rule_issue_auto_assign: Wird "Zugewiesen an" nicht zugewiesen und der neue Ticketstatus ist x, dann wird dem erste Benutzer mit der festgelegten Rolle das Ticket zugewiesen.
-  rule_issue_auto_assign_info: 'Use Case: Der Ticketersteller weiss nicht, wem er das Ticket zurordnen soll bzw. wer Zuständig für das Ticket ist. Das neue Ticket mit dem Status "To Do" wird automatisch einem der Benutzer mit der Rolle Projektmanager zugewiesen.'
+  label_rule_issue_auto_assign: If "Assigned to" is not assigned to someone and the new issue status is x then the issue is auto assigned to the first user with the pre-defined user role.
+  rule_issue_auto_assign_info: 'Use Case: The issue author does not know whom to assign the issue or who will be responsible for solving the task. In that case the issue with the status "To Do" is automatically assigend to the first user of the pre-selected role project manager.'

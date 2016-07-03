@@ -54,6 +54,9 @@ The following options are available at the moment:
 
 .. note:: Use Case here: Users are only allowed to change the status to "In Progress" if they are the person who is actually working on the issue right now.
 
+* If "Assigned to" is not assigned to someone and the new issue status is x then the issue is auto assigned to the first user with the pre-defined user role here.
+
+.. note:: Use Case for this option: In case the issue author does not know whom to assign the issue or who will be responsible for solving the task, the issue with the example status "To Do" is automatically assigend to the first user of the pre-selected role in this section (e.g. project manager).
 
 Menu section
 ------------

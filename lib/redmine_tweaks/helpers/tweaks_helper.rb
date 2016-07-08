@@ -107,7 +107,7 @@ module RedmineTweaks
     def bootstrap_datepicker_locale
       s = ''
       locale = User.current.language.blank? ? ::I18n.locale : User.current.language
-      s = javascript_include_tag("locales/bootstrap-datepicker.#{locale}.min.js", plugin: 'redmine_tweaks') unless locale == 'en'
+      s = javascript_include_tag("locales/bootstrap-datepicker.#{locale}.min", plugin: 'redmine_tweaks') unless locale == 'en'
       s
     end
   end

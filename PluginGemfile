@@ -1,5 +1,5 @@
 gem 'deface'
 
 group :test do
-	gem 'brakeman'
+  gem 'brakeman'
 end

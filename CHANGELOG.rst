@@ -1,6 +1,11 @@
 Changelog
 =========
 
+0.5.9-dev
++++++++++
+
+- optimize deface overwrite path
+
 0.5.8
 +++++
 

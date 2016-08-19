@@ -16,8 +16,8 @@ Tweaks for wiki and content including new macros for `Redmine`_.
 * Redmine.org plugin page: https://www.redmine.org/plugins/redmine_tweaks
 * Github: https://github.com/alphanodes/redmine_tweaks
 
-.. image:: https://gemnasium.com/badges/github.com/alphanodes/redmine_tweaks.svg
-   :target: https://gemnasium.com/github.com/alphanodes/redmine_tweaks
+.. image:: https://gemnasium.com/badges/github.com/AlphaNodes/redmine_tweaks.svg
+   :target: https://gemnasium.com/github.com/AlphaNodes/redmine_tweaks
 
 .. image:: https://pm.alphanodes.com/jenkins/buildStatus/icon?job=Devel-build-redmine-tweaks
    :target: https://pm.alphanodes.com/jenkins/buildStatus/icon?job=Devel-build-redmine-tweaks
@@ -47,7 +47,7 @@ Install ``redmine_tweaks`` plugin for `Redmine`_.
 .. code-block:: bash
 
   $ cd $REDMINE_ROOT
-  $ git clone git://github.com/alexandermeindl/redmine_tweaks.git plugins/redmine_tweaks
+  $ git clone git://github.com/alphanodes/redmine_tweaks.git plugins/redmine_tweaks
   $ bundle install --without development test
 
 Restart your application server (apache with passenger, nginx with passenger, unicorn, puma, etc.) and ``redmine_tweaks`` is ready to use.
@@ -90,7 +90,7 @@ Features
 Contact and Support
 --------------------
 
-I am glad about your feedback on the plugin, `pull requests <https://github.com/alexandermeindl/redmine_tweaks/pulls>`_, `issues <https://github.com/alexandermeindl/redmine_tweaks/issues>`_, whatever. Feel free to contact me for any questions.
+I am glad about your feedback on the plugin, `pull requests <https://github.com/alphanodes/redmine_tweaks/pulls>`_, `issues <https://github.com/alphanodes/redmine_tweaks/issues>`_, whatever. Feel free to contact me for any questions.
 
 
 .. toctree::

@@ -5,12 +5,12 @@ require 'redmine'
 require 'redmine_tweaks'
 
 Redmine::Plugin.register :redmine_tweaks do
-  name 'Redmine Tweaks'
+  name 'Tweaks'
   author 'AlphaNodes GmbH'
   description 'Wiki and content extensions'
-  version '0.5.8-dev'
+  version '0.5.8'
   author_url 'https://alphanodes.com/'
-  url 'https://github.com/alexandermeindl/redmine_tweaks'
+  url 'https://github.com/alphanodes/redmine_tweaks'
 
   default_settings = {
     'external_urls' => '0',

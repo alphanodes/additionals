@@ -1,8 +1,8 @@
 Changelog
 =========
 
-0.5.8-dev
-+++++++++
+0.5.8
++++++
 
 - Fixed top menu items permissions for anonymous and non member #29
 - Fixed bug with overwriting application handler, which cases problem with other plugins
@@ -18,6 +18,7 @@ Changelog
 - slideshare wiki macro has been added
 - issue wiki macro has been added
 - autoassign issue if no assignee is selected
+- n+1 query optimization
 
 0.5.7
 +++++

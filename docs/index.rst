@@ -5,7 +5,7 @@
 
 .. _Redmine: https://www.redmine.org
 .. _Ruby: https://www.ruby-lang.org
-.. _PluginGemfile: https://github.com/alexandermeindl/redmine_tweaks/blob/master/PluginGemfile
+.. _PluginGemfile: https://github.com/alphanodes/redmine_tweaks/blob/master/PluginGemfile
 
 Welcome to Redmine Tweaks Plugin
 ================================
@@ -14,14 +14,14 @@ Tweaks for wiki and content including new macros for `Redmine`_.
 
 * Documentation: https://redmine-tweaks.readthedocs.io
 * Redmine.org plugin page: https://www.redmine.org/plugins/redmine_tweaks
-* Github: https://github.com/alexandermeindl/redmine_tweaks
+* Github: https://github.com/alphanodes/redmine_tweaks
 
+.. image:: https://gemnasium.com/badges/github.com/alphanodes/redmine_tweaks.svg
+   :target: https://gemnasium.com/github.com/alphanodes/redmine_tweaks
 
-.. image:: https://gemnasium.com/alexandermeindl/redmine_tweaks.svg
-   :target: https://gemnasium.com/alexandermeindl/redmine_tweaks
-
-.. image:: https://drone.io/github.com/alexandermeindl/redmine_tweaks/status.png
-   :target: https://drone.io/github.com/alexandermeindl/redmine_tweaks/latest
+.. image:: https://pm.alphanodes.com/jenkins/buildStatus/icon?job=Devel-build-redmine-tweaks
+   :target: https://pm.alphanodes.com/jenkins/buildStatus/icon?job=Devel-build-redmine-tweaks
+   :alt: Jenkins Build Status
 
 .. image:: https://readthedocs.org/projects/redmine-tweaks/badge/?version=latest
    :target: http://redmine-tweaks.readthedocs.io/en/latest/?badge=latest

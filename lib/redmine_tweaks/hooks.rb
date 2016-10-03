@@ -28,9 +28,7 @@ module RedmineTweaks
                 RedmineTweaks.settings[:issue_auto_assign_role].nil?
       if context[:params][:issue][:assigned_to_id].blank? &&
          RedmineTweaks.settings[:issue_auto_assign_status].include?(context[:params][:issue][:status_id].to_s)
-        users_list = context[:issue].project.users_by_role
-        manager_role = Role.builtin.find(RedmineTweaks.settings[:issue_auto_assign_role].to_i)
-        context[:issue].assigned_to_id = users_list[manager_role].first.id unless users_list[manager_role].blank?
+        context[:issue].assigned_to_id = context[:issue].auto_assign_user
       end
     end
   end

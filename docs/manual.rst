@@ -54,9 +54,10 @@ The following options are available at the moment:
 
 .. note:: Use Case here: Users are only allowed to change the status to "In Progress" if they are the person who is actually working on the issue right now.
 
-* If "Assigned to" is not assigned to someone and the new issue status is x then the issue is auto assigned to the first user with the pre-defined user role here.
+* If "Assigned to" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role.
 
-.. note:: Use Case for this option: In case the issue author does not know whom to assign the issue or who will be responsible for solving the task, the issue with the example status "To Do" is automatically assigend to the first user of the pre-selected role in this section (e.g. project manager).
+.. note:: Use Case: The issue author does not know whom the issue should be assigned to. Or he is unsure who will be responsible for solving the task. In that case the issue for example with the status "To Do" is automatically assigned to the first group, which does contain a user of the pre-selected project manager role. Imagine you have a group called "Support", and there are users assigend to the "Manager" role, this support group will be automatically adressed to solve the issue when the issue author saves it.
+
 
 Menu section
 ------------

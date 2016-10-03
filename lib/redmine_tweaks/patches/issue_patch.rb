@@ -23,6 +23,30 @@ module RedmineTweaks
         end
       end
 
+      def auto_assign_user
+        manager_role = Role.builtin.find(RedmineTweaks.settings[:issue_auto_assign_role].to_i)
+        groups = autoassign_get_group_list
+        return groups[manager_role].first.id unless groups.nil? || groups[manager_role].blank?
+
+        users_list = project.users_by_role
+        return users_list[manager_role].first.id unless users_list[manager_role].blank?
+      end
+
+      def autoassign_get_group_list
+        return unless Setting.issue_group_assignment?
+        project.memberships
+               .active
+               .where("#{Principal.table_name}.type='Group'")
+               .includes(:user, :roles)
+               .each_with_object({}) do |m, h|
+          m.roles.each do |r|
+            h[r] ||= []
+            h[r] << m.principal
+          end
+          h
+        end
+      end
+
       def new_ticket_message
         @new_ticket_message = ''
         message = Setting.plugin_redmine_tweaks['new_ticket_message']

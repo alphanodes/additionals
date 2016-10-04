@@ -3,7 +3,7 @@ Changelog
 
 0.5.9-dev
 +++++++++
-
+- user group support for issue auto assign
 - optimize deface overwrite path
 
 0.5.8

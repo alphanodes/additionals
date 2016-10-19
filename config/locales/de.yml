@@ -83,3 +83,4 @@ de:
   label_tweaks: Tweaks
   label_rule_issue_auto_assign: "Wird \"Zugewiesen an\" nicht zugewiesen und der neue Ticketstatus ist x, dann wird die ersten Gruppe mit Benutzern der festgelegten Rolle das Ticket zugewiesen."
   rule_issue_auto_assign_info: 'Use Case: Der Ticketersteller weiss nicht, wem er das Ticket zurordnen soll bzw. welcher Benutzer zuständig für das Ticket ist. Das neue Ticket mit dem Status "To Do" wird in dem Fall automatisch der ersten Gruppe zugewiesen, die Benutzer mit der Rolle Managener enthält.'
+  label_macro_na: N/V

@@ -41,9 +41,9 @@ module RedmineTweaks
         if project_id.present?
           project_id.strip!
 
-          project = Project.visible.find_by_id(project_id)
-          project ||= Project.visible.find_by_identifier(project_id)
-          project ||= Project.visible.find_by_name(project_id)
+          project = Project.visible.find_by(id: project_id)
+          project ||= Project.visible.find_by(identifier: project_id)
+          project ||= Project.visible.find_by(name: project_id)
           return '' if project.nil?
 
           raw_users = User.active

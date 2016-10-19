@@ -27,9 +27,9 @@ module RedmineTweaks
         raise 'The correct usage is {{user(<user_id or username>, format=USER_FORMAT)}}' if args.empty?
         user_id = args[0]
 
-        user = User.find_by_id(user_id)
-        user ||= User.find_by_login(user_id)
-        return 'N/A' if user.nil?
+        user = User.find_by(id: user_id)
+        user ||= User.find_by(login: user_id)
+        return l(:label_macro_na) if user.nil?
 
         name = if options[:format].blank?
                  user.name

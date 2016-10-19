@@ -20,10 +20,10 @@ module RedmineTweaks
           raise '{{last_updated_at(project_identifier, wiki_page)}}' if args.length < 2
           project_name = args[0].strip
           page_name = args[1].strip
-          project = Project.find_by_name(project_name)
-          project = Project.find_by_identifier(project_name) unless project
+          project = Project.find_by(name: project_name)
+          project = Project.find_by(identifier: project_name) unless project
           return '' unless project
-          wiki = Wiki.find_by_project_id(project.id)
+          wiki = Wiki.find_by(project_id: project.id)
           return '' unless wiki
           page = wiki.find_page(page_name)
         end

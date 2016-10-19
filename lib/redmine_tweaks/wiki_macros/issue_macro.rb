@@ -34,7 +34,7 @@ module RedmineTweaks
         raise 'The correct usage is {{issue(<issue_id>, format=FORMAT)}}' if args.empty?
         issue_id = args[0]
 
-        issue = Issue.find_by_id(issue_id)
+        issue = Issue.find_by(id: issue_id)
         return 'N/A' if issue.nil? || !issue.visible?
 
         text = case options[:format]

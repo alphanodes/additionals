@@ -35,7 +35,7 @@ module RedmineTweaks
                 .where(["#{WikiPage.table_name}.wiki_id = ? AND #{WikiContent.table_name}.updated_on > ?",
                         page.wiki_id, Time.zone.today - days])
                 .order("#{WikiContent.table_name}.updated_on desc")
-        o = '<div class="recently-updated">'
+        o = ''
         date = nil
         pages.each do |page_raw|
           content = page_raw.content
@@ -48,8 +48,7 @@ module RedmineTweaks
                        controller: 'wiki', action: 'show', project_id: content.page.project, id: content.page.title)
           o << '<br/>'
         end
-        o << '</div>'
-        return o.html_safe
+        content_tag('div', o.html_safe, class: 'recently-updated')
       end
     end
   end

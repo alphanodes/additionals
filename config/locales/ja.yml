@@ -82,3 +82,4 @@ ja:
         issue_cannot_close_with_open_children: "This issue can only be closed, if all sub-issues are closed, too."
         issue_current_user_status: "The selected status requires that the \"Assignee\" is yourself."
   label_tweaks: Tweaks
+  label_macro_na: N/A

@@ -67,4 +67,6 @@ Redmine::Plugin.register :redmine_tweaks do
        if: proc { User.current.logged? && !RedmineTweaks.settings[:remove_mypage] }
 
   menu :admin_menu, :tweaks, { controller: 'settings', action: 'plugin', id: 'redmine_tweaks' }, caption: :label_tweaks
+
+  RedCloth3::ALLOWED_TAGS << 'div'
 end

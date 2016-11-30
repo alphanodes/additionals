@@ -9,8 +9,8 @@ if ActiveRecord::Base.connection.table_exists?(:settings)
     require_dependency 'redmine_tweaks/patches/wiki_patch'
     require_dependency 'redmine_tweaks/patches/wiki_controller_patch'
 
-    # Helper
-    require_dependency 'redmine_tweaks/helpers/tweaks_helper'
+    # Global helpers for Tweaks
+    require_dependency 'redmine_tweaks/helpers'
 
     # Hooks
     require_dependency 'redmine_tweaks/hooks'

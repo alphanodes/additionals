@@ -3,7 +3,7 @@
 
 # Redmine Tweak helper functions
 module RedmineTweaks
-  module Helper
+  module Helpers
     def system_uptime
       if windows_platform?
         `net stats srv | find "Statist"`
@@ -111,6 +111,4 @@ module RedmineTweaks
   end
 end
 
-unless ActionView::Base.included_modules.include?(RedmineTweaks::Helper)
-  ActionView::Base.send(:include, RedmineTweaks::Helper)
-end
+ActionView::Base.send :include, RedmineTweaks::Helpers

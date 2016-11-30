@@ -17,7 +17,7 @@ module RedmineTweaks
       # Instance methods with helper functions
       module InstanceMethods
         def editable_with_closed_edit?(user = User.current)
-          return unless editable_without_closed_edit?(user)
+          return false unless editable_without_closed_edit?(user)
           return true unless closed?
           user.allowed_to?(:edit_closed_issues, project)
         end

@@ -13,36 +13,29 @@ Redmine::Plugin.register :redmine_tweaks do
   url 'https://github.com/alphanodes/redmine_tweaks'
 
   default_settings = {
-    'external_urls' => '0',
-    'custom_help_url' => 'http://www.redmine.org/guide',
-    'remove_help' => false,
-    'remove_news_box' => false,
-    'remove_lastest_projects' => false,
-    'add_go_to_top' => false,
-    'remove_mypage' => false,
-    'disabled_modules' => nil,
-    'issue_auto_assign' => false,
-    'issue_auto_assign_status' => '',
-    'issue_auto_assign_role' => '',
-    'account_login_bottom' => '',
-    'new_ticket_message' => 'Don\'t forget to define acceptance criteria!',
-    'overview_right' => '',
-    'overview_top' => '',
-    'overview_bottom' => '',
-    'project_overview_content' => 'Go to admin area and define a nice wiki text here as a fixed skeletal for all projects.',
-    'global_sidebar' => '',
-    'global_wiki_sidebar' => '',
-    'global_wiki_header' => '',
-    'global_wiki_footer' => '',
-    'global_footer' => ''
+    account_login_bottom: '',
+    add_go_to_top: false,
+    custom_help_url: 'http://www.redmine.org/guide',
+    disabled_modules: nil,
+    external_urls: '0',
+    global_footer: '',
+    global_sidebar: '',
+    global_wiki_footer: '',
+    global_wiki_header: '',
+    global_wiki_sidebar: '',
+    issue_auto_assign_role: '',
+    issue_auto_assign_status: '',
+    issue_auto_assign: false,
+    new_ticket_message: 'Don\'t forget to define acceptance criteria!',
+    overview_bottom: '',
+    overview_right: '',
+    overview_top: '',
+    project_overview_content: 'Go to admin area and define a nice wiki text here as a fixed skeletal for all projects.',
+    remove_help: false,
+    remove_lastest_projects: false,
+    remove_mypage: false,
+    remove_news_box: false
   }
-
-  permission :hide_in_memberbox, {}
-  permission :show_hidden_roles_in_memberbox, {}
-
-  project_module :issue_tracking do
-    permission :edit_closed_issues, {}
-  end
 
   5.times do |i|
     default_settings['custom_menu' + i.to_s + '_name'] = ''
@@ -50,7 +43,14 @@ Redmine::Plugin.register :redmine_tweaks do
     default_settings['custom_menu' + i.to_s + '_title'] = ''
   end
 
-  settings(default: default_settings, partial: 'settings/redmine_tweaks')
+  settings(default: default_settings, partial: 'settings/redmine_tweaks/redmine_tweaks')
+
+  permission :hide_in_memberbox, {}
+  permission :show_hidden_roles_in_memberbox, {}
+
+  project_module :issue_tracking do
+    permission :edit_closed_issues, {}
+  end
 
   # required redmine version
   requires_redmine version_or_higher: '2.6.0'

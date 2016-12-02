@@ -3,7 +3,7 @@ unless (controller_name=='account' && action_name=='login') ||
   (controller_name=='my') ||
   (controller_name=='account' && action_name=='lost_password')
 %>
-<% if Setting.plugin_redmine_tweaks['add_go_to_top'] %>
+<% if Setting.plugin_redmine_tweaks[:add_go_to_top] %>
 <a href="#gototop" class="gototop"><%= l(:label_go_to_top) %></a>
 <% end %>
 <% end %>

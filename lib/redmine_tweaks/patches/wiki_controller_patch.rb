@@ -28,7 +28,7 @@ module RedmineTweaks
       private
 
       def redmine_tweaks_include_header
-        wiki_header = '' + Setting.plugin_redmine_tweaks['global_wiki_header'].to_s
+        wiki_header = '' + Setting.plugin_redmine_tweaks[:global_wiki_header].to_s
         return if wiki_header.empty?
 
         if Object.const_defined?('WikiExtensionsUtil') && WikiExtensionsUtil.is_enabled?(@project)
@@ -47,7 +47,7 @@ module RedmineTweaks
       end
 
       def redmine_tweaks_include_footer
-        wiki_footer = '' + Setting.plugin_redmine_tweaks['global_wiki_footer'].to_s
+        wiki_footer = '' + Setting.plugin_redmine_tweaks[:global_wiki_footer].to_s
         return if wiki_footer.empty?
 
         if Object.const_defined?('WikiExtensionsUtil') && WikiExtensionsUtil.is_enabled?(@project)

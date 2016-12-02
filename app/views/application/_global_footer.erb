@@ -1,6 +1,6 @@
 <%
-footer = Setting.plugin_redmine_tweaks['global_footer']
+footer = Setting.plugin_redmine_tweaks[:global_footer]
 %>
 <% unless footer.blank? %>
-<div class="tweak-footer"><%= textilizable(footer).html_safe %></div>
+<div class="tweak-footer"><%= textilizable(footer) %></div>
 <% end %>

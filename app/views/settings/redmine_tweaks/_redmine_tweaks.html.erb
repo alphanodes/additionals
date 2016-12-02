@@ -1,0 +1,8 @@
+<% tweak_tabs = [ { name: 'general', partial: 'settings/redmine_tweaks/general', label: :label_settings_general},
+        { name: 'content', partial: 'settings/redmine_tweaks/content', label: :label_settings_content},
+        { name: 'rules', partial: 'settings/redmine_tweaks/rules', label: :label_settings_rules},
+        { name: 'menu', partial: 'settings/redmine_tweaks/menu', label: :label_settings_menu},
+        { name: 'macros', partial: 'settings/redmine_tweaks/macros', label: :label_settings_macros}
+    ] %>
+
+<%= render_tabs tweak_tabs %>

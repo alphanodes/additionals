@@ -22,7 +22,7 @@ module RedmineTweaks
         if @sidebar && @sidebar.content
           sidebar_without_redmine_tweaks
         else
-          wiki_sidebar = '' + Setting.plugin_redmine_tweaks['global_wiki_sidebar'].to_s
+          wiki_sidebar = '' + Setting.plugin_redmine_tweaks[:global_wiki_sidebar].to_s
           @sidebar ||= find_page('Wiki', with_redirect: false)
           if wiki_sidebar != '' && @sidebar.try(:content)
             @sidebar.content.text = wiki_sidebar

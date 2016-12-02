@@ -31,6 +31,12 @@ if ActiveRecord::Base.connection.table_exists?(:settings)
     require_dependency 'redmine_tweaks/wiki_macros/vimeo'
     require_dependency 'redmine_tweaks/wiki_macros/youtube'
 
+    module RedmineTweaks
+      def self.settings
+        Setting[:plugin_redmine_tweaks].blank? ? {} : Setting[:plugin_redmine_tweaks]
+      end
+    end
+
     unless RedmineTweaks.settings[:remove_help]
       Redmine::Plugin.find('redmine_tweaks')
                      .menu :top_menu,

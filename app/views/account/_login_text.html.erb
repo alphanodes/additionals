@@ -1,12 +1,12 @@
 <%
-login_text = Setting.plugin_redmine_tweaks['account_login_bottom']
+login_text = Setting.plugin_redmine_tweaks[:account_login_bottom]
 
 unless login_text.blank?
 %>
 
 <br />
 <div class="login-tweaks">
-  <%= textilizable(login_text).html_safe %>
+  <%= textilizable(login_text) %>
 </div>
 
 <% end %>

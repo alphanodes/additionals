@@ -1,69 +1,5 @@
 # German strings
 de:
-  label_project_list: "Projektliste"
-  label_user_list: "Benutzerliste"
-  label_settings_general: "Allgemein"
-  label_settings_content: "Inhalt"
-  label_settings_menu: "Menü"
-  label_settings_rules: "Ticketregeln"
-  label_menu_entry: "Menüpunkt"
-  label_top_menu_help_html: "Hier können Menüpunkte festgelegt werden, die im Top-Menü angezeigt werden. Bitte den <strong>Webserver neu starten</strong>, wenn ein Eintrag gelöscht oder Berechtigungen verändert wurde."
-  label_optional: "optional"
-  label_add_go_to_top: '"Nach oben" Link hinzufügen'
-  label_go_to_top: "Nach oben"
-  label_add_go_to_top_info: 'Bei langen Seiten ist es hilfreich, wenn ein Link zur Verfügung steht, mit dem man zum Seitenanfang springen kann.'
-  label_external_urls: "Externe URLs"
-  external_url_default: "Standard Verhalten"
-  external_url_new_window: "In neuen Fenster"
-  external_url_noreferrer: "Mit NoReferrer Kennzeichnung öffnen"
-  external_urls_info_html: "Legt das Verhalten für externe URLs fest. Mit NoRefferer wird in modernen Browsern verschleiert, von welcher Seite die URL aufgerufen worden ist."
-  label_custom_help_url: "URL zur Hilfeseite"
-  custom_help_url_info_html: 'Diese URL wird für den <em>Hilfe</em> Eintrag im Topmenü verwendet. Bitte den <strong>Webserver neu starten</strong>, wenn die URL geändert wurde. Um eine deutsche Hilfe zu benutzen, kann hier z.B. <a class="external" href="https://alphanodes.com/de/redmine-buch">https://alphanodes.com/de/redmine-buch</a> eingetragen werden. Wenn hier nichts eingetragen wird, wird die Standard URL verwendet.'
-  label_remove_help: "Entferne 'Hilfe' aus dem Topmenü"
-  label_remove_news: "Entferne 'Letzte News' von der Übersichtsseite"
-  label_remove_latest_projects: "Entferne 'Neuste Projekte' von der Übersichtsseite"
-  label_remove_mypage: "Entferne 'Meine Seite' aus dem Topmenü"
-  remove_help_info: "Den Menüpunkt 'Hilfe' aus dem Topmenü entfernen."
-  remove_news_info: "News von der Übersichtsseite entfernen."
-  remove_latest_projects_info: "Neuste Projekte von der Übersichtsseite entfernen."
-  remove_mypage_info: 'Manchmal ist es hilfreich, dass die "Meine Seite" nicht angezeigt wird, um den Einsatz eines Task Boards einzuführen. Der Vorteil eines Task Boards liegt darin, dass Tickets nach Status gelistet werden können.'
-  label_account_login: "Text für Anmeldeseite"
-  account_login_info: "Dieser Text wir auf der Anmeldeseite angezeigt, um z.B. Informationen für die Anmeldung oder Registrierung zu hinterlegen. Diese Einstellung ist projektübergreifend und ist in allen Projekten aktiv."
-  label_new_ticket_message: "Hinweistext für neue Tickets"
-  new_ticket_message_info: "Ein Hinweis, der beim Erstellen neuer Tickets angezeigt wird. Es kann beispielsweise auf Akzeptanztests oder Richtlinien zum Erstellen der Tickets hingewiesen werden. Dieser Einstellung ist projektübergreifend und ist in allen Projekten aktiv."
-  label_project_overview_content: "Projektwegweiser"
-  project_overview_content_info: "Hier kann ein Text hinterlegt werden, der auf der Übersichtsprojektseite angezeigt wird. Verweisen Sie beispielsweise auf bestimmte Wiki Seiten, welche projektübergreifend vorhanden sind/sein sollten. Ziel sollte eine Standardisierung in den Projekten und eine einheitliche Wiki-Struktur sein."
-  label_global_sidebar: "Projektübergreifender Sidebar Inhalt"
-  global_sidebar_info: "Hier kann für die Sidebar ein projektübergreifender Text hinterlegt werden. Der hier hinterlegte Sidebar Inhalt wird auf der Projektübersichtsseite, auf den Ticketseiten und den Wikiseiten angezeigt."
-  label_global_wiki_sidebar: "Projektübergreifender Wiki-Sidebar Inhalt"
-  global_wiki_sidebar_info: 'Hier kann für die Wiki Sidebar ein projektübergreifender Text hinterlegt werden. Diese Sidebar wird nur auf den Wiki Seiten angezeigt und kann z.B. für  Makros wie "Zuletzt geänderte Seiten" verwendet werden. Wird eine projektspezifische Sidebar angelegt (über eine Wiki Seite), dann wird diese anstelle der projektübergreifenden Sidebar angezeigt.'
-  label_global_wiki_header: "Projektübergreifender Wiki Header"
-  global_wiki_header_info: 'Hier kann ein projektübergreifender Wiki Header hinterlegt werden. Wird über "Wiki Extensions" ein projektspezifischer Header angelegt, wird dieser immer vorzugsweise vor dem projektübergreifenden Header verwendet.'
-  label_global_wiki_footer: "Projektübergreifender Wiki Footer"
-  global_wiki_footer_info: 'Hier kann ein projektübergreifender Wiki Footer hinterlegt werden. Wird über "Wiki Extensions" ein projektspezifischer Footer angelegt, wird dieser anstelle des projektübergreifenden Footers verwendet.'
-  label_global_footer: "Projektübergreifender Footer"
-  global_footer_info: 'Hier kann ein projektübergreifender Footer hinterlegt werden, z.B. um einen Verweis auf die Datenschutzbestimmungen zu setzen.'
-  label_disabled_modules: "Deaktivierte Module"
-  disabled_modules_info: "Module, die nicht zur Auswahl innerhalb der Projekte zur Verfügung stehen sollen. Sind in bestehenden Projekten schon diese Module aktiviert worden, werden die Einstellungen für diese Projekte erst nach erneuten Abspeichern der jeweiligen Projekteinstellungen aktiv."
-  label_overview_right: "Übersichtsseite, rechts"
-  label_overview_top: "Übersichtsseite, oben"
-  label_overview_bottom: "Übersichtsseite, unten"
-  overview_right_info: "Hier kann ein Text hinterlegt werden, welcher auf der rechten Seite der Übersichtsseite ausgegeben wird. Verweisen Sie beispielsweise auf bestimmte Wiki Seiten."
-  overview_top_info: "Hier kann ein Text hinterlegt werden, welcher auf der Übersichtsseite oben ausgegeben wird. Verweisen Sie beispielsweise auf bestimmte Wiki Seiten."
-  overview_bottom_info: "Hier kann ein Text hinterlegt werden, welcher auf der Übersichtsseite unten ausgegeben wird. Verweisen Sie beispielsweise auf bestimmte Wiki Seiten."
-  label_settings_macros: "Makros"
-  label_top_macros_help_html: "Hier sind alle Makros aufgelistet, welche über Redmine selbst oder Plugins bereitgestellt werden (nicht nur über Redmine Tweaks). Diese Makros können in allen Texten innerhalb Redmines verwendet werden (sofern diese im jeweiligen Kontext Sinn machen)."
-  permission_hide_in_memberbox: "In Memberbox ausblenden"
-  permission_show_hidden_roles_in_memberbox: "Versteckte Rollen in Memberbox anzeigen"
-  permission_edit_closed_issues: "Geschlossene Tickets bearbeiten"
-  menu_roles_info: "Nur den ausgewählten Rollen wird der Menüpunkt angezeigt. Sobald ein Mitglied in einem Projekt die Rolle besitzt, wird der Menüpunkt angezeigt."
-  label_rule_issue_close_with_open_children: Tickets mit offenen Untertickets können nicht geschlossen werden
-  top_rules_help: "Hier können Regeln konfiguriert werden, die den Umgang mit Tickets festlegen. Sobald eine Regel aktiviert wurde, wirkt sich diese auf alle Projekte aus."
-  top_content_help: "Hier können Texte hinterlegt werden, welche an unterschiedlichen Stellen in Redmine ausgegeben werden. Verwenden Sie einfachen Text, Makros oder Wikisyntax für die Inhalte."
-  label_rule_issue_status_change: "Wird \"Zugewiesen an\" nicht verändert und der Ticketstatus von x auf y geändert, dann wird das Ticket automatisch dem Ersteller zugewiesen"
-  rule_issue_status_change_info: "Use Case: Zur Abnahme der Tickets sollen alle Tickets automatisch dem Ersteller des Tickets zugeordnet werden, sofern kein anderer Benutzer ausgewählt wird."
-  label_rule_issue_current_user_status: "Der Ticketstatus x ist nur erlaubt, wenn \"Zugewiesen an\" der aktuelle Benutzer zugewiesen wird."
-  rule_issue_current_user_status_info: "Use Case: Ein Benutzer soll nur den Status auf \"In Progress\" selbst stellen können, um damit anzuzeigen, dass er an dem Ticket (gerade) arbeitet."
   minutes:
     one: Minute
     other: Minuten
@@ -73,14 +9,78 @@ de:
   days:
     one: Tag
     other: Tage
-  label_system_info: Systeminformation
-  label_uptime: Betriebszeit
   activerecord:
     errors:
       messages:
         issue_cannot_close_with_open_children: "Das Ticket kann nicht geschlossen werden, bevor nicht alle Untertickets geschlossen wurden."
         issue_current_user_status: "Der ausgewählte Status erfordert, dass \"Zugewiesen an\" Dir selbst zugeordnet wird."
-  label_tweaks: Tweaks
-  label_rule_issue_auto_assign: "Wird \"Zugewiesen an\" nicht zugewiesen und der neue Ticketstatus ist x, dann wird die ersten Gruppe mit Benutzern der festgelegten Rolle das Ticket zugewiesen."
-  rule_issue_auto_assign_info: 'Use Case: Der Ticketersteller weiss nicht, wem er das Ticket zurordnen soll bzw. welcher Benutzer zuständig für das Ticket ist. Das neue Ticket mit dem Status "To Do" wird in dem Fall automatisch der ersten Gruppe zugewiesen, die Benutzer mit der Rolle Managener enthält.'
+  account_login_info: "Dieser Text wir auf der Anmeldeseite angezeigt, um z.B. Informationen für die Anmeldung oder Registrierung zu hinterlegen. Diese Einstellung ist projektübergreifend und ist in allen Projekten aktiv."
+  custom_help_url_info_html: 'Diese URL wird für den <em>Hilfe</em> Eintrag im Topmenü verwendet. Bitte den <strong>Webserver neu starten</strong>, wenn die URL geändert wurde. Um eine deutsche Hilfe zu benutzen, kann hier z.B. <a class="external" href="https://alphanodes.com/de/redmine-buch">https://alphanodes.com/de/redmine-buch</a> eingetragen werden. Wenn hier nichts eingetragen wird, wird die Standard URL verwendet.'
+  disabled_modules_info: "Module, die nicht zur Auswahl innerhalb der Projekte zur Verfügung stehen sollen. Sind in bestehenden Projekten schon diese Module aktiviert worden, werden die Einstellungen für diese Projekte erst nach erneuten Abspeichern der jeweiligen Projekteinstellungen aktiv."
+  external_url_default: "Standard Verhalten"
+  external_url_new_window: "In neuen Fenster"
+  external_url_noreferrer: "Mit NoReferrer Kennzeichnung öffnen"
+  external_urls_info_html: "Legt das Verhalten für externe URLs fest. Mit NoRefferer wird in modernen Browsern verschleiert, von welcher Seite die URL aufgerufen worden ist."
+  global_footer_info: 'Hier kann ein projektübergreifender Footer hinterlegt werden, z.B. um einen Verweis auf die Datenschutzbestimmungen zu setzen.'
+  global_sidebar_info: "Hier kann für die Sidebar ein projektübergreifender Text hinterlegt werden. Der hier hinterlegte Sidebar Inhalt wird auf der Projektübersichtsseite, auf den Ticketseiten und den Wikiseiten angezeigt."
+  global_wiki_footer_info: 'Hier kann ein projektübergreifender Wiki Footer hinterlegt werden. Wird über "Wiki Extensions" ein projektspezifischer Footer angelegt, wird dieser anstelle des projektübergreifenden Footers verwendet.'
+  global_wiki_header_info: 'Hier kann ein projektübergreifender Wiki Header hinterlegt werden. Wird über "Wiki Extensions" ein projektspezifischer Header angelegt, wird dieser immer vorzugsweise vor dem projektübergreifenden Header verwendet.'
+  global_wiki_sidebar_info: 'Hier kann für die Wiki Sidebar ein projektübergreifender Text hinterlegt werden. Diese Sidebar wird nur auf den Wiki Seiten angezeigt und kann z.B. für  Makros wie "Zuletzt geänderte Seiten" verwendet werden. Wird eine projektspezifische Sidebar angelegt (über eine Wiki Seite), dann wird diese anstelle der projektübergreifenden Sidebar angezeigt.'
+  label_account_login: "Text für Anmeldeseite"
+  label_add_go_to_top_info: 'Bei langen Seiten ist es hilfreich, wenn ein Link zur Verfügung steht, mit dem man zum Seitenanfang springen kann.'
+  label_add_go_to_top: '"Nach oben" Link hinzufügen'
+  label_custom_help_url: "URL zur Hilfeseite"
+  label_disabled_modules: "Deaktivierte Module"
+  label_external_urls: "Externe URLs"
+  label_global_footer: "Projektübergreifender Footer"
+  label_global_sidebar: "Projektübergreifender Sidebar Inhalt"
+  label_global_wiki_footer: "Projektübergreifender Wiki Footer"
+  label_global_wiki_header: "Projektübergreifender Wiki Header"
+  label_global_wiki_sidebar: "Projektübergreifender Wiki-Sidebar Inhalt"
+  label_go_to_top: "Nach oben"
   label_macro_na: N/V
+  label_menu_entry: "Menüpunkt"
+  label_new_ticket_message: "Hinweistext für neue Tickets"
+  label_optional: "optional"
+  label_overview_bottom: "Übersichtsseite, unten"
+  label_overview_right: "Übersichtsseite, rechts"
+  label_overview_top: "Übersichtsseite, oben"
+  label_project_list: "Projektliste"
+  label_project_overview_content: "Projektwegweiser"
+  label_remove_help: "Entferne 'Hilfe' aus dem Topmenü"
+  label_remove_latest_projects: "Entferne 'Neuste Projekte' von der Übersichtsseite"
+  label_remove_mypage: "Entferne 'Meine Seite' aus dem Topmenü"
+  label_remove_news: "Entferne 'Letzte News' von der Übersichtsseite"
+  label_rule_issue_auto_assign: "Wird \"Zugewiesen an\" nicht zugewiesen und der neue Ticketstatus ist x, dann wird die ersten Gruppe mit Benutzern der festgelegten Rolle das Ticket zugewiesen."
+  label_rule_issue_close_with_open_children: Tickets mit offenen Untertickets können nicht geschlossen werden
+  label_rule_issue_current_user_status: "Der Ticketstatus x ist nur erlaubt, wenn \"Zugewiesen an\" der aktuelle Benutzer zugewiesen wird."
+  label_rule_issue_status_change: "Wird \"Zugewiesen an\" nicht verändert und der Ticketstatus von x auf y geändert, dann wird das Ticket automatisch dem Ersteller zugewiesen"
+  label_settings_content: "Inhalt"
+  label_settings_general: "Allgemein"
+  label_settings_macros: "Makros"
+  label_settings_menu: "Menü"
+  label_settings_rules: "Ticketregeln"
+  label_system_info: Systeminformation
+  label_top_macros_help_html: "Hier sind alle Makros aufgelistet, welche über Redmine selbst oder Plugins bereitgestellt werden (nicht nur über Redmine Tweaks). Diese Makros können in allen Texten innerhalb Redmines verwendet werden (sofern diese im jeweiligen Kontext Sinn machen)."
+  label_top_menu_help_html: "Hier können Menüpunkte festgelegt werden, die im Top-Menü angezeigt werden. Bitte den <strong>Webserver neu starten</strong>, wenn ein Eintrag gelöscht oder Berechtigungen verändert wurde."
+  label_tweaks: Tweaks
+  label_uptime: Betriebszeit
+  label_user_list: "Benutzerliste"
+  menu_roles_info: "Nur den ausgewählten Rollen wird der Menüpunkt angezeigt. Sobald ein Mitglied in einem Projekt die Rolle besitzt, wird der Menüpunkt angezeigt."
+  new_ticket_message_info: "Ein Hinweis, der beim Erstellen neuer Tickets angezeigt wird. Es kann beispielsweise auf Akzeptanztests oder Richtlinien zum Erstellen der Tickets hingewiesen werden. Dieser Einstellung ist projektübergreifend und ist in allen Projekten aktiv."
+  overview_bottom_info: "Hier kann ein Text hinterlegt werden, welcher auf der Übersichtsseite unten ausgegeben wird. Verweisen Sie beispielsweise auf bestimmte Wiki Seiten."
+  overview_right_info: "Hier kann ein Text hinterlegt werden, welcher auf der rechten Seite der Übersichtsseite ausgegeben wird. Verweisen Sie beispielsweise auf bestimmte Wiki Seiten."
+  overview_top_info: "Hier kann ein Text hinterlegt werden, welcher auf der Übersichtsseite oben ausgegeben wird. Verweisen Sie beispielsweise auf bestimmte Wiki Seiten."
+  permission_edit_closed_issues: "Geschlossene Tickets bearbeiten"
+  permission_hide_in_memberbox: "In Memberbox ausblenden"
+  permission_show_hidden_roles_in_memberbox: "Versteckte Rollen in Memberbox anzeigen"
+  project_overview_content_info: "Hier kann ein Text hinterlegt werden, der auf der Übersichtsprojektseite angezeigt wird. Verweisen Sie beispielsweise auf bestimmte Wiki Seiten, welche projektübergreifend vorhanden sind/sein sollten. Ziel sollte eine Standardisierung in den Projekten und eine einheitliche Wiki-Struktur sein."
+  remove_help_info: "Den Menüpunkt 'Hilfe' aus dem Topmenü entfernen."
+  remove_latest_projects_info: "Neuste Projekte von der Übersichtsseite entfernen."
+  remove_mypage_info: 'Manchmal ist es hilfreich, dass die "Meine Seite" nicht angezeigt wird, um den Einsatz eines Task Boards einzuführen. Der Vorteil eines Task Boards liegt darin, dass Tickets nach Status gelistet werden können.'
+  remove_news_info: "News von der Übersichtsseite entfernen."
+  rule_issue_auto_assign_info: 'Use Case: Der Ticketersteller weiss nicht, wem er das Ticket zurordnen soll bzw. welcher Benutzer zuständig für das Ticket ist. Das neue Ticket mit dem Status "To Do" wird in dem Fall automatisch der ersten Gruppe zugewiesen, die Benutzer mit der Rolle Managener enthält.'
+  rule_issue_current_user_status_info: "Use Case: Ein Benutzer soll nur den Status auf \"In Progress\" selbst stellen können, um damit anzuzeigen, dass er an dem Ticket (gerade) arbeitet."
+  rule_issue_status_change_info: "Use Case: Zur Abnahme der Tickets sollen alle Tickets automatisch dem Ersteller des Tickets zugeordnet werden, sofern kein anderer Benutzer ausgewählt wird."
+  top_content_help: "Hier können Texte hinterlegt werden, welche an unterschiedlichen Stellen in Redmine ausgegeben werden. Verwenden Sie einfachen Text, Makros oder Wikisyntax für die Inhalte."
+  top_rules_help: "Hier können Regeln konfiguriert werden, die den Umgang mit Tickets festlegen. Sobald eine Regel aktiviert wurde, wirkt sich diese auf alle Projekte aus."

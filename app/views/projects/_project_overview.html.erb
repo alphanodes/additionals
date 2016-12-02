@@ -1,11 +1,9 @@
 <%
-
-project_overview_content = Setting.plugin_redmine_tweaks['project_overview_content']
+project_overview_content = Setting.plugin_redmine_tweaks[:project_overview_content]
 unless project_overview_content.blank?
 %>
-
 <div class="project-content wiki box">
-  <%= textilizable(project_overview_content).html_safe %>
+  <%= textilizable(project_overview_content) %>
 </div>
 
 <% end %>

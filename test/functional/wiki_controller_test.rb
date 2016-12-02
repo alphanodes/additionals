@@ -19,7 +19,9 @@ class WikiControllerTest < ActionController::TestCase
            :custom_fields,
            :custom_values,
            :custom_fields_trackers,
-           :wikis
+           :wikis,
+           :wiki_pages,
+           :wiki_contents
 
   def setup
     RedmineTweaks::TestCase.prepare
@@ -235,5 +237,49 @@ class WikiControllerTest < ActionController::TestCase
     assert_select 'a.user', text: 'John Smith'
     assert_select 'a[href=?]', '/users/2',
                   text: 'John Smith'
+  end
+
+  def test_show_wiki_with_header
+    Setting.plugin_redmine_tweaks = ActionController::Parameters.new(
+      global_wiki_header: 'Lore impsuum'
+    )
+    get :show, project_id: 1, id: 'Another_page'
+
+    assert_response :success
+    assert_template 'show'
+    assert_select 'div#wiki_extentions_header', text: /Lore impsuum/
+  end
+
+  def test_show_wiki_without_header
+    Setting.plugin_redmine_tweaks = ActionController::Parameters.new(
+      global_wiki_header: ''
+    )
+    get :show, project_id: 1, id: 'Another_page'
+
+    assert_response :success
+    assert_template 'show'
+    assert_select 'div#wiki_extentions_header', count: 0
+  end
+
+  def test_show_wiki_with_footer
+    Setting.plugin_redmine_tweaks = ActionController::Parameters.new(
+      global_wiki_footer: 'Lore impsuum'
+    )
+    get :show, project_id: 1, id: 'Another_page'
+
+    assert_response :success
+    assert_template 'show'
+    assert_select 'div#wiki_extentions_footer', text: /Lore impsuum/
+  end
+
+  def test_show_wiki_without_footer
+    Setting.plugin_redmine_tweaks = ActionController::Parameters.new(
+      global_wiki_footer: ''
+    )
+    get :show, project_id: 1, id: 'Another_page'
+
+    assert_response :success
+    assert_template 'show'
+    assert_select 'div#wiki_extentions_footer', count: 0
   end
 end

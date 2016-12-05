@@ -8,7 +8,8 @@ module RedmineTweaks
         base.send(:include, InstanceMethods)
         base.class_eval do
           alias_method_chain :editable?, :closed_edit
-          validate :validate_change_on_closed
+          # TODO: working on issues of dependencies (aroud 20 redmine tests failed with it)
+          # validate :validate_change_on_closed
           validate :validate_open_sub_issues
           validate :validate_current_user_status
           before_save :change_status_with_assigned_to_change

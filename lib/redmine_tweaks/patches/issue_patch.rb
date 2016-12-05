@@ -8,6 +8,7 @@ module RedmineTweaks
         base.send(:include, InstanceMethods)
         base.class_eval do
           alias_method_chain :editable?, :closed_edit
+          validate :validate_change_on_closed
           validate :validate_open_sub_issues
           validate :validate_current_user_status
           before_save :change_status_with_assigned_to_change
@@ -16,6 +17,10 @@ module RedmineTweaks
 
       # Instance methods with helper functions
       module InstanceMethods
+        def log_time_allowed?(user = User.current)
+          !closed? || user.allowed_to?(:log_time_on_closed_issues, project)
+        end
+
         def editable_with_closed_edit?(user = User.current)
           return false unless editable_without_closed_edit?(user)
           return true unless closed?
@@ -54,6 +59,11 @@ module RedmineTweaks
       end
 
       private
+
+      def validate_change_on_closed
+        return true unless closed?
+        errors.add :base, :issue_changes_not_allowed unless User.current.allowed_to?(:edit_closed_issues, project)
+      end
 
       def validate_open_sub_issues
         return true unless RedmineTweaks.settings[:issue_close_with_open_children]

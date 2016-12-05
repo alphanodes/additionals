@@ -34,10 +34,14 @@ The following options are available to be edited by users with admin rights:
 * Remove "Help" from top menu in order to keep the menu shorter.
 * Remove "My Page" from top menu in order you don't want your users to use this page.
 * Remove "Latest news" from overview page in case you do not use this function very often.
-* Remove "Latest projects" from overview page because this information is often not very useful.
 * Add "Go to top" link. If you have a lot of long pages, it is enabling users to easily return to the top of a page.
 * ``Disable modules``, this feature will hide the selected modules in the project settings. Even if the module is enabled for use in the admin area it can not be selected by the project manager within the projects. Please note, if these modules already activated in existing projects, you will have to change and re-save the respective project settings first.
 
+Additional permissions
+-------------------
+
+* Edit closed issues
+* Log time to closed issues
 
 Issue rules section
 -------------------

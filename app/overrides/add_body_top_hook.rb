@@ -1,5 +1,5 @@
 Deface::Override.new virtual_path:  'layouts/base',
                      name:          'add-body-header',
                      insert_before: 'div#wrapper',
-                     original:      '1b89b4f62d274a3d822b9043b285ba658d9abe63',
+                     original:      'ca2ceebb7d948adadd58eea5e233e843cb8eec45',
                      partial:       'application/global_body_header'

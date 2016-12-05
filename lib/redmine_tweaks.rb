@@ -6,6 +6,7 @@ if ActiveRecord::Base.connection.table_exists?(:settings)
     # Patches
     require_dependency 'redmine_tweaks/patches/custom_help_url'
     require_dependency 'redmine_tweaks/patches/issue_patch'
+    require_dependency 'redmine_tweaks/patches/time_entry_patch'
     require_dependency 'redmine_tweaks/patches/wiki_patch'
     require_dependency 'redmine_tweaks/patches/wiki_controller_patch'
 

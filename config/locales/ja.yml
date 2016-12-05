@@ -14,6 +14,8 @@ ja:
       messages:
         issue_cannot_close_with_open_children: "This issue can only be closed, if all sub-issues are closed, too."
         issue_current_user_status: "The selected status requires that the \"Assignee\" is yourself."
+        issue_log_time_not_allowed: "is a closed issue. You are not allowed to log time at it."
+        issue_changes_not_allowed: "is a closed issue, you do not have any right to change it."
   account_login_info: "この文章は、ログイン画面で表示され、登録情報の掲載を目的にしています。これらの設定は全プロジェクトで有効です。"
   custom_help_url_info_html: "このURLを変更した後、反映するためにウェブサーバを再起動しなければなりません。URLの指定がない場合、規程のヘルプURLが使用されます。"
   disabled_modules_info: "プロジェクト内で選択させたくないモジュール。もしこのモジュールが既存のプロジェクトで既に有効な場合、設定変更した上で、ウェブサーバを再起動しなければなりません。"
@@ -48,7 +50,6 @@ ja:
   label_project_list: "プロジェクト一覧"
   label_project_overview_content: "Project guide"
   label_remove_help: "「ヘルプ」をトップメニューから外す"
-  label_remove_latest_projects: "Remove 'Lastest projects' from overview page"
   label_remove_mypage: "「マイ・ページ」をトップメニューから外す"
   label_remove_news: "Remove 'Lastest news' from overview page"
   label_rule_issue_close_with_open_children: Issues with open sub-issues cannot be closed
@@ -71,11 +72,11 @@ ja:
   overview_right_info: "Here you can add your text, which will be shown on the overview page at the right side. For example you can link to a wiki page."
   overview_top_info: "Here you can add your text, which will be shown on the overview page at the top. For example you can link to a wiki page."
   permission_edit_closed_issues: "Edit closed issues"
+  permission_log_time_on_closed_issues: "Log time on closed issues"
   permission_hide_in_memberbox: "Hide in memberbox"
   permission_show_hidden_roles_in_memberbox: "Show hidden roles in member box"
   project_wiki_skeletal_info: "この文章は、プロジェクト概要のページに表示されます。例えば、メンバー全員に公開されているWikiページ等のリンクを貼る等の使い方があります。一つのWiki構造を維持する事で、プロジェクト基準を良くする事が目的です。"
   remove_help_info: "「ヘルプ」項目をトップメニューから外す"
-  remove_latest_projects_info: "Remove latest projects from overview page."
   remove_mypage_info: 'タスクボードを導入するために、「マイ・ページ」のリンクを隠した方が便利な場合があります。タスクボードにより、ステータス毎の順番並び替えに出来るメリットがあります。'
   remove_news_info: "Remove latest news from overview page."
   rule_issue_current_user_status_info: "Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."

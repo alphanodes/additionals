@@ -33,12 +33,6 @@
 </p>
 
 <p>
-  <%= content_tag(:label, l(:label_remove_latest_projects)) %>
-  <%= check_box_tag 'settings[remove_latest_projects]', 1, @settings[:remove_latest_projects] %>
-  <em class="info"><%= l(:remove_latest_projects_info) %></em>
-</p>
-
-<p>
   <%= content_tag(:label, l(:label_add_go_to_top)) %>
   <%= check_box_tag 'settings[add_go_to_top]', 1, @settings[:add_go_to_top] %>
   <em class="info"><%= t(:label_add_go_to_top_info) %></em>

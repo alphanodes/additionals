@@ -52,6 +52,10 @@ Redmine::Plugin.register :redmine_tweaks do
     permission :edit_closed_issues, {}
   end
 
+  project_module :time_tracking do
+    permission :log_time_on_closed_issues, {}
+  end
+
   # required redmine version
   requires_redmine version_or_higher: '2.6.0'
 

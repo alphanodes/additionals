@@ -14,6 +14,8 @@ de:
       messages:
         issue_cannot_close_with_open_children: "Das Ticket kann nicht geschlossen werden, bevor nicht alle Untertickets geschlossen wurden."
         issue_current_user_status: "Der ausgewählte Status erfordert, dass \"Zugewiesen an\" Dir selbst zugeordnet wird."
+        issue_log_time_not_allowed: "ist ein geschlossenes Ticket, auf dem Sie nicht berechtigt sind einen Aufwand zu buchen."
+        issue_changes_not_allowed: "ist ein geschlossenes Ticket, welches Sie keine Berechtigung besitzen es zu ändern."
   account_login_info: "Dieser Text wir auf der Anmeldeseite angezeigt, um z.B. Informationen für die Anmeldung oder Registrierung zu hinterlegen. Diese Einstellung ist projektübergreifend und ist in allen Projekten aktiv."
   custom_help_url_info_html: 'Diese URL wird für den <em>Hilfe</em> Eintrag im Topmenü verwendet. Bitte den <strong>Webserver neu starten</strong>, wenn die URL geändert wurde. Um eine deutsche Hilfe zu benutzen, kann hier z.B. <a class="external" href="https://alphanodes.com/de/redmine-buch">https://alphanodes.com/de/redmine-buch</a> eingetragen werden. Wenn hier nichts eingetragen wird, wird die Standard URL verwendet.'
   disabled_modules_info: "Module, die nicht zur Auswahl innerhalb der Projekte zur Verfügung stehen sollen. Sind in bestehenden Projekten schon diese Module aktiviert worden, werden die Einstellungen für diese Projekte erst nach erneuten Abspeichern der jeweiligen Projekteinstellungen aktiv."
@@ -48,7 +50,6 @@ de:
   label_project_list: "Projektliste"
   label_project_overview_content: "Projektwegweiser"
   label_remove_help: "Entferne 'Hilfe' aus dem Topmenü"
-  label_remove_latest_projects: "Entferne 'Neuste Projekte' von der Übersichtsseite"
   label_remove_mypage: "Entferne 'Meine Seite' aus dem Topmenü"
   label_remove_news: "Entferne 'Letzte News' von der Übersichtsseite"
   label_rule_issue_auto_assign: "Wird \"Zugewiesen an\" nicht zugewiesen und der neue Ticketstatus ist x, dann wird die ersten Gruppe mit Benutzern der festgelegten Rolle das Ticket zugewiesen."
@@ -72,11 +73,11 @@ de:
   overview_right_info: "Hier kann ein Text hinterlegt werden, welcher auf der rechten Seite der Übersichtsseite ausgegeben wird. Verweisen Sie beispielsweise auf bestimmte Wiki Seiten."
   overview_top_info: "Hier kann ein Text hinterlegt werden, welcher auf der Übersichtsseite oben ausgegeben wird. Verweisen Sie beispielsweise auf bestimmte Wiki Seiten."
   permission_edit_closed_issues: "Geschlossene Tickets bearbeiten"
+  permission_log_time_on_closed_issues: "Aufwände buchen auf geschlossene Tickets"
   permission_hide_in_memberbox: "In Memberbox ausblenden"
   permission_show_hidden_roles_in_memberbox: "Versteckte Rollen in Memberbox anzeigen"
   project_overview_content_info: "Hier kann ein Text hinterlegt werden, der auf der Übersichtsprojektseite angezeigt wird. Verweisen Sie beispielsweise auf bestimmte Wiki Seiten, welche projektübergreifend vorhanden sind/sein sollten. Ziel sollte eine Standardisierung in den Projekten und eine einheitliche Wiki-Struktur sein."
   remove_help_info: "Den Menüpunkt 'Hilfe' aus dem Topmenü entfernen."
-  remove_latest_projects_info: "Neuste Projekte von der Übersichtsseite entfernen."
   remove_mypage_info: 'Manchmal ist es hilfreich, dass die "Meine Seite" nicht angezeigt wird, um den Einsatz eines Task Boards einzuführen. Der Vorteil eines Task Boards liegt darin, dass Tickets nach Status gelistet werden können.'
   remove_news_info: "News von der Übersichtsseite entfernen."
   rule_issue_auto_assign_info: 'Use Case: Der Ticketersteller weiss nicht, wem er das Ticket zurordnen soll bzw. welcher Benutzer zuständig für das Ticket ist. Das neue Ticket mit dem Status "To Do" wird in dem Fall automatisch der ersten Gruppe zugewiesen, die Benutzer mit der Rolle Managener enthält.'

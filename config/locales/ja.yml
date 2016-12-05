@@ -15,7 +15,7 @@ ja:
         issue_cannot_close_with_open_children: "This issue can only be closed, if all sub-issues are closed, too."
         issue_current_user_status: "The selected status requires that the \"Assignee\" is yourself."
         issue_log_time_not_allowed: "is a closed issue. You are not allowed to log time at it."
-        issue_changes_not_allowed: "is a closed issue, you do not have any right to change it."
+        issue_changes_not_allowed: "This issue is closed, you do not have any right to change it."
   account_login_info: "この文章は、ログイン画面で表示され、登録情報の掲載を目的にしています。これらの設定は全プロジェクトで有効です。"
   custom_help_url_info_html: "このURLを変更した後、反映するためにウェブサーバを再起動しなければなりません。URLの指定がない場合、規程のヘルプURLが使用されます。"
   disabled_modules_info: "プロジェクト内で選択させたくないモジュール。もしこのモジュールが既存のプロジェクトで既に有効な場合、設定変更した上で、ウェブサーバを再起動しなければなりません。"

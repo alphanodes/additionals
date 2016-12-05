@@ -15,7 +15,7 @@ de:
         issue_cannot_close_with_open_children: "Das Ticket kann nicht geschlossen werden, bevor nicht alle Untertickets geschlossen wurden."
         issue_current_user_status: "Der ausgewählte Status erfordert, dass \"Zugewiesen an\" Dir selbst zugeordnet wird."
         issue_log_time_not_allowed: "ist ein geschlossenes Ticket, auf dem Sie nicht berechtigt sind einen Aufwand zu buchen."
-        issue_changes_not_allowed: "ist ein geschlossenes Ticket, welches Sie keine Berechtigung besitzen es zu ändern."
+        issue_changes_not_allowed: "Dieses Ticket ist geschlossenes und Sie besitzen keine Berechtigung es zu ändern."
   account_login_info: "Dieser Text wir auf der Anmeldeseite angezeigt, um z.B. Informationen für die Anmeldung oder Registrierung zu hinterlegen. Diese Einstellung ist projektübergreifend und ist in allen Projekten aktiv."
   custom_help_url_info_html: 'Diese URL wird für den <em>Hilfe</em> Eintrag im Topmenü verwendet. Bitte den <strong>Webserver neu starten</strong>, wenn die URL geändert wurde. Um eine deutsche Hilfe zu benutzen, kann hier z.B. <a class="external" href="https://alphanodes.com/de/redmine-buch">https://alphanodes.com/de/redmine-buch</a> eingetragen werden. Wenn hier nichts eingetragen wird, wird die Standard URL verwendet.'
   disabled_modules_info: "Module, die nicht zur Auswahl innerhalb der Projekte zur Verfügung stehen sollen. Sind in bestehenden Projekten schon diese Module aktiviert worden, werden die Einstellungen für diese Projekte erst nach erneuten Abspeichern der jeweiligen Projekteinstellungen aktiv."

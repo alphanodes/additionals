@@ -15,7 +15,8 @@ module RedmineTweaks
 
       module InstanceMethods
         def validate_issue_allowed
-          errors.add(:issue_id, :issue_log_time_not_allowed) if issue_id && issue && !issue.log_time_allowed?
+          return unless issue_id && issue && (issue.updated_on + 3.seconds) < Time.zone.now
+          errors.add(:issue_id, :issue_log_time_not_allowed) unless issue.log_time_allowed?
         end
       end
     end

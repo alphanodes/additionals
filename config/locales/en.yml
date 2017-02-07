@@ -44,7 +44,7 @@ en:
   label_go_to_top: "Go to top"
   label_macro_na: N/A
   label_menu_entry: "Menu item"
-  label_new_ticket_message: "Note for new tickets"
+  label_new_ticket_message: "Note for new issues"
   label_optional: "optional"
   label_overview_bottom: "Overview page, bottom"
   label_overview_page: "Overview page"
@@ -73,7 +73,7 @@ en:
   label_wiki_pdf_remove_attachments: Remove attachments from PDF view
   label_wiki_pdf_remove_title: Remove Wiki title from PDF view
   menu_roles_info: "Only members of selected roles will see this menu entry."
-  new_ticket_message_info: "A note will be shown to everyone who wants to add a new ticket. For example you can enter acceptance tests or ticket rules here. These settings are used project wide."
+  new_ticket_message_info: "A note will be shown to everyone who wants to add a new issue. For example you can enter acceptance tests or issue rules here. These settings are used project wide."
   overview_bottom_info: "Here you can add your text, which will be shown on the overview page at the bottom. For example you can link to a wiki page."
   overview_right_info: "Here you can add your text, which will be shown on the overview page at the right side. For example you can link to a wiki page."
   overview_top_info: "Here you can add your text, which will be shown on the overview page at the top. For example you can link to a wiki page."
@@ -83,7 +83,7 @@ en:
   permission_show_hidden_roles_in_memberbox: "Show hidden roles in member box"
   project_overview_content_info: "Here you can add your text, which will be shown on the project overview page. For example you can link to a wiki page, which is/should be project wide available to every team member. The aim is to reach a better project standard and to maintain a unique wiki structure."
   remove_help_info: "Remove the item 'Help' from the top menu."
-  remove_mypage_info: 'Sometimes it is more useful to hide the "My Page" link in order to introduce the task board. The task board advantage is that tickets can be listed according to their status.'
+  remove_mypage_info: 'Sometimes it is more useful to hide the "My Page" link in order to introduce the task board. The task board advantage is that issues can be listed according to their status.'
   remove_news_info: "Remove latest news from overview page."
   rule_issue_auto_assign_info: 'Use Case: The issue author does not know whom to assign the issue or who will be responsible for solving the task. In that case the issue for example with the status "To Do" is automatically assigned to the first group, which does contain a user of the pre-selected project manager role.'
   rule_issue_current_user_status_info: "Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."

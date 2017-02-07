@@ -1,14 +1,17 @@
 Changelog
 =========
 
-0.5.9-dev
-+++++++++
+1.0.0
++++++
 
 - user group support for issue auto assign
 - optimize deface overwrite path
 - drop remove latest projects support (because Redmine 3.2 has dropped latest projects)
 - add permission for log time on closed issues - make sure you adjust our permissions!
 - code cleanups and bug fixes
+- restructure settings
+- wiki pdf settings has been added
+- updated documentation
 
 0.5.8
 +++++

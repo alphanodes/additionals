@@ -63,16 +63,7 @@ Features
 * welcome text for login page
 * global sidebar content support
 * set info message above new ticket (e.g. for guidelines)
-* Wiki date macros
-* Wiki Gist marco
-* Wiki issue macro
-* Wiki members macro
-* Wiki projects macro
-* Wiki Slideshare marco
-* Wiki twitter macro
-* Wiki user macro
-* Wiki Youtube marco
-* Wiki Vimeo marco
+* Wiki macros for: date, Gihub gist, issues, members, projects slideshare, twitter, user, youtube and vimeo
 * option to remove "my page" from top menu
 * customize "Help" url in top menu
 * customize top menu items

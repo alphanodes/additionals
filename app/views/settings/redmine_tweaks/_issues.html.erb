@@ -1,3 +1,16 @@
+
+<br />
+<h3><%= l(:label_content_plural) %></h3>
+
+<p>
+  <%= content_tag(:label, l(:label_new_ticket_message)) %>
+  <%= text_area_tag 'settings[new_ticket_message]', @settings[:new_ticket_message], class: 'wiki-edit', rows: 10 %>
+  <em class="info"><%= l(:new_ticket_message_info) %></em>
+</p>
+
+<br />
+<h3><%= l(:label_setting_plural) %></h3>
+
 <div class="info"><%= t(:top_rules_help) %></div>
 <br />
 

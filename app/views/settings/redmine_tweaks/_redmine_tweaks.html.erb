@@ -1,8 +1,10 @@
-<% tweak_tabs = [ { name: 'general', partial: 'settings/redmine_tweaks/general', label: :label_settings_general},
-        { name: 'content', partial: 'settings/redmine_tweaks/content', label: :label_settings_content},
-        { name: 'rules', partial: 'settings/redmine_tweaks/rules', label: :label_settings_rules},
-        { name: 'menu', partial: 'settings/redmine_tweaks/menu', label: :label_settings_menu},
-        { name: 'macros', partial: 'settings/redmine_tweaks/macros', label: :label_settings_macros}
+<% tweak_tabs = [ { name: 'general', partial: 'settings/redmine_tweaks/general', label: :label_general },
+        { name: 'content', partial: 'settings/redmine_tweaks/overview', label: :label_overview_page },
+        { name: 'wiki', partial: 'settings/redmine_tweaks/wiki', label: :label_wiki },
+        { name: 'rules', partial: 'settings/redmine_tweaks/issues', label: :label_issue_plural },
+        { name: 'projects', partial: 'settings/redmine_tweaks/projects', label: :label_project_plural },
+        { name: 'menu', partial: 'settings/redmine_tweaks/menu', label: :label_settings_menu },
+        { name: 'macros', partial: 'settings/redmine_tweaks/macros', label: :label_settings_macros }
     ] %>
 
 <%= render_tabs tweak_tabs %>

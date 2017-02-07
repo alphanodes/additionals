@@ -1,3 +1,27 @@
+<br />
+<h3><%= l(:label_content_plural) %></h3>
+
+<p>
+  <%= content_tag(:label, l(:label_account_login)) %>
+  <%= text_area_tag 'settings[account_login_bottom]', @settings[:account_login_bottom], class: 'wiki-edit', rows: 10 %>
+  <em class="info"><%= l(:account_login_info) %></em>
+</p>
+
+<p>
+  <%= content_tag(:label, l(:label_global_sidebar)) %>
+  <%= text_area_tag 'settings[global_sidebar]', @settings[:global_sidebar], class: 'wiki-edit', rows: 10 %>
+  <em class="info"><%= l(:global_sidebar_info) %></em>
+</p>
+
+<p>
+  <%= content_tag(:label, l(:label_global_footer)) %>
+  <%= text_area_tag 'settings[global_footer]', @settings[:global_footer], class: 'wiki-edit', rows: 5 %>
+  <em class="info"><%= l(:global_footer_info) %></em>
+</p>
+
+<br />
+<h3><%= l(:label_setting_plural) %></h3>
+
 <p>
   <%= content_tag(:label, l(:label_external_urls)) %>
   <%= select_tag 'settings[external_urls]', options_for_select({
@@ -9,38 +33,7 @@
 </p>
 
 <p>
-  <%= content_tag(:label, l(:label_custom_help_url)) %>
-  <%= text_field_tag('settings[custom_help_url]', @settings[:custom_help_url], size: 60) %>
-  <em class="info"><%= t(:custom_help_url_info_html) %></em>
-</p>
-
-<p>
-  <%= content_tag(:label, l(:label_remove_help)) %>
-  <%= check_box_tag 'settings[remove_help]', 1, @settings[:remove_help] %>
-  <em class="info"><%= l(:remove_help_info) %></em>
-</p>
-
-<p>
-  <%= content_tag(:label, l(:label_remove_mypage)) %>
-  <%= check_box_tag 'settings[remove_mypage]', 1, @settings[:remove_mypage] %>
-  <em class="info"><%= l(:remove_mypage_info) %></em>
-</p>
-
-<p>
-  <%= content_tag(:label, l(:label_remove_news)) %>
-  <%= check_box_tag 'settings[remove_news]', 1, @settings[:remove_news] %>
-  <em class="info"><%= l(:remove_news_info) %></em>
-</p>
-
-<p>
   <%= content_tag(:label, l(:label_add_go_to_top)) %>
   <%= check_box_tag 'settings[add_go_to_top]', 1, @settings[:add_go_to_top] %>
   <em class="info"><%= t(:label_add_go_to_top_info) %></em>
-</p>
-
-<p>
-<% disabled_modules = Struct.new(:id, :name) %>
-  <%= content_tag(:label, l(:label_disabled_modules)) %>
-	<%= select_tag("settings[disabled_modules]", options_from_collection_for_select(Redmine::AccessControl.available_project_modules.collect {|m| disabled_modules.new(m, l_or_humanize(m, prefix: 'project_module_').to_s) }, :id, :name, @settings[:disabled_modules]), { multiple: true, style: 'height: 300px;' }) %>
-  <em class="info"><%= l(:disabled_modules_info) %></em>
 </p>

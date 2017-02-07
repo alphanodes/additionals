@@ -8,33 +8,35 @@ Redmine::Plugin.register :redmine_tweaks do
   name 'Tweaks'
   author 'AlphaNodes GmbH'
   description 'Wiki and content extensions'
-  version '0.5.9-dev'
+  version '1.0.0'
   author_url 'https://alphanodes.com/'
   url 'https://github.com/alphanodes/redmine_tweaks'
 
   default_settings = {
     account_login_bottom: '',
-    add_go_to_top: false,
+    add_go_to_top: 0,
     custom_help_url: 'http://www.redmine.org/guide',
     disabled_modules: nil,
-    external_urls: '0',
+    external_urls: 0,
     global_footer: '',
     global_sidebar: '',
+    wiki_pdf_header: '',
+    wiki_pdf_remove_title: 0,
+    wiki_pdf_remove_attachments: 0,
     global_wiki_footer: '',
     global_wiki_header: '',
     global_wiki_sidebar: '',
     issue_auto_assign_role: '',
     issue_auto_assign_status: '',
-    issue_auto_assign: false,
+    issue_auto_assign: 0,
     new_ticket_message: 'Don\'t forget to define acceptance criteria!',
     overview_bottom: '',
     overview_right: '',
     overview_top: '',
     project_overview_content: 'Go to admin area and define a nice wiki text here as a fixed skeletal for all projects.',
-    remove_help: false,
-    remove_lastest_projects: false,
-    remove_mypage: false,
-    remove_news_box: false
+    remove_help: 0,
+    remove_mypage: 0,
+    remove_news: 0
   }
 
   5.times do |i|

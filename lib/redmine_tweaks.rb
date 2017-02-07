@@ -9,6 +9,7 @@ if ActiveRecord::Base.connection.table_exists?(:settings)
     require_dependency 'redmine_tweaks/patches/time_entry_patch'
     require_dependency 'redmine_tweaks/patches/wiki_patch'
     require_dependency 'redmine_tweaks/patches/wiki_controller_patch'
+    require_dependency 'redmine_tweaks/patches/wiki_pdf_helper_patch'
 
     # Global helpers for Tweaks
     require_dependency 'redmine_tweaks/helpers'

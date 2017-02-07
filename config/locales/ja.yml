@@ -31,7 +31,9 @@ ja:
   label_account_login: "ログイン画面の文章"
   label_add_go_to_top_info: '長いページが多い場合、「トップへ」のリンクは役立ちます。'
   label_add_go_to_top: '「トップへ」リンクを追加する'
+  label_content_plural: Contents
   label_custom_help_url: "カスタムヘルプURL"
+  label_custom_menu_items: Custom menu items
   label_disabled_modules: "無効化したいモジュール"
   label_external_urls: "外部URL"
   label_global_footer: "プロジェクト全体フッター"
@@ -45,41 +47,51 @@ ja:
   label_new_ticket_message: "新規チケットのメモ"
   label_optional: "任意"
   label_overview_bottom: "Overview page, bottom"
+  label_overview_page: "Overview page"
   label_overview_right: "Overview page, right"
   label_overview_top: "Overview page, top"
+  label_pdf_wiki_settings: PDF Wiki settings
   label_project_list: "プロジェクト一覧"
   label_project_overview_content: "Project guide"
   label_remove_help: "「ヘルプ」をトップメニューから外す"
   label_remove_mypage: "「マイ・ページ」をトップメニューから外す"
   label_remove_news: "Remove 'Lastest news' from overview page"
+  label_rule_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
   label_rule_issue_close_with_open_children: Issues with open sub-issues cannot be closed
   label_rule_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
   label_rule_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
-  label_settings_content: "コンテンツ"
-  label_settings_general: "共通"
+  label_setting_plural: Settings
   label_settings_macros: "Macros"
   label_settings_menu: "メニュー"
-  label_settings_rules: "Issue rules"
   label_system_info: System info
   label_top_macros_help_html: "Here you get a list of all available Redmine macros of your installation, which are provided by Redmine and the Redmine plugins."
   label_top_menu_help: "ここで新しいトップメニューの項目を定義出来ます。リンクの追加・削除を行った場合、ウェブサーバを再起動してください。"
   label_tweaks: Tweaks
   label_uptime: Uptime
   label_user_list: "ユーザ一覧"
+  label_wiki_pdf_header: Wiki PDF header
+  label_wiki_pdf_remove_attachments: Remove attachments from PDF view
+  label_wiki_pdf_remove_title: Remove Wiki title from PDF view
   menu_roles_info: "Only members of selected roles will see this menu entry."
   new_ticket_message_info: "新規チケットを登録したいときに表示されるメモ書き。例えば、チケット入力のルールや承認規程を掲載する目的にでも使えます。これらの設定は全プロジェクトで有効です。"
   overview_bottom_info: "Here you can add your text, which will be shown on the overview page at the bottom. For example you can link to a wiki page."
   overview_right_info: "Here you can add your text, which will be shown on the overview page at the right side. For example you can link to a wiki page."
   overview_top_info: "Here you can add your text, which will be shown on the overview page at the top. For example you can link to a wiki page."
   permission_edit_closed_issues: "Edit closed issues"
-  permission_log_time_on_closed_issues: "Log time on closed issues"
   permission_hide_in_memberbox: "Hide in memberbox"
+  permission_log_time_on_closed_issues: "Log time on closed issues"
   permission_show_hidden_roles_in_memberbox: "Show hidden roles in member box"
-  project_wiki_skeletal_info: "この文章は、プロジェクト概要のページに表示されます。例えば、メンバー全員に公開されているWikiページ等のリンクを貼る等の使い方があります。一つのWiki構造を維持する事で、プロジェクト基準を良くする事が目的です。"
-  remove_help_info: "「ヘルプ」項目をトップメニューから外す"
+  project_overview_content_info: "この文章は、プロジェクト概要のページに表示されます。例えば、メンバー全員に公開されているWikiページ等のリンクを貼る等の使い方があります。一つのWiki構造を維持する事で、プロジェクト基準を良くする事が目的です。"
+  remove_help_info: "ヘルプ」項目をトップメニューから外す"
   remove_mypage_info: 'タスクボードを導入するために、「マイ・ページ」のリンクを隠した方が便利な場合があります。タスクボードにより、ステータス毎の順番並び替えに出来るメリットがあります。'
   remove_news_info: "Remove latest news from overview page."
+  rule_issue_auto_assign_info: 'Use Case: The issue author does not know whom to assign the issue or who will be responsible for solving the task. In that case the issue for example with the status "To Do" is automatically assigned to the first group, which does contain a user of the pre-selected project manager role.'
   rule_issue_current_user_status_info: "Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."
   rule_issue_status_change_info: "Use Case: issues should be automatically assigned to autor, if the status changes to \"Approval\"."
-  top_content_help: "Here you can define texts, which will be displayed in diverse areas of Redmine. Use simple text, macros and wiki syntax for your content."
+  top_overview_help: Here you can define contents and settings for your overview page.
+  top_projects_help: Here you can define contents and settings for your project page.
   top_rules_help: "Here you can define rules, which are used in issues of all projects."
+  top_wiki_help: Here you can define contents and settings for your Wiki.
+  wiki_pdf_header_info: This text block will be displayed on the first page before the regular Wiki content in the PDF view. Macro use is very restricted, here.
+  wiki_pdf_remove_attachments_info: When active the attached Wiki files will not be displayed in PDF view.
+  wiki_pdf_remove_title_info: When active the Wiki title info will not be displayed in PDF view.

@@ -24,8 +24,8 @@ module RedmineTweaks
 
     def issue_auto_assign(context)
       return if RedmineTweaks.settings[:issue_auto_assign].blank? ||
-                RedmineTweaks.settings[:issue_auto_assign_status].nil? ||
-                RedmineTweaks.settings[:issue_auto_assign_role].nil?
+                RedmineTweaks.settings[:issue_auto_assign_status].blank? ||
+                RedmineTweaks.settings[:issue_auto_assign_role].blank?
       if context[:params][:issue][:assigned_to_id].blank? &&
          RedmineTweaks.settings[:issue_auto_assign_status].include?(context[:params][:issue][:status_id].to_s)
         context[:issue].assigned_to_id = context[:issue].auto_assign_user

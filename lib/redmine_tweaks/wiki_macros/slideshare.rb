@@ -1,5 +1,5 @@
 # Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013-2016 AlphaNodes GmbH
+# Copyright (C) 2013-2017 AlphaNodes GmbH
 
 # Slideshare wiki macros
 module RedmineTweaks
@@ -26,12 +26,12 @@ module RedmineTweaks
         height = 485
         slide = 0
 
-        width = options[:width] unless options[:width].blank?
-        height = options[:height] unless options[:height].blank?
-        slide = options[:slide].to_i unless options[:slide].blank?
+        width = options[:width] if options[:width].present?
+        height = options[:height] if options[:height].present?
+        slide = options[:slide].to_i if options[:slide].present?
 
-        if (options[:width].blank? && !options[:height].blank?) ||
-           (!options[:width].blank? && options[:height].blank?) ||
+        if (options[:width].blank? && options[:height].present?) ||
+           (options[:width].present? && options[:height].blank?) ||
            args.empty?
           raise 'The correct usage is {{slideshare(<key>[, width=x, height=y, slide=number])}}'
         end

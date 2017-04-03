@@ -1,5 +1,5 @@
 # Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013-2016 AlphaNodes GmbH
+# Copyright (C) 2013-2017 AlphaNodes GmbH
 
 if ActiveRecord::Base.connection.table_exists?(:settings)
   Rails.configuration.to_prepare do

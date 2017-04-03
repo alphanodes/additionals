@@ -1,5 +1,5 @@
 # Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013-2016 AlphaNodes GmbH
+# Copyright (C) 2013-2017 AlphaNodes GmbH
 
 # Youtube wiki macros
 module RedmineTweaks
@@ -26,13 +26,13 @@ module RedmineTweaks
         height = 360
         autoplay = false
 
-        width = options[:width] unless options[:width].blank?
-        height = options[:height] unless options[:height].blank?
+        width = options[:width] if options[:width].present?
+        height = options[:height] if options[:height].present?
         autoplay = true if !options[:autoplay].nil? &&
                            (options[:autoplay] == 'true' || options[:autoplay] == '1')
 
-        if (options[:width].blank? && !options[:height].blank?) ||
-           (!options[:width].blank? && options[:height].blank?) ||
+        if (options[:width].blank? && options[:height].present?) ||
+           (options[:width].present? && options[:height].blank?) ||
            args.empty?
           raise 'The correct usage is {{youtube(<video key>[, width=x, height=y])}}'
         end

@@ -1,5 +1,5 @@
 # Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013-2016 AlphaNodes GmbH
+# Copyright (C) 2013-2017 AlphaNodes GmbH
 
 module RedmineTweaks
   module Patches
@@ -35,7 +35,7 @@ module RedmineTweaks
         return groups[manager_role].first.id unless groups.nil? || groups[manager_role].blank?
 
         users_list = project.users_by_role
-        return users_list[manager_role].first.id unless users_list[manager_role].blank?
+        return users_list[manager_role].first.id if users_list[manager_role].present?
       end
 
       def autoassign_get_group_list
@@ -56,7 +56,7 @@ module RedmineTweaks
       def new_ticket_message
         @new_ticket_message = ''
         message = Setting.plugin_redmine_tweaks[:new_ticket_message]
-        @new_ticket_message << message unless message.blank?
+        @new_ticket_message << message if message.present?
       end
 
       private

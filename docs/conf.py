@@ -24,7 +24,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'redmine_tweaks'
-copyright = u'2013-2016, AlphaNodes GmbH'
+copyright = u'2013-2017, AlphaNodes GmbH'
 author = u'Alexander Meindl'
 
 # The short X.Y version.

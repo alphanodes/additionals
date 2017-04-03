@@ -1,6 +1,13 @@
 Changelog
 =========
 
+1.0.1
++++++
+
+- Coding standard cleanups
+- ruby 2.1.5 required or newer
+- version bump
+
 1.0.0
 +++++
 

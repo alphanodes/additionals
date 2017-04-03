@@ -1,5 +1,5 @@
 # Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013-2016 AlphaNodes GmbH
+# Copyright (C) 2013-2017 AlphaNodes GmbH
 
 # Redmine Tweak helper functions
 module RedmineTweaks
@@ -94,7 +94,7 @@ module RedmineTweaks
 
       html_options = {}
       html_options[:class] = 'external' if item[:url].include? '://'
-      html_options[:title] = item[:title] unless item[:title].blank?
+      html_options[:title] = item[:title] if item[:title].present?
       Redmine::MenuManager.map(:top_menu).push menu_name,
                                                item[:url],
                                                caption: item[:name].to_s,

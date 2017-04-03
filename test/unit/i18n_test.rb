@@ -1,5 +1,5 @@
 # Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013-2016 AlphaNodes GmbH
+# Copyright (C) 2013-2017 AlphaNodes GmbH
 
 require File.expand_path('../../test_helper', __FILE__)
 
@@ -21,7 +21,11 @@ module Redmine
     end
 
     def test_locales_validness
-      lang_files_count = Dir["#{Rails.root}/plugins/redmine_tweaks/config/locales/*.yml"].size
+      lang_files_count = Dir[Rails.root.join('plugins',
+                                             'redmine_tweaks',
+                                             'config',
+                                             'locales',
+                                             '*.yml')].size
       assert_equal lang_files_count, 3
       valid_languages.each do |lang|
         assert set_language_if_valid(lang)

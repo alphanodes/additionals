@@ -1,5 +1,5 @@
 # Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013-2016 AlphaNodes GmbH
+# Copyright (C) 2013-2017 AlphaNodes GmbH
 
 # Member wiki macros
 module RedmineTweaks
@@ -54,7 +54,7 @@ module RedmineTweaks
           users = []
           raw_users.each do |user|
             user_roles[user.id] = user.roles_for_project(project)
-            if !options[:role].present? || RedmineTweaks.check_role_matches(user_roles[user.id], options[:role])
+            if options[:role].blank? || RedmineTweaks.check_role_matches(user_roles[user.id], options[:role])
               users << user
             end
           end

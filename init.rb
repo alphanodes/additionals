@@ -1,5 +1,5 @@
 # Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013-2016 AlphaNodes GmbH
+# Copyright (C) 2013-2017 AlphaNodes GmbH
 
 require 'redmine'
 require 'redmine_tweaks'
@@ -8,7 +8,7 @@ Redmine::Plugin.register :redmine_tweaks do
   name 'Tweaks'
   author 'AlphaNodes GmbH'
   description 'Wiki and content extensions'
-  version '1.0.0'
+  version '1.0.1'
   author_url 'https://alphanodes.com/'
   url 'https://github.com/alphanodes/redmine_tweaks'
 

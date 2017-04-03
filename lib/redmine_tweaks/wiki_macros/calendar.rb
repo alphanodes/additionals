@@ -1,5 +1,5 @@
 # Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013-2016 AlphaNodes GmbH
+# Copyright (C) 2013-2017 AlphaNodes GmbH
 
 # Calendar wiki macros
 module RedmineTweaks
@@ -27,7 +27,7 @@ module RedmineTweaks
         options[:month] = options[:month].to_i - 1
 
         selected = ''
-        selected = RedmineTweaks.convert_string2date(options[:select]) unless options[:select].blank?
+        selected = RedmineTweaks.convert_string2date(options[:select]) if options[:select].present?
 
         locale = User.current.language.blank? ? ::I18n.locale : User.current.language
         # not more then 30 calendars per page are expected

@@ -1,5 +1,5 @@
 # Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013-2016 AlphaNodes GmbH
+# Copyright (C) 2013-2017 AlphaNodes GmbH
 
 module RedmineTweaks
   module Patches
@@ -20,7 +20,7 @@ module RedmineTweaks
           pdf.alias_nb_pages
           pdf.footer_date = format_date(User.current.today)
           pdf.add_page
-          unless RedmineTweaks.settings[:wiki_pdf_header].blank?
+          if RedmineTweaks.settings[:wiki_pdf_header].present?
             pdf.SetFontStyle('', 9)
             pdf.RDMwriteFormattedCell(100,
                                       5,

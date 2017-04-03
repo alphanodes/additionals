@@ -1,5 +1,5 @@
 # Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013-2016 AlphaNodes GmbH
+# Copyright (C) 2013-2017 AlphaNodes GmbH
 
 # User wiki macros
 module RedmineTweaks
@@ -38,7 +38,7 @@ module RedmineTweaks
                end
 
         s = []
-        if !options[:avatar].blank? && options[:avatar]
+        if options[:avatar].present? && options[:avatar]
           s << avatar(user, size: 14) + ' '
         end
 

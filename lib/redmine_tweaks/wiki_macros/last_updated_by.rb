@@ -1,5 +1,5 @@
 # Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013-2016 AlphaNodes GmbH
+# Copyright (C) 2013-2017 AlphaNodes GmbH
 
 # Last_updated_by wiki macros
 module RedmineTweaks
@@ -13,7 +13,7 @@ module RedmineTweaks
       macro :last_updated_by do |obj, args|
         raise 'The correct usage is {{last_updated_by}}' unless args.empty?
         content_tag(:span,
-                    "#{avatar(obj.author, size: 14)} #{link_to_user(obj.author)}".html_safe,
+                    safe_join([avatar(obj.author, size: 14), ' ', link_to_user(obj.author)]),
                     class: 'last-updated-by')
       end
     end

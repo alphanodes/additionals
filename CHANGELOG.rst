@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.0.2
++++++
+
+- Smiley/Emoji legacy support
+
 1.0.1
 +++++
 

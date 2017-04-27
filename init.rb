@@ -8,7 +8,7 @@ Redmine::Plugin.register :redmine_tweaks do
   name 'Tweaks'
   author 'AlphaNodes GmbH'
   description 'Wiki and content extensions'
-  version '1.0.1'
+  version '1.0.2'
   author_url 'https://alphanodes.com/'
   url 'https://github.com/alphanodes/redmine_tweaks'
 
@@ -29,6 +29,7 @@ Redmine::Plugin.register :redmine_tweaks do
     issue_auto_assign_role: '',
     issue_auto_assign_status: '',
     issue_auto_assign: 0,
+    legacy_smiley_support: 0,
     new_ticket_message: 'Don\'t forget to define acceptance criteria!',
     overview_bottom: '',
     overview_right: '',

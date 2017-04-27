@@ -11,6 +11,17 @@ if ActiveRecord::Base.connection.table_exists?(:settings)
     require_dependency 'redmine_tweaks/patches/wiki_controller_patch'
     require_dependency 'redmine_tweaks/patches/wiki_pdf_helper_patch'
 
+    Rails.configuration.assets.paths << Emoji.images_path
+    # Send Emoji Patches to all wiki formatters available to be able to switch formatter without app restart
+    Redmine::WikiFormatting.format_names.each do |format|
+      case format
+      when 'markdown'
+        require_dependency 'redmine_tweaks/patches/formatter_markdown_patch'
+      when 'textile'
+        require_dependency 'redmine_tweaks/patches/formatter_textile_patch'
+      end
+    end
+
     # Global helpers for Tweaks
     require_dependency 'redmine_tweaks/helpers'
 

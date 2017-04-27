@@ -35,5 +35,11 @@
 <p>
   <%= content_tag(:label, l(:label_add_go_to_top)) %>
   <%= check_box_tag 'settings[add_go_to_top]', 1, @settings[:add_go_to_top] %>
-  <em class="info"><%= t(:label_add_go_to_top_info) %></em>
+  <em class="info"><%= t(:add_go_to_top_info) %></em>
+</p>
+
+<p>
+  <%= content_tag(:label, l(:label_legacy_smiley_support)) %>
+  <%= check_box_tag 'settings[legacy_smiley_support]', 1, @settings[:legacy_smiley_support] %>
+  <em class="info"><%= t(:legacy_smiley_support_info_html) %></em>
 </p>

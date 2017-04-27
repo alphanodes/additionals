@@ -29,7 +29,7 @@ ja:
   global_wiki_header_info: 'プロジェクトのWikiヘッダーをここで入力する。「Wiki Extensions」等のプロジェクト特有のWikiヘッダーが使用されている場合、こちらの文章が優先的に表示されます。'
   global_wiki_sidebar_info: 'プロジェクト全体のWikiサイドバーで使用される文章を入力する。このサイドバー文章は、Wikiページのみに表示されます。例えば、「直近変更されたページ」等のマクロで使う事をお勧めします。もしプロジェクト特有のサイドバーが使用されている場合でも、こちらの文章がサイドバーで優先的に表示されます。'
   label_account_login: "ログイン画面の文章"
-  label_add_go_to_top_info: '長いページが多い場合、「トップへ」のリンクは役立ちます。'
+  add_go_to_top_info: '長いページが多い場合、「トップへ」のリンクは役立ちます。'
   label_add_go_to_top: '「トップへ」リンクを追加する'
   label_content_plural: Contents
   label_custom_help_url: "カスタムヘルプURL"
@@ -95,3 +95,5 @@ ja:
   wiki_pdf_header_info: This text block will be displayed on the first page before the regular Wiki content in the PDF view. Macro use is very restricted, here.
   wiki_pdf_remove_attachments_info: When active the attached Wiki files will not be displayed in PDF view.
   wiki_pdf_remove_title_info: When active the Wiki title info will not be displayed in PDF view.
+  label_legacy_smiley_support: Legacy smiley/emoji support
+  legacy_smiley_support_info_html: 'Convert Smileys and Emoji symbols. Activate this option only if Smileys or Emoji are manually typed in by the use of code (e.g. :kiss:). If you use Unicode-Emoji this option should be deactivated. For more info on Emoji-Browser support read <a href="http://caniemoji.com/" target="_blank">http://caniemoji.com/</a>. Have a look at <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> for available Emoji-Codes  you can use. <strong>Restart the application server</strong>, in order to activate the settings.'

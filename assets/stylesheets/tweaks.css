@@ -18,7 +18,7 @@
 }
 
 .month-calendar {
-  display:inline-block;
+  display: inline-block;
 }
 
 .login-tweaks {
@@ -26,4 +26,107 @@
   margin-right: auto;
   max-width: 490px;
   font-size: 95%;
+}
+
+/* Legacy smilie classes */
+
+span.tweaks.smiley {
+  background-repeat: no-repeat;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+}
+
+span.tweaks.smiley-smiley {
+  background-image: url(../images/smileys/smiley.png);
+}
+
+span.tweaks.smiley-smiley2 {
+  background-image: url(../images/smileys/smiley2.png);
+}
+
+span.tweaks.smiley-laughing {
+  background-image: url(../images/smileys/smiley-grin.png);
+}
+
+span.tweaks.smiley-laughing2 {
+  background-image: url(../images/smileys/smiley-laughing2.png);
+}
+
+span.tweaks.smiley-crying {
+  background-image: url(../images/smileys/smiley-cry.png);
+}
+
+span.tweaks.smiley-sad {
+  background-image: url(../images/smileys/smiley-sad.png);
+}
+
+span.tweaks.smiley-wink {
+  background-image: url(../images/smileys/smiley-wink.png);
+}
+
+span.tweaks.smiley-cheeky {
+  background-image: url(../images/smileys/smiley-razz.png);
+}
+
+span.tweaks.smiley-shock {
+  background-image: url(../images/smileys/smiley-eek.png);
+}
+
+span.tweaks.smiley-annoyed {
+  background-image: url(../images/smileys/smiley-annoyed.png);
+}
+
+span.tweaks.smiley-confuse {
+  background-image: url(../images/smileys/smiley-confuse.png);
+}
+
+span.tweaks.smiley-straight {
+  background-image: url(../images/smileys/smiley-neutral.png);
+}
+
+span.tweaks.smiley-embarrassed {
+  background-image: url(../images/smileys/smiley-red.png);
+}
+
+span.tweaks.smiley-kiss {
+  background-image: url(../images/smileys/smiley-kiss.png);
+}
+
+span.tweaks.smiley-angel {
+  background-image: url(../images/smileys/smiley-angel.png);
+}
+
+span.tweaks.smiley-evil {
+  background-image: url(../images/smileys/smiley-evil.png);
+}
+
+span.tweaks.smiley-rock {
+  background-image: url(../images/smileys/smiley-cool.png);
+}
+
+span.tweaks.smiley-rose {
+  background-image: url(../images/smileys/rose.png);
+  width: 24px;
+  height: 24px;
+}
+
+span.tweaks.smiley-check {
+  background-image: url(../images/smileys/check.png);
+}
+
+span.tweaks.smiley-exclamation {
+  background-image: url(../images/smileys/exclamation-red-frame.png);
+}
+
+span.tweaks.smiley-question {
+  background-image: url(../images/smileys/question-frame.png);
+}
+
+span.tweaks.smiley-success {
+  background-image: url(../images/smileys/success-frame.png);
+}
+
+span.tweaks.smiley-failure {
+  background-image: url(../images/smileys/failure-frame.png);
 }

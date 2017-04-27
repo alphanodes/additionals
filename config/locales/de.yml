@@ -29,7 +29,7 @@ de:
   global_wiki_header_info: 'Hier kann ein projektübergreifender Wiki Header hinterlegt werden. Wird über "Wiki Extensions" ein projektspezifischer Header angelegt, wird dieser immer vorzugsweise vor dem projektübergreifenden Header verwendet.'
   global_wiki_sidebar_info: 'Hier kann für die Wiki Sidebar ein projektübergreifender Text hinterlegt werden. Diese Sidebar wird nur auf den Wiki Seiten angezeigt und kann z.B. für  Makros wie "Zuletzt geänderte Seiten" verwendet werden. Wird eine projektspezifische Sidebar angelegt (über eine Wiki Seite), dann wird diese anstelle der projektübergreifenden Sidebar angezeigt.'
   label_account_login: "Text für Anmeldeseite"
-  label_add_go_to_top_info: 'Bei langen Seiten ist es hilfreich, wenn ein Link zur Verfügung steht, mit dem man zum Seitenanfang springen kann.'
+  add_go_to_top_info: 'Bei langen Seiten ist es hilfreich, wenn ein Link zur Verfügung steht, mit dem man zum Seitenanfang springen kann.'
   label_add_go_to_top: '"Nach oben" Link hinzufügen'
   label_content_plural: Inhalte
   label_custom_help_url: "URL zur Hilfeseite"
@@ -95,3 +95,5 @@ de:
   wiki_pdf_header_info: Dieser Textblock wir auf der ersten Seite vor dem eigentlichen Inhalt der Wiki Seite in der PDF Ansicht angezeigt. Die Makros sind hier nur eingeschränkt einsetzbar.
   wiki_pdf_remove_attachments_info: Wenn aktiv, werden die an der Wiki Seite angehängten Dateien nicht in der PDF Ansicht angezeigt.
   wiki_pdf_remove_title_info: Wenn aktiv, wird der Wiki Titel nicht in der PDF Ansicht angezeigt.
+  label_legacy_smiley_support: Smiley/Emoji Support
+  legacy_smiley_support_info_html: 'Smileys und Emoji Symbole konvertieren. Diese Option sollte nur aktiviert werden, wenn der Code für Smileys oder Emoji manuell eingetragen wird (z.B. :kiss:). Wenn Unicode-Emoji eingesetzt werden sollte diese Option deaktiviert bleiben. Siehe <a href="http://caniemoji.com/" target="_blank">http://caniemoji.com/</a> für Emoji-Browser Support. Im <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> können die zur Verfügung stehenden Emoji-Codes eingesetzt werden. Der <strong>Anwendungsserver muss neu gestartet werden</strong>, damit diese Einstellung aktiv wird.'

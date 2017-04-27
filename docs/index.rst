@@ -49,6 +49,9 @@ Install ``redmine_tweaks`` plugin for `Redmine`_.
   $ cd $REDMINE_ROOT
   $ git clone git://github.com/alphanodes/redmine_tweaks.git plugins/redmine_tweaks
   $ bundle install --without development test
+  $
+  $ # if you want to use smiley/emoji legacy support, run:
+  $ bundle exec gemoji extract public/images/emoji
 
 Restart your application server (apache with passenger, nginx with passenger, unicorn, puma, etc.) and ``redmine_tweaks`` is ready to use.
 
@@ -69,6 +72,7 @@ Features
 * customize top menu items
 * disable (hide) modules for projects
 * open external urls in new window
+* smiley/emoji legacy support
 * anonymize referrer for external urls
 * Hide role in project memberbox
 * Configurable issue rules

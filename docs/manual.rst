@@ -13,15 +13,13 @@ The following plugin options are available to be edited by users with administra
 * Global sidebar. Place your global information here, if needed. Use wiki links or available macros that can be seen by every one.
 * Project wide footer. In case you want to put some information about your company or for your imprint. Here you can also use wiki syntax for structuring your text.
 
-And the following options can be edited by users with administratios righst in the area ``Settings``:
+And the following options can be edited by users with administratios rights in the area ``Settings``:
 
 * Add "Go to top" link. If you have a lot of long pages, it is enabling users to easily return to the top of a page.
 * Change the option for ``External urls`` into default behaviour, open in new window or open with NoReferrer.
 * Activate the ``Smileys and Emoji symbols support`` if you want to use the manual smiley code (e.g. ``:kiss:``). This option is deactivated in the standard setting. If you already use a plugin that supports Smileys and Emojis this option should stay deactivated. For more info on Emoji-Browser support read <a href="http://caniemoji.com/" target="_blank">http://caniemoji.com/</a>. Have a look at <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> for available Emoji-Codes.
 
 .. note:: Please restart the application server, if you make changes to the external urls settings as well as if you activate the Smileys and Emoji symbol support.
-
-.. note:: You can use the following manual smiley codes: :), =), :D, =D, :'(, :(, ;), :P, :O, :/, :S, :|, :X, :*, O:), >:), B), (!), (?), (v), (x), (/) and @}->-
 
 Overview page section
 ---------------------

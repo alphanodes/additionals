@@ -49,11 +49,12 @@ module RedmineTweaks
 
     def inline_emojify(text)
       text.gsub!(/:([\w+-]+):/) do |match|
-        emoji = Emoji.find_by_alias(Regexp.last_match(1))
+        emoji_code = Regexp.last_match(1)
+        emoji = Emoji.find_by_alias(emoji_code)
         if emoji.present?
           tag(:img,
               src: inline_emojify_image_path(emoji.image_filename),
-              title: ":#{Regexp.last_match(1)}:",
+              title: ":#{emoji_code}:",
               style: 'vertical-align: middle',
               width: '20',
               height: '20')

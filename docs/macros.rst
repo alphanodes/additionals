@@ -14,6 +14,7 @@ If a parameter is in brackets, this parameter is optional.
 .. include:: macros/members.rst
 .. include:: macros/projects.rst
 .. include:: macros/recently_updated.rst
+.. include:: macros/reddit.rst
 .. include:: macros/slideshare.rst
 .. include:: macros/twitter.rst
 .. include:: macros/user.rst

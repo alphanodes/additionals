@@ -77,7 +77,7 @@ module RedmineTweaks
         return true unless RedmineTweaks.settings[:issue_current_user_status]
         return true if RedmineTweaks.settings[:issue_assign_to_x].nil?
         if (assigned_to_id_changed? || status_id_changed?) &&
-           (RedmineTweaks.settings[:issue_assign_to_x].include?status_id.to_s) &&
+           (RedmineTweaks.settings[:issue_assign_to_x].include? status_id.to_s) &&
            (assigned_to_id.blank? || assigned_to_id != User.current.id)
           errors.add :base, :issue_current_user_status
         end
@@ -89,7 +89,7 @@ module RedmineTweaks
         return true if RedmineTweaks.settings[:issue_status_y].nil?
         if !assigned_to_id_changed? &&
            status_id_changed? &&
-           (RedmineTweaks.settings[:issue_status_x].include?status_id_was.to_s) &&
+           (RedmineTweaks.settings[:issue_status_x].include? status_id_was.to_s) &&
            RedmineTweaks.settings[:issue_status_y].to_i == status_id
           self.assigned_to = author
         end

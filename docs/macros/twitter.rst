@@ -17,3 +17,16 @@ Show link to twitter profile ``@alphanodes``
 .. code-block:: smarty
 
   {{twitter(alphanodes)}}
+
+or
+
+.. code-block:: smarty
+
+  {{twitter(@alphanodes)}}
+
+
+Show link to hashtag ``#redmine``
+
+.. code-block:: smarty
+
+  {{twitter(#redmine)}}

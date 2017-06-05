@@ -32,9 +32,9 @@ module RedmineTweaks
     def inline_smileys(text)
       SMILEYS.each do |name, regexp|
         text.gsub!(%r{(\s|^)(!)?(#{regexp})(?=\W|$)}m) do
-          leading = $1
-          esc = $2
-          smiley = $3
+          leading = Regexp.last_match(1)
+          esc = Regexp.last_match(2)
+          smiley = Regexp.last_match(3)
           if esc.nil?
             leading + content_tag(:span,
                                   '',
@@ -49,11 +49,11 @@ module RedmineTweaks
 
     def inline_emojify(text)
       text.gsub!(/:([\w+-]+):/) do |match|
-        emoji = Emoji.find_by_alias($1)
+        emoji = Emoji.find_by_alias(Regexp.last_match(1))
         if emoji.present?
           tag(:img,
               src: inline_emojify_image_path(emoji.image_filename),
-              title: ":#{$1}:",
+              title: ":#{Regexp.last_match(1)}:",
               style: 'vertical-align: middle',
               width: '20',
               height: '20')

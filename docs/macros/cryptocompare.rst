@@ -1,0 +1,39 @@
+CryptoCompare
+-------------
+
+CryptoCompare wiki macro for Redmine.
+
+See https://www.cryptocompare.com/dev/widget/wizard/ for more information.
+
+.. function:: {{cryptocompare(options)}}
+
+    show CryptoCompare information
+
+    :param string fsym: default BTC
+    :param string tsym: default EUR
+    :param string fsyms: default BTC,ETH,LTC (if supported by widget type)
+    :param string tsyms: default EUR,USD (if supported by widget type)
+    :param string period:
+    :param string type: widget type has to be one of
+                          - chart
+                          - news
+                          - list
+                          - titles
+                          - tabbed
+                          - header
+                          - header_v2
+                          - header_v3
+                          - summary
+                          - historical
+                          - converter
+                          - advanced
+
+
+Examples
+++++++++
+
+Show ``header_v3`` widget type for crypto currencies ``BTC`` and ``ETH``
+
+.. code-block:: smarty
+
+  {{cryptocompare(fsyms=BTC;ETH, type=header_v3)}}

@@ -1,5 +1,5 @@
 Reddit
--------
+------
 
 Reddit wiki macro for Redmine.
 

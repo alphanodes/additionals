@@ -30,6 +30,7 @@ if ActiveRecord::Base.connection.table_exists?(:settings)
 
     # Wiki macros
     require_dependency 'redmine_tweaks/wiki_macros/calendar'
+    require_dependency 'redmine_tweaks/wiki_macros/cryptocompare'
     require_dependency 'redmine_tweaks/wiki_macros/date'
     require_dependency 'redmine_tweaks/wiki_macros/gist'
     require_dependency 'redmine_tweaks/wiki_macros/issue_macro'
@@ -40,6 +41,7 @@ if ActiveRecord::Base.connection.table_exists?(:settings)
     require_dependency 'redmine_tweaks/wiki_macros/recently_updated'
     require_dependency 'redmine_tweaks/wiki_macros/reddit'
     require_dependency 'redmine_tweaks/wiki_macros/slideshare'
+    require_dependency 'redmine_tweaks/wiki_macros/tradingview'
     require_dependency 'redmine_tweaks/wiki_macros/twitter'
     require_dependency 'redmine_tweaks/wiki_macros/user_macro'
     require_dependency 'redmine_tweaks/wiki_macros/vimeo'

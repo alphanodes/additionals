@@ -4,6 +4,8 @@ Changelog
 1.0.3
 +++++
 
+- TradingView macro support
+- CryptoCompare macro support
 - Reddit macro support
 - Twitter macro improved with prefix image
 

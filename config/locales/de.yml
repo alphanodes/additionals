@@ -97,3 +97,7 @@ de:
   wiki_pdf_remove_title_info: Wenn aktiv, wird der Wiki Titel nicht in der PDF Ansicht angezeigt.
   label_legacy_smiley_support: Smiley/Emoji Support
   legacy_smiley_support_info_html: 'Smileys und Emoji Symbole konvertieren. Diese Option sollte nur aktiviert werden, wenn der Code für Smileys oder Emoji manuell eingetragen wird (z.B. :kiss:). Wenn Unicode-Emoji eingesetzt werden sollte diese Option deaktiviert bleiben. Siehe <a href="http://caniemoji.com/" target="_blank">http://caniemoji.com/</a> für Emoji-Browser Support. Im <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> können die zur Verfügung stehenden Emoji-Codes eingesetzt werden. Der <strong>Anwendungsserver muss neu gestartet werden</strong>, damit diese Einstellung aktiv wird.'
+  label_reddit_user_account: Reddit Benutzer
+  label_reddit_subject: Reddit Thema
+  label_twitter_hashtag: Twitter Hashtag
+  label_twitter_account: Twitter Benutzer

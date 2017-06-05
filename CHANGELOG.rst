@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.0.3
++++++
+
+- Reddit macro support
+- Twitter macro improved with prefix image
+
 1.0.2
 +++++
 

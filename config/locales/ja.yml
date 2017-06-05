@@ -97,3 +97,7 @@ ja:
   wiki_pdf_remove_title_info: When active the Wiki title info will not be displayed in PDF view.
   label_legacy_smiley_support: Legacy smiley/emoji support
   legacy_smiley_support_info_html: 'Convert Smileys and Emoji symbols. Activate this option only if Smileys or Emoji are manually typed in by the use of code (e.g. :kiss:). If you use Unicode-Emoji this option should be deactivated. For more info on Emoji-Browser support read <a href="http://caniemoji.com/" target="_blank">http://caniemoji.com/</a>. Have a look at <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> for available Emoji-Codes  you can use. <strong>Restart the application server</strong>, in order to activate the settings.'
+  label_reddit_user_account: Reddit user account
+  label_reddit_subject: Reddit subject
+  label_twitter_hashtag: Twitter hashtag
+  label_twitter_account: Twitter account

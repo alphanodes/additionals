@@ -38,6 +38,7 @@ if ActiveRecord::Base.connection.table_exists?(:settings)
     require_dependency 'redmine_tweaks/wiki_macros/member_macro'
     require_dependency 'redmine_tweaks/wiki_macros/project_macro'
     require_dependency 'redmine_tweaks/wiki_macros/recently_updated'
+    require_dependency 'redmine_tweaks/wiki_macros/reddit'
     require_dependency 'redmine_tweaks/wiki_macros/slideshare'
     require_dependency 'redmine_tweaks/wiki_macros/twitter'
     require_dependency 'redmine_tweaks/wiki_macros/user_macro'

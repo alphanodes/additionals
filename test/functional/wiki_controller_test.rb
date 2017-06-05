@@ -75,6 +75,46 @@ class WikiControllerTest < ActionController::TestCase
     assert_select 'a.twitter'
     assert_select 'a[href=?]', 'https://twitter.com/alphanodes',
                   text: '@alphanodes'
+
+    @page.content.text = '{{twitter(@alphanodes)}}'
+    @page.content.save!
+    get :show, project_id: 1, id: @page_name
+    assert_select 'a.twitter'
+    assert_select 'a[href=?]', 'https://twitter.com/alphanodes',
+                  text: '@alphanodes'
+
+    @page.content.text = '{{twitter(#alphanodes)}}'
+    @page.content.save!
+    get :show, project_id: 1, id: @page_name
+    assert_select 'a.twitter'
+    assert_select 'a[href=?]', 'https://twitter.com/hashtag/alphanodes',
+                  text: '#alphanodes'
+  end
+
+  def test_show_with_reddit_macro
+    @request.session[:user_id] = 1
+    @page.content.text = '{{reddit(redmine)}}'
+    @page.content.save!
+    get :show, project_id: 1, id: @page_name
+    assert_response :success
+    assert_template 'show'
+    assert_select 'a.reddit'
+    assert_select 'a[href=?]', 'https://www.reddit.com/r/redmine',
+                  text: 'r/redmine'
+
+    @page.content.text = '{{reddit(u/redmine)}}'
+    @page.content.save!
+    get :show, project_id: 1, id: @page_name
+    assert_select 'a.reddit'
+    assert_select 'a[href=?]', 'https://www.reddit.com/username/redmine',
+                  text: 'u/redmine'
+
+    @page.content.text = '{{reddit(r/redmine)}}'
+    @page.content.save!
+    get :show, project_id: 1, id: @page_name
+    assert_select 'a.reddit'
+    assert_select 'a[href=?]', 'https://www.reddit.com/r/redmine',
+                  text: 'r/redmine'
   end
 
   def test_show_last_updated_by_marco

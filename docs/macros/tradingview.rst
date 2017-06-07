@@ -31,4 +31,4 @@ Show chart with symbol ``NASDAQ:AMZN`` and use English locale
 
 .. code-block:: smarty
 
-  {{tradingview(symbol=NASDAQ:AMZN, locale: en)}}
+  {{tradingview(symbol=NASDAQ:AMZN, locale=en)}}

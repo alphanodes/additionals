@@ -19,6 +19,10 @@ Tweaks for wiki and content including new macros for `Redmine`_.
 .. image:: https://gemnasium.com/badges/github.com/AlphaNodes/redmine_tweaks.svg
    :target: https://gemnasium.com/github.com/AlphaNodes/redmine_tweaks
 
+.. image:: https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg
+   :target: https://codeclimate.com/github/AlphaNodes/redmine_tweaks
+   :alt: Code Climate
+
 .. image:: https://pm.alphanodes.com/jenkins/buildStatus/icon?job=Devel-build-redmine-tweaks
    :target: https://pm.alphanodes.com/jenkins/buildStatus/icon?job=Devel-build-redmine-tweaks
    :alt: Jenkins Build Status
@@ -26,6 +30,10 @@ Tweaks for wiki and content including new macros for `Redmine`_.
 .. image:: https://readthedocs.org/projects/redmine-tweaks/badge/?version=latest
    :target: http://redmine-tweaks.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
+
+.. image:: https://img.shields.io/badge/rate%20at-redmine.org-blue.svg?style=flat
+   :target: https://www.redmine.org/plugins/redmine_tweaks)
+   :alt: Rate at redmine.org
 
 Requirements
 ------------

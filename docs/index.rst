@@ -19,7 +19,7 @@ Tweaks for wiki and content including new macros for `Redmine`_.
 .. image:: https://gemnasium.com/badges/github.com/AlphaNodes/redmine_tweaks.svg
    :target: https://gemnasium.com/github.com/AlphaNodes/redmine_tweaks
 
-.. image:: https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg
+.. image:: https://img.shields.io/codeclimate/github/AlphaNodes/redmine_tweaks.svg?style=flat
    :target: https://codeclimate.com/github/AlphaNodes/redmine_tweaks
    :alt: Code Climate
 

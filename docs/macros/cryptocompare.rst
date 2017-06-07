@@ -13,20 +13,28 @@ See https://www.cryptocompare.com/dev/widget/wizard/ for more information.
     :param string tsym: default EUR
     :param string fsyms: default BTC,ETH,LTC (if supported by widget type)
     :param string tsyms: default EUR,USD (if supported by widget type)
-    :param string period:
+    :param string period: (if supported by widget type)
+                          * 1D = 1 day
+                          * 1W = 1 week
+                          * 2W = 2 weeks
+                          * 1M = 1 month
+                          * 3M = 3 months
+                          * 6M = 6 months
+                          * 1Y = 1 year
+
     :param string type: widget type has to be one of
-                          - chart
-                          - news
-                          - list
-                          - titles
-                          - tabbed
-                          - header
-                          - header_v2
-                          - header_v3
-                          - summary
-                          - historical
-                          - converter
-                          - advanced
+                          * chart
+                          * news
+                          * list
+                          * titles
+                          * tabbed
+                          * header
+                          * header_v2
+                          * header_v3
+                          * summary
+                          * historical
+                          * converter
+                          * advanced
 
 
 Examples

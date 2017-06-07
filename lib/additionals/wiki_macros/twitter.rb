@@ -11,11 +11,20 @@ module Additionals
         name = args[0].strip
         case name[0]
         when '@'
-          link_to(h(name), "https://twitter.com/#{name[1..-1]}", class: 'external twitter', title: l(:label_twitter_account))
+          link_to(content_tag('span', '', class: 'fa fa-twitter') + ' ' + name,
+                  "https://twitter.com/#{name[1..-1]}",
+                  class: 'external twitter',
+                  title: l(:label_twitter_account))
         when '#'
-          link_to(h(name), "https://twitter.com/hashtag/#{name[1..-1]}", class: 'external twitter', title: l(:label_twitter_hashtag))
+          link_to(content_tag('span', '', class: 'fa fa-twitter-square') + ' ' + name,
+                  "https://twitter.com/hashtag/#{name[1..-1]}",
+                  class: 'external twitter',
+                  title: l(:label_twitter_hashtag))
         else
-          link_to(h("@#{name}"), "https://twitter.com/#{name}", class: 'external twitter', title: l(:label_twitter_account))
+          link_to(content_tag('span', '', class: 'fa fa-twitter') + " @#{name}",
+                  "https://twitter.com/#{name}",
+                  class: 'external twitter',
+                  title: l(:label_twitter_account))
         end
       end
     end

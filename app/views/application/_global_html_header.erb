@@ -4,6 +4,7 @@
 <% if Setting.plugin_additionals[:external_urls].to_i == 2 %>
 <%= javascript_include_tag('noreferrer', plugin: 'additionals') %>
 <% end %>
+<%= additionals_library_load(:font_awesome) %>
 <%= stylesheet_link_tag 'additionals', plugin: 'additionals' %>
 
 <%

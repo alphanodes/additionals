@@ -1,5 +1,25 @@
+/* ICONS */
+#admin-menu a.additionals::before {
+  font-size: 1.3em;
+  padding-right: 4px;
+}
+
+#admin-menu a.additionals::before {
+  font-family: FontAwesome;
+  font-weight: normal;
+  content: "\f085"; /* fa-cogs */
+}
+
+#admin-menu a.additionals {
+  padding-left: 0;
+}
+
+/* Mobile menu style FontAwesome icon */
+.flyout-is-active #admin-menu li a.additionals {
+  padding-left: 8px !important;
+}
+
 .nodata.nodata-left { text-align: left; }
-#admin-menu a.additionals { background-image: url(../images/additionals.png); }
 
 /* Go to top link */
 .gototop {

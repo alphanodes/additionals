@@ -15,7 +15,7 @@ See https://www.cryptocompare.com/dev/widget/wizard/ for more information.
     :param string tsyms: default EUR,USD (if supported by widget type)
     :param string period: (if supported by widget type)
 
-                          * 1D = 1 day
+                          * 1D = 1 day (default)
                           * 1W = 1 week
                           * 2W = 2 weeks
                           * 1M = 1 month
@@ -25,18 +25,18 @@ See https://www.cryptocompare.com/dev/widget/wizard/ for more information.
 
     :param string type: widget type has to be one of
 
-                          * chart
-                          * news
-                          * list
-                          * titles
-                          * tabbed
+                          * advanced
+                          * chart (default)
+                          * converter
                           * header
                           * header_v2
                           * header_v3
-                          * summary
                           * historical
-                          * converter
-                          * advanced
+                          * list
+                          * news
+                          * summary
+                          * tabbed
+                          * titles
 
 
 Examples

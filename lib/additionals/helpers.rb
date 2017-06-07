@@ -111,10 +111,9 @@ module Additionals
       s
     end
 
-
     private
 
-    def cl_already_loaded(scope, js)
+    def additionals_already_loaded(scope, js)
       locked = "#{js}.#{scope}"
       @alreaded_loaded = [] if @alreaded_loaded.nil?
       return true if @alreaded_loaded.include?(locked)
@@ -122,72 +121,72 @@ module Additionals
       false
     end
 
-    def cl_include_js(js)
-      if cl_already_loaded('js', js)
+    def additionals_include_js(js)
+      if additionals_already_loaded('js', js)
         ''
       else
-        javascript_include_tag(js, plugin: 'common_libraries') + "\n"
+        javascript_include_tag(js, plugin: 'additionals') + "\n"
       end
     end
 
-    def cl_include_css(css)
-      if cl_already_loaded('css', css)
+    def additionals_include_css(css)
+      if additionals_already_loaded('css', css)
         ''
       else
-        stylesheet_link_tag(css, plugin: 'common_libraries') + "\n"
+        stylesheet_link_tag(css, plugin: 'additionals') + "\n"
       end
     end
 
     def additionals_load_font_awesome
-      cl_include_css('font-awesome.min')
+      additionals_include_css('font-awesome.min')
     end
 
     def additionals_load_angular_gantt
-      cl_include_css('angular-gantt.min') +
-        cl_include_css('angular-gantt-plugins.min') +
-        cl_include_css('angular-ui-tree.min') +
-        cl_include_js('moment-with-locales.min') +
-        cl_include_js('angular.min') +
-        cl_include_js('angular-moment.min') +
-        cl_include_js('angular-ui-tree.min') +
-        cl_include_js('angular-gantt.min') +
-        cl_include_js('angular-gantt-plugins.min')
+      additionals_include_css('angular-gantt.min') +
+        additionals_include_css('angular-gantt-plugins.min') +
+        additionals_include_css('angular-ui-tree.min') +
+        additionals_include_js('moment-with-locales.min') +
+        additionals_include_js('angular.min') +
+        additionals_include_js('angular-moment.min') +
+        additionals_include_js('angular-ui-tree.min') +
+        additionals_include_js('angular-gantt.min') +
+        additionals_include_js('angular-gantt-plugins.min')
     end
 
     def additionals_load_nvd3
-      cl_include_css('nv.d3.min') +
-        cl_include_js('d3.min') +
-        cl_include_js('nv.d3.min')
+      additionals_include_css('nv.d3.min') +
+        additionals_include_js('d3.min') +
+        additionals_include_js('nv.d3.min')
     end
 
     def additionals_load_d3plus
-      cl_include_js('d3.min') +
-        cl_include_js('d3plus.min')
+      additionals_include_js('d3.min') +
+        additionals_include_js('d3plus.min')
     end
 
     def additionals_load_tooltips
-      cl_include_css('tooltips') +
-        cl_include_js('tooltips')
+      additionals_include_css('tooltips') +
+        additionals_include_js('tooltips')
     end
 
     def additionals_load_bootstrap
-      cl_include_css('bootstrap.min') +
-        cl_include_js('bootstrap.min')
+      additionals_include_css('bootstrap.min') +
+        additionals_include_js('bootstrap.min')
     end
 
     def additionals_load_bootstrap_theme
-      cl_include_css('bootstrap.min') +
-        cl_include_css('bootstrap-theme.min') +
-        cl_include_js('bootstrap.min')
+      additionals_include_css('bootstrap.min') +
+        additionals_include_css('bootstrap-theme.min') +
+        additionals_include_js('bootstrap.min')
     end
 
     def additionals_load_tag_it
-      cl_include_css('jquery.tagit') +
-        cl_include_js('tag-it')
+      additionals_include_css('jquery.tagit') +
+        additionals_include_js('tag-it')
     end
 
     def additionals_load_zeroclipboard
-      cl_include_js('zeroclipboard_min')
+      additionals_include_js('zeroclipboard_min')
     end
 
     def font_awesome_get_from_info

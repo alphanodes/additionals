@@ -1,6 +1,3 @@
-# Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013-2017 AlphaNodes GmbH
-
 require File.expand_path('../../test_helper', __FILE__)
 
 class IssueTest < ActiveSupport::TestCase
@@ -40,7 +37,7 @@ class IssueTest < ActiveSupport::TestCase
   def test_change_closed_issue_with_permission
     skip 'Validate needs more love to fix dependency problems'
     User.current = User.find(3)
-    role = Role.create!(name: 'Tweaks Tester', permissions: [:edit_closed_issues])
+    role = Role.create!(name: 'Additionals Tester', permissions: [:edit_closed_issues])
     Member.delete_all(user_id: User.current)
     project = Project.find(1)
     Member.create!(principal: User.current, project_id: project.id, role_ids: [role.id])

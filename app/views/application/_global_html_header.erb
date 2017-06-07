@@ -1,10 +1,10 @@
-<% if Setting.plugin_redmine_tweaks[:external_urls].to_i > 0 %>
-<%= javascript_include_tag('redirect', plugin: 'redmine_tweaks') %>
+<% if Setting.plugin_additionals[:external_urls].to_i > 0 %>
+<%= javascript_include_tag('redirect', plugin: 'additionals') %>
 <% end %>
-<% if Setting.plugin_redmine_tweaks[:external_urls].to_i == 2 %>
-<%= javascript_include_tag('noreferrer', plugin: 'redmine_tweaks') %>
+<% if Setting.plugin_additionals[:external_urls].to_i == 2 %>
+<%= javascript_include_tag('noreferrer', plugin: 'additionals') %>
 <% end %>
-<%= stylesheet_link_tag 'tweaks', plugin: 'redmine_tweaks' %>
+<%= stylesheet_link_tag 'additionals', plugin: 'additionals' %>
 
 <%
 user_roles = User.current.memberships.includes(:project).collect {|m| m.roles}.flatten.uniq

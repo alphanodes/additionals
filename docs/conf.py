@@ -23,7 +23,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'redmine_tweaks'
+project = u'additionals'
 copyright = u'2013-2017, AlphaNodes GmbH'
 author = u'Alexander Meindl'
 
@@ -63,13 +63,13 @@ html_show_sourcelink = False
 html_show_sphinx = False
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'redmine_tweaksdoc'
+htmlhelp_basename = 'additionalsdoc'
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'redmine_tweaks.tex', u'redmine\\_tweaks Documentation',
+    (master_doc, 'additionals.tex', u'Additionals Documentation',
      u'Alexander Meindl', 'manual'),
 ]
 
@@ -78,7 +78,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'redmine_tweaks', u'redmine_tweaks Documentation',
+    (master_doc, 'additionals', u'additionals Documentation',
      [author], 1)
 ]
 
@@ -88,7 +88,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'redmine_tweaks', u'redmine_tweaks Documentation',
-     author, 'redmine_tweaks', 'One line description of project.',
+    (master_doc, 'additionals', u'additionals Documentation',
+     author, 'additionals', 'One line description of project.',
      'Miscellaneous'),
 ]

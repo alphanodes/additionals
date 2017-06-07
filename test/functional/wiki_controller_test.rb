@@ -1,9 +1,6 @@
-# Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013-2017 AlphaNodes GmbH
-
 require File.expand_path('../../test_helper', __FILE__)
 
-# Redmine Tweaks functional tests
+# Additionals functional tests
 class WikiControllerTest < ActionController::TestCase
   fixtures :projects,
            :users,
@@ -24,11 +21,11 @@ class WikiControllerTest < ActionController::TestCase
            :wiki_contents
 
   def setup
-    RedmineTweaks::TestCase.prepare
+    Additionals::TestCase.prepare
     EnabledModule.create(project_id: 1, name: 'wiki')
     @project = Project.find(1)
     @wiki = @project.wiki
-    @page_name = 'tweaks_macro_test'
+    @page_name = 'additionals_macro_test'
     @page = @wiki.find_or_new_page(@page_name)
     @page.content = WikiContent.new
     @page.content.text = 'test'
@@ -280,7 +277,7 @@ class WikiControllerTest < ActionController::TestCase
   end
 
   def test_show_wiki_with_header
-    Setting.plugin_redmine_tweaks = ActionController::Parameters.new(
+    Setting.plugin_additionals = ActionController::Parameters.new(
       global_wiki_header: 'Lore impsuum'
     )
     get :show, project_id: 1, id: 'Another_page'
@@ -291,7 +288,7 @@ class WikiControllerTest < ActionController::TestCase
   end
 
   def test_show_wiki_without_header
-    Setting.plugin_redmine_tweaks = ActionController::Parameters.new(
+    Setting.plugin_additionals = ActionController::Parameters.new(
       global_wiki_header: ''
     )
     get :show, project_id: 1, id: 'Another_page'
@@ -302,7 +299,7 @@ class WikiControllerTest < ActionController::TestCase
   end
 
   def test_show_wiki_with_footer
-    Setting.plugin_redmine_tweaks = ActionController::Parameters.new(
+    Setting.plugin_additionals = ActionController::Parameters.new(
       global_wiki_footer: 'Lore impsuum'
     )
     get :show, project_id: 1, id: 'Another_page'
@@ -313,7 +310,7 @@ class WikiControllerTest < ActionController::TestCase
   end
 
   def test_show_wiki_without_footer
-    Setting.plugin_redmine_tweaks = ActionController::Parameters.new(
+    Setting.plugin_additionals = ActionController::Parameters.new(
       global_wiki_footer: ''
     )
     get :show, project_id: 1, id: 'Another_page'

@@ -1,6 +1,3 @@
-# Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013-2017 AlphaNodes GmbH
-
 require File.expand_path('../../test_helper', __FILE__)
 
 class ProjectsControllerTest < ActionController::TestCase
@@ -25,7 +22,7 @@ class ProjectsControllerTest < ActionController::TestCase
   end
 
   def test_show_overview_content
-    Setting.plugin_redmine_tweaks = ActionController::Parameters.new(
+    Setting.plugin_additionals = ActionController::Parameters.new(
       project_overview_content: 'Lore impsuum'
     )
     @request.session[:user_id] = 4
@@ -37,7 +34,7 @@ class ProjectsControllerTest < ActionController::TestCase
   end
 
   def test_do_not_show_overview_content_box
-    Setting.plugin_redmine_tweaks = ActionController::Parameters.new(
+    Setting.plugin_additionals = ActionController::Parameters.new(
       project_overview_content: ''
     )
     @request.session[:user_id] = 4

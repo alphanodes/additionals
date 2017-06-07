@@ -1,6 +1,3 @@
-# Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013-2017 AlphaNodes GmbH
-
 require File.expand_path('../../test_helper', __FILE__)
 
 class AccountControllerTest < ActionController::TestCase
@@ -14,7 +11,7 @@ class AccountControllerTest < ActionController::TestCase
   end
 
   def test_get_login_with_welcome_text
-    Setting.plugin_redmine_tweaks = ActionController::Parameters.new(
+    Setting.plugin_additionals = ActionController::Parameters.new(
       account_login_bottom: 'Lore impsuum'
     )
     get :login
@@ -23,11 +20,11 @@ class AccountControllerTest < ActionController::TestCase
 
     assert_select 'input[name=username]'
     assert_select 'input[name=password]'
-    assert_select 'div.login-tweaks', text: /Lore impsuum/
+    assert_select 'div.login-additionals', text: /Lore impsuum/
   end
 
   def test_get_login_without_welcome_text
-    Setting.plugin_redmine_tweaks = ActionController::Parameters.new(
+    Setting.plugin_additionals = ActionController::Parameters.new(
       account_login_bottom: ''
     )
 
@@ -37,6 +34,6 @@ class AccountControllerTest < ActionController::TestCase
 
     assert_select 'input[name=username]'
     assert_select 'input[name=password]'
-    assert_select 'div.login-tweaks', count: 0
+    assert_select 'div.login-additionals', count: 0
   end
 end

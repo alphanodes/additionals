@@ -1,6 +1,3 @@
-# Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013-2017 AlphaNodes GmbH
-
 require File.expand_path('../../test_helper', __FILE__)
 
 class WelcomeControllerTest < ActionController::TestCase
@@ -14,7 +11,7 @@ class WelcomeControllerTest < ActionController::TestCase
   end
 
   def test_show_with_overview_right
-    Setting.plugin_redmine_tweaks = ActionController::Parameters.new(
+    Setting.plugin_additionals = ActionController::Parameters.new(
       overview_right: 'Lore impsuum'
     )
     @request.session[:user_id] = 4
@@ -27,7 +24,7 @@ class WelcomeControllerTest < ActionController::TestCase
   end
 
   def test_show_without_overview_right
-    Setting.plugin_redmine_tweaks = ActionController::Parameters.new(
+    Setting.plugin_additionals = ActionController::Parameters.new(
       overview_right: ''
     )
     @request.session[:user_id] = 4
@@ -40,7 +37,7 @@ class WelcomeControllerTest < ActionController::TestCase
   end
 
   def test_show_with_overview_bottom
-    Setting.plugin_redmine_tweaks = ActionController::Parameters.new(
+    Setting.plugin_additionals = ActionController::Parameters.new(
       overview_bottom: 'Lore impsuum'
     )
     @request.session[:user_id] = 4
@@ -53,7 +50,7 @@ class WelcomeControllerTest < ActionController::TestCase
   end
 
   def test_show_without_overview_bottom
-    Setting.plugin_redmine_tweaks = ActionController::Parameters.new(
+    Setting.plugin_additionals = ActionController::Parameters.new(
       overview_bottom: ''
     )
     @request.session[:user_id] = 4
@@ -66,7 +63,7 @@ class WelcomeControllerTest < ActionController::TestCase
   end
 
   def test_show_with_overview_top
-    Setting.plugin_redmine_tweaks = ActionController::Parameters.new(
+    Setting.plugin_additionals = ActionController::Parameters.new(
       overview_top: 'Lore impsuum'
     )
     @request.session[:user_id] = 4
@@ -79,7 +76,7 @@ class WelcomeControllerTest < ActionController::TestCase
   end
 
   def test_show_without_overview_top
-    Setting.plugin_redmine_tweaks = ActionController::Parameters.new(
+    Setting.plugin_additionals = ActionController::Parameters.new(
       overview_top: ''
     )
     @request.session[:user_id] = 4

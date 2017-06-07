@@ -1,9 +1,6 @@
-# Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013-2017 AlphaNodes GmbH
-
 require File.expand_path('../../test_helper', __FILE__)
 
-# Redmine Tweaks integration tests
+# Additionals integration tests
 class CommonViewsTest < ActiveRecord::VERSION::MAJOR >= 4 ? Redmine::ApiTest::Base : ActionController::IntegrationTest
   fixtures :projects,
            :users,
@@ -21,7 +18,7 @@ class CommonViewsTest < ActiveRecord::VERSION::MAJOR >= 4 ? Redmine::ApiTest::Ba
            :custom_fields_trackers
 
   def setup
-    RedmineTweaks::TestCase.prepare
+    Additionals::TestCase.prepare
 
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new

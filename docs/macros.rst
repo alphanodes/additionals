@@ -1,7 +1,7 @@
 Macros
 ======
 
-These wiki macros are available with Redmine Tweaks plugins.
+These wiki macros are available with Additionals.
 
 If a parameter is in brackets, this parameter is optional.
 

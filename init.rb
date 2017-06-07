@@ -1,16 +1,13 @@
-# Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013-2017 AlphaNodes GmbH
-
 require 'redmine'
-require 'redmine_tweaks'
+require 'additionals'
 
-Redmine::Plugin.register :redmine_tweaks do
-  name 'Tweaks'
+Redmine::Plugin.register :additionals do
+  name 'Additionals'
   author 'AlphaNodes GmbH'
-  description 'Wiki and content extensions'
-  version '1.0.2'
+  description 'Customizing Redmine, providing wiki macros and act as a library/function provider for other Redmine plugins'
+  version '2.0.0'
   author_url 'https://alphanodes.com/'
-  url 'https://github.com/alphanodes/redmine_tweaks'
+  url 'https://github.com/alphanodes/additionals'
 
   default_settings = {
     account_login_bottom: '',
@@ -46,7 +43,7 @@ Redmine::Plugin.register :redmine_tweaks do
     default_settings['custom_menu' + i.to_s + '_title'] = ''
   end
 
-  settings(default: default_settings, partial: 'settings/redmine_tweaks/redmine_tweaks')
+  settings(default: default_settings, partial: 'settings/additionals/additionals')
 
   permission :hide_in_memberbox, {}
   permission :show_hidden_roles_in_memberbox, {}
@@ -60,7 +57,7 @@ Redmine::Plugin.register :redmine_tweaks do
   end
 
   # required redmine version
-  requires_redmine version_or_higher: '2.6.0'
+  requires_redmine version_or_higher: '3.0.0'
 
   # remove help menu (it will be added later again)
   delete_menu_item(:top_menu, :help)
@@ -71,9 +68,9 @@ Redmine::Plugin.register :redmine_tweaks do
        :my_page,
        { controller: 'my', action: 'page' },
        via: :get,
-       if: proc { User.current.logged? && !RedmineTweaks.settings[:remove_mypage] }
+       if: proc { User.current.logged? && !Additionals.settings[:remove_mypage] }
 
-  menu :admin_menu, :tweaks, { controller: 'settings', action: 'plugin', id: 'redmine_tweaks' }, caption: :label_tweaks
+  menu :admin_menu, :additionals, { controller: 'settings', action: 'plugin', id: 'additionals' }, caption: :label_additionals
 
   RedCloth3::ALLOWED_TAGS << 'div'
 end

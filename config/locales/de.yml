@@ -64,9 +64,9 @@ de:
   label_settings_macros: "Makros"
   label_settings_menu: "Menü"
   label_system_info: Systeminformation
-  label_top_macros_help_html: "Hier sind alle Makros aufgelistet, welche über Redmine selbst oder Plugins bereitgestellt werden (nicht nur über Redmine Tweaks). Diese Makros können in allen Texten innerhalb Redmines verwendet werden (sofern diese im jeweiligen Kontext Sinn machen)."
+  label_top_macros_help_html: "Hier sind alle Makros aufgelistet, welche über Redmine selbst oder Plugins bereitgestellt werden (nicht nur über Additionals). Diese Makros können in allen Texten innerhalb Redmines verwendet werden (sofern diese im jeweiligen Kontext Sinn machen)."
   label_top_menu_help_html: "Hier können Menüpunkte festgelegt werden, die im Top-Menü angezeigt werden. Bitte den <strong>Anwendungsserver neu starten</strong>, wenn ein Eintrag gelöscht oder Berechtigungen verändert wurde."
-  label_tweaks: Tweaks
+  label_additionals: Additionals
   label_uptime: Betriebszeit
   label_user_list: "Benutzerliste"
   label_wiki_pdf_header: Wiki PDF Kopfzeile
@@ -101,3 +101,28 @@ de:
   label_reddit_subject: Reddit Thema
   label_twitter_hashtag: Twitter Hashtag
   label_twitter_account: Twitter Benutzer
+  errors_invalid_icon_format: ist ein ungültiger Font-Awesome Code
+  errors_no_or_invalid_arguments: Kein oder ungültiger Parameter
+  errors_query_does_not_exist: Abfrage existiert nicht
+  field_color: Farbe
+  field_icon: Symbol
+  label_daily: täglich
+  label_day: Tag
+  label_hour: Stunde
+  label_icon_color: Symbolfarbe
+  label_monthly: monatlich
+  label_query_delete: Abfrage löschen
+  label_query_edit: Abfrage bearbeiten
+  label_search_by_name: Suche nach Namen
+  label_set_icon_from: Symbol auswählen von
+  label_tomorrow: morgen
+  label_weekly: wöchentlich
+  label_yearly: jährlich
+  show_always: Immer anzeigen
+  show_on_project_overview: Auf Projektübersicht anzeigen
+  show_on_redmine_home: Auf Startseite anzeigen
+  show_welcome_left: Links auf der Startseite
+  show_welcome_right: Rechts auf der Startseite
+  label_last_year: voriges Jahr
+  label_show_all: Alle anzeigen
+  field_issue_relation_plural: Ticket Beziehungen

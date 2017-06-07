@@ -37,7 +37,7 @@
 <% if @project.new_record? %>
 <fieldset class="box tabular"><legend><%= l(:label_module_plural) %></legend>
 <% Redmine::AccessControl.available_project_modules.each do |m|
-if Setting.plugin_redmine_tweaks[:disabled_modules].nil? or !Setting.plugin_redmine_tweaks[:disabled_modules].include?m.to_s
+if Setting.plugin_additionals[:disabled_modules].nil? or !Setting.plugin_additionals[:disabled_modules].include?m.to_s
 %>
     <label class="floating">
     <%= check_box_tag 'project[enabled_module_names][]', m, @project.module_enabled?(m), :id => "project_enabled_module_names_#{m}" %>

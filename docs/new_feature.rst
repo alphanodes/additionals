@@ -4,7 +4,7 @@ You need a feature
 .. _AlphaNodes: https://alphanodes.com
 .. _Open-source: https://opensource.org/osd
 
-Redmine Tweaks is `Open-source`_ and it is available at `Github <https://github.com/alphanodes/redmine_tweaks>`_
+`Additionals`_ is `Open-source`_ and it is available at `Github <https://github.com/alphanodes/additionals>`_
 
 If you want to implement new features in it or if you want to change something, you can provide a pull request.
 

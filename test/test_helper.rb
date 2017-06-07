@@ -1,10 +1,7 @@
-# Redmine Tweaks plugin for Redmine
-# Copyright (C) 2013-2017 AlphaNodes GmbH
-
 require File.expand_path(File.dirname(__FILE__) + '/../../../test/test_helper')
 
-# Redmine Tweaks helper class for tests
-module RedmineTweaks
+# Additionals helper class for tests
+module Additionals
   class TestCase
     include ActionDispatch::TestProcess
     def self.plugin_fixtures(plugin, *fixture_names)

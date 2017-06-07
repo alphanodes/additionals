@@ -66,7 +66,7 @@ ja:
   label_system_info: System info
   label_top_macros_help_html: "Here you get a list of all available Redmine macros of your installation, which are provided by Redmine and the Redmine plugins."
   label_top_menu_help: "ここで新しいトップメニューの項目を定義出来ます。リンクの追加・削除を行った場合、ウェブサーバを再起動してください。"
-  label_tweaks: Tweaks
+  label_additionals: Additionals
   label_uptime: Uptime
   label_user_list: "ユーザ一覧"
   label_wiki_pdf_header: Wiki PDF header
@@ -101,3 +101,28 @@ ja:
   label_reddit_subject: Reddit subject
   label_twitter_hashtag: Twitter hashtag
   label_twitter_account: Twitter account
+  errors_invalid_icon_format: is an invalid font-awesome code
+  errors_no_or_invalid_arguments: No or invalid arguments
+  errors_query_does_not_exist: Query does not exist
+  field_color: Color
+  field_icon: Icon
+  label_daily: daily
+  label_day: day
+  label_hour: hour
+  label_icon_color: Icon color
+  label_monthly: monthly
+  label_query_delete: Delete query
+  label_query_edit: Edit query
+  label_search_by_name: Search by name
+  label_set_icon_from: Set an icon from
+  label_tomorrow: tomorrow
+  label_weekly: weekly
+  label_yearly: yearly
+  show_always: Show always
+  show_on_project_overview: Show on project overview
+  show_on_redmine_home: Show on welcome page
+  show_welcome_left: On welcome page left
+  show_welcome_right: On welcome page right
+  label_last_year: previous year
+  label_show_all: Show all
+  field_issue_relation_plural: Issue relations

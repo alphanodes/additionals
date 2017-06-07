@@ -1,0 +1,10 @@
+<% additionals_tabs = [ { name: 'general', partial: 'settings/additionals/general', label: :label_general },
+        { name: 'content', partial: 'settings/additionals/overview', label: :label_overview_page },
+        { name: 'wiki', partial: 'settings/additionals/wiki', label: :label_wiki },
+        { name: 'rules', partial: 'settings/additionals/issues', label: :label_issue_plural },
+        { name: 'projects', partial: 'settings/additionals/projects', label: :label_project_plural },
+        { name: 'menu', partial: 'settings/additionals/menu', label: :label_settings_menu },
+        { name: 'macros', partial: 'settings/additionals/macros', label: :label_settings_macros }
+    ] %>
+
+<%= render_tabs additionals_tabs %>

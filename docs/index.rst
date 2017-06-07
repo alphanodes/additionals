@@ -32,7 +32,7 @@ Tweaks for wiki and content including new macros for `Redmine`_.
    :alt: Documentation Status
 
 .. image:: https://img.shields.io/badge/rate%20at-redmine.org-blue.svg?style=flat
-   :target: https://www.redmine.org/plugins/redmine_tweaks)
+   :target: https://www.redmine.org/plugins/redmine_tweaks
    :alt: Rate at redmine.org
 
 Requirements

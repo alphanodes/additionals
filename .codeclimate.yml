@@ -5,9 +5,10 @@ engines:
     enabled: true
 ratings:
   paths:
-  - "**.rb"
   - "**.css"
+  - "**.erb"
   - "**.js"
+  - "**.rb"
 exclude_paths:
 - "assets/javascripts/"
 - "assets/stylesheets/jquery.*"

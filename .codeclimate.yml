@@ -3,6 +3,11 @@ engines:
     enabled: false
   eslint:
     enabled: true
+ratings:
+  paths:
+  - "**.rb"
+  - "**.css"
+  - "**.js"
 exclude_paths:
 - "assets/javascripts/"
 - "assets/stylesheets/jquery.*"

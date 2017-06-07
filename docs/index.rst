@@ -97,6 +97,7 @@ Features
   * change assigned_to automatically, if issue status changes
   * assigned_to has changed, but status change is required, too
 
+
 Developer features
 ------------------
 
@@ -110,24 +111,26 @@ Don't worry, if you only need a subset of the provided libraries. If you do not 
 
 It provides :
 
-* [angular-gantt 1.2.13](https://github.com/angular-gantt/angular-gantt)
-* [bootstrap 3.3.7](https://getbootstrap.com)
-* [d3 3.5.16](https://d3js.org/)
-* [d3plus 1.9.8](http://d3plus.org/)
-* [jQuery TagIt 2.0](http://aehlke.github.io/tag-it/)
-* [FontAwesome 4.7.0](http://fontawesome.io/)
-* [nvd3 1.8.5](https://github.com/novus/nvd3)
-* [ZeroClipboard 2.2.0](https://github.com/zeroclipboard/zeroclipboard)
+* `angular-gantt 1.2.13 <https://github.com/angular-gantt/angular-gantt>`_
+* `bootstrap 3.3.7 <https://getbootstrap.com>`_
+* `d3 3.5.16 <https://d3js.org/>`_
+* `d3plus 1.9.8 <http://d3plus.org/>`_
+* `jQuery TagIt 2.0 <http://aehlke.github.io/tag-it/>`_
+* `FontAwesome 4.7.0 <http://fontawesome.io/>`_
+* `nvd3 1.8.5 <https://github.com/novus/nvd3>`_
+* `ZeroClipboard 2.2.0 <https://github.com/zeroclipboard/zeroclipboard>`_
 
 And a set of various Rails helper methods (see below).
 
 It provides the following Rails helper methods :
 
-#### Libraries assets loader :
+Libraries assets loader
+-----------------------
 
-```ruby
-libraries_load_module(module_name)
-```
+.. code-block:: ruby
+
+  additionals_library_load(module_name)
+
 
 This method loads all JS and CSS files needed by the required module.
 

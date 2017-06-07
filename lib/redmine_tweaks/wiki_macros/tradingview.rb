@@ -10,7 +10,7 @@ module RedmineTweaks
       desc <<-EOHELP
       Creates Tradingview chart
         {{tradingview(options)}}
-      see https://www.tradingview.com/widget/
+      see https://redmine-tweaks.readthedocs.io/en/latest/macros/#tradingview
   EOHELP
       macro :tradingview do |_obj, args|
         raise 'The correct usage is {{tradingview(options)}}' if args.empty?

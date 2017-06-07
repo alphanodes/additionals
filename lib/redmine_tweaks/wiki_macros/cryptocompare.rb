@@ -9,7 +9,7 @@ module RedmineTweaks
       desc <<-EOHELP
       Create CryptoCompare information.
         {{cryptocompare(options)}}
-     see https://www.cryptocompare.com/dev/widget/wizard/
+     see https://redmine-tweaks.readthedocs.io/en/latest/macros/#cryptocompare
   EOHELP
       macro :cryptocompare do |_obj, args|
         raise 'The correct usage is {{cryptocompare(options)}}' if args.empty?

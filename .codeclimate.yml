@@ -17,5 +17,6 @@ ratings:
   - "**.js"
   - "**.rb"
 exclude_paths:
+- "test/"
 - "assets/javascripts/"
 - "assets/stylesheets/jquery.*"

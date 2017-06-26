@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.0.1 (not released)
++++++
+
+- Simplified Chinese support has been added (thanks to @archonwang)
+
+
 2.0.0
 +++++
 

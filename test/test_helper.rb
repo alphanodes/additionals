@@ -1,5 +1,3 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../../test/test_helper')
-
 require 'simplecov'
 require 'simplecov-rcov'
 
@@ -9,8 +7,11 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
 ]
 
 SimpleCov.start :rails do
+  add_filter 'init.rb'
   root File.expand_path(File.dirname(__FILE__) + '/..')
 end
+
+require File.expand_path(File.dirname(__FILE__) + '/../../../test/test_helper')
 
 # Additionals helper class for tests
 module Additionals

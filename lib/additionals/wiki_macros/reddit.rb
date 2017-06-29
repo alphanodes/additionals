@@ -12,18 +12,18 @@ module Additionals
 
         case name[0..1]
         when 'r/'
-          link_to(content_tag('span', '', class: 'fa fa-reddit') + ' ' + name,
+          link_to(fa_icon('fa-reddit', post_text: name),
                   "https://www.reddit.com/#{name}",
                   class: 'external reddit',
                   title: l(:label_reddit_subject))
         when 'u/'
-          link_to(content_tag('span', '', class: 'fa fa-reddit-square') + ' ' + name,
+          link_to(fa_icon('fa-reddit-square', post_text: name),
                   "https://www.reddit.com/username/#{name[2..-1]}",
                   class: 'external reddit',
                   title: l(:label_reddit_user_account))
         else
           name = 'r/' + name
-          link_to(content_tag('span', '', class: 'fa fa-reddit') + ' ' + name,
+          link_to(fa_icon('fa-reddit', post_text: name),
                   "https://www.reddit.com/#{name}",
                   class: 'external reddit',
                   title: l(:label_reddit_subject))

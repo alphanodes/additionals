@@ -204,6 +204,36 @@ module Additionals
       safe_join(s)
     end
 
+    def fa_icon(name, options = {})
+      post_text = ''
+      classes = ['fa']
+      classes << name
+
+      options['aria-hidden'] = 'true'
+      options[:class] = if options[:class].present?
+                          classes.join(' ') + ' ' + options[:class]
+                        else
+                          classes.join(' ')
+                        end
+
+      s = []
+      if options[:pre_text].present?
+        s << options[:pre_text]
+        s << ' '
+        options.delete(:pre_text)
+      end
+      if options[:post_text].present?
+        post_text = options[:post_text]
+        options.delete(:post_text)
+      end
+      s << content_tag('span', '', options)
+      if post_text.present?
+        s << ' '
+        s << post_text
+      end
+      safe_join(s)
+    end
+
     def query_default_sort(query, fall_back_sort)
       criteria = query.sort_criteria.any? ? query.sort_criteria : fall_back_sort
       return unless criteria.is_a?(Array)

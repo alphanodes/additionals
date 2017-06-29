@@ -38,7 +38,6 @@ class GlobalHelperTest < ActionView::TestCase
   def test_user_with_avatar
     html = user_with_avatar(User.find(1))
 
-    assert_include '<img', html
     assert_include 'Redmine Admin', html
   end
 

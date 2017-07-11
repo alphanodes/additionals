@@ -1,16 +1,16 @@
 # Redmine hooks
 module Additionals
   class AdditionalsHookListener < Redmine::Hook::ViewListener
-    render_on(:view_layouts_base_html_head, partial: 'global_html_header')
-    render_on(:view_layouts_base_content, partial: 'global_content')
-    render_on(:view_layouts_base_body_bottom, partial: 'global_footer')
+    render_on(:view_layouts_base_html_head, partial: 'additionals/html_head')
+    render_on(:view_layouts_base_content, partial: 'additionals/content')
+    render_on(:view_layouts_base_body_bottom, partial: 'additionals/body_bottom')
 
     render_on(:view_account_login_bottom, partial: 'login_text')
     render_on(:view_welcome_index_right, partial: 'overview_right')
     render_on(:view_issues_new_top, partial: 'new_ticket_message')
-    render_on(:view_issues_sidebar_queries_bottom, partial: 'global_sidebar')
+    render_on(:view_issues_sidebar_queries_bottom, partial: 'additionals/global_sidebar')
     render_on(:view_projects_show_right, partial: 'project_overview')
-    render_on(:view_projects_show_sidebar_bottom, partial: 'global_sidebar')
+    render_on(:view_projects_show_sidebar_bottom, partial: 'additionals/global_sidebar')
 
     def controller_issues_new_before_save(context)
       issue_auto_assign(context)

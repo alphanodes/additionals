@@ -43,7 +43,7 @@ Redmine::Plugin.register :additionals do
     default_settings['custom_menu' + i.to_s + '_title'] = ''
   end
 
-  settings(default: default_settings, partial: 'settings/additionals/additionals')
+  settings(default: default_settings, partial: 'additionals/settings/additionals')
 
   permission :hide_in_memberbox, {}
   permission :show_hidden_roles_in_memberbox, {}
@@ -58,17 +58,6 @@ Redmine::Plugin.register :additionals do
 
   # required redmine version
   requires_redmine version_or_higher: '3.0.0'
-
-  # remove help menu (it will be added later again)
-  delete_menu_item(:top_menu, :help)
-
-  # remove my page
-  delete_menu_item(:top_menu, :my_page)
-  menu :top_menu,
-       :my_page,
-       { controller: 'my', action: 'page' },
-       via: :get,
-       if: proc { User.current.logged? && !Additionals.settings[:remove_mypage] }
 
   menu :admin_menu, :additionals, { controller: 'settings', action: 'plugin', id: 'additionals' }, caption: :label_additionals
 

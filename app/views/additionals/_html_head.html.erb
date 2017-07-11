@@ -8,8 +8,10 @@
 <%= stylesheet_link_tag 'additionals', plugin: 'additionals' %>
 
 <%
-user_roles = User.current.memberships.includes(:project).collect {|m| m.roles}.flatten.uniq
-5.times do |i|
-  add_top_menu_custom_item(i, user_roles)
+if User.current.try(:hrm_user_manager).nil?
+  user_roles = User.current.memberships.includes(:project).collect {|m| m.roles}.flatten.uniq
+  5.times do |i|
+    add_top_menu_custom_item(i, user_roles)
+  end
 end
 %>

@@ -1,6 +1,21 @@
 # Global helper functions
 module Additionals
   module Helpers
+    def additionals_settings_tabs
+      tabs = []
+      tabs << { name: 'general', partial: 'additionals/settings/general', label: :label_general }
+      tabs << { name: 'content', partial: 'additionals/settings/overview', label: :label_overview_page }
+      tabs << { name: 'wiki', partial: 'additionals/settings/wiki', label: :label_wiki }
+      tabs << { name: 'rules', partial: 'additionals/settings/issues', label: :label_issue_plural }
+      tabs << { name: 'projects', partial: 'additionals/settings/projects', label: :label_project_plural }
+      if User.current.try(:hrm_user_manager).nil?
+        tabs << { name: 'menu', partial: 'additionals/settings/menu', label: :label_settings_menu }
+      end
+      tabs << { name: 'macros', partial: 'additionals/settings/macros', label: :label_settings_macros }
+
+      tabs
+    end
+
     def additionals_library_load(module_name)
       method = "additionals_load_#{module_name}"
       send(method)

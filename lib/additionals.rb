@@ -9,12 +9,13 @@ if ActiveRecord::Base.connection.table_exists?(:settings)
     end
 
     # Patches
-    require_dependency 'additionals/patches/custom_help_url'
+    # require_dependency 'additionals/patches/custom_help_url'
     require_dependency 'additionals/patches/issue_patch'
     require_dependency 'additionals/patches/time_entry_patch'
     require_dependency 'additionals/patches/wiki_patch'
     require_dependency 'additionals/patches/wiki_controller_patch'
     require_dependency 'additionals/patches/wiki_pdf_helper_patch'
+    require 'additionals/patches/application_controller_patch'
 
     Rails.configuration.assets.paths << Emoji.images_path
     # Send Emoji Patches to all wiki formatters available to be able to switch formatter without app restart
@@ -56,15 +57,6 @@ if ActiveRecord::Base.connection.table_exists?(:settings)
       def self.settings
         Setting[:plugin_additionals].blank? ? {} : Setting[:plugin_additionals]
       end
-    end
-
-    unless Additionals.settings[:remove_help]
-      Redmine::Plugin.find('additionals')
-                     .menu :top_menu,
-                           :help,
-                           Additionals::Patches::CustomHelpUrl::Redmine::Info.help_url,
-                           html: { target: '_blank' },
-                           last: true
     end
   end
 

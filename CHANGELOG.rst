@@ -15,7 +15,7 @@ Changelog
 - Redmine Tweaks has been renamed to additionals, because to resolve loading order problem of Redmine plugins
 - Merge common_libraries plugin into additionals plugin
 - Fontawesome support
-- Redmine 3.1.x required
+- Redmine 3.0.x required
 
 1.0.3
 +++++

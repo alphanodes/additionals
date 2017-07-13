@@ -19,7 +19,7 @@ module Additionals
         if @sidebar && @sidebar.content
           sidebar_without_additionals
         else
-          wiki_sidebar = '' + Setting.plugin_additionals[:global_wiki_sidebar].to_s
+          wiki_sidebar = '' + Additionals.settings[:global_wiki_sidebar].to_s
           @sidebar ||= find_page('Wiki', with_redirect: false)
           if wiki_sidebar != '' && @sidebar.try(:content)
             @sidebar.content.text = wiki_sidebar

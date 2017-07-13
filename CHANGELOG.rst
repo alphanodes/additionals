@@ -1,11 +1,13 @@
 Changelog
 =========
 
-2.0.1 (not released)
-++++++++++++++++++++
+2.0.1
++++++
 
 - Simplified Chinese support has been added (thanks to @archonwang)
 - Helper function fa_icon has been added
+- Help menu item and MyPage menu item does not require application server restart anymore
+- Redmine 3.4.x compatibility
 
 2.0.0
 +++++

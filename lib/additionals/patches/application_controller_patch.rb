@@ -14,7 +14,7 @@ module Additionals
           return unless User.current.try(:hrm_user_manager).nil?
           additionals_menu_item_delete(:help)
           unless Additionals.settings[:remove_help].to_i == 1
-            custom_url = Setting.plugin_additionals[:custom_help_url]
+            custom_url = Additionals.settings[:custom_help_url]
             if custom_url.present?
               additionals_menu_item_add(:help, custom_url)
             else

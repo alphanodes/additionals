@@ -30,8 +30,4 @@ module Additionals
       end
     end
   end
-
-  def self.settings
-    Setting[:plugin_additionals]
-  end
 end

@@ -1,7 +1,7 @@
-<% if Setting.plugin_additionals[:external_urls].to_i > 0 %>
+<% if Additionals.settings[:external_urls].to_i > 0 %>
 <%= javascript_include_tag('redirect', plugin: 'additionals') %>
 <% end %>
-<% if Setting.plugin_additionals[:external_urls].to_i == 2 %>
+<% if Additionals.settings[:external_urls].to_i == 2 %>
 <%= javascript_include_tag('noreferrer', plugin: 'additionals') %>
 <% end %>
 <%= additionals_library_load(:font_awesome) %>

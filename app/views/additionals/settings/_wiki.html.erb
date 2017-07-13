@@ -31,12 +31,12 @@
 
 <p>
   <%= content_tag(:label, l(:label_wiki_pdf_remove_title)) %>
-  <%= check_box_tag 'settings[wiki_pdf_remove_title]', 1, @settings[:wiki_pdf_remove_title] %>
+  <%= check_box_tag 'settings[wiki_pdf_remove_title]', 1, @settings[:wiki_pdf_remove_title].to_i == 1 %>
   <em class="info"><%= l(:wiki_pdf_remove_title_info) %></em>
 </p>
 
 <p>
   <%= content_tag(:label, l(:label_wiki_pdf_remove_attachments)) %>
-  <%= check_box_tag 'settings[wiki_pdf_remove_attachments]', 1, @settings[:wiki_pdf_remove_attachments] %>
+  <%= check_box_tag 'settings[wiki_pdf_remove_attachments]', 1, @settings[:wiki_pdf_remove_attachments].to_i == 1 %>
   <em class="info"><%= l(:wiki_pdf_remove_attachments_info) %></em>
 </p>

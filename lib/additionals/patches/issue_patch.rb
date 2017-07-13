@@ -52,7 +52,7 @@ module Additionals
 
       def new_ticket_message
         @new_ticket_message = ''
-        message = Setting.plugin_additionals[:new_ticket_message]
+        message = Additionals.settings[:new_ticket_message]
         @new_ticket_message << message if message.present?
       end
 

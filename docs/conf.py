@@ -28,9 +28,9 @@ copyright = u'2013-2017, AlphaNodes GmbH'
 author = u'Alexander Meindl'
 
 # The short X.Y version.
-version = u'1.0.2'
+version = u'2.0.1'
 # The full version, including alpha/beta/rc tags.
-release = u'1.0.2'
+release = u'2.0.1'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.

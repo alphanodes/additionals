@@ -1,5 +1,11 @@
 if ActiveRecord::Base.connection.table_exists?(:settings)
   Rails.configuration.to_prepare do
+    module Additionals
+      def self.settings
+        ActionController::Parameters.new(Setting[:plugin_additionals])
+      end
+    end
+
     if Redmine::Plugin.installed?('redmine_tweaks')
       raise "\n\033[31madditionals plugin cannot be used with redmine_tweaks plugin'.\033[0m"
     end
@@ -52,12 +58,6 @@ if ActiveRecord::Base.connection.table_exists?(:settings)
     require_dependency 'additionals/wiki_macros/user_macro'
     require_dependency 'additionals/wiki_macros/vimeo'
     require_dependency 'additionals/wiki_macros/youtube'
-
-    module Additionals
-      def self.settings
-        Setting[:plugin_additionals].blank? ? {} : Setting[:plugin_additionals]
-      end
-    end
   end
 
   # include deface overwrites

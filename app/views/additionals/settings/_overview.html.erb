@@ -26,6 +26,6 @@
 
 <p>
   <%= content_tag(:label, l(:label_remove_news)) %>
-  <%= check_box_tag 'settings[remove_news]', 1, @settings[:remove_news] %>
+  <%= check_box_tag 'settings[remove_news]', 1, @settings[:remove_news].to_i == 1 %>
   <em class="info"><%= l(:remove_news_info) %></em>
 </p>

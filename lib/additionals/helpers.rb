@@ -73,10 +73,10 @@ module Additionals
     def add_top_menu_custom_item(i, user_roles)
       menu_name = 'custom_menu' + i.to_s
       item = {
-        url: Setting.plugin_additionals[menu_name + '_url'],
-        name: Setting.plugin_additionals[menu_name + '_name'],
-        title: Setting.plugin_additionals[menu_name + '_title'],
-        roles: Setting.plugin_additionals[menu_name + '_roles']
+        url: Additionals.settings[menu_name + '_url'],
+        name: Additionals.settings[menu_name + '_name'],
+        title: Additionals.settings[menu_name + '_title'],
+        roles: Additionals.settings[menu_name + '_roles']
       }
       return if item[:name].blank? || item[:url].blank? || item[:roles].nil?
 

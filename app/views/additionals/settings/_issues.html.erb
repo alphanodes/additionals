@@ -16,14 +16,14 @@
 
 <p>
   <%= content_tag(:label, l(:label_rule_issue_close_with_open_children)) %>
-  <%= check_box_tag 'settings[issue_close_with_open_children]', 1, @settings[:issue_close_with_open_children] %>
+  <%= check_box_tag 'settings[issue_close_with_open_children]', 1, @settings[:issue_close_with_open_children].to_i == 1 %>
 </p>
 <br />
 
 <% rule_status = IssueStatus.sorted %>
 <p>
   <%= content_tag(:label, l(:label_rule_issue_status_change)) %>
-  <%= check_box_tag 'settings[issue_status_change]', 1, @settings[:issue_status_change] %>
+  <%= check_box_tag 'settings[issue_status_change]', 1, @settings[:issue_status_change].to_i == 1 %>
   <span style="vertical-align: top; margin-left: 15px;">
   <%= l(:field_status) %> x: <%= select_tag 'settings[issue_status_x]', options_for_select(rule_status.collect{|column| [column.name, column.id]}, @settings[:issue_status_x]), multiple: true,  size: 6, style: 'width:150px' %>
   <%= l(:field_status) %> y: <%= select_tag 'settings[issue_status_y]', options_for_select(rule_status.collect{|column| [column.name, column.id]}, @settings[:issue_status_y]), multiple: false, style: 'width:150px; vertical-align: top' %>
@@ -35,7 +35,7 @@
 
 <p>
   <%= content_tag(:label, l(:label_rule_issue_current_user_status)) %>
-  <%= check_box_tag 'settings[issue_current_user_status]', 1, @settings[:issue_current_user_status] %>
+  <%= check_box_tag 'settings[issue_current_user_status]', 1, @settings[:issue_current_user_status].to_i == 1 %>
   <span style="vertical-align: top; margin-left: 15px;">
   <%= l(:field_status) %> x: <%= select_tag 'settings[issue_assign_to_x]', options_for_select(rule_status.collect{|column| [column.name, column.id]}, @settings[:issue_assign_to_x]), multiple: true, size: 6, style: 'width:150px' %>
   </span>
@@ -46,7 +46,7 @@
 
 <p>
   <%= content_tag(:label, l(:label_rule_issue_auto_assign)) %>
-  <%= check_box_tag 'settings[issue_auto_assign]', 1, @settings[:issue_auto_assign] %>
+  <%= check_box_tag 'settings[issue_auto_assign]', 1, @settings[:issue_auto_assign].to_i == 1 %>
   <span style="vertical-align: top; margin-left: 15px;">
   <%= l(:field_status) %> x: <%= select_tag 'settings[issue_auto_assign_status]', options_for_select(rule_status.collect{|column| [column.name, column.id]}, @settings[:issue_auto_assign_status]), multiple: true, size: 6, style: 'width:150px' %>
   <%= l(:label_role) %>: <%= select_tag 'settings[issue_auto_assign_role]', options_from_collection_for_select(Role.givable.sorted, :id, :name, @settings[:issue_auto_assign_role]), multiple: false, style: 'width:150px; vertical-align: top' %>

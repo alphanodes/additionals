@@ -100,21 +100,31 @@ module Additionals
         end
         break if show_entry == true
       end
-      handle_top_menu_item(menu_name, item, show_entry)
+
+      handle_top_menu_item(menu_name, item) if show_entry
     end
 
-    def handle_top_menu_item(menu_name, item, show_entry = false)
+    def handle_top_menu_item(menu_name, item)
       if Redmine::MenuManager.map(:top_menu).exists?(menu_name.to_sym)
         Redmine::MenuManager.map(:top_menu).delete(menu_name.to_sym)
       end
-      return unless show_entry
 
       html_options = {}
       html_options[:class] = 'external' if item[:url].include? '://'
       html_options[:title] = item[:title] if item[:title].present?
+
+      title = if item[:symbol].present? && item[:name].present?
+                fa_icon(item[:symbol], post_text: item[:name])
+              elsif item[:symbol].present?
+                fa_icon(item[:symbol])
+              else
+                item[:name].to_s
+              end
+
       Redmine::MenuManager.map(:top_menu).push menu_name,
                                                item[:url],
-                                               caption: item[:name].to_s,
+                                               parent: item[:parent].present? ? item[:parent].to_sym : nil,
+                                               caption: title,
                                                html: html_options,
                                                before: :help
     end

@@ -65,7 +65,7 @@ ja:
   label_settings_menu: "メニュー"
   label_system_info: System info
   label_top_macros_help_html: "Here you get a list of all available Redmine macros of your installation, which are provided by Redmine and the Redmine plugins."
-  label_top_menu_help: "ここで新しいトップメニューの項目を定義出来ます。リンクの追加・削除を行った場合、ウェブサーバを再起動してください。"
+  label_top_menu_help: "ここで新しいトップメニューの項目を定義出来ます。"
   label_additionals: Additionals
   label_uptime: Uptime
   label_user_list: "ユーザ一覧"

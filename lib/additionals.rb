@@ -1,6 +1,7 @@
 if ActiveRecord::Base.connection.table_exists?(:settings)
   Rails.configuration.to_prepare do
     module Additionals
+      MAX_CUSTOM_MENU_ITEMS = 5
       def self.settings
         ActionController::Parameters.new(Setting[:plugin_additionals])
       end

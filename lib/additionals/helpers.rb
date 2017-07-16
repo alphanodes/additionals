@@ -70,7 +70,7 @@ module Additionals
       view_roles
     end
 
-    def add_top_menu_custom_item(i, user_roles)
+    def additionals_custom_top_menu_item(i, user_roles)
       menu_name = 'custom_menu' + i.to_s
       item = {
         url: Additionals.settings[menu_name + '_url'],
@@ -78,7 +78,12 @@ module Additionals
         title: Additionals.settings[menu_name + '_title'],
         roles: Additionals.settings[menu_name + '_roles']
       }
-      return if item[:name].blank? || item[:url].blank? || item[:roles].nil?
+      if item[:name].blank? || item[:url].blank? || item[:roles].nil?
+        if Redmine::MenuManager.map(:top_menu).exists?(menu_name.to_sym)
+          Redmine::MenuManager.map(:top_menu).delete(menu_name.to_sym)
+        end
+        return
+      end
 
       show_entry = false
       item[:roles].each do |role|

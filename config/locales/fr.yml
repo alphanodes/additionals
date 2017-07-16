@@ -65,7 +65,7 @@ fr:
   label_settings_menu: "Menu"
   label_system_info: System info
   label_top_macros_help_html: "Here you get a list of all available Redmine macros of your installation, which are provided by Redmine and the Redmine plugins."
-  label_top_menu_help_html: "Here you can define new top menu items. Please <strong>restart the application server</strong>, if you remove a menu item or change permissions."
+  label_top_menu_help_html: "Here you can define new top menu items."
   label_additionals: Additionals
   label_uptime: Uptime
   label_user_list: "User list"

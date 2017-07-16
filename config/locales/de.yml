@@ -65,7 +65,7 @@ de:
   label_settings_menu: "Menü"
   label_system_info: Systeminformation
   label_top_macros_help_html: "Hier sind alle Makros aufgelistet, welche über Redmine selbst oder Plugins bereitgestellt werden (nicht nur über Additionals). Diese Makros können in allen Texten innerhalb Redmines verwendet werden (sofern diese im jeweiligen Kontext Sinn machen)."
-  label_top_menu_help_html: "Hier können Menüpunkte festgelegt werden, die im Top-Menü angezeigt werden. Bitte den <strong>Anwendungsserver neu starten</strong>, wenn ein Eintrag gelöscht oder Berechtigungen verändert wurde."
+  label_top_menu_help_html: "Hier können Menüpunkte festgelegt werden, die im Top-Menü angezeigt werden."
   label_additionals: Additionals
   label_uptime: Betriebszeit
   label_user_list: "Benutzerliste"

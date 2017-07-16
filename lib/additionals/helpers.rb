@@ -106,7 +106,11 @@ module Additionals
         break if show_entry == true
       end
 
-      handle_top_menu_item(menu_name, item) if show_entry
+      if show_entry
+        handle_top_menu_item(menu_name, item)
+      elsif Redmine::MenuManager.map(:top_menu).exists?(menu_name.to_sym)
+        Redmine::MenuManager.map(:top_menu).delete(menu_name.to_sym)
+      end
     end
 
     def handle_top_menu_item(menu_name, item)

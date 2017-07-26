@@ -92,6 +92,7 @@ Features
 * anonymize referrer for external urls
 * Hide role in project memberbox
 * Change issue author
+* Add involved issue users as watcher automatically
 * Configurable issue rules
 
   * closing issue with open sub issues

@@ -10,6 +10,7 @@ module Additionals
           validate :validate_open_sub_issues
           validate :validate_current_user_status
           before_save :change_status_with_assigned_to_change
+          after_save :autowatch_involved
 
           safe_attributes 'author_id',
                           if: proc { |issue, user|
@@ -21,6 +22,20 @@ module Additionals
 
       # Instance methods with helper functions
       module InstanceMethods
+        def add_autowatcher(watcher)
+          return if (watcher.nil? || !watcher.is_a?(User) || watcher.anonymous? || !watcher.active?) &&
+                    watched_by?(watcher)
+          add_watcher(watcher)
+        end
+
+        def autowatch_involved
+          return unless Additionals.settings[:issue_autowatch_involved].to_i == 1
+
+          add_autowatcher(User.current)
+          add_autowatcher(author)
+          add_autowatcher(assigned_to)
+        end
+
         def log_time_allowed?(user = User.current)
           !closed? || user.allowed_to?(:log_time_on_closed_issues, project)
         end

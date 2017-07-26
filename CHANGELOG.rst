@@ -4,6 +4,7 @@ Changelog
 2.0.2
 +++++
 
+- Add option to add involved issue users automatically
 - Add change issue author feature
 - Fixed bug with Redmine 3.4.x and default assignee settings
 - Refactoring patch include and wiki macros

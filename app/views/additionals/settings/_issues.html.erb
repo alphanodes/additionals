@@ -15,6 +15,11 @@
 <br />
 
 <p>
+  <%= content_tag(:label, l(:label_issue_autowatch_involved)) %>
+  <%= check_box_tag 'settings[issue_autowatch_involved]', 1, @settings[:issue_autowatch_involved].to_i == 1 %>
+</p>
+
+<p>
   <%= content_tag(:label, l(:label_rule_issue_close_with_open_children)) %>
   <%= check_box_tag 'settings[issue_close_with_open_children]', 1, @settings[:issue_close_with_open_children].to_i == 1 %>
 </p>

@@ -129,3 +129,4 @@ de:
   label_additionals_doc: Additionals Dokumentation (englisch)
   permission_edit_issue_author: Ticket Autor bearbeiten
   permission_change_new_issue_author: Autor bei Ticketerstellung festlegen
+  label_issue_autowatch_involved: Involvierte Benutzer automatisch als Beobachter hinzufügen

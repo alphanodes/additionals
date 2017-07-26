@@ -12,6 +12,7 @@ wiki_pdf_remove_attachments: 0
 global_wiki_footer: ''
 global_wiki_header: ''
 global_wiki_sidebar: ''
+issue_autowatch_involved: 1
 issue_auto_assign_role: ''
 issue_auto_assign_status: ''
 issue_auto_assign: 0

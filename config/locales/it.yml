@@ -129,3 +129,4 @@ it:
   label_additionals_doc: Additionals documentation
   permission_edit_issue_author: Edit author
   permission_change_new_issue_author: Set author of new issues
+  label_issue_autowatch_involved: Add involved users as watcher automatically

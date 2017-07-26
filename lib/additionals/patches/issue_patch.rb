@@ -10,7 +10,7 @@ module Additionals
           validate :validate_open_sub_issues
           validate :validate_current_user_status
           before_save :change_status_with_assigned_to_change
-          after_save :autowatch_involved
+          before_save :autowatch_involved
 
           safe_attributes 'author_id',
                           if: proc { |issue, user|
@@ -31,9 +31,11 @@ module Additionals
         def autowatch_involved
           return unless Additionals.settings[:issue_autowatch_involved].to_i == 1
 
+          add_autowatcher(author) if new_record? || author_id != author_id_was
           add_autowatcher(User.current)
-          add_autowatcher(author)
-          add_autowatcher(assigned_to)
+          add_autowatcher(assigned_to) unless assigned_to.nil? || assigned_to.id == User.current.id
+
+          true
         end
 
         def log_time_allowed?(user = User.current)

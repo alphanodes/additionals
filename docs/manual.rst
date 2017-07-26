@@ -75,7 +75,8 @@ The following plugin options are available to be edited by users with administra
 
 The following options are available at the moment in the area ``Settings`` where you can define rules which will be used in all projects:
 
-* Issues with open sub-issues cannot be closed
+* Add involved users as watcher automatically. This means, everyone who is or has been involved in the issue (Assignee, Editor, Author etc.) will automatically be notified about further changes.
+* Issues with open sub-issues cannot be closed.
 * If "Assignee" is unchanged and the issue status changed from x to y, than the author is assigned to the issue.
 
 .. note:: Use Case for this option: issues should be automatically assigned to autor, if the status changes to "Approval".

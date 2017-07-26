@@ -5,9 +5,9 @@ General section
 --------------
 
 The general section tab allows you to define some special behaviours for your Redmine installation.
-It is divided into two areas called ``Content`` and ``Settings``.
+It is divided into two areas called ``Contents`` and ``Settings``.
 
-The following plugin options are available to be edited by users with administration rights in the area ``Content``:
+The following plugin options are available to be edited by users with administration rights in the area ``Contents``:
 
 * Text for login page. This section is for a short information on the login page below the login mask. For example who to contact in order to get Redmine access.
 * Global sidebar. Place your global information here, if needed. Use wiki links or available macros that can be seen by every one.
@@ -35,6 +35,8 @@ The following plugin options are available to be edited by users with administra
 * Overview page, right. Place information here you want to display at the right side of your overview page.
 * Overview page, top. Place information here you want to display at the top of your overview page.
 * Overview page, bottom. Place information here you want to display on the bottom of your overview page.
+
+All text input fields allow wiki syntax. Keep your text information as short as possible. In case you want to write prosa, you may also link to a wiki page with further information.
 
 Changes you can make in the area ``Settings`` are:
 
@@ -99,7 +101,8 @@ The projects section offers several options for the user with admin rights to de
 Menu section
 ------------
 
-Here you can define new top menu items and change some standard settings on the menu behaviour.
+First of all: This section is only visible in case the ``Redmine HRM Plugin`` is not installed. If you are also using the ``Redmine HRM Plugin`` this section disappears because the functionality is also an important part of ''HRM''.
+Otherwise, you can define here new top menu items and change some standard settings on the menu behaviour.
 
 .. note:: Please restart the application server, if you remove a menu item or change permissions as well as changing the custom help url.
 
@@ -114,8 +117,8 @@ The following input fields are available for each entry:
 In the ``Settings`` area of the menu tab there are the following functions available.
 
 * Enter a ``Custom help URL`` instead of linking to the help on Redmine.org. Make sure you restart your application server after your changes.
-* Remove "Help" from top menu in order to keep the menu shorter.
-* Remove "My Page" from top menu in order you don't want your users to use this page.
+* Remove ``Help`` from top menu in order to keep the menu shorter.
+* Remove ``My Page`` from top menu in order you don't want your users to use this page.
 
 Macros section
 --------------
@@ -129,9 +132,9 @@ Additional permissions
 
 The following permissions are provided by the plugin and must be configured in the administration area ``Roles and permissions`` for the plugin functions to make sure it's working properly.
 
-* Hide in member box
-* Show hidden roles in member box
-* Edit issue author
-* Edit closed issues
-* Set author of new issues
-* Log time to closed issues
+* "Hide in member box". This permission hides members of the selected role in the member box of each project.
+* "Show hidden roles in member box". In case you have hidden roles in a project that should not be displayed you can give to some special roles the permission to display the members.
+* "Edit issue author". This permission will always record any changes made to the issue author. You can change the author only in the issue edit mode.
+* "Edit closed issues". Set this option to those roles you don't want to edit closed issues. Normally a closed issue should not be edited anymore.
+* "Set author of new issues". This permission should be set carefully, because in case you allow this, there is no history entry set for this. You will never know if the author has been originally someone else. Normally you don't want this.
+* "Log time to closed issues". Our plugin does not allow time logs to closed issues. In case you still want to allow your members to log time to closed issues, you need to change the permission here.

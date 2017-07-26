@@ -127,5 +127,5 @@ de:
   label_show_all: Alle anzeigen
   field_issue_relation_plural: Ticket Beziehungen
   label_additionals_doc: Additionals Dokumentation (englisch)
-  permission_edit_issue_author: Autor bearbeiten
+  permission_edit_issue_author: Ticket Autor bearbeiten
   permission_change_new_issue_author: Autor bei Ticketerstellung festlegen

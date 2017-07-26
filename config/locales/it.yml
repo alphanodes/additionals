@@ -13,7 +13,7 @@ it:
     errors:
       messages:
         issue_cannot_close_with_open_children: "Questo problema può essere chiuso solo se tutti i sotto-problemi sono chiusi."
-        issue_current_user_status: "Lo stato selezionato richiede che \" Assegnato a \ "sia lo stesso."
+        issue_current_user_status: "Lo stato selezionato richiede che \" Assegnato a \" sia lo stesso."
         issue_log_time_not_allowed: "is a closed issue. You are not allowed to log time at it."
         issue_changes_not_allowed: "This issue is closed, you do not have any right to change it."
   account_login_info: "This text message will be shown at the login page and should be used for registration information. These settings are active in all projects."

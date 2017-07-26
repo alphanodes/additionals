@@ -29,7 +29,3 @@ module Additionals
     end
   end
 end
-
-unless Wiki.included_modules.include? Additionals::Patches::WikiPatch
-  Wiki.send(:include, Additionals::Patches::WikiPatch)
-end

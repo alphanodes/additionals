@@ -10,6 +10,12 @@ module Additionals
           validate :validate_open_sub_issues
           validate :validate_current_user_status
           before_save :change_status_with_assigned_to_change
+
+          safe_attributes 'author_id',
+                          if: proc { |issue, user|
+                            issue.new_record? && user.allowed_to?(:change_new_issue_author, issue.project) ||
+                              issue.persisted? && user.allowed_to?(:edit_issue_author, issue.project)
+                          }
         end
       end
 
@@ -93,8 +99,4 @@ module Additionals
       end
     end
   end
-end
-
-unless Issue.included_modules.include? Additionals::Patches::IssuePatch
-  Issue.send(:include, Additionals::Patches::IssuePatch)
 end

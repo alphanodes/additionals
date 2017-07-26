@@ -27,7 +27,3 @@ module Additionals
     end
   end
 end
-
-unless TimeEntry.included_modules.include? Additionals::Patches::TimeEntryPatch
-  TimeEntry.send(:include, Additionals::Patches::TimeEntryPatch)
-end

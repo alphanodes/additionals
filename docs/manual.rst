@@ -131,5 +131,7 @@ The following permissions are provided by the plugin and must be configured in t
 
 * Hide in member box
 * Show hidden roles in member box
+* Edit issue author
 * Edit closed issues
+* Set author of new issues
 * Log time to closed issues

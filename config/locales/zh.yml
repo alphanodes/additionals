@@ -127,3 +127,5 @@ zh:
   label_show_all: 显示所有
   field_issue_relation_plural: 问题关联关系
   label_additionals_doc: Additionals 插件文档
+  permission_edit_issue_author: Edit author
+  permission_change_new_issue_author: Set author of new issues

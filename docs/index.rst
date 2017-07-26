@@ -91,6 +91,7 @@ Features
 * smiley/emoji legacy support
 * anonymize referrer for external urls
 * Hide role in project memberbox
+* Change issue author
 * Configurable issue rules
 
   * closing issue with open sub issues

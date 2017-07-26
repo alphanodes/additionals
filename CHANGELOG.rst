@@ -1,6 +1,13 @@
 Changelog
 =========
 
+2.0.2
++++++
+
+- Add change issue author feature
+- Fixed bug with Redmine 3.4.x and default assignee settings
+- Refactoring patch include and wiki macros
+
 2.0.1
 +++++
 

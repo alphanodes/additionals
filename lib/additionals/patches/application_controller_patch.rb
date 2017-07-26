@@ -57,7 +57,3 @@ module Additionals
     end
   end
 end
-
-unless ApplicationController.included_modules.include?(Additionals::Patches::ApplicationControllerPatch)
-  ApplicationController.send(:include, Additionals::Patches::ApplicationControllerPatch)
-end

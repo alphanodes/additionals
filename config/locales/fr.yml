@@ -127,3 +127,5 @@ fr:
   label_show_all: Show all
   field_issue_relation_plural: Issue relations
   label_additionals_doc: Additionals documentation
+  permission_edit_issue_author: Edit author
+  permission_change_new_issue_author: Set author of new issues

@@ -1,0 +1,6 @@
+<% if @project && User.current.allowed_to?(:edit_issue_author, @project) %>
+<p id='change_author'>
+  <%= label_tag('issue[author_id]', l(:field_author)) %>
+  <%= select_tag('issue[author_id]', content_tag('option', l(:label_no_change_option), :value => '') + issue_author_options_for_select(@project)) %>
+</p>
+<% end %>

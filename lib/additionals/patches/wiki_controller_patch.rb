@@ -62,7 +62,3 @@ module Additionals
     end
   end
 end
-
-unless WikiController.included_modules.include? Additionals::Patches::WikiControllerPatch
-  WikiController.send(:include, Additionals::Patches::WikiControllerPatch)
-end

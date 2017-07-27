@@ -1,6 +1,6 @@
 module AdditionalsIssuesHelper
   def issue_author_options_for_select(project, issue = nil)
-    authors = project.users
+    authors = project.users.sort
     s = []
 
     if authors.include?(User.current)

@@ -23,7 +23,10 @@ module Additionals
       # Instance methods with helper functions
       module InstanceMethods
         def add_autowatcher(watcher)
-          return if (watcher.nil? || !watcher.is_a?(User) || watcher.anonymous? || !watcher.active?) &&
+          return if watcher.nil? ||
+                    !watcher.is_a?(User) ||
+                    watcher.anonymous? ||
+                    !watcher.active? ||
                     watched_by?(watcher)
           add_watcher(watcher)
         end

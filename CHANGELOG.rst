@@ -4,6 +4,7 @@ Changelog
 2.0.3 (no version bump/tag at the moment)
 +++++
 
+- Allow remove watchers without re-adding it (only if author or assigned_user changed)
 - Fix sort order of users for change author
 
 2.0.2

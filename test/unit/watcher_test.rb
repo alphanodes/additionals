@@ -50,4 +50,24 @@ class WatcherTest < ActiveSupport::TestCase
     assert issue.watched_by?(@changing_user)
     assert issue.watched_by?(@assigned_user)
   end
+
+  def test_issue_do_not_add_assigned_to_with_user_change
+    User.current = @author
+
+    issue = Issue.generate(author_id: @author.id, assigned_to: @assigned_user)
+    issue.save
+    assert_equal 2, issue.watchers.count
+
+    issue.remove_watcher(@assigned_user)
+    issue.reload
+    assert_equal 1, issue.watchers.count
+
+    User.current = @changing_user
+    issue.subject = 'Changing....'
+    issue.save
+
+    assert_equal 2, issue.watchers.count
+    assert issue.watched_by?(@author)
+    assert issue.watched_by?(@changing_user)
+  end
 end

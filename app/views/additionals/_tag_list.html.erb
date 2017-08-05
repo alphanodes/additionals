@@ -1,5 +1,5 @@
 <% unless entry.tag_list.empty? %>
-<div class="tags attribute"><span class="label"><%= l(:field_tag_list) %>:</span>
+<div class="tags attribute"><% unless defined? hide_label %><span class="label"><%= l(:field_tag_list) %>:</span><% end %>
 <%= safe_join(entry.tag_counts.map { |t| render_additionals_tag_link(t, show_count: false) }, ' ') %>
 </div>
 <% end %>

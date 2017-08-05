@@ -150,3 +150,60 @@
 .smiley-failure {
   background-image: url(../images/smileys/failure-frame.png);
 }
+
+/* TAGs */
+
+ul.tags {
+  list-style: none;
+  padding: 0;
+}
+
+.tag-label-color {
+  padding: 2px 4px;
+  color: #fff;
+  text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.5);
+  font-size: 10px !important;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.tag-label-color a::before {
+  font-family: FontAwesome;
+  font-size: 1em;
+  font-weight: normal;
+  content: "\f02b"; /* fa-tag */
+  padding-right: 3px;
+  color: #fff;
+}
+
+ul.tags li { margin: 0.25em 0; }
+
+div.tags .tag-pass-1 { font-size: 0.8em; }
+div.tags .tag-pass-2 { font-size: 0.9em; }
+div.tags .tag-pass-3 { font-size: 1em; }
+div.tags .tag-pass-4 { font-size: 1.1em; }
+div.tags .tag-pass-5 { font-size: 1.2em; }
+div.tags .tag-pass-6 { font-size: 1.3em; }
+div.tags .tag-pass-7 { font-size: 1.4em; }
+div.tags .tag-pass-8 { font-size: 1.5em; }
+
+.tag-count { font-size: 0.75em; }
+.tag-label-color a { color: white; }
+
+.tagit.ui-widget {
+  font-size: 1em;
+  margin: 0;
+}
+
+ul.tagit li.tagit-choice {
+  color: #505050;
+  font-weight: normal;
+}
+
+ul.tagit li.tagit-choice:hover,
+ul.tagit li.tagit-choice.remove {
+  border-color: #6d95e0;
+}
+
+ul.tagit input[type="text"] {
+  background: transparent;
+}

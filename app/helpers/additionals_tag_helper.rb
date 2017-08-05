@@ -13,6 +13,11 @@ module AdditionalsTagHelper
 
     content = ''
     style = options.delete(:style)
+    style = if style.nil?
+              :cloud
+            else
+              style.to_sym
+            end
 
     # prevent ActsAsTaggableOn::TagsHelper from calling `all`
     # otherwise we will need sort tags after `tag_cloud`

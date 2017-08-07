@@ -37,7 +37,6 @@ module Additionals
           add_autowatcher(User.current)
           add_autowatcher(author) if new_record? || author_id != author_id_was
           unless assigned_to_id.nil? || assigned_to_id == User.current.id
-            #raise "assigned_to_id: #{assigned_to_id.inspect} - #{assigned_to_id_was.inspect}"
             add_autowatcher(assigned_to) if new_record? || assigned_to_id != assigned_to_id_was
           end
 

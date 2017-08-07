@@ -17,23 +17,38 @@ it:
         issue_log_time_not_allowed: "is a closed issue. You are not allowed to log time at it."
         issue_changes_not_allowed: "This issue is closed, you do not have any right to change it."
   account_login_info: "This text message will be shown at the login page and should be used for registration information. These settings are active in all projects."
+  add_go_to_top_info: 'If you have a lot of long pages, it is helpful to add a jump to top link.'
   custom_help_url_info_html: "After changing this URL, you have to restart the application server to activate it. If no URL is specified, the default help URL will be used."
   disabled_modules_info: "Modules which should not be available for selection within the projects. If these modules already activated in existing projects, you will have to change and re-save the respective project settings first."
+  errors_invalid_icon_format: is an invalid font-awesome code
+  errors_no_or_invalid_arguments: No or invalid arguments
+  errors_query_does_not_exist: Query non esiste
   external_url_default: "Default behavior"
   external_url_new_window: "Open in new window"
   external_url_noreferrer: "Open with NoReferrer"
   external_urls_info_html: "Specifies the behavior for external urls."
+  field_color: Colore
+  field_icon: Icon
+  field_issue_relation_plural: Issue relations
+  field_tag_list: Tags
+  field_tag_sidebar_style_cloud: Cloud
+  field_tag_sidebar_style_list: List
+  field_tags: Tags
   global_footer_info: 'Enter a project wide wiki footer here.'
   global_sidebar_info: "Enter a project wide available text message here. This sidebar text will be displayed at the project overview, the issue pages and the wiki pages."
   global_wiki_footer_info: 'Enter a project wide wiki footer here. In case a project specific wiki footer is used by "Wiki Extensions", this will be preferably displayed instead.'
   global_wiki_header_info: 'Enter a project wide wiki header here. In case a project specific wiki header is used by "Wiki Extensions", this will be preferably displayed instead.'
   global_wiki_sidebar_info: 'Enter a project wide available text message for your wiki sidebar, here. This sidebar text will be displayed at the wiki pages only. Use this space for Macros like "Last changed pages" for example. In case a project specific sidebar is used (wiki page), this will be preferably displayed in the sidebar instead.'
   label_account_login: "Text for login page"
-  add_go_to_top_info: 'If you have a lot of long pages, it is helpful to add a jump to top link.'
   label_add_go_to_top: 'Add "Go to top" link'
+  label_add_tags: Add tags
+  label_additionals_doc: Additionals documentation
+  label_additionals: Additionals
   label_content_plural: Contents
   label_custom_help_url: "Custom Help URL"
   label_custom_menu_items: Custom menu items
+  label_daily: giornalmente
+  label_day: giorno
   label_disabled_modules: "Disabled modules"
   label_external_urls: "External urls"
   label_global_footer: "Project wide footer"
@@ -42,8 +57,14 @@ it:
   label_global_wiki_header: "Project wide wiki header"
   label_global_wiki_sidebar: "Global wiki sidebar"
   label_go_to_top: "Vai in cima"
+  label_hour: ora
+  label_icon_color: Icon colore
+  label_issue_autowatch_involved: Add involved users as watcher automatically
+  label_last_year: previous year
+  label_legacy_smiley_support: Legacy smiley/emoji support
   label_macro_na: N/A
   label_menu_entry: "Menu item"
+  label_monthly: mensile
   label_new_ticket_message: "Note for new issues"
   label_optional: "opzionale"
   label_overview_bottom: "Overview page, bottom"
@@ -53,6 +74,10 @@ it:
   label_pdf_wiki_settings: PDF Wiki settings
   label_project_list: "Project list"
   label_project_overview_content: "Project guide"
+  label_query_delete: Elimina query
+  label_query_edit: Modifica query
+  label_reddit_subject: Reddit subject
+  label_reddit_user_account: Reddit user account
   label_remove_help: "Remove 'Help' from top menu"
   label_remove_mypage: "Remove 'My Page' from top menu"
   label_remove_news: "Remove 'Lastest news' from overview page"
@@ -60,24 +85,34 @@ it:
   label_rule_issue_close_with_open_children: Issues with open sub-issues cannot be closed
   label_rule_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
   label_rule_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
+  label_search_by_name: Cerca per nome
+  label_set_icon_from: Set an icon from
   label_setting_plural: Regolazione
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
+  label_show_all: Show all
   label_system_info: System info
+  label_tomorrow: domani
   label_top_macros_help_html: "Here you get a list of all available Redmine macros of your installation, which are provided by Redmine and the Redmine plugins."
   label_top_menu_help_html: "Here you can define new top menu items."
-  label_additionals: Additionals
+  label_twitter_account: Twitter account
+  label_twitter_hashtag: Twitter hashtag
   label_uptime: Uptime
   label_user_list: "User list"
+  label_weekly: settimanalmente
   label_wiki_pdf_header: Wiki PDF header
   label_wiki_pdf_remove_attachments: Remove attachments from PDF view
   label_wiki_pdf_remove_title: Remove Wiki title from PDF view
+  label_yearly: per anno
+  legacy_smiley_support_info_html: 'Convert Smileys and Emoji symbols. Activate this option only if Smileys or Emoji are manually typed in by the use of code (e.g. :kiss:). If you use Unicode-Emoji this option should be deactivated. For more info on Emoji-Browser support read <a href="http://caniemoji.com/" target="_blank">http://caniemoji.com/</a>. Have a look at <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> for available Emoji-Codes you can use. <strong>Restart the application server</strong>, in order to activate the settings.'
   menu_roles_info: "Only members of selected roles will see this menu entry."
   new_ticket_message_info: "A note will be shown to everyone who wants to add a new issue. For example you can enter acceptance tests or issue rules here. These settings are used project wide."
   overview_bottom_info: "Here you can add your text, which will be shown on the overview page at the bottom. For example you can link to a wiki page."
   overview_right_info: "Here you can add your text, which will be shown on the overview page at the right side. For example you can link to a wiki page."
   overview_top_info: "Here you can add your text, which will be shown on the overview page at the top. For example you can link to a wiki page."
+  permission_change_new_issue_author: Set author of new issues
   permission_edit_closed_issues: "Edit closed issues"
+  permission_edit_issue_author: Edit author
   permission_hide_in_memberbox: "Hide in memberbox"
   permission_log_time_on_closed_issues: "Log time on closed issues"
   permission_show_hidden_roles_in_memberbox: "Show hidden roles in member box"
@@ -88,6 +123,11 @@ it:
   rule_issue_auto_assign_info: 'Use Case: The issue author does not know whom to assign the issue or who will be responsible for solving the task. In that case the issue for example with the status "To Do" is automatically assigned to the first group, which does contain a user of the pre-selected project manager role.'
   rule_issue_current_user_status_info: "Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."
   rule_issue_status_change_info: "Use Case: issues should be automatically assigned to autor, if the status changes to \"Approval\"."
+  show_always: "Visualizzare sempre"
+  show_on_project_overview: "Mostrare sulla panoramica"
+  show_on_redmine_home: "Mostrare sulla pagina iniziale"
+  show_welcome_left: "A sinistra sulla pagina iniziale"
+  show_welcome_right: "A destra sulla pagina iniziale"
   top_overview_help: Here you can define contents and settings for your overview page.
   top_projects_help: Here you can define contents and settings for your project page.
   top_rules_help: "Here you can define rules, which are used in issues of all projects."
@@ -95,38 +135,3 @@ it:
   wiki_pdf_header_info: This text block will be displayed on the first page before the regular Wiki content in the PDF view. Macro use is very restricted, here.
   wiki_pdf_remove_attachments_info: When active the attached Wiki files will not be displayed in PDF view.
   wiki_pdf_remove_title_info: When active the Wiki title info will not be displayed in PDF view.
-  label_legacy_smiley_support: Legacy smiley/emoji support
-  legacy_smiley_support_info_html: 'Convert Smileys and Emoji symbols. Activate this option only if Smileys or Emoji are manually typed in by the use of code (e.g. :kiss:). If you use Unicode-Emoji this option should be deactivated. For more info on Emoji-Browser support read <a href="http://caniemoji.com/" target="_blank">http://caniemoji.com/</a>. Have a look at <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> for available Emoji-Codes you can use. <strong>Restart the application server</strong>, in order to activate the settings.'
-  label_reddit_user_account: Reddit user account
-  label_reddit_subject: Reddit subject
-  label_twitter_hashtag: Twitter hashtag
-  label_twitter_account: Twitter account
-  errors_invalid_icon_format: is an invalid font-awesome code
-  errors_no_or_invalid_arguments: No or invalid arguments
-  errors_query_does_not_exist: Query non esiste
-  field_color: Colore
-  field_icon: Icon
-  label_daily: giornalmente
-  label_day: giorno
-  label_hour: ora
-  label_icon_color: Icon colore
-  label_monthly: mensile
-  label_query_delete: Elimina query
-  label_query_edit: Modifica query
-  label_search_by_name: Cerca per nome
-  label_set_icon_from: Set an icon from
-  label_tomorrow: domani
-  label_weekly: settimanalmente
-  label_yearly: per anno
-  show_always: "Visualizzare sempre"
-  show_on_project_overview: "Mostrare sulla panoramica"
-  show_on_redmine_home: "Mostrare sulla pagina iniziale"
-  show_welcome_left: "A sinistra sulla pagina iniziale"
-  show_welcome_right: "A destra sulla pagina iniziale"
-  label_last_year: previous year
-  label_show_all: Show all
-  field_issue_relation_plural: Issue relations
-  label_additionals_doc: Additionals documentation
-  permission_edit_issue_author: Edit author
-  permission_change_new_issue_author: Set author of new issues
-  label_issue_autowatch_involved: Add involved users as watcher automatically

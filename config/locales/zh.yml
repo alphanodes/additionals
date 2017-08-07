@@ -17,23 +17,38 @@ zh:
         issue_log_time_not_allowed: "问题已关闭。您无法继续在该问题上登记工时信息。"
         issue_changes_not_allowed: "问题已关闭，您无权修改该问题的内容。"
   account_login_info: "该文本信息将在登录页作为注册信息展现。该选项是全局选项。"
+  add_go_to_top_info: '如果您有很长的页面，添加"回到页首"的功能将非常有用。'
   custom_help_url_info_html: "在修改了 URL 后，您必须重启服务以激活该配置。若未指定 URL，则使用默认的帮助 URL 地址。"
   disabled_modules_info: "项目中无法选择模块。如果这些模块已经在现有项目中激活，则必须首先更改并重新保存响应的项目设置。"
+  errors_invalid_icon_format: 无效的 Font-awesome 代码。
+  errors_no_or_invalid_arguments: 参数无效或不存在。
+  errors_query_does_not_exist: 查询不存咋。
   external_url_default: "默认窗口打开方式"
   external_url_new_window: "在新窗口中打开"
   external_url_noreferrer: "以 NoReferrer 方式打开"
   external_urls_info_html: "指定外部 URL 的打开方式"
+  field_color: 颜色
+  field_icon: 图标
+  field_issue_relation_plural: 问题关联关系
+  field_tag_list: Tags
+  field_tag_sidebar_style_cloud: Cloud
+  field_tag_sidebar_style_list: List
+  field_tags: Tags
   global_footer_info: '请在此处输入项目范围内 WIKI 页尾信息。'
   global_sidebar_info: "请在此处输入项目范围内侧边栏信息。自定义侧边栏信息将在项目概述页、问题列表页及WIKI页显示。"
   global_wiki_footer_info: '请在此处输入项目范围内的 WIKI 页脚信息。若"Wiki Extensions"插件使用了指定的WIKI页脚，则该信息会被优先显示。'
   global_wiki_header_info: '请在此处输入项目范围内的 WIKI 页首信息。若"Wiki Extensions"插件使用了指定的WIKI页首，则该信息会被优先显示。'
   global_wiki_sidebar_info: '请在此处输入项目范围内的 WIKI 侧边栏信息。该侧边栏信息将只显示在WIKI页内。在此空间内输入诸如 "Last changed pages" 的宏命令。若项目内使用指定的侧边栏（WIKI页），则该信息将优先显示在侧边栏内。'
   label_account_login: "用于登陆页的文本"
-  add_go_to_top_info: '如果您有很长的页面，添加"回到页首"的功能将非常有用。'
   label_add_go_to_top: '添加 "回到页首" 链接'
+  label_add_tags: Add tags
+  label_additionals_doc: Additionals 插件文档
+  label_additionals: Additionals
   label_content_plural: 内容
   label_custom_help_url: "自定义帮助 URL"
   label_custom_menu_items: 自定义菜单项
+  label_daily: 每天
+  label_day: 天
   label_disabled_modules: "禁用模块"
   label_external_urls: "外部 URLs"
   label_global_footer: "项目范围内的页脚设置"
@@ -42,8 +57,14 @@ zh:
   label_global_wiki_header: "项目范围内的页首设置"
   label_global_wiki_sidebar: "全局 WIKI 侧边栏设置"
   label_go_to_top: "回到页首"
+  label_hour: 小时
+  label_icon_color: 图标颜色
+  label_issue_autowatch_involved: Add involved users as watcher automatically
+  label_last_year: 去年
+  label_legacy_smiley_support: 表情符号支持
   label_macro_na: N/A
   label_menu_entry: "菜单项"
+  label_monthly: 每月
   label_new_ticket_message: "用于新建问题时的提示信息"
   label_optional: "可选项"
   label_overview_bottom: "概述页底部"
@@ -53,6 +74,10 @@ zh:
   label_pdf_wiki_settings: PDF Wiki 设置
   label_project_list: "项目列表"
   label_project_overview_content: "项目指南"
+  label_query_delete: 删除查询
+  label_query_edit: 编辑查询
+  label_reddit_subject: Reddit 主题
+  label_reddit_user_account: Reddit 账号
   label_remove_help: "从顶部菜单栏中移除 '帮助' 项"
   label_remove_mypage: "从顶部菜单栏中移除 '我的工作台' 项"
   label_remove_news: "从概览页中移除 '最近新闻' 区域"
@@ -60,24 +85,34 @@ zh:
   label_rule_issue_close_with_open_children: 包含打开状态子任务的问题不能关闭。
   label_rule_issue_current_user_status: "当前问题状态 X 仅在 \"指派给\" 的值设置为当前用户时生效。"
   label_rule_issue_status_change: "若 \"指派给\" 的值未修改，且问题状态要从 X 变更为 Y，那么该问题必须指派给问题作者自己。"
+  label_search_by_name: 按名称搜索
+  label_set_icon_from: 图标设置自
   label_setting_plural: 设置
   label_settings_macros: "宏"
   label_settings_menu: "菜单"
+  label_show_all: 显示所有
   label_system_info: 系统信息
+  label_tomorrow: 明天
   label_top_macros_help_html: "此处列出了来自 Redmine 及 Redmine 插件中提供的所有可用的宏命令。"
   label_top_menu_help_html: "此处可以自定义顶部菜单项。在移除或修改菜单项后，请务必 <strong>重启 Redmine 服务</strong> 确保修改内容生效。"
-  label_additionals: Additionals
+  label_twitter_account: Twitter 账号
+  label_twitter_hashtag: Twitter 哈希标签
   label_uptime: Uptime
   label_user_list: "用户列表"
+  label_weekly: 每周
   label_wiki_pdf_header: Wiki PDF 页头
   label_wiki_pdf_remove_attachments: 从 PDF 中删除附件
   label_wiki_pdf_remove_title: 从 PDF 中删除 WIKI 标题
+  label_yearly: 每年
+  legacy_smiley_support_info_html: '转换为表情符号。如表情符号通过手工输入代码（如 :kiss:），则启用该选项。 若您使用的是 Unicode 表情符号，则应禁用该选项。获取更多关于 Emoji 的信息，请阅读 <a href="http://caniemoji.com/" target="_blank">http://caniemoji.com/</a>. 查看 <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> 获取可用的 Emoji 代码。为激活该配置，必须 <strong>重启Redmine服务</strong> 。'
   menu_roles_info: "只有所选角色对应的用户才能看到菜单项。"
   new_ticket_message_info: "每个新建问题的用户都会看到提示信息。例如，您可以输入可接受性测试或问题处理规则。这些配置在某个具体的项目范围内适用。"
   overview_bottom_info: "此处可以添加显示在概述页底部的文本信息，如您可以链接到 WIKI 页。"
   overview_right_info: "此处可以添加显示在概述页右侧的文本信息，如您可以链接到 WIKI 页。"
   overview_top_info: "此处可以添加显示在概述页顶部的文本信息，如您可以链接到 WIKI 页。"
+  permission_change_new_issue_author: Set author of new issues
   permission_edit_closed_issues: "修改已关闭的问题"
+  permission_edit_issue_author: Edit author
   permission_hide_in_memberbox: "在成员信息区域内隐藏"
   permission_log_time_on_closed_issues: "在已关闭的问题中登记工时"
   permission_show_hidden_roles_in_memberbox: "在成员信息区域内显示角色信息"
@@ -88,6 +123,11 @@ zh:
   rule_issue_auto_assign_info: '用例：问题作者不知道将问题分配给谁时，或不知道谁应当负责解决具体任务时。在那种情况下，状态为 "To Do" 的问题将自动指派给包含预选项目经理角色用户的第一组。'
   rule_issue_current_user_status_info: "用例：如果用户是正在处理该问题的人员，则只能将状态更改为 \"In Progress\" 。"
   rule_issue_status_change_info: "用例：若问题的状态修改为 \"Approval\"，则自动分配给问题作者。"
+  show_always: 总是显示
+  show_on_project_overview: 在项目概览页上显示
+  show_on_redmine_home: 在欢迎页上显示
+  show_welcome_left: 于欢迎页左侧
+  show_welcome_right: 于欢迎页右侧
   top_overview_help: 您可以在此定义概述页的内容和设置。
   top_projects_help: 您可以在此定义项目页的内容和设置。
   top_rules_help: "您可以在此定义用于问题处理的相关规则。"
@@ -95,38 +135,3 @@ zh:
   wiki_pdf_header_info: 该文本快将显示在 PDF 视图中的常规 WIKI 内容之前的第一页上。此处宏命令的使用非常有限。
   wiki_pdf_remove_attachments_info:  当启用时，WIKI 附件将不会显示在PDF视图中。
   wiki_pdf_remove_title_info: 当启用时，WIKI 标题信息将不会显示在PDF视图中。
-  label_legacy_smiley_support: 表情符号支持
-  legacy_smiley_support_info_html: '转换为表情符号。如表情符号通过手工输入代码（如 :kiss:），则启用该选项。 若您使用的是 Unicode 表情符号，则应禁用该选项。获取更多关于 Emoji 的信息，请阅读 <a href="http://caniemoji.com/" target="_blank">http://caniemoji.com/</a>. 查看 <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> 获取可用的 Emoji 代码。为激活该配置，必须 <strong>重启Redmine服务</strong> 。'
-  label_reddit_user_account: Reddit 账号
-  label_reddit_subject: Reddit 主题
-  label_twitter_hashtag: Twitter 哈希标签
-  label_twitter_account: Twitter 账号
-  errors_invalid_icon_format: 无效的 Font-awesome 代码。
-  errors_no_or_invalid_arguments: 参数无效或不存在。
-  errors_query_does_not_exist: 查询不存咋。
-  field_color: 颜色
-  field_icon: 图标
-  label_daily: 每天
-  label_day: 天
-  label_hour: 小时
-  label_icon_color: 图标颜色
-  label_monthly: 每月
-  label_query_delete: 删除查询
-  label_query_edit: 编辑查询
-  label_search_by_name: 按名称搜索
-  label_set_icon_from: 图标设置自
-  label_tomorrow: 明天
-  label_weekly: 每周
-  label_yearly: 每年
-  show_always: 总是显示
-  show_on_project_overview: 在项目概览页上显示
-  show_on_redmine_home: 在欢迎页上显示
-  show_welcome_left: 于欢迎页左侧
-  show_welcome_right: 于欢迎页右侧
-  label_last_year: 去年
-  label_show_all: 显示所有
-  field_issue_relation_plural: 问题关联关系
-  label_additionals_doc: Additionals 插件文档
-  permission_edit_issue_author: Edit author
-  permission_change_new_issue_author: Set author of new issues
-  label_issue_autowatch_involved: Add involved users as watcher automatically

@@ -4,11 +4,11 @@ fr:
     one: minute
     other: minutes
   hours:
-    one: hour
-    other: hours
+    one: heure
+    other: heures
   days:
-    one: day
-    other: days
+    one: journée
+    other: journées
   activerecord:
     errors:
       messages:

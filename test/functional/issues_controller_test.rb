@@ -13,10 +13,21 @@ class IssuesControllerTest < ActionController::TestCase
     manager_role.add_permission!(:edit_issue_author)
   end
 
-  test 'author field as authorized user in new' do
+  test 'author field as authorized user in new with change' do
+    manager_role = Role.find(1)
+    manager_role.add_permission!(:change_new_issue_author)
     session[:user_id] = 2
-    get :new, id: 1
+    get :new
 
+    assert_select '#issue_tracker_id', true
+    assert_select '#issue_author_id', true
+  end
+
+  test 'author field as authorized user in new without change' do
+    session[:user_id] = 2
+    get :new
+
+    assert_select '#issue_tracker_id', true
     assert_select '#issue_author_id', false
   end
 

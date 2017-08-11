@@ -40,7 +40,7 @@ All text input fields allow wiki syntax. Keep your text information as short as 
 
 Changes you can make in the area ``Settings`` are:
 
-* Remove "Latest news" from overview page in case you do not use the "News" function very often. Remember: Old news is bad news.
+* Remove "Latest news" from overview page in case you do not use the ``News`` function very often. Remember: Old news is bad news.
 
 Wiki section
 ------------
@@ -50,17 +50,28 @@ It is divided into two areas called ``Contents`` and ``PDF Wiki settings``.
 
 Changes you can make in the area ``Contents`` are:
 
-* Global wiki sidebar. Here you can implement useful macros like a display of your page hierarchy. But remember - only people with the correspondent rights will get a display of the content.
-* Project wide wiki header
-* Project wide wiki footer. For example to implement some date or author macros (e.g. last_updated_at, last_updated_by)
+=========================  ===========================================================================================
+Field                      Description
+=========================  ===========================================================================================
+Global wiki sidebar        Here you can implement useful macros like a display of your page hierarchy.
+                           But remember - only people with the correspondent rights will get a display of the content.
+Project wide wiki header   You can also implement useful macros in this section.
+Project wide wiki footer   For example to implement some date or author macros (e.g. last_updated_at, last_updated_by)
+=========================  ===========================================================================================
 
 .. note:: Use simple text, macros and wiki syntax for your content.
 
 Changes you can make in the area ``PDF Wiki settings`` are:
 
-* Wiki PDF header. This block will display the defined text in front of the regular Wiki page content in the PDF view. The use of macros is very restricted. And it is not possible to add images. You can only use your Wiki text syntax to adjust the text display.
-* Remove Wiki title from PDF view. When acitvated the general Wiki title info in the page header of the PDF viewl will not be displayed.
-* Remove attachments from PDF view. When activated the attachments will not be displayed in the PDF view of a Wiki page.
+=================================  =====================================================================================================
+Field                              Description
+=================================  =====================================================================================================
+Wiki PDF header                    This block will display the defined text in front of the regular Wiki page content in the PDF view.
+                                   The use of macros is very restricted. And it is not possible to add images.
+                                   You can only use your Wiki text syntax to adjust the text display.
+Remove Wiki title from PDF view    When activated the general Wiki title info in the page header of the PDF viewl will not be displayed.
+Remove attachments from PDF view   When activated the attachments will not be displayed in the PDF view of a Wiki page.
+=================================  =====================================================================================================
 
 Issues section
 --------------
@@ -116,7 +127,8 @@ Field         Description
 Name          Enter the name of the menu item.
 URL           Enter an URL starting with ``http://``
 Title         Enter an title (optional)
-Permissions   Select one ore more existing roles to which the menu item will be displayed. Only members of selected roles will be displayed in this list.
+Permissions   Select one ore more existing roles to which the menu item will be displayed.
+              Only members of selected roles will be displayed in this list.
 ============  ========================================
 
 In the ``Settings`` area of the menu tab there are the following functions available.

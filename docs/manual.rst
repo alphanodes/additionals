@@ -110,10 +110,14 @@ Otherwise, you can define here new top menu items and change some standard setti
 This area offers you the possibility to add up to 5 additional menu items to your Redmine main menu.
 The following input fields are available for each entry:
 
-* Name. Enter the name of the menu item.
-* URL. Enter an URL starting with ``http://``
-* Title (optional)
-* Permissions: here you select one ore more existing roles to which the menu item will be displayed. Only members of selected roles will be displayed in this list.
+============  ========================================
+Field         Description
+============  ========================================
+Name          Enter the name of the menu item.
+URL           Enter an URL starting with ``http://``
+Title         Enter an title (optional)
+Permissions   Select one ore more existing roles to which the menu item will be displayed. Only members of selected roles will be displayed in this list.
+============  ========================================
 
 In the ``Settings`` area of the menu tab there are the following functions available.
 

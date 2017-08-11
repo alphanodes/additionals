@@ -7,11 +7,17 @@ General section
 The general section tab allows you to define some special behaviours for your Redmine installation.
 It is divided into two areas called ``Contents`` and ``Settings``.
 
+Contents
+++++++++
+
 The following plugin options are available to be edited by users with administration rights in the area ``Contents``:
 
 * Text for login page. This section is for a short information on the login page below the login mask. For example who to contact in order to get Redmine access.
 * Global sidebar. Place your global information here, if needed. Use wiki links or available macros that can be seen by every one.
 * Project wide footer. In case you want to put some information about your company or for your imprint. Here you can also use wiki syntax for structuring your text.
+
+Settings
+++++++++
 
 And the following options can be edited by users with administratios rights in the area ``Settings``:
 
@@ -30,6 +36,9 @@ If you click on this tab you get to the area, where you can customize contents a
 These settings allows you to define some special behaviours for your Redmine installation.
 It is divided into two areas called ``Contents`` and ``Settings``.
 
+Contents
+++++++++
+
 The following plugin options are available to be edited by users with administration rights in the area ``Contents``:
 
 * Overview page, right. Place information here you want to display at the right side of your overview page.
@@ -37,6 +46,9 @@ The following plugin options are available to be edited by users with administra
 * Overview page, bottom. Place information here you want to display on the bottom of your overview page.
 
 All text input fields allow wiki syntax. Keep your text information as short as possible. In case you want to write prosa, you may also link to a wiki page with further information.
+
+Settings
+++++++++
 
 Changes you can make in the area ``Settings`` are:
 
@@ -47,6 +59,9 @@ Wiki section
 
 If you click on this tab you get to the area, where users with administration rights can customize contents and settings for your Wiki pages in Redmine.
 It is divided into two areas called ``Contents`` and ``PDF Wiki settings``.
+
+Contents
+++++++++
 
 Changes you can make in the area ``Contents`` are:
 
@@ -60,6 +75,9 @@ Project wide wiki footer   For example to implement some date or author macros (
 =========================  ===========================================================================================
 
 .. note:: Use simple text, macros and wiki syntax for your content.
+
+PDF Wiki settings
++++++++++++++++++
 
 Changes you can make in the area ``PDF Wiki settings`` are:
 
@@ -78,11 +96,17 @@ Issues section
 
 Here you can define issue rules, which are used in issues of all projects as well as special issue content and other settings.
 
+Contents
+++++++++
+
 The following plugin options are available to be edited by users with administration rights in the area ``Content``:
 
 * Note for new tickets. Use this section if you want to place important issue notes above every new issue. Keep it short and use a link to a common wiki page with further information.
 
 .. note:: You can use wiki syntax for your text, but use it wisely.
+
+Settings
+++++++++
 
 The following options are available at the moment in the area ``Settings`` where you can define rules which will be used in all projects:
 
@@ -130,6 +154,9 @@ Title         Enter an title (optional)
 Permissions   Select one ore more existing roles to which the menu item will be displayed.
               Only members of selected roles will be displayed in this list.
 ============  ========================================
+
+Settings
+++++++++
 
 In the ``Settings`` area of the menu tab there are the following functions available.
 

@@ -1,11 +1,15 @@
 Changelog
 =========
 
-2.0.3 (no version bump/tag at the moment)
+2.0.3
 +++++
 
 - Allow remove watchers without re-adding it (only if author or assigned_user changed)
 - Fix sort order of users for change author
+- Add uninstall documentation
+- Add option to disable autowatch issue at user level
+- Fixed bug with recurring_tasks plugin and autowatch issues
+- Add more unit tests
 
 2.0.2
 +++++

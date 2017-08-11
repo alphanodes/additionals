@@ -60,6 +60,7 @@ Install ``additionals`` plugin for `Redmine`_.
   $ cd $REDMINE_ROOT
   $ git clone git://github.com/alphanodes/additionals.git plugins/additionals
   $ bundle install --without development test
+  $ bundle exec rake redmine:plugins:migrate RAILS_ENV=production
   $
   $ # if you want to use smiley/emoji legacy support, you have to put emoji icons to
   $ # $REDMINE_ROOT/public/images/emoji
@@ -72,6 +73,19 @@ Install ``additionals`` plugin for `Redmine`_.
 Restart your application server (apache with passenger, nginx with passenger, unicorn, puma, etc.) and ``Additionals`` is ready to use.
 
 More information about installation of Redmine plugins, you can find in the official `Redmine plugin documentation <https://www.redmine.org/projects/redmine/wiki/Plugins>`_.
+
+
+Uninstall
+---------
+
+Uninstall ``additionals`` plugin for `Redmine`_.
+
+.. code-block:: bash
+
+  $ cd $REDMINE_ROOT
+  $ bundle exec rake redmine:plugins:migrate NAME=additionals VERSION=0 RAILS_ENV=production
+  $ rm -rf plugins/additionals
+
 
 Features
 --------

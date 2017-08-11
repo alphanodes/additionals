@@ -27,6 +27,7 @@ fr:
   external_url_new_window: "Open in new window"
   external_url_noreferrer: "Open with NoReferrer"
   external_urls_info_html: "Specifies the behavior for external urls."
+  field_autowatch_involved_issue: Autowatch involved issues
   field_color: Color
   field_icon: Icon
   field_issue_relation_plural: Issue relations

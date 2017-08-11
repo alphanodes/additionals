@@ -32,10 +32,11 @@ module Additionals
         end
 
         def autowatch_involved
-          return unless Additionals.settings[:issue_autowatch_involved].to_i == 1
+          return unless Additionals.settings[:issue_autowatch_involved].to_i == 1 &&
+                        User.current.pref.autowatch_involved_issue
 
           add_autowatcher(User.current)
-          add_autowatcher(author) if new_record? || author_id != author_id_was
+          add_autowatcher(author) if (new_record? || author_id != author_id_was) && author != User.current
           unless assigned_to_id.nil? || assigned_to_id == User.current.id
             add_autowatcher(assigned_to) if new_record? || assigned_to_id != assigned_to_id_was
           end

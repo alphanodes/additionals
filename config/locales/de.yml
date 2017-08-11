@@ -27,6 +27,7 @@ de:
   external_url_new_window: "In neuen Fenster"
   external_url_noreferrer: "Mit NoReferrer Kennzeichnung öffnen"
   external_urls_info_html: "Legt das Verhalten für externe URLs fest. Mit NoRefferer wird in modernen Browsern verschleiert, von welcher Seite die URL aufgerufen worden ist."
+  field_autowatch_involved_issue: Involvierte Tickets automatisch beobachten
   field_color: Farbe
   field_icon: Symbol
   field_issue_relation_plural: Ticket Beziehungen

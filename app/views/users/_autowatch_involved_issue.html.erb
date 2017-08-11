@@ -1,0 +1,5 @@
+<% if Additionals.settings[:issue_autowatch_involved].to_i == 1 %>
+<%= labelled_fields_for :pref, @user.pref do |pref_fields| %>
+<p><%= pref_fields.check_box :autowatch_involved_issue %></p>
+<% end %>
+<% end %>

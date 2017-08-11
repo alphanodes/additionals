@@ -25,6 +25,7 @@ class TimeEntryTest < ActiveSupport::TestCase
     entry = TimeEntry.new(project: Project.find(1), user: User.find(1), activity: TimeEntryActivity.first, hours: 100)
     entry.spent_on = '2010-01-01'
     entry.issue = Issue.find(7)
+    assert !entry.issue.closed?
     assert entry.valid?
     assert entry.save
   end
@@ -33,6 +34,7 @@ class TimeEntryTest < ActiveSupport::TestCase
     entry = TimeEntry.new(project: Project.find(1), user: User.find(1), activity: TimeEntryActivity.first, hours: 100)
     entry.spent_on = '2010-01-01'
     entry.issue = Issue.find(8)
+    assert entry.issue.closed?
     assert !entry.valid?
     assert !entry.save
   end
@@ -47,6 +49,7 @@ class TimeEntryTest < ActiveSupport::TestCase
     entry = TimeEntry.new(project: Project.find(1), user: User.current, activity: TimeEntryActivity.first, hours: 100)
     entry.spent_on = '2010-01-01'
     entry.issue = Issue.find(8)
+    assert entry.issue.closed?
     assert entry.valid?
     assert entry.save
   end

@@ -187,6 +187,27 @@ class WikiControllerTest < ActionController::TestCase
     assert_select 'script[src=?]', 'https://gist.github.com/plentz/6737338.js'
   end
 
+  def test_show_with_tradeview_macro
+    @request.session[:user_id] = 1
+    @page.content.text = '{{tradingview(symbol=NASDAQ:AMZN, locale=en)}}'
+    @page.content.save!
+    get :show, project_id: 1, id: @page_name
+    assert_response :success
+    assert_template 'show'
+    assert_select 'script[src=?]', 'https://d33t3vvu2t2yu5.cloudfront.net/tv.js'
+  end
+
+  def test_show_with_cryptocompare_macro
+    @request.session[:user_id] = 1
+    @page.content.text = '{{cryptocompare(fsyms=BTC;ETH, type=header_v3)}}'
+    @page.content.save!
+    get :show, project_id: 1, id: @page_name
+    assert_response :success
+    assert_template 'show'
+    assert_select 'div.wiki div.cryptocompare',
+                  text: %r{https:\/\/widgets\.cryptocompare\.com\/serve\/v3\/coin\/header\?fsyms=BTC,ETH&tsyms=EUR}
+  end
+
   def test_show_with_weeknumber_macro
     @request.session[:user_id] = 1
     @page.content.text = '{{current_weeknumber}}'

@@ -27,6 +27,7 @@ ja:
   external_url_new_window: "新しいウインドウで開く"
   external_url_noreferrer: "レフェラーを匿名化"
   external_urls_info_html: "外部URLの扱いを指定する。"
+  field_autowatch_involved_issue: Autowatch involved issues
   field_color: Color
   field_icon: Icon
   field_issue_relation_plural: Issue relations

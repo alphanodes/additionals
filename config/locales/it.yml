@@ -113,7 +113,7 @@ it:
   overview_top_info: "Here you can add your text, which will be shown on the overview page at the top. For example you can link to a wiki page."
   permission_change_new_issue_author: Set author of new issues
   permission_edit_closed_issues: "Modifica i issues chiusi"
-  permission_edit_issue_author: Modifica autore
+  permission_edit_issue_author: Modifica l'autore
   permission_hide_in_memberbox: "Nascondi nella cassetta membri"
   permission_log_time_on_closed_issues: "Log time on closed issues"
   permission_show_hidden_roles_in_memberbox: "Mostra i ruoli nascosti nella casella membri"
@@ -123,7 +123,7 @@ it:
   remove_news_info: "Remove latest news from overview page."
   rule_issue_auto_assign_info: 'Use Case: The issue author does not know whom to assign the issue or who will be responsible for solving the task. In that case the issue for example with the status "To Do" is automatically assigned to the first group, which does contain a user of the pre-selected project manager role.'
   rule_issue_current_user_status_info: "Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."
-  rule_issue_status_change_info: "Use Case: issues should be automatically assigned to autor, if the status changes to \"Approval\"."
+  rule_issue_status_change_info: "Use Case: issues should be automatically assigned to author, if the status changes to \"Approval\"."
   show_always: "Visualizzare sempre"
   show_on_project_overview: "Mostrare sulla panoramica"
   show_on_redmine_home: "Mostrare sulla pagina iniziale"

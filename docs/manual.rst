@@ -75,11 +75,11 @@ The following plugin options are available to be edited by users with administra
 
 The following options are available at the moment in the area ``Settings`` where you can define rules which will be used in all projects:
 
-* Add involved users as watcher automatically. This means, everyone who is or has been involved in the issue (Assignee, Editor, Author etc.) will automatically be notified about further changes.
+* Add involved users as watcher automatically. This means, everyone who is or has been involved in the issue (Assignee, Editor, Author etc.) will automatically be notified about further changes. At the same time the user finds an additional option in his user account edit mode called ``Autowatch involved issues``. Deactivate this option if you don't want to be notified.
 * Issues with open sub-issues cannot be closed.
 * If "Assignee" is unchanged and the issue status changed from x to y, than the author is assigned to the issue.
 
-.. note:: Use Case for this option: issues should be automatically assigned to autor, if the status changes to "Approval".
+.. note:: Use Case for this option: issues should be automatically assigned to author, if the status changes to "Approval".
 
 * Current issue status x is only allowed if "Assignee" is the current user.
 

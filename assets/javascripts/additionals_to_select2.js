@@ -1,17 +1,17 @@
-var oldToggleFilter = window.toggleFilter;
+var oldAdditionalsToggleFilter = window.toggleFilter;
 
 window.toggleFilter = function(field) {
-  oldToggleFilter(field);
-  return transform_to_select2(field);
+  oldAdditionalsToggleFilter(field);
+  return additionals_transform_to_select2(field);
 }
 
-function filterFormatState (opt) {
+function filterAdditionalsFormatState (opt) {
   var $opt = $('<span>' + opt.avatar + '&nbsp;' + opt.text + '</span>');
   return $opt;
 };
 
-function transform_to_select2(field){
-  field_format = availableFilters[field]['field_format'];
+function additionals_transform_to_select2(field){
+  field_format = availableFilters[field]['additionals_field_format'];
   initialized_select2 = $('#tr_' + field + ' .values .select2');
   if (initialized_select2.size() == 0 && $.inArray(field_format, field_formats) >= 0) {
     $('#tr_' + field + ' .toggle-multiselect').hide();
@@ -32,7 +32,7 @@ function transform_to_select2(field){
       placeholder: ' ',
       minimumInputLength: 1,
       width: '60%',
-      templateResult: filterFormatState
+      templateResult: filterAdditionalsFormatState
     }).on('select2:open', function (e) {
       $(this).parent('span').find('.select2-search__field').val(' ').trigger($.Event('input', { which: 13 })).val('');
     });

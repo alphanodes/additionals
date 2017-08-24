@@ -6,14 +6,14 @@ window.toggleFilter = function(field) {
 }
 
 function filterAdditionalsFormatState (opt) {
-  var $opt = $('<span>' + opt.avatar + '&nbsp;' + opt.text + '</span>');
+  var $opt = $('<span>' + opt.name_with_icon + '</span>');
   return $opt;
 };
 
 function additionals_transform_to_select2(field){
-  field_format = availableFilters[field]['additionals_field_format'];
+  field_format = availableFilters[field]['field_format'];
   initialized_select2 = $('#tr_' + field + ' .values .select2');
-  if (initialized_select2.size() == 0 && $.inArray(field_format, field_formats) >= 0) {
+  if (initialized_select2.size() == 0 && $.inArray(field_format, additionals_field_formats) >= 0) {
     $('#tr_' + field + ' .toggle-multiselect').hide();
     $('#tr_' + field + ' .values .value').attr('multiple', 'multiple');
     $('#tr_' + field + ' .values .value').select2({

@@ -1,0 +1,29 @@
+<%= javascript_tag do %>
+$('#<%= field_id %>').select2({
+    ajax: {
+      url: '<%= ajax_url %>',
+      dataType: 'json',
+      delay: 250,
+      data: function (params) {
+        return { q: params.term };
+      },
+      processResults: function (data, params) {
+        return { results: data };
+      },
+      cache: true
+    },
+    placeholder: ' ',
+    allowClear: <%= include_blank %>,
+    minimumInputLength: 0,
+    width: '60%',
+    templateResult: formatState
+  }).on('select2:open', function (e) {
+    $('.select2-search__field').val(' ').trigger($.Event('input', { which: 13 })).val('');
+  });
+
+  function formatState (opt) {
+    var $opt = $('<span>' + opt.name_with_icon + '</span>');
+    return $opt;
+  };
+
+<% end %>

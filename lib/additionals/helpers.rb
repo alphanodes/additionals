@@ -152,9 +152,11 @@ module Additionals
                       options_for_select([[obj.try(:name), obj.try(:id)]], obj.try(:id)),
                       include_blank: true, class: "#{type}-relation")
       s << render(layout: false,
-                  partial: "#{type.pluralize}/select2_#{type}.js",
+                  partial: 'additionals/select2_ajax_call.js',
                   formats: [:js],
-                  locals: { field_id: sanitize_to_id(name), include_blank: include_blank })
+                  locals: { field_id: sanitize_to_id(name),
+                            ajax_url: send("auto_complete_#{type}_path", project_id: @project),
+                            include_blank: include_blank })
       safe_join(s)
     end
 

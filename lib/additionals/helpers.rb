@@ -145,6 +145,19 @@ module Additionals
       s
     end
 
+    def auto_complete_select_entries(name, type, obj, options = {})
+      include_blank = options[:include_blank].present? && options[:include_blank] ? true : false
+      s = []
+      s << select_tag(name,
+                      options_for_select([[obj.try(:name), obj.try(:id)]], obj.try(:id)),
+                      include_blank: true, class: "#{type}-relation")
+      s << render(layout: false,
+                  partial: "#{type.pluralize}/select2_#{type}.js",
+                  formats: [:js],
+                  locals: { field_id: sanitize_to_id(name), include_blank: include_blank })
+      safe_join(s)
+    end
+
     private
 
     def additionals_already_loaded(scope, js)

@@ -164,6 +164,7 @@ ul.tags {
   text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.5);
   font-size: 10px !important;
   border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
 }
 
 .tag-label-color a::before {

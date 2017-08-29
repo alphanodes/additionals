@@ -301,6 +301,12 @@ module Additionals
       sql.join(', ')
     end
 
+    def options_for_menu_select(active)
+      options_for_select({ l(:button_hide) => '',
+                           l(:label_top_menu) => 'top',
+                           l(:label_app_menu) => 'app' }, active)
+    end
+
     def options_for_overview_select(active)
       options_for_select({ l(:button_hide) => '',
                            l(:show_on_redmine_home) => 'home',

@@ -136,3 +136,5 @@ de:
   wiki_pdf_header_info: Dieser Textblock wir auf der ersten Seite vor dem eigentlichen Inhalt der Wiki Seite in der PDF Ansicht angezeigt. Die Makros sind hier nur eingeschränkt einsetzbar.
   wiki_pdf_remove_attachments_info: Wenn aktiv, werden die an der Wiki Seite angehängten Dateien nicht in der PDF Ansicht angezeigt.
   wiki_pdf_remove_title_info: Wenn aktiv, wird der Wiki Titel nicht in der PDF Ansicht angezeigt.
+  label_top_menu: Top Menü
+  label_app_menu: App Menü

@@ -5,7 +5,7 @@ module Additionals
         base.class_eval do
           base.send(:include, Additionals::Formatter)
           # Add :inline_emojify to list of textile functions
-          if Additionals.settings[:legacy_smiley_support].to_i == 1
+          if Additionals.setting?(:legacy_smiley_support)
             Redmine::WikiFormatting::Textile::Formatter::RULES << :inline_emojify
             Redmine::WikiFormatting::Textile::Formatter::RULES << :inline_smileys
           end

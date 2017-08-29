@@ -13,7 +13,7 @@ module Additionals
           user_setup_without_additionals
           return unless User.current.try(:hrm_user_manager).nil?
           additionals_menu_item_delete(:help)
-          unless Additionals.settings[:remove_help].to_i == 1
+          unless Additionals.setting?(:remove_help)
             custom_url = Additionals.settings[:custom_help_url]
             if custom_url.present?
               additionals_menu_item_add(:help, custom_url)
@@ -22,7 +22,7 @@ module Additionals
             end
           end
 
-          if Additionals.settings[:remove_mypage].to_i == 1
+          if Additionals.setting?(:remove_mypage)
             additionals_menu_item_delete(:my_page)
           else
             additionals_menu_item_add(:my_page)

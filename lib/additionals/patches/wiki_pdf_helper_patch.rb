@@ -29,7 +29,7 @@ module Additionals
                                                    headings: false,
                                                    inline_attachments: false))
           end
-          if Additionals.settings[:wiki_pdf_remove_title].to_i != 1
+          unless Additionals.setting?(:wiki_pdf_remove_title)
             pdf.SetFontStyle('B', 11)
             pdf.RDMMultiCell(190, 5,
                              "#{project} - #{page.title} - # #{page.content.version}")
@@ -38,7 +38,7 @@ module Additionals
           # Set resize image scale
           pdf.set_image_scale(1.6)
           pdf.SetFontStyle('', 9)
-          if Additionals.settings[:wiki_pdf_remove_attachments].to_i == 1
+          if Additionals.setting?(:wiki_pdf_remove_attachments)
             pdf.RDMwriteFormattedCell(190,
                                       5,
                                       '',

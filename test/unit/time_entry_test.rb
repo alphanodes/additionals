@@ -24,7 +24,7 @@ class TimeEntryTest < ActiveSupport::TestCase
   def test_create_time_entry_with_open_issue
     entry = TimeEntry.new(project: Project.find(1), user: User.find(1), activity: TimeEntryActivity.first, hours: 100)
     entry.spent_on = '2010-01-01'
-    entry.issue = Issue.find(7)
+    entry.issue = Issue.create(project_id: 1, tracker_id: 1, author_id: 1, status_id: 1, subject: 'open issue')
     assert !entry.issue.closed?
     assert entry.valid?
     assert entry.save
@@ -33,7 +33,7 @@ class TimeEntryTest < ActiveSupport::TestCase
   def test_create_time_entry_with_closed_issue_without_permission
     entry = TimeEntry.new(project: Project.find(1), user: User.find(1), activity: TimeEntryActivity.first, hours: 100)
     entry.spent_on = '2010-01-01'
-    entry.issue = Issue.find(8)
+    entry.issue = Issue.create(project_id: 1, tracker_id: 1, author_id: 1, status_id: 5, subject: 'closed issue')
     assert entry.issue.closed?
     assert !entry.valid?
     assert !entry.save
@@ -48,7 +48,7 @@ class TimeEntryTest < ActiveSupport::TestCase
 
     entry = TimeEntry.new(project: Project.find(1), user: User.current, activity: TimeEntryActivity.first, hours: 100)
     entry.spent_on = '2010-01-01'
-    entry.issue = Issue.find(8)
+    entry.issue = Issue.create(project_id: 1, tracker_id: 1, author_id: 1, status_id: 5, subject: 'closed issue')
     assert entry.issue.closed?
     assert entry.valid?
     assert entry.save

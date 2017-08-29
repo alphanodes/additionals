@@ -9,8 +9,9 @@ module Additionals
           # validate :validate_change_on_closed
           validate :validate_open_sub_issues
           validate :validate_current_user_status
-          before_save :change_status_with_assigned_to_change
-          before_save :autowatch_involved
+          before_validation :auto_assigned_to
+          before_save :change_status_with_assigned_to_change,
+                      :autowatch_involved
 
           safe_attributes 'author_id',
                           if: proc { |issue, user|
@@ -32,7 +33,7 @@ module Additionals
         end
 
         def autowatch_involved
-          return unless Additionals.settings[:issue_autowatch_involved].to_i == 1 &&
+          return unless Additionals.setting?(:issue_autowatch_involved) &&
                         User.current.pref.autowatch_involved_issue
 
           add_autowatcher(User.current)
@@ -53,15 +54,6 @@ module Additionals
           return true unless closed?
           user.allowed_to?(:edit_closed_issues, project)
         end
-      end
-
-      def auto_assign_user
-        manager_role = Role.builtin.find(Additionals.settings[:issue_auto_assign_role].to_i)
-        groups = autoassign_get_group_list
-        return groups[manager_role].first.id unless groups.nil? || groups[manager_role].blank?
-
-        users_list = project.users_by_role
-        return users_list[manager_role].first.id if users_list[manager_role].present?
       end
 
       def autoassign_get_group_list
@@ -87,20 +79,41 @@ module Additionals
 
       private
 
+      def auto_assigned_to
+        return if !Additionals.setting?(:issue_auto_assign) ||
+                  Additionals.settings[:issue_auto_assign_status].blank? ||
+                  Additionals.settings[:issue_auto_assign_role].blank? ||
+                  assigned_to_id.present?
+
+        return unless Additionals.settings[:issue_auto_assign_status].include?(status_id.to_s)
+        self.assigned_to_id = auto_assigned_to_user
+
+        true
+      end
+
+      def auto_assigned_to_user
+        manager_role = Role.builtin.find(Additionals.settings[:issue_auto_assign_role].to_i)
+        groups = autoassign_get_group_list
+        return groups[manager_role].first.id unless groups.nil? || groups[manager_role].blank?
+
+        users_list = project.users_by_role
+        return users_list[manager_role].first.id if users_list[manager_role].present?
+      end
+
       def validate_change_on_closed
         return true unless closed?
         errors.add :base, :issue_changes_not_allowed unless User.current.allowed_to?(:edit_closed_issues, project)
       end
 
       def validate_open_sub_issues
-        return true unless Additionals.settings[:issue_close_with_open_children]
+        return true unless Additionals.setting?(:issue_close_with_open_children)
         errors.add :base, :issue_cannot_close_with_open_children if subject.present? &&
                                                                     closing? &&
                                                                     descendants.find { |d| !d.closed? }
       end
 
       def validate_current_user_status
-        return true unless Additionals.settings[:issue_current_user_status]
+        return true unless Additionals.setting?(:issue_current_user_status)
         return true if Additionals.settings[:issue_assign_to_x].nil?
         if (assigned_to_id_changed? || status_id_changed?) &&
            (Additionals.settings[:issue_assign_to_x].include? status_id.to_s) &&
@@ -110,7 +123,7 @@ module Additionals
       end
 
       def change_status_with_assigned_to_change
-        return true unless Additionals.settings[:issue_status_change]
+        return true unless Additionals.setting?(:issue_status_change)
         return true if Additionals.settings[:issue_status_x].nil?
         return true if Additionals.settings[:issue_status_y].nil?
         if !assigned_to_id_changed? &&

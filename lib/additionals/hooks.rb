@@ -26,13 +26,5 @@ module Additionals
       d[:value] = find_name_by_reflection('author', d.value)
       d[:old_value] = find_name_by_reflection('author', d.old_value)
     end
-
-    def controller_issues_new_before_save(context = {})
-      issue_auto_assign(context)
-    end
-
-    def controller_issues_edit_before_save(context = {})
-      issue_auto_assign(context)
-    end
   end
 end

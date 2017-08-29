@@ -5,6 +5,10 @@ module Additionals
     ActionController::Parameters.new(Setting[:plugin_additionals])
   end
 
+  def self.setting?(value)
+    return true if settings[value].to_i == 1
+  end
+
   def self.incompatible_plugins(plugins = [], title = 'additionals')
     plugins.each do |plugin|
       if Redmine::Plugin.installed?(plugin)

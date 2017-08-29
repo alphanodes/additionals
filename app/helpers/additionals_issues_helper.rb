@@ -22,14 +22,4 @@ module AdditionalsIssuesHelper
       true
     end
   end
-
-  def issue_auto_assign(context)
-    return if Additionals.settings[:issue_auto_assign].blank? ||
-              Additionals.settings[:issue_auto_assign_status].blank? ||
-              Additionals.settings[:issue_auto_assign_role].blank?
-    if context[:params][:issue][:assigned_to_id].blank? &&
-       Additionals.settings[:issue_auto_assign_status].include?(context[:params][:issue][:status_id].to_s)
-      context[:issue].assigned_to_id = context[:issue].auto_assign_user
-    end
-  end
 end

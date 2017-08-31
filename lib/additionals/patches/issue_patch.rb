@@ -114,7 +114,7 @@ module Additionals
 
       def validate_current_user_status
         return true unless Additionals.setting?(:issue_current_user_status)
-        return true if Additionals.settings[:issue_assign_to_x].nil?
+        return true if Additionals.settings[:issue_assign_to_x].blank?
         if (assigned_to_id_changed? || status_id_changed?) &&
            (Additionals.settings[:issue_assign_to_x].include? status_id.to_s) &&
            (assigned_to_id.blank? || assigned_to_id != User.current.id)
@@ -124,8 +124,8 @@ module Additionals
 
       def change_status_with_assigned_to_change
         return true unless Additionals.setting?(:issue_status_change)
-        return true if Additionals.settings[:issue_status_x].nil?
-        return true if Additionals.settings[:issue_status_y].nil?
+        return true if Additionals.settings[:issue_status_x].blank?
+        return true if Additionals.settings[:issue_status_y].blank?
         if !assigned_to_id_changed? &&
            status_id_changed? &&
            (Additionals.settings[:issue_status_x].include? status_id_was.to_s) &&

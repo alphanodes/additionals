@@ -1,6 +1,13 @@
 Changelog
 =========
 
+2.0.4 - untagged and not released
++++++
+
+- Add group_users macro
+- Fix bug with REST-API and assigned_id for issues
+- Use user name setting for sort order in macros
+
 2.0.3
 +++++
 

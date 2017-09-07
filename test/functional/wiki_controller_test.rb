@@ -167,6 +167,16 @@ class WikiControllerTest < ActionController::TestCase
     assert_select 'div.wiki div.user'
   end
 
+  def test_show_with_group_users_macro
+    @request.session[:user_id] = 1
+    @page.content.text = '{{group_users(A Team)}}'
+    @page.content.save!
+    get :show, project_id: 1, id: @page_name
+    assert_response :success
+    assert_template 'show'
+    assert_select 'div.wiki div.user'
+  end
+
   def test_show_with_projects_macro
     @request.session[:user_id] = 1
     @page.content.text = '{{projects}}'

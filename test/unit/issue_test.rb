@@ -38,7 +38,7 @@ class IssueTest < ActiveSupport::TestCase
     skip 'Validate needs more love to fix dependency problems'
     User.current = User.find(3)
     role = Role.create!(name: 'Additionals Tester', permissions: [:edit_closed_issues])
-    Member.delete_all(user_id: User.current)
+    Member.where(user_id: User.current).delete_all
     project = Project.find(1)
     Member.create!(principal: User.current, project_id: project.id, role_ids: [role.id])
 

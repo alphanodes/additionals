@@ -17,8 +17,6 @@ $('#<%= field_id %>').select2({
     minimumInputLength: 0,
     width: '60%',
     templateResult: formatState
-  }).on('select2:open', function (e) {
-    $('.select2-search__field').val(' ').trigger($.Event('input', { which: 13 })).val('');
   });
 
   function formatState (opt) {

@@ -20,6 +20,7 @@ $('#<%= field_id %>').select2({
   });
 
   function formatState (opt) {
+    if (opt.loading) return opt.name;
     var $opt = $('<span>' + opt.name_with_icon + '</span>');
     return $opt;
   };

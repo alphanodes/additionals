@@ -188,8 +188,10 @@ module Additionals
 
     def additionals_load_select2
       additionals_include_js('additionals_to_select2')
-      # TODO: breaks query filters with select2
-      # additionals_include_js('additionals_delay_ajax_indicator')
+    end
+
+    def additionals_load_delay_ajax_indicator
+      additionals_include_js('additionals_delay_ajax_indicator')
     end
 
     def additionals_load_font_awesome

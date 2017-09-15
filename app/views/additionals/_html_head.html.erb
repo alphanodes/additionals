@@ -6,6 +6,7 @@
 <% end %>
 <%= additionals_library_load(:font_awesome) %>
 <%= stylesheet_link_tag 'additionals', plugin: 'additionals' %>
+<%= additionals_library_load(:delay_ajax_indicator) %>
 
 <%
 if User.current.try(:hrm_user_manager).nil?

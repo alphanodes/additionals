@@ -50,7 +50,13 @@ end
 if ActiveRecord::Base.connection.table_exists?(:settings)
   Rails.configuration.to_prepare do
     Additionals.incompatible_plugins(%w[redmine_tweaks common_libraries redmine_editauthor redmine_changeauthor redmine_auto_watch])
-    Additionals.patch(%w[Issue IssuesController TimeEntry Wiki WikiController ApplicationController])
+    Additionals.patch(%w[Issue
+                         IssuesController
+                         QueryFilter
+                         TimeEntry
+                         Wiki
+                         WikiController
+                         ApplicationController])
 
     Rails.configuration.assets.paths << Emoji.images_path
     # Send Emoji Patches to all wiki formatters available to be able to switch formatter without app restart

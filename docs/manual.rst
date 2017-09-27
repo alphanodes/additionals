@@ -169,6 +169,12 @@ In the **Settings** area of the menu tab there are the following functions avail
 * Remove ``Help`` from top menu in order to keep the menu shorter.
 * Remove ``My Page`` from top menu in order you don't want your users to use this page.
 
+User section
+----------------
+
+In case you want to use a SPAM protection for the user registration page you can activate a reCaptcha function in this area.
+We use the simple and flexible spam protection solution for Rails applications called ``invisible_captcha`` for it.
+
 Macros section
 --------------
 

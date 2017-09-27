@@ -36,4 +36,26 @@ class AccountControllerTest < ActionController::TestCase
     assert_select 'input[name=password]'
     assert_select 'div.login-additionals', count: 0
   end
+
+  # See integration/account_test.rb for the full test
+  def test_post_register_with_registration_on
+    with_settings self_registration: '3' do
+      assert_difference 'User.count' do
+        post :register, user: { login: 'register',
+                                password: 'secret123',
+                                password_confirmation: 'secret123',
+                                firstname: 'John',
+                                lastname: 'Doe',
+                                mail: 'register@example.com' }
+        assert_redirected_to '/my/account'
+      end
+      user = User.order('id DESC').first
+      assert_equal 'register', user.login
+      assert_equal 'John', user.firstname
+      assert_equal 'Doe', user.lastname
+      assert_equal 'register@example.com', user.mail
+      assert user.check_password?('secret123')
+      assert user.active?
+    end
+  end
 end

@@ -40,11 +40,13 @@ ja:
   global_wiki_footer_info: 'プロジェクトのWikiフッターをここで入力する。「Wiki Extensions」等のプロジェクト特有のWikiフッターが使用されている場合、こちらの文章が優先的に表示されます。'
   global_wiki_header_info: 'プロジェクトのWikiヘッダーをここで入力する。「Wiki Extensions」等のプロジェクト特有のWikiヘッダーが使用されている場合、こちらの文章が優先的に表示されます。'
   global_wiki_sidebar_info: 'プロジェクト全体のWikiサイドバーで使用される文章を入力する。このサイドバー文章は、Wikiページのみに表示されます。例えば、「直近変更されたページ」等のマクロで使う事をお勧めします。もしプロジェクト特有のサイドバーが使用されている場合でも、こちらの文章がサイドバーで優先的に表示されます。'
+  invisible_captcha_info_html: Ist diese Option aktiviert, wird mit Hilfe von <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> ein SPAM Schutz auf die Registrierungs-Seite für neue Benutzer eingesetzt.
   label_account_login: "ログイン画面の文章"
   label_add_go_to_top: '「トップへ」リンクを追加する'
   label_add_tags: Add tags
   label_additionals_doc: Additionals documentation
   label_additionals: Additionals
+  label_app_menu: App menu
   label_content_plural: Contents
   label_custom_help_url: "カスタムヘルプURL"
   label_custom_menu_items: Custom menu items
@@ -60,6 +62,7 @@ ja:
   label_go_to_top: "トップへ"
   label_hour: hour
   label_icon_color: Icon color
+  label_invisible_captcha: SPAM Schutz bei Registrierung
   label_issue_autowatch_involved: Add involved users as watcher automatically
   label_last_year: previous year
   label_legacy_smiley_support: Legacy smiley/emoji support
@@ -96,6 +99,7 @@ ja:
   label_tomorrow: tomorrow
   label_top_macros_help_html: "Here you get a list of all available Redmine macros of your installation, which are provided by Redmine and the Redmine plugins."
   label_top_menu_help: "ここで新しいトップメニューの項目を定義出来ます。"
+  label_top_menu: Top menu
   label_twitter_account: Twitter account
   label_twitter_hashtag: Twitter hashtag
   label_uptime: Uptime
@@ -136,5 +140,3 @@ ja:
   wiki_pdf_header_info: This text block will be displayed on the first page before the regular Wiki content in the PDF view. Macro use is very restricted, here.
   wiki_pdf_remove_attachments_info: When active the attached Wiki files will not be displayed in PDF view.
   wiki_pdf_remove_title_info: When active the Wiki title info will not be displayed in PDF view.
-  label_top_menu: Top menu
-  label_app_menu: App menu

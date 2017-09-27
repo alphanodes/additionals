@@ -8,6 +8,7 @@ module Additionals
       tabs << { name: 'wiki', partial: 'additionals/settings/wiki', label: :label_wiki }
       tabs << { name: 'rules', partial: 'additionals/settings/issues', label: :label_issue_plural }
       tabs << { name: 'projects', partial: 'additionals/settings/projects', label: :label_project_plural }
+      tabs << { name: 'users', partial: 'additionals/settings/users', label: :label_user_plural }
       if User.current.try(:hrm_user_manager).nil?
         tabs << { name: 'menu', partial: 'additionals/settings/menu', label: :label_settings_menu }
       end

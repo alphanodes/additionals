@@ -40,11 +40,13 @@ de:
   global_wiki_footer_info: 'Hier kann ein projektübergreifender Wiki Footer hinterlegt werden. Wird über "Wiki Extensions" ein projektspezifischer Footer angelegt, wird dieser anstelle des projektübergreifenden Footers verwendet.'
   global_wiki_header_info: 'Hier kann ein projektübergreifender Wiki Header hinterlegt werden. Wird über "Wiki Extensions" ein projektspezifischer Header angelegt, wird dieser immer vorzugsweise vor dem projektübergreifenden Header verwendet.'
   global_wiki_sidebar_info: 'Hier kann für die Wiki Sidebar ein projektübergreifender Text hinterlegt werden. Diese Sidebar wird nur auf den Wiki Seiten angezeigt und kann z.B. für  Makros wie "Zuletzt geänderte Seiten" verwendet werden. Wird eine projektspezifische Sidebar angelegt (über eine Wiki Seite), dann wird diese anstelle der projektübergreifenden Sidebar angezeigt.'
+  invisible_captcha_info_html: Ist diese Option aktiviert, wird mit Hilfe von <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> ein SPAM Schutz auf die Registrierungs-Seite für neue Benutzer eingesetzt.
   label_account_login: "Text für Anmeldeseite"
   label_add_go_to_top: '"Nach oben" Link hinzufügen'
   label_add_tags: Tags hinzufügen
   label_additionals_doc: Additionals Dokumentation (englisch)
   label_additionals: Additionals
+  label_app_menu: App Menü
   label_content_plural: Inhalte
   label_custom_help_url: "URL zur Hilfeseite"
   label_custom_menu_items: Benutzerdefinierte Menüpunkte
@@ -60,6 +62,7 @@ de:
   label_go_to_top: "Nach oben"
   label_hour: Stunde
   label_icon_color: Symbolfarbe
+  label_invisible_captcha: SPAM Schutz bei Registrierung
   label_issue_autowatch_involved: Involvierte Benutzer automatisch als Beobachter hinzufügen
   label_last_year: voriges Jahr
   label_legacy_smiley_support: Smiley/Emoji Support
@@ -96,6 +99,7 @@ de:
   label_tomorrow: morgen
   label_top_macros_help_html: "Hier sind alle Makros aufgelistet, welche über Redmine selbst oder Plugins bereitgestellt werden (nicht nur über Additionals). Diese Makros können in allen Texten innerhalb Redmines verwendet werden (sofern diese im jeweiligen Kontext Sinn machen)."
   label_top_menu_help_html: "Hier können Menüpunkte festgelegt werden, die im Top-Menü angezeigt werden."
+  label_top_menu: Top Menü
   label_twitter_account: Twitter Benutzer
   label_twitter_hashtag: Twitter Hashtag
   label_uptime: Betriebszeit
@@ -136,5 +140,3 @@ de:
   wiki_pdf_header_info: Dieser Textblock wir auf der ersten Seite vor dem eigentlichen Inhalt der Wiki Seite in der PDF Ansicht angezeigt. Die Makros sind hier nur eingeschränkt einsetzbar.
   wiki_pdf_remove_attachments_info: Wenn aktiv, werden die an der Wiki Seite angehängten Dateien nicht in der PDF Ansicht angezeigt.
   wiki_pdf_remove_title_info: Wenn aktiv, wird der Wiki Titel nicht in der PDF Ansicht angezeigt.
-  label_top_menu: Top Menü
-  label_app_menu: App Menü

@@ -50,7 +50,8 @@ end
 if ActiveRecord::Base.connection.table_exists?(:settings)
   Rails.configuration.to_prepare do
     Additionals.incompatible_plugins(%w[redmine_tweaks common_libraries redmine_editauthor redmine_changeauthor redmine_auto_watch])
-    Additionals.patch(%w[Issue
+    Additionals.patch(%w[AccountController
+                         Issue
                          IssuesController
                          TimeEntry
                          Wiki

@@ -1,12 +1,13 @@
 Changelog
 =========
 
-2.0.4 - untagged and not released
+2.0.4
 +++++
 
 - Add group_users macro
 - Fix bug with REST-API and assigned_id for issues
 - Use user name setting for sort order in macros
+- Add invisible_captcha spam protection on registration form
 
 2.0.3
 +++++

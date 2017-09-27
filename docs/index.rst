@@ -106,6 +106,7 @@ Features
 * anonymize referrer for external urls
 * Hide role in project memberbox
 * Change issue author
+* spam protection on registration form
 * Add involved issue users as watcher automatically
 * Configurable issue rules
 

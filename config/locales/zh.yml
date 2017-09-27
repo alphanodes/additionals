@@ -40,7 +40,7 @@ zh:
   global_wiki_footer_info: '请在此处输入项目范围内的 WIKI 页脚信息。若"Wiki Extensions"插件使用了指定的WIKI页脚，则该信息会被优先显示。'
   global_wiki_header_info: '请在此处输入项目范围内的 WIKI 页首信息。若"Wiki Extensions"插件使用了指定的WIKI页首，则该信息会被优先显示。'
   global_wiki_sidebar_info: '请在此处输入项目范围内的 WIKI 侧边栏信息。该侧边栏信息将只显示在WIKI页内。在此空间内输入诸如 "Last changed pages" 的宏命令。若项目内使用指定的侧边栏（WIKI页），则该信息将优先显示在侧边栏内。'
-  invisible_captcha_info_html: Ist diese Option aktiviert, wird mit Hilfe von <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> ein SPAM Schutz auf die Registrierungs-Seite für neue Benutzer eingesetzt.
+  invisible_captcha_info_html: In case this option is activated an <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection is activated for the registration page of new users.
   label_account_login: "用于登陆页的文本"
   label_add_go_to_top: '添加 "回到页首" 链接'
   label_add_tags: Add tags
@@ -62,7 +62,7 @@ zh:
   label_go_to_top: "回到页首"
   label_hour: 小时
   label_icon_color: 图标颜色
-  label_invisible_captcha: SPAM Schutz bei Registrierung
+  label_invisible_captcha: SPAM protection for registration
   label_issue_autowatch_involved: Add involved users as watcher automatically
   label_last_year: 去年
   label_legacy_smiley_support: 表情符号支持

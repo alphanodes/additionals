@@ -1,5 +1,5 @@
 <% unless entry.tag_list.empty? %>
 <div class="tags attribute"><% unless defined? hide_label %><span class="label"><%= l(:field_tag_list) %>:</span><% end %>
-<%= additionals_tag_links(entry.tags, tags_without_color: tags_without_color) %>
+<%= additionals_tag_links(entry.tags, tags_without_color: defined?(tags_without_color) ? tags_without_color : false ) %>
 </div>
 <% end %>

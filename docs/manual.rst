@@ -172,10 +172,10 @@ In the **Settings** area of the menu tab there are the following functions avail
 User section
 ----------------
 
-In case you want to use a SPAM protection for the user registration page you can activate a Captcha function in this area.
+In case you want to use a SPAM protection for the user registration page you can activate a spam protection function in this area which is based on the honeypot strategy to provide a better user experience.
 We use the simple and flexible SPAM protection solution for Rails applications called ``invisible_captcha`` for it.
 
-.. note:: CAPTCHA is short for ``Completely Automated Public Turing test to tell Computers and Humans Apart``. It is a type of test to determine whether or not the user is human.
+.. note:: CAPTCHA is short for ``Completely Automated Public Turing test to tell Computers and Humans Apart``. It is a type of test to determine whether or not the user is human. The honeypot strategy is an alternative and fairly simple. It puts a field onto your form that humans won't fill out because they don't see it. Most spam bots search for forms, fill out every field and submit it. If the honeypot captcha field is filled out you know for sure it is a spam submission.
 
 Macros section
 --------------

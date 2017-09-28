@@ -46,7 +46,7 @@ class AdditionalsTag
 
   def self.sql_for_tags_field(klass, operator, value)
     compare   = operator.eql?('=') ? 'IN' : 'NOT IN'
-    ids_list  = klass.tagged_with(value).map(&:id).push(0).join(',')
+    ids_list  = klass.tagged_with(value).collect(&:id).push(0).join(',')
     "( #{klass.table_name}.id #{compare} (#{ids_list}) ) "
   end
 end

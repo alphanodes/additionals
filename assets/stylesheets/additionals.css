@@ -158,6 +158,16 @@ ul.tags {
   padding: 0;
 }
 
+span.tag-label-color {
+  display: inline-block;
+  margin-bottom: 5px !important;
+}
+
+td.tags span.tag-label-color {
+  display: inline-block;
+  margin: 2px !important;
+}
+
 .tag-label-color {
   padding: 2px 4px;
   color: #fff;

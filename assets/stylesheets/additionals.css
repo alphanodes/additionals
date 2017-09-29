@@ -160,7 +160,12 @@ ul.tags {
 
 span.tag-label-color {
   display: inline-block;
-  margin-bottom: 5px;
+  margin-bottom: 5px !important;
+}
+
+td.tags span.tag-label-color {
+  display: inline-block;
+  margin: 2px !important;
 }
 
 .tag-label-color {

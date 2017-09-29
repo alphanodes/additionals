@@ -96,6 +96,7 @@ zh:
   label_settings_menu: "菜单"
   label_show_all: 显示所有
   label_system_info: 系统信息
+  label_tags_without_color: Show tags without color
   label_tomorrow: 明天
   label_top_macros_help_html: "此处列出了来自 Redmine 及 Redmine 插件中提供的所有可用的宏命令。"
   label_top_menu_help_html: "此处可以自定义顶部菜单项。在移除或修改菜单项后，请务必 <strong>重启 Redmine 服务</strong> 确保修改内容生效。"

@@ -96,6 +96,7 @@ it:
   label_settings_menu: "Menu"
   label_show_all: Mostra tutto
   label_system_info: System info
+  label_tags_without_color: Show tags without color
   label_tomorrow: domani
   label_top_macros_help_html: "Here you get a list of all available Redmine macros of your installation, which are provided by Redmine and the Redmine plugins."
   label_top_menu_help_html: "Here you can define new top menu items."

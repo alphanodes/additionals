@@ -4,7 +4,7 @@ module Additionals
   module Patches
     # Patch wiki to include sidebar
     module WikiPatch
-      def self.included(base) # :nodoc:
+      def self.included(base)
         base.send(:include, InstanceMethodsForAdditionalsWiki)
         base.class_eval do
           alias_method_chain :sidebar, :additionals

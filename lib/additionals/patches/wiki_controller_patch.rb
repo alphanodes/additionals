@@ -3,7 +3,7 @@ require_dependency 'wiki_controller'
 module Additionals
   module Patches
     module WikiControllerPatch
-      def self.included(base) # :nodoc:
+      def self.included(base)
         base.send(:include, InstanceMethodsForAdditionalsWikiController)
         base.class_eval do
           alias_method_chain :respond_to, :additionals

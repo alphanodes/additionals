@@ -56,6 +56,7 @@ if ActiveRecord::Base.connection.table_exists?(:settings)
                          TimeEntry
                          Wiki
                          WikiController
+                         UserPreference
                          ApplicationController])
 
     Additionals.patch(%w[QueryFilter]) if Redmine::VERSION.to_s >= '3.4'

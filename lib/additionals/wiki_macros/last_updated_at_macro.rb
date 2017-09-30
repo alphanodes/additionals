@@ -18,7 +18,7 @@ module Additionals
           project_name = args[0].strip
           page_name = args[1].strip
           project = Project.find_by(name: project_name)
-          project = Project.find_by(identifier: project_name) unless project
+          project ||= Project.find_by(identifier: project_name)
           return '' unless project
           wiki = Wiki.find_by(project_id: project.id)
           return '' unless wiki

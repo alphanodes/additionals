@@ -35,6 +35,7 @@ fr:
   field_tag_sidebar_style_cloud: Cloud
   field_tag_sidebar_style_list: List
   field_tags: Tags
+  field_website: Website
   global_footer_info: 'Enter a project wide wiki footer here.'
   global_sidebar_info: "Enter a project wide available text message here. This sidebar text will be displayed at the project overview, the issue pages and the wiki pages."
   global_wiki_footer_info: 'Enter a project wide wiki footer here. In case a project specific wiki footer is used by "Wiki Extensions", this will be preferably displayed instead.'

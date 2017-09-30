@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.0.5 - not tagged and no version bump
++++++
+
+- Redmine 3.4 bug fixes
+
+
 2.0.4
 +++++
 

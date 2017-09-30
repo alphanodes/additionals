@@ -20,6 +20,8 @@ class WikiControllerTest < ActionController::TestCase
            :wiki_pages,
            :wiki_contents
 
+  WIKI_MACRO_USER_ID = 2
+
   def setup
     Additionals::TestCase.prepare
     EnabledModule.create(project_id: 1, name: 'wiki')
@@ -33,7 +35,7 @@ class WikiControllerTest < ActionController::TestCase
   end
 
   def test_show_with_youtube_macro
-    @request.session[:user_id] = 1
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{youtube(KMU0tzLwhbE)}}'
     @page.content.save!
     get :show, project_id: 1, id: @page_name
@@ -43,7 +45,7 @@ class WikiControllerTest < ActionController::TestCase
   end
 
   def test_show_with_vimeo_macro
-    @request.session[:user_id] = 1
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{vimeo(142849533)}}'
     @page.content.save!
     get :show, project_id: 1, id: @page_name
@@ -53,7 +55,7 @@ class WikiControllerTest < ActionController::TestCase
   end
 
   def test_show_with_slideshare_macro
-    @request.session[:user_id] = 1
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{slideshare(57941706)}}'
     @page.content.save!
     get :show, project_id: 1, id: @page_name
@@ -63,7 +65,7 @@ class WikiControllerTest < ActionController::TestCase
   end
 
   def test_show_with_twitter_macro
-    @request.session[:user_id] = 1
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{twitter(alphanodes)}}'
     @page.content.save!
     get :show, project_id: 1, id: @page_name
@@ -89,7 +91,7 @@ class WikiControllerTest < ActionController::TestCase
   end
 
   def test_show_with_reddit_macro
-    @request.session[:user_id] = 1
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{reddit(redmine)}}'
     @page.content.save!
     get :show, project_id: 1, id: @page_name
@@ -115,19 +117,19 @@ class WikiControllerTest < ActionController::TestCase
   end
 
   def test_show_last_updated_by_marco
-    @request.session[:user_id] = 1
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{last_updated_by}}'
     @page.content.save!
     get :show, project_id: 1, id: @page_name
     assert_response :success
     assert_template 'show'
     assert_select 'span.last-updated-by'
-    assert_select 'a[href=?]', '/users/1',
-                  text: 'admin'
+    assert_select 'a[href=?]', '/users/2',
+                  text: 'jsmith'
   end
 
   def test_show_last_updated_at_marco
-    @request.session[:user_id] = 1
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{last_updated_at}}'
     @page.content.save!
     get :show, project_id: 1, id: @page_name
@@ -138,7 +140,7 @@ class WikiControllerTest < ActionController::TestCase
   end
 
   def test_show_recently_updated_marco
-    @request.session[:user_id] = 1
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{recently_updated}}'
     @page.content.save!
     get :show, project_id: 1, id: @page_name
@@ -148,7 +150,7 @@ class WikiControllerTest < ActionController::TestCase
   end
 
   def test_show_calendar_marco
-    @request.session[:user_id] = 1
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{calendar(year=1970, month=7)}}'
     @page.content.save!
     get :show, project_id: 1, id: @page_name
@@ -158,7 +160,7 @@ class WikiControllerTest < ActionController::TestCase
   end
 
   def test_show_with_members_macro
-    @request.session[:user_id] = 1
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{members}}'
     @page.content.save!
     get :show, project_id: 1, id: @page_name
@@ -168,7 +170,7 @@ class WikiControllerTest < ActionController::TestCase
   end
 
   def test_show_with_group_users_macro
-    @request.session[:user_id] = 1
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{group_users(A Team)}}'
     @page.content.save!
     get :show, project_id: 1, id: @page_name
@@ -178,7 +180,7 @@ class WikiControllerTest < ActionController::TestCase
   end
 
   def test_show_with_projects_macro
-    @request.session[:user_id] = 1
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{projects}}'
     @page.content.save!
     get :show, project_id: 1, id: @page_name
@@ -188,7 +190,7 @@ class WikiControllerTest < ActionController::TestCase
   end
 
   def test_show_with_gist_macro
-    @request.session[:user_id] = 1
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{gist(plentz/6737338)}}'
     @page.content.save!
     get :show, project_id: 1, id: @page_name
@@ -198,7 +200,7 @@ class WikiControllerTest < ActionController::TestCase
   end
 
   def test_show_with_tradeview_macro
-    @request.session[:user_id] = 1
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{tradingview(symbol=NASDAQ:AMZN, locale=en)}}'
     @page.content.save!
     get :show, project_id: 1, id: @page_name
@@ -208,7 +210,7 @@ class WikiControllerTest < ActionController::TestCase
   end
 
   def test_show_with_cryptocompare_macro
-    @request.session[:user_id] = 1
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{cryptocompare(fsyms=BTC;ETH, type=header_v3)}}'
     @page.content.save!
     get :show, project_id: 1, id: @page_name
@@ -219,7 +221,7 @@ class WikiControllerTest < ActionController::TestCase
   end
 
   def test_show_with_weeknumber_macro
-    @request.session[:user_id] = 1
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{current_weeknumber}}'
     @page.content.save!
     get :show, project_id: 1, id: @page_name
@@ -229,7 +231,7 @@ class WikiControllerTest < ActionController::TestCase
   end
 
   def test_show_issue
-    @request.session[:user_id] = 1
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{issue(2, format=short)}}'
     @page.content.save!
     get :show, project_id: 1, id: @page_name
@@ -240,7 +242,7 @@ class WikiControllerTest < ActionController::TestCase
   end
 
   def test_show_issue_with_id
-    @request.session[:user_id] = 1
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{issue(2, format=link)}}'
     @page.content.save!
     get :show, project_id: 1, id: @page_name
@@ -251,7 +253,7 @@ class WikiControllerTest < ActionController::TestCase
   end
 
   def test_show_issue_with_id_default
-    @request.session[:user_id] = 1
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{issue(2)}}'
     @page.content.save!
     get :show, project_id: 1, id: @page_name
@@ -262,18 +264,18 @@ class WikiControllerTest < ActionController::TestCase
   end
 
   def test_show_user_with_id
-    @request.session[:user_id] = 1
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{user(1)}}'
     @page.content.save!
     get :show, project_id: 1, id: @page_name
     assert_response :success
     assert_template 'show'
     assert_select 'a[href=?]', '/users/1',
-                  text: 'admin'
+                  text: 'Redmine Admin'
   end
 
   def test_show_user_with_id_fullname
-    @request.session[:user_id] = 1
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{user(1, format=firstname_lastname)}}'
     @page.content.save!
     get :show, project_id: 1, id: @page_name
@@ -285,7 +287,7 @@ class WikiControllerTest < ActionController::TestCase
   end
 
   def test_show_user_with_name
-    @request.session[:user_id] = 2
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{user(jsmith)}}'
     @page.content.save!
     get :show, project_id: 1, id: @page_name
@@ -296,7 +298,7 @@ class WikiControllerTest < ActionController::TestCase
   end
 
   def test_show_user_with_name_fullname
-    @request.session[:user_id] = 2
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{user(jsmith, format=firstname_lastname, avatar=true)}}'
     @page.content.save!
     get :show, project_id: 1, id: @page_name

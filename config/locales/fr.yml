@@ -41,7 +41,7 @@ fr:
   global_wiki_footer_info: 'Enter a project wide wiki footer here. In case a project specific wiki footer is used by "Wiki Extensions", this will be preferably displayed instead.'
   global_wiki_header_info: 'Enter a project wide wiki header here. In case a project specific wiki header is used by "Wiki Extensions", this will be preferably displayed instead.'
   global_wiki_sidebar_info: 'Enter a project wide available text message for your wiki sidebar, here. This sidebar text will be displayed at the wiki pages only. Use this space for Macros like "Last changed pages" for example. In case a project specific sidebar is used (wiki page), this will be preferably displayed in the sidebar instead.'
-  invisible_captcha_info_html: In case this option is activated an <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection is activated for the registration page of new users.
+  invisible_captcha_info_html: In case this option is activated an <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection is activated for the registration page of new users. This function is only available, if you enabled self-registration, too.
   label_account_login: "Text for login page"
   label_add_go_to_top: 'Add "Go to top" link'
   label_add_tags: Add tags

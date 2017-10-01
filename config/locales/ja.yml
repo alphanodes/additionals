@@ -41,7 +41,7 @@ ja:
   global_wiki_footer_info: 'プロジェクトのWikiフッターをここで入力する。「Wiki Extensions」等のプロジェクト特有のWikiフッターが使用されている場合、こちらの文章が優先的に表示されます。'
   global_wiki_header_info: 'プロジェクトのWikiヘッダーをここで入力する。「Wiki Extensions」等のプロジェクト特有のWikiヘッダーが使用されている場合、こちらの文章が優先的に表示されます。'
   global_wiki_sidebar_info: 'プロジェクト全体のWikiサイドバーで使用される文章を入力する。このサイドバー文章は、Wikiページのみに表示されます。例えば、「直近変更されたページ」等のマクロで使う事をお勧めします。もしプロジェクト特有のサイドバーが使用されている場合でも、こちらの文章がサイドバーで優先的に表示されます。'
-  invisible_captcha_info_html: In case this option is activated an <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection is activated for the registration page of new users.
+  invisible_captcha_info_html: In case this option is activated an <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection is activated for the registration page of new users. This function is only available, if you enabled self-registration, too.
   label_account_login: "ログイン画面の文章"
   label_add_go_to_top: '「トップへ」リンクを追加する'
   label_add_tags: Add tags

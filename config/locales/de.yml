@@ -41,7 +41,7 @@ de:
   global_wiki_footer_info: 'Hier kann ein projektübergreifender Wiki Footer hinterlegt werden. Wird über "Wiki Extensions" ein projektspezifischer Footer angelegt, wird dieser anstelle des projektübergreifenden Footers verwendet.'
   global_wiki_header_info: 'Hier kann ein projektübergreifender Wiki Header hinterlegt werden. Wird über "Wiki Extensions" ein projektspezifischer Header angelegt, wird dieser immer vorzugsweise vor dem projektübergreifenden Header verwendet.'
   global_wiki_sidebar_info: 'Hier kann für die Wiki Sidebar ein projektübergreifender Text hinterlegt werden. Diese Sidebar wird nur auf den Wiki Seiten angezeigt und kann z.B. für  Makros wie "Zuletzt geänderte Seiten" verwendet werden. Wird eine projektspezifische Sidebar angelegt (über eine Wiki Seite), dann wird diese anstelle der projektübergreifenden Sidebar angezeigt.'
-  invisible_captcha_info_html: Ist diese Option aktiviert, wird mit Hilfe von <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> ein SPAM Schutz auf die Registrierungs-Seite für neue Benutzer eingesetzt.
+  invisible_captcha_info_html: Ist diese Option aktiviert, wird mit Hilfe von <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> ein SPAM Schutz auf die Registrierungs-Seite für neue Benutzer eingesetzt. Diese steht nur zur Verfügung, wenn Redmine die Registrierung neuer Benutzer zulässt.
   label_account_login: "Text für Anmeldeseite"
   label_add_go_to_top: '"Nach oben" Link hinzufügen'
   label_add_tags: Tags hinzufügen

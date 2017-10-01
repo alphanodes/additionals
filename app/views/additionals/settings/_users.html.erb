@@ -4,6 +4,6 @@
 
 <p>
   <%= content_tag(:label, l(:label_invisible_captcha)) %>
-  <%= check_box_tag 'settings[invisible_captcha]', 1, @settings[:invisible_captcha].to_i == 1 %>
+  <%= check_box_tag 'settings[invisible_captcha]', 1, @settings[:invisible_captcha].to_i == 1, disabled: (true unless Setting.self_registration?) %>
   <em class="info"><%= t(:invisible_captcha_info_html) %></em>
 </p>

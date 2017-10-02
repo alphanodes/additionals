@@ -142,7 +142,9 @@ module Additionals
     def bootstrap_datepicker_locale
       s = ''
       locale = User.current.language.blank? ? ::I18n.locale : User.current.language
-      s = javascript_include_tag("locales/bootstrap-datepicker.#{locale}.min", plugin: 'additionals') unless locale == 'en'
+      locale = 'es' if locale == 'es-PA'
+      locale = 'sr-latin' if locale == 'sr-YU'
+      s = javascript_include_tag("locales/bootstrap-datepicker.#{locale.downcase}.min", plugin: 'additionals') unless locale == 'en'
       s
     end
 

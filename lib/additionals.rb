@@ -1,49 +1,59 @@
 module Additionals
   MAX_CUSTOM_MENU_ITEMS = 5
 
-  def self.settings
-    ActionController::Parameters.new(Setting[:plugin_additionals])
-  end
+  class << self
+    def settings
+      ActionController::Parameters.new(Setting[:plugin_additionals])
+    end
 
-  def self.setting?(value)
-    return true if settings[value].to_i == 1
-  end
+    def setting?(value)
+      return true if settings[value].to_i == 1
+    end
 
-  def self.incompatible_plugins(plugins = [], title = 'additionals')
-    plugins.each do |plugin|
-      if Redmine::Plugin.installed?(plugin)
-        raise "\n\033[31m#{title} plugin cannot be used with #{plugin} plugin'.\033[0m"
+    def incompatible_plugins(plugins = [], title = 'additionals')
+      plugins.each do |plugin|
+        if Redmine::Plugin.installed?(plugin)
+          raise "\n\033[31m#{title} plugin cannot be used with #{plugin} plugin'.\033[0m"
+        end
       end
     end
-  end
 
-  def self.patch(patches = [], plugin_id = 'additionals')
-    patches.each do |name|
-      patch_dir = Rails.root.join('plugins', plugin_id, 'lib', plugin_id, 'patches')
-      require "#{patch_dir}/#{name.underscore}_patch"
+    def patch(patches = [], plugin_id = 'additionals')
+      patches.each do |name|
+        patch_dir = Rails.root.join('plugins', plugin_id, 'lib', plugin_id, 'patches')
+        require "#{patch_dir}/#{name.underscore}_patch"
 
-      target = name.constantize
-      patch = "#{plugin_id.camelize}::Patches::#{name}Patch".constantize
+        target = name.constantize
+        patch = "#{plugin_id.camelize}::Patches::#{name}Patch".constantize
 
-      unless target.included_modules.include?(patch)
-        target.send(:include, patch)
+        unless target.included_modules.include?(patch)
+          target.send(:include, patch)
+        end
       end
     end
-  end
 
-  def self.load_macros(macros = [], plugin_id = 'additionals')
-    macro_dir = Rails.root.join('plugins', plugin_id, 'lib', plugin_id, 'wiki_macros')
-    macros.each do |macro|
-      require_dependency "#{macro_dir}/#{macro.underscore}_macro"
+    def load_macros(macros = [], plugin_id = 'additionals')
+      macro_dir = Rails.root.join('plugins', plugin_id, 'lib', plugin_id, 'wiki_macros')
+      macros.each do |macro|
+        require_dependency "#{macro_dir}/#{macro.underscore}_macro"
+      end
     end
-  end
 
-  def self.load_settings(plugin_id = 'additionals')
-    data = YAML.safe_load(ERB.new(IO.read(Rails.root.join('plugins',
-                                                          plugin_id,
-                                                          'config',
-                                                          'settings.yml'))).result) || {}
-    data.symbolize_keys
+    def load_settings(plugin_id = 'additionals')
+      data = YAML.safe_load(ERB.new(IO.read(Rails.root.join('plugins',
+                                                            plugin_id,
+                                                            'config',
+                                                            'settings.yml'))).result) || {}
+      data.symbolize_keys
+    end
+
+    def load_fontawesome_icons
+      data = YAML.safe_load(ERB.new(IO.read(Rails.root.join('plugins',
+                                                            'additionals',
+                                                            'config',
+                                                            'fontawesome_icons.yml'))).result) || {}
+      data['icons']
+    end
   end
 end
 

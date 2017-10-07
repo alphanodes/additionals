@@ -59,7 +59,7 @@ end
 
 if ActiveRecord::Base.connection.table_exists?(:settings)
   Rails.configuration.to_prepare do
-    require 'pry' unless ENV['ENABLE_DEBUG']
+    require 'pry' if ENV['ENABLE_DEBUG']
     Additionals.incompatible_plugins(%w[redmine_tweaks common_libraries redmine_editauthor redmine_changeauthor redmine_auto_watch])
     Additionals.patch(%w[AccountController
                          Issue

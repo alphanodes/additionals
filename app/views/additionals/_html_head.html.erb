@@ -9,7 +9,7 @@
 <%= additionals_library_load(:delay_ajax_indicator) %>
 
 <%
-if User.current.try(:hrm_user_manager).nil?
+if User.current.try(:hrm_user_type_id).nil?
   user_roles = User.current.memberships.includes(:project).collect {|m| m.roles}.flatten.uniq
   Additionals::MAX_CUSTOM_MENU_ITEMS.times do |i|
     additionals_custom_top_menu_item(i, user_roles)

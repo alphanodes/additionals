@@ -41,14 +41,14 @@ class GlobalHelperTest < ActionView::TestCase
     assert_include 'Redmine Admin', html
   end
 
-  def test_fa_icon
-    html = fa_icon('fa-car', class: 'test')
+  def test_font_awesome_icon
+    html = font_awesome_icon('fa-car', class: 'test')
     assert_include 'class="fa fa-car test"', html
 
-    html = fa_icon('fa-car', pre_text: 'Testing')
+    html = font_awesome_icon('fa-car', pre_text: 'Testing')
     assert_include 'Testing <span', html
 
-    html = fa_icon('fa-car', post_text: 'Testing')
+    html = font_awesome_icon('fa-car', post_text: 'Testing')
     assert_include '</span> Testing', html
   end
 end

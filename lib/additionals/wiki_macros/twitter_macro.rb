@@ -11,17 +11,17 @@ module Additionals
         name = args[0].strip
         case name[0]
         when '@'
-          link_to(fa_icon('fa-twitter', post_text: name),
+          link_to(font_awesome_icon('fa-twitter', post_text: name),
                   "https://twitter.com/#{name[1..-1]}",
                   class: 'external twitter',
                   title: l(:label_twitter_account))
         when '#'
-          link_to(fa_icon('fa-twitter-square', post_text: name),
+          link_to(font_awesome_icon('fa-twitter-square', post_text: name),
                   "https://twitter.com/hashtag/#{name[1..-1]}",
                   class: 'external twitter',
                   title: l(:label_twitter_hashtag))
         else
-          link_to(fa_icon('fa-twitter', post_text: " @#{name}"),
+          link_to(font_awesome_icon('fa-twitter', post_text: " @#{name}"),
                   "https://twitter.com/#{name}",
                   class: 'external twitter',
                   title: l(:label_twitter_account))

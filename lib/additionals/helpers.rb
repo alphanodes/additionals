@@ -124,9 +124,9 @@ module Additionals
       html_options[:title] = item[:title] if item[:title].present?
 
       title = if item[:symbol].present? && item[:name].present?
-                fa_icon(item[:symbol], post_text: item[:name])
+                font_awesome_icon(item[:symbol], post_text: item[:name])
               elsif item[:symbol].present?
-                fa_icon(item[:symbol])
+                font_awesome_icon(item[:symbol])
               else
                 item[:name].to_s
               end
@@ -264,7 +264,12 @@ module Additionals
       safe_join(s)
     end
 
+    # obsolete, because it conflicts with redmine_bootstrap_kit
     def fa_icon(name, options = {})
+      font_awesome_icon(name, options)
+    end
+
+    def font_awesome_icon(name, options = {})
       post_text = ''
       classes = ['fa']
       classes << name

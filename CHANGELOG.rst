@@ -5,7 +5,7 @@ Changelog
 +++++
 
 - Redmine 3.4 bug fixes
-
+- Helper function fa_icon renamed to font_awesome_icon because of conflicts with redmine_bootstrap_kit
 
 2.0.4
 +++++

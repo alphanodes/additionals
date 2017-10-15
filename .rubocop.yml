@@ -3,32 +3,37 @@ Rails:
 
 AllCops:
   TargetRubyVersion: 2.1
+  TargetRailsVersion: 4.2
+
+Metrics/AbcSize:
+  Max: 65
+
+Metrics/BlockLength:
+  Max: 50
+
+Metrics/ClassLength:
+  Max: 300
+
+Metrics/CyclomaticComplexity:
+  Max: 13
 
 Metrics/LineLength:
   Max: 140
 
-# Offense count: 34
-# Configuration parameters: CountComments.
 Metrics/MethodLength:
   Max: 60
 
-# Offense count: 11
-Metrics/CyclomaticComplexity:
-  Max: 13
+Metrics/ModuleLength:
+  Max: 300
 
-# Offense count: 10
 Metrics/PerceivedComplexity:
   Max: 14
 
-# Offense count: 15
-Metrics/AbcSize:
-  Max: 30
+Rails/SkipsModelValidations:
+  Enabled: false
+
+Style/AutoResourceCleanup:
+  Enabled: true
 
 Style/Documentation:
   Enabled: false
-
-Rails/HttpPositionalArguments:
-  Enabled: false
-
-Metrics/BlockLength:
-  Max: 50

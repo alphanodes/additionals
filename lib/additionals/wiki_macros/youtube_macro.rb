@@ -2,7 +2,7 @@
 module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
-      desc <<-EOHELP
+      desc <<-DESCRIPTION
   Youtube macro to include youtube video.
 
     Syntax:
@@ -14,7 +14,7 @@ module Additionals
     {{youtube(KMU0tzLwhbE)}} show video with default size 640x360
     {{youtube(KMU0tzLwhbE, width=853, height=480)}} show video with user defined size
     {{youtube(KMU0tzLwhbE, autoplay=true)}} autoplay video
-  EOHELP
+  DESCRIPTION
 
       macro :youtube do |_obj, args|
         args, options = extract_macro_options(args, :width, :height, :autoplay)

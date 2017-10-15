@@ -2,10 +2,10 @@
 module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
-      desc <<-EOHELP
+      desc <<-DESCRIPTION
       Displays a user who updated the page.
         {{last_updated_by}}
-      EOHELP
+      DESCRIPTION
 
       macro :last_updated_by do |obj, args|
         raise 'The correct usage is {{last_updated_by}}' unless args.empty?

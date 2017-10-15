@@ -2,7 +2,7 @@
 module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
-      desc <<-EOHELP
+      desc <<-DESCRIPTION
   Display members.
 
   Syntax:
@@ -27,7 +27,7 @@ module Additionals
     ...A box showing all members for the project with the identifier of 'the-identifier' and with
     box title "My user list"
 
-  EOHELP
+  DESCRIPTION
 
       macro :members do |_obj, args|
         args, options = extract_macro_options(args, :role, :title)

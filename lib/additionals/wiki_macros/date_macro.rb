@@ -2,7 +2,7 @@
 module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
-      desc <<-EOHELP
+      desc <<-DESCRIPTION
   Display current dates.  Examples:
 
     {{current_year}}       current year
@@ -13,7 +13,7 @@ module Additionals
     {{current_minute}}     current minute
     {{current_weekday}}    current weekday
     {{current_weeknumber}} current week number (1 - 52) The week starts with Monday
-  EOHELP
+  DESCRIPTION
 
       macro :current_year do |_obj, _args|
         content_tag(:span, Time.zone.now.year, class: 'current-date')

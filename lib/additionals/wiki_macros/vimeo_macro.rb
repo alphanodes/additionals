@@ -2,7 +2,7 @@
 module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
-      desc <<-EOHELP
+      desc <<-DESCRIPTION
   Vimeo macro to include vimeo video.
 
     Syntax:
@@ -14,7 +14,7 @@ module Additionals
     {{vimeo(142849533)}} show video with default size 640x360
     {{vimeo(142849533, width=853, height=480)}} show video with user defined size
     {{vimeo(142849533, autoplay=true)}} autoplay video
-  EOHELP
+  DESCRIPTION
 
       macro :vimeo do |_obj, args|
         args, options = extract_macro_options(args, :width, :height, :autoplay)

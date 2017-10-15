@@ -2,7 +2,7 @@
 module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
-      desc <<-EOHELP
+      desc <<-DESCRIPTION
   Display calendar (only works on wiki pages)
     Examples:
 
@@ -12,7 +12,7 @@ module Additionals
     {{calendar(select=2015-07-12 2015-07-31, show_weeks=true)}} preselect dates and show week numbers
     {{calendar(select=2016-03-13:2016-03-27)}} preselect dates between 2016/3/13 and 2016/3/27
 
-  EOHELP
+  DESCRIPTION
 
       macro :calendar do |_obj, args|
         args, options = extract_macro_options(args, :show_weeks, :year, :month, :select)

@@ -2,7 +2,7 @@
 module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
-      desc  <<-EOHELP
+      desc  <<-DESCRIPTION
   Create a link to issue with the subject of this issue.
        Syntax:
 
@@ -24,7 +24,7 @@ module Additionals
        ...Display subject name
        {{issue(1, format=full)}}
        ...Link to issue with track, issue id and subject
-   EOHELP
+   DESCRIPTION
 
       macro :issue do |_obj, args|
         args, options = extract_macro_options(args, :format)

@@ -2,7 +2,7 @@
 module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
-      desc <<-EOHELP
+      desc <<-DESCRIPTION
   Display users of group.
 
   Syntax:
@@ -14,7 +14,7 @@ module Additionals
     {{group_users(Team)}}
     ...List all users in user group "Team" (with the current user permission)
 
-  EOHELP
+  DESCRIPTION
 
       macro :group_users do |_obj, args|
         raise 'The correct usage is {{group_users(<group_name>)}}' if args.empty?

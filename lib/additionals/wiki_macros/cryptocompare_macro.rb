@@ -3,11 +3,11 @@
 module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
-      desc <<-EOHELP
+      desc <<-DESCRIPTION
       Create CryptoCompare information.
         {{cryptocompare(options)}}
      see https://additionals.readthedocs.io/en/latest/macros/#cryptocompare
-  EOHELP
+  DESCRIPTION
       macro :cryptocompare do |_obj, args|
         raise 'The correct usage is {{cryptocompare(options)}}' if args.empty?
         args, options = extract_macro_options(args, :fsym, :fsyms, :tsym, :tsyms, :period, :type)

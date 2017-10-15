@@ -2,7 +2,7 @@
 module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
-      desc <<-EOHELP
+      desc <<-DESCRIPTION
   Display projects.
 
   Syntax:
@@ -20,7 +20,7 @@ module Additionals
     {{projects(with_create_issue=true)}}
     ...List all project with link to create new issue, which I am member of
 
-  EOHELP
+  DESCRIPTION
 
       macro :projects do |_obj, args|
         args, options = extract_macro_options(args, :title, :with_create_issue)

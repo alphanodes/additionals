@@ -3,11 +3,11 @@
 module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
-      desc <<-EOHELP
+      desc <<-DESCRIPTION
       Creates Tradingview chart
         {{tradingview(options)}}
       see https://additionals.readthedocs.io/en/latest/macros/#tradingview
-  EOHELP
+  DESCRIPTION
       macro :tradingview do |_obj, args|
         raise 'The correct usage is {{tradingview(options)}}' if args.empty?
         args, options = extract_macro_options(args, :width, :height, :symbol, :interval, :timezone,

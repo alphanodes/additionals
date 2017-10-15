@@ -2,7 +2,7 @@
 module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
-      desc <<-EOHELP
+      desc <<-DESCRIPTION
   Slideshare macro to include Slideshare slide.
 
     Syntax:
@@ -14,7 +14,7 @@ module Additionals
     {{slideshare(57941706)}} show slideshare slid with default size 595x485
     {{slideshare(57941706, width=514, height=422)}} show video with user defined size
     {{slideshare(57941706, slide=5)}} start with slide (page) 5
-  EOHELP
+  DESCRIPTION
 
       macro :slideshare do |_obj, args|
         args, options = extract_macro_options(args, :width, :height, :slide)

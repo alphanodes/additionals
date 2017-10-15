@@ -2,10 +2,10 @@
 module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
-      desc <<-EOHELP
+      desc <<-DESCRIPTION
       Creates link to reddit.
         {{reddit(name)}}
-  EOHELP
+  DESCRIPTION
       macro :reddit do |_obj, args|
         raise 'The correct usage is {{reddit(<name>)}}' if args.empty?
         name = args[0].strip

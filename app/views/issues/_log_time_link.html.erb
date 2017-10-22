@@ -1,1 +1,0 @@
-<%= link_to l(:button_log_time), new_issue_time_entry_path(@issue), :class => 'icon icon-time-add' if User.current.allowed_to?(:log_time, @project) && @issue.log_time_allowed? %>

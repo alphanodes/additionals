@@ -149,17 +149,16 @@ module Additionals
     end
 
     def auto_complete_select_entries(name, type, obj, options = {})
-      include_blank = options[:include_blank].present? && options[:include_blank] ? true : false
       s = []
       s << select_tag(name,
                       options_for_select([[obj.try(:name), obj.try(:id)]], obj.try(:id)),
-                      include_blank: true, class: "#{type}-relation")
+                      include_blank: options[:include_blank], class: "#{type}-relation")
       s << render(layout: false,
                   partial: 'additionals/select2_ajax_call.js',
                   formats: [:js],
                   locals: { field_id: sanitize_to_id(name),
                             ajax_url: send("auto_complete_#{type}_path", project_id: @project),
-                            include_blank: include_blank })
+                            options: options })
       safe_join(s)
     end
 

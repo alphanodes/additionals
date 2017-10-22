@@ -1,3 +1,4 @@
+<% options = {} if options.nil? %>
 <%= javascript_tag do %>
 $('#<%= field_id %>').select2({
     ajax: {
@@ -12,8 +13,8 @@ $('#<%= field_id %>').select2({
       },
       cache: true
     },
-    placeholder: ' ',
-    allowClear: <%= include_blank %>,
+    placeholder: '<%= options[:placeholder].present? ? options[:placeholder] : ' ' %>',
+    allowClear: <%= options[:allow_clear].present? && options[:allow_clear] ? 'true' : 'false' %>,
     minimumInputLength: 0,
     width: '60%',
     templateResult: formatState

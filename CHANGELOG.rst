@@ -8,6 +8,7 @@ Changelog
 - Helper function fa_icon renamed to font_awesome_icon because of conflicts with redmine_bootstrap_kit
 - Cleanups deface overwrites
 - add hook for user show
+- Traditional Chinese support has been added (thanks to @archonwang)
 
 2.0.4
 +++++

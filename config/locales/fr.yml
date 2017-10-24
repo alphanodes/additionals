@@ -54,7 +54,7 @@ fr:
   label_daily: tous les jours
   label_day: Jour
   label_disabled_modules: "Disabled modules"
-  label_external_urls: "External urls"
+  label_external_urls: "Les urnes externes"
   label_global_footer: "Project wide footer"
   label_global_sidebar: "Global sidebar"
   label_global_wiki_footer: "Project wide wiki footer"

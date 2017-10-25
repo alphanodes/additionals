@@ -12,23 +12,23 @@ fr:
   activerecord:
     errors:
       messages:
-        issue_cannot_close_with_open_children: "This issue can only be closed, if all sub-issues are closed, too."
-        issue_current_user_status: "The selected status requires that the \"Assignee\" is yourself."
-        issue_log_time_not_allowed: "is a closed issue. You are not allowed to log time at it."
-        issue_changes_not_allowed: "This issue is closed, you do not have any right to change it."
-  account_login_info: "This text message will be shown at the login page and should be used for registration information. These settings are active in all projects."
-  add_go_to_top_info: 'If you have a lot of long pages, it is helpful to add a jump to top link.'
+        issue_cannot_close_with_open_children: "Ce issue ne peut être clôturé que si toutes les sub-issues sont également clôturées."
+        issue_current_user_status: "Le statut sélectionné exige que le \"cessionnaire\" soit vous-même."
+        issue_log_time_not_allowed: "est une issue close. Vous n'avez pas le droit de vous connecter."
+        issue_changes_not_allowed: "Ce issue est clos, vous n'avez pas le droit de le modifier."
+  account_login_info: "Ce message texte sera affiché à la page de connexion et devrait être utilisé pour les informations d'inscription. Ces options sont actives dans tous les projets."
+  add_go_to_top_info: "Si vous avez beaucoup de pages longues, il est utile d'ajouter un saut au lien du haut."
   custom_help_url_info_html: "After changing this URL, you have to restart the application server to activate it. If no URL is specified, the default help URL will be used."
   disabled_modules_info: "Modules which should not be available for selection within the projects. If these modules already activated in existing projects, you will have to change and re-save the respective project settings first."
   errors_invalid_icon_format: is an invalid font-awesome code
-  errors_no_or_invalid_arguments: No or invalid arguments
+  errors_no_or_invalid_arguments: "Pas d'arguments ou arguments invalides"
   errors_query_does_not_exist: "Query n'existe pas"
-  external_url_default: "Default behavior"
-  external_url_new_window: "Open in new window"
-  external_url_noreferrer: "Open with NoReferrer"
-  external_urls_info_html: "Specifies the behavior for external urls."
+  external_url_default: "Comportement par défaut"
+  external_url_new_window: "Ouvrir dans une nouvelle fenêtre"
+  external_url_noreferrer: "Ouvrir avec NoReferrer"
+  external_urls_info_html: "Spécifie le comportement des urls externes."
   field_autowatch_involved_issue: Autowatch involved issues
-  field_color: Color
+  field_color: Couleur
   field_icon: Icon
   field_issue_relation_plural: Issue relations
   field_tag_list: Tags
@@ -49,11 +49,11 @@ fr:
   label_additionals: Additionals
   label_app_menu: App menu
   label_content_plural: Contents
-  label_custom_help_url: "Custom Help URL"
-  label_custom_menu_items: Custom menu items
+  label_custom_help_url: "URL d'aide personnalisée"
+  label_custom_menu_items: Éléments de menu personnalisés
   label_daily: tous les jours
   label_day: Jour
-  label_disabled_modules: "Disabled modules"
+  label_disabled_modules: "Modules désactivés"
   label_external_urls: "Les urnes externes"
   label_global_footer: "Project wide footer"
   label_global_sidebar: "Global sidebar"
@@ -72,10 +72,10 @@ fr:
   label_monthly: mensuel
   label_new_ticket_message: "Note for new issues"
   label_optional: "optional"
-  label_overview_bottom: "Overview page, bottom"
-  label_overview_page: "Overview page"
-  label_overview_right: "Overview page, right"
-  label_overview_top: "Overview page, top"
+  label_overview_bottom: "Page de sommaire, fond"
+  label_overview_page: "Page de sommaire"
+  label_overview_right: "Page de sommaire, exact"
+  label_overview_top: "Page de sommaire, supérieur"
   label_pdf_wiki_settings: PDF Wiki settings
   label_project_list: "Project list"
   label_project_overview_content: "Project guide"
@@ -95,7 +95,7 @@ fr:
   label_setting_plural: Settings
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
-  label_show_all: Show all
+  label_show_all: Montrer tout
   label_system_info: System info
   label_tags_without_color: Show tags without color
   label_tomorrow: demain
@@ -138,7 +138,7 @@ fr:
   top_overview_help: Here you can define contents and settings for your overview page.
   top_projects_help: Here you can define contents and settings for your project page.
   top_rules_help: "Here you can define rules, which are used in issues of all projects."
-  top_wiki_help: Here you can define contents and settings for your Wiki.
+  top_wiki_help: "Ici vous pouvez définir le contenu et les paramètres de votre Wiki."
   wiki_pdf_header_info: This text block will be displayed on the first page before the regular Wiki content in the PDF view. Macro use is very restricted, here.
   wiki_pdf_remove_attachments_info: When active the attached Wiki files will not be displayed in PDF view.
   wiki_pdf_remove_title_info: When active the Wiki title info will not be displayed in PDF view.

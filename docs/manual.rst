@@ -179,6 +179,11 @@ In order to activate the checkbox ``SPAM protection for registration`` you must 
 
 .. note:: CAPTCHA is short for ``Completely Automated Public Turing test to tell Computers and Humans Apart``. It is a type of test to determine whether or not the user is human. The honeypot strategy is an alternative and fairly simple. It puts a field onto your form that humans won't fill out because they don't see it. Most spam bots search for forms, fill out every field and submit it. If the honeypot captcha field is filled out you know for sure it is a spam submission.
 
+Web APIs section
+----------------
+
+In case you want to use the Gmap Macro you have to implement your Google API Key into the field ``Google Maps Embed API Key`` first. After this you can use the Macro everywhere inside Redmine (Wiki, Issues - everywhere you use wiki syntax).
+
 Macros section
 --------------
 

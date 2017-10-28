@@ -144,4 +144,4 @@ it:
   wiki_pdf_remove_title_info: When active the Wiki title info will not be displayed in PDF view.
   label_web_apis: Web APIs
   label_google_maps_embed_api: Google Maps Embed API Key
-  google_maps_embed_api_html: Wenn Du das Gmap Makro verwenden willst um Google Karten darzustellen, musst Du hier Deinen Google Maps Embed API Schlüssel eintragen. Mehr Informationen dazu findest Du unter <a href="https://developers.google.com/maps/documentation/embed/guide">https://developers.google.com/maps/documentation/embed/guide</a>
+  google_maps_embed_api_html: Se si desidera utilizzare la macro Gmap per visualizzare Google Maps, è necessario immettere qui la chiave API incorporata di Google Maps. Potete trovare maggiori informazioni sotto <a href="https://developers.google.com/maps/documentation/embed/guide">https://developers.google.com/maps/documentation/embed/guide</a>

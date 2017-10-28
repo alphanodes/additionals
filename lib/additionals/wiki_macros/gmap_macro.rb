@@ -13,7 +13,7 @@ module Additionals
 
     {{gmap(Munich)}} Google maps with Munich
 
-    {{gmap(Munich)}} Google maps with Munich
+    {{gmap(mode=directions, origin=Munich+Rosenheimerstr, destination=Arco)}} Direction from Munich to Arco
   DESCRIPTION
 
       macro :gmap do |_obj, args|

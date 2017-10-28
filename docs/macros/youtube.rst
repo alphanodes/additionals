@@ -10,7 +10,7 @@ Youtube wiki macro for Redmine.
     :param string video: Youtube video code, e.g. wvsboPUjrGc. This is the part after https://www.youtube.com/watch?v=
     :param int width: video width
     :param int height: video height
-    :param boot autoplay: auto play video, if true
+    :param bool autoplay: auto play video, if true
 
 Examples
 ++++++++

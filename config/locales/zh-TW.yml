@@ -142,3 +142,6 @@ zh-TW:
   wiki_pdf_header_info: "該訊息將顯示在PDF第一頁頁首。此處macros指令支援有限。"
   wiki_pdf_remove_attachments_info: "當啟用時，Wiki附件將不會顯示在PDF中。"
   wiki_pdf_remove_title_info: "當啟用時，Wiki標題訊息不會顯示在PDF中"
+  label_web_apis: Web APIs
+  label_google_maps_embed_api: Google Maps Embed API Key
+  google_maps_embed_api_html: Wenn Du das Gmap Makro verwenden willst um Google Karten darzustellen, musst Du hier Deinen Google Maps Embed API Schlüssel eintragen. Mehr Informationen dazu findest Du unter <a href="https://developers.google.com/maps/documentation/embed/guide">https://developers.google.com/maps/documentation/embed/guide</a>

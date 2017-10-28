@@ -12,6 +12,7 @@ module Additionals
       if User.current.try(:hrm_user_type_id).nil?
         tabs << { name: 'menu', partial: 'additionals/settings/menu', label: :label_settings_menu }
       end
+      tabs << { name: 'web', partial: 'additionals/settings/web_apis', label: :label_web_apis }
       tabs << { name: 'macros', partial: 'additionals/settings/macros', label: :label_settings_macros }
 
       tabs

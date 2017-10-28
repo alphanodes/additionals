@@ -9,6 +9,8 @@ Changelog
 - Cleanups deface overwrites
 - add hook for user show
 - Traditional Chinese support has been added (thanks to @archonwang)
+- Wiki macro for weather with meteoblue has been added
+- Wiki macro for google maps has been added
 
 2.0.4
 +++++

@@ -9,6 +9,7 @@ global_sidebar: ''
 global_wiki_footer: ''
 global_wiki_header: ''
 global_wiki_sidebar: ''
+google_maps_api_key: ''
 invisible_captcha: 0
 issue_assign_to_x: ''
 issue_auto_assign_role: ''

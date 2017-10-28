@@ -10,7 +10,7 @@ Vimeo wiki macro for Redmine.
     :param string video: Vimeo video code, e.g. 142849533. This is the part after https://vimeo.com/
     :param int width: video width
     :param int height: video height
-    :param boot autoplay: auto play video, if true
+    :param bool autoplay: auto play video, if true
 
 Examples
 ++++++++

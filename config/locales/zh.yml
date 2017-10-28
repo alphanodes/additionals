@@ -142,3 +142,6 @@ zh:
   wiki_pdf_header_info: 该文本快将显示在 PDF 视图中的常规 WIKI 内容之前的第一页上。此处宏命令的使用非常有限。
   wiki_pdf_remove_attachments_info:  当启用时，WIKI 附件将不会显示在PDF视图中。
   wiki_pdf_remove_title_info: 当启用时，WIKI 标题信息将不会显示在PDF视图中。
+  label_web_apis: Web APIs
+  label_google_maps_embed_api: Google Maps Embed API Key
+  google_maps_embed_api_html: Wenn Du das Gmap Makro verwenden willst um Google Karten darzustellen, musst Du hier Deinen Google Maps Embed API Schlüssel eintragen. Mehr Informationen dazu findest Du unter <a href="https://developers.google.com/maps/documentation/embed/guide">https://developers.google.com/maps/documentation/embed/guide</a>

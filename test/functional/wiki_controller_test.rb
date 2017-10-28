@@ -44,6 +44,16 @@ class WikiControllerTest < ActionController::TestCase
     assert_select 'iframe[src=?]', '//www.youtube-nocookie.com/embed/KMU0tzLwhbE'
   end
 
+  def test_show_with_meteoblue_macro
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    @page.content.text = '{{meteoblue(münchen_deutschland_2867714)}}'
+    @page.content.save!
+    get :show, project_id: 1, id: @page_name
+    assert_response :success
+    assert_template 'show'
+    assert_select 'iframe', src: %r{^https\://www\.meteoblue\.com/en/weather/widget/daily/(.*)}
+  end
+
   def test_show_with_vimeo_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{vimeo(142849533)}}'

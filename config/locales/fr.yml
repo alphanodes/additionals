@@ -142,3 +142,6 @@ fr:
   wiki_pdf_header_info: This text block will be displayed on the first page before the regular Wiki content in the PDF view. Macro use is very restricted, here.
   wiki_pdf_remove_attachments_info: When active the attached Wiki files will not be displayed in PDF view.
   wiki_pdf_remove_title_info: When active the Wiki title info will not be displayed in PDF view.
+  label_web_apis: Web APIs
+  label_google_maps_embed_api: Google Maps Embed API Key
+  google_maps_embed_api_html: Wenn Du das Gmap Makro verwenden willst um Google Karten darzustellen, musst Du hier Deinen Google Maps Embed API Schlüssel eintragen. Mehr Informationen dazu findest Du unter <a href="https://developers.google.com/maps/documentation/embed/guide">https://developers.google.com/maps/documentation/embed/guide</a>

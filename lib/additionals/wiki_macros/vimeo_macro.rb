@@ -19,14 +19,14 @@ module Additionals
       macro :vimeo do |_obj, args|
         args, options = extract_macro_options(args, :width, :height, :autoplay)
 
-        width = 640
-        height = 360
-        autoplay = false
+        width = options[:width].present? ? options[:width] : 640
+        height = options[:height].present? ? options[:height] : 360
 
-        width = options[:width] if options[:width].present?
-        height = options[:height] if options[:height].present?
-        autoplay = true if !options[:autoplay].nil? &&
-                           (options[:autoplay] == 'true' || options[:autoplay] == '1')
+        autoplay = if !options[:autoplay].nil? && Additionals.true?(options[:autoplay])
+                     true
+                   else
+                     false
+                   end
 
         if (options[:width].blank? && options[:height].present?) ||
            (options[:width].present? && options[:height].blank?) ||

@@ -7,7 +7,12 @@ module Additionals
     end
 
     def setting?(value)
-      return true if settings[value].to_i == 1
+      true?(settings[value])
+    end
+
+    def true?(value)
+      return true if value.to_i == 1 || value.to_s.casecmp('true').zero?
+      false
     end
 
     def incompatible_plugins(plugins = [], title = 'additionals')
@@ -94,8 +99,8 @@ if ActiveRecord::Base.connection.table_exists?(:settings)
     require_dependency 'additionals/hooks'
 
     # Macros
-    Additionals.load_macros(%w[calendar cryptocompare date gist group_users issue last_updated_at
-                               last_updated_by member project recently_updated reddit slideshare
+    Additionals.load_macros(%w[calendar cryptocompare date gist gmap group_users issue last_updated_at
+                               last_updated_by meteoblue member project recently_updated reddit slideshare
                                tradingview twitter user vimeo youtube])
   end
 

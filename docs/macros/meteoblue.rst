@@ -1,7 +1,7 @@
 Meteoblue
 ---------
 
-Meteoblue wiki macro for Redmine.
+Meteoblue wiki macro for Redmine. A macro to show weather forecast for a specific place. There are various configuration options for presenting the weather widget.
 
 .. function:: {{meteoblue(location [, days=DAYS, width=WIDTH, height=HEIGHT, color=BOOL, flags...])}}
 

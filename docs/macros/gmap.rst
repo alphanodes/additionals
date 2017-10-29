@@ -1,7 +1,7 @@
 Google Map
 ----------
 
-Google map wiki macro for Redmine.
+Google map wiki macro for Redmine to implement a street map. There are various configuration options for presenting the GMap.
 
 .. function:: {{gmap([q=QUERY, mode=MODE, width=WIDTH, height=HEIGHT])}}
 
@@ -15,14 +15,14 @@ Google map wiki macro for Redmine.
 Examples
 ++++++++
 
-Show widget for Munich with ``Munich``
+The simplest way is to show a widget for Munich with ``Munich``
 
 .. code-block:: smarty
 
   {{gmap(Munich)}}
 
-Show widget for direction from Munich to Arco
+Another option is to show a widget for direction for example from Munich to Arco (Italy)
 
 .. code-block:: smarty
 
-  {{gmap(mode=directions, origin=Munich+Aberlestr, destination=Arco)}}
+  {{gmap(mode=directions, origin=Munich+Implerstr, destination=Arco)}}

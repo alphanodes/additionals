@@ -47,6 +47,7 @@ module Additionals
 
     def parse_issue_url(url, comment_id = nil)
       rc = { issue_id: nil, comment_id: nil }
+      return rc if url == '' || url.is_a?(Integer) && url.zero?
       if url.to_i.zero?
         uri = URI.parse(url)
         current_uri = URI.parse(request.original_url)

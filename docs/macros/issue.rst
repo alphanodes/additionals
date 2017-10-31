@@ -3,7 +3,7 @@ Issue
 
 Issue wiki macro for Redmine.
 
-.. function:: {{issue(URL [, format=FORMAT, id=ISSUE_ID, note_id=COMMENT_ID])}}
+.. function:: {{issue(url [, format=FORMAT, id=ISSUE_ID, note_id=COMMENT_ID])}}
 
     Display link to issue with subject
 

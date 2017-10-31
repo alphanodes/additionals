@@ -31,9 +31,13 @@ class TimeEntryTest < ActiveSupport::TestCase
   end
 
   def test_create_time_entry_with_closed_issue_without_permission
+    issue = Issue.generate(project_id: 1, subject: 'closed issue')
+    issue.status = IssueStatus.where(is_closed: true).first
+    issue.save
+
     entry = TimeEntry.new(project: Project.find(1), user: User.find(1), activity: TimeEntryActivity.first, hours: 100)
     entry.spent_on = '2010-01-01'
-    entry.issue = Issue.create(project_id: 1, tracker_id: 1, author_id: 1, status_id: 5, subject: 'closed issue')
+    entry.issue = issue
     assert entry.issue.closed?
     assert !entry.valid?
     assert !entry.save

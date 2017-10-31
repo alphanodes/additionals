@@ -30,7 +30,6 @@ module Additionals
     def render_issue_with_comment(issue, content, comment_id)
       comment = issue.journals
                      .where(private_notes: 0)
-                     .where.not(notes: '')
                      .offset(comment_id - 1).limit(1).first.try(:notes)
       if comment.blank?
         comment = 'N/A'

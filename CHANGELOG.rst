@@ -11,6 +11,7 @@ Changelog
 - Traditional Chinese support has been added (thanks to @archonwang)
 - Wiki macro for weather with meteoblue has been added
 - Wiki macro for google maps has been added
+- Wiki macro for issues now supports display a comment and detect issue id and comment id from URL
 
 2.0.4
 +++++

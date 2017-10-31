@@ -18,6 +18,57 @@ module Additionals
       tabs
     end
 
+    def render_issue_macro_link(issue, text, comment_id = nil)
+      content = link_to(text, issue_url(issue, only_path: true), class: issue.css_classes)
+      if comment_id.nil?
+        content
+      else
+        render_issue_with_comment(issue, content, comment_id)
+      end
+    end
+
+    def render_issue_with_comment(issue, content, comment_id)
+      comment = issue.journals
+                     .where(private_notes: 0)
+                     .where.not(notes: '')
+                     .offset(comment_id - 1).limit(1).first.try(:notes)
+      if comment.blank?
+        comment = 'N/A'
+        comment_link = comment_id
+      else
+        comment_link = link_to(comment_id, issue_url(issue, only_path: true, anchor: "note-#{comment_id}"))
+      end
+
+      content_tag :div, class: 'issue-macro box' do
+        content_tag(:div, safe_join([content, '-', l(:label_comment), comment_link], ' '), class: 'issue-macro-subject') +
+          content_tag(:div, textilizable(comment), class: 'issue-macro-comment journal has-notes')
+      end
+    end
+
+    def parse_issue_url(url, comment_id = nil)
+      rc = { issue_id: nil, comment_id: nil }
+      if url.to_i.zero?
+        uri = URI.parse(url)
+        current_uri = URI.parse(request.original_url)
+        return rc unless uri.host == current_uri.host
+        s_pos = uri.path.rindex('/issues/')
+        id_string = uri.path[s_pos + 8..-1]
+        e_pos = id_string.index('/')
+        rc[:issue_id] = if e_pos.nil?
+                          id_string
+                        else
+                          id_string[0..e_pos - 1]
+                        end
+        # check for comment_id
+        if comment_id.nil? && uri.fragment.present? && uri.fragment[0..4] == 'note-'
+          rc[:comment_id] = uri.fragment[5..-1].to_i
+        end
+      else
+        rc[:issue_id] = url
+      end
+      rc
+    end
+
     def additionals_library_load(module_name)
       method = "additionals_load_#{module_name}"
       send(method)

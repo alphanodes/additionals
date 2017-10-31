@@ -1,7 +1,7 @@
 require File.expand_path('../../test_helper', __FILE__)
 
 # Additionals integration tests
-class CommonViewsTest < ActiveRecord::VERSION::MAJOR >= 4 ? Redmine::ApiTest::Base : ActionController::IntegrationTest
+class CommonViewsTest < Redmine::IntegrationTest
   fixtures :projects,
            :users,
            :roles,

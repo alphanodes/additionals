@@ -6,18 +6,24 @@ module Additionals
   Create a link to issue with the subject of this issue.
        Syntax:
 
-       {{issue(ID [, format=USER_FORMAT)}}
-       ID is issue id
+       {{issue(URL [, format=USER_FORMAT, id=ID, note_id=NOTE_ID)}}
+       URL is URL to issue
        USER_FORMATS
        - text
        - short
        - link (default)
        - full
+       ID is issue
+       NOTE_ID is note id, if you want to display it
 
        Examples:
 
        {{issue(1)}}
-       ...Link to issue with subject and id
+       ...Link to issue with id and subject
+       {{issue(http://myredmine.url/issues/1)}}
+       ...Link to issue with id and subject
+       {{issue(http://myredmine.url/issues/1#note-3)}}
+       ...Link to issue with id and subject and display comment 3
        {{issue(1, format=short)}}
        ...Link to issue with subject (without id)
        {{issue(1, format=text)}}
@@ -27,9 +33,19 @@ module Additionals
    DESCRIPTION
 
       macro :issue do |_obj, args|
-        args, options = extract_macro_options(args, :format)
-        raise 'The correct usage is {{issue(<issue_id>, format=FORMAT)}}' if args.empty?
-        issue_id = args[0]
+        args, options = extract_macro_options(args, :id, :note_id, :format)
+        if args.empty? && options[:id].blank?
+          raise 'The correct usage is {{issue(<url>, format=FORMAT, id=INT, note_id=INT)}}'
+        end
+
+        comment_id = options[:note_id].to_i if options[:note_id].present?
+        issue_id = if options[:id].blank?
+                     info = parse_issue_url(args[0], comment_id)
+                     comment_id = info[:comment_id] if comment_id.nil?
+                     info[:issue_id]
+                   else
+                     options[:id]
+                   end
 
         issue = Issue.find_by(id: issue_id)
         return 'N/A' if issue.nil? || !issue.visible?
@@ -40,11 +56,11 @@ module Additionals
                when 'text', 'short'
                  issue.subject
                else
-                 "#{issue.subject} ##{issue.id}"
+                 "##{issue.id} #{issue.subject}"
                end
 
         if options[:format].blank? || options[:format] != 'text'
-          link_to(text, issue_url(issue, only_path: true), class: issue.css_classes)
+          render_issue_macro_link(issue, text, comment_id)
         else
           text
         end

@@ -5,12 +5,12 @@ Issue wiki macro for Redmine.
 
 .. function:: {{issue(url [, format=FORMAT, id=ISSUE_ID, note_id=COMMENT_ID])}}
 
-    Display link to issue with subject
+    Display a link to issue with subject
 
-    :param string url: URL to issue with issue id (and note_id)
+    :param string url: URL to an issue with issue id (and note_id)
     :param string format: custom format of link name. Possible values: full, text, short or link. If not specified 'link' is used as default.
-    :param int id: issue id (if this is defined, it will be always used - and not from URL)
-    :param int note_id: comment id (if this is defined, it will be always used - and not from URL)
+    :param int id: issue id (if this is defined, it will be always used prioritized - before the parameter for URL)
+    :param int note_id: comment id (if this is defined, it will be always used prioritized - before the parameter for URL)
 
 Examples
 ++++++++
@@ -21,7 +21,7 @@ Link to issue with id and subject
 
   {{issue(1)}}
 
-Link to issue with id and subject
+Link to issue with id and subject by using the URL
 
 .. code-block:: smarty
 

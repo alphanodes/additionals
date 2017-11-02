@@ -5,7 +5,7 @@ Issue wiki macro for Redmine.
 
 .. function:: {{issue(url [, format=FORMAT, id=ISSUE_ID, note_id=COMMENT_ID])}}
 
-    Display a link to issue with subject
+    Display a link to issue with subject (optional with an issue note)
 
     :param string url: URL to an issue with issue id (and note_id)
     :param string format: custom format of link name. Possible values: full, text, short or link. If not specified 'link' is used as default.

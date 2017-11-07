@@ -34,6 +34,16 @@ module AdditionalsTagHelper
     content_tag(:div, safe_join(s, sep), class: 'tags')
   end
 
+  # plain list of tags
+  def render_additionals_tags(tags, sep = ' ')
+    s = if tags.blank?
+          ['']
+        else
+          tags.map(&:name)
+        end
+    s.join(sep)
+  end
+
   def additionals_tag_links(tag_list, options = {})
     return unless tag_list
 

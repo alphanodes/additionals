@@ -259,7 +259,11 @@ module Additionals
         additionals_include_js('moment-with-locales.min') +
         additionals_include_js('angular.min') +
         additionals_include_js('angular-moment.min') +
+        additionals_include_js('ElementQueries') +
+        additionals_include_js('ResizeSensor') +
+        additionals_include_js('angular-native-dragdrop.min') +
         additionals_include_js('angular-ui-tree.min') +
+        additionals_include_js('jsplumb.min') +
         additionals_include_js('angular-gantt.min')
     end
 

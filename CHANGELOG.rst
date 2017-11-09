@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.0.6-dev - no version bump / unreleased
++++++++++
+
+- Updated angularjs libraries to v2.0.0-rc.1
+
 2.0.5
 +++++
 

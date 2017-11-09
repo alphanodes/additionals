@@ -260,8 +260,7 @@ module Additionals
         additionals_include_js('angular.min') +
         additionals_include_js('angular-moment.min') +
         additionals_include_js('angular-ui-tree.min') +
-        additionals_include_js('angular-gantt.min') +
-        additionals_include_js('angular-gantt-plugins.min')
+        additionals_include_js('angular-gantt.min')
     end
 
     def additionals_load_nvd3

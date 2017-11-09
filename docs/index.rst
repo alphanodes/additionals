@@ -128,7 +128,7 @@ Don't worry, if you only need a subset of the provided libraries. If you do not 
 
 It provides :
 
-* `angular-gantt 1.2.13 <https://github.com/angular-gantt/angular-gantt>`_
+* `angular-gantt 2.0.0rc1 <https://github.com/angular-gantt/angular-gantt>`_
 * `bootstrap 3.3.7 <https://getbootstrap.com>`_
 * `d3 3.5.16 <https://d3js.org/>`_
 * `d3plus 1.9.8 <http://d3plus.org/>`_

@@ -196,9 +196,14 @@ Additional permissions
 
 The following permissions are provided by the plugin and must be configured in the administration area ``Roles and permissions`` for the plugin functions to make sure it's working properly.
 
-* **Hide in member box**. This permission hides members of the selected role in the member box of each project. Project members of other roles will still be listed. For example: You don't want others to catch a glimpse of your development team (Role: Development). So activate the role "Developer" to hide the list of your team members assigned to this role in this box. This function is also useful if your member box is too crowded.
-* "Show hidden roles in member box". In case you have hidden roles in a project that should not be displayed you can give to some special roles the permission to display the members.
-* "Edit issue author". This permission will always record any changes made to the issue author. You can change the author only in the issue edit mode.
-* "Edit closed issues". Set this option to those roles you don't want to edit closed issues. Normally a closed issue should not be edited anymore.
-* "Set author of new issues". This permission should be set carefully, because in case you allow this, there is no history entry set for this. You will never know if the author has been originally someone else. Normally you don't want this.
-* "Log time to closed issues". Our plugin does not allow time logs to closed issues. In case you still want to allow your members to log time to closed issues, you need to change the permission here.
+**Hide in member box**. This permission hides members of the selected role in the member box of each project. Project members of other roles will still be listed. For example: You don't want others to catch a glimpse of your development team (Role: Development). So activate the role "Developer" to hide the list of your team members assigned to this role in this box. This function is also useful if your member box is too crowded.
+
+**Show hidden roles in member box**. In case you have hidden roles in a project that should not be displayed you can give to some special roles the permission to display the members however.
+
+**Edit issue author**. This permission will always record any changes made to the issue author. You can change the author only in the issue edit mode.
+
+**Edit closed issues**. Set this option to those roles you don't want to edit closed issues. Normally a closed issue should not be edited anymore.
+
+**Set author of new issues**. This permission should be set carefully, because in case you allow this, there is no history entry set for this. You will never know if the author has been originally someone else. Normally you don't want this.
+
+**Log time to closed issues**. Our plugin does not allow time logs to closed issues. In case you still want to allow your members to log time to closed issues, you need to change the permission here.

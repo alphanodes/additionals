@@ -196,7 +196,7 @@ Additional permissions
 
 The following permissions are provided by the plugin and must be configured in the administration area ``Roles and permissions`` for the plugin functions to make sure it's working properly.
 
-* **Hide in member box**. This permission hides members of the selected role in the member box of each project.
+* **Hide in member box**. This permission hides members of the selected role in the member box of each project. Project members of other roles will still be listed. For example: You don't want others to catch a glimpse of your development team (Role: Development). So activate the role "Developer" to hide the list of your team members assigned to this role in this box. This function is also useful if your member box is too crowded.
 * "Show hidden roles in member box". In case you have hidden roles in a project that should not be displayed you can give to some special roles the permission to display the members.
 * "Edit issue author". This permission will always record any changes made to the issue author. You can change the author only in the issue edit mode.
 * "Edit closed issues". Set this option to those roles you don't want to edit closed issues. Normally a closed issue should not be edited anymore.

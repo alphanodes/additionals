@@ -310,11 +310,17 @@ module Additionals
       safe_join(s, ' ')
     end
 
-    def user_with_avatar(user, size = 14)
+    def user_with_avatar(user, options = {})
       return if user.nil?
+      options[:size] = 14 if options[:size].nil?
+      options[:class] = 'additionals-avatar' if options[:class].nil?
       s = []
-      s << avatar(user, size: size)
-      s << link_to_user(user)
+      s << avatar(user, options)
+      s << if options[:no_link]
+             user.name
+           else
+             link_to_user(user)
+           end
       safe_join(s)
     end
 

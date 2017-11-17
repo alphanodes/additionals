@@ -218,3 +218,5 @@ ul.tagit li.tagit-choice.remove {
 ul.tagit input[type="text"] {
   background: transparent;
 }
+
+img.additionals-avatar { margin-right: 0.25em; }

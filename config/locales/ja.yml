@@ -111,7 +111,7 @@ ja:
   label_wiki_pdf_remove_attachments: Remove attachments from PDF view
   label_wiki_pdf_remove_title: Remove Wiki title from PDF view
   label_yearly: yearly
-  legacy_smiley_support_info_html: 'Convert Smileys and Emoji symbols. Activate this option only if Smileys or Emoji are manually typed in by the use of code (e.g. :kiss:). If you use Unicode-Emoji this option should be deactivated. For more info on Emoji-Browser support read <a href="http://caniemoji.com/" target="_blank">http://caniemoji.com/</a>. Have a look at <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> for available Emoji-Codes  you can use. <strong>Restart the application server</strong>, in order to activate the settings.'
+  legacy_smiley_support_info_html: 'Convert Smileys and Emoji symbols. Activate this option only if Smileys or Emoji are manually typed in by the use of code (e.g. :kiss:). If you use Unicode-Emoji this option should be deactivated. For more info on Emoji-Browser support read <a href="http://caniemoji.com/" target="_blank">http://caniemoji.com/</a>. Have a look at <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> for available Emoji-Codes you can use. <strong>Restart the application server</strong>, in order to activate the settings.'
   menu_roles_info: "Only members of selected roles will see this menu entry."
   new_ticket_message_info: "新規チケットを登録したいときに表示されるメモ書き。例えば、チケット入力のルールや承認規程を掲載する目的にでも使えます。これらの設定は全プロジェクトで有効です。"
   overview_bottom_info: "Here you can add your text, which will be shown on the overview page at the bottom. For example you can link to a wiki page."

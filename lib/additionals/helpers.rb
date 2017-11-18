@@ -200,11 +200,18 @@ module Additionals
       s
     end
 
-    def auto_complete_select_entries(name, type, obj, options = {})
+    def auto_complete_select_entries(name, type, option_tags, options = {})
+      unless option_tags.is_a?(String) || option_tags.blank?
+        # if option_tags is not an array, it should be an object
+        option_tags = options_for_select([[option_tags.try(:name), option_tags.try(:id)]], option_tags.try(:id))
+      end
       s = []
+      s << hidden_field_tag("#{name}[]", '') if options[:multiple]
       s << select_tag(name,
-                      options_for_select([[obj.try(:name), obj.try(:id)]], obj.try(:id)),
-                      include_blank: options[:include_blank], class: "#{type}-relation")
+                      option_tags,
+                      include_blank: options[:include_blank],
+                      multiple: options[:multiple],
+                      disabled: options[:disabled], class: "#{type}-relation")
       s << render(layout: false,
                   partial: 'additionals/select2_ajax_call.js',
                   formats: [:js],

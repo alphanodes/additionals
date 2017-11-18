@@ -216,7 +216,7 @@ module Additionals
                   partial: 'additionals/select2_ajax_call.js',
                   formats: [:js],
                   locals: { field_id: sanitize_to_id(name),
-                            ajax_url: send("auto_complete_#{type}_path", project_id: @project),
+                            ajax_url: send("auto_complete_#{type}_path", project_id: @project, user_id: options[:user_id]),
                             options: options })
       safe_join(s)
     end

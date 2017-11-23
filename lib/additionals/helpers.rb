@@ -263,6 +263,10 @@ module Additionals
       additionals_include_js('additionals_to_select2')
     end
 
+    def additionals_load_observe_field
+      additionals_include_js('additionals_observe_field')
+    end
+
     def additionals_load_delay_ajax_indicator
       additionals_include_js('additionals_delay_ajax_indicator')
     end

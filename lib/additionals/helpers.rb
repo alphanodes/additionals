@@ -222,11 +222,11 @@ module Additionals
     end
 
     def render_live_search(q, placeholder)
-      s = [content_tag(:span, class: 'live_search') do
+      s = [content_tag(:span, class: 'additionals-live-search') do
              concat text_field_tag(:search,
                                    q,
                                    autocomplete: 'off',
-                                   class: 'live_search_field',
+                                   class: 'live-search-field',
                                    placeholder: placeholder)
            end]
       s << render(partial: 'additionals/live_search_ajax_call.js', layout: false, formats: [:js])

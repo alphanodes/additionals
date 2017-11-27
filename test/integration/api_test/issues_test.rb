@@ -60,7 +60,7 @@ class Redmine::ApiTest::IssuesTest < Redmine::ApiTest::Base
            params: payload,
            headers: { 'CONTENT_TYPE' => 'application/xml' }.merge(credentials('jsmith'))
     end
-    issue = Issue.order('id DESC').first
+    issue = Issue.order(id: :desc).first
     assert_equal 1, issue.project_id
     assert_nil issue.assigned_to_id
     assert_equal 'API test', issue.subject
@@ -92,7 +92,7 @@ class Redmine::ApiTest::IssuesTest < Redmine::ApiTest::Base
            headers: { 'CONTENT_TYPE' => 'application/xml' }.merge(credentials('jsmith'))
     end
 
-    issue = Issue.order('id DESC').first
+    issue = Issue.order(id: :desc).first
     assert_equal 1, issue.project_id
     assert_equal 2, issue.assigned_to_id
     assert_equal 'API test', issue.subject

@@ -49,7 +49,7 @@ class AccountControllerTest < ActionController::TestCase
                                 mail: 'register@example.com' }
         assert_redirected_to '/my/account'
       end
-      user = User.order('id DESC').first
+      user = User.order(id: :desc).first
       assert_equal 'register', user.login
       assert_equal 'John', user.firstname
       assert_equal 'Doe', user.lastname

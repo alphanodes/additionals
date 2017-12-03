@@ -8,6 +8,11 @@ Iframe macro for Redmine.
     Include an Iframe into Redmine. If your Redmine is running with HTTPS, only iframes with
     HTTPS are accepted by this macro.
 
+    :param string url: URL to website
+    :param int width: width (default is 100%)
+    :param int height: height (default is 485)
+    :param bool with_link: true or false (if link to url should be displayed below iframe)
+
     Note 1: you can only include an iframe, if the website of the iframe url does allow it. If not, you
     will get a empty page with the HTTP header info:
 
@@ -15,10 +20,6 @@ Iframe macro for Redmine.
 
     Note 2: Your Redmine webserver can also block your iframe includion, check your `Content Security Policy (CSP) <https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP>`_
 
-    :param string url: URL to website
-    :param int width: width (default is 100%)
-    :param int height: height (default is 485)
-    :param bool with_link: true or false (if link to url should be displayed below iframe)
 
 Examples
 ++++++++

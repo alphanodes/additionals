@@ -1,12 +1,13 @@
 Changelog
 =========
 
-2.0.6-dev - no version bump / unreleased
-+++++++++
+2.0.6
++++++
 
 - add rake tasks: drop_settings, setting_get and setting_set
 - Updated nvd3 library to 1.8.6
 - Updated angularjs libraries to v2.0.0-rc.1
+- Wiki iframe macro integration has been added
 
 2.0.5
 +++++

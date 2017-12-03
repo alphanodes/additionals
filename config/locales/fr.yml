@@ -41,6 +41,7 @@ fr:
   global_wiki_footer_info: 'Enter a project wide wiki footer here. In case a project specific wiki footer is used by "Wiki Extensions", this will be preferably displayed instead.'
   global_wiki_header_info: 'Enter a project wide wiki header here. In case a project specific wiki header is used by "Wiki Extensions", this will be preferably displayed instead.'
   global_wiki_sidebar_info: 'Enter a project wide available text message for your wiki sidebar, here. This sidebar text will be displayed at the wiki pages only. Use this space for Macros like "Last changed pages" for example. In case a project specific sidebar is used (wiki page), this will be preferably displayed in the sidebar instead.'
+  google_maps_embed_api_html: Si vous souhaitez utiliser la macro Gmap pour afficher les cartes de Goole, veuillez implémenter votre clé API Google Maps ici. Ensuite, vous pouvez utiliser la macro et divers paramètres. Pour plus d'informations sur l'utilisation des paramètres, voir <a href="https://developers.google.com/maps/documentation/embed/guide">https://developers.google.com/maps/documentation/embed/guide</a>. La macro Gmap ne fonctionne qu'en combinaison avec la clé intégrée.
   invisible_captcha_info_html: In case this option is activated an <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection is activated for the registration page of new users. This function is only available, if you enabled self-registration, too.
   label_account_login: "Texte pour la page de login"
   label_add_go_to_top: 'Add "Go to top" link'
@@ -61,6 +62,7 @@ fr:
   label_global_wiki_header: "Project wide wiki header"
   label_global_wiki_sidebar: "Global wiki sidebar"
   label_go_to_top: "Go to top"
+  label_google_maps_embed_api: Google Maps Embed API Key
   label_hour: Heure
   label_icon_color: Icon color
   label_invisible_captcha: SPAM protection for registration
@@ -71,6 +73,7 @@ fr:
   label_menu_entry: "Menu item"
   label_monthly: mensuel
   label_new_ticket_message: "Note for new issues"
+  label_open_in_new_windows: Open in new windows
   label_optional: "optional"
   label_overview_bottom: "Page de sommaire, fond"
   label_overview_page: "Page de sommaire"
@@ -106,6 +109,7 @@ fr:
   label_twitter_hashtag: Twitter hashtag
   label_uptime: Uptime
   label_user_list: "User list"
+  label_web_apis: Web APIs
   label_weekly: hebdomadaire
   label_wiki_pdf_header: Wiki PDF header
   label_wiki_pdf_remove_attachments: Remove attachments from PDF view
@@ -142,6 +146,3 @@ fr:
   wiki_pdf_header_info: This text block will be displayed on the first page before the regular Wiki content in the PDF view. Macro use is very restricted, here.
   wiki_pdf_remove_attachments_info: When active the attached Wiki files will not be displayed in PDF view.
   wiki_pdf_remove_title_info: When active the Wiki title info will not be displayed in PDF view.
-  label_web_apis: Web APIs
-  label_google_maps_embed_api: Google Maps Embed API Key
-  google_maps_embed_api_html: Si vous souhaitez utiliser la macro Gmap pour afficher les cartes de Goole, veuillez implémenter votre clé API Google Maps ici. Ensuite, vous pouvez utiliser la macro et divers paramètres. Pour plus d'informations sur l'utilisation des paramètres, voir <a href="https://developers.google.com/maps/documentation/embed/guide">https://developers.google.com/maps/documentation/embed/guide</a>. La macro Gmap ne fonctionne qu'en combinaison avec la clé intégrée.

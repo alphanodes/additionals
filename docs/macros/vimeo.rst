@@ -1,5 +1,5 @@
 Vimeo
--------
+-----
 
 Vimeo wiki macro for Redmine.
 

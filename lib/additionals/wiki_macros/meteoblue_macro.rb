@@ -1,4 +1,4 @@
-# Gist wiki macros
+# meteoblue wiki macros
 module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do

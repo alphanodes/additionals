@@ -96,7 +96,26 @@ Features
 * welcome text for login page
 * global sidebar content support
 * set info message above new ticket (e.g. for guidelines)
-* Wiki macros for: date, Gihub gist, gmap, group_users, issues, meteoblue, members, projects slideshare, twitter, reddit, tradingview, cryptocompare, user, youtube and vimeo
+* wiki macros for:
+
+  * cryptocompare
+  * date,
+  * gihub gist
+  * gmap
+  * group_users
+  * iframe
+  * issues
+  * members
+  * meteoblue
+  * projects
+  * reddit
+  * slideshare
+  * tradingview
+  * twitter
+  * user
+  * vimeo
+  * youtube
+
 * option to remove "my page" from top menu
 * customize "Help" url in top menu
 * customize top menu items
@@ -104,11 +123,11 @@ Features
 * open external urls in new window
 * smiley/emoji legacy support
 * anonymize referrer for external urls
-* Hide role in project memberbox
-* Change issue author
+* hide role in project memberbox
+* change issue author
 * spam protection on registration form
-* Add involved issue users as watcher automatically
-* Configurable issue rules
+* add involved issue users as watcher automatically
+* configurable issue rules
 
   * closing issue with open sub issues
   * change assigned_to automatically, if issue status changes

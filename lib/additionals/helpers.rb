@@ -370,20 +370,6 @@ module Additionals
       safe_join(s)
     end
 
-    def query_default_sort(query, fall_back_sort)
-      criteria = query.sort_criteria.any? ? query.sort_criteria : fall_back_sort
-      return unless criteria.is_a?(Array)
-      sql = []
-      criteria.each do |sort|
-        name = sort[0]
-        field = []
-        field << query.queried_class.table_name if name == 'name'
-        field << name
-        sql << "#{field.join('.')} #{sort[1].upcase}"
-      end
-      sql.join(', ')
-    end
-
     def options_for_menu_select(active)
       options_for_select({ l(:button_hide) => '',
                            l(:label_top_menu) => 'top',

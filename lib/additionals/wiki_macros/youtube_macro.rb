@@ -28,9 +28,7 @@ module Additionals
                      false
                    end
 
-        if (options[:width].blank? && options[:height].present?) ||
-           (options[:width].present? && options[:height].blank?) ||
-           args.empty?
+        if args.empty?
           raise 'The correct usage is {{youtube(<video key>[, width=x, height=y])}}'
         end
 

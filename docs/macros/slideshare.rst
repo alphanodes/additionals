@@ -1,5 +1,5 @@
 Slideshare
--------
+----------
 
 Slideshare wiki macro for Redmine.
 

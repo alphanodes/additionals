@@ -10,6 +10,7 @@ Calendar wiki macros for Redmine.
     :param int year: year to use, e.g. 2015
     :param int month: month to use, e.g. 4
     :param bool show_weeks: show week numbers if true
+    :param date select: date or dates, which should be highlighted
 
 Examples
 ++++++++
@@ -31,6 +32,12 @@ show calendar with week numbers
 .. code-block:: smarty
 
   {{calendar(show_weeks=true)}}
+
+preselect a date
+
+.. code-block:: smarty
+
+  {{calendar(select=2015-07-12)}}
 
 preselect dates and show week numbers
 

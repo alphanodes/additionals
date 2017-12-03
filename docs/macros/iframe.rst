@@ -11,7 +11,10 @@ Iframe macro for Redmine.
     Note: you can only include an iframe, if the website of the iframe url does allow it. If not, you
     will get a empty page with the HTTP header info:
 
-    ``Load denied by X-Frame-Options: https://alphanodes.com/slides/redmine-cheat-sheet-macros.html#/ does not permit cross-origin framing.``
+    ``Load denied by X-Frame-Options: https://your-target-url.com/ does not permit cross-origin framing.``
+
+    Note 2: Your Redmine webserver can also block your iframe includion, check your
+           `Content Security Policy (CSP) <https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP>`_
 
     :param string url: URL to website
     :param int width: width (default is 100%)

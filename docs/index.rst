@@ -153,7 +153,7 @@ It provides :
 * `d3plus 1.9.8 <http://d3plus.org/>`_
 * `jQuery TagIt 2.0 <http://aehlke.github.io/tag-it/>`_
 * `FontAwesome 4.7.0 <http://fontawesome.io/>`_
-* `nvd3 1.8.5 <https://github.com/novus/nvd3>`_
+* `nvd3 1.8.6 <https://github.com/novus/nvd3>`_
 * `ZeroClipboard 2.2.0 <https://github.com/zeroclipboard/zeroclipboard>`_
 
 And a set of various Rails helper methods (see below).

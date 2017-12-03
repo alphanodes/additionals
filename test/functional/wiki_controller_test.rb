@@ -75,6 +75,16 @@ class WikiControllerTest < ActionController::TestCase
     assert_select 'iframe[src=?]', '//www.slideshare.net/slideshow/embed_code/57941706'
   end
 
+  def test_show_with_iframe_macro
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    @page.content.text = '{{iframe(https://www.redmine.org/)}}'
+    @page.content.save!
+    get :show, project_id: 1, id: @page_name
+    assert_response :success
+    assert_template 'show'
+    assert_select 'iframe[src=?]', 'https://www.redmine.org/'
+  end
+
   def test_show_with_twitter_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{twitter(alphanodes)}}'

@@ -2,3 +2,4 @@ assets/javascripts/*
 !assets/javascripts/additionals*
 !assets/javascripts/noreferrer.js
 !assets/javascripts/tooltips.js
+coverage/

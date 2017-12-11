@@ -42,13 +42,16 @@ class GlobalHelperTest < ActionView::TestCase
   end
 
   def test_font_awesome_icon
-    html = font_awesome_icon('fa-car', class: 'test')
-    assert_include 'class="fa fa-car test"', html
+    html = font_awesome_icon('fas-cloud_upload_alt', class: 'test')
+    assert_include 'class="fas fa-cloud-upload-alt test"', html
 
-    html = font_awesome_icon('fa-car', pre_text: 'Testing')
+    html = font_awesome_icon('fab-xing', class: 'test')
+    assert_include 'class="fab fa-xing test"', html
+
+    html = font_awesome_icon('fas-cloud_upload_alt', pre_text: 'Testing')
     assert_include 'Testing <span', html
 
-    html = font_awesome_icon('fa-car', post_text: 'Testing')
+    html = font_awesome_icon('fas-cloud_upload_alt', post_text: 'Testing')
     assert_include '</span> Testing', html
   end
 

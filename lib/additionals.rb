@@ -52,14 +52,6 @@ module Additionals
                                                             'settings.yml'))).result) || {}
       data.symbolize_keys
     end
-
-    def load_fontawesome_icons
-      data = YAML.safe_load(ERB.new(IO.read(Rails.root.join('plugins',
-                                                            'additionals',
-                                                            'config',
-                                                            'fontawesome_icons.yml'))).result) || {}
-      data['icons']
-    end
   end
 end
 
@@ -102,6 +94,12 @@ if ActiveRecord::Base.connection.table_exists?(:settings)
     Additionals.load_macros(%w[calendar cryptocompare date gist gmap group_users iframe issue
                                last_updated_at last_updated_by meteoblue member project recently_updated
                                reddit slideshare tradingview twitter user vimeo youtube])
+  end
+
+  Rails.application.config.after_initialize do
+    FONTAWESOME_ICONS = { fab: AdditionalsFontAwesome.load_icons(:fab),
+                          far: AdditionalsFontAwesome.load_icons(:far),
+                          fas: AdditionalsFontAwesome.load_icons(:fas) }.freeze
   end
 
   # include deface overwrites

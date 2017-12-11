@@ -3,12 +3,12 @@ var oldAdditionalsToggleFilter = window.toggleFilter;
 window.toggleFilter = function(field) {
   oldAdditionalsToggleFilter(field);
   return additionals_transform_to_select2(field);
-}
+};
 
 function filterAdditionalsFormatState (opt) {
   var $opt = $('<span>' + opt.name_with_icon + '</span>');
   return $opt;
-};
+}
 
 function additionals_transform_to_select2(field){
   field_format = availableFilters[field]['field_format'];

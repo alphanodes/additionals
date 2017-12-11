@@ -1,13 +1,11 @@
-/* ICONS */
-#admin-menu a.additionals::before {
-  font-size: 1.3em;
-  padding-right: 4px;
-}
+/* stylelint-disable font-family-no-missing-generic-family-keyword */
 
 #admin-menu a.additionals::before {
-  font-family: FontAwesome;
-  font-weight: normal;
-  content: "\f085"; /* fa-cogs */
+  font-family: Font Awesome\ 5 Free;
+  font-size: 1.1em;
+  font-weight: 900;
+  content: "\f085"; /* fas fa-cogs */
+  padding-right: 4px;
 }
 
 #admin-menu a.additionals {
@@ -158,17 +156,17 @@ ul.tags {
   padding: 0;
 }
 
-span.tag-label-color {
+span.additionals-tag-label-color {
   display: inline-block;
   margin-bottom: 5px !important;
 }
 
-td.tags span.tag-label-color {
+td.tags span.additionals-tag-label-color {
   display: inline-block;
   margin: 2px !important;
 }
 
-.tag-label-color {
+.additionals-tag-label-color {
   padding: 2px 4px;
   color: #fff;
   text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.5);
@@ -177,11 +175,11 @@ td.tags span.tag-label-color {
   border-radius: 2px;
 }
 
-.tag-label-color a::before {
-  font-family: FontAwesome;
-  font-size: 1em;
-  font-weight: normal;
-  content: "\f02b"; /* fa-tag */
+.additionals-tag-label-color a::before {
+  font-family: Font Awesome\ 5 Free;
+  font-size: 0.9em;
+  font-weight: 900;
+  content: "\f02b"; /* fas fa-tag */
   padding-right: 3px;
   color: #fff;
 }
@@ -198,7 +196,7 @@ div.tags .tag-pass-7 { font-size: 1.4em; }
 div.tags .tag-pass-8 { font-size: 1.5em; }
 
 .tag-count { font-size: 0.75em; }
-.tag-label-color a { color: white; }
+.additionals-tag-label-color a { color: white; }
 
 .tagit.ui-widget {
   font-size: 1em;

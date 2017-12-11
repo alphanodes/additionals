@@ -73,7 +73,7 @@ module AdditionalsTagHelper
     else
       content_tag('span',
                   link_to(safe_join(tag_name), additionals_tag_url(tag.name)),
-                  class: 'tag-label-color',
+                  class: 'additionals-tag-label-color',
                   style: "background-color: #{additionals_tag_color(tag.name)}")
     end
   end

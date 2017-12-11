@@ -260,7 +260,7 @@ module Additionals
     end
 
     def additionals_load_font_awesome
-      additionals_include_css('font-awesome.min')
+      additionals_include_css('fontawesome-all.min')
     end
 
     def additionals_load_angular_gantt
@@ -314,13 +314,6 @@ module Additionals
       additionals_include_js('zeroclipboard_min')
     end
 
-    def font_awesome_get_from_info
-      s = []
-      s << l(:label_set_icon_from)
-      s << link_to('http://fontawesome.io/icons/', 'http://fontawesome.io/icons/', class: 'external')
-      safe_join(s, ' ')
-    end
-
     def user_with_avatar(user, options = {})
       return if user.nil?
       options[:size] = 14 if options[:size].nil?
@@ -335,21 +328,31 @@ module Additionals
       safe_join(s)
     end
 
-    # obsolete, because it conflicts with redmine_bootstrap_kit
-    def fa_icon(name, options = {})
-      font_awesome_icon(name, options)
+    def fontawesome_info_url
+      s = []
+      s << l(:label_set_icon_from)
+      s << link_to('https://fontawesome.com/icons?m=free', 'https://fontawesome.com/icons?m=free', class: 'external')
+      safe_join(s, ' ')
     end
 
+    # name = TYPE-FA_NAME, eg. fas-car
+    #                          fas-cloud_upload_alt
+    #                          far-id_card
+    #                          fab-font_awesome
+    # options = class
+    #           pre_text
+    #           post_text
+    #           title
     def font_awesome_icon(name, options = {})
+      info = AdditionalsFontAwesome.value_info(name)
+      return '' if info.blank?
       post_text = ''
-      classes = ['fa']
-      classes << name
 
       options['aria-hidden'] = 'true'
       options[:class] = if options[:class].present?
-                          classes.join(' ') + ' ' + options[:class]
+                          info[:classes] + ' ' + options[:class]
                         else
-                          classes.join(' ')
+                          info[:classes]
                         end
 
       s = []

@@ -5,10 +5,10 @@ $('#<%= field_id %>').select2({
       url: '<%= ajax_url %>',
       dataType: 'json',
       delay: 250,
-      data: function (params) {
+      data: function(params) {
         return { q: params.term };
       },
-      processResults: function (data, params) {
+      processResults: function(data, params) {
         return { results: data };
       },
       cache: true

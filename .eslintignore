@@ -1,6 +1,3 @@
-assets/javascripts/angular.js
-assets/stylesheets/angular-gantt-1.3.3/*
-assets/javascripts/angular-gantt-1.3.3/*
 assets/javascripts/*
 !assets/javascripts/additionals*
 !assets/javascripts/noreferrer.js

@@ -32,9 +32,7 @@ module Additionals
         target = name.constantize
         patch = "#{plugin_id.camelize}::Patches::#{name}Patch".constantize
 
-        unless target.included_modules.include?(patch)
-          target.send(:include, patch)
-        end
+        target.send(:include, patch) unless target.included_modules.include?(patch)
       end
     end
 

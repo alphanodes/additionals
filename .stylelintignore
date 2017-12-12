@@ -1,0 +1,5 @@
+coverage/
+assets/stylesheets/angular-*
+assets/stylesheets/bootstrap-*
+assets/stylesheets/*.min.css
+assets/stylesheets/jquery.tagit.css

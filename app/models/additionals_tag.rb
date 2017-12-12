@@ -29,9 +29,7 @@ class AdditionalsTag
                        else
                          Project.where(Project.allowed_to_condition(User.current, permission)).pluck(:id)
                        end
-    unless projects_allowed.empty?
-      cond << "#{Project.table_name}.id IN (#{projects_allowed.join(',')})"
-    end
+    cond << "#{Project.table_name}.id IN (#{projects_allowed.join(',')})" unless projects_allowed.empty?
     cond
   end
 

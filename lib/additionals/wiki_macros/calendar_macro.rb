@@ -57,9 +57,7 @@ module Additionals
     s = string.split
     s.each do |d|
       con = Date.strptime(d, '%Y-%m-%d')
-      unless con.nil?
-        selected << "new Date(#{con.year},#{con.month - 1},#{con.mday})"
-      end
+      selected << "new Date(#{con.year},#{con.month - 1},#{con.mday})" unless con.nil?
     end
     selected
   end

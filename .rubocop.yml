@@ -32,6 +32,9 @@ Metrics/PerceivedComplexity:
 Rails/SkipsModelValidations:
   Enabled: false
 
+Rails/CreateTableWithTimestamps:
+  Enabled: false
+
 Style/AutoResourceCleanup:
   Enabled: true
 

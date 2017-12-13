@@ -1,0 +1,4 @@
+- project_overview_content = Additionals.settings[:project_overview_content]
+- unless project_overview_content.blank?
+  .project-content class="wiki box"
+    = textilizable(project_overview_content)

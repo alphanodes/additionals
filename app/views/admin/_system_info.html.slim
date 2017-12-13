@@ -1,0 +1,11 @@
+table class="list"
+  tr class="#{cycle('odd', 'even')}"
+    td class="name"
+      = "#{l(:label_system_info)}:"
+    td class="name"
+      = system_info
+  tr class="#{cycle('odd', 'even')}"
+    td class="name"
+      = "#{l(:label_uptime)}:"
+    td class="name"
+      = system_uptime

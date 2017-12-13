@@ -21,12 +21,10 @@ module Additionals
       macro :iframe do |_obj, args|
         args, options = extract_macro_options(args, :width, :height, :slide, :with_link)
 
-        width = options[:width].present? ? options[:width] : '100%'
-        height = options[:height].present? ? options[:height] : 485
+        width = options[:width].presence || '100%'
+        height = options[:height].presence || 485
 
-        if args.empty?
-          raise 'The correct usage is {{iframe(<url>[, width=x, height=y, with_link=bool])}}'
-        end
+        raise 'The correct usage is {{iframe(<url>[, width=x, height=y, with_link=bool])}}' if args.empty?
 
         src = args[0]
         if Additionals.valid_iframe_url?(src)

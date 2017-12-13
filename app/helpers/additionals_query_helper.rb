@@ -1,11 +1,7 @@
 module AdditionalsQueryHelper
   def query_to_xls(items, query, options = {})
     require 'spreadsheet'
-    Spreadsheet.client_encoding = if options[:encoding].present?
-                                    options[:encoding]
-                                  else
-                                    'UTF-8'
-                                  end
+    Spreadsheet.client_encoding = options[:encoding].presence || 'UTF-8'
     book = Spreadsheet::Workbook.new
     sheet = book.create_worksheet
     columns = query.columns

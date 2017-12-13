@@ -18,9 +18,7 @@ module Additionals
 
     def incompatible_plugins(plugins = [], title = 'additionals')
       plugins.each do |plugin|
-        if Redmine::Plugin.installed?(plugin)
-          raise "\n\033[31m#{title} plugin cannot be used with #{plugin} plugin'.\033[0m"
-        end
+        raise "\n\033[31m#{title} plugin cannot be used with #{plugin} plugin'.\033[0m" if Redmine::Plugin.installed?(plugin)
       end
     end
 

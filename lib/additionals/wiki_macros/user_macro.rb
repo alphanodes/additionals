@@ -35,9 +35,7 @@ module Additionals
                end
 
         s = []
-        if options[:avatar].present? && options[:avatar]
-          s << avatar(user, size: 14) + ' '
-        end
+        s << avatar(user, size: 14) + ' ' if options[:avatar].present? && options[:avatar]
 
         s << if user.active?
                link_to(h(name), user_path(user), class: user.css_classes)

@@ -2,10 +2,7 @@ module AdditionalsIssuesHelper
   def issue_author_options_for_select(project, issue = nil)
     authors = project.users.sort
     s = []
-
-    if authors.include?(User.current)
-      s << content_tag('option', "<< #{l(:label_me)} >>", value: User.current.id)
-    end
+    s << content_tag('option', "<< #{l(:label_me)} >>", value: User.current.id) if authors.include?(User.current)
 
     if issue.nil?
       s << options_from_collection_for_select(authors, 'id', 'name')

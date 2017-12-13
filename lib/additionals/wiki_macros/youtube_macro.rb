@@ -19,8 +19,8 @@ module Additionals
       macro :youtube do |_obj, args|
         args, options = extract_macro_options(args, :width, :height, :autoplay)
 
-        width = options[:width].present? ? options[:width] : 640
-        height = options[:height].present? ? options[:height] : 360
+        width = options[:width].presence || 640
+        height = options[:height].presence || 360
 
         autoplay = if !options[:autoplay].nil? && Additionals.true?(options[:autoplay])
                      true
@@ -28,9 +28,7 @@ module Additionals
                      false
                    end
 
-        if args.empty?
-          raise 'The correct usage is {{youtube(<video key>[, width=x, height=y])}}'
-        end
+        raise 'The correct usage is {{youtube(<video key>[, width=x, height=y])}}' if args.empty?
 
         v = args[0]
         src = if autoplay

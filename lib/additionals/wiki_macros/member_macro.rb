@@ -51,9 +51,7 @@ module Additionals
           users = []
           raw_users.each do |user|
             user_roles[user.id] = user.roles_for_project(project)
-            if options[:role].blank? || Additionals.check_role_matches(user_roles[user.id], options[:role])
-              users << user
-            end
+            users << user if options[:role].blank? || Additionals.check_role_matches(user_roles[user.id], options[:role])
           end
         else
           project_ids = Project.visible.collect(&:id)

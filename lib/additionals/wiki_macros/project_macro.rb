@@ -23,7 +23,7 @@ module Additionals
   DESCRIPTION
 
       macro :projects do |_obj, args|
-        args, options = extract_macro_options(args, :title, :with_create_issue)
+        _args, options = extract_macro_options(args, :title, :with_create_issue)
         @projects = Additionals.load_projects
         return '' if @projects.nil?
 

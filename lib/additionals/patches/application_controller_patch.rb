@@ -38,11 +38,7 @@ module Additionals
 
           case item
           when :help
-            url = if custom_url.present?
-                    custom_url
-                  else
-                    Redmine::Info.help_url
-                  end
+            url = custom_url.presence || Redmine::Info.help_url
             Redmine::MenuManager.map(:top_menu).push :help, url, html: { class: 'external' }, last: true
           when :my_page
             Redmine::MenuManager.map(:top_menu).push :my_page,

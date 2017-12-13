@@ -25,7 +25,7 @@ module Additionals
         selected = ''
         selected = Additionals.convert_string2date(options[:select]) if options[:select].present?
 
-        locale = User.current.language.blank? ? ::I18n.locale : User.current.language
+        locale = User.current.language.presence || ::I18n.locale
         # not more then 30 calendars per page are expected
         id = (0..30).to_a.sort { rand - 0.5 } [1]
         render partial: 'wiki/calendar_macros', locals: { options: options, locale: locale, id: id, selected: selected }

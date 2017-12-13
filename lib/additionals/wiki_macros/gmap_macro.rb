@@ -60,13 +60,11 @@ module Additionals
                                               :waypoints,
                                               :zoom)
 
-        if Additionals.settings[:google_maps_api_key].blank?
-          raise 'Missing Google Maps Embed API Key. See documentation for more info.'
-        end
+        raise 'Missing Google Maps Embed API Key. See documentation for more info.' if Additionals.settings[:google_maps_api_key].blank?
 
-        width = options[:width].present? ? options[:width] : 620
-        height = options[:height].present? ? options[:height] : 350
-        mode = options[:mode].present? ? options[:mode] : 'search'
+        width = options[:width].presence || 620
+        height = options[:height].presence || 350
+        mode = options[:mode].presence || 'search'
 
         if mode == 'search' && options[:q].blank? && args.empty?
           raise 'The correct usage is {{gmap([q=QUERY, mode=MODE, widths=x, height=y])}}'

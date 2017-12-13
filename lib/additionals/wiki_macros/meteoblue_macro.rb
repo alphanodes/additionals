@@ -34,9 +34,7 @@ module Additionals
                                               :precipitationprobability,
                                               :spot)
 
-        if args.empty?
-          raise 'The correct usage is {{meteoblue(<location>[, days=x, color=BOOL])}}'
-        end
+        raise 'The correct usage is {{meteoblue(<location>[, days=x, color=BOOL])}}' if args.empty?
 
         options[:days] = 4 if options[:days].blank?
         options[:coloured] = if options[:color].present? && !Additionals.true?(options[:color])
@@ -45,8 +43,8 @@ module Additionals
                                'coloured'
                              end
 
-        width = options[:width].present? ? options[:width] : 216
-        height = options[:height].present? ? options[:height] : 368
+        width = options[:width].presence || 216
+        height = options[:height].presence || 368
 
         src = if User.current.language.blank? ? ::I18n.locale : User.current.language == 'de'
                 'https://www.meteoblue.com/de/wetter/widget/daily/'

@@ -34,18 +34,13 @@ module Additionals
 
       macro :issue do |_obj, args|
         args, options = extract_macro_options(args, :id, :note_id, :format)
-        if args.empty? && options[:id].blank?
-          raise 'The correct usage is {{issue(<url>, format=FORMAT, id=INT, note_id=INT)}}'
-        end
+        raise 'The correct usage is {{issue(<url>, format=FORMAT, id=INT, note_id=INT)}}' if args.empty? && options[:id].blank?
 
         comment_id = options[:note_id].to_i if options[:note_id].present?
-        issue_id = if options[:id].blank?
-                     info = parse_issue_url(args[0], comment_id)
-                     comment_id = info[:comment_id] if comment_id.nil?
-                     info[:issue_id]
-                   else
-                     options[:id]
-                   end
+        issue_id = options[:id].presence ||
+                   (info = parse_issue_url(args[0], comment_id)
+                    comment_id = info[:comment_id] if comment_id.nil?
+                    info[:issue_id])
 
         issue = Issue.find_by(id: issue_id)
         return 'N/A' if issue.nil? || !issue.visible?

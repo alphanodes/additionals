@@ -21,9 +21,7 @@ module Additionals
         else
           wiki_sidebar = '' + Additionals.settings[:global_wiki_sidebar].to_s
           @sidebar ||= find_page('Wiki', with_redirect: false)
-          if wiki_sidebar != '' && @sidebar.try(:content)
-            @sidebar.content.text = wiki_sidebar
-          end
+          @sidebar.content.text = wiki_sidebar if wiki_sidebar != '' && @sidebar.try(:content)
         end
       end
     end

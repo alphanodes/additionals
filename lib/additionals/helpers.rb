@@ -60,9 +60,7 @@ module Additionals
                           id_string[0..e_pos - 1]
                         end
         # check for comment_id
-        if comment_id.nil? && uri.fragment.present? && uri.fragment[0..4] == 'note-'
-          rc[:comment_id] = uri.fragment[5..-1].to_i
-        end
+        rc[:comment_id] = uri.fragment[5..-1].to_i if comment_id.nil? && uri.fragment.present? && uri.fragment[0..4] == 'note-'
       else
         rc[:issue_id] = url
       end
@@ -132,9 +130,7 @@ module Additionals
         roles: Additionals.settings[menu_name + '_roles']
       }
       if item[:name].blank? || item[:url].blank? || item[:roles].nil?
-        if Redmine::MenuManager.map(:top_menu).exists?(menu_name.to_sym)
-          Redmine::MenuManager.map(:top_menu).delete(menu_name.to_sym)
-        end
+        Redmine::MenuManager.map(:top_menu).delete(menu_name.to_sym) if Redmine::MenuManager.map(:top_menu).exists?(menu_name.to_sym)
         return
       end
 
@@ -167,9 +163,7 @@ module Additionals
     end
 
     def handle_top_menu_item(menu_name, item)
-      if Redmine::MenuManager.map(:top_menu).exists?(menu_name.to_sym)
-        Redmine::MenuManager.map(:top_menu).delete(menu_name.to_sym)
-      end
+      Redmine::MenuManager.map(:top_menu).delete(menu_name.to_sym) if Redmine::MenuManager.map(:top_menu).exists?(menu_name.to_sym)
 
       html_options = {}
       html_options[:class] = 'external' if item[:url].include? '://'
@@ -193,7 +187,7 @@ module Additionals
 
     def bootstrap_datepicker_locale
       s = ''
-      locale = User.current.language.blank? ? ::I18n.locale : User.current.language
+      locale = User.current.language.presence || ::I18n.locale
       locale = 'es' if locale == 'es-PA'
       locale = 'sr-latin' if locale == 'sr-YU'
       s = javascript_include_tag("locales/bootstrap-datepicker.#{locale.downcase}.min", plugin: 'additionals') unless locale == 'en'

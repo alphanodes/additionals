@@ -19,13 +19,11 @@ module Additionals
       macro :slideshare do |_obj, args|
         args, options = extract_macro_options(args, :width, :height, :slide)
 
-        width = options[:width].present? ? options[:width] : 595
-        height = options[:height].present? ? options[:height] : 485
+        width = options[:width].presence || 595
+        height = options[:height].presence || 485
         slide = options[:slide].present? ? options[:slide].to_i : 0
 
-        if args.empty?
-          raise 'The correct usage is {{slideshare(<key>[, width=x, height=y, slide=number])}}'
-        end
+        raise 'The correct usage is {{slideshare(<key>[, width=x, height=y, slide=number])}}' if args.empty?
 
         v = args[0]
         src = if slide > 0

@@ -1,0 +1,5 @@
+# eslint ignore file
+*
+!additionals*
+!noreferrer.js
+!tooltips.js

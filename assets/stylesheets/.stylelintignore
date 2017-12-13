@@ -1,0 +1,5 @@
+# stylelint ignore file
+angular-*
+bootstrap-*
+*.min.css
+jquery.tagit.css

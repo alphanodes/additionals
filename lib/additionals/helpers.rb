@@ -329,10 +329,10 @@ module Additionals
       safe_join(s, ' ')
     end
 
-    # name = TYPE-FA_NAME, eg. fas-car
-    #                          fas-cloud_upload_alt
-    #                          far-id_card
-    #                          fab-font_awesome
+    # name = TYPE-FA_NAME, eg. fas_car
+    #                          fas_cloud-upload-alt
+    #                          far_id-card
+    #                          fab_font-awesome
     # options = class
     #           pre_text
     #           post_text

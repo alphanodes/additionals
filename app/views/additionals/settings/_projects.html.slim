@@ -12,7 +12,7 @@ p
 p
   - disabled_modules = Struct.new(:id, :name)
   = content_tag(:label, l(:label_disabled_modules))
-  = select_tag("settings[disabled_modules]",
+  = select_tag('settings[disabled_modules]',
                options_from_collection_for_select(Redmine::AccessControl.available_project_modules_all.collect { |m| disabled_modules.new(m, l_or_humanize(m, prefix: 'project_module_').to_s) },
                                                   :id, :name, @settings[:disabled_modules]),
                multiple: true, style: 'height: 300px;')

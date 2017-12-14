@@ -5,7 +5,7 @@ h3 = l(:label_custom_menu_items)
 - 5.times do |i|
   fieldset
     legend
-      b = "#{l(:label_menu_entry)} ##{i+1}"
+      b = "#{l(:label_menu_entry)} ##{i + 1}"
     div
       p
         label = h l(:field_name)
@@ -22,7 +22,7 @@ h3 = l(:label_custom_menu_items)
           | )
       p
         label = h l(:label_permissions)
-        - permission_field = 'custom_menu'+i.to_s+'_roles'
+        - permission_field = 'custom_menu' + i.to_s + '_roles'
         - menu_roles = Struct.new(:id, :name)
         = select_tag('settings[' + permission_field + ']',
                      options_from_collection_for_select(Role.sorted.collect { |m| menu_roles.new(m.id, m.name) },

@@ -33,7 +33,7 @@ p
     = l(:field_status)
     |  y:
     = select_tag 'settings[issue_status_y]',
-                 options_for_select(rule_status.collect{ |column| [column.name, column.id] },
+                 options_for_select(rule_status.collect { |column| [column.name, column.id] },
                                     @settings[:issue_status_y]),
                  multiple: false, style: 'width:150px; vertical-align: top'
 em.info = t(:rule_issue_status_change_info)

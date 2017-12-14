@@ -2,6 +2,9 @@ br
 h3 = l(:label_user_plural)
 p
   = content_tag(:label, l(:label_invisible_captcha))
-  = check_box_tag 'settings[invisible_captcha]', 1, @settings[:invisible_captcha].to_i == 1, disabled: (true unless Setting.self_registration?)
+  = check_box_tag 'settings[invisible_captcha]',
+                  1,
+                  @settings[:invisible_captcha].to_i == 1,
+                  disabled: (true unless Setting.self_registration?)
   em.info
     = t(:invisible_captcha_info_html)

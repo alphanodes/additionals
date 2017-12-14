@@ -1,8 +1,0 @@
-<% if show_issue_change_author?(issue) && issue.safe_attribute?('author_id') %>
-<p id='change_author'><%= form.select :author_id, issue_author_options_for_select(issue.project, issue), { required: true } %></p>
-
-<%= javascript_tag do %>
-$('#change_author').insertBefore($('#issue_tracker_id').parent());
-<% end %>
-
-<% end %>

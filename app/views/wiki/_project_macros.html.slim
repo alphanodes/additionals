@@ -1,0 +1,15 @@
+.projects.box
+  - if list_title
+    h3 = list_title
+  ul
+    - @projects.each do |project|
+      li.project class="#{cycle('odd', 'even')}"
+        span[style='font-weight: bold;']
+          = link_to_project(project)
+        - if project.homepage?
+          | :
+          = link_to(project.homepage, project.homepage, @html_options)
+        - if with_create_issue && User.current.allowed_to?(:add_issues, project)
+          = link_to('',
+                    new_project_issue_path(project_id: project),
+                    class: 'icon icon-add', title: l(:label_issue_new))

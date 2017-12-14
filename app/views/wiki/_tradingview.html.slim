@@ -1,0 +1,6 @@
+/! TradingView Widget BEGIN
+= javascript_include_tag 'https://s3.tradingview.com/tv.js'
+div[style="display: inline-block;"]
+javascript:
+  new TradingView.widget(#{raw options.to_json});
+/! TradingView Widget END

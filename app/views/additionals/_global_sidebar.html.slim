@@ -1,0 +1,5 @@
+- sidebar = Additionals.settings[:global_sidebar]
+- if sidebar.present?
+  br
+  .sidebar-additionals
+    = textilizable(sidebar)

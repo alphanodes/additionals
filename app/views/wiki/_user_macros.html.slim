@@ -1,0 +1,23 @@
+.users.box
+  - if list_title
+    h3 = list_title
+  - users.each do |user|
+    .user.box class="#{cycle('odd', 'even')}"
+      div[style="float: left; display: block; margin-right: 5px;"]
+        = avatar(user, size: 50)
+      .user.line[style="font-weight: bold;"]
+        = link_to_user(user)
+      - if !user_roles.nil? && user_roles[user.id]
+        .user.line
+          = l(:field_role)
+          | :
+          = user_roles[user.id].join(', ').html_safe
+      .user.line
+        = l(:field_login)
+        | :
+        = link_to user.login, '/users/' + user.id.to_s()
+      - if !user.pref.hide_mail
+        .user.line
+          = l(:field_mail)
+          | :
+          = mail_to("#{user.mail}", nil, encode: 'javascript')

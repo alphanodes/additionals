@@ -1,0 +1,48 @@
+.info = t(:label_top_menu_help_html)
+br
+h3 = l(:label_custom_menu_items)
+
+- 5.times do |i|
+  fieldset
+    legend
+      b = "#{l(:label_menu_entry)} ##{i+1}"
+    div
+      p
+        label = h l(:field_name)
+        = text_field_tag('settings[custom_menu'+i.to_s+'_name]', @settings['custom_menu'+i.to_s+'_name'], size: 40)
+      p
+        label = h l(:field_url)
+        = text_field_tag('settings[custom_menu'+i.to_s+'_url]', @settings['custom_menu'+i.to_s+'_url'], size: 80)
+      p
+        label = h l(:field_title)
+        = text_field_tag('settings[custom_menu'+i.to_s+'_title]', @settings['custom_menu'+i.to_s+'_title'], size: 80)
+        i
+          | (
+          = l(:label_optional)
+          | )
+      p
+        label = h l(:label_permissions)
+        - permission_field = 'custom_menu'+i.to_s+'_roles'
+        - menu_roles = Struct.new(:id, :name)
+        = select_tag('settings[' + permission_field + ']',
+                     options_from_collection_for_select(Role.sorted.collect { |m| menu_roles.new(m.id, m.name) },
+                                                        :id,
+                                                        :name,
+                                                        @settings[permission_field]),
+                     multiple: true, style: 'height: 100px;')
+        em.info = l(:menu_roles_info)
+
+br
+h3 = l(:label_setting_plural)
+p
+  = content_tag(:label, l(:label_custom_help_url))
+  = text_field_tag('settings[custom_help_url]', @settings[:custom_help_url], size: 60)
+  em.info = t(:custom_help_url_info_html)
+p
+  = content_tag(:label, l(:label_remove_help))
+  = check_box_tag 'settings[remove_help]', 1, @settings[:remove_help].to_i == 1
+  em.info = l(:remove_help_info)
+p
+  = content_tag(:label, l(:label_remove_mypage))
+  = check_box_tag 'settings[remove_mypage]', 1, @settings[:remove_mypage].to_i == 1
+  em.info = l(:remove_mypage_info)

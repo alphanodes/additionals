@@ -1,0 +1,39 @@
+.info = t(:top_wiki_help)
+
+br
+h3 = l(:label_content_plural)
+
+p
+  = content_tag(:label, l(:label_global_wiki_sidebar))
+  = text_area_tag 'settings[global_wiki_sidebar]', @settings[:global_wiki_sidebar], class: 'wiki-edit', rows: 10
+  em.info
+    = l(:global_wiki_sidebar_info)
+p
+  = content_tag(:label, l(:label_global_wiki_header))
+  = text_area_tag 'settings[global_wiki_header]', @settings[:global_wiki_header], class: 'wiki-edit', rows: 5
+  em.info
+    = l(:global_wiki_header_info)
+p
+  = content_tag(:label, l(:label_global_wiki_footer))
+  = text_area_tag 'settings[global_wiki_footer]', @settings[:global_wiki_footer], class: 'wiki-edit', rows: 5
+  em.info
+    = l(:global_wiki_footer_info)
+
+br
+h3 = l(:label_pdf_wiki_settings)
+
+p
+  = content_tag(:label, l(:label_wiki_pdf_header))
+  = text_area_tag 'settings[wiki_pdf_header]', @settings[:wiki_pdf_header], class: 'wiki-edit', rows: 10
+  em.info
+    = l(:wiki_pdf_header_info)
+p
+  = content_tag(:label, l(:label_wiki_pdf_remove_title))
+  = check_box_tag 'settings[wiki_pdf_remove_title]', 1, @settings[:wiki_pdf_remove_title].to_i == 1
+  em.info
+    = l(:wiki_pdf_remove_title_info)
+p
+  = content_tag(:label, l(:label_wiki_pdf_remove_attachments))
+  = check_box_tag 'settings[wiki_pdf_remove_attachments]', 1, @settings[:wiki_pdf_remove_attachments].to_i == 1
+  em.info
+    = l(:wiki_pdf_remove_attachments_info)

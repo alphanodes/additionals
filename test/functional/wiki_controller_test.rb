@@ -227,7 +227,7 @@ class WikiControllerTest < ActionController::TestCase
     get :show, project_id: 1, id: @page_name
     assert_response :success
     assert_template 'show'
-    assert_select 'script[src=?]', 'https://d33t3vvu2t2yu5.cloudfront.net/tv.js'
+    assert_select 'script[src=?]', 'https://s3.tradingview.com/tv.js'
   end
 
   def test_show_with_cryptocompare_macro

@@ -15,9 +15,9 @@
       .user.line
         = l(:field_login)
         | :
-        = link_to user.login, '/users/' + user.id.to_s()
-      - if !user.pref.hide_mail
+        = link_to user.login, '/users/' + user.id.to_s
+      - unless user.pref.hide_mail
         .user.line
           = l(:field_mail)
           | :
-          = mail_to("#{user.mail}", nil, encode: 'javascript')
+          = mail_to(user.mail, nil, encode: 'javascript')

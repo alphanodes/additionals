@@ -1,0 +1,11 @@
+- if @users_by_role.any?
+  - view_roles = memberbox_view_roles
+  - if view_roles.count>0
+      .members.box
+        h3 = l(:label_member_plural)
+        p
+          - view_roles.each do |role|
+            = h role
+            ' :
+            = @users_by_role[role].sort.collect{|u| link_to_user u}.join(', ').html_safe
+            br

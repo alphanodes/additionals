@@ -1,0 +1,5 @@
+- unless Additionals.setting?(:remove_news)
+  .news.box
+    h3 = l(:label_news_latest)
+    = render partial: 'news/news', collection: @news
+    = link_to l(:label_news_view_all), news_index_path

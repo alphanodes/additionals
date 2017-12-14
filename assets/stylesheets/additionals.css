@@ -149,6 +149,8 @@
   background-image: url(../images/smileys/failure-frame.png);
 }
 
+div.clear_both { clear: both; }
+
 /* TAGs */
 
 ul.tags {

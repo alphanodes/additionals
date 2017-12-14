@@ -1,9 +1,0 @@
-<% unless Additionals.setting?(:remove_news) %>
-
-  <div class="news box">
-  <h3><%=l(:label_news_latest)%></h3>
-    <%= render :partial => 'news/news', :collection => @news %>
-    <%= link_to l(:label_news_view_all), :controller => 'news' %>
-  </div>
-
-<% end %>

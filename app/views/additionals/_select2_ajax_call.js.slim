@@ -1,0 +1,31 @@
+- options = {} if options.nil?
+javascript:
+  $("##{field_id}").select2({
+    ajax: {
+      url: "#{ajax_url}",
+      dataType: 'json',
+      delay: 250,
+      data: function(params) {
+        return {
+          q: params.term
+        };
+      },
+      processResults: function(data, params) {
+        return {
+          results: data
+        };
+      },
+      cache: true
+    },
+    placeholder: "#{options[:placeholder].presence}",
+    allowClear: #{options[:allow_clear].present? && options[:allow_clear] ? 'true' : 'false'},
+    minimumInputLength: 0,
+    width: '60%',
+    templateResult: formatState
+  });
+
+  function formatState(opt) {
+    if (opt.loading) return opt.name;
+    var $opt = $('<span>' + opt.name_with_icon + '</span>');
+    return $opt;
+  };

@@ -1,7 +1,7 @@
 require File.expand_path('../../test_helper', __FILE__)
 
 module Redmine
-  class I18nTest < ActiveSupport::TestCase
+  class I18nTest < Redmine::HelperTest
     include Redmine::I18n
 
     def setup

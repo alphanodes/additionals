@@ -1,0 +1,9 @@
+<%= raw @users.map { |user| {
+      'id' => user.id,
+      'text' => user.name,
+      'name' => user.name,
+      'name_with_icon' => user_with_avatar(user, no_link: true),
+      'value' => user.id
+      }
+    }.to_json
+%>

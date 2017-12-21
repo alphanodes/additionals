@@ -149,7 +149,7 @@
   background-image: url(../images/smileys/failure-frame.png);
 }
 
-div.clear_both { clear: both; }
+div.clear-both { clear: both; }
 
 /* TAGs */
 

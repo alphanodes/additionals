@@ -4,7 +4,7 @@ Changelog
 2.0.7 - no version bump nor tagged
 +++++
 
-- FontAwsome 5.0 support
+- FontAwsome 5.0.2 support
 
 2.0.6
 +++++

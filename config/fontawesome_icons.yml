@@ -165,6 +165,15 @@ amazon:
   styles:
     - brands
   unicode: f270
+amazon-pay:
+  changes:
+    - 5.0.2
+  label: Amazon Pay
+  search:
+    terms: []
+  styles:
+    - brands
+  unicode: f42c
 ambulance:
   changes:
     - '3'
@@ -1497,6 +1506,15 @@ cart-plus:
   styles:
     - solid
   unicode: f217
+cc-amazon-pay:
+  changes:
+    - 5.0.2
+  label: Amazon Pay Credit Card
+  search:
+    terms: []
+  styles:
+    - brands
+  unicode: f42d
 cc-amex:
   changes:
     - '4.2'
@@ -2776,6 +2794,15 @@ erlang:
   styles:
     - brands
   unicode: f39d
+ethereum:
+  changes:
+    - 5.0.2
+  label: Ethereum
+  search:
+    terms: []
+  styles:
+    - brands
+  unicode: f42e
 etsy:
   changes:
     - '4.7'
@@ -4620,6 +4647,15 @@ kickstarter-k:
   styles:
     - brands
   unicode: f3bc
+korvue:
+  changes:
+    - 5.0.2
+  label: KORVUE
+  search:
+    terms: []
+  styles:
+    - brands
+  unicode: f42f
 language:
   changes:
     - '4.1'
@@ -7437,6 +7473,16 @@ stop-circle:
     - solid
     - regular
   unicode: f28d
+stopwatch:
+  changes:
+    - 5.0.0
+  label: Stopwatch
+  search:
+    terms:
+      - time
+  styles:
+    - solid
+  unicode: f2f2
 strava:
   changes:
     - 5.0.0

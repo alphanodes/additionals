@@ -1,5 +1,3 @@
-require_dependency 'time_entry'
-
 module Additionals
   module Patches
     module TimeEntryPatch

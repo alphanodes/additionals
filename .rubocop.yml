@@ -40,8 +40,3 @@ Style/AutoResourceCleanup:
 
 Style/Documentation:
   Enabled: false
-
-# broken with rubocop 0.52.0
-# -> problems with date_format
-Style/FormatStringToken:
-  Enabled: false

@@ -1,10 +1,11 @@
 Changelog
 =========
 
-2.0.7 - no version bump nor tagged
+2.0.7
 +++++
 
 - FontAwsome 5.0.2 support
+- Switching to SLIM template engine
 
 2.0.6
 +++++

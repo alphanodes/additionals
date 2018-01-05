@@ -198,7 +198,11 @@ div.tags .tag-pass-7 { font-size: 1.4em; }
 div.tags .tag-pass-8 { font-size: 1.5em; }
 
 .tag-count { font-size: 0.75em; }
-.additionals-tag-label-color a { color: white; }
+
+.additionals-tag-label-color a {
+  color: white;
+  font-weight: bold;
+}
 
 .tagit.ui-widget {
   font-size: 1em;

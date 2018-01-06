@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.0.8 - not released
+++++++++++++++++++++
+
+- Provide XLSX helper (and drop XLS helper)
+
+
 2.0.7
 +++++
 

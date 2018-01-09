@@ -5,7 +5,7 @@ Changelog
 ++++++++++++++++++++
 
 - Provide XLSX helper (and drop XLS helper)
-
+- FontAwsome 5.0.3 support
 
 2.0.7
 +++++

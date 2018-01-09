@@ -35,6 +35,7 @@ address-book:
   changes:
     - '4.7'
     - 5.0.0
+    - 5.0.3
   label: Address Book
   search:
     terms: []
@@ -46,6 +47,7 @@ address-card:
   changes:
     - '4.7'
     - 5.0.0
+    - 5.0.3
   label: Address Card
   search:
     terms: []
@@ -896,6 +898,7 @@ behance-square:
   changes:
     - '4.1'
     - 5.0.0
+    - 5.0.3
   label: Behance Square
   search:
     terms: []
@@ -2374,6 +2377,7 @@ dashcube:
   changes:
     - '4.3'
     - 5.0.0
+    - 5.0.3
   label: DashCube
   search:
     terms: []
@@ -2491,6 +2495,7 @@ discord:
 discourse:
   changes:
     - 5.0.0
+    - 5.0.3
   label: Discourse
   search:
     terms: []
@@ -2668,6 +2673,15 @@ eject:
   styles:
     - solid
   unicode: f052
+elementor:
+  changes:
+    - 5.0.3
+  label: Elementor
+  search:
+    terms: []
+  styles:
+    - brands
+  unicode: f430
 ellipsis-h:
   changes:
     - '3.1'
@@ -2693,6 +2707,7 @@ ellipsis-v:
 ember:
   changes:
     - 5.0.0
+    - 5.0.3
   label: Ember
   search:
     terms: []
@@ -2788,6 +2803,7 @@ eraser:
 erlang:
   changes:
     - 5.0.0
+    - 5.0.3
   label: Erlang
   search:
     terms: []
@@ -3453,6 +3469,7 @@ fort-awesome:
   changes:
     - '4.5'
     - 5.0.0
+    - 5.0.3
   label: Fort Awesome
   search:
     terms: []
@@ -4356,6 +4373,7 @@ id-badge:
   changes:
     - '4.7'
     - 5.0.0
+    - 5.0.3
   label: Identification Badge
   search:
     terms: []
@@ -4367,6 +4385,7 @@ id-card:
   changes:
     - '4.7'
     - 5.0.0
+    - 5.0.3
   label: Identification Card
   search:
     terms: []
@@ -4576,6 +4595,7 @@ js:
 js-square:
   changes:
     - 5.0.0
+    - 5.0.3
   label: JavaScript (JS) Square
   search:
     terms: []
@@ -4682,6 +4702,7 @@ laptop:
 laravel:
   changes:
     - 5.0.0
+    - 5.0.3
   label: Laravel
   search:
     terms: []
@@ -5405,6 +5426,7 @@ minus-square:
 mix:
   changes:
     - 5.0.0
+    - 5.0.3
   label: Mix
   search:
     terms: []
@@ -5523,6 +5545,7 @@ mouse-pointer:
   changes:
     - '4.4'
     - 5.0.0
+    - 5.0.3
   label: Mouse Pointer
   search:
     terms: []
@@ -5596,6 +5619,7 @@ node:
 node-js:
   changes:
     - 5.0.0
+    - 5.0.3
   label: Node.js JS
   search:
     terms: []
@@ -5774,6 +5798,7 @@ paint-brush:
 palfed:
   changes:
     - 5.0.0
+    - 5.0.3
   label: Palfed
   search:
     terms: []
@@ -5830,6 +5855,7 @@ paste:
 patreon:
   changes:
     - 5.0.0
+    - 5.0.3
   label: Patreon
   search:
     terms: []
@@ -5940,6 +5966,7 @@ phabricator:
 phoenix-framework:
   changes:
     - 5.0.0
+    - 5.0.3
   label: Phoenix Framework
   search:
     terms: []
@@ -5981,6 +6008,7 @@ phone-volume:
   changes:
     - '4.6'
     - 5.0.0
+    - 5.0.3
   label: Phone Volume
   search:
     terms:
@@ -7000,6 +7028,7 @@ skyatlas:
   changes:
     - '4.3'
     - 5.0.0
+    - 5.0.3
   label: skyatlas
   search:
     terms: []
@@ -7297,6 +7326,7 @@ stack-exchange:
   changes:
     - '4'
     - 5.0.0
+    - 5.0.3
   label: Stack Exchange
   search:
     terms: []
@@ -7517,6 +7547,7 @@ strikethrough:
 stripe:
   changes:
     - 5.0.0
+    - 5.0.3
   label: Stripe
   search:
     terms: []
@@ -8345,6 +8376,7 @@ university:
   changes:
     - '4.1'
     - 5.0.0
+    - 5.0.3
   label: University
   search:
     terms: []
@@ -8426,6 +8458,7 @@ user:
   changes:
     - '1'
     - 5.0.0
+    - 5.0.3
   label: User
   search:
     terms:
@@ -8441,6 +8474,7 @@ user-circle:
   changes:
     - '4.7'
     - 5.0.0
+    - 5.0.3
   label: User Circle
   search:
     terms: []
@@ -8452,6 +8486,7 @@ user-md:
   changes:
     - '2'
     - 5.0.0
+    - 5.0.3
   label: user-md
   search:
     terms:
@@ -8466,6 +8501,7 @@ user-plus:
   changes:
     - '4.3'
     - 5.0.0
+    - 5.0.3
   label: Add User
   search:
     terms:
@@ -8478,6 +8514,7 @@ user-secret:
   changes:
     - '4.3'
     - 5.0.0
+    - 5.0.3
   label: User Secret
   search:
     terms:
@@ -8492,6 +8529,7 @@ user-times:
   changes:
     - '4.3'
     - 5.0.0
+    - 5.0.3
   label: Remove User
   search:
     terms: []
@@ -8502,6 +8540,7 @@ users:
   changes:
     - '2'
     - 5.0.0
+    - 5.0.3
   label: Users
   search:
     terms:
@@ -8625,6 +8664,7 @@ viadeo-square:
 viber:
   changes:
     - 5.0.0
+    - 5.0.3
   label: Viber
   search:
     terms: []
@@ -8775,6 +8815,7 @@ weixin:
   changes:
     - '4.1'
     - 5.0.0
+    - 5.0.3
   label: Weixin (WeChat)
   search:
     terms: []
@@ -8875,6 +8916,7 @@ window-minimize:
     terms: []
   styles:
     - solid
+    - regular
   unicode: f2d1
 window-restore:
   changes:
@@ -9016,6 +9058,7 @@ yahoo:
   changes:
     - '4.1'
     - 5.0.0
+    - 5.0.3
   label: Yahoo Logo
   search:
     terms: []
@@ -9066,6 +9109,7 @@ yoast:
   changes:
     - '4.6'
     - 5.0.0
+    - 5.0.3
   label: Yoast
   search:
     terms: []
@@ -9086,3 +9130,12 @@ youtube:
   styles:
     - brands
   unicode: f167
+youtube-square:
+  changes:
+    - 5.0.3
+  label: YouTube Square
+  search:
+    terms: []
+  styles:
+    - brands
+  unicode: f431

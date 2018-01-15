@@ -33,6 +33,7 @@ setting_set
     :param string name: name of the plugin or redmine (this is optional, if not defined redmine is used)
     :param string setting: name of setting
     :param string value: value for setting
+    :param string values: list of values (seperator is ,) to generate value array automaticaly
 
 Examples
 ++++++++
@@ -41,7 +42,14 @@ Set application title for Redmine
 
 .. code-block:: smarty
 
-  bundle exec rake redmine:additionals:setting_set RAILS_ENV=production name="additionals" setting="external_urls" value="2"
+  bundle exec rake redmine:additionals:setting_set RAILS_ENV=production setting="app_title" value="Redmine test instance"
+
+Set default modules for new projects
+
+.. code-block:: smarty
+
+  bundle exec rake redmine:additionals:setting_set RAILS_ENV=production setting="default_projects_modules" values="issue_tracking,time_tracking,wiki"
+
 
 Set plugin setting ``external_urls`` for plugin additionals to value 2
 

@@ -22,13 +22,19 @@ namespace :redmine do
     desc <<-DESCRIPTION
     Set settings.
 
-    Example:
+    Example for value:
       bundle exec rake redmine:additionals:setting_set RAILS_ENV=production name="additionals" setting="external_urls" value="2"
+    Example for list of value:
+      bundle exec rake redmine:additionals:setting_set RAILS_ENV=production setting="default_projects_modules" value="issue_tracking,time_tracking,wiki"
     DESCRIPTION
     task setting_set: :environment do
       name = ENV['name'] ||= 'redmine'
       setting = ENV['setting']
-      value = ENV['value']
+      value = if ENV['values'].present?
+                ENV['values'].split(',')
+              else
+                ENV['value']
+              end
 
       if name.blank? || setting.blank? || value.blank?
         puts 'Parameters setting and value are required.'

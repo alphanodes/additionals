@@ -49,6 +49,7 @@ zh:
   label_additionals_doc: Additionals 插件文档
   label_additionals: Additionals
   label_app_menu: App menu
+  label_change_is_private: Change private/non-private
   label_content_plural: 内容
   label_custom_help_url: "自定义帮助 URL"
   label_custom_menu_items: 自定义菜单项
@@ -56,6 +57,9 @@ zh:
   label_day: 天
   label_disabled_modules: "禁用模块"
   label_external_urls: "外部 URLs"
+  label_fontawesome_brands: Brands
+  label_fontawesome_regular: Regular
+  label_fontawesome_solid: Solid
   label_global_footer: "项目范围内的页脚设置"
   label_global_sidebar: "全局侧边栏设置"
   label_global_wiki_footer: "项目范围内 WIKI 页脚设置"
@@ -146,6 +150,3 @@ zh:
   wiki_pdf_header_info: 该文本快将显示在 PDF 视图中的常规 WIKI 内容之前的第一页上。此处宏命令的使用非常有限。
   wiki_pdf_remove_attachments_info:  当启用时，WIKI 附件将不会显示在PDF视图中。
   wiki_pdf_remove_title_info: 当启用时，WIKI 标题信息将不会显示在PDF视图中。
-  label_fontawesome_brands: Brands
-  label_fontawesome_solid: Solid
-  label_fontawesome_regular: Regular

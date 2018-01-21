@@ -49,6 +49,7 @@ de:
   label_additionals_doc: Additionals Dokumentation (englisch)
   label_additionals: Additionals
   label_app_menu: App Menü
+  label_change_is_private: Privat/Nicht-Privat ändern
   label_content_plural: Inhalte
   label_custom_help_url: "URL zur Hilfeseite"
   label_custom_menu_items: Benutzerdefinierte Menüpunkte
@@ -56,6 +57,9 @@ de:
   label_day: Tag
   label_disabled_modules: "Deaktivierte Module"
   label_external_urls: "Externe URLs"
+  label_fontawesome_brands: Brands
+  label_fontawesome_regular: Regular
+  label_fontawesome_solid: Solid
   label_global_footer: "Projektübergreifender Footer"
   label_global_sidebar: "Projektübergreifender Sidebar Inhalt"
   label_global_wiki_footer: "Projektübergreifender Wiki Footer"
@@ -146,6 +150,3 @@ de:
   wiki_pdf_header_info: Dieser Textblock wir auf der ersten Seite vor dem eigentlichen Inhalt der Wiki Seite in der PDF Ansicht angezeigt. Die Makros sind hier nur eingeschränkt einsetzbar.
   wiki_pdf_remove_attachments_info: Wenn aktiv, werden die an der Wiki Seite angehängten Dateien nicht in der PDF Ansicht angezeigt.
   wiki_pdf_remove_title_info: Wenn aktiv, wird der Wiki Titel nicht in der PDF Ansicht angezeigt.
-  label_fontawesome_brands: Brands
-  label_fontawesome_solid: Solid
-  label_fontawesome_regular: Regular

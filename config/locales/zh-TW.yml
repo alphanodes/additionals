@@ -49,6 +49,7 @@
   label_additionals_doc: Additionals 外掛文件
   label_additionals: Additionals
   label_app_menu: App 選單
+  label_change_is_private: Change private/non-private
   label_content_plural: 内容
   label_custom_help_url: "自訂幫助連結"
   label_custom_menu_items: "自訂選單項目"
@@ -56,6 +57,9 @@
   label_day: 天
   label_disabled_modules: "禁用模組"
   label_external_urls: "外部連結"
+  label_fontawesome_brands: Brands
+  label_fontawesome_regular: Regular
+  label_fontawesome_solid: Solid
   label_global_footer: "專案中頁尾設定"
   label_global_sidebar: "專案中側邊設定"
   label_global_wiki_footer: "專案中Wiki頁尾訊息設定"
@@ -146,6 +150,3 @@
   wiki_pdf_header_info: "該訊息將顯示在PDF第一頁頁首。此處macros指令支援有限。"
   wiki_pdf_remove_attachments_info: "當啟用時，Wiki附件將不會顯示在PDF中。"
   wiki_pdf_remove_title_info: "當啟用時，Wiki標題訊息不會顯示在PDF中"
-  label_fontawesome_brands: Brands
-  label_fontawesome_solid: Solid
-  label_fontawesome_regular: Regular

@@ -49,6 +49,7 @@ en:
   label_additionals_doc: Additionals documentation
   label_additionals: Additionals
   label_app_menu: App menu
+  label_change_is_private: Change private/non-private
   label_content_plural: Contents
   label_custom_help_url: "Custom Help URL"
   label_custom_menu_items: Custom menu items
@@ -56,6 +57,9 @@ en:
   label_day: day
   label_disabled_modules: "Disabled modules"
   label_external_urls: "External urls"
+  label_fontawesome_brands: Brands
+  label_fontawesome_regular: Regular
+  label_fontawesome_solid: Solid
   label_global_footer: "Project wide footer"
   label_global_sidebar: "Global sidebar"
   label_global_wiki_footer: "Project wide wiki footer"
@@ -146,6 +150,3 @@ en:
   wiki_pdf_header_info: This text block will be displayed on the first page before the regular Wiki content in the PDF view. Macro use is very restricted, here.
   wiki_pdf_remove_attachments_info: When active the attached Wiki files will not be displayed in PDF view.
   wiki_pdf_remove_title_info: When active the Wiki title info will not be displayed in PDF view.
-  label_fontawesome_brands: Brands
-  label_fontawesome_solid: Solid
-  label_fontawesome_regular: Regular

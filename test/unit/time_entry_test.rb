@@ -25,7 +25,7 @@ class TimeEntryTest < Redmine::HelperTest
     entry = TimeEntry.new(project: Project.find(1), user: User.find(1), activity: TimeEntryActivity.first, hours: 100)
     entry.spent_on = '2010-01-01'
     entry.issue = Issue.create(project_id: 1, tracker_id: 1, author_id: 1, status_id: 1, subject: 'open issue')
-    assert !entry.issue.closed?
+    assert_not entry.issue.closed?
     assert entry.valid?
     assert entry.save
   end
@@ -39,8 +39,8 @@ class TimeEntryTest < Redmine::HelperTest
     entry.spent_on = '2010-01-01'
     entry.issue = issue
     assert entry.issue.closed?
-    assert !entry.valid?
-    assert !entry.save
+    assert_not entry.valid?
+    assert_not entry.save
   end
 
   def test_create_time_entry_with_closed_issue_with_permission

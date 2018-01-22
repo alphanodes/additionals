@@ -24,7 +24,7 @@ class IssueTest < Redmine::HelperTest
     issue = Issue.new(project_id: 1, tracker_id: 1, author_id: 3, subject: 'test_create')
     assert issue.save
     assert_equal issue.tracker.default_status, issue.status
-    assert issue.description.nil?
+    assert_nil issue.description
   end
 
   def test_change_open_issue
@@ -58,7 +58,7 @@ class IssueTest < Redmine::HelperTest
 
     assert issue.closed?
     issue.subject = 'Should be not be saved'
-    assert !issue.save
+    assert_not issue.save
     issue.reload
     assert_not_equal 'Should be not be saved', issue.subject
   end

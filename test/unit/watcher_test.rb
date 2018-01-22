@@ -26,7 +26,7 @@ class WatcherTest < Redmine::HelperTest
     issue = Issue.generate(author_id: @author.id)
     issue.save
     assert_equal 0, issue.watchers.count
-    assert !issue.watched_by?(@author)
+    assert_not issue.watched_by?(@author)
   end
 
   def test_new_issue_with_no_autowatch_by_user
@@ -36,7 +36,7 @@ class WatcherTest < Redmine::HelperTest
     issue = Issue.generate(author_id: @author.id)
     issue.save
     assert_equal 0, issue.watchers.count
-    assert !issue.watched_by?(@author)
+    assert_not issue.watched_by?(@author)
   end
 
   def test_new_issue_with_author_watch_only

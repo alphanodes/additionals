@@ -152,7 +152,7 @@ It provides :
 * `d3 3.5.16 <https://d3js.org/>`_
 * `d3plus 1.9.8 <http://d3plus.org/>`_
 * `jQuery TagIt 2.0 <http://aehlke.github.io/tag-it/>`_
-* `FontAwesome 5.0.2 <http://fontawesome.io/>`_
+* `FontAwesome 5.0.6 <http://fontawesome.com/>`_
 * `nvd3 1.8.6 <https://github.com/novus/nvd3>`_
 * `ZeroClipboard 2.2.0 <https://github.com/zeroclipboard/zeroclipboard>`_
 

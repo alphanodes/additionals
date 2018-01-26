@@ -792,6 +792,24 @@ bars:
   styles:
     - solid
   unicode: f0c9
+baseball-ball:
+  changes:
+    - 5.0.5
+  label: Baseball Ball
+  search:
+    terms: []
+  styles:
+    - solid
+  unicode: f433
+basketball-ball:
+  changes:
+    - 5.0.5
+  label: Basketball Ball
+  search:
+    terms: []
+  styles:
+    - solid
+  unicode: f434
 bath:
   changes:
     - '4.7'
@@ -1130,6 +1148,15 @@ bookmark:
     - solid
     - regular
   unicode: f02e
+bowling-ball:
+  changes:
+    - 5.0.5
+  label: Bowling Ball
+  search:
+    terms: []
+  styles:
+    - solid
+  unicode: f436
 braille:
   changes:
     - '4.6'
@@ -1738,6 +1765,78 @@ check-square:
     - solid
     - regular
   unicode: f14a
+chess:
+  changes:
+    - 5.0.5
+  label: Chess
+  search:
+    terms: []
+  styles:
+    - solid
+  unicode: f439
+chess-bishop:
+  changes:
+    - 5.0.5
+  label: Chess Bishop
+  search:
+    terms: []
+  styles:
+    - solid
+  unicode: f43a
+chess-board:
+  changes:
+    - 5.0.5
+  label: Chess Board
+  search:
+    terms: []
+  styles:
+    - solid
+  unicode: f43c
+chess-king:
+  changes:
+    - 5.0.5
+  label: Chess King
+  search:
+    terms: []
+  styles:
+    - solid
+  unicode: f43f
+chess-knight:
+  changes:
+    - 5.0.5
+  label: Chess Knight
+  search:
+    terms: []
+  styles:
+    - solid
+  unicode: f441
+chess-pawn:
+  changes:
+    - 5.0.5
+  label: Chess Pawn
+  search:
+    terms: []
+  styles:
+    - solid
+  unicode: f443
+chess-queen:
+  changes:
+    - 5.0.5
+  label: Chess Queen
+  search:
+    terms: []
+  styles:
+    - solid
+  unicode: f445
+chess-rook:
+  changes:
+    - 5.0.5
+  label: Chess Rook
+  search:
+    terms: []
+  styles:
+    - solid
+  unicode: f447
 chevron-circle-down:
   changes:
     - '3.1'
@@ -3374,6 +3473,15 @@ flickr:
   styles:
     - brands
   unicode: f16e
+flipboard:
+  changes:
+    - 5.0.5
+  label: Flipboard
+  search:
+    terms: []
+  styles:
+    - brands
+  unicode: f44d
 fly:
   changes:
     - 5.0.0
@@ -3465,6 +3573,15 @@ fonticons-fi:
   styles:
     - brands
   unicode: f3a2
+football-ball:
+  changes:
+    - 5.0.5
+  label: Football Ball
+  search:
+    terms: []
+  styles:
+    - solid
+  unicode: f44e
 fort-awesome:
   changes:
     - '4.5'
@@ -3556,6 +3673,7 @@ futbol:
   changes:
     - '4.2'
     - 5.0.0
+    - 5.0.5
   label: Futbol
   search:
     terms: []
@@ -3803,6 +3921,15 @@ gofore:
   styles:
     - brands
   unicode: f3a7
+golf-ball:
+  changes:
+    - 5.0.5
+  label: Golf Ball
+  search:
+    terms: []
+  styles:
+    - solid
+  unicode: f450
 goodreads:
   changes:
     - 5.0.0
@@ -4219,6 +4346,15 @@ heartbeat:
   styles:
     - solid
   unicode: f21e
+hips:
+  changes:
+    - 5.0.5
+  label: Hips
+  search:
+    terms: []
+  styles:
+    - brands
+  unicode: f452
 hire-a-helper:
   changes:
     - 5.0.0
@@ -4241,6 +4377,15 @@ history:
   styles:
     - solid
   unicode: f1da
+hockey-puck:
+  changes:
+    - 5.0.5
+  label: Hockey Puck
+  search:
+    terms: []
+  styles:
+    - solid
+  unicode: f453
 home:
   changes:
     - '1'
@@ -6017,6 +6162,15 @@ phone-volume:
   styles:
     - solid
   unicode: f2a0
+php:
+  changes:
+    - 5.0.5
+  label: PHP
+  search:
+    terms: []
+  styles:
+    - brands
+  unicode: f457
 pied-piper:
   changes:
     - '4.6'
@@ -6322,6 +6476,24 @@ question-circle:
     - solid
     - regular
   unicode: f059
+quidditch:
+  changes:
+    - 5.0.5
+  label: Quidditch
+  search:
+    terms: []
+  styles:
+    - solid
+  unicode: f458
+quinscape:
+  changes:
+    - 5.0.5
+  label: QuinScape
+  search:
+    terms: []
+  styles:
+    - brands
+  unicode: f459
 quora:
   changes:
     - '4.7'
@@ -6936,7 +7108,7 @@ shower:
 sign-in-alt:
   changes:
     - 5.0.0
-  label: Alernate Sign In
+  label: Alternate Sign In
   search:
     terms:
       - enter
@@ -6965,7 +7137,7 @@ sign-language:
 sign-out-alt:
   changes:
     - 5.0.0
-  label: Alernate Sign Out
+  label: Alternate Sign Out
   search:
     terms:
       - log out
@@ -7322,6 +7494,15 @@ square:
     - solid
     - regular
   unicode: f0c8
+square-full:
+  changes:
+    - 5.0.5
+  label: Square Full
+  search:
+    terms: []
+  styles:
+    - solid
+  unicode: f45c
 stack-exchange:
   changes:
     - '4'
@@ -7713,6 +7894,15 @@ table:
   styles:
     - solid
   unicode: f0ce
+table-tennis:
+  changes:
+    - 5.0.5
+  label: Table Tennis
+  search:
+    terms: []
+  styles:
+    - solid
+  unicode: f45d
 tablet:
   changes:
     - '3'
@@ -8011,7 +8201,7 @@ thumbtack:
 ticket-alt:
   changes:
     - 5.0.0
-  label: Alernate Ticket
+  label: Alternate Ticket
   search:
     terms:
       - ticket
@@ -8748,6 +8938,15 @@ vnv:
   styles:
     - brands
   unicode: f40b
+volleyball-ball:
+  changes:
+    - 5.0.5
+  label: Volleyball Ball
+  search:
+    terms: []
+  styles:
+    - solid
+  unicode: f45f
 volume-down:
   changes:
     - '1'

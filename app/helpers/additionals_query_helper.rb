@@ -20,31 +20,45 @@ module AdditionalsQueryHelper
                 query.inline_columns
               end
 
-    export_to_xlsx(items, columns)
-  end
-
-  private
-
-  def export_to_xlsx(items, columns)
     stream = StringIO.new('')
-    workbook = WriteXLSX.new(stream)
-    worksheet = workbook.add_worksheet
-
-    # Freeze header row and # column.
-    worksheet.freeze_panes(1, 1)
-
-    columns_width = []
-    xlsx_write_header_row(workbook, worksheet, columns, columns_width)
-    xlsx_write_item_rows(workbook, worksheet, columns, items, columns_width)
-    columns.size.times do |index|
-      worksheet.set_column(index, index, columns_width[index])
-    end
-
-    workbook.close
+    export_to_xlsx(items, columns, filename: stream)
     stream.string
   end
 
-  def xlsx_write_header_row(workbook, worksheet, columns, columns_width)
+  def additionals_result_to_xlsx(items, columns, options = {})
+    raise 'option filename is mission' if options[:filename].blank?
+    require 'write_xlsx'
+    export_to_xlsx(items, columns, options)
+  end
+
+  def export_to_xlsx(items, columns, options)
+    workbook = WriteXLSX.new(options[:filename])
+    worksheet = workbook.add_worksheet
+
+    # Freeze header row and # column.
+    freeze_row = options[:freeze_first_row].nil? || options[:freeze_first_row] ? 1 : 0
+    freeze_column = options[:freeze_first_column].nil? || options[:freeze_first_column] ? 1 : 0
+    worksheet.freeze_panes(freeze_row, freeze_column)
+
+    options[:columns_width] = if options[:xlsx_write_header_row].present?
+                                send(options[:xlsx_write_header_row], workbook, worksheet, columns)
+                              else
+                                xlsx_write_header_row(workbook, worksheet, columns)
+                              end
+    options[:columns_width] = if options[:xlsx_write_item_rows].present?
+                                send(options[:xlsx_write_item_rows], workbook, worksheet, columns, items, options)
+                              else
+                                xlsx_write_item_rows(workbook, worksheet, columns, items, options)
+                              end
+    columns.size.times do |index|
+      worksheet.set_column(index, index, options[:columns_width][index])
+    end
+
+    workbook.close
+  end
+
+  def xlsx_write_header_row(workbook, worksheet, columns)
+    columns_width = []
     columns.each_with_index do |c, index|
       value = if c.class.name == 'String'
                 c
@@ -55,9 +69,10 @@ module AdditionalsQueryHelper
       worksheet.write(0, index, value, workbook.add_format(xlsx_cell_format(:header)))
       columns_width << xlsx_get_column_width(value)
     end
+    columns_width
   end
 
-  def xlsx_write_item_rows(workbook, worksheet, columns, items, columns_width)
+  def xlsx_write_item_rows(workbook, worksheet, columns, items, options = {})
     hyperlink_format = workbook.add_format(xlsx_cell_format(:link))
     items.each_with_index do |line, line_index|
       columns.each_with_index do |c, column_index|
@@ -75,22 +90,10 @@ module AdditionalsQueryHelper
         end
 
         width = xlsx_get_column_width(value)
-        columns_width[column_index] = width if columns_width[column_index] < width
+        options[:columns_width][column_index] = width if options[:columns_width][column_index] < width
       end
     end
-  end
-
-  def xlsx_hyperlink_cell?(token)
-    # Match http, https or ftp URL
-    if token =~ %r{\A[fh]tt?ps?://}
-      true
-      # Match mailto:
-    elsif token.present? && token.start_with?('mailto:')
-      true
-      # Match internal or external sheet link
-    elsif token =~ /\A(?:in|ex)ternal:/
-      true
-    end
+    options[:columns_width]
   end
 
   def xlsx_get_column_width(value)
@@ -119,5 +122,18 @@ module AdditionalsQueryHelper
     end
 
     format
+  end
+
+  def xlsx_hyperlink_cell?(token)
+    # Match http, https or ftp URL
+    if token =~ %r{\A[fh]tt?ps?://}
+      true
+      # Match mailto:
+    elsif token.present? && token.start_with?('mailto:')
+      true
+      # Match internal or external sheet link
+    elsif token =~ /\A(?:in|ex)ternal:/
+      true
+    end
   end
 end

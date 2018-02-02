@@ -1,8 +1,15 @@
 Changelog
 =========
 
-2.0.8 - not released
-++++++++++++++++++++
+2.0.9
++++++
+
+- Update bootstrap library to 4.0.0
+- Drop angular_gantt library
+
+
+2.0.8
++++++
 
 - Provide XLSX helper (and drop XLS helper)
 - FontAwsome 5.0.6 support

@@ -147,12 +147,11 @@ Don't worry, if you only need a subset of the provided libraries. If you do not 
 
 It provides :
 
-* `angular-gantt 2.0.0rc1 <https://github.com/angular-gantt/angular-gantt>`_
-* `bootstrap 3.3.7 <https://getbootstrap.com>`_
+* `bootstrap 4.0.0 <https://getbootstrap.com>`_
 * `d3 3.5.16 <https://d3js.org/>`_
 * `d3plus 1.9.8 <http://d3plus.org/>`_
 * `jQuery TagIt 2.0 <http://aehlke.github.io/tag-it/>`_
-* `FontAwesome 5.0.6 <http://fontawesome.com/>`_
+* `FontAwesome 5.0.6 <https://fontawesome.com/>`_
 * `nvd3 1.8.6 <https://github.com/novus/nvd3>`_
 * `ZeroClipboard 2.2.0 <https://github.com/zeroclipboard/zeroclipboard>`_
 
@@ -172,14 +171,11 @@ This method loads all JS and CSS files needed by the required module.
 
 The following modules are available :
 
-* angular_gantt
 * bootstrap
-* bootstrap_theme (bootstrap with theme)
 * d3
 * d3plus
 * nvd3
 * font_awesome
-* glyphicons
 * notify
 * tag_it
 * tooltips

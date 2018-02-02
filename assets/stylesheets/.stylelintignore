@@ -1,6 +1,5 @@
 # stylelint ignore file
-angular-*
-bootstrap-*
+bootstrap*
 *.map
 *.min.css
 jquery.tagit.css

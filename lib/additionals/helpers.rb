@@ -257,21 +257,6 @@ module Additionals
       additionals_include_css('fontawesome-all.min')
     end
 
-    def additionals_load_angular_gantt
-      additionals_include_css('angular-gantt.min') +
-        additionals_include_css('angular-gantt-plugins.min') +
-        additionals_include_css('angular-ui-tree.min') +
-        additionals_include_js('moment-with-locales.min') +
-        additionals_include_js('angular.min') +
-        additionals_include_js('angular-moment.min') +
-        additionals_include_js('ElementQueries') +
-        additionals_include_js('ResizeSensor') +
-        additionals_include_js('angular-native-dragdrop.min') +
-        additionals_include_js('angular-ui-tree.min') +
-        additionals_include_js('jsplumb.min') +
-        additionals_include_js('angular-gantt.min')
-    end
-
     def additionals_load_nvd3
       additionals_include_css('nv.d3.min') +
         additionals_include_js('d3.min') +
@@ -290,12 +275,6 @@ module Additionals
 
     def additionals_load_bootstrap
       additionals_include_css('bootstrap.min') +
-        additionals_include_js('bootstrap.min')
-    end
-
-    def additionals_load_bootstrap_theme
-      additionals_include_css('bootstrap.min') +
-        additionals_include_css('bootstrap-theme.min') +
         additionals_include_js('bootstrap.min')
     end
 

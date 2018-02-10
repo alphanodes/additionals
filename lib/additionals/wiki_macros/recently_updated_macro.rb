@@ -30,7 +30,7 @@ module Additionals
         pages = WikiPage
                 .includes(:content)
                 .where(["#{WikiPage.table_name}.wiki_id = ? AND #{WikiContent.table_name}.updated_on > ?",
-                        page.wiki_id, Time.zone.today - days])
+                        page.wiki_id, User.current.today - days])
                 .order("#{WikiContent.table_name}.updated_on desc")
         o = ''
         date = nil

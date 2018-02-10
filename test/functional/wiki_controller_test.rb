@@ -248,7 +248,7 @@ class WikiControllerTest < ActionController::TestCase
     get :show, project_id: 1, id: @page_name
     assert_response :success
     assert_template 'show'
-    assert_select 'div.wiki span.current-date', Time.zone.today.cweek.to_s
+    assert_select 'div.wiki span.current-date', User.current.today.cweek.to_s
   end
 
   def test_show_issue

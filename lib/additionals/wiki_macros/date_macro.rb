@@ -41,7 +41,7 @@ module Additionals
       end
 
       macro :current_weeknumber do |_obj, _args|
-        content_tag(:span, Time.zone.today.cweek, class: 'current-date')
+        content_tag(:span, User.current.today.cweek, class: 'current-date')
       end
     end
   end

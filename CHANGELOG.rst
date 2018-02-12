@@ -6,7 +6,7 @@ Changelog
 
 - Update bootstrap library to 4.0.0
 - Drop angular_gantt library
-
+- enables deface overwrite directory for all installed plugins (not only additionals)
 
 2.0.8
 +++++

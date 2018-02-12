@@ -1,5 +1,4 @@
-require 'redmine'
-require 'additionals'
+require_dependency 'additionals'
 
 Redmine::Plugin.register :additionals do
   name 'Additionals'
@@ -37,4 +36,19 @@ Redmine::Plugin.register :additionals do
   menu :admin_menu, :additionals, { controller: 'settings', action: 'plugin', id: 'additionals' }, caption: :label_additionals
 
   RedCloth3::ALLOWED_TAGS << 'div'
+end
+
+Rails.configuration.to_prepare do
+  Additionals.setup
+end
+
+Rails.application.config.after_initialize do
+  FONTAWESOME_ICONS = { fab: AdditionalsFontAwesome.load_icons(:fab),
+                        far: AdditionalsFontAwesome.load_icons(:far),
+                        fas: AdditionalsFontAwesome.load_icons(:fas) }.freeze
+end
+
+Rails.application.paths['app/overrides'] ||= []
+Dir.glob(Rails.root.join('plugins', '*', 'app', 'overrides')).each do |dir|
+  Rails.application.paths['app/overrides'] << dir unless Rails.application.paths['app/overrides'].include?(dir)
 end

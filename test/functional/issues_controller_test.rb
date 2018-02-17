@@ -1,12 +1,30 @@
 require File.expand_path('../../test_helper', __FILE__)
 
-class IssuesControllerTest < ActionController::TestCase
-  fixtures :projects, :enabled_modules, :issues, :users, :members,
-           :member_roles, :roles, :documents, :attachments, :news,
-           :tokens, :journals, :journal_details, :changesets,
-           :trackers, :projects_trackers, :issue_statuses, :enumerations,
-           :messages, :boards, :repositories, :wikis, :wiki_pages,
-           :wiki_contents, :wiki_content_versions, :versions, :comments
+class IssuesControllerTest < Redmine::ControllerTest
+  fixtures :projects,
+           :users, :email_addresses, :user_preferences,
+           :roles,
+           :members,
+           :member_roles,
+           :issues,
+           :issue_statuses,
+           :issue_relations,
+           :versions,
+           :trackers,
+           :projects_trackers,
+           :issue_categories,
+           :enabled_modules,
+           :enumerations,
+           :attachments,
+           :workflows,
+           :custom_fields,
+           :custom_values,
+           :custom_fields_projects,
+           :custom_fields_trackers,
+           :time_entries,
+           :journals,
+           :journal_details,
+           :queries
 
   def setup
     manager_role = Role.find(1)
@@ -59,5 +77,55 @@ class IssuesControllerTest < ActionController::TestCase
     assert_no_difference('Journal.count') do
       put :update, id: 1, issue: { author_id: 3 }
     end
+  end
+
+  test 'show assign-to-me on issue' do
+    Setting.plugin_additionals = ActionController::Parameters.new(
+      issue_assign_to_me: 1
+    )
+
+    @request.session[:user_id] = 2
+    get :show, id: 2
+    assert_select 'a.assign-to-me'
+  end
+
+  test 'don\'t show assign-to-me on issue without activation' do
+    Setting.plugin_additionals = ActionController::Parameters.new(
+      issue_assign_to_me: 0
+    )
+
+    @request.session[:user_id] = 2
+    get :show, id: 2
+    assert_select 'a.assign-to-me', count: 0
+  end
+
+  test 'don\'t show assign-to-me on issue with already assigned_to me' do
+    Setting.plugin_additionals = ActionController::Parameters.new(
+      issue_assign_to_me: 1
+    )
+
+    @request.session[:user_id] = 2
+    get :show, id: 4
+    assert_select 'a.assign-to-me', count: 0
+  end
+
+  test 'show change status in issue sidebar' do
+    Setting.plugin_additionals = ActionController::Parameters.new(
+      issue_change_status_in_sidebar: 1
+    )
+
+    @request.session[:user_id] = 2
+    get :show, id: 2
+    assert_select 'ul.issue-status-change-sidebar'
+  end
+
+  test 'don\'t show change status in issue sidebar without activation' do
+    Setting.plugin_additionals = ActionController::Parameters.new(
+      issue_change_status_in_sidebar: 0
+    )
+
+    @request.session[:user_id] = 2
+    get :show, id: 2
+    assert_select 'ul.issue-status-change-sidebar', count: 0
   end
 end

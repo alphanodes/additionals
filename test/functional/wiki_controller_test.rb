@@ -1,7 +1,6 @@
 require File.expand_path('../../test_helper', __FILE__)
 
-# Additionals functional tests
-class WikiControllerTest < ActionController::TestCase
+class WikiControllerTest < Redmine::ControllerTest
   fixtures :projects,
            :users,
            :roles,

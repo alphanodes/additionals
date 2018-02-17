@@ -74,11 +74,13 @@ it:
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_autowatch_involved: Add involved users as watcher automatically
   label_issue_change_status_in_sidebar: Issue status on sidebar
+  label_issue_change_status: Modifica issue stato
   label_last_year: l'anno scorso
   label_legacy_smiley_support: Legacy smiley/emoji support
   label_macro_na: N/A
   label_menu_entry: "Menu item"
   label_monthly: mensile
+  label_new_issue_on_profile: Nuovo numero sul profilo utente
   label_new_ticket_message: "Nota per il nuovo issues"
   label_open_in_new_windows: Open in new windows
   label_optional: "opzionale"
@@ -87,6 +89,7 @@ it:
   label_overview_right: "Pagina di panoramica, destra"
   label_overview_top: "Pagina di panoramica, superiore"
   label_pdf_wiki_settings: PDF Wiki settings
+  label_planning: Planning
   label_project_list: "Elenco dei progetti"
   label_project_overview_content: "Project guide"
   label_query_delete: Elimina query
@@ -153,6 +156,3 @@ it:
   wiki_pdf_header_info: This text block will be displayed on the first page before the regular Wiki content in the PDF view. Macro use is very restricted, here.
   wiki_pdf_remove_attachments_info: "Quando è attivo, il Wiki file allegati non verranno visualizzati nella vista PDF."
   wiki_pdf_remove_title_info: "Quando è attivo, le informazioni sul titolo del Wiki non verranno visualizzate nella vista PDF."
-  label_issue_change_status: Modifica issue stato
-  label_planning: Planning
-  label_new_issue_on_profile: Nuovo numero sul profilo utente

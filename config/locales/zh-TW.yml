@@ -74,11 +74,13 @@
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_autowatch_involved: "自動設定參與者為監看者"
   label_issue_change_status_in_sidebar: Issue status on sidebar
+  label_issue_change_status: Change status
   label_last_year: 去年
   label_legacy_smiley_support: 支援表情符號
   label_macro_na: N/A
   label_menu_entry: "選單項"
   label_monthly: 每月
+  label_new_issue_on_profile: New issue on user profile
   label_new_ticket_message: "建立新議題時的提示訊息"
   label_open_in_new_windows: Open in new windows
   label_optional: "選擇性"
@@ -87,6 +89,7 @@
   label_overview_right: "概觀頁右側"
   label_overview_top: "概觀頁頁首"
   label_pdf_wiki_settings: "PDF Wiki 設定"
+  label_planning: Planning
   label_project_list: "專案清單"
   label_project_overview_content: "專案指南"
   label_query_delete: 刪除查詢
@@ -153,6 +156,3 @@
   wiki_pdf_header_info: "該訊息將顯示在PDF第一頁頁首。此處macros指令支援有限。"
   wiki_pdf_remove_attachments_info: "當啟用時，Wiki附件將不會顯示在PDF中。"
   wiki_pdf_remove_title_info: "當啟用時，Wiki標題訊息不會顯示在PDF中"
-  label_issue_change_status: Change status
-  label_planning: Planning
-  label_new_issue_on_profile: New issue on user profile

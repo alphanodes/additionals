@@ -74,11 +74,13 @@ zh:
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_autowatch_involved: Add involved users as watcher automatically
   label_issue_change_status_in_sidebar: Issue status on sidebar
+  label_issue_change_status: Change status
   label_last_year: 去年
   label_legacy_smiley_support: 表情符号支持
   label_macro_na: N/A
   label_menu_entry: "菜单项"
   label_monthly: 每月
+  label_new_issue_on_profile: New issue on user profile
   label_new_ticket_message: "用于新建问题时的提示信息"
   label_open_in_new_windows: Open in new windows
   label_optional: "可选项"
@@ -87,6 +89,7 @@ zh:
   label_overview_right: "概述页右侧"
   label_overview_top: "概述页顶部"
   label_pdf_wiki_settings: PDF Wiki 设置
+  label_planning: Planning
   label_project_list: "项目列表"
   label_project_overview_content: "项目指南"
   label_query_delete: 删除查询
@@ -153,6 +156,3 @@ zh:
   wiki_pdf_header_info: 该文本快将显示在 PDF 视图中的常规 WIKI 内容之前的第一页上。此处宏命令的使用非常有限。
   wiki_pdf_remove_attachments_info:  当启用时，WIKI 附件将不会显示在PDF视图中。
   wiki_pdf_remove_title_info: 当启用时，WIKI 标题信息将不会显示在PDF视图中。
-  label_issue_change_status: Change status
-  label_planning: Planning
-  label_new_issue_on_profile: New issue on user profile

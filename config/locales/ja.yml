@@ -74,11 +74,13 @@ ja:
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_autowatch_involved: Add involved users as watcher automatically
   label_issue_change_status_in_sidebar: Issue status on sidebar
+  label_issue_change_status: Change status
   label_last_year: previous year
   label_legacy_smiley_support: Legacy smiley/emoji support
   label_macro_na: N/A
   label_menu_entry: "メニュー項目"
   label_monthly: monthly
+  label_new_issue_on_profile: New issue on user profile
   label_new_ticket_message: "新規チケットのメモ"
   label_open_in_new_windows: Open in new windows
   label_optional: "任意"
@@ -87,6 +89,7 @@ ja:
   label_overview_right: "Overview page, right"
   label_overview_top: "Overview page, top"
   label_pdf_wiki_settings: PDF Wiki settings
+  label_planning: Planning
   label_project_list: "プロジェクト一覧"
   label_project_overview_content: "Project guide"
   label_query_delete: Delete query
@@ -153,6 +156,3 @@ ja:
   wiki_pdf_header_info: This text block will be displayed on the first page before the regular Wiki content in the PDF view. Macro use is very restricted, here.
   wiki_pdf_remove_attachments_info: When active the attached Wiki files will not be displayed in PDF view.
   wiki_pdf_remove_title_info: When active the Wiki title info will not be displayed in PDF view.
-  label_issue_change_status: Change status
-  label_planning: Planning
-  label_new_issue_on_profile: New issue on user profile

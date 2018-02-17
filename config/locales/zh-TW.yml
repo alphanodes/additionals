@@ -18,6 +18,7 @@
         issue_changes_not_allowed: "議題已關閉，您無權修改該議題的內容。"
   account_login_info: "在登入頁面顯示的註冊訊息。該選項是通用選項。"
   add_go_to_top_info: "如果你有很長的頁面，建議增加 \"回到頁首\" 的按鈕。"
+  button_assign_to_me: Assign to me
   custom_help_url_info_html: "修改連結後，您必須重啟redmine。若未設定連結，將使用預設的幫助連結。"
   disabled_modules_info: "專案中無法選擇模組。如果這些模組已經在現有專案中啟用，必須先變更對應的專案設定。"
   errors_invalid_icon_format: "無效的 font-awesome 代碼。"
@@ -70,7 +71,9 @@
   label_hour: 小時
   label_icon_color: 圖示顏色
   label_invisible_captcha: "註冊SPAM保護"
+  label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_autowatch_involved: "自動設定參與者為監看者"
+  label_issue_change_status_in_sidebar: Issue status on sidebar
   label_last_year: 去年
   label_legacy_smiley_support: 支援表情符號
   label_macro_na: N/A
@@ -150,3 +153,6 @@
   wiki_pdf_header_info: "該訊息將顯示在PDF第一頁頁首。此處macros指令支援有限。"
   wiki_pdf_remove_attachments_info: "當啟用時，Wiki附件將不會顯示在PDF中。"
   wiki_pdf_remove_title_info: "當啟用時，Wiki標題訊息不會顯示在PDF中"
+  label_issue_change_status: Change status
+  label_planning: Planning
+  label_new_issue_on_profile: New issue on user profile

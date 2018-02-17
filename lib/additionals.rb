@@ -5,7 +5,7 @@ module Additionals
   class << self
     def setup
       incompatible_plugins(%w[redmine_tweaks
-                              common_libraries
+                              redmine_issue_control_panel
                               redmine_editauthor
                               redmine_changeauthor
                               redmine_auto_watch

@@ -18,6 +18,7 @@ de:
         issue_changes_not_allowed: "Dieses Ticket ist geschlossenes und Sie besitzen keine Berechtigung es zu ändern."
   account_login_info: "Dieser Text wir auf der Anmeldeseite angezeigt, um z.B. Informationen für die Anmeldung oder Registrierung zu hinterlegen. Diese Einstellung ist projektübergreifend und ist in allen Projekten aktiv."
   add_go_to_top_info: 'Bei langen Seiten ist es hilfreich, wenn ein Link zur Verfügung steht, mit dem man zum Seitenanfang springen kann.'
+  button_assign_to_me: Mir zuweisen
   custom_help_url_info_html: 'Diese URL wird für den <em>Hilfe</em> Eintrag im Topmenü verwendet. Um eine deutsche Hilfe zu benutzen, kann hier z.B. <a class="external" href="https://alphanodes.com/de/redmine-buch">https://alphanodes.com/de/redmine-buch</a> eingetragen werden. Wenn hier nichts eingetragen wird, wird die Standard URL verwendet.'
   disabled_modules_info: "Module, die nicht zur Auswahl innerhalb der Projekte zur Verfügung stehen sollen. Sind in bestehenden Projekten schon diese Module aktiviert worden, werden die Einstellungen für diese Projekte erst nach erneuten Abspeichern der jeweiligen Projekteinstellungen aktiv."
   errors_invalid_icon_format: ist ein ungültiger Font-Awesome Code
@@ -70,7 +71,9 @@ de:
   label_hour: Stunde
   label_icon_color: Symbolfarbe
   label_invisible_captcha: SPAM Schutz bei Registrierung
+  label_issue_assign_to_me: Ticket "Mir zuweisen" anzeigen
   label_issue_autowatch_involved: Involvierte Benutzer automatisch als Beobachter hinzufügen
+  label_issue_change_status_in_sidebar: Ticketstatus über Sidebar
   label_last_year: voriges Jahr
   label_legacy_smiley_support: Smiley/Emoji Support
   label_macro_na: N/V
@@ -150,3 +153,6 @@ de:
   wiki_pdf_header_info: Dieser Textblock wir auf der ersten Seite vor dem eigentlichen Inhalt der Wiki Seite in der PDF Ansicht angezeigt. Die Makros sind hier nur eingeschränkt einsetzbar.
   wiki_pdf_remove_attachments_info: Wenn aktiv, werden die an der Wiki Seite angehängten Dateien nicht in der PDF Ansicht angezeigt.
   wiki_pdf_remove_title_info: Wenn aktiv, wird der Wiki Titel nicht in der PDF Ansicht angezeigt.
+  label_issue_change_status: Status ändern
+  label_planning: Planung
+  label_new_issue_on_profile: Neues Ticket auf Benutzerprofil

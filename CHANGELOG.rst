@@ -4,9 +4,13 @@ Changelog
 2.0.9
 +++++
 
-- Update bootstrap library to 4.0.0
+- Updated bootstrap library to 4.0.0
 - Drop angular_gantt library
 - enables deface overwrite directory for all installed plugins (not only additionals)
+- Updated d3plus to version v2.0.0-alpha.16
+- add "Assign to me" to issues
+- add "Status on sidebar" for issues
+- add link to create new issue on user profile
 
 2.0.8
 +++++

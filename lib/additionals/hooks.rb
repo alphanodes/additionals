@@ -12,12 +12,14 @@ module Additionals
     render_on(:view_issues_bulk_edit_details_bottom, partial: 'change_author_bulk')
     render_on(:view_issues_form_details_bottom, partial: 'change_author')
     render_on(:view_issues_new_top, partial: 'new_ticket_message')
+    render_on(:view_issues_sidebar_issues_bottom, partial: 'additionals_sidebar')
     render_on(:view_issues_sidebar_queries_bottom, partial: 'additionals/global_sidebar')
     render_on(:view_projects_show_right, partial: 'project_overview')
     render_on(:view_projects_show_sidebar_bottom, partial: 'additionals/global_sidebar')
     render_on(:view_welcome_index_right, partial: 'overview_right')
     render_on(:view_my_account_preferences, partial: 'users/autowatch_involved_issue')
     render_on(:view_users_form_preferences, partial: 'users/autowatch_involved_issue')
+    render_on(:view_users_show_contextual, partial: 'users/additionals_contextual')
 
     def helper_issues_show_detail_after_setting(context = {})
       d = context[:detail]

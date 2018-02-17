@@ -1,0 +1,16 @@
+- if Additionals.setting?(:issue_change_status_in_sidebar) && @issue && User.current.allowed_to?(:edit_issues, @project)
+  - statuses = @issue.new_statuses_allowed_to(User.current)
+  - if statuses.present?
+    h3 = l(:label_issue_change_status)
+    ul.issue-status-change-sidebar
+      - statuses.each do |s|
+        - if s != @issue.status
+          li
+            - if s.is_closed?
+              = link_to(font_awesome_icon('fas_caret-square-left', post_text: s.name),
+                        issue_change_status_path(@issue, new_status_id: s.id), method: :put)
+            - else
+              = link_to(font_awesome_icon('far_caret-square-left', post_text: s.name),
+                        issue_change_status_path(@issue, new_status_id: s.id), method: :put)
+
+    h3 = l(:label_planning)

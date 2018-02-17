@@ -18,6 +18,7 @@ fr:
         issue_changes_not_allowed: "Ce issue est clos, vous n'avez pas le droit de le modifier."
   account_login_info: "Ce message texte sera affiché à la page de connexion et devrait être utilisé pour les informations d'inscription. Ces options sont actives dans tous les projets."
   add_go_to_top_info: "Si vous avez beaucoup de pages longues, il est utile d'ajouter un saut au lien du haut."
+  button_assign_to_me: Assign to me
   custom_help_url_info_html: "After changing this URL, you have to restart the application server to activate it. If no URL is specified, the default help URL will be used."
   disabled_modules_info: "Modules which should not be available for selection within the projects. If these modules already activated in existing projects, you will have to change and re-save the respective project settings first."
   errors_invalid_icon_format: is an invalid font-awesome code
@@ -70,7 +71,9 @@ fr:
   label_hour: Heure
   label_icon_color: Icon color
   label_invisible_captcha: SPAM protection for registration
+  label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_autowatch_involved: Add involved users as watcher automatically
+  label_issue_change_status_in_sidebar: Issue status on sidebar
   label_last_year: previous year
   label_legacy_smiley_support: Legacy smiley/emoji support
   label_macro_na: N/A
@@ -150,3 +153,6 @@ fr:
   wiki_pdf_header_info: This text block will be displayed on the first page before the regular Wiki content in the PDF view. Macro use is very restricted, here.
   wiki_pdf_remove_attachments_info: When active the attached Wiki files will not be displayed in PDF view.
   wiki_pdf_remove_title_info: When active the Wiki title info will not be displayed in PDF view.
+  label_issue_change_status: Change status
+  label_planning: Planning
+  label_new_issue_on_profile: New issue on user profile

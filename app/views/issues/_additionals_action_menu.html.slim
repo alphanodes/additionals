@@ -1,0 +1,4 @@
+- if User.current.logged? && @issue.editable? && Additionals.setting?(:issue_assign_to_me) && \
+   @issue.assigned_to_id != User.current.id && @project.assignable_users.detect { |u| u.id == User.current.id }
+    = link_to(font_awesome_icon('far_user-circle', post_text: l(:button_assign_to_me)),
+              issue_assign_to_me_path(@issue), method: :put)

@@ -18,6 +18,7 @@ zh:
         issue_changes_not_allowed: "问题已关闭，您无权修改该问题的内容。"
   account_login_info: "该文本信息将在登录页作为注册信息展现。该选项是全局选项。"
   add_go_to_top_info: '如果您有很长的页面，添加"回到页首"的功能将非常有用。'
+  button_assign_to_me: Assign to me
   custom_help_url_info_html: "在修改了 URL 后，您必须重启服务以激活该配置。若未指定 URL，则使用默认的帮助 URL 地址。"
   disabled_modules_info: "项目中无法选择模块。如果这些模块已经在现有项目中激活，则必须首先更改并重新保存响应的项目设置。"
   errors_invalid_icon_format: 无效的 Font-awesome 代码。
@@ -70,7 +71,9 @@ zh:
   label_hour: 小时
   label_icon_color: 图标颜色
   label_invisible_captcha: SPAM protection for registration
+  label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_autowatch_involved: Add involved users as watcher automatically
+  label_issue_change_status_in_sidebar: Issue status on sidebar
   label_last_year: 去年
   label_legacy_smiley_support: 表情符号支持
   label_macro_na: N/A
@@ -150,3 +153,6 @@ zh:
   wiki_pdf_header_info: 该文本快将显示在 PDF 视图中的常规 WIKI 内容之前的第一页上。此处宏命令的使用非常有限。
   wiki_pdf_remove_attachments_info:  当启用时，WIKI 附件将不会显示在PDF视图中。
   wiki_pdf_remove_title_info: 当启用时，WIKI 标题信息将不会显示在PDF视图中。
+  label_issue_change_status: Change status
+  label_planning: Planning
+  label_new_issue_on_profile: New issue on user profile

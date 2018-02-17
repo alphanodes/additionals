@@ -127,6 +127,9 @@ Features
 * change issue author
 * spam protection on registration form
 * add involved issue users as watcher automatically
+* create issue on user profile
+* "assign to me" link on issue
+* change issue state on sidebar
 * configurable issue rules
 
   * closing issue with open sub issues
@@ -149,7 +152,7 @@ It provides :
 
 * `bootstrap 4.0.0 <https://getbootstrap.com>`_
 * `d3 3.5.16 <https://d3js.org/>`_
-* `d3plus 1.9.8 <http://d3plus.org/>`_
+* `d3plus v2.0.0-alpha.16 <https://d3plus.org/>`_
 * `jQuery TagIt 2.0 <http://aehlke.github.io/tag-it/>`_
 * `FontAwesome 5.0.6 <https://fontawesome.com/>`_
 * `nvd3 1.8.6 <https://github.com/novus/nvd3>`_

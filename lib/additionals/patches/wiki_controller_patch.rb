@@ -4,14 +4,14 @@ module Additionals
   module Patches
     module WikiControllerPatch
       def self.included(base)
-        base.send(:include, InstanceMethodsForAdditionalsWikiController)
+        base.send(:include, InstanceMethods)
         base.class_eval do
           alias_method_chain :respond_to, :additionals
         end
       end
     end
 
-    module InstanceMethodsForAdditionalsWikiController
+    module InstanceMethods
       def respond_to_with_additionals(&block)
         if @project && @content
           if @_action_name == 'show'

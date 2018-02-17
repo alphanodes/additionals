@@ -18,6 +18,7 @@ ja:
         issue_changes_not_allowed: "This issue is closed, you do not have any right to change it."
   account_login_info: "この文章は、ログイン画面で表示され、登録情報の掲載を目的にしています。これらの設定は全プロジェクトで有効です。"
   add_go_to_top_info: '長いページが多い場合、「トップへ」のリンクは役立ちます。'
+  button_assign_to_me: Assign to me
   custom_help_url_info_html: "このURLを変更した後、反映するためにウェブサーバを再起動しなければなりません。URLの指定がない場合、規程のヘルプURLが使用されます。"
   disabled_modules_info: "プロジェクト内で選択させたくないモジュール。もしこのモジュールが既存のプロジェクトで既に有効な場合、設定変更した上で、ウェブサーバを再起動しなければなりません。"
   errors_invalid_icon_format: is an invalid font-awesome code
@@ -70,7 +71,9 @@ ja:
   label_hour: hour
   label_icon_color: Icon color
   label_invisible_captcha: SPAM protection for registration
+  label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_autowatch_involved: Add involved users as watcher automatically
+  label_issue_change_status_in_sidebar: Issue status on sidebar
   label_last_year: previous year
   label_legacy_smiley_support: Legacy smiley/emoji support
   label_macro_na: N/A
@@ -150,3 +153,6 @@ ja:
   wiki_pdf_header_info: This text block will be displayed on the first page before the regular Wiki content in the PDF view. Macro use is very restricted, here.
   wiki_pdf_remove_attachments_info: When active the attached Wiki files will not be displayed in PDF view.
   wiki_pdf_remove_title_info: When active the Wiki title info will not be displayed in PDF view.
+  label_issue_change_status: Change status
+  label_planning: Planning
+  label_new_issue_on_profile: New issue on user profile

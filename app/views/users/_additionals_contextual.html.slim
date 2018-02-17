@@ -1,0 +1,4 @@
+- if Additionals.setting?(:new_issue_on_profile) && \
+    User.current.allowed_to?(:edit_issues, nil, global: true) && \
+    user.allowed_to?(:edit_issues, nil, global: true)
+  = link_to(l(:label_issue_new), new_issue_path('issue[assigned_to_id]' => user.id), class: 'icon icon-add')

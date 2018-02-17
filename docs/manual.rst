@@ -110,6 +110,9 @@ Settings
 
 The following options are available at the moment in the area **Settings** where you can define rules which will be used in all projects:
 
+* New issue on user profile. Activate this option in case you want to display the symbol link ''New issue'' on a user's profile page in the top right corner in order to add a new issue for this user directly from it's user profile page. This option only works for users with appropriate issue tracking rights.
+* Show ''Assign to me'' on issue. Activate this option if you want to display the symbol link ''Assign to me'' in the issue overview page of an issue that you are able to assign it directly to yourself without *editing* the issue. Works only for users with appropriate issue tracking rights.
+* Issue status on sidebar. Activate this option in case you want to display a list of available issue status options in the right sidebar of the issue view page. One click on the option changes the issue status directly without opening the *edit* mode.
 * Add involved users as watcher automatically. This means, everyone who is or has been involved in the issue (Assignee, Editor, Author etc.) will automatically be notified about further changes. At the same time the user finds an additional option in his user account edit mode called ``Autowatch involved issues`` (see figure 1). Deactivate this option if you don't want to be notified.
 * Issues with open sub-issues cannot be closed.
 * If "Assignee" is unchanged and the issue status changed from x to y, than the author is assigned to the issue.

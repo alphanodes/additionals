@@ -59,7 +59,7 @@ p
                  options_for_select(rule_status.collect { |column| [column.name, column.id] },
                                     @settings[:issue_assign_to_x]),
                  multiple: true, size: 6, style: 'width:150px'
-em.info = t(:rule_issue_current_user_status_info)
+em.info = t(:rule_issue_current_user_status_info_html)
 
 br
 br

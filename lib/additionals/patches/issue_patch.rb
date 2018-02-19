@@ -77,6 +77,16 @@ module Additionals
         @new_ticket_message << message if message.present?
       end
 
+      def status_x_affected?(new_status_id)
+        return false unless Additionals.setting?(:issue_current_user_status)
+        return false if Additionals.settings[:issue_assign_to_x].blank?
+        if Additionals.settings[:issue_assign_to_x].include?(new_status_id.to_s)
+          true
+        else
+          false
+        end
+      end
+
       private
 
       def auto_assigned_to
@@ -113,12 +123,12 @@ module Additionals
       end
 
       def validate_current_user_status
-        return true unless Additionals.setting?(:issue_current_user_status)
-        return true if Additionals.settings[:issue_assign_to_x].blank?
         if (assigned_to_id_changed? || status_id_changed?) &&
-           (Additionals.settings[:issue_assign_to_x].include? status_id.to_s) &&
+           status_x_affected?(status_id) &&
            (assigned_to_id.blank? || assigned_to_id != User.current.id)
           errors.add :base, :issue_current_user_status
+        else
+          true
         end
       end
 

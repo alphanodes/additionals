@@ -15,6 +15,7 @@ class AdditionalsChangeStatusController < ApplicationController
     end
 
     @issue.status_id = new_status_id
+    @issue.assigned_to = User.current if @issue.status_x_affected?(new_status_id) && issue_old_user != User.current
 
     if !@issue.save || issue_old_status == @issue.status.name
       flash[:error] = l(:error_issue_status_could_not_changed)

@@ -4,6 +4,11 @@
     @memberships.present?
   - prj = @memberships.detect { |m| User.current.membership(m.project_id).present? }
   - if prj.present?
-    = link_to(l(:label_issue_new),
-              new_issue_path('issue[assigned_to_id]' => user.id, 'issue[project_id]' => prj.project_id),
-              class: 'user-new-issue icon icon-add')
+    - if @memberships.count == 1
+      = link_to(l(:label_issue_new),
+                new_project_issue_path(prj.project_id, 'issue[assigned_to_id]' => user.id),
+                class: 'user-new-issue icon icon-add')
+    - else
+      = link_to(l(:label_issue_new),
+                new_issue_path('issue[assigned_to_id]' => user.id, 'issue[project_id]' => prj.project_id),
+                class: 'user-new-issue icon icon-add')

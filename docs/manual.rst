@@ -129,7 +129,7 @@ The following options are available at the moment in the area **Settings** where
 
 * Current issue status x is only allowed if *Assignee* is the current user.
 
-.. note:: Use Case here: Users are only allowed to change the status to *In Progress* if they are the person who is actually working on the issue right now.
+.. note:: Is this function used in combination with the setting option *Issue status on sidebar* then the current user will automatically be assigned to the issue while changing the issue status. Use Case here: Users are only allowed to change the status to *In Progress* if they are the person who is actually working on the issue right now.
 
 * If ''Assigned to'' is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role.
 

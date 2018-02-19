@@ -21,6 +21,8 @@ zh:
   button_assign_to_me: Assign to me
   custom_help_url_info_html: "在修改了 URL 后，您必须重启服务以激活该配置。若未指定 URL，则使用默认的帮助 URL 地址。"
   disabled_modules_info: "项目中无法选择模块。如果这些模块已经在现有项目中激活，则必须首先更改并重新保存响应的项目设置。"
+  error_issue_status_could_not_changed: Issue state could not be changed
+  error_issues_could_not_be_assigned_to_me: Issue could not assigned to me
   errors_invalid_icon_format: 无效的 Font-awesome 代码。
   errors_no_or_invalid_arguments: 参数无效或不存在。
   errors_query_does_not_exist: 查询不存咋。
@@ -142,7 +144,7 @@ zh:
   remove_mypage_info: '有时，为了引入敏捷的任务看板，隐藏【我的工作台】链接可能会更有用。任务看板的优势即是可以根据状态罗列并快速访问。'
   remove_news_info: "从概述页中隐藏最近新闻区块。"
   rule_issue_auto_assign_info: '用例：问题作者不知道将问题分配给谁时，或不知道谁应当负责解决具体任务时。在那种情况下，状态为 "To Do" 的问题将自动指派给包含预选项目经理角色用户的第一组。'
-  rule_issue_current_user_status_info: "用例：如果用户是正在处理该问题的人员，则只能将状态更改为 \"In Progress\" 。"
+  rule_issue_current_user_status_info_html: "用例：如果用户是正在处理该问题的人员，则只能将状态更改为 \"In Progress\" 。"
   rule_issue_status_change_info: "用例：若问题的状态修改为 \"Approval\"，则自动分配给问题作者。"
   show_always: 总是显示
   show_on_project_overview: 在项目概览页上显示
@@ -156,5 +158,3 @@ zh:
   wiki_pdf_header_info: 该文本快将显示在 PDF 视图中的常规 WIKI 内容之前的第一页上。此处宏命令的使用非常有限。
   wiki_pdf_remove_attachments_info:  当启用时，WIKI 附件将不会显示在PDF视图中。
   wiki_pdf_remove_title_info: 当启用时，WIKI 标题信息将不会显示在PDF视图中。
-  error_issues_could_not_be_assigned_to_me: Issue could not assigned to me
-  error_issue_status_could_not_changed: Issue state could not be changed

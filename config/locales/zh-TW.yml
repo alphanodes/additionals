@@ -21,6 +21,8 @@
   button_assign_to_me: Assign to me
   custom_help_url_info_html: "修改連結後，您必須重啟redmine。若未設定連結，將使用預設的幫助連結。"
   disabled_modules_info: "專案中無法選擇模組。如果這些模組已經在現有專案中啟用，必須先變更對應的專案設定。"
+  error_issue_status_could_not_changed: Issue state could not be changed
+  error_issues_could_not_be_assigned_to_me: Issue could not assigned to me
   errors_invalid_icon_format: "無效的 font-awesome 代碼。"
   errors_no_or_invalid_arguments: "參數無效或不存在。"
   errors_query_does_not_exist: "查無結果。"
@@ -142,7 +144,7 @@
   remove_mypage_info: "為了引入敏捷的任務看板，隱藏 \"帳戶首頁\" 可能會更有幫助。任務看板的優勢為可以依據狀態列出並快速訪問。"
   remove_news_info: "從概觀頁中隱藏 \"最近新聞\" 區域。"
   rule_issue_auto_assign_info: "範例：議題作者不知道該把議題分配給誰時，狀態為 \"進行中\" 的議題將自動被分派給專案中第一位角色為 \"管理人員\"的成員。"
-  rule_issue_current_user_status_info: "範例：若用戶正在處理該議題，則只能將狀態改為 \"進行中\"。"
+  rule_issue_current_user_status_info_html: "範例：若用戶正在處理該議題，則只能將狀態改為 \"進行中\"。"
   rule_issue_status_change_info: "範例：若議題的狀態修改為 \"已完成\"，則自動被分派給議題作者。"
   show_always: "總是顯示"
   show_on_project_overview: "在專案概觀頁上顯示"
@@ -156,5 +158,3 @@
   wiki_pdf_header_info: "該訊息將顯示在PDF第一頁頁首。此處macros指令支援有限。"
   wiki_pdf_remove_attachments_info: "當啟用時，Wiki附件將不會顯示在PDF中。"
   wiki_pdf_remove_title_info: "當啟用時，Wiki標題訊息不會顯示在PDF中"
-  error_issues_could_not_be_assigned_to_me: Issue could not assigned to me
-  error_issue_status_could_not_changed: Issue state could not be changed

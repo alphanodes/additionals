@@ -21,6 +21,8 @@ ja:
   button_assign_to_me: Assign to me
   custom_help_url_info_html: "このURLを変更した後、反映するためにウェブサーバを再起動しなければなりません。URLの指定がない場合、規程のヘルプURLが使用されます。"
   disabled_modules_info: "プロジェクト内で選択させたくないモジュール。もしこのモジュールが既存のプロジェクトで既に有効な場合、設定変更した上で、ウェブサーバを再起動しなければなりません。"
+  error_issue_status_could_not_changed: Issue state could not be changed
+  error_issues_could_not_be_assigned_to_me: Issue could not assigned to me
   errors_invalid_icon_format: is an invalid font-awesome code
   errors_no_or_invalid_arguments: No or invalid arguments
   errors_query_does_not_exist: Query does not exist
@@ -142,7 +144,7 @@ ja:
   remove_mypage_info: 'タスクボードを導入するために、「マイ・ページ」のリンクを隠した方が便利な場合があります。タスクボードにより、ステータス毎の順番並び替えに出来るメリットがあります。'
   remove_news_info: "Remove latest news from overview page."
   rule_issue_auto_assign_info: 'Use Case: The issue author does not know whom to assign the issue or who will be responsible for solving the task. In that case the issue for example with the status "To Do" is automatically assigned to the first group, which does contain a user of the pre-selected project manager role.'
-  rule_issue_current_user_status_info: "Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."
+  rule_issue_current_user_status_info_html: "Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."
   rule_issue_status_change_info: "Use Case: issues should be automatically assigned to autor, if the status changes to \"Approval\"."
   show_always: Show always
   show_on_project_overview: Show on project overview
@@ -156,5 +158,3 @@ ja:
   wiki_pdf_header_info: This text block will be displayed on the first page before the regular Wiki content in the PDF view. Macro use is very restricted, here.
   wiki_pdf_remove_attachments_info: When active the attached Wiki files will not be displayed in PDF view.
   wiki_pdf_remove_title_info: When active the Wiki title info will not be displayed in PDF view.
-  error_issues_could_not_be_assigned_to_me: Issue could not assigned to me
-  error_issue_status_could_not_changed: Issue state could not be changed

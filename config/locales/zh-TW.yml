@@ -156,3 +156,5 @@
   wiki_pdf_header_info: "該訊息將顯示在PDF第一頁頁首。此處macros指令支援有限。"
   wiki_pdf_remove_attachments_info: "當啟用時，Wiki附件將不會顯示在PDF中。"
   wiki_pdf_remove_title_info: "當啟用時，Wiki標題訊息不會顯示在PDF中"
+  error_issues_could_not_be_assigned_to_me: Issue could not assigned to me
+  error_issue_status_could_not_changed: Issue state could not be changed

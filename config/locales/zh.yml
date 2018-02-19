@@ -156,3 +156,5 @@ zh:
   wiki_pdf_header_info: 该文本快将显示在 PDF 视图中的常规 WIKI 内容之前的第一页上。此处宏命令的使用非常有限。
   wiki_pdf_remove_attachments_info:  当启用时，WIKI 附件将不会显示在PDF视图中。
   wiki_pdf_remove_title_info: 当启用时，WIKI 标题信息将不会显示在PDF视图中。
+  error_issues_could_not_be_assigned_to_me: Issue could not assigned to me
+  error_issue_status_could_not_changed: Issue state could not be changed

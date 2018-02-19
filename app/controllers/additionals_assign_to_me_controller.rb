@@ -12,7 +12,11 @@ class AdditionalsAssignToMeController < ApplicationController
     end
 
     @issue.assigned_to = User.current
-    @issue.save
+
+    if !@issue.save || old_user == @issue.assigned_to
+      flash[:error] = l(:error_issues_could_not_be_assigned_to_me)
+      return redirect_to(issue_path(@issue))
+    end
 
     new_journal = @issue.init_journal(User.current)
     new_journal.save!
@@ -20,9 +24,9 @@ class AdditionalsAssignToMeController < ApplicationController
     last_journal = @issue.journals.visible.order('created_on').last
 
     JournalDetail.new(property: 'attr',
-                      prop_key: 'user',
+                      prop_key: 'assigned_to',
                       old_value: old_user,
-                      value: User.current.name,
+                      value: @issue.assigned_to,
                       journal: new_journal).save!
 
     if last_journal.nil?

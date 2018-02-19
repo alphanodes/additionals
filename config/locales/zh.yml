@@ -144,7 +144,7 @@ zh:
   remove_mypage_info: '有时，为了引入敏捷的任务看板，隐藏【我的工作台】链接可能会更有用。任务看板的优势即是可以根据状态罗列并快速访问。'
   remove_news_info: "从概述页中隐藏最近新闻区块。"
   rule_issue_auto_assign_info: '用例：问题作者不知道将问题分配给谁时，或不知道谁应当负责解决具体任务时。在那种情况下，状态为 "To Do" 的问题将自动指派给包含预选项目经理角色用户的第一组。'
-  rule_issue_current_user_status_info_html: "用例：如果用户是正在处理该问题的人员，则只能将状态更改为 \"In Progress\" 。"
+  rule_issue_current_user_status_info_html: "Is this function used in combination with the setting option "Issue status on sidebar" then the current user will automatically be assigned to the issue while changing the issue status.<br />Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."
   rule_issue_status_change_info: "用例：若问题的状态修改为 \"Approval\"，则自动分配给问题作者。"
   show_always: 总是显示
   show_on_project_overview: 在项目概览页上显示

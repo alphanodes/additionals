@@ -144,7 +144,7 @@ de:
   remove_mypage_info: 'Manchmal ist es hilfreich, dass die "Meine Seite" nicht angezeigt wird, um den Einsatz eines Task Boards einzuführen. Der Vorteil eines Task Boards liegt darin, dass Tickets nach Status gelistet werden können.'
   remove_news_info: "News von der Übersichtsseite entfernen."
   rule_issue_auto_assign_info: 'Use Case: Der Ticketersteller weiss nicht, wem er das Ticket zurordnen soll bzw. welcher Benutzer zuständig für das Ticket ist. Das neue Ticket mit dem Status "To Do" wird in dem Fall automatisch der ersten Gruppe zugewiesen, die Benutzer mit der Rolle Managener enthält.'
-  rule_issue_current_user_status_info_html: "Wird diese Funktion zusammen mit Ticket-Status über die Sidebar verändern verwendet, wird automatisch der aktuelle Benutzer den neuen Status zugewiesen.<br />Use Case: Ein Benutzer soll nur den Status auf \"In Progress\" selbst stellen können, um damit anzuzeigen, dass er an dem Ticket (gerade) arbeitet."
+  rule_issue_current_user_status_info_html: "Wird diese Funktion zusammen mit der Einstellung "Ticketstatus über Sidebar" verwendet, wird automatisch der aktuelle Benutzer dem neu ausgewählten Status zugewiesen.<br />Use Case: Ein Benutzer soll nur den Status auf \"In Progress\" selbst stellen können um damit anzuzeigen, dass er an dem Ticket (gerade) arbeitet."
   rule_issue_status_change_info: "Use Case: Zur Abnahme der Tickets sollen alle Tickets automatisch dem Ersteller des Tickets zugeordnet werden, sofern kein anderer Benutzer ausgewählt wird."
   show_always: Immer anzeigen
   show_on_project_overview: Auf Projektübersicht anzeigen

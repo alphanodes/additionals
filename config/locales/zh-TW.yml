@@ -144,7 +144,7 @@
   remove_mypage_info: "為了引入敏捷的任務看板，隱藏 \"帳戶首頁\" 可能會更有幫助。任務看板的優勢為可以依據狀態列出並快速訪問。"
   remove_news_info: "從概觀頁中隱藏 \"最近新聞\" 區域。"
   rule_issue_auto_assign_info: "範例：議題作者不知道該把議題分配給誰時，狀態為 \"進行中\" 的議題將自動被分派給專案中第一位角色為 \"管理人員\"的成員。"
-  rule_issue_current_user_status_info_html: "範例：若用戶正在處理該議題，則只能將狀態改為 \"進行中\"。"
+  rule_issue_current_user_status_info_html: "Is this function used in combination with the setting option "Issue status on sidebar" then the current user will automatically be assigned to the issue while changing the issue status.<br />Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."
   rule_issue_status_change_info: "範例：若議題的狀態修改為 \"已完成\"，則自動被分派給議題作者。"
   show_always: "總是顯示"
   show_on_project_overview: "在專案概觀頁上顯示"

@@ -9,6 +9,10 @@ Recently updated wiki macro for Redmine.
 
     :param int days: number of days, which should be used. Default is 5.
 
+Scope
++++++
+
+This macro only works in Wiki pages.
 
 Examples
 ++++++++

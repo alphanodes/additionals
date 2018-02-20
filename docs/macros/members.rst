@@ -11,6 +11,11 @@ Project members macro for Redmine.
     :param string title: title to use for member list
     :param string role: only list members with this role. If you want to use multiple roles as filters, you have to use a | as separator.
 
+Scope
++++++
+
+This macro works in all text fields with formating support.
+
 Examples
 ++++++++
 

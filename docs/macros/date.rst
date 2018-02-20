@@ -30,3 +30,8 @@ Date wiki macros for Redmine.
 .. function:: {{current_weekday}}
 
     current week number (week starts with monday)
+
+Scope
++++++
+
+This macro works in all text fields with formating support.

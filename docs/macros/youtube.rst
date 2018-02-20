@@ -12,6 +12,11 @@ Youtube wiki macro for Redmine.
     :param int height: video height
     :param bool autoplay: auto play video, if true
 
+Scope
++++++
+
+This macro works in all text fields with formating support.
+
 Examples
 ++++++++
 

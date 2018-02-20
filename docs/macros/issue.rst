@@ -12,6 +12,11 @@ Issue wiki macro for Redmine.
     :param int id: issue id (if this is defined, it will be always used prioritized - before the parameter for URL)
     :param int note_id: comment id (if this is defined, it will be always used prioritized - before the parameter for URL)
 
+Scope
++++++
+
+This macro works in all text fields with formating support.
+
 Examples
 ++++++++
 

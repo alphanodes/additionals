@@ -9,6 +9,10 @@ Github gist wiki macro for Redmine.
 
     :param string gist: gist to display. With or without Github username.
 
+Scope
++++++
+
+This macro works in all text fields with formating support.
 
 Examples
 ++++++++

@@ -9,6 +9,11 @@ Groupo users macro for Redmine.
 
     :param string group_name: group name
 
+Scope
++++++
+
+This macro works in all text fields with formating support.
+
 Examples
 ++++++++
 

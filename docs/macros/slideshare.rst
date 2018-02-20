@@ -12,6 +12,11 @@ Slideshare wiki macro for Redmine.
     :param int height: height
     :param int slide: Slide page
 
+Scope
++++++
+
+This macro works in all text fields with formating support.
+
 Examples
 ++++++++
 

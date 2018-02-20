@@ -12,6 +12,11 @@ Calendar wiki macros for Redmine.
     :param bool show_weeks: show week numbers if true
     :param date select: date or dates, which should be highlighted
 
+Scope
++++++
+
+This macro only works in Wiki pages.
+
 Examples
 ++++++++
 

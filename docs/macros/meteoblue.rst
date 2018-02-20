@@ -23,6 +23,11 @@ Meteoblue wiki macro for Redmine. A macro to show weather forecast for a specifi
     :param bool precipitationprobability: precipitationprobability
     :param bool spot: spot
 
+Scope
++++++
+
+This macro works in all text fields with formating support.
+
 Examples
 ++++++++
 

@@ -22,7 +22,10 @@ See https://www.tradingview.com/widget/ for more information.
     :param bool allow_symbol_change: default true
     :param bool hideideasbutton: default true
 
+Scope
++++++
 
+This macro works in all text fields with formating support.
 
 Examples
 ++++++++

@@ -11,6 +11,11 @@ User wiki macro for Redmine.
     :param string format: custom format of link name. If not specified system settings will be used. You can use format with the same options as for system settings.
     :param bool avatar: show avatar, if true
 
+Scope
++++++
+
+This macro works in all text fields with formating support.
+
 Examples
 ++++++++
 

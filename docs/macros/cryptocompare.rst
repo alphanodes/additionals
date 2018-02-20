@@ -38,6 +38,10 @@ See https://www.cryptocompare.com/dev/widget/wizard/ for more information.
                           * tabbed
                           * titles
 
+Scope
++++++
+
+This macro works in all text fields with formating support.
 
 Examples
 ++++++++

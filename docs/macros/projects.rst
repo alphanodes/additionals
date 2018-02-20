@@ -10,6 +10,11 @@ Projects wiki macro for Redmine.
     :param string title: title to use for project list
     :param bool with_create_issue: show link to create new issue, if true
 
+Scope
++++++
+
+This macro works in all text fields with formating support.
+
 Examples
 ++++++++
 

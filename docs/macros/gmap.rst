@@ -12,6 +12,11 @@ Google map wiki macro for Redmine to implement a street map. There are various c
     :param int width: widget width
     :param int height: widget height
 
+Scope
++++++
+
+This macro works in all text fields with formating support.
+
 Examples
 ++++++++
 

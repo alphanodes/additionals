@@ -9,6 +9,11 @@ Twitter wiki macro for Redmine.
 
     :param string profile: Twitter profile name with @. E.g. alphanodes
 
+Scope
++++++
+
+This macro works in all text fields with formating support.
+
 Examples
 ++++++++
 

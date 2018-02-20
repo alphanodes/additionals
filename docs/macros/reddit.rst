@@ -9,6 +9,11 @@ Reddit wiki macro for Redmine.
 
     :param string name: Reddit subject or user name
 
+Scope
++++++
+
+This macro works in all text fields with formating support.
+
 Examples
 ++++++++
 

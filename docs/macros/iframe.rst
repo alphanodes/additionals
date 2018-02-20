@@ -20,6 +20,10 @@ Iframe macro for Redmine.
 
     Note 2: Your Redmine webserver can also block your iframe includion, check your `Content Security Policy (CSP) <https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP>`_
 
+Scope
++++++
+
+This macro works in all text fields with formating support.
 
 Examples
 ++++++++

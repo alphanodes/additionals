@@ -44,6 +44,27 @@ module Additionals
       end
     end
 
+    def memberships_new_issue_project_url(user, memberships)
+      project_count = 0
+      project_id = nil
+      memberships.each do |m|
+        project = Project.find_by(id: m.project_id)
+        next unless User.current.allowed_to?(:edit_issues, project) && user.allowed_to?(:edit_issues, project)
+        project_count += 1
+        break if project_count > 1
+        project_id = m.project_id
+      end
+
+      return if project_id.nil?
+
+      # if more than one projects available, we do not use project url for a new issue
+      if project_count > 1
+        new_issue_path('issue[assigned_to_id]' => user.id, 'issue[project_id]' => project_id)
+      else
+        new_project_issue_path(project_id, 'issue[assigned_to_id]' => user.id)
+      end
+    end
+
     def parse_issue_url(url, comment_id = nil)
       rc = { issue_id: nil, comment_id: nil }
       return rc if url == '' || url.is_a?(Integer) && url.zero?

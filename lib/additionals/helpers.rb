@@ -48,7 +48,7 @@ module Additionals
       project_count = 0
       project_id = nil
       memberships.each do |m|
-        project = Project.find_by(id: m.project_id)
+        project = m.is_a?(Project) ? m : Project.find_by(id: m.project_id)
         next unless User.current.allowed_to?(:edit_issues, project) && user.allowed_to?(:edit_issues, project)
         project_count += 1
         break if project_count > 1

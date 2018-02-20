@@ -12,7 +12,7 @@ Recently updated wiki macro for Redmine.
 Scope
 +++++
 
-This macro only works in Wiki pages.
+This macro only works in wiki page contexts.
 
 Examples
 ++++++++

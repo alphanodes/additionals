@@ -52,7 +52,7 @@ module Additionals
         next unless User.current.allowed_to?(:edit_issues, project) && user.allowed_to?(:edit_issues, project)
         project_count += 1
         break if project_count > 1
-        project_id = m.project_id
+        project_id = project.identifier
       end
 
       return if project_id.nil?

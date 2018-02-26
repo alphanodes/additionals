@@ -45,6 +45,7 @@ module Additionals
     end
 
     def memberships_new_issue_project_url(user, memberships)
+      return if memberships.blank?
       project_count = 0
       project_id = nil
       memberships.each do |m|

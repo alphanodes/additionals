@@ -33,8 +33,8 @@ module Additionals
       ActionController::TestUploadedFile.new(ActiveSupport::TestCase.fixture_path + "/files/#{name}", mime, true)
     end
 
-    def self.arrays_equal?(a1, a2)
-      (a1 - a2) - (a2 - a1) == []
+    def self.arrays_equal?(value1, value2)
+      (value1 - value2) - (value2 - value1) == []
     end
 
     def self.create_fixtures(fixtures_directory, table_names, _class_names = {})

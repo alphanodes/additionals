@@ -143,8 +143,8 @@ module Additionals
       view_roles
     end
 
-    def additionals_custom_top_menu_item(i, user_roles)
-      menu_name = 'custom_menu' + i.to_s
+    def additionals_custom_top_menu_item(num, user_roles)
+      menu_name = 'custom_menu' + num.to_s
       item = {
         url: Additionals.settings[menu_name + '_url'],
         name: Additionals.settings[menu_name + '_name'],
@@ -239,19 +239,19 @@ module Additionals
 
     private
 
-    def additionals_already_loaded(scope, js)
-      locked = "#{js}.#{scope}"
+    def additionals_already_loaded(scope, js_name)
+      locked = "#{js_name}.#{scope}"
       @alreaded_loaded = [] if @alreaded_loaded.nil?
       return true if @alreaded_loaded.include?(locked)
       @alreaded_loaded << locked
       false
     end
 
-    def additionals_include_js(js)
-      if additionals_already_loaded('js', js)
+    def additionals_include_js(js_name)
+      if additionals_already_loaded('js', js_name)
         ''
       else
-        javascript_include_tag(js, plugin: 'additionals') + "\n"
+        javascript_include_tag(js_name, plugin: 'additionals') + "\n"
       end
     end
 

@@ -11,6 +11,7 @@ Changelog
 - add "Assign to me" to issues
 - add "Status on sidebar" for issues
 - add link to create new issue on user profile
+- FontAwsome 5.0.8 support
 
 2.0.8
 +++++

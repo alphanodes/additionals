@@ -16,27 +16,27 @@ module Additionals
   DESCRIPTION
 
       macro :current_year do |_obj, _args|
-        content_tag(:span, User.current.time_zone.now.year, class: 'current-date')
+        content_tag(:span, Additionals.now_with_user_time_zone.year, class: 'current-date')
       end
 
       macro :current_month do |_obj, _args|
-        content_tag(:span, User.current.time_zone.now.month, class: 'current-date')
+        content_tag(:span, Additionals.now_with_user_time_zone.month, class: 'current-date')
       end
 
       macro :current_day do |_obj, _args|
-        content_tag(:span, User.current.time_zone.now.day, class: 'current-date')
+        content_tag(:span, Additionals.now_with_user_time_zone.day, class: 'current-date')
       end
 
       macro :current_hour do |_obj, _args|
-        content_tag(:span, User.current.time_zone.now.hour, class: 'current-date')
+        content_tag(:span, Additionals.now_with_user_time_zone.hour, class: 'current-date')
       end
 
       macro :current_min do |_obj, _args|
-        content_tag(:span, User.current.time_zone.now.min, class: 'current-date')
+        content_tag(:span, Additionals.now_with_user_time_zone.min, class: 'current-date')
       end
 
       macro :current_weekday do |_obj, _args|
-        content_tag(:span, day_name(User.current.time_zone.now.wday), class: 'current-date')
+        content_tag(:span, day_name(Additionals.now_with_user_time_zone.wday), class: 'current-date')
       end
 
       macro :current_weeknumber do |_obj, _args|

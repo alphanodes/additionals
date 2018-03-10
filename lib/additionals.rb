@@ -61,6 +61,14 @@ module Additionals
       false
     end
 
+    def now_with_user_time_zone(user = User.current)
+      if user.time_zone.nil?
+        Time.zone.now
+      else
+        user.time_zone.now
+      end
+    end
+
     def incompatible_plugins(plugins = [], title = 'additionals')
       plugins.each do |plugin|
         raise "\n\033[31m#{title} plugin cannot be used with #{plugin} plugin'.\033[0m" if Redmine::Plugin.installed?(plugin)

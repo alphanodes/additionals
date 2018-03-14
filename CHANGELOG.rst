@@ -12,6 +12,7 @@ Changelog
 - add "Status on sidebar" for issues
 - add link to create new issue on user profile
 - FontAwsome 5.0.8 support
+- Add marmaid library
 
 2.0.8
 +++++

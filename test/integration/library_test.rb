@@ -15,13 +15,6 @@ class JavascriptLibraryTest < Redmine::IntegrationTest
     assert_select 'link[rel=stylesheet][href^=?]', '/plugin_assets/additionals/stylesheets/nv.d3.min.css'
   end
 
-  def test_loaded_javascript_libraries
-    get '/'
-
-    assert_response :success
-    assert_select 'script[src^=?]', '/plugin_assets/additionals/javascripts/redirect.js'
-  end
-
   def test_not_loaded_javascript_libraries
     get '/'
 

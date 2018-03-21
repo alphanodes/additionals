@@ -295,16 +295,6 @@ module Additionals
         additionals_include_js('d3plus.full.min')
     end
 
-    def additionals_load_tooltips
-      additionals_include_css('tooltips') +
-        additionals_include_js('tooltips')
-    end
-
-    def additionals_load_bootstrap
-      additionals_include_css('bootstrap.min') +
-        additionals_include_js('bootstrap.min')
-    end
-
     def additionals_load_tag_it
       additionals_include_css('jquery.tagit') +
         additionals_include_js('tag-it')

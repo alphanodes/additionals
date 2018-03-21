@@ -150,7 +150,7 @@ Don't worry, if you only need a subset of the provided libraries. If you do not 
 
 It provides :
 
-* `bootstrap 4.0.0 <https://getbootstrap.com>`_
+* `bootstrap-datepicker 1.7.1 <https://github.com/uxsolutions/bootstrap-datepicker>`_
 * `d3 3.5.16 <https://d3js.org/>`_
 * `d3plus v2.0.0-alpha.16 <https://d3plus.org/>`_
 * `jQuery TagIt 2.0 <http://aehlke.github.io/tag-it/>`_
@@ -175,7 +175,6 @@ This method loads all JS and CSS files needed by the required module.
 
 The following modules are available :
 
-* bootstrap
 * d3
 * d3plus
 * mermaid
@@ -183,7 +182,6 @@ The following modules are available :
 * font_awesome
 * notify
 * tag_it
-* tooltips
 * zeroclipboard
 
 

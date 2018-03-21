@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.0.10
++++++
+
+- provice tooltip css class
+- Remove bootstrap library
+
 2.0.9
 +++++
 

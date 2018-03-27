@@ -6,6 +6,7 @@ Changelog
 
 - provice tooltip css class
 - Remove bootstrap library
+- works together with https://www.redmine.org/plugins/issue_id
 
 2.0.9
 +++++

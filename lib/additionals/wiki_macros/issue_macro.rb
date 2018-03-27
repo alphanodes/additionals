@@ -42,16 +42,16 @@ module Additionals
                     comment_id = info[:comment_id] if comment_id.nil?
                     info[:issue_id])
 
-        issue = Issue.find_by(id: issue_id)
+        issue = Issue.find(issue_id)
         return 'N/A' if issue.nil? || !issue.visible?
 
         text = case options[:format]
                when 'full'
-                 "#{issue.tracker.name} ##{issue.id} #{issue.subject}"
+                 "#{issue.tracker.name} ##{issue_id} #{issue.subject}"
                when 'text', 'short'
                  issue.subject
                else
-                 "##{issue.id} #{issue.subject}"
+                 "##{issue_id} #{issue.subject}"
                end
 
         if options[:format].blank? || options[:format] != 'text'

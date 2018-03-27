@@ -69,23 +69,28 @@ module Additionals
     def parse_issue_url(url, comment_id = nil)
       rc = { issue_id: nil, comment_id: nil }
       return rc if url == '' || url.is_a?(Integer) && url.zero?
-      if url.to_i.zero?
-        uri = URI.parse(url)
+      unless url.to_i.zero?
+        rc[:issue_id] = url
+        return rc
+      end
+
+      uri = URI.parse(url)
+      # support issue_id plugin
+      # see https://www.redmine.org/plugins/issue_id
+      issue_id_parts = url.split('-')
+      if uri.scheme.nil? && uri.path[0] != '/' && issue_id_parts.count == 2
+        rc[:issue_id] = url
+      else
         current_uri = URI.parse(request.original_url)
         return rc unless uri.host == current_uri.host
         s_pos = uri.path.rindex('/issues/')
         id_string = uri.path[s_pos + 8..-1]
         e_pos = id_string.index('/')
-        rc[:issue_id] = if e_pos.nil?
-                          id_string
-                        else
-                          id_string[0..e_pos - 1]
-                        end
+        rc[:issue_id] = e_pos.nil? ? id_string : id_string[0..e_pos - 1]
         # check for comment_id
         rc[:comment_id] = uri.fragment[5..-1].to_i if comment_id.nil? && uri.fragment.present? && uri.fragment[0..4] == 'note-'
-      else
-        rc[:issue_id] = url
       end
+
       rc
     end
 

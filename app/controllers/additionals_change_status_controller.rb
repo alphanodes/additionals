@@ -53,7 +53,8 @@ class AdditionalsChangeStatusController < ApplicationController
   private
 
   def find_issue
-    @issue = Issue.find_by(id: params[:issue_id].to_i)
+    #@issue = Issue.find_by(id: params[:issue_id].to_i)
+    @issue = Issue.find_by_id(params[:issue_id])
     raise Unauthorized unless @issue.visible? && @issue.editable?
     @project = @issue.project
   rescue ActiveRecord::RecordNotFound

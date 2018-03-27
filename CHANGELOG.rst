@@ -7,6 +7,7 @@ Changelog
 - provice tooltip css class
 - Remove bootstrap library
 - compatibility with https://www.redmine.org/plugins/issue_id
+- bug fix: issue macro uses absolute url in mailer notification
 
 2.0.9
 +++++

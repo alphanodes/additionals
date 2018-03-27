@@ -19,15 +19,16 @@ module Additionals
     end
 
     def render_issue_macro_link(issue, text, comment_id = nil)
-      content = link_to(text, issue_url(issue, only_path: true), class: issue.css_classes)
+      only_path = controller_path != 'mailer'
+      content = link_to(text, issue_url(issue, only_path: only_path), class: issue.css_classes)
       if comment_id.nil?
         content
       else
-        render_issue_with_comment(issue, content, comment_id)
+        render_issue_with_comment(issue, content, comment_id, only_path)
       end
     end
 
-    def render_issue_with_comment(issue, content, comment_id)
+    def render_issue_with_comment(issue, content, comment_id, only_path = false)
       comment = issue.journals
                      .where(private_notes: false)
                      .offset(comment_id - 1).limit(1).first.try(:notes)
@@ -35,7 +36,7 @@ module Additionals
         comment = 'N/A'
         comment_link = comment_id
       else
-        comment_link = link_to(comment_id, issue_url(issue, only_path: true, anchor: "note-#{comment_id}"))
+        comment_link = link_to(comment_id, issue_url(issue, only_path: only_path, anchor: "note-#{comment_id}"))
       end
 
       content_tag :div, class: 'issue-macro box' do

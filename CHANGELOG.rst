@@ -7,7 +7,8 @@ Changelog
 - provice tooltip css class
 - Remove bootstrap library
 - compatibility with https://www.redmine.org/plugins/issue_id
-- bug fix: issue macro uses absolute url in mailer notification
+- bug fix: issue and user macro uses absolute url in mailer notification
+- Updated marmaid library to version 8.0.0-rc6
 
 2.0.9
 +++++
@@ -19,20 +20,20 @@ Changelog
 - add "Assign to me" to issues
 - add "Status on sidebar" for issues
 - add link to create new issue on user profile
-- FontAwsome 5.0.8 support
+- FontAwesome 5.0.8 support
 - Add marmaid library
 
 2.0.8
 +++++
 
 - Provide XLSX helper (and drop XLS helper)
-- FontAwsome 5.0.6 support
+- FontAwesome 5.0.6 support
 - add list support for rake task setting_set
 
 2.0.7
 +++++
 
-- FontAwsome 5.0.2 support
+- FontAwesome 5.0.2 support
 - Switching to SLIM template engine
 
 2.0.6

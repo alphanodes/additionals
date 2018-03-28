@@ -151,10 +151,10 @@ Don't worry, if you only need a subset of the provided libraries. If you do not 
 It provides :
 
 * `bootstrap-datepicker 1.7.1 <https://github.com/uxsolutions/bootstrap-datepicker>`_
-* `d3 3.5.16 <https://d3js.org/>`_
+* `d3 3.5.17 <https://d3js.org/>`_
 * `d3plus v2.0.0-alpha.16 <https://d3plus.org/>`_
 * `jQuery TagIt 2.0 <http://aehlke.github.io/tag-it/>`_
-* `FontAwesome 5.0.8 <https://fontawesome.com/>`_
+* `FontAwesome 5.0.9 <https://fontawesome.com/>`_
 * `mermaid 8.0.0-rc6 <https://github.com/knsv/mermaid/>`_
 * `nvd3 1.8.6 <https://github.com/novus/nvd3>`_
 * `ZeroClipboard 2.2.0 <https://github.com/zeroclipboard/zeroclipboard>`_

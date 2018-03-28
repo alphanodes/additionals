@@ -4,11 +4,14 @@ Changelog
 2.0.10
 +++++
 
-- provice tooltip css class
 - Remove bootstrap library
 - compatibility with https://www.redmine.org/plugins/issue_id
 - bug fix: issue and user macro uses absolute url in mailer notification
 - Updated marmaid library to version 8.0.0-rc6
+- Updated d3 library to 3.5.17
+- Updated nvd3 library to latest 1.8.6
+- FontAwesome 5.0.9 support
+- Set default values for ui-tooltip css class
 
 2.0.9
 +++++

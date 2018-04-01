@@ -17,19 +17,26 @@ module AdditionalsQueriesHelper
       @query = query_class.new(name: '_')
       @query.project = @project
       @query.build_from_params(params)
-      session["#{object_type}_query".to_sym] = { project_id: @query.project_id,
-                                                 filters: @query.filters,
-                                                 group_by: @query.group_by,
-                                                 column_names: @query.column_names }
+      session["#{object_type}_query".to_sym] = { project_id: @query.project_id }
+      # session has a limit to 4k, we have to use a cache for it for larger data
+      Rails.cache.write(additionals_query_cache_key(object_type), filters: @query.filters,
+                                                                  group_by: @query.group_by,
+                                                                  column_names: @query.column_names)
     else
       # retrieve from session
       @query = query_class.find(session["#{object_type}_query".to_sym][:id]) if session["#{object_type}_query".to_sym][:id]
+      session_data = Rails.cache.read(additionals_query_cache_key(object_type))
       @query ||= query_class.new(name: '_',
-                                 filters: session["#{object_type}_query".to_sym][:filters],
-                                 group_by: session["#{object_type}_query".to_sym][:group_by],
-                                 column_names: session["#{object_type}_query".to_sym][:column_names])
+                                 filters: session_data.nil? ? nil : session_data[:filters],
+                                 group_by: session_data.nil? ? nil : session_data[:group_by],
+                                 column_names: session_data.nil? ? nil : session_data[:column_names])
       @query.project = @project
     end
+  end
+
+  def additionals_query_cache_key(object_type)
+    project_id = @project.nil? ? 0 : @project.id
+    "#{object_type}_query_data_#{session.id}_#{project_id}"
   end
 
   def additionals_select2_search_users(where_filter = '', where_params = {})

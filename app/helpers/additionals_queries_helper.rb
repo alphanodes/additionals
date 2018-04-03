@@ -1,5 +1,5 @@
 module AdditionalsQueriesHelper
-  def additionals_retrieve_query(object_type)
+  def additionals_retrieve_query(object_type, options = {})
     query_class = Object.const_get("#{object_type.camelcase}Query")
     if params[:query_id].present?
       cond = 'project_id IS NULL'
@@ -16,6 +16,7 @@ module AdditionalsQueriesHelper
       # Give it a name, required to be valid
       @query = query_class.new(name: '_')
       @query.project = @project
+      @query.user_filter = options[:user_filter] if options[:user_filter]
       @query.build_from_params(params)
       session["#{object_type}_query".to_sym] = { project_id: @query.project_id }
       # session has a limit to 4k, we have to use a cache for it for larger data

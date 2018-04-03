@@ -7,6 +7,7 @@ module AdditionalsQueriesHelper
       @query = query_class.where(cond).find(params[:query_id])
       raise ::Unauthorized unless @query.visible?
       @query.project = @project
+      @query.user_filter = options[:user_filter] if options[:user_filter]
       session["#{object_type}_query".to_sym] = { id: @query.id, project_id: @query.project_id }
       sort_clear
     elsif api_request? ||

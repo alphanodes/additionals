@@ -12,6 +12,7 @@ Changelog
 - Updated nvd3 library to latest 1.8.6
 - FontAwesome 5.0.9 support
 - Set default values for ui-tooltip css class
+- ZeroClipboard updated to 2.3.0
 
 2.0.9
 +++++

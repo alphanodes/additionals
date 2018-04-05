@@ -388,10 +388,10 @@ module Additionals
                            l(:show_welcome_right) => 'right' }, active)
     end
 
-    def human_float_number(value, sep = '.')
+    def human_float_number(value, options = {})
       ActionController::Base.helpers.number_with_precision(value,
-                                                           precision: 2,
-                                                           separator: sep,
+                                                           precision: options[:precision].presence || 2,
+                                                           separator: options[:separator].presence || '.',
                                                            strip_insignificant_zeros: true)
     end
   end

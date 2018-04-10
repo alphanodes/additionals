@@ -19,7 +19,7 @@ module Additionals
     end
 
     def render_issue_macro_link(issue, text, comment_id = nil)
-      only_path = controller_path != 'mailer'
+      only_path = controller_path.split('_').last != 'mailer'
       content = link_to(text, issue_url(issue, only_path: only_path), class: issue.css_classes)
       if comment_id.nil?
         content

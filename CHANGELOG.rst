@@ -10,7 +10,7 @@ Changelog
 - Updated marmaid library to version 8.0.0-rc6
 - Updated d3 library to 3.5.17
 - Updated nvd3 library to latest 1.8.6
-- FontAwesome 5.0.9 support
+- FontAwesome 5.0.10 support
 - Set default values for ui-tooltip css class
 - ZeroClipboard updated to 2.3.0
 

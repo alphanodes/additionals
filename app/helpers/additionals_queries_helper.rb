@@ -2,18 +2,20 @@ module AdditionalsQueriesHelper
   def additionals_retrieve_query(object_type, options = {})
     query_class = Object.const_get("#{object_type.camelcase}Query")
     if params[:query_id].present?
-      cond = 'project_id IS NULL'
-      cond << " OR project_id = #{@project.id}" if @project
-      @query = query_class.where(cond).find(params[:query_id])
-      raise ::Unauthorized unless @query.visible?
-      @query.project = @project
-      @query.user_filter = options[:user_filter] if options[:user_filter]
-      session["#{object_type}_query".to_sym] = { id: @query.id, project_id: @query.project_id }
-      sort_clear
+      additionals_load_query_id(query_class, object_type, params[:query_id], options)
     elsif api_request? ||
           params[:set_filter] ||
           session["#{object_type}_query".to_sym].nil? ||
           session["#{object_type}_query".to_sym][:project_id] != (@project ? @project.id : nil)
+
+      if options[:with_default_query] && !api_request? && %i[op f].all? { |k| !params.key?(k) }
+        d_query = query_class.default_query
+        if d_query.present? && query_class.where(id: d_query.id).exists?
+          additionals_load_query_id(query_class, object_type, d_query.id, options)
+          return
+        end
+      end
+
       # Give it a name, required to be valid
       @query = query_class.new(name: '_')
       @query.project = @project
@@ -21,9 +23,12 @@ module AdditionalsQueriesHelper
       @query.build_from_params(params)
       session["#{object_type}_query".to_sym] = { project_id: @query.project_id }
       # session has a limit to 4k, we have to use a cache for it for larger data
-      Rails.cache.write(additionals_query_cache_key(object_type), filters: @query.filters,
-                                                                  group_by: @query.group_by,
-                                                                  column_names: @query.column_names)
+      Rails.cache.write(additionals_query_cache_key(object_type),
+                        filters: @query.filters,
+                        group_by: @query.group_by,
+                        column_names: @query.column_names,
+                        totalable_names: @query.totalable_names,
+                        sort_criteria: params[:sort].presence || @query.sort_criteria.to_a)
     else
       # retrieve from session
       @query = query_class.find(session["#{object_type}_query".to_sym][:id]) if session["#{object_type}_query".to_sym][:id]
@@ -31,9 +36,22 @@ module AdditionalsQueriesHelper
       @query ||= query_class.new(name: '_',
                                  filters: session_data.nil? ? nil : session_data[:filters],
                                  group_by: session_data.nil? ? nil : session_data[:group_by],
-                                 column_names: session_data.nil? ? nil : session_data[:column_names])
+                                 column_names: session_data.nil? ? nil : session_data[:column_names],
+                                 totalable_names: session_data.nil? ? nil : session_data[:totalable_names],
+                                 sort_criteria: params[:sort].presence || (session_data.nil? ? nil : session_data[:sort_criteria]))
       @query.project = @project
     end
+  end
+
+  def additionals_load_query_id(query_class, object_type, query_id, options)
+    cond = 'project_id IS NULL'
+    cond << " OR project_id = #{@project.id}" if @project
+    @query = query_class.where(cond).find(query_id)
+    raise ::Unauthorized unless @query.visible?
+    @query.project = @project
+    @query.user_filter = options[:user_filter] if options[:user_filter]
+    session["#{object_type}_query".to_sym] = { id: @query.id, project_id: @query.project_id }
+    sort_clear
   end
 
   def additionals_query_cache_key(object_type)

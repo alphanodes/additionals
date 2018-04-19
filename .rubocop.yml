@@ -15,7 +15,7 @@ Metrics/ClassLength:
   Max: 500
 
 Metrics/CyclomaticComplexity:
-  Max: 13
+  Max: 20
 
 Metrics/LineLength:
   Max: 140
@@ -27,7 +27,7 @@ Metrics/ModuleLength:
   Max: 500
 
 Metrics/PerceivedComplexity:
-  Max: 14
+  Max: 20
 
 Rails/SkipsModelValidations:
   Enabled: false

@@ -155,7 +155,7 @@ It provides :
 * `d3plus v2.0.0-alpha.16 <https://d3plus.org/>`_
 * `jQuery TagIt 2.0 <http://aehlke.github.io/tag-it/>`_
 * `FontAwesome 5.0.10 <https://fontawesome.com/>`_
-* `mermaid 8.0.0-rc6 <https://github.com/knsv/mermaid/>`_
+* `mermaid 8.0.0-rc8 <https://github.com/knsv/mermaid/>`_
 * `nvd3 1.8.6 <https://github.com/novus/nvd3>`_
 * `ZeroClipboard 2.3.0 <https://github.com/zeroclipboard/zeroclipboard>`_
 

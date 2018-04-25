@@ -7,7 +7,7 @@ Changelog
 - Remove bootstrap library
 - compatibility with https://www.redmine.org/plugins/issue_id
 - bug fix: issue and user macro uses absolute url in mailer notification
-- Updated marmaid library to version 8.0.0-rc6
+- Updated marmaid library to version 8.0.0-rc8
 - Updated d3 library to 3.5.17
 - Updated nvd3 library to latest 1.8.6
 - FontAwesome 5.0.10 support

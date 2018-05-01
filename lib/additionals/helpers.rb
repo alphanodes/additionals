@@ -1,6 +1,14 @@
 # Global helper functions
 module Additionals
   module Helpers
+    def additionals_list_title(user, query, options = {})
+      title = []
+      title << avatar(user, size: 50) + ' ' + user.name if user
+      title << options[:name] if options[:name]
+      title << h(@query.name) if query && !@query.new_record?
+      safe_join(title, ' - ')
+    end
+
     def additionals_settings_tabs
       tabs = []
       tabs << { name: 'general', partial: 'additionals/settings/general', label: :label_general }

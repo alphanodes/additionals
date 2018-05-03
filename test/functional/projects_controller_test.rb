@@ -26,7 +26,8 @@ class ProjectsControllerTest < Redmine::ControllerTest
       project_overview_content: 'Lore impsuum'
     )
     @request.session[:user_id] = 4
-    get :show, id: 1
+    get :show,
+        params: { id: 1 }
 
     assert_response :success
     assert_template 'show'
@@ -38,7 +39,8 @@ class ProjectsControllerTest < Redmine::ControllerTest
       project_overview_content: ''
     )
     @request.session[:user_id] = 4
-    get :show, id: 1
+    get :show,
+        params: { id: 1 }
 
     assert_response :success
     assert_template 'show'

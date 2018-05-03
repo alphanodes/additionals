@@ -38,7 +38,8 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{youtube(KMU0tzLwhbE)}}'
     @page.content.save!
-    get :show, project_id: 1, id: @page_name
+    get :show,
+        params: { project_id: 1, id: @page_name }
     assert_response :success
     assert_template 'show'
     assert_select 'iframe[src=?]', '//www.youtube-nocookie.com/embed/KMU0tzLwhbE'
@@ -48,7 +49,8 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{meteoblue(münchen_deutschland_2867714)}}'
     @page.content.save!
-    get :show, project_id: 1, id: @page_name
+    get :show,
+        params: { project_id: 1, id: @page_name }
     assert_response :success
     assert_template 'show'
     assert_select 'iframe', src: %r{^https\://www\.meteoblue\.com/en/weather/widget/daily/(.*)}
@@ -58,7 +60,8 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{vimeo(142849533)}}'
     @page.content.save!
-    get :show, project_id: 1, id: @page_name
+    get :show,
+        params: { project_id: 1, id: @page_name }
     assert_response :success
     assert_template 'show'
     assert_select 'iframe[src=?]', '//player.vimeo.com/video/142849533'
@@ -68,7 +71,8 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{slideshare(57941706)}}'
     @page.content.save!
-    get :show, project_id: 1, id: @page_name
+    get :show,
+        params: { project_id: 1, id: @page_name }
     assert_response :success
     assert_template 'show'
     assert_select 'iframe[src=?]', '//www.slideshare.net/slideshow/embed_code/57941706'
@@ -78,7 +82,8 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{iframe(https://www.redmine.org/)}}'
     @page.content.save!
-    get :show, project_id: 1, id: @page_name
+    get :show,
+        params: { project_id: 1, id: @page_name }
     assert_response :success
     assert_template 'show'
     assert_select 'iframe[src=?]', 'https://www.redmine.org/'
@@ -88,7 +93,8 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{twitter(alphanodes)}}'
     @page.content.save!
-    get :show, project_id: 1, id: @page_name
+    get :show,
+        params: { project_id: 1, id: @page_name }
     assert_response :success
     assert_template 'show'
     assert_select 'a.twitter'
@@ -97,14 +103,16 @@ class WikiControllerTest < Redmine::ControllerTest
 
     @page.content.text = '{{twitter(@alphanodes)}}'
     @page.content.save!
-    get :show, project_id: 1, id: @page_name
+    get :show,
+        params: { project_id: 1, id: @page_name }
     assert_select 'a.twitter'
     assert_select 'a[href=?]', 'https://twitter.com/alphanodes',
                   text: '@alphanodes'
 
     @page.content.text = '{{twitter(#alphanodes)}}'
     @page.content.save!
-    get :show, project_id: 1, id: @page_name
+    get :show,
+        params: { project_id: 1, id: @page_name }
     assert_select 'a.twitter'
     assert_select 'a[href=?]', 'https://twitter.com/hashtag/alphanodes',
                   text: '#alphanodes'
@@ -114,7 +122,8 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{reddit(redmine)}}'
     @page.content.save!
-    get :show, project_id: 1, id: @page_name
+    get :show,
+        params: { project_id: 1, id: @page_name }
     assert_response :success
     assert_template 'show'
     assert_select 'a.reddit'
@@ -123,14 +132,16 @@ class WikiControllerTest < Redmine::ControllerTest
 
     @page.content.text = '{{reddit(u/redmine)}}'
     @page.content.save!
-    get :show, project_id: 1, id: @page_name
+    get :show,
+        params: { project_id: 1, id: @page_name }
     assert_select 'a.reddit'
     assert_select 'a[href=?]', 'https://www.reddit.com/username/redmine',
                   text: 'u/redmine'
 
     @page.content.text = '{{reddit(r/redmine)}}'
     @page.content.save!
-    get :show, project_id: 1, id: @page_name
+    get :show,
+        params: { project_id: 1, id: @page_name }
     assert_select 'a.reddit'
     assert_select 'a[href=?]', 'https://www.reddit.com/r/redmine',
                   text: 'r/redmine'
@@ -140,7 +151,8 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{last_updated_by}}'
     @page.content.save!
-    get :show, project_id: 1, id: @page_name
+    get :show,
+        params: { project_id: 1, id: @page_name }
     assert_response :success
     assert_template 'show'
     assert_select 'span.last-updated-by'
@@ -152,7 +164,8 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{last_updated_at}}'
     @page.content.save!
-    get :show, project_id: 1, id: @page_name
+    get :show,
+        params: { project_id: 1, id: @page_name }
     assert_response :success
     assert_template 'show'
     assert_select 'span.last-updated-at'
@@ -163,7 +176,8 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{recently_updated}}'
     @page.content.save!
-    get :show, project_id: 1, id: @page_name
+    get :show,
+        params: { project_id: 1, id: @page_name }
     assert_response :success
     assert_template 'show'
     assert_select 'div.recently-updated'
@@ -173,7 +187,8 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{calendar(year=1970, month=7)}}'
     @page.content.save!
-    get :show, project_id: 1, id: @page_name
+    get :show,
+        params: { project_id: 1, id: @page_name }
     assert_response :success
     assert_template 'show'
     assert_select 'div.month-calendar'
@@ -183,7 +198,8 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{members}}'
     @page.content.save!
-    get :show, project_id: 1, id: @page_name
+    get :show,
+        params: { project_id: 1, id: @page_name }
     assert_response :success
     assert_template 'show'
     assert_select 'div.wiki div.user'
@@ -193,7 +209,8 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{group_users(A Team)}}'
     @page.content.save!
-    get :show, project_id: 1, id: @page_name
+    get :show,
+        params: { project_id: 1, id: @page_name }
     assert_response :success
     assert_template 'show'
     assert_select 'div.wiki div.user'
@@ -203,7 +220,8 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{projects}}'
     @page.content.save!
-    get :show, project_id: 1, id: @page_name
+    get :show,
+        params: { project_id: 1, id: @page_name }
     assert_response :success
     assert_template 'show'
     assert_select 'div.wiki div.projects li.project'
@@ -213,7 +231,8 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{gist(plentz/6737338)}}'
     @page.content.save!
-    get :show, project_id: 1, id: @page_name
+    get :show,
+        params: { project_id: 1, id: @page_name }
     assert_response :success
     assert_template 'show'
     assert_select 'script[src=?]', 'https://gist.github.com/plentz/6737338.js'
@@ -223,7 +242,8 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{tradingview(symbol=NASDAQ:AMZN, locale=en)}}'
     @page.content.save!
-    get :show, project_id: 1, id: @page_name
+    get :show,
+        params: { project_id: 1, id: @page_name }
     assert_response :success
     assert_template 'show'
     assert_select 'script[src=?]', 'https://s3.tradingview.com/tv.js'
@@ -233,7 +253,8 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{cryptocompare(fsyms=BTC;ETH, type=header_v3)}}'
     @page.content.save!
-    get :show, project_id: 1, id: @page_name
+    get :show,
+        params: { project_id: 1, id: @page_name }
     assert_response :success
     assert_template 'show'
     assert_select 'div.wiki div.cryptocompare',
@@ -244,7 +265,8 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{current_weeknumber}}'
     @page.content.save!
-    get :show, project_id: 1, id: @page_name
+    get :show,
+        params: { project_id: 1, id: @page_name }
     assert_response :success
     assert_template 'show'
     assert_select 'div.wiki span.current-date', User.current.today.cweek.to_s
@@ -254,7 +276,8 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{issue(2, format=short)}}'
     @page.content.save!
-    get :show, project_id: 1, id: @page_name
+    get :show,
+        params: { project_id: 1, id: @page_name }
     assert_response :success
     assert_template 'show'
     assert_select 'a[href=?]', '/issues/2',
@@ -265,7 +288,8 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{issue(2, format=link)}}'
     @page.content.save!
-    get :show, project_id: 1, id: @page_name
+    get :show,
+        params: { project_id: 1, id: @page_name }
     assert_response :success
     assert_template 'show'
     assert_select 'a[href=?]', '/issues/2',
@@ -276,7 +300,8 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{issue(http://test.host/issues/2)}}'
     @page.content.save!
-    get :show, project_id: 1, id: @page_name
+    get :show,
+        params: { project_id: 1, id: @page_name }
     assert_response :success
     assert_template 'show'
     assert_select 'a[href=?]', '/issues/2',
@@ -288,7 +313,8 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{issue(http://test.host/issues/2#note-1)}}'
     @page.content.save!
-    get :show, project_id: 1, id: @page_name
+    get :show,
+        params: { project_id: 1, id: @page_name }
     assert_response :success
     assert_template 'show'
     assert_select 'a[href=?]', '/issues/2',
@@ -300,7 +326,8 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{issue(2)}}'
     @page.content.save!
-    get :show, project_id: 1, id: @page_name
+    get :show,
+        params: { project_id: 1, id: @page_name }
     assert_response :success
     assert_template 'show'
     assert_select 'a[href=?]', '/issues/2',
@@ -311,7 +338,8 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{user(1)}}'
     @page.content.save!
-    get :show, project_id: 1, id: @page_name
+    get :show,
+        params: { project_id: 1, id: @page_name }
     assert_response :success
     assert_template 'show'
     assert_select 'a[href=?]', '/users/1',
@@ -322,7 +350,8 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{user(1, format=firstname_lastname)}}'
     @page.content.save!
-    get :show, project_id: 1, id: @page_name
+    get :show,
+        params: { project_id: 1, id: @page_name }
     assert_response :success
     assert_template 'show'
     assert_select 'a.user', text: 'Redmine Admin'
@@ -334,7 +363,8 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{user(jsmith)}}'
     @page.content.save!
-    get :show, project_id: 1, id: @page_name
+    get :show,
+        params: { project_id: 1, id: @page_name }
     assert_response :success
     assert_template 'show'
     assert_select 'a[href=?]', '/users/2',
@@ -345,7 +375,8 @@ class WikiControllerTest < Redmine::ControllerTest
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{user(jsmith, format=firstname_lastname, avatar=true)}}'
     @page.content.save!
-    get :show, project_id: 1, id: @page_name
+    get :show,
+        params: { project_id: 1, id: @page_name }
     assert_response :success
     assert_template 'show'
     assert_select 'a.user', text: 'John Smith'
@@ -357,7 +388,8 @@ class WikiControllerTest < Redmine::ControllerTest
     Setting.plugin_additionals = ActionController::Parameters.new(
       global_wiki_header: 'Lore impsuum'
     )
-    get :show, project_id: 1, id: 'Another_page'
+    get :show,
+        params: { project_id: 1, id: 'Another_page' }
 
     assert_response :success
     assert_template 'show'
@@ -368,7 +400,8 @@ class WikiControllerTest < Redmine::ControllerTest
     Setting.plugin_additionals = ActionController::Parameters.new(
       global_wiki_header: ''
     )
-    get :show, project_id: 1, id: 'Another_page'
+    get :show,
+        params: { project_id: 1, id: 'Another_page' }
 
     assert_response :success
     assert_template 'show'
@@ -379,7 +412,8 @@ class WikiControllerTest < Redmine::ControllerTest
     Setting.plugin_additionals = ActionController::Parameters.new(
       global_wiki_footer: 'Lore impsuum'
     )
-    get :show, project_id: 1, id: 'Another_page'
+    get :show,
+        params: { project_id: 1, id: 'Another_page' }
 
     assert_response :success
     assert_template 'show'
@@ -390,7 +424,8 @@ class WikiControllerTest < Redmine::ControllerTest
     Setting.plugin_additionals = ActionController::Parameters.new(
       global_wiki_footer: ''
     )
-    get :show, project_id: 1, id: 'Another_page'
+    get :show,
+        params: { project_id: 1, id: 'Another_page' }
 
     assert_response :success
     assert_template 'show'

@@ -3,7 +3,16 @@ require File.expand_path('../test_helper', __dir__)
 class UsersControllerTest < Redmine::ControllerTest
   fixtures :projects,
            :users,
-           :email_addresses
+           :roles,
+           :members,
+           :member_roles,
+           :issues,
+           :issue_statuses,
+           :versions,
+           :trackers,
+           :projects_trackers,
+           :issue_categories,
+           :enabled_modules
 
   include Redmine::I18n
 
@@ -19,7 +28,8 @@ class UsersControllerTest < Redmine::ControllerTest
     )
 
     @request.session[:user_id] = 2
-    get :show, id: 2
+    get :show,
+        params: { id: 2 }
     assert_select 'a.user-new-issue'
   end
 
@@ -29,7 +39,8 @@ class UsersControllerTest < Redmine::ControllerTest
     )
 
     @request.session[:user_id] = 2
-    get :show, id: 2
+    get :show,
+        params: { id: 2 }
     assert_select 'a.user-new-issue', count: 0
   end
 end

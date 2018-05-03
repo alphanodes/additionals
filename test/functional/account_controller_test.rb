@@ -41,12 +41,13 @@ class AccountControllerTest < Redmine::ControllerTest
   def test_post_register_with_registration_on
     with_settings self_registration: '3' do
       assert_difference 'User.count' do
-        post :register, user: { login: 'register',
-                                password: 'secret123',
-                                password_confirmation: 'secret123',
-                                firstname: 'John',
-                                lastname: 'Doe',
-                                mail: 'register@example.com' }
+        post :register,
+             params: { user: { login: 'register',
+                               password: 'secret123',
+                               password_confirmation: 'secret123',
+                               firstname: 'John',
+                               lastname: 'Doe',
+                               mail: 'register@example.com' } }
         assert_redirected_to '/my/account'
       end
       user = User.order(id: :desc).first

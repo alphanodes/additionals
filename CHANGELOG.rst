@@ -1,8 +1,13 @@
 Changelog
 =========
 
+2.0.11
+++++++
+
+- FontAwesome 5.0.13 support
+
 2.0.10
-+++++
+++++++
 
 - Remove bootstrap library
 - compatibility with https://www.redmine.org/plugins/issue_id

@@ -93,7 +93,7 @@ module AdditionalsTagHelper
   def tag_cloud(tags, classes)
     return [] if tags.empty?
 
-    max_count = tags.sort_by(&:count).last.count.to_f
+    max_count = tags.max_by(&:count).count.to_f
 
     tags.each do |tag|
       index = ((tag.count / max_count) * (classes.size - 1))

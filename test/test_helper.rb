@@ -1,3 +1,5 @@
+$VERBOSE = nil
+
 unless ENV['SKIP_COVERAGE']
   require 'simplecov'
   require 'simplecov-rcov'

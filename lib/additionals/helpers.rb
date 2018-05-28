@@ -9,6 +9,23 @@ module Additionals
       safe_join(title, ' - ')
     end
 
+    def additionals_titles_for_locale(title)
+      languages = [:title]
+      valid_languages.each do |lang|
+        languages << "#{title}_#{lang}".to_sym if lang.to_s.exclude? '-'
+      end
+      languages
+    end
+
+    def additionals_i18n_title(options, title)
+      i18n_title = "#{title}_#{::I18n.locale}".to_sym
+      if options.key?(i18n_title)
+        options[i18n_title]
+      elsif options.key?(title)
+        options[title]
+      end
+    end
+
     def additionals_settings_tabs
       tabs = []
       tabs << { name: 'general', partial: 'additionals/settings/general', label: :label_general }

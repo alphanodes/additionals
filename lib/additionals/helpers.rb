@@ -9,10 +9,14 @@ module Additionals
       safe_join(title, ' - ')
     end
 
+    def additionals_title_for_locale(title, lang)
+      "#{title}_#{lang}"
+    end
+
     def additionals_titles_for_locale(title)
       languages = [:title]
       valid_languages.each do |lang|
-        languages << "#{title}_#{lang}".to_sym if lang.to_s.exclude? '-'
+        languages << additionals_title_for_locale(title, lang).to_sym if lang.to_s.exclude? '-'
       end
       languages
     end

@@ -19,15 +19,12 @@ This plugin is the successor of `Redmine Tweaks <https://github.com/alphanodes/r
 * Redmine.org plugin page: https://www.redmine.org/plugins/additionals
 * Github: https://github.com/alphanodes/additionals
 
-.. image:: https://gemnasium.com/badges/github.com/AlphaNodes/additionals.svg
-   :target: https://gemnasium.com/github.com/AlphaNodes/additionals
-
 .. image:: https://pm.alphanodes.com/jenkins/buildStatus/icon?job=Devel-build-additionals
    :target: https://pm.alphanodes.com/jenkins/buildStatus/icon?job=Devel-build-additionals
    :alt: Jenkins Build Status
 
 .. image:: https://readthedocs.org/projects/additionals/badge/?version=latest
-   :target: http://additionals.readthedocs.io/en/latest/?badge=latest
+   :target: https://additionals.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
 
 .. image:: https://img.shields.io/codeclimate/github/AlphaNodes/additionals.svg?style=flat

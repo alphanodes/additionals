@@ -4,6 +4,7 @@ Changelog
 2.0.11
 ++++++
 
+- i18n methods
 - FontAwesome 5.0.13 support
 
 2.0.10

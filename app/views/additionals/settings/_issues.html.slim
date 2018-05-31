@@ -39,6 +39,7 @@ p
                  options_for_select(rule_status.collect { |column| [column.name, column.id] },
                                     @settings[:issue_status_x]),
                  multiple: true, size: 6, style: 'width:150px'
+    '
     = l(:field_status)
     |  y:
     = select_tag 'settings[issue_status_y]',
@@ -73,6 +74,7 @@ p
                  options_for_select(rule_status.collect { |column| [column.name, column.id] },
                                     @settings[:issue_auto_assign_status]),
                  multiple: true, size: 6, style: 'width:150px'
+    '
     = l(:label_role)
     | :
     = select_tag 'settings[issue_auto_assign_role]',

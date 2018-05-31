@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.0.12
+++++++
+
+- More robust code for dealing with finding data
+
 2.0.11
 ++++++
 

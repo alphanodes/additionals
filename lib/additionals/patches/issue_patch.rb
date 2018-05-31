@@ -102,7 +102,7 @@ module Additionals
       end
 
       def auto_assigned_to_user
-        manager_role = Role.builtin.find(Additionals.settings[:issue_auto_assign_role].to_i)
+        manager_role = Role.builtin.find_by(id: Additionals.settings[:issue_auto_assign_role])
         groups = autoassign_get_group_list
         return groups[manager_role].first.id unless groups.nil? || groups[manager_role].blank?
 

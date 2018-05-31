@@ -31,7 +31,7 @@ module AdditionalsQueriesHelper
                         sort_criteria: params[:sort].presence || @query.sort_criteria.to_a)
     else
       # retrieve from session
-      @query = query_class.find(session["#{object_type}_query".to_sym][:id]) if session["#{object_type}_query".to_sym][:id]
+      @query = query_class.find_by(id: session["#{object_type}_query".to_sym][:id]) if session["#{object_type}_query".to_sym][:id]
       session_data = Rails.cache.read(additionals_query_cache_key(object_type))
       @query ||= query_class.new(name: '_',
                                  filters: session_data.nil? ? nil : session_data[:filters],

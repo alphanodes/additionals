@@ -4,6 +4,7 @@ Changelog
 2.0.12
 ++++++
 
+- Provide d3 loader function
 - More robust code for dealing with finding data
 
 2.0.11

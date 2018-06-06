@@ -325,6 +325,10 @@ module Additionals
         additionals_include_js('mermaid_load')
     end
 
+    def additionals_load_d3
+      additionals_include_js('d3.min')
+    end
+
     def additionals_load_d3plus
       additionals_include_js('d3.min') +
         additionals_include_js('d3plus.full.min')

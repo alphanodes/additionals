@@ -5,7 +5,8 @@ module Additionals
       desc <<-DESCRIPTION
       Creates link to twitter account page or topic.
         {{twitter(name)}}
-  DESCRIPTION
+      DESCRIPTION
+
       macro :twitter do |_obj, args|
         raise 'The correct usage is {{twitter(<name>)}}' if args.empty?
         name = args[0].strip

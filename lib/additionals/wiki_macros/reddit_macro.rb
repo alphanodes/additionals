@@ -5,7 +5,8 @@ module Additionals
       desc <<-DESCRIPTION
       Creates link to reddit.
         {{reddit(name)}}
-  DESCRIPTION
+      DESCRIPTION
+
       macro :reddit do |_obj, args|
         raise 'The correct usage is {{reddit(<name>)}}' if args.empty?
         name = args[0].strip

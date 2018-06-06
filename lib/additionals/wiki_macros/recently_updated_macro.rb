@@ -7,14 +7,13 @@ module Additionals
         {{recently_updated}}
         {{recently_updated([days])}}
 
-        Examples:
+      Examples:
 
         {{recently_updated}}
         ...List last updated pages (of the last 5 days)
 
         {{recently_updated(15)}}
         ...List last updated pages of the last 15 days
-
       DESCRIPTION
 
       macro :recently_updated do |obj, args|

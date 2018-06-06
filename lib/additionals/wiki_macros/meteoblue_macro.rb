@@ -3,18 +3,18 @@ module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
       desc <<-DESCRIPTION
-  Display current weather from meteoblue service.  Examples:
+      Display current weather from meteoblue service.  Examples:
 
-  Syntax:
+      Syntax:
 
-  {{meteoblue(<location> [, days=INT, width=216, height=368, color=BOOL])}}
+      {{meteoblue(<location> [, days=INT, width=216, height=368, color=BOOL])}}
 
-  Examples:
+      Examples:
 
-    {{meteoblue(münchen_deutschland_2867714)}}       weather for Munich
+        {{meteoblue(münchen_deutschland_2867714)}}       weather for Munich
 
-    {{meteoblue(münchen_deutschland_2867714, days=6, color=false)}} weather for Munich of the next 6 days without color
-  DESCRIPTION
+        {{meteoblue(münchen_deutschland_2867714, days=6, color=false)}} weather for Munich of the next 6 days without color
+      DESCRIPTION
 
       macro :meteoblue do |_obj, args|
         args, options = extract_macro_options(args,

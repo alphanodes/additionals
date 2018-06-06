@@ -7,7 +7,8 @@ module Additionals
       Creates Tradingview chart
         {{tradingview(options)}}
       see https://additionals.readthedocs.io/en/latest/macros/#tradingview
-  DESCRIPTION
+      DESCRIPTION
+
       macro :tradingview do |_obj, args|
         raise 'The correct usage is {{tradingview(options)}}' if args.empty?
         _args, options = extract_macro_options(args, :width, :height, :symbol, :interval, :timezone,

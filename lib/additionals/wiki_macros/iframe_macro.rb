@@ -3,20 +3,20 @@ module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
       desc <<-DESCRIPTION
-  Include iframe
+      Include iframe
 
-    Syntax:
+      Syntax:
 
-    {{iframe(<url> [, width=100%, height=485)}}
+        {{iframe(<url> [, width=100%, height=485)}}
 
-    Examples:
+      Examples:
 
-    show iframe of URL https://www.google.com/
-    {{iframe(https://www.google.com/)}}
+        show iframe of URL https://www.google.com/
+        {{iframe(https://www.google.com/)}}
 
-    show iframe of URL https://www.google.com/ and show link to it
-    {{iframe(https://www.google.com/, with_link: true)}}
-  DESCRIPTION
+        show iframe of URL https://www.google.com/ and show link to it
+        {{iframe(https://www.google.com/, with_link: true)}}
+      DESCRIPTION
 
       macro :iframe do |_obj, args|
         args, options = extract_macro_options(args, :width, :height, :slide, :with_link)

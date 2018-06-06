@@ -6,8 +6,9 @@ module Additionals
       desc <<-DESCRIPTION
       Create CryptoCompare information.
         {{cryptocompare(options)}}
-     see https://additionals.readthedocs.io/en/latest/macros/#cryptocompare
-  DESCRIPTION
+      see https://additionals.readthedocs.io/en/latest/macros/#cryptocompare
+      DESCRIPTION
+
       macro :cryptocompare do |_obj, args|
         raise 'The correct usage is {{cryptocompare(options)}}' if args.empty?
         _args, options = extract_macro_options(args, :fsym, :fsyms, :tsym, :tsyms, :period, :type)

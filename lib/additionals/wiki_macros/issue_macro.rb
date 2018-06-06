@@ -2,35 +2,36 @@
 module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
-      desc  <<-DESCRIPTION
-  Create a link to issue with the subject of this issue.
-       Syntax:
+      desc <<-DESCRIPTION
+      Create a link to issue with the subject of this issue.
 
-       {{issue(URL [, format=USER_FORMAT, id=ID, note_id=NOTE_ID)}}
-       URL is URL to issue
-       USER_FORMATS
-       - text
-       - short
-       - link (default)
-       - full
-       ID is issue
-       NOTE_ID is note id, if you want to display it
+      Syntax:
 
-       Examples:
+         {{issue(URL [, format=USER_FORMAT, id=ID, note_id=NOTE_ID)}}
+         URL is URL to issue
+         USER_FORMATS
+         - text
+         - short
+         - link (default)
+         - full
+         ID is issue
+         NOTE_ID is note id, if you want to display it
 
-       {{issue(1)}}
-       ...Link to issue with id and subject
-       {{issue(http://myredmine.url/issues/1)}}
-       ...Link to issue with id and subject
-       {{issue(http://myredmine.url/issues/1#note-3)}}
-       ...Link to issue with id and subject and display comment 3
-       {{issue(1, format=short)}}
-       ...Link to issue with subject (without id)
-       {{issue(1, format=text)}}
-       ...Display subject name
-       {{issue(1, format=full)}}
-       ...Link to issue with track, issue id and subject
-   DESCRIPTION
+      Examples:
+
+         {{issue(1)}}
+         ...Link to issue with id and subject
+         {{issue(http://myredmine.url/issues/1)}}
+         ...Link to issue with id and subject
+         {{issue(http://myredmine.url/issues/1#note-3)}}
+         ...Link to issue with id and subject and display comment 3
+         {{issue(1, format=short)}}
+         ...Link to issue with subject (without id)
+         {{issue(1, format=text)}}
+         ...Display subject name
+         {{issue(1, format=full)}}
+         ...Link to issue with track, issue id and subject
+      DESCRIPTION
 
       macro :issue do |_obj, args|
         args, options = extract_macro_options(args, :id, :note_id, :format)

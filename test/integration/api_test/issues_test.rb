@@ -47,14 +47,14 @@ module ApiTest
       )
 
       payload = <<-XML
-    <?xml version="1.0" encoding="UTF-8" ?>
-    <issue>
-      <project_id>1</project_id>
-      <tracker_id>2</tracker_id>
-      <status_id>3</status_id>
-      <subject>API test</subject>
-    </issue>
-    XML
+      <?xml version="1.0" encoding="UTF-8" ?>
+      <issue>
+        <project_id>1</project_id>
+        <tracker_id>2</tracker_id>
+        <status_id>3</status_id>
+        <subject>API test</subject>
+      </issue>
+      XML
 
       assert_difference('Issue.count') do
         post '/issues.xml',
@@ -80,12 +80,12 @@ module ApiTest
       )
 
       payload = <<-XML
-    <?xml version="1.0" encoding="UTF-8" ?>
-    <issue>
-      <project_id>1</project_id>
-      <subject>API test</subject>
-    </issue>
-    XML
+      <?xml version="1.0" encoding="UTF-8" ?>
+      <issue>
+        <project_id>1</project_id>
+        <subject>API test</subject>
+      </issue>
+      XML
 
       assert_difference('Issue.count') do
         post '/issues.xml',

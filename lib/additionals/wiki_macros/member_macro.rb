@@ -3,31 +3,30 @@ module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
       desc <<-DESCRIPTION
-  Display members.
+      Display members.
 
-  Syntax:
+      Syntax:
 
-    {{members([PROJECT_NAME, title=My members list, role=ROLE)]}}
+        {{members([PROJECT_NAME, title=My members list, role=ROLE)]}}
 
-    PROJECT_NAME can be project identifier, project name or project id
+        PROJECT_NAME can be project identifier, project name or project id
 
-    Examples:
+      Examples:
 
-    {{members}}
-    ...List all members for all projects (with the current user permission)
+        {{members}}
+        ...List all members for all projects (with the current user permission)
 
-    {{members(the-identifier)}}
-    ...A box showing all members for the project with the identifier of 'the-identifier'
+        {{members(the-identifier)}}
+        ...A box showing all members for the project with the identifier of 'the-identifier'
 
-    {{members(the-identifier, role=Manager)}}
-    ...A box showing all members for the project with the identifier of 'the-identifier', which
-    have the role "Manager"
+        {{members(the-identifier, role=Manager)}}
+        ...A box showing all members for the project with the identifier of 'the-identifier', which
+        have the role "Manager"
 
-    {{members(the-identifier, title=My user list)}}
-    ...A box showing all members for the project with the identifier of 'the-identifier' and with
-    box title "My user list"
-
-  DESCRIPTION
+        {{members(the-identifier, title=My user list)}}
+        ...A box showing all members for the project with the identifier of 'the-identifier' and with
+        box title "My user list"
+      DESCRIPTION
 
       macro :members do |_obj, args|
         args, options = extract_macro_options(args, :role, :title)

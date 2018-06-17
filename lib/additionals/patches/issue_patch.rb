@@ -2,10 +2,9 @@ module Additionals
   module Patches
     module IssuePatch
       def self.included(base)
-        # no need to do this more than once.
-        return if Issue < InstanceMethods
+        base.send(:include, InstanceMethods)
         base.class_eval do
-          prepend InstanceMethods
+          alias_method_chain :editable?, :closed_edit
           # TODO: working on issues of dependencies (aroud 20 redmine tests failed with it)
           # validate :validate_change_on_closed
           validate :validate_open_sub_issues
@@ -50,8 +49,8 @@ module Additionals
           !closed? || user.allowed_to?(:log_time_on_closed_issues, project)
         end
 
-        def editable?(user = User.current)
-          return false unless super
+        def editable_with_closed_edit?(user = User.current)
+          return false unless editable_without_closed_edit?(user)
           return true unless closed?
           user.allowed_to?(:edit_closed_issues, project)
         end

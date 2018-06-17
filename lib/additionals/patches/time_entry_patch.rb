@@ -2,10 +2,9 @@ module Additionals
   module Patches
     module TimeEntryPatch
       def self.included(base)
-        # no need to do this more than once.
-        return if TimeEntry < InstanceMethods
+        base.send(:include, InstanceMethods)
         base.class_eval do
-          prepend InstanceMethods
+          alias_method_chain :editable_by?, :additionals
           validate :validate_issue_allowed
         end
       end
@@ -17,8 +16,8 @@ module Additionals
           errors.add(:issue_id, :issue_log_time_not_allowed) unless issue.log_time_allowed?
         end
 
-        def editable_by?(usr)
-          return false unless super
+        def editable_by_with_additionals?(usr)
+          return false unless editable_by_without_additionals?(usr)
           return true unless issue_id && issue
           issue.log_time_allowed?
         end

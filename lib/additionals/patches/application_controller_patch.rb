@@ -2,16 +2,15 @@ module Additionals
   module Patches
     module ApplicationControllerPatch
       def self.included(base)
-        # no need to do this more than once.
-        return if ApplicationController < InstanceMethods
+        base.send(:include, InstanceMethods)
         base.class_eval do
-          prepend InstanceMethods
+          alias_method_chain :user_setup, :additionals
         end
       end
 
       module InstanceMethods
-        def user_setup
-          super
+        def user_setup_with_additionals
+          user_setup_without_additionals
           return unless User.current.try(:hrm_user_type_id).nil?
           additionals_menu_item_delete(:help)
           unless Additionals.setting?(:remove_help)

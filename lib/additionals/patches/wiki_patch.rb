@@ -1,20 +1,23 @@
+require_dependency 'wiki'
+
 module Additionals
   module Patches
+    # Patch wiki to include sidebar
     module WikiPatch
       def self.included(base)
-        # no need to do this more than once.
-        return if Wiki < InstanceMethods
+        base.send(:include, InstanceMethodsForAdditionalsWiki)
         base.class_eval do
-          prepend InstanceMethods
+          alias_method_chain :sidebar, :additionals
         end
       end
     end
 
-    module InstanceMethods
-      def sidebar
+    # Instance methodes for Wiki
+    module InstanceMethodsForAdditionalsWiki
+      def sidebar_with_additionals
         @sidebar ||= find_page('Sidebar', with_redirect: false)
         if @sidebar && @sidebar.content
-          super
+          sidebar_without_additionals
         else
           wiki_sidebar = '' + Additionals.settings[:global_wiki_sidebar].to_s
           @sidebar ||= find_page('Wiki', with_redirect: false)

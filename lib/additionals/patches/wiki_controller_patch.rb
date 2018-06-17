@@ -3,23 +3,24 @@ require_dependency 'wiki_controller'
 module Additionals
   module Patches
     module WikiControllerPatch
+      # no need to do this more than once.
+      return if WikiController < InstanceMethods
       def self.included(base)
-        base.send(:include, InstanceMethods)
         base.class_eval do
-          alias_method_chain :respond_to, :additionals
+          prepend InstanceMethods
         end
       end
     end
 
     module InstanceMethods
-      def respond_to_with_additionals(&block)
+      def respond_to(&block)
         if @project && @content
           if @_action_name == 'show'
             additionals_include_header
             additionals_include_footer
           end
         end
-        respond_to_without_additionals(&block)
+        super
       end
 
       private

@@ -64,7 +64,7 @@ class AdditionalsFontAwesome
     def load_details(type, name)
       return {} unless FONTAWESOME_ICONS.key?(type)
       values = FONTAWESOME_ICONS[type][name]
-      return { unicode: "&#x#{values[:unicode]}".html_safe, label: values[:label] } if values.present?
+      return { unicode: "&#x#{values[:unicode]};".html_safe, label: values[:label] } if values.present?
       {}
     end
 

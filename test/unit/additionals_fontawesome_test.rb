@@ -52,7 +52,7 @@ class AdditionalsFontAwesomeTest < Redmine::HelperTest
     info = AdditionalsFontAwesome.value_info('fab_amazon', with_details: true)
     assert info.key?(:unicode)
     assert info.key?(:label)
-    assert_equal '&#xf270', info[:unicode]
+    assert_equal '&#xf270;', info[:unicode]
     assert_equal 'Amazon', info[:label]
   end
 
@@ -60,7 +60,7 @@ class AdditionalsFontAwesomeTest < Redmine::HelperTest
     info = AdditionalsFontAwesome.value_info('far_calendar', with_details: true)
     assert info.key?(:unicode)
     assert info.key?(:label)
-    assert_equal '&#xf133', info[:unicode]
+    assert_equal '&#xf133;', info[:unicode]
     assert_equal 'Calendar', info[:label]
   end
 
@@ -68,7 +68,7 @@ class AdditionalsFontAwesomeTest < Redmine::HelperTest
     info = AdditionalsFontAwesome.value_info('fas_archive', with_details: true)
     assert info.key?(:unicode)
     assert info.key?(:label)
-    assert_equal '&#xf187', info[:unicode]
+    assert_equal '&#xf187;', info[:unicode]
     assert_equal 'Archive', info[:label]
   end
 end

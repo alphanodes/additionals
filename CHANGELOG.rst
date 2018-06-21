@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.0.13
+++++++
+
+- FontAwesome 5.1.0 support
+
+
 2.0.12
 ++++++
 

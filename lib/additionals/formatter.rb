@@ -35,7 +35,7 @@ module Additionals
 
     def inline_smileys(text)
       SMILEYS.each do |name, regexp|
-        text.gsub!(/(\s|^)(!)?(#{regexp})(?=\W|$)/m) do
+        text.gsub!(/(\s|^|>|\))(!)?(#{regexp})(?=\W|$|<)/m) do
           leading = Regexp.last_match(1)
           esc = Regexp.last_match(2)
           smiley = Regexp.last_match(3)

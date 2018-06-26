@@ -8,7 +8,7 @@ module Additionals
           # Add a postprocess hook to redcarpet's html formatter
           def postprocess(text)
             if Additionals.setting?(:legacy_smiley_support)
-              inline_emojify(text)
+              render_inline_smileys(inline_emojify(text))
             else
               text
             end

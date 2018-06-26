@@ -5,7 +5,7 @@ Changelog
 ++++++
 
 - FontAwesome 5.1.0 support
-
+- smiley support for markdown text_formatting
 
 2.0.12
 ++++++

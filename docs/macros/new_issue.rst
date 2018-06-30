@@ -8,10 +8,11 @@ Create a link for "New issue" for the current user.
     Show link to create new issue
 
     :param string project_name: can be project identifier, project name or project id
-    :param string name: name to use for link. If not specified, "New issue" is used
+                                If no project_name is specified, first project is used, which the current user
+                                has permission to create an issue.
+    :param string name: name to use for link. If not specified, "New issue" is used.
+                        You can use all language as suffix, eg. name_de, name_it, button_es
 
-    If no project_name is specified, first project is used, which the current user
-    has permission to create an issue.
 
 Scope
 +++++
@@ -39,3 +40,9 @@ with displayed link name ``New issue for broken displays``
 .. code-block:: smarty
 
   {{new_issue(myproject, title=New issue for broken displays)}}
+
+Link to create new issue in first available project and overwrite name of link only for German users
+
+.. code-block:: smarty
+
+  {{new_issue(name_de: Ticket hier bitte anlegen)}}

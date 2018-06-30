@@ -104,6 +104,7 @@ Features
   * issues
   * members
   * meteoblue
+  * new_issue
   * projects
   * reddit
   * slideshare

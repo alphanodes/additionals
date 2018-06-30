@@ -14,7 +14,7 @@ module Additionals
     end
 
     def additionals_titles_for_locale(title)
-      languages = [:title]
+      languages = [title.to_sym]
       valid_languages.each do |lang|
         languages << additionals_title_for_locale(title, lang).to_sym if lang.to_s.exclude? '-'
       end
@@ -74,13 +74,13 @@ module Additionals
       end
     end
 
-    def memberships_new_issue_project_url(user, memberships)
+    def memberships_new_issue_project_url(user, memberships, permission = :edit_issues)
       return if memberships.blank?
       project_count = 0
       project_id = nil
       memberships.each do |m|
         project = m.is_a?(Project) ? m : Project.find_by(id: m.project_id)
-        next unless User.current.allowed_to?(:edit_issues, project) && user.allowed_to?(:edit_issues, project)
+        next unless User.current.allowed_to?(permission, project) && user.allowed_to?(permission, project)
         project_count += 1
         break if project_count > 1
         project_id = project.identifier
@@ -90,9 +90,15 @@ module Additionals
 
       # if more than one projects available, we do not use project url for a new issue
       if project_count > 1
-        new_issue_path('issue[assigned_to_id]' => user.id, 'issue[project_id]' => project_id)
-      else
+        if permission == :edit_issues
+          new_issue_path('issue[assigned_to_id]' => user.id, 'issue[project_id]' => project_id)
+        else
+          new_issue_path('issue[project_id]' => project_id)
+        end
+      elsif permission == :edit_issues
         new_project_issue_path(project_id, 'issue[assigned_to_id]' => user.id)
+      else
+        new_project_issue_path(project_id)
       end
     end
 

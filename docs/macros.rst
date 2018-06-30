@@ -17,6 +17,7 @@ If a parameter is in brackets, this parameter is optional.
 .. include:: macros/last_updated_by.rst
 .. include:: macros/meteoblue.rst
 .. include:: macros/members.rst
+.. include:: macros/new_issue.rst
 .. include:: macros/projects.rst
 .. include:: macros/recently_updated.rst
 .. include:: macros/reddit.rst

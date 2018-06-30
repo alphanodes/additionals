@@ -44,8 +44,8 @@ module Additionals
 
       # Macros
       load_macros(%w[calendar cryptocompare date gist gmap group_users iframe issue
-                     last_updated_at last_updated_by meteoblue member project recently_updated
-                     reddit slideshare tradingview twitter user vimeo youtube])
+                     last_updated_at last_updated_by meteoblue member new_issue project
+                     recently_updated reddit slideshare tradingview twitter user vimeo youtube])
     end
 
     def settings

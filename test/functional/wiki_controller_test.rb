@@ -205,6 +205,17 @@ class WikiControllerTest < Redmine::ControllerTest
     assert_select 'div.wiki div.user'
   end
 
+  def test_show_with_new_issue_macro
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    @page.content.text = '{{new_issue}}'
+    @page.content.save!
+    get :show,
+        params: { project_id: 1, id: @page_name }
+    assert_response :success
+    assert_template 'show'
+    assert_select 'div.wiki a.macro-new-issue'
+  end
+
   def test_show_with_group_users_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{group_users(A Team)}}'

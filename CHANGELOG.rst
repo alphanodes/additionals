@@ -6,6 +6,7 @@ Changelog
 
 - FontAwesome 5.1.0 support
 - smiley support for markdown text_formatting
+- new_issue macro with i18n support
 
 2.0.12
 ++++++

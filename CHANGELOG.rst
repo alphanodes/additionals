@@ -7,6 +7,8 @@ Changelog
 - FontAwesome 5.1.0 support
 - smiley support for markdown text_formatting
 - new_issue macro with i18n support
+- updated bootstrap-datepicker to v1.8.0
+- updated d3plus to v2.0.0-alpha.17
 
 2.0.12
 ++++++

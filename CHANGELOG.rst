@@ -9,6 +9,7 @@ Changelog
 - new_issue macro with i18n support
 - updated bootstrap-datepicker to v1.8.0
 - updated d3plus to v2.0.0-alpha.17
+- ruby 2.2.0 is required
 
 2.0.12
 ++++++

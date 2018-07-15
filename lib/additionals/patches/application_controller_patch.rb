@@ -4,7 +4,8 @@ module Additionals
       def self.included(base)
         base.send(:include, InstanceMethods)
         base.class_eval do
-          alias_method_chain :user_setup, :additionals
+          alias_method :user_setup_without_additionals, :user_setup
+          alias_method :user_setup, :user_setup_with_additionals
         end
       end
 

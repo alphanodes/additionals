@@ -1,6 +1,5 @@
 require File.expand_path('../../test_helper', __FILE__)
 
-# Additionals integration tests
 class CommonViewsTest < Redmine::IntegrationTest
   fixtures :projects,
            :users,
@@ -19,10 +18,6 @@ class CommonViewsTest < Redmine::IntegrationTest
 
   def setup
     Additionals::TestCase.prepare
-
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
-    @request.env['HTTP_REFERER'] = '/'
   end
 
   test 'View user' do

@@ -11,17 +11,11 @@ class WatcherTest < ActiveSupport::TestCase
     @author = User.find(1)
     @assigned_user = User.find(2)
     @changing_user = User.find(4)
-
-    Setting.plugin_additionals = ActionController::Parameters.new(
-      issue_autowatch_involved: 1
-    )
+    with_additionals_settings(issue_autowatch_involved: 1)
   end
 
   def test_new_issue_with_no_autowatch
-    Setting.plugin_additionals = ActionController::Parameters.new(
-      issue_autowatch_involved: 0
-    )
-
+    with_additionals_settings(issue_autowatch_involved: 0)
     User.current = @author
     issue = Issue.generate(author_id: @author.id)
     issue.save

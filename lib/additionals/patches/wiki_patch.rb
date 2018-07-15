@@ -7,7 +7,8 @@ module Additionals
       def self.included(base)
         base.send(:include, InstanceMethodsForAdditionalsWiki)
         base.class_eval do
-          alias_method_chain :sidebar, :additionals
+          alias_method :sidebar_without_additionals, :sidebar
+          alias_method :sidebar, :sidebar_with_additionals
         end
       end
     end

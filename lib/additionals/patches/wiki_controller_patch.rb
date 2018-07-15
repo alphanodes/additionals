@@ -6,7 +6,8 @@ module Additionals
       def self.included(base)
         base.send(:include, InstanceMethods)
         base.class_eval do
-          alias_method_chain :respond_to, :additionals
+          alias_method :respond_to_without_additionals, :respond_to
+          alias_method :respond_to, :respond_to_with_additionals
         end
       end
     end

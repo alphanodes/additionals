@@ -2,9 +2,9 @@ sudo: false
 language: ruby
 cache: bundler
 rvm:
-  - 2.2.7
-  - 2.3.4
   - 2.4.1
+  - 2.3.4
+  - 2.2.7
 
 branches:
   only:
@@ -14,9 +14,9 @@ addons:
   postgresql: "9.6"
 
 env:
-  - REDMINE_VER=3.2-stable
-  - REDMINE_VER=3.3-stable
   - REDMINE_VER=3.4-stable
+  - REDMINE_VER=3.3-stable
+  - REDMINE_VER=3.2-stable
 #  - REDMINE_VER=master
 
 install: "echo skip bundle install"

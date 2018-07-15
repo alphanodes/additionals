@@ -4,7 +4,8 @@ module Additionals
       def self.included(base)
         base.send(:include, InstanceMethods)
         base.class_eval do
-          alias_method_chain :editable_by?, :additionals
+          alias_method :editable_by_without_additionals?, :editable_by?
+          alias_method :editable_by?, :editable_by_with_additionals?
           validate :validate_issue_allowed
         end
       end

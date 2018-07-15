@@ -4,7 +4,8 @@ module Additionals
       def self.included(base)
         base.send(:include, InstanceMethods)
         base.class_eval do
-          alias_method_chain :editable?, :closed_edit
+          alias_method :editable_without_additionals?, :editable?
+          alias_method :editable?, :editable_with_additionals?
           # TODO: working on issues of dependencies (aroud 20 redmine tests failed with it)
           # validate :validate_change_on_closed
           validate :validate_open_sub_issues
@@ -49,8 +50,8 @@ module Additionals
           !closed? || user.allowed_to?(:log_time_on_closed_issues, project)
         end
 
-        def editable_with_closed_edit?(user = User.current)
-          return false unless editable_without_closed_edit?(user)
+        def editable_with_additionals?(user = User.current)
+          return false unless editable_without_additionals?(user)
           return true unless closed?
           user.allowed_to?(:edit_closed_issues, project)
         end

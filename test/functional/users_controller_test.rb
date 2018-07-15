@@ -23,10 +23,7 @@ class UsersControllerTest < Additionals::ControllerTest
   end
 
   def test_show_new_issue_on_profile
-    Setting.plugin_additionals = ActionController::Parameters.new(
-      new_issue_on_profile: 1
-    )
-
+    with_additionals_settings(new_issue_on_profile: 1)
     @request.session[:user_id] = 2
     get :show,
         params: { id: 2 }
@@ -34,10 +31,7 @@ class UsersControllerTest < Additionals::ControllerTest
   end
 
   def test_not_show_new_issue_on_profile_without_activated
-    Setting.plugin_additionals = ActionController::Parameters.new(
-      new_issue_on_profile: 0
-    )
-
+    with_additionals_settings(new_issue_on_profile: 0)
     @request.session[:user_id] = 2
     get :show,
         params: { id: 2 }

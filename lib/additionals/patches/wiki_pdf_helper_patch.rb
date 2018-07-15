@@ -4,7 +4,8 @@ module Additionals
       def self.included(base)
         base.send(:include, InstanceMethods)
         base.class_eval do
-          alias_method_chain :wiki_page_to_pdf, :additionals
+          alias_method :wiki_page_to_pdf_without_additionals, :wiki_page_to_pdf
+          alias_method :wiki_page_to_pdf, :wiki_page_to_pdf_with_additionals
         end
       end
 

@@ -86,10 +86,7 @@ class IssuesControllerTest < Additionals::ControllerTest
   end
 
   test 'show assign-to-me on issue' do
-    Setting.plugin_additionals = ActionController::Parameters.new(
-      issue_assign_to_me: 1
-    )
-
+    with_additionals_settings(issue_assign_to_me: 1)
     @request.session[:user_id] = 2
     get :show,
         params: { id: 2 }
@@ -97,10 +94,7 @@ class IssuesControllerTest < Additionals::ControllerTest
   end
 
   test 'don\'t show assign-to-me on issue without activation' do
-    Setting.plugin_additionals = ActionController::Parameters.new(
-      issue_assign_to_me: 0
-    )
-
+    with_additionals_settings(issue_assign_to_me: 0)
     @request.session[:user_id] = 2
     get :show,
         params: { id: 2 }
@@ -108,10 +102,7 @@ class IssuesControllerTest < Additionals::ControllerTest
   end
 
   test 'don\'t show assign-to-me on issue with already assigned_to me' do
-    Setting.plugin_additionals = ActionController::Parameters.new(
-      issue_assign_to_me: 1
-    )
-
+    with_additionals_settings(issue_assign_to_me: 1)
     @request.session[:user_id] = 2
     get :show,
         params: { id: 4 }
@@ -119,10 +110,7 @@ class IssuesControllerTest < Additionals::ControllerTest
   end
 
   test 'show change status in issue sidebar' do
-    Setting.plugin_additionals = ActionController::Parameters.new(
-      issue_change_status_in_sidebar: 1
-    )
-
+    with_additionals_settings(issue_change_status_in_sidebar: 1)
     @request.session[:user_id] = 2
     get :show,
         params: { id: 2 }
@@ -130,10 +118,7 @@ class IssuesControllerTest < Additionals::ControllerTest
   end
 
   test 'don\'t show change status in issue sidebar without activation' do
-    Setting.plugin_additionals = ActionController::Parameters.new(
-      issue_change_status_in_sidebar: 0
-    )
-
+    with_additionals_settings(issue_change_status_in_sidebar: 0)
     @request.session[:user_id] = 2
     get :show,
         params: { id: 2 }

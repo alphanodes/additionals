@@ -39,12 +39,10 @@ module ApiTest
     end
 
     test 'POST /issues.xml should create an issue with the attributes' do
-      Setting.plugin_additionals = ActionController::Parameters.new(
-        issue_status_change: '0',
-        issue_auto_assign: '0',
-        issue_auto_assign_status: ['1'],
-        issue_auto_assign_role: '1'
-      )
+      with_additionals_settings(issue_status_change: '0',
+                                issue_auto_assign: '0',
+                                issue_auto_assign_status: ['1'],
+                                issue_auto_assign_role: '1')
 
       payload = <<-XML
       <?xml version="1.0" encoding="UTF-8" ?>
@@ -72,12 +70,10 @@ module ApiTest
     end
 
     test 'POST /issues.xml should create an issue with auto assigned_to_id' do
-      Setting.plugin_additionals = ActionController::Parameters.new(
-        issue_status_change: '0',
-        issue_auto_assign: '1',
-        issue_auto_assign_status: ['1'],
-        issue_auto_assign_role: '1'
-      )
+      with_additionals_settings(issue_status_change: '0',
+                                issue_auto_assign: '1',
+                                issue_auto_assign_status: ['1'],
+                                issue_auto_assign_role: '1')
 
       payload = <<-XML
       <?xml version="1.0" encoding="UTF-8" ?>

@@ -15,19 +15,27 @@ end
 
 require File.expand_path(File.dirname(__FILE__) + '/../../../test/test_helper')
 
-# Additionals helper class for tests
 module Additionals
-  class ControllerTest < ActionController::TestCase
-    # can be removed if Redmine 3.4 and higher is supported only
-    def process(action, http_method = 'GET', *args)
-      parameters, _session, _flash = *args
-      if args.size == 1 && parameters[:xhr] == true
-        xhr http_method.downcase.to_sym, action, parameters.except(:xhr)
-      elsif parameters && (parameters.key?(:params) || parameters.key?(:session) || parameters.key?(:flash))
-        super action, http_method, parameters[:params], parameters[:session], parameters[:flash]
-      else
-        super
-      end
+  module TestHelper
+    def with_additionals_settings(settings)
+      Additionals.change_settings = settings
+    end
+  end
+
+  class ControllerTest < Redmine::ControllerTest
+    def compatible_request(type, action, parameters = {})
+      return send(type, action, params: parameters) if Rails.version >= '5.2'
+      send(type, action, parameters)
+    end
+
+    def compatible_xhr_request(type, action, parameters = {})
+      return send(type, action, params: parameters, xhr: true) if Rails.version >= '5.2'
+      xhr type, action, parameters
+    end
+
+    def compatible_api_request(type, action, parameters = {}, headers = {})
+      return send(type, action, params: parameters, headers: headers) if Rails.version >= '5.2'
+      send(type, action, parameters, headers)
     end
   end
 
@@ -69,3 +77,5 @@ module Additionals
     end
   end
 end
+
+include Additionals::TestHelper

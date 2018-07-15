@@ -41,7 +41,6 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_template 'show'
     assert_select 'iframe[src=?]', '//www.youtube-nocookie.com/embed/KMU0tzLwhbE'
   end
 
@@ -52,7 +51,6 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_template 'show'
     assert_select 'iframe', src: %r{^https\://www\.meteoblue\.com/en/weather/widget/daily/(.*)}
   end
 
@@ -63,7 +61,6 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_template 'show'
     assert_select 'iframe[src=?]', '//player.vimeo.com/video/142849533'
   end
 
@@ -74,7 +71,6 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_template 'show'
     assert_select 'iframe[src=?]', '//www.slideshare.net/slideshow/embed_code/57941706'
   end
 
@@ -85,7 +81,6 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_template 'show'
     assert_select 'iframe[src=?]', 'https://www.redmine.org/'
   end
 
@@ -96,7 +91,6 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_template 'show'
     assert_select 'a.twitter'
     assert_select 'a[href=?]', 'https://twitter.com/alphanodes',
                   text: '@alphanodes'
@@ -125,7 +119,6 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_template 'show'
     assert_select 'a.reddit'
     assert_select 'a[href=?]', 'https://www.reddit.com/r/redmine',
                   text: 'r/redmine'
@@ -154,7 +147,6 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_template 'show'
     assert_select 'span.last-updated-by'
     assert_select 'a[href=?]', '/users/2',
                   text: 'jsmith'
@@ -167,7 +159,6 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_template 'show'
     assert_select 'span.last-updated-at'
     assert_select 'a[href=?]', '/projects/ecookbook/activity'
   end
@@ -179,7 +170,6 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_template 'show'
     assert_select 'div.recently-updated'
   end
 
@@ -190,7 +180,6 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_template 'show'
     assert_select 'div.month-calendar'
   end
 
@@ -201,7 +190,6 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_template 'show'
     assert_select 'div.wiki div.user'
   end
 
@@ -212,7 +200,6 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_template 'show'
     assert_select 'div.wiki a.macro-new-issue'
   end
 
@@ -223,7 +210,6 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_template 'show'
     assert_select 'div.wiki div.user'
   end
 
@@ -234,7 +220,6 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_template 'show'
     assert_select 'div.wiki div.projects li.project'
   end
 
@@ -245,7 +230,6 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_template 'show'
     assert_select 'script[src=?]', 'https://gist.github.com/plentz/6737338.js'
   end
 
@@ -256,7 +240,6 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_template 'show'
     assert_select 'script[src=?]', 'https://s3.tradingview.com/tv.js'
   end
 
@@ -267,7 +250,6 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_template 'show'
     assert_select 'div.wiki div.cryptocompare',
                   text: %r{https:\/\/widgets\.cryptocompare\.com\/serve\/v3\/coin\/header\?fsyms=BTC,ETH&tsyms=EUR}
   end
@@ -279,7 +261,6 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_template 'show'
     assert_select 'div.wiki span.current-date', User.current.today.cweek.to_s
   end
 
@@ -290,7 +271,6 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_template 'show'
     assert_select 'a[href=?]', '/issues/2',
                   text: 'Add ingredients categories'
   end
@@ -302,7 +282,6 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_template 'show'
     assert_select 'a[href=?]', '/issues/2',
                   text: '#2 Add ingredients categories'
   end
@@ -314,7 +293,6 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_template 'show'
     assert_select 'a[href=?]', '/issues/2',
                   text: '#2 Add ingredients categories'
     assert_select 'div.issue-macro-comment', 0
@@ -327,7 +305,6 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_template 'show'
     assert_select 'a[href=?]', '/issues/2',
                   text: '#2 Add ingredients categories'
     assert_select 'div.issue-macro-comment'
@@ -340,7 +317,6 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_template 'show'
     assert_select 'a[href=?]', '/issues/2',
                   text: '#2 Add ingredients categories'
   end
@@ -352,7 +328,6 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_template 'show'
     assert_select 'a[href=?]', '/users/1',
                   text: 'Redmine Admin'
   end
@@ -364,7 +339,6 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_template 'show'
     assert_select 'a.user', text: 'Redmine Admin'
     assert_select 'a[href=?]', '/users/1',
                   text: 'Redmine Admin'
@@ -377,7 +351,6 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_template 'show'
     assert_select 'a[href=?]', '/users/2',
                   text: 'jsmith'
   end
@@ -389,57 +362,48 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_template 'show'
     assert_select 'a.user', text: 'John Smith'
     assert_select 'a[href=?]', '/users/2',
                   text: 'John Smith'
   end
 
   def test_show_wiki_with_header
-    Setting.plugin_additionals = ActionController::Parameters.new(
-      global_wiki_header: 'Lore impsuum'
-    )
+    with_additionals_settings(global_wiki_header: 'Lore impsuum')
+
     get :show,
         params: { project_id: 1, id: 'Another_page' }
 
     assert_response :success
-    assert_template 'show'
     assert_select 'div#wiki_extentions_header', text: /Lore impsuum/
   end
 
   def test_show_wiki_without_header
-    Setting.plugin_additionals = ActionController::Parameters.new(
-      global_wiki_header: ''
-    )
+    with_additionals_settings(global_wiki_header: '')
+
     get :show,
         params: { project_id: 1, id: 'Another_page' }
 
     assert_response :success
-    assert_template 'show'
     assert_select 'div#wiki_extentions_header', count: 0
   end
 
   def test_show_wiki_with_footer
-    Setting.plugin_additionals = ActionController::Parameters.new(
-      global_wiki_footer: 'Lore impsuum'
-    )
+    with_additionals_settings(global_wiki_footer: 'Lore impsuum')
+
     get :show,
         params: { project_id: 1, id: 'Another_page' }
 
     assert_response :success
-    assert_template 'show'
     assert_select 'div#wiki_extentions_footer', text: /Lore impsuum/
   end
 
   def test_show_wiki_without_footer
-    Setting.plugin_additionals = ActionController::Parameters.new(
-      global_wiki_footer: ''
-    )
+    with_additionals_settings(global_wiki_footer: '')
+
     get :show,
         params: { project_id: 1, id: 'Another_page' }
 
     assert_response :success
-    assert_template 'show'
     assert_select 'div#wiki_extentions_footer', count: 0
   end
 end

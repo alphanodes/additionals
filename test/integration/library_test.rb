@@ -1,4 +1,4 @@
-require File.expand_path('../test_helper', __dir__)
+require File.expand_path('../../test_helper', __FILE__)
 
 class JavascriptLibraryTest < Redmine::IntegrationTest
   def test_loaded_css_libraries

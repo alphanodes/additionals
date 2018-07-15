@@ -27,9 +27,12 @@ This plugin is the successor of `Redmine Tweaks <https://github.com/alphanodes/r
    :target: https://additionals.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
 
-.. image:: https://img.shields.io/codeclimate/github/AlphaNodes/additionals.svg?style=flat
-   :target: https://codeclimate.com/github/AlphaNodes/additionals
-   :alt: Code Climate
+.. image:: https://api.codeclimate.com/v1/badges/d92c0bda57f80e7c76b7/maintainability
+   :target: https://codeclimate.com/github/AlphaNodes/additionals/maintainability
+   :alt: Maintainability
+
+.. image:: https://travis-ci.org/AlphaNodes/additionals.svg?branch=master
+   :target: https://travis-ci.org/AlphaNodes/additionals
 
 .. image:: https://img.shields.io/badge/rate%20at-redmine.org-blue.svg?style=flat
    :target: https://www.redmine.org/plugins/additionals

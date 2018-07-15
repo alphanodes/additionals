@@ -1,4 +1,4 @@
-require File.expand_path('../test_helper', __dir__)
+require File.expand_path('../../test_helper', __FILE__)
 
 class AdditionalsFontAwesomeTest < Redmine::HelperTest
   fixtures :projects, :users, :members, :member_roles, :roles,

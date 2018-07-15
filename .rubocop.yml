@@ -40,3 +40,6 @@ Style/AutoResourceCleanup:
 
 Style/Documentation:
   Enabled: false
+
+Style/ExpandPathArguments:
+  Enabled: false

@@ -1,4 +1,4 @@
-require File.expand_path('../test_helper', __dir__)
+require File.expand_path('../../test_helper', __FILE__)
 
 class RoutingTest < Redmine::RoutingTest
   def test_issue_assign_to_me

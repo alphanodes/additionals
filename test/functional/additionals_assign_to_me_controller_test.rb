@@ -1,6 +1,6 @@
 require File.expand_path('../../test_helper', __FILE__)
 
-class AdditionalsAssignToMeControllerTest < ActionController::TestCase
+class AdditionalsAssignToMeControllerTest < Additionals::ControllerTest
   fixtures :projects,
            :users, :email_addresses, :user_preferences,
            :roles,

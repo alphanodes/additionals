@@ -17,6 +17,20 @@ require File.expand_path(File.dirname(__FILE__) + '/../../../test/test_helper')
 
 # Additionals helper class for tests
 module Additionals
+  class ControllerTest < ActionController::TestCase
+    # can be removed if Redmine 3.4 and higher is supported only
+    def process(action, http_method = 'GET', *args)
+      parameters, _session, _flash = *args
+      if args.size == 1 && parameters[:xhr] == true
+        xhr http_method.downcase.to_sym, action, parameters.except(:xhr)
+      elsif parameters && (parameters.key?(:params) || parameters.key?(:session) || parameters.key?(:flash))
+        super action, http_method, parameters[:params], parameters[:session], parameters[:flash]
+      else
+        super
+      end
+    end
+  end
+
   class TestCase
     include ActionDispatch::TestProcess
     def self.plugin_fixtures(plugin, *fixture_names)

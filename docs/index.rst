@@ -19,10 +19,6 @@ This plugin is the successor of `Redmine Tweaks <https://github.com/alphanodes/r
 * Redmine.org plugin page: https://www.redmine.org/plugins/additionals
 * Github: https://github.com/alphanodes/additionals
 
-.. image:: https://pm.alphanodes.com/jenkins/buildStatus/icon?job=Devel-build-additionals
-   :target: https://pm.alphanodes.com/jenkins/buildStatus/icon?job=Devel-build-additionals
-   :alt: Jenkins Build Status
-
 .. image:: https://readthedocs.org/projects/additionals/badge/?version=latest
    :target: https://additionals.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status

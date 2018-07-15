@@ -30,10 +30,16 @@ export BUNDLE_GEMFILE=$PATH_TO_REDMINE/Gemfile
 # checkout redmine
 git clone $REDMINE_GIT_REPO $PATH_TO_REDMINE
 cd $PATH_TO_REDMINE
-if [ ! "$REDMINE_GIT_TAG" = "master" ];
+if [ "$REDMINE_GIT_TAG" = "master" ];
 then
+  # apply path to support plugin migration
+  # see https://www.redmine.org/issues/28934
+  wget https://www.redmine.org/attachments/download/21044/use_migration_context_with_test2.patch
+  patch -p0 < use_migration_context_with_test2.patch
+else
   git checkout -b $REDMINE_GIT_TAG origin/$REDMINE_GIT_TAG
 fi
+
 
 # create a link to the backlogs plugin
 ln -sf $PATH_TO_PLUGIN plugins/$NAME_OF_PLUGIN
@@ -57,4 +63,13 @@ bundle exec rake db:structure:dump
 
 # run tests
 # bundle exec rake TEST=test/unit/role_test.rb
-bundle exec rake redmine:plugins:test NAME=$NAME_OF_PLUGIN
+
+if [ "$REDMINE_GIT_TAG" = "master" ];
+then
+  # Rails 5 uses controllers and models for directories
+  bundle exec rake redmine:plugins:test:units NAME=$NAME_OF_PLUGIN
+  bundle exec rake redmine:plugins:test:functionals NAME=$NAME_OF_PLUGIN
+  bundle exec rake redmine:plugins:test:integration NAME=$NAME_OF_PLUGIN
+else
+  bundle exec rake redmine:plugins:test NAME=$NAME_OF_PLUGIN
+fi

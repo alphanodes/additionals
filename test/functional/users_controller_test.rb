@@ -23,18 +23,20 @@ class UsersControllerTest < Additionals::ControllerTest
   end
 
   def test_show_new_issue_on_profile
-    with_additionals_settings(new_issue_on_profile: 1)
-    @request.session[:user_id] = 2
-    get :show,
-        params: { id: 2 }
-    assert_select 'a.user-new-issue'
+    with_additionals_settings(new_issue_on_profile: 1) do
+      @request.session[:user_id] = 2
+      get :show,
+          params: { id: 2 }
+      assert_select 'a.user-new-issue'
+    end
   end
 
   def test_not_show_new_issue_on_profile_without_activated
-    with_additionals_settings(new_issue_on_profile: 0)
-    @request.session[:user_id] = 2
-    get :show,
-        params: { id: 2 }
-    assert_select 'a.user-new-issue', count: 0
+    with_additionals_settings(new_issue_on_profile: 0) do
+      @request.session[:user_id] = 2
+      get :show,
+          params: { id: 2 }
+      assert_select 'a.user-new-issue', count: 0
+    end
   end
 end

@@ -368,42 +368,42 @@ class WikiControllerTest < Additionals::ControllerTest
   end
 
   def test_show_wiki_with_header
-    with_additionals_settings(global_wiki_header: 'Lore impsuum')
+    with_additionals_settings(global_wiki_header: 'Lore impsuum') do
+      get :show,
+          params: { project_id: 1, id: 'Another_page' }
 
-    get :show,
-        params: { project_id: 1, id: 'Another_page' }
-
-    assert_response :success
-    assert_select 'div#wiki_extentions_header', text: /Lore impsuum/
+      assert_response :success
+      assert_select 'div#wiki_extentions_header', text: /Lore impsuum/
+    end
   end
 
   def test_show_wiki_without_header
-    with_additionals_settings(global_wiki_header: '')
+    with_additionals_settings(global_wiki_header: '') do
+      get :show,
+          params: { project_id: 1, id: 'Another_page' }
 
-    get :show,
-        params: { project_id: 1, id: 'Another_page' }
-
-    assert_response :success
-    assert_select 'div#wiki_extentions_header', count: 0
+      assert_response :success
+      assert_select 'div#wiki_extentions_header', count: 0
+    end
   end
 
   def test_show_wiki_with_footer
-    with_additionals_settings(global_wiki_footer: 'Lore impsuum')
+    with_additionals_settings(global_wiki_footer: 'Lore impsuum') do
+      get :show,
+          params: { project_id: 1, id: 'Another_page' }
 
-    get :show,
-        params: { project_id: 1, id: 'Another_page' }
-
-    assert_response :success
-    assert_select 'div#wiki_extentions_footer', text: /Lore impsuum/
+      assert_response :success
+      assert_select 'div#wiki_extentions_footer', text: /Lore impsuum/
+    end
   end
 
   def test_show_wiki_without_footer
-    with_additionals_settings(global_wiki_footer: '')
+    with_additionals_settings(global_wiki_footer: '') do
+      get :show,
+          params: { project_id: 1, id: 'Another_page' }
 
-    get :show,
-        params: { project_id: 1, id: 'Another_page' }
-
-    assert_response :success
-    assert_select 'div#wiki_extentions_footer', count: 0
+      assert_response :success
+      assert_select 'div#wiki_extentions_footer', count: 0
+    end
   end
 end

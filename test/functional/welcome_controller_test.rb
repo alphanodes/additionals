@@ -9,56 +9,62 @@ class WelcomeControllerTest < Additionals::ControllerTest
   end
 
   def test_show_with_overview_right
-    with_additionals_settings(overview_right: 'Lore impsuum')
-    @request.session[:user_id] = 4
-    get :index
+    with_additionals_settings(overview_right: 'Lore impsuum') do
+      @request.session[:user_id] = 4
+      get :index
 
-    assert_response :success
-    assert_select 'div.overview-right', text: /Lore impsuum/
+      assert_response :success
+      assert_select 'div.overview-right', text: /Lore impsuum/
+    end
   end
 
   def test_show_without_overview_right
-    with_additionals_settings(overview_right: '')
-    @request.session[:user_id] = 4
-    get :index
+    with_additionals_settings(overview_right: '') do
+      @request.session[:user_id] = 4
+      get :index
 
-    assert_response :success
-    assert_select 'div.overview-right', count: 0
+      assert_response :success
+      assert_select 'div.overview-right', count: 0
+    end
   end
 
   def test_show_with_overview_bottom
-    with_additionals_settings(overview_bottom: 'Lore impsuum')
-    @request.session[:user_id] = 4
-    get :index
+    with_additionals_settings(overview_bottom: 'Lore impsuum') do
+      @request.session[:user_id] = 4
+      get :index
 
-    assert_response :success
-    assert_select 'div.overview-bottom', text: /Lore impsuum/
+      assert_response :success
+      assert_select 'div.overview-bottom', text: /Lore impsuum/
+    end
   end
 
   def test_show_without_overview_bottom
-    with_additionals_settings(overview_bottom: '')
-    @request.session[:user_id] = 4
-    get :index
+    with_additionals_settings(overview_bottom: '') do
+      @request.session[:user_id] = 4
+      get :index
 
-    assert_response :success
-    assert_select 'div.overview-bottom', count: 0
+      assert_response :success
+      assert_select 'div.overview-bottom', count: 0
+    end
   end
 
   def test_show_with_overview_top
-    with_additionals_settings(overview_top: 'Lore impsuum')
-    @request.session[:user_id] = 4
-    get :index
+    with_additionals_settings(overview_top: 'Lore impsuum') do
+      @request.session[:user_id] = 4
+      get :index
 
-    assert_response :success
-    assert_select 'div.overview-top', text: /Lore impsuum/
+      assert_response :success
+      assert_select 'div.overview-top', text: /Lore impsuum/
+    end
   end
 
   def test_show_without_overview_top
-    with_additionals_settings(overview_top: '')
-    @request.session[:user_id] = 4
-    get :index
+    with_additionals_settings(overview_top: '') do
+      @request.session[:user_id] = 4
+      get :index
 
-    assert_response :success
-    assert_select 'div.overview-top', count: 0
+      assert_response :success
+      assert_select 'div.overview-top', count: 0
+    end
   end
 end

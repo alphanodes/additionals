@@ -17,8 +17,11 @@ require File.expand_path(File.dirname(__FILE__) + '/../../../test/test_helper')
 
 module Additionals
   module TestHelper
-    def with_additionals_settings(settings)
+    def with_additionals_settings(settings, &_block)
       Additionals.change_settings = settings
+      yield
+    ensure
+      Additionals.change_settings = Setting[:plugin_additionals]
     end
   end
 

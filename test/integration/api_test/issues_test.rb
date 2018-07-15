@@ -42,61 +42,61 @@ module ApiTest
       with_additionals_settings(issue_status_change: '0',
                                 issue_auto_assign: '0',
                                 issue_auto_assign_status: ['1'],
-                                issue_auto_assign_role: '1')
+                                issue_auto_assign_role: '1') do
+        payload = <<-XML
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <issue>
+          <project_id>1</project_id>
+          <tracker_id>2</tracker_id>
+          <status_id>3</status_id>
+          <subject>API test</subject>
+        </issue>
+        XML
 
-      payload = <<-XML
-      <?xml version="1.0" encoding="UTF-8" ?>
-      <issue>
-        <project_id>1</project_id>
-        <tracker_id>2</tracker_id>
-        <status_id>3</status_id>
-        <subject>API test</subject>
-      </issue>
-      XML
+        assert_difference('Issue.count') do
+          post '/issues.xml',
+               params: payload,
+               headers: { 'CONTENT_TYPE' => 'application/xml' }.merge(credentials('jsmith'))
+        end
+        issue = Issue.order(id: :desc).first
+        assert_equal 1, issue.project_id
+        assert_nil issue.assigned_to_id
+        assert_equal 'API test', issue.subject
 
-      assert_difference('Issue.count') do
-        post '/issues.xml',
-             params: payload,
-             headers: { 'CONTENT_TYPE' => 'application/xml' }.merge(credentials('jsmith'))
+        assert_response :created
+        assert_equal 'application/xml', @response.content_type
+        assert_select 'issue > id', text: issue.id.to_s
       end
-      issue = Issue.order(id: :desc).first
-      assert_equal 1, issue.project_id
-      assert_nil issue.assigned_to_id
-      assert_equal 'API test', issue.subject
-
-      assert_response :created
-      assert_equal 'application/xml', @response.content_type
-      assert_select 'issue > id', text: issue.id.to_s
     end
 
     test 'POST /issues.xml should create an issue with auto assigned_to_id' do
       with_additionals_settings(issue_status_change: '0',
                                 issue_auto_assign: '1',
                                 issue_auto_assign_status: ['1'],
-                                issue_auto_assign_role: '1')
+                                issue_auto_assign_role: '1') do
+        payload = <<-XML
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <issue>
+          <project_id>1</project_id>
+          <subject>API test</subject>
+        </issue>
+        XML
 
-      payload = <<-XML
-      <?xml version="1.0" encoding="UTF-8" ?>
-      <issue>
-        <project_id>1</project_id>
-        <subject>API test</subject>
-      </issue>
-      XML
+        assert_difference('Issue.count') do
+          post '/issues.xml',
+               params: payload,
+               headers: { 'CONTENT_TYPE' => 'application/xml' }.merge(credentials('jsmith'))
+        end
 
-      assert_difference('Issue.count') do
-        post '/issues.xml',
-             params: payload,
-             headers: { 'CONTENT_TYPE' => 'application/xml' }.merge(credentials('jsmith'))
+        issue = Issue.order(id: :desc).first
+        assert_equal 1, issue.project_id
+        assert_equal 2, issue.assigned_to_id
+        assert_equal 'API test', issue.subject
+
+        assert_response :created
+        assert_equal 'application/xml', @response.content_type
+        assert_select 'issue > id', text: issue.id.to_s
       end
-
-      issue = Issue.order(id: :desc).first
-      assert_equal 1, issue.project_id
-      assert_equal 2, issue.assigned_to_id
-      assert_equal 'API test', issue.subject
-
-      assert_response :created
-      assert_equal 'application/xml', @response.content_type
-      assert_select 'issue > id', text: issue.id.to_s
     end
 
     test 'DELETE /issues/:id.xml' do

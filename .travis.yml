@@ -1,0 +1,33 @@
+sudo: false
+language: ruby
+rvm:
+  - 2.2.10
+  - 2.3.7
+  - 2.4.4
+
+branches:
+  only:
+    - master
+
+addons:
+  postgresql: "9.6"
+
+env:
+  - REDMINE_VER=3.2-stable
+  - REDMINE_VER=3.3-stable
+  - REDMINE_VER=3.4-stable
+#  - REDMINE_VER=master
+
+install: "echo skip bundle install"
+
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
+
+script:
+  - export TESTSPACE=`pwd`/testspace
+  - export NAME_OF_PLUGIN=additionals
+  - export PATH_TO_PLUGIN=`pwd`
+  - export PATH_TO_REDMINE=$TESTSPACE/redmine
+  - mkdir $TESTSPACE
+  - cp test/support/* $TESTSPACE/
+  - bash -x ./travis.sh

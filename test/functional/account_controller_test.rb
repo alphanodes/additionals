@@ -1,6 +1,8 @@
 require File.expand_path('../../test_helper', __FILE__)
 
-class AccountControllerTest < Redmine::ControllerTest
+class Redmine::ApiTest::NotesTest < ActiveRecord::VERSION::MAJOR >= 4 ? Redmine::ApiTest::Base : ActionController::IntegrationTest
+
+class AccountControllerTest < ActionController::TestCase
   fixtures :users, :email_addresses, :roles
 
   def setup

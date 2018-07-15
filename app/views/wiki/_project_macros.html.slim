@@ -7,7 +7,7 @@
         span[style='font-weight: bold;']
           = link_to_project(project)
         - if project.homepage?
-          | :
+          ' :
           = link_to(project.homepage, project.homepage, @html_options)
         - if with_create_issue && User.current.allowed_to?(:add_issues, project)
           = link_to('',

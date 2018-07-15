@@ -1,6 +1,6 @@
 require File.expand_path('../../test_helper', __FILE__)
 
-class WelcomeControllerTest < Redmine::ControllerTest
+class WelcomeControllerTest < ActionController::TestCase
   fixtures :projects, :news, :users, :members
 
   def setup

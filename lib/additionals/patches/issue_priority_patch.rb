@@ -1,0 +1,41 @@
+module Additionals
+  module Patches
+    module IssuePriorityPatch
+      def self.included(base)
+        base.send(:include, InstanceMethods)
+        base.class_eval do
+          alias_method :css_classes_without_additionals, :css_classes
+          alias_method :css_classes, :css_classes_with_additionals
+        end
+      end
+
+      module InstanceMethods
+        def css_classes_with_additionals
+          classes = [css_classes_without_additionals]
+          name_class = css_name_based_class
+          classes << name_class if name_class.present?
+          classes.join(' ')
+        end
+
+        # css class based on priority name
+        def css_name_based_class
+          name_classes = []
+          name_classes << { name: 'prio-name-low',
+                            words: [l(:default_priority_low), 'Low', 'Trivial'] }
+          name_classes << { name: 'prio-name-normal',
+                            words: [l(:default_priority_normal), 'Normal', 'Minor', 'Unwesentlich', 'Default'] }
+          name_classes << { name: 'prio-name-high',
+                            words: [l(:default_priority_high), 'High', 'Major', 'Schwer'] }
+          name_classes << { name: 'prio-name-urgent',
+                            words: [l(:default_priority_urgent), 'Urgent', 'Critical', 'Kritisch'] }
+          name_classes << { name: 'prio-name-immediate',
+                            words: [l(:default_priority_immediate), 'Immediate', 'Blocker', 'Very high'] }
+
+          name_classes.each do |name_class|
+            return name_class[:name] if name_class[:words].any? { |s| s.casecmp(name).zero? }
+          end
+        end
+      end
+    end
+  end
+end

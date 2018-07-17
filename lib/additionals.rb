@@ -13,6 +13,7 @@ module Additionals
       patch(%w[AccountController
                Issue
                IssuesController
+               IssuePriority
                TimeEntry
                Wiki
                WikiController

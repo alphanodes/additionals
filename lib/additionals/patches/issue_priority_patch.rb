@@ -21,19 +21,21 @@ module Additionals
         def css_name_based_class
           name_classes = []
           name_classes << { name: 'prio-name-low',
-                            words: [l(:default_priority_low), 'Low', 'Trivial'] }
+                            words: [l(:default_priority_low), 'Low', 'Trivial', 'Niedrig'] }
           name_classes << { name: 'prio-name-normal',
                             words: [l(:default_priority_normal), 'Normal', 'Minor', 'Unwesentlich', 'Default'] }
           name_classes << { name: 'prio-name-high',
-                            words: [l(:default_priority_high), 'High', 'Major', 'Schwer'] }
+                            words: [l(:default_priority_high), 'High', 'Major', 'Schwer', 'Hoch'] }
           name_classes << { name: 'prio-name-urgent',
-                            words: [l(:default_priority_urgent), 'Urgent', 'Critical', 'Kritisch'] }
+                            words: [l(:default_priority_urgent), 'Urgent', 'Critical', 'Kritisch', 'Dringend'] }
           name_classes << { name: 'prio-name-immediate',
-                            words: [l(:default_priority_immediate), 'Immediate', 'Blocker', 'Very high'] }
+                            words: [l(:default_priority_immediate), 'Immediate', 'Blocker', 'Very high', 'Jetzt'] }
 
           name_classes.each do |name_class|
             return name_class[:name] if name_class[:words].any? { |s| s.casecmp(name).zero? }
           end
+
+          nil
         end
       end
     end

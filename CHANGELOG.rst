@@ -4,7 +4,7 @@ Changelog
 2.0.13
 ++++++
 
-- FontAwesome 5.1.0 support
+- FontAwesome 5.1.1 support
 - smiley support for markdown text_formatting
 - new_issue macro with i18n support
 - updated bootstrap-datepicker to v1.8.0

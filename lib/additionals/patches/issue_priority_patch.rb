@@ -25,11 +25,11 @@ module Additionals
 
         def css_name_based_classes
           @css_name_based_classes ||= [{ name: 'prio-name-low',
-                                         words: [l(:default_priority_low), 'Low', 'Trivial', 'Niedrig'] },
+                                         words: [l(:default_priority_low), 'Low', 'Trivial', 'Niedrig', 'Gering'] },
                                        { name: 'prio-name-normal',
                                          words: [l(:default_priority_normal), 'Normal', 'Minor', 'Unwesentlich', 'Default'] },
                                        { name: 'prio-name-high',
-                                         words: [l(:default_priority_high), 'High', 'Major', 'Schwer', 'Hoch'] },
+                                         words: [l(:default_priority_high), 'High', 'Major', 'Important', 'Schwer', 'Hoch', 'Wichtig'] },
                                        { name: 'prio-name-urgent',
                                          words: [l(:default_priority_urgent), 'Urgent', 'Critical', 'Kritisch', 'Dringend'] },
                                        { name: 'prio-name-immediate',

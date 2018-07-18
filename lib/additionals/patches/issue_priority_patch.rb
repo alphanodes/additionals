@@ -28,8 +28,6 @@ module Additionals
                                          words: [l(:default_priority_low), 'Low', 'Trivial', 'Niedrig'] },
                                        { name: 'prio-name-normal',
                                          words: [l(:default_priority_normal), 'Normal', 'Minor', 'Unwesentlich', 'Default'] },
-                                       { name: 'prio-name-normal',
-                                         words: [l(:default_priority_normal), 'Normal', 'Minor', 'Unwesentlich', 'Default'] },
                                        { name: 'prio-name-high',
                                          words: [l(:default_priority_high), 'High', 'Major', 'Schwer', 'Hoch'] },
                                        { name: 'prio-name-urgent',

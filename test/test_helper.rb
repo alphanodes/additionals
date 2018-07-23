@@ -26,20 +26,6 @@ module Additionals
   end
 
   class ControllerTest < Redmine::ControllerTest
-    def compatible_request(type, action, parameters = {})
-      return send(type, action, params: parameters) if Rails.version >= '5.2'
-      send(type, action, parameters)
-    end
-
-    def compatible_xhr_request(type, action, parameters = {})
-      return send(type, action, params: parameters, xhr: true) if Rails.version >= '5.2'
-      xhr type, action, parameters
-    end
-
-    def compatible_api_request(type, action, parameters = {}, headers = {})
-      return send(type, action, params: parameters, headers: headers) if Rails.version >= '5.2'
-      send(type, action, parameters, headers)
-    end
   end
 
   class TestCase

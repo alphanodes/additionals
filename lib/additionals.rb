@@ -50,12 +50,7 @@ module Additionals
     end
 
     def settings
-      @settings ||= ActionController::Parameters.new(Setting[:plugin_additionals])
-      @settings
-    end
-
-    def change_settings=(overwrites)
-      @settings.merge!(overwrites)
+      ActionController::Parameters.new(Setting[:plugin_additionals])
     end
 
     def setting?(value)

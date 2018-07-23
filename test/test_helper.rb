@@ -25,10 +25,10 @@ end
 module Additionals
   module TestHelper
     def with_additionals_settings(settings, &_block)
-      Additionals.change_settings = settings
+      Setting.plugin_additionals = ActionController::Parameters.new(Setting.plugin_additionals.merge(settings))
       yield
     ensure
-      Additionals.change_settings = Setting[:plugin_additionals]
+      Setting.plugin_additionals = Setting.plugin_additionals
     end
   end
 

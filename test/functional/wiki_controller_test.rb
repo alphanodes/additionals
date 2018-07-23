@@ -23,7 +23,7 @@ class WikiControllerTest < Additionals::ControllerTest
   WIKI_MACRO_USER_ID = 2
 
   def setup
-    Additionals::TestCase.prepare
+    prepare_tests
     EnabledModule.create(project_id: 1, name: 'wiki')
     @project = Project.find(1)
     @wiki = @project.wiki

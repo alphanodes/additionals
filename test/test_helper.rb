@@ -30,38 +30,8 @@ module Additionals
     ensure
       Setting.plugin_additionals = Setting.plugin_additionals
     end
-  end
 
-  class ControllerTest < Redmine::ControllerTest
-  end
-
-  class TestCase
-    include ActionDispatch::TestProcess
-    def self.plugin_fixtures(plugin, *fixture_names)
-      plugin_fixture_path = "#{Redmine::Plugin.find(plugin).directory}/test/fixtures"
-      if fixture_names.first == :all
-        fixture_names = Dir["#{plugin_fixture_path}/**/*.{yml}"]
-        fixture_names.map! { |f| f[(plugin_fixture_path.size + 1)..-5] }
-      else
-        fixture_names = fixture_names.flatten.map(&:to_s)
-      end
-
-      ActiveRecord::Fixtures.create_fixtures(plugin_fixture_path, fixture_names)
-    end
-
-    def uploaded_test_file(name, mime)
-      ActionController::TestUploadedFile.new(ActiveSupport::TestCase.fixture_path + "/files/#{name}", mime, true)
-    end
-
-    def self.arrays_equal?(value1, value2)
-      (value1 - value2) - (value2 - value1) == []
-    end
-
-    def self.create_fixtures(fixtures_directory, table_names, _class_names = {})
-      ActiveRecord::FixtureSet.create_fixtures(fixtures_directory, table_names, _class_names = {})
-    end
-
-    def self.prepare
+    def prepare_tests
       Role.where(id: [1, 2]).each do |r|
         r.permissions << :view_issues
         r.save
@@ -72,6 +42,12 @@ module Additionals
       end
     end
   end
-end
 
-include Additionals::TestHelper
+  class ControllerTest < Redmine::ControllerTest
+    include Additionals::TestHelper
+  end
+
+  class TestCase < ActiveSupport::TestCase
+    include Additionals::TestHelper
+  end
+end

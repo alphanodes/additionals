@@ -1,6 +1,6 @@
 require File.expand_path('../../test_helper', __FILE__)
 
-class TimeEntryTest < ActiveSupport::TestCase
+class TimeEntryTest < Additionals::TestCase
   fixtures :issues, :projects, :users, :time_entries,
            :members, :roles, :member_roles,
            :trackers, :issue_statuses,
@@ -9,6 +9,10 @@ class TimeEntryTest < ActiveSupport::TestCase
            :issue_categories, :enumerations,
            :groups_users,
            :enabled_modules
+
+  def setup
+    prepare_tests
+  end
 
   def teardown
     User.current = nil

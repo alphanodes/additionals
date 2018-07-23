@@ -17,7 +17,7 @@ class UsersControllerTest < Additionals::ControllerTest
   include Redmine::I18n
 
   def setup
-    Additionals::TestCase.prepare
+    prepare_tests
     @controller = UsersController.new
     User.current = nil
   end

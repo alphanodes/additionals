@@ -1,6 +1,6 @@
 require File.expand_path('../../test_helper', __FILE__)
 
-class IssueTest < ActiveSupport::TestCase
+class IssueTest < Additionals::TestCase
   fixtures :projects, :users, :members, :member_roles, :roles,
            :trackers, :projects_trackers,
            :enabled_modules,
@@ -13,6 +13,7 @@ class IssueTest < ActiveSupport::TestCase
   include Redmine::I18n
 
   def setup
+    prepare_tests
     set_language_if_valid 'en'
   end
 

@@ -16,8 +16,10 @@ class CommonViewsTest < Redmine::IntegrationTest
            :custom_values,
            :custom_fields_trackers
 
+  include Additionals::TestHelper
+
   def setup
-    Additionals::TestCase.prepare
+    prepare_tests
   end
 
   test 'View user' do

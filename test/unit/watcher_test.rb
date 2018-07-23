@@ -1,6 +1,6 @@
 require File.expand_path('../../test_helper', __FILE__)
 
-class WatcherTest < ActiveSupport::TestCase
+class WatcherTest < Additionals::TestCase
   fixtures :projects, :users, :email_addresses, :members, :member_roles, :roles, :enabled_modules,
            :issues, :issue_statuses, :enumerations, :trackers, :projects_trackers,
            :boards, :messages,
@@ -8,6 +8,7 @@ class WatcherTest < ActiveSupport::TestCase
            :watchers
 
   def setup
+    prepare_tests
     @author = User.find(1)
     @assigned_user = User.find(2)
     @changing_user = User.find(4)

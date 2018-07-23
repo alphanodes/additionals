@@ -15,6 +15,13 @@ end
 
 require File.expand_path(File.dirname(__FILE__) + '/../../../test/test_helper')
 
+if defined?(RSpec)
+  RSpec.configure do |config|
+    config.mock_with :mocha
+    config.example_status_persistence_file_path = Rails.root.join('tmp', 'additionals_rspec_examples.txt')
+  end
+end
+
 module Additionals
   module TestHelper
     def with_additionals_settings(settings, &_block)

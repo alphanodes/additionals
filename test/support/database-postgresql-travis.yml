@@ -4,5 +4,3 @@ test:
   pool: 5
   database: travis_ci_test
   user: postgres
-
-

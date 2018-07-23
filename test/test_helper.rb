@@ -25,10 +25,12 @@ end
 module Additionals
   module TestHelper
     def with_additionals_settings(settings, &_block)
-      Setting.plugin_additionals = ActionController::Parameters.new(Setting.plugin_additionals.merge(settings))
+      new_settings = Setting.plugin_additionals.dup
+      settings.each do |key, value|
+        new_settings[key] = value
+      end
+      Setting.plugin_additionals = new_settings
       yield
-    ensure
-      Setting.plugin_additionals = Setting.plugin_additionals
     end
 
     def prepare_tests

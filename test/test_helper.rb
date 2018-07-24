@@ -14,6 +14,7 @@ unless ENV['SKIP_COVERAGE']
 end
 
 require File.expand_path(File.dirname(__FILE__) + '/../../../test/test_helper')
+require File.expand_path(File.dirname(__FILE__) + '/global_test_helper')
 
 if defined?(RSpec)
   RSpec.configure do |config|
@@ -24,17 +25,7 @@ end
 
 module Additionals
   module TestHelper
-    def with_additionals_settings(settings, &_block)
-      saved_settings = Setting.plugin_additionals.dup
-      new_settings = Setting.plugin_additionals.dup
-      settings.each do |key, value|
-        new_settings[key] = value
-      end
-      Setting.plugin_additionals = new_settings
-      yield
-    ensure
-      Setting.plugin_additionals = saved_settings
-    end
+    include Additionals::GlobalTestHelper
 
     def prepare_tests
       Role.where(id: [1, 2]).each do |r|

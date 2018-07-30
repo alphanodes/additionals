@@ -16,7 +16,3 @@ module Additionals
     end
   end
 end
-
-unless Redmine::AccessControl.included_modules.include? Additionals::Patches::AccessControlPatch
-  Redmine::AccessControl.send(:include, Additionals::Patches::AccessControlPatch)
-end

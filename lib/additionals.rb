@@ -27,18 +27,18 @@ module Additionals
       Redmine::WikiFormatting.format_names.each do |format|
         case format
         when 'markdown'
-          require_dependency 'additionals/patches/formatter_markdown_patch'
+          Redmine::WikiFormatting::Markdown::HTML.send(:include, Additionals::Patches::FormatterMarkdownPatch)
         when 'textile'
-          require_dependency 'additionals/patches/formatter_textile_patch'
+          Redmine::WikiFormatting::Textile::Formatter.send(:include, Additionals::Patches::FormatterTextilePatch)
         end
       end
 
       # Static class patches
-      require_dependency 'additionals/patches/wiki_pdf_helper_patch'
-      require_dependency 'additionals/patches/access_control_patch'
+      Redmine::Export::PDF::WikiPdfHelper.send(:include, Additionals::Patches::WikiPdfHelperPatch)
+      Redmine::AccessControl.send(:include, Additionals::Patches::AccessControlPatch)
 
       # Global helpers
-      require_dependency 'additionals/helpers'
+      ActionView::Base.send :include, Additionals::Helpers
 
       # Hooks
       require_dependency 'additionals/hooks'

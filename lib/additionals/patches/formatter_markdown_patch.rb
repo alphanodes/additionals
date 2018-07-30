@@ -18,7 +18,3 @@ module Additionals
     end
   end
 end
-
-unless Redmine::WikiFormatting::Markdown::HTML.included_modules.include? Additionals::Patches::FormatterMarkdownPatch
-  Redmine::WikiFormatting::Markdown::HTML.send(:include, Additionals::Patches::FormatterMarkdownPatch)
-end

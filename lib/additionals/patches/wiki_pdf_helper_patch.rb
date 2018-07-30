@@ -59,7 +59,3 @@ module Additionals
     end
   end
 end
-
-unless Redmine::Export::PDF::WikiPdfHelper.included_modules.include? Additionals::Patches::WikiPdfHelperPatch
-  Redmine::Export::PDF::WikiPdfHelper.send(:include, Additionals::Patches::WikiPdfHelperPatch)
-end

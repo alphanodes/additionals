@@ -14,7 +14,3 @@ module Additionals
     end
   end
 end
-
-unless Redmine::WikiFormatting::Textile::Formatter.included_modules.include? Additionals::Patches::FormatterTextilePatch
-  Redmine::WikiFormatting::Textile::Formatter.send(:include, Additionals::Patches::FormatterTextilePatch)
-end

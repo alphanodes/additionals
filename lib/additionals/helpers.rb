@@ -435,5 +435,3 @@ module Additionals
     end
   end
 end
-
-ActionView::Base.send :include, Additionals::Helpers

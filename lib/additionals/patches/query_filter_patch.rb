@@ -1,3 +1,5 @@
+require_dependency 'query'
+
 module Additionals
   module Patches
     module QueryFilterPatch

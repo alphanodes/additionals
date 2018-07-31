@@ -11,6 +11,7 @@ Changelog
 - updated d3plus to v2.0.0-alpha.17
 - ruby 2.2.0 is required
 - Redmine 3.4 is required
+- support sidebar with non default wiki titles (thanks to @danielvijge)
 
 2.0.12
 ++++++

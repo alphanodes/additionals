@@ -12,7 +12,6 @@ module Additionals
                               redmine_base_deface])
       patch(%w[AccountController
                Issue
-               IssuesController
                IssuePriority
                TimeEntry
                Wiki
@@ -34,7 +33,8 @@ module Additionals
       end
 
       # Static class patches
-      Redmine::Export::PDF::WikiPdfHelper.send(:include, Additionals::Patches::WikiPdfHelperPatch)
+      IssuesController.send(:helper, AdditionalsIssuesHelper)
+      WikiController.send(:helper, AdditionalsWikiPdfHelper)
       Redmine::AccessControl.send(:include, Additionals::Patches::AccessControlPatch)
 
       # Global helpers

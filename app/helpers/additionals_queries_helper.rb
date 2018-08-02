@@ -3,15 +3,7 @@ module AdditionalsQueriesHelper
     session_key = "#{object_type}_query".to_sym
     query_class = Object.const_get("#{object_type.camelcase}Query")
     if params[:query_id].present?
-      additionals_load_query_id(query_class, session_key, params[:query_id], options)
-      @query.sort_criteria = params[:sort] if params[:sort].present?
-      # we have to write cache for sort order
-      Rails.cache.write(additionals_query_cache_key(object_type),
-                        filters: @query.filters,
-                        group_by: @query.group_by,
-                        column_names: @query.column_names,
-                        totalable_names: @query.totalable_names,
-                        sort_criteria: @query.sort_criteria)
+      additionals_load_query_id(query_class, session_key, params[:query_id], options, object_type)
     elsif api_request? ||
           params[:set_filter] ||
           session[session_key].nil? ||
@@ -20,8 +12,7 @@ module AdditionalsQueriesHelper
       if options[:with_default_query] && !api_request? && %i[op f].all? { |k| !params.key?(k) }
         d_query = query_class.default_query
         if d_query.present? && query_class.where(id: d_query.id).exists?
-          additionals_load_query_id(query_class, session_key, d_query.id, options)
-          return
+          return additionals_load_query_id(query_class, session_key, d_query.id, options, object_type)
         end
       end
       # Give it a name, required to be valid
@@ -63,7 +54,7 @@ module AdditionalsQueriesHelper
     end
   end
 
-  def additionals_load_query_id(query_class, session_key, query_id, options)
+  def additionals_load_query_id(query_class, session_key, query_id, options, object_type)
     cond = 'project_id IS NULL'
     cond << " OR project_id = #{@project.id}" if @project
     @query = query_class.where(cond).find(query_id)
@@ -71,6 +62,15 @@ module AdditionalsQueriesHelper
     @query.project = @project
     @query.user_filter = options[:user_filter] if options[:user_filter]
     session[session_key] = { id: @query.id, project_id: @query.project_id }
+
+    @query.sort_criteria = params[:sort] if params[:sort].present?
+    # we have to write cache for sort order
+    Rails.cache.write(additionals_query_cache_key(object_type),
+                      filters: @query.filters,
+                      group_by: @query.group_by,
+                      column_names: @query.column_names,
+                      totalable_names: @query.totalable_names,
+                      sort_criteria: @query.sort_criteria)
   end
 
   def additionals_query_cache_key(object_type)

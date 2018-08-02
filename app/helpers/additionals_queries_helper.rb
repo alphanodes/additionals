@@ -1,6 +1,10 @@
 module AdditionalsQueriesHelper
+  def additionals_query_session_key(object_type)
+    "#{object_type}_query".to_sym
+  end
+
   def additionals_retrieve_query(object_type, options = {})
-    session_key = "#{object_type}_query".to_sym
+    session_key = additionals_query_session_key(object_type)
     query_class = Object.const_get("#{object_type.camelcase}Query")
     if params[:query_id].present?
       additionals_load_query_id(query_class, session_key, params[:query_id], options, object_type)

@@ -21,6 +21,7 @@
   button_assign_to_me: Assign to me
   custom_help_url_info_html: "修改連結後，您必須重啟redmine。若未設定連結，將使用預設的幫助連結。"
   disabled_modules_info: "專案中無法選擇模組。如果這些模組已經在現有專案中啟用，必須先變更對應的專案設定。"
+  error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   error_issue_status_could_not_changed: Issue state could not be changed
   error_issues_could_not_be_assigned_to_me: Issue could not assigned to me
   errors_invalid_icon_format: "無效的 font-awesome 代碼。"

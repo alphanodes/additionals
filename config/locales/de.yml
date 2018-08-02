@@ -21,6 +21,7 @@ de:
   button_assign_to_me: Mir zuweisen
   custom_help_url_info_html: 'Diese URL wird für den <em>Hilfe</em> Eintrag im Topmenü verwendet. Um eine deutsche Hilfe zu benutzen, kann hier z.B. <a class="external" href="https://alphanodes.com/de/redmine-buch">https://alphanodes.com/de/redmine-buch</a> eingetragen werden. Wenn hier nichts eingetragen wird, wird die Standard URL verwendet.'
   disabled_modules_info: "Module, die nicht zur Auswahl innerhalb der Projekte zur Verfügung stehen sollen. Sind in bestehenden Projekten schon diese Module aktiviert worden, werden die Einstellungen für diese Projekte erst nach erneuten Abspeichern der jeweiligen Projekteinstellungen aktiv."
+  error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   error_issue_status_could_not_changed: Der Ticket-Status konnte nicht geändert werden
   error_issues_could_not_be_assigned_to_me: Das Ticket konnte nicht mir zugeordnet werden
   errors_invalid_icon_format: ist ein ungültiger Font-Awesome Code

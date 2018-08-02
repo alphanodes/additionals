@@ -21,6 +21,7 @@ it:
   button_assign_to_me: Assign to me
   custom_help_url_info_html: "After changing this URL, you have to restart the application server to activate it. If no URL is specified, the default help URL will be used."
   disabled_modules_info: "Modules which should not be available for selection within the projects. If these modules already activated in existing projects, you will have to change and re-save the respective project settings first."
+  error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   error_issue_status_could_not_changed: Issue state could not be changed
   error_issues_could_not_be_assigned_to_me: Issue could not assigned to me
   errors_invalid_icon_format: 'è un font-awesome codice non valido'

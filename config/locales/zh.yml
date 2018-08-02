@@ -21,6 +21,7 @@ zh:
   button_assign_to_me: Assign to me
   custom_help_url_info_html: "在修改了 URL 后，您必须重启服务以激活该配置。若未指定 URL，则使用默认的帮助 URL 地址。"
   disabled_modules_info: "项目中无法选择模块。如果这些模块已经在现有项目中激活，则必须首先更改并重新保存响应的项目设置。"
+  error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   error_issue_status_could_not_changed: Issue state could not be changed
   error_issues_could_not_be_assigned_to_me: Issue could not assigned to me
   errors_invalid_icon_format: 无效的 Font-awesome 代码。

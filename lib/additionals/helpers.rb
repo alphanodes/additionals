@@ -336,8 +336,7 @@ module Additionals
     end
 
     def additionals_load_d3plus
-      additionals_include_js('d3.min') +
-        additionals_include_js('d3plus.full.min')
+      additionals_include_js('d3plus.full.min')
     end
 
     def additionals_load_tag_it

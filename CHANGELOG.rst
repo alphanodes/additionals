@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.0.14
+++++++
+
+- Change status is now compatible with redmine_agile
+
+
 2.0.13
 ++++++
 

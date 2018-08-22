@@ -3,7 +3,7 @@ class AdditionalsChangeStatusController < ApplicationController
   helper :additionals_issues
 
   def update
-    issue_old_status = @issue.status.name
+    issue_old_status_id = @issue.status.id
     issue_old_user = @issue.assigned_to
     new_status_id = params[:new_status_id].to_i
     allowed_status = @issue.new_statuses_allowed_to(User.current)
@@ -17,7 +17,7 @@ class AdditionalsChangeStatusController < ApplicationController
     @issue.status_id = new_status_id
     @issue.assigned_to = User.current if @issue.status_x_affected?(new_status_id) && issue_old_user != User.current
 
-    if !@issue.save || issue_old_status == @issue.status.name
+    if !@issue.save || issue_old_status_id == @issue.status_id
       flash[:error] = l(:error_issue_status_could_not_changed)
       return redirect_to(issue_path(@issue))
     end
@@ -28,9 +28,9 @@ class AdditionalsChangeStatusController < ApplicationController
     last_journal = @issue.journals.visible.order('created_on').last
 
     JournalDetail.new(property: 'attr',
-                      prop_key: 'status',
-                      old_value: issue_old_status,
-                      value: @issue.status.name,
+                      prop_key: 'status_id',
+                      old_value: issue_old_status_id,
+                      value: @issue.status_id,
                       journal: new_journal).save!
 
     if @issue.assigned_to != issue_old_user

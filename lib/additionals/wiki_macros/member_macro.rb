@@ -44,7 +44,7 @@ module Additionals
 
           raw_users = User.active
                           .where(["#{User.table_name}.id IN (SELECT DISTINCT user_id FROM members WHERE project_id=(?))", project.id])
-                          .sort
+                          .sorted
           return '' if raw_users.nil?
 
           users = []
@@ -58,7 +58,7 @@ module Additionals
           # members of the user's projects
           users = User.active
                       .where(["#{User.table_name}.id IN (SELECT DISTINCT user_id FROM members WHERE project_id IN (?))", project_ids])
-                      .sort
+                      .sorted
         end
         render partial: 'wiki/user_macros', locals: { users: users,
                                                       user_roles: user_roles,

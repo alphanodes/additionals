@@ -5,7 +5,7 @@ Changelog
 ++++++
 
 - Change status is now compatible with redmine_agile
-
+- Do not show sidebar for changing status, if edit_closed_issues permission is missing
 
 2.0.13
 ++++++

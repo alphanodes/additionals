@@ -1,12 +1,13 @@
 # Global helper functions
 module Additionals
   module Helpers
-    def additionals_list_title(user, query, options = {})
+    def additionals_list_title(options)
       title = []
-      title << avatar(user, size: 50) + ' ' + user.name if user
+      title << link_to(h("#{options[:issue].subject} ##{options[:issue].id}"), issue_path(options[:issue])) if options[:issue]
+      title << avatar(options[:user], size: 50) + ' ' + options[:user].name if options[:user]
       title << options[:name] if options[:name]
-      title << h(@query.name) if query && !@query.new_record?
-      safe_join(title, ' - ')
+      title << h(options[:query].name) if options[:query] && !options[:query].new_record?
+      safe_join(title, Additionals::LIST_SEPARATOR)
     end
 
     def additionals_title_for_locale(title, lang)

@@ -2,6 +2,8 @@ module Additionals
   MAX_CUSTOM_MENU_ITEMS = 5
   SELECT2_INIT_ENTRIES = 20
 
+  LIST_SEPARATOR = ' &#187; '.html_safe # rubocop:disable Rails/OutputSafety
+
   class << self
     def setup
       incompatible_plugins(%w[redmine_tweaks

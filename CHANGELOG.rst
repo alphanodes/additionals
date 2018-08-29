@@ -6,6 +6,7 @@ Changelog
 
 - Change status is now compatible with redmine_agile
 - Do not show sidebar for changing status, if edit_closed_issues permission is missing
+- FontAwesome 5.3.1 support
 
 2.0.13
 ++++++

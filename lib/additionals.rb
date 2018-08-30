@@ -45,7 +45,7 @@ module Additionals
       require_dependency 'additionals/hooks'
 
       # Macros
-      load_macros(%w[calendar cryptocompare date gist gmap group_users iframe issue
+      load_macros(%w[calendar cryptocompare date fa gist gmap group_users iframe issue
                      last_updated_at last_updated_by meteoblue member new_issue project
                      recently_updated reddit slideshare tradingview twitter user vimeo youtube])
     end

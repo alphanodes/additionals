@@ -28,7 +28,9 @@ module Additionals
         locale = User.current.language.presence || ::I18n.locale
         # not more then 30 calendars per page are expected
         id = (0..30).to_a.sort { rand - 0.5 } [1]
-        render partial: 'wiki/calendar_macros', locals: { options: options, locale: locale, id: id, selected: selected }
+        render partial: 'wiki/calendar_macros',
+               formats: [:html],
+               locals: { options: options, locale: locale, id: id, selected: selected }
       end
     end
   end

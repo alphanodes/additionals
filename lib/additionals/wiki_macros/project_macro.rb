@@ -27,9 +27,11 @@ module Additionals
         return '' if @projects.nil?
 
         @html_options = { class: 'external' }
-        render partial: 'wiki/project_macros', locals:  { projects: @projects,
-                                                          list_title: options[:title],
-                                                          with_create_issue: options[:with_create_issue] }
+        render partial: 'wiki/project_macros',
+               formats: [:html],
+               locals:  { projects: @projects,
+                          list_title: options[:title],
+                          with_create_issue: options[:with_create_issue] }
       end
     end
   end

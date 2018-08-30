@@ -28,7 +28,9 @@ module Additionals
         options[:allow_symbol_change] = true if options[:allow_symbol_change].blank?
         options[:hideideasbutton] = true if options[:hideideasbutton].blank?
 
-        render partial: 'wiki/tradingview', locals: { options: options }
+        render partial: 'wiki/tradingview',
+               formats: [:html],
+               locals: { options: options }
       end
     end
   end

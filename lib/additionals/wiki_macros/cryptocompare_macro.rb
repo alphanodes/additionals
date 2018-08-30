@@ -79,7 +79,9 @@ module Additionals
           raise 'type is not supported'
         end
 
-        render partial: 'wiki/cryptocompare', locals: { url: url + '?' + options.map { |k, v| "#{k}=#{v}" }.join('&') }
+        render partial: 'wiki/cryptocompare',
+               formats: [:html],
+               locals: { url: url + '?' + options.map { |k, v| "#{k}=#{v}" }.join('&') }
       end
     end
   end

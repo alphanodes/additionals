@@ -10,8 +10,7 @@ module Additionals
                               redmine_issue_control_panel
                               redmine_editauthor
                               redmine_changeauthor
-                              redmine_auto_watch
-                              redmine_base_deface])
+                              redmine_auto_watch])
       patch(%w[AccountController
                Issue
                IssuePriority

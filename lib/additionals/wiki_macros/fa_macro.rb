@@ -57,7 +57,7 @@ module Additionals
 
         if options[:link].present?
           content_tag(:a, href: options[:link]) do
-            content_tag(:i, ' ' + options[:text], content_options)
+            content_tag(:i, options[:text], content_options)
           end
         else
           content_tag(:i, options[:text], content_options)

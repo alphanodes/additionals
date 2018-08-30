@@ -1,5 +1,5 @@
-Issue
------
+Font Awesome
+------------
 
 Font Awesome wiki macro for Redmine.
 
@@ -23,46 +23,45 @@ This macro works in all text fields with formatting support.
 Examples
 ++++++++
 
-Link to issue with id and subject
+Show font awesome icon "fas fa-adjust"
 
 .. code-block:: smarty
 
   {{fa(adjust)}}
 
-Show font awesome icon "fas fa-adjust"
+Show font awesome icon "fas fa-stack" and inverse
 
 .. code-block:: smarty
 
   {{fa(adjust, class=fa-inverse)}}
 
-Show font awesome icon "fas fa-stack" and inverse
+Show font awesome icon "fas fa-adjust" with size 4x
 
 .. code-block:: smarty
 
   {{fa(adjust, size=4x)}}
 
-Show font awesome icon "fas fa-adjust" with size 4x
+Show font awesome icon "fas fa-adjust" with title "Show icon"
 
 .. code-block:: smarty
 
   {{fa(fas_adjust, title=Show icon)}}
 
-Show font awesome icon "fas fa-adjust" with title "Show icon"
+Show font awesome icon "fab fa-angellist"
 
 .. code-block:: smarty
 
   {{fa(fab_angellist)}}
 
-Show font awesome icon "fab fa-angellist"
+Show font awesome icon "fas fa-adjust" and link it to https://www.redmine.org
+
 
 .. code-block:: smarty
 
   {{fa(adjust, link=https=//www.redmine.org))}}
 
-Show font awesome icon "fas fa-adjust" and link it to https://www.redmine.org
+Show font awesome icon "fas fa-adjust" with name "Go to Redmine.org" and link it to https://www.redmine.org
 
 .. code-block:: smarty
 
   {{fa(adjust, link=https=//www.redmine.de, name=Go to Redmine.org))}}
-
-Show font awesome icon "fas fa-adjust" with name "Go to Redmine.org" and link it to https://www.redmine.org

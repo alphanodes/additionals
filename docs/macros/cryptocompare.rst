@@ -41,7 +41,7 @@ See https://www.cryptocompare.com/dev/widget/wizard/ for more information.
 Scope
 +++++
 
-This macro works in all text fields with formating support.
+This macro works in all text fields with formatting support.
 
 Examples
 ++++++++

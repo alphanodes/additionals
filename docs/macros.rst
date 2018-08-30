@@ -8,6 +8,7 @@ If a parameter is in brackets, this parameter is optional.
 .. include:: macros/calendar.rst
 .. include:: macros/cryptocompare.rst
 .. include:: macros/date.rst
+.. include:: macros/fa.rst
 .. include:: macros/gist.rst
 .. include:: macros/gmap.rst
 .. include:: macros/group_users.rst

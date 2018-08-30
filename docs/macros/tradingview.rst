@@ -25,7 +25,7 @@ See https://www.tradingview.com/widget/ for more information.
 Scope
 +++++
 
-This macro works in all text fields with formating support.
+This macro works in all text fields with formatting support.
 
 Examples
 ++++++++

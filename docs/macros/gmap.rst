@@ -15,7 +15,7 @@ Google map wiki macro for Redmine to implement a street map. There are various c
 Scope
 +++++
 
-This macro works in all text fields with formating support.
+This macro works in all text fields with formatting support.
 
 Examples
 ++++++++

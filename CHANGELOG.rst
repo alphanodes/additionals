@@ -8,6 +8,7 @@ Changelog
 - Do not show sidebar for changing status, if edit_closed_issues permission is missing
 - FontAwesome 5.3.1 support
 - compatibility with plugin redmine_sudo and redmine_base_deface
+- FontAwesome wiki macro has been added (called fa)
 
 2.0.13
 ++++++

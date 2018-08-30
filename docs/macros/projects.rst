@@ -13,7 +13,7 @@ Projects wiki macro for Redmine.
 Scope
 +++++
 
-This macro works in all text fields with formating support.
+This macro works in all text fields with formatting support.
 
 Examples
 ++++++++

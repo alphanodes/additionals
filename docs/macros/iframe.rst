@@ -18,12 +18,12 @@ Iframe macro for Redmine.
 
     ``Load denied by X-Frame-Options: https://your-target-url.com/ does not permit cross-origin framing.``
 
-    Note 2: Your Redmine webserver can also block your iframe includion, check your `Content Security Policy (CSP) <https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP>`_
+    Note 2: Your Redmine webserver can also block your iframe inclusion, check your `Content Security Policy (CSP) <https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP>`_
 
 Scope
 +++++
 
-This macro works in all text fields with formating support.
+This macro works in all text fields with formatting support.
 
 Examples
 ++++++++

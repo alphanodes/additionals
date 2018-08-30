@@ -17,7 +17,7 @@ Create a link for "New issue" for the current user.
 Scope
 +++++
 
-This macro works in all text fields with formating support.
+This macro works in all text fields with formatting support.
 
 Examples
 ++++++++

@@ -26,7 +26,7 @@ Meteoblue wiki macro for Redmine. A macro to show weather forecast for a specifi
 Scope
 +++++
 
-This macro works in all text fields with formating support.
+This macro works in all text fields with formatting support.
 
 Examples
 ++++++++

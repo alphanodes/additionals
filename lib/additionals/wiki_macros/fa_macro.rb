@@ -13,7 +13,7 @@ module Additionals
          TITLE = mouseover title
          TEXT = Text to show
          LINK = Link icon and text (if specified) to this URL
-         color = css color
+         COLOR = css color code
 
       Examples:
 

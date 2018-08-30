@@ -223,6 +223,16 @@ class WikiControllerTest < Additionals::ControllerTest
     assert_select 'div.wiki div.projects li.project'
   end
 
+  def test_show_with_fa_macro
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    @page.content.text = '{{fa(adjust)}}'
+    @page.content.save!
+    get :show,
+        params: { project_id: 1, id: @page_name }
+    assert_response :success
+    assert_select 'i.fas.fa-adjust'
+  end
+
   def test_show_with_gist_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{gist(plentz/6737338)}}'

@@ -95,7 +95,8 @@ Features
 * wiki macros for:
 
   * cryptocompare
-  * date,
+  * date
+  * fa
   * gihub gist
   * gmap
   * group_users

@@ -233,6 +233,46 @@ class WikiControllerTest < Additionals::ControllerTest
     assert_select 'i.fas.fa-adjust'
   end
 
+  def test_show_with_redmine_issue_macro
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    @page.content.text = '{{redmine_issue(12066)}}'
+    @page.content.save!
+    get :show,
+        params: { project_id: 1, id: @page_name }
+    assert_response :success
+    assert_select 'a[href=?]', 'https://www.redmine.org/issues/12066'
+  end
+
+  def test_show_with_redmine_issue_with_absolute_url_macro
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    @page.content.text = '{{redmine_issue(http://www.redmine.org/issues/12066)}}'
+    @page.content.save!
+    get :show,
+        params: { project_id: 1, id: @page_name }
+    assert_response :success
+    assert_select 'a[href=?]', 'https://www.redmine.org/issues/12066'
+  end
+
+  def test_show_with_redmine_wiki_macro
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    @page.content.text = '{{redmine_wiki(RedmineInstall)}}'
+    @page.content.save!
+    get :show,
+        params: { project_id: 1, id: @page_name }
+    assert_response :success
+    assert_select 'a[href=?]', 'https://www.redmine.org/projects/redmine/wiki/RedmineInstall'
+  end
+
+  def test_show_with_redmine_wiki_with_absolute_url_macro
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    @page.content.text = '{{redmine_wiki(http://www.redmine.org/projects/redmine/wiki/RedmineInstall)}}'
+    @page.content.save!
+    get :show,
+        params: { project_id: 1, id: @page_name }
+    assert_response :success
+    assert_select 'a[href=?]', 'https://www.redmine.org/projects/redmine/wiki/RedmineInstall'
+  end
+
   def test_show_with_gist_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{gist(plentz/6737338)}}'

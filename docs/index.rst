@@ -107,6 +107,7 @@ Features
   * new_issue
   * projects
   * reddit
+  * redmine.org issue and wiki page (redmine_issue and reminde_wiki)
   * slideshare
   * tradingview
   * twitter

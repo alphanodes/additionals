@@ -9,6 +9,7 @@ Changelog
 - FontAwesome 5.3.1 support
 - compatibility with plugin redmine_sudo and redmine_base_deface
 - FontAwesome wiki macro has been added (called fa)
+- Redmine.org issue and wiki page macro has been added
 
 2.0.13
 ++++++

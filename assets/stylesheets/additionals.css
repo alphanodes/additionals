@@ -238,3 +238,9 @@ img.additionals-avatar { margin-right: 0.25em; }
   border-radius: 4px;
   font: normal 12px"Helvetica Neue", Sans-Serif;
 }
+
+a.external.redmine-link {
+  background-image: url(../images/redmine-link.png);
+  background-position: 0% 40%;
+  padding-left: 13px;
+}

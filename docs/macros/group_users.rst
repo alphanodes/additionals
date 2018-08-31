@@ -1,11 +1,11 @@
-Members
--------
+Members, Group
+--------------
 
-Groupo users macro for Redmine.
+Group users macro for Redmine.
 
 .. function:: {{group_users(group_name)}}
 
-    Show list of users in a user group (an respect permissions)
+    Show list of users in a user group (according the respective permissions)
 
     :param string group_name: group name
 

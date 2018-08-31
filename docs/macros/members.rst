@@ -1,5 +1,5 @@
-Members
--------
+Members, Project
+----------------
 
 Project members macro for Redmine.
 

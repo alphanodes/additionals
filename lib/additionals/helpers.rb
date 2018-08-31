@@ -3,8 +3,13 @@ module Additionals
   module Helpers
     def additionals_list_title(options)
       title = []
-      title << link_to(h("#{options[:issue].subject} ##{options[:issue].id}"), issue_path(options[:issue])) if options[:issue]
-      title << avatar(options[:user], size: 50) + ' ' + options[:user].name if options[:user]
+      if options[:issue]
+        title << link_to(h("#{options[:issue].subject} ##{options[:issue].id}"),
+                         issue_path(options[:issue]),
+                         class: options[:issue].css_classes)
+      elsif options[:user]
+        title << avatar(options[:user], size: 50) + ' ' + options[:user].name
+      end
       title << options[:name] if options[:name]
       title << h(options[:query].name) if options[:query] && !options[:query].new_record?
       safe_join(title, Additionals::LIST_SEPARATOR)

@@ -30,6 +30,7 @@ module Additionals
                     watcher.anonymous? ||
                     !watcher.active? ||
                     watched_by?(watcher)
+
           add_watcher(watcher)
         end
 
@@ -53,12 +54,14 @@ module Additionals
         def editable_with_additionals?(user = User.current)
           return false unless editable_without_additionals?(user)
           return true unless closed?
+
           user.allowed_to?(:edit_closed_issues, project)
         end
       end
 
       def autoassign_get_group_list
         return unless Setting.issue_group_assignment?
+
         project.memberships
                .active
                .where("#{Principal.table_name}.type='Group'")
@@ -81,6 +84,7 @@ module Additionals
       def status_x_affected?(new_status_id)
         return false unless Additionals.setting?(:issue_current_user_status)
         return false if Additionals.settings[:issue_assign_to_x].blank?
+
         if Additionals.settings[:issue_assign_to_x].include?(new_status_id.to_s)
           true
         else
@@ -97,8 +101,8 @@ module Additionals
                   assigned_to_id.present?
 
         return unless Additionals.settings[:issue_auto_assign_status].include?(status_id.to_s)
-        self.assigned_to_id = auto_assigned_to_user
 
+        self.assigned_to_id = auto_assigned_to_user
         true
       end
 
@@ -113,11 +117,13 @@ module Additionals
 
       def validate_change_on_closed
         return true unless closed?
+
         errors.add :base, :issue_changes_not_allowed unless User.current.allowed_to?(:edit_closed_issues, project)
       end
 
       def validate_open_sub_issues
         return true unless Additionals.setting?(:issue_close_with_open_children)
+
         errors.add :base, :issue_cannot_close_with_open_children if subject.present? &&
                                                                     closing? &&
                                                                     descendants.find { |d| !d.closed? }
@@ -137,6 +143,7 @@ module Additionals
         return true unless Additionals.setting?(:issue_status_change)
         return true if Additionals.settings[:issue_status_x].blank?
         return true if Additionals.settings[:issue_status_y].blank?
+
         if !assigned_to_id_changed? &&
            status_id_changed? &&
            (Additionals.settings[:issue_status_x].include? status_id_was.to_s) &&

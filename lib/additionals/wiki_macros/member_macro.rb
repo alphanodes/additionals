@@ -55,6 +55,7 @@ module Additionals
         else
           project_ids = Project.visible.collect(&:id)
           return '' unless project_ids.any?
+
           # members of the user's projects
           users = User.active
                       .where(["#{User.table_name}.id IN (SELECT DISTINCT user_id FROM members WHERE project_id IN (?))", project_ids])

@@ -9,6 +9,7 @@ module Additionals
 
       macro :redmine_wiki do |_obj, args|
         raise 'The correct usage is {{redmine_wiki(<page>)}}' if args.empty?
+
         args, options = extract_macro_options(args, :title, :name)
 
         raw_link = args[0].to_s.strip
@@ -16,6 +17,7 @@ module Additionals
         if raw_link[0..3] == 'http'
           start_pos = raw_link.index('redmine.org/projects/redmine/wiki/')
           raise 'The correct usage is {{redmine_wiki(<page>)}}' if start_pos.nil? || start_pos.zero?
+
           options[:name] = raw_link[(start_pos + 34)..-1] if options[:name].blank?
           link = raw_link.gsub('http://', 'https://')
         elsif raw_link[0] =~ /\w/

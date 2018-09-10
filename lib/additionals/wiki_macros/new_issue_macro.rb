@@ -40,6 +40,7 @@ module Additionals
           project ||= Project.visible.find_by(identifier: project_id)
           project ||= Project.visible.find_by(name: project_id)
           return '' if project.nil? || !User.current.allowed_to?(:add_issues, project)
+
           return link_to(i18n_name, new_project_issue_path(project), class: 'macro-new-issue icon icon-add')
         else
           @memberships = User.current.memberships.preload(:roles, :project).where(Project.visible_condition(User.current)).to_a

@@ -9,6 +9,7 @@ module Additionals
 
       macro :reddit do |_obj, args|
         raise 'The correct usage is {{reddit(<name>)}}' if args.empty?
+
         name = args[0].strip
 
         case name[0..1]

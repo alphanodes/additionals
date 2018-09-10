@@ -55,6 +55,7 @@ class AdditionalsChangeStatusController < ApplicationController
   def find_issue
     @issue = Issue.find(params[:issue_id])
     raise Unauthorized unless @issue.visible? && @issue.editable?
+
     @project = @issue.project
   rescue ActiveRecord::RecordNotFound
     render_404

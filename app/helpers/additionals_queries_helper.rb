@@ -63,6 +63,7 @@ module AdditionalsQueriesHelper
     cond << " OR project_id = #{@project.id}" if @project
     @query = query_class.where(cond).find(query_id)
     raise ::Unauthorized unless @query.visible?
+
     @query.project = @project
     @query.user_filter = options[:user_filter] if options[:user_filter]
     session[session_key] = { id: @query.id, project_id: @query.project_id }
@@ -110,6 +111,7 @@ module AdditionalsQueriesHelper
 
   def additionals_result_to_xlsx(items, columns, options = {})
     raise 'option filename is mission' if options[:filename].blank?
+
     require 'write_xlsx'
     export_to_xlsx(items, columns, options)
   end

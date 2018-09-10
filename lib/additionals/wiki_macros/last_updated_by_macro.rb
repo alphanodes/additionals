@@ -9,6 +9,7 @@ module Additionals
 
       macro :last_updated_by do |obj, args|
         raise 'The correct usage is {{last_updated_by}}' unless args.empty?
+
         content_tag(:span,
                     safe_join([avatar(obj.author, size: 14), ' ', link_to_user(obj.author)]),
                     class: 'last-updated-by')

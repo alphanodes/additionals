@@ -22,6 +22,7 @@ module Additionals
       macro :user do |_obj, args|
         args, options = extract_macro_options(args, :format, :avatar)
         raise 'The correct usage is {{user(<user_id or username>, format=USER_FORMAT)}}' if args.empty?
+
         user_id = args[0]
 
         user = User.find_by(id: user_id)

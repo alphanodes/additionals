@@ -82,13 +82,16 @@ module Additionals
 
     def memberships_new_issue_project_url(user, memberships, permission = :edit_issues)
       return if memberships.blank?
+
       project_count = 0
       project_id = nil
       memberships.each do |m|
         project = m.is_a?(Project) ? m : Project.find_by(id: m.project_id)
         next unless User.current.allowed_to?(permission, project) && user.allowed_to?(permission, project)
+
         project_count += 1
         break if project_count > 1
+
         project_id = project.identifier
       end
 
@@ -111,6 +114,7 @@ module Additionals
     def parse_issue_url(url, comment_id = nil)
       rc = { issue_id: nil, comment_id: nil }
       return rc if url == '' || url.is_a?(Integer) && url.zero?
+
       unless url.to_i.zero?
         rc[:issue_id] = url
         return rc
@@ -125,6 +129,7 @@ module Additionals
       else
         current_uri = URI.parse(request.original_url)
         return rc unless uri.host == current_uri.host
+
         s_pos = uri.path.rindex('/issues/')
         id_string = uri.path[s_pos + 8..-1]
         e_pos = id_string.index('/')
@@ -290,6 +295,7 @@ module Additionals
       locked = "#{js_name}.#{scope}"
       @alreaded_loaded = [] if @alreaded_loaded.nil?
       return true if @alreaded_loaded.include?(locked)
+
       @alreaded_loaded << locked
       false
     end
@@ -356,6 +362,7 @@ module Additionals
 
     def user_with_avatar(user, options = {})
       return if user.nil?
+
       options[:size] = 14 if options[:size].nil?
       options[:class] = 'additionals-avatar' if options[:class].nil?
       s = []
@@ -386,8 +393,8 @@ module Additionals
     def font_awesome_icon(name, options = {})
       info = AdditionalsFontAwesome.value_info(name)
       return '' if info.blank?
-      post_text = ''
 
+      post_text = ''
       options['aria-hidden'] = 'true'
       options[:class] = if options[:class].present?
                           info[:classes] + ' ' + options[:class]

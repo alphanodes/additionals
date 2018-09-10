@@ -8,6 +8,7 @@ class JavascriptLibraryTest < Redmine::IntegrationTest
     assert_select 'link[rel=stylesheet][href^=?]', '/plugin_assets/additionals/stylesheets/fontawesome-all.min.css'
 
     return unless Redmine::Plugin.installed?('redmine_reporting')
+
     assert_select 'link[rel=stylesheet][href^=?]', '/plugin_assets/additionals/stylesheets/nv.d3.min.css', count: 1
   end
 
@@ -17,6 +18,7 @@ class JavascriptLibraryTest < Redmine::IntegrationTest
     assert_response :success
 
     return if Redmine::Plugin.installed?('redmine_reporting')
+
     assert_select 'link[rel=stylesheet][href^=?]', '/plugin_assets/additionals/stylesheets/nv.d3.min.css', count: 0
   end
 

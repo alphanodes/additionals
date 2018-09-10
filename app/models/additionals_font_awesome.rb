@@ -50,6 +50,7 @@ class AdditionalsFontAwesome
     def classes(value)
       info = value_info(value)
       return '' if info.blank?
+
       info[:classes]
     end
 
@@ -63,8 +64,10 @@ class AdditionalsFontAwesome
 
     def load_details(type, name)
       return {} unless FONTAWESOME_ICONS.key?(type)
+
       values = FONTAWESOME_ICONS[type][name]
       return { unicode: "&#x#{values[:unicode]};".html_safe, label: values[:label] } if values.present?
+
       {}
     end
 
@@ -82,6 +85,7 @@ class AdditionalsFontAwesome
     def active_option_for_select(selected)
       info = value_info(selected, with_details: true)
       return [] if info.blank?
+
       [[info[:label], selected]]
     end
 
@@ -95,8 +99,10 @@ class AdditionalsFontAwesome
     def value_info(value, options = {})
       info = {}
       return [] if value.blank?
+
       values = value.split('_')
       return [] unless values.count == 2
+
       info[:type] = values[0].to_sym
       info[:name] = "fa-#{values[1]}"
       info[:classes] = "#{info[:type]} #{info[:name]}"

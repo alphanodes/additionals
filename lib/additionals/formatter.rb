@@ -29,6 +29,7 @@ module Additionals
 
     def render_inline_smileys(text)
       return text if text.blank?
+
       inline_smileys(text)
       text
     end
@@ -54,7 +55,7 @@ module Additionals
     def inline_emojify(text)
       text.gsub!(/:([\w+-]+):/) do |match|
         emoji_code = Regexp.last_match(1)
-        emoji = Emoji.find_by_alias(emoji_code)
+        emoji = Emoji.find_by_alias(emoji_code) # rubocop:disable Rails/DynamicFindBy
         if emoji.present?
           tag(:img,
               src: inline_emojify_image_path(emoji.image_filename),

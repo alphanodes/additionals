@@ -19,8 +19,10 @@ module Additionals
       macro :recently_updated do |obj, args|
         page = obj.page
         return nil unless page
+
         project = page.project
         return nil unless project
+
         days = 5
         days = args[0].strip.to_i unless args.empty?
 

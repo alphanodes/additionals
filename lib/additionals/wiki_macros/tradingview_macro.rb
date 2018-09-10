@@ -11,6 +11,7 @@ module Additionals
 
       macro :tradingview do |_obj, args|
         raise 'The correct usage is {{tradingview(options)}}' if args.empty?
+
         _args, options = extract_macro_options(args, :width, :height, :symbol, :interval, :timezone,
                                                :theme, :style, :locale, :toolbar_bg, :enable_publishing,
                                                :allow_symbol_change, :hideideasbutton)

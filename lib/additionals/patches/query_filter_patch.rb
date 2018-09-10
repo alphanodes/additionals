@@ -11,6 +11,7 @@ module Additionals
         unless method_defined? :[]=
           def []=(key, value)
             return unless key == :values
+
             @value = @options[:values] = value
           end
         end

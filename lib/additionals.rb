@@ -61,6 +61,7 @@ module Additionals
 
     def true?(value)
       return true if value.to_i == 1 || value.to_s.casecmp('true').zero?
+
       false
     end
 

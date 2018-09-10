@@ -16,6 +16,7 @@ module Additionals
 
       macro :calendar do |_obj, args|
         raise 'Only works on wiki page' unless controller_name == 'wiki' && action_name == 'show'
+
         _args, options = extract_macro_options(args, :show_weeks, :year, :month, :select)
         options[:show_weeks] = 'false' if options[:show_weeks].blank?
         options[:year] = Additionals.now_with_user_time_zone.year.to_s if options[:year].blank?
@@ -47,10 +48,13 @@ module Additionals
   def self.convert_string2period(string)
     s = string.split ':'
     raise 'missing date' if s[0].blank? || s[1].blank?
+
     tstart = Date.strptime(s[0], '%Y-%m-%d')
     raise 'invalid start date' if tstart.nil?
+
     tend = Date.strptime(s[1], '%Y-%m-%d')
     raise 'invalid start date' if tend.nil?
+
     (tstart..tend).map { |date| "new Date(#{date.year},#{date.month - 1},#{date.mday})" }
   end
 

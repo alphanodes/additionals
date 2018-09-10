@@ -13,6 +13,7 @@ module Additionals
         def user_setup_with_additionals
           user_setup_without_additionals
           return unless User.current.try(:hrm_user_type_id).nil?
+
           additionals_menu_item_delete(:help)
           unless Additionals.setting?(:remove_help)
             custom_url = Additionals.settings[:custom_help_url]

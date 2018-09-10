@@ -9,6 +9,7 @@ module Additionals
 
       macro :redmine_issue do |_obj, args|
         raise 'The correct usage is {{redmine_issue(<id>)}}' if args.empty?
+
         args, options = extract_macro_options(args, :title)
         raw_link = args[0].to_s.strip
 

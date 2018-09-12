@@ -2,6 +2,8 @@ require File.expand_path('../../../test_helper', __FILE__)
 
 class GlobalHelperTest < ActionView::TestCase
   include Additionals::Helpers
+  include AdditionalsFontawesomeHelper
+  include AdditionalsMenuHelper
   include CustomFieldsHelper
   include Redmine::I18n
   include ERB::Util

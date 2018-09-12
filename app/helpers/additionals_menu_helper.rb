@@ -76,10 +76,11 @@ module AdditionalsMenuHelper
   def additionals_help_menu_items
     pages = [{ title: 'Redmine Guide', url: Redmine::Info.help_url },
              { title: 'FontAwesome Icons', url: 'https://fontawesome.com/icons?d=gallery&m=free' },
-             { title: 'Redmine macros', url: macros_path },
-             { title: 'Additionals manual', url: 'https://additionals.readthedocs.io/en/latest/manual/' }]
+             { title: 'Redmine macros', url: macros_path }]
 
     if User.current.admin?
+      pages << { title: '-' }
+      pages << { title: 'Additionals manual', url: 'https://additionals.readthedocs.io/en/latest/manual/' }
       pages << { title: 'Redmine Changelog', url: 'https://www.redmine.org/projects/redmine/wiki/Changelog_3_4' }
       pages << { title: 'Redmine Upgrade', url: 'https://www.redmine.org/projects/redmine/wiki/RedmineUpgrade' }
       pages << { title: 'Redmine Security Advisories', url: 'https://www.redmine.org/projects/redmine/wiki/Security_Advisories' }
@@ -87,13 +88,17 @@ module AdditionalsMenuHelper
 
     s = []
     pages.each_with_index do |item, idx|
-      html_options = { class: 'help_item_' + idx.to_s }
-      if item[:url].include? '://'
-        html_options[:class] << ' external'
-        html_options[:target] = '_blank'
-      end
-      s << content_tag(:li,
-                       link_to(item[:title], item[:url], html_options))
+      s << if item[:title] == '-'
+             content_tag(:li, tag(:hr))
+           else
+             html_options = { class: 'help_item_' + idx.to_s }
+             if item[:url].include? '://'
+               html_options[:class] << ' external'
+               html_options[:target] = '_blank'
+             end
+             content_tag(:li,
+                         link_to(item[:title], item[:url], html_options))
+           end
     end
     safe_join(s)
   end

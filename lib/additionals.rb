@@ -40,6 +40,8 @@ module Additionals
 
       # Global helpers
       ActionView::Base.send :include, Additionals::Helpers
+      ActionView::Base.send :include, AdditionalsFontawesomeHelper
+      ActionView::Base.send :include, AdditionalsMenuHelper
 
       # Hooks
       require_dependency 'additionals/hooks'

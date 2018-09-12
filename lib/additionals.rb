@@ -17,8 +17,7 @@ module Additionals
                TimeEntry
                Wiki
                WikiController
-               UserPreference
-               ApplicationController])
+               UserPreference])
 
       patch(%w[QueryFilter]) if Redmine::VERSION.to_s >= '3.4'
 

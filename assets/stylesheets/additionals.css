@@ -244,3 +244,48 @@ a.external.redmine-link {
   background-position: 0% 40%;
   padding-left: 13px;
 }
+
+div.macro-box {
+  margin-bottom: 15px;
+}
+
+div.macro-title {
+  font-weight: bold;
+}
+
+div.macro-desc  {
+}
+
+#top-menu li:hover ul.menu-children,
+#top-menu li ul.menu-children.visible { display: block; }
+
+#top-menu .menu-children {
+  display: none;
+  position: absolute;
+  width: inherit;
+  z-index: 45;
+  background-color: #fff;
+  box-shadow: 2px 2px 14px #000;
+  top: 17px;
+  font-size: 110%;
+}
+
+#top-menu .menu-children li {
+  float: left;
+  clear: both;
+  width: 100%;
+}
+
+#top-menu .menu-children li a {
+  display: block;
+  color: #555;
+  padding: 5px 10px;
+  background-color: #fff;
+  font-weight: normal;
+  margin-right: 0;
+}
+
+#top-menu .menu-children li a:hover {
+  color: #fff;
+  background-color: #759fcf;
+}

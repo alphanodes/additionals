@@ -4,9 +4,9 @@ module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
       desc <<-DESCRIPTION
-      Create CryptoCompare information.
-        {{cryptocompare(options)}}
-      see https://additionals.readthedocs.io/en/latest/macros/#cryptocompare
+  Create CryptoCompare information.
+    {{cryptocompare(options)}}
+  see https://additionals.readthedocs.io/en/latest/macros/#cryptocompare
       DESCRIPTION
 
       macro :cryptocompare do |_obj, args|

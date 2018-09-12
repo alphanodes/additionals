@@ -3,17 +3,17 @@ module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
       desc <<-DESCRIPTION
-      Display a google map.  Examples:
+  Display a google map.  Examples:
 
-      Syntax:
+  Syntax:
 
-      {{gmap([q=QUERY, mode=MODE, width=216, height=368])}}
+  {{gmap([q=QUERY, mode=MODE, width=216, height=368])}}
 
-      Examples:
+  Examples:
 
-        {{gmap(Munich)}} Google maps with Munich
+    {{gmap(Munich)}} Google maps with Munich
 
-        {{gmap(mode=directions, origin=Munich+Rosenheimerstr, destination=Arco)}} Direction from Munich to Arco
+    {{gmap(mode=directions, origin=Munich+Rosenheimerstr, destination=Arco)}} Direction from Munich to Arco
       DESCRIPTION
 
       macro :gmap do |_obj, args|

@@ -6,6 +6,14 @@ module Additionals
         base.class_eval do
           alias_method :user_setup_without_additionals, :user_setup
           alias_method :user_setup, :user_setup_with_additionals
+
+          helper :additionals_menu
+          helper :additionals_fontawesome
+
+          include AdditionalsMenuHelper
+          include AdditionalsFontawesomeHelper
+          include ActionView::Helpers::TagHelper
+          include ActionView::Helpers::UrlHelper
         end
       end
 
@@ -14,41 +22,17 @@ module Additionals
           user_setup_without_additionals
           return unless User.current.try(:hrm_user_type_id).nil?
 
-          additionals_menu_item_delete(:help)
-          unless Additionals.setting?(:remove_help)
-            custom_url = Additionals.settings[:custom_help_url]
-            if custom_url.present?
-              additionals_menu_item_add(:help, custom_url)
-            else
-              additionals_menu_item_add(:help)
-            end
-          end
-
           if Additionals.setting?(:remove_mypage)
-            additionals_menu_item_delete(:my_page)
+            Redmine::MenuManager.map(:top_menu).delete(:my_page) if Redmine::MenuManager.map(:top_menu).exists?(:my_page)
           else
-            additionals_menu_item_add(:my_page)
+            handle_top_menu_item(:my_page, url: my_path, after: :home, if: proc { User.current.logged? })
           end
-        end
 
-        def additionals_menu_item_delete(item)
-          Redmine::MenuManager.map(:top_menu).delete(item) if Redmine::MenuManager.map(:top_menu).exists?(item)
-        end
-
-        def additionals_menu_item_add(item, custom_url = nil)
-          return if Redmine::MenuManager.map(:top_menu).exists?(item)
-
-          case item
-          when :help
-            url = custom_url.presence || Redmine::Info.help_url
-            Redmine::MenuManager.map(:top_menu).push :help, url, html: { class: 'external' }, last: true
-          when :my_page
-            Redmine::MenuManager.map(:top_menu).push :my_page,
-                                                     { controller: 'my', action: 'page' },
-                                                     after: :home,
-                                                     if: proc { User.current.logged? }
+          if Additionals.setting?(:remove_help)
+            Redmine::MenuManager.map(:top_menu).delete(:help) if Redmine::MenuManager.map(:top_menu).exists?(:help)
           else
-            raise 'unknow top menu item'
+            handle_top_menu_item(:help, url: '#', symbol: 'fas_question', last: true)
+            @additionals_help_items = additionals_help_menu_items
           end
         end
       end

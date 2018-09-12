@@ -3,10 +3,10 @@ module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
       desc <<-DESCRIPTION
-      Displays a date that updated the page.
-        {{last_updated_at}}
-        {{last_updated_at(project_name, wiki_page)}}
-        {{last_updated_at(project_identifier, wiki_page)}}
+  Displays a date that updated the page.
+    {{last_updated_at}}
+    {{last_updated_at(project_name, wiki_page)}}
+    {{last_updated_at(project_identifier, wiki_page)}}
       DESCRIPTION
 
       macro :last_updated_at do |obj, args|

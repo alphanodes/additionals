@@ -3,16 +3,16 @@ module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
       desc <<-DESCRIPTION
-      Display users of group.
+  Display users of group.
 
-      Syntax:
+  Syntax:
 
-        {{group_users(GROUP_NAME}}
+    {{group_users(GROUP_NAME}}
 
-      Examples:
+  Examples:
 
-        {{group_users(Team)}}
-        ...List all users in user group "Team" (with the current user permission)
+    {{group_users(Team)}}
+    ...List all users in user group "Team" (with the current user permission)
       DESCRIPTION
 
       macro :group_users do |_obj, args|

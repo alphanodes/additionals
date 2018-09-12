@@ -3,8 +3,8 @@ module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
       desc <<-DESCRIPTION
-      Displays a user who updated the page.
-        {{last_updated_by}}
+  Displays a user who updated the page.
+    {{last_updated_by}}
       DESCRIPTION
 
       macro :last_updated_by do |obj, args|

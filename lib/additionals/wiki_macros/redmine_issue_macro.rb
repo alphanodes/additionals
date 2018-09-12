@@ -3,8 +3,8 @@ module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
       desc <<-DESCRIPTION
-      Creates link to redmine.org issue.
-        {{redmine_issue(1448)}}
+  Creates link to redmine.org issue.
+    {{redmine_issue(1448)}}
       DESCRIPTION
 
       macro :redmine_issue do |_obj, args|

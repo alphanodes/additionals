@@ -3,15 +3,15 @@ module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
       desc <<-DESCRIPTION
-      Display calendar (only works on wiki pages)
+  Display calendar (only works on wiki pages)
 
-      Examples:
+  Examples:
 
-        {{calendar}}                    show calendar for current date
-        {{calendar(year=2014,month=6)}} show calendar for Juni in year 2014
-        {{calendar(show_weeks=true)}}   show calendar with week numbers
-        {{calendar(select=2015-07-12 2015-07-31, show_weeks=true)}} preselect dates and show week numbers
-        {{calendar(select=2016-03-13:2016-03-27)}} preselect dates between 2016/3/13 and 2016/3/27
+    {{calendar}}                    show calendar for current date
+    {{calendar(year=2014,month=6)}} show calendar for Juni in year 2014
+    {{calendar(show_weeks=true)}}   show calendar with week numbers
+    {{calendar(select=2015-07-12 2015-07-31, show_weeks=true)}} preselect dates and show week numbers
+    {{calendar(select=2016-03-13:2016-03-27)}} preselect dates between 2016/3/13 and 2016/3/27
       DESCRIPTION
 
       macro :calendar do |_obj, args|

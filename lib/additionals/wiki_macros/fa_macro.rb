@@ -3,34 +3,34 @@ module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
       desc <<-DESCRIPTION
-      Show Font Awesome icon.
+  Show Font Awesome icon.
 
-      Syntax:
+  Syntax:
 
-         {{fa(ICON [, class=CLASS, title=TITLE, text=TEXT size=SIZE, color=COLOR)}}
-         ICON of fontawesome icon, eg. fa-adjust
-         CLASS = additional css classes
-         TITLE = mouseover title
-         TEXT = Text to show
-         LINK = Link icon and text (if specified) to this URL
-         COLOR = css color code
+     {{fa(ICON [, class=CLASS, title=TITLE, text=TEXT size=SIZE, color=COLOR)}}
+     ICON of fontawesome icon, eg. fa-adjust
+     CLASS = additional css classes
+     TITLE = mouseover title
+     TEXT = Text to show
+     LINK = Link icon and text (if specified) to this URL
+     COLOR = css color code
 
-      Examples:
+  Examples:
 
-         {{fa(adjust)}}
-         ...show fontawesome icon "fas fa-adjust"
-         {{fa(adjust, class=fa-inverse)}}
-          ...show fontawesome icon "fas fa-stack" and inverse
-         {{fa(adjust, size=4x)}}
-           ...show fontawesome icon "fas fa-adjust" with size 4x
-         {{fa(fas_adjust, title=Show icon)}}
-         ...show fontawesome icon "fas fa-adjust" with title "Show icon"
-         {{fa(fab_angellist)}}
-         ...Show fontawesome icon "fab fa-angellist"
-         {{fa(adjust, link=https=//www.redmine.org))}}
-         ...Show fontawesome icon "fas fa-adjust" and link it to https://www.redmine.org
-         {{fa(adjust, link=https=//www.redmine.de, name=Go to Redmine.org))}}
-         ...Show fontawesome icon "fas fa-adjust" with name "Go to Redmine.org" and link it to https://www.redmine.org
+     {{fa(adjust)}}
+     ...show fontawesome icon "fas fa-adjust"
+     {{fa(adjust, class=fa-inverse)}}
+      ...show fontawesome icon "fas fa-stack" and inverse
+     {{fa(adjust, size=4x)}}
+       ...show fontawesome icon "fas fa-adjust" with size 4x
+     {{fa(fas_adjust, title=Show icon)}}
+     ...show fontawesome icon "fas fa-adjust" with title "Show icon"
+     {{fa(fab_angellist)}}
+     ...Show fontawesome icon "fab fa-angellist"
+     {{fa(adjust, link=https=//www.redmine.org))}}
+     ...Show fontawesome icon "fas fa-adjust" and link it to https://www.redmine.org
+     {{fa(adjust, link=https=//www.redmine.de, name=Go to Redmine.org))}}
+     ...Show fontawesome icon "fas fa-adjust" with name "Go to Redmine.org" and link it to https://www.redmine.org
       DESCRIPTION
 
       macro :fa do |_obj, args|

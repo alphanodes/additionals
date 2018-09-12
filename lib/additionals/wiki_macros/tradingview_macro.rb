@@ -4,9 +4,9 @@ module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
       desc <<-DESCRIPTION
-      Creates Tradingview chart
-        {{tradingview(options)}}
-      see https://additionals.readthedocs.io/en/latest/macros/#tradingview
+  Creates Tradingview chart
+    {{tradingview(options)}}
+  see https://additionals.readthedocs.io/en/latest/macros/#tradingview
       DESCRIPTION
 
       macro :tradingview do |_obj, args|

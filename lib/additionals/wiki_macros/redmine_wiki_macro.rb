@@ -3,8 +3,8 @@ module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
       desc <<-DESCRIPTION
-      Creates link to redmine.org wiki page.
-        {{redmine_wiki(Installing Redmine)}}
+  Creates link to redmine.org wiki page.
+    {{redmine_wiki(Installing Redmine)}}
       DESCRIPTION
 
       macro :redmine_wiki do |_obj, args|

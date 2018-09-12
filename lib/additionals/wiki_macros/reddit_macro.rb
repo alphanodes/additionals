@@ -3,8 +3,8 @@ module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
       desc <<-DESCRIPTION
-      Creates link to reddit.
-        {{reddit(name)}}
+  Creates link to reddit.
+    {{reddit(name)}}
       DESCRIPTION
 
       macro :reddit do |_obj, args|

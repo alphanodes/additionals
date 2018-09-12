@@ -3,17 +3,17 @@ module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
       desc <<-DESCRIPTION
-      Slideshare macro to include Slideshare slide.
+  Slideshare macro to include Slideshare slide.
 
-      Syntax:
+  Syntax:
 
-        {{slideshare(<key> [, width=595, height=485, slide=SLIDE])}}
+    {{slideshare(<key> [, width=595, height=485, slide=SLIDE])}}
 
-      Examples:
+  Examples:
 
-        {{slideshare(57941706)}} show slideshare slide with default size 595x485
-        {{slideshare(57941706, width=514, height=422)}} show slide with user defined size
-        {{slideshare(57941706, slide=5)}} start with slide (page) 5
+    {{slideshare(57941706)}} show slideshare slide with default size 595x485
+    {{slideshare(57941706, width=514, height=422)}} show slide with user defined size
+    {{slideshare(57941706, slide=5)}} start with slide (page) 5
       DESCRIPTION
 
       macro :slideshare do |_obj, args|

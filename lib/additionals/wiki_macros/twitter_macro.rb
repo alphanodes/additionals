@@ -3,8 +3,8 @@ module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
       desc <<-DESCRIPTION
-      Creates link to twitter account page or topic.
-        {{twitter(name)}}
+  Creates link to twitter account page or topic.
+    {{twitter(name)}}
       DESCRIPTION
 
       macro :twitter do |_obj, args|

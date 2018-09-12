@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.14
+2.0.14 - not tagged
 ++++++
 
 - Change status is now compatible with redmine_agile
@@ -10,6 +10,7 @@ Changelog
 - compatibility with plugin redmine_sudo and redmine_base_deface
 - FontAwesome wiki macro has been added (called fa)
 - Redmine.org issue and wiki page macro has been added
+- Show macro list to all logged users at /help/macros
 
 2.0.13
 ++++++

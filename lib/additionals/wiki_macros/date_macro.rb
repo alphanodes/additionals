@@ -3,18 +3,18 @@ module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
       desc <<-DESCRIPTION
-      Display current dates.
+  Display current dates.
 
-      Examples:
+  Examples:
 
-        {{current_year}}       current year
-        {{current_month}}      current month
-        {{current_day}}        current day
-        {{current_day}}        current day
-        {{current_hour}}       current hour
-        {{current_minute}}     current minute
-        {{current_weekday}}    current weekday
-        {{current_weeknumber}} current week number (1 - 52) The week starts with Monday
+    {{current_year}}       current year
+    {{current_month}}      current month
+    {{current_day}}        current day
+    {{current_day}}        current day
+    {{current_hour}}       current hour
+    {{current_minute}}     current minute
+    {{current_weekday}}    current weekday
+    {{current_weeknumber}} current week number (1 - 52) The week starts with Monday
       DESCRIPTION
 
       macro :current_year do |_obj, _args|

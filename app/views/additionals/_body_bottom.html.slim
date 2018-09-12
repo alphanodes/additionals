@@ -2,3 +2,8 @@
 - if footer.present?
   .additionals-footer
     = textilizable(footer)
+- if @additionals_help_items.present?
+  javascript:
+    $(function() {
+      $('a.help').parent().append("<ul class=\"menu-children\">#{escape_javascript(@additionals_help_items)}</ul>");
+    });

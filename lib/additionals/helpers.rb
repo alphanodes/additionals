@@ -48,7 +48,6 @@ module Additionals
         tabs << { name: 'menu', partial: 'additionals/settings/menu', label: :label_settings_menu }
       end
       tabs << { name: 'web', partial: 'additionals/settings/web_apis', label: :label_web_apis }
-      tabs << { name: 'macros', partial: 'additionals/settings/macros', label: :label_settings_macros }
 
       tabs
     end
@@ -195,70 +194,6 @@ module Additionals
       view_roles
     end
 
-    def additionals_custom_top_menu_item(num, user_roles)
-      menu_name = 'custom_menu' + num.to_s
-      item = {
-        url: Additionals.settings[menu_name + '_url'],
-        name: Additionals.settings[menu_name + '_name'],
-        title: Additionals.settings[menu_name + '_title'],
-        roles: Additionals.settings[menu_name + '_roles']
-      }
-      if item[:name].blank? || item[:url].blank? || item[:roles].nil?
-        Redmine::MenuManager.map(:top_menu).delete(menu_name.to_sym) if Redmine::MenuManager.map(:top_menu).exists?(menu_name.to_sym)
-        return
-      end
-
-      show_entry = false
-      item[:roles].each do |role|
-        if user_roles.empty? && role.to_i == Role::BUILTIN_ANONYMOUS
-          show_entry = true
-          break
-        elsif User.current.logged? && role.to_i == Role::BUILTIN_NON_MEMBER
-          # if user is logged in and non_member is active in item,
-          # always show it
-          show_entry = true
-          break
-        end
-
-        user_roles.each do |user_role|
-          if role.to_i == user_role.id.to_i
-            show_entry = true
-            break
-          end
-        end
-        break if show_entry == true
-      end
-
-      if show_entry
-        handle_top_menu_item(menu_name, item)
-      elsif Redmine::MenuManager.map(:top_menu).exists?(menu_name.to_sym)
-        Redmine::MenuManager.map(:top_menu).delete(menu_name.to_sym)
-      end
-    end
-
-    def handle_top_menu_item(menu_name, item)
-      Redmine::MenuManager.map(:top_menu).delete(menu_name.to_sym) if Redmine::MenuManager.map(:top_menu).exists?(menu_name.to_sym)
-
-      html_options = {}
-      html_options[:class] = 'external' if item[:url].include? '://'
-      html_options[:title] = item[:title] if item[:title].present?
-
-      title = if item[:symbol].present? && item[:name].present?
-                font_awesome_icon(item[:symbol], post_text: item[:name])
-              elsif item[:symbol].present?
-                font_awesome_icon(item[:symbol])
-              else
-                item[:name].to_s
-              end
-
-      Redmine::MenuManager.map(:top_menu).push menu_name,
-                                               item[:url],
-                                               parent: item[:parent].present? ? item[:parent].to_sym : nil,
-                                               caption: title,
-                                               html: html_options,
-                                               before: :help
-    end
-
     def bootstrap_datepicker_locale
       s = ''
       locale = User.current.language.presence || ::I18n.locale
@@ -372,51 +307,6 @@ module Additionals
            else
              link_to_user(user)
            end
-      safe_join(s)
-    end
-
-    def fontawesome_info_url
-      s = []
-      s << l(:label_set_icon_from)
-      s << link_to('https://fontawesome.com/icons?m=free', 'https://fontawesome.com/icons?m=free', class: 'external')
-      safe_join(s, ' ')
-    end
-
-    # name = TYPE-FA_NAME, eg. fas_car
-    #                          fas_cloud-upload-alt
-    #                          far_id-card
-    #                          fab_font-awesome
-    # options = class
-    #           pre_text
-    #           post_text
-    #           title
-    def font_awesome_icon(name, options = {})
-      info = AdditionalsFontAwesome.value_info(name)
-      return '' if info.blank?
-
-      post_text = ''
-      options['aria-hidden'] = 'true'
-      options[:class] = if options[:class].present?
-                          info[:classes] + ' ' + options[:class]
-                        else
-                          info[:classes]
-                        end
-
-      s = []
-      if options[:pre_text].present?
-        s << options[:pre_text]
-        s << ' '
-        options.delete(:pre_text)
-      end
-      if options[:post_text].present?
-        post_text = options[:post_text]
-        options.delete(:post_text)
-      end
-      s << content_tag('span', '', options)
-      if post_text.present?
-        s << ' '
-        s << post_text
-      end
       safe_join(s)
     end
 

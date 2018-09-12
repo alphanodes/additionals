@@ -76,6 +76,7 @@ module AdditionalsMenuHelper
   def additionals_help_menu_items
     pages = [{ title: 'Redmine Guide', url: Redmine::Info.help_url },
              { title: 'FontAwesome Icons', url: 'https://fontawesome.com/icons?d=gallery&m=free' },
+             { title: 'Redmine macros', url: macros_path },
              { title: 'Additionals manual', url: 'https://additionals.readthedocs.io/en/latest/manual/' }]
 
     if User.current.admin?
@@ -85,10 +86,14 @@ module AdditionalsMenuHelper
     end
 
     s = []
-    pages.each_with_index do |p, idx|
+    pages.each_with_index do |item, idx|
       html_options = { class: 'help_item_' + idx.to_s }
+      if item[:url].include? '://'
+        html_options[:class] << ' external'
+        html_options[:target] = '_blank'
+      end
       s << content_tag(:li,
-                       link_to(p[:title], p[:url], html_options))
+                       link_to(item[:title], item[:url], html_options))
     end
     safe_join(s)
   end

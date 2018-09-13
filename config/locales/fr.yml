@@ -19,11 +19,11 @@ fr:
   account_login_info: "Ce message texte sera affiché à la page de connexion et devrait être utilisé pour les informations d'inscription. Ces options sont actives dans tous les projets."
   add_go_to_top_info: "Si vous avez beaucoup de pages longues, il est utile d'ajouter un saut au lien du haut."
   button_assign_to_me: Assign to me
-  custom_help_url_info_html: "After changing this URL, you have to restart the application server to activate it. If no URL is specified, the default help URL will be used."
-  disabled_modules_info: "Modules which should not be available for selection within the projects. If these modules already activated in existing projects, you will have to change and re-save the respective project settings first."
-  error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
-  error_issue_status_could_not_changed: Issue state could not be changed
-  error_issues_could_not_be_assigned_to_me: Issue could not assigned to me
+  custom_help_url_info_html: "Après avoir modifié cette URL, vous devez redémarrer le serveur d'application pour l'activer. Si aucune URL n'est spécifiée, l'URL d'aide par défaut sera utilisée."
+  disabled_modules_info: "Les modules qui ne devraient pas être disponibles pour la sélection dans le cadre des projets. Si ces modules sont déjà activés dans des projets existants, vous devez d'abord modifier et sauvegarder à nouveau les paramètres de projet respectifs."
+  error_query_statement_invalid: "Une erreur s'est produite lors de l'exécution de la requête et a été enregistrée. Veuillez signaler cette erreur à votre administrateur Redmine."
+  error_issue_status_could_not_changed: "L'état de la question n'a pas pu être modifié"
+  error_issues_could_not_be_assigned_to_me: "La question n'a pas pu m'être assignée"
   errors_invalid_icon_format: is an invalid font-awesome code
   errors_no_or_invalid_arguments: "Pas d'arguments ou arguments invalides"
   errors_query_does_not_exist: "Query n'existe pas"
@@ -31,7 +31,7 @@ fr:
   external_url_new_window: "Ouvrir dans une nouvelle fenêtre"
   external_url_noreferrer: "Ouvrir avec NoReferrer"
   external_urls_info_html: "Spécifie le comportement des urls externes."
-  field_autowatch_involved_issue: Autowatch involved issues
+  field_autowatch_involved_issue: "Problèmes liés à la surveillance automatique"
   field_color: Couleur
   field_icon: Icon
   field_issue_relation_plural: Issue relations
@@ -41,11 +41,11 @@ fr:
   field_tags: Tags
   field_website: Website
   global_footer_info: 'Entrez un projet en bas de page wiki ici.'
-  global_sidebar_info: "Enter a project wide available text message here. This sidebar text will be displayed at the project overview, the issue pages and the wiki pages."
-  global_wiki_footer_info: 'Enter a project wide wiki footer here. In case a project specific wiki footer is used by "Wiki Extensions", this will be preferably displayed instead.'
-  global_wiki_header_info: 'Enter a project wide wiki header here. In case a project specific wiki header is used by "Wiki Extensions", this will be preferably displayed instead.'
-  global_wiki_sidebar_info: 'Enter a project wide available text message for your wiki sidebar, here. This sidebar text will be displayed at the wiki pages only. Use this space for Macros like "Last changed pages" for example. In case a project specific sidebar is used (wiki page), this will be preferably displayed in the sidebar instead.'
-  google_maps_embed_api_html: Si vous souhaitez utiliser la macro Gmap pour afficher les cartes de Goole, veuillez implémenter votre clé API Google Maps ici. Ensuite, vous pouvez utiliser la macro et divers paramètres. Pour plus d'informations sur l'utilisation des paramètres, voir <a href="https://developers.google.com/maps/documentation/embed/guide">https://developers.google.com/maps/documentation/embed/guide</a>. La macro Gmap ne fonctionne qu'en combinaison avec la clé intégrée.
+  global_sidebar_info: "Saisissez ici un message texte disponible pour l'ensemble du projet. Ce texte latéral sera affiché dans la vue d'ensemble du projet, les pages d'édition et les pages wiki."
+  global_wiki_footer_info: "Entrez ici un pied de page wiki pour l'ensemble du projet. Dans le cas où un pied de page wiki spécifique à un projet est utilisé par \"Wiki Extensions\", celui-ci sera de préférence affiché à la place."
+  global_wiki_header_info: "Entrez ici un en-tête wiki pour l'ensemble du projet. Dans le cas où un en-tête wiki spécifique à un projet est utilisé par \"Wiki Extensions\", celui-ci sera de préférence affiché à la place."
+  global_wiki_sidebar_info: "Entrez ici un message texte disponible pour l'ensemble du projet pour votre barre latérale wiki. Ce texte de la barre latérale sera affiché uniquement sur les pages wiki. Use this space for Macros like \"Last changed pages\" for example. Dans le cas où une barre latérale spécifique au projet est utilisée (page wiki), celle-ci sera de préférence affichée dans la barre latérale."
+  google_maps_embed_api_html: "Si vous souhaitez utiliser la macro Gmap pour afficher les cartes de Goole, veuillez implémenter votre clé API Google Maps ici. Ensuite, vous pouvez utiliser la macro et divers paramètres. Pour plus d'informations sur l'utilisation des paramètres, voir <a href=\"https://developers.google.com/maps/documentation/embed/guide\">https://developers.google.com/maps/documentation/embed/guide</a>. La macro Gmap ne fonctionne qu'en combinaison avec la clé intégrée."
   invisible_captcha_info_html: In case this option is activated an <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection is activated for the registration page of new users. This function is only available, if you enabled self-registration, too.
   label_account_login: "Texte pour la page de login"
   label_add_go_to_top: 'Add "Go to top" link'
@@ -75,7 +75,7 @@ fr:
   label_icon_color: Icon color
   label_invisible_captcha: SPAM protection for registration
   label_issue_assign_to_me: Show "Assign to me" on issue
-  label_issue_autowatch_involved: Add involved users as watcher automatically
+  label_issue_autowatch_involved: "Ajout automatique des utilisateurs impliqués en tant qu'observateurs"
   label_issue_change_status_in_sidebar: Issue status on sidebar
   label_issue_change_status: Modifier statut
   label_last_year: previous year
@@ -103,7 +103,7 @@ fr:
   label_remove_mypage: "Remove 'My Page' from top menu"
   label_remove_news: "Remove 'Lastest news' from overview page"
   label_rule_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
-  label_rule_issue_close_with_open_children: Issues with open sub-issues cannot be closed
+  label_rule_issue_close_with_open_children: "Les questions avec des sous-questions en suspens ne peuvent pas être clôturées."
   label_rule_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
   label_rule_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
   label_search_by_name: Recherche par nom
@@ -115,8 +115,8 @@ fr:
   label_system_info: System info
   label_tags_without_color: "Afficher les étiquettes sans couleur"
   label_tomorrow: demain
-  label_top_macros_help_html: "Here you get a list of all available Redmine macros of your installation, which are provided by Redmine and the Redmine plugins."
-  label_top_menu_help_html: "Here you can define new top menu items."
+  label_top_macros_help_html: "Vous obtenez ici une liste de toutes les macros Redmine disponibles de votre installation, qui sont fournies par Redmine et les plugins Redmine."
+  label_top_menu_help_html: "Ici, vous pouvez définir de nouveaux éléments de menu du haut."
   label_top_menu: Top menu
   label_twitter_account: Twitter account
   label_twitter_hashtag: Twitter hashtag
@@ -125,39 +125,39 @@ fr:
   label_web_apis: Web APIs
   label_weekly: hebdomadaire
   label_wiki_pdf_header: Wiki PDF header
-  label_wiki_pdf_remove_attachments: Remove attachments from PDF view
-  label_wiki_pdf_remove_title: Remove Wiki title from PDF view
+  label_wiki_pdf_remove_attachments: "Supprimer les pièces jointes de la vue PDF"
+  label_wiki_pdf_remove_title: "Supprimer le titre du wiki de la vue PDF"
   label_yearly: annuellement
   legacy_smiley_support_info_html: 'Convert Smileys and Emoji symbols. Activate this option only if Smileys or Emoji are manually typed in by the use of code (e.g. :kiss:). If you use Unicode-Emoji this option should be deactivated. For more info on Emoji-Browser support read <a href="http://caniemoji.com/" target="_blank">http://caniemoji.com/</a>. Have a look at <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> for available Emoji-Codes you can use. <strong>Restart the application server</strong>, in order to activate the settings.'
-  menu_roles_info: "Only members of selected roles will see this menu entry."
-  new_ticket_message_info: "A note will be shown to everyone who wants to add a new issue. For example you can enter acceptance tests or issue rules here. These settings are used project wide."
-  overview_bottom_info: "Here you can add your text, which will be shown on the overview page at the bottom. For example you can link to a wiki page."
-  overview_right_info: "Here you can add your text, which will be shown on the overview page at the right side. For example you can link to a wiki page."
-  overview_top_info: "Here you can add your text, which will be shown on the overview page at the top. For example you can link to a wiki page."
+  menu_roles_info: "Seuls les membres des rôles sélectionnés verront cette entrée de menu."
+  new_ticket_message_info: "Une note sera montrée à tous ceux qui veulent ajouter un nouveau numéro. Par exemple, vous pouvez saisir des tests d'acceptation ou édicter des règles ici. Ces paramètres sont utilisés à l'échelle du projet."
+  overview_bottom_info: "Ici, vous pouvez ajouter votre texte, qui sera affiché sur la page d'aperçu en bas. Par exemple, vous pouvez créer un lien vers une page wiki."
+  overview_right_info: "Ici, vous pouvez ajouter votre texte, qui sera affiché sur la page d'aperçu sur le côté droit. Par exemple, vous pouvez créer un lien vers une page wiki."
+  overview_top_info: "Ici, vous pouvez ajouter votre texte, qui sera affiché sur la page d'aperçu en haut de la page. Par exemple, vous pouvez créer un lien vers une page wiki."
   permission_change_new_issue_author: Set author of new issues
   permission_edit_closed_issues: "Éditer les dossiers fermés"
   permission_edit_issue_author: Edit author
   permission_hide_in_memberbox: "Cacher dans la boîte de membre"
   permission_log_time_on_closed_issues: "Log time on closed issues"
   permission_show_hidden_roles_in_memberbox: "Afficher les rôles cachés dans la boîte membre"
-  project_overview_content_info: "Here you can add your text, which will be shown on the project overview page. For example you can link to a wiki page, which is/should be project wide available to every team member. The aim is to reach a better project standard and to maintain a unique wiki structure."
+  project_overview_content_info: "Ici, vous pouvez ajouter votre texte, qui sera affiché sur la page d'aperçu du projet. Par exemple, vous pouvez créer un lien vers une page wiki, qui est / devrait être accessible à tous les membres de l'équipe. Le but est d'atteindre un meilleur standard de projet et de maintenir une structure wiki unique."
   remove_help_info: "Remove the item 'Help' from the top menu."
   remove_mypage_info: 'Sometimes it is more useful to hide the "My Page" link in order to introduce the task board. The task board advantage is that issues can be listed according to their status.'
   remove_news_info: "Supprimer les dernières nouvelles de la page d'aperçu."
-  rule_issue_auto_assign_info: 'Use Case: The issue author does not know whom to assign the issue or who will be responsible for solving the task. In that case the issue for example with the status "To Do" is automatically assigned to the first group, which does contain a user of the pre-selected project manager role.'
-  rule_issue_current_user_status_info_html: "Is this function used in combination with the setting option \"Issue status on sidebar\" then the current user will automatically be assigned to the issue while changing the issue status.<br />Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."
-  rule_issue_status_change_info: "Use Case: issues should be automatically assigned to autor, if the status changes to \"Approval\"."
+  rule_issue_auto_assign_info: 'Cas d'utilisation : L'auteur du problème ne sait pas à qui attribuer le problème ou qui sera responsable de la résolution de la tâche. Dans ce cas, le problème par exemple avec le statut "A faire" est automatiquement affecté au premier groupe, qui contient un utilisateur du rôle de chef de projet présélectionné.'
+  rule_issue_current_user_status_info_html: "Si cette fonction est utilisée en combinaison avec l'option de paramétrage \"Etat du problème dans la barre latérale\", l'utilisateur actuel sera automatiquement affecté au problème lors de la modification de l'état du problème.<br />Use Case: Les utilisateurs ne sont autorisés à changer le statut en \"En cours\" que s'ils sont la personne qui travaille réellement sur le problème en ce moment."
+  rule_issue_status_change_info: "Cas d'utilisation : les problèmes doivent être automatiquement assignés à autor, si l'état passe à \"Approval\"."
   show_always: "Afficher toujours"
   show_on_project_overview: "Afficher sur la page de projet overview"
   show_on_redmine_home: "Afficher sur la page de bienvenue"
   show_welcome_left: "Sur la page de bienvenue gauche"
   show_welcome_right: "Sur la page de bienvenue droit"
-  top_overview_help: Here you can define contents and settings for your overview page.
-  top_projects_help: Here you can define contents and settings for your project page.
-  top_rules_help: "Here you can define rules, which are used in issues of all projects."
+  top_overview_help: "Ici, vous pouvez définir le contenu et les paramètres de votre page de vue d'ensemble."
+  top_projects_help: "Ici, vous pouvez définir le contenu et les paramètres de votre page de projet."
+  top_rules_help: "Ici, vous pouvez définir des règles, qui sont utilisées dans les questions de tous les projets."
   top_wiki_help: "Ici vous pouvez définir le contenu et les paramètres de votre Wiki."
-  wiki_pdf_header_info: This text block will be displayed on the first page before the regular Wiki content in the PDF view. Macro use is very restricted, here.
-  wiki_pdf_remove_attachments_info: When active the attached Wiki files will not be displayed in PDF view.
-  wiki_pdf_remove_title_info: When active the Wiki title info will not be displayed in PDF view.
+  wiki_pdf_header_info: "Ce bloc de texte sera affiché sur la première page avant le contenu Wiki normal dans la vue PDF. L'utilisation des macros est très restreinte, ici."
+  wiki_pdf_remove_attachments_info: "Lorsqu'ils sont actifs, les fichiers Wiki joints ne seront pas affichés en vue PDF."
+  wiki_pdf_remove_title_info: "Lorsqu'elle est active, l'information sur le titre du wiki ne sera pas affichée dans la vue PDF."
   label_redmine_org_issue: Redmine.org issue
   label_redmine_org_wiki: Redmine.org wiki page

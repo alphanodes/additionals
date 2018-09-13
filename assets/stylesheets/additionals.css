@@ -253,7 +253,8 @@ div.macro-title {
   font-weight: bold;
 }
 
-div.macro-desc  {
+div.macro-desc {
+  border-bottom: 1px solid #eee;
 }
 
 #top-menu li:hover ul.menu-children,

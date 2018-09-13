@@ -144,7 +144,7 @@ fr:
   remove_help_info: "Remove the item 'Help' from the top menu."
   remove_mypage_info: 'Sometimes it is more useful to hide the "My Page" link in order to introduce the task board. The task board advantage is that issues can be listed according to their status.'
   remove_news_info: "Supprimer les dernières nouvelles de la page d'aperçu."
-  rule_issue_auto_assign_info: 'Cas d'utilisation : L'auteur du problème ne sait pas à qui attribuer le problème ou qui sera responsable de la résolution de la tâche. Dans ce cas, le problème par exemple avec le statut "A faire" est automatiquement affecté au premier groupe, qui contient un utilisateur du rôle de chef de projet présélectionné.'
+  rule_issue_auto_assign_info: "Cas d'utilisation : L'auteur du problème ne sait pas à qui attribuer le problème ou qui sera responsable de la résolution de la tâche. Dans ce cas, le problème par exemple avec le statut \"A faire\" est automatiquement affecté au premier groupe, qui contient un utilisateur du rôle de chef de projet présélectionné."
   rule_issue_current_user_status_info_html: "Si cette fonction est utilisée en combinaison avec l'option de paramétrage \"Etat du problème dans la barre latérale\", l'utilisateur actuel sera automatiquement affecté au problème lors de la modification de l'état du problème.<br />Use Case: Les utilisateurs ne sont autorisés à changer le statut en \"En cours\" que s'ils sont la personne qui travaille réellement sur le problème en ce moment."
   rule_issue_status_change_info: "Cas d'utilisation : les problèmes doivent être automatiquement assignés à autor, si l'état passe à \"Approval\"."
   show_always: "Afficher toujours"

@@ -35,10 +35,6 @@ h3 = l(:label_custom_menu_items)
 br
 h3 = l(:label_setting_plural)
 p
-  = content_tag(:label, l(:label_custom_help_url))
-  = text_field_tag('settings[custom_help_url]', @settings[:custom_help_url], size: 60)
-  em.info = t(:custom_help_url_info_html)
-p
   = content_tag(:label, l(:label_remove_help))
   = check_box_tag 'settings[remove_help]', 1, @settings[:remove_help].to_i == 1
   em.info = l(:remove_help_info)

@@ -19,7 +19,6 @@ zh:
   account_login_info: "该文本信息将在登录页作为注册信息展现。该选项是全局选项。"
   add_go_to_top_info: '如果您有很长的页面，添加"回到页首"的功能将非常有用。'
   button_assign_to_me: Assign to me
-  custom_help_url_info_html: "在修改了 URL 后，您必须重启服务以激活该配置。若未指定 URL，则使用默认的帮助 URL 地址。"
   disabled_modules_info: "项目中无法选择模块。如果这些模块已经在现有项目中激活，则必须首先更改并重新保存响应的项目设置。"
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   error_issue_status_could_not_changed: Issue state could not be changed
@@ -55,7 +54,6 @@ zh:
   label_app_menu: App menu
   label_change_is_private: Change private/non-private
   label_content_plural: 内容
-  label_custom_help_url: "自定义帮助 URL"
   label_custom_menu_items: 自定义菜单项
   label_daily: 每天
   label_day: 天

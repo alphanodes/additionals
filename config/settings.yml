@@ -1,7 +1,6 @@
 ---
 account_login_bottom: ''
 add_go_to_top: 0
-custom_help_url: 'http://www.redmine.org/guide'
 disabled_modules:
 external_urls: 1
 global_footer: ''

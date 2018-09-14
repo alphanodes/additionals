@@ -19,7 +19,6 @@ ja:
   account_login_info: "この文章は、ログイン画面で表示され、登録情報の掲載を目的にしています。これらの設定は全プロジェクトで有効です。"
   add_go_to_top_info: '長いページが多い場合、「トップへ」のリンクは役立ちます。'
   button_assign_to_me: Assign to me
-  custom_help_url_info_html: "このURLを変更した後、反映するためにウェブサーバを再起動しなければなりません。URLの指定がない場合、規程のヘルプURLが使用されます。"
   disabled_modules_info: "プロジェクト内で選択させたくないモジュール。もしこのモジュールが既存のプロジェクトで既に有効な場合、設定変更した上で、ウェブサーバを再起動しなければなりません。"
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   error_issue_status_could_not_changed: Issue state could not be changed
@@ -55,7 +54,6 @@ ja:
   label_app_menu: App menu
   label_change_is_private: Change private/non-private
   label_content_plural: Contents
-  label_custom_help_url: "カスタムヘルプURL"
   label_custom_menu_items: Custom menu items
   label_daily: daily
   label_day: day

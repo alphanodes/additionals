@@ -19,7 +19,6 @@ en:
   account_login_info: "This text message will be shown at the login page and should be used for registration information. These settings are active in all projects."
   add_go_to_top_info: 'If you have a lot of long pages, it is helpful to add a jump to top link.'
   button_assign_to_me: Assign to me
-  custom_help_url_info_html: "If no URL is specified, the default help URL will be used."
   disabled_modules_info: "Modules which should not be available for selection within the projects. If these modules already activated in existing projects, you will have to change and re-save the respective project settings first."
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   error_issue_status_could_not_changed: Issue state could not be changed
@@ -55,7 +54,6 @@ en:
   label_app_menu: App menu
   label_change_is_private: Change private/non-private
   label_content_plural: Contents
-  label_custom_help_url: "Custom Help URL"
   label_custom_menu_items: Custom menu items
   label_daily: daily
   label_day: day

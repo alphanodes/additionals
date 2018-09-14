@@ -91,9 +91,12 @@ module AdditionalsMenuHelper
   end
 
   def additionals_help_menu_items
-    pages = [{ title: 'Redmine Guide', url: Redmine::Info.help_url },
-             { title: 'FontAwesome Icons', url: 'https://fontawesome.com/icons?d=gallery&m=free' },
-             { title: 'Redmine macros', url: macros_path }]
+    pages = [{ title: 'Redmine Guide', url: Redmine::Info.help_url }]
+
+    if User.current.logged?
+      pages << { title: 'FontAwesome Icons', url: 'https://fontawesome.com/icons?d=gallery&m=free' }
+      pages << { title: 'Redmine macros', url: macros_path }
+    end
 
     if User.current.admin?
       pages << { title: '-' }

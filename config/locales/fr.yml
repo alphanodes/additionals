@@ -19,7 +19,6 @@ fr:
   account_login_info: "Ce message texte sera affiché à la page de connexion et devrait être utilisé pour les informations d'inscription. Ces options sont actives dans tous les projets."
   add_go_to_top_info: "Si vous avez beaucoup de pages longues, il est utile d'ajouter un saut au lien du haut."
   button_assign_to_me: Assign to me
-  custom_help_url_info_html: "Après avoir modifié cette URL, vous devez redémarrer le serveur d'application pour l'activer. Si aucune URL n'est spécifiée, l'URL d'aide par défaut sera utilisée."
   disabled_modules_info: "Les modules qui ne devraient pas être disponibles pour la sélection dans le cadre des projets. Si ces modules sont déjà activés dans des projets existants, vous devez d'abord modifier et sauvegarder à nouveau les paramètres de projet respectifs."
   error_query_statement_invalid: "Une erreur s'est produite lors de l'exécution de la requête et a été enregistrée. Veuillez signaler cette erreur à votre administrateur Redmine."
   error_issue_status_could_not_changed: "L'état de la question n'a pas pu être modifié"
@@ -55,7 +54,6 @@ fr:
   label_app_menu: App menu
   label_change_is_private: Change private/non-private
   label_content_plural: Contents
-  label_custom_help_url: "URL d'aide personnalisée"
   label_custom_menu_items: Éléments de menu personnalisés
   label_daily: tous les jours
   label_day: Jour

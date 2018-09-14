@@ -19,7 +19,6 @@
   account_login_info: "在登入頁面顯示的註冊訊息。該選項是通用選項。"
   add_go_to_top_info: "如果你有很長的頁面，建議增加 \"回到頁首\" 的按鈕。"
   button_assign_to_me: Assign to me
-  custom_help_url_info_html: "修改連結後，您必須重啟redmine。若未設定連結，將使用預設的幫助連結。"
   disabled_modules_info: "專案中無法選擇模組。如果這些模組已經在現有專案中啟用，必須先變更對應的專案設定。"
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   error_issue_status_could_not_changed: Issue state could not be changed
@@ -55,7 +54,6 @@
   label_app_menu: App 選單
   label_change_is_private: Change private/non-private
   label_content_plural: 内容
-  label_custom_help_url: "自訂幫助連結"
   label_custom_menu_items: "自訂選單項目"
   label_daily: 每天
   label_day: 天

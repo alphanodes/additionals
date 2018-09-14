@@ -11,6 +11,7 @@ Changelog
 - FontAwesome wiki macro has been added (called fa)
 - Redmine.org issue and wiki page macro has been added
 - Show macro list to all logged users at /help/macros
+- Help menu, with more links to Redmine help pages (which can be used with other plugins, to assign additional entries)
 
 2.0.13
 ++++++

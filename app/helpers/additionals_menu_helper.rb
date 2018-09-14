@@ -10,9 +10,11 @@ module AdditionalsMenuHelper
 
     if Additionals.setting?(:remove_help)
       Redmine::MenuManager.map(:top_menu).delete(:help) if Redmine::MenuManager.map(:top_menu).exists?(:help)
-    else
+    elsif User.current.logged?
       handle_top_menu_item(:help, url: '#', symbol: 'fas_question', last: true)
       @additionals_help_items = additionals_help_menu_items
+    else
+      handle_top_menu_item(:help, url: Redmine::Info.help_url, symbol: 'fas_question', last: true)
     end
   end
 
@@ -91,12 +93,9 @@ module AdditionalsMenuHelper
   end
 
   def additionals_help_menu_items
-    pages = [{ title: 'Redmine Guide', url: Redmine::Info.help_url }]
-
-    if User.current.logged?
-      pages << { title: 'FontAwesome Icons', url: 'https://fontawesome.com/icons?d=gallery&m=free' }
-      pages << { title: 'Redmine macros', url: macros_path }
-    end
+    pages = [{ title: 'Redmine Guide', url: Redmine::Info.help_url },
+             { title: 'FontAwesome Icons', url: 'https://fontawesome.com/icons?d=gallery&m=free' },
+             { title: 'Redmine macros', url: macros_path }]
 
     if User.current.admin?
       pages << { title: '-' }

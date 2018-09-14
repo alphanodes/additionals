@@ -115,8 +115,7 @@ Features
   * vimeo
   * youtube
 
-* option to remove "my page" from top menu
-* customize "Help" url in top menu
+* option to remove "My page" and/or "Help" from top menu
 * customize top menu items
 * disable (hide) modules for projects
 * open external urls in new window

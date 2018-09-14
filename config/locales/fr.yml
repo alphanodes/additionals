@@ -161,3 +161,5 @@ fr:
   wiki_pdf_header_info: "Ce bloc de texte sera affiché sur la première page avant le contenu Wiki normal dans la vue PDF. L'utilisation des macros est très restreinte, ici."
   wiki_pdf_remove_attachments_info: "Lorsqu'ils sont actifs, les fichiers Wiki joints ne seront pas affichés en vue PDF."
   wiki_pdf_remove_title_info: "Lorsqu'elle est active, l'information sur le titre du wiki ne sera pas affichée dans la vue PDF."
+  label_help_integration: Online help integration
+  label_access_token: Access token

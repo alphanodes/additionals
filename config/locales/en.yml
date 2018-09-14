@@ -20,9 +20,9 @@ en:
   add_go_to_top_info: 'If you have a lot of long pages, it is helpful to add a jump to top link.'
   button_assign_to_me: Assign to me
   disabled_modules_info: "Modules which should not be available for selection within the projects. If these modules already activated in existing projects, you will have to change and re-save the respective project settings first."
-  error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   error_issue_status_could_not_changed: Issue state could not be changed
   error_issues_could_not_be_assigned_to_me: Issue could not assigned to me
+  error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   errors_invalid_icon_format: is an invalid font-awesome code
   errors_no_or_invalid_arguments: No or invalid arguments
   errors_query_does_not_exist: Query does not exist
@@ -69,6 +69,7 @@ en:
   label_global_wiki_sidebar: "Global wiki sidebar"
   label_go_to_top: "Go to top"
   label_google_maps_embed_api: Google Maps Embed API Key
+  label_help_manual: manual
   label_hour: hour
   label_icon_color: Icon color
   label_invisible_captcha: SPAM protection for registration
@@ -97,6 +98,9 @@ en:
   label_query_edit: Edit query
   label_reddit_subject: Reddit subject
   label_reddit_user_account: Reddit user account
+  label_macro_plural: macros
+  label_redmine_org_issue: Redmine.org issue
+  label_redmine_org_wiki: Redmine.org wiki page
   label_remove_help: "Remove 'Help' from top menu"
   label_remove_mypage: "Remove 'My Page' from top menu"
   label_remove_news: "Remove 'Lastest news' from overview page"
@@ -157,5 +161,3 @@ en:
   wiki_pdf_header_info: This text block will be displayed on the first page before the regular Wiki content in the PDF view. Macro use is very restricted, here.
   wiki_pdf_remove_attachments_info: When active the attached Wiki files will not be displayed in PDF view.
   wiki_pdf_remove_title_info: When active the Wiki title info will not be displayed in PDF view.
-  label_redmine_org_issue: Redmine.org issue
-  label_redmine_org_wiki: Redmine.org wiki page

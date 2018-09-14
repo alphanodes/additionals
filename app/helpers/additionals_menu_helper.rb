@@ -92,17 +92,55 @@ module AdditionalsMenuHelper
     end
   end
 
+  def addtionals_help_plugin_items
+    user_items = [{ title: 'Redmine Guide', url: Redmine::Info.help_url },
+                  { title: "Redmine #{l(:label_macro_plural)}", url: macros_path }]
+
+    admin_items = [{ title: 'Additionals', url: 'https://additionals.readthedocs.io/en/latest/manual/', manual: true },
+                   { title: 'Redmine Changelog', url: 'https://www.redmine.org/projects/redmine/wiki/Changelog_3_4' },
+                   { title: 'Redmine Upgrade', url: 'https://www.redmine.org/projects/redmine/wiki/RedmineUpgrade' },
+                   { title: 'Redmine Security Advisories', url: 'https://www.redmine.org/projects/redmine/wiki/Security_Advisories' }]
+
+    Redmine::Plugin.all.each do |plugin|
+      next if plugin.id == :additionals
+
+      begin
+        plugin_item = plugin.id.to_s.camelize.constantize.try(:additionals_help_items)
+        plugin_item = additionals_help_items_fallbacks(plugin.id) if plugin_item.nil?
+        unless plugin_item.nil?
+          plugin_item.each do |temp_item|
+            user_items << if !temp_item[:manual].nil? && temp_item[:manual]
+                            { title: "#{temp_item[:title]} #{l(:label_help_manual)}", url: temp_item[:url] }
+                          else
+                            { title: temp_item[:title], url: temp_item[:url] }
+                          end
+          end
+        end
+      rescue StandardError => e
+        raise e unless e.class.to_s == 'NameError'
+      end
+
+      next unless User.current.admin?
+
+      begin
+        plugin_item = plugin.id.to_s.camelize.constantize.try(:additionals_help_admin_items)
+        plugin_item = additionals_help_admin_items_fallbacks(plugin.id) if plugin_item.nil?
+        admin_items += plugin_item unless plugin_item.nil?
+      rescue StandardError => e
+        raise e unless e.class.to_s == 'NameError'
+      end
+    end
+
+    { user: user_items, admin: admin_items }
+  end
+
   def additionals_help_menu_items
-    pages = [{ title: 'Redmine Guide', url: Redmine::Info.help_url },
-             { title: 'FontAwesome Icons', url: 'https://fontawesome.com/icons?d=gallery&m=free' },
-             { title: 'Redmine macros', url: macros_path }]
+    plugin_items = addtionals_help_plugin_items
+    pages = plugin_items[:user].sort_by { |k| k[:title] }
 
     if User.current.admin?
       pages << { title: '-' }
-      pages << { title: 'Additionals manual', url: 'https://additionals.readthedocs.io/en/latest/manual/' }
-      pages << { title: 'Redmine Changelog', url: 'https://www.redmine.org/projects/redmine/wiki/Changelog_3_4' }
-      pages << { title: 'Redmine Upgrade', url: 'https://www.redmine.org/projects/redmine/wiki/RedmineUpgrade' }
-      pages << { title: 'Redmine Security Advisories', url: 'https://www.redmine.org/projects/redmine/wiki/Security_Advisories' }
+      pages += plugin_items[:admin].sort_by { |k| k[:title] }
     end
 
     s = []
@@ -120,5 +158,33 @@ module AdditionalsMenuHelper
            end
     end
     safe_join(s)
+  end
+
+  # Plugin help items definition for plugins,
+  # which do not have additionals_help_menu_items integration
+  def additionals_help_items_fallbacks(plugin_id)
+    plugins = { redmine_agile: [{ title: 'Redmine Agile',
+                                  url: 'https://www.redmineup.com/pages/help/agile' }],
+                redmine_wiki_lists: [{ title: 'Wiki Lists Marcos',
+                                       url: 'https://www.r-labs.org/projects/wiki_lists/wiki/Wiki_Lists_en' }],
+                redmine_wiki_extensions: [{ title: 'Wiki Extensions',
+                                            url: 'https://www.r-labs.org/projects/r-labs/wiki/Wiki_Extensions_en' }] }
+    plugins[plugin_id]
+  end
+
+  # Plugin help items definition for plugins,
+  # which do not have additionals_help_admin_menu_items integration
+  def additionals_help_admin_items_fallbacks(plugin_id)
+    plugins = { redmine_git_hosting: [{ title: 'Redmine Git Hosting',
+                                        url: 'http://redmine-git-hosting.io/get_started/' }],
+                redmine_contacts: [{ title: 'Redmine CRM',
+                                     url: 'https://www.redmineup.com/pages/help/crm' }],
+                redmine_contacts_helpdesk: [{ title: 'Redmine Helpdesk',
+                                              url: 'https://www.redmineup.com/pages/help/helpdesk' }],
+                redmine_ldap_sync: [{ title: 'Redmine LDAP',
+                                      url: 'https://www.redmine.org/projects/redmine/wiki/RedmineLDAP' },
+                                    { title: 'Redmine LDAP Sync',
+                                      url: 'https://github.com/thorin/redmine_ldap_sync/blob/master/README.md' }] }
+    plugins[plugin_id]
   end
 end

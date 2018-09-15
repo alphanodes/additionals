@@ -2,7 +2,7 @@ Manual
 ======
 
 General section
---------------
+---------------
 
 The general section tab allows you to define some special behaviours for your Redmine installation.
 It is divided into two areas called ``Contents`` and ``Settings``.
@@ -23,7 +23,7 @@ And the following options can be edited by users with administratios rights in t
 
 * Add "Go to top" link. If you have a lot of long pages, it is enabling users to easily return to the top of a page.
 * Change the option for ``External urls`` into default behaviour, open in new window or open with NoReferrer.
-* Activate the ``Smileys and Emoji symbols support`` if you want to use the manual smiley code (e.g. ``:kiss:``). This option is deactivated in the standard setting. If you already use a plugin that supports Smileys and Emojis this option should stay deactivated. For more info on Emoji-Browser support read http://caniemoji.com/. Have a look at the Emoji cheat sheet at https://www.webpagefx.com/tools/emoji-cheat-sheet for available Emoji-Codes.
+* Activate the ``Legacy smileys / Emoji support`` if you want to use the manual smiley code (e.g. ``:kiss:``). This option is deactivated in the standard setting. If you already use a plugin that supports Smileys and Emojis this option should stay deactivated. For more info on Emoji-Browser support read http://caniemoji.com/. Have a look at the Emoji cheat sheet at https://www.webpagefx.com/tools/emoji-cheat-sheet for available Emoji-Codes.
 
 .. note:: Please restart the application server, if you make changes to the external urls settings as well as if you activate the Smileys and Emoji symbol support.
 
@@ -101,7 +101,7 @@ Contents
 
 The following plugin options are available to be edited by users with administration rights in the area **Content**:
 
-* Note for new tickets. Use this section if you want to place important issue notes above every new issue. Keep it short and use a link to a common wiki page with further information.
+* Note for new issues. Use this section if you want to place important issue notes above every new issue. Keep it short and use a link to a common wiki page with further information.
 
 .. note:: You can use wiki syntax for your text, but use it wisely.
 
@@ -172,11 +172,10 @@ Settings
 In the **Settings** area of the menu tab there are the following functions available.
 
 * Enter a ``Custom help URL`` instead of linking to the help on Redmine.org. Make sure you restart your application server after your changes.
-* Remove ``Help`` from top menu in order to keep the menu shorter.
 * Remove ``My Page`` from top menu in order you don't want your users to use this page.
 
 User section
-----------------
+------------
 
 In case you want to use a SPAM protection for the user registration page you can activate a spam protection function in this area which is based on the honeypot strategy to provide a better user experience.
 We use the simple and flexible SPAM protection solution for Rails applications called ``invisible_captcha`` for it.
@@ -190,8 +189,35 @@ Web APIs section
 
 In case you want to use the Gmap Macro you have to implement your Google API Key into the field ``Google Maps Embed API Key`` first. After this you can use the Macro everywhere inside Redmine (Wiki, Issues - everywhere you use wiki syntax).
 
-Macros section
---------------
+Help menu
+---------
+
+We have implemented a help symbol in the global top menu of the header section that opens the new help menu.
+
+There you find useful manual links to various Redmine related topics which will automatically be implemented, when the plugin has been installed. The menu is divided into two parts.
+
+* There is a menu only for Redmine users without administration rights.
+* There is a menu extension for Redmine users with administration rights.
+
+The following menu items are currently implemented if a plugin is installed, that supports this additionals-function:
+
+* FontAwesome icons
+* Redmine macros (for more information see: Macros)
+* Redmine guide
+* Redmine changelog
+* Redmine Security Advisories
+* Redmine Upgrade
+
+Known external plugins that have a user manual and support this feature are currently:
+
+* additionals
+* redmine_privacy_terms
+* redmine_db
+* redmine_passwords
+
+
+Macros
+++++++
 
 Because it's sometimes hard to remember what kind of macros you can use in your Redmine installation we implemented the macro section.
 Here is simply displayed a list of all available Redmine macros of your installation, which are provided by Redmine in general and the installed Redmine plugins.

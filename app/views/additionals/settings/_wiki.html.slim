@@ -23,11 +23,6 @@ br
 h3 = l(:label_pdf_wiki_settings)
 
 p
-  = content_tag(:label, l(:label_wiki_pdf_header))
-  = text_area_tag 'settings[wiki_pdf_header]', @settings[:wiki_pdf_header], class: 'wiki-edit', rows: 10
-  em.info
-    = l(:wiki_pdf_header_info)
-p
   = content_tag(:label, l(:label_wiki_pdf_remove_title))
   = check_box_tag 'settings[wiki_pdf_remove_title]', 1, @settings[:wiki_pdf_remove_title].to_i == 1
   em.info

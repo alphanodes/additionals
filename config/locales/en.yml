@@ -126,7 +126,6 @@ en:
   label_user_list: "User list"
   label_web_apis: Web APIs
   label_weekly: weekly
-  label_wiki_pdf_header: Wiki PDF header
   label_wiki_pdf_remove_attachments: Remove attachments from PDF view
   label_wiki_pdf_remove_title: Remove Wiki title from PDF view
   label_yearly: yearly
@@ -158,7 +157,6 @@ en:
   top_projects_help: Here you can define contents and settings for your project page.
   top_rules_help: "Here you can define rules, which are used in issues of all projects."
   top_wiki_help: Here you can define contents and settings for your Wiki.
-  wiki_pdf_header_info: This text block will be displayed on the first page before the regular Wiki content in the PDF view. Macro use is very restricted, here.
   wiki_pdf_remove_attachments_info: When active the attached Wiki files will not be displayed in PDF view.
   wiki_pdf_remove_title_info: When active the Wiki title info will not be displayed in PDF view.
   label_help_integration: Online help integration

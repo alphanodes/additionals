@@ -7,18 +7,6 @@ module AdditionalsWikiPdfHelper
     pdf.alias_nb_pages
     pdf.footer_date = format_date(User.current.today)
     pdf.add_page
-    if Additionals.settings[:wiki_pdf_header].present?
-      pdf.SetFontStyle('', 9)
-      pdf.RDMwriteFormattedCell(100,
-                                5,
-                                '',
-                                '',
-                                textilizable(Additionals.settings[:wiki_pdf_header],
-                                             only_path: false,
-                                             edit_section_links: false,
-                                             headings: false,
-                                             inline_attachments: false))
-    end
     unless Additionals.setting?(:wiki_pdf_remove_title)
       pdf.SetFontStyle('B', 11)
       pdf.RDMMultiCell(190, 5,

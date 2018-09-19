@@ -126,7 +126,6 @@
   label_user_list: "用戶列表"
   label_web_apis: Web APIs
   label_weekly: "每周"
-  label_wiki_pdf_header: "Wiki PDF 頁首"
   label_wiki_pdf_remove_attachments: "在 PDF 中刪除附件"
   label_wiki_pdf_remove_title: "在 PDF 中刪除標題"
   label_yearly: "每年"
@@ -158,7 +157,6 @@
   top_projects_help: "您可以在此自訂專案清單頁的內容和設定。"
   top_rules_help: "您可以在此自訂議題處理的相關規則。"
   top_wiki_help: "您可以在此自訂Wiki的內容和設定。"
-  wiki_pdf_header_info: "該訊息將顯示在PDF第一頁頁首。此處macros指令支援有限。"
   wiki_pdf_remove_attachments_info: "當啟用時，Wiki附件將不會顯示在PDF中。"
   wiki_pdf_remove_title_info: "當啟用時，Wiki標題訊息不會顯示在PDF中"
   label_help_integration: Online help integration

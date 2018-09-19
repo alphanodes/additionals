@@ -126,7 +126,6 @@ de:
   label_user_list: "Benutzerliste"
   label_web_apis: Web APIs
   label_weekly: wöchentlich
-  label_wiki_pdf_header: Wiki PDF Kopfzeile
   label_wiki_pdf_remove_attachments: Dateianhänge nicht anzeigen
   label_wiki_pdf_remove_title: Wiki Titel nicht anzeigen
   label_yearly: jährlich
@@ -158,7 +157,6 @@ de:
   top_projects_help: Hier kannst Du Inhalte und Einstellungen zu Projekten festlegen.
   top_rules_help: "Hier können Regeln konfiguriert werden, die den Umgang mit Tickets festlegen. Sobald eine Regel aktiviert wurde, wirkt sich diese auf alle Projekte aus."
   top_wiki_help: Hier kannst Du Inhalte und Einstellungen bzg. der Wiki festlegen.
-  wiki_pdf_header_info: Dieser Textblock wir auf der ersten Seite vor dem eigentlichen Inhalt der Wiki Seite in der PDF Ansicht angezeigt. Die Makros sind hier nur eingeschränkt einsetzbar.
   wiki_pdf_remove_attachments_info: Wenn aktiv, werden die an der Wiki Seite angehängten Dateien nicht in der PDF Ansicht angezeigt.
   wiki_pdf_remove_title_info: Wenn aktiv, wird der Wiki Titel nicht in der PDF Ansicht angezeigt.
   label_help_integration: Online Hilfe Integration

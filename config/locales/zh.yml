@@ -126,7 +126,6 @@ zh:
   label_user_list: "用户列表"
   label_web_apis: Web APIs
   label_weekly: 每周
-  label_wiki_pdf_header: Wiki PDF 页头
   label_wiki_pdf_remove_attachments: 从 PDF 中删除附件
   label_wiki_pdf_remove_title: 从 PDF 中删除 WIKI 标题
   label_yearly: 每年
@@ -158,7 +157,6 @@ zh:
   top_projects_help: 您可以在此定义项目页的内容和设置。
   top_rules_help: "您可以在此定义用于问题处理的相关规则。"
   top_wiki_help: 您可以在此定义 WIKI 的内容及设置。
-  wiki_pdf_header_info: 该文本快将显示在 PDF 视图中的常规 WIKI 内容之前的第一页上。此处宏命令的使用非常有限。
   wiki_pdf_remove_attachments_info:  当启用时，WIKI 附件将不会显示在PDF视图中。
   wiki_pdf_remove_title_info: 当启用时，WIKI 标题信息将不会显示在PDF视图中。
   label_help_integration: Online help integration

@@ -32,6 +32,5 @@ project_overview_content: 'Go to admin area and define a nice wiki text here as 
 remove_help: 0
 remove_mypage: 0
 remove_news: 0
-wiki_pdf_header: ''
 wiki_pdf_remove_attachments: 0
 wiki_pdf_remove_title: 0

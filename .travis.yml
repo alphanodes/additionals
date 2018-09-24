@@ -1,9 +1,9 @@
 language: ruby
 
 rvm:
-  - 2.4.1
-  - 2.3.4
-  - 2.2.7
+  - 2.4.4
+  - 2.3.7
+  - 2.2.10
 
 env:
   - REDMINE_VER=3.4-stable DB=postgresql
@@ -22,18 +22,13 @@ before_install:
   - export BUNDLE_GEMFILE=$REDMINE_PATH/Gemfile
   - git clone $REDMINE_GIT_REPO $REDMINE_PATH
   - cd $REDMINE_PATH
-  - if [[ "$REDMINE_VER" == "master" ]]; then wget https://www.redmine.org/attachments/download/21044/use_migration_context_with_test2.patch; fi
-  - if [[ "$REDMINE_VER" == "master" ]]; then patch -p0 < use_migration_context_with_test2.patch; fi
   - if [[ "$REDMINE_VER" != "master" ]]; then git checkout -b $REDMINE_VER origin/$REDMINE_VER; fi
   - ln -s $TRAVIS_BUILD_DIR $REDMINE_PATH/plugins/$PLUGIN_NAME
   - cp $TRAVIS_BUILD_DIR/test/support/additional_environment.rb $REDMINE_PATH/config/
   - cp $TRAVIS_BUILD_DIR/test/support/database-$DB-travis.yml $REDMINE_PATH/config/database.yml
 
 before_script:
-  # - bundle exec rake redmine:load_default_data REDMINE_LANG=en
-  # - bundle exec rake db:structure:dump
   - psql -c 'create database travis_ci_test;' -U postgres
-  # - bundle exec rake db:create
   - bundle exec rake db:migrate
   - bundle exec rake redmine:plugins:migrate
 

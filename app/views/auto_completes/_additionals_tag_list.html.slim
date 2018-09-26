@@ -1,1 +1,1 @@
-== @tags.map(&:name).to_json
+== @tags.collect {|tag| { 'id' => tag.name, 'text' => tag.name } }.to_json

@@ -286,11 +286,6 @@ module Additionals
       additionals_include_js('d3plus.full.min')
     end
 
-    def additionals_load_tag_it
-      additionals_include_css('jquery.tagit') +
-        additionals_include_js('tag-it')
-    end
-
     def additionals_load_zeroclipboard
       additionals_include_js('zeroclipboard_min')
     end

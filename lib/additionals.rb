@@ -53,7 +53,11 @@ module Additionals
     end
 
     def settings
-      ActionController::Parameters.new(Setting[:plugin_additionals])
+      if Rails.version >= '5.2'
+        Setting[:plugin_additionals]
+      else
+        ActionController::Parameters.new(Setting[:plugin_additionals])
+      end
     end
 
     def setting?(value)

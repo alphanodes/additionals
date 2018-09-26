@@ -12,7 +12,7 @@ Metrics/BlockLength:
   Max: 60
 
 Metrics/ClassLength:
-  Max: 500
+  Enabled: false
 
 Metrics/CyclomaticComplexity:
   Max: 20
@@ -24,7 +24,7 @@ Metrics/MethodLength:
   Max: 60
 
 Metrics/ModuleLength:
-  Max: 500
+  Enabled: false
 
 Metrics/PerceivedComplexity:
   Max: 20

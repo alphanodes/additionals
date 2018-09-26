@@ -9,7 +9,7 @@ module AdditionalsIssuesHelper
     if issue.nil?
       s << options_from_collection_for_select(authors, 'id', 'name')
     else
-      authors.unshift(issue.author) if issue.author && !authors.include?(issue.author)
+      s << content_tag('option', issue.author, value: issue.author_id) if issue.author && !authors.include?(issue.author)
       s << options_from_collection_for_select(authors, 'id', 'name', issue.author_id)
     end
     safe_join(s)

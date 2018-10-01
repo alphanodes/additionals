@@ -178,7 +178,6 @@ The following modules are available :
 * nvd3
 * font_awesome
 * notify
-* tag_it
 * zeroclipboard
 
 

@@ -9,13 +9,17 @@ p
   em.info
     = l(:project_overview_content_info)
 
+hr
+
 p
   = content_tag(:label, l(:label_disabled_modules))
-  = select_tag('settings[disabled_modules]',
-               options_for_select(Redmine::AccessControl.available_project_modules_all \
-                                                        .collect { |m| [l_or_humanize(m, prefix: 'project_module_'), m] },
-                                  @settings[:disabled_modules]),
-               multiple: true, style: 'height: 300px;')
+  = hidden_field_tag('settings[disabled_modules][]', '')
+  - Redmine::AccessControl.available_project_modules_all.each do |m|
+    label.block
+      = check_box_tag('settings[disabled_modules][]', m, @settings[:disabled_modules].include?(m.to_s), id: nil)
+      = l_or_humanize(m, prefix: 'project_module_')
+
+  br
 
   em.info
     = l(:disabled_modules_info)

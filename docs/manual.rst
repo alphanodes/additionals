@@ -84,9 +84,6 @@ Changes you can make in the area **PDF Wiki settings** are:
 =================================  =====================================================================================================
 Field                              Description
 =================================  =====================================================================================================
-Wiki PDF header                    This block will display the defined text in front of the regular Wiki page content in the PDF view.
-                                   The use of macros is very restricted. And it is not possible to add images.
-                                   You can only use your Wiki text syntax to adjust the text display.
 Remove Wiki title from PDF view    When activated the general Wiki title info in the page header of the PDF viewl will not be displayed.
 Remove attachments from PDF view   When activated the attachments will not be displayed in the PDF view of a Wiki page.
 =================================  =====================================================================================================
@@ -135,6 +132,13 @@ The following options are available at the moment in the area **Settings** where
 
 .. note:: Use Case: The issue author does not know whom the issue should be assigned to. Or he is unsure who will be responsible for solving the task. In that case the issue for example with the status "To Do" is automatically assigned to the first group, which does contain a user of the pre-selected project manager role. Imagine you have a group called "Support", and there are users assigend to the "Manager" role, this support group will be automatically adressed to solve the issue when the issue author saves it.
 
+* Time logging for issues required.
+
+.. note:: For each issue of the selected trackers, a time logging is necessary if the issue is to receive one of the defined status properties. The time logging is not required if there does no rights exist for the creation of time logging or if the user has the authorization ''Time logging not required''.
+
+Please note, that a user with administration rights will always be able to do all those things a normal user is not allowed to.
+
+
 Projects section
 ----------------
 
@@ -174,7 +178,7 @@ In the **Settings** area of the menu tab there are the following functions avail
 * Enter a ``Custom help URL`` instead of linking to the help on Redmine.org. Make sure you restart your application server after your changes.
 * Remove ``My Page`` from top menu in order you don't want your users to use this page.
 
-User section
+Users section
 ------------
 
 In case you want to use a SPAM protection for the user registration page you can activate a spam protection function in this area which is based on the honeypot strategy to provide a better user experience.
@@ -188,6 +192,7 @@ Web APIs section
 ----------------
 
 In case you want to use the Gmap Macro you have to implement your Google API Key into the field ``Google Maps Embed API Key`` first. After this you can use the Macro everywhere inside Redmine (Wiki, Issues - everywhere you use wiki syntax).
+
 
 Help menu
 ---------

@@ -16,7 +16,7 @@ it:
         issue_current_user_status: "Lo stato selezionato richiede che \" Assegnato a \" sia lo stesso."
         issue_log_time_not_allowed: "è un issue chiuso. Non è consentito registrare il tempo."
         issue_changes_not_allowed: "Questo issue è chiuso, non ha alcun diritto di modificarlo."
-        issue_requires_timelog: "Der ausgewählte Status erfordert, dass eine Zeitbuchung zum Ticket vorhanden ist."
+        issue_requires_timelog: "Lo stato del problema selezionato richiede una registrazione temporale."
   account_login_info: "This text message will be shown at the login page and should be used for registration information. These settings are active in all projects."
   add_go_to_top_info: 'Se hai un sacco di pagine lunghe, è utile aggiungere un To top link principale.'
   button_assign_to_me: Assign to me
@@ -153,7 +153,7 @@ it:
   rule_issue_auto_assign_info: 'Use Case: The issue author does not know whom to assign the issue or who will be responsible for solving the task. In that case the issue for example with the status "To Do" is automatically assigned to the first group, which does contain a user of the pre-selected project manager role.'
   rule_issue_current_user_status_info_html: "Is this function used in combination with the setting option \"Issue status on sidebar\" then the current user will automatically be assigned to the issue while changing the issue status.<br />Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."
   rule_issue_status_change_info: "Use Case: issues should be automatically assigned to author, if the status changes to \"Approval\"."
-  rule_issue_timelog_required_info_html: 'Per ogni biglietto degli inseguitori selezionati, è necessaria una prenotazione a tempo se il biglietto deve ricevere una delle proprietà di stato definite. La prenotazione del tempo non è richiesta se:<br />- non esistono diritti per la creazione di prenotazioni di tempo<br />- l'utente ha l'autorizzazione "Tempo di prenotazione non richiesto" <br />Use case: Per accettare un biglietto con lo stato "Per verificare", è richiesto anche il tempo trascorso.'
+  rule_issue_timelog_required_info_html: "Per ogni biglietto degli inseguitori selezionati, è necessaria una prenotazione a tempo se il biglietto deve ricevere una delle proprietà di stato definite. La prenotazione del tempo non è richiesta se:<br />- non esistono diritti per la creazione di prenotazioni di tempo<br />- l'utente ha l'autorizzazione \"Tempo di prenotazione non richiesto\" <br />Use case: Per accettare un biglietto con lo stato \"Per verificare\", è richiesto anche il tempo trascorso."
   show_always: "Visualizzare sempre"
   show_on_project_overview: "Mostrare sulla panoramica"
   show_on_redmine_home: "Mostrare sulla pagina iniziale"

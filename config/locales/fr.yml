@@ -16,7 +16,7 @@ fr:
         issue_current_user_status: "Le statut sélectionné exige que le \"cessionnaire\" soit vous-même."
         issue_log_time_not_allowed: "est une issue close. Vous n'avez pas le droit de vous connecter."
         issue_changes_not_allowed: "Ce issue est clos, vous n'avez pas le droit de le modifier."
-        issue_requires_timelog: "Der ausgewählte Status erfordert, dass eine Zeitbuchung zum Ticket vorhanden ist."
+        issue_requires_timelog: "Le statut de sortie sélectionné nécessite un enregistrement temporel."
   account_login_info: "Ce message texte sera affiché à la page de connexion et devrait être utilisé pour les informations d'inscription. Ces options sont actives dans tous les projets."
   add_go_to_top_info: "Si vous avez beaucoup de pages longues, il est utile d'ajouter un saut au lien du haut."
   button_assign_to_me: Assign to me
@@ -153,7 +153,7 @@ fr:
   rule_issue_auto_assign_info: "Cas d'utilisation : L'auteur du problème ne sait pas à qui attribuer le problème ou qui sera responsable de la résolution de la tâche. Dans ce cas, le problème par exemple avec le statut \"A faire\" est automatiquement affecté au premier groupe, qui contient un utilisateur du rôle de chef de projet présélectionné."
   rule_issue_current_user_status_info_html: "Si cette fonction est utilisée en combinaison avec l'option de paramétrage \"Etat du problème dans la barre latérale\", l'utilisateur actuel sera automatiquement affecté au problème lors de la modification de l'état du problème.<br />Use Case: Les utilisateurs ne sont autorisés à changer le statut en \"En cours\" que s'ils sont la personne qui travaille réellement sur le problème en ce moment."
   rule_issue_status_change_info: "Cas d'utilisation: les problèmes doivent être automatiquement assignés à autor, si l'état passe à \"Approval\"."
-  rule_issue_timelog_required_info_html: 'Pour chaque ticket des trackers sélectionnés, une réservation temporelle est nécessaire si le ticket doit recevoir l'une des propriétés de statut définies. La réservation de temps n'est pas nécessaire si:<br />- aucun droit n'existe pour créer des réservations de temps <br />- l'utilisateur a l'autorisation "Réservations de temps non nécessaires" <br />Use case: Pour accepter un ticket avec le statut "Vérifier", le temps passé est également requis.'
+  rule_issue_timelog_required_info_html: "Pour chaque ticket des trackers sélectionnés, une réservation temporelle est nécessaire si le ticket doit recevoir l'une des propriétés de statut définies. La réservation de temps n'est pas nécessaire si:<br />- aucun droit n'existe pour créer des réservations de temps <br />- l'utilisateur a l'autorisation \"Réservations de temps non nécessaires\" <br />Use case: Pour accepter un ticket avec le statut \"Vérifier\", le temps passé est également requis."
   show_always: "Afficher toujours"
   show_on_project_overview: "Afficher sur la page de projet overview"
   show_on_redmine_home: "Afficher sur la page de bienvenue"

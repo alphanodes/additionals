@@ -16,7 +16,7 @@ zh:
         issue_current_user_status: "所选状态必须要将 \"指派给\" 设置给你自己。"
         issue_log_time_not_allowed: "问题已关闭。您无法继续在该问题上登记工时信息。"
         issue_changes_not_allowed: "问题已关闭，您无权修改该问题的内容。"
-        issue_requires_timelog: "Der ausgewählte Status erfordert, dass eine Zeitbuchung zum Ticket vorhanden ist."
+        issue_requires_timelog: "The selected issue status requires a time logging."
   account_login_info: "该文本信息将在登录页作为注册信息展现。该选项是全局选项。"
   add_go_to_top_info: '如果您有很长的页面，添加"回到页首"的功能将非常有用。'
   button_assign_to_me: Assign to me

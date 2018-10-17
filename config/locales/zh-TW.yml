@@ -16,7 +16,7 @@
         issue_current_user_status: "所選狀態必須要將 \"被分派者\"設定給你自己。"
         issue_log_time_not_allowed: "議題已關閉，您無法繼續在該議題上登記工時。"
         issue_changes_not_allowed: "議題已關閉，您無權修改該議題的內容。"
-        issue_requires_timelog: "Der ausgewählte Status erfordert, dass eine Zeitbuchung zum Ticket vorhanden ist."
+        issue_requires_timelog: "The selected issue status requires a time logging."
   account_login_info: "在登入頁面顯示的註冊訊息。該選項是通用選項。"
   add_go_to_top_info: "如果你有很長的頁面，建議增加 \"回到頁首\" 的按鈕。"
   button_assign_to_me: Assign to me

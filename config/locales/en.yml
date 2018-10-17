@@ -16,7 +16,7 @@ en:
         issue_current_user_status: "The selected status requires that the \"Assignee\" is yourself."
         issue_log_time_not_allowed: "is a closed issue. You are not allowed to log time at it."
         issue_changes_not_allowed: "This issue is closed, you do not have any right to change it."
-        issue_requires_timelog: "Der ausgewählte Status erfordert, dass eine Zeitbuchung zum Ticket vorhanden ist."
+        issue_requires_timelog: "The selected issue status requires a time logging."
   account_login_info: "This text message will be shown at the login page and should be used for registration information. These settings are active in all projects."
   add_go_to_top_info: 'If you have a lot of long pages, it is helpful to add a jump to top link.'
   button_assign_to_me: Assign to me

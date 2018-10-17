@@ -143,7 +143,7 @@ zh:
   permission_edit_closed_issues: "修改已关闭的问题"
   permission_edit_issue_author: Edit author
   permission_hide_in_memberbox: "在成员信息区域内隐藏"
-  permission_issue_timelog_never_required: Zeitbuchungen nicht erforderlich
+  permission_issue_timelog_never_required: Time logging not required
   permission_log_time_on_closed_issues: "在已关闭的问题中登记工时"
   permission_show_hidden_roles_in_memberbox: "在成员信息区域内显示角色信息"
   project_overview_content_info: "此处可以添加显示在项目概述页面上的文本信息，如您可以链接到一个项目全体成员都可以访问的 WIKI 页。使用该功能的目的是为了形成一个更好的项目标准以维护独特的 WIKi 结构。"
@@ -153,7 +153,7 @@ zh:
   rule_issue_auto_assign_info: '用例：问题作者不知道将问题分配给谁时，或不知道谁应当负责解决具体任务时。在那种情况下，状态为 "To Do" 的问题将自动指派给包含预选项目经理角色用户的第一组。'
   rule_issue_current_user_status_info_html: "Is this function used in combination with the setting option \"Issue status on sidebar\" then the current user will automatically be assigned to the issue while changing the issue status.<br />Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."
   rule_issue_status_change_info: "用例：若问题的状态修改为 \"Approval\"，则自动分配给问题作者。"
-  rule_issue_timelog_required_info_html: 'Zu jedem Ticket der ausgewählten Tracker wird eine Zeitbuchung notwendig, wenn das Ticket einen der festgelegten Status-Eigenschaften erhalten soll. Nicht erforderlich ist die Zeitbuchung, wenn<br />- keine Rechte für das Anlegen von Zeitbuchungen bestehen<br />- der Benutzer die Berechtigung "Zeitbuchungen nicht erforderlich" besitzt<br />Use case: Zur Abnahme eines Tickets mit dem Status "To Verify" werden auch die aufgewendete Zeiten benötigt.'
+  rule_issue_timelog_required_info_html: 'For each ticket of the selected trackers, a time booking is necessary if the ticket is to receive one of the defined status properties. The time booking is not required if:<br />- no rights exist for the creation of time bookings<br />- the user has the authorization "Time logging not required"<br />Use case: For the acceptance of a ticket with the status "To Verify", the time spent is also required.'
   show_always: 总是显示
   show_on_project_overview: 在项目概览页上显示
   show_on_redmine_home: 在欢迎页上显示

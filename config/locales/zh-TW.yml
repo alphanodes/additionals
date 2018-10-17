@@ -143,7 +143,7 @@
   permission_edit_closed_issues: "編輯已結束的議題"
   permission_edit_issue_author: "編輯作者"
   permission_hide_in_memberbox: "在成員訊息區域中隱藏"
-  permission_issue_timelog_never_required: Zeitbuchungen nicht erforderlich
+  permission_issue_timelog_never_required: Time logging not required
   permission_log_time_on_closed_issues: "在已結束的議題中登記工時"
   permission_show_hidden_roles_in_memberbox: "在成員訊息區域中顯示角色訊息"
   project_overview_content_info: "此處可以添加顯示在專案概觀頁上的文字訊息，如您可以連結到一個專案全體成員都可以看到的Wiki頁。使用目的為形成一個更好的專案標準以維護獨特的Wiki結構。"
@@ -153,7 +153,7 @@
   rule_issue_auto_assign_info: "範例：議題作者不知道該把議題分配給誰時，狀態為 \"進行中\" 的議題將自動被分派給專案中第一位角色為 \"管理人員\"的成員。"
   rule_issue_current_user_status_info_html: "Is this function used in combination with the setting option \"Issue status on sidebar\" then the current user will automatically be assigned to the issue while changing the issue status.<br />Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."
   rule_issue_status_change_info: "範例：若議題的狀態修改為 \"已完成\"，則自動被分派給議題作者。"
-  rule_issue_timelog_required_info_html: 'Zu jedem Ticket der ausgewählten Tracker wird eine Zeitbuchung notwendig, wenn das Ticket einen der festgelegten Status-Eigenschaften erhalten soll. Nicht erforderlich ist die Zeitbuchung, wenn<br />- keine Rechte für das Anlegen von Zeitbuchungen bestehen<br />- der Benutzer die Berechtigung "Zeitbuchungen nicht erforderlich" besitzt<br />Use case: Zur Abnahme eines Tickets mit dem Status "To Verify" werden auch die aufgewendete Zeiten benötigt.'
+  rule_issue_timelog_required_info_html: 'For each ticket of the selected trackers, a time booking is necessary if the ticket is to receive one of the defined status properties. The time booking is not required if:<br />- no rights exist for the creation of time bookings<br />- the user has the authorization "Time logging not required"<br />Use case: For the acceptance of a ticket with the status "To Verify", the time spent is also required.'
   show_always: "總是顯示"
   show_on_project_overview: "在專案概觀頁上顯示"
   show_on_redmine_home: "在網站首頁上顯示"

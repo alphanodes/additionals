@@ -114,8 +114,8 @@ ja:
   label_rule_issue_timelog_required: Zeiterfassung für Ticket erforderlich
   label_search_by_name: Search by name
   label_set_icon_from: Set an icon from
-  label_setting_plural: Settings
-  label_settings_macros: "Macros"
+  label_setting_plural: "設定"
+  label_settings_macros: "マクロ"
   label_settings_menu: "メニュー"
   label_show_all: Show all
   label_system_info: System info
@@ -129,10 +129,10 @@ ja:
   label_uptime: Uptime
   label_user_list: "ユーザ一覧"
   label_web_apis: Web APIs
-  label_weekly: weekly
+  label_weekly: "毎週"
   label_wiki_pdf_remove_attachments: Remove attachments from PDF view
   label_wiki_pdf_remove_title: Remove Wiki title from PDF view
-  label_yearly: yearly
+  label_yearly: '毎年'
   legacy_smiley_support_info_html: 'Convert Smileys and Emoji symbols. Activate this option only if Smileys or Emoji are manually typed in by the use of code (e.g. :kiss:). If you use Unicode-Emoji this option should be deactivated. For more info on Emoji-Browser support read <a href="http://caniemoji.com/" target="_blank">http://caniemoji.com/</a>. Have a look at <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> for available Emoji-Codes you can use. <strong>Restart the application server</strong>, in order to activate the settings.'
   menu_roles_info: "Only members of selected roles will see this menu entry."
   new_ticket_message_info: "新規チケットを登録したいときに表示されるメモ書き。例えば、チケット入力のルールや承認規程を掲載する目的にでも使えます。これらの設定は全プロジェクトで有効です。"
@@ -143,7 +143,7 @@ ja:
   permission_edit_closed_issues: "Edit closed issues"
   permission_edit_issue_author: Edit author
   permission_hide_in_memberbox: "Hide in memberbox"
-  permission_issue_timelog_never_required: Zeitbuchungen nicht erforderlich
+  permission_issue_timelog_never_required: '時間の予約は必要ありません'
   permission_log_time_on_closed_issues: "Log time on closed issues"
   permission_show_hidden_roles_in_memberbox: "Show hidden roles in member box"
   project_overview_content_info: "この文章は、プロジェクト概要のページに表示されます。例えば、メンバー全員に公開されているWikiページ等のリンクを貼る等の使い方があります。一つのWiki構造を維持する事で、プロジェクト基準を良くする事が目的です。"
@@ -153,7 +153,7 @@ ja:
   rule_issue_auto_assign_info: 'Use Case: The issue author does not know whom to assign the issue or who will be responsible for solving the task. In that case the issue for example with the status "To Do" is automatically assigned to the first group, which does contain a user of the pre-selected project manager role.'
   rule_issue_current_user_status_info_html: "Is this function used in combination with the setting option \"Issue status on sidebar\" then the current user will automatically be assigned to the issue while changing the issue status.<br />Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."
   rule_issue_status_change_info: "Use Case: issues should be automatically assigned to autor, if the status changes to \"Approval\"."
-  rule_issue_timelog_required_info_html: 'Zu jedem Ticket der ausgewählten Tracker wird eine Zeitbuchung notwendig, wenn das Ticket einen der festgelegten Status-Eigenschaften erhalten soll. Nicht erforderlich ist die Zeitbuchung, wenn<br />- keine Rechte für das Anlegen von Zeitbuchungen bestehen<br />- der Benutzer die Berechtigung "Zeitbuchungen nicht erforderlich" besitzt<br />Use case: Zur Abnahme eines Tickets mit dem Status "To Verify" werden auch die aufgewendete Zeiten benötigt.'
+  rule_issue_timelog_required_info_html: 'For each ticket of the selected trackers, a time booking is necessary if the ticket is to receive one of the defined status properties. The time booking is not required if:<br />- no rights exist for the creation of time bookings<br />- the user has the authorization "Time logging not required"<br />Use case: For the acceptance of a ticket with the status "To Verify", the time spent is also required.'
   show_always: Show always
   show_on_project_overview: Show on project overview
   show_on_redmine_home: Show on welcome page

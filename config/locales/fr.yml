@@ -143,7 +143,7 @@ fr:
   permission_edit_closed_issues: "Éditer les dossiers fermés"
   permission_edit_issue_author: Edit author
   permission_hide_in_memberbox: "Cacher dans la boîte de membre"
-  permission_issue_timelog_never_required: Zeitbuchungen nicht erforderlich
+  permission_issue_timelog_never_required: Enregistrements de temps non requis
   permission_log_time_on_closed_issues: "Log time on closed issues"
   permission_show_hidden_roles_in_memberbox: "Afficher les rôles cachés dans la boîte membre"
   project_overview_content_info: "Ici, vous pouvez ajouter votre texte, qui sera affiché sur la page d'aperçu du projet. Par exemple, vous pouvez créer un lien vers une page wiki, qui est / devrait être accessible à tous les membres de l'équipe. Le but est d'atteindre un meilleur standard de projet et de maintenir une structure wiki unique."
@@ -152,8 +152,8 @@ fr:
   remove_news_info: "Supprimer les dernières nouvelles de la page d'aperçu."
   rule_issue_auto_assign_info: "Cas d'utilisation : L'auteur du problème ne sait pas à qui attribuer le problème ou qui sera responsable de la résolution de la tâche. Dans ce cas, le problème par exemple avec le statut \"A faire\" est automatiquement affecté au premier groupe, qui contient un utilisateur du rôle de chef de projet présélectionné."
   rule_issue_current_user_status_info_html: "Si cette fonction est utilisée en combinaison avec l'option de paramétrage \"Etat du problème dans la barre latérale\", l'utilisateur actuel sera automatiquement affecté au problème lors de la modification de l'état du problème.<br />Use Case: Les utilisateurs ne sont autorisés à changer le statut en \"En cours\" que s'ils sont la personne qui travaille réellement sur le problème en ce moment."
-  rule_issue_status_change_info: "Cas d'utilisation : les problèmes doivent être automatiquement assignés à autor, si l'état passe à \"Approval\"."
-  rule_issue_timelog_required_info_html: 'Zu jedem Ticket der ausgewählten Tracker wird eine Zeitbuchung notwendig, wenn das Ticket einen der festgelegten Status-Eigenschaften erhalten soll. Nicht erforderlich ist die Zeitbuchung, wenn<br />- keine Rechte für das Anlegen von Zeitbuchungen bestehen<br />- der Benutzer die Berechtigung "Zeitbuchungen nicht erforderlich" besitzt<br />Use case: Zur Abnahme eines Tickets mit dem Status "To Verify" werden auch die aufgewendete Zeiten benötigt.'
+  rule_issue_status_change_info: "Cas d'utilisation: les problèmes doivent être automatiquement assignés à autor, si l'état passe à \"Approval\"."
+  rule_issue_timelog_required_info_html: 'Pour chaque ticket des trackers sélectionnés, une réservation temporelle est nécessaire si le ticket doit recevoir l'une des propriétés de statut définies. La réservation de temps n'est pas nécessaire si:<br />- aucun droit n'existe pour créer des réservations de temps <br />- l'utilisateur a l'autorisation "Réservations de temps non nécessaires" <br />Use case: Pour accepter un ticket avec le statut "Vérifier", le temps passé est également requis.'
   show_always: "Afficher toujours"
   show_on_project_overview: "Afficher sur la page de projet overview"
   show_on_redmine_home: "Afficher sur la page de bienvenue"

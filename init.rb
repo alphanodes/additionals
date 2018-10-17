@@ -24,6 +24,7 @@ Redmine::Plugin.register :additionals do
     permission :edit_closed_issues, {}
     permission :edit_issue_author, {}
     permission :change_new_issue_author, {}
+    permission :issue_timelog_never_required, {}
   end
 
   project_module :time_tracking do

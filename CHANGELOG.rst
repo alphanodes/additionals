@@ -5,6 +5,8 @@ Changelog
 ++++++
 
 - FontAwesome 5.4.1 support
+- Usability improvment for change author in issue formular
+- options and permission for issue requires timelog to use status
 
 2.0.14
 ++++++

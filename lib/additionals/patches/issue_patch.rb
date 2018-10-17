@@ -8,6 +8,7 @@ module Additionals
           alias_method :editable?, :editable_with_additionals?
           # TODO: working on issues of dependencies (aroud 20 redmine tests failed with it)
           # validate :validate_change_on_closed
+          validate :validate_timelog_required
           validate :validate_open_sub_issues
           validate :validate_current_user_status
           before_validation :auto_assigned_to
@@ -22,8 +23,16 @@ module Additionals
         end
       end
 
-      # Instance methods with helper functions
       module InstanceMethods
+        def sidbar_change_status_allowed_to(user, new_status_id = nil)
+          statuses = new_statuses_allowed_to(user)
+          if new_status_id.present?
+            statuses.detect { |s| new_status_id == s.id && !timelog_required?(s.id) }
+          else
+            statuses.reject { |s| timelog_required?(s.id) }
+          end
+        end
+
         def add_autowatcher(watcher)
           return if watcher.nil? ||
                     !watcher.is_a?(User) ||
@@ -115,6 +124,26 @@ module Additionals
         return users_list[manager_role].first.id if users_list[manager_role].present?
       end
 
+      def timelog_required?(check_status_id)
+        usr = User.current
+        return false if !Additionals.setting?(:issue_timelog_required) ||
+                        Additionals.settings[:issue_timelog_required_tracker].blank? ||
+                        Additionals.settings[:issue_timelog_required_tracker].exclude?(tracker_id.to_s) ||
+                        Additionals.settings[:issue_timelog_required_status].blank? ||
+                        Additionals.settings[:issue_timelog_required_status].exclude?(check_status_id.to_s) ||
+                        !usr.allowed_to?(:log_time, project) ||
+                        usr.allowed_to?(:issue_timelog_never_required, project) ||
+                        time_entries.present?
+
+        true
+      end
+
+      def validate_timelog_required
+        return true unless timelog_required?(status_id)
+
+        errors.add :base, :issue_requires_timelog
+      end
+
       def validate_change_on_closed
         return true unless closed?
 
@@ -140,9 +169,9 @@ module Additionals
       end
 
       def change_status_with_assigned_to_change
-        return true unless Additionals.setting?(:issue_status_change)
-        return true if Additionals.settings[:issue_status_x].blank?
-        return true if Additionals.settings[:issue_status_y].blank?
+        return true if !Additionals.setting?(:issue_status_change) ||
+                       Additionals.settings[:issue_status_x].blank? ||
+                       Additionals.settings[:issue_status_y].blank?
 
         if !assigned_to_id_changed? &&
            status_id_changed? &&

@@ -10,8 +10,8 @@ global_wiki_header: ''
 global_wiki_sidebar: ''
 google_maps_api_key: ''
 invisible_captcha: 0
-issue_assign_to_x: ''
 issue_assign_to_me: 0
+issue_assign_to_x: ''
 issue_auto_assign_role: ''
 issue_auto_assign_status: ''
 issue_auto_assign: 0
@@ -22,6 +22,9 @@ issue_current_user_status: 0
 issue_status_change: 0
 issue_status_x: ''
 issue_status_y: ''
+issue_timelog_required_status: ''
+issue_timelog_required_tracker: ''
+issue_timelog_required: 0
 legacy_smiley_support: 0
 new_issue_on_profile: 0
 new_ticket_message: "Don't forget to define acceptance criteria!"

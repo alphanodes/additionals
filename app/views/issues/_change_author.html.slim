@@ -2,6 +2,8 @@
   - author_options = issue_author_options_for_select(issue.project, issue)
   - if author_options.present?
     p#change_author
-      = form.select :author_id, author_options, required: true
+      = form.label_for_field :author_id
+      = link_to_function content_tag(:span, l(:button_edit), class: 'icon icon-edit'), '$(this).hide(); $("#issue_author_id").show()'
+      = form.select :author_id, author_options, { required: true, no_label: true }, { style: "display: none" }
     javascript:
       $('#change_author').insertBefore($('#issue_tracker_id').parent());

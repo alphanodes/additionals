@@ -12,7 +12,9 @@ class AdditionalsTag
     joins << "JOIN #{table_name} " \
              "ON #{table_name}.id = #{RedmineCrm::Tagging.table_name}.taggable_id " \
              "AND #{RedmineCrm::Tagging.table_name}.taggable_type = '#{klass}' "
-    joins << "JOIN #{Project.table_name} ON #{table_name}.project_id = #{Project.table_name}.id " if options[:project]
+    if options[:project] || !options[:without_projects]
+      joins << "JOIN #{Project.table_name} ON #{table_name}.project_id = #{Project.table_name}.id "
+    end
 
     scope = scope.select("#{RedmineCrm::Tag.table_name}.*, " \
                           "COUNT(DISTINCT #{RedmineCrm::Tagging.table_name}.taggable_id) AS count")

@@ -165,3 +165,5 @@ fr:
   top_wiki_help: "Ici vous pouvez définir le contenu et les paramètres de votre Wiki."
   wiki_pdf_remove_attachments_info: "Lorsqu'ils sont actifs, les fichiers Wiki joints ne seront pas affichés en vue PDF."
   wiki_pdf_remove_title_info: "Lorsqu'elle est active, l'information sur le titre du wiki ne sera pas affichée dans la vue PDF."
+  label_rule_issue_freezed_with_close: Geschlossene Ticket sind nicht zu bearbeiten
+  rule_issue_freezed_with_close_info: Wird diese Option aktiviert, sind geschlossene Ticket nicht mehr zu bearbeiten und es können auch keine Kommentare angehängt werden. Auch über Mail oder die API kann das Ticket nicht verändert werden. Besitzt ein Benutzer das Recht "Geschlossene Ticket bearbeiten", gilt für diesen Benutzer diese Einschränkung nicht.

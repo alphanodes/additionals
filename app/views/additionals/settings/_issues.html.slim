@@ -28,6 +28,11 @@ p
 p
   = content_tag(:label, l(:label_rule_issue_close_with_open_children))
   = check_box_tag 'settings[issue_close_with_open_children]', 1, @settings[:issue_close_with_open_children].to_i == 1
+p
+  = content_tag(:label, l(:label_rule_issue_freezed_with_close))
+  = check_box_tag 'settings[issue_freezed_with_close]', 1, @settings[:issue_freezed_with_close].to_i == 1
+em.info = t(:rule_issue_freezed_with_close_info)
+
 br
 
 - rule_status = IssueStatus.sorted

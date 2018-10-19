@@ -6,8 +6,7 @@ module Additionals
         base.class_eval do
           alias_method :editable_without_additionals?, :editable?
           alias_method :editable?, :editable_with_additionals?
-          # TODO: working on issues of dependencies (aroud 20 redmine tests failed with it)
-          # validate :validate_change_on_closed
+          validate :validate_change_on_closed
           validate :validate_timelog_required
           validate :validate_open_sub_issues
           validate :validate_current_user_status
@@ -63,6 +62,7 @@ module Additionals
         def editable_with_additionals?(user = User.current)
           return false unless editable_without_additionals?(user)
           return true unless closed?
+          return true unless Additionals.setting?(:issue_freezed_with_close)
 
           user.allowed_to?(:edit_closed_issues, project)
         end
@@ -145,7 +145,7 @@ module Additionals
       end
 
       def validate_change_on_closed
-        return true unless closed?
+        return true if !closed? || new_record? || !Additionals.setting?(:issue_freezed_with_close)
 
         errors.add :base, :issue_changes_not_allowed unless User.current.allowed_to?(:edit_closed_issues, project)
       end

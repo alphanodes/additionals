@@ -9,6 +9,7 @@ module Additionals
     render_on(:view_layouts_base_body_bottom, partial: 'additionals/body_bottom')
 
     render_on(:view_account_login_bottom, partial: 'login_text')
+    render_on(:view_issues_context_menu_start, partial: 'additionals_closed_issues')
     render_on(:view_issues_bulk_edit_details_bottom, partial: 'change_author_bulk')
     render_on(:view_issues_form_details_bottom, partial: 'change_author')
     render_on(:view_issues_new_top, partial: 'new_ticket_message')

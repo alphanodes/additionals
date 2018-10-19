@@ -165,3 +165,5 @@
   top_wiki_help: "您可以在此自訂Wiki的內容和設定。"
   wiki_pdf_remove_attachments_info: "當啟用時，Wiki附件將不會顯示在PDF中。"
   wiki_pdf_remove_title_info: "當啟用時，Wiki標題訊息不會顯示在PDF中"
+  label_rule_issue_freezed_with_close: Geschlossene Ticket sind nicht zu bearbeiten
+  rule_issue_freezed_with_close_info: Wird diese Option aktiviert, sind geschlossene Ticket nicht mehr zu bearbeiten und es können auch keine Kommentare angehängt werden. Auch über Mail oder die API kann das Ticket nicht verändert werden. Besitzt ein Benutzer das Recht "Geschlossene Ticket bearbeiten", gilt für diesen Benutzer diese Einschränkung nicht.

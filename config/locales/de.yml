@@ -165,5 +165,5 @@ de:
   top_wiki_help: Hier kannst Du Inhalte und Einstellungen bzg. der Wiki festlegen.
   wiki_pdf_remove_attachments_info: Wenn aktiv, werden die an der Wiki Seite angehängten Dateien nicht in der PDF Ansicht angezeigt.
   wiki_pdf_remove_title_info: Wenn aktiv, wird der Wiki Titel nicht in der PDF Ansicht angezeigt.
-  label_rule_issue_freezed_with_close: Geschlossene Ticket sind nicht zu bearbeiten
-  rule_issue_freezed_with_close_info: Wird diese Option aktiviert, sind geschlossene Ticket nicht mehr zu bearbeiten und es können auch keine Kommentare angehängt werden. Auch über Mail oder die API kann das Ticket nicht verändert werden. Besitzt ein Benutzer das Recht "Geschlossene Ticket bearbeiten", gilt für diesen Benutzer diese Einschränkung nicht.
+  label_rule_issue_freezed_with_close: Bearbeitung geschlossener Tickets verbieten (Freeze)
+  rule_issue_freezed_with_close_info: Wird diese Option aktiviert können bereits geschlossene Tickets nicht mehr bearbeitet und kommentiert werden. Auch nicht via Mail oder API. Für Benutzerrollen mit dem Recht "Geschlossene Tickets bearbeiten" gilt diese Einschränkung nicht.

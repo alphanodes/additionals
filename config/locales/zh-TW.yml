@@ -111,7 +111,7 @@
   label_rule_issue_close_with_open_children: "子任務中若有狀態為開啟中的議題不能被結束。"
   label_rule_issue_current_user_status: " \"被分派者\"為目前用戶時，議題狀態只能被設定為 X 。"
   label_rule_issue_status_change: "若未修改 \"被分派者\" ，且議題狀態要從 X 變更為 Y ，則該議題必須被分派給議題作者。"
-  label_rule_issue_timelog_required: Zeiterfassung für Ticket erforderlich
+  label_rule_issue_timelog_required: Time log for issues required
   label_search_by_name: "按名稱搜尋"
   label_set_icon_from: "圖示設定自"
   label_setting_plural: "設定"

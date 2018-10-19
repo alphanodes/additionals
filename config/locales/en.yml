@@ -111,7 +111,7 @@ en:
   label_rule_issue_close_with_open_children: Issues with open sub-issues cannot be closed
   label_rule_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
   label_rule_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
-  label_rule_issue_timelog_required: Zeiterfassung für Ticket erforderlich
+  label_rule_issue_timelog_required: Time log for issues required
   label_search_by_name: Search by name
   label_set_icon_from: Set an icon from
   label_setting_plural: Settings

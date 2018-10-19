@@ -111,7 +111,7 @@ zh:
   label_rule_issue_close_with_open_children: 包含打开状态子任务的问题不能关闭。
   label_rule_issue_current_user_status: "当前问题状态 X 仅在 \"指派给\" 的值设置为当前用户时生效。"
   label_rule_issue_status_change: "若 \"指派给\" 的值未修改，且问题状态要从 X 变更为 Y，那么该问题必须指派给问题作者自己。"
-  label_rule_issue_timelog_required: Zeiterfassung für Ticket erforderlich
+  label_rule_issue_timelog_required: Time log for issues required
   label_search_by_name: 按名称搜索
   label_set_icon_from: 图标设置自
   label_setting_plural: 设置

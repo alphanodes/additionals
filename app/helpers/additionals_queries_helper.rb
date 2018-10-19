@@ -93,7 +93,7 @@ module AdditionalsQueriesHelper
     scope = scope.order(last_login_on: :desc)
                  .limit(params[:limit] || Additionals::SELECT2_INIT_ENTRIES)
     @users = scope.to_a.sort! { |x, y| x.name <=> y.name }
-    render layout: false, partial: 'users'
+    render layout: false, partial: 'auto_completes/users'
   end
 
   def additionals_query_to_xlsx(items, query, options = {})

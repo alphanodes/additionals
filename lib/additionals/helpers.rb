@@ -208,6 +208,8 @@ module Additionals
         # if option_tags is not an array, it should be an object
         option_tags = options_for_select([[option_tags.try(:name), option_tags.try(:id)]], option_tags.try(:id))
       end
+      options[:project] = @project if @project.present? && options[:project].blank?
+
       s = []
       s << hidden_field_tag("#{name}[]", '') if options[:multiple]
       s << select_tag(name,
@@ -219,7 +221,7 @@ module Additionals
                   partial: 'additionals/select2_ajax_call.js',
                   formats: [:js],
                   locals: { field_id: sanitize_to_id(name),
-                            ajax_url: send("autocomplete_#{type}_path", project_id: @project, user_id: options[:user_id]),
+                            ajax_url: send("#{type}_path", project_id: options[:project], user_id: options[:user_id]),
                             options: options })
       safe_join(s)
     end

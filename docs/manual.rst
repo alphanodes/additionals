@@ -115,6 +115,7 @@ The following options are available at the moment in the area **Settings** where
 
 * Add involved users as watcher automatically. This means, everyone who is or has been involved in the issue (Assignee, Editor, Author etc.) will automatically be notified about further changes. At the same time the user finds an additional option in his user account edit mode called ``Autowatch involved issues`` (see figure 1). Deactivate this option if you don't want to be notified.
 * Issues with open sub-issues cannot be closed.
+* Disallow editing of closed issues (Freeze). This option should be activated if already closed issues should no longer be edited and commented.
 * If "Assignee" is unchanged and the issue status changed from x to y, than the author is assigned to the issue.
 
 .. figure::  images/account-preferences.jpg
@@ -122,7 +123,7 @@ The following options are available at the moment in the area **Settings** where
 
    Figure 1: Deactivate this option in your account in case you don't want to be notified even if the admin activated it.
 
-.. note:: Use Case for this option: issues should be automatically assigned to author, if the status changes to *Approval*.
+.. note:: Use Case for this option is that issues should be automatically assigned to author, if the status changes to *Approval*.
 
 * Current issue status x is only allowed if *Assignee* is the current user.
 
@@ -132,9 +133,9 @@ The following options are available at the moment in the area **Settings** where
 
 .. note:: Use Case: The issue author does not know whom the issue should be assigned to. Or he is unsure who will be responsible for solving the task. In that case the issue for example with the status "To Do" is automatically assigned to the first group, which does contain a user of the pre-selected project manager role. Imagine you have a group called "Support", and there are users assigend to the "Manager" role, this support group will be automatically adressed to solve the issue when the issue author saves it.
 
-* Time logging for issues required.
+* Time log for issues required.
 
-.. note:: For each issue of the selected trackers, a time logging is necessary if the issue is to receive one of the defined status properties. The time logging is not required if there does no rights exist for the creation of time logging or if the user has the authorization ''Time logging not required''.
+.. note:: For each issue of the selected trackers, a time logging is necessary if the issue is to receive one of the defined status properties. The time logging is not required if there does no rights exist for the creation of time logging or if the user has the authorization *Time logging not required*.
 
 Please note, that a user with administration rights will always be able to do all those things a normal user is not allowed to.
 

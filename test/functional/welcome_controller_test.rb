@@ -67,4 +67,22 @@ class WelcomeControllerTest < Additionals::ControllerTest
       assert_select 'div.overview-top', count: 0
     end
   end
+
+  def test_show_index_with_help_menu
+    with_additionals_settings(remove_help: 0) do
+      @request.session[:user_id] = 1
+      get :index
+
+      assert_select 'div#top-menu a.help'
+    end
+  end
+
+  def test_show_index_without_help_menu
+    with_additionals_settings(remove_help: 1) do
+      @request.session[:user_id] = 1
+      get :index
+
+      assert_select 'div#top-menu a.help', count: 0
+    end
+  end
 end

@@ -5,9 +5,10 @@ Changelog
 ++++++
 
 - FontAwesome 5.4.1 support
-- Usability improvment for change author in issue formular
+- Usability improvement for change author in issue formular
 - options and permission for issue requires timelog to use status
 - New option to freeze issues on close. With permission "edit closed issue" user can break this rule.
+- Fix problem with help menu and other redmine plugins (compatibility problem with other plugins)
 
 2.0.14
 ++++++

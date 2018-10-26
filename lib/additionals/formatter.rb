@@ -1,31 +1,29 @@
 # Formater
 module Additionals
   module Formatter
-    SMILEYS = {
-      'smiley'      => ':-?\)',                  # :)
-      'smiley2'     => '=-?\)',                  # =)
-      'laughing'    => ':-?D',                   # :D
-      'laughing2'   => '[=]-?D',                 # =D
-      'crying'      => '[=:][\'*]\(',            # :'(
-      'sad'         => '[=:]-?\(',               # :(
-      'wink'        => ';-?[)D]',                # ;)
-      'cheeky'      => '[=:]-?[Ppb]',            # :P
-      'shock'       => '[=:]-?[Oo0]',            # :O
-      'annoyed'     => '[=:]-?[\\/]',            # :/
-      'confuse'     => '[=:]-?S',                # :S
-      'straight'    => '[=:]-?[\|\]]',           # :|
-      'embarrassed' => '[=:]-?[Xx]',             # :X
-      'kiss'        => '[=:]-?\*',               # :*
-      'angel'       => '[Oo][=:]-?\)',           # O:)
-      'evil'        => '>[=:;]-?[)(]',           # >:)
-      'rock'        => 'B-?\)',                  # B)
-      'rose'        => '@[)\}][-\\/\',;()>\}]*', # @}->-
-      'exclamation' => '[\[(]![\])]',            # (!)
-      'question'    => '[\[(]\?[\])]',           # (?)
-      'check'       => '[\[(]\\/[\])]',          # (/)
-      'success'     => '[\[(]v[\])]',            # (v)
-      'failure'     => '[\[(]x[\])]'             # (x)
-    }.freeze
+    SMILEYS = { 'smiley' => ':-?\)', # :)
+                'smiley2' => '=-?\)', # =)
+                'laughing' => ':-?D', # :D
+                'laughing2' => '[=]-?D', # =D
+                'crying' => '[=:][\'*]\(', # :'(
+                'sad' => '[=:]-?\(', # :(
+                'wink' => ';-?[)D]', # ;)
+                'cheeky' => '[=:]-?[Ppb]', # :P
+                'shock' => '[=:]-?[Oo0]', # :O
+                'annoyed' => '[=:]-?[\\/]', # :/
+                'confuse' => '[=:]-?S', # :S
+                'straight' => '[=:]-?[\|\]]', # :|
+                'embarrassed' => '[=:]-?[Xx]', # :X
+                'kiss' => '[=:]-?\*', # :*
+                'angel' => '[Oo][=:]-?\)', # O:)
+                'evil' => '>[=:;]-?[)(]', # >:)
+                'rock' => 'B-?\)', # B)
+                'rose' => '@[)\}][-\\/\',;()>\}]*', # @}->-
+                'exclamation' => '[\[(]![\])]', # (!)
+                'question' => '[\[(]\?[\])]', # (?)
+                'check' => '[\[(]\\/[\])]', # (/)
+                'success' => '[\[(]v[\])]', # (v)
+                'failure' => '[\[(]x[\])]' }.freeze # (x)
 
     def render_inline_smileys(text)
       return text if text.blank?

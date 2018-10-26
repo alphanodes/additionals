@@ -30,7 +30,9 @@ linters:
       - Metrics/LineLength
       - Naming/FileName
       - Rails/OutputSafety
+      - Style/ConditionalAssignment
       - Style/FrozenStringLiteralComment
+      - Style/IdenticalConditionalBranches
       - Style/IfUnlessModifier
       - Style/Next
       - Style/WhileUntilModifier

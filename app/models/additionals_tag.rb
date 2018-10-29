@@ -7,9 +7,7 @@ class AdditionalsTag
     scope = scope.where("LOWER(#{RedmineCrm::Tag.table_name}.name) LIKE ?", "%#{options[:name_like].downcase}%") if options[:name_like]
     scope = scope.where("#{RedmineCrm::Tag.table_name}.name=?", options[:name]) if options[:name]
     scope = scope.where("#{RedmineCrm::Tagging.table_name}.taggable_id!=?", options[:exclude_id]) if options[:exclude_id]
-    if options[:where_field].present? && options[:where_value]
-      scope = scope.where("#{table_name}.#{options[:where_field]}=?", options[:where_value])
-    end
+    scope = scope.where(options[:where_field] => options[:where_value]) if options[:where_field].present? && options[:where_value]
 
     joins = []
     joins << "JOIN #{RedmineCrm::Tagging.table_name} " \

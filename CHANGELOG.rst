@@ -9,6 +9,7 @@ Changelog
 - options and permission for issue requires timelog to use status
 - New option to freeze issues on close. With permission "edit closed issue" user can break this rule.
 - Fix problem with help menu and other redmine plugins (compatibility problem with other plugins)
+- Fix problem with disabled users and changing author for issues
 
 2.0.14
 ++++++

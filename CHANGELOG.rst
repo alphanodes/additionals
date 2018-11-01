@@ -4,7 +4,7 @@ Changelog
 2.0.15
 ++++++
 
-- FontAwesome 5.4.1 support
+- FontAwesome 5.4.2 support
 - Usability improvement for change author in issue formular
 - options and permission for issue requires timelog to use status
 - New option to freeze issues on close. With permission "edit closed issue" user can break this rule.

@@ -7,6 +7,8 @@ p
   em.info = l(:new_ticket_message_info)
 
 br
+hr
+
 h3 = l(:label_setting_plural)
 .info = t(:top_rules_help)
 
@@ -26,6 +28,11 @@ p
 p
   = content_tag(:label, l(:label_rule_issue_close_with_open_children))
   = check_box_tag 'settings[issue_close_with_open_children]', 1, @settings[:issue_close_with_open_children].to_i == 1
+p
+  = content_tag(:label, l(:label_rule_issue_freezed_with_close))
+  = check_box_tag 'settings[issue_freezed_with_close]', 1, @settings[:issue_freezed_with_close].to_i == 1
+em.info = t(:rule_issue_freezed_with_close_info)
+
 br
 
 - rule_status = IssueStatus.sorted
@@ -81,3 +88,25 @@ p
                  options_from_collection_for_select(Role.givable.sorted, :id, :name, @settings[:issue_auto_assign_role]),
                  multiple: false, style: 'width:150px; vertical-align: top'
 em.info = t(:rule_issue_auto_assign_info)
+
+br
+br
+p
+  = content_tag(:label, l(:label_rule_issue_timelog_required))
+  = check_box_tag 'settings[issue_timelog_required]', 1, @settings[:issue_timelog_required].to_i == 1
+  span[style="vertical-align: top; margin-left: 15px;"]
+    = l(:label_tracker_plural)
+    | :
+    = select_tag 'settings[issue_timelog_required_tracker]',
+                 options_for_select(Tracker.all.sorted.collect { |column| [column.name, column.id] },
+                                    @settings[:issue_timelog_required_tracker]),
+                 multiple: true, size: 6, style: 'width:150px'
+    '
+    = l(:field_status)
+    | :
+    = select_tag 'settings[issue_timelog_required_status]',
+                 options_for_select(rule_status.collect { |column| [column.name, column.id] },
+                                    @settings[:issue_timelog_required_status]),
+                 multiple: true, size: 6, style: 'width:150px'
+em.info
+  = t(:rule_issue_timelog_required_info_html)

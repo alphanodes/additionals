@@ -3,8 +3,11 @@ class AdditionalsTag
     table_name = klass.table_name
     scope = RedmineCrm::Tag.where({})
     scope = scope.where("#{Project.table_name}.id = ?", options[:project]) if options[:project]
-    scope = scope.where(tag_access(permission))
+    scope = scope.where(tag_access(permission)) if permission.present?
     scope = scope.where("LOWER(#{RedmineCrm::Tag.table_name}.name) LIKE ?", "%#{options[:name_like].downcase}%") if options[:name_like]
+    scope = scope.where("#{RedmineCrm::Tag.table_name}.name=?", options[:name]) if options[:name]
+    scope = scope.where("#{RedmineCrm::Tagging.table_name}.taggable_id!=?", options[:exclude_id]) if options[:exclude_id]
+    scope = scope.where(options[:where_field] => options[:where_value]) if options[:where_field].present? && options[:where_value]
 
     joins = []
     joins << "JOIN #{RedmineCrm::Tagging.table_name} " \
@@ -12,7 +15,9 @@ class AdditionalsTag
     joins << "JOIN #{table_name} " \
              "ON #{table_name}.id = #{RedmineCrm::Tagging.table_name}.taggable_id " \
              "AND #{RedmineCrm::Tagging.table_name}.taggable_type = '#{klass}' "
-    joins << "JOIN #{Project.table_name} ON #{table_name}.project_id = #{Project.table_name}.id "
+    if options[:project] || !options[:without_projects]
+      joins << "JOIN #{Project.table_name} ON #{table_name}.project_id = #{Project.table_name}.id "
+    end
 
     scope = scope.select("#{RedmineCrm::Tag.table_name}.*, " \
                           "COUNT(DISTINCT #{RedmineCrm::Tagging.table_name}.taggable_id) AS count")

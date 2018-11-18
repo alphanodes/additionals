@@ -1,0 +1,11 @@
+- if Additionals.setting?(:issue_freezed_with_close) && !User.current.allowed_to?(:edit_closed_issues, project)
+  - if @issues.detect(&:closed?)
+    ruby:
+      @safe_attributes = []
+      @can[:edit] = false
+      @can[:edit] = false
+      @allowed_statuses = nil
+      @trackers = nil
+      @can[:add_watchers] = nil
+      @can[:delete] = nil
+      @options_by_custom_field = []

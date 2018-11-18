@@ -29,39 +29,56 @@ class IssueTest < Additionals::TestCase
   end
 
   def test_change_open_issue
-    User.current = User.find(3)
-    issue = Issue.find(7)
-    issue.subject = 'Should be be saved'
-    assert issue.save
+    with_additionals_settings(issue_freezed_with_close: 1) do
+      User.current = User.find(3)
+      issue = Issue.find(7)
+      issue.subject = 'Should be be saved'
+      assert issue.save
+    end
   end
 
   def test_change_closed_issue_with_permission
-    skip 'Validate needs more love to fix dependency problems'
-    User.current = User.find(3)
-    role = Role.create!(name: 'Additionals Tester', permissions: [:edit_closed_issues])
-    Member.where(user_id: User.current).delete_all
-    project = Project.find(1)
-    Member.create!(principal: User.current, project_id: project.id, role_ids: [role.id])
+    with_additionals_settings(issue_freezed_with_close: 1) do
+      User.current = User.find(3)
+      role = Role.create!(name: 'Additionals Tester', permissions: [:edit_closed_issues])
+      Member.where(user_id: User.current).delete_all
+      project = Project.find(1)
+      Member.create!(principal: User.current, project_id: project.id, role_ids: [role.id])
 
-    issue = Issue.find(8)
+      issue = Issue.find(8)
 
-    issue.subject = 'Should be saved'
-    assert issue.save
+      issue.subject = 'Should be saved'
+      assert issue.save
 
-    issue.reload
-    assert_equal 'Should be saved', issue.subject
+      issue.reload
+      assert_equal 'Should be saved', issue.subject
+    end
   end
 
   def test_change_closed_issue_without_permission
-    skip 'Validate needs more love to fix dependency problems'
-    User.current = User.find(3)
-    issue = Issue.find(8)
+    with_additionals_settings(issue_freezed_with_close: 1) do
+      User.current = User.find(3)
+      issue = Issue.find(8)
 
-    assert issue.closed?
-    issue.subject = 'Should be not be saved'
-    assert_not issue.save
-    issue.reload
-    assert_not_equal 'Should be not be saved', issue.subject
+      assert issue.closed?
+      issue.subject = 'Should be not be saved'
+      assert_not issue.save
+      issue.reload
+      assert_not_equal 'Should be not be saved', issue.subject
+    end
+  end
+
+  def test_change_closed_issue_without_permission_but_freezed_disabled
+    with_additionals_settings(issue_freezed_with_close: 0) do
+      User.current = User.find(3)
+      issue = Issue.find(8)
+
+      issue.subject = 'Should be saved'
+      assert issue.save
+
+      issue.reload
+      assert_equal 'Should be saved', issue.subject
+    end
   end
 
   def test_auto_assigned_to

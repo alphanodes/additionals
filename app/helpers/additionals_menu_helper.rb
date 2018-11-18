@@ -108,6 +108,8 @@ module AdditionalsMenuHelper
 
       begin
         plugin_item_base = plugin.id.to_s.camelize.constantize
+      rescue LoadError
+        Rails.logger.debug "Ignore plugin #{plugin.id} for help integration"
       rescue StandardError => e
         raise e unless e.class.to_s == 'NameError'
       end

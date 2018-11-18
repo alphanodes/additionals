@@ -203,23 +203,25 @@ module Additionals
       s
     end
 
-    def auto_complete_select_entries(name, type, option_tags, options = {})
+    def autocomplete_select_entries(name, type, option_tags, options = {})
       unless option_tags.is_a?(String) || option_tags.blank?
         # if option_tags is not an array, it should be an object
         option_tags = options_for_select([[option_tags.try(:name), option_tags.try(:id)]], option_tags.try(:id))
       end
+      options[:project] = @project if @project.present? && options[:project].blank?
+
       s = []
       s << hidden_field_tag("#{name}[]", '') if options[:multiple]
       s << select_tag(name,
                       option_tags,
                       include_blank: options[:include_blank],
                       multiple: options[:multiple],
-                      disabled: options[:disabled], class: "#{type}-relation")
+                      disabled: options[:disabled])
       s << render(layout: false,
                   partial: 'additionals/select2_ajax_call.js',
                   formats: [:js],
                   locals: { field_id: sanitize_to_id(name),
-                            ajax_url: send("auto_complete_#{type}_path", project_id: @project, user_id: options[:user_id]),
+                            ajax_url: send("#{type}_path", project_id: options[:project], user_id: options[:user_id]),
                             options: options })
       safe_join(s)
     end

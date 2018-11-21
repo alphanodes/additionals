@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.0.16
+++++++
+
+- CSS fix for project macro
+
 2.0.15
 ++++++
 

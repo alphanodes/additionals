@@ -300,3 +300,20 @@ div.macro-desc {
   color: #fff;
   background-color: #759fcf;
 }
+
+/* Wiki icon add */
+div.additionals-projects li.project a.icon {
+  margin-left: 3px;
+}
+
+div.additionals-projects li.project.even,
+div.additionals-projects li.project.odd {
+  border-bottom: 1px solid #ddd;
+  padding: 4px;
+  background-color: inherit;
+  list-style-position: inside;
+}
+
+.additionals-projects ul {
+  padding-left: 0;
+}

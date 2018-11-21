@@ -220,7 +220,7 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_select 'div.wiki div.projects li.project'
+    assert_select 'div.wiki div.additionals-projects li.project'
   end
 
   def test_show_with_fa_macro

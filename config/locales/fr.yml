@@ -167,3 +167,5 @@ fr:
   wiki_pdf_remove_title_info: "Lorsqu'elle est active, l'information sur le titre du wiki ne sera pas affichée dans la vue PDF."
   label_rule_issue_freezed_with_close: "Interdire l'édition des questions fermées (freeze)"
   rule_issue_freezed_with_close_info: "Si cette option est activée, les numéros déjà fermés ne peuvent plus être édités et commentés. Pas même par courrier ou API. Cette restriction ne s'applique pas aux rôles utilisateurs avec l'autorisation \"Modifier les problèmes fermés\"."
+  additionals_query_list_defaults: Default columns for list view
+  additionals_query_list_default_totals: Default sums for list view

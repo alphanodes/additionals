@@ -167,3 +167,5 @@ de:
   wiki_pdf_remove_title_info: Wenn aktiv, wird der Wiki Titel nicht in der PDF Ansicht angezeigt.
   label_rule_issue_freezed_with_close: Bearbeitung geschlossener Tickets verbieten (Freeze)
   rule_issue_freezed_with_close_info: Wird diese Option aktiviert können bereits geschlossene Tickets nicht mehr bearbeitet und kommentiert werden. Auch nicht via Mail oder API. Für Benutzerrollen mit dem Recht "Geschlossene Tickets bearbeiten" gilt diese Einschränkung nicht.
+  additionals_query_list_defaults: Standard-Spalten Listenansicht
+  additionals_query_list_default_totals: Standard-Summen in der Listenansicht

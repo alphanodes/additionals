@@ -12,13 +12,6 @@ module AdditionalsQueriesHelper
           params[:set_filter] ||
           session[session_key].nil? ||
           session[session_key][:project_id] != (@project ? @project.id : nil)
-
-      if options[:with_default_query] && !api_request? && %i[op f fields].all? { |k| !params.key?(k) }
-        d_query = query_class.default_query
-        if d_query.present? && query_class.where(id: d_query.id).exists?
-          return additionals_load_query_id(query_class, session_key, d_query.id, options, object_type)
-        end
-      end
       # Give it a name, required to be valid
       @query = query_class.new(name: '_')
       @query.project = @project

@@ -317,3 +317,8 @@ div.additionals-projects li.project.odd {
 .additionals-projects ul {
   padding-left: 0;
 }
+
+/* drop it with Redmine4 */
+.default-query-settings-label label {
+  margin-left: -100px !important;
+}

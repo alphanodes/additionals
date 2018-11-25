@@ -80,7 +80,7 @@ module AdditionalsTagHelper
 
   def additionals_tag_url(tag_name, options = {})
     { controller: controller_name,
-      action: 'index',
+      action: action_name,
       set_filter: 1,
       project_id: @project,
       fields: [:tags],

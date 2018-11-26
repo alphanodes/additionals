@@ -1,0 +1,171 @@
+# Spanish strings
+en:
+  minutes:
+    one: minuto
+    other: minutos
+  hours:
+    one: hora
+    other: horas
+  days:
+    one: día
+    other: días
+  activerecord:
+    errors:
+      messages:
+        issue_cannot_close_with_open_children: "Esta petición solo puede ser cerrada si todas sus sub-peticiones están cerradas."
+        issue_current_user_status: "El estado seleccionado requiere que usted tenga la petición \"Asignada\"."
+        issue_log_time_not_allowed: "es una petición cerrada. Usted no puede asignarle tiempo dedicado."
+        issue_changes_not_allowed: "Esta es una petición cerrada, Usted no dispone de permisos para cambiarla."
+        issue_requires_timelog: "El estado actual de la petición requiere que le asigne el tiempo dedicado."
+  account_login_info: "Este texto será mostrado en la pantalla de inicio de sesión y debe ser utilizado para información sobre el registro. Esta configuración está activa en todos los proyectos."
+  add_go_to_top_info: 'Si tiene muchas páginas largas, es útil agregar el enlace para volver al inicio.'
+  button_assign_to_me: Asignar a mi mismo
+  disabled_modules_info: "Módulos que no estarán disponibles para ser utilizados en los proyectos. Si estos módulos están actualmente activos en proyectos existentes, deberá modificar y guardar esos proyectos primero."
+  error_issue_status_could_not_changed: El estado de la petición no puede ser modificado
+  error_issues_could_not_be_assigned_to_me: La petición no puede ser asignada a mi mismo
+  error_query_statement_invalid: Ocurrió un error ejecutando la consulta y fue registrado. Por favor informe este error al administrador de Redmine.
+  errors_invalid_icon_format: es un código inválido de font-awesome
+  errors_no_or_invalid_arguments: Parámetros inválidos
+  errors_query_does_not_exist: Consulta inexistente
+  external_url_default: "Comportamiento predeterminado"
+  external_url_new_window: "Abrir en una nueva ventana"
+  external_url_noreferrer: "Abrir con NoReferrer"
+  external_urls_info_html: "Especifica el comportamiento para los URL externos."
+  field_autowatch_involved_issue: Automonitorear las peticiones en las que estoy involucrado
+  field_color: Color
+  field_icon: Ícono
+  field_issue_relation_plural: Relaciones de peticiones
+  field_tag_list: Etiquetas
+  field_tag_sidebar_style_cloud: Nube
+  field_tag_sidebar_style_list: Lista
+  field_tags: Etiquetas
+  field_website: Sitio Web
+  global_footer_info: 'Ingrese un pie de página para la wiki de todo el proyecto.'
+  global_sidebar_info: "Ingrese aquí el texto de Barra lateral de wiki. Esta Barra lateral será mostrada en el vistazo del proyecto, las peticiones y las páginas de la Wiki."
+  global_wiki_footer_info: 'Ingrese aquí un pie de página para la Wiki de los proyectos. En caso de que se utilice un encabezado específico para el proyecto con "Wiki Extensions", este texto será mostrado en su lugar.'
+  global_wiki_header_info: 'Ingrese aquí un encabezado para la Wiki de los proyectos. En caso de que se utilice un encabezado específico para el proyecto con "Wiki Extensions", este texto será mostrado en su lugar.'
+  global_wiki_sidebar_info: 'Ingrese aquí un el texto a ser mostrado en la barra lateral de la Wiki. Esta barra lateral solo será mostrada en las Wiki. Puede utilizar este espacio para macros como "Últimas páginas modificadas". En caso de que se utilice una barra lateral de proyecto esté en uso, este texto será mostrado en su lugar.'
+  google_maps_embed_api_html: En caso de querer utilizar el macro Gmap para mostrar mapas de Google necesita ingresar su Clave de API de Google Maps aquí. Luego podrá utilizar el macro y varios parámetros. Mas información acerca de como utilizar estos parametros está disponible en <a href="https://developers.google.com/maps/documentation/embed/guide" target="_blank">https://developers.google.com/maps/documentation/embed/guide</a>. El macro Gmap funciona solamente si se ingresa esta clave.
+  invisible_captcha_info_html: En caso de que esta opción se encuentre activa se activará un sistema de protección de SPAM <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> para la página de registro de usuarios. Esta función solo está disponible si activa el autoregistro.
+  label_access_token: Token de acceso
+  label_account_login: "Texto para la página de inicio de sesión"
+  label_add_go_to_top: 'Agregar "Volver al inicio"'
+  label_add_tags: Agregar etiquetas
+  label_additionals_doc: Documentación de Additionals
+  label_additionals: Additionals
+  label_app_menu: Menú de aplicación
+  label_change_is_private: Cambiar privado/no-privado
+  label_content_plural: Contenido
+  label_custom_menu_items: Entradas de menú personalizadas
+  label_daily: diario
+  label_day: día
+  label_disabled_modules: "Módulos desactivados"
+  label_external_urls: "URLs externos"
+  label_fontawesome_brands: Brands
+  label_fontawesome_regular: Regular
+  label_fontawesome_solid: Solid
+  label_global_footer: "Footer para todo el proyecto"
+  label_global_sidebar: "Barra lateral global"
+  label_global_wiki_footer: "Footer de wiki para todo el proyecto"
+  label_global_wiki_header: "Header de wiki para todo el proyecto"
+  label_global_wiki_sidebar: "Barra lateral de wiki global"
+  label_go_to_top: "Volver al inicio"
+  label_google_maps_embed_api: Google Maps Embed API Key
+  label_help_integration: Integración con la ayuda en línea
+  label_help_manual: manual
+  label_hour: hora
+  label_icon_color: Color de ícono
+  label_invisible_captcha: Protección de SPAM en el registro de usuarios
+  label_issue_assign_to_me: Mostrar "Asignar a mi mismo" en las peticiones
+  label_issue_autowatch_involved: Agregar a los usuarios involucrados como Monitorizadores automáticamente
+  label_issue_change_status_in_sidebar: Estado de las peticiones en la barra lateral
+  label_issue_change_status: Cambiar estado
+  label_last_year: año anterior
+  label_legacy_smiley_support: Soporte de smiley/emoji antiguo
+  label_macro_na: N/D
+  label_macro_plural: macros
+  label_menu_entry: "Menu item"
+  label_monthly: mensual
+  label_new_issue_on_profile: Nueva petición en el perfil de usuario
+  label_new_ticket_message: "Nota para nuevas peticiones"
+  label_open_in_new_windows: Abrir en una nueva ventana
+  label_optional: "opcional"
+  label_overview_bottom: "Vistazo (Abajo)"
+  label_overview_page: "Vistazo"
+  label_overview_right: "Vistazo (Derecha)"
+  label_overview_top: "Vistazo (Arriba)"
+  label_pdf_wiki_settings: Configuración de la Wiki en PDF
+  label_planning: Planificación
+  label_project_list: "Lista de proyectos"
+  label_project_overview_content: "Guía de proyectos"
+  label_query_delete: Eliminar consulta
+  label_query_edit: Editar Consulta
+  label_reddit_subject: Tema de Reddit
+  label_reddit_user_account: Cuenta de usuario de Reddit
+  label_redmine_org_issue: Peticion de Redmine.org
+  label_redmine_org_wiki: Página Wiki de Redmine.org
+  label_remove_help: "Quitar 'Ayuda' del menú superior"
+  label_remove_mypage: "Quitar 'Mi página' del menú superior"
+  label_remove_news: "Quitar 'Últimas noticias' del vistazo de un proyecto"
+  label_rule_issue_auto_assign: "Si \"Asignado a\" no es asignado a un usuario y el estado de la nueva petición es x, entonces la petición es auto asignada al primer grupo con usuarios del rol predefinido."
+  label_rule_issue_close_with_open_children: Peticiones con sub-peticiones abiertas no pueden ser cerradas
+  label_rule_issue_current_user_status: "Estado de la petición actual x solo está permitido si la petición está asignada al usuario actual."
+  label_rule_issue_status_change: "Si no se modifica el usuario \"Asignado\" y la el estado de la petición es modificado de x a y, entonces la petición es asignada al autor de la petición"
+  label_rule_issue_timelog_required: Se requiere Registro de tiempo para las peticiones
+  label_search_by_name: Buscar por nombre
+  label_set_icon_from: Asignar ícono desde
+  label_setting_plural: Configuración
+  label_settings_macros: "Macros"
+  label_settings_menu: "Menú"
+  label_show_all: Mostrar todo
+  label_system_info: Información del sistema
+  label_tags_without_color: Mostrar etiquetas sin color
+  label_tomorrow: mañana
+  label_top_macros_help_html: "Aquí tiene una lista de todos los Macros de Redmine disponibles en su instalación (provistos por Redmine o por sus extensiones)."
+  label_top_menu_help_html: "Aquí puede definir nuevas entradas para el menú superior."
+  label_top_menu: Menú superior
+  label_twitter_account: Cuenta de Twitter
+  label_twitter_hashtag: Hashtag de Twitter
+  label_uptime: Tiempo encendido
+  label_user_list: "Lista de usuarios"
+  label_web_apis: Web APIs
+  label_weekly: semanalmente
+  label_wiki_pdf_remove_attachments: Quitar los adjuntos de la vista en PDF
+  label_wiki_pdf_remove_title: Quitar el título de la Wiki de la vista en PDF
+  label_yearly: anualmente
+  legacy_smiley_support_info_html: 'Convertir los Smileys y Emoji. Active esta opción solo si los Smileys y Emoji son escritos manuamente (ej. :kiss:). Si utiliza los Emojis Unicode esta opción debe ser desactivada. Para mas información acerca del soporte de Emoji-Browser puede leer <a href="http://caniemoji.com/" target="_blank">http://caniemoji.com/</a>. Además puede dirigirse a <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> para conocer los códigos de Emoji disponibles. Para activar esta configuración debe <strong>Reiniciar el servidor de aplicación</strong>.'
+  menu_roles_info: "Solo los miembros con los roles selccionado podrán ver esta entrada de Menú."
+  new_ticket_message_info: "Se mostrará una nota a todos aquellos que quieran agregar una nueva petición. Puede por ejemplo agregar las condiciones de aceptación o las plantillas. Estas configuraciones afectan a todos los proyectos."
+  overview_bottom_info: "Aquí puede agragar el texto que se mostrará en la parte inferior del vistazo del proyecto. Por ejemplo un link a una página de wiki."
+  overview_right_info: "Aquí puede agragar el texto que se mostrará en la parte derecha del vistazo del proyecto. Por ejemplo un link a una página de wiki."
+  overview_top_info: "Aquí puede agragar el texto que se mostrará en la parte superior del vistazo del proyecto. Por ejemplo un link a una página de wiki."
+  permission_change_new_issue_author: Asignar autor en las peticiones nuevas
+  permission_edit_closed_issues: "Editar peticiones cerradas"
+  permission_edit_issue_author: Editar autor de las peticiones
+  permission_hide_in_memberbox: "Ocultar en la lista de Miembros"
+  permission_issue_timelog_never_required: Registro de tiempo no requerido
+  permission_log_time_on_closed_issues: "Registrar tiempo en peticiones cerradas"
+  permission_show_hidden_roles_in_memberbox: "Mostrar roles ocultos en la lista de miembros"
+  project_overview_content_info: "Aquí puede agregar su texto, el cual será mostrado en el Vistazo del proyecto. Por ejemplo, un enlace a una página de la Wiki, que está/debe estar disponible para todos los miembros. El objetivo es alcanzar un mejor estándar de proyectos y mantener una estructura de Wiki única."
+  remove_help_info: "Quitar el elemento 'Ayuda' del menú superior."
+  remove_mypage_info: 'A veces es útil ocultar el enlace a "Mi Página" para incluir el tablero de tareas. La ventaja del tablero de tareas que que las peticiones se muestran de acuerdo a su estado.'
+  remove_news_info: "Quitar las últimas noticias del vistazo de un proyecto."
+  rule_issue_auto_assign_info: 'Caso de Uso: El autor de la petición no sabe a quién debe asignarla o quién será el responsable de resolver la tarea. En ese caso las peticiones con el estado (por ejemplo) "Por Hacer" son automáticamente asignadas al primer grupo que contiene un usuario con el rol de Gestor de proyecto.'
+  rule_issue_current_user_status_info_html: "Si esta función es utilizada en combinación con la opción \"Estado de las peticiones en la barra lateral\" entonces la petición será automáticamente asignada al usuario actual al cambiar el estado de la petición.<br />Caso de Uso: Un usuario solo puede cambiar el estado de una petición a \"En Progreso\" si es la persona que realmente está trabajando en esa petición."
+  rule_issue_status_change_info: "Caso de Uso: las peticiones deben ser automáticamente asignadas al autor en caso de que el estado cambié a \"Aprobación\"."
+  rule_issue_timelog_required_info_html: 'Por cada petición de los tipos seleccionados requieren registro de tiempo si la petición recibe una de las definiciones de estado seleccionadas. El registro de tiempo no es requerido si:<br />- no tiene privilegios para la creación de Registros de tiempo<br />- el usuario tiene el permiso "No requiere registro de tiempo"<br />Caso de Uso: Para aceptar una petición con el estado "Por verificar", el tiempo utilizado también es requerido.'
+  show_always: Mostrar siempre
+  show_on_project_overview: Mostrar en el vistazo del proyecto
+  show_on_redmine_home: Mostrar en la página de inicio
+  show_welcome_left: En la página de inicio (izquierda)
+  show_welcome_right: En la página de inicio (derecha)
+  top_overview_help: Aquí puede definir los contenidos y configuraciones para la página de vistazo.
+  top_projects_help: Aquí puede definir los contenidos y configuraciones para la página de su proyecto.
+  top_rules_help: "Aquí puede definir reglas que serán utizadas en las peticiones de todos los proyectos."
+  top_wiki_help: Aquí puede definir contenidos y configuracioens para su Wiki.
+  wiki_pdf_remove_attachments_info: Cuando está activa, los adjuntos no serán mostrados en los PDF.
+  wiki_pdf_remove_title_info: Cuando está activa, el título de la Wiki no será mostrado en los PDF.
+  label_rule_issue_freezed_with_close: No permitir editar peticiones cerradas (Congelar)
+  rule_issue_freezed_with_close_info: Si esta opción está actia, aquellas peticiones que ya se encuentren cerradas no podrán recibir comentarios o edicionos. Incluso por mail o API. Esta restricción no se aplica a los usuarios con el rol "Editar peticiones cerradas".
+  additionals_query_list_defaults: Columnas predeterminadas para la vista de lista
+  additionals_query_list_default_totals: Sumas predeterminadas para la vista de lista

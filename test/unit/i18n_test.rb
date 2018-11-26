@@ -23,7 +23,7 @@ class I18nTest < Additionals::TestCase
                                            'config',
                                            'locales',
                                            '*.yml')].size
-    assert_equal lang_files_count, 7
+    assert_equal 8, lang_files_count
     valid_languages.each do |lang|
       assert set_language_if_valid(lang)
     end
@@ -32,6 +32,8 @@ class I18nTest < Additionals::TestCase
     assert_equal 'Externe URLs', l(:label_external_urls)
     ::I18n.locale = 'en'
     assert_equal 'External urls', l(:label_external_urls)
+    ::I18n.locale = 'es'
+    assert_equal 'URLs externos', l(:label_external_urls)
     ::I18n.locale = 'fr'
     assert_equal 'Les urnes externes', l(:label_external_urls)
     ::I18n.locale = 'it'

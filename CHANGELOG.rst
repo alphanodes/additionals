@@ -5,6 +5,7 @@ Changelog
 ++++++
 
 - CSS fix for project macro
+- Add Spanish translation, thanks to @dktcoding!
 
 2.0.15
 ++++++

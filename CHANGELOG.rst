@@ -5,6 +5,7 @@ Changelog
 ++++++
 
 - CSS fix for project macro
+- More compatibility for autocomplete_users with other plugins (like redmine_contacts_helpdesk)
 - Add Spanish translation, thanks to @dktcoding!
 
 2.0.15

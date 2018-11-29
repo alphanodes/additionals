@@ -15,6 +15,4 @@ group :development do
   gem 'better_errors' # https://github.com/BetterErrors/better_errors
   gem 'binding_of_caller' # better output of with variables for better_errors
   gem 'bullet', require: !ENV['BULLET'].nil? # https://github.com/flyerhzm/bullet
-  gem 'pry-byebug'
-  gem 'pry-doc'
 end

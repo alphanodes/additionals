@@ -322,3 +322,7 @@ div.additionals-projects li.project.odd {
 .default-query-settings-label label {
   margin-left: -100px !important;
 }
+
+.jstb_macros {
+  background-image: url(../images/jstoolbar/bt_macros.png);
+}

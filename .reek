@@ -1,0 +1,21 @@
+---
+TooManyStatements:
+  max_statements: 20
+
+UncommunicativeVariableName:
+  enabled: false
+
+ControlParameter:
+  enabled: false
+
+IrresponsibleModule:
+  enabled: false
+
+FeatureEnvy:
+  enabled: false
+
+BooleanParameter:
+  enabled: false
+
+DuplicateMethodCall:
+  enabled: false

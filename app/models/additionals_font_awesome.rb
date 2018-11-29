@@ -62,22 +62,10 @@ class AdditionalsFontAwesome
       FONTAWESOME_ICONS[type].collect { |fa_symbol, values| [values[:label], key2value(fa_symbol, type[-1])] }
     end
 
-    def load_details(type, name)
-      return {} unless FONTAWESOME_ICONS.key?(type)
-
-      values = FONTAWESOME_ICONS[type][name]
-      return { unicode: "&#x#{values[:unicode]};".html_safe, label: values[:label] } if values.present?
-
-      {}
-    end
-
     def json_for_select
-      values = []
-      values << { text: l(:label_fontawesome_regular), children: json_values(:far) }
-      values << { text: l(:label_fontawesome_solid), children: json_values(:fas) }
-      values << { text: l(:label_fontawesome_brands), children: json_values(:fab) }
-
-      values.to_json
+      [{ text: l(:label_fontawesome_regular), children: json_values(:far) },
+       { text: l(:label_fontawesome_solid), children: json_values(:fas) },
+       { text: l(:label_fontawesome_brands), children: json_values(:fab) }].to_json
     end
 
     # show only one value as current selected
@@ -90,29 +78,41 @@ class AdditionalsFontAwesome
     end
 
     def options_for_select
-      values = []
-      values << [l(:label_fontawesome_regular), select_values(:far)]
-      values << [l(:label_fontawesome_solid), select_values(:fas)]
-      values << [l(:label_fontawesome_brands), select_values(:fab)]
+      [[l(:label_fontawesome_regular), select_values(:far)],
+       [l(:label_fontawesome_solid), select_values(:fas)],
+       [l(:label_fontawesome_brands), select_values(:fab)]]
     end
 
     def value_info(value, options = {})
-      info = {}
-      return [] if value.blank?
+      return {} if value.blank?
 
       values = value.split('_')
-      return [] unless values.count == 2
+      return {} unless values.count == 2
 
-      info[:type] = values[0].to_sym
-      info[:name] = "fa-#{values[1]}"
+      info = { type: values[0].to_sym,
+               name: "fa-#{values[1]}" }
+
       info[:classes] = "#{info[:type]} #{info[:name]}"
       info[:font_weight] = font_weight(info[:type])
       info[:font_family] = font_family(info[:type])
+
       if options[:with_details]
         info.merge!(load_details(info[:type], values[1]))
-        return [] if info[:unicode].blank?
+        return {} if info[:unicode].blank?
       end
+
       info
+    end
+
+    private
+
+    def load_details(type, name)
+      return {} unless FONTAWESOME_ICONS.key?(type)
+
+      values = FONTAWESOME_ICONS[type][name]
+      return {} if values.blank?
+
+      { unicode: "&#x#{values[:unicode]};".html_safe, label: values[:label] } # rubocop:disable Rails/OutputSafety
     end
   end
 end

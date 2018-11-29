@@ -14,5 +14,4 @@ group :development do
   gem 'awesome_print', require: 'ap' # https://github.com/awesome-print/awesome_print
   gem 'better_errors' # https://github.com/BetterErrors/better_errors
   gem 'binding_of_caller' # better output of with variables for better_errors
-  gem 'bullet', require: !ENV['BULLET'].nil? # https://github.com/flyerhzm/bullet
 end

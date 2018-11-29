@@ -94,7 +94,7 @@ module AdditionalsMenuHelper
 
   def addtionals_help_plugin_items
     user_items = [{ title: 'Redmine Guide', url: Redmine::Info.help_url },
-                  { title: "Redmine #{l(:label_macro_plural)}", url: macros_path }]
+                  { title: "Redmine #{l(:label_macro_plural)}", url: additionals_macros_path }]
 
     admin_items = [{ title: 'Additionals', url: 'https://additionals.readthedocs.io/en/latest/manual/', manual: true },
                    { title: 'Redmine Changelog', url: 'https://www.redmine.org/projects/redmine/wiki/Changelog_3_4' },

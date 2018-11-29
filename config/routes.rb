@@ -8,6 +8,4 @@ resources :issues, only: [] do
   resource 'change_status', only: %i[update], controller: 'additionals_change_status'
 end
 
-scope '/help' do
-  resource :macros, only: :show
-end
+resource :additionals_macros, only: :show, path: '/help/macros'

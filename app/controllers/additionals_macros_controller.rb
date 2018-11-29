@@ -1,4 +1,4 @@
-class MacrosController < ApplicationController
+class AdditionalsMacrosController < ApplicationController
   before_action :require_login
 
   def show

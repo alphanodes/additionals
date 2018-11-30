@@ -2,6 +2,6 @@ class AdditionalsMacrosController < ApplicationController
   before_action :require_login
 
   def show
-    @available_macros = Redmine::WikiFormatting::Macros.available_macros.sort
+    @available_macros = AdditionalsMacro.all
   end
 end

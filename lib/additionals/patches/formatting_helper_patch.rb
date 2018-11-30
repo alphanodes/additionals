@@ -15,10 +15,7 @@ module Additionals
 
           return if @additionals_macro_list
 
-          @additionals_macro_list = []
-          Redmine::WikiFormatting::Macros.available_macros.sort.each do |macro, _options|
-            @additionals_macro_list << macro.to_s
-          end
+          @additionals_macro_list = AdditionalsMacro.all(project: @project, only_names: true)
 
           content_for :header_tags do
             render(partial: 'additionals_macros/button')

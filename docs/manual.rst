@@ -240,7 +240,7 @@ Many plugins are equipped with a number of useful macros. Unfortunately it is di
    :align:   center
 
    Figure 2: The Wiki toolbar macro button is a useful helper in order to select available project macros for your content.
-   
+
 The macro button for the Wiki toolbar is acessible for every user of a project. For reasons of clarity, the list of available macros is restricted according to the following criteria.
 
 A user can see in the macro list:
@@ -249,8 +249,7 @@ A user can see in the macro list:
 * The macros, which he / she can use due to his / her role and the associated rights in the respective project.
 * only the macros of modules activated in the project. Macros for deactivated functions are hidden in the list.
 
-It displays all available macros for modules that are activated for the specific project. Others are not visible for implementation because they would not work in the specific project. This limiation makes the macro selection list a bit more concisely.
-
+The function is easy to use. Just click the button with the left mouse. The dropdown list shows all your available macros. Select the one you want to use. The selected macro will be pasted to the cursor position. All you have to do is adapt missing parameters (if needed). That's it.
 
 
 Additional permissions

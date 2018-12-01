@@ -229,6 +229,18 @@ Because it's sometimes hard to remember what kind of macros you can use in your 
 Here is simply displayed a list of all available Redmine macros of your installation, which are provided by Redmine in general and the installed Redmine plugins.
 Macros can be used in the Wiki of a project or as well as in the text area of an issue, for example. For more information on how to add macros use the Redmine help.
 
+
+Macro button for Wiki toolbar
+-----------------------------
+
+The macro button for the Wiki toolbar is acessible for every user of a project. It displays all available macros for modules that are activated for the specific project. Others are not visible for implementation because they would not work in the specific project. This limiation makes the macro selection list a bit more concisely.
+
+.. figure::  images/additionals-makro-button.png
+   :align:   center
+
+   Figure 2: The Wiki toolbar macro button is a useful helper in order to select available project macros for your content.
+
+
 Additional permissions
 ----------------------
 

@@ -1,7 +1,7 @@
 /* global jsToolBar */
 jsToolBar.prototype.elements.macros = {
   type: 'button',
-  title: '#{l(:label_macro_plural)}',
+  title: 'Macro',
   fn: {
     wiki: function() {
       var This = this;

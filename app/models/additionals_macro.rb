@@ -50,7 +50,7 @@ class AdditionalsMacro
   end
 
   def self.macro_permissions
-    [{ list: %i[issue ref_issues new_issue issue_name_link],
+    [{ list: %i[issue issue_name_link],
        permission: :view_issues },
      { list: %i[password password_query password_tag password_tag_count],
        permission: :view_passwords },

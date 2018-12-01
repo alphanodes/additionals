@@ -15,7 +15,9 @@ module Additionals
 
           return if @additionals_macro_list
 
-          @additionals_macro_list = AdditionalsMacro.all(project: @project, only_names: true)
+          @additionals_macro_list = AdditionalsMacro.all(project: @project,
+                                                         only_names: true,
+                                                         controller_only: controller_name)
 
           content_for :header_tags do
             render(partial: 'additionals_macros/button')

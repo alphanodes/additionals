@@ -8,6 +8,7 @@ Changelog
 - More compatibility for autocomplete_users with other plugins (like redmine_contacts_helpdesk)
 - Compatibility to wikking plugin (macro list)
 - Add Spanish translation, thanks to @dktcoding!
+- Wiki button for available macros
 
 2.0.15
 ++++++

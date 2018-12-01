@@ -115,6 +115,8 @@ Features
   * vimeo
   * youtube
 
+* macro list with all available macros at /help/macros
+* macro button for wiki toolbar with available macros with project and permission context support
 * option to remove "My page" and/or "Help" from top menu
 * customize top menu items
 * disable (hide) modules for projects

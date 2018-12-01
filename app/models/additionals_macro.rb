@@ -1,17 +1,15 @@
 class AdditionalsMacro
   def self.all(options = {})
     all = Redmine::WikiFormatting::Macros.available_macros
-    options[:only_names] = false unless options[:only_names]
-
     macros = {}
     macro_list = []
 
     # needs to run every request (for each user once)
-    permissions = macro_permissions_with_global
+    permissions = build_permissions(options)
 
     all.each do |macro, macro_options|
       next if macro == :hello_world
-      next unless macro_allowed(macro, options, permissions)
+      next unless macro_allowed(macro, permissions)
 
       macro_list << macro.to_s
       macros[macro] = macro_options
@@ -24,26 +22,27 @@ class AdditionalsMacro
     end
   end
 
-  def self.macro_allowed(macro, options, permissions)
+  def self.macro_allowed(macro, permissions)
     permissions.each do |permission|
       next if permission[:list].exclude?(macro)
-
-      # controller check
-      if options[:controller_only] && permission[:controller].present?
-        return false if options[:controller_only].to_sym != permission[:controller]
-      end
-
-      return false if !permission[:global_permission] ||
-                      options[:project] && !User.current.allowed_to?(permission[:permission], options[:project])
+      return false unless permission[:access]
     end
 
     true
   end
 
-  def self.macro_permissions_with_global
+  def self.build_permissions(options)
     gpermission = []
     macro_permissions.each do |permission|
-      permission[:global_permission] = User.current.allowed_to?(permission[:permission], nil, global: true)
+      permission[:access] = if options[:controller_only] &&
+                               permission[:controller].present? &&
+                               options[:controller_only].to_sym != permission[:controller]
+                              false
+                            elsif options[:project]
+                              User.current.allowed_to?(permission[:permission], options[:project])
+                            else
+                              User.current.allowed_to?(permission[:permission], nil, global: true)
+                            end
       gpermission << permission
     end
 
@@ -51,7 +50,7 @@ class AdditionalsMacro
   end
 
   def self.macro_permissions
-    [{ list: %i[issue],
+    [{ list: %i[issue ref_issues new_issue issue_name_link],
        permission: :view_issues },
      { list: %i[password password_query password_tag password_tag_count],
        permission: :view_passwords },

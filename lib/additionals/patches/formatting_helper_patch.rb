@@ -19,8 +19,12 @@ module Additionals
                                                          only_names: true,
                                                          controller_only: controller_name)
 
+          button_list = '"' + @additionals_macro_list.join('", "').html_safe + '"'
+
           content_for :header_tags do
-            render(partial: 'additionals_macros/button')
+            javascript_include_tag('additionals_macro_button', plugin: 'additionals') +
+              javascript_tag("jsToolBar.prototype.macroList = [#{button_list}];")
+            # render(partial: 'additionals_macros/button')
           end
         end
       end

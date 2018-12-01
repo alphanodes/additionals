@@ -6,9 +6,12 @@ class AdditionalsMacro
     macros = {}
     macro_list = []
 
+    # needs to run every request (for each user once)
+    permissions = macro_permissions_with_global
+
     all.each do |macro, macro_options|
       next if macro == :hello_world
-      next unless macro_allowed(macro, options)
+      next unless macro_allowed(macro, options, permissions)
 
       macro_list << macro.to_s
       macros[macro] = macro_options
@@ -21,8 +24,8 @@ class AdditionalsMacro
     end
   end
 
-  def self.macro_allowed(macro, options)
-    macro_permissions_with_global.each do |permission|
+  def self.macro_allowed(macro, options, permissions)
+    permissions.each do |permission|
       next if permission[:list].exclude?(macro)
 
       # controller check
@@ -30,26 +33,21 @@ class AdditionalsMacro
         return false if options[:controller_only].to_sym != permission[:controller]
       end
 
-      # project check
-      if options[:project]
-        return false unless User.current.allowed_to?(permission[:permission], options[:project])
-      else
-        return false unless permission[:global_permission]
-      end
+      return false if !permission[:global_permission] ||
+                      options[:project] && !User.current.allowed_to?(permission[:permission], options[:project])
     end
 
     true
   end
 
   def self.macro_permissions_with_global
-    @macro_permissions_with_global ||= begin
-      gpermission = []
-      macro_permissions.each do |permission|
-        permission[:global_permission] = User.current.allowed_to?(permission[:permission], nil, global: true)
-        gpermission << permission
-      end
-      gpermission
+    gpermission = []
+    macro_permissions.each do |permission|
+      permission[:global_permission] = User.current.allowed_to?(permission[:permission], nil, global: true)
+      gpermission << permission
     end
+
+    gpermission
   end
 
   def self.macro_permissions
@@ -67,6 +65,8 @@ class AdditionalsMacro
        permission: :view_wiki_pages,
        controller: :wiki },
      { list: %i[mail send_file],
-       permission: :view_helpdesk_tickets }]
+       permission: :view_helpdesk_tickets },
+     { list: %i[kb article_id article category],
+       permission: :view_kb_articles }]
   end
 end

@@ -166,7 +166,7 @@ module AdditionalsMenuHelper
   # Plugin help items definition for plugins,
   # which do not have additionals_help_menu_items integration
   def additionals_help_items_fallbacks(plugin_id)
-    plugins = { redmine_wiki_lists: [{ title: 'Wiki Lists Marcos',
+    plugins = { redmine_wiki_lists: [{ title: 'Wiki Lists Macros',
                                        url: 'https://www.r-labs.org/projects/wiki_lists/wiki/Wiki_Lists_en' }],
                 redmine_wiki_extensions: [{ title: 'Wiki Extensions',
                                             url: 'https://www.r-labs.org/projects/r-labs/wiki/Wiki_Extensions_en' }],

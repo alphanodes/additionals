@@ -140,7 +140,7 @@ class WikiControllerTest < Additionals::ControllerTest
                   text: 'r/redmine'
   end
 
-  def test_show_last_updated_by_marco
+  def test_show_last_updated_by_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{last_updated_by}}'
     @page.content.save!
@@ -152,7 +152,7 @@ class WikiControllerTest < Additionals::ControllerTest
                   text: 'jsmith'
   end
 
-  def test_show_last_updated_at_marco
+  def test_show_last_updated_at_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{last_updated_at}}'
     @page.content.save!
@@ -163,7 +163,7 @@ class WikiControllerTest < Additionals::ControllerTest
     assert_select 'a[href=?]', '/projects/ecookbook/activity'
   end
 
-  def test_show_recently_updated_marco
+  def test_show_recently_updated_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{recently_updated}}'
     @page.content.save!
@@ -173,7 +173,7 @@ class WikiControllerTest < Additionals::ControllerTest
     assert_select 'div.recently-updated'
   end
 
-  def test_show_calendar_marco
+  def test_show_calendar_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{calendar(year=1970, month=7)}}'
     @page.content.save!

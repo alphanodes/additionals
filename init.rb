@@ -17,7 +17,6 @@ Redmine::Plugin.register :additionals do
 
   settings(default: default_settings, partial: 'additionals/settings/additionals')
 
-  permission :hide_in_memberbox, {}
   permission :show_hidden_roles_in_memberbox, {}
 
   project_module :issue_tracking do

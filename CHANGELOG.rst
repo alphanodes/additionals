@@ -9,6 +9,7 @@ Changelog
 - Compatibility to wikking plugin (macro list)
 - Add Spanish translation, thanks to @dktcoding!
 - Wiki button for available macros
+- replace permission hide-in-memberbox with "hide" as role setting - check your roles, if you used this permission!
 
 2.0.15
 ++++++

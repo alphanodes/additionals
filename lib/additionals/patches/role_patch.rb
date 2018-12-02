@@ -1,9 +1,9 @@
 module Additionals
   module Patches
-    module UserPreferencePatch
+    module RolePatch
       def self.included(base)
         base.class_eval do
-          safe_attributes 'autowatch_involved_issue'
+          safe_attributes 'hide'
         end
       end
     end

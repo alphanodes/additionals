@@ -142,7 +142,6 @@ de:
   permission_change_new_issue_author: Autor bei Ticketerstellung festlegen
   permission_edit_closed_issues: "Geschlossene Tickets bearbeiten"
   permission_edit_issue_author: Ticket Autor bearbeiten
-  permission_hide_in_memberbox: In Memberbox ausblenden
   permission_issue_timelog_never_required: Zeitbuchungen nicht erforderlich
   permission_log_time_on_closed_issues: "Aufwände buchen auf geschlossene Tickets"
   permission_show_hidden_roles_in_memberbox: "Versteckte Rollen in Memberbox anzeigen"
@@ -169,3 +168,4 @@ de:
   rule_issue_freezed_with_close_info: Wird diese Option aktiviert können bereits geschlossene Tickets nicht mehr bearbeitet und kommentiert werden. Auch nicht via Mail oder API. Für Benutzerrollen mit dem Recht "Geschlossene Tickets bearbeiten" gilt diese Einschränkung nicht.
   additionals_query_list_defaults: Standard-Spalten Listenansicht
   additionals_query_list_default_totals: Standard-Summen in der Listenansicht
+  field_hide: Verstecken

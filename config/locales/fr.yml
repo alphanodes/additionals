@@ -142,7 +142,6 @@ fr:
   permission_change_new_issue_author: Set author of new issues
   permission_edit_closed_issues: "Éditer les dossiers fermés"
   permission_edit_issue_author: Edit author
-  permission_hide_in_memberbox: "Cacher dans la boîte de membre"
   permission_issue_timelog_never_required: Enregistrements de temps non requis
   permission_log_time_on_closed_issues: "Log time on closed issues"
   permission_show_hidden_roles_in_memberbox: "Afficher les rôles cachés dans la boîte membre"
@@ -169,3 +168,4 @@ fr:
   rule_issue_freezed_with_close_info: "Si cette option est activée, les numéros déjà fermés ne peuvent plus être édités et commentés. Pas même par courrier ou API. Cette restriction ne s'applique pas aux rôles utilisateurs avec l'autorisation \"Modifier les problèmes fermés\"."
   additionals_query_list_defaults: "Colonnes par défaut pour la vue en liste"
   additionals_query_list_default_totals: "Montants par défaut pour la vue en liste"
+  field_hide: Hide

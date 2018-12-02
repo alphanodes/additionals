@@ -142,7 +142,6 @@ en:
   permission_change_new_issue_author: Set author of new issues
   permission_edit_closed_issues: "Edit closed issues"
   permission_edit_issue_author: Edit issue author
-  permission_hide_in_memberbox: "Hide in memberbox"
   permission_issue_timelog_never_required: Time logging not required
   permission_log_time_on_closed_issues: "Log time on closed issues"
   permission_show_hidden_roles_in_memberbox: "Show hidden roles in member box"
@@ -169,3 +168,4 @@ en:
   rule_issue_freezed_with_close_info: If this option is activated, already closed issues can no longer be edited and commented. Not even via mail or API. This restriction does not apply to user roles with the "Edit closed issues" permission.
   additionals_query_list_defaults: Default columns for list view
   additionals_query_list_default_totals: Default sums for list view
+  field_hide: Hide

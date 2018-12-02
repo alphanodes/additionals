@@ -142,7 +142,6 @@ es:
   permission_change_new_issue_author: Asignar autor en las peticiones nuevas
   permission_edit_closed_issues: "Editar peticiones cerradas"
   permission_edit_issue_author: Editar autor de las peticiones
-  permission_hide_in_memberbox: "Ocultar en la lista de Miembros"
   permission_issue_timelog_never_required: Registro de tiempo no requerido
   permission_log_time_on_closed_issues: "Registrar tiempo en peticiones cerradas"
   permission_show_hidden_roles_in_memberbox: "Mostrar roles ocultos en la lista de miembros"
@@ -169,3 +168,4 @@ es:
   rule_issue_freezed_with_close_info: Si esta opción está actia, aquellas peticiones que ya se encuentren cerradas no podrán recibir comentarios o edicionos. Incluso por mail o API. Esta restricción no se aplica a los usuarios con el rol "Editar peticiones cerradas".
   additionals_query_list_defaults: Columnas predeterminadas para la vista de lista
   additionals_query_list_default_totals: Sumas predeterminadas para la vista de lista
+  field_hide: Hide

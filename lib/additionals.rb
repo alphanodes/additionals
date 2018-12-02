@@ -15,11 +15,13 @@ module Additionals
                Issue
                IssuePriority
                TimeEntry
+               Project
                Wiki
                WikiController
+               Query
+               QueryFilter
+               Role
                UserPreference])
-
-      patch(%w[QueryFilter]) if Redmine::VERSION.to_s >= '3.4'
 
       Rails.configuration.assets.paths << Emoji.images_path
       Redmine::WikiFormatting.format_names.each do |format|

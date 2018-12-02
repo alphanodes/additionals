@@ -142,7 +142,6 @@ it:
   permission_change_new_issue_author: "Impostare l'autore di nuovi numeri"
   permission_edit_closed_issues: "Modifica i issues chiusi"
   permission_edit_issue_author: "Modifica l'autore"
-  permission_hide_in_memberbox: "Nascondi nella cassetta membri"
   permission_issue_timelog_never_required: Registrazioni di tempo non richieste
   permission_log_time_on_closed_issues: "Il tempo di registrazione su problemi chiusi"
   permission_show_hidden_roles_in_memberbox: "Mostra i ruoli nascosti nella casella membri"
@@ -169,3 +168,4 @@ it:
   rule_issue_freezed_with_close_info: "Se questa opzione è attivata, i numeri già chiusi non possono più essere modificati e commentati. Nemmeno via mail o API. Questa restrizione non si applica ai ruoli utente con il permesso \"Modifica problemi chiusi\"."
   additionals_query_list_defaults: "Colonne predefinite per la vista elenco"
   additionals_query_list_default_totals: "Importi predefiniti per la vista elenco"
+  field_hide: Hide

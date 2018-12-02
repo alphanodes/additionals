@@ -142,7 +142,6 @@
   permission_change_new_issue_author: "設定新議題作者"
   permission_edit_closed_issues: "編輯已結束的議題"
   permission_edit_issue_author: "編輯作者"
-  permission_hide_in_memberbox: "在成員訊息區域中隱藏"
   permission_issue_timelog_never_required: Time logging not required
   permission_log_time_on_closed_issues: "在已結束的議題中登記工時"
   permission_show_hidden_roles_in_memberbox: "在成員訊息區域中顯示角色訊息"
@@ -169,3 +168,4 @@
   rule_issue_freezed_with_close_info: If this option is activated, already closed issues can no longer be edited and commented. Not even via mail or API. This restriction does not apply to user roles with the "Edit closed issues" permission.
   additionals_query_list_defaults: Default columns for list view
   additionals_query_list_default_totals: Default sums for list view
+  field_hide: Hide

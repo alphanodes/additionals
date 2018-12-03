@@ -251,6 +251,8 @@ A user can see in the macro list:
 
 The function is easy to use. Just click the button with the left mouse. The dropdown list shows all your available macros. Select the one you want to use. The selected macro will be pasted to the cursor position. All you have to do is adapt missing parameters (if needed). That's it.
 
+A list of all available macros provided by the Additionals plugin is also available in this manual.
+
 
 Additional permissions
 ----------------------
@@ -261,7 +263,7 @@ The following role permissions are provided by the plugin and must be configured
 
 * **Hide**. This option hides ``members`` of the selected role in the member box of each project overview page. Project members of other roles will still be listed. For example: You don't want others to catch a glimpse of your development team (Role: Development). So activate the role "Developer" to hide the list of your team members assigned to this role in this box. This function is also useful if your member box is too crowded.
 
-.. note:: This setting is also taken into account in all related query lists (e.g. issues, spent time etc.). So that the members with this role are also hidden there.
+.. note:: This setting is also taken into account in all related query lists (e.g. issues, spent time etc.). So that the members with this role are also hidden there. **Important:** If the user has in one project a role, that allows him / her to view a specific "hidden role" this rule is not taken into account anymore.
 
 
 **According to the selected Role you can activate / deactivate the following permissions:**

@@ -168,4 +168,4 @@ fr:
   rule_issue_freezed_with_close_info: "Si cette option est activée, les numéros déjà fermés ne peuvent plus être édités et commentés. Pas même par courrier ou API. Cette restriction ne s'applique pas aux rôles utilisateurs avec l'autorisation \"Modifier les problèmes fermés\"."
   additionals_query_list_defaults: "Colonnes par défaut pour la vue en liste"
   additionals_query_list_default_totals: "Montants par défaut pour la vue en liste"
-  field_hide: Hide
+  field_hide: "Cuir"

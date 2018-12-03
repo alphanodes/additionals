@@ -168,4 +168,4 @@ it:
   rule_issue_freezed_with_close_info: "Se questa opzione è attivata, i numeri già chiusi non possono più essere modificati e commentati. Nemmeno via mail o API. Questa restrizione non si applica ai ruoli utente con il permesso \"Modifica problemi chiusi\"."
   additionals_query_list_defaults: "Colonne predefinite per la vista elenco"
   additionals_query_list_default_totals: "Importi predefiniti per la vista elenco"
-  field_hide: Hide
+  field_hide: "Nascondi"

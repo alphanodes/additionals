@@ -168,4 +168,4 @@ es:
   rule_issue_freezed_with_close_info: Si esta opción está actia, aquellas peticiones que ya se encuentren cerradas no podrán recibir comentarios o edicionos. Incluso por mail o API. Esta restricción no se aplica a los usuarios con el rol "Editar peticiones cerradas".
   additionals_query_list_defaults: Columnas predeterminadas para la vista de lista
   additionals_query_list_default_totals: Sumas predeterminadas para la vista de lista
-  field_hide: Hide
+  field_hide: "Ocultar"

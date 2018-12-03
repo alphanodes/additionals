@@ -144,7 +144,7 @@ zh:
   permission_edit_issue_author: Edit author
   permission_issue_timelog_never_required: Time logging not required
   permission_log_time_on_closed_issues: "在已关闭的问题中登记工时"
-  permission_show_hidden_roles_in_memberbox: "在成员信息区域内显示角色信息"
+  permission_show_hidden_roles_in_memberbox: "Show hidden roles"
   project_overview_content_info: "此处可以添加显示在项目概述页面上的文本信息，如您可以链接到一个项目全体成员都可以访问的 WIKI 页。使用该功能的目的是为了形成一个更好的项目标准以维护独特的 WIKi 结构。"
   remove_help_info: "从顶部菜单栏中隐藏 '帮助' 菜单项。"
   remove_mypage_info: '有时，为了引入敏捷的任务看板，隐藏【我的工作台】链接可能会更有用。任务看板的优势即是可以根据状态罗列并快速访问。'

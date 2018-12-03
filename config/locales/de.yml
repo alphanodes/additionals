@@ -144,7 +144,7 @@ de:
   permission_edit_issue_author: Ticket Autor bearbeiten
   permission_issue_timelog_never_required: Zeitbuchungen nicht erforderlich
   permission_log_time_on_closed_issues: "Aufwände buchen auf geschlossene Tickets"
-  permission_show_hidden_roles_in_memberbox: "Versteckte Rollen in Memberbox anzeigen"
+  permission_show_hidden_roles_in_memberbox: "Versteckte Rollen anzeigen"
   project_overview_content_info: "Hier kann ein Text hinterlegt werden, der auf der Übersichtsprojektseite angezeigt wird. Verweisen Sie beispielsweise auf bestimmte Wiki Seiten, welche projektübergreifend vorhanden sind/sein sollten. Ziel sollte eine Standardisierung in den Projekten und eine einheitliche Wiki-Struktur sein."
   remove_help_info: "Den Menüpunkt 'Hilfe' aus dem Topmenü entfernen."
   remove_mypage_info: 'Manchmal ist es hilfreich, dass die "Meine Seite" nicht angezeigt wird, um den Einsatz eines Task Boards einzuführen. Der Vorteil eines Task Boards liegt darin, dass Tickets nach Status gelistet werden können.'

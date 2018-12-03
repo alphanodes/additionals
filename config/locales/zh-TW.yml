@@ -144,7 +144,7 @@
   permission_edit_issue_author: "編輯作者"
   permission_issue_timelog_never_required: Time logging not required
   permission_log_time_on_closed_issues: "在已結束的議題中登記工時"
-  permission_show_hidden_roles_in_memberbox: "在成員訊息區域中顯示角色訊息"
+  permission_show_hidden_roles_in_memberbox: "Show hidden roles"
   project_overview_content_info: "此處可以添加顯示在專案概觀頁上的文字訊息，如您可以連結到一個專案全體成員都可以看到的Wiki頁。使用目的為形成一個更好的專案標準以維護獨特的Wiki結構。"
   remove_help_info: "從頂部選單中隱藏 \"幫助\" 項。"
   remove_mypage_info: "為了引入敏捷的任務看板，隱藏 \"帳戶首頁\" 可能會更有幫助。任務看板的優勢為可以依據狀態列出並快速訪問。"

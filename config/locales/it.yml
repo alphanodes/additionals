@@ -144,7 +144,7 @@ it:
   permission_edit_issue_author: "Modifica l'autore"
   permission_issue_timelog_never_required: Registrazioni di tempo non richieste
   permission_log_time_on_closed_issues: "Il tempo di registrazione su problemi chiusi"
-  permission_show_hidden_roles_in_memberbox: "Mostra i ruoli nascosti nella casella membri"
+  permission_show_hidden_roles_in_memberbox: "Show hidden roles"
   project_overview_content_info: "Here you can add your text, which will be shown on the project overview page. For example you can link to a wiki page, which is/should be project wide available to every team member. The aim is to reach a better project standard and to maintain a unique wiki structure."
   remove_help_info: "Rimuove l'elemento \"Aiuto\" dal menu superiore."
   remove_mypage_info: "Sometimes it is more useful to hide the \"My Page\" link in order to introduce the task board. The task board advantage is that issues can be listed according to their status."

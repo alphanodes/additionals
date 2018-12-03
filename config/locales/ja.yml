@@ -144,7 +144,7 @@ ja:
   permission_edit_issue_author: Edit author
   permission_issue_timelog_never_required: '時間の予約は必要ありません'
   permission_log_time_on_closed_issues: "Log time on closed issues"
-  permission_show_hidden_roles_in_memberbox: "Show hidden roles in member box"
+  permission_show_hidden_roles_in_memberbox: "Show hidden roles"
   project_overview_content_info: "この文章は、プロジェクト概要のページに表示されます。例えば、メンバー全員に公開されているWikiページ等のリンクを貼る等の使い方があります。一つのWiki構造を維持する事で、プロジェクト基準を良くする事が目的です。"
   remove_help_info: "ヘルプ」項目をトップメニューから外す"
   remove_mypage_info: 'タスクボードを導入するために、「マイ・ページ」のリンクを隠した方が便利な場合があります。タスクボードにより、ステータス毎の順番並び替えに出来るメリットがあります。'

@@ -144,7 +144,7 @@ fr:
   permission_edit_issue_author: Edit author
   permission_issue_timelog_never_required: Enregistrements de temps non requis
   permission_log_time_on_closed_issues: "Log time on closed issues"
-  permission_show_hidden_roles_in_memberbox: "Afficher les rôles cachés dans la boîte membre"
+  permission_show_hidden_roles_in_memberbox: "Show hidden roles"
   project_overview_content_info: "Ici, vous pouvez ajouter votre texte, qui sera affiché sur la page d'aperçu du projet. Par exemple, vous pouvez créer un lien vers une page wiki, qui est / devrait être accessible à tous les membres de l'équipe. Le but est d'atteindre un meilleur standard de projet et de maintenir une structure wiki unique."
   remove_help_info: "Remove the item 'Help' from the top menu."
   remove_mypage_info: 'Sometimes it is more useful to hide the "My Page" link in order to introduce the task board. The task board advantage is that issues can be listed according to their status.'

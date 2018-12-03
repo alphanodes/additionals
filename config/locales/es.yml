@@ -144,7 +144,7 @@ es:
   permission_edit_issue_author: Editar autor de las peticiones
   permission_issue_timelog_never_required: Registro de tiempo no requerido
   permission_log_time_on_closed_issues: "Registrar tiempo en peticiones cerradas"
-  permission_show_hidden_roles_in_memberbox: "Mostrar roles ocultos en la lista de miembros"
+  permission_show_hidden_roles_in_memberbox: "Show hidden roles"
   project_overview_content_info: "Aquí puede agregar su texto, el cual será mostrado en el Vistazo del proyecto. Por ejemplo, un enlace a una página de la Wiki, que está/debe estar disponible para todos los miembros. El objetivo es alcanzar un mejor estándar de proyectos y mantener una estructura de Wiki única."
   remove_help_info: "Quitar el elemento 'Ayuda' del menú superior."
   remove_mypage_info: 'A veces es útil ocultar el enlace a "Mi Página" para incluir el tablero de tareas. La ventaja del tablero de tareas que que las peticiones se muestran de acuerdo a su estado.'

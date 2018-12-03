@@ -18,7 +18,7 @@ module Additionals
                Project
                Wiki
                WikiController
-               Query
+               Principal
                QueryFilter
                Role
                UserPreference])

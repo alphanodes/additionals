@@ -268,7 +268,7 @@ The following role permissions are provided by the plugin and must be configured
 
 **According to the selected Role you can activate / deactivate the following permissions:**
 
-* **Show hidden roles in member box**. In case you have hidden roles in a project that should not be displayed you can give to some special roles the permission to display the members however.
+* **Show hidden roles in member box**. In case you have hidden roles in a project that should not be displayed you can give to some special user roles the permission to display the members however. *Important:* If someone in a project has a role that has this right, then this user sees all users everywhere.
 
 * **Edit issue author**. This permission will always record any changes made to the issue author. You can change the author only in the issue edit mode.
 

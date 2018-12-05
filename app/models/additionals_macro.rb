@@ -7,8 +7,14 @@ class AdditionalsMacro
     # needs to run every request (for each user once)
     permissions = build_permissions(options)
 
+    if options[:filtered].present?
+      options[:filtered] << 'hello_world'
+    else
+      options[:filtered] = ['hello_world']
+    end
+
     all.each do |macro, macro_options|
-      next if macro == :hello_world
+      next if options[:filtered].include?(macro.to_s)
       next unless macro_allowed(macro, permissions)
 
       macro_list << macro.to_s
@@ -38,8 +44,6 @@ class AdditionalsMacro
                                permission[:controller].present? &&
                                options[:controller_only].to_sym != permission[:controller]
                               false
-                            elsif options[:project]
-                              User.current.allowed_to?(permission[:permission], options[:project])
                             else
                               User.current.allowed_to?(permission[:permission], nil, global: true)
                             end

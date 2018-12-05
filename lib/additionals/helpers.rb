@@ -41,6 +41,7 @@ module Additionals
       tabs << { name: 'general', partial: 'additionals/settings/general', label: :label_general }
       tabs << { name: 'content', partial: 'additionals/settings/overview', label: :label_overview_page }
       tabs << { name: 'wiki', partial: 'additionals/settings/wiki', label: :label_wiki }
+      tabs << { name: 'macros', partial: 'additionals/settings/macros', label: :label_macro_plural }
       tabs << { name: 'rules', partial: 'additionals/settings/issues', label: :label_issue_plural }
       tabs << { name: 'projects', partial: 'additionals/settings/projects', label: :label_project_plural }
       tabs << { name: 'users', partial: 'additionals/settings/users', label: :label_user_plural }

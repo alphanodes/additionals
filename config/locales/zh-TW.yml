@@ -169,3 +169,6 @@
   additionals_query_list_defaults: Default columns for list view
   additionals_query_list_default_totals: Default sums for list view
   field_hide: Hide
+  label_hidden_macros_in_toolbar: Hidden macros
+  hidden_macros_in_toolbar_info: Alle verfübaren Makros, die der angemeldete Benutzer verwenden kann, werden über den Makro-Button in der Wiki-Toolbar aufgelistet. Die hier markierten Makros werden nicht zur Auswahl angeboten.
+  info_hidden_roles_html: Versteckte Rollen können nur zusammen mit der Benutzersichtbarkeit "Mitglieder von sichtbaren Projekten" verwendet werden. Sofern der Benutzer in keiner Rolle ist, die dem aktuellen Benutzer sichtbar ist, wird diese Rolle inkl. Benutzer auf der Projektübersichtsseite und in Abfragelisten ausgeblendet.

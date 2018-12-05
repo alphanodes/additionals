@@ -27,8 +27,8 @@ class AdditionalsMacroTest < Additionals::TestCase
     assert available_macros.include?('child_pages')
   end
 
-  def test_with_project
-    available_macros = AdditionalsMacro.all(project: projects(:projects_004), only_names: true)
+  def test_with_filter
+    available_macros = AdditionalsMacro.all(filtered: 'child_pages', only_names: true)
     assert available_macros.exclude?('child_pages')
   end
 

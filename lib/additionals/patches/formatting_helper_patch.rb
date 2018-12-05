@@ -15,7 +15,7 @@ module Additionals
 
           return if @additionals_macro_list
 
-          @additionals_macro_list = AdditionalsMacro.all(project: @project,
+          @additionals_macro_list = AdditionalsMacro.all(filtered: Additionals.settings[:hidden_macros_in_toolbar].to_a,
                                                          only_names: true,
                                                          controller_only: controller_name)
 

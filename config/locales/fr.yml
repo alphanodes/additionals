@@ -170,5 +170,5 @@ fr:
   additionals_query_list_default_totals: "Montants par défaut pour la vue en liste"
   field_hide: "Cuir"
   label_hidden_macros_in_toolbar: Hidden macros
-  hidden_macros_in_toolbar_info: Alle verfübaren Makros, die der angemeldete Benutzer verwenden kann, werden über den Makro-Button in der Wiki-Toolbar aufgelistet. Die hier markierten Makros werden nicht zur Auswahl angeboten.
-  info_hidden_roles_html: Versteckte Rollen können nur zusammen mit der Benutzersichtbarkeit "Mitglieder von sichtbaren Projekten" verwendet werden. Sofern der Benutzer in keiner Rolle ist, die dem aktuellen Benutzer sichtbar ist, wird diese Rolle inkl. Benutzer auf der Projektübersichtsseite und in Abfragelisten ausgeblendet.
+  hidden_macros_in_toolbar_info: "Toutes les macros disponibles que l'utilisateur connecté peut utiliser sont listées via le bouton macro de la barre d'outils wiki. Les macros marquées ici ne sont pas proposées à la sélection. Ceci vous permet de limiter la portée de la liste."
+  info_hidden_roles_html: "Les rôles cachés ne peuvent être utilisés qu'avec la visibilité utilisateur \"Membres de projets visibles\". Si l'utilisateur n'est pas dans un rôle visible par l'utilisateur actuel, ce rôle, y compris l'utilisateur, est masqué sur la page de synthèse du projet et dans les listes de requêtes."

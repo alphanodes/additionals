@@ -253,6 +253,7 @@ a.external.redmine-link {
   background-image: url(../images/redmine-link.png);
   background-position: 0% 40%;
   padding-left: 13px;
+  background-repeat: no-repeat;
 }
 
 div.macro-box {

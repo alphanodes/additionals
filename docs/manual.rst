@@ -94,6 +94,12 @@ Macro section
 
 This section lists all available macros that the logged in user can use with the macro button of the wiki toolbar. If you leave them deactivated they are all available for selection. Macros marked here are not offered for selection. This allows you to limit the scope of the list for a better usability.
 
+
+.. figure::  images/macro-settings.png
+   :align:   center
+
+If all macros are deactivated the *Macro button* of the Wiki toolbar will disappear.
+
 .. note:: If you deactivate some macros here this does not mean the user may not implement them. All available macros of installed plugins will work even if they are not part of the macro button. The macro button is just a little helper for Redmine users to make it easier for them to use macros or to remember them.
 
 

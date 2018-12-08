@@ -3,33 +3,32 @@ module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
       desc <<-DESCRIPTION
-      Show date.
+  Show date.
 
-      Syntax:
+  Syntax:
 
-         {{date([TYPE])}}
-         TYPE
-         - current_date           current date (default)
-         - current_date_with_time current date with time
-         - current_year           current year
-         - current_month          current month
-         - current_day            current day
-         - current_hour           current hour
-         - current_minute         current minute
-         - current_weekday        current weekday
-         - current_weeknumber     current week number (1 - 52) The week starts with Monday
+     {{date([TYPE])}}
+     TYPE
+     - current_date           current date (default)
+     - current_date_with_time current date with time
+     - current_year           current year
+     - current_month          current month
+     - current_day            current day
+     - current_hour           current hour
+     - current_minute         current minute
+     - current_weekday        current weekday
+     - current_weeknumber     current week number (1 - 52) The week starts with Monday
 
-       Examples:
+   Examples:
 
-          {{date}}
-          ...show current date
-          {{date(current_year)}}
-          ...show current year
-          {{date(current_month)}}
-          ...show current month
-          {{date(current_weeknumber)}}
-          ...show current week number
-
+      {{date}}
+      ...show current date
+      {{date(current_year)}}
+      ...show current year
+      {{date(current_month)}}
+      ...show current month
+      {{date(current_weeknumber)}}
+      ...show current week number
       DESCRIPTION
 
       macro :date do |_obj, args|

@@ -27,12 +27,12 @@ class IssuesControllerTest < Additionals::ControllerTest
            :queries
 
   def setup
-    manager_role = Role.find(1)
+    manager_role = roles(:roles_001)
     manager_role.add_permission!(:edit_issue_author)
   end
 
   test 'author field as authorized user in new with change' do
-    manager_role = Role.find(1)
+    manager_role = roles(:roles_001)
     manager_role.add_permission!(:change_new_issue_author)
     session[:user_id] = 2
     get :new,
@@ -164,7 +164,7 @@ class IssuesControllerTest < Additionals::ControllerTest
   end
 
   test 'show forbidden status in issue sidebar with permission issue_timelog_never_required' do
-    manager_role = Role.find(2)
+    manager_role = roles(:roles_002)
     manager_role.add_permission!(:issue_timelog_never_required)
 
     with_additionals_settings(issue_change_status_in_sidebar: 1,

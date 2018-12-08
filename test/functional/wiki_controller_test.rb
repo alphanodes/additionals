@@ -25,7 +25,7 @@ class WikiControllerTest < Additionals::ControllerTest
   def setup
     prepare_tests
     EnabledModule.create(project_id: 1, name: 'wiki')
-    @project = Project.find(1)
+    @project = projects(:projects_001)
     @wiki = @project.wiki
     @page_name = 'additionals_macro_test'
     @page = @wiki.find_or_new_page(@page_name)
@@ -322,7 +322,7 @@ class WikiControllerTest < Additionals::ControllerTest
 
     assert_response :success
     assert_select 'div.wiki', html: /{{date/, count: 0
-    assert_select 'div.wiki span.current-date', count: 9
+    assert_select 'div.wiki span.current-date', count: valid_types.count
     assert_select 'div.wiki span.current-date', User.current.today.cweek.to_s
   end
 

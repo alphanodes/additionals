@@ -9,9 +9,9 @@ class WatcherTest < Additionals::TestCase
 
   def setup
     prepare_tests
-    @author = User.find(1)
-    @assigned_user = User.find(2)
-    @changing_user = User.find(4)
+    @author = users(:users_001)
+    @assigned_user = users(:users_002)
+    @changing_user = users(:users_004)
   end
 
   def test_new_issue_with_no_autowatch

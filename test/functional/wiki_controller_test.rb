@@ -321,8 +321,22 @@ class WikiControllerTest < Additionals::ControllerTest
         params: { project_id: 1, id: @page_name }
 
     assert_response :success
+    assert_select 'div.wiki', html: /{{date/, count: 0
     assert_select 'div.wiki span.current-date', count: 9
     assert_select 'div.wiki span.current-date', User.current.today.cweek.to_s
+  end
+
+  def test_show_with_date_macro_and_invalid_type
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+
+    @page.content.text = '{{date(invalid_type_name)}}'
+    @page.content.save!
+
+    get :show,
+        params: { project_id: 1, id: @page_name }
+
+    assert_response :success
+    assert_select 'div.wiki', html: /{{date/
   end
 
   def test_show_issue

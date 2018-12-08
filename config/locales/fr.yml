@@ -26,7 +26,6 @@ fr:
   error_query_statement_invalid: "Une erreur s'est produite lors de l'exécution de la requête et a été enregistrée. Veuillez signaler cette erreur à votre administrateur Redmine."
   errors_invalid_icon_format: is an invalid font-awesome code
   errors_no_or_invalid_arguments: "Pas d'arguments ou arguments invalides"
-  errors_query_does_not_exist: "Query n'existe pas"
   external_url_default: "Comportement par défaut"
   external_url_new_window: "Ouvrir dans une nouvelle fenêtre"
   external_url_noreferrer: "Ouvrir avec NoReferrer"
@@ -82,7 +81,6 @@ fr:
   label_issue_change_status: Modifier statut
   label_last_year: previous year
   label_legacy_smiley_support: Legacy smiley/emoji support
-  label_macro_na: N/A
   label_macro_plural: macros
   label_menu_entry: "Menu item"
   label_monthly: mensuel

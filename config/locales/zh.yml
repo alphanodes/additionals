@@ -26,7 +26,6 @@ zh:
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   errors_invalid_icon_format: 无效的 Font-awesome 代码。
   errors_no_or_invalid_arguments: 参数无效或不存在。
-  errors_query_does_not_exist: 查询不存咋。
   external_url_default: "默认窗口打开方式"
   external_url_new_window: "在新窗口中打开"
   external_url_noreferrer: "以 NoReferrer 方式打开"
@@ -82,7 +81,6 @@ zh:
   label_issue_change_status: Change status
   label_last_year: 去年
   label_legacy_smiley_support: 表情符号支持
-  label_macro_na: N/A
   label_macro_plural: macros
   label_menu_entry: "菜单项"
   label_monthly: 每月

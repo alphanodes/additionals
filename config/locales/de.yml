@@ -26,7 +26,6 @@ de:
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   errors_invalid_icon_format: ist ein ungültiger Font-Awesome Code
   errors_no_or_invalid_arguments: Kein oder ungültiger Parameter
-  errors_query_does_not_exist: Abfrage existiert nicht
   external_url_default: "Standard Verhalten"
   external_url_new_window: "In neuen Fenster"
   external_url_noreferrer: "Mit NoReferrer Kennzeichnung öffnen"
@@ -82,7 +81,6 @@ de:
   label_issue_change_status: Status ändern
   label_last_year: voriges Jahr
   label_legacy_smiley_support: Smiley/Emoji Support
-  label_macro_na: N/V
   label_macro_plural: Makros
   label_menu_entry: "Menüpunkt"
   label_monthly: monatlich

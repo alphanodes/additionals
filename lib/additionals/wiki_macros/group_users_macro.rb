@@ -20,7 +20,7 @@ module Additionals
 
         group_name = args[0].strip
         group = Group.named(group_name).first
-        raise 'Invalid group' unless group
+        raise unless group
 
         users = Principal.visible.where(id: group.users).order(User.name_formatter[:order])
         render partial: 'wiki/user_macros',

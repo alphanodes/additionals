@@ -26,7 +26,6 @@ es:
   error_query_statement_invalid: Ocurrió un error ejecutando la consulta y fue registrado. Por favor informe este error al administrador de Redmine.
   errors_invalid_icon_format: es un código inválido de font-awesome
   errors_no_or_invalid_arguments: Parámetros inválidos
-  errors_query_does_not_exist: Consulta inexistente
   external_url_default: "Comportamiento predeterminado"
   external_url_new_window: "Abrir en una nueva ventana"
   external_url_noreferrer: "Abrir con NoReferrer"
@@ -82,7 +81,6 @@ es:
   label_issue_change_status: Cambiar estado
   label_last_year: año anterior
   label_legacy_smiley_support: Soporte de smiley/emoji antiguo
-  label_macro_na: N/D
   label_macro_plural: macros
   label_menu_entry: "Menu item"
   label_monthly: mensual

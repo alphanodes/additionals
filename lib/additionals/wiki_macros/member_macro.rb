@@ -40,12 +40,12 @@ module Additionals
           project = Project.visible.find_by(id: project_id)
           project ||= Project.visible.find_by(identifier: project_id)
           project ||= Project.visible.find_by(name: project_id)
-          return '' if project.nil?
+          return if project.nil?
 
           raw_users = User.active
                           .where(["#{User.table_name}.id IN (SELECT DISTINCT user_id FROM members WHERE project_id=(?))", project.id])
                           .sorted
-          return '' if raw_users.nil?
+          return if raw_users.nil?
 
           users = []
           raw_users.each do |user|
@@ -54,7 +54,7 @@ module Additionals
           end
         else
           project_ids = Project.visible.collect(&:id)
-          return '' unless project_ids.any?
+          return unless project_ids.any?
 
           # members of the user's projects
           users = User.active

@@ -44,7 +44,7 @@ module Additionals
                     info[:issue_id])
 
         issue = Issue.find_by(id: issue_id)
-        return 'N/A' if issue.nil? || !issue.visible?
+        return if issue.nil? || !issue.visible?
 
         text = case options[:format]
                when 'full'

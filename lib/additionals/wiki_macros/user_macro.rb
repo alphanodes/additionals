@@ -27,7 +27,7 @@ module Additionals
 
         user = User.find_by(id: user_id)
         user ||= User.find_by(login: user_id)
-        return l(:label_macro_na) if user.nil?
+        return if user.nil?
 
         name = if options[:format].blank?
                  user.name

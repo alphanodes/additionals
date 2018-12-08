@@ -304,13 +304,24 @@ class WikiControllerTest < Additionals::ControllerTest
                   text: %r{https:\/\/widgets\.cryptocompare\.com\/serve\/v3\/coin\/header\?fsyms=BTC,ETH&tsyms=EUR}
   end
 
-  def test_show_with_weeknumber_macro
+  def test_show_with_date_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{current_weeknumber}}'
+
+    valid_types = %w[current_date current_date_with_time current_year
+                     current_month current_day current_hour current_minute
+                     current_weekday current_weeknumber]
+
+    @page.content.text = ''
+    valid_types.each do |type|
+      @page.content.text << "{{date(#{type})}}"
+    end
     @page.content.save!
+
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
+    assert_select 'div.wiki span.current-date', count: 9
     assert_select 'div.wiki span.current-date', User.current.today.cweek.to_s
   end
 

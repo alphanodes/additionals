@@ -21,15 +21,15 @@ module Additionals
           page_name = args[1].strip
           project = Project.find_by(name: project_name)
           project ||= Project.find_by(identifier: project_name)
-          return '' unless project
+          return unless project
 
           wiki = Wiki.find_by(project_id: project.id)
-          return '' unless wiki
+          return unless wiki
 
           page = wiki.find_page(page_name)
         end
 
-        return '' unless page
+        return unless page
 
         content_tag(:span,
                     l(:label_updated_time, time_tag(page.updated_on)).html_safe,

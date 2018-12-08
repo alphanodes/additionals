@@ -6,10 +6,13 @@ Changelog
 
 - CSS fix for project macro
 - More compatibility for autocomplete_users with other plugins (like redmine_contacts_helpdesk)
-- Compatibility to wikking plugin (macro list)
+- Compatibility to wiking plugin (macro list)
 - Add Spanish translation, thanks to @dktcoding!
 - Wiki button for available macros
 - replace permission hide-in-memberbox with "hide" as role setting - check your roles, if you used this permission!
+- replace multiple current_date macros with one macro called date
+- cleanup macros: if no data exists, macros is displayed instead of data
+  (before some macros used error messages other hide message at all)
 
 2.0.15
 ++++++

@@ -26,7 +26,6 @@ ja:
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   errors_invalid_icon_format: is an invalid font-awesome code
   errors_no_or_invalid_arguments: No or invalid arguments
-  errors_query_does_not_exist: Query does not exist
   external_url_default: "規程の扱い"
   external_url_new_window: "新しいウインドウで開く"
   external_url_noreferrer: "レフェラーを匿名化"
@@ -82,7 +81,6 @@ ja:
   label_issue_change_status: Change status
   label_last_year: previous year
   label_legacy_smiley_support: Legacy smiley/emoji support
-  label_macro_na: N/A
   label_macro_plural: macros
   label_menu_entry: "メニュー項目"
   label_monthly: monthly

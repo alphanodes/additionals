@@ -34,14 +34,17 @@ class AdditionalsTag
   end
 
   def self.tag_access(permission)
-    cond = ''
     projects_allowed = if permission.nil?
                          Project.visible.pluck(:id)
                        else
                          Project.where(Project.allowed_to_condition(User.current, permission)).pluck(:id)
                        end
-    cond << "#{PROJECT_TABLE_NAME}.id IN (#{projects_allowed.join(',')})" unless projects_allowed.empty?
-    cond
+
+    if projects_allowed.present?
+      "#{PROJECT_TABLE_NAME}.id IN (#{projects_allowed.join(',')})" unless projects_allowed.empty?
+    else
+      '1=0'
+    end
   end
 
   def self.remove_unused_tags

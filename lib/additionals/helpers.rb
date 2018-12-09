@@ -251,10 +251,6 @@ module Additionals
       additionals_include_js('additionals_observe_field')
     end
 
-    def additionals_load_delay_ajax_indicator
-      additionals_include_js('additionals_delay_ajax_indicator')
-    end
-
     def additionals_load_font_awesome
       additionals_include_css('fontawesome-all.min')
     end

@@ -15,7 +15,7 @@ module Additionals
       DESCRIPTION
 
       macro :calendar do |_obj, args|
-        raise 'Only works on wiki page' unless controller_name == 'wiki' && action_name == 'show'
+        raise 'Only works on wiki page' unless controller_name == 'wiki' && %w[show preview].include?(action_name)
 
         _args, options = extract_macro_options(args, :show_weeks, :year, :month, :select)
         options[:show_weeks] = 'false' if options[:show_weeks].blank?

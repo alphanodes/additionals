@@ -127,8 +127,12 @@ module Additionals
       if uri.scheme.nil? && uri.path[0] != '/' && issue_id_parts.count == 2
         rc[:issue_id] = url
       else
-        current_uri = URI.parse(request.original_url)
-        return rc unless uri.host == current_uri.host
+        if request.nil?
+          # this is used by mailer
+          return rc if url.exclude?(Setting.host_name)
+        elsif uri.host != URI.parse(request.original_url).host
+          return rc
+        end
 
         s_pos = uri.path.rindex('/issues/')
         id_string = uri.path[s_pos + 8..-1]

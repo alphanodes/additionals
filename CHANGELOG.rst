@@ -1,6 +1,13 @@
 Changelog
 =========
 
+2.0.17
+++++++
+
+- Fix bug with undefined constant for tags
+- add possibility to use custom date with date macro
+- FontAwesome 5.6.0 support
+
 2.0.16
 ++++++
 

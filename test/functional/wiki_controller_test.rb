@@ -324,6 +324,7 @@ class WikiControllerTest < Additionals::ControllerTest
     assert_select 'div.wiki', html: /{{date/, count: 0
     assert_select 'div.wiki span.current-date', count: valid_types.count
     assert_select 'div.wiki span.current-date', User.current.today.cweek.to_s
+    assert_select 'div.flash.error', html: /Error executing/, count: 0
   end
 
   def test_show_with_date_macro_and_invalid_type
@@ -336,7 +337,33 @@ class WikiControllerTest < Additionals::ControllerTest
         params: { project_id: 1, id: @page_name }
 
     assert_response :success
-    assert_select 'div.wiki', html: /{{date/
+    assert_select 'div.flash.error', html: /Error executing/
+  end
+
+  def test_show_with_date_macro_custom_date
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+
+    @page.content.text = '{{date(2017-02-25)}}'
+    @page.content.save!
+
+    get :show,
+        params: { project_id: 1, id: @page_name }
+
+    assert_response :success
+    assert_select 'div.flash.error', html: /Error executing/, count: 0
+  end
+
+  def test_show_with_date_macro_invalid_custom_date
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+
+    @page.content.text = '{{date(2017-02-30)}}'
+    @page.content.save!
+
+    get :show,
+        params: { project_id: 1, id: @page_name }
+
+    assert_response :success
+    assert_select 'div.flash.error', html: /Error executing/
   end
 
   def test_show_issue

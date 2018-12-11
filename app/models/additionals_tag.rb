@@ -1,6 +1,6 @@
 class AdditionalsTag
-  TAG_TABLE_NAME = RedmineCrm::Tag.table_name
-  TAGGING_TABLE_NAME = RedmineCrm::Tagging.table_name
+  TAG_TABLE_NAME = RedmineCrm::Tag.table_name if defined? RedmineCrm
+  TAGGING_TABLE_NAME = RedmineCrm::Tagging.table_name if defined? RedmineCrm
   PROJECT_TABLE_NAME = Project.table_name
 
   def self.get_available_tags(klass, options = {}, permission = nil)

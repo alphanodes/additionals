@@ -14,6 +14,7 @@ Date
                         current_minute         current minute
                         current_weekday        current weekday
                         current_weeknumber     current week number (1 - 52) The week starts with Monday
+                        YYYY-MM-DD             e.g. 2018-12-24, which will formated with Redmine date format
 
 Scope
 +++++
@@ -49,3 +50,9 @@ Show current week number
 .. code-block:: smarty
 
    {{date(current_weeknumber)}}
+
+Show date 2018-12-24 in right format, which is specified in Redmine Settings, which shows e.g. 24.12.2018
+
+.. code-block:: smarty
+
+  {{date(2018-12-24)}}

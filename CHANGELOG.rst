@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.0.17-dev
+++++++++++
+
+- add possibility to use custom date with date macro
+
+
 2.0.16
 ++++++
 

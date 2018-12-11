@@ -18,6 +18,7 @@ module Additionals
      - current_minute         current minute
      - current_weekday        current weekday
      - current_weeknumber     current week number (1 - 52) The week starts with Monday
+     - YYYY-MM-DD             e.g. 2018-12-24, which will formated with Redmine date format
 
    Examples:
 
@@ -32,17 +33,11 @@ module Additionals
       DESCRIPTION
 
       macro :date do |_obj, args|
-        valid_types = %w[current_date current_date_with_time current_year
-                         current_month current_day current_hour current_minute
-                         current_weekday current_weeknumber]
-
         type = if args.present?
                  args[0]
                else
                  'current_date'
                end
-
-        return if valid_types.exclude?(type)
 
         d = Additionals.now_with_user_time_zone
         date_result = case type
@@ -64,6 +59,8 @@ module Additionals
                         day_name(d.wday)
                       when 'current_weeknumber'
                         User.current.today.cweek
+                      else
+                        format_date(type.to_date)
                       end
 
         content_tag(:span, date_result, class: 'current-date')

@@ -1,0 +1,17 @@
+p
+  = f.check_box :hide, disabled: @role.users_visibility != 'members_of_visible_projects'
+  em.info
+    = t(:info_hidden_roles_html)
+
+javascript:
+  $(function() {
+    $('#role_users_visibility').change(function() {
+      var uv = $("#role_users_visibility").val();
+       if (uv == 'members_of_visible_projects') {
+        $("#role_hide").prop('disabled', false);
+       } else {
+         $("#role_hide").prop('checked', false);
+         $("#role_hide").prop('disabled', true);
+       }
+    });
+  });

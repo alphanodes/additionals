@@ -88,6 +88,22 @@ Remove Wiki title from PDF view    When activated the general Wiki title info in
 Remove attachments from PDF view   When activated the attachments will not be displayed in the PDF view of a Wiki page.
 =================================  =====================================================================================================
 
+
+Macro section
+-------------
+
+This section lists all available macros that the logged in user can use with the macro button of the wiki toolbar. If you leave them deactivated they are all available for selection. Macros marked here are not offered for selection. This allows you to limit the scope of the list for a better usability.
+
+
+.. figure::  images/macro-settings.png
+   :align:   center
+
+If all macros are deactivated the *Macro button* of the Wiki toolbar will disappear.
+
+.. note:: If you deactivate some macros here this does not mean the user may not implement them. All available macros of installed plugins will work even if they are not part of the macro button. The macro button is just a little helper for Redmine users to make it easier for them to use macros or to remember them.
+
+
+
 Issues section
 --------------
 
@@ -229,19 +245,51 @@ Because it's sometimes hard to remember what kind of macros you can use in your 
 Here is simply displayed a list of all available Redmine macros of your installation, which are provided by Redmine in general and the installed Redmine plugins.
 Macros can be used in the Wiki of a project or as well as in the text area of an issue, for example. For more information on how to add macros use the Redmine help.
 
+
+Macro button for Wiki toolbar
+-----------------------------
+
+Many plugins are equipped with a number of useful macros. Unfortunately it is difficult for the normal user to find out which macros are usable without a look at the plugin documentation. With our new macro button for the Wiki toolbar we want to simplify the implementation of macros for users somehow and above all also promote. Because the use of macros belongs to the daily tools of the trade when dealing with the Wiki.
+
+
+.. figure::  images/additionals-makro-button.png
+   :align:   center
+
+   Figure 2: The Wiki toolbar macro button is a useful helper in order to select available project macros for your content.
+
+The macro button for the Wiki toolbar is acessible for every user of a project. For reasons of clarity, the list of available macros is restricted according to the following criteria.
+
+A user can see in the macro list:
+
+* the macros that can be used for the respective area. Macros that only work in the wiki are not available in the issue area and vice versa.
+* The macros, which he / she can use due to his / her role and the associated rights in the respective project.
+* only the macros of modules activated in the project. Macros for deactivated functions are hidden in the list.
+
+The function is easy to use. Just click the button with the left mouse. The dropdown list shows all your available macros. Select the one you want to use. The selected macro will be pasted to the cursor position. All you have to do is adapt missing parameters (if needed). That's it.
+
+A list of all available macros provided by the Additionals plugin is also available in this manual.
+
+
 Additional permissions
 ----------------------
 
-The following permissions are provided by the plugin and must be configured in the administration area ``Roles and permissions`` for the plugin functions to make sure it's working properly.
+The following role permissions are provided by the plugin and must be configured in the administration area ``Roles and permissions`` for the plugin functions to make sure it's working properly.
 
-**Hide in member box**. This permission hides members of the selected role in the member box of each project. Project members of other roles will still be listed. For example: You don't want others to catch a glimpse of your development team (Role: Development). So activate the role "Developer" to hide the list of your team members assigned to this role in this box. This function is also useful if your member box is too crowded.
+**According to the selected Role you can activate / deactivate the following option:**
 
-**Show hidden roles in member box**. In case you have hidden roles in a project that should not be displayed you can give to some special roles the permission to display the members however.
+* **Hide**. This option hides ``members`` of the selected role in the member box of each project overview page. Project members of other roles will still be listed. For example: You don't want others to catch a glimpse of your development team (Role: Development). So activate the role "Developer" to hide the list of your team members assigned to this role in this box. This function is also useful if your member box is too crowded.
 
-**Edit issue author**. This permission will always record any changes made to the issue author. You can change the author only in the issue edit mode.
+.. note:: This setting is also taken into account in all related query lists (e.g. issues, spent time etc.). So that the members with this role are also hidden there. **Important:** If the user has in one project a role, that allows him / her to view a specific "hidden role" this rule is not taken into account anymore.
 
-**Edit closed issues**. Set this option to those roles you don't want to edit closed issues. Normally a closed issue should not be edited anymore.
 
-**Set author of new issues**. This permission should be set carefully, because in case you allow this, there is no history entry set for this. You will never know if the author has been originally someone else. Normally you don't want this.
+**According to the selected Role you can activate / deactivate the following permissions:**
 
-**Log time to closed issues**. Our plugin does not allow time logs to closed issues. In case you still want to allow your members to log time to closed issues, you need to change the permission here.
+* **Show hidden roles in member box**. In case you have hidden roles in a project that should not be displayed you can give to some special user roles the permission to display the members however. *Important:* If someone in a project has a role that has this right, then this user sees all users everywhere.
+
+* **Edit issue author**. This permission will always record any changes made to the issue author. You can change the author only in the issue edit mode.
+
+* **Edit closed issues**. Set this option to those roles you don't want to edit closed issues. Normally a closed issue should not be edited anymore.
+
+* **Set author of new issues**. This permission should be set carefully, because in case you allow this, there is no history entry set for this. You will never know if the author has been originally someone else. Normally you don't want this.
+
+* **Log time to closed issues**. Our plugin does not allow time logs to closed issues. In case you still want to allow your members to log time to closed issues, you need to change the permission here.

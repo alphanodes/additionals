@@ -26,7 +26,6 @@ ja:
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   errors_invalid_icon_format: is an invalid font-awesome code
   errors_no_or_invalid_arguments: No or invalid arguments
-  errors_query_does_not_exist: Query does not exist
   external_url_default: "規程の扱い"
   external_url_new_window: "新しいウインドウで開く"
   external_url_noreferrer: "レフェラーを匿名化"
@@ -82,7 +81,6 @@ ja:
   label_issue_change_status: Change status
   label_last_year: previous year
   label_legacy_smiley_support: Legacy smiley/emoji support
-  label_macro_na: N/A
   label_macro_plural: macros
   label_menu_entry: "メニュー項目"
   label_monthly: monthly
@@ -142,10 +140,9 @@ ja:
   permission_change_new_issue_author: Set author of new issues
   permission_edit_closed_issues: "Edit closed issues"
   permission_edit_issue_author: Edit author
-  permission_hide_in_memberbox: "Hide in memberbox"
   permission_issue_timelog_never_required: '時間の予約は必要ありません'
   permission_log_time_on_closed_issues: "Log time on closed issues"
-  permission_show_hidden_roles_in_memberbox: "Show hidden roles in member box"
+  permission_show_hidden_roles_in_memberbox: "Show hidden roles"
   project_overview_content_info: "この文章は、プロジェクト概要のページに表示されます。例えば、メンバー全員に公開されているWikiページ等のリンクを貼る等の使い方があります。一つのWiki構造を維持する事で、プロジェクト基準を良くする事が目的です。"
   remove_help_info: "ヘルプ」項目をトップメニューから外す"
   remove_mypage_info: 'タスクボードを導入するために、「マイ・ページ」のリンクを隠した方が便利な場合があります。タスクボードにより、ステータス毎の順番並び替えに出来るメリットがあります。'
@@ -167,3 +164,9 @@ ja:
   wiki_pdf_remove_title_info: When active the Wiki title info will not be displayed in PDF view.
   label_rule_issue_freezed_with_close: Disallow editing of closed issues (Freeze)
   rule_issue_freezed_with_close_info: If this option is activated, already closed issues can no longer be edited and commented. Not even via mail or API. This restriction does not apply to user roles with the "Edit closed issues" permission.
+  additionals_query_list_defaults: Default columns for list view
+  additionals_query_list_default_totals: Default sums for list view
+  field_hide: Hide
+  label_hidden_macros_in_toolbar: Hidden macros
+  hidden_macros_in_toolbar_info: All available macros that the logged in user can use are listed via the macro button of the wiki toolbar. Macros marked here are not offered for selection. This allows you to limit the scope of the list.
+  info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.

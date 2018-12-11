@@ -26,7 +26,6 @@ fr:
   error_query_statement_invalid: "Une erreur s'est produite lors de l'exécution de la requête et a été enregistrée. Veuillez signaler cette erreur à votre administrateur Redmine."
   errors_invalid_icon_format: is an invalid font-awesome code
   errors_no_or_invalid_arguments: "Pas d'arguments ou arguments invalides"
-  errors_query_does_not_exist: "Query n'existe pas"
   external_url_default: "Comportement par défaut"
   external_url_new_window: "Ouvrir dans une nouvelle fenêtre"
   external_url_noreferrer: "Ouvrir avec NoReferrer"
@@ -82,7 +81,6 @@ fr:
   label_issue_change_status: Modifier statut
   label_last_year: previous year
   label_legacy_smiley_support: Legacy smiley/emoji support
-  label_macro_na: N/A
   label_macro_plural: macros
   label_menu_entry: "Menu item"
   label_monthly: mensuel
@@ -139,13 +137,12 @@ fr:
   overview_bottom_info: "Ici, vous pouvez ajouter votre texte, qui sera affiché sur la page d'aperçu en bas. Par exemple, vous pouvez créer un lien vers une page wiki."
   overview_right_info: "Ici, vous pouvez ajouter votre texte, qui sera affiché sur la page d'aperçu sur le côté droit. Par exemple, vous pouvez créer un lien vers une page wiki."
   overview_top_info: "Ici, vous pouvez ajouter votre texte, qui sera affiché sur la page d'aperçu en haut de la page. Par exemple, vous pouvez créer un lien vers une page wiki."
-  permission_change_new_issue_author: Set author of new issues
+  permission_change_new_issue_author: "Définir l'auteur des nouveaux numéros"
   permission_edit_closed_issues: "Éditer les dossiers fermés"
-  permission_edit_issue_author: Edit author
-  permission_hide_in_memberbox: "Cacher dans la boîte de membre"
+  permission_edit_issue_author: "Modifier l'auteur"
   permission_issue_timelog_never_required: Enregistrements de temps non requis
-  permission_log_time_on_closed_issues: "Log time on closed issues"
-  permission_show_hidden_roles_in_memberbox: "Afficher les rôles cachés dans la boîte membre"
+  permission_log_time_on_closed_issues: "Enregistrer le temps passé sur les questions fermées"
+  permission_show_hidden_roles_in_memberbox: "Afficher les rôles cachés"
   project_overview_content_info: "Ici, vous pouvez ajouter votre texte, qui sera affiché sur la page d'aperçu du projet. Par exemple, vous pouvez créer un lien vers une page wiki, qui est / devrait être accessible à tous les membres de l'équipe. Le but est d'atteindre un meilleur standard de projet et de maintenir une structure wiki unique."
   remove_help_info: "Remove the item 'Help' from the top menu."
   remove_mypage_info: 'Sometimes it is more useful to hide the "My Page" link in order to introduce the task board. The task board advantage is that issues can be listed according to their status.'
@@ -167,3 +164,9 @@ fr:
   wiki_pdf_remove_title_info: "Lorsqu'elle est active, l'information sur le titre du wiki ne sera pas affichée dans la vue PDF."
   label_rule_issue_freezed_with_close: "Interdire l'édition des questions fermées (freeze)"
   rule_issue_freezed_with_close_info: "Si cette option est activée, les numéros déjà fermés ne peuvent plus être édités et commentés. Pas même par courrier ou API. Cette restriction ne s'applique pas aux rôles utilisateurs avec l'autorisation \"Modifier les problèmes fermés\"."
+  additionals_query_list_defaults: "Colonnes par défaut pour la vue en liste"
+  additionals_query_list_default_totals: "Montants par défaut pour la vue en liste"
+  field_hide: "Cuir"
+  label_hidden_macros_in_toolbar: Hidden macros
+  hidden_macros_in_toolbar_info: "Toutes les macros disponibles que l'utilisateur connecté peut utiliser sont listées via le bouton macro de la barre d'outils wiki. Les macros marquées ici ne sont pas proposées à la sélection. Ceci vous permet de limiter la portée de la liste."
+  info_hidden_roles_html: "Les rôles cachés ne peuvent être utilisés qu'avec la visibilité utilisateur \"Membres de projets visibles\". Si l'utilisateur n'est pas dans un rôle visible par l'utilisateur actuel, ce rôle, y compris l'utilisateur, est masqué sur la page de synthèse du projet et dans les listes de requêtes."

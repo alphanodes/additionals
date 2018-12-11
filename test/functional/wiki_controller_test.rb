@@ -25,7 +25,7 @@ class WikiControllerTest < Additionals::ControllerTest
   def setup
     prepare_tests
     EnabledModule.create(project_id: 1, name: 'wiki')
-    @project = Project.find(1)
+    @project = projects(:projects_001)
     @wiki = @project.wiki
     @page_name = 'additionals_macro_test'
     @page = @wiki.find_or_new_page(@page_name)
@@ -140,7 +140,7 @@ class WikiControllerTest < Additionals::ControllerTest
                   text: 'r/redmine'
   end
 
-  def test_show_last_updated_by_marco
+  def test_show_last_updated_by_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{last_updated_by}}'
     @page.content.save!
@@ -152,7 +152,7 @@ class WikiControllerTest < Additionals::ControllerTest
                   text: 'jsmith'
   end
 
-  def test_show_last_updated_at_marco
+  def test_show_last_updated_at_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{last_updated_at}}'
     @page.content.save!
@@ -163,7 +163,7 @@ class WikiControllerTest < Additionals::ControllerTest
     assert_select 'a[href=?]', '/projects/ecookbook/activity'
   end
 
-  def test_show_recently_updated_marco
+  def test_show_recently_updated_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{recently_updated}}'
     @page.content.save!
@@ -173,7 +173,7 @@ class WikiControllerTest < Additionals::ControllerTest
     assert_select 'div.recently-updated'
   end
 
-  def test_show_calendar_marco
+  def test_show_calendar_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{calendar(year=1970, month=7)}}'
     @page.content.save!
@@ -220,7 +220,7 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_select 'div.wiki div.projects li.project'
+    assert_select 'div.wiki div.additionals-projects li.project'
   end
 
   def test_show_with_fa_macro
@@ -304,14 +304,39 @@ class WikiControllerTest < Additionals::ControllerTest
                   text: %r{https:\/\/widgets\.cryptocompare\.com\/serve\/v3\/coin\/header\?fsyms=BTC,ETH&tsyms=EUR}
   end
 
-  def test_show_with_weeknumber_macro
+  def test_show_with_date_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{current_weeknumber}}'
+
+    valid_types = %w[current_date current_date_with_time current_year
+                     current_month current_day current_hour current_minute
+                     current_weekday current_weeknumber]
+
+    @page.content.text = ''
+    valid_types.each do |type|
+      @page.content.text << "{{date(#{type})}}"
+    end
     @page.content.save!
+
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
+    assert_select 'div.wiki', html: /{{date/, count: 0
+    assert_select 'div.wiki span.current-date', count: valid_types.count
     assert_select 'div.wiki span.current-date', User.current.today.cweek.to_s
+  end
+
+  def test_show_with_date_macro_and_invalid_type
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+
+    @page.content.text = '{{date(invalid_type_name)}}'
+    @page.content.save!
+
+    get :show,
+        params: { project_id: 1, id: @page_name }
+
+    assert_response :success
+    assert_select 'div.wiki', html: /{{date/
   end
 
   def test_show_issue

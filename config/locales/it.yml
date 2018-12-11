@@ -26,7 +26,6 @@ it:
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   errors_invalid_icon_format: 'è un font-awesome codice non valido'
   errors_no_or_invalid_arguments: No o non valido argomenti
-  errors_query_does_not_exist: Query non esiste
   external_url_default: "Comportamento predefinito"
   external_url_new_window: "Apri in una nuova finestra"
   external_url_noreferrer: "Aperto con NoReferrer"
@@ -82,7 +81,6 @@ it:
   label_issue_change_status: Modifica issue stato
   label_last_year: l'anno scorso
   label_legacy_smiley_support: Legacy smiley/emoji support
-  label_macro_na: N/A
   label_macro_plural: macros
   label_menu_entry: "Menu item"
   label_monthly: mensile
@@ -130,23 +128,22 @@ it:
   label_user_list: "User list"
   label_web_apis: Web APIs
   label_weekly: settimanalmente
-  label_wiki_pdf_remove_attachments: Remove attachments from PDF view
-  label_wiki_pdf_remove_title: Remove Wiki title from PDF view
+  label_wiki_pdf_remove_attachments: "Rimuovere gli allegati dalla vista PDF"
+  label_wiki_pdf_remove_title: "Rimuovere il titolo del Wiki dalla vista PDF"
   label_yearly: per anno
   legacy_smiley_support_info_html: 'Convert Smileys and Emoji symbols. Activate this option only if Smileys or Emoji are manually typed in by the use of code (e.g. :kiss:). If you use Unicode-Emoji this option should be deactivated. For more info on Emoji-Browser support read <a href="http://caniemoji.com/" target="_blank">http://caniemoji.com/</a>. Have a look at <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> for available Emoji-Codes you can use. <strong>Restart the application server</strong>, in order to activate the settings.'
   menu_roles_info: "Only members of selected roles will see this menu entry."
-  new_ticket_message_info: "A note will be shown to everyone who wants to add a new issue. For example you can enter acceptance tests or issue rules here. These settings are used project wide."
-  overview_bottom_info: "Here you can add your text, which will be shown on the overview page at the bottom. For example you can link to a wiki page."
-  overview_right_info: "Here you can add your text, which will be shown on the overview page at the right side. For example you can link to a wiki page."
-  overview_top_info: "Here you can add your text, which will be shown on the overview page at the top. For example you can link to a wiki page."
+  new_ticket_message_info: "Una nota verrà mostrata a tutti coloro che vogliono aggiungere un nuovo numero. Per esempio puoi inserire qui i test di accettazione o le regole di emissione. Queste impostazioni vengono utilizzate in tutto il progetto."
+  overview_bottom_info: "Qui puoi aggiungere il tuo testo, che verrà mostrato nella pagina di panoramica in basso. Ad esempio, è possibile collegarsi a una pagina wiki."
+  overview_right_info: "Qui puoi aggiungere il tuo testo, che verrà mostrato nella pagina di panoramica a destra. Ad esempio, puoi collegarti ad una pagina wiki."
+  overview_top_info: "Qui puoi aggiungere il tuo testo, che sarà mostrato nella pagina di panoramica in alto. Ad esempio, puoi collegarti ad una pagina wiki."
   permission_change_new_issue_author: "Impostare l'autore di nuovi numeri"
   permission_edit_closed_issues: "Modifica i issues chiusi"
   permission_edit_issue_author: "Modifica l'autore"
-  permission_hide_in_memberbox: "Nascondi nella cassetta membri"
   permission_issue_timelog_never_required: Registrazioni di tempo non richieste
   permission_log_time_on_closed_issues: "Il tempo di registrazione su problemi chiusi"
-  permission_show_hidden_roles_in_memberbox: "Mostra i ruoli nascosti nella casella membri"
-  project_overview_content_info: "Here you can add your text, which will be shown on the project overview page. For example you can link to a wiki page, which is/should be project wide available to every team member. The aim is to reach a better project standard and to maintain a unique wiki structure."
+  permission_show_hidden_roles_in_memberbox: "Mostra ruoli nascosti"
+  project_overview_content_info: "Qui puoi aggiungere il tuo testo, che verrà mostrato nella pagina di panoramica del progetto. Ad esempio, è possibile inserire un link ad una pagina wiki, che è/dovrebbe essere disponibile per ogni membro del team. L'obiettivo è quello di raggiungere uno standard di progetto migliore e di mantenere una struttura wiki unica."
   remove_help_info: "Rimuove l'elemento \"Aiuto\" dal menu superiore."
   remove_mypage_info: "Sometimes it is more useful to hide the \"My Page\" link in order to introduce the task board. The task board advantage is that issues can be listed according to their status."
   remove_news_info: "Rimuovere le ultime notizie dalla pagina panoramica."
@@ -167,3 +164,9 @@ it:
   wiki_pdf_remove_title_info: "Quando è attivo, le informazioni sul titolo del Wiki non verranno visualizzate nella vista PDF."
   label_rule_issue_freezed_with_close: "Impedire la modifica dei problemi chiusi (Freeze)"
   rule_issue_freezed_with_close_info: "Se questa opzione è attivata, i numeri già chiusi non possono più essere modificati e commentati. Nemmeno via mail o API. Questa restrizione non si applica ai ruoli utente con il permesso \"Modifica problemi chiusi\"."
+  additionals_query_list_defaults: "Colonne predefinite per la vista elenco"
+  additionals_query_list_default_totals: "Importi predefiniti per la vista elenco"
+  field_hide: "Nascondi"
+  label_hidden_macros_in_toolbar: Hidden macros
+  hidden_macros_in_toolbar_info: "Tutte le macro disponibili che l'utente registrato può utilizzare sono elencate tramite il pulsante macro della barra degli strumenti del wiki. Le macro contrassegnate qui non vengono offerte per la selezione. In questo modo è possibile limitare la portata dell'elenco."
+  info_hidden_roles_html: "I ruoli nascosti possono essere utilizzati solo insieme alla visibilità dell'utente \"Membri di progetti visibili\". Se l'utente non è in un ruolo visibile all'utente corrente, questo ruolo, incluso l'utente, è nascosto nella pagina di panoramica del progetto e nelle liste di ricerca."

@@ -30,8 +30,8 @@ class IssueTest < Additionals::TestCase
 
   def test_change_open_issue
     with_additionals_settings(issue_freezed_with_close: 1) do
-      User.current = User.find(3)
-      issue = Issue.find(7)
+      User.current = users(:users_003)
+      issue = issues(:issues_007)
       issue.subject = 'Should be be saved'
       assert issue.save
     end
@@ -39,13 +39,13 @@ class IssueTest < Additionals::TestCase
 
   def test_change_closed_issue_with_permission
     with_additionals_settings(issue_freezed_with_close: 1) do
-      User.current = User.find(3)
+      User.current = users(:users_003)
       role = Role.create!(name: 'Additionals Tester', permissions: [:edit_closed_issues])
       Member.where(user_id: User.current).delete_all
-      project = Project.find(1)
+      project = projects(:projects_001)
       Member.create!(principal: User.current, project_id: project.id, role_ids: [role.id])
 
-      issue = Issue.find(8)
+      issue = issues(:issues_008)
 
       issue.subject = 'Should be saved'
       assert issue.save
@@ -57,8 +57,8 @@ class IssueTest < Additionals::TestCase
 
   def test_change_closed_issue_without_permission
     with_additionals_settings(issue_freezed_with_close: 1) do
-      User.current = User.find(3)
-      issue = Issue.find(8)
+      User.current = users(:users_003)
+      issue = issues(:issues_008)
 
       assert issue.closed?
       issue.subject = 'Should be not be saved'
@@ -70,8 +70,8 @@ class IssueTest < Additionals::TestCase
 
   def test_change_closed_issue_without_permission_but_freezed_disabled
     with_additionals_settings(issue_freezed_with_close: 0) do
-      User.current = User.find(3)
-      issue = Issue.find(8)
+      User.current = users(:users_003)
+      issue = issues(:issues_008)
 
       issue.subject = 'Should be saved'
       assert issue.save

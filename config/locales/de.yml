@@ -26,7 +26,6 @@ de:
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   errors_invalid_icon_format: ist ein ungültiger Font-Awesome Code
   errors_no_or_invalid_arguments: Kein oder ungültiger Parameter
-  errors_query_does_not_exist: Abfrage existiert nicht
   external_url_default: "Standard Verhalten"
   external_url_new_window: "In neuen Fenster"
   external_url_noreferrer: "Mit NoReferrer Kennzeichnung öffnen"
@@ -82,7 +81,6 @@ de:
   label_issue_change_status: Status ändern
   label_last_year: voriges Jahr
   label_legacy_smiley_support: Smiley/Emoji Support
-  label_macro_na: N/V
   label_macro_plural: Makros
   label_menu_entry: "Menüpunkt"
   label_monthly: monatlich
@@ -142,10 +140,9 @@ de:
   permission_change_new_issue_author: Autor bei Ticketerstellung festlegen
   permission_edit_closed_issues: "Geschlossene Tickets bearbeiten"
   permission_edit_issue_author: Ticket Autor bearbeiten
-  permission_hide_in_memberbox: In Memberbox ausblenden
   permission_issue_timelog_never_required: Zeitbuchungen nicht erforderlich
   permission_log_time_on_closed_issues: "Aufwände buchen auf geschlossene Tickets"
-  permission_show_hidden_roles_in_memberbox: "Versteckte Rollen in Memberbox anzeigen"
+  permission_show_hidden_roles_in_memberbox: "Versteckte Rollen anzeigen"
   project_overview_content_info: "Hier kann ein Text hinterlegt werden, der auf der Übersichtsprojektseite angezeigt wird. Verweisen Sie beispielsweise auf bestimmte Wiki Seiten, welche projektübergreifend vorhanden sind/sein sollten. Ziel sollte eine Standardisierung in den Projekten und eine einheitliche Wiki-Struktur sein."
   remove_help_info: "Den Menüpunkt 'Hilfe' aus dem Topmenü entfernen."
   remove_mypage_info: 'Manchmal ist es hilfreich, dass die "Meine Seite" nicht angezeigt wird, um den Einsatz eines Task Boards einzuführen. Der Vorteil eines Task Boards liegt darin, dass Tickets nach Status gelistet werden können.'
@@ -167,3 +164,9 @@ de:
   wiki_pdf_remove_title_info: Wenn aktiv, wird der Wiki Titel nicht in der PDF Ansicht angezeigt.
   label_rule_issue_freezed_with_close: Bearbeitung geschlossener Tickets verbieten (Freeze)
   rule_issue_freezed_with_close_info: Wird diese Option aktiviert können bereits geschlossene Tickets nicht mehr bearbeitet und kommentiert werden. Auch nicht via Mail oder API. Für Benutzerrollen mit dem Recht "Geschlossene Tickets bearbeiten" gilt diese Einschränkung nicht.
+  additionals_query_list_defaults: Standard-Spalten Listenansicht
+  additionals_query_list_default_totals: Standard-Summen in der Listenansicht
+  field_hide: Verstecken
+  label_hidden_macros_in_toolbar: Versteckte Makros
+  hidden_macros_in_toolbar_info: Alle verfügbaren Makros, die der angemeldete Benutzer verwenden kann, werden über den Makro-Button der Wiki-Toolbar aufgelistet. Hier markierte Makros werden nicht zur Auswahl angeboten. Damit lässt sich der Listenumfang einschränken.
+  info_hidden_roles_html: Versteckte Rollen können nur zusammen mit der Benutzersichtbarkeit "Mitglieder von sichtbaren Projekten" verwendet werden. Diese Option funktioniert nur, wenn der Benutzer in keiner Rolle ist die für den aktuellen Benutzer sichtbar ist. Passt alles wird diese Rolle inklusive Benutzer auf der Projektübersichtsseite und in Abfragelisten ausgeblendet.

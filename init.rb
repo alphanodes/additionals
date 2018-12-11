@@ -4,7 +4,7 @@ Redmine::Plugin.register :additionals do
   name 'Additionals'
   author 'AlphaNodes GmbH'
   description 'Customizing Redmine, providing wiki macros and act as a library/function provider for other Redmine plugins'
-  version '2.0.15'
+  version '2.0.16'
   author_url 'https://alphanodes.com/'
   url 'https://github.com/alphanodes/additionals'
 
@@ -17,7 +17,6 @@ Redmine::Plugin.register :additionals do
 
   settings(default: default_settings, partial: 'additionals/settings/additionals')
 
-  permission :hide_in_memberbox, {}
   permission :show_hidden_roles_in_memberbox, {}
 
   project_module :issue_tracking do

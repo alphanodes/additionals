@@ -26,7 +26,6 @@ zh:
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   errors_invalid_icon_format: 无效的 Font-awesome 代码。
   errors_no_or_invalid_arguments: 参数无效或不存在。
-  errors_query_does_not_exist: 查询不存咋。
   external_url_default: "默认窗口打开方式"
   external_url_new_window: "在新窗口中打开"
   external_url_noreferrer: "以 NoReferrer 方式打开"
@@ -82,7 +81,6 @@ zh:
   label_issue_change_status: Change status
   label_last_year: 去年
   label_legacy_smiley_support: 表情符号支持
-  label_macro_na: N/A
   label_macro_plural: macros
   label_menu_entry: "菜单项"
   label_monthly: 每月
@@ -142,10 +140,9 @@ zh:
   permission_change_new_issue_author: Set author of new issues
   permission_edit_closed_issues: "修改已关闭的问题"
   permission_edit_issue_author: Edit author
-  permission_hide_in_memberbox: "在成员信息区域内隐藏"
   permission_issue_timelog_never_required: Time logging not required
   permission_log_time_on_closed_issues: "在已关闭的问题中登记工时"
-  permission_show_hidden_roles_in_memberbox: "在成员信息区域内显示角色信息"
+  permission_show_hidden_roles_in_memberbox: "Show hidden roles"
   project_overview_content_info: "此处可以添加显示在项目概述页面上的文本信息，如您可以链接到一个项目全体成员都可以访问的 WIKI 页。使用该功能的目的是为了形成一个更好的项目标准以维护独特的 WIKi 结构。"
   remove_help_info: "从顶部菜单栏中隐藏 '帮助' 菜单项。"
   remove_mypage_info: '有时，为了引入敏捷的任务看板，隐藏【我的工作台】链接可能会更有用。任务看板的优势即是可以根据状态罗列并快速访问。'
@@ -167,3 +164,9 @@ zh:
   wiki_pdf_remove_title_info: 当启用时，WIKI 标题信息将不会显示在PDF视图中。
   label_rule_issue_freezed_with_close: Disallow editing of closed issues (Freeze)
   rule_issue_freezed_with_close_info: If this option is activated, already closed issues can no longer be edited and commented. Not even via mail or API. This restriction does not apply to user roles with the "Edit closed issues" permission.
+  additionals_query_list_defaults: Default columns for list view
+  additionals_query_list_default_totals: Default sums for list view
+  field_hide: Hide
+  label_hidden_macros_in_toolbar: Hidden macros
+  hidden_macros_in_toolbar_info: All available macros that the logged in user can use are listed via the macro button of the wiki toolbar. Macros marked here are not offered for selection. This allows you to limit the scope of the list.
+  info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.

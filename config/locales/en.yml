@@ -26,7 +26,6 @@ en:
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   errors_invalid_icon_format: is an invalid font-awesome code
   errors_no_or_invalid_arguments: No or invalid arguments
-  errors_query_does_not_exist: Query does not exist
   external_url_default: "Default behavior"
   external_url_new_window: "Open in new window"
   external_url_noreferrer: "Open with NoReferrer"
@@ -82,8 +81,7 @@ en:
   label_issue_change_status: Change status
   label_last_year: previous year
   label_legacy_smiley_support: Legacy smiley/emoji support
-  label_macro_na: N/A
-  label_macro_plural: macros
+  label_macro_plural: Macros
   label_menu_entry: "Menu item"
   label_monthly: monthly
   label_new_issue_on_profile: New issue on user profile
@@ -142,10 +140,9 @@ en:
   permission_change_new_issue_author: Set author of new issues
   permission_edit_closed_issues: "Edit closed issues"
   permission_edit_issue_author: Edit issue author
-  permission_hide_in_memberbox: "Hide in memberbox"
   permission_issue_timelog_never_required: Time logging not required
   permission_log_time_on_closed_issues: "Log time on closed issues"
-  permission_show_hidden_roles_in_memberbox: "Show hidden roles in member box"
+  permission_show_hidden_roles_in_memberbox: "Show hidden roles"
   project_overview_content_info: "Here you can add your text, which will be shown on the project overview page. For example you can link to a wiki page, which is/should be project wide available to every team member. The aim is to reach a better project standard and to maintain a unique wiki structure."
   remove_help_info: "Remove the item 'Help' from the top menu."
   remove_mypage_info: 'Sometimes it is more useful to hide the "My Page" link in order to introduce the task board. The task board advantage is that issues can be listed according to their status.'
@@ -167,3 +164,9 @@ en:
   wiki_pdf_remove_title_info: When active the Wiki title info will not be displayed in PDF view.
   label_rule_issue_freezed_with_close: Disallow editing of closed issues (Freeze)
   rule_issue_freezed_with_close_info: If this option is activated, already closed issues can no longer be edited and commented. Not even via mail or API. This restriction does not apply to user roles with the "Edit closed issues" permission.
+  additionals_query_list_defaults: Default columns for list view
+  additionals_query_list_default_totals: Default sums for list view
+  field_hide: Hide
+  label_hidden_macros_in_toolbar: Hidden macros
+  hidden_macros_in_toolbar_info: All available macros that the logged in user can use are listed via the macro button of the wiki toolbar. Macros marked here are not offered for selection. This allows you to limit the scope of the list.
+  info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.

@@ -41,6 +41,7 @@ module Additionals
       tabs << { name: 'general', partial: 'additionals/settings/general', label: :label_general }
       tabs << { name: 'content', partial: 'additionals/settings/overview', label: :label_overview_page }
       tabs << { name: 'wiki', partial: 'additionals/settings/wiki', label: :label_wiki }
+      tabs << { name: 'macros', partial: 'additionals/settings/macros', label: :label_macro_plural }
       tabs << { name: 'rules', partial: 'additionals/settings/issues', label: :label_issue_plural }
       tabs << { name: 'projects', partial: 'additionals/settings/projects', label: :label_project_plural }
       tabs << { name: 'users', partial: 'additionals/settings/users', label: :label_user_plural }
@@ -126,8 +127,12 @@ module Additionals
       if uri.scheme.nil? && uri.path[0] != '/' && issue_id_parts.count == 2
         rc[:issue_id] = url
       else
-        current_uri = URI.parse(request.original_url)
-        return rc unless uri.host == current_uri.host
+        if request.nil?
+          # this is used by mailer
+          return rc if url.exclude?(Setting.host_name)
+        elsif uri.host != URI.parse(request.original_url).host
+          return rc
+        end
 
         s_pos = uri.path.rindex('/issues/')
         id_string = uri.path[s_pos + 8..-1]
@@ -181,17 +186,6 @@ module Additionals
 
     def windows_platform?
       true if /cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM
-    end
-
-    def memberbox_view_roles
-      view_roles = []
-      @users_by_role.keys.sort.each do |role|
-        if !role.permissions.include?(:hide_in_memberbox) ||
-           (role.permissions.include?(:hide_in_memberbox) && User.current.allowed_to?(:show_hidden_roles_in_memberbox, @project))
-          view_roles << role
-        end
-      end
-      view_roles
     end
 
     def bootstrap_datepicker_locale
@@ -259,10 +253,6 @@ module Additionals
 
     def additionals_load_observe_field
       additionals_include_js('additionals_observe_field')
-    end
-
-    def additionals_load_delay_ajax_indicator
-      additionals_include_js('additionals_delay_ajax_indicator')
     end
 
     def additionals_load_font_awesome

@@ -94,7 +94,7 @@ module AdditionalsMenuHelper
 
   def addtionals_help_plugin_items
     user_items = [{ title: 'Redmine Guide', url: Redmine::Info.help_url },
-                  { title: "Redmine #{l(:label_macro_plural)}", url: macros_path }]
+                  { title: "Redmine #{l(:label_macro_plural)}", url: additionals_macros_path }]
 
     admin_items = [{ title: 'Additionals', url: 'https://additionals.readthedocs.io/en/latest/manual/', manual: true },
                    { title: 'Redmine Changelog', url: 'https://www.redmine.org/projects/redmine/wiki/Changelog_3_4' },
@@ -166,7 +166,7 @@ module AdditionalsMenuHelper
   # Plugin help items definition for plugins,
   # which do not have additionals_help_menu_items integration
   def additionals_help_items_fallbacks(plugin_id)
-    plugins = { redmine_wiki_lists: [{ title: 'Wiki Lists Marcos',
+    plugins = { redmine_wiki_lists: [{ title: 'Wiki Lists Macros',
                                        url: 'https://www.r-labs.org/projects/wiki_lists/wiki/Wiki_Lists_en' }],
                 redmine_wiki_extensions: [{ title: 'Wiki Extensions',
                                             url: 'https://www.r-labs.org/projects/r-labs/wiki/Wiki_Extensions_en' }],

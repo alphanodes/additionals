@@ -15,20 +15,23 @@ module Additionals
                Issue
                IssuePriority
                TimeEntry
+               Project
                Wiki
                WikiController
+               Principal
+               QueryFilter
+               Role
                UserPreference])
 
-      patch(%w[QueryFilter]) if Redmine::VERSION.to_s >= '3.4'
-
       Rails.configuration.assets.paths << Emoji.images_path
-      # Send Emoji Patches to all wiki formatters available to be able to switch formatter without app restart
       Redmine::WikiFormatting.format_names.each do |format|
         case format
         when 'markdown'
-          Redmine::WikiFormatting::Markdown::HTML.send(:include, Additionals::Patches::FormatterMarkdownPatch)
+          Redmine::WikiFormatting::Markdown::HTML.send(:include, Patches::FormatterMarkdownPatch)
+          Redmine::WikiFormatting::Markdown::Helper.send(:include, Patches::FormattingHelperPatch)
         when 'textile'
-          Redmine::WikiFormatting::Textile::Formatter.send(:include, Additionals::Patches::FormatterTextilePatch)
+          Redmine::WikiFormatting::Textile::Formatter.send(:include, Patches::FormatterTextilePatch)
+          Redmine::WikiFormatting::Textile::Helper.send(:include, Patches::FormattingHelperPatch)
         end
       end
 

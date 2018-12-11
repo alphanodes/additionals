@@ -1,9 +1,10 @@
 Changelog
 =========
 
-2.0.17-dev
-++++++++++
+2.0.17
+++++++
 
+- Fix bug with undefined constant for tags
 - add possibility to use custom date with date macro
 
 

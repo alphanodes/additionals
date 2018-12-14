@@ -5,6 +5,7 @@ Changelog
 ++++++
 
 - Performance improvement (#36)
+- FontAwesome 5.6.1 support
 
 2.0.17
 ++++++

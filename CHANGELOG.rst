@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.0.18
+++++++
+
+- Performance improvement (#36)
+
 2.0.17
 ++++++
 

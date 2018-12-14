@@ -3,7 +3,6 @@ module Additionals
   SELECT2_INIT_ENTRIES = 20
 
   LIST_SEPARATOR = ' &#187; '.html_safe # rubocop:disable Rails/OutputSafety
-  REDMINE_HRM_SUPPORT = Redmine::Plugin.installed?('redmine_hrm') ? true : false
 
   class << self
     def setup

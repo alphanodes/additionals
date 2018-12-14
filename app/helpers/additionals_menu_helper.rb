@@ -1,6 +1,6 @@
 module AdditionalsMenuHelper
   def additionals_top_menu_setup
-    return if Additionals::REDMINE_HRM_SUPPORT
+    return unless User.current.try(:hrm_user_type_id).nil?
 
     if Additionals.setting?(:remove_mypage)
       Redmine::MenuManager.map(:top_menu).delete(:my_page) if Redmine::MenuManager.map(:top_menu).exists?(:my_page)

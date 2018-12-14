@@ -46,7 +46,9 @@ module Additionals
               { name: 'users', partial: 'additionals/settings/users', label: :label_user_plural },
               { name: 'web', partial: 'additionals/settings/web_apis', label: :label_web_apis }]
 
-      tabs << { name: 'menu', partial: 'additionals/settings/menu', label: :label_settings_menu } unless Additionals::REDMINE_HRM_SUPPORT
+      if User.current.try(:hrm_user_type_id).nil?
+        tabs << { name: 'menu', partial: 'additionals/settings/menu', label: :label_settings_menu }
+      end
 
       tabs
     end

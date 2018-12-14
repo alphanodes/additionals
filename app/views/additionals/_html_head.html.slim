@@ -5,5 +5,5 @@
   = javascript_include_tag('noreferrer', plugin: 'additionals')
 = additionals_library_load(:font_awesome)
 = stylesheet_link_tag 'additionals', plugin: 'additionals'
-- unless Additionals::REDMINE_HRM_SUPPORT
+- if User.current.try(:hrm_user_type_id).nil?
   - render_custom_top_menu_item

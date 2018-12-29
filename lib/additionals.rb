@@ -56,18 +56,22 @@ module Additionals
     end
 
     def settings
-      if Setting[:plugin_additionals].class == Hash
+      settings_compatible(:plugin_additionals)
+    end
+
+    def settings_compatible(plugin_name)
+      if Setting[plugin_name].class == Hash
         if Rails.version >= '5.2'
-          # convert Rails 4 data
-          new_settings = ActiveSupport::HashWithIndifferentAccess.new(Setting[:plugin_additionals])
-          Setting.plugin_additionals = new_settings
+          # convert Rails 4 data (this runs only once)
+          new_settings = ActiveSupport::HashWithIndifferentAccess.new(Setting[plugin_name])
+          Setting.send("#{plugin_name}=", new_settings)
           new_settings
         else
-          ActionController::Parameters.new(Setting[:plugin_additionals])
+          ActionController::Parameters.new(Setting[plugin_name])
         end
       else
         # Rails 5 uses ActiveSupport::HashWithIndifferentAccess
-        Setting[:plugin_additionals]
+        Setting[plugin_name]
       end
     end
 

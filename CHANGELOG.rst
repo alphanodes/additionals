@@ -1,6 +1,13 @@
 Changelog
 =========
 
+2.0.18
+++++++
+
+- Performance improvement (#36)
+- FontAwesome 5.6.3 support
+- Fix problem from migrating from Redmine 3.x to Redmine 4 with lost settings
+
 2.0.17
 ++++++
 

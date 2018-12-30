@@ -51,19 +51,43 @@ module AdditionalsMenuHelper
     Redmine::MenuManager.map(:top_menu).push(menu_name, item[:url], menu_options)
   end
 
-  def additionals_custom_top_menu_item(num, user_roles)
-    menu_name = 'custom_menu' + num.to_s
-    item = {
-      url: Additionals.settings[menu_name + '_url'],
-      name: Additionals.settings[menu_name + '_name'],
-      title: Additionals.settings[menu_name + '_title'],
-      roles: Additionals.settings[menu_name + '_roles']
-    }
-    if item[:name].blank? || item[:url].blank? || item[:roles].nil?
-      Redmine::MenuManager.map(:top_menu).delete(menu_name.to_sym) if Redmine::MenuManager.map(:top_menu).exists?(menu_name.to_sym)
-      return
+  def render_custom_top_menu_item
+    items = additionals_build_custom_items
+    return if items.empty?
+
+    user_roles = Role.givable
+                     .joins(:members).where(members: { user_id: User.current.id })
+                     .joins(members: :project).where(projects: { status: Project::STATUS_ACTIVE })
+                     .distinct
+                     .reorder(nil)
+                     .pluck(:id)
+
+    items.each do |item|
+      additionals_custom_top_menu_item(item, user_roles)
+    end
+  end
+
+  def additionals_build_custom_items
+    items = []
+    Additionals::MAX_CUSTOM_MENU_ITEMS.times do |num|
+      menu_name = "custom_menu#{num}"
+      item = { menu_name: menu_name.to_sym,
+               url: Additionals.settings[menu_name + '_url'],
+               name: Additionals.settings[menu_name + '_name'],
+               title: Additionals.settings[menu_name + '_title'],
+               roles: Additionals.settings[menu_name + '_roles'] }
+
+      if item[:name].present? && item[:url].present? && item[:roles].present?
+        items << item
+      elsif Redmine::MenuManager.map(:top_menu).exists?(item[:menu_name])
+        Redmine::MenuManager.map(:top_menu).delete(item[:menu_name])
+      end
     end
 
+    items
+  end
+
+  def additionals_custom_top_menu_item(item, user_roles)
     show_entry = false
     item[:roles].each do |role|
       if user_roles.empty? && role.to_i == Role::BUILTIN_ANONYMOUS
@@ -77,7 +101,7 @@ module AdditionalsMenuHelper
       end
 
       user_roles.each do |user_role|
-        if role.to_i == user_role.id.to_i
+        if role.to_i == user_role
           show_entry = true
           break
         end
@@ -86,9 +110,9 @@ module AdditionalsMenuHelper
     end
 
     if show_entry
-      handle_top_menu_item(menu_name, item)
-    elsif Redmine::MenuManager.map(:top_menu).exists?(menu_name.to_sym)
-      Redmine::MenuManager.map(:top_menu).delete(menu_name.to_sym)
+      handle_top_menu_item(item[:menu_name], item)
+    elsif Redmine::MenuManager.map(:top_menu).exists?(item[:menu_name])
+      Redmine::MenuManager.map(:top_menu).delete(item[:menu_name])
     end
   end
 

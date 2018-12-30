@@ -37,18 +37,18 @@ module Additionals
     end
 
     def additionals_settings_tabs
-      tabs = []
-      tabs << { name: 'general', partial: 'additionals/settings/general', label: :label_general }
-      tabs << { name: 'content', partial: 'additionals/settings/overview', label: :label_overview_page }
-      tabs << { name: 'wiki', partial: 'additionals/settings/wiki', label: :label_wiki }
-      tabs << { name: 'macros', partial: 'additionals/settings/macros', label: :label_macro_plural }
-      tabs << { name: 'rules', partial: 'additionals/settings/issues', label: :label_issue_plural }
-      tabs << { name: 'projects', partial: 'additionals/settings/projects', label: :label_project_plural }
-      tabs << { name: 'users', partial: 'additionals/settings/users', label: :label_user_plural }
+      tabs = [{ name: 'general', partial: 'additionals/settings/general', label: :label_general },
+              { name: 'content', partial: 'additionals/settings/overview', label: :label_overview_page },
+              { name: 'wiki', partial: 'additionals/settings/wiki', label: :label_wiki },
+              { name: 'macros', partial: 'additionals/settings/macros', label: :label_macro_plural },
+              { name: 'rules', partial: 'additionals/settings/issues', label: :label_issue_plural },
+              { name: 'projects', partial: 'additionals/settings/projects', label: :label_project_plural },
+              { name: 'users', partial: 'additionals/settings/users', label: :label_user_plural },
+              { name: 'web', partial: 'additionals/settings/web_apis', label: :label_web_apis }]
+
       if User.current.try(:hrm_user_type_id).nil?
         tabs << { name: 'menu', partial: 'additionals/settings/menu', label: :label_settings_menu }
       end
-      tabs << { name: 'web', partial: 'additionals/settings/web_apis', label: :label_web_apis }
 
       tabs
     end

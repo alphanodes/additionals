@@ -6,6 +6,4 @@
 = additionals_library_load(:font_awesome)
 = stylesheet_link_tag 'additionals', plugin: 'additionals'
 - if User.current.try(:hrm_user_type_id).nil?
-  - user_roles = User.current.memberships.includes(:project).collect(&:roles).flatten.uniq
-  - Additionals::MAX_CUSTOM_MENU_ITEMS.times do |i|
-    - additionals_custom_top_menu_item(i, user_roles)
+  - render_custom_top_menu_item

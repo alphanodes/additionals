@@ -102,7 +102,7 @@ module AdditionalsTagHelper
   end
 
   def additionals_tag_color(tag_name)
-    "##{'%06x' % (tag_name.unpack('H*').first.hex % 0xffffff)}"
+    "##{format('%06x', tag_name.unpack('H*').first.hex % 0xffffff)}"
   end
 
   def cloudify(tags)

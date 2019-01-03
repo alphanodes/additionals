@@ -5,6 +5,11 @@ rvm:
   - 2.3.8
   - 2.2.10
 
+matrix:
+  include:
+    - rvm: '2.2.10'
+      env: INSTALL_BUNDLER='1'
+
 env:
   - REDMINE_VER=4.0-stable DB=postgresql
   - REDMINE_VER=3.4-stable DB=postgresql
@@ -25,7 +30,7 @@ before_install:
   - ln -s $TRAVIS_BUILD_DIR $REDMINE_PATH/plugins/$PLUGIN_NAME
   - cp $TRAVIS_BUILD_DIR/test/support/additional_environment.rb $REDMINE_PATH/config/
   - cp $TRAVIS_BUILD_DIR/test/support/database-$DB-travis.yml $REDMINE_PATH/config/database.yml
-  - if [[ "$rvm" == "2.2.10" ]]; then gem install bundler; fi
+  - if [[ "$INSTALL_BUNDLER" == '1' ]]; then gem install bundler; fi
 
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres

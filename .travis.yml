@@ -8,11 +8,19 @@ rvm:
 env:
   - REDMINE_VER=4.0-stable DB=postgresql
   - REDMINE_VER=3.4-stable DB=postgresql
+  - REDMINE_VER=4.0-stable DB=mysql
+  - REDMINE_VER=3.4-stable DB=mysql
 
 sudo: true
 
 addons:
   postgresql: "9.6"
+  apt:
+    sources:
+      - mysql-5.7-trusty
+    packages:
+      - mysql-server
+      - mysql-client
 
 before_install:
   - export PLUGIN_NAME=additionals
@@ -27,7 +35,11 @@ before_install:
   - cp $TRAVIS_BUILD_DIR/test/support/database-$DB-travis.yml $REDMINE_PATH/config/database.yml
 
 before_script:
-  - psql -c 'create database travis_ci_test;' -U postgres
+  - if [[ "$DB" == "postgres" ]]; then psql -c 'create database travis_ci_test;' -U postgres; fi
+  - if [[ "$DB" == "mysql" ]]; then mysql -e "use mysql; update user set authentication_string=PASSWORD('travis_ci_test') where User='root'; update user set plugin='mysql_native_password';FLUSH PRIVILEGES;"; fi
+  - if [[ "$DB" == "mysql" ]]; then mysql_upgrade -u root -pnew_password; fi
+  - if [[ "$DB" == "mysql" ]]; then service mysql restart; fi
+  - if [[ "$DB" == "mysql" ]]; then mysql -e 'CREATE DATABASE IF NOT EXISTS travis_ci_test;'; fi
   - bundle exec rake db:migrate
   - bundle exec rake redmine:plugins:migrate
 

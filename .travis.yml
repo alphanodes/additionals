@@ -10,7 +10,6 @@ env:
   - REDMINE_VER=3.4-stable DB=postgresql
 
 sudo: true
-cache: bundler
 
 addons:
   postgresql: "9.6"
@@ -29,7 +28,6 @@ before_install:
 
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
-  - gem install bundler
   - bundle exec rake db:migrate
   - bundle exec rake redmine:plugins:migrate
 

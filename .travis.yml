@@ -37,9 +37,9 @@ before_install:
 before_script:
   - if [[ "$DB" == "postgresql" ]]; then psql -c 'create database travis_ci_test;' -U postgres; fi
   - if [[ "$DB" == "mysql" ]]; then mysql -e "use mysql; update user set authentication_string=PASSWORD('travis_ci_test') where User='root'; update user set plugin='mysql_native_password';FLUSH PRIVILEGES;"; fi
-  - if [[ "$DB" == "mysql" ]]; then mysql_upgrade -u root -ptravis_ci_test; fi
+  - if [[ "$DB" == "mysql" ]]; then mysql_upgrade -ptravis_ci_test; fi
   - if [[ "$DB" == "mysql" ]]; then service mysql restart; fi
-  - if [[ "$DB" == "mysql" ]]; then mysql -e 'CREATE DATABASE IF NOT EXISTS travis_ci_test;'; fi
+  - if [[ "$DB" == "mysql" ]]; then mysql -e 'CREATE DATABASE IF NOT EXISTS travis_ci_test;' -ptravis_ci_test; fi
   - bundle exec rake db:migrate
   - bundle exec rake redmine:plugins:migrate
 

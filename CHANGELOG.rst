@@ -5,6 +5,7 @@ Changelog
 ++++++
 
 - mermaid 8.0.0 support
+- fixed close issue without permission
 
 
 2.0.18

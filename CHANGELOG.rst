@@ -6,7 +6,8 @@ Changelog
 
 - mermaid 8.0.0 support
 - fixed close issue without permission
-- creating correct journal entry if issue status changed from sidebar
+- create correct journal entry if issue status changed from sidebar
+- create correct journal entry if issue has been 'assigned to me' from sidebar
 
 2.0.18
 ++++++

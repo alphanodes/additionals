@@ -327,3 +327,9 @@ div.additionals-projects li.project.odd {
 .jstb_macros {
   background-image: url(../images/jstoolbar/bt_macros.png);
 }
+
+div.relation-list-header {
+  background: #eee;
+  font-weight: bold;
+  padding-bottom: 2px;
+}

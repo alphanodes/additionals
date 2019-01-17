@@ -19,10 +19,8 @@ module AdditionalsTagHelper
     tags = tags.all if tags.respond_to?(:all)
 
     s = []
-    tag_cloud(cloudify(tags), (1..8).to_a) do |tag, weight|
-      s << content_tag(:span,
-                       additionals_tag_link(tag, options),
-                       class: "tag-pass-#{weight}")
+    tags.each do |tag|
+      s << additionals_tag_link(tag, options)
     end
 
     sep = if options[:tags_without_color]
@@ -103,15 +101,5 @@ module AdditionalsTagHelper
 
   def additionals_tag_color(tag_name)
     "##{format('%06x', tag_name.unpack('H*').first.hex % 0xffffff)}"
-  end
-
-  def cloudify(tags)
-    new_tags = []
-    trigger = true
-    tags.each do |tag|
-      new_tags.send((trigger ? 'push' : 'unshift'), tag)
-      trigger = !trigger
-    end
-    new_tags
   end
 end

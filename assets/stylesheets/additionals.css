@@ -194,15 +194,6 @@ td.tags span.additionals-tag-label-color {
 
 ul.tags li { margin: 0.25em 0; }
 
-div.tags .tag-pass-1 { font-size: 0.8em; }
-div.tags .tag-pass-2 { font-size: 0.9em; }
-div.tags .tag-pass-3 { font-size: 1em; }
-div.tags .tag-pass-4 { font-size: 1.1em; }
-div.tags .tag-pass-5 { font-size: 1.2em; }
-div.tags .tag-pass-6 { font-size: 1.3em; }
-div.tags .tag-pass-7 { font-size: 1.4em; }
-div.tags .tag-pass-8 { font-size: 1.5em; }
-
 .tag-count { font-size: 0.75em; }
 
 .additionals-tag-label-color a {

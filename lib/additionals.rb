@@ -2,7 +2,8 @@ module Additionals
   MAX_CUSTOM_MENU_ITEMS = 5
   SELECT2_INIT_ENTRIES = 20
 
-  LIST_SEPARATOR = ' &#187; '.html_safe
+  GOTO_LIST = " \xc2\xbb".freeze
+  LIST_SEPARATOR = GOTO_LIST + ' '
 
   class << self
     def setup

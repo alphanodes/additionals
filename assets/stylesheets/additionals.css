@@ -167,6 +167,7 @@ ul.tags {
 span.additionals-tag-label-color {
   display: inline-block;
   margin-bottom: 5px !important;
+  border-radius: 2px !important;
 }
 
 td.tags span.additionals-tag-label-color {
@@ -198,7 +199,10 @@ ul.tags li { margin: 0.25em 0; }
 
 .additionals-tag-label-color a {
   color: white;
-  font-weight: bold;
+}
+
+span.additionals-tag-label-color:hover a {
+  text-decoration: none !important;
 }
 
 .tagit.ui-widget {

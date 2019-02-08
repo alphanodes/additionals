@@ -22,6 +22,20 @@ module AdditionalsQuery
       end
     end
 
+    def initialize_author_filter(position = nil)
+      return if author_values.empty?
+
+      add_available_filter('author_id', order: position,
+                                        type: :list_optional, values: -> { author_values })
+    end
+
+    def initialize_assignee_filter(position = nil)
+      return if author_values.empty?
+
+      add_available_filter('assigned_to_id', order: position,
+                                             type: :list_optional, values: -> { author_values })
+    end
+
     def watcher_values
       watcher_values = [["<< #{l(:label_me)} >>", 'me']]
       if project.nil? && User.current.allowed_to?(:manage_public_queries, nil, global: true) ||

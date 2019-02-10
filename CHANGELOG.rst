@@ -1,6 +1,15 @@
 Changelog
 =========
 
+2.0.19
+++++++
+
+- mermaid 8.0.0 support
+- FontAwesome 5.7.1 support
+- fixed close issue without permission
+- create correct journal entry if issue status changed from sidebar #37
+- create correct journal entry if issue has been 'assigned to me' from sidebar
+
 2.0.18
 ++++++
 

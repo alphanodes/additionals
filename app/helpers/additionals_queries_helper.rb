@@ -224,4 +224,38 @@ module AdditionalsQueriesHelper
       true
     end
   end
+
+  # Returns the query definition as hidden field tags
+  # columns in ignored_column_names are skipped (names as symbols)
+  # TODO: this is a temporary fix and should be removed
+  # after https://www.redmine.org/issues/29830 is in Redmine core.
+  def query_as_hidden_field_tags(query, ignored_column_names = nil)
+    tags = hidden_field_tag('set_filter', '1', id: nil)
+
+    if query.filters.present?
+      query.filters.each do |field, filter|
+        tags << hidden_field_tag('f[]', field, id: nil)
+        tags << hidden_field_tag("op[#{field}]", filter[:operator], id: nil)
+        filter[:values].each do |value|
+          tags << hidden_field_tag("v[#{field}][]", value, id: nil)
+        end
+      end
+    else
+      tags << hidden_field_tag('f[]', '', id: nil)
+    end
+    query.columns.each do |column|
+      next if ignored_column_names.present? && ignored_column_names.include?(column.name)
+
+      tags << hidden_field_tag('c[]', column.name, id: nil)
+    end
+    if query.totalable_names.present?
+      query.totalable_names.each do |name|
+        tags << hidden_field_tag('t[]', name, id: nil)
+      end
+    end
+    tags << hidden_field_tag('group_by', query.group_by, id: nil) if query.group_by.present?
+    tags << hidden_field_tag('sort', query.sort_criteria.to_param, id: nil) if query.sort_criteria.present?
+
+    tags
+  end
 end

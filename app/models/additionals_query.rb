@@ -4,8 +4,12 @@ module AdditionalsQuery
   end
 
   module InstanceMethods
-    def initialize_ids_filter(label)
-      add_available_filter 'ids', type: :integer, label: label
+    def initialize_ids_filter(options = {})
+      if options[:label]
+        add_available_filter 'ids', type: :integer, label: options[:label]
+      else
+        add_available_filter 'ids', type: :integer, name: '#'
+      end
     end
 
     def sql_for_ids_field(_field, operator, value)
@@ -20,6 +24,68 @@ module AdditionalsQuery
       else
         sql_for_field('id', operator, value, queried_table_name, 'id')
       end
+    end
+
+    def initialize_project_filter(options = {})
+      if project.nil?
+        add_available_filter('project_id', order: options[:position],
+                                           type: :list,
+                                           values: -> { project_values })
+      end
+      return if project.nil? || project.leaf? || subproject_values.empty?
+
+      add_available_filter('subproject_id', order: options[:position],
+                                            type: :list_subprojects,
+                                            values: -> { subproject_values })
+    end
+
+    def initialize_created_filter(options = {})
+      add_available_filter 'created_on', order: options[:position],
+                                         type: :date_past,
+                                         label: options[:label].presence
+    end
+
+    def initialize_updated_filter(options = {})
+      add_available_filter 'updated_on', order: options[:position],
+                                         type: :date_past,
+                                         label: options[:label].presence
+    end
+
+    def initialize_tags_filter(options = {})
+      values = if project
+                 queried_class.available_tags(project: project.id)
+               else
+                 queried_class.available_tags
+               end
+      return if values.blank?
+
+      add_available_filter 'tags', order: options[:position],
+                                   type: :list,
+                                   values: values.collect { |t| [t.name, t.name] }
+    end
+
+    def initialize_author_filter(options = {})
+      return if author_values.empty?
+
+      add_available_filter('author_id', order: options[:position],
+                                        type: :list_optional,
+                                        values: options[:no_lambda].nil? ? author_values : -> { author_values })
+    end
+
+    def initialize_assignee_filter(options = {})
+      return if author_values.empty?
+
+      add_available_filter('assigned_to_id', order: options[:position],
+                                             type: :list_optional,
+                                             values: options[:no_lambda] ? author_values : -> { author_values })
+    end
+
+    def initialize_watcher_filter(options = {})
+      return if watcher_values.empty? || !User.current.logged?
+
+      add_available_filter('watcher_id', order: options[:position],
+                                         type: :list,
+                                         values: options[:no_lambda] ? watcher_values : -> { watcher_values })
     end
 
     def watcher_values

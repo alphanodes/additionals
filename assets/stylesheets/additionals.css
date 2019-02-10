@@ -167,6 +167,7 @@ ul.tags {
 span.additionals-tag-label-color {
   display: inline-block;
   margin-bottom: 5px !important;
+  border-radius: 2px !important;
 }
 
 td.tags span.additionals-tag-label-color {
@@ -194,39 +195,14 @@ td.tags span.additionals-tag-label-color {
 
 ul.tags li { margin: 0.25em 0; }
 
-div.tags .tag-pass-1 { font-size: 0.8em; }
-div.tags .tag-pass-2 { font-size: 0.9em; }
-div.tags .tag-pass-3 { font-size: 1em; }
-div.tags .tag-pass-4 { font-size: 1.1em; }
-div.tags .tag-pass-5 { font-size: 1.2em; }
-div.tags .tag-pass-6 { font-size: 1.3em; }
-div.tags .tag-pass-7 { font-size: 1.4em; }
-div.tags .tag-pass-8 { font-size: 1.5em; }
-
 .tag-count { font-size: 0.75em; }
 
 .additionals-tag-label-color a {
   color: white;
-  font-weight: bold;
 }
 
-.tagit.ui-widget {
-  font-size: 1em;
-  margin: 0;
-}
-
-ul.tagit li.tagit-choice {
-  color: #505050;
-  font-weight: normal;
-}
-
-ul.tagit li.tagit-choice:hover,
-ul.tagit li.tagit-choice.remove {
-  border-color: #6d95e0;
-}
-
-ul.tagit input[type="text"] {
-  background: transparent;
+span.additionals-tag-label-color:hover a {
+  text-decoration: none !important;
 }
 
 img.additionals-avatar { margin-right: 0.25em; }
@@ -319,11 +295,26 @@ div.additionals-projects li.project.odd {
   padding-left: 0;
 }
 
-/* drop it with Redmine4 */
+/* for Redmine 3.4 - fix problem with tabs */
 .default-query-settings-label label {
   margin-left: -100px !important;
 }
 
+/* for Redmine 4.x - fix problem with tabs */
+.default-query-settings-label-redmine4 label {
+  width: 250px !important;
+  margin-left: 0 !important;
+  float: none;
+  font-weight: normal;
+  text-align: left;
+}
+
 .jstb_macros {
   background-image: url(../images/jstoolbar/bt_macros.png);
+}
+
+div.relation-list-header {
+  background: #eee;
+  font-weight: bold;
+  padding-bottom: 2px;
 }

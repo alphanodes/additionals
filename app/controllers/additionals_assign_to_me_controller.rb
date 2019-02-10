@@ -11,6 +11,7 @@ class AdditionalsAssignToMeController < ApplicationController
       return
     end
 
+    @issue.init_journal(User.current)
     @issue.assigned_to = User.current
 
     if !@issue.save || old_user == @issue.assigned_to
@@ -18,21 +19,8 @@ class AdditionalsAssignToMeController < ApplicationController
       return redirect_to(issue_path(@issue))
     end
 
-    new_journal = @issue.init_journal(User.current)
-    new_journal.save!
-
     last_journal = @issue.journals.visible.order('created_on').last
-
-    JournalDetail.new(property: 'attr',
-                      prop_key: 'assigned_to',
-                      old_value: old_user,
-                      value: @issue.assigned_to,
-                      journal: new_journal).save!
-
-    if last_journal.nil?
-      redirect_to(issue_path(@issue))
-      return
-    end
+    return redirect_to(issue_path(@issue)) if last_journal.nil?
 
     last_journal = @issue.journals.visible.order('created_on').last
     redirect_to "#{issue_path(@issue)}#change-#{last_journal.id}"

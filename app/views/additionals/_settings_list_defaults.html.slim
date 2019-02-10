@@ -1,16 +1,18 @@
 fieldset.box
-  legend
-    = l(:additionals_query_list_defaults)
+  legend = l(:additionals_query_list_defaults)
   - setting_name_columns = "#{query_type}_list_defaults"
   - query = query_class.new(@settings[setting_name_columns.to_sym])
-  .default-query-settings-label
-    = render_query_columns_selection(query, name: "settings[#{setting_name_columns}][column_names]")
+  - if Redmine::VERSION.to_s >= '4'
+    .default-query-settings-label-redmine4
+      = render_query_columns_selection(query, name: "settings[#{setting_name_columns}][column_names]")
+  - else
+    .default-query-settings-label
+      = render_query_columns_selection(query, name: "settings[#{setting_name_columns}][column_names]")
 
 - columns = query_class.new.available_totalable_columns
 - if columns.count > 0
   fieldset.box
-    legend
-      = l(:additionals_query_list_default_totals)
+    legend = l(:additionals_query_list_default_totals)
 
     .default-query-settings-totals
       - setting_name_totals = "#{query_type}_list_default_totals"

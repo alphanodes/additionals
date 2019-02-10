@@ -295,9 +295,17 @@ div.additionals-projects li.project.odd {
   padding-left: 0;
 }
 
-/* drop it with Redmine4 */
+/* for Redmine 3.4 - fix problem with tabs */
 .default-query-settings-label label {
   margin-left: -100px !important;
+}
+
+/* for Redmine 4.x - fix problem with tabs */
+.default-query-settings-label-redmine4 label {
+  margin-left: 0 !important;
+  float: none;
+  font-weight: normal;
+  text-align: left;
 }
 
 .jstb_macros {

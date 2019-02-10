@@ -302,6 +302,7 @@ div.additionals-projects li.project.odd {
 
 /* for Redmine 4.x - fix problem with tabs */
 .default-query-settings-label-redmine4 label {
+  width: 250px !important;
   margin-left: 0 !important;
   float: none;
   font-weight: normal;

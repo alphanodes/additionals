@@ -22,11 +22,11 @@ class AdditionalsChangeStatusController < ApplicationController
       return redirect_to(issue_path(@issue))
     end
 
-    last_journal = @issue.journals.visible.order('created_on').last
+    last_journal = @issue.journals.visible.order(:created_on).last
 
     return redirect_to(issue_path(@issue)) if last_journal.nil?
 
-    last_journal = @issue.journals.visible.order('created_on').last
+    last_journal = @issue.journals.visible.order(:created_on).last
     redirect_to "#{issue_path(@issue)}#change-#{last_journal.id}"
   end
 

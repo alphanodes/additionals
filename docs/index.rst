@@ -96,7 +96,7 @@ Uninstall ``additionals`` plugin for `Redmine`_.
 
   $ cd $REDMINE_ROOT
   $ bundle exec rake redmine:plugins:migrate NAME=additionals VERSION=0 RAILS_ENV=production
-  $ rm -rf plugins/additionals
+  $ rm -rf plugins/additionals public/plugin_assets/additionals
 
 
 Features

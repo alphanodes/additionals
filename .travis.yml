@@ -27,7 +27,7 @@ before_install:
   - export REDMINE_GIT_REPO=git://github.com/redmine/redmine.git
   - export REDMINE_PATH=$HOME/redmine
   - export BUNDLE_GEMFILE=$REDMINE_PATH/Gemfile
-  - export REDMINE_LANG=en
+  - export RAILS_ENV=test
   - git clone $REDMINE_GIT_REPO $REDMINE_PATH
   - cd $REDMINE_PATH
   - if [[ "$REDMINE_VER" != "master" ]]; then git checkout -b $REDMINE_VER origin/$REDMINE_VER; fi

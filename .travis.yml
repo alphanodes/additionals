@@ -27,6 +27,7 @@ before_install:
   - export REDMINE_GIT_REPO=git://github.com/redmine/redmine.git
   - export REDMINE_PATH=$HOME/redmine
   - export BUNDLE_GEMFILE=$REDMINE_PATH/Gemfile
+  - export REDMINE_LANG=en
   - git clone $REDMINE_GIT_REPO $REDMINE_PATH
   - cd $REDMINE_PATH
   - if [[ "$REDMINE_VER" != "master" ]]; then git checkout -b $REDMINE_VER origin/$REDMINE_VER; fi
@@ -38,7 +39,7 @@ before_script:
   - if [[ "$DB" == "mysql" ]]; then mysql -e "use mysql; update user set authentication_string=PASSWORD('travis_ci_test') where User='root'; update user set plugin='mysql_native_password';FLUSH PRIVILEGES;"; fi
   - if [[ "$DB" == "mysql" ]]; then mysql_upgrade -ptravis_ci_test; fi
   - if [[ "$DB" == "mysql" ]]; then service mysql restart; fi
-  - bundle exec rake db:create db:migrate redmine:plugins:migrate redmine:load_default_data
+  - bundle exec rake db:create db:migrate redmine:plugins:migrate
 
 script:
   - export SKIP_COVERAGE=1

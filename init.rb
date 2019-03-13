@@ -38,7 +38,7 @@ Redmine::Plugin.register :additionals do
   RedCloth3::ALLOWED_TAGS << 'div'
 end
 
-if ActiveRecord::Base.connection.table_exists?(:settings)
+if ActiveRecord::Base.connection.active? && ActiveRecord::Base.connection.table_exists?(:settings)
   Rails.configuration.to_prepare do
     Additionals.setup
   end

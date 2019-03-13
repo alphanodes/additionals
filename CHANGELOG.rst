@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.0.20
+++++++
+
+- support single process rake installation #40
+
 2.0.19
 ++++++
 

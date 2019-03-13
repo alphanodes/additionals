@@ -39,8 +39,7 @@ Redmine::Plugin.register :additionals do
 end
 
 begin
-  if Rails.version < '5.2' && ActiveRecord::Base.connection.table_exists?(:settings) ||
-     Rails.version >= '5.2' && !ActiveRecord::Base.connection.migration_context.needs_migration?
+  if ActiveRecord::Base.connection.table_exists?(Setting.table_name)
     Rails.configuration.to_prepare do
       Additionals.setup
     end

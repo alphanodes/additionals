@@ -1,6 +1,6 @@
 test:
   adapter: postgresql
-  encoding: utf8
-  pool: 5
   database: travis_ci_test
-  user: postgres
+  username: postgres
+  pool: 5
+  encoding: utf8

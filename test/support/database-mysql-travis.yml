@@ -1,7 +1,8 @@
 test:
   adapter: mysql2
-  encoding: utf8mb4
-  pool: 5
   database: travis_ci_test
-  user: root
+  host: localhost
+  username: root
   password: travis_ci_test
+  pool: 5
+  encoding: utf8mb4

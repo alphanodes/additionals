@@ -38,7 +38,8 @@ Redmine::Plugin.register :additionals do
   RedCloth3::ALLOWED_TAGS << 'div'
 end
 
-unless ActiveRecord::Base.connection.migration_context.needs_migration?
+if Rails.version < '5.2' && ActiveRecord::Base.connection.active? && ActiveRecord::Base.connection.table_exists?(:settings) ||
+   Rails.version >= '5.2' && !ActiveRecord::Base.connection.migration_context.needs_migration?
   Rails.configuration.to_prepare do
     Additionals.setup
   end

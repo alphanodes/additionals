@@ -38,19 +38,23 @@ Redmine::Plugin.register :additionals do
   RedCloth3::ALLOWED_TAGS << 'div'
 end
 
-if ActiveRecord::Base.connection.table_exists?(:settings)
-  Rails.configuration.to_prepare do
-    Additionals.setup
-  end
+begin
+  if ActiveRecord::Base.connection.table_exists?(:settings)
+    Rails.configuration.to_prepare do
+      Additionals.setup
+    end
 
-  Rails.application.config.after_initialize do
-    FONTAWESOME_ICONS = { fab: AdditionalsFontAwesome.load_icons(:fab),
-                          far: AdditionalsFontAwesome.load_icons(:far),
-                          fas: AdditionalsFontAwesome.load_icons(:fas) }.freeze
-  end
+    Rails.application.config.after_initialize do
+      FONTAWESOME_ICONS = { fab: AdditionalsFontAwesome.load_icons(:fab),
+                            far: AdditionalsFontAwesome.load_icons(:far),
+                            fas: AdditionalsFontAwesome.load_icons(:fas) }.freeze
+    end
 
-  Rails.application.paths['app/overrides'] ||= []
-  Dir.glob(Rails.root.join('plugins', '*', 'app', 'overrides')).each do |dir|
-    Rails.application.paths['app/overrides'] << dir unless Rails.application.paths['app/overrides'].include?(dir)
+    Rails.application.paths['app/overrides'] ||= []
+    Dir.glob(Rails.root.join('plugins', '*', 'app', 'overrides')).each do |dir|
+      Rails.application.paths['app/overrides'] << dir unless Rails.application.paths['app/overrides'].include?(dir)
+    end
   end
+rescue ActiveRecord::NoDatabaseError
+  puts 'additionals - no database'
 end

@@ -5,7 +5,7 @@ module AdditionalsMenuHelper
     if Additionals.setting?(:remove_mypage)
       Redmine::MenuManager.map(:top_menu).delete(:my_page) if Redmine::MenuManager.map(:top_menu).exists?(:my_page)
     else
-      handle_top_menu_item(:my_page, url: my_path, after: :home, if: proc { User.current.logged? })
+      handle_top_menu_item(:my_page, url: my_page_path, after: :home, if: proc { User.current.logged? })
     end
 
     if Additionals.setting?(:remove_help)

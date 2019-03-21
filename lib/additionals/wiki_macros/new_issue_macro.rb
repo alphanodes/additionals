@@ -43,7 +43,11 @@ module Additionals
 
           return link_to(i18n_name, new_project_issue_path(project), class: 'macro-new-issue icon icon-add')
         else
-          @memberships = User.current.memberships.preload(:roles, :project).where(Project.visible_condition(User.current)).to_a
+          @memberships = User.current
+                             .memberships
+                             .preload(:roles, :project)
+                             .where(Project.visible_condition(User.current))
+                             .to_a
           if @memberships.present?
             project_url = memberships_new_issue_project_url(User.current, @memberships, :add_issues)
             return link_to(i18n_name, project_url, class: 'macro-new-issue icon icon-add') if project_url.present?

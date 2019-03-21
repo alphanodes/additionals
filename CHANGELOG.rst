@@ -5,6 +5,7 @@ Changelog
 ++++++
 
 - support single process rake installation #40
+- FontAwesome 5.8.0 support
 
 2.0.19
 ++++++

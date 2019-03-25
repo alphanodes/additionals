@@ -3,5 +3,5 @@
     - unless defined? hide_label
       span.label
         = l(:field_tag_list)
-        | :
+        ' :
     = additionals_tag_links(entry.tags, tags_without_color: defined?(tags_without_color) ? tags_without_color : false)

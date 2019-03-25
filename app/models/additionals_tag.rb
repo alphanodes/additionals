@@ -26,7 +26,9 @@ class AdditionalsTag
     joins << "JOIN #{table_name} " \
              "ON #{table_name}.id = #{TAGGING_TABLE_NAME}.taggable_id AND #{TAGGING_TABLE_NAME}.taggable_type = '#{klass}'"
 
-    if options[:project] || !options[:without_projects]
+    if options[:project_join]
+      joins << options[:project_join]
+    elsif options[:project] || !options[:without_projects]
       joins << "JOIN #{PROJECT_TABLE_NAME} ON #{table_name}.project_id = #{PROJECT_TABLE_NAME}.id"
     end
 

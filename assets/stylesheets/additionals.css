@@ -177,8 +177,6 @@ td.tags span.additionals-tag-label-color {
 
 .additionals-tag-label-color {
   padding: 2px 4px;
-  color: #fff;
-  text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.5);
   font-size: 10px !important;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 2px;
@@ -190,15 +188,14 @@ td.tags span.additionals-tag-label-color {
   font-weight: 900;
   content: "\f02b"; /* fas fa-tag */
   padding-right: 3px;
-  color: #fff;
 }
 
 ul.tags li { margin: 0.25em 0; }
 
-.tag-count { font-size: 0.75em; }
-
-.additionals-tag-label-color a {
-  color: white;
+.additionals-tag-label-color .tag-count,
+.tag-label .tag-count {
+  font-size: 0.75em;
+  margin-left: 0.5em;
 }
 
 span.additionals-tag-label-color:hover a {

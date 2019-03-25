@@ -72,12 +72,12 @@ module AdditionalsTagHelper
 
     if options[:tags_without_color]
       content_tag('span',
-                  link_to(safe_join(tag_name), additionals_tag_url(tag.name)),
+                  link_to(safe_join(tag_name), additionals_tag_url(tag.name, options)),
                   class: 'tag-label')
     else
       content_tag('span',
                   link_to(safe_join(tag_name),
-                          additionals_tag_url(tag.name),
+                          additionals_tag_url(tag.name, options),
                           style: tag_style),
                   class: 'additionals-tag-label-color',
                   style: tag_style)
@@ -85,13 +85,15 @@ module AdditionalsTagHelper
   end
 
   def additionals_tag_url(tag_name, options = {})
-    { controller: controller_name,
-      action: controller_name == 'hrm_user_resources' ? 'show' : 'index',
+    action = options[:tag_action].presence || (controller_name == 'hrm_user_resources' ? 'show' : 'index')
+
+    { controller: options[:tag_controller].presence || controller_name,
+      action: action,
       set_filter: 1,
       project_id: @project,
       fields: [:tags],
       values: { tags: [tag_name] },
-      operators: { tags: '=' } }.merge(options)
+      operators: { tags: '=' } }
   end
 
   private

@@ -17,7 +17,9 @@
       #edit_tags_form style="display: none;"
         = form_tag(update_url, method: :put, multipart: true ) do
           = render partial: 'tags_form'
+          '
           = submit_tag l(:button_save), class: 'button-small'
+          '
           = link_to l(:button_cancel), {}, onclick: "$('#edit_tags_form').hide(); $('#tags-data').show(); return false;"
 
     - else

@@ -90,10 +90,7 @@ module AdditionalsQuery
 
     def watcher_values
       watcher_values = [["<< #{l(:label_me)} >>", 'me']]
-      if project.nil? && User.current.allowed_to?(:manage_public_queries, nil, global: true) ||
-         User.current.allowed_to?(:manage_public_queries, project)
-        watcher_values += users.collect { |s| [s.name, s.id.to_s] }
-      end
+      watcher_values += users.collect { |s| [s.name, s.id.to_s] } if User.current.allowed_to?(:manage_public_queries, project, global: true)
       watcher_values
     end
 

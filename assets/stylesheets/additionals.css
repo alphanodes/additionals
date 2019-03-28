@@ -157,6 +157,20 @@
 
 div.clear-both { clear: both; }
 
+/* for Redmine 3.4 - fix problem with tabs */
+.default-query-settings-label label {
+  margin-left: -100px !important;
+}
+
+/* for Redmine 4.x - fix problem with tabs */
+.default-query-settings-label-redmine4 label {
+  width: 250px !important;
+  margin-left: 0 !important;
+  float: none;
+  font-weight: normal;
+  text-align: left;
+}
+
 /* TAGs */
 
 ul.tags {
@@ -201,6 +215,26 @@ ul.tags li { margin: 0.25em 0; }
 span.additionals-tag-label-color:hover a {
   text-decoration: none !important;
 }
+
+#edit_tags_form.box { margin: 1px 5px 0 0; }
+
+#edit_tags_form.box label {
+  margin-right: 5px;
+  font-weight: bold;
+}
+
+#edit_tags_form.box #contact_tags {
+  margin-bottom: 10px;
+}
+
+div#tags-data span.contextual {
+  float: none;
+  padding-left: 0;
+}
+
+#edit_tags_link { opacity: 0; }
+
+#tags-data:hover #edit_tags_link { opacity: 1; }
 
 img.additionals-avatar { margin-right: 0.25em; }
 
@@ -290,20 +324,6 @@ div.additionals-projects li.project.odd {
 
 .additionals-projects ul {
   padding-left: 0;
-}
-
-/* for Redmine 3.4 - fix problem with tabs */
-.default-query-settings-label label {
-  margin-left: -100px !important;
-}
-
-/* for Redmine 4.x - fix problem with tabs */
-.default-query-settings-label-redmine4 label {
-  width: 250px !important;
-  margin-left: 0 !important;
-  float: none;
-  font-weight: normal;
-  text-align: left;
 }
 
 .jstb_macros {

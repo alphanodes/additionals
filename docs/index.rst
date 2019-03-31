@@ -71,6 +71,22 @@ Restart your application server (apache with passenger, nginx with passenger, un
 More information about installation of Redmine plugins, you can find in the official `Redmine plugin documentation <https://www.redmine.org/projects/redmine/wiki/Plugins>`_.
 
 
+Update
+------
+
+Update ``additionals`` plugin for `Redmine`_.
+
+.. code-block:: bash
+
+  $ cd $REDMINE_ROOT/plugins/additionals
+  $ git pull
+  $ cd ../..
+  $ bundle install --without development test
+  $ bundle exec rake redmine:plugins:migrate RAILS_ENV=production
+
+Restart your application server (apache with passenger, nginx with passenger, unicorn, puma, etc.) and ``Additionals`` is ready to use.
+
+
 Uninstall
 ---------
 
@@ -80,7 +96,7 @@ Uninstall ``additionals`` plugin for `Redmine`_.
 
   $ cd $REDMINE_ROOT
   $ bundle exec rake redmine:plugins:migrate NAME=additionals VERSION=0 RAILS_ENV=production
-  $ rm -rf plugins/additionals
+  $ rm -rf plugins/additionals public/plugin_assets/additionals
 
 
 Features
@@ -154,7 +170,7 @@ It provides :
 * `bootstrap-datepicker 1.8.0 <https://github.com/uxsolutions/bootstrap-datepicker>`_
 * `d3 3.5.17 <https://d3js.org/>`_
 * `d3plus v2.0.0-alpha.17 <https://d3plus.org/>`_
-* `FontAwesome 5.7.1 <https://fontawesome.com/>`_
+* `FontAwesome 5.8.0 <https://fontawesome.com/>`_
 * `mermaid 8.0.0 <https://github.com/knsv/mermaid/>`_
 * `nvd3 1.8.6 <https://github.com/novus/nvd3>`_
 * `ZeroClipboard 2.3.0 <https://github.com/zeroclipboard/zeroclipboard>`_

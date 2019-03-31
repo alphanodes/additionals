@@ -22,6 +22,7 @@ module Additionals
                Principal
                QueryFilter
                Role
+               User
                UserPreference])
 
       Rails.configuration.assets.paths << Emoji.images_path

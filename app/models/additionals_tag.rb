@@ -3,10 +3,14 @@ class AdditionalsTag
   TAGGING_TABLE_NAME = RedmineCrm::Tagging.table_name if defined? RedmineCrm
   PROJECT_TABLE_NAME = Project.table_name
 
-  def self.get_available_tags(klass, options = {}, permission = nil)
+  def self.get_available_tags(klass, options = {})
     scope = RedmineCrm::Tag.where({})
     scope = scope.where("#{PROJECT_TABLE_NAME}.id = ?", options[:project]) if options[:project]
-    scope = scope.where(tag_access(permission)) if permission.present?
+    if options[:permission]
+      scope = scope.where(tag_access(options[:permission]))
+    elsif options[:visible_condition]
+      scope = scope.where(klass.visible_condition(User.current))
+    end
     scope = scope.where("LOWER(#{TAG_TABLE_NAME}.name) LIKE ?", "%#{options[:name_like].downcase}%") if options[:name_like]
     scope = scope.where("#{TAG_TABLE_NAME}.name=?", options[:name]) if options[:name]
     scope = scope.where("#{TAGGING_TABLE_NAME}.taggable_id!=?", options[:exclude_id]) if options[:exclude_id]
@@ -26,7 +30,9 @@ class AdditionalsTag
     joins << "JOIN #{table_name} " \
              "ON #{table_name}.id = #{TAGGING_TABLE_NAME}.taggable_id AND #{TAGGING_TABLE_NAME}.taggable_type = '#{klass}'"
 
-    if options[:project] || !options[:without_projects]
+    if options[:project_join]
+      joins << options[:project_join]
+    elsif options[:project] || !options[:without_projects]
       joins << "JOIN #{PROJECT_TABLE_NAME} ON #{table_name}.project_id = #{PROJECT_TABLE_NAME}.id"
     end
 

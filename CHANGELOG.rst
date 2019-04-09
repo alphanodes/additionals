@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.0.21
+++++++
+
+- fix mail notification if issue author changed
+
+
 2.0.20
 ++++++
 

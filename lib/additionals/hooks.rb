@@ -23,11 +23,11 @@ module Additionals
     render_on(:view_users_show_contextual, partial: 'users/additionals_contextual')
 
     def helper_issues_show_detail_after_setting(context = {})
-      d = context[:detail]
-      return unless d.prop_key == 'author_id'
+      detail = context[:detail]
+      return unless detail.prop_key == 'author_id'
 
-      d[:value] = find_name_by_reflection('author', d.value)
-      d[:old_value] = find_name_by_reflection('author', d.old_value)
+      detail[:value] = find_name_by_reflection('author', detail.value) || detail.value
+      detail[:old_value] = find_name_by_reflection('author', detail.old_value) || detail.old_value
     end
   end
 end

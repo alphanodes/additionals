@@ -136,7 +136,7 @@ module AdditionalsQuery
     end
 
     def results_scope(options = {})
-      order_option = [group_by_sort_order, (options[:order] || sort_clause)].flatten.reject(&:blank?)
+      order_option = [group_by_sort_order, (options[:order] || sort_clause)].flatten!.reject!(&:blank?)
 
       objects_scope(options)
         .order(order_option)

@@ -37,9 +37,8 @@ Rails/SkipsModelValidations:
 Rails/CreateTableWithTimestamps:
   Enabled: false
 
-# app/model/application_record.rb is missing in redmine, we can't use ApplicationRecord
-Rails/ApplicationRecord:
-  Enabled: false
+Performance/ChainArrayAllocation:
+  Enabled: true
 
 Style/AutoResourceCleanup:
   Enabled: true

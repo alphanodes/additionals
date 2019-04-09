@@ -9,7 +9,7 @@ module Additionals
           end
 
           def self.available_project_modules_all
-            @permissions.collect(&:project_module).uniq!.compact!
+            @permissions.collect(&:project_module).uniq!.compact
           end
         end
       end

@@ -15,7 +15,7 @@
                     id: 'edit_tags_link'
 
       #edit_tags_form style="display: none;"
-        = form_tag(update_url, method: :put, multipart: true ) do
+        = form_tag(update_url, method: :put, multipart: true) do
           = render partial: 'tags_form'
           '
           = submit_tag l(:button_save), class: 'button-small'

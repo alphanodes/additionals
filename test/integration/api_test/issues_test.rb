@@ -105,7 +105,7 @@ module ApiTest
       assert_difference('Issue.count', -1) do
         delete '/issues/6.xml', headers: credentials('jsmith')
 
-        assert_response :ok
+        assert_response :success
         assert_equal '', response.body
       end
       assert_nil Issue.find_by(id: 6)

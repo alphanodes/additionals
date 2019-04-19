@@ -172,3 +172,4 @@ es:
   info_hidden_roles_html: Los roles ocultos sólo se pueden utilizar junto con la visibilidad del usuario "Miembros de proyectos visibles". Si el usuario no está en una función que sea visible para el usuario actual, esta función, que incluye al usuario, se oculta en la página de resumen del proyecto y en las listas de consulta.
   latest_entries_changes: "Latest %{value} changes"
   label_edit_tags: Edit tags
+  label_query_name_search: Search for name

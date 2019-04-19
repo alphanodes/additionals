@@ -172,3 +172,4 @@ de:
   info_hidden_roles_html: Versteckte Rollen können nur zusammen mit der Benutzersichtbarkeit "Mitglieder von sichtbaren Projekten" verwendet werden. Diese Option funktioniert nur, wenn der Benutzer in keiner Rolle ist die für den aktuellen Benutzer sichtbar ist. Passt alles wird diese Rolle inklusive Benutzer auf der Projektübersichtsseite und in Abfragelisten ausgeblendet.
   latest_entries_changes: "Die letzten %{value} Änderungen"
   label_edit_tags: Tags bearbeiten
+  label_query_name_search: Nach Name suchen

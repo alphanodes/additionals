@@ -172,3 +172,4 @@ fr:
   info_hidden_roles_html: "Les rôles cachés ne peuvent être utilisés qu'avec la visibilité utilisateur \"Membres de projets visibles\". Si l'utilisateur n'est pas dans un rôle visible par l'utilisateur actuel, ce rôle, y compris l'utilisateur, est masqué sur la page de synthèse du projet et dans les listes de requêtes."
   latest_entries_changes: "Latest %{value} changes"
   label_edit_tags: Edit tags
+  label_query_name_search: Search for name

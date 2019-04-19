@@ -4,4 +4,8 @@
 h2 class="#{classes}"
   = @query.new_record? ? l(title) : h(@query.name)
   span.additionals-live-search
-    = text_field_tag(:search, q, autocomplete: 'off', class: 'live-search-field', placeholder: l(placeholder))
+    = text_field_tag(:search,
+                     q,
+                     autocomplete: 'off',
+                     class: 'live-search-field',
+                     placeholder: l(:label_query_name_search))

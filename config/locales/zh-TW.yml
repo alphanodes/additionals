@@ -172,3 +172,4 @@
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.
   latest_entries_changes: "Latest %{value} changes"
   label_edit_tags: Edit tags
+  label_query_name_search: Search for name

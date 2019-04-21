@@ -170,6 +170,6 @@ es:
   label_hidden_macros_in_toolbar: Hidden macros
   hidden_macros_in_toolbar_info: Todas las macros disponibles que el usuario conectado puede utilizar se enumeran mediante el botón de macros de la barra de herramientas wiki. Las macros marcadas aquí no se ofrecen para la selección. Esto permite restringir el alcance de la lista.
   info_hidden_roles_html: Los roles ocultos sólo se pueden utilizar junto con la visibilidad del usuario "Miembros de proyectos visibles". Si el usuario no está en una función que sea visible para el usuario actual, esta función, que incluye al usuario, se oculta en la página de resumen del proyecto y en las listas de consulta.
-  latest_entries_changes: "Latest %{value} changes"
-  label_edit_tags: Edit tags
-  label_query_name_search: Search for name
+  latest_entries_changes: "Últimos %{value} cambios"
+  label_edit_tags: Tratar tags
+  label_query_name_search: Buscar por nombre

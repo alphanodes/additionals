@@ -69,7 +69,7 @@ ja:
   label_global_wiki_header: "プロジェクト全体Wikiヘッダー"
   label_global_wiki_sidebar: "グローバルWikiサイドバー"
   label_go_to_top: "トップへ"
-  label_google_maps_embed_api: Google Maps Embed API Key
+  label_google_maps_api_key: Google Maps Embed API Key
   label_help_integration: Online help integration
   label_help_manual: manual
   label_hour: hour
@@ -105,11 +105,11 @@ ja:
   label_remove_help: "「ヘルプ」をトップメニューから外す"
   label_remove_mypage: "「マイ・ページ」をトップメニューから外す"
   label_remove_news: "Remove 'Lastest news' from overview page"
-  label_rule_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
-  label_rule_issue_close_with_open_children: Issues with open sub-issues cannot be closed
-  label_rule_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
-  label_rule_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
-  label_rule_issue_timelog_required: Time log for issues required
+  label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
+  label_issue_close_with_open_children: Issues with open sub-issues cannot be closed
+  label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
+  label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
+  label_issue_timelog_required: Time log for issues required
   label_search_by_name: Search by name
   label_set_icon_from: Set an icon from
   label_setting_plural: "設定"
@@ -162,7 +162,7 @@ ja:
   top_wiki_help: Here you can define contents and settings for your Wiki.
   wiki_pdf_remove_attachments_info: When active the attached Wiki files will not be displayed in PDF view.
   wiki_pdf_remove_title_info: When active the Wiki title info will not be displayed in PDF view.
-  label_rule_issue_freezed_with_close: Disallow editing of closed issues (Freeze)
+  label_issue_freezed_with_close: Disallow editing of closed issues (Freeze)
   rule_issue_freezed_with_close_info: If this option is activated, already closed issues can no longer be edited and commented. Not even via mail or API. This restriction does not apply to user roles with the "Edit closed issues" permission.
   additionals_query_list_defaults: Default columns for list view
   additionals_query_list_default_totals: Default sums for list view

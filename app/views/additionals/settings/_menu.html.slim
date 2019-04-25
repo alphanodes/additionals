@@ -8,14 +8,11 @@ h3 = l(:label_custom_menu_items)
       b = "#{l(:label_menu_entry)} ##{i + 1}"
     div
       p
-        label = h l(:field_name)
-        = text_field_tag('settings[custom_menu' + i.to_s + '_name]', @settings['custom_menu' + i.to_s + '_name'], size: 40)
+        = additionals_settings_textfield "custom_menu#{i}_name".to_sym, label: l(:field_name), size: 40
       p
-        label = h l(:field_url)
-        = text_field_tag('settings[custom_menu' + i.to_s + '_url]', @settings['custom_menu' + i.to_s + '_url'], size: 80)
+        = additionals_settings_textfield "custom_menu#{i}_url".to_sym, label: l(:field_url), size: 80
       p
-        label = h l(:field_title)
-        = text_field_tag('settings[custom_menu' + i.to_s + '_title]', @settings['custom_menu' + i.to_s + '_title'], size: 80)
+        = additionals_settings_textfield "custom_menu#{i}_title".to_sym, label: l(:field_title), size: 80
         i
           | (
           = l(:label_optional)
@@ -35,10 +32,8 @@ h3 = l(:label_custom_menu_items)
 br
 h3 = l(:label_setting_plural)
 p
-  = content_tag(:label, l(:label_remove_help))
-  = check_box_tag 'settings[remove_help]', 1, @settings[:remove_help].to_i == 1
+  = additionals_settings_checkbox :remove_help
   em.info = l(:remove_help_info)
 p
-  = content_tag(:label, l(:label_remove_mypage))
-  = check_box_tag 'settings[remove_mypage]', 1, @settings[:remove_mypage].to_i == 1
+  = additionals_settings_checkbox :remove_mypage
   em.info = l(:remove_mypage_info)

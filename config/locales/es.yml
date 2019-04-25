@@ -69,7 +69,7 @@ es:
   label_global_wiki_header: "Header de wiki para todo el proyecto"
   label_global_wiki_sidebar: "Barra lateral de wiki global"
   label_go_to_top: "Volver al inicio"
-  label_google_maps_embed_api: Google Maps Embed API Key
+  label_google_maps_api_key: Google Maps Embed API Key
   label_help_integration: Integración con la ayuda en línea
   label_help_manual: manual
   label_hour: hora
@@ -105,11 +105,11 @@ es:
   label_remove_help: "Quitar 'Ayuda' del menú superior"
   label_remove_mypage: "Quitar 'Mi página' del menú superior"
   label_remove_news: "Quitar 'Últimas noticias' del vistazo de un proyecto"
-  label_rule_issue_auto_assign: "Si \"Asignado a\" no es asignado a un usuario y el estado de la nueva petición es x, entonces la petición es auto asignada al primer grupo con usuarios del rol predefinido."
-  label_rule_issue_close_with_open_children: Peticiones con sub-peticiones abiertas no pueden ser cerradas
-  label_rule_issue_current_user_status: "Estado de la petición actual x solo está permitido si la petición está asignada al usuario actual."
-  label_rule_issue_status_change: "Si no se modifica el usuario \"Asignado\" y la el estado de la petición es modificado de x a y, entonces la petición es asignada al autor de la petición"
-  label_rule_issue_timelog_required: Se requiere Registro de tiempo para las peticiones
+  label_issue_auto_assign: "Si \"Asignado a\" no es asignado a un usuario y el estado de la nueva petición es x, entonces la petición es auto asignada al primer grupo con usuarios del rol predefinido."
+  label_issue_close_with_open_children: Peticiones con sub-peticiones abiertas no pueden ser cerradas
+  label_issue_current_user_status: "Estado de la petición actual x solo está permitido si la petición está asignada al usuario actual."
+  label_issue_status_change: "Si no se modifica el usuario \"Asignado\" y la el estado de la petición es modificado de x a y, entonces la petición es asignada al autor de la petición"
+  label_issue_timelog_required: Se requiere Registro de tiempo para las peticiones
   label_search_by_name: Buscar por nombre
   label_set_icon_from: Asignar ícono desde
   label_setting_plural: Configuración
@@ -162,7 +162,7 @@ es:
   top_wiki_help: Aquí puede definir contenidos y configuracioens para su Wiki.
   wiki_pdf_remove_attachments_info: Cuando está activa, los adjuntos no serán mostrados en los PDF.
   wiki_pdf_remove_title_info: Cuando está activa, el título de la Wiki no será mostrado en los PDF.
-  label_rule_issue_freezed_with_close: No permitir editar peticiones cerradas (Congelar)
+  label_issue_freezed_with_close: No permitir editar peticiones cerradas (Congelar)
   rule_issue_freezed_with_close_info: Si esta opción está actia, aquellas peticiones que ya se encuentren cerradas no podrán recibir comentarios o edicionos. Incluso por mail o API. Esta restricción no se aplica a los usuarios con el rol "Editar peticiones cerradas".
   additionals_query_list_defaults: Columnas predeterminadas para la vista de lista
   additionals_query_list_default_totals: Sumas predeterminadas para la vista de lista

@@ -1,4 +1,3 @@
-br
 h3 = l(:label_content_plural)
 
 p
@@ -14,31 +13,24 @@ h3 = l(:label_setting_plural)
 
 br
 p
-  = content_tag(:label, l(:label_new_issue_on_profile))
-  = check_box_tag 'settings[new_issue_on_profile]', 1, @settings[:new_issue_on_profile].to_i == 1
+  = additionals_settings_checkbox :new_issue_on_profile
 p
-  = content_tag(:label, l(:label_issue_assign_to_me))
-  = check_box_tag 'settings[issue_assign_to_me]', 1, @settings[:issue_assign_to_me].to_i == 1
+  = additionals_settings_checkbox :issue_assign_to_me
 p
-  = content_tag(:label, l(:label_issue_change_status_in_sidebar))
-  = check_box_tag 'settings[issue_change_status_in_sidebar]', 1, @settings[:issue_change_status_in_sidebar].to_i == 1
+  = additionals_settings_checkbox :issue_change_status_in_sidebar
 p
-  = content_tag(:label, l(:label_issue_autowatch_involved))
-  = check_box_tag 'settings[issue_autowatch_involved]', 1, @settings[:issue_autowatch_involved].to_i == 1
+  = additionals_settings_checkbox :issue_autowatch_involved
 p
-  = content_tag(:label, l(:label_rule_issue_close_with_open_children))
-  = check_box_tag 'settings[issue_close_with_open_children]', 1, @settings[:issue_close_with_open_children].to_i == 1
+  = additionals_settings_checkbox :issue_close_with_open_children
 p
-  = content_tag(:label, l(:label_rule_issue_freezed_with_close))
-  = check_box_tag 'settings[issue_freezed_with_close]', 1, @settings[:issue_freezed_with_close].to_i == 1
+  = additionals_settings_checkbox :issue_freezed_with_close
 em.info = t(:rule_issue_freezed_with_close_info)
 
 br
 
 - rule_status = IssueStatus.sorted
 p
-  = content_tag(:label, l(:label_rule_issue_status_change))
-  = check_box_tag 'settings[issue_status_change]', 1, @settings[:issue_status_change].to_i == 1
+  = additionals_settings_checkbox :issue_status_change
   span[style="vertical-align: top; margin-left: 15px;"]
     = l(:field_status)
     |  x:
@@ -58,8 +50,7 @@ em.info = t(:rule_issue_status_change_info)
 br
 br
 p
-  = content_tag(:label, l(:label_rule_issue_current_user_status))
-  = check_box_tag 'settings[issue_current_user_status]', 1, @settings[:issue_current_user_status].to_i == 1
+  = additionals_settings_checkbox :issue_current_user_status
   span[style="vertical-align: top; margin-left: 15px;"]
     = l(:field_status)
     |  x:
@@ -72,8 +63,7 @@ em.info = t(:rule_issue_current_user_status_info_html)
 br
 br
 p
-  = content_tag(:label, l(:label_rule_issue_auto_assign))
-  = check_box_tag 'settings[issue_auto_assign]', 1, @settings[:issue_auto_assign].to_i == 1
+  = additionals_settings_checkbox :issue_auto_assign
   span[style="vertical-align: top; margin-left: 15px;"]
     = l(:field_status)
     |  x:
@@ -92,8 +82,7 @@ em.info = t(:rule_issue_auto_assign_info)
 br
 br
 p
-  = content_tag(:label, l(:label_rule_issue_timelog_required))
-  = check_box_tag 'settings[issue_timelog_required]', 1, @settings[:issue_timelog_required].to_i == 1
+  = additionals_settings_checkbox :issue_timelog_required
   span[style="vertical-align: top; margin-left: 15px;"]
     = l(:label_tracker_plural)
     | :

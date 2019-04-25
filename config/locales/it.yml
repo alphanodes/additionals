@@ -69,7 +69,7 @@ it:
   label_global_wiki_header: "Project wide wiki header"
   label_global_wiki_sidebar: "Global wiki sidebar"
   label_go_to_top: "Vai in cima"
-  label_google_maps_embed_api: Google Maps Embed API Key
+  label_google_maps_api_key: Google Maps Embed API Key
   label_help_integration: Integrazione della guida in linea
   label_help_manual: manual
   label_hour: ora
@@ -105,11 +105,11 @@ it:
   label_remove_help: "Remove 'Help' from top menu"
   label_remove_mypage: "Remove 'My Page' from top menu"
   label_remove_news: "Remove 'Lastest news' from overview page"
-  label_rule_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
-  label_rule_issue_close_with_open_children: Issues with open sub-issues cannot be closed
-  label_rule_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
-  label_rule_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
-  label_rule_issue_timelog_required: "Time log per i problemi richiesti"
+  label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
+  label_issue_close_with_open_children: Issues with open sub-issues cannot be closed
+  label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
+  label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
+  label_issue_timelog_required: "Time log per i problemi richiesti"
   label_search_by_name: Cerca per nome
   label_set_icon_from: Set an icon from
   label_setting_plural: Regolazione
@@ -162,7 +162,7 @@ it:
   top_wiki_help: "Qui puoi definire contenuti e impostazioni per il tuo Wiki."
   wiki_pdf_remove_attachments_info: "Quando è attivo, il Wiki file allegati non verranno visualizzati nella vista PDF."
   wiki_pdf_remove_title_info: "Quando è attivo, le informazioni sul titolo del Wiki non verranno visualizzate nella vista PDF."
-  label_rule_issue_freezed_with_close: "Impedire la modifica dei problemi chiusi (Freeze)"
+  label_issue_freezed_with_close: "Impedire la modifica dei problemi chiusi (Freeze)"
   rule_issue_freezed_with_close_info: "Se questa opzione è attivata, i numeri già chiusi non possono più essere modificati e commentati. Nemmeno via mail o API. Questa restrizione non si applica ai ruoli utente con il permesso \"Modifica problemi chiusi\"."
   additionals_query_list_defaults: "Colonne predefinite per la vista elenco"
   additionals_query_list_default_totals: "Importi predefiniti per la vista elenco"

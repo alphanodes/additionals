@@ -23,7 +23,6 @@ br
 h3 = l(:label_setting_plural)
 
 p
-  = content_tag(:label, l(:label_remove_news))
-  = check_box_tag 'settings[remove_news]', 1, @settings[:remove_news].to_i == 1
+  = additionals_settings_checkbox :remove_news
   em.info
     = l(:remove_news_info)

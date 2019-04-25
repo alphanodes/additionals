@@ -23,12 +23,10 @@ br
 h3 = l(:label_pdf_wiki_settings)
 
 p
-  = content_tag(:label, l(:label_wiki_pdf_remove_title))
-  = check_box_tag 'settings[wiki_pdf_remove_title]', 1, @settings[:wiki_pdf_remove_title].to_i == 1
+  = additionals_settings_checkbox :wiki_pdf_remove_title
   em.info
     = l(:wiki_pdf_remove_title_info)
 p
-  = content_tag(:label, l(:label_wiki_pdf_remove_attachments))
-  = check_box_tag 'settings[wiki_pdf_remove_attachments]', 1, @settings[:wiki_pdf_remove_attachments].to_i == 1
+  = additionals_settings_checkbox :wiki_pdf_remove_attachments
   em.info
     = l(:wiki_pdf_remove_attachments_info)

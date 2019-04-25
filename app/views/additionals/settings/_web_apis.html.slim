@@ -1,7 +1,5 @@
-br
-h3 = l(:label_web_apis)
 p
-  = content_tag(:label, l(:label_google_maps_embed_api))
-  = text_field_tag('settings[google_maps_api_key]', @settings[:google_maps_api_key], size: 60)
+  = additionals_settings_textfield :google_maps_api_key, size: 60
   em.info = t(:google_maps_embed_api_html)
+
 = call_hook(:additionals_settings_web_apis, settings: @settings)

@@ -69,7 +69,7 @@
   label_global_wiki_header: "專案中Wiki頁首訊息設定"
   label_global_wiki_sidebar: "專案中Wiki側邊設定"
   label_go_to_top: "回到頁首"
-  label_google_maps_embed_api: Google Maps Embed API Key
+  label_google_maps_api_key: Google Maps Embed API Key
   label_help_integration: Online help integration
   label_help_manual: manual
   label_hour: 小時
@@ -105,11 +105,11 @@
   label_remove_help: "從頂部選單中移除 \"幫助\" 項"
   label_remove_mypage: "從頂部選單中移除 \"帳戶首頁\" 項"
   label_remove_news: "從概觀頁中移除 \"最近新聞\" 區域"
-  label_rule_issue_auto_assign: "若建立新議題的 \"被分派者\" 未設定，且狀態為 X 時，將被自動分派給指定角色。"
-  label_rule_issue_close_with_open_children: "子任務中若有狀態為開啟中的議題不能被結束。"
-  label_rule_issue_current_user_status: " \"被分派者\"為目前用戶時，議題狀態只能被設定為 X 。"
-  label_rule_issue_status_change: "若未修改 \"被分派者\" ，且議題狀態要從 X 變更為 Y ，則該議題必須被分派給議題作者。"
-  label_rule_issue_timelog_required: Time log for issues required
+  label_issue_auto_assign: "若建立新議題的 \"被分派者\" 未設定，且狀態為 X 時，將被自動分派給指定角色。"
+  label_issue_close_with_open_children: "子任務中若有狀態為開啟中的議題不能被結束。"
+  label_issue_current_user_status: " \"被分派者\"為目前用戶時，議題狀態只能被設定為 X 。"
+  label_issue_status_change: "若未修改 \"被分派者\" ，且議題狀態要從 X 變更為 Y ，則該議題必須被分派給議題作者。"
+  label_issue_timelog_required: Time log for issues required
   label_search_by_name: "按名稱搜尋"
   label_set_icon_from: "圖示設定自"
   label_setting_plural: "設定"
@@ -162,7 +162,7 @@
   top_wiki_help: "您可以在此自訂Wiki的內容和設定。"
   wiki_pdf_remove_attachments_info: "當啟用時，Wiki附件將不會顯示在PDF中。"
   wiki_pdf_remove_title_info: "當啟用時，Wiki標題訊息不會顯示在PDF中"
-  label_rule_issue_freezed_with_close: Disallow editing of closed issues (Freeze)
+  label_issue_freezed_with_close: Disallow editing of closed issues (Freeze)
   rule_issue_freezed_with_close_info: If this option is activated, already closed issues can no longer be edited and commented. Not even via mail or API. This restriction does not apply to user roles with the "Edit closed issues" permission.
   additionals_query_list_defaults: Default columns for list view
   additionals_query_list_default_totals: Default sums for list view

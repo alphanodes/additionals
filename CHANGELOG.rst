@@ -5,7 +5,7 @@ Changelog
 ++++++
 
 - fix mail notification if issue author changed
-
+- fix permission bug for closed issues with freezed mode
 
 2.0.20
 ++++++

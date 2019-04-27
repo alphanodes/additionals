@@ -147,6 +147,7 @@ module Additionals
       def validate_change_on_closed
         return true if new_record? ||
                        !status_was.is_closed ||
+                       !changed? ||
                        !Additionals.setting?(:issue_freezed_with_close) ||
                        User.current.allowed_to?(:edit_closed_issues, project)
 

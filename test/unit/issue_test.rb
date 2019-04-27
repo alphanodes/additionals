@@ -100,6 +100,18 @@ class IssueTest < Additionals::TestCase
     end
   end
 
+  def test_unchanged_existing_issue_should_not_create_validation_error
+    with_additionals_settings(issue_freezed_with_close: 1) do
+      User.current = users(:users_003)
+      issue = issues(:issues_008)
+      assert issue.save
+
+      # but changed issues should throw error
+      issue.subject = 'changed'
+      assert_not issue.save
+    end
+  end
+
   def test_auto_assigned_to
     with_additionals_settings(issue_status_change: '0',
                               issue_auto_assign: '1',

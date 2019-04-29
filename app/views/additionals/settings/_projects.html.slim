@@ -2,10 +2,7 @@
 br
 
 p
-  = content_tag(:label, l(:label_project_overview_content))
-  = text_area_tag 'settings[project_overview_content]',
-                  @settings[:project_overview_content],
-                  class: 'wiki-edit', rows: 10
+  = additionals_settings_textarea :project_overview_content
   em.info
     = l(:project_overview_content_info)
 

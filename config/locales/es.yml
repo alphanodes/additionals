@@ -47,7 +47,7 @@ es:
   google_maps_embed_api_html: En caso de querer utilizar el macro Gmap para mostrar mapas de Google necesita ingresar su Clave de API de Google Maps aquí. Luego podrá utilizar el macro y varios parámetros. Mas información acerca de como utilizar estos parametros está disponible en <a href="https://developers.google.com/maps/documentation/embed/guide" target="_blank">https://developers.google.com/maps/documentation/embed/guide</a>. El macro Gmap funciona solamente si se ingresa esta clave.
   invisible_captcha_info_html: En caso de que esta opción se encuentre activa se activará un sistema de protección de SPAM <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> para la página de registro de usuarios. Esta función solo está disponible si activa el autoregistro.
   label_docs_access_token: Token de acceso
-  label_account_login: "Texto para la página de inicio de sesión"
+  label_account_login_bottom: "Texto para la página de inicio de sesión"
   label_add_go_to_top: 'Agregar "Volver al inicio"'
   label_add_tags: Agregar etiquetas
   label_additionals_doc: Documentación de Additionals

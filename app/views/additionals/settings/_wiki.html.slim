@@ -4,18 +4,15 @@ br
 h3 = l(:label_content_plural)
 
 p
-  = content_tag(:label, l(:label_global_wiki_sidebar))
-  = text_area_tag 'settings[global_wiki_sidebar]', @settings[:global_wiki_sidebar], class: 'wiki-edit', rows: 10
+  = additionals_settings_textarea :global_wiki_sidebar
   em.info
     = l(:global_wiki_sidebar_info)
 p
-  = content_tag(:label, l(:label_global_wiki_header))
-  = text_area_tag 'settings[global_wiki_header]', @settings[:global_wiki_header], class: 'wiki-edit', rows: 5
+  = additionals_settings_textarea :global_wiki_header
   em.info
     = l(:global_wiki_header_info)
 p
-  = content_tag(:label, l(:label_global_wiki_footer))
-  = text_area_tag 'settings[global_wiki_footer]', @settings[:global_wiki_footer], class: 'wiki-edit', rows: 5
+  = additionals_settings_textarea :global_wiki_footer
   em.info
     = l(:global_wiki_footer_info)
 

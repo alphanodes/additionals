@@ -47,7 +47,7 @@ fr:
   google_maps_embed_api_html: "Si vous souhaitez utiliser la macro Gmap pour afficher les cartes de Goole, veuillez implémenter votre clé API Google Maps ici. Ensuite, vous pouvez utiliser la macro et divers paramètres. Pour plus d'informations sur l'utilisation des paramètres, voir <a href=\"https://developers.google.com/maps/documentation/embed/guide\">https://developers.google.com/maps/documentation/embed/guide</a>. La macro Gmap ne fonctionne qu'en combinaison avec la clé intégrée."
   invisible_captcha_info_html: In case this option is activated an <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection is activated for the registration page of new users. This function is only available, if you enabled self-registration, too.
   label_docs_access_token: Access token
-  label_account_login: "Texte pour la page de login"
+  label_account_login_bottom: "Texte pour la page de login"
   label_add_go_to_top: 'Add "Go to top" link'
   label_add_tags: Add tags
   label_additionals_doc: Additionals documentation

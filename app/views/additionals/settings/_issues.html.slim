@@ -1,8 +1,7 @@
 h3 = l(:label_content_plural)
 
 p
-  = content_tag(:label, l(:label_new_ticket_message))
-  = text_area_tag 'settings[new_ticket_message]', @settings[:new_ticket_message], class: 'wiki-edit', rows: 10
+  = additionals_settings_textarea :new_ticket_message
   em.info = l(:new_ticket_message_info)
 
 br

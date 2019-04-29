@@ -1,18 +1,15 @@
 h3 = l(:label_content_plural)
 
 p
-  = content_tag(:label, l(:label_account_login))
-  = text_area_tag 'settings[account_login_bottom]', @settings[:account_login_bottom], class: 'wiki-edit', rows: 10
+  = additionals_settings_textarea :account_login_bottom
   em.info
     = l(:account_login_info)
 p
-  = content_tag(:label, l(:label_global_sidebar))
-  = text_area_tag 'settings[global_sidebar]', @settings[:global_sidebar], class: 'wiki-edit', rows: 10
+  = additionals_settings_textarea :global_sidebar
   em.info
     = l(:global_sidebar_info)
 p
-  = content_tag(:label, l(:label_global_footer))
-  = text_area_tag 'settings[global_footer]', @settings[:global_footer], class: 'wiki-edit', rows: 5
+  = additionals_settings_textarea :global_footer
   em.info
     = l(:global_footer_info)
 

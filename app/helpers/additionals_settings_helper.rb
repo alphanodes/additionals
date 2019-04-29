@@ -24,4 +24,15 @@ module AdditionalsSettingsHelper
     safe_join [label_tag("settings[#{name}]", label_title),
                text_field_tag("settings[#{name}]", value, options)]
   end
+
+  def additionals_settings_textarea(name, options = {})
+    label_title = options.delete(:label).presence || l("label_#{name}")
+    value = options.delete(:value).presence || @settings[name]
+
+    options[:class] = 'wiki-edit' unless options.key?(:class)
+    options[:rows] = 8 unless options.key?(:rows)
+
+    safe_join [label_tag("settings[#{name}]", label_title),
+               text_area_tag("settings[#{name}]", value, options)]
+  end
 end

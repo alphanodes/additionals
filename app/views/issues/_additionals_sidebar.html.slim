@@ -17,5 +17,3 @@
               = link_to(font_awesome_icon('far_caret-square-left', post_text: s.name),
                         issue_change_status_path(@issue, new_status_id: s.id),
                         method: :put, class: "status-switch status-#{s.id}")
-
-    h3 = l(:label_planning)

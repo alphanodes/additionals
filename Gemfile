@@ -7,7 +7,6 @@ group :test do
   gem 'brakeman', require: false
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
-  gem 'slim_lint', require: false
 end
 
 group :development do

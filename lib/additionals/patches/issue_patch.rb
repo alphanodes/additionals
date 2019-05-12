@@ -56,7 +56,7 @@ module Additionals
         end
 
         def log_time_allowed?(user = User.current)
-          !closed? || user.allowed_to?(:log_time_on_closed_issues, project)
+          !status_was.is_closed || user.allowed_to?(:log_time_on_closed_issues, project)
         end
 
         def editable_with_additionals?(user = User.current)

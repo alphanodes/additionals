@@ -1,5 +1,5 @@
 - additionals_top_menu_setup
-- if Additionals.settings[:external_urls].to_i > 0
+- if Additionals.settings[:external_urls].to_i.positive?
   = javascript_include_tag('redirect', plugin: 'additionals')
 - if Additionals.settings[:external_urls].to_i == 2
   = javascript_include_tag('noreferrer', plugin: 'additionals')

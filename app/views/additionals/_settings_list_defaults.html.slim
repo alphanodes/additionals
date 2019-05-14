@@ -10,7 +10,7 @@ fieldset.box
       = render_query_columns_selection(query, name: "settings[#{setting_name_columns}][column_names]")
 
 - columns = query_class.new.available_totalable_columns
-- if columns.count > 0
+- if columns.count.positive?
   fieldset.box
     legend = l(:additionals_query_list_default_totals)
 

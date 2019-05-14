@@ -1,3 +1,5 @@
+# frozen_string_literal: false
+
 # Issue wiki macros
 module Additionals
   module WikiMacros

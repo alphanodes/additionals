@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AdditionalsFontAwesome
   include Redmine::I18n
 

@@ -4,7 +4,7 @@ Rails:
   Enabled: true
 
 AllCops:
-  TargetRubyVersion: 2.2
+  TargetRubyVersion: 2.3
   TargetRailsVersion: 5.2
 
 Metrics/AbcSize:

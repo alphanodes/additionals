@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AdditionalsMacro
   def self.all(options = {})
     all = Redmine::WikiFormatting::Macros.available_macros

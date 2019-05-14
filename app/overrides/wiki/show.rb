@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Deface::Override.new virtual_path: 'wiki/show',
                      name: 'addto-wiki-show',
                      insert_before: 'div.contextual',

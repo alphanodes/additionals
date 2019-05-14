@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Deface::Override.new virtual_path: 'welcome/index',
                      name: 'add-welcome-bottom-content',
                      insert_after: 'div.splitcontentright',

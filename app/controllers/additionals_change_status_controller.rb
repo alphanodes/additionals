@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AdditionalsChangeStatusController < ApplicationController
   before_action :find_issue
   helper :additionals_issues

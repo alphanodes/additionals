@@ -1,3 +1,5 @@
+# frozen_string_literal: false
+
 require_dependency 'wiki_controller'
 
 module Additionals

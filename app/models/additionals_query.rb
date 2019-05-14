@@ -1,3 +1,5 @@
+# frozen_string_literal: false
+
 module AdditionalsQuery
   def self.included(base)
     base.send :include, InstanceMethods

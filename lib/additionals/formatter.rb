@@ -1,3 +1,5 @@
+# frozen_string_literal: false
+
 # Formater
 module Additionals
   module Formatter

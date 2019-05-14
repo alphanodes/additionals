@@ -1,4 +1,5 @@
-# Global helper functions
+# frozen_string_literal: false
+
 module Additionals
   module Helpers
     def additionals_list_title(options)
@@ -141,7 +142,7 @@ module Additionals
         min = 0
         hours = 0
         days = 0
-        if secs > 0
+        if secs.positive?
           min = (secs / 60).round
           hours = (secs / 3_600).round
           days = (secs / 86_400).round

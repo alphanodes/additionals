@@ -6,6 +6,8 @@ Changelog
 
 - fix mail notification if issue author changed
 - fix permission bug for closed issues with freezed mode
+- Ruby 2.2.x support has been dropped. Use 2.3.x or newer ruby verion
+- FontAwesome 5.8.2 support
 
 2.0.20
 ++++++

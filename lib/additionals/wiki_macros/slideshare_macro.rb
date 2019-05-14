@@ -1,3 +1,5 @@
+# frozen_string_literal: false
+
 # Slideshare wiki macros
 module Additionals
   module WikiMacros
@@ -26,7 +28,7 @@ module Additionals
         raise 'The correct usage is {{slideshare(<key>[, width=x, height=y, slide=number])}}' if args.empty?
 
         v = args[0]
-        src = if slide > 0
+        src = if slide.positive?
                 '//www.slideshare.net/slideshow/embed_code/' + v + '?startSlide=' + slide.to_s
               else
                 '//www.slideshare.net/slideshow/embed_code/' + v

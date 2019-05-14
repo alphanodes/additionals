@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 $VERBOSE = nil
 
 unless ENV['SKIP_COVERAGE']

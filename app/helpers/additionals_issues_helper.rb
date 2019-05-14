@@ -1,3 +1,5 @@
+# frozen_string_literal: false
+
 module AdditionalsIssuesHelper
   def issue_author_options_for_select(project, issue = nil)
     authors = project.users.sorted

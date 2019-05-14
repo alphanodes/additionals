@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Additionals
   module GlobalTestHelper
     def with_additionals_settings(settings, &_block)

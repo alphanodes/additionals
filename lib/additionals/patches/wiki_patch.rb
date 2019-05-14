@@ -1,3 +1,5 @@
+# frozen_string_literal: false
+
 require_dependency 'wiki'
 
 module Additionals
@@ -17,7 +19,7 @@ module Additionals
     module InstanceMethodsForAdditionalsWiki
       def sidebar_with_additionals
         @sidebar ||= find_page('Sidebar', with_redirect: false)
-        if @sidebar && @sidebar.content
+        if @sidebar&.content
           sidebar_without_additionals
         else
           wiki_sidebar = Additionals.settings[:global_wiki_sidebar].to_s

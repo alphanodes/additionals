@@ -1,3 +1,5 @@
+# frozen_string_literal: false
+
 class AdditionalsTag
   TAG_TABLE_NAME = RedmineCrm::Tag.table_name if defined? RedmineCrm
   TAGGING_TABLE_NAME = RedmineCrm::Tagging.table_name if defined? RedmineCrm

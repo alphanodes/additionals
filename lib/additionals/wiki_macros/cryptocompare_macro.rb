@@ -1,3 +1,5 @@
+# frozen_string_literal: false
+
 # CryptoCompare wiki macros
 # see https://www.cryptocompare.com/dev/widget/wizard/
 module Additionals

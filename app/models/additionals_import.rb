@@ -1,3 +1,5 @@
+# frozen_string_literal: false
+
 class AdditionalsImport < Import
   class_attribute :import_class
 

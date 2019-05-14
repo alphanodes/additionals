@@ -1,3 +1,5 @@
+# frozen_string_literal: false
+
 module Additionals
   module Patches
     module AccessControlPatch

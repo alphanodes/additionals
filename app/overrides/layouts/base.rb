@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Deface::Override.new virtual_path: 'layouts/base',
                      name: 'add-body-header',
                      insert_before: 'div#wrapper',

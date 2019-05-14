@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 gem 'deface', '>= 1.1.0'
 gem 'gemoji', '~> 3.0.0'
 gem 'invisible_captcha'

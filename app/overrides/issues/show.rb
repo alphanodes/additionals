@@ -1,5 +1,3 @@
-# frozen_string_literal: false
-
 Deface::Override.new virtual_path: 'issues/_action_menu',
                      name: 'show-issue-log-time',
                      replace: 'erb[loud]:contains("User.current.allowed_to?(:log_time, @project)")',

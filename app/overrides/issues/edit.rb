@@ -1,5 +1,3 @@
-# frozen_string_literal: false
-
 Deface::Override.new virtual_path: 'issues/_edit',
                      name: 'edit-issue-permission',
                      replace: 'erb[silent]:contains("User.current.allowed_to?(:log_time, @project)")',

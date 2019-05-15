@@ -1,5 +1,3 @@
-# frozen_string_literal: false
-
 # Vimeo wiki macros
 module Additionals
   module WikiMacros

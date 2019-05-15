@@ -1,5 +1,3 @@
-# frozen_string_literal: false
-
 Deface::Override.new virtual_path: 'account/register',
                      name: 'add-invisble-captcha',
                      insert_top: 'div.box',

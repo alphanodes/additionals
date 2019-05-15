@@ -1,5 +1,3 @@
-# frozen_string_literal: false
-
 module AdditionalsFontawesomeHelper
   def fontawesome_info_url
     s = []

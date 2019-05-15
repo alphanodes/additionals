@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AdditionalsAssignToMeController < ApplicationController
   before_action :find_issue
   helper :additionals_issues

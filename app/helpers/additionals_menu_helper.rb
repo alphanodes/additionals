@@ -1,5 +1,3 @@
-# frozen_string_literal: false
-
 module AdditionalsMenuHelper
   def additionals_top_menu_setup
     return unless User.current.try(:hrm_user_type_id).nil?

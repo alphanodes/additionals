@@ -1,5 +1,3 @@
-# frozen_string_literal: false
-
 # Date wiki macros
 module Additionals
   module WikiMacros

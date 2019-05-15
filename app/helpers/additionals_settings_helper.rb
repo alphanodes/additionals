@@ -1,5 +1,3 @@
-# frozen_string_literal: false
-
 module AdditionalsSettingsHelper
   def additionals_settings_tabs
     tabs = [{ name: 'general', partial: 'additionals/settings/general', label: :label_general },

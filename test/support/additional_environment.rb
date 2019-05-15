@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # for travis debugging
 # config.logger = Logger.new(STDOUT)
 # config.logger.level = Logger::INFO

@@ -43,6 +43,9 @@ Performance/ChainArrayAllocation:
 Style/AutoResourceCleanup:
   Enabled: true
 
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
 Style/Documentation:
   Enabled: false
 

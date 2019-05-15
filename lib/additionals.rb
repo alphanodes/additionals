@@ -1,5 +1,3 @@
-# frozen_string_literal: false
-
 module Additionals
   MAX_CUSTOM_MENU_ITEMS = 5
   SELECT2_INIT_ENTRIES = 20

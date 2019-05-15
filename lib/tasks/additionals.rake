@@ -1,5 +1,3 @@
-# frozen_string_literal: false
-
 namespace :redmine do
   namespace :additionals do
     desc <<-DESCRIPTION

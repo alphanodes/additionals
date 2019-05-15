@@ -1,5 +1,3 @@
-# frozen_string_literal: false
-
 # Redmine.org issue wiki macros
 module Additionals
   module WikiMacros

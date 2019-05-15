@@ -1,5 +1,3 @@
-# frozen_string_literal: false
-
 module AdditionalsQueriesHelper
   def additionals_query_session_key(object_type)
     "#{object_type}_query".to_sym

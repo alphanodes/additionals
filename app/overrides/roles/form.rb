@@ -1,5 +1,3 @@
-# frozen_string_literal: false
-
 Deface::Override.new virtual_path: 'roles/_form',
                      name: 'roles-form-hide',
                      insert_before: 'p.manage_members_shown',

@@ -1,5 +1,3 @@
-# frozen_string_literal: false
-
 Deface::Override.new virtual_path: 'admin/info',
                      name: 'add-system_info',
                      insert_after: 'table.list',

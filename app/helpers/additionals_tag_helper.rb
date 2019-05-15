@@ -1,5 +1,3 @@
-# frozen_string_literal: false
-
 require 'digest/md5'
 
 module AdditionalsTagHelper

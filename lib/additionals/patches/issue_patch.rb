@@ -8,7 +8,6 @@ module Additionals
           alias_method :editable?, :editable_with_additionals?
           validate :validate_change_on_closed
           validate :validate_timelog_required
-          validate :validate_open_sub_issues
           validate :validate_current_user_status
           before_validation :auto_assigned_to
           before_save :change_status_with_assigned_to_change,
@@ -152,14 +151,6 @@ module Additionals
                        User.current.allowed_to?(:edit_closed_issues, project)
 
         errors.add :base, :issue_changes_not_allowed
-      end
-
-      def validate_open_sub_issues
-        return true unless Additionals.setting?(:issue_close_with_open_children)
-
-        errors.add :base, :issue_cannot_close_with_open_children if subject.present? &&
-                                                                    closing? &&
-                                                                    descendants.find { |d| !d.closed? }
       end
 
       def validate_current_user_status

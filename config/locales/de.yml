@@ -105,7 +105,6 @@ de:
   label_remove_mypage: "Entferne 'Meine Seite' aus dem Topmenü"
   label_remove_news: "Entferne 'Letzte News' von der Übersichtsseite"
   label_issue_auto_assign: "Wird \"Zugewiesen an\" nicht zugewiesen und der neue Ticketstatus ist x, dann wird die ersten Gruppe mit Benutzern der festgelegten Rolle das Ticket zugewiesen."
-  label_issue_close_with_open_children: Tickets mit offenen Untertickets können nicht geschlossen werden
   label_issue_current_user_status: "Der Ticketstatus x ist nur erlaubt, wenn \"Zugewiesen an\" der aktuelle Benutzer zugewiesen wird."
   label_issue_status_change: "Wird \"Zugewiesen an\" nicht verändert und der Ticketstatus von x auf y geändert, dann wird das Ticket automatisch dem Ersteller zugewiesen"
   label_issue_timelog_required: Zeiterfassung für Ticket erforderlich

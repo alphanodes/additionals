@@ -105,7 +105,6 @@ it:
   label_remove_mypage: "Remove 'My Page' from top menu"
   label_remove_news: "Remove 'Lastest news' from overview page"
   label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
-  label_issue_close_with_open_children: Issues with open sub-issues cannot be closed
   label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
   label_issue_timelog_required: "Time log per i problemi richiesti"

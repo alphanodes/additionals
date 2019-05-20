@@ -105,7 +105,6 @@ es:
   label_remove_mypage: "Quitar 'Mi página' del menú superior"
   label_remove_news: "Quitar 'Últimas noticias' del vistazo de un proyecto"
   label_issue_auto_assign: "Si \"Asignado a\" no es asignado a un usuario y el estado de la nueva petición es x, entonces la petición es auto asignada al primer grupo con usuarios del rol predefinido."
-  label_issue_close_with_open_children: Peticiones con sub-peticiones abiertas no pueden ser cerradas
   label_issue_current_user_status: "Estado de la petición actual x solo está permitido si la petición está asignada al usuario actual."
   label_issue_status_change: "Si no se modifica el usuario \"Asignado\" y la el estado de la petición es modificado de x a y, entonces la petición es asignada al autor de la petición"
   label_issue_timelog_required: Se requiere Registro de tiempo para las peticiones

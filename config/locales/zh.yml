@@ -105,7 +105,6 @@ zh:
   label_remove_mypage: "从顶部菜单栏中移除 '我的工作台' 项"
   label_remove_news: "从概览页中移除 '最近新闻' 区域"
   label_issue_auto_assign: "若 \"指派给\" 的值未设置为具体用户，且新建问题的状态为 X， 那么问题将自动指派给预定义角色用户的对应组。"
-  label_issue_close_with_open_children: 包含打开状态子任务的问题不能关闭。
   label_issue_current_user_status: "当前问题状态 X 仅在 \"指派给\" 的值设置为当前用户时生效。"
   label_issue_status_change: "若 \"指派给\" 的值未修改，且问题状态要从 X 变更为 Y，那么该问题必须指派给问题作者自己。"
   label_issue_timelog_required: Time log for issues required

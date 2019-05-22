@@ -4,6 +4,18 @@ module AdditionalsQuery
   end
 
   module InstanceMethods
+    def sql_for_enabled_module(table_field, module_names)
+      module_names = Array(module_names)
+
+      sql = []
+      module_names.each do |module_name|
+        sql << "EXISTS(SELECT 1 FROM #{EnabledModule.table_name} WHERE #{EnabledModule.table_name}.project_id=#{table_field}" \
+               " AND #{EnabledModule.table_name}.name='#{module_name}')"
+      end
+
+      sql.join(' AND ')
+    end
+
     def initialize_ids_filter(options = {})
       if options[:label]
         add_available_filter 'ids', type: :integer, label: options[:label]

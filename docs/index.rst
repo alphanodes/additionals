@@ -149,7 +149,6 @@ Features
 * configurable issue rules
 
   * freeze closed issue
-  * closing issue with open sub issues
   * change assigned_to automatically, if issue status changes
   * assigned_to has changed, but status change is required, too
 

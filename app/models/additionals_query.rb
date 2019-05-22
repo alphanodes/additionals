@@ -144,7 +144,7 @@ module AdditionalsQuery
     def query_count
       objects_scope.count
     rescue ::ActiveRecord::StatementInvalid => e
-      raise StatementInvalid, e.message
+      raise queried_class::StatementInvalid, e.message
     end
 
     def results_scope(options = {})
@@ -156,7 +156,7 @@ module AdditionalsQuery
         .limit(options[:limit])
         .offset(options[:offset])
     rescue ::ActiveRecord::StatementInvalid => e
-      raise StatementInvalid, e.message
+      raise queried_class::StatementInvalid, e.message
     end
   end
 end

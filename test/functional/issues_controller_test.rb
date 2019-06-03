@@ -135,7 +135,6 @@ class IssuesControllerTest < Additionals::ControllerTest
                               issue_timelog_required: 1,
                               issue_timelog_required_tracker: ['1'],
                               issue_timelog_required_status: ['5']) do
-
       @request.session[:user_id] = 2
       issue = Issue.generate!(tracker_id: 1, status_id: 1)
       get :show,

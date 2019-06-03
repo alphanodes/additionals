@@ -1,16 +1,6 @@
 require 'digest/md5'
 
 module AdditionalsTagHelper
-  # deprecated: this will removed after a while
-  def render_additionals_tags_list(tags, options = {})
-    additionals_tag_cloud(tags, options)
-  end
-
-  # deprecated: this will removed after a while
-  def render_additionals_tag_link_line(tag_list)
-    additionals_tag_links(tag_list)
-  end
-
   def additionals_tag_cloud(tags, options = {})
     return if tags.blank?
 
@@ -90,7 +80,7 @@ module AdditionalsTagHelper
     { controller: options[:tag_controller].presence || controller_name,
       action: action,
       set_filter: 1,
-      project_id: @project,
+      project_id: options[:project],
       fields: [:tags],
       values: { tags: [tag_name] },
       operators: { tags: '=' } }

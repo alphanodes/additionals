@@ -6,7 +6,9 @@
         ' :
     - if defined?(editable) && editable
       #tags-data
-        = additionals_tag_links(entry.tags, tags_without_color: defined?(tags_without_color) ? tags_without_color : false)
+        = additionals_tag_links(entry.tags,
+                                project: @project,
+                                tags_without_color: defined?(tags_without_color) ? tags_without_color : false)
         '
         span.contextual
           = link_to l(:label_edit_tags),
@@ -23,4 +25,6 @@
           = link_to l(:button_cancel), {}, onclick: "$('#edit_tags_form').hide(); $('#tags-data').show(); return false;"
 
     - else
-      = additionals_tag_links(entry.tags, tags_without_color: defined?(tags_without_color) ? tags_without_color : false)
+      = additionals_tag_links(entry.tags,
+                              project: @project,
+                              tags_without_color: defined?(tags_without_color) ? tags_without_color : false)

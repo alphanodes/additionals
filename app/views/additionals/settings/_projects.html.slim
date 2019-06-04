@@ -11,7 +11,7 @@ hr
 p
   = content_tag(:label, l(:label_disabled_modules))
   = hidden_field_tag('settings[disabled_modules][]', '')
-  - Redmine::AccessControl.available_project_modules_all.each do |m|
+  - Redmine::AccessControl.available_project_modules_all.sort.each do |m|
     label.block
       - value = @settings[:disabled_modules].present? ? @settings[:disabled_modules].include?(m.to_s) : false
       = check_box_tag('settings[disabled_modules][]', m, value, id: nil)

@@ -23,7 +23,7 @@ class I18nTest < Additionals::TestCase
                                            'config',
                                            'locales',
                                            '*.yml')].size
-    assert_equal 8, lang_files_count
+    assert_equal 9, lang_files_count
     valid_languages.each do |lang|
       assert set_language_if_valid(lang)
       case lang.to_s

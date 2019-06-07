@@ -1,6 +1,11 @@
 Manual
 ======
 
+The plugin configuration takes place in the administration area by a user with administration permission. Go to *Plugins / Additionals* to open it.
+
+The additionals plugin configuration is divided into several sections, which are described here.
+
+
 General section
 ---------------
 
@@ -21,8 +26,8 @@ Settings
 
 And the following options can be edited by users with administratios rights in the area **Settings**:
 
+* Change the option for ``External urls`` into on of the following: Default behaviour, Open in new window or Open with NoReferrer.
 * Add "Go to top" link. If you have a lot of long pages, it is enabling users to easily return to the top of a page.
-* Change the option for ``External urls`` into default behaviour, open in new window or open with NoReferrer.
 * Activate the ``Legacy smileys / Emoji support`` if you want to use the manual smiley code (e.g. ``:kiss:``). This option is deactivated in the standard setting. If you already use a plugin that supports Smileys and Emojis this option should stay deactivated. For more info on Emoji-Browser support read http://caniemoji.com/. Have a look at the Emoji cheat sheet at https://www.webpagefx.com/tools/emoji-cheat-sheet for available Emoji-Codes.
 
 .. note:: Please restart the application server, if you make changes to the external urls settings as well as if you activate the Smileys and Emoji symbol support.
@@ -89,10 +94,15 @@ Remove attachments from PDF view   When activated the attachments will not be di
 =================================  =====================================================================================================
 
 
-Macro section
--------------
+Macros section
+--------------
 
-This section lists all available macros that the logged in user can use with the macro button of the wiki toolbar. If you leave them deactivated they are all available for selection. Macros marked here are not offered for selection. This allows you to limit the scope of the list for a better usability.
+Redmine itself and Redmine plugins are sometimes equipped with additional macros for usage. Macros can be used in the Wiki of a project or in the text area of an issue. For more information on how to add macros use the Redmine help documentation.
+
+The *Macros section* of the additionals plugin lists all available macros that the logged in user can use with the *macro button* of the wiki toolbar. If you leave them deactivated they are all available to your users for selection.
+
+
+Macros marked here are not offered for selection. This allows you to limit the scope of the list for a better usability.
 
 
 .. figure::  images/macro-settings.png
@@ -100,7 +110,33 @@ This section lists all available macros that the logged in user can use with the
 
 If all macros are deactivated the *Macro button* of the Wiki toolbar will disappear.
 
-.. note:: If you deactivate some macros here this does not mean the user may not implement them. All available macros of installed plugins will work even if they are not part of the macro button. The macro button is just a little helper for Redmine users to make it easier for them to use macros or to remember them.
+.. note:: If you deactivate some macros here this does not mean the user may not implement them. All available macros of installed plugins will work even if they are not part of the macro button. The macro button is just a little helper for Redmine users with no macro experience to make it easier for them to use macros or to remember them.
+
+
+Macro button for Wiki toolbar
+-----------------------------
+
+Many plugins are equipped with a number of useful macros. Unfortunately it is difficult for the normal user to find out which macros are usable without a look at the plugin documentation.
+
+With the macro button for the Wiki toolbar we want to simplify the implementation of macros for users somehow and above all also promote. Because the use of macros belongs to the daily tools of the trade when dealing with the Wiki.
+
+
+.. figure::  images/additionals-makro-button.png
+   :align:   center
+
+   Figure 2: The Wiki toolbar macro button is a useful helper in order to select available project macros for your content.
+
+The macro button for the Wiki toolbar is acessible for every user of a project. For reasons of clarity, the list of available macros is restricted according to the following criteria.
+
+A user can see in the macro list:
+
+* the macros that can be used for the respective area. Macros that only work in the wiki are not available in the issue area and vice versa.
+* The macros, which he / she can use due to his / her role and the associated rights in the respective project.
+* only the macros of modules activated in the project. Macros for deactivated functions are hidden in the list.
+
+The function is easy to use. Just click the button with the left mouse. The dropdown list shows all your available macros. Select the one you want to use. The selected macro will be pasted to the cursor position. All you have to do is adapt missing parameters (if needed). That's it.
+
+A list of all available macros provided by the Additionals plugin is also available in this manual.
 
 
 
@@ -123,16 +159,26 @@ Settings
 
 The following options are available at the moment in the area **Settings** where you can define rules which will be used in all projects:
 
-* New issue on user profile. Activate this option in case you want to display the symbol link ''New issue'' on a user's profile page in the top right corner in order to add a new issue for this user directly from it's user profile page.
-* Show ''Assign to me'' on issue. Activate this option if you want to display the symbol link ''Assign to me'' in the issue overview page of an issue that you are able to assign it directly to yourself without *editing* the issue. The link is only shown to users who are also members in the correspondent project.
-* Issue status on sidebar. Activate this option in case you want to display a list of available issue status options in the right sidebar of the issue view page. One click on the option changes the issue status directly without opening the *edit* mode.
+New issue on user profile.
+  Activate this option in case you want to display the symbol link ''New issue'' on a user's profile page in the top right corner in order to add a new issue for this user directly from it's user profile page.
+
+Show ''Assign to me'' on issue.
+  Activate this option if you want to display the symbol link ''Assign to me'' in the issue overview page of an issue that you are able to assign it directly to yourself without *editing* the issue. The link is only shown to users who are also members in the correspondent project.
+
+Issue status on sidebar.
+  Activate this option in case you want to display a list of available issue status options in the right sidebar of the issue view page. One click on the option changes the issue status directly without opening the *edit* mode.
 
 .. note:: All three options above only work for users with appropriate issue tracking rights in the administration area "Roles and permissions" (view, add, edit).
 
-* Add involved users as watcher automatically. This means, everyone who is or has been involved in the issue (Assignee, Editor, Author etc.) will automatically be notified about further changes. At the same time the user finds an additional option in his user account edit mode called ``Autowatch involved issues`` (see figure 1). Deactivate this option if you don't want to be notified.
-* Issues with open sub-issues cannot be closed.
-* Disallow editing of closed issues (Freeze). This option should be activated if already closed issues should no longer be edited and commented.
-* If "Assignee" is unchanged and the issue status changed from x to y, than the author is assigned to the issue.
+
+Add involved users as watcher automatically
+  This means, everyone who is or has been involved in the issue (Assignee, Editor, Author etc.) will automatically be notified about further changes. At the same time the user finds an additional option in his user account edit mode called ``Autowatch involved issues`` (see figure 1). Deactivate this option if you don't want to be notified.
+
+Disallow editing of closed issues (Freeze).
+  This option should be activated if already closed issues should no longer be edited and commented.
+
+If "Assignee" is unchanged and the issue status changed from x to y, than the author is assigned to the issue.
+  Issues should be automatically assigned to the author, if the status changes to "Approval".
 
 .. figure::  images/account-preferences.jpg
    :align:   center
@@ -141,15 +187,16 @@ The following options are available at the moment in the area **Settings** where
 
 .. note:: Use Case for this option is that issues should be automatically assigned to author, if the status changes to *Approval*.
 
-* Current issue status x is only allowed if *Assignee* is the current user.
+Current issue status x is only allowed if *Assignee* is the current user.
 
 .. note:: Is this function used in combination with the setting option *Issue status on sidebar* then the current user will automatically be assigned to the issue while changing the issue status. Use Case here: Users are only allowed to change the status to *In Progress* if they are the person who is actually working on the issue right now.
 
-* If ''Assigned to'' is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role.
+
+If ''Assigned to'' is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role.
 
 .. note:: Use Case: The issue author does not know whom the issue should be assigned to. Or he is unsure who will be responsible for solving the task. In that case the issue for example with the status "To Do" is automatically assigned to the first group, which does contain a user of the pre-selected project manager role. Imagine you have a group called "Support", and there are users assigend to the "Manager" role, this support group will be automatically adressed to solve the issue when the issue author saves it.
 
-* Time log for issues required.
+Time log for issues required.
 
 .. note:: For each issue of the selected trackers, a time logging is necessary if the issue is to receive one of the defined status properties. The time logging is not required if there does no rights exist for the creation of time logging or if the user has the authorization *Time logging not required*.
 
@@ -237,37 +284,6 @@ Known external plugins that have a user manual and support this feature are curr
 * redmine_db
 * redmine_passwords
 
-
-Macros
-++++++
-
-Because it's sometimes hard to remember what kind of macros you can use in your Redmine installation we implemented the macro section.
-Here is simply displayed a list of all available Redmine macros of your installation, which are provided by Redmine in general and the installed Redmine plugins.
-Macros can be used in the Wiki of a project or as well as in the text area of an issue, for example. For more information on how to add macros use the Redmine help.
-
-
-Macro button for Wiki toolbar
------------------------------
-
-Many plugins are equipped with a number of useful macros. Unfortunately it is difficult for the normal user to find out which macros are usable without a look at the plugin documentation. With our new macro button for the Wiki toolbar we want to simplify the implementation of macros for users somehow and above all also promote. Because the use of macros belongs to the daily tools of the trade when dealing with the Wiki.
-
-
-.. figure::  images/additionals-makro-button.png
-   :align:   center
-
-   Figure 2: The Wiki toolbar macro button is a useful helper in order to select available project macros for your content.
-
-The macro button for the Wiki toolbar is acessible for every user of a project. For reasons of clarity, the list of available macros is restricted according to the following criteria.
-
-A user can see in the macro list:
-
-* the macros that can be used for the respective area. Macros that only work in the wiki are not available in the issue area and vice versa.
-* The macros, which he / she can use due to his / her role and the associated rights in the respective project.
-* only the macros of modules activated in the project. Macros for deactivated functions are hidden in the list.
-
-The function is easy to use. Just click the button with the left mouse. The dropdown list shows all your available macros. Select the one you want to use. The selected macro will be pasted to the cursor position. All you have to do is adapt missing parameters (if needed). That's it.
-
-A list of all available macros provided by the Additionals plugin is also available in this manual.
 
 
 Additional permissions

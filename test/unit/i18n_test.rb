@@ -23,13 +23,13 @@ class I18nTest < Additionals::TestCase
                                            'config',
                                            'locales',
                                            '*.yml')].size
-    assert_equal 9, lang_files_count
+    assert_equal 10, lang_files_count
     valid_languages.each do |lang|
       assert set_language_if_valid(lang)
       case lang.to_s
       when 'en'
         assert_equal 'External urls', l(:label_external_urls)
-      when 'de', 'es', 'fr', 'it', 'ja', 'zh-TW', 'zh'
+      when 'de', 'es', 'fr', 'it', 'ja', 'po', 'ru', 'zh-TW', 'zh'
         assert_not l(:label_external_urls) == 'External urls', lang
       end
     end

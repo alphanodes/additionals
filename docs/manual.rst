@@ -283,6 +283,8 @@ Known external plugins that have a user manual and support this feature are curr
 * redmine_privacy_terms
 * redmine_db
 * redmine_passwords
+* redmine_hrm
+* redmine_reporting
 
 
 
@@ -302,7 +304,7 @@ The following role permissions are provided by the plugin and must be configured
 
 * **Show hidden roles in member box**. In case you have hidden roles in a project that should not be displayed you can give to some special user roles the permission to display the members however. *Important:* If someone in a project has a role that has this right, then this user sees all users everywhere.
 
-* **Edit issue author**. This permission will always record any changes made to the issue author. You can change the author only in the issue edit mode.
+* **Edit issue author**. This permission will always record any changes made to the issue author. You can change the author only in the issue edit mode. This function replaces the use of external plugins (e.g. change_author)
 
 * **Edit closed issues**. Set this option to those roles you don't want to edit closed issues. Normally a closed issue should not be edited anymore.
 

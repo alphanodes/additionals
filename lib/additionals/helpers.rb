@@ -202,6 +202,16 @@ module Additionals
       safe_join(s)
     end
 
+    def project_list_css_classes(project, level)
+      classes = [cycle('odd', 'even')]
+      classes += project.css_classes.split(' ')
+      if level.positive?
+        classes << 'idnt'
+        classes << "idnt-#{level}"
+      end
+      classes.join(' ')
+    end
+
     private
 
     def additionals_already_loaded(scope, js_name)

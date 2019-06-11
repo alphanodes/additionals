@@ -9,6 +9,7 @@ Changelog
 - Ruby 2.2.x support has been dropped. Use 2.3.x or newer ruby verion
 - FontAwesome 5.9.0 support
 - remove issue_close_with_open_children functionality, because this is included in Redmine 3.4.x #47 (thanks to @pva)
+- add hierarchy support for projects macro #45
 
 2.0.20
 ++++++

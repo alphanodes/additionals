@@ -167,11 +167,13 @@ Don't worry, if you only need a subset of the provided libraries. If you do not 
 It provides :
 
 * `bootstrap-datepicker 1.8.0 <https://github.com/uxsolutions/bootstrap-datepicker>`_
+* `clipboardJS 2.0.4 <https://clipboardjs.com/>`_
 * `d3 3.5.17 <https://d3js.org/>`_
 * `d3plus v2.0.0-alpha.17 <https://d3plus.org/>`_
 * `FontAwesome 5.9.0 <https://fontawesome.com/>`_
 * `mermaid 8.0.0 <https://github.com/knsv/mermaid/>`_
 * `nvd3 1.8.6 <https://github.com/novus/nvd3>`_
+* `Select2 4.0.7 <https://select2.org/>`_
 * `ZeroClipboard 2.3.0 <https://github.com/zeroclipboard/zeroclipboard>`_
 
 And a set of various Rails helper methods (see below).
@@ -190,12 +192,14 @@ This method loads all JS and CSS files needed by the required module.
 
 The following modules are available :
 
+* clipboardjs
 * d3
 * d3plus
 * mermaid
 * nvd3
 * font_awesome
 * notify
+* select2
 * zeroclipboard
 
 

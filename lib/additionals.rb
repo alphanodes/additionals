@@ -48,6 +48,7 @@ module Additionals
       ActionView::Base.send :include, Additionals::Helpers
       ActionView::Base.send :include, AdditionalsFontawesomeHelper
       ActionView::Base.send :include, AdditionalsMenuHelper
+      ActionView::Base.send :include, Additionals::AdditionalsSelect2Helper
 
       # Hooks
       require_dependency 'additionals/hooks'
@@ -84,7 +85,8 @@ module Additionals
     end
 
     def true?(value)
-      return true if value.to_i == 1 || value.to_s.casecmp('true').zero?
+      return false if value.is_a? FalseClass
+      return true if value.is_a?(TrueClass) || value.to_i == 1 || value.to_s.casecmp('true').zero?
 
       false
     end

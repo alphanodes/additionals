@@ -240,7 +240,15 @@ module Additionals
     end
 
     def additionals_load_select2
-      additionals_include_js('additionals_to_select2')
+      additionals_include_css('select2') +
+        additionals_include_js('select2.min') +
+        additionals_include_js('select2_helper')
+    end
+
+    def additionals_load_clipboardjs
+      additionals_include_css('clipboard') +
+        additionals_include_js('clipboard.min') +
+        additionals_include_js('clipboard_helper')
     end
 
     def additionals_load_observe_field

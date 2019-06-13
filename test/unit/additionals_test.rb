@@ -1,0 +1,52 @@
+require File.expand_path('../../test_helper', __FILE__)
+
+class AdditionalsTest < Additionals::TestCase
+  fixtures :projects, :users, :members, :member_roles, :roles,
+           :trackers, :projects_trackers,
+           :enabled_modules,
+           :enumerations
+
+  include Redmine::I18n
+
+  def setup
+    prepare_tests
+  end
+
+  def test_true
+    assert Additionals.true? 1
+    assert Additionals.true? true
+    assert Additionals.true? 'true'
+    assert Additionals.true? 'True'
+
+    assert_not Additionals.true?(-1)
+    assert_not Additionals.true? 0
+    assert_not Additionals.true? '0'
+    assert_not Additionals.true? 1000
+    assert_not Additionals.true? false
+    assert_not Additionals.true? 'false'
+    assert_not Additionals.true? 'False'
+    assert_not Additionals.true? 'yes'
+    assert_not Additionals.true? ''
+    assert_not Additionals.true? nil
+    assert_not Additionals.true? 'unknown'
+  end
+
+  def test_settings
+    assert_equal 'Don\'t forget to define acceptance criteria!',
+                 Additionals.settings[:new_ticket_message]
+    assert_equal 1, Additionals.settings[:external_urls]
+  end
+
+  def test_setting
+    assert Additionals.setting?(:external_urls)
+    assert_not Additionals.setting?(:add_go_to_top)
+  end
+
+  def test_load_macros
+    assert_equal ['fa'], Additionals.load_macros(['fa'])
+
+    assert_raises LoadError do
+      Additionals.load_macros(%w[fa invalid])
+    end
+  end
+end

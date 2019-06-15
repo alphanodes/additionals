@@ -341,8 +341,7 @@
   padding-left: 6em;
 }
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
-  background-color: #759fcf;
-  color: #fff;
+  background-color: #eef5fd;
 }
 .select2-container--default .select2-results__group {
   cursor: default;

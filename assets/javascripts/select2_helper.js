@@ -51,9 +51,9 @@ function setSelect2Filter(type, options) {
   select2Filters[type] = options;
 }
 
-var originBuildFilterRow = buildFilterRow;
+var oldBuildFilterRow = buildFilterRow;
 buildFilterRow = function (field, operator, values) {
-  originBuildFilterRow(field, operator, values);
+  oldBuildFilterRow(field, operator, values);
 
   var options = select2Options(field);
   if (options) {

@@ -169,7 +169,8 @@ It provides :
 * `bootstrap-datepicker 1.8.0 <https://github.com/uxsolutions/bootstrap-datepicker>`_
 * `clipboardJS 2.0.4 <https://clipboardjs.com/>`_
 * `d3 3.5.17 <https://d3js.org/>`_
-* `d3plus v2.0.0-alpha.17 <https://d3plus.org/>`_
+* `d3plus v2.0.0-alpha.19 <https://d3plus.org/>`_
+* `d3plus-hierarchy v0.8.5 <https://github.com/d3plus/d3plus-hierarchy>`_
 * `FontAwesome 5.9.0 <https://fontawesome.com/>`_
 * `mermaid 8.0.0 <https://github.com/knsv/mermaid/>`_
 * `nvd3 1.8.6 <https://github.com/novus/nvd3>`_
@@ -195,6 +196,7 @@ The following modules are available :
 * clipboardjs
 * d3
 * d3plus
+* d3plus_hierarchy
 * mermaid
 * nvd3
 * font_awesome

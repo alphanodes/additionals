@@ -167,6 +167,9 @@ Don't worry, if you only need a subset of the provided libraries. If you do not 
 It provides :
 
 * `bootstrap-datepicker 1.9.0 <https://github.com/uxsolutions/bootstrap-datepicker>`_
+* `Chart.js 2.8.0 <https://www.chartjs.org/>`_
+* `Chart.js Plugin datalabels 0.6.0 <https://github.com/chartjs/chartjs-plugin-datalabels>`_
+* `Chart.js Plugin stacked100 0.7.1 <https://github.com/y-takey/chartjs-plugin-stacked100>`_
 * `clipboardJS 2.0.4 <https://clipboardjs.com/>`_
 * `d3 3.5.17 <https://d3js.org/>`_
 * `d3plus v2.0.0-alpha.19 <https://d3plus.org/>`_
@@ -194,6 +197,9 @@ This method loads all JS and CSS files needed by the required module.
 The following modules are available :
 
 * clipboardjs
+* chartjs
+* chartjs_datalabels
+* chartjs_stacked100
 * d3
 * d3plus
 * d3plus_hierarchy

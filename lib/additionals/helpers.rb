@@ -259,6 +259,19 @@ module Additionals
       additionals_include_css('fontawesome-all.min')
     end
 
+    def additionals_load_chartjs
+      additionals_include_css('Chart.min') +
+        additionals_include_js('Chart.bundle.min')
+    end
+
+    def additionals_load_chartjs_datalabels
+      additionals_include_js('chartjs-plugin-datalabels.min')
+    end
+
+    def additionals_load_chartjs_stacked100
+      additionals_include_js('chartjs-plugin-stacked100')
+    end
+
     def additionals_load_nvd3
       additionals_include_css('nv.d3.min') +
         additionals_include_js('d3.min') +

@@ -11,6 +11,7 @@ Changelog
 - remove issue_close_with_open_children functionality, because this is included in Redmine 3.4.x #47 (thanks to @pva)
 - add hierarchy support for projects macro #45
 - select2 support
+- bootstrap-datepicker 1.9.0 support
 
 2.0.20
 ++++++

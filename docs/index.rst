@@ -166,7 +166,7 @@ Don't worry, if you only need a subset of the provided libraries. If you do not 
 
 It provides :
 
-* `bootstrap-datepicker 1.8.0 <https://github.com/uxsolutions/bootstrap-datepicker>`_
+* `bootstrap-datepicker 1.9.0 <https://github.com/uxsolutions/bootstrap-datepicker>`_
 * `clipboardJS 2.0.4 <https://clipboardjs.com/>`_
 * `d3 3.5.17 <https://d3js.org/>`_
 * `d3plus v2.0.0-alpha.19 <https://d3plus.org/>`_

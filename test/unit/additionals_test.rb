@@ -32,12 +32,19 @@ class AdditionalsTest < Additionals::TestCase
   end
 
   def test_settings
-    assert_equal 'Don\'t forget to define acceptance criteria!',
-                 Additionals.settings[:new_ticket_message]
-    assert_equal 1, Additionals.settings[:external_urls]
+    assert_raises NoMethodError do
+      Additionals.settings[:external_urls]
+    end
   end
 
   def test_setting
+    assert_equal 'Don\'t forget to define acceptance criteria!',
+                 Additionals.setting(:new_ticket_message)
+    assert_equal 1, Additionals.setting(:external_urls)
+    assert_nil Additionals.setting(:no_existing_key)
+  end
+
+  def test_setting_bool
     assert Additionals.setting?(:external_urls)
     assert_not Additionals.setting?(:add_go_to_top)
   end

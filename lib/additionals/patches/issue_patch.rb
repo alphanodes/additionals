@@ -84,16 +84,14 @@ module Additionals
       end
 
       def new_ticket_message
-        @new_ticket_message = ''
-        message = Additionals.settings[:new_ticket_message]
-        @new_ticket_message << message if message.present?
+        @new_ticket_message ||= Additionals.setting(:new_ticket_message).presence || ''
       end
 
       def status_x_affected?(new_status_id)
         return false unless Additionals.setting?(:issue_current_user_status)
-        return false if Additionals.settings[:issue_assign_to_x].blank?
+        return false if Additionals.setting(:issue_assign_to_x).blank?
 
-        if Additionals.settings[:issue_assign_to_x].include?(new_status_id.to_s)
+        if Additionals.setting(:issue_assign_to_x).include?(new_status_id.to_s)
           true
         else
           false
@@ -104,18 +102,18 @@ module Additionals
 
       def auto_assigned_to
         return if !Additionals.setting?(:issue_auto_assign) ||
-                  Additionals.settings[:issue_auto_assign_status].blank? ||
-                  Additionals.settings[:issue_auto_assign_role].blank? ||
+                  Additionals.setting(:issue_auto_assign_status).blank? ||
+                  Additionals.setting(:issue_auto_assign_role).blank? ||
                   assigned_to_id.present?
 
-        return unless Additionals.settings[:issue_auto_assign_status].include?(status_id.to_s)
+        return unless Additionals.setting(:issue_auto_assign_status).include?(status_id.to_s)
 
         self.assigned_to_id = auto_assigned_to_user
         true
       end
 
       def auto_assigned_to_user
-        manager_role = Role.builtin.find_by(id: Additionals.settings[:issue_auto_assign_role])
+        manager_role = Role.builtin.find_by(id: Additionals.setting(:issue_auto_assign_role))
         groups = autoassign_get_group_list
         return groups[manager_role].first.id unless groups.nil? || groups[manager_role].blank?
 
@@ -126,10 +124,10 @@ module Additionals
       def timelog_required?(check_status_id)
         usr = User.current
         return false if !Additionals.setting?(:issue_timelog_required) ||
-                        Additionals.settings[:issue_timelog_required_tracker].blank? ||
-                        Additionals.settings[:issue_timelog_required_tracker].exclude?(tracker_id.to_s) ||
-                        Additionals.settings[:issue_timelog_required_status].blank? ||
-                        Additionals.settings[:issue_timelog_required_status].exclude?(check_status_id.to_s) ||
+                        Additionals.setting(:issue_timelog_required_tracker).blank? ||
+                        Additionals.setting(:issue_timelog_required_tracker).exclude?(tracker_id.to_s) ||
+                        Additionals.setting(:issue_timelog_required_status).blank? ||
+                        Additionals.setting(:issue_timelog_required_status).exclude?(check_status_id.to_s) ||
                         !usr.allowed_to?(:log_time, project) ||
                         usr.allowed_to?(:issue_timelog_never_required, project) ||
                         time_entries.present?
@@ -165,13 +163,13 @@ module Additionals
 
       def change_status_with_assigned_to_change
         return true if !Additionals.setting?(:issue_status_change) ||
-                       Additionals.settings[:issue_status_x].blank? ||
-                       Additionals.settings[:issue_status_y].blank?
+                       Additionals.setting(:issue_status_x).blank? ||
+                       Additionals.setting(:issue_status_y).blank?
 
         if !assigned_to_id_changed? &&
            status_id_changed? &&
-           (Additionals.settings[:issue_status_x].include? status_id_was.to_s) &&
-           Additionals.settings[:issue_status_y].to_i == status_id
+           (Additionals.setting(:issue_status_x).include? status_id_was.to_s) &&
+           Additionals.setting(:issue_status_y).to_i == status_id
           self.assigned_to = author
         end
       end

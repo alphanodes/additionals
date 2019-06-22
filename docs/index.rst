@@ -170,6 +170,7 @@ It provides :
 * `Chart.js 2.8.0 <https://www.chartjs.org/>`_
 * `Chart.js Plugin datalabels 0.6.0 <https://github.com/chartjs/chartjs-plugin-datalabels>`_
 * `Chart.js Plugin stacked100 0.7.1 <https://github.com/y-takey/chartjs-plugin-stacked100>`_
+* `Chart.js Plugin colorschemes 0.4.0 <https://github.com/nagix/chartjs-plugin-colorschemes>`_
 * `clipboardJS 2.0.4 <https://clipboardjs.com/>`_
 * `d3 3.5.17 <https://d3js.org/>`_
 * `d3plus v2.0.0-alpha.19 <https://d3plus.org/>`_
@@ -200,6 +201,7 @@ The following modules are available :
 * chartjs
 * chartjs_datalabels
 * chartjs_stacked100
+* chartjs_colorschemes
 * d3
 * d3plus
 * d3plus_hierarchy

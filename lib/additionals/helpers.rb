@@ -272,6 +272,10 @@ module Additionals
       additionals_include_js('chartjs-plugin-stacked100')
     end
 
+    def additionals_load_chartjs_colorschemes
+      additionals_include_js('chartjs-plugin-colorschemes.min')
+    end
+
     def additionals_load_nvd3
       additionals_include_css('nv.d3.min') +
         additionals_include_js('d3.min') +

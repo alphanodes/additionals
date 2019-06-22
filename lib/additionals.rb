@@ -60,10 +60,6 @@ module Additionals
                      recently_updated reddit slideshare tradingview twitter user vimeo youtube])
     end
 
-    def settings
-      settings_compatible(:plugin_additionals)
-    end
-
     def settings_compatible(plugin_name)
       if Setting[plugin_name].class == Hash
         if Rails.version >= '5.2'
@@ -80,8 +76,17 @@ module Additionals
       end
     end
 
+    # support with default setting as fall back
+    def setting(value)
+      if settings.key? value
+        settings[value]
+      else
+        load_settings[value]
+      end
+    end
+
     def setting?(value)
-      true?(settings[value])
+      true?(setting(value))
     end
 
     def true?(value)
@@ -125,11 +130,23 @@ module Additionals
     end
 
     def load_settings(plugin_id = 'additionals')
-      data = YAML.safe_load(ERB.new(IO.read(Rails.root.join('plugins',
-                                                            plugin_id,
-                                                            'config',
-                                                            'settings.yml'))).result) || {}
-      data.symbolize_keys
+      cached_settings_name = '@load_settings_' + plugin_id
+      cached_settings = instance_variable_get(cached_settings_name)
+      if cached_settings.nil?
+        data = YAML.safe_load(ERB.new(IO.read(Rails.root.join('plugins',
+                                                              plugin_id,
+                                                              'config',
+                                                              'settings.yml'))).result) || {}
+        instance_variable_set(cached_settings_name, data.symbolize_keys)
+      else
+        cached_settings
+      end
+    end
+
+    private
+
+    def settings
+      settings_compatible(:plugin_additionals)
     end
   end
 end

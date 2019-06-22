@@ -171,3 +171,5 @@ zh:
   latest_entries_changes: "Latest %{value} changes"
   label_edit_tags: Edit tags
   label_query_name_search: Search for name
+  label_chartjs_colorscheme_info: Color list
+  label_chart_color_schema: Charts color scheme

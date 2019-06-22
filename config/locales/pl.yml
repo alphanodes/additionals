@@ -171,3 +171,5 @@ pl:
   latest_entries_changes: "Ostatnie  %{value} zmian"
   label_edit_tags: Edycja tags
   label_query_name_search: "Wyszukaj nazwę"
+  label_chartjs_colorscheme_info: Color list
+  label_chart_color_schema: Charts color scheme

@@ -171,3 +171,5 @@ ru:
   latest_entries_changes: "Последние изменения %{value}"
   label_edit_tags: Edit tags
   label_query_name_search: "Поиск имени"
+  label_chartjs_colorscheme_info: Color list
+  label_chart_color_schema: Charts color scheme

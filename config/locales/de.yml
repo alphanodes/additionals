@@ -23,7 +23,7 @@ de:
   disabled_modules_info: "Module, die nicht zur Auswahl innerhalb der Projekte zur Verfügung stehen sollen. Sind in bestehenden Projekten schon diese Module aktiviert worden, werden die Einstellungen für diese Projekte erst nach erneuten Abspeichern der jeweiligen Projekteinstellungen aktiv."
   error_issue_status_could_not_changed: Der Ticket-Status konnte nicht geändert werden
   error_issues_could_not_be_assigned_to_me: Das Ticket konnte nicht mir zugeordnet werden
-  error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
+  error_query_statement_invalid: Beim Ausführen der Query ist ein Fehler aufgetreten und wurde protokolliert. Bitte melden Sie diesen Fehler Ihrem Redmine-Administrator.
   errors_invalid_icon_format: ist ein ungültiger Font-Awesome Code
   errors_no_or_invalid_arguments: Kein oder ungültiger Parameter
   external_url_default: "Standard Verhalten"

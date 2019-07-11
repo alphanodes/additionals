@@ -2,6 +2,7 @@ require File.expand_path('../../test_helper', __FILE__)
 
 class JavascriptLibraryTest < Redmine::IntegrationTest
   def test_loaded_css_libraries
+    log_user('admin', 'admin')
     get '/'
 
     assert_response :success
@@ -13,6 +14,7 @@ class JavascriptLibraryTest < Redmine::IntegrationTest
   end
 
   def test_not_loaded_css_libraries
+    log_user('admin', 'admin')
     get '/'
 
     assert_response :success
@@ -23,6 +25,7 @@ class JavascriptLibraryTest < Redmine::IntegrationTest
   end
 
   def test_not_loaded_javascript_libraries
+    log_user('admin', 'admin')
     get '/'
 
     assert_response :success

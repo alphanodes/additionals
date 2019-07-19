@@ -113,7 +113,7 @@ Features
   * cryptocompare
   * date
   * fa
-  * gihub gist
+  * github gist
   * gmap
   * group_users
   * iframe
@@ -123,7 +123,7 @@ Features
   * new_issue
   * projects
   * reddit
-  * redmine.org issue and wiki page (redmine_issue and reminde_wiki)
+  * redmine.org issue and wiki page (redmine_issue and redmine_wiki)
   * slideshare
   * tradingview
   * twitter

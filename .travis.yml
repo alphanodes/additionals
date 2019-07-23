@@ -3,7 +3,7 @@ dist: xenial
 
 rvm:
   - 2.6.3
-  - 2.4.5
+  - 2.4.6
   - 2.3.8
 
 services:

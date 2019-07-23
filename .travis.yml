@@ -1,9 +1,14 @@
 language: ruby
+dist: xenial
 
 rvm:
   - 2.5.3
   - 2.4.5
   - 2.3.8
+
+services:
+  - mysql
+  - postgresql
 
 env:
   - REDMINE_VER=4.0-stable DB=postgresql
@@ -12,14 +17,6 @@ env:
   - REDMINE_VER=3.4-stable DB=mysql
 
 sudo: true
-
-addons:
-  postgresql: "9.6"
-  apt:
-    sources:
-      - mysql-5.7-trusty
-    packages:
-      - mysql-server
 
 before_install:
   - export PLUGIN_NAME=additionals

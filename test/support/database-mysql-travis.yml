@@ -3,6 +3,6 @@ test:
   database: travis_ci_test
   host: localhost
   username: root
-  password: travis_ci_test
+  password:
   pool: 5
   encoding: utf8mb4

@@ -30,8 +30,10 @@ before_install:
   - ln -s $TRAVIS_BUILD_DIR $REDMINE_PATH/plugins/$PLUGIN_NAME
   - cp $TRAVIS_BUILD_DIR/test/support/additional_environment.rb $REDMINE_PATH/config/
   - cp $TRAVIS_BUILD_DIR/test/support/database-$DB-travis.yml $REDMINE_PATH/config/database.yml
+  - gem uninstall -aIx bundler
 
 before_script:
+  - gem install bundler -v 1.17.3
   - bundle exec rake db:create db:migrate redmine:plugins:migrate
 
 script:

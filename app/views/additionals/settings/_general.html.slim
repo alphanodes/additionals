@@ -1,19 +1,15 @@
-br
 h3 = l(:label_content_plural)
 
 p
-  = content_tag(:label, l(:label_account_login))
-  = text_area_tag 'settings[account_login_bottom]', @settings[:account_login_bottom], class: 'wiki-edit', rows: 10
+  = additionals_settings_textarea :account_login_bottom
   em.info
     = l(:account_login_info)
 p
-  = content_tag(:label, l(:label_global_sidebar))
-  = text_area_tag 'settings[global_sidebar]', @settings[:global_sidebar], class: 'wiki-edit', rows: 10
+  = additionals_settings_textarea :global_sidebar
   em.info
     = l(:global_sidebar_info)
 p
-  = content_tag(:label, l(:label_global_footer))
-  = text_area_tag 'settings[global_footer]', @settings[:global_footer], class: 'wiki-edit', rows: 5
+  = additionals_settings_textarea :global_footer
   em.info
     = l(:global_footer_info)
 
@@ -28,12 +24,10 @@ p
   em.info
     = t(:external_urls_info_html)
 p
-  = content_tag(:label, l(:label_add_go_to_top))
-  = check_box_tag 'settings[add_go_to_top]', 1, @settings[:add_go_to_top].to_i == 1
+  = additionals_settings_checkbox :add_go_to_top
   em.info
     = t(:add_go_to_top_info)
 p
-  = content_tag(:label, l(:label_legacy_smiley_support))
-  = check_box_tag 'settings[legacy_smiley_support]', 1, @settings[:legacy_smiley_support].to_i == 1
+  = additionals_settings_checkbox :legacy_smiley_support
   em.info
     = t(:legacy_smiley_support_info_html)

@@ -17,10 +17,10 @@ module Additionals
     module InstanceMethodsForAdditionalsWiki
       def sidebar_with_additionals
         @sidebar ||= find_page('Sidebar', with_redirect: false)
-        if @sidebar && @sidebar.content
+        if @sidebar&.content
           sidebar_without_additionals
         else
-          wiki_sidebar = Additionals.settings[:global_wiki_sidebar].to_s
+          wiki_sidebar = Additionals.setting(:global_wiki_sidebar).to_s
           @sidebar ||= find_page(project.wiki.start_page, with_redirect: false)
           @sidebar.content.text = wiki_sidebar if wiki_sidebar != '' && @sidebar.try(:content)
         end

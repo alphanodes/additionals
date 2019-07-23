@@ -28,25 +28,26 @@ module Additionals
 
         return if days < 1
 
-        pages = WikiPage
-                .includes(:content)
-                .where(["#{WikiPage.table_name}.wiki_id = ? AND #{WikiContent.table_name}.updated_on > ?",
-                        page.wiki_id, User.current.today - days])
-                .order("#{WikiContent.table_name}.updated_on desc")
-        o = ''
+        pages = WikiPage.joins(:content)
+                        .where(wiki_id: page.wiki_id)
+                        .where("#{WikiContent.table_name}.updated_on > ?", User.current.today - days)
+                        .order("#{WikiContent.table_name}.updated_on desc")
+
+        s = []
         date = nil
         pages.each do |page_raw|
           content = page_raw.content
           updated_on = Date.new(content.updated_on.year, content.updated_on.month, content.updated_on.day)
           if date != updated_on
             date = updated_on
-            o << '<b>' + format_date(date) + '</b><br/>'
+            s << content_tag(:strong, format_date(date))
+            s << tag(:br)
           end
-          o << link_to(content.page.pretty_title,
+          s << link_to(content.page.pretty_title,
                        controller: 'wiki', action: 'show', project_id: content.page.project, id: content.page.title)
-          o << '<br/>'
+          s << tag(:br)
         end
-        content_tag('div', o.html_safe, class: 'recently-updated')
+        content_tag('div', safe_join(s), class: 'recently-updated')
       end
     end
   end

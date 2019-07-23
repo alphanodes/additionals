@@ -34,7 +34,7 @@ class AdditionalsImport < Import
 
       h[v.custom_field.id.to_s] =
         if value.is_a?(Array)
-          value.map { |val| v.custom_field.value_from_keyword(val.strip, object) }.compact.flatten
+          value.map { |val| v.custom_field.value_from_keyword(val.strip, object) }.flatten!.compact
         else
           v.custom_field.value_from_keyword(value, object)
         end

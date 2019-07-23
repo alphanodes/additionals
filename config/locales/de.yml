@@ -23,7 +23,7 @@ de:
   disabled_modules_info: "Module, die nicht zur Auswahl innerhalb der Projekte zur Verfügung stehen sollen. Sind in bestehenden Projekten schon diese Module aktiviert worden, werden die Einstellungen für diese Projekte erst nach erneuten Abspeichern der jeweiligen Projekteinstellungen aktiv."
   error_issue_status_could_not_changed: Der Ticket-Status konnte nicht geändert werden
   error_issues_could_not_be_assigned_to_me: Das Ticket konnte nicht mir zugeordnet werden
-  error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
+  error_query_statement_invalid: Beim Ausführen der Query ist ein Fehler aufgetreten und wurde protokolliert. Bitte melden Sie diesen Fehler Ihrem Redmine-Administrator.
   errors_invalid_icon_format: ist ein ungültiger Font-Awesome Code
   errors_no_or_invalid_arguments: Kein oder ungültiger Parameter
   external_url_default: "Standard Verhalten"
@@ -46,8 +46,8 @@ de:
   global_wiki_sidebar_info: 'Hier kann für die Wiki Sidebar ein projektübergreifender Text hinterlegt werden. Diese Sidebar wird nur auf den Wiki Seiten angezeigt und kann z.B. für  Makros wie "Zuletzt geänderte Seiten" verwendet werden. Wird eine projektspezifische Sidebar angelegt (über eine Wiki Seite), dann wird diese anstelle der projektübergreifenden Sidebar angezeigt.'
   google_maps_embed_api_html: Wenn Du das Gmap Makro verwenden willst um Google Karten darzustellen, musst Du hier Deinen Google Maps Embed API Schlüssel eintragen. Mehr Informationen dazu findest Du unter <a href="https://developers.google.com/maps/documentation/embed/guide" target="_blank">https://developers.google.com/maps/documentation/embed/guide</a>. Wird hier kein Schlüssel eingetragen, kann das gmap Makro nicht verwendet werden.
   invisible_captcha_info_html: Ist diese Option aktiviert, wird mit Hilfe von <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> ein SPAM Schutz auf die Registrierungs-Seite für neue Benutzer eingesetzt. Diese steht nur zur Verfügung, wenn Redmine die Registrierung neuer Benutzer zulässt.
-  label_access_token: Zugriffstoken
-  label_account_login: "Text für Anmeldeseite"
+  label_docs_access_token: Zugriffstoken
+  label_account_login_bottom: "Text für Anmeldeseite"
   label_add_go_to_top: '"Nach oben" Link hinzufügen'
   label_add_tags: Tags hinzufügen
   label_additionals_doc: Additionals Dokumentation (englisch)
@@ -69,7 +69,7 @@ de:
   label_global_wiki_header: "Projektübergreifender Wiki Header"
   label_global_wiki_sidebar: "Projektübergreifender Wiki-Sidebar Inhalt"
   label_go_to_top: "Nach oben"
-  label_google_maps_embed_api: Google Maps Embed API Key
+  label_google_maps_api_key: Google Maps Embed API Key
   label_help_integration: Online Hilfe Integration
   label_help_manual: Handbuch
   label_hour: Stunde
@@ -93,7 +93,6 @@ de:
   label_overview_right: "Übersichtsseite, rechts"
   label_overview_top: "Übersichtsseite, oben"
   label_pdf_wiki_settings: PDF Wiki Einstellungen
-  label_planning: Planung
   label_project_list: "Projektliste"
   label_project_overview_content: "Projektwegweiser"
   label_query_delete: Abfrage löschen
@@ -105,11 +104,10 @@ de:
   label_remove_help: "Entferne 'Hilfe' aus dem Topmenü"
   label_remove_mypage: "Entferne 'Meine Seite' aus dem Topmenü"
   label_remove_news: "Entferne 'Letzte News' von der Übersichtsseite"
-  label_rule_issue_auto_assign: "Wird \"Zugewiesen an\" nicht zugewiesen und der neue Ticketstatus ist x, dann wird die ersten Gruppe mit Benutzern der festgelegten Rolle das Ticket zugewiesen."
-  label_rule_issue_close_with_open_children: Tickets mit offenen Untertickets können nicht geschlossen werden
-  label_rule_issue_current_user_status: "Der Ticketstatus x ist nur erlaubt, wenn \"Zugewiesen an\" der aktuelle Benutzer zugewiesen wird."
-  label_rule_issue_status_change: "Wird \"Zugewiesen an\" nicht verändert und der Ticketstatus von x auf y geändert, dann wird das Ticket automatisch dem Ersteller zugewiesen"
-  label_rule_issue_timelog_required: Zeiterfassung für Ticket erforderlich
+  label_issue_auto_assign: "Wird \"Zugewiesen an\" nicht zugewiesen und der neue Ticketstatus ist x, dann wird die ersten Gruppe mit Benutzern der festgelegten Rolle das Ticket zugewiesen."
+  label_issue_current_user_status: "Der Ticketstatus x ist nur erlaubt, wenn \"Zugewiesen an\" der aktuelle Benutzer zugewiesen wird."
+  label_issue_status_change: "Wird \"Zugewiesen an\" nicht verändert und der Ticketstatus von x auf y geändert, dann wird das Ticket automatisch dem Ersteller zugewiesen"
+  label_issue_timelog_required: Zeiterfassung für Ticket erforderlich
   label_search_by_name: Suche nach Namen
   label_set_icon_from: Symbol auswählen von
   label_setting_plural: Einstellungen
@@ -162,7 +160,7 @@ de:
   top_wiki_help: Hier kannst Du Inhalte und Einstellungen bzg. der Wiki festlegen.
   wiki_pdf_remove_attachments_info: Wenn aktiv, werden die an der Wiki Seite angehängten Dateien nicht in der PDF Ansicht angezeigt.
   wiki_pdf_remove_title_info: Wenn aktiv, wird der Wiki Titel nicht in der PDF Ansicht angezeigt.
-  label_rule_issue_freezed_with_close: Bearbeitung geschlossener Tickets verbieten (Freeze)
+  label_issue_freezed_with_close: Bearbeitung geschlossener Tickets verbieten (Freeze)
   rule_issue_freezed_with_close_info: Wird diese Option aktiviert können bereits geschlossene Tickets nicht mehr bearbeitet und kommentiert werden. Auch nicht via Mail oder API. Für Benutzerrollen mit dem Recht "Geschlossene Tickets bearbeiten" gilt diese Einschränkung nicht.
   additionals_query_list_defaults: Standard-Spalten Listenansicht
   additionals_query_list_default_totals: Standard-Summen in der Listenansicht
@@ -172,3 +170,6 @@ de:
   info_hidden_roles_html: Versteckte Rollen können nur zusammen mit der Benutzersichtbarkeit "Mitglieder von sichtbaren Projekten" verwendet werden. Diese Option funktioniert nur, wenn der Benutzer in keiner Rolle ist die für den aktuellen Benutzer sichtbar ist. Passt alles wird diese Rolle inklusive Benutzer auf der Projektübersichtsseite und in Abfragelisten ausgeblendet.
   latest_entries_changes: "Die letzten %{value} Änderungen"
   label_edit_tags: Tags bearbeiten
+  label_query_name_search: Nach Name suchen
+  label_chartjs_colorscheme_info: Farbschema Auflistung
+  label_chart_color_schema: Charts Farbschema

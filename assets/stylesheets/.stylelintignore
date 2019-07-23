@@ -1,4 +1,5 @@
 # stylelint ignore file
 bootstrap*
+select2.css
 *.map
 *.min.css

@@ -80,7 +80,7 @@ module AdditionalsQueriesHelper
     q = params[:q].to_s.strip
     exclude_id = params[:user_id].to_i
     scope = User.active.where(type: 'User')
-    scope = scope.where.not(id: exclude_id) if exclude_id > 0
+    scope = scope.where.not(id: exclude_id) if exclude_id.positive?
     scope = scope.where(where_filter, where_params) if where_filter.present?
     scope = scope.like(q) if q.present?
     scope = scope.order(last_login_on: :desc)
@@ -97,9 +97,10 @@ module AdditionalsQueriesHelper
                 query.columns
               end
 
-    stream = StringIO.new('')
-    export_to_xlsx(items, columns, filename: stream)
-    stream.string
+    options[:filename] = StringIO.new('')
+
+    export_to_xlsx(items, columns, options)
+    options[:filename].string
   end
 
   def additionals_result_to_xlsx(items, columns, options = {})
@@ -161,10 +162,18 @@ module AdditionalsQueriesHelper
       columns.each_with_index do |c, column_index|
         value = csv_content(c, line)
         if c.name == :id # ID
-          link = url_for(controller: line.class.name.underscore.pluralize, action: 'show', id: line.id)
-          worksheet.write(line_index + 1, column_index, link, hyperlink_format, value)
+          if options[:no_id_link].blank?
+            link = url_for(controller: line.class.name.underscore.pluralize, action: 'show', id: line.id)
+            worksheet.write(line_index + 1, column_index, link, hyperlink_format, value)
+          else
+            # id without link
+            worksheet.write(line_index + 1,
+                            column_index,
+                            value,
+                            workbook.add_format(xlsx_cell_format(:cell, value, line_index)))
+          end
         elsif xlsx_hyperlink_cell?(value)
-          worksheet.write(line_index + 1, column_index, value, hyperlink_format, value)
+          worksheet.write(line_index + 1, column_index, value[0..254], hyperlink_format, value)
         elsif !c.inline?
           # block column can be multiline strings
           value.gsub!("\r\n", "\n")
@@ -206,7 +215,7 @@ module AdditionalsQueriesHelper
       format[:bg_color] = 'silver' unless index.even?
     else
       format[:bg_color] = 'silver' unless index.even?
-      format[:color] = 'red' if value.is_a?(Numeric) && value < 0
+      format[:color] = 'red' if value.is_a?(Numeric) && value.negative?
     end
 
     format

@@ -15,13 +15,13 @@ class RoleTest < Additionals::TestCase
     assert role.save
 
     role.reload
-    assert_equal false, role.hide
+    assert_not role.hide
 
     role = Role.new(name: 'role with hide', hide: true)
     assert role.save
 
     role.reload
-    assert_equal true, role.hide
+    assert role.hide
   end
 
   def test_edit
@@ -30,6 +30,6 @@ class RoleTest < Additionals::TestCase
     assert role.save
 
     role.reload
-    assert_equal true, role.hide
+    assert role.hide
   end
 end

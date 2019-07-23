@@ -46,8 +46,8 @@ fr:
   global_wiki_sidebar_info: "Entrez ici un message texte disponible pour l'ensemble du projet pour votre barre latérale wiki. Ce texte de la barre latérale sera affiché uniquement sur les pages wiki. Use this space for Macros like \"Last changed pages\" for example. Dans le cas où une barre latérale spécifique au projet est utilisée (page wiki), celle-ci sera de préférence affichée dans la barre latérale."
   google_maps_embed_api_html: "Si vous souhaitez utiliser la macro Gmap pour afficher les cartes de Goole, veuillez implémenter votre clé API Google Maps ici. Ensuite, vous pouvez utiliser la macro et divers paramètres. Pour plus d'informations sur l'utilisation des paramètres, voir <a href=\"https://developers.google.com/maps/documentation/embed/guide\">https://developers.google.com/maps/documentation/embed/guide</a>. La macro Gmap ne fonctionne qu'en combinaison avec la clé intégrée."
   invisible_captcha_info_html: In case this option is activated an <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection is activated for the registration page of new users. This function is only available, if you enabled self-registration, too.
-  label_access_token: Access token
-  label_account_login: "Texte pour la page de login"
+  label_docs_access_token: Access token
+  label_account_login_bottom: "Texte pour la page de login"
   label_add_go_to_top: 'Add "Go to top" link'
   label_add_tags: Add tags
   label_additionals_doc: Additionals documentation
@@ -69,8 +69,8 @@ fr:
   label_global_wiki_header: "Project wide wiki header"
   label_global_wiki_sidebar: "Global wiki sidebar"
   label_go_to_top: "Go to top"
-  label_google_maps_embed_api: Google Maps Embed API Key
-  label_help_integration: Online help integration
+  label_google_maps_api_key: Google Maps Embed API Key
+  label_help_integration: "Intégration de notre aide en ligne"
   label_help_manual: manual
   label_hour: Heure
   label_icon_color: Icon color
@@ -93,7 +93,6 @@ fr:
   label_overview_right: "Page de sommaire, exact"
   label_overview_top: "Page de sommaire, supérieur"
   label_pdf_wiki_settings: PDF Wiki settings
-  label_planning: Planning
   label_project_list: "Project list"
   label_project_overview_content: "Project guide"
   label_query_delete: Annuler query
@@ -105,14 +104,13 @@ fr:
   label_remove_help: "Remove 'Help' from top menu"
   label_remove_mypage: "Remove 'My Page' from top menu"
   label_remove_news: "Remove 'Lastest news' from overview page"
-  label_rule_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
-  label_rule_issue_close_with_open_children: "Les questions avec des sous-questions en suspens ne peuvent pas être clôturées."
-  label_rule_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
-  label_rule_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
-  label_rule_issue_timelog_required: Time log for issues required
+  label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
+  label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
+  label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
+  label_issue_timelog_required: Time log for issues required
   label_search_by_name: Recherche par nom
   label_set_icon_from: Set an icon from
-  label_setting_plural: Settings
+  label_setting_plural: Configurations
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
   label_show_all: Montrer tout
@@ -125,7 +123,7 @@ fr:
   label_twitter_account: Twitter account
   label_twitter_hashtag: Twitter hashtag
   label_uptime: Uptime
-  label_user_list: "User list"
+  label_user_list: "Liste des utilisateurs"
   label_web_apis: Web APIs
   label_weekly: hebdomadaire
   label_wiki_pdf_remove_attachments: "Supprimer les pièces jointes de la vue PDF"
@@ -162,7 +160,7 @@ fr:
   top_wiki_help: "Ici vous pouvez définir le contenu et les paramètres de votre Wiki."
   wiki_pdf_remove_attachments_info: "Lorsqu'ils sont actifs, les fichiers Wiki joints ne seront pas affichés en vue PDF."
   wiki_pdf_remove_title_info: "Lorsqu'elle est active, l'information sur le titre du wiki ne sera pas affichée dans la vue PDF."
-  label_rule_issue_freezed_with_close: "Interdire l'édition des questions fermées (freeze)"
+  label_issue_freezed_with_close: "Interdire l'édition des questions fermées (freeze)"
   rule_issue_freezed_with_close_info: "Si cette option est activée, les numéros déjà fermés ne peuvent plus être édités et commentés. Pas même par courrier ou API. Cette restriction ne s'applique pas aux rôles utilisateurs avec l'autorisation \"Modifier les problèmes fermés\"."
   additionals_query_list_defaults: "Colonnes par défaut pour la vue en liste"
   additionals_query_list_default_totals: "Montants par défaut pour la vue en liste"
@@ -170,5 +168,8 @@ fr:
   label_hidden_macros_in_toolbar: Hidden macros
   hidden_macros_in_toolbar_info: "Toutes les macros disponibles que l'utilisateur connecté peut utiliser sont listées via le bouton macro de la barre d'outils wiki. Les macros marquées ici ne sont pas proposées à la sélection. Ceci vous permet de limiter la portée de la liste."
   info_hidden_roles_html: "Les rôles cachés ne peuvent être utilisés qu'avec la visibilité utilisateur \"Membres de projets visibles\". Si l'utilisateur n'est pas dans un rôle visible par l'utilisateur actuel, ce rôle, y compris l'utilisateur, est masqué sur la page de synthèse du projet et dans les listes de requêtes."
-  latest_entries_changes: "Latest %{value} changes"
-  label_edit_tags: Edit tags
+  latest_entries_changes: "Derniers %{value} changements"
+  label_edit_tags: Modifier tags
+  label_query_name_search: Rechercher un nom
+  label_chartjs_colorscheme_info: Color list
+  label_chart_color_schema: Charts color scheme

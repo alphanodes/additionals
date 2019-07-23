@@ -26,7 +26,7 @@ module Additionals
       private
 
       def additionals_include_header
-        wiki_header = '' + Additionals.settings[:global_wiki_header].to_s
+        wiki_header = '' + Additionals.setting(:global_wiki_header).to_s
         return if wiki_header.empty?
 
         if Object.const_defined?('WikiExtensionsUtil') && WikiExtensionsUtil.is_enabled?(@project)
@@ -45,7 +45,7 @@ module Additionals
       end
 
       def additionals_include_footer
-        wiki_footer = '' + Additionals.settings[:global_wiki_footer].to_s
+        wiki_footer = '' + Additionals.setting(:global_wiki_footer).to_s
         return if wiki_footer.empty?
 
         if Object.const_defined?('WikiExtensionsUtil') && WikiExtensionsUtil.is_enabled?(@project)

@@ -1,0 +1,175 @@
+# Russian strings
+ru:
+  minutes:
+    one: "минутаf"
+    other: "минуты"
+  hours:
+    one: "час"
+    other: "часы"
+  days:
+    one: "день"
+    other: "дни"
+  activerecord:
+    errors:
+      messages:
+        issue_cannot_close_with_open_children: "Это задание может быть закрыто, только если все подзадачи тоже закрыты."
+        issue_current_user_status: "Выбранный статус требует, чтобы \"Assignee\ был вашим."
+        issue_log_time_not_allowed: "это закрытая задача. Вам не разрешено записывать время в журнал."
+        issue_changes_not_allowed: "Это задание закрыто, вы не имеете права его менять."
+        issue_requires_timelog: "Выбранное состояние задачи требует регистрации времени."
+  account_login_info: "Это текстовое сообщение будет отображаться на странице входа в систему и должно использоваться для регистрационной информации. Эти настройки активны во всех проектах."
+  add_go_to_top_info: "Если у вас много длинных страниц, полезно добавить переход на главную страницу."
+  button_assign_to_me: "Назначить мне"
+  disabled_modules_info: "Модули, которые не должны быть доступны для отбора в рамках проектов. Если эти модули уже активированы в существующих проектах, сначала необходимо изменить и сохранить соответствующие настройки проекта."
+  error_issue_status_could_not_changed: "Состояние задач не может быть изменено"
+  error_issues_could_not_be_assigned_to_me: "Задача не могла быть поручена мне."
+  error_query_statement_invalid: "Во время выполнения запроса возникла ошибка, которая была зарегистрирована в журнале. Пожалуйста, сообщите об этой ошибке своему администратору Redmine."
+  errors_invalid_icon_format: "это неправильный код font-awesome"
+  errors_no_or_invalid_arguments: "Нет или недействительные аргументы"
+  external_url_default: "Поведение по умолчанию"
+  external_url_new_window: "Открыть в новом окне"
+  external_url_noreferrer: "Откройте NoReferrer"
+  external_urls_info_html: "Указание поведения внешних URL-адресов."
+  field_autowatch_involved_issue: "Автонаблюдение включало в себя задачу"
+  field_color: Color
+  field_icon: Icon
+  field_issue_relation_plural: "Отношения задач"
+  field_tag_list: Tags
+  field_tag_sidebar_style_cloud: Cloud
+  field_tag_sidebar_style_list: List
+  field_tags: Tags
+  field_website: "Веб-сайт"
+  global_footer_info: "Введите здесь проект в нижний колонтитул вики-проекта."
+  global_sidebar_info: "Введите сюда широко доступное текстовое сообщение для проекта. Этот текст на боковой панели будет отображаться в обзоре проекта, на страницах задач и вики-страницах."
+  global_wiki_footer_info: 'Enter a project wide wiki footer here. In case a project specific wiki footer is used by "Wiki Extensions", this will be preferably displayed instead.'
+  global_wiki_header_info: 'Enter a project wide wiki header here. In case a project specific wiki header is used by "Wiki Extensions", this will be preferably displayed instead.'
+  global_wiki_sidebar_info: 'Enter a project wide available text message for your wiki sidebar, here. This sidebar text will be displayed at the wiki pages only. Use this space for Macros like "Last changed pages" for example. In case a project specific sidebar is used (wiki page), this will be preferably displayed in the sidebar instead.'
+  google_maps_embed_api_html: In case you want to use the Gmap macro in order to display Goole maps please implement your Google Maps API key here. Afterwards you can use the macro and various paramters. More information on how to use the paramaters are provided at <a href="https://developers.google.com/maps/documentation/embed/guide" target="_blank">https://developers.google.com/maps/documentation/embed/guide</a>. The Gmap macro works only in combination with the embedded key here.
+  invisible_captcha_info_html: In case this option is activated an <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection is activated for the registration page of new users. This function is only available, if you enabled self-registration, too.
+  label_docs_access_token: Access token
+  label_account_login_bottom: "Текст страницы входа в систему"
+  label_add_go_to_top: 'Add "Go to top" link'
+  label_add_tags: Add tags
+  label_additionals_doc: "Additionals документация"
+  label_additionals: Additionals
+  label_app_menu: App menu
+  label_change_is_private: "Изменение частного / не-частного"
+  label_content_plural: Contents
+  label_custom_menu_items: "Пользовательские пункты меню"
+  label_daily: "ежедневный"
+  label_day: "день"
+  label_disabled_modules: "Disabled modules"
+  label_external_urls: "Внешние урны"
+  label_fontawesome_brands: Brands
+  label_fontawesome_regular: Regular
+  label_fontawesome_solid: "Твердый"
+  label_global_footer: "Project wide footer"
+  label_global_sidebar: "Глобальная боковая панель"
+  label_global_wiki_footer: "Широкий вики-футбол проекта"
+  label_global_wiki_header: "Заголовок вики широкого проекта"
+  label_global_wiki_sidebar: "Глобальная боковая панель вики-проекта"
+  label_go_to_top: "Go to top"
+  label_google_maps_api_key: Google Maps Embed API Key
+  label_help_integration: "Интеграция онлайн-справки"
+  label_help_manual: "пособие"
+  label_hour: "час"
+  label_icon_color: Icon color
+  label_invisible_captcha: "Защита от спама при регистрации"
+  label_issue_assign_to_me: Show "Assign to me" on issue
+  label_issue_autowatch_involved: "Автоматическое добавление привлеченных пользователей в качестве наблюдателя"
+  label_issue_change_status_in_sidebar: Issue status on sidebar
+  label_issue_change_status: "Изменить статус"
+  label_last_year: "прошедший год"
+  label_legacy_smiley_support: Legacy smiley/emoji support
+  label_macro_plural: Macros
+  label_menu_entry: "Menu item"
+  label_monthly: "ежемесячно"
+  label_new_issue_on_profile: "Новая задача в профиле пользователя"
+  label_new_ticket_message: "Примечание для нового задания"
+  label_open_in_new_windows: "Открыть в новом окне"
+  label_optional: "необязательный"
+  label_overview_bottom: "Overview page, bottom"
+  label_overview_page: "Overview page"
+  label_overview_right: "Overview page, right"
+  label_overview_top: "Overview page, top"
+  label_pdf_wiki_settings: PDF Wiki settings
+  label_project_list: "Список проектов"
+  label_project_overview_content: "Project guide"
+  label_query_delete: "Удалить query"
+  label_query_edit: "Редактировать query"
+  label_reddit_subject: Reddit subject
+  label_reddit_user_account: Reddit user account
+  label_redmine_org_issue: Redmine.org issue
+  label_redmine_org_wiki: Redmine.org wiki page
+  label_remove_help: "Удалить 'Help' из верхнего меню"
+  label_remove_mypage: "Удалить 'My Page' из верхнего меню"
+  label_remove_news: "Удалить 'Lastest news' со страницы обзора"
+  label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
+  label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
+  label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
+  label_issue_timelog_required: Time log for issues required
+  label_search_by_name: "Поиск по имени"
+  label_set_icon_from: Set an icon from
+  label_setting_plural: "Настройки"
+  label_settings_macros: "Macros"
+  label_settings_menu: "Menu"
+  label_show_all: "Показать все"
+  label_system_info: System info
+  label_tags_without_color: Show tags without color
+  label_tomorrow: "завтра"
+  label_top_macros_help_html: "Здесь вы получите список всех доступных макросов Redmine вашей установки, которые предоставляются плагинами Redmine и Redmine."
+  label_top_menu_help_html: "Здесь можно задать новые пункты верхнего меню."
+  label_top_menu: Top menu
+  label_twitter_account: Twitter account
+  label_twitter_hashtag: Twitter hashtag
+  label_uptime: Uptime
+  label_user_list: "User list"
+  label_web_apis: Web APIs
+  label_weekly: "еженедельно"
+  label_wiki_pdf_remove_attachments: "Удаление вложений из PDF-формата"
+  label_wiki_pdf_remove_title: "Удалить название Вики-проекта из PDF-формата"
+  label_yearly: "раз в год"
+  legacy_smiley_support_info_html: 'Convert Smileys and Emoji symbols. Activate this option only if Smileys or Emoji are manually typed in by the use of code (e.g. :kiss:). If you use Unicode-Emoji this option should be deactivated. For more info on Emoji-Browser support read <a href="http://caniemoji.com/" target="_blank">http://caniemoji.com/</a>. Have a look at <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> for available Emoji-Codes you can use. <strong>Restart the application server</strong>, in order to activate the settings.'
+  menu_roles_info: "Этот пункт меню будет доступен только пользователям с выбранными ролями."
+  new_ticket_message_info: "Всем, кто хочет добавить новое задание, будет показана заметка. Например, здесь вы можете ввести правила приемочных испытаний или заданий. Эти настройки используются для всего проекта."
+  overview_bottom_info: "Здесь вы можете добавить свой текст, который будет показан на странице обзора внизу. Например, вы можете сделать ссылку на страницу вики."
+  overview_right_info: "Здесь вы можете добавить свой текст, который будет показан на странице обзора справа. Например, вы можете сделать ссылку на страницу вики."
+  overview_top_info: "Здесь вы можете добавить свой текст, который будет показан на странице обзора вверху. Например, вы можете сделать ссылку на страницу вики."
+  permission_change_new_issue_author: " Поставить перед автором новые задачи"
+  permission_edit_closed_issues: "Редактирование закрытых заданий"
+  permission_edit_issue_author: "Редактирование заданий автора"
+  permission_issue_timelog_never_required: "Регистрация времени не требуется"
+  permission_log_time_on_closed_issues: "Время регистрации на закрытых заданиях"
+  permission_show_hidden_roles_in_memberbox: "Показать скрытые роли"
+  project_overview_content_info: "Здесь вы можете добавить свой текст, который будет показан на странице обзора проекта. Например, вы можете сделать ссылку на страницу вики, которая должна быть широко доступна для всех членов команды. Цель состоит в том, чтобы достичь лучшего стандарта проекта и сохранить уникальную структуру вики."
+  remove_help_info: "Удалить пункт 'Help' из верхнего меню."
+  remove_mypage_info: "Иногда бывает полезнее скрыть ссылку \"My Page\", чтобы представить панель задач. Преимуществом доски задач является то, что вопросы могут быть перечислены в соответствии с их статусом."
+  remove_news_info: "Remove latest news from overview page."
+  rule_issue_auto_assign_info: "Use Case: Автор проблемы не знает, кому назначить задачу или кто будет отвечать за ее решение. В этом случае задание, например со статусом \"To Do\", автоматически присваивается первой группе, которая действительно содержит пользователя с предварительно выбранной ролью менеджера проекта."
+  rule_issue_current_user_status_info_html: "Is this function used in combination with the setting option \"Issue status on sidebar\" then the current user will automatically be assigned to the issue while changing the issue status.<br />Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."
+  rule_issue_status_change_info: "Use Case: issues should be automatically assigned to author, if the status changes to \"Approval\"."
+  rule_issue_timelog_required_info_html: "Для каждого билета выбранных трекеров необходимо забронировать время, если билет должен получить одно из определенных свойств статуса. Бронирование времени не требуется, если:<br />- не существует никаких прав на резервирование времени.<br />- у пользователя есть авторизация \"Time logging not required\"<br />Используй кейс: Для принятия билета со статусом \"To Verify\" также требуется потраченное время."
+  show_always: "Показать всегда"
+  show_on_project_overview: "Показать обзор проекта"
+  show_on_redmine_home: "Показать на странице приветствия"
+  show_welcome_left: "На странице приветствия слева"
+  show_welcome_right: "На странице приветствия справа"
+  top_overview_help: "Здесь вы можете определить содержание и настройки для вашей обзорной страницы."
+  top_projects_help: "Здесь вы можете определить содержание и настройки для вашей страницы проекта."
+  top_rules_help: "Здесь можно определить правила, которые используются в задачах всех проектов."
+  top_wiki_help: "Здесь вы можете определить содержимое и настройки для вашей Вики."
+  wiki_pdf_remove_attachments_info: "Если флажок установлен, вложенные Вики-файлы не будут отображаться в PDF-формате."
+  wiki_pdf_remove_title_info: "При активации этого параметра информация о названии Вики не будет отображаться в PDF-формате."
+  label_issue_freezed_with_close: "Запрет редактирования закрытых заданий (Freeze)"
+  rule_issue_freezed_with_close_info: "Если эта опция включена, то уже закрытые задания больше не могут быть отредактированы и прокомментированы. Даже по почте или API. Это ограничение не распространяется на роли пользователей с правом \"Edit closed issues\"."
+  additionals_query_list_defaults: "Колонки по умолчанию для просмотра списка"
+  additionals_query_list_default_totals: "Суммы по умолчанию для просмотра списка"
+  field_hide: "Спрятать"
+  label_hidden_macros_in_toolbar: Hidden macros
+  hidden_macros_in_toolbar_info: "Все доступные макросы, которые может использовать вошедший в систему пользователь, перечислены с помощью кнопки макроса на панели инструментов вики. Макросы, отмеченные здесь, не предлагаются для выбора. Это позволяет вам ограничить область действия списка."
+  info_hidden_roles_html: "Скрытые роли могут использоваться только вместе с видимостью пользователя \"Members of visible projects\". Если пользователь не находится в роли, видимой для текущего пользователя, эта роль, включая пользователя, скрыта на странице обзора проекта и в списках запросов."
+  latest_entries_changes: "Последние изменения %{value}"
+  label_edit_tags: Edit tags
+  label_query_name_search: "Поиск имени"
+  label_chartjs_colorscheme_info: Color list
+  label_chart_color_schema: Charts color scheme

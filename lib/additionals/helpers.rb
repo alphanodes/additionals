@@ -1,4 +1,3 @@
-# Global helper functions
 module Additionals
   module Helpers
     def additionals_list_title(options)
@@ -34,23 +33,6 @@ module Additionals
       elsif options.key?(title)
         options[title]
       end
-    end
-
-    def additionals_settings_tabs
-      tabs = [{ name: 'general', partial: 'additionals/settings/general', label: :label_general },
-              { name: 'content', partial: 'additionals/settings/overview', label: :label_overview_page },
-              { name: 'wiki', partial: 'additionals/settings/wiki', label: :label_wiki },
-              { name: 'macros', partial: 'additionals/settings/macros', label: :label_macro_plural },
-              { name: 'rules', partial: 'additionals/settings/issues', label: :label_issue_plural },
-              { name: 'projects', partial: 'additionals/settings/projects', label: :label_project_plural },
-              { name: 'users', partial: 'additionals/settings/users', label: :label_user_plural },
-              { name: 'web', partial: 'additionals/settings/web_apis', label: :label_web_apis }]
-
-      if User.current.try(:hrm_user_type_id).nil?
-        tabs << { name: 'menu', partial: 'additionals/settings/menu', label: :label_settings_menu }
-      end
-
-      tabs
     end
 
     def render_issue_macro_link(issue, text, comment_id = nil)
@@ -158,7 +140,7 @@ module Additionals
         min = 0
         hours = 0
         days = 0
-        if secs > 0
+        if secs.positive?
           min = (secs / 60).round
           hours = (secs / 3_600).round
           days = (secs / 86_400).round
@@ -220,6 +202,16 @@ module Additionals
       safe_join(s)
     end
 
+    def project_list_css_classes(project, level)
+      classes = [cycle('odd', 'even')]
+      classes += project.css_classes.split(' ')
+      if level.positive?
+        classes << 'idnt'
+        classes << "idnt-#{level}"
+      end
+      classes.join(' ')
+    end
+
     private
 
     def additionals_already_loaded(scope, js_name)
@@ -248,7 +240,15 @@ module Additionals
     end
 
     def additionals_load_select2
-      additionals_include_js('additionals_to_select2')
+      additionals_include_css('select2') +
+        additionals_include_js('select2.min') +
+        additionals_include_js('select2_helper')
+    end
+
+    def additionals_load_clipboardjs
+      additionals_include_css('clipboard') +
+        additionals_include_js('clipboard.min') +
+        additionals_include_js('clipboard_helper')
     end
 
     def additionals_load_observe_field
@@ -257,6 +257,23 @@ module Additionals
 
     def additionals_load_font_awesome
       additionals_include_css('fontawesome-all.min')
+    end
+
+    def additionals_load_chartjs
+      additionals_include_css('Chart.min') +
+        additionals_include_js('Chart.bundle.min')
+    end
+
+    def additionals_load_chartjs_datalabels
+      additionals_include_js('chartjs-plugin-datalabels.min')
+    end
+
+    def additionals_load_chartjs_stacked100
+      additionals_include_js('chartjs-plugin-stacked100')
+    end
+
+    def additionals_load_chartjs_colorschemes
+      additionals_include_js('chartjs-plugin-colorschemes.min')
     end
 
     def additionals_load_nvd3
@@ -276,6 +293,10 @@ module Additionals
 
     def additionals_load_d3plus
       additionals_include_js('d3plus.full.min')
+    end
+
+    def additionals_load_d3plus_hierarchy
+      additionals_include_js('d3plus-hierarchy.full.min')
     end
 
     def additionals_load_zeroclipboard

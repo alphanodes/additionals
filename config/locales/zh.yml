@@ -46,8 +46,8 @@ zh:
   global_wiki_sidebar_info: '请在此处输入项目范围内的 WIKI 侧边栏信息。该侧边栏信息将只显示在WIKI页内。在此空间内输入诸如 "Last changed pages" 的宏命令。若项目内使用指定的侧边栏（WIKI页），则该信息将优先显示在侧边栏内。'
   google_maps_embed_api_html: In case you want to use the Gmap macro in order to display Goole maps please implement your Google Maps API key here. Afterwards you can use the macro and various paramters. More information on how to use the paramaters are provided at <a href="https://developers.google.com/maps/documentation/embed/guide" target="_blank">https://developers.google.com/maps/documentation/embed/guide</a>. The Gmap macro works only in combination with the embedded key here.
   invisible_captcha_info_html: In case this option is activated an <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection is activated for the registration page of new users. This function is only available, if you enabled self-registration, too.
-  label_access_token: Access token
-  label_account_login: "用于登陆页的文本"
+  label_docs_access_token: Access token
+  label_account_login_bottom: "用于登陆页的文本"
   label_add_go_to_top: '添加 "回到页首" 链接'
   label_add_tags: Add tags
   label_additionals_doc: Additionals 插件文档
@@ -69,7 +69,7 @@ zh:
   label_global_wiki_header: "项目范围内的页首设置"
   label_global_wiki_sidebar: "全局 WIKI 侧边栏设置"
   label_go_to_top: "回到页首"
-  label_google_maps_embed_api: Google Maps Embed API Key
+  label_google_maps_api_key: Google Maps Embed API Key
   label_help_integration: Online help integration
   label_help_manual: manual
   label_hour: 小时
@@ -93,7 +93,6 @@ zh:
   label_overview_right: "概述页右侧"
   label_overview_top: "概述页顶部"
   label_pdf_wiki_settings: PDF Wiki 设置
-  label_planning: Planning
   label_project_list: "项目列表"
   label_project_overview_content: "项目指南"
   label_query_delete: 删除查询
@@ -105,11 +104,10 @@ zh:
   label_remove_help: "从顶部菜单栏中移除 '帮助' 项"
   label_remove_mypage: "从顶部菜单栏中移除 '我的工作台' 项"
   label_remove_news: "从概览页中移除 '最近新闻' 区域"
-  label_rule_issue_auto_assign: "若 \"指派给\" 的值未设置为具体用户，且新建问题的状态为 X， 那么问题将自动指派给预定义角色用户的对应组。"
-  label_rule_issue_close_with_open_children: 包含打开状态子任务的问题不能关闭。
-  label_rule_issue_current_user_status: "当前问题状态 X 仅在 \"指派给\" 的值设置为当前用户时生效。"
-  label_rule_issue_status_change: "若 \"指派给\" 的值未修改，且问题状态要从 X 变更为 Y，那么该问题必须指派给问题作者自己。"
-  label_rule_issue_timelog_required: Time log for issues required
+  label_issue_auto_assign: "若 \"指派给\" 的值未设置为具体用户，且新建问题的状态为 X， 那么问题将自动指派给预定义角色用户的对应组。"
+  label_issue_current_user_status: "当前问题状态 X 仅在 \"指派给\" 的值设置为当前用户时生效。"
+  label_issue_status_change: "若 \"指派给\" 的值未修改，且问题状态要从 X 变更为 Y，那么该问题必须指派给问题作者自己。"
+  label_issue_timelog_required: Time log for issues required
   label_search_by_name: 按名称搜索
   label_set_icon_from: 图标设置自
   label_setting_plural: 设置
@@ -162,7 +160,7 @@ zh:
   top_wiki_help: 您可以在此定义 WIKI 的内容及设置。
   wiki_pdf_remove_attachments_info:  当启用时，WIKI 附件将不会显示在PDF视图中。
   wiki_pdf_remove_title_info: 当启用时，WIKI 标题信息将不会显示在PDF视图中。
-  label_rule_issue_freezed_with_close: Disallow editing of closed issues (Freeze)
+  label_issue_freezed_with_close: Disallow editing of closed issues (Freeze)
   rule_issue_freezed_with_close_info: If this option is activated, already closed issues can no longer be edited and commented. Not even via mail or API. This restriction does not apply to user roles with the "Edit closed issues" permission.
   additionals_query_list_defaults: Default columns for list view
   additionals_query_list_default_totals: Default sums for list view
@@ -172,3 +170,6 @@ zh:
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.
   latest_entries_changes: "Latest %{value} changes"
   label_edit_tags: Edit tags
+  label_query_name_search: Search for name
+  label_chartjs_colorscheme_info: Color list
+  label_chart_color_schema: Charts color scheme

@@ -149,7 +149,6 @@ Features
 * configurable issue rules
 
   * freeze closed issue
-  * closing issue with open sub issues
   * change assigned_to automatically, if issue status changes
   * assigned_to has changed, but status change is required, too
 
@@ -167,12 +166,19 @@ Don't worry, if you only need a subset of the provided libraries. If you do not 
 
 It provides :
 
-* `bootstrap-datepicker 1.8.0 <https://github.com/uxsolutions/bootstrap-datepicker>`_
+* `bootstrap-datepicker 1.9.0 <https://github.com/uxsolutions/bootstrap-datepicker>`_
+* `Chart.js 2.8.0 <https://www.chartjs.org/>`_
+* `Chart.js Plugin datalabels 0.6.0 <https://github.com/chartjs/chartjs-plugin-datalabels>`_
+* `Chart.js Plugin stacked100 0.7.1 <https://github.com/y-takey/chartjs-plugin-stacked100>`_
+* `Chart.js Plugin colorschemes 0.4.0 <https://github.com/nagix/chartjs-plugin-colorschemes>`_
+* `clipboardJS 2.0.4 <https://clipboardjs.com/>`_
 * `d3 3.5.17 <https://d3js.org/>`_
-* `d3plus v2.0.0-alpha.17 <https://d3plus.org/>`_
-* `FontAwesome 5.8.0 <https://fontawesome.com/>`_
+* `d3plus v2.0.0-alpha.19 <https://d3plus.org/>`_
+* `d3plus-hierarchy v0.8.5 <https://github.com/d3plus/d3plus-hierarchy>`_
+* `FontAwesome 5.9.0 <https://fontawesome.com/>`_
 * `mermaid 8.0.0 <https://github.com/knsv/mermaid/>`_
 * `nvd3 1.8.6 <https://github.com/novus/nvd3>`_
+* `Select2 4.0.7 <https://select2.org/>`_
 * `ZeroClipboard 2.3.0 <https://github.com/zeroclipboard/zeroclipboard>`_
 
 And a set of various Rails helper methods (see below).
@@ -191,12 +197,19 @@ This method loads all JS and CSS files needed by the required module.
 
 The following modules are available :
 
+* clipboardjs
+* chartjs
+* chartjs_datalabels
+* chartjs_stacked100
+* chartjs_colorschemes
 * d3
 * d3plus
+* d3plus_hierarchy
 * mermaid
 * nvd3
 * font_awesome
 * notify
+* select2
 * zeroclipboard
 
 

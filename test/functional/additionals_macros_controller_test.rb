@@ -24,6 +24,6 @@ class AdditionalsMacrosControllerTest < Additionals::ControllerTest
     @request.session[:user_id] = nil
     get :show
 
-    assert_response 302
+    assert_response :redirect
   end
 end

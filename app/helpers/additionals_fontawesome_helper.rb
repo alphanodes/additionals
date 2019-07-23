@@ -2,7 +2,9 @@ module AdditionalsFontawesomeHelper
   def fontawesome_info_url
     s = []
     s << l(:label_set_icon_from)
-    s << link_to('https://fontawesome.com/icons?m=free', 'https://fontawesome.com/icons?m=free', class: 'external')
+    s << link_to('https://fontawesome.com/icons?m=free',
+                 'https://fontawesome.com/icons?m=free',
+                 class: 'external')
     safe_join(s, ' ')
   end
 

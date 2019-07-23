@@ -335,3 +335,11 @@ div.relation-list-header {
   font-weight: bold;
   padding-bottom: 2px;
 }
+
+@media screen and (max-width: 899px) {
+  .gototop { display: none; }
+}
+
+@media print {
+  .gototop { display: none; }
+}

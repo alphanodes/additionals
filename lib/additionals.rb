@@ -37,15 +37,18 @@ module Additionals
         end
       end
 
-      # Static class patches
       IssuesController.send(:helper, AdditionalsIssuesHelper)
+      SettingsController.send(:helper, AdditionalsSettingsHelper)
       WikiController.send(:helper, AdditionalsWikiPdfHelper)
+
+      # Static class patches
       Redmine::AccessControl.send(:include, Additionals::Patches::AccessControlPatch)
 
       # Global helpers
       ActionView::Base.send :include, Additionals::Helpers
       ActionView::Base.send :include, AdditionalsFontawesomeHelper
       ActionView::Base.send :include, AdditionalsMenuHelper
+      ActionView::Base.send :include, Additionals::AdditionalsSelect2Helper
 
       # Hooks
       require_dependency 'additionals/hooks'
@@ -55,10 +58,6 @@ module Additionals
                      issue redmine_issue redmine_wiki
                      last_updated_at last_updated_by meteoblue member new_issue project
                      recently_updated reddit slideshare tradingview twitter user vimeo youtube])
-    end
-
-    def settings
-      settings_compatible(:plugin_additionals)
     end
 
     def settings_compatible(plugin_name)
@@ -77,12 +76,22 @@ module Additionals
       end
     end
 
+    # support with default setting as fall back
+    def setting(value)
+      if settings.key? value
+        settings[value]
+      else
+        load_settings[value]
+      end
+    end
+
     def setting?(value)
-      true?(settings[value])
+      true?(setting(value))
     end
 
     def true?(value)
-      return true if value.to_i == 1 || value.to_s.casecmp('true').zero?
+      return false if value.is_a? FalseClass
+      return true if value.is_a?(TrueClass) || value.to_i == 1 || value.to_s.casecmp('true').zero?
 
       false
     end
@@ -121,11 +130,23 @@ module Additionals
     end
 
     def load_settings(plugin_id = 'additionals')
-      data = YAML.safe_load(ERB.new(IO.read(Rails.root.join('plugins',
-                                                            plugin_id,
-                                                            'config',
-                                                            'settings.yml'))).result) || {}
-      data.symbolize_keys
+      cached_settings_name = '@load_settings_' + plugin_id
+      cached_settings = instance_variable_get(cached_settings_name)
+      if cached_settings.nil?
+        data = YAML.safe_load(ERB.new(IO.read(Rails.root.join('plugins',
+                                                              plugin_id,
+                                                              'config',
+                                                              'settings.yml'))).result) || {}
+        instance_variable_set(cached_settings_name, data.symbolize_keys)
+      else
+        cached_settings
+      end
+    end
+
+    private
+
+    def settings
+      settings_compatible(:plugin_additionals)
     end
   end
 end

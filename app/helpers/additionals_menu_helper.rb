@@ -72,10 +72,10 @@ module AdditionalsMenuHelper
     Additionals::MAX_CUSTOM_MENU_ITEMS.times do |num|
       menu_name = "custom_menu#{num}"
       item = { menu_name: menu_name.to_sym,
-               url: Additionals.settings[menu_name + '_url'],
-               name: Additionals.settings[menu_name + '_name'],
-               title: Additionals.settings[menu_name + '_title'],
-               roles: Additionals.settings[menu_name + '_roles'] }
+               url: Additionals.setting(menu_name + '_url'),
+               name: Additionals.setting(menu_name + '_name'),
+               title: Additionals.setting(menu_name + '_title'),
+               roles: Additionals.setting(menu_name + '_roles') }
 
       if item[:name].present? && item[:url].present? && item[:roles].present?
         items << item

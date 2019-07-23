@@ -65,6 +65,25 @@ class IssueTest < Additionals::TestCase
       assert_not issue.save
       issue.reload
       assert_not_equal 'Should be not be saved', issue.subject
+
+      issue.status_id = 1
+      assert issue.status_was.is_closed
+      assert_not issue.closed?
+      assert_not issue.save
+    end
+  end
+
+  def test_new_issue_should_always_be_changeable
+    with_additionals_settings(issue_freezed_with_close: 1) do
+      User.current = users(:users_003)
+
+      issue = Issue.generate subject: 'new issue for closing test',
+                             status_id: 1
+      assert issue.save
+
+      issue = Issue.generate subject: 'new issue for closing test and closed state',
+                             status_id: 5
+      assert issue.save
     end
   end
 
@@ -78,6 +97,18 @@ class IssueTest < Additionals::TestCase
 
       issue.reload
       assert_equal 'Should be saved', issue.subject
+    end
+  end
+
+  def test_unchanged_existing_issue_should_not_create_validation_error
+    with_additionals_settings(issue_freezed_with_close: 1) do
+      User.current = users(:users_003)
+      issue = issues(:issues_008)
+      assert issue.save
+
+      # but changed issues should throw error
+      issue.subject = 'changed'
+      assert_not issue.save
     end
   end
 

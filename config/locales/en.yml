@@ -22,14 +22,14 @@ en:
   button_assign_to_me: Assign to me
   disabled_modules_info: "Modules which should not be available for selection within the projects. If these modules already activated in existing projects, you will have to change and re-save the respective project settings first."
   error_issue_status_could_not_changed: Issue state could not be changed
-  error_issues_could_not_be_assigned_to_me: Issue could not assigned to me
+  error_issues_could_not_be_assigned_to_me: Issue could not be assigned to me
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   errors_invalid_icon_format: is an invalid font-awesome code
   errors_no_or_invalid_arguments: No or invalid arguments
   external_url_default: "Default behavior"
   external_url_new_window: "Open in new window"
   external_url_noreferrer: "Open with NoReferrer"
-  external_urls_info_html: "Specifies the behavior for external urls."
+  external_urls_info_html: "Specifies the behavior for external URLs."
   field_autowatch_involved_issue: Autowatch involved issues
   field_color: Color
   field_icon: Icon
@@ -46,8 +46,8 @@ en:
   global_wiki_sidebar_info: 'Enter a project wide available text message for your wiki sidebar, here. This sidebar text will be displayed at the wiki pages only. Use this space for Macros like "Last changed pages" for example. In case a project specific sidebar is used (wiki page), this will be preferably displayed in the sidebar instead.'
   google_maps_embed_api_html: In case you want to use the Gmap macro in order to display Goole maps please implement your Google Maps API key here. Afterwards you can use the macro and various paramters. More information on how to use the paramaters are provided at <a href="https://developers.google.com/maps/documentation/embed/guide" target="_blank">https://developers.google.com/maps/documentation/embed/guide</a>. The Gmap macro works only in combination with the embedded key here.
   invisible_captcha_info_html: In case this option is activated an <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection is activated for the registration page of new users. This function is only available, if you enabled self-registration, too.
-  label_access_token: Access token
-  label_account_login: "Text for login page"
+  label_docs_access_token: Access token
+  label_account_login_bottom: "Text for login page"
   label_add_go_to_top: 'Add "Go to top" link'
   label_add_tags: Add tags
   label_additionals_doc: Additionals documentation
@@ -69,7 +69,7 @@ en:
   label_global_wiki_header: "Project wide wiki header"
   label_global_wiki_sidebar: "Global wiki sidebar"
   label_go_to_top: "Go to top"
-  label_google_maps_embed_api: Google Maps Embed API Key
+  label_google_maps_api_key: Google Maps Embed API Key
   label_help_integration: Online help integration
   label_help_manual: manual
   label_hour: hour
@@ -93,7 +93,6 @@ en:
   label_overview_right: "Overview page, right"
   label_overview_top: "Overview page, top"
   label_pdf_wiki_settings: PDF Wiki settings
-  label_planning: Planning
   label_project_list: "Project list"
   label_project_overview_content: "Project guide"
   label_query_delete: Delete query
@@ -105,11 +104,10 @@ en:
   label_remove_help: "Remove 'Help' from top menu"
   label_remove_mypage: "Remove 'My Page' from top menu"
   label_remove_news: "Remove 'Lastest news' from overview page"
-  label_rule_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
-  label_rule_issue_close_with_open_children: Issues with open sub-issues cannot be closed
-  label_rule_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
-  label_rule_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
-  label_rule_issue_timelog_required: Time log for issues required
+  label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
+  label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
+  label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
+  label_issue_timelog_required: Time log for issues required
   label_search_by_name: Search by name
   label_set_icon_from: Set an icon from
   label_setting_plural: Settings
@@ -149,7 +147,7 @@ en:
   remove_news_info: "Remove latest news from overview page."
   rule_issue_auto_assign_info: 'Use Case: The issue author does not know whom to assign the issue or who will be responsible for solving the task. In that case the issue for example with the status "To Do" is automatically assigned to the first group, which does contain a user of the pre-selected project manager role.'
   rule_issue_current_user_status_info_html: "Is this function used in combination with the setting option \"Issue status on sidebar\" then the current user will automatically be assigned to the issue while changing the issue status.<br />Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."
-  rule_issue_status_change_info: "Use Case: issues should be automatically assigned to autor, if the status changes to \"Approval\"."
+  rule_issue_status_change_info: "Use Case: issues should be automatically assigned to author, if the status changes to \"Approval\"."
   rule_issue_timelog_required_info_html: 'For each ticket of the selected trackers, a time booking is necessary if the ticket is to receive one of the defined status properties. The time booking is not required if:<br />- no rights exist for the creation of time bookings<br />- the user has the authorization "Time logging not required"<br />Use case: For the acceptance of a ticket with the status "To Verify", the time spent is also required.'
   show_always: Show always
   show_on_project_overview: Show on project overview
@@ -162,7 +160,7 @@ en:
   top_wiki_help: Here you can define contents and settings for your Wiki.
   wiki_pdf_remove_attachments_info: When active the attached Wiki files will not be displayed in PDF view.
   wiki_pdf_remove_title_info: When active the Wiki title info will not be displayed in PDF view.
-  label_rule_issue_freezed_with_close: Disallow editing of closed issues (Freeze)
+  label_issue_freezed_with_close: Disallow editing of closed issues (Freeze)
   rule_issue_freezed_with_close_info: If this option is activated, already closed issues can no longer be edited and commented. Not even via mail or API. This restriction does not apply to user roles with the "Edit closed issues" permission.
   additionals_query_list_defaults: Default columns for list view
   additionals_query_list_default_totals: Default sums for list view
@@ -172,3 +170,6 @@ en:
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.
   latest_entries_changes: "Latest %{value} changes"
   label_edit_tags: Edit tags
+  label_query_name_search: Search for name
+  label_chartjs_colorscheme_info: Color list
+  label_chart_color_schema: Charts color scheme

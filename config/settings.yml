@@ -18,7 +18,6 @@ issue_auto_assign_status: ''
 issue_auto_assign: 0
 issue_autowatch_involved: 0
 issue_change_status_in_sidebar: 0
-issue_close_with_open_children: 0
 issue_current_user_status: 0
 issue_freezed_with_close: 0
 issue_status_change: 0

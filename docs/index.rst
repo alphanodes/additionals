@@ -175,8 +175,8 @@ It provides :
 * `d3 3.5.17 <https://d3js.org/>`_
 * `d3plus v2.0.0-alpha.19 <https://d3plus.org/>`_
 * `d3plus-hierarchy v0.8.5 <https://github.com/d3plus/d3plus-hierarchy>`_
-* `FontAwesome 5.9.0 <https://fontawesome.com/>`_
-* `mermaid 8.0.0 <https://github.com/knsv/mermaid/>`_
+* `FontAwesome 5.10.0 <https://fontawesome.com/>`_
+* `mermaid 8.2.3 <https://github.com/knsv/mermaid/>`_
 * `nvd3 1.8.6 <https://github.com/novus/nvd3>`_
 * `Select2 4.0.7 <https://select2.org/>`_
 * `ZeroClipboard 2.3.0 <https://github.com/zeroclipboard/zeroclipboard>`_

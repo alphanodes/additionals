@@ -5,6 +5,8 @@ Changelog
 ++++++
 
 - FontAwesome 5.10.0 support
+- Mermaid 8.2 support
+- Updated select2 to 4.0.8
 
 2.0.21
 ++++++

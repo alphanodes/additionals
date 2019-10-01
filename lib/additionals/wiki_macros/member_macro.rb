@@ -42,7 +42,7 @@ module Additionals
           project ||= Project.visible.find_by(name: project_id)
           return if project.nil?
 
-          query = ::Query.new(project: @project, name: '_')
+          query = ::Query.new(project: project, name: '_')
           principals = query&.principals
           return if principals.nil?
 

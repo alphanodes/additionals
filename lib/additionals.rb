@@ -29,11 +29,11 @@ module Additionals
       Redmine::WikiFormatting.format_names.each do |format|
         case format
         when 'markdown'
-          Redmine::WikiFormatting::Markdown::HTML.send(:include, Patches::FormatterMarkdownPatch)
-          Redmine::WikiFormatting::Markdown::Helper.send(:include, Patches::FormattingHelperPatch)
+          Redmine::WikiFormatting::Markdown::HTML.include Patches::FormatterMarkdownPatch
+          Redmine::WikiFormatting::Markdown::Helper.include Patches::FormattingHelperPatch
         when 'textile'
-          Redmine::WikiFormatting::Textile::Formatter.send(:include, Patches::FormatterTextilePatch)
-          Redmine::WikiFormatting::Textile::Helper.send(:include, Patches::FormattingHelperPatch)
+          Redmine::WikiFormatting::Textile::Formatter.include Patches::FormatterTextilePatch
+          Redmine::WikiFormatting::Textile::Helper.include Patches::FormattingHelperPatch
         end
       end
 
@@ -42,13 +42,13 @@ module Additionals
       WikiController.send(:helper, AdditionalsWikiPdfHelper)
 
       # Static class patches
-      Redmine::AccessControl.send(:include, Additionals::Patches::AccessControlPatch)
+      Redmine::AccessControl.include Additionals::Patches::AccessControlPatch
 
       # Global helpers
-      ActionView::Base.send :include, Additionals::Helpers
-      ActionView::Base.send :include, AdditionalsFontawesomeHelper
-      ActionView::Base.send :include, AdditionalsMenuHelper
-      ActionView::Base.send :include, Additionals::AdditionalsSelect2Helper
+      ActionView::Base.include Additionals::Helpers
+      ActionView::Base.include AdditionalsFontawesomeHelper
+      ActionView::Base.include AdditionalsMenuHelper
+      ActionView::Base.include Additionals::AdditionalsSelect2Helper
 
       # Hooks
       require_dependency 'additionals/hooks'

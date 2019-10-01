@@ -8,6 +8,7 @@ Changelog
 - Mermaid 8.3.1 support
 - Select2 4.0.10 support
 - Chart.js Plugin datalabels 0.7.0 support
+- members macro uses visible scope of users with support of hidden roles
 
 2.0.21
 ++++++

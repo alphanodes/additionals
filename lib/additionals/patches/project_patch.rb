@@ -3,6 +3,7 @@ module Additionals
     module ProjectPatch
       def self.included(base)
         base.send(:prepend, InstancOverwriteMethods)
+        base.send(:include, InstanceMethods)
       end
 
       module InstancOverwriteMethods
@@ -16,6 +17,18 @@ module Additionals
           end
 
           roles_with_users
+        end
+      end
+
+      module InstanceMethods
+        def visible_principals
+          query = ::Query.new(project: self, name: '_')
+          query&.principals
+        end
+
+        def visible_users
+          query = ::Query.new(project: self, name: '_')
+          query&.users
         end
       end
     end

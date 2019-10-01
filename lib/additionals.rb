@@ -19,6 +19,7 @@ module Additionals
                Project
                Wiki
                WikiController
+               ReportsController
                Principal
                QueryFilter
                Role

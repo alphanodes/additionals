@@ -42,8 +42,7 @@ module Additionals
           project ||= Project.visible.find_by(name: project_id)
           return if project.nil?
 
-          query = ::Query.new(project: project, name: '_')
-          principals = query&.principals
+          principals = project.visible_users
           return if principals.nil?
 
           users = []

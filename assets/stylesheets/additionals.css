@@ -172,7 +172,8 @@ div.clear-both { clear: both; }
 }
 
 .clipboard_button {
-  padding: 0 2px 0 0;
+  padding-bottom: 2px;
+  padding-top: 2px;
   text-align: center;
   float: left;
 }

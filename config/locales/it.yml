@@ -26,7 +26,7 @@ it:
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   errors_invalid_icon_format: 'è un font-awesome codice non valido'
   errors_no_or_invalid_arguments: No o non valido argomenti
-  open_external_urls_info: "If active, external URLs are opened in new window/tab."
+  open_external_urls_info: "Se attivo, gli URL esterni vengono aperti in una nuova finestra/tab."
   field_autowatch_involved_issue: Autowatch involved issues
   field_color: Colore
   field_icon: Icon
@@ -56,7 +56,7 @@ it:
   label_daily: giornalmente
   label_day: giorno
   label_disabled_modules: "Disattivare modules"
-  label_open_external_urls: Open external URLs
+  label_open_external_urls: "Aprire gli URL esterni"
   label_fontawesome_brands: Brands
   label_fontawesome_regular: Regular
   label_fontawesome_solid: Solid

@@ -26,7 +26,7 @@ es:
   error_query_statement_invalid: Ocurrió un error ejecutando la consulta y fue registrado. Por favor informe este error al administrador de Redmine.
   errors_invalid_icon_format: es un código inválido de font-awesome
   errors_no_or_invalid_arguments: Parámetros inválidos
-  open_external_urls_info: "If active, external URLs are opened in new window/tab."
+  open_external_urls_info: "Si está activo, las URL externas se abren en una nueva ventana/pestaña."
   field_autowatch_involved_issue: Automonitorear las peticiones en las que estoy involucrado
   field_color: Color
   field_icon: Ícono
@@ -56,7 +56,7 @@ es:
   label_daily: diario
   label_day: día
   label_disabled_modules: "Módulos desactivados"
-  label_open_external_urls: Open external URLs
+  label_open_external_urls: Abrir URLs externas
   label_fontawesome_brands: Brands
   label_fontawesome_regular: Regular
   label_fontawesome_solid: Solid

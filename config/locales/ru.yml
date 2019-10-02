@@ -26,7 +26,7 @@ ru:
   error_query_statement_invalid: "Во время выполнения запроса возникла ошибка, которая была зарегистрирована в журнале. Пожалуйста, сообщите об этой ошибке своему администратору Redmine."
   errors_invalid_icon_format: "это неправильный код font-awesome"
   errors_no_or_invalid_arguments: "Нет или недействительные аргументы"
-  open_external_urls_info: "If active, external URLs are opened in new window/tab."
+  open_external_urls_info: "Если активен, в новом окне/закладке открываются внешние URL-адреса."
   field_autowatch_involved_issue: "Автонаблюдение включало в себя задачу"
   field_color: Color
   field_icon: Icon
@@ -55,8 +55,8 @@ ru:
   label_custom_menu_items: "Пользовательские пункты меню"
   label_daily: "ежедневный"
   label_day: "день"
-  label_disabled_modules: "Disabled modules"
-  label_open_external_urls: Open external URLs
+  label_disabled_modules: "Отключенные модули"
+  label_open_external_urls: Открыть внешний URL-адрес
   label_fontawesome_brands: Brands
   label_fontawesome_regular: Regular
   label_fontawesome_solid: "Твердый"
@@ -79,7 +79,7 @@ ru:
   label_last_year: "прошедший год"
   label_legacy_smiley_support: Legacy smiley/emoji support
   label_macro_plural: Macros
-  label_menu_entry: "Menu item"
+  label_menu_entry: "Пункты меню"
   label_monthly: "ежемесячно"
   label_new_issue_on_profile: "Новая задача в профиле пользователя"
   label_new_ticket_message: "Примечание для нового задания"

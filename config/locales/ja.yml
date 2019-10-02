@@ -21,12 +21,12 @@ ja:
   add_go_to_top_info: '長いページが多い場合、「トップへ」のリンクは役立ちます。'
   button_assign_to_me: Assign to me
   disabled_modules_info: "プロジェクト内で選択させたくないモジュール。もしこのモジュールが既存のプロジェクトで既に有効な場合、設定変更した上で、ウェブサーバを再起動しなければなりません。"
-  error_issue_status_could_not_changed: Issue state could not be changed
-  error_issues_could_not_be_assigned_to_me: Issue could not assigned to me
+  error_issue_status_could_not_changed: "問題の状態を変更できませんでした"
+  error_issues_could_not_be_assigned_to_me: "問題を自分に割り当てることができませんでした"
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   errors_invalid_icon_format: is an invalid font-awesome code
   errors_no_or_invalid_arguments: No or invalid arguments
-  open_external_urls_info: "If active, external URLs are opened in new window/tab."
+  open_external_urls_info: "アクティブな場合、外部URLは新しいウィンドウ/タブで開かれます。"
   field_autowatch_involved_issue: Autowatch involved issues
   field_color: Color
   field_icon: Icon
@@ -56,7 +56,7 @@ ja:
   label_daily: daily
   label_day: day
   label_disabled_modules: "無効化したいモジュール"
-  label_open_external_urls: Open external URLs
+  label_open_external_urls: "外部URLを開く"
   label_fontawesome_brands: Brands
   label_fontawesome_regular: Regular
   label_fontawesome_solid: Solid
@@ -81,7 +81,7 @@ ja:
   label_macro_plural: macros
   label_menu_entry: "メニュー項目"
   label_monthly: monthly
-  label_new_issue_on_profile: New issue on user profile
+  label_new_issue_on_profile: "ユーザープロファイルの新しい問題"
   label_new_ticket_message: "新規チケットのメモ"
   label_open_in_new_windows: Open in new windows
   label_optional: "任意"

@@ -12,9 +12,10 @@ module AdditionalsClipboardjsHelper
 
     data['clipboard-text'] = clipboard_text_from_button if clipboard_text_from_button.present?
 
-    content_tag(:span, image_tag('paste.png', plugin: 'additionals'),
+    content_tag(:button, nil,
                 id: "zc_#{target}",
-                class: 'clipboard_button',
+                class: 'clipboard_button far fa-copy',
+                type: 'button',
                 title: l(:label_copy_to_clipboard),
                 data: data)
   end

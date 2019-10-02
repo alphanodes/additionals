@@ -246,8 +246,7 @@ module Additionals
     end
 
     def additionals_load_clipboardjs
-      additionals_include_css('clipboard') +
-        additionals_include_js('clipboard.min')
+      additionals_include_js('clipboard.min')
     end
 
     def additionals_load_observe_field

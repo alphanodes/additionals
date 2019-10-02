@@ -26,7 +26,7 @@ de:
   error_query_statement_invalid: Beim Ausführen der Query ist ein Fehler aufgetreten und wurde protokolliert. Bitte melden Sie diesen Fehler Ihrem Redmine-Administrator.
   errors_invalid_icon_format: ist ein ungültiger Font-Awesome Code
   errors_no_or_invalid_arguments: Kein oder ungültiger Parameter
-  open_external_urls_info: "Wenn aktiviert, externe URLs werden in neuen Fester/TAB geöffnet."
+  open_external_urls_info: "Wenn aktiviert, werden externe URLs im neuen Fenster/TAB geöffnet."
   field_autowatch_involved_issue: Involvierte Tickets automatisch beobachten
   field_color: Farbe
   field_icon: Symbol

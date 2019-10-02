@@ -26,7 +26,7 @@ Settings
 
 And the following options can be edited by users with administratios rights in the area **Settings**:
 
-* Change the option for ``External urls`` into on of the following: Default behaviour, Open in new window or Open with NoReferrer.
+* Activate the option ``Open external URLs`` in order to open those URLs in a new window or browser tab if someone wants to visit them.
 * Add "Go to top" link. If you have a lot of long pages, it is enabling users to easily return to the top of a page.
 * Activate the ``Legacy smileys / Emoji support`` if you want to use the manual smiley code (e.g. ``:kiss:``). This option is deactivated in the standard setting. If you already use a plugin that supports Smileys and Emojis this option should stay deactivated. For more info on Emoji-Browser support read http://caniemoji.com/. Have a look at the Emoji cheat sheet at https://www.webpagefx.com/tools/emoji-cheat-sheet for available Emoji-Codes.
 

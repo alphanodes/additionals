@@ -1,7 +1,4 @@
 # eslint ignore file
 *.js
 !additionals*.js
-!noreferrer.js
-!tooltips.js
-!clipboard_helpers.js
 !select2_helpers.js

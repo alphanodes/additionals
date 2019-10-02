@@ -26,10 +26,7 @@
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   errors_invalid_icon_format: "無效的 font-awesome 代碼。"
   errors_no_or_invalid_arguments: "參數無效或不存在。"
-  external_url_default: "以預設設定開啟外部連結"
-  external_url_new_window: "在新視窗中開啟外部連結"
-  external_url_noreferrer: "以 NoReferrer 方式開啟外部連結"
-  external_urls_info_html: "設定外部連結的開啟方式"
+  open_external_urls_info: "If active, external URLs are opened in new window/tab."
   field_autowatch_involved_issue: "自動監看參與的議題"
   field_color: 顏色
   field_icon: 圖案
@@ -59,7 +56,7 @@
   label_daily: 每天
   label_day: 天
   label_disabled_modules: "禁用模組"
-  label_external_urls: "外部連結"
+  label_open_external_urls: Open external URLs
   label_fontawesome_brands: Brands
   label_fontawesome_regular: Regular
   label_fontawesome_solid: Solid

@@ -247,8 +247,7 @@ module Additionals
 
     def additionals_load_clipboardjs
       additionals_include_css('clipboard') +
-        additionals_include_js('clipboard.min') +
-        additionals_include_js('clipboard_helper')
+        additionals_include_js('clipboard.min')
     end
 
     def additionals_load_observe_field
@@ -297,10 +296,6 @@ module Additionals
 
     def additionals_load_d3plus_hierarchy
       additionals_include_js('d3plus-hierarchy.full.min')
-    end
-
-    def additionals_load_zeroclipboard
-      additionals_include_js('zeroclipboard_min')
     end
 
     def user_with_avatar(user, options = {})

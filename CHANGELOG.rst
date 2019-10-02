@@ -10,6 +10,7 @@ Changelog
 - Chart.js Plugin datalabels 0.7.0 support
 - Fix user visibility for members macro
 - Fix user visibility for issue reports
+- Drop ZeroClipboard library
 
 2.0.21
 ++++++

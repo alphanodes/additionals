@@ -179,7 +179,6 @@ It provides :
 * `mermaid 8.3.1 <https://github.com/knsv/mermaid/>`_
 * `nvd3 1.8.6 <https://github.com/novus/nvd3>`_
 * `Select2 4.0.10 <https://select2.org/>`_
-* `ZeroClipboard 2.3.0 <https://github.com/zeroclipboard/zeroclipboard>`_
 
 And a set of various Rails helper methods (see below).
 
@@ -210,7 +209,6 @@ The following modules are available :
 * font_awesome
 * notify
 * select2
-* zeroclipboard
 
 
 Contact and Support

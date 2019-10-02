@@ -1,9 +1,6 @@
 - additionals_top_menu_setup
-- if Additionals.setting(:external_urls).to_i.positive?
-  = javascript_include_tag('redirect', plugin: 'additionals')
-- if Additionals.setting(:external_urls).to_i == 2
-  = javascript_include_tag('noreferrer', plugin: 'additionals')
 = additionals_library_load(:font_awesome)
 = stylesheet_link_tag 'additionals', plugin: 'additionals'
+= javascript_include_tag('additionals', plugin: 'additionals')
 - if User.current.try(:hrm_user_type_id).nil?
   - render_custom_top_menu_item

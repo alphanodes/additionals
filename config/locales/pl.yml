@@ -26,10 +26,7 @@ pl:
   error_query_statement_invalid: "Wystąpił błąd podczas wykonywania zapytania i został zarejestrowany. Proszę zgłosić ten błąd administratorowi Redmine."
   errors_invalid_icon_format: "jest nieprawidłowym kodem font-awesome"
   errors_no_or_invalid_arguments: "Brak lub nieważne argumenty"
-  external_url_default: "Domyślne zachowanie"
-  external_url_new_window: "Otwórz w nowym oknie"
-  external_url_noreferrer: "Otworzyć za pomocą NoReferrer"
-  external_urls_info_html: "Określa zachowanie dla zewnętrznych URLs"
+  open_external_urls_info: "If active, external URLs are opened in new window/tab."
   field_autowatch_involved_issue: Autowatch involved issues
   field_color: Kolor
   field_icon: Icon
@@ -59,7 +56,7 @@ pl:
   label_daily: "dobowy"
   label_day: "dzień"
   label_disabled_modules: "Moduły wyłączone"
-  label_external_urls: "External urls"
+  label_open_external_urls: Open external URLs
   label_fontawesome_brands: Brands
   label_fontawesome_regular: Regular
   label_fontawesome_solid: Solid

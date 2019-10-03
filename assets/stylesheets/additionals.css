@@ -329,6 +329,43 @@ div.additionals-projects li.project.odd {
   list-style-position: inside;
 }
 
+.additionals-chart-wrapper {
+  width: 99%;
+}
+
+.additionals-chart-left {
+  float: left;
+  font: normal 12px sans-serif;
+  height: 320px;
+  width: 360px;
+}
+
+/* has to be same width as additionals-table-of-values */
+.additionals-chart-right {
+  float: left;
+  font: normal 12px sans-serif;
+  height: 320px;
+  width: 450px;
+}
+
+.additionals-table-of-values {
+  float: left;
+  font: normal 12px sans-serif;
+  width: 450px;
+}
+
+table.table-of-values {
+  margin-left: 20px;
+}
+
+table.table-of-values td {
+  padding: 3px;
+}
+
+table.table-of-values caption {
+  font-weight: bold;
+}
+
 .additionals-projects ul {
   padding-left: 0;
 }

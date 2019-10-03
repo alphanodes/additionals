@@ -170,3 +170,4 @@
   label_query_name_search: Search for name
   label_chartjs_colorscheme_info: Color list
   label_chart_color_schema: Charts color scheme
+  label_without_value: "No %{value}"

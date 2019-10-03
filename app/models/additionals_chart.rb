@@ -1,6 +1,8 @@
 class AdditionalsChart
   include Redmine::I18n
 
+  CHART_DEFAULT_HEIGHT = 350
+  CHART_DEFAULT_WIDTH = 400
   MAX_ALLOWED_ELEMENTS = 200
 
   class << self
@@ -27,8 +29,8 @@ class AdditionalsChart
                        cached_labels.count < MAX_ALLOWED_ELEMENTS
       end
 
-      data[:width] = RedmineReporting::CHART_DEFAULT_WIDTH unless options.key?(:width)
-      data[:height] = RedmineReporting::CHART_DEFAULT_HEIGHT unless options.key?(:height)
+      data[:width] = CHART_DEFAULT_WIDTH unless options.key?(:width)
+      data[:height] = CHART_DEFAULT_HEIGHT unless options.key?(:height)
       data[:value_link_method] = '_project_issues_path' unless options.key?(:value_link_method)
       data[:color_schema] = color_schema
 

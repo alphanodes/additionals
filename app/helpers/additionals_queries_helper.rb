@@ -197,7 +197,7 @@ module AdditionalsQueriesHelper
     value_str = value.to_s
 
     # 1.1: margin
-    width = (value_str.length + value_str.chars.reject(&:ascii_only?).length) * 1.1 + 1
+    width = (value_str.length + value_str.chars.count { |e| !e.ascii_only? }) * 1.1 + 1
     # 30: max width
     width > 30 ? 30 : width
   end

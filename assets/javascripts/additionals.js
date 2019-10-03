@@ -8,6 +8,7 @@ function openExternalLink() {
 }
 
 /* exported setClipboardJS */
+/* global ClipboardJS */
 function setClipboardJS(element){
   var clipboard = new ClipboardJS(element);
   clipboard.on('success', function(e) {

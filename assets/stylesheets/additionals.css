@@ -329,6 +329,11 @@ div.additionals-projects li.project.odd {
   list-style-position: inside;
 }
 
+
+.additionals-block {
+  margin-bottom: 20px;
+}
+
 .additionals-chart-wrapper {
   width: 99%;
 }

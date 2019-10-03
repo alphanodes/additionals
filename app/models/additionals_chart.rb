@@ -26,11 +26,11 @@ class AdditionalsChart < ActiveRecord::Base
       unless options.key?(:valid)
         data[:valid] = cached_labels.any? &&
                        cached_labels.count >= required_labels &&
-                       cached_labels.count < MAX_ALLOWED_ELEMENTS
+                       cached_labels.count < self::MAX_ALLOWED_ELEMENTS
       end
 
-      data[:width] = CHART_DEFAULT_WIDTH unless options.key?(:width)
-      data[:height] = CHART_DEFAULT_HEIGHT unless options.key?(:height)
+      data[:width] = self::CHART_DEFAULT_WIDTH unless options.key?(:width)
+      data[:height] = self::CHART_DEFAULT_HEIGHT unless options.key?(:height)
       data[:value_link_method] = '_project_issues_path' unless options.key?(:value_link_method)
       data[:color_schema] = color_schema
 

@@ -166,8 +166,8 @@ ru:
   hidden_macros_in_toolbar_info: "Все доступные макросы, которые может использовать вошедший в систему пользователь, перечислены с помощью кнопки макроса на панели инструментов вики. Макросы, отмеченные здесь, не предлагаются для выбора. Это позволяет вам ограничить область действия списка."
   info_hidden_roles_html: "Скрытые роли могут использоваться только вместе с видимостью пользователя \"Members of visible projects\". Если пользователь не находится в роли, видимой для текущего пользователя, эта роль, включая пользователя, скрыта на странице обзора проекта и в списках запросов."
   latest_entries_changes: "Последние изменения %{value}"
-  label_edit_tags: Edit tags
+  label_edit_tags: "Редактировать метки"
   label_query_name_search: "Поиск имени"
-  label_chartjs_colorscheme_info: Color list
+  label_chartjs_colorscheme_info: "Список цветов"
   label_chart_color_schema: Charts color scheme
-  label_without_value: "No %{value}"
+  label_without_value: "Нет %{value}"

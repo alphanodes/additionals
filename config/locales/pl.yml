@@ -168,6 +168,6 @@ pl:
   latest_entries_changes: "Ostatnie  %{value} zmian"
   label_edit_tags: Edycja tags
   label_query_name_search: "Wyszukaj nazwę"
-  label_chartjs_colorscheme_info: Color list
+  label_chartjs_colorscheme_info: "Lista kolorów"
   label_chart_color_schema: Charts color scheme
-  label_without_value: "No %{value}"
+  label_without_value: "Nie %{value}"

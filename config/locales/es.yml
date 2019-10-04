@@ -168,6 +168,6 @@ es:
   latest_entries_changes: "Últimos %{value} cambios"
   label_edit_tags: Tratar tags
   label_query_name_search: Buscar por nombre
-  label_chartjs_colorscheme_info: Color list
+  label_chartjs_colorscheme_info: "Lista de colores"
   label_chart_color_schema: Charts color scheme
   label_without_value: "No %{value}"

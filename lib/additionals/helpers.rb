@@ -153,8 +153,15 @@ module Additionals
           "#{min} #{l(:minutes, count: min)}"
         end
       else
-        days = `uptime | awk '{print $3}'`.to_i.round
-        "#{days} #{l(:days, count: days)}"
+        # this should be mac os
+        seconds = `sysctl -n kern.boottime | awk '{print $4}'`.tr(',', '')
+        so = DateTime.strptime(seconds.strip, '%s')
+        if so.present?
+          time_tag(so)
+        else
+          days = `uptime | awk '{print $3}'`.to_i.round
+          "#{days} #{l(:days, count: days)}"
+        end
       end
     end
 

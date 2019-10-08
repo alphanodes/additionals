@@ -343,6 +343,13 @@ module Additionals
                            l(:show_always) => 'always' }, active)
     end
 
+    # if project exists, for project/show
+    # if project does not exist, for welcome/index
+    def option_of_overview_select(selected, project = nil)
+      project.present? && %w[project always].include?(selected) ||
+        project.nil? && %w[home always].include?(selected)
+    end
+
     def options_for_welcome_select(active)
       options_for_select({ l(:button_hide) => '',
                            l(:show_welcome_left) => 'left',

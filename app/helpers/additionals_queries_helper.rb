@@ -72,7 +72,7 @@ module AdditionalsQueriesHelper
   end
 
   def additionals_query_cache_key(object_type)
-    project_id = @project.nil? ? 0 : @project.id
+    project_id = @project ? @project.id : 0
     "#{object_type}_query_data_#{session.id}_#{project_id}"
   end
 

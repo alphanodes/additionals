@@ -191,7 +191,7 @@ module Additionals
         # if option_tags is not an array, it should be an object
         option_tags = options_for_select([[option_tags.try(:name), option_tags.try(:id)]], option_tags.try(:id))
       end
-      options[:project] = @project if @project.present? && options[:project].blank?
+      options[:project] = @project if @project && options[:project].blank?
 
       s = []
       s << hidden_field_tag("#{name}[]", '') if options[:multiple]

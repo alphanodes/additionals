@@ -318,16 +318,26 @@ module Additionals
     def user_with_avatar(user, options = {})
       return if user.nil?
 
-      options[:size] = 14 if options[:size].nil?
-      options[:class] = 'additionals-avatar' if options[:class].nil?
-      s = []
-      s << avatar(user, options)
-      s << if options[:no_link]
-             user.name
-           else
-             link_to_user(user)
-           end
-      safe_join(s)
+      if user.type == 'Group'
+        if options[:no_link]
+          user.name
+        elsif Redmine::Plugin.installed?('redmine_hrm')
+          link_to_hrm_group(user)
+        else
+          user.name
+        end
+      else
+        options[:size] = 14 if options[:size].nil?
+        options[:class] = 'additionals-avatar' if options[:class].nil?
+        s = []
+        s << avatar(user, options)
+        s << if options[:no_link]
+               user.name
+             else
+               link_to_user(user)
+             end
+        safe_join(s)
+      end
     end
 
     def options_for_menu_select(active)

@@ -89,7 +89,7 @@ module AdditionalsQuery
 
       add_available_filter('assigned_to_id', order: options[:position],
                                              type: :list_optional,
-                                             values: options[:no_lambda] ? author_values : -> { author_values })
+                                             values: options[:no_lambda] ? assigned_to_values : -> { assigned_to_values })
     end
 
     def initialize_watcher_filter(options = {})

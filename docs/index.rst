@@ -178,7 +178,7 @@ It provides :
 * `FontAwesome 5.11.2 <https://fontawesome.com/>`_
 * `mermaid 8.3.1 <https://github.com/knsv/mermaid/>`_
 * `nvd3 1.8.6 <https://github.com/novus/nvd3>`_
-* `Select2 4.0.10 <https://select2.org/>`_
+* `Select2 4.0.11 <https://select2.org/>`_
 
 And a set of various Rails helper methods (see below).
 

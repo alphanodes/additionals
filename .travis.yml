@@ -22,9 +22,9 @@ bundler_args: --without development
 
 matrix:
   exclude:
-  - rvm: 2.6.3
+  - rvm: 2.6.5
     env: REDMINE_VER=3.4-stable DB=mysql
-  - rvm: 2.6.3
+  - rvm: 2.6.5
     env: REDMINE_VER=3.4-stable DB=postgresql
 
 before_install:

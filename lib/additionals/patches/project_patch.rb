@@ -30,6 +30,18 @@ module Additionals
           query = ::Query.new(project: self, name: '_')
           query&.users
         end
+
+        # assignable_users result depends on Setting.issue_group_assignment?
+        # this result is not depending on issue settings
+        def assignable_users_and_groups
+          Principal.active
+                   .joins(members: :roles)
+                   .where(type: %w[User Group],
+                          members: { project_id: id },
+                          roles: { assignable: true })
+                   .distinct
+                   .sorted
+        end
       end
     end
   end

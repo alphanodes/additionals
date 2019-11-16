@@ -30,19 +30,6 @@ class QueryTest < Additionals::TestCase
     assert_equal 4, query.principals.count
   end
 
-  def test_assigned_to_all_values
-    with_settings issue_group_assignment: '1' do
-      project = Project.find(5)
-      query = IssueQuery.new(project: project, name: '_1')
-      assert_equal query.assigned_to_all_values.count, query.assigned_to_values.count
-    end
-    with_settings issue_group_assignment: '0' do
-      project = Project.find(5)
-      query = IssueQuery.new(project: project, name: '_2')
-      assert_not_equal query.assigned_to_all_values.count, query.assigned_to_values.count
-    end
-  end
-
   private
 
   def prepare_query_tests

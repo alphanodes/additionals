@@ -76,6 +76,16 @@ module AdditionalsQuery
                                    values: values.collect { |t| [t.name, t.name] }
     end
 
+    def initialize_approved_filter
+      add_available_filter 'approved',
+                           type: :list,
+                           values: [[l(:label_hrm_approved), '1'],
+                                    [l(:label_hrm_not_approved), '0'],
+                                    [l(:label_hrm_to_approval), '2'],
+                                    [l(:label_hrm_without_approval), '3']],
+                           label: :field_approved
+    end
+    
     def initialize_author_filter(options = {})
       return if author_values.empty?
 

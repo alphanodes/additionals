@@ -85,7 +85,7 @@ module AdditionalsQuery
                                     [l(:label_hrm_without_approval), '3']],
                            label: :field_approved
     end
-    
+
     def initialize_author_filter(options = {})
       return if author_values.empty?
 

@@ -107,7 +107,6 @@ pl:
   label_issue_timelog_required: "Wymagany jest dziennik czasowy dla issues"
   label_search_by_name: "Wyszukiwanie według nazwy"
   label_set_icon_from: Set an icon from
-  label_setting_plural: "Ustawienia"
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
   label_show_all: "Pokaż wszystkof"

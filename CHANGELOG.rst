@@ -5,8 +5,9 @@ Changelog
 ++++++
 
 - FontAwesome 5.11.2 support
-- Mermaid 8.3.1 support
-- Select2 4.0.11 support
+- Mermaid 8.4.2 support
+- Select2 4.0.12 support
+- Chart.js 2.9.3 support
 - Chart.js Plugin datalabels 0.7.0 support
 - Fix user visibility for members macro
 - Fix user visibility for issue reports

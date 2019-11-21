@@ -176,9 +176,9 @@ It provides :
 * `d3plus v2.0.0-alpha.19 <https://d3plus.org/>`_
 * `d3plus-hierarchy v0.8.5 <https://github.com/d3plus/d3plus-hierarchy>`_
 * `FontAwesome 5.11.2 <https://fontawesome.com/>`_
-* `mermaid 8.3.1 <https://github.com/knsv/mermaid/>`_
+* `mermaid 8.4.2 <https://github.com/knsv/mermaid/>`_
 * `nvd3 1.8.6 <https://github.com/novus/nvd3>`_
-* `Select2 4.0.11 <https://select2.org/>`_
+* `Select2 4.0.12 <https://select2.org/>`_
 
 And a set of various Rails helper methods (see below).
 

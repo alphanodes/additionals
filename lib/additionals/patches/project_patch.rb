@@ -3,6 +3,7 @@ module Additionals
     module ProjectPatch
       def self.included(base)
         base.send(:prepend, InstancOverwriteMethods)
+        base.send(:include, InstanceMethods)
       end
 
       module InstancOverwriteMethods
@@ -16,6 +17,30 @@ module Additionals
           end
 
           roles_with_users
+        end
+      end
+
+      module InstanceMethods
+        def visible_principals
+          query = ::Query.new(project: self, name: '_')
+          query&.principals
+        end
+
+        def visible_users
+          query = ::Query.new(project: self, name: '_')
+          query&.users
+        end
+
+        # assignable_users result depends on Setting.issue_group_assignment?
+        # this result is not depending on issue settings
+        def assignable_users_and_groups
+          Principal.active
+                   .joins(members: :roles)
+                   .where(type: %w[User Group],
+                          members: { project_id: id },
+                          roles: { assignable: true })
+                   .distinct
+                   .sorted
         end
       end
     end

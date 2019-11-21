@@ -26,10 +26,7 @@
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   errors_invalid_icon_format: "無效的 font-awesome 代碼。"
   errors_no_or_invalid_arguments: "參數無效或不存在。"
-  external_url_default: "以預設設定開啟外部連結"
-  external_url_new_window: "在新視窗中開啟外部連結"
-  external_url_noreferrer: "以 NoReferrer 方式開啟外部連結"
-  external_urls_info_html: "設定外部連結的開啟方式"
+  open_external_urls_info: "如果啟用，則在新窗口/選項卡中打開外部URL。"
   field_autowatch_involved_issue: "自動監看參與的議題"
   field_color: 顏色
   field_icon: 圖案
@@ -59,7 +56,7 @@
   label_daily: 每天
   label_day: 天
   label_disabled_modules: "禁用模組"
-  label_external_urls: "外部連結"
+  label_open_external_urls: "打開外部URL"
   label_fontawesome_brands: Brands
   label_fontawesome_regular: Regular
   label_fontawesome_solid: Solid
@@ -110,7 +107,6 @@
   label_issue_timelog_required: Time log for issues required
   label_search_by_name: "按名稱搜尋"
   label_set_icon_from: "圖示設定自"
-  label_setting_plural: "設定"
   label_settings_macros: "macros 語法"
   label_settings_menu: "選單"
   label_show_all: "顯示全部"
@@ -169,7 +165,8 @@
   hidden_macros_in_toolbar_info: All available macros that the logged in user can use are listed via the macro button of the wiki toolbar. Macros marked here are not offered for selection. This allows you to limit the scope of the list.
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.
   latest_entries_changes: "Latest %{value} changes"
-  label_edit_tags: Edit tags
-  label_query_name_search: Search for name
-  label_chartjs_colorscheme_info: Color list
+  label_edit_tags: "編輯標籤"
+  label_query_name_search: "搜索名字"
+  label_chartjs_colorscheme_info: "顏色清單"
   label_chart_color_schema: Charts color scheme
+  label_without_value: "沒有 %{value}"

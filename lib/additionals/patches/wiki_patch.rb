@@ -5,7 +5,7 @@ module Additionals
     # Patch wiki to include sidebar
     module WikiPatch
       def self.included(base)
-        base.send(:include, InstanceMethodsForAdditionalsWiki)
+        base.send(:include, InstanceMethods)
         base.class_eval do
           alias_method :sidebar_without_additionals, :sidebar
           alias_method :sidebar, :sidebar_with_additionals
@@ -13,8 +13,7 @@ module Additionals
       end
     end
 
-    # Instance methodes for Wiki
-    module InstanceMethodsForAdditionalsWiki
+    module InstanceMethods
       def sidebar_with_additionals
         @sidebar ||= find_page('Sidebar', with_redirect: false)
         if @sidebar&.content

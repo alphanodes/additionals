@@ -26,10 +26,7 @@ de:
   error_query_statement_invalid: Beim Ausführen der Query ist ein Fehler aufgetreten und wurde protokolliert. Bitte melden Sie diesen Fehler Ihrem Redmine-Administrator.
   errors_invalid_icon_format: ist ein ungültiger Font-Awesome Code
   errors_no_or_invalid_arguments: Kein oder ungültiger Parameter
-  external_url_default: "Standard Verhalten"
-  external_url_new_window: "In neuen Fenster"
-  external_url_noreferrer: "Mit NoReferrer Kennzeichnung öffnen"
-  external_urls_info_html: "Legt das Verhalten für externe URLs fest. Mit NoRefferer wird in modernen Browsern verschleiert, von welcher Seite die URL aufgerufen worden ist."
+  open_external_urls_info: "Wenn aktiviert, werden externe URLs im neuen Fenster/TAB geöffnet."
   field_autowatch_involved_issue: Involvierte Tickets automatisch beobachten
   field_color: Farbe
   field_icon: Symbol
@@ -59,7 +56,7 @@ de:
   label_daily: täglich
   label_day: Tag
   label_disabled_modules: "Deaktivierte Module"
-  label_external_urls: "Externe URLs"
+  label_open_external_urls: "Externe URLs öffnen"
   label_fontawesome_brands: Brands
   label_fontawesome_regular: Regular
   label_fontawesome_solid: Solid
@@ -110,7 +107,6 @@ de:
   label_issue_timelog_required: Zeiterfassung für Ticket erforderlich
   label_search_by_name: Suche nach Namen
   label_set_icon_from: Symbol auswählen von
-  label_setting_plural: Einstellungen
   label_settings_macros: "Makros"
   label_settings_menu: "Menü"
   label_show_all: Alle anzeigen
@@ -173,3 +169,4 @@ de:
   label_query_name_search: Nach Name suchen
   label_chartjs_colorscheme_info: Farbschema Auflistung
   label_chart_color_schema: Charts Farbschema
+  label_without_value: "Ohne %{value}"

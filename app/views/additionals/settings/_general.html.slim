@@ -14,15 +14,12 @@ p
     = l(:global_footer_info)
 
 br
-h3 = l(:label_setting_plural)
+h3 = l(:label_settings)
+
 p
-  = content_tag(:label, l(:label_external_urls))
-  = select_tag 'settings[external_urls]',
-               options_for_select({ l(:external_url_default) => '0',
-                                    l(:external_url_new_window) => '1',
-                                    l(:external_url_noreferrer) => '2' }, @settings['external_urls'])
+  = additionals_settings_checkbox :open_external_urls
   em.info
-    = t(:external_urls_info_html)
+    = t(:open_external_urls_info)
 p
   = additionals_settings_checkbox :add_go_to_top
   em.info

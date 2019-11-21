@@ -21,15 +21,12 @@ ja:
   add_go_to_top_info: '長いページが多い場合、「トップへ」のリンクは役立ちます。'
   button_assign_to_me: Assign to me
   disabled_modules_info: "プロジェクト内で選択させたくないモジュール。もしこのモジュールが既存のプロジェクトで既に有効な場合、設定変更した上で、ウェブサーバを再起動しなければなりません。"
-  error_issue_status_could_not_changed: Issue state could not be changed
-  error_issues_could_not_be_assigned_to_me: Issue could not assigned to me
+  error_issue_status_could_not_changed: "問題の状態を変更できませんでした"
+  error_issues_could_not_be_assigned_to_me: "問題を自分に割り当てることができませんでした"
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   errors_invalid_icon_format: is an invalid font-awesome code
   errors_no_or_invalid_arguments: No or invalid arguments
-  external_url_default: "規程の扱い"
-  external_url_new_window: "新しいウインドウで開く"
-  external_url_noreferrer: "レフェラーを匿名化"
-  external_urls_info_html: "外部URLの扱いを指定する。"
+  open_external_urls_info: "アクティブな場合、外部URLは新しいウィンドウ/タブで開かれます。"
   field_autowatch_involved_issue: Autowatch involved issues
   field_color: Color
   field_icon: Icon
@@ -59,7 +56,7 @@ ja:
   label_daily: daily
   label_day: day
   label_disabled_modules: "無効化したいモジュール"
-  label_external_urls: "外部URL"
+  label_open_external_urls: "外部URLを開く"
   label_fontawesome_brands: Brands
   label_fontawesome_regular: Regular
   label_fontawesome_solid: Solid
@@ -84,7 +81,7 @@ ja:
   label_macro_plural: macros
   label_menu_entry: "メニュー項目"
   label_monthly: monthly
-  label_new_issue_on_profile: New issue on user profile
+  label_new_issue_on_profile: "ユーザープロファイルの新しい問題"
   label_new_ticket_message: "新規チケットのメモ"
   label_open_in_new_windows: Open in new windows
   label_optional: "任意"
@@ -110,7 +107,6 @@ ja:
   label_issue_timelog_required: Time log for issues required
   label_search_by_name: Search by name
   label_set_icon_from: Set an icon from
-  label_setting_plural: "設定"
   label_settings_macros: "マクロ"
   label_settings_menu: "メニュー"
   label_show_all: Show all
@@ -137,7 +133,7 @@ ja:
   overview_top_info: "Here you can add your text, which will be shown on the overview page at the top. For example you can link to a wiki page."
   permission_change_new_issue_author: Set author of new issues
   permission_edit_closed_issues: "Edit closed issues"
-  permission_edit_issue_author: Edit author
+  permission_edit_issue_author: "著者を編集"
   permission_issue_timelog_never_required: '時間の予約は必要ありません'
   permission_log_time_on_closed_issues: "Log time on closed issues"
   permission_show_hidden_roles_in_memberbox: "Show hidden roles"
@@ -169,7 +165,8 @@ ja:
   hidden_macros_in_toolbar_info: All available macros that the logged in user can use are listed via the macro button of the wiki toolbar. Macros marked here are not offered for selection. This allows you to limit the scope of the list.
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.
   latest_entries_changes: "Latest %{value} changes"
-  label_edit_tags: Edit tags
-  label_query_name_search: Search for name
-  label_chartjs_colorscheme_info: Color list
+  label_edit_tags: "編集 TAGs"
+  label_query_name_search: "名前を検索"
+  label_chartjs_colorscheme_info: "カラーリスト"
   label_chart_color_schema: Charts color scheme
+  label_without_value: "%{value} なし"

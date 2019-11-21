@@ -23,7 +23,7 @@ namespace :redmine do
     Set settings.
 
     Example for value:
-      bundle exec rake redmine:additionals:setting_set RAILS_ENV=production name="additionals" setting="external_urls" value="2"
+      bundle exec rake redmine:additionals:setting_set RAILS_ENV=production name="additionals" setting="open_external_urls" value="1"
     Example for list of value:
       bundle exec rake redmine:additionals:setting_set RAILS_ENV=production setting="default_projects_modules" value="issue_tracking,time_tracking,wiki"
     DESCRIPTION
@@ -55,7 +55,7 @@ namespace :redmine do
     Get settings.
 
     Example for plugin setting:
-      bundle exec rake redmine:additionals:setting_get RAILS_ENV=production name="additionals" setting="external_urls"
+      bundle exec rake redmine:additionals:setting_get RAILS_ENV=production name="additionals" setting="open_external_urls"
     Example for redmine setting:
       bundle exec rake redmine:additionals:setting_get RAILS_ENV=production name="redmine" setting="app_title"
     Example for redmine setting:

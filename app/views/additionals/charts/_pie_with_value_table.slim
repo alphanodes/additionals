@@ -1,0 +1,46 @@
+.additionals-chart-wrapper
+  .additionals-chart-left
+    canvas id="#{@chart[:id]}" style="width: #{@chart[:width]}px; height: #{@chart[:height]}px;"
+  .additionals-table-of-values
+    = render partial: 'additionals/chart_table_values'
+
+.clear-both
+
+javascript:
+  const pie_chart_#{{@chart[:id]}} = new Chart(document.getElementById("#{@chart[:id]}"), {
+    type: 'pie',
+    data: {
+      label_ids: #{raw json_escape(@chart[:label_ids])},
+      labels: #{raw json_escape(@chart[:labels])},
+      datasets: #{raw json_escape(@chart[:datasets])}
+    },
+    options: {
+      responsive: true,
+      onClick: function(c, i) {
+        e = i[0];
+        if (e !== undefined && #{{@chart[:filter_path].present? ? 1 : 0}} == 1 ) {
+          var activePoints = pie_chart_#{{@chart[:id]}}.getElementAtEvent(c);
+          var label_id = this.data.label_ids[activePoints[0]._index];
+          window.open("#{{@chart[:filter_path]}}" + label_id);
+        }
+      },
+      plugins: {
+        colorschemes: {
+          scheme: "#{@chart[:color_schema]}",
+          fillAlpha: 0.8,
+        },
+        datalabels: {
+          formatter: (value, ctx) => {
+              let sum = 0;
+              let dataArr = ctx.chart.data.datasets[0].data;
+              dataArr.map(data => {
+                  sum += data;
+              });
+              let percentage = (value*100 / sum).toFixed(0)+"%";
+              return percentage;
+          },
+          color: '#000',
+        }
+      }
+    }
+  });

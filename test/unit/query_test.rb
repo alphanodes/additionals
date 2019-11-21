@@ -2,15 +2,18 @@ require File.expand_path('../../test_helper', __FILE__)
 
 class QueryTest < Additionals::TestCase
   fixtures :projects, :users, :members, :member_roles, :roles,
+           :groups_users,
            :trackers, :projects_trackers,
            :enabled_modules,
-           :roles
+           :roles,
+           :repositories
 
   def setup
-    prepare_query_tests
+    User.current = nil
   end
 
   def test_issue_query_principals_with_hide
+    prepare_query_tests
     User.current = @user_with_hide
     query = IssueQuery.new(project: @project, name: '_')
 
@@ -19,12 +22,15 @@ class QueryTest < Additionals::TestCase
   end
 
   def test_issue_query_principals_with_show_hide_permission
+    prepare_query_tests
     User.current = @user_with_show_hide
     query = IssueQuery.new(project: @project, name: '_')
 
     # show all members with 2 users of hidden role
     assert_equal 4, query.principals.count
   end
+
+  private
 
   def prepare_query_tests
     @role1 = Role.new(name: 'principal test hide1', users_visibility: 'members_of_visible_projects', hide: true)

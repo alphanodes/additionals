@@ -72,7 +72,7 @@ module AdditionalsQueriesHelper
   end
 
   def additionals_query_cache_key(object_type)
-    project_id = @project.nil? ? 0 : @project.id
+    project_id = @project ? @project.id : 0
     "#{object_type}_query_data_#{session.id}_#{project_id}"
   end
 
@@ -197,7 +197,7 @@ module AdditionalsQueriesHelper
     value_str = value.to_s
 
     # 1.1: margin
-    width = (value_str.length + value_str.chars.reject(&:ascii_only?).length) * 1.1 + 1
+    width = (value_str.length + value_str.chars.count { |e| !e.ascii_only? }) * 1.1 + 1
     # 30: max width
     width > 30 ? 30 : width
   end

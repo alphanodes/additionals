@@ -42,24 +42,18 @@ module Additionals
           project ||= Project.visible.find_by(name: project_id)
           return if project.nil?
 
-          raw_users = User.active
-                          .where(["#{User.table_name}.id IN (SELECT DISTINCT user_id FROM members WHERE project_id=(?))", project.id])
-                          .sorted
-          return if raw_users.nil?
+          principals = project.visible_users
+          return if principals.nil?
 
           users = []
-          raw_users.each do |user|
-            user_roles[user.id] = user.roles_for_project(project)
-            users << user if options[:role].blank? || Additionals.check_role_matches(user_roles[user.id], options[:role])
+          principals.each do |principal|
+            next unless principal.type == 'User'
+
+            user_roles[principal.id] = principal.roles_for_project(project)
+            users << principal if options[:role].blank? || Additionals.check_role_matches(user_roles[principal.id], options[:role])
           end
         else
-          project_ids = Project.visible.collect(&:id)
-          return unless project_ids.any?
-
-          # members of the user's projects
-          users = User.active
-                      .where(["#{User.table_name}.id IN (SELECT DISTINCT user_id FROM members WHERE project_id IN (?))", project_ids])
-                      .sorted
+          users = User.visible.sorted
         end
         render partial: 'wiki/user_macros', locals: { users: users,
                                                       user_roles: user_roles,

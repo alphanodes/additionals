@@ -153,8 +153,15 @@ module Additionals
           "#{min} #{l(:minutes, count: min)}"
         end
       else
-        days = `uptime | awk '{print $3}'`.to_i.round
-        "#{days} #{l(:days, count: days)}"
+        # this should be mac os
+        seconds = `sysctl -n kern.boottime | awk '{print $4}'`.tr(',', '')
+        so = DateTime.strptime(seconds.strip, '%s')
+        if so.present?
+          time_tag(so)
+        else
+          days = `uptime | awk '{print $3}'`.to_i.round
+          "#{days} #{l(:days, count: days)}"
+        end
       end
     end
 
@@ -184,7 +191,7 @@ module Additionals
         # if option_tags is not an array, it should be an object
         option_tags = options_for_select([[option_tags.try(:name), option_tags.try(:id)]], option_tags.try(:id))
       end
-      options[:project] = @project if @project.present? && options[:project].blank?
+      options[:project] = @project if @project && options[:project].blank?
 
       s = []
       s << hidden_field_tag("#{name}[]", '') if options[:multiple]
@@ -210,6 +217,17 @@ module Additionals
         classes << "idnt-#{level}"
       end
       classes.join(' ')
+    end
+
+    def options_with_custom_fields(type, format, current, options = {})
+      klass = Object.const_get("#{type}CustomField")
+      fields = []
+      fields << ["- #{l(:label_disabled)} -", 0] if options[:include_disabled]
+      klass.sorted.each do |field|
+        fields << [field.name, field.id] if Array(format).include?(field.field_format)
+      end
+
+      options_for_select(fields, current)
     end
 
     private
@@ -246,9 +264,7 @@ module Additionals
     end
 
     def additionals_load_clipboardjs
-      additionals_include_css('clipboard') +
-        additionals_include_js('clipboard.min') +
-        additionals_include_js('clipboard_helper')
+      additionals_include_js('clipboard.min')
     end
 
     def additionals_load_observe_field
@@ -299,23 +315,29 @@ module Additionals
       additionals_include_js('d3plus-hierarchy.full.min')
     end
 
-    def additionals_load_zeroclipboard
-      additionals_include_js('zeroclipboard_min')
-    end
-
     def user_with_avatar(user, options = {})
       return if user.nil?
 
-      options[:size] = 14 if options[:size].nil?
-      options[:class] = 'additionals-avatar' if options[:class].nil?
-      s = []
-      s << avatar(user, options)
-      s << if options[:no_link]
-             user.name
-           else
-             link_to_user(user)
-           end
-      safe_join(s)
+      if user.type == 'Group'
+        if options[:no_link]
+          user.name
+        elsif Redmine::Plugin.installed?('redmine_hrm')
+          link_to_hrm_group(user)
+        else
+          user.name
+        end
+      else
+        options[:size] = 14 if options[:size].nil?
+        options[:class] = 'additionals-avatar' if options[:class].nil?
+        s = []
+        s << avatar(user, options)
+        s << if options[:no_link]
+               user.name
+             else
+               link_to_user(user)
+             end
+        safe_join(s)
+      end
     end
 
     def options_for_menu_select(active)
@@ -329,6 +351,13 @@ module Additionals
                            l(:show_on_redmine_home) => 'home',
                            l(:show_on_project_overview) => 'project',
                            l(:show_always) => 'always' }, active)
+    end
+
+    # if project exists, for project/show
+    # if project does not exist, for welcome/index
+    def option_of_overview_select(selected, project = nil)
+      project.present? && %w[project always].include?(selected) ||
+        project.nil? && %w[home always].include?(selected)
     end
 
     def options_for_welcome_select(active)

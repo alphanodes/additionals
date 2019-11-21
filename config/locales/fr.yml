@@ -26,10 +26,7 @@ fr:
   error_query_statement_invalid: "Une erreur s'est produite lors de l'exécution de la requête et a été enregistrée. Veuillez signaler cette erreur à votre administrateur Redmine."
   errors_invalid_icon_format: is an invalid font-awesome code
   errors_no_or_invalid_arguments: "Pas d'arguments ou arguments invalides"
-  external_url_default: "Comportement par défaut"
-  external_url_new_window: "Ouvrir dans une nouvelle fenêtre"
-  external_url_noreferrer: "Ouvrir avec NoReferrer"
-  external_urls_info_html: "Spécifie le comportement des urls externes."
+  open_external_urls_info: "S'ils sont actifs, les URL externes s'ouvrent dans une nouvelle fenêtre/onglet."
   field_autowatch_involved_issue: "Problèmes liés à la surveillance automatique"
   field_color: Couleur
   field_icon: Icon
@@ -59,7 +56,7 @@ fr:
   label_daily: tous les jours
   label_day: Jour
   label_disabled_modules: "Modules désactivés"
-  label_external_urls: "Les urnes externes"
+  label_open_external_urls: Ouvrir des URL externes
   label_fontawesome_brands: Brands
   label_fontawesome_regular: Regular
   label_fontawesome_solid: Solid
@@ -110,7 +107,6 @@ fr:
   label_issue_timelog_required: Time log for issues required
   label_search_by_name: Recherche par nom
   label_set_icon_from: Set an icon from
-  label_setting_plural: Configurations
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
   label_show_all: Montrer tout
@@ -171,5 +167,6 @@ fr:
   latest_entries_changes: "Derniers %{value} changements"
   label_edit_tags: Modifier tags
   label_query_name_search: Rechercher un nom
-  label_chartjs_colorscheme_info: Color list
+  label_chartjs_colorscheme_info: "Liste des couleurs"
   label_chart_color_schema: Charts color scheme
+  label_without_value: "Aucune %{value}"

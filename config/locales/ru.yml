@@ -26,10 +26,7 @@ ru:
   error_query_statement_invalid: "Во время выполнения запроса возникла ошибка, которая была зарегистрирована в журнале. Пожалуйста, сообщите об этой ошибке своему администратору Redmine."
   errors_invalid_icon_format: "это неправильный код font-awesome"
   errors_no_or_invalid_arguments: "Нет или недействительные аргументы"
-  external_url_default: "Поведение по умолчанию"
-  external_url_new_window: "Открыть в новом окне"
-  external_url_noreferrer: "Откройте NoReferrer"
-  external_urls_info_html: "Указание поведения внешних URL-адресов."
+  open_external_urls_info: "Если активен, в новом окне/закладке открываются внешние URL-адреса."
   field_autowatch_involved_issue: "Автонаблюдение включало в себя задачу"
   field_color: Color
   field_icon: Icon
@@ -58,8 +55,8 @@ ru:
   label_custom_menu_items: "Пользовательские пункты меню"
   label_daily: "ежедневный"
   label_day: "день"
-  label_disabled_modules: "Disabled modules"
-  label_external_urls: "Внешние урны"
+  label_disabled_modules: "Отключенные модули"
+  label_open_external_urls: Открыть внешний URL-адрес
   label_fontawesome_brands: Brands
   label_fontawesome_regular: Regular
   label_fontawesome_solid: "Твердый"
@@ -82,7 +79,7 @@ ru:
   label_last_year: "прошедший год"
   label_legacy_smiley_support: Legacy smiley/emoji support
   label_macro_plural: Macros
-  label_menu_entry: "Menu item"
+  label_menu_entry: "Пункты меню"
   label_monthly: "ежемесячно"
   label_new_issue_on_profile: "Новая задача в профиле пользователя"
   label_new_ticket_message: "Примечание для нового задания"
@@ -110,7 +107,6 @@ ru:
   label_issue_timelog_required: Time log for issues required
   label_search_by_name: "Поиск по имени"
   label_set_icon_from: Set an icon from
-  label_setting_plural: "Настройки"
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
   label_show_all: "Показать все"
@@ -169,7 +165,8 @@ ru:
   hidden_macros_in_toolbar_info: "Все доступные макросы, которые может использовать вошедший в систему пользователь, перечислены с помощью кнопки макроса на панели инструментов вики. Макросы, отмеченные здесь, не предлагаются для выбора. Это позволяет вам ограничить область действия списка."
   info_hidden_roles_html: "Скрытые роли могут использоваться только вместе с видимостью пользователя \"Members of visible projects\". Если пользователь не находится в роли, видимой для текущего пользователя, эта роль, включая пользователя, скрыта на странице обзора проекта и в списках запросов."
   latest_entries_changes: "Последние изменения %{value}"
-  label_edit_tags: Edit tags
+  label_edit_tags: "Редактировать метки"
   label_query_name_search: "Поиск имени"
-  label_chartjs_colorscheme_info: Color list
+  label_chartjs_colorscheme_info: "Список цветов"
   label_chart_color_schema: Charts color scheme
+  label_without_value: "Нет %{value}"

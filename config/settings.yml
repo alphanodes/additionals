@@ -2,7 +2,7 @@
 account_login_bottom: ''
 add_go_to_top: 0
 disabled_modules:
-external_urls: 1
+open_external_urls: 1
 global_footer: ''
 global_sidebar: ''
 global_wiki_footer: ''

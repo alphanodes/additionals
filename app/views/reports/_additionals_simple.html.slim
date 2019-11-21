@@ -1,0 +1,4 @@
+- if field_name == 'assigned_to_id'
+  - rows = Setting.issue_group_assignment? ? @project.visible_principals : @project.visible_users
+- elsif field_name == 'author_id'
+  - rows = @project.visible_users

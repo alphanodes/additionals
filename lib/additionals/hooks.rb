@@ -17,6 +17,7 @@ module Additionals
     render_on(:view_projects_show_right, partial: 'project_overview')
     render_on(:view_projects_show_sidebar_bottom, partial: 'additionals/global_sidebar')
     render_on(:view_welcome_index_right, partial: 'overview_right')
+    render_on(:view_welcome_index_bottom, partial: 'additionals_index_bottom')
     render_on(:view_my_account_preferences, partial: 'users/autowatch_involved_issue')
     render_on(:view_users_form_preferences, partial: 'users/autowatch_involved_issue')
     render_on(:view_users_show_contextual, partial: 'users/additionals_contextual')

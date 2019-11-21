@@ -6,7 +6,7 @@ Redmine::Plugin.register :additionals do
   name 'Additionals'
   author 'AlphaNodes GmbH'
   description 'Customizing Redmine, providing wiki macros and act as a library/function provider for other Redmine plugins'
-  version '2.0.21'
+  version '2.0.22'
   author_url 'https://alphanodes.com/'
   url 'https://github.com/alphanodes/additionals'
 
@@ -59,4 +59,10 @@ begin
   end
 rescue ActiveRecord::NoDatabaseError
   Rails.logger.warn 'database not created yet'
+end
+
+if Rails.version < '5.2'
+  jobs_path = File.dirname(__FILE__) + '/app/jobs'
+  ActiveSupport::Dependencies.autoload_paths += [jobs_path]
+  Rails.application.config.eager_load_paths += [jobs_path]
 end

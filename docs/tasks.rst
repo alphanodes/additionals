@@ -51,11 +51,11 @@ Set default modules for new projects
   bundle exec rake redmine:additionals:setting_set RAILS_ENV=production setting="default_projects_modules" values="issue_tracking,time_tracking,wiki"
 
 
-Set plugin setting ``external_urls`` for plugin additionals to value 2
+Set plugin setting ``open_external_urls`` for plugin additionals to value 2
 
 .. code-block:: smarty
 
-  bundle exec rake redmine:additionals:setting_set RAILS_ENV=production name="additionals" setting="external_urls" value="2"
+  bundle exec rake redmine:additionals:setting_set RAILS_ENV=production name="additionals" setting="open_external_urls" value="1"
 
 
 setting_get
@@ -71,11 +71,11 @@ setting_get
 Examples
 ++++++++
 
-Get setting for ``external_urls`` of the plugin additionals
+Get setting for ``open_external_urls`` of the plugin additionals
 
 .. code-block:: smarty
 
-  bundle exec rake redmine:additionals:setting_get RAILS_ENV=production name="additionals" setting="external_urls"
+  bundle exec rake redmine:additionals:setting_get RAILS_ENV=production name="additionals" setting="open_external_urls"
 
 Get ``app_title`` of redmine
 

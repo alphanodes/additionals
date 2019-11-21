@@ -76,6 +76,16 @@ module AdditionalsQuery
                                    values: values.collect { |t| [t.name, t.name] }
     end
 
+    def initialize_approved_filter
+      add_available_filter 'approved',
+                           type: :list,
+                           values: [[l(:label_hrm_approved), '1'],
+                                    [l(:label_hrm_not_approved), '0'],
+                                    [l(:label_hrm_to_approval), '2'],
+                                    [l(:label_hrm_without_approval), '3']],
+                           label: :field_approved
+    end
+
     def initialize_author_filter(options = {})
       return if author_values.empty?
 
@@ -89,7 +99,7 @@ module AdditionalsQuery
 
       add_available_filter('assigned_to_id', order: options[:position],
                                              type: :list_optional,
-                                             values: options[:no_lambda] ? author_values : -> { author_values })
+                                             values: options[:no_lambda] ? assigned_to_all_values : -> { assigned_to_all_values })
     end
 
     def initialize_watcher_filter(options = {})
@@ -98,6 +108,15 @@ module AdditionalsQuery
       add_available_filter('watcher_id', order: options[:position],
                                          type: :list,
                                          values: options[:no_lambda] ? watcher_values : -> { watcher_values })
+    end
+
+    # issue independend values. Use  assigned_to_values from Redmine, if you want it only for issues
+    def assigned_to_all_values
+      assigned_to_values = []
+      assigned_to_values << ["<< #{l(:label_me)} >>", 'me'] if User.current.logged?
+      assigned_to_values += principals.sort_by(&:status).collect { |s| [s.name, s.id.to_s, l("status_#{User::LABEL_BY_STATUS[s.status]}")] }
+
+      assigned_to_values
     end
 
     def watcher_values
@@ -144,7 +163,9 @@ module AdditionalsQuery
     def query_count
       objects_scope.count
     rescue ::ActiveRecord::StatementInvalid => e
-      raise queried_class::StatementInvalid, e.message
+      raise queried_class::StatementInvalid, e.message if defined? queried_class::StatementInvalid
+
+      raise ::Query::StatementInvalid, e.message
     end
 
     def results_scope(options = {})
@@ -156,7 +177,9 @@ module AdditionalsQuery
         .limit(options[:limit])
         .offset(options[:offset])
     rescue ::ActiveRecord::StatementInvalid => e
-      raise queried_class::StatementInvalid, e.message
+      raise queried_class::StatementInvalid, e.message if defined? queried_class::StatementInvalid
+
+      raise ::Query::StatementInvalid, e.message
     end
   end
 end

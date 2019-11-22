@@ -6,7 +6,7 @@ Redmine::Plugin.register :additionals do
   name 'Additionals'
   author 'AlphaNodes GmbH'
   description 'Customizing Redmine, providing wiki macros and act as a library/function provider for other Redmine plugins'
-  version '2.0.22'
+  version '2.0.23-master'
   author_url 'https://alphanodes.com/'
   url 'https://github.com/alphanodes/additionals'
 

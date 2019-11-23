@@ -140,7 +140,7 @@ module AdditionalsQuery
 
     def sql_for_is_private_field(_field, operator, value)
       if bool_operator(operator, value)
-        return '1=1' if value.count > 1
+        return '' if value.count > 1
 
         "#{queried_table_name}.is_private = #{self.class.connection.quoted_true}"
       else

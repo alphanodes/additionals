@@ -374,6 +374,9 @@ table.table-of-values caption {
   padding-left: 0;
 }
 
+.additionals-number-positive { color: green; }
+.additionals-number-negative { color: #cb2525; }
+
 .jstb_macros {
   background-image: url(../images/jstoolbar/bt_macros.png);
 }

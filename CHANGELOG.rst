@@ -4,6 +4,8 @@ Changelog
 2.0.23
 ++++++
 
+- FontAwesome 5.12 support
+- Mermaid 8.4.3 support
 
 2.0.22
 ++++++

@@ -384,6 +384,7 @@ android:
   changes:
     - '3.2'
     - 5.0.0
+    - 5.12.0
   label: Android
   search:
     terms:
@@ -1003,13 +1004,18 @@ atlassian:
 atom:
   changes:
     - 5.2.0
+    - 5.12.0
   label: Atom
   search:
     terms:
       - atheism
       - chemistry
+      - electron
       - ion
+      - isotope
+      - neutron
       - nuclear
+      - proton
       - science
   styles:
     - solid
@@ -1184,6 +1190,20 @@ bacon:
     - solid
   unicode: f7e5
   voted: false
+bahai:
+  changes:
+    - 5.3.0
+    - 5.12.0
+  label: Bahá'í
+  search:
+    terms:
+      - bahai
+      - bahá'í
+      - star
+  styles:
+    - solid
+  unicode: f666
+  voted: false
 balance-scale:
   changes:
     - '4.4'
@@ -1204,6 +1224,8 @@ balance-scale:
 balance-scale-left:
   changes:
     - 5.0.13
+    - 5.9.0
+    - 5.12.0
   label: Balance Scale (Left-Weighted)
   search:
     terms:
@@ -1219,6 +1241,8 @@ balance-scale-left:
 balance-scale-right:
   changes:
     - 5.0.13
+    - 5.9.0
+    - 5.12.0
   label: Balance Scale (Right-Weighted)
   search:
     terms:
@@ -1356,6 +1380,7 @@ bath:
   changes:
     - '4.7'
     - 5.0.0
+    - 5.12.0
   label: Bath
   search:
     terms:
@@ -1457,6 +1482,7 @@ bed:
   search:
     terms:
       - lodging
+      - mattress
       - rest
       - sleep
       - travel
@@ -2864,6 +2890,21 @@ car-side:
     - solid
   unicode: f5e4
   voted: false
+caravan:
+  changes:
+    - 5.12.0
+  label: Caravan
+  search:
+    terms:
+      - camper
+      - motor home
+      - rv
+      - trailer
+      - travel
+  styles:
+    - solid
+  unicode: f8ff
+  voted: true
 caret-down:
   changes:
     - '2'
@@ -4557,6 +4598,25 @@ compress:
     - solid
   unicode: f066
   voted: false
+compress-alt:
+  changes:
+    - '1'
+    - 5.0.0
+    - 5.12.0
+  label: Alternate Compress
+  search:
+    terms:
+      - collapse
+      - fullscreen
+      - minimize
+      - move
+      - resize
+      - shrink
+      - smaller
+  styles:
+    - solid
+  unicode: f422
+  voted: false
 compress-arrows-alt:
   changes:
     - 5.6.0
@@ -5596,6 +5656,7 @@ docker:
 dog:
   changes:
     - 5.4.0
+    - 5.12.0
   label: Dog
   search:
     terms:
@@ -6189,6 +6250,7 @@ envelope-open-text:
   changes:
     - 5.3.0
     - 5.10.1
+    - 5.12.0
   label: Envelope Open-text
   search:
     terms:
@@ -6431,6 +6493,22 @@ expand:
   styles:
     - solid
   unicode: f065
+  voted: false
+expand-alt:
+  changes:
+    - '1'
+    - 5.0.0
+    - 5.12.0
+  label: Alternate Expand
+  search:
+    terms:
+      - arrow
+      - bigger
+      - enlarge
+      - resize
+  styles:
+    - solid
+  unicode: f424
   voted: false
 expand-arrows-alt:
   changes:
@@ -7322,6 +7400,7 @@ firefox:
     - '4.4'
     - 5.0.0
     - 5.0.1
+    - 5.12.0
   label: Firefox
   search:
     terms:
@@ -7329,6 +7408,17 @@ firefox:
   styles:
     - brands
   unicode: f269
+  voted: false
+firefox-browser:
+  changes:
+    - 5.12.0
+  label: Firefox Browser
+  search:
+    terms:
+      - browser
+  styles:
+    - brands
+  unicode: f907
   voted: false
 first-aid:
   changes:
@@ -7769,7 +7859,8 @@ free-code-camp:
   changes:
     - '4.7'
     - 5.0.0
-  label: Free Code Camp
+    - 5.12.0
+  label: freeCodeCamp
   search:
     terms: []
   styles:
@@ -8846,6 +8937,7 @@ grin-tongue-wink:
     - 5.1.0
     - 5.11.0
     - 5.11.1
+    - 5.12.0
   label: Winking Face With Tongue
   search:
     terms:
@@ -9307,6 +9399,7 @@ hand-spock:
   changes:
     - '4.4'
     - 5.0.0
+    - 5.12.0
   label: Spock (Hand)
   search:
     terms:
@@ -9476,19 +9569,6 @@ hat-wizard:
   styles:
     - solid
   unicode: f6e8
-  voted: false
-haykal:
-  changes:
-    - 5.3.0
-  label: Haykal
-  search:
-    terms:
-      - bahai
-      - bahá'í
-      - star
-  styles:
-    - solid
-  unicode: f666
   voted: false
 hdd:
   changes:
@@ -10197,6 +10277,16 @@ id-card-alt:
     - solid
   unicode: f47f
   voted: false
+ideal:
+  changes:
+    - 5.12.0
+  label: iDeal
+  search:
+    terms: []
+  styles:
+    - brands
+  unicode: f913
+  voted: true
 igloo:
   changes:
     - 5.6.0
@@ -12083,6 +12173,7 @@ mercury:
 meteor:
   changes:
     - 5.5.0
+    - 5.12.0
   label: Meteor
   search:
     terms:
@@ -12095,6 +12186,16 @@ meteor:
     - solid
   unicode: f753
   voted: false
+microblog:
+  changes:
+    - 5.12.0
+  label: Micro.blog
+  search:
+    terms: []
+  styles:
+    - brands
+  unicode: f91a
+  voted: true
 microchip:
   changes:
     - '4.7'
@@ -13714,6 +13815,7 @@ pied-piper:
     - '4.6'
     - 5.0.0
     - 5.0.10
+    - 5.12.0
   label: Pied Piper Logo
   search:
     terms: []
@@ -13726,7 +13828,7 @@ pied-piper-alt:
     - '4.1'
     - 5.0.0
     - 5.7.0
-  label: Alternate Pied Piper Logo
+  label: Alternate Pied Piper Logo (Old)
   search:
     terms: []
   styles:
@@ -13736,7 +13838,7 @@ pied-piper-alt:
 pied-piper-hat:
   changes:
     - 5.0.10
-  label: Pied Piper-hat
+  label: Pied Piper Hat (Old)
   search:
     terms:
       - clothing
@@ -13754,6 +13856,16 @@ pied-piper-pp:
   styles:
     - brands
   unicode: f1a7
+  voted: false
+pied-piper-square:
+  changes:
+    - 5.12.0
+  label: Pied Piper Square Logo (Old)
+  search:
+    terms: []
+  styles:
+    - brands
+  unicode: f91e
   voted: false
 piggy-bank:
   changes:
@@ -13962,6 +14074,7 @@ plug:
   changes:
     - '4.2'
     - 5.0.0
+    - 5.12.0
   label: Plug
   search:
     terms:
@@ -14988,6 +15101,7 @@ road:
 robot:
   changes:
     - 5.0.13
+    - 5.12.0
   label: Robot
   search:
     terms:
@@ -15004,6 +15118,7 @@ rocket:
     - '3.1'
     - 5.0.0
     - 5.7.0
+    - 5.12.0
   label: rocket
   search:
     terms:
@@ -15230,6 +15345,7 @@ safari:
   changes:
     - '4.4'
     - 5.0.0
+    - 5.12.0
   label: Safari
   search:
     terms:
@@ -15262,6 +15378,7 @@ satellite:
   changes:
     - 5.6.0
     - 5.10.1
+    - 5.12.0
   label: Satellite
   search:
     terms:
@@ -15276,6 +15393,7 @@ satellite:
 satellite-dish:
   changes:
     - 5.6.0
+    - 5.12.0
   label: Satellite Dish
   search:
     terms:
@@ -15285,6 +15403,7 @@ satellite-dish:
       - receiver
       - saucer
       - signal
+      - space
   styles:
     - solid
   unicode: f7c0
@@ -15549,6 +15668,7 @@ servicestack:
 shapes:
   changes:
     - 5.2.0
+    - 5.12.0
   label: Shapes
   search:
     terms:
@@ -15774,6 +15894,7 @@ shower:
   changes:
     - '4.7'
     - 5.0.0
+    - 5.12.0
   label: Shower
   search:
     terms:
@@ -16712,6 +16833,7 @@ space-shuttle:
       - machine
       - nasa
       - rocket
+      - space
       - transportation
   styles:
     - solid
@@ -18558,6 +18680,20 @@ traffic-light:
     - solid
   unicode: f637
   voted: false
+trailer:
+  changes:
+    - 5.12.0
+  label: Trailer
+  search:
+    terms:
+      - carry
+      - haul
+      - moving
+      - travel
+  styles:
+    - solid
+  unicode: f941
+  voted: true
 train:
   changes:
     - '4.3'
@@ -18883,6 +19019,7 @@ twitch:
   changes:
     - '4.2'
     - 5.0.0
+    - 5.12.0
   label: Twitch
   search:
     terms: []
@@ -19061,6 +19198,16 @@ uniregistry:
     - brands
   unicode: f404
   voted: false
+unity:
+  changes:
+    - 5.12.0
+  label: Unity 3D
+  search:
+    terms: []
+  styles:
+    - brands
+  unicode: f949
+  voted: true
 universal-access:
   changes:
     - '4.6'
@@ -19462,6 +19609,7 @@ user-ninja:
 user-nurse:
   changes:
     - 5.7.0
+    - 5.12.0
   label: Nurse
   search:
     terms:

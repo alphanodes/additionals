@@ -177,7 +177,6 @@ It provides :
 * `d3plus-hierarchy v0.8.5 <https://github.com/d3plus/d3plus-hierarchy>`_
 * `FontAwesome 5.12.0 <https://fontawesome.com/>`_
 * `mermaid 8.4.3 <https://github.com/knsv/mermaid/>`_
-* `nvd3 1.8.6 <https://github.com/novus/nvd3>`_
 * `Select2 4.0.12 <https://select2.org/>`_
 
 And a set of various Rails helper methods (see below).
@@ -205,7 +204,6 @@ The following modules are available :
 * d3plus
 * d3plus_hierarchy
 * mermaid
-* nvd3
 * font_awesome
 * notify
 * select2

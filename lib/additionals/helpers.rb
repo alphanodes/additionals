@@ -284,10 +284,6 @@ module Additionals
       additionals_include_js('chartjs-plugin-datalabels.min')
     end
 
-    def additionals_load_chartjs_stacked100
-      additionals_include_js('chartjs-plugin-stacked100')
-    end
-
     def additionals_load_chartjs_colorschemes
       additionals_include_js('chartjs-plugin-colorschemes.min')
     end

@@ -8,6 +8,7 @@ Changelog
 - FontAwesome 5.12 support
 - Mermaid 8.4.3 support
 - Drop nvd3 library
+- Drop Chartjs stacked100 library
 
 2.0.22
 ++++++

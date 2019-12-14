@@ -4,6 +4,7 @@ Changelog
 2.0.23
 ++++++
 
+- members macro now supports with_sum option
 - FontAwesome 5.12 support
 - Mermaid 8.4.3 support
 - Drop nvd3 library

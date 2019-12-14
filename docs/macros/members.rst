@@ -3,13 +3,14 @@ Members, Project
 
 Project members macro for Redmine.
 
-.. function:: {{members([project_name, title=TITLE, role=ROLE])}}
+.. function:: {{members([project_name, title=TITLE, role=ROLE, with_sum=BOOL])}}
 
     Show list of project members
 
     :param string project_name: can be project identifier, project name or project id
     :param string title: title to use for member list
     :param string role: only list members with this role. If you want to use multiple roles as filters, you have to use a | as separator.
+    :param bool with_sum: show amount of members.
 
 Scope
 +++++
@@ -24,6 +25,12 @@ List all members for all projects (with the current user permission)
 .. code-block:: smarty
 
   {{members}}
+
+List all members for all projects and show amount of members
+
+.. code-block:: smarty
+
+  {{members(with_sum=true)}}
 
 List all members for the project with the identifier of ``myproject``
 

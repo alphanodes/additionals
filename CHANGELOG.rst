@@ -9,6 +9,7 @@ Changelog
 - Mermaid 8.4.3 support
 - Drop nvd3 library
 - Drop Chartjs stacked100 library
+- Drop d3plus-hierarchy library
 
 2.0.22
 ++++++
@@ -18,6 +19,7 @@ Changelog
 - Select2 4.0.12 support
 - Chart.js 2.9.3 support
 - Chart.js Plugin datalabels 0.7.0 support
+- d3plus to v2.0.0-alpha.25
 - Fix user visibility for members macro
 - Fix user visibility for issue reports
 - Drop ZeroClipboard library

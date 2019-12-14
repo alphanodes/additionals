@@ -172,8 +172,7 @@ It provides :
 * `Chart.js Plugin colorschemes 0.4.0 <https://github.com/nagix/chartjs-plugin-colorschemes>`_
 * `clipboardJS 2.0.4 <https://clipboardjs.com/>`_
 * `d3 3.5.17 <https://d3js.org/>`_
-* `d3plus v2.0.0-alpha.19 <https://d3plus.org/>`_
-* `d3plus-hierarchy v0.8.5 <https://github.com/d3plus/d3plus-hierarchy>`_
+* `d3plus v2.0.0-alpha.25 <https://d3plus.org/>`_
 * `FontAwesome 5.12.0 <https://fontawesome.com/>`_
 * `mermaid 8.4.3 <https://github.com/knsv/mermaid/>`_
 * `Select2 4.0.12 <https://select2.org/>`_
@@ -200,7 +199,6 @@ The following modules are available :
 * chartjs_colorschemes
 * d3
 * d3plus
-* d3plus_hierarchy
 * mermaid
 * font_awesome
 * notify

@@ -301,10 +301,6 @@ module Additionals
       additionals_include_js('d3plus.full.min')
     end
 
-    def additionals_load_d3plus_hierarchy
-      additionals_include_js('d3plus-hierarchy.full.min')
-    end
-
     def user_with_avatar(user, options = {})
       return if user.nil?
 

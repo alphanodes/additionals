@@ -11,6 +11,7 @@ Changelog
 - Drop nvd3 library
 - Drop Chartjs stacked100 library
 - Drop d3plus-hierarchy library
+- Support private comments with issue macro
 
 2.0.22
 ++++++

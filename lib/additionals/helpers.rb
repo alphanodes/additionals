@@ -46,9 +46,16 @@ module Additionals
     end
 
     def render_issue_with_comment(issue, content, comment_id, only_path = false)
-      comment = issue.journals
-                     .where(private_notes: false)
-                     .offset(comment_id - 1).limit(1).first.try(:notes)
+      journal = issue.journals.select(:notes, :private_notes, :user_id).offset(comment_id - 1).limit(1).first
+      comment = if journal
+                  user = User.current
+                  if user.allowed_to?(:view_private_notes, issue.project) ||
+                     !journal.private_notes? ||
+                     journal.user == user
+                    journal.notes
+                  end
+                end
+
       if comment.blank?
         comment = 'N/A'
         comment_link = comment_id

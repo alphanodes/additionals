@@ -294,11 +294,11 @@ module Additionals
     end
 
     def additionals_load_d3
-      additionals_include_js('d3.min')
+      additionals_include_js('d3.v3.min')
     end
 
     def additionals_load_d3v5
-      additionals_include_js('d3v5.min')
+      additionals_include_js('d3.v5.min')
     end
 
     def additionals_load_d3plus

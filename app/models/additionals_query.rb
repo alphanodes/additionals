@@ -38,6 +38,19 @@ module AdditionalsQuery
       end
     end
 
+    def sql_for_project_status_field(field, operator, value)
+      sql_for_field(field, operator, value, Project.table_name, 'status')
+    end
+
+    def initialize_project_status_filter(_options = {})
+      return if project&.leaf?
+
+      add_available_filter('project.status',
+                           type: :list,
+                           name: l(:label_attribute_of_project, name: l(:field_status)),
+                           values: -> { project_statuses_values })
+    end
+
     def initialize_project_filter(options = {})
       if project.nil?
         add_available_filter('project_id', order: options[:position],

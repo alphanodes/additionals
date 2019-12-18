@@ -6,7 +6,7 @@ Changelog
 
 - members macro now supports with_sum option
 - FontAwesome 5.12 support
-- Mermaid 8.4.3 support
+- Mermaid 8.4.4 support
 - D3 5.14.2 support
 - Drop nvd3 library
 - Drop Chartjs stacked100 library

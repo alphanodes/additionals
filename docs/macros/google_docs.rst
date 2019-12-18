@@ -8,8 +8,8 @@ Google Docs wiki macro for Redmine. Google Docs is an online word processor that
     Show Google Docs embedded
 
     :param string link: Embedded Google docs link
-    :param int width: width
-    :param int height: height
+    :param int width: width (if not specified, 100% is used)
+    :param int height: height (if not specified, 485 is used)
     :param int edit_link: Link to edit page
 
 Scope

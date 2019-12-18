@@ -7,7 +7,7 @@ module Additionals
 
   Syntax:
 
-    {{google_docs(<link> [, width=595, height=485, with_link=BOOL)}}
+    {{google_docs(<link> [, width=100%, height=485, with_link=BOOL)}}
 
   Examples:
 
@@ -18,7 +18,7 @@ module Additionals
       macro :google_docs do |_obj, args|
         args, options = extract_macro_options(args, :width, :height, :edit_link)
 
-        width = options[:width].presence || 595
+        width = options[:width].presence || '100%'
         height = options[:height].presence || 485
 
         raise 'The correct usage is {{google_docs(<link>[, width=x, height=y, with_link=BOOL])}}' if args.empty?

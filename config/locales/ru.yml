@@ -170,3 +170,4 @@ ru:
   label_chartjs_colorscheme_info: "Список цветов"
   label_chart_color_schema: Charts color scheme
   label_without_value: "Нет %{value}"
+  label_open_in_google_docs: Open in Google Docs

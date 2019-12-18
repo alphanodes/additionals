@@ -170,3 +170,4 @@ ko:
   label_chartjs_colorscheme_info: 컬러리스트
   label_chart_color_schema: 차트 색 구성표
   label_without_value: "아니요 %{value}"
+  label_open_in_google_docs: Open in Google Docs

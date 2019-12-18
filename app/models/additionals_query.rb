@@ -42,7 +42,7 @@ module AdditionalsQuery
       sql_for_field(field, operator, value, Project.table_name, 'status')
     end
 
-    def initialize_project_status_filter(_options = {})
+    def initialize_project_status_filter
       return if project&.leaf?
 
       add_available_filter('project.status',

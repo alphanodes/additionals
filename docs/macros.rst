@@ -11,6 +11,7 @@ If a parameter is in brackets, this parameter is optional.
 .. include:: macros/fa.rst
 .. include:: macros/gist.rst
 .. include:: macros/gmap.rst
+.. include:: macros/google_docs.rst
 .. include:: macros/group_users.rst
 .. include:: macros/iframe.rst
 .. include:: macros/issue.rst

@@ -114,6 +114,7 @@ Features
   * date
   * fa
   * gihub gist
+  * google_docs
   * gmap
   * group_users
   * iframe

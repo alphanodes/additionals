@@ -12,6 +12,7 @@ Changelog
 - Drop Chartjs stacked100 library
 - Drop d3plus-hierarchy library
 - Support private comments with issue macro
+- Google Docs macro has been added
 
 2.0.22
 ++++++

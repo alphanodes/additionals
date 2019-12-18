@@ -7,7 +7,7 @@ module Additionals
 
   Syntax:
 
-    {{google_docs(<link> [, width=100%, height=485, with_link=BOOL)}}
+    {{google_docs(<link> [, width=100%, height=485, edit_link=LINK)}}
 
   Examples:
 
@@ -21,7 +21,7 @@ module Additionals
         width = options[:width].presence || '100%'
         height = options[:height].presence || 485
 
-        raise 'The correct usage is {{google_docs(<link>[, width=x, height=y, with_link=BOOL])}}' if args.empty?
+        raise 'The correct usage is {{google_docs(<link>[, width=x, height=y, edit_link=LINK])}}' if args.empty?
 
         v = args[0]
 

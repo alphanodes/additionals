@@ -3,7 +3,7 @@ Slideshare
 
 Google Docs wiki macro for Redmine.
 
-.. function:: {{google_docs(link [, width=WIDTH, height=HEIGHT, edit_link=URL])}}
+.. function:: {{google_docs(link[, width=WIDTH, height=HEIGHT, edit_link=URL])}}
 
     Show Google Docs embedded
 

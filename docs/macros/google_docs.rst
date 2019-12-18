@@ -1,7 +1,7 @@
-Slideshare
-----------
+Google Docs
+-----------
 
-Google Docs wiki macro for Redmine.
+Google Docs wiki macro for Redmine. Google Docs is an online word processor that you can use to create, format, and collaborate on documents. The macro helps you to integrat a Google Docs document as iframe into a Redmine text field.
 
 .. function:: {{google_docs(link[, width=WIDTH, height=HEIGHT, edit_link=URL])}}
 
@@ -15,7 +15,7 @@ Google Docs wiki macro for Redmine.
 Scope
 +++++
 
-This macro works in all text fields with formatting support.
+This macro works in all text fields with formatting support (e.g. Redmine Wiki).
 
 Examples
 ++++++++

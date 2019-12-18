@@ -170,4 +170,4 @@ es:
   label_chartjs_colorscheme_info: "Lista de colores"
   label_chart_color_schema: Charts color scheme
   label_without_value: "No %{value}"
-  label_open_in_google_docs: Open in Google Docs
+  label_open_in_google_docs: "Abrir en Google Docs"

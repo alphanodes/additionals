@@ -6,10 +6,7 @@ module AdditionalsChartjsHelper
   end
 
   def select_options_for_chartjs_colorscheme(selected)
-    data = YAML.safe_load(ERB.new(IO.read(Rails.root.join('plugins',
-                                                          'additionals',
-                                                          'config',
-                                                          'colorschemes.yml'))).result) || {}
+    data = YAML.safe_load(ERB.new(IO.read(Rails.root.join('plugins/additionals/config/colorschemes.yml'))).result) || {}
     grouped_options_for_select(data, selected)
   end
 end

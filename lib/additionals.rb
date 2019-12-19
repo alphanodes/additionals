@@ -113,7 +113,7 @@ module Additionals
 
     def patch(patches = [], plugin_id = 'additionals')
       patches.each do |name|
-        patch_dir = Rails.root.join('plugins', plugin_id, 'lib', plugin_id, 'patches')
+        patch_dir = Rails.root.join("plugins/#{plugin_id}/lib/#{plugin_id}/patches")
         require "#{patch_dir}/#{name.underscore}_patch"
 
         target = name.constantize
@@ -124,7 +124,7 @@ module Additionals
     end
 
     def load_macros(macros = [], plugin_id = 'additionals')
-      macro_dir = Rails.root.join('plugins', plugin_id, 'lib', plugin_id, 'wiki_macros')
+      macro_dir = Rails.root.join("plugins/#{plugin_id}/lib/#{plugin_id}/wiki_macros")
       macros.each do |macro|
         require_dependency "#{macro_dir}/#{macro.underscore}_macro"
       end
@@ -134,10 +134,7 @@ module Additionals
       cached_settings_name = '@load_settings_' + plugin_id
       cached_settings = instance_variable_get(cached_settings_name)
       if cached_settings.nil?
-        data = YAML.safe_load(ERB.new(IO.read(Rails.root.join('plugins',
-                                                              plugin_id,
-                                                              'config',
-                                                              'settings.yml'))).result) || {}
+        data = YAML.safe_load(ERB.new(IO.read(Rails.root.join("plugins/#{plugin_id}/config/settings.yml"))).result) || {}
         instance_variable_set(cached_settings_name, data.symbolize_keys)
       else
         cached_settings

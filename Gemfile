@@ -7,6 +7,5 @@ group :development, :test do
   gem 'brakeman', require: false
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
-  # TODO: enable rubocop-rails, which requires Redmine 4 only (because of rack 2)
-  # gem 'rubocop-rails', require: false
+  gem 'rubocop-rails', require: false
 end

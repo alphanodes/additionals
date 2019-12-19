@@ -1,5 +1,6 @@
 require:
   - rubocop-performance
+  - rubocop-rails
 
 Rails:
   Enabled: true
@@ -20,7 +21,7 @@ Metrics/ClassLength:
 Metrics/CyclomaticComplexity:
   Max: 20
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 140
 
 Metrics/MethodLength:
@@ -32,10 +33,19 @@ Metrics/ModuleLength:
 Metrics/PerceivedComplexity:
   Max: 25
 
-Rails/SkipsModelValidations:
+Rails/ApplicationJob:
+  Enabled: false
+
+Rails/ApplicationRecord:
   Enabled: false
 
 Rails/CreateTableWithTimestamps:
+  Enabled: false
+
+Rails/HelperInstanceVariable:
+  Enabled: false
+
+Rails/SkipsModelValidations:
   Enabled: false
 
 Performance/ChainArrayAllocation:

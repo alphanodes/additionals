@@ -13,6 +13,7 @@ Changelog
 - Drop d3plus-hierarchy library
 - Support private comments with issue macro
 - Google Docs macro has been added
+- Fix bug with Rack 2.0.8 or newer
 
 2.0.22
 ++++++

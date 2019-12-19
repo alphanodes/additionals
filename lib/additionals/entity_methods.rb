@@ -9,7 +9,8 @@ module Additionals
         users << assignee if assignee
       end
 
-      users.any? ? users.uniq!.sort : users
+      users.uniq!
+      users.sort
     end
   end
 end

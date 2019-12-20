@@ -1,6 +1,8 @@
 class AdditionalsFontAwesome
   include Redmine::I18n
 
+  FORMAT_REGEXP = /\Afa[rsb]\_[a-zA-Z0-9]+[a-zA-Z0-9\-]*\z/.freeze
+
   class << self
     def load_icons(type)
       data = YAML.safe_load(ERB.new(IO.read(Rails.root.join('plugins/additionals/config/fontawesome_icons.yml'))).result) || {}

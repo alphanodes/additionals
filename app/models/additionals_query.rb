@@ -4,6 +4,13 @@ module AdditionalsQuery
   end
 
   module InstanceMethods
+    def available_column_names(options = {})
+      names = available_columns.dup
+      names.flatten!
+      names.select! { |col| col.sortable.present? } if options[:only_sortable]
+      names.map(&:name)
+    end
+
     def sql_for_enabled_module(table_field, module_names)
       module_names = Array(module_names)
 

@@ -12,22 +12,13 @@ services:
 
 env:
   - REDMINE_VER=4.0-stable DB=postgresql
-  - REDMINE_VER=3.4-stable DB=postgresql
   - REDMINE_VER=master DB=postgresql
   - REDMINE_VER=4.0-stable DB=mysql
-  - REDMINE_VER=3.4-stable DB=mysql
   - REDMINE_VER=master DB=mysql
 
 sudo: true
 
 bundler_args: --without development
-
-matrix:
-  exclude:
-  - rvm: 2.6.5
-    env: REDMINE_VER=3.4-stable DB=mysql
-  - rvm: 2.6.5
-    env: REDMINE_VER=3.4-stable DB=postgresql
 
 before_install:
   - export PLUGIN_NAME=additionals

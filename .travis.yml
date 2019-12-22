@@ -11,11 +11,9 @@ services:
   - postgresql
 
 env:
-  - REDMINE_VER=4.1.0 DB=postgresql
   - REDMINE_VER=4.0-stable DB=postgresql
   - REDMINE_VER=3.4-stable DB=postgresql
   - REDMINE_VER=master DB=postgresql
-  - REDMINE_VER=4.1.0 DB=mysql
   - REDMINE_VER=4.0-stable DB=mysql
   - REDMINE_VER=3.4-stable DB=mysql
   - REDMINE_VER=master DB=mysql

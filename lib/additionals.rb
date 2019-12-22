@@ -26,7 +26,6 @@ module Additionals
                User
                UserPreference])
 
-      Rails.configuration.assets.paths << Emoji.images_path
       Redmine::WikiFormatting.format_names.each do |format|
         case format
         when 'markdown'

@@ -11,10 +11,14 @@ services:
   - postgresql
 
 env:
+  - REDMINE_VER=4.1.0 DB=postgresql
   - REDMINE_VER=4.0-stable DB=postgresql
   - REDMINE_VER=3.4-stable DB=postgresql
+  - REDMINE_VER=master DB=postgresql
+  - REDMINE_VER=4.1.0 DB=mysql
   - REDMINE_VER=4.0-stable DB=mysql
   - REDMINE_VER=3.4-stable DB=mysql
+  - REDMINE_VER=master DB=mysql
 
 sudo: true
 
@@ -45,7 +49,5 @@ before_script:
 
 script:
   - export SKIP_COVERAGE=1
-  - if [[ "$REDMINE_VER" == "master" ]]; then bundle exec rake redmine:plugins:test:units NAME=$PLUGIN_NAME; fi
-  - if [[ "$REDMINE_VER" == "master" ]]; then bundle exec rake redmine:plugins:test:functionals NAME=$PLUGIN_NAME; fi
-  - if [[ "$REDMINE_VER" == "master" ]]; then bundle exec rake redmine:plugins:test:integration NAME=$PLUGIN_NAME; fi
-  - if [[ "$REDMINE_VER" != "master" ]]; then bundle exec rake redmine:plugins:test NAME=$PLUGIN_NAME RUBYOPT="-W0"; fi
+  - if [[ "$REDMINE_VER" == "4.1.0" ]]; then brakeman plugins/$PLUGIN_NAME; fi
+  - bundle exec rake redmine:plugins:test NAME=$PLUGIN_NAME RUBYOPT="-W0"

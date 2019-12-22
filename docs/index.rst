@@ -167,13 +167,12 @@ Don't worry, if you only need a subset of the provided libraries. If you do not 
 
 It provides :
 
-* `bootstrap-datepicker 1.9.0 <https://github.com/uxsolutions/bootstrap-datepicker>`_
+* `d3 5.14.2 <https://d3js.org/>`_
+* `d3plus v2.0.0-alpha.25 <https://d3plus.org/>`_
 * `Chart.js 2.9.3 <https://www.chartjs.org/>`_
 * `Chart.js Plugin datalabels 0.7.0 <https://github.com/chartjs/chartjs-plugin-datalabels>`_
 * `Chart.js Plugin colorschemes 0.4.0 <https://github.com/nagix/chartjs-plugin-colorschemes>`_
 * `clipboardJS 2.0.4 <https://clipboardjs.com/>`_
-* `d3 5.14.2 <https://d3js.org/>`_
-* `d3plus v2.0.0-alpha.25 <https://d3plus.org/>`_
 * `FontAwesome 5.12.0 <https://fontawesome.com/>`_
 * `mermaid 8.4.3 <https://github.com/knsv/mermaid/>`_
 * `Select2 4.0.12 <https://select2.org/>`_
@@ -194,15 +193,14 @@ This method loads all JS and CSS files needed by the required module.
 
 The following modules are available :
 
-* clipboardjs
+* d3
+* d3plus
 * chartjs
 * chartjs_datalabels
 * chartjs_colorschemes
-* d3
-* d3plus
-* mermaid
+* clipboardjs
 * font_awesome
-* notify
+* mermaid
 * select2
 
 

@@ -5,7 +5,6 @@ These wiki macros are available with Additionals.
 
 If a parameter is in brackets, this parameter is optional.
 
-.. include:: macros/calendar.rst
 .. include:: macros/cryptocompare.rst
 .. include:: macros/date.rst
 .. include:: macros/fa.rst

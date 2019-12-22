@@ -184,15 +184,6 @@ module Additionals
       true if /cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM
     end
 
-    def bootstrap_datepicker_locale
-      s = ''
-      locale = User.current.language.presence || ::I18n.locale
-      locale = 'es' if locale == 'es-PA'
-      locale = 'sr-latin' if locale == 'sr-YU'
-      s = javascript_include_tag("locales/bootstrap-datepicker.#{locale.downcase}.min", plugin: 'additionals') unless locale == 'en'
-      s
-    end
-
     def autocomplete_select_entries(name, type, option_tags, options = {})
       unless option_tags.is_a?(String) || option_tags.blank?
         # if option_tags is not an array, it should be an object

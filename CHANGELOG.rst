@@ -11,6 +11,7 @@ Changelog
 - Drop nvd3 library
 - Drop Chartjs stacked100 library
 - Drop d3plus-hierarchy library
+- Drop calendar macro
 - Support private comments with issue macro
 - Google Docs macro has been added
 - Fix bug with Rack 2.0.8 or newer

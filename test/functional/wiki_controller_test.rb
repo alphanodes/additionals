@@ -183,16 +183,6 @@ class WikiControllerTest < Additionals::ControllerTest
     assert_select 'div.recently-updated'
   end
 
-  def test_show_calendar_macro
-    @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{calendar(year=1970, month=7)}}'
-    @page.content.save!
-    get :show,
-        params: { project_id: 1, id: @page_name }
-    assert_response :success
-    assert_select 'div.month-calendar'
-  end
-
   def test_show_with_members_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{members}}'

@@ -157,13 +157,8 @@
 
 div.clear-both { clear: both; }
 
-/* for Redmine 3.4 - fix problem with tabs */
+/* fix problem with tabs */
 .default-query-settings-label label {
-  margin-left: -100px !important;
-}
-
-/* for Redmine 4.x - fix problem with tabs */
-.default-query-settings-label-redmine4 label {
   width: 250px !important;
   margin-left: 0 !important;
   float: none;

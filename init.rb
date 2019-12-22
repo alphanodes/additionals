@@ -33,7 +33,7 @@ Redmine::Plugin.register :additionals do
   end
 
   # required redmine version
-  requires_redmine version_or_higher: '3.4.0'
+  requires_redmine version_or_higher: '4.0.0'
 
   menu :admin_menu, :additionals, { controller: 'settings', action: 'plugin', id: 'additionals' }, caption: :label_additionals
 

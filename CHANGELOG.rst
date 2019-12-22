@@ -14,6 +14,8 @@ Changelog
 - Support private comments with issue macro
 - Google Docs macro has been added
 - Fix bug with Rack 2.0.8 or newer
+- Drop Redmine 3.4 support
+- Add Redmine 4.1 support
 
 2.0.22
 ++++++

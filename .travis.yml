@@ -18,8 +18,6 @@ env:
 
 sudo: true
 
-bundler_args: --without development
-
 before_install:
   - export PLUGIN_NAME=additionals
   - export REDMINE_GIT_REPO=git://github.com/redmine/redmine.git

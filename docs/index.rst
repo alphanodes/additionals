@@ -12,8 +12,6 @@ Welcome to Additionals Plugin for Redmine
 
 Additionals is a `Redmine`_ plugin for customizing Redmine, providing wiki macros and act as a library/function provider for other Redmine plugins.
 
-This plugin is the successor of `Redmine Tweaks <https://github.com/alphanodes/redmine_tweaks>`_
-
 
 * Documentation: https://additionals.readthedocs.io
 * Redmine.org plugin page: https://www.redmine.org/plugins/additionals
@@ -167,12 +165,12 @@ Don't worry, if you only need a subset of the provided libraries. If you do not 
 
 It provides :
 
+* `Chart.js 2.9.3 <https://www.chartjs.org/>`_
+* `Chart.js Plugin colorschemes 0.4.0 <https://github.com/nagix/chartjs-plugin-colorschemes>`_
+* `Chart.js Plugin datalabels 0.7.0 <https://github.com/chartjs/chartjs-plugin-datalabels>`_
+* `clipboardJS 2.0.4 <https://clipboardjs.com/>`_
 * `d3 5.14.2 <https://d3js.org/>`_
 * `d3plus v2.0.0-alpha.25 <https://d3plus.org/>`_
-* `Chart.js 2.9.3 <https://www.chartjs.org/>`_
-* `Chart.js Plugin datalabels 0.7.0 <https://github.com/chartjs/chartjs-plugin-datalabels>`_
-* `Chart.js Plugin colorschemes 0.4.0 <https://github.com/nagix/chartjs-plugin-colorschemes>`_
-* `clipboardJS 2.0.4 <https://clipboardjs.com/>`_
 * `FontAwesome 5.12.0 <https://fontawesome.com/>`_
 * `mermaid 8.4.3 <https://github.com/knsv/mermaid/>`_
 * `Select2 4.0.12 <https://select2.org/>`_
@@ -193,19 +191,33 @@ This method loads all JS and CSS files needed by the required module.
 
 The following modules are available :
 
+* chartjs
+* chartjs_colorschemes
+* chartjs_datalabels
+* clipboardjs
 * d3
 * d3plus
-* chartjs
-* chartjs_datalabels
-* chartjs_colorschemes
-* clipboardjs
 * font_awesome
 * mermaid
 * select2
 
+Redmine Plugins, which are using ``additionals``
+------------------------------------------------
+
+* `redmine_codimd <https://github.com/AlphaNodes/redmine_codimd>`_
+* `redmine_db <https://alphanodes.com/redmine-db>`_
+* `redmine_git_hosting <http://redmine-git-hosting.io/>`_
+* `redmine_hrm <https://alphanodes.com/redmine-hrm>`_
+* `redmine_omniauth_saml <https://github.com/alexandermeindl/redmine_omniauth_saml>`_
+* `redmine_passwords <https://alphanodes.com/redmine-passwords>`_
+* `redmine_postgresql_search <https://github.com/AlphaNodes/redmine_postgresql_search>`_
+* `redmine_privacy_terms <https://github.com/AlphaNodes/redmine_privacy_terms>`_
+* `redmine_reporting <https://alphanodes.com/redmine-reporting>`_
+
+If you know other plugin, which are using ``additionals``, please let us know or create a `PR <https://github.com/alphanodes/additionals/pulls>`_.
 
 Contact and Support
---------------------
+-------------------
 
 I am glad about your feedback on the plugin, `pull requests <https://github.com/alphanodes/additionals/pulls>`_, `issues <https://github.com/alphanodes/additionals/issues>`_, whatever. Feel free to contact me for any questions.
 

@@ -10,10 +10,10 @@ AllCops:
   TargetRailsVersion: 5.2
 
 Metrics/AbcSize:
-  Max: 65
+  Enabled: false
 
 Metrics/BlockLength:
-  Max: 60
+  Enabled: false
 
 Metrics/ClassLength:
   Enabled: false

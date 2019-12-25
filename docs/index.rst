@@ -172,7 +172,7 @@ It provides :
 * `d3 5.14.2 <https://d3js.org/>`_
 * `d3plus v2.0.0-alpha.25 <https://d3plus.org/>`_
 * `FontAwesome 5.12.0 <https://fontawesome.com/>`_
-* `mermaid 8.4.3 <https://github.com/knsv/mermaid/>`_
+* `mermaid 8.4.4 <https://github.com/knsv/mermaid/>`_
 * `Select2 4.0.12 <https://select2.org/>`_
 
 And a set of various Rails helper methods (see below).
@@ -214,7 +214,7 @@ Redmine Plugins, which are using ``additionals``
 * `redmine_privacy_terms <https://github.com/AlphaNodes/redmine_privacy_terms>`_
 * `redmine_reporting <https://alphanodes.com/redmine-reporting>`_
 
-If you know other plugin, which are using ``additionals``, please let us know or create a `PR <https://github.com/alphanodes/additionals/pulls>`_.
+If you know other plugins, which are using ``additionals``, please let us know or create a `PR <https://github.com/alphanodes/additionals/pulls>`_.
 
 Contact and Support
 -------------------

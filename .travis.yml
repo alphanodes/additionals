@@ -38,5 +38,5 @@ before_script:
 script:
   - export SKIP_COVERAGE=1
   - if [[ "$REDMINE_VER" == "master" ]]; then brakeman plugins/$PLUGIN_NAME; fi
-  - if [[ "$REDMINE_VER" == "master" ]]; then rubocop plugins/$PLUGIN_NAME; fi
+  - if [[ "$REDMINE_VER" != "master" ]]; then rubocop plugins/$PLUGIN_NAME; fi
   - bundle exec rake redmine:plugins:test NAME=$PLUGIN_NAME RUBYOPT="-W0"

@@ -57,9 +57,6 @@ zh:
   label_day: 天
   label_disabled_modules: "禁用模块"
   label_open_external_urls: "打开外部URL"
-  label_fontawesome_brands: Brands
-  label_fontawesome_regular: Regular
-  label_fontawesome_solid: Solid
   label_global_footer: "项目范围内的页脚设置"
   label_global_sidebar: "全局侧边栏设置"
   label_global_wiki_footer: "项目范围内 WIKI 页脚设置"
@@ -106,7 +103,6 @@ zh:
   label_issue_status_change: "若 \"指派给\" 的值未修改，且问题状态要从 X 变更为 Y，那么该问题必须指派给问题作者自己。"
   label_issue_timelog_required: Time log for issues required
   label_search_by_name: 按名称搜索
-  label_set_icon_from: 图标设置自
   label_settings_macros: "宏"
   label_settings_menu: "菜单"
   label_show_all: 显示所有

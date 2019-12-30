@@ -57,9 +57,6 @@ fr:
   label_day: Jour
   label_disabled_modules: "Modules désactivés"
   label_open_external_urls: Ouvrir des URL externes
-  label_fontawesome_brands: Brands
-  label_fontawesome_regular: Regular
-  label_fontawesome_solid: Solid
   label_global_footer: "Project wide footer"
   label_global_sidebar: "Global sidebar"
   label_global_wiki_footer: "Project wide wiki footer"
@@ -106,7 +103,6 @@ fr:
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
   label_issue_timelog_required: Time log for issues required
   label_search_by_name: Recherche par nom
-  label_set_icon_from: Set an icon from
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
   label_show_all: Montrer tout

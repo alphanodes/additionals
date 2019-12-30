@@ -57,9 +57,6 @@ es:
   label_day: día
   label_disabled_modules: "Módulos desactivados"
   label_open_external_urls: Abrir URLs externas
-  label_fontawesome_brands: Brands
-  label_fontawesome_regular: Regular
-  label_fontawesome_solid: Solid
   label_global_footer: "Footer para todo el proyecto"
   label_global_sidebar: "Barra lateral global"
   label_global_wiki_footer: "Footer de wiki para todo el proyecto"
@@ -106,7 +103,6 @@ es:
   label_issue_status_change: "Si no se modifica el usuario \"Asignado\" y la el estado de la petición es modificado de x a y, entonces la petición es asignada al autor de la petición"
   label_issue_timelog_required: Se requiere Registro de tiempo para las peticiones
   label_search_by_name: Buscar por nombre
-  label_set_icon_from: Asignar ícono desde
   label_settings_macros: "Macros"
   label_settings_menu: "Menú"
   label_show_all: Mostrar todo

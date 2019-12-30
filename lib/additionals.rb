@@ -13,6 +13,7 @@ module Additionals
                               redmine_changeauthor
                               redmine_auto_watch])
       patch(%w[AccountController
+               AutoCompletesController
                Issue
                IssuePriority
                TimeEntry
@@ -138,6 +139,17 @@ module Additionals
       else
         cached_settings
       end
+    end
+
+    def hash_remove_with_default(field, options, default = nil)
+      value = nil
+      if options.key? field
+        value = options[field]
+        options.delete(field)
+      elsif !default.nil?
+        value = default
+      end
+      [value, options]
     end
 
     private

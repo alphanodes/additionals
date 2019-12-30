@@ -57,9 +57,6 @@
   label_day: 天
   label_disabled_modules: "禁用模組"
   label_open_external_urls: "打開外部URL"
-  label_fontawesome_brands: Brands
-  label_fontawesome_regular: Regular
-  label_fontawesome_solid: Solid
   label_global_footer: "專案中頁尾設定"
   label_global_sidebar: "專案中側邊設定"
   label_global_wiki_footer: "專案中Wiki頁尾訊息設定"
@@ -106,7 +103,6 @@
   label_issue_status_change: "若未修改 \"被分派者\" ，且議題狀態要從 X 變更為 Y ，則該議題必須被分派給議題作者。"
   label_issue_timelog_required: Time log for issues required
   label_search_by_name: "按名稱搜尋"
-  label_set_icon_from: "圖示設定自"
   label_settings_macros: "macros 語法"
   label_settings_menu: "選單"
   label_show_all: "顯示全部"

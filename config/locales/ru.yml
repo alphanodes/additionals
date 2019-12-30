@@ -57,9 +57,6 @@ ru:
   label_day: "день"
   label_disabled_modules: "Отключенные модули"
   label_open_external_urls: Открыть внешний URL-адрес
-  label_fontawesome_brands: Brands
-  label_fontawesome_regular: Regular
-  label_fontawesome_solid: "Твердый"
   label_global_footer: "Project wide footer"
   label_global_sidebar: "Глобальная боковая панель"
   label_global_wiki_footer: "Широкий вики-футбол проекта"
@@ -106,7 +103,6 @@ ru:
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
   label_issue_timelog_required: Time log for issues required
   label_search_by_name: "Поиск по имени"
-  label_set_icon_from: Set an icon from
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
   label_show_all: "Показать все"

@@ -57,9 +57,6 @@ ko:
   label_day: 일
   label_disabled_modules: "비활성화 된 모듈"
   label_open_external_urls: 외부 URL 열기
-  label_fontawesome_brands: Brands
-  label_fontawesome_regular: Regular
-  label_fontawesome_solid: Solid
   label_global_footer: "넓은 바닥 글 프로젝트"
   label_global_sidebar: "글로벌 사이드 바"
   label_global_wiki_footer: "프로젝트 전체 위키 바닥 글"
@@ -106,7 +103,6 @@ ko:
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
   label_issue_timelog_required: 필요한 문제에 대한 시간 로그
   label_search_by_name: 이름으로 검색
-  label_set_icon_from: 에서 아이콘 설정
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
   label_show_all: 모두 표시

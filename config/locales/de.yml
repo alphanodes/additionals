@@ -57,9 +57,6 @@ de:
   label_day: Tag
   label_disabled_modules: "Deaktivierte Module"
   label_open_external_urls: "Externe URLs öffnen"
-  label_fontawesome_brands: Brands
-  label_fontawesome_regular: Regular
-  label_fontawesome_solid: Solid
   label_global_footer: "Projektübergreifender Footer"
   label_global_sidebar: "Projektübergreifender Sidebar Inhalt"
   label_global_wiki_footer: "Projektübergreifender Wiki Footer"
@@ -106,7 +103,6 @@ de:
   label_issue_status_change: "Wird \"Zugewiesen an\" nicht verändert und der Ticketstatus von x auf y geändert, dann wird das Ticket automatisch dem Ersteller zugewiesen"
   label_issue_timelog_required: Zeiterfassung für Ticket erforderlich
   label_search_by_name: Suche nach Namen
-  label_set_icon_from: Symbol auswählen von
   label_settings_macros: "Makros"
   label_settings_menu: "Menü"
   label_show_all: Alle anzeigen

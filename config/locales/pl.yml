@@ -57,9 +57,6 @@ pl:
   label_day: "dzień"
   label_disabled_modules: "Moduły wyłączone"
   label_open_external_urls: "Otwieranie zewnętrznych adresów URL"
-  label_fontawesome_brands: Brands
-  label_fontawesome_regular: Regular
-  label_fontawesome_solid: Solid
   label_global_footer: "Szeroka podstawa projektu"
   label_global_sidebar: "Globalny pasek boczny"
   label_global_wiki_footer: "Szeroka stopka wikii projektu"
@@ -106,7 +103,6 @@ pl:
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
   label_issue_timelog_required: "Wymagany jest dziennik czasowy dla issues"
   label_search_by_name: "Wyszukiwanie według nazwy"
-  label_set_icon_from: Set an icon from
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
   label_show_all: "Pokaż wszystkof"

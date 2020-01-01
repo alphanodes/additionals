@@ -4,6 +4,7 @@ module Additionals
     include AdditionalsIssuesHelper
 
     render_on(:view_layouts_base_html_head, partial: 'additionals/html_head')
+    render_on(:view_layouts_base_body_top, partial: 'additionals/body_top')
     render_on(:view_layouts_base_content, partial: 'additionals/content')
     render_on(:view_layouts_base_body_bottom, partial: 'additionals/body_bottom')
 

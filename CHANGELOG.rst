@@ -18,6 +18,8 @@ Changelog
 - Fix bug with Rack 2.0.8 or newer
 - Drop Redmine 3.4 support
 - Add Redmine 4.1 support
+- Use view_layouts_base_body_top hook, which is available since Redmine 3.4
+- Refactoring new hooks (without template)
 
 2.0.22
 ++++++

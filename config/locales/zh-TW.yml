@@ -17,6 +17,7 @@
         issue_log_time_not_allowed: "議題已關閉，您無法繼續在該議題上登記工時。"
         issue_changes_not_allowed: "議題已關閉，您無權修改該議題的內容。"
         issue_requires_timelog: "The selected issue status requires a time logging."
+        invalid_icon_format: "無效的 font-awesome 代碼。"
   account_login_info: "在登入頁面顯示的註冊訊息。該選項是通用選項。"
   add_go_to_top_info: "如果你有很長的頁面，建議增加 \"回到頁首\" 的按鈕。"
   button_assign_to_me: Assign to me
@@ -24,7 +25,6 @@
   error_issue_status_could_not_changed: Issue state could not be changed
   error_issues_could_not_be_assigned_to_me: Issue could not assigned to me
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
-  errors_invalid_icon_format: "無效的 font-awesome 代碼。"
   errors_no_or_invalid_arguments: "參數無效或不存在。"
   open_external_urls_info: "如果啟用，則在新窗口/選項卡中打開外部URL。"
   field_autowatch_involved_issue: "自動監看參與的議題"

@@ -17,6 +17,7 @@ es:
         issue_log_time_not_allowed: "es una petición cerrada. Usted no puede asignarle tiempo dedicado."
         issue_changes_not_allowed: "Esta es una petición cerrada, Usted no dispone de permisos para cambiarla."
         issue_requires_timelog: "El estado actual de la petición requiere que le asigne el tiempo dedicado."
+        invalid_icon_format: es un código inválido de font-awesome
   account_login_info: "Este texto será mostrado en la pantalla de inicio de sesión y debe ser utilizado para información sobre el registro. Esta configuración está activa en todos los proyectos."
   add_go_to_top_info: 'Si tiene muchas páginas largas, es útil agregar el enlace para volver al inicio.'
   button_assign_to_me: Asignar a mi mismo
@@ -24,7 +25,6 @@ es:
   error_issue_status_could_not_changed: El estado de la petición no puede ser modificado
   error_issues_could_not_be_assigned_to_me: La petición no puede ser asignada a mi mismo
   error_query_statement_invalid: Ocurrió un error ejecutando la consulta y fue registrado. Por favor informe este error al administrador de Redmine.
-  errors_invalid_icon_format: es un código inválido de font-awesome
   errors_no_or_invalid_arguments: Parámetros inválidos
   open_external_urls_info: "Si está activo, las URL externas se abren en una nueva ventana/pestaña."
   field_autowatch_involved_issue: Automonitorear las peticiones en las que estoy involucrado

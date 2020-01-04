@@ -17,6 +17,7 @@ it:
         issue_log_time_not_allowed: "è un issue chiuso. Non è consentito registrare il tempo."
         issue_changes_not_allowed: "Questo issue è chiuso, non ha alcun diritto di modificarlo."
         issue_requires_timelog: "Lo stato del problema selezionato richiede una registrazione temporale."
+        invalid_icon_format: 'è un font-awesome codice non valido'
   account_login_info: "Questo messaggio di testo sarà mostrato nella pagina di login e deve essere utilizzato per le informazioni di registrazione. Queste impostazioni sono attive in tutti i progetti."
   add_go_to_top_info: 'Se hai un sacco di pagine lunghe, è utile aggiungere un To top link principale.'
   button_assign_to_me: Assign to me
@@ -24,7 +25,6 @@ it:
   error_issue_status_could_not_changed: Issue state could not be changed
   error_issues_could_not_be_assigned_to_me: Issue could not assigned to me
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
-  errors_invalid_icon_format: 'è un font-awesome codice non valido'
   errors_no_or_invalid_arguments: No o non valido argomenti
   open_external_urls_info: "Se attivo, gli URL esterni vengono aperti in una nuova finestra/tab."
   field_autowatch_involved_issue: Autowatch involved issues

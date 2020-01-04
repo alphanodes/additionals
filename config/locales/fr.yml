@@ -17,6 +17,7 @@ fr:
         issue_log_time_not_allowed: "est une issue close. Vous n'avez pas le droit de vous connecter."
         issue_changes_not_allowed: "Ce issue est clos, vous n'avez pas le droit de le modifier."
         issue_requires_timelog: "Le statut de sortie sélectionné nécessite un enregistrement temporel."
+        invalid_icon_format: is an invalid font-awesome code
   account_login_info: "Ce message texte sera affiché à la page de connexion et devrait être utilisé pour les informations d'inscription. Ces options sont actives dans tous les projets."
   add_go_to_top_info: "Si vous avez beaucoup de pages longues, il est utile d'ajouter un saut au lien du haut."
   button_assign_to_me: Assign to me
@@ -24,7 +25,6 @@ fr:
   error_issue_status_could_not_changed: "L'état de la question n'a pas pu être modifié"
   error_issues_could_not_be_assigned_to_me: "La question n'a pas pu m'être assignée"
   error_query_statement_invalid: "Une erreur s'est produite lors de l'exécution de la requête et a été enregistrée. Veuillez signaler cette erreur à votre administrateur Redmine."
-  errors_invalid_icon_format: is an invalid font-awesome code
   errors_no_or_invalid_arguments: "Pas d'arguments ou arguments invalides"
   open_external_urls_info: "S'ils sont actifs, les URL externes s'ouvrent dans une nouvelle fenêtre/onglet."
   field_autowatch_involved_issue: "Problèmes liés à la surveillance automatique"

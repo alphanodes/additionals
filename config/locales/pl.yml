@@ -17,6 +17,7 @@ pl:
         issue_log_time_not_allowed: "to zamknięty issue. Nie wolno w nim rejestrować czasu."
         issue_changes_not_allowed: "Ten issue jest zamknięty, nie masz prawa go zmieniać."
         issue_requires_timelog: "Wybrany status issue wymaga rejestracji czasu."
+        invalid_icon_format: "jest nieprawidłowym kodem font-awesome"
   account_login_info: "Ta wiadomość tekstowa zostanie wyświetlona na stronie logowania i powinna być użyta jako informacja rejestracyjna. Ustawienia te są aktywne we wszystkich projektach."
   add_go_to_top_info: "Jeśli masz dużo długich stron, pomocne jest dodanie skoku do górnego linku."
   button_assign_to_me: Przypisz do mnie
@@ -24,7 +25,6 @@ pl:
   error_issue_status_could_not_changed: "Stan Issue nie mógł zostać zmieniony."
   error_issues_could_not_be_assigned_to_me: "Issue nie mógł być mi przypisany"
   error_query_statement_invalid: "Wystąpił błąd podczas wykonywania zapytania i został zarejestrowany. Proszę zgłosić ten błąd administratorowi Redmine."
-  errors_invalid_icon_format: "jest nieprawidłowym kodem font-awesome"
   errors_no_or_invalid_arguments: "Brak lub nieważne argumenty"
   open_external_urls_info: "Jeśli jest aktywny, zewnętrzne adresy URL są otwierane w nowym oknie/tabeli."
   field_autowatch_involved_issue: Autowatch involved issues

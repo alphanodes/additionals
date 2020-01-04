@@ -1,0 +1,13 @@
+- if group_name
+  - reset_cycle
+  tr.group.open
+    td colspan="#{@query.inline_columns.size + 2}"
+      span.expander.icon.icon-expended[onclick="toggleRowGroup(this);"]
+        '  
+      span.name = group_name
+      '
+      span.badge.badge-count.count = group_count
+      '
+      span.totals = group_totals
+      = link_to_function("#{l(:button_collapse_all)}/#{l(:button_expand_all)}",
+                         'toggleAllRowGroups(this)', class: 'toggle-all')

@@ -17,6 +17,7 @@ ja:
         issue_log_time_not_allowed: "is a closed issue. You are not allowed to log time at it."
         issue_changes_not_allowed: "This issue is closed, you do not have any right to change it."
         issue_requires_timelog: "The selected issue status requires a time logging."
+        invalid_icon_format: is an invalid font-awesome code
   account_login_info: "この文章は、ログイン画面で表示され、登録情報の掲載を目的にしています。これらの設定は全プロジェクトで有効です。"
   add_go_to_top_info: '長いページが多い場合、「トップへ」のリンクは役立ちます。'
   button_assign_to_me: Assign to me
@@ -24,7 +25,6 @@ ja:
   error_issue_status_could_not_changed: "問題の状態を変更できませんでした"
   error_issues_could_not_be_assigned_to_me: "問題を自分に割り当てることができませんでした"
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
-  errors_invalid_icon_format: is an invalid font-awesome code
   errors_no_or_invalid_arguments: No or invalid arguments
   open_external_urls_info: "アクティブな場合、外部URLは新しいウィンドウ/タブで開かれます。"
   field_autowatch_involved_issue: Autowatch involved issues

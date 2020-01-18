@@ -106,6 +106,15 @@ class AdditionalsFontAwesome
       icons + search_in_type(:fab, search, selected_store, cnt)
     end
 
+    def convert2mermaid(icon)
+      return if icon.blank?
+
+      parts = icon.split('_')
+      return unless parts.count == 2
+
+      "#{parts.first}:fa-#{parts.last}"
+    end
+
     private
 
     def search_in_type(type, search, selected_store, cnt = 0)

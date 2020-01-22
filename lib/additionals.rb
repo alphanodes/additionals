@@ -58,7 +58,7 @@ module Additionals
       load_macros(%w[cryptocompare date fa gist gmap google_docs group_users iframe
                      issue redmine_issue redmine_wiki
                      last_updated_at last_updated_by meteoblue member new_issue project
-                     recently_updated reddit slideshare tradingview twitter user vimeo youtube])
+                     recently_updated reddit slideshare tradingview twitter user vimeo youtube asciinema])
     end
 
     def settings_compatible(plugin_name)

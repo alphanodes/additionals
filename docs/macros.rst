@@ -30,3 +30,4 @@ If a parameter is in brackets, this parameter is optional.
 .. include:: macros/user.rst
 .. include:: macros/vimeo.rst
 .. include:: macros/youtube.rst
+.. include:: macros/asciinema.rst

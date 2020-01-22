@@ -129,6 +129,7 @@ Features
   * user
   * vimeo
   * youtube
+  * asciinema
 
 * macro list with all available macros at /help/macros
 * macro button for wiki toolbar with available macros with project and permission context support

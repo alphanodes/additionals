@@ -366,6 +366,16 @@ class WikiControllerTest < Additionals::ControllerTest
     assert_select 'div.flash.error', html: /Error executing/
   end
 
+  def test_show_with_asciinema_macro
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    @page.content.text = '{{asciinema(113463)}}'
+    @page.content.save!
+    get :show,
+        params: { project_id: 1, id: @page_name }
+    assert_response :success
+    assert_select 'script[src=?]', '//asciinema.org/a/113463.js'
+  end
+
   def test_show_issue
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{issue(2, format=short)}}'

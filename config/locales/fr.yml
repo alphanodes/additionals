@@ -18,17 +18,20 @@ fr:
         issue_changes_not_allowed: "Ce issue est clos, vous n'avez pas le droit de le modifier."
         issue_requires_timelog: "Le statut de sortie sélectionné nécessite un enregistrement temporel."
         invalid_icon_format: is an invalid font-awesome code
+        relation_not_unique: multiple assigned.
   account_login_info: "Ce message texte sera affiché à la page de connexion et devrait être utilisé pour les informations d'inscription. Ces options sont actives dans tous les projets."
   add_go_to_top_info: "Si vous avez beaucoup de pages longues, il est utile d'ajouter un saut au lien du haut."
+  additionals_query_list_default_totals: "Montants par défaut pour la vue en liste"
+  additionals_query_list_defaults: "Colonnes par défaut pour la vue en liste"
   button_assign_to_me: Assign to me
   disabled_modules_info: "Les modules qui ne devraient pas être disponibles pour la sélection dans le cadre des projets. Si ces modules sont déjà activés dans des projets existants, vous devez d'abord modifier et sauvegarder à nouveau les paramètres de projet respectifs."
   error_issue_status_could_not_changed: "L'état de la question n'a pas pu être modifié"
   error_issues_could_not_be_assigned_to_me: "La question n'a pas pu m'être assignée"
   error_query_statement_invalid: "Une erreur s'est produite lors de l'exécution de la requête et a été enregistrée. Veuillez signaler cette erreur à votre administrateur Redmine."
   errors_no_or_invalid_arguments: "Pas d'arguments ou arguments invalides"
-  open_external_urls_info: "S'ils sont actifs, les URL externes s'ouvrent dans une nouvelle fenêtre/onglet."
   field_autowatch_involved_issue: "Problèmes liés à la surveillance automatique"
   field_color: Couleur
+  field_hide: "Cuir"
   field_icon: Icon
   field_issue_relation_plural: Issue relations
   field_tag_list: Tags
@@ -42,8 +45,9 @@ fr:
   global_wiki_header_info: "Entrez ici un en-tête wiki pour l'ensemble du projet. Dans le cas où un en-tête wiki spécifique à un projet est utilisé par \"Wiki Extensions\", celui-ci sera de préférence affiché à la place."
   global_wiki_sidebar_info: "Entrez ici un message texte disponible pour l'ensemble du projet pour votre barre latérale wiki. Ce texte de la barre latérale sera affiché uniquement sur les pages wiki. Use this space for Macros like \"Last changed pages\" for example. Dans le cas où une barre latérale spécifique au projet est utilisée (page wiki), celle-ci sera de préférence affichée dans la barre latérale."
   google_maps_embed_api_html: "Si vous souhaitez utiliser la macro Gmap pour afficher les cartes de Goole, veuillez implémenter votre clé API Google Maps ici. Ensuite, vous pouvez utiliser la macro et divers paramètres. Pour plus d'informations sur l'utilisation des paramètres, voir <a href=\"https://developers.google.com/maps/documentation/embed/guide\">https://developers.google.com/maps/documentation/embed/guide</a>. La macro Gmap ne fonctionne qu'en combinaison avec la clé intégrée."
+  hidden_macros_in_toolbar_info: "Toutes les macros disponibles que l'utilisateur connecté peut utiliser sont listées via le bouton macro de la barre d'outils wiki. Les macros marquées ici ne sont pas proposées à la sélection. Ceci vous permet de limiter la portée de la liste."
+  info_hidden_roles_html: "Les rôles cachés ne peuvent être utilisés qu'avec la visibilité utilisateur \"Membres de projets visibles\". Si l'utilisateur n'est pas dans un rôle visible par l'utilisateur actuel, ce rôle, y compris l'utilisateur, est masqué sur la page de synthèse du projet et dans les listes de requêtes."
   invisible_captcha_info_html: In case this option is activated an <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection is activated for the registration page of new users. This function is only available, if you enabled self-registration, too.
-  label_docs_access_token: Access token
   label_account_login_bottom: "Texte pour la page de login"
   label_add_go_to_top: 'Add "Go to top" link'
   label_add_tags: Add tags
@@ -51,12 +55,17 @@ fr:
   label_additionals: Additionals
   label_app_menu: App menu
   label_change_is_private: Change private/non-private
+  label_chart_color_schema: Charts color scheme
+  label_chartjs_colorscheme_info: "Liste des couleurs"
   label_content_plural: Contents
   label_custom_menu_items: Éléments de menu personnalisés
   label_daily: tous les jours
+  label_dashboard_plural: Dashboards
+  label_dashboard: Dashboard
   label_day: Jour
   label_disabled_modules: "Modules désactivés"
-  label_open_external_urls: Ouvrir des URL externes
+  label_docs_access_token: Access token
+  label_edit_tags: Modifier tags
   label_global_footer: "Project wide footer"
   label_global_sidebar: "Global sidebar"
   label_global_wiki_footer: "Project wide wiki footer"
@@ -66,13 +75,19 @@ fr:
   label_google_maps_api_key: Google Maps Embed API Key
   label_help_integration: "Intégration de notre aide en ligne"
   label_help_manual: manual
+  label_hidden_macros_in_toolbar: Hidden macros
   label_hour: Heure
   label_icon_color: Icon color
   label_invisible_captcha: SPAM protection for registration
   label_issue_assign_to_me: Show "Assign to me" on issue
+  label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
   label_issue_autowatch_involved: "Ajout automatique des utilisateurs impliqués en tant qu'observateurs"
   label_issue_change_status_in_sidebar: Issue status on sidebar
   label_issue_change_status: Modifier statut
+  label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
+  label_issue_freezed_with_close: "Interdire l'édition des questions fermées (freeze)"
+  label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
+  label_issue_timelog_required: Time log for issues required
   label_last_year: previous year
   label_legacy_smiley_support: Legacy smiley/emoji support
   label_macro_plural: macros
@@ -80,6 +95,8 @@ fr:
   label_monthly: mensuel
   label_new_issue_on_profile: "Nouveau issue sur le profil de l'utilisateur"
   label_new_ticket_message: "Note for new issues"
+  label_open_external_urls: Ouvrir des URL externes
+  label_open_in_google_docs: "Ouvrir dans Google Docs"
   label_open_in_new_windows: Open in new windows
   label_optional: "optional"
   label_overview_bottom: "Page de sommaire, fond"
@@ -91,6 +108,7 @@ fr:
   label_project_overview_content: "Project guide"
   label_query_delete: Annuler query
   label_query_edit: Modifier query
+  label_query_name_search: Rechercher un nom
   label_reddit_subject: Reddit subject
   label_reddit_user_account: Reddit user account
   label_redmine_org_issue: Redmine.org issue
@@ -98,10 +116,6 @@ fr:
   label_remove_help: "Remove 'Help' from top menu"
   label_remove_mypage: "Remove 'My Page' from top menu"
   label_remove_news: "Remove 'Lastest news' from overview page"
-  label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
-  label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
-  label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
-  label_issue_timelog_required: Time log for issues required
   label_search_by_name: Recherche par nom
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
@@ -120,10 +134,13 @@ fr:
   label_weekly: hebdomadaire
   label_wiki_pdf_remove_attachments: "Supprimer les pièces jointes de la vue PDF"
   label_wiki_pdf_remove_title: "Supprimer le titre du wiki de la vue PDF"
+  label_without_value: "Aucune %{value}"
   label_yearly: annuellement
+  latest_entries_changes: "Derniers %{value} changements"
   legacy_smiley_support_info_html: 'Convert Smileys and Emoji symbols. Activate this option only if Smileys or Emoji are manually typed in by the use of code (e.g. :kiss:). If you use Unicode-Emoji this option should be deactivated. For more info on Emoji-Browser support read <a href="http://caniemoji.com/" target="_blank">http://caniemoji.com/</a>. Have a look at <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> for available Emoji-Codes you can use. <strong>Restart the application server</strong>, in order to activate the settings.'
   menu_roles_info: "Seuls les membres des rôles sélectionnés verront cette entrée de menu."
   new_ticket_message_info: "Une note sera montrée à tous ceux qui veulent ajouter un nouveau numéro. Par exemple, vous pouvez saisir des tests d'acceptation ou édicter des règles ici. Ces paramètres sont utilisés à l'échelle du projet."
+  open_external_urls_info: "S'ils sont actifs, les URL externes s'ouvrent dans une nouvelle fenêtre/onglet."
   overview_bottom_info: "Ici, vous pouvez ajouter votre texte, qui sera affiché sur la page d'aperçu en bas. Par exemple, vous pouvez créer un lien vers une page wiki."
   overview_right_info: "Ici, vous pouvez ajouter votre texte, qui sera affiché sur la page d'aperçu sur le côté droit. Par exemple, vous pouvez créer un lien vers une page wiki."
   overview_top_info: "Ici, vous pouvez ajouter votre texte, qui sera affiché sur la page d'aperçu en haut de la page. Par exemple, vous pouvez créer un lien vers une page wiki."
@@ -139,6 +156,7 @@ fr:
   remove_news_info: "Supprimer les dernières nouvelles de la page d'aperçu."
   rule_issue_auto_assign_info: "Cas d'utilisation : L'auteur du problème ne sait pas à qui attribuer le problème ou qui sera responsable de la résolution de la tâche. Dans ce cas, le problème par exemple avec le statut \"A faire\" est automatiquement affecté au premier groupe, qui contient un utilisateur du rôle de chef de projet présélectionné."
   rule_issue_current_user_status_info_html: "Si cette fonction est utilisée en combinaison avec l'option de paramétrage \"Etat du problème dans la barre latérale\", l'utilisateur actuel sera automatiquement affecté au problème lors de la modification de l'état du problème.<br />Use Case: Les utilisateurs ne sont autorisés à changer le statut en \"En cours\" que s'ils sont la personne qui travaille réellement sur le problème en ce moment."
+  rule_issue_freezed_with_close_info: "Si cette option est activée, les numéros déjà fermés ne peuvent plus être édités et commentés. Pas même par courrier ou API. Cette restriction ne s'applique pas aux rôles utilisateurs avec l'autorisation \"Modifier les problèmes fermés\"."
   rule_issue_status_change_info: "Cas d'utilisation: les problèmes doivent être automatiquement assignés à autor, si l'état passe à \"Approval\"."
   rule_issue_timelog_required_info_html: "Pour chaque ticket des trackers sélectionnés, une réservation temporelle est nécessaire si le ticket doit recevoir l'une des propriétés de statut définies. La réservation de temps n'est pas nécessaire si:<br />- aucun droit n'existe pour créer des réservations de temps <br />- l'utilisateur a l'autorisation \"Réservations de temps non nécessaires\" <br />Use case: Pour accepter un ticket avec le statut \"Vérifier\", le temps passé est également requis."
   show_always: "Afficher toujours"
@@ -152,18 +170,3 @@ fr:
   top_wiki_help: "Ici vous pouvez définir le contenu et les paramètres de votre Wiki."
   wiki_pdf_remove_attachments_info: "Lorsqu'ils sont actifs, les fichiers Wiki joints ne seront pas affichés en vue PDF."
   wiki_pdf_remove_title_info: "Lorsqu'elle est active, l'information sur le titre du wiki ne sera pas affichée dans la vue PDF."
-  label_issue_freezed_with_close: "Interdire l'édition des questions fermées (freeze)"
-  rule_issue_freezed_with_close_info: "Si cette option est activée, les numéros déjà fermés ne peuvent plus être édités et commentés. Pas même par courrier ou API. Cette restriction ne s'applique pas aux rôles utilisateurs avec l'autorisation \"Modifier les problèmes fermés\"."
-  additionals_query_list_defaults: "Colonnes par défaut pour la vue en liste"
-  additionals_query_list_default_totals: "Montants par défaut pour la vue en liste"
-  field_hide: "Cuir"
-  label_hidden_macros_in_toolbar: Hidden macros
-  hidden_macros_in_toolbar_info: "Toutes les macros disponibles que l'utilisateur connecté peut utiliser sont listées via le bouton macro de la barre d'outils wiki. Les macros marquées ici ne sont pas proposées à la sélection. Ceci vous permet de limiter la portée de la liste."
-  info_hidden_roles_html: "Les rôles cachés ne peuvent être utilisés qu'avec la visibilité utilisateur \"Membres de projets visibles\". Si l'utilisateur n'est pas dans un rôle visible par l'utilisateur actuel, ce rôle, y compris l'utilisateur, est masqué sur la page de synthèse du projet et dans les listes de requêtes."
-  latest_entries_changes: "Derniers %{value} changements"
-  label_edit_tags: Modifier tags
-  label_query_name_search: Rechercher un nom
-  label_chartjs_colorscheme_info: "Liste des couleurs"
-  label_chart_color_schema: Charts color scheme
-  label_without_value: "Aucune %{value}"
-  label_open_in_google_docs: "Ouvrir dans Google Docs"

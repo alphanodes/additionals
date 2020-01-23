@@ -20,6 +20,7 @@ Changelog
 - Add Redmine 4.1 support
 - Use view_layouts_base_body_top hook, which is available since Redmine 3.4
 - Refactoring new hooks (without template)
+- asciinema.org macro has been added - thanks to @kotashiratsuka
 
 2.0.22
 ++++++

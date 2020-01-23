@@ -5,6 +5,7 @@ These wiki macros are available with Additionals.
 
 If a parameter is in brackets, this parameter is optional.
 
+.. include:: macros/asciinema.rst
 .. include:: macros/cryptocompare.rst
 .. include:: macros/date.rst
 .. include:: macros/fa.rst
@@ -30,4 +31,3 @@ If a parameter is in brackets, this parameter is optional.
 .. include:: macros/user.rst
 .. include:: macros/vimeo.rst
 .. include:: macros/youtube.rst
-.. include:: macros/asciinema.rst

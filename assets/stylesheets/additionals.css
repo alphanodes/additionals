@@ -251,7 +251,8 @@ img.additionals-avatar { margin-right: 0.25em; }
   border: 0;
   max-width: inherit;
   border-radius: 4px;
-  font: normal 12px"Helvetica Neue", Sans-Serif;
+  box-shadow: 0 0 6px #888;
+  font-size: 12px;
 }
 
 a.external.redmine-link {

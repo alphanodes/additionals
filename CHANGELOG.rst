@@ -21,6 +21,7 @@ Changelog
 - Use view_layouts_base_body_top hook, which is available since Redmine 3.4
 - Refactoring new hooks (without template)
 - asciinema.org macro has been added - thanks to @kotashiratsuka
+- Select2 4.0.13 support
 
 2.0.22
 ++++++

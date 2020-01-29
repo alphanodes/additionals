@@ -174,7 +174,7 @@ It provides :
 * `d3plus v2.0.0-alpha.25 <https://d3plus.org/>`_
 * `FontAwesome 5.12.0 <https://fontawesome.com/>`_
 * `mermaid 8.4.6 <https://github.com/knsv/mermaid/>`_
-* `Select2 4.0.12 <https://select2.org/>`_
+* `Select2 4.0.13 <https://select2.org/>`_
 
 And a set of various Rails helper methods (see below).
 

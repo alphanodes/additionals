@@ -8,7 +8,9 @@ module Additionals
         assignee = Principal.find_by(id: assigned_to_id_was)
         users << assignee if assignee
       end
-      users.uniq.sort
+
+      users.uniq!
+      users.sort
     end
   end
 end

@@ -1,6 +1,28 @@
 Changelog
 =========
 
+2.0.23
+++++++
+
+- members macro now supports with_sum option
+- FontAwesome 5.12 support
+- FontAwesome ajax search has been added
+- Mermaid 8.4.6 support
+- D3 5.15.0 support
+- Drop nvd3 library
+- Drop Chartjs stacked100 library
+- Drop d3plus-hierarchy library
+- Drop calendar macro
+- Support private comments with issue macro
+- Google Docs macro has been added
+- Fix bug with Rack 2.0.8 or newer
+- Drop Redmine 3.4 support
+- Add Redmine 4.1 support
+- Use view_layouts_base_body_top hook, which is available since Redmine 3.4
+- Refactoring new hooks (without template)
+- asciinema.org macro has been added - thanks to @kotashiratsuka
+- Select2 4.0.13 support
+
 2.0.22
 ++++++
 
@@ -9,6 +31,7 @@ Changelog
 - Select2 4.0.12 support
 - Chart.js 2.9.3 support
 - Chart.js Plugin datalabels 0.7.0 support
+- d3plus to v2.0.0-alpha.25
 - Fix user visibility for members macro
 - Fix user visibility for issue reports
 - Drop ZeroClipboard library

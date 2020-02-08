@@ -4,6 +4,13 @@ module AdditionalsQuery
   end
 
   module InstanceMethods
+    def available_column_names(options = {})
+      names = available_columns.dup
+      names.flatten!
+      names.select! { |col| col.sortable.present? } if options[:only_sortable]
+      names.map(&:name)
+    end
+
     def sql_for_enabled_module(table_field, module_names)
       module_names = Array(module_names)
 
@@ -36,6 +43,19 @@ module AdditionalsQuery
       else
         sql_for_field('id', operator, value, queried_table_name, 'id')
       end
+    end
+
+    def sql_for_project_status_field(field, operator, value)
+      sql_for_field(field, operator, value, Project.table_name, 'status')
+    end
+
+    def initialize_project_status_filter
+      return if project&.leaf?
+
+      add_available_filter('project.status',
+                           type: :list,
+                           name: l(:label_attribute_of_project, name: l(:field_status)),
+                           values: -> { project_statuses_values })
     end
 
     def initialize_project_filter(options = {})
@@ -140,7 +160,7 @@ module AdditionalsQuery
 
     def sql_for_is_private_field(_field, operator, value)
       if bool_operator(operator, value)
-        return '1=1' if value.count > 1
+        return '' if value.count > 1
 
         "#{queried_table_name}.is_private = #{self.class.connection.quoted_true}"
       else

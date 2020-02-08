@@ -62,7 +62,7 @@ class AdditionalsMacro
        permission: :view_contacts },
      { list: %i[db db_query db_tag db_tag_count],
        permission: :view_db_entries },
-     { list: %i[child_pages calendar last_updated_at last_updated_by lastupdated_at lastupdated_by
+     { list: %i[child_pages last_updated_at last_updated_by lastupdated_at lastupdated_by
                 new_page recently_updated recent comments comment_form tags taggedpages tagcloud
                 show_count count vote show_vote terms_accept terms_reject],
        permission: :view_wiki_pages,

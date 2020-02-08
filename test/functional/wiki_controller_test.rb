@@ -74,6 +74,16 @@ class WikiControllerTest < Additionals::ControllerTest
     assert_select 'iframe[src=?]', '//www.slideshare.net/slideshow/embed_code/57941706'
   end
 
+  def test_show_with_google_docs_macro
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    @page.content.text = '{{google_docs(https://docs.google.com/spreadsheets/d/e/RANDOMCODE/pubhtml)}}'
+    @page.content.save!
+    get :show,
+        params: { project_id: 1, id: @page_name }
+    assert_response :success
+    assert_select 'iframe[src=?]', 'https://docs.google.com/spreadsheets/d/e/RANDOMCODE/pubhtml?widget=true&headers=false'
+  end
+
   def test_show_with_iframe_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{iframe(https://www.redmine.org/)}}'
@@ -171,16 +181,6 @@ class WikiControllerTest < Additionals::ControllerTest
         params: { project_id: 1, id: @page_name }
     assert_response :success
     assert_select 'div.recently-updated'
-  end
-
-  def test_show_calendar_macro
-    @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{calendar(year=1970, month=7)}}'
-    @page.content.save!
-    get :show,
-        params: { project_id: 1, id: @page_name }
-    assert_response :success
-    assert_select 'div.month-calendar'
   end
 
   def test_show_with_members_macro
@@ -364,6 +364,16 @@ class WikiControllerTest < Additionals::ControllerTest
 
     assert_response :success
     assert_select 'div.flash.error', html: /Error executing/
+  end
+
+  def test_show_with_asciinema_macro
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    @page.content.text = '{{asciinema(113463)}}'
+    @page.content.save!
+    get :show,
+        params: { project_id: 1, id: @page_name }
+    assert_response :success
+    assert_select 'script[src=?]', '//asciinema.org/a/113463.js'
   end
 
   def test_show_issue

@@ -23,3 +23,21 @@ function setClipboardJS(element){
     }, 1000);
   });
 }
+
+/* exported formatNameWithIcon */
+function formatNameWithIcon(opt) {
+  if (opt.loading) return opt.name;
+  var $opt = $('<span>' + opt.name_with_icon + '</span>');
+  return $opt;
+}
+
+/* exported formatFontawesomeText */
+function formatFontawesomeText(icon) {
+  var icon_id = icon.id;
+  if (icon_id !== undefined) {
+    var fa = icon.id.split('_');
+    return $('<span><i class="' + fa[0] + ' fa-' + fa[1] + '"></i> ' + icon.text + '</span>');
+  } else {
+    return icon.text;
+  }
+}

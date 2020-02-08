@@ -31,7 +31,8 @@ class CommonViewsTest < Redmine::IntegrationTest
   test 'View issue' do
     log_user('admin', 'admin')
     EnabledModule.create(project_id: 1, name: 'issue_tracking')
-    issue = Issue.where(id: 1).first
+    issue = issues(:issues_001)
+    issue.description = 'new value'
     issue.save
     get '/issues/1'
     assert_response :success

@@ -12,8 +12,6 @@ Welcome to Additionals Plugin for Redmine
 
 Additionals is a `Redmine`_ plugin for customizing Redmine, providing wiki macros and act as a library/function provider for other Redmine plugins.
 
-This plugin is the successor of `Redmine Tweaks <https://github.com/alphanodes/redmine_tweaks>`_
-
 
 * Documentation: https://additionals.readthedocs.io
 * Redmine.org plugin page: https://www.redmine.org/plugins/additionals
@@ -38,7 +36,7 @@ Requirements
 ------------
 
 +--------------------+----------------------+
-| `Redmine`_ version | >= 3.4.0             |
+| `Redmine`_ version | >= 4.0.0             |
 +--------------------+----------------------+
 | `Ruby`_ version    | >= 2.3.0             |
 +--------------------+----------------------+
@@ -110,10 +108,12 @@ Features
 * set info message above new ticket (e.g. for guidelines)
 * wiki macros for:
 
+  * asciinema
   * cryptocompare
   * date
   * fa
   * gihub gist
+  * google_docs
   * gmap
   * group_users
   * iframe
@@ -166,19 +166,15 @@ Don't worry, if you only need a subset of the provided libraries. If you do not 
 
 It provides :
 
-* `bootstrap-datepicker 1.9.0 <https://github.com/uxsolutions/bootstrap-datepicker>`_
-* `Chart.js 2.8.0 <https://www.chartjs.org/>`_
-* `Chart.js Plugin datalabels 0.7.0 <https://github.com/chartjs/chartjs-plugin-datalabels>`_
-* `Chart.js Plugin stacked100 0.7.1 <https://github.com/y-takey/chartjs-plugin-stacked100>`_
+* `Chart.js 2.9.3 <https://www.chartjs.org/>`_
 * `Chart.js Plugin colorschemes 0.4.0 <https://github.com/nagix/chartjs-plugin-colorschemes>`_
+* `Chart.js Plugin datalabels 0.7.0 <https://github.com/chartjs/chartjs-plugin-datalabels>`_
 * `clipboardJS 2.0.4 <https://clipboardjs.com/>`_
-* `d3 3.5.17 <https://d3js.org/>`_
-* `d3plus v2.0.0-alpha.19 <https://d3plus.org/>`_
-* `d3plus-hierarchy v0.8.5 <https://github.com/d3plus/d3plus-hierarchy>`_
-* `FontAwesome 5.11.2 <https://fontawesome.com/>`_
-* `mermaid 8.4.2 <https://github.com/knsv/mermaid/>`_
-* `nvd3 1.8.6 <https://github.com/novus/nvd3>`_
-* `Select2 4.0.12 <https://select2.org/>`_
+* `d3 5.15.0 <https://d3js.org/>`_
+* `d3plus v2.0.0-alpha.25 <https://d3plus.org/>`_
+* `FontAwesome 5.12.0 <https://fontawesome.com/>`_
+* `mermaid 8.4.6 <https://github.com/knsv/mermaid/>`_
+* `Select2 4.0.13 <https://select2.org/>`_
 
 And a set of various Rails helper methods (see below).
 
@@ -196,23 +192,33 @@ This method loads all JS and CSS files needed by the required module.
 
 The following modules are available :
 
-* clipboardjs
 * chartjs
-* chartjs_datalabels
-* chartjs_stacked100
 * chartjs_colorschemes
+* chartjs_datalabels
+* clipboardjs
 * d3
 * d3plus
-* d3plus_hierarchy
-* mermaid
-* nvd3
 * font_awesome
-* notify
+* mermaid
 * select2
 
+Redmine Plugins, which are using ``additionals``
+------------------------------------------------
+
+* `redmine_codimd <https://github.com/AlphaNodes/redmine_codimd>`_
+* `redmine_db <https://alphanodes.com/redmine-db>`_
+* `redmine_git_hosting <http://redmine-git-hosting.io/>`_
+* `redmine_hrm <https://alphanodes.com/redmine-hrm>`_
+* `redmine_omniauth_saml <https://github.com/alexandermeindl/redmine_omniauth_saml>`_
+* `redmine_passwords <https://alphanodes.com/redmine-passwords>`_
+* `redmine_postgresql_search <https://github.com/AlphaNodes/redmine_postgresql_search>`_
+* `redmine_privacy_terms <https://github.com/AlphaNodes/redmine_privacy_terms>`_
+* `redmine_reporting <https://alphanodes.com/redmine-reporting>`_
+
+If you know other plugins, which are using ``additionals``, please let us know or create a `PR <https://github.com/alphanodes/additionals/pulls>`_.
 
 Contact and Support
---------------------
+-------------------
 
 I am glad about your feedback on the plugin, `pull requests <https://github.com/alphanodes/additionals/pulls>`_, `issues <https://github.com/alphanodes/additionals/issues>`_, whatever. Feel free to contact me for any questions.
 

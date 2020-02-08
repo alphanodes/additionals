@@ -5,6 +5,7 @@ class GlobalHelperTest < ActionView::TestCase
   include AdditionalsFontawesomeHelper
   include AdditionalsMenuHelper
   include CustomFieldsHelper
+  include AvatarsHelper if Redmine::VERSION.to_s >= '4.1'
   include Redmine::I18n
   include ERB::Util
 

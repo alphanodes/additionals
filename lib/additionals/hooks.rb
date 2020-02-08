@@ -4,6 +4,7 @@ module Additionals
     include AdditionalsIssuesHelper
 
     render_on(:view_layouts_base_html_head, partial: 'additionals/html_head')
+    render_on(:view_layouts_base_body_top, partial: 'additionals/body_top')
     render_on(:view_layouts_base_content, partial: 'additionals/content')
     render_on(:view_layouts_base_body_bottom, partial: 'additionals/body_bottom')
 
@@ -21,6 +22,7 @@ module Additionals
     render_on(:view_my_account_preferences, partial: 'users/autowatch_involved_issue')
     render_on(:view_users_form_preferences, partial: 'users/autowatch_involved_issue')
     render_on(:view_users_show_contextual, partial: 'users/additionals_contextual')
+    render_on(:view_projects_show_actions_dropdown, partial: 'projects/additionals_show_actions_dropdown') if Redmine::VERSION.to_s >= '4.1'
 
     def helper_issues_show_detail_after_setting(context = {})
       detail = context[:detail]

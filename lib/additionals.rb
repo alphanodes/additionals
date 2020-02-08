@@ -13,6 +13,7 @@ module Additionals
                               redmine_changeauthor
                               redmine_auto_watch])
       patch(%w[AccountController
+               AutoCompletesController
                Issue
                IssuePriority
                TimeEntry
@@ -26,7 +27,6 @@ module Additionals
                User
                UserPreference])
 
-      Rails.configuration.assets.paths << Emoji.images_path
       Redmine::WikiFormatting.format_names.each do |format|
         case format
         when 'markdown'
@@ -55,10 +55,10 @@ module Additionals
       require_dependency 'additionals/hooks'
 
       # Macros
-      load_macros(%w[calendar cryptocompare date fa gist gmap group_users iframe
+      load_macros(%w[cryptocompare date fa gist gmap google_docs group_users iframe
                      issue redmine_issue redmine_wiki
                      last_updated_at last_updated_by meteoblue member new_issue project
-                     recently_updated reddit slideshare tradingview twitter user vimeo youtube])
+                     recently_updated reddit slideshare tradingview twitter user vimeo youtube asciinema])
     end
 
     def settings_compatible(plugin_name)
@@ -113,7 +113,7 @@ module Additionals
 
     def patch(patches = [], plugin_id = 'additionals')
       patches.each do |name|
-        patch_dir = Rails.root.join('plugins', plugin_id, 'lib', plugin_id, 'patches')
+        patch_dir = Rails.root.join("plugins/#{plugin_id}/lib/#{plugin_id}/patches")
         require "#{patch_dir}/#{name.underscore}_patch"
 
         target = name.constantize
@@ -124,7 +124,7 @@ module Additionals
     end
 
     def load_macros(macros = [], plugin_id = 'additionals')
-      macro_dir = Rails.root.join('plugins', plugin_id, 'lib', plugin_id, 'wiki_macros')
+      macro_dir = Rails.root.join("plugins/#{plugin_id}/lib/#{plugin_id}/wiki_macros")
       macros.each do |macro|
         require_dependency "#{macro_dir}/#{macro.underscore}_macro"
       end
@@ -134,14 +134,22 @@ module Additionals
       cached_settings_name = '@load_settings_' + plugin_id
       cached_settings = instance_variable_get(cached_settings_name)
       if cached_settings.nil?
-        data = YAML.safe_load(ERB.new(IO.read(Rails.root.join('plugins',
-                                                              plugin_id,
-                                                              'config',
-                                                              'settings.yml'))).result) || {}
+        data = YAML.safe_load(ERB.new(IO.read(Rails.root.join("plugins/#{plugin_id}/config/settings.yml"))).result) || {}
         instance_variable_set(cached_settings_name, data.symbolize_keys)
       else
         cached_settings
       end
+    end
+
+    def hash_remove_with_default(field, options, default = nil)
+      value = nil
+      if options.key? field
+        value = options[field]
+        options.delete(field)
+      elsif !default.nil?
+        value = default
+      end
+      [value, options]
     end
 
     private

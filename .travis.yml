@@ -12,20 +12,11 @@ services:
 
 env:
   - REDMINE_VER=4.0-stable DB=postgresql
-  - REDMINE_VER=3.4-stable DB=postgresql
+  - REDMINE_VER=master DB=postgresql
   - REDMINE_VER=4.0-stable DB=mysql
-  - REDMINE_VER=3.4-stable DB=mysql
+  - REDMINE_VER=master DB=mysql
 
 sudo: true
-
-bundler_args: --without development
-
-matrix:
-  exclude:
-  - rvm: 2.6.5
-    env: REDMINE_VER=3.4-stable DB=mysql
-  - rvm: 2.6.5
-    env: REDMINE_VER=3.4-stable DB=postgresql
 
 before_install:
   - export PLUGIN_NAME=additionals
@@ -36,6 +27,7 @@ before_install:
   - git clone $REDMINE_GIT_REPO $REDMINE_PATH
   - cd $REDMINE_PATH
   - if [[ "$REDMINE_VER" != "master" ]]; then git checkout -b $REDMINE_VER origin/$REDMINE_VER; fi
+  - if [[ "$REDMINE_VER" != "master" ]]; then cp $TRAVIS_BUILD_DIR/test/support/Gemfile.local $REDMINE_PATH; fi
   - ln -s $TRAVIS_BUILD_DIR $REDMINE_PATH/plugins/$PLUGIN_NAME
   - cp $TRAVIS_BUILD_DIR/test/support/additional_environment.rb $REDMINE_PATH/config/
   - cp $TRAVIS_BUILD_DIR/test/support/database-$DB-travis.yml $REDMINE_PATH/config/database.yml
@@ -45,7 +37,7 @@ before_script:
 
 script:
   - export SKIP_COVERAGE=1
-  - if [[ "$REDMINE_VER" == "master" ]]; then bundle exec rake redmine:plugins:test:units NAME=$PLUGIN_NAME; fi
-  - if [[ "$REDMINE_VER" == "master" ]]; then bundle exec rake redmine:plugins:test:functionals NAME=$PLUGIN_NAME; fi
-  - if [[ "$REDMINE_VER" == "master" ]]; then bundle exec rake redmine:plugins:test:integration NAME=$PLUGIN_NAME; fi
-  - if [[ "$REDMINE_VER" != "master" ]]; then bundle exec rake redmine:plugins:test NAME=$PLUGIN_NAME RUBYOPT="-W0"; fi
+  - if [[ "$REDMINE_VER" == "master" ]] && [[ "$DB" == "postgresql" ]]; then brakeman plugins/$PLUGIN_NAME; fi
+  - if [[ "$REDMINE_VER" != "master" ]] && [[ "$DB" == "postgresql" ]]; then rubocop plugins/$PLUGIN_NAME; fi
+  - bundle exec rake redmine:plugins:test NAME=$PLUGIN_NAME RUBYOPT="-W0"
+  - bundle exec rake redmine:plugins:migrate NAME=$PLUGIN_NAME VERSION=0

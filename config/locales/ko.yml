@@ -1,0 +1,172 @@
+# Korean strings
+ko:
+  minutes:
+    one: 분
+    other: 의사록
+  hours:
+    one: 시간
+    other: 시간
+  days:
+    one: 일
+    other: 일
+  activerecord:
+    errors:
+      messages:
+        issue_cannot_close_with_open_children: "이 문제는 모든 하위 이슈가 종료 된 경우에만 종료 할 수 있습니다."
+        issue_current_user_status: "The selected status requires that the \"Assignee\" is yourself."
+        issue_log_time_not_allowed: "닫힌 문제입니다. 당신은 그것에 시간을 기록 할 수 없습니다."
+        issue_changes_not_allowed: "이 문제는 종료되었습니다. 변경할 권한이 없습니다."
+        issue_requires_timelog: "선택한 문제 상태에는 시간 로깅이 필요합니다."
+        invalid_icon_format: "잘못된 글꼴 멋진 코드입니다"
+        relation_not_unique: multiple assigned.
+  account_login_info: "이 문자 메시지는 로그인 페이지에 표시되며 등록 정보에 사용해야합니다. 이 설정은 모든 프로젝트에서 활성화됩니다."
+  add_go_to_top_info: '긴 페이지가 많은 경우 맨 위로 이동 링크를 추가하면 도움이됩니다.'
+  additionals_query_list_default_totals: 목록보기의 기본 합계
+  additionals_query_list_defaults: 목록보기의 기본 열
+  button_assign_to_me: 나에게 할당
+  disabled_modules_info: "프로젝트 내에서 선택할 수없는 모듈. 이러한 모듈이 기존 프로젝트에서 이미 활성화 된 경우 먼저 해당 프로젝트 설정을 변경하고 다시 저장해야합니다."
+  error_issue_status_could_not_changed: "문제 상태를 변경할 수 없습니다"
+  error_issues_could_not_be_assigned_to_me: "나에게 문제를 할당 할 수 없습니다"
+  error_query_statement_invalid: "쿼리를 실행하는 동안 오류가 발생하여 기록되었습니다. 이 오류를 Redmine 관리자에게보고하십시오."
+  errors_no_or_invalid_arguments: "인수가 없거나 유효하지 않습니다"
+  field_autowatch_involved_issue: "오토 워치 관련 문제"
+  field_color: 색깔
+  field_hide: 숨는 장소
+  field_icon: 상
+  field_issue_relation_plural: 이슈 관계
+  field_tag_list: 태그
+  field_tag_sidebar_style_cloud: 구름
+  field_tag_sidebar_style_list: 명부
+  field_tags: 태그
+  field_website: 웹 사이트
+  global_footer_info: '여기에 프로젝트 전체 위키 바닥 글을 입력하십시오.'
+  global_sidebar_info: "여기에 프로젝트 전체 문자 메시지를 입력하십시오. 이 사이드 바 텍스트는 프로젝트 개요, 이슈 페이지 및 위키 페이지에 표시됩니다."
+  global_wiki_footer_info: '여기에 프로젝트 전체 위키 바닥 글을 입력하십시오. "Wiki Extensions"에서 프로젝트 특정 위키 바닥 글을 사용하는 경우, 대신이 것이 표시됩니다.'
+  global_wiki_header_info: '여기에 프로젝트 전체 위키 헤더를 입력하십시오. "Wiki Extensions"에서 프로젝트 고유의 wiki 헤더를 사용하는 경우, 이는 대신 표시되는 것이 좋습니다.'
+  global_wiki_sidebar_info: '위키 사이드 바에 사용할 수있는 프로젝트 전체 문자 메시지를 여기에 입력하십시오. 이 사이드 바 텍스트는 위키 페이지에만 표시됩니다. 예를 들어 "마지막으로 변경된 페이지"와 같은 매크로에이 공간을 사용하십시오. 프로젝트 특정 사이드 바가 사용되는 경우 (위키 페이지), 대신 사이드 바에 표시되는 것이 좋습니다.'
+  google_maps_embed_api_html: 'Goole지도를 표시하기 위해 Gmap 매크로를 사용하려는 경우 여기에 Google Maps API 키를 구현하십시오. 그 후 매크로 및 다양한 매개 변수를 사용할 수 있습니다. 매개 변수를 사용하는 방법에 대한 자세한 내용은 <a href="https://developers.google.com/maps/documentation/embed/guide" target="_blank">https://developers.google.com/maps/documentation/embed/guide</a>. Gmap 매크로는 여기에 포함 된 키와 조합해서 만 작동합니다.'
+  hidden_macros_in_toolbar_info: 로그인 한 사용자가 사용할 수있는 모든 매크로가 위키 도구 모음의 매크로 버튼을 통해 나열됩니다. 여기에 표시된 매크로는 선택할 수 없습니다. 이를 통해 목록의 범위를 제한 할 수 있습니다.
+  info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". 사용자가 현재 사용자에게 보이는 역할이 아닌 경우 사용자를 포함한이 역할은 프로젝트 개요 페이지와 쿼리 목록에서 숨겨집니다.
+  invisible_captcha_info_html: In case this option is activated an <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection is activated for the registration page of new users. This function is only available, if you enabled self-registration, too.
+  label_account_login_bottom: "로그인 페이지의 텍스트"
+  label_add_go_to_top: 'Add "Go to top" link'
+  label_add_tags: 태그 추가
+  label_additionals_doc: "추가 문서 (EN)"
+  label_additionals: Additionals
+  label_app_menu: 앱 메뉴
+  label_change_is_private: 개인 / 비 개인 변경
+  label_chart_color_schema: 차트 색 구성표
+  label_chartjs_colorscheme_info: 컬러리스트
+  label_content_plural: 내용
+  label_custom_menu_items: 맞춤 메뉴 항목
+  label_daily: 매일
+  label_dashboard_plural: Dashboards
+  label_dashboard: Dashboard
+  label_day: 일
+  label_disabled_modules: "비활성화 된 모듈"
+  label_docs_access_token: Access token
+  label_edit_tags: 태그 편집
+  label_global_footer: "넓은 바닥 글 프로젝트"
+  label_global_sidebar: "글로벌 사이드 바"
+  label_global_wiki_footer: "프로젝트 전체 위키 바닥 글"
+  label_global_wiki_header: "프로젝트 전체 위키 헤더"
+  label_global_wiki_sidebar: "글로벌 위키 사이드 바"
+  label_go_to_top: "맨 위로"
+  label_google_maps_api_key: Google Maps Embed API Key
+  label_help_integration: 온라인 도움말 통합
+  label_help_manual: 조작
+  label_hidden_macros_in_toolbar: Hidden macros
+  label_hour: 시간
+  label_icon_color: 시간
+  label_invisible_captcha: SPAM protection for registration
+  label_issue_assign_to_me: Show "Assign to me" on issue
+  label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
+  label_issue_autowatch_involved: 관련 사용자를 감시자로 자동 추가
+  label_issue_change_status_in_sidebar: 사이드 바의 발행 상태
+  label_issue_change_status: 상태 변경
+  label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
+  label_issue_freezed_with_close: 닫힌 이슈 편집 금지 (고정)
+  label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
+  label_issue_timelog_required: 필요한 문제에 대한 시간 로그
+  label_last_year: 전년도
+  label_legacy_smiley_support: Legacy smiley/emoji support
+  label_macro_plural: Macros
+  label_menu_entry: "Menu item"
+  label_monthly: 월간 간행물
+  label_new_issue_on_profile: 사용자 프로필의 새로운 문제
+  label_new_ticket_message: "새로운 문제에 대한 참고 사항"
+  label_open_external_urls: 외부 URL 열기
+  label_open_in_google_docs: "Google 문서에서 열기"
+  label_open_in_new_windows: 새 창에서 열기
+  label_optional: "선택"
+  label_overview_bottom: "개요 페이지, 하단"
+  label_overview_page: "개요 페이지"
+  label_overview_right: "개요 페이지, 오른쪽"
+  label_overview_top: "개요 페이지, 상단"
+  label_pdf_wiki_settings: PDF Wiki settings
+  label_project_list: "프로젝트 목록"
+  label_project_overview_content: "프로젝트 가이드"
+  label_query_delete: 검색어 삭제
+  label_query_edit: 검색어 수정
+  label_query_name_search: 이름 검색
+  label_reddit_subject: Reddit 제목
+  label_reddit_user_account: Reddit user account
+  label_redmine_org_issue: Redmine.org issue
+  label_redmine_org_wiki: Redmine.org wiki page
+  label_remove_help: "없애다 'Help' 톱 메뉴에서"
+  label_remove_mypage: "없애다 'My Page' 톱 메뉴에서"
+  label_remove_news: "없애다 'Lastest news' 개요 페이지에서"
+  label_search_by_name: 이름으로 검색
+  label_settings_macros: "Macros"
+  label_settings_menu: "Menu"
+  label_show_all: 모두 표시
+  label_system_info: 시스템 정보
+  label_tags_without_color: 색상없이 태그 표시
+  label_tomorrow: 내일
+  label_top_macros_help_html: "다음은 Redmine 및 Redmine 플러그인에서 제공하는 설치에 사용 가능한 모든 Redmine 매크로 목록입니다."
+  label_top_menu_help_html: "여기에서 새로운 최상위 메뉴 항목을 정의 할 수 있습니다."
+  label_top_menu: 톱 메뉴
+  label_twitter_account: Twitter account
+  label_twitter_hashtag: Twitter hashtag
+  label_uptime: 가동 시간
+  label_user_list: "사용자 목록"
+  label_web_apis: Web APIs
+  label_weekly: 주간
+  label_wiki_pdf_remove_attachments: PDF보기에서 첨부 파일 제거
+  label_wiki_pdf_remove_title: PDF보기에서 위키 제목 제거
+  label_without_value: "아니요 %{value}"
+  label_yearly: 매년
+  latest_entries_changes: "최근 %{value} 개의 변경 사항"
+  legacy_smiley_support_info_html: 'Convert Smileys and Emoji symbols. Activate this option only if Smileys or Emoji are manually typed in by the use of code (e.g. :kiss:). If you use Unicode-Emoji this option should be deactivated. For more info on Emoji-Browser support read <a href="http://caniemoji.com/" target="_blank">http://caniemoji.com/</a>. Have a look at <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> for available Emoji-Codes you can use. <strong>Restart the application server</strong>, in order to activate the settings.'
+  menu_roles_info: "선택한 역할의 멤버 만이 메뉴 항목을 볼 수 있습니다."
+  new_ticket_message_info: "새로운 호를 추가하려는 모든 사람에게 메모가 표시됩니다. 예를 들어 수락 테스트를 입력하거나 규칙을 발행 할 수 있습니다. 이 설정은 프로젝트 전체에서 사용됩니다. "
+  open_external_urls_info: "활성화되면 외부 URL이 새 창 / 탭에서 열립니다."
+  overview_bottom_info: "여기에 텍스트를 추가 할 수 있으며, 하단의 개요 페이지에 표시됩니다. 예를 들어 위키 페이지에 링크 할 수 있습니다."
+  overview_right_info: "여기에서 텍스트를 추가 할 수 있습니다.이 개요는 오른쪽의 개요 페이지에 표시됩니다. 예를 들어 위키 페이지에 링크 할 수 있습니다."
+  overview_top_info: "여기에 텍스트를 추가 할 수 있습니다. 상단의 개요 페이지에 표시됩니다. 예를 들어 위키 페이지에 링크 할 수 있습니다."
+  permission_change_new_issue_author: 새로운 이슈의 저자 설정
+  permission_edit_closed_issues: "닫힌 이슈 편집"
+  permission_edit_issue_author: 이슈 작성자 편집
+  permission_issue_timelog_never_required: 시간 기록 불필요
+  permission_log_time_on_closed_issues: "닫힌 문제에 대한 시간 기록"
+  permission_show_hidden_roles_in_memberbox: "숨겨진 역할 표시"
+  project_overview_content_info: "여기에서 프로젝트 개요 페이지에 표시 될 텍스트를 추가 할 수 있습니다. 예를 들어, 모든 팀원이 프로젝트 전체에서 사용할 수있는 위키 페이지에 링크 할 수 있습니다. 목표는 더 나은 프로젝트 표준에 도달하고 고유 한 위키 구조를 유지하는 것입니다."
+  remove_help_info: "상단 메뉴에서 'Help' 항목을 제거"
+  remove_mypage_info: 'Sometimes it is more useful to hide the "My Page" link in order to introduce the task board. The task board advantage is that issues can be listed according to their status.'
+  remove_news_info: "개요 페이지에서 최신 뉴스를 제거하십시오."
+  rule_issue_auto_assign_info: 'Use Case: The issue author does not know whom to assign the issue or who will be responsible for solving the task. In that case the issue for example with the status "To Do" is automatically assigned to the first group, which does contain a user of the pre-selected project manager role.'
+  rule_issue_current_user_status_info_html: "Is this function used in combination with the setting option \"Issue status on sidebar\" then the current user will automatically be assigned to the issue while changing the issue status.<br />Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."
+  rule_issue_freezed_with_close_info: 이 옵션을 활성화하면 이미 닫힌 이슈를 더 이상 편집하고 주석을 달 수 없습니다. 메일이나 API를 통해서도 아닙니다. This restriction does not apply to user roles with the "Edit closed issues" permission.
+  rule_issue_status_change_info: "Use Case: issues should be automatically assigned to author, if the status changes to \"Approval\"."
+  rule_issue_timelog_required_info_html: '선택된 트래커의 각 티켓에 대해 티켓이 정의 된 상태 속성 중 하나를 수신하려면 시간 예약이 필요합니다. 다음과 같은 경우 시간 예약이 필요하지 않습니다:<br />- no rights exist for the creation of time bookings<br />- 사용자에게 권한이 있습니다 "Time logging not required"<br />사용 사례 : 상태가  "To Verify" 인 티켓을 수락하려면 소요 시간도 필요합니다.'
+  show_always: 항상 표시
+  show_on_project_overview: 프로젝트 개요에 표시
+  show_on_redmine_home: 환영 페이지에 표시
+  show_welcome_left: 시작 페이지 왼쪽
+  show_welcome_right: 시작 페이지 오른쪽
+  top_overview_help: 여기서 개요 페이지의 내용과 설정을 정의 할 수 있습니다.
+  top_projects_help: 여기에서 프로젝트 페이지의 내용과 설정을 정의 할 수 있습니다.
+  top_rules_help: "여기에서 모든 프로젝트의 문제에 사용되는 규칙을 정의 할 수 있습니다."
+  top_wiki_help: 여기에서 위키의 내용과 설정을 정의 할 수 있습니다.
+  wiki_pdf_remove_attachments_info: 활성화 된 경우 첨부 된 Wiki 파일은 PDF보기에 표시되지 않습니다.
+  wiki_pdf_remove_title_info: 활성화되면 위키 제목 정보가 PDF보기에 표시되지 않습니다.

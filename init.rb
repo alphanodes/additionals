@@ -6,7 +6,7 @@ Redmine::Plugin.register :additionals do
   name 'Additionals'
   author 'AlphaNodes GmbH'
   description 'Customizing Redmine, providing wiki macros and act as a library/function provider for other Redmine plugins'
-  version '2.0.22'
+  version '2.0.23'
   author_url 'https://alphanodes.com/'
   url 'https://github.com/alphanodes/additionals'
 
@@ -33,7 +33,7 @@ Redmine::Plugin.register :additionals do
   end
 
   # required redmine version
-  requires_redmine version_or_higher: '3.4.0'
+  requires_redmine version_or_higher: '4.0.0'
 
   menu :admin_menu, :additionals, { controller: 'settings', action: 'plugin', id: 'additionals' }, caption: :label_additionals
 
@@ -53,7 +53,7 @@ begin
     end
 
     Rails.application.paths['app/overrides'] ||= []
-    Dir.glob(Rails.root.join('plugins', '*', 'app', 'overrides')).each do |dir|
+    Dir.glob(Rails.root.join('plugins/*/app/overrides')).each do |dir|
       Rails.application.paths['app/overrides'] << dir unless Rails.application.paths['app/overrides'].include?(dir)
     end
   end

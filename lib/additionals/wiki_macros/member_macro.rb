@@ -7,7 +7,7 @@ module Additionals
 
   Syntax:
 
-    {{members([PROJECT_NAME, title=My members list, role=ROLE)]}}
+    {{members([PROJECT_NAME, title=My members list, role=ROLE, with_sum=BOOL)]}}
 
     PROJECT_NAME can be project identifier, project name or project id
 
@@ -15,6 +15,9 @@ module Additionals
 
     {{members}}
     ...List all members for all projects (with the current user permission)
+
+    {{members(with_sum=true)}}
+    ...List all members for all projects and show title with amount of members
 
     {{members(the-identifier)}}
     ...A box showing all members for the project with the identifier of 'the-identifier'
@@ -29,7 +32,7 @@ module Additionals
       DESCRIPTION
 
       macro :members do |_obj, args|
-        args, options = extract_macro_options(args, :role, :title)
+        args, options = extract_macro_options(args, :role, :title, :with_sum)
 
         project_id = args[0]
         user_roles = []
@@ -53,11 +56,22 @@ module Additionals
             users << principal if options[:role].blank? || Additionals.check_role_matches(user_roles[principal.id], options[:role])
           end
         else
-          users = User.visible.sorted
+          users = User.visible
+                      .where(type: 'User')
+                      .active
+                      .sorted
         end
+
+        list_title = if options[:with_sum]
+                       list_title = options[:title].presence || l(:label_member_plural)
+                       list_title + " (#{users.count})"
+                     else
+                       options[:title]
+                     end
+
         render partial: 'wiki/user_macros', locals: { users: users,
                                                       user_roles: user_roles,
-                                                      list_title: options[:title] }
+                                                      list_title: list_title }
       end
     end
   end

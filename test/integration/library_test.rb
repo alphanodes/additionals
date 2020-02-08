@@ -25,7 +25,7 @@ class JavascriptLibraryTest < Redmine::IntegrationTest
 
     return unless Redmine::Plugin.installed?('redmine_reporting')
 
-    assert_select 'link[rel=stylesheet][href^=?]', '/plugin_assets/additionals/stylesheets/nv.d3.min.css', count: 1
+    assert_select 'link[rel=stylesheet][href^=?]', '/plugin_assets/additionals/stylesheets/Chart.min.css', count: 1
   end
 
   def test_not_loaded_css_libraries
@@ -36,7 +36,17 @@ class JavascriptLibraryTest < Redmine::IntegrationTest
 
     return if Redmine::Plugin.installed?('redmine_reporting')
 
-    assert_select 'link[rel=stylesheet][href^=?]', '/plugin_assets/additionals/stylesheets/nv.d3.min.css', count: 0
+    assert_select 'link[rel=stylesheet][href^=?]', '/plugin_assets/additionals/stylesheets/Chart.min.css', count: 0
+  end
+
+  def test_loaded_javascript_libraries
+    log_user('admin', 'admin')
+    get '/'
+
+    return unless Redmine::Plugin.installed?('redmine_reporting')
+
+    assert_response :success
+    assert_select 'script[src^=?]', '/plugin_assets/additionals/javascripts/Chart.bundle.min.js', count: 1
   end
 
   def test_not_loaded_javascript_libraries

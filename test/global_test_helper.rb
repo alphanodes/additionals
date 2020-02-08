@@ -11,5 +11,23 @@ module Additionals
     ensure
       Setting.plugin_additionals = saved_settings
     end
+
+    def assert_query_sort_order(table_css, column, options = {})
+      options[:action] = :index if options[:action].blank?
+      column = column.to_s
+      column_css = column.tr('_', '-')
+
+      get options[:action],
+          params: { sort: "#{column}:asc", c: [column] }
+
+      assert_response :success
+      assert_select "table.list.#{table_css}.sort-by-#{column_css}.sort-asc"
+
+      get options[:action],
+          params: { sort: "#{column}:desc", c: [column] }
+
+      assert_response :success
+      assert_select "table.list.#{table_css}.sort-by-#{column_css}.sort-desc"
+    end
   end
 end

@@ -19,7 +19,7 @@ require File.expand_path(File.dirname(__FILE__) + '/global_test_helper')
 if defined?(RSpec)
   RSpec.configure do |config|
     config.mock_with :mocha
-    config.example_status_persistence_file_path = Rails.root.join('tmp', 'additionals_rspec_examples.txt')
+    config.example_status_persistence_file_path = Rails.root.join('tmp/additionals_rspec_examples.txt')
   end
 end
 

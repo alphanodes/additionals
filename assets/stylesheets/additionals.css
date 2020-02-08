@@ -41,10 +41,6 @@
   font-size: 90%;
 }
 
-.month-calendar {
-  display: inline-block;
-}
-
 .login-additionals {
   margin-left: auto;
   margin-right: auto;
@@ -157,13 +153,8 @@
 
 div.clear-both { clear: both; }
 
-/* for Redmine 3.4 - fix problem with tabs */
+/* fix problem with tabs */
 .default-query-settings-label label {
-  margin-left: -100px !important;
-}
-
-/* for Redmine 4.x - fix problem with tabs */
-.default-query-settings-label-redmine4 label {
   width: 250px !important;
   margin-left: 0 !important;
   float: none;
@@ -260,7 +251,8 @@ img.additionals-avatar { margin-right: 0.25em; }
   border: 0;
   max-width: inherit;
   border-radius: 4px;
-  font: normal 12px"Helvetica Neue", Sans-Serif;
+  box-shadow: 0 0 6px #888;
+  font-size: 12px;
 }
 
 a.external.redmine-link {
@@ -339,7 +331,6 @@ div.additionals-projects li.project.odd {
 
 .additionals-chart-left {
   float: left;
-  font: normal 12px sans-serif;
   height: 320px;
   width: 360px;
 }
@@ -347,14 +338,12 @@ div.additionals-projects li.project.odd {
 /* has to be same width as additionals-table-of-values */
 .additionals-chart-right {
   float: left;
-  font: normal 12px sans-serif;
   height: 320px;
   width: 450px;
 }
 
 .additionals-table-of-values {
   float: left;
-  font: normal 12px sans-serif;
   width: 450px;
 }
 
@@ -373,6 +362,9 @@ table.table-of-values caption {
 .additionals-projects ul {
   padding-left: 0;
 }
+
+.additionals-number-positive { color: green; }
+.additionals-number-negative { color: #cb2525; }
 
 .jstb_macros {
   background-image: url(../images/jstoolbar/bt_macros.png);

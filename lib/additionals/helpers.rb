@@ -46,9 +46,16 @@ module Additionals
     end
 
     def render_issue_with_comment(issue, content, comment_id, only_path = false)
-      comment = issue.journals
-                     .where(private_notes: false)
-                     .offset(comment_id - 1).limit(1).first.try(:notes)
+      journal = issue.journals.select(:notes, :private_notes, :user_id).offset(comment_id - 1).limit(1).first
+      comment = if journal
+                  user = User.current
+                  if user.allowed_to?(:view_private_notes, issue.project) ||
+                     !journal.private_notes? ||
+                     journal.user == user
+                    journal.notes
+                  end
+                end
+
       if comment.blank?
         comment = 'N/A'
         comment_link = comment_id
@@ -177,15 +184,6 @@ module Additionals
       true if /cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM
     end
 
-    def bootstrap_datepicker_locale
-      s = ''
-      locale = User.current.language.presence || ::I18n.locale
-      locale = 'es' if locale == 'es-PA'
-      locale = 'sr-latin' if locale == 'sr-YU'
-      s = javascript_include_tag("locales/bootstrap-datepicker.#{locale.downcase}.min", plugin: 'additionals') unless locale == 'en'
-      s
-    end
-
     def autocomplete_select_entries(name, type, option_tags, options = {})
       unless option_tags.is_a?(String) || option_tags.blank?
         # if option_tags is not an array, it should be an object
@@ -284,18 +282,8 @@ module Additionals
       additionals_include_js('chartjs-plugin-datalabels.min')
     end
 
-    def additionals_load_chartjs_stacked100
-      additionals_include_js('chartjs-plugin-stacked100')
-    end
-
     def additionals_load_chartjs_colorschemes
       additionals_include_js('chartjs-plugin-colorschemes.min')
-    end
-
-    def additionals_load_nvd3
-      additionals_include_css('nv.d3.min') +
-        additionals_include_js('d3.min') +
-        additionals_include_js('nv.d3.min')
     end
 
     def additionals_load_mermaid
@@ -309,10 +297,6 @@ module Additionals
 
     def additionals_load_d3plus
       additionals_include_js('d3plus.full.min')
-    end
-
-    def additionals_load_d3plus_hierarchy
-      additionals_include_js('d3plus-hierarchy.full.min')
     end
 
     def user_with_avatar(user, options = {})

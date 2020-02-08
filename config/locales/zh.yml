@@ -17,18 +17,21 @@ zh:
         issue_log_time_not_allowed: "问题已关闭。您无法继续在该问题上登记工时信息。"
         issue_changes_not_allowed: "问题已关闭，您无权修改该问题的内容。"
         issue_requires_timelog: "The selected issue status requires a time logging."
+        invalid_icon_format: 无效的 Font-awesome 代码。
+        relation_not_unique: multiple assigned.
   account_login_info: "该文本信息将在登录页作为注册信息展现。该选项是全局选项。"
   add_go_to_top_info: '如果您有很长的页面，添加"回到页首"的功能将非常有用。'
+  additionals_query_list_default_totals: Default sums for list view
+  additionals_query_list_defaults: Default columns for list view
   button_assign_to_me: Assign to me
   disabled_modules_info: "项目中无法选择模块。如果这些模块已经在现有项目中激活，则必须首先更改并重新保存响应的项目设置。"
   error_issue_status_could_not_changed: Issue state could not be changed
   error_issues_could_not_be_assigned_to_me: Issue could not assigned to me
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
-  errors_invalid_icon_format: 无效的 Font-awesome 代码。
   errors_no_or_invalid_arguments: 参数无效或不存在。
-  open_external_urls_info: "如果启用，则在新窗口/选项卡中打开外部URL。"
   field_autowatch_involved_issue: Autowatch involved issues
   field_color: 颜色
+  field_hide: Hide
   field_icon: 图标
   field_issue_relation_plural: 问题关联关系
   field_tag_list: Tags
@@ -42,8 +45,9 @@ zh:
   global_wiki_header_info: '请在此处输入项目范围内的 WIKI 页首信息。若"Wiki Extensions"插件使用了指定的WIKI页首，则该信息会被优先显示。'
   global_wiki_sidebar_info: '请在此处输入项目范围内的 WIKI 侧边栏信息。该侧边栏信息将只显示在WIKI页内。在此空间内输入诸如 "Last changed pages" 的宏命令。若项目内使用指定的侧边栏（WIKI页），则该信息将优先显示在侧边栏内。'
   google_maps_embed_api_html: In case you want to use the Gmap macro in order to display Goole maps please implement your Google Maps API key here. Afterwards you can use the macro and various paramters. More information on how to use the paramaters are provided at <a href="https://developers.google.com/maps/documentation/embed/guide" target="_blank">https://developers.google.com/maps/documentation/embed/guide</a>. The Gmap macro works only in combination with the embedded key here.
+  hidden_macros_in_toolbar_info: All available macros that the logged in user can use are listed via the macro button of the wiki toolbar. Macros marked here are not offered for selection. This allows you to limit the scope of the list.
+  info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.
   invisible_captcha_info_html: In case this option is activated an <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection is activated for the registration page of new users. This function is only available, if you enabled self-registration, too.
-  label_docs_access_token: Access token
   label_account_login_bottom: "用于登陆页的文本"
   label_add_go_to_top: '添加 "回到页首" 链接'
   label_add_tags: Add tags
@@ -51,15 +55,17 @@ zh:
   label_additionals: Additionals
   label_app_menu: App menu
   label_change_is_private: Change private/non-private
+  label_chart_color_schema: Charts color scheme
+  label_chartjs_colorscheme_info: "颜色清单"
   label_content_plural: 内容
   label_custom_menu_items: 自定义菜单项
   label_daily: 每天
+  label_dashboard_plural: Dashboards
+  label_dashboard: Dashboard
   label_day: 天
   label_disabled_modules: "禁用模块"
-  label_open_external_urls: "打开外部URL"
-  label_fontawesome_brands: Brands
-  label_fontawesome_regular: Regular
-  label_fontawesome_solid: Solid
+  label_docs_access_token: Access token
+  label_edit_tags: "编辑标签"
   label_global_footer: "项目范围内的页脚设置"
   label_global_sidebar: "全局侧边栏设置"
   label_global_wiki_footer: "项目范围内 WIKI 页脚设置"
@@ -69,13 +75,19 @@ zh:
   label_google_maps_api_key: Google Maps Embed API Key
   label_help_integration: Online help integration
   label_help_manual: manual
+  label_hidden_macros_in_toolbar: Hidden macros
   label_hour: 小时
   label_icon_color: 图标颜色
   label_invisible_captcha: SPAM protection for registration
   label_issue_assign_to_me: Show "Assign to me" on issue
+  label_issue_auto_assign: "若 \"指派给\" 的值未设置为具体用户，且新建问题的状态为 X， 那么问题将自动指派给预定义角色用户的对应组。"
   label_issue_autowatch_involved: Add involved users as watcher automatically
   label_issue_change_status_in_sidebar: Issue status on sidebar
   label_issue_change_status: Change status
+  label_issue_current_user_status: "当前问题状态 X 仅在 \"指派给\" 的值设置为当前用户时生效。"
+  label_issue_freezed_with_close: Disallow editing of closed issues (Freeze)
+  label_issue_status_change: "若 \"指派给\" 的值未修改，且问题状态要从 X 变更为 Y，那么该问题必须指派给问题作者自己。"
+  label_issue_timelog_required: Time log for issues required
   label_last_year: 去年
   label_legacy_smiley_support: 表情符号支持
   label_macro_plural: macros
@@ -83,6 +95,8 @@ zh:
   label_monthly: 每月
   label_new_issue_on_profile: New issue on user profile
   label_new_ticket_message: "用于新建问题时的提示信息"
+  label_open_external_urls: "打开外部URL"
+  label_open_in_google_docs: Open in Google Docs
   label_open_in_new_windows: Open in new windows
   label_optional: "可选项"
   label_overview_bottom: "概述页底部"
@@ -94,6 +108,7 @@ zh:
   label_project_overview_content: "项目指南"
   label_query_delete: 删除查询
   label_query_edit: 编辑查询
+  label_query_name_search: "搜索名字"
   label_reddit_subject: Reddit 主题
   label_reddit_user_account: Reddit 账号
   label_redmine_org_issue: Redmine.org issue
@@ -101,12 +116,7 @@ zh:
   label_remove_help: "从顶部菜单栏中移除 '帮助' 项"
   label_remove_mypage: "从顶部菜单栏中移除 '我的工作台' 项"
   label_remove_news: "从概览页中移除 '最近新闻' 区域"
-  label_issue_auto_assign: "若 \"指派给\" 的值未设置为具体用户，且新建问题的状态为 X， 那么问题将自动指派给预定义角色用户的对应组。"
-  label_issue_current_user_status: "当前问题状态 X 仅在 \"指派给\" 的值设置为当前用户时生效。"
-  label_issue_status_change: "若 \"指派给\" 的值未修改，且问题状态要从 X 变更为 Y，那么该问题必须指派给问题作者自己。"
-  label_issue_timelog_required: Time log for issues required
   label_search_by_name: 按名称搜索
-  label_set_icon_from: 图标设置自
   label_settings_macros: "宏"
   label_settings_menu: "菜单"
   label_show_all: 显示所有
@@ -124,10 +134,13 @@ zh:
   label_weekly: 每周
   label_wiki_pdf_remove_attachments: 从 PDF 中删除附件
   label_wiki_pdf_remove_title: 从 PDF 中删除 WIKI 标题
+  label_without_value: "没有 %{value}"
   label_yearly: 每年
+  latest_entries_changes: "Latest %{value} changes"
   legacy_smiley_support_info_html: '转换为表情符号。如表情符号通过手工输入代码（如 :kiss:），则启用该选项。 若您使用的是 Unicode 表情符号，则应禁用该选项。获取更多关于 Emoji 的信息，请阅读 <a href="http://caniemoji.com/" target="_blank">http://caniemoji.com/</a>. 查看 <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> 获取可用的 Emoji 代码。为激活该配置，必须 <strong>重启Redmine服务</strong> 。'
   menu_roles_info: "只有所选角色对应的用户才能看到菜单项。"
   new_ticket_message_info: "每个新建问题的用户都会看到提示信息。例如，您可以输入可接受性测试或问题处理规则。这些配置在某个具体的项目范围内适用。"
+  open_external_urls_info: "如果启用，则在新窗口/选项卡中打开外部URL。"
   overview_bottom_info: "此处可以添加显示在概述页底部的文本信息，如您可以链接到 WIKI 页。"
   overview_right_info: "此处可以添加显示在概述页右侧的文本信息，如您可以链接到 WIKI 页。"
   overview_top_info: "此处可以添加显示在概述页顶部的文本信息，如您可以链接到 WIKI 页。"
@@ -143,6 +156,7 @@ zh:
   remove_news_info: "从概述页中隐藏最近新闻区块。"
   rule_issue_auto_assign_info: '用例：问题作者不知道将问题分配给谁时，或不知道谁应当负责解决具体任务时。在那种情况下，状态为 "To Do" 的问题将自动指派给包含预选项目经理角色用户的第一组。'
   rule_issue_current_user_status_info_html: "Is this function used in combination with the setting option \"Issue status on sidebar\" then the current user will automatically be assigned to the issue while changing the issue status.<br />Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."
+  rule_issue_freezed_with_close_info: If this option is activated, already closed issues can no longer be edited and commented. Not even via mail or API. This restriction does not apply to user roles with the "Edit closed issues" permission.
   rule_issue_status_change_info: "用例：若问题的状态修改为 \"Approval\"，则自动分配给问题作者。"
   rule_issue_timelog_required_info_html: 'For each ticket of the selected trackers, a time booking is necessary if the ticket is to receive one of the defined status properties. The time booking is not required if:<br />- no rights exist for the creation of time bookings<br />- the user has the authorization "Time logging not required"<br />Use case: For the acceptance of a ticket with the status "To Verify", the time spent is also required.'
   show_always: 总是显示
@@ -156,17 +170,3 @@ zh:
   top_wiki_help: 您可以在此定义 WIKI 的内容及设置。
   wiki_pdf_remove_attachments_info:  当启用时，WIKI 附件将不会显示在PDF视图中。
   wiki_pdf_remove_title_info: 当启用时，WIKI 标题信息将不会显示在PDF视图中。
-  label_issue_freezed_with_close: Disallow editing of closed issues (Freeze)
-  rule_issue_freezed_with_close_info: If this option is activated, already closed issues can no longer be edited and commented. Not even via mail or API. This restriction does not apply to user roles with the "Edit closed issues" permission.
-  additionals_query_list_defaults: Default columns for list view
-  additionals_query_list_default_totals: Default sums for list view
-  field_hide: Hide
-  label_hidden_macros_in_toolbar: Hidden macros
-  hidden_macros_in_toolbar_info: All available macros that the logged in user can use are listed via the macro button of the wiki toolbar. Macros marked here are not offered for selection. This allows you to limit the scope of the list.
-  info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.
-  latest_entries_changes: "Latest %{value} changes"
-  label_edit_tags: "编辑标签"
-  label_query_name_search: "搜索名字"
-  label_chartjs_colorscheme_info: "颜色清单"
-  label_chart_color_schema: Charts color scheme
-  label_without_value: "没有 %{value}"

@@ -5,12 +5,13 @@ These wiki macros are available with Additionals.
 
 If a parameter is in brackets, this parameter is optional.
 
-.. include:: macros/calendar.rst
+.. include:: macros/asciinema.rst
 .. include:: macros/cryptocompare.rst
 .. include:: macros/date.rst
 .. include:: macros/fa.rst
 .. include:: macros/gist.rst
 .. include:: macros/gmap.rst
+.. include:: macros/google_docs.rst
 .. include:: macros/group_users.rst
 .. include:: macros/iframe.rst
 .. include:: macros/issue.rst

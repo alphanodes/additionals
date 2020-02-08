@@ -17,18 +17,21 @@ de:
         issue_log_time_not_allowed: "ist ein geschlossenes Ticket, auf dem Sie nicht berechtigt sind einen Aufwand zu buchen."
         issue_changes_not_allowed: "Dieses Ticket ist geschlossenes und Sie besitzen keine Berechtigung es zu ändern."
         issue_requires_timelog: "Der ausgewählte Status erfordert, dass eine Zeitbuchung zum Ticket vorhanden ist."
+        invalid_icon_format: ist ein ungültiger Font-Awesome Code
+        relation_not_unique: wurde mehrfach zugeordnet.
   account_login_info: "Dieser Text wir auf der Anmeldeseite angezeigt, um z.B. Informationen für die Anmeldung oder Registrierung zu hinterlegen. Diese Einstellung ist projektübergreifend und ist in allen Projekten aktiv."
   add_go_to_top_info: 'Bei langen Seiten ist es hilfreich, wenn ein Link zur Verfügung steht, mit dem man zum Seitenanfang springen kann.'
+  additionals_query_list_default_totals: Standard-Summen in der Listenansicht
+  additionals_query_list_defaults: Standard-Spalten Listenansicht
   button_assign_to_me: Mir zuweisen
   disabled_modules_info: "Module, die nicht zur Auswahl innerhalb der Projekte zur Verfügung stehen sollen. Sind in bestehenden Projekten schon diese Module aktiviert worden, werden die Einstellungen für diese Projekte erst nach erneuten Abspeichern der jeweiligen Projekteinstellungen aktiv."
   error_issue_status_could_not_changed: Der Ticket-Status konnte nicht geändert werden
   error_issues_could_not_be_assigned_to_me: Das Ticket konnte nicht mir zugeordnet werden
   error_query_statement_invalid: Beim Ausführen der Query ist ein Fehler aufgetreten und wurde protokolliert. Bitte melden Sie diesen Fehler Ihrem Redmine-Administrator.
-  errors_invalid_icon_format: ist ein ungültiger Font-Awesome Code
   errors_no_or_invalid_arguments: Kein oder ungültiger Parameter
-  open_external_urls_info: "Wenn aktiviert, werden externe URLs im neuen Fenster/TAB geöffnet."
   field_autowatch_involved_issue: Involvierte Tickets automatisch beobachten
   field_color: Farbe
+  field_hide: Verstecken
   field_icon: Symbol
   field_issue_relation_plural: Ticket Beziehungen
   field_tag_list: Tags
@@ -42,8 +45,9 @@ de:
   global_wiki_header_info: 'Hier kann ein projektübergreifender Wiki Header hinterlegt werden. Wird über "Wiki Extensions" ein projektspezifischer Header angelegt, wird dieser immer vorzugsweise vor dem projektübergreifenden Header verwendet.'
   global_wiki_sidebar_info: 'Hier kann für die Wiki Sidebar ein projektübergreifender Text hinterlegt werden. Diese Sidebar wird nur auf den Wiki Seiten angezeigt und kann z.B. für  Makros wie "Zuletzt geänderte Seiten" verwendet werden. Wird eine projektspezifische Sidebar angelegt (über eine Wiki Seite), dann wird diese anstelle der projektübergreifenden Sidebar angezeigt.'
   google_maps_embed_api_html: Wenn Du das Gmap Makro verwenden willst um Google Karten darzustellen, musst Du hier Deinen Google Maps Embed API Schlüssel eintragen. Mehr Informationen dazu findest Du unter <a href="https://developers.google.com/maps/documentation/embed/guide" target="_blank">https://developers.google.com/maps/documentation/embed/guide</a>. Wird hier kein Schlüssel eingetragen, kann das gmap Makro nicht verwendet werden.
+  hidden_macros_in_toolbar_info: Alle verfügbaren Makros, die der angemeldete Benutzer verwenden kann, werden über den Makro-Button der Wiki-Toolbar aufgelistet. Hier markierte Makros werden nicht zur Auswahl angeboten. Damit lässt sich der Listenumfang einschränken.
+  info_hidden_roles_html: Versteckte Rollen können nur zusammen mit der Benutzersichtbarkeit "Mitglieder von sichtbaren Projekten" verwendet werden. Diese Option funktioniert nur, wenn der Benutzer in keiner Rolle ist die für den aktuellen Benutzer sichtbar ist. Passt alles wird diese Rolle inklusive Benutzer auf der Projektübersichtsseite und in Abfragelisten ausgeblendet.
   invisible_captcha_info_html: Ist diese Option aktiviert, wird mit Hilfe von <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> ein SPAM Schutz auf die Registrierungs-Seite für neue Benutzer eingesetzt. Diese steht nur zur Verfügung, wenn Redmine die Registrierung neuer Benutzer zulässt.
-  label_docs_access_token: Zugriffstoken
   label_account_login_bottom: "Text für Anmeldeseite"
   label_add_go_to_top: '"Nach oben" Link hinzufügen'
   label_add_tags: Tags hinzufügen
@@ -51,15 +55,17 @@ de:
   label_additionals: Additionals
   label_app_menu: App Menü
   label_change_is_private: Privat/Nicht-Privat ändern
+  label_chart_color_schema: Charts Farbschema
+  label_chartjs_colorscheme_info: Farbschema Auflistung
   label_content_plural: Inhalte
   label_custom_menu_items: Benutzerdefinierte Menüpunkte
   label_daily: täglich
+  label_dashboard_plural: Dashboards
+  label_dashboard: Dashboard
   label_day: Tag
   label_disabled_modules: "Deaktivierte Module"
-  label_open_external_urls: "Externe URLs öffnen"
-  label_fontawesome_brands: Brands
-  label_fontawesome_regular: Regular
-  label_fontawesome_solid: Solid
+  label_docs_access_token: Zugriffstoken
+  label_edit_tags: Tags bearbeiten
   label_global_footer: "Projektübergreifender Footer"
   label_global_sidebar: "Projektübergreifender Sidebar Inhalt"
   label_global_wiki_footer: "Projektübergreifender Wiki Footer"
@@ -69,13 +75,19 @@ de:
   label_google_maps_api_key: Google Maps Embed API Key
   label_help_integration: Online Hilfe Integration
   label_help_manual: Handbuch
+  label_hidden_macros_in_toolbar: Versteckte Makros
   label_hour: Stunde
   label_icon_color: Symbolfarbe
   label_invisible_captcha: SPAM Schutz bei Registrierung
   label_issue_assign_to_me: Ticket "Mir zuweisen" anzeigen
+  label_issue_auto_assign: "Wird \"Zugewiesen an\" nicht zugewiesen und der neue Ticketstatus ist x, dann wird die ersten Gruppe mit Benutzern der festgelegten Rolle das Ticket zugewiesen."
   label_issue_autowatch_involved: Involvierte Benutzer automatisch als Beobachter hinzufügen
   label_issue_change_status_in_sidebar: Ticketstatus über Sidebar
   label_issue_change_status: Status ändern
+  label_issue_current_user_status: "Der Ticketstatus x ist nur erlaubt, wenn \"Zugewiesen an\" der aktuelle Benutzer zugewiesen wird."
+  label_issue_freezed_with_close: Bearbeitung geschlossener Tickets verbieten (Freeze)
+  label_issue_status_change: "Wird \"Zugewiesen an\" nicht verändert und der Ticketstatus von x auf y geändert, dann wird das Ticket automatisch dem Ersteller zugewiesen"
+  label_issue_timelog_required: Zeiterfassung für Ticket erforderlich
   label_last_year: voriges Jahr
   label_legacy_smiley_support: Smiley/Emoji Support
   label_macro_plural: Makros
@@ -83,6 +95,8 @@ de:
   label_monthly: monatlich
   label_new_issue_on_profile: Neues Ticket auf Benutzerprofil
   label_new_ticket_message: "Hinweistext für neue Tickets"
+  label_open_external_urls: "Externe URLs öffnen"
+  label_open_in_google_docs: In Google Docs öffnen
   label_open_in_new_windows: In neuen Fenster öffnen
   label_optional: "optional"
   label_overview_bottom: "Übersichtsseite, unten"
@@ -94,6 +108,7 @@ de:
   label_project_overview_content: "Projektwegweiser"
   label_query_delete: Abfrage löschen
   label_query_edit: Abfrage bearbeiten
+  label_query_name_search: Nach Name suchen
   label_reddit_subject: Reddit Thema
   label_reddit_user_account: Reddit Benutzer
   label_redmine_org_issue: Redmine.org Ticket
@@ -101,12 +116,7 @@ de:
   label_remove_help: "Entferne 'Hilfe' aus dem Topmenü"
   label_remove_mypage: "Entferne 'Meine Seite' aus dem Topmenü"
   label_remove_news: "Entferne 'Letzte News' von der Übersichtsseite"
-  label_issue_auto_assign: "Wird \"Zugewiesen an\" nicht zugewiesen und der neue Ticketstatus ist x, dann wird die ersten Gruppe mit Benutzern der festgelegten Rolle das Ticket zugewiesen."
-  label_issue_current_user_status: "Der Ticketstatus x ist nur erlaubt, wenn \"Zugewiesen an\" der aktuelle Benutzer zugewiesen wird."
-  label_issue_status_change: "Wird \"Zugewiesen an\" nicht verändert und der Ticketstatus von x auf y geändert, dann wird das Ticket automatisch dem Ersteller zugewiesen"
-  label_issue_timelog_required: Zeiterfassung für Ticket erforderlich
   label_search_by_name: Suche nach Namen
-  label_set_icon_from: Symbol auswählen von
   label_settings_macros: "Makros"
   label_settings_menu: "Menü"
   label_show_all: Alle anzeigen
@@ -124,10 +134,13 @@ de:
   label_weekly: wöchentlich
   label_wiki_pdf_remove_attachments: Dateianhänge nicht anzeigen
   label_wiki_pdf_remove_title: Wiki Titel nicht anzeigen
+  label_without_value: "Ohne %{value}"
   label_yearly: jährlich
+  latest_entries_changes: "Die letzten %{value} Änderungen"
   legacy_smiley_support_info_html: 'Smileys und Emoji Symbole konvertieren. Diese Option sollte nur aktiviert werden, wenn der Code für Smileys oder Emoji manuell eingetragen wird (z.B. :kiss:). Wenn Unicode-Emoji eingesetzt werden sollte diese Option deaktiviert bleiben. Siehe <a href="http://caniemoji.com/" target="_blank">http://caniemoji.com/</a> für Emoji-Browser Support. Im <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> können die zur Verfügung stehenden Emoji-Codes eingesetzt werden. Der <strong>Anwendungsserver muss neu gestartet werden</strong>, damit diese Einstellung aktiv wird.'
   menu_roles_info: "Nur den ausgewählten Rollen wird der Menüpunkt angezeigt. Sobald ein Mitglied in einem Projekt die Rolle besitzt, wird der Menüpunkt angezeigt."
   new_ticket_message_info: "Ein Hinweis, der beim Erstellen neuer Tickets angezeigt wird. Es kann beispielsweise auf Akzeptanztests oder Richtlinien zum Erstellen der Tickets hingewiesen werden. Dieser Einstellung ist projektübergreifend und ist in allen Projekten aktiv."
+  open_external_urls_info: "Wenn aktiviert, werden externe URLs im neuen Fenster/TAB geöffnet."
   overview_bottom_info: "Hier kann ein Text hinterlegt werden, welcher auf der Übersichtsseite unten ausgegeben wird. Verweisen Sie beispielsweise auf bestimmte Wiki Seiten."
   overview_right_info: "Hier kann ein Text hinterlegt werden, welcher auf der rechten Seite der Übersichtsseite ausgegeben wird. Verweisen Sie beispielsweise auf bestimmte Wiki Seiten."
   overview_top_info: "Hier kann ein Text hinterlegt werden, welcher auf der Übersichtsseite oben ausgegeben wird. Verweisen Sie beispielsweise auf bestimmte Wiki Seiten."
@@ -143,6 +156,7 @@ de:
   remove_news_info: "News von der Übersichtsseite entfernen."
   rule_issue_auto_assign_info: 'Use Case: Der Ticketersteller weiss nicht, wem er das Ticket zurordnen soll bzw. welcher Benutzer zuständig für das Ticket ist. Das neue Ticket mit dem Status "To Do" wird in dem Fall automatisch der ersten Gruppe zugewiesen, die Benutzer mit der Rolle Managener enthält.'
   rule_issue_current_user_status_info_html: "Wird diese Funktion zusammen mit der Einstellung \"Ticketstatus über Sidebar\" verwendet, wird automatisch der aktuelle Benutzer dem neu ausgewählten Status zugewiesen.<br />Use Case: Ein Benutzer soll nur den Status auf \"In Progress\" selbst stellen können um damit anzuzeigen, dass er an dem Ticket (gerade) arbeitet."
+  rule_issue_freezed_with_close_info: Wird diese Option aktiviert können bereits geschlossene Tickets nicht mehr bearbeitet und kommentiert werden. Auch nicht via Mail oder API. Für Benutzerrollen mit dem Recht "Geschlossene Tickets bearbeiten" gilt diese Einschränkung nicht.
   rule_issue_status_change_info: "Use Case: Zur Abnahme der Tickets sollen alle Tickets automatisch dem Ersteller des Tickets zugeordnet werden, sofern kein anderer Benutzer ausgewählt wird."
   rule_issue_timelog_required_info_html: 'Zu jedem Ticket der ausgewählten Tracker wird eine Zeitbuchung notwendig, wenn das Ticket eine der festgelegten Status-Eigenschaften erhalten soll. Nicht erforderlich ist die Zeitbuchung, wenn:<br />- keine Rechte für das Anlegen von Zeitbuchungen bestehen<br />- der Benutzer die Berechtigung "Zeitbuchungen nicht erforderlich" besitzt<br />Use case: Zur Abnahme eines Tickets mit dem Status "To Verify" werden auch die aufgewendete Zeiten benötigt.'
   show_always: Immer anzeigen
@@ -156,17 +170,3 @@ de:
   top_wiki_help: Hier kannst Du Inhalte und Einstellungen bzg. der Wiki festlegen.
   wiki_pdf_remove_attachments_info: Wenn aktiv, werden die an der Wiki Seite angehängten Dateien nicht in der PDF Ansicht angezeigt.
   wiki_pdf_remove_title_info: Wenn aktiv, wird der Wiki Titel nicht in der PDF Ansicht angezeigt.
-  label_issue_freezed_with_close: Bearbeitung geschlossener Tickets verbieten (Freeze)
-  rule_issue_freezed_with_close_info: Wird diese Option aktiviert können bereits geschlossene Tickets nicht mehr bearbeitet und kommentiert werden. Auch nicht via Mail oder API. Für Benutzerrollen mit dem Recht "Geschlossene Tickets bearbeiten" gilt diese Einschränkung nicht.
-  additionals_query_list_defaults: Standard-Spalten Listenansicht
-  additionals_query_list_default_totals: Standard-Summen in der Listenansicht
-  field_hide: Verstecken
-  label_hidden_macros_in_toolbar: Versteckte Makros
-  hidden_macros_in_toolbar_info: Alle verfügbaren Makros, die der angemeldete Benutzer verwenden kann, werden über den Makro-Button der Wiki-Toolbar aufgelistet. Hier markierte Makros werden nicht zur Auswahl angeboten. Damit lässt sich der Listenumfang einschränken.
-  info_hidden_roles_html: Versteckte Rollen können nur zusammen mit der Benutzersichtbarkeit "Mitglieder von sichtbaren Projekten" verwendet werden. Diese Option funktioniert nur, wenn der Benutzer in keiner Rolle ist die für den aktuellen Benutzer sichtbar ist. Passt alles wird diese Rolle inklusive Benutzer auf der Projektübersichtsseite und in Abfragelisten ausgeblendet.
-  latest_entries_changes: "Die letzten %{value} Änderungen"
-  label_edit_tags: Tags bearbeiten
-  label_query_name_search: Nach Name suchen
-  label_chartjs_colorscheme_info: Farbschema Auflistung
-  label_chart_color_schema: Charts Farbschema
-  label_without_value: "Ohne %{value}"

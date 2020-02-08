@@ -73,7 +73,7 @@ module AdditionalsQueriesHelper
 
   def additionals_query_cache_key(object_type)
     project_id = @project ? @project.id : 0
-    "#{object_type}_query_data_#{session[:session_id]}_#{project_id}"
+    "#{object_type}_query_data_#{session.id}_#{project_id}"
   end
 
   def additionals_select2_search_users(where_filter = '', where_params = {})

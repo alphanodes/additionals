@@ -331,7 +331,6 @@ div.additionals-projects li.project.odd {
 
 .additionals-chart-left {
   float: left;
-  font: normal 12px sans-serif;
   height: 320px;
   width: 360px;
 }
@@ -339,14 +338,12 @@ div.additionals-projects li.project.odd {
 /* has to be same width as additionals-table-of-values */
 .additionals-chart-right {
   float: left;
-  font: normal 12px sans-serif;
   height: 320px;
   width: 450px;
 }
 
 .additionals-table-of-values {
   float: left;
-  font: normal 12px sans-serif;
   width: 450px;
 }
 

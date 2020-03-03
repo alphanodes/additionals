@@ -1,4 +1,5 @@
 language: ruby
+os: linux
 dist: xenial
 
 rvm:
@@ -15,8 +16,6 @@ env:
   - REDMINE_VER=master DB=postgresql
   - REDMINE_VER=4.0-stable DB=mysql
   - REDMINE_VER=master DB=mysql
-
-sudo: true
 
 before_install:
   - export PLUGIN_NAME=additionals

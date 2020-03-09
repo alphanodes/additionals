@@ -1,0 +1,7 @@
+<%= raw @assignee.map { |principal| {
+      'id' => principal.id,
+      'text' => principal.name,
+      'value' => principal.id
+      }
+    }.to_json
+%>

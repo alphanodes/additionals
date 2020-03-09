@@ -86,7 +86,7 @@ module AdditionalsFontawesomeHelper
            partial: 'additionals/select2_ajax_call.js',
            formats: [:js],
            locals: { field_class: html_options[:class],
-                     ajax_url: auto_complete_fontawesome_path(selected: @selected_store.join(',')),
+                     ajax_url: fontawesome_auto_completes_path(selected: @selected_store.join(',')),
                      options: options })
   end
 end

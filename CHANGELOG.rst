@@ -6,6 +6,7 @@ Changelog
 
 - FontAwesome 5.12.1 support
 - Mermaid 8.4.8 support
+- clipboard.js updated to v2.0.6
 
 2.0.23
 ++++++

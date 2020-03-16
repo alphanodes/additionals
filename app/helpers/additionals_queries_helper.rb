@@ -52,9 +52,9 @@ module AdditionalsQueriesHelper
   end
 
   def additionals_load_query_id(query_class, session_key, query_id, options, object_type)
-    cond = 'project_id IS NULL'
-    cond << " OR project_id = #{@project.id}" if @project
-    @query = query_class.where(cond).find(query_id)
+    scope = query_class.where(project_id: nil)
+    scope = scope.or(where(project_id: @project.id)) if @project
+    @query = scope.find(query_id)
     raise ::Unauthorized unless @query.visible?
 
     @query.project = @project

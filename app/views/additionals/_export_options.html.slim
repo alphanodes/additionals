@@ -19,8 +19,7 @@ div id="#{export_format}-export-options" style="display: none"
         label
           = check_box_tag 'c[]', 'description', @query.has_column?(:description)
           = l(:field_description)
-    - if Rails.version >= '5.2'
-      = export_csv_encoding_select_tag
+    = export_csv_encoding_select_tag
     p.buttons
       = submit_tag l(:button_export), name: nil, onclick: 'hideModal(this);'
       '

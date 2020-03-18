@@ -60,9 +60,3 @@ begin
 rescue ActiveRecord::NoDatabaseError
   Rails.logger.warn 'database not created yet'
 end
-
-if Rails.version < '5.2'
-  jobs_path = File.dirname(__FILE__) + '/app/jobs'
-  ActiveSupport::Dependencies.autoload_paths += [jobs_path]
-  Rails.application.config.eager_load_paths += [jobs_path]
-end

@@ -76,12 +76,13 @@ module AdditionalsQueriesHelper
     "#{object_type}_query_data_#{session[:session_id]}_#{project_id}"
   end
 
-  def additionals_select2_search_users(where_filter = '', where_params = {})
+  def additionals_select2_search_users(options = {})
     q = params[:q].to_s.strip
     exclude_id = params[:user_id].to_i
     scope = User.active.where(type: 'User')
+    scope = scope.visible unless options[:all_visible]
     scope = scope.where.not(id: exclude_id) if exclude_id.positive?
-    scope = scope.where(where_filter, where_params) if where_filter.present?
+    scope = scope.where(options[:where_filter], options[:where_params]) if options[:where_filter]
     scope = scope.like(q) if q.present?
     scope = scope.order(last_login_on: :desc)
                  .limit(params[:limit] || Additionals::SELECT2_INIT_ENTRIES)

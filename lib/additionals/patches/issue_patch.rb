@@ -2,6 +2,7 @@ module Additionals
   module Patches
     module IssuePatch
       def self.included(base)
+        base.extend(ClassMethods)
         base.send(:include, InstanceMethods)
         base.class_eval do
           alias_method :editable_without_additionals?, :editable?
@@ -18,6 +19,21 @@ module Additionals
                             issue.new_record? && user.allowed_to?(:change_new_issue_author, issue.project) ||
                               issue.persisted? && user.allowed_to?(:edit_issue_author, issue.project)
                           }
+        end
+      end
+
+      module ClassMethods
+        def join_issue_status(options = {})
+          sql = "JOIN #{IssueStatus.table_name} ON #{IssueStatus.table_name}.id = #{table_name}.status_id"
+          return sql unless options.key?(:is_closed)
+
+          sql << " AND #{IssueStatus.table_name}.is_closed ="
+          sql << if options[:is_closed]
+                   " #{connection.quoted_true}"
+                 else
+                   " #{connection.quoted_false}"
+                 end
+          sql
         end
       end
 

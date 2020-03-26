@@ -21,12 +21,11 @@ Additionals is a `Redmine`_ plugin for customizing Redmine, providing wiki macro
    :target: https://additionals.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
 
-.. image:: https://api.codeclimate.com/v1/badges/d92c0bda57f80e7c76b7/maintainability
-   :target: https://codeclimate.com/github/AlphaNodes/additionals/maintainability
-   :alt: Maintainability
-
 .. image:: https://travis-ci.org/AlphaNodes/additionals.svg?branch=master
    :target: https://travis-ci.org/AlphaNodes/additionals
+
+.. image:: https://github.com/AlphaNodes/additionals/workflows/Run%20Linters/badge.svg
+   :target: https://github.com/AlphaNodes/additionals/actions?query=workflow%3A%22Run+Linters%22
 
 .. image:: https://img.shields.io/badge/rate%20at-redmine.org-blue.svg?style=flat
    :target: https://www.redmine.org/plugins/additionals

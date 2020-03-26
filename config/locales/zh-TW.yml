@@ -137,7 +137,7 @@
   label_without_value: "沒有 %{value}"
   label_yearly: "每年"
   latest_entries_changes: "Latest %{value} changes"
-  legacy_smiley_support_info_html: "轉換為表情符號。若使用輸入代碼（如 :kiss:），則啟用選項（<a href='https://www.webpagefx.com/tools/emoji-cheat-sheet/' target='_blank'>查閱可用的代碼</a>）；若使用Unicode，則不要啟用選項。 更多關於emoji表情符號的資訊，請參閱<a href='http://caniemoji.com/' target='_blank'>http://caniemoji.com/</a>。修改後必須重啟Redmine。"
+  legacy_smiley_support_info_html: "Convert smileys in text. This option should only be activated if the code for smileys (e.g. :) ) was entered manually and should be displayed as smiley face. In the <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> the available Emoji codes can be used. 修改後必須重啟Redmine。"
   menu_roles_info: "只有所選的角色權限才能看到選單。"
   new_ticket_message_info: "每個新建立議題用戶都會看到提示訊息。"
   open_external_urls_info: "如果啟用，則在新窗口/選項卡中打開外部URL。"

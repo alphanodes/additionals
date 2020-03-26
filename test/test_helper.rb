@@ -1,6 +1,6 @@
 $VERBOSE = nil
 
-unless ENV['SKIP_COVERAGE']
+if ENV['COVERAGE']
   require 'simplecov'
   require 'simplecov-rcov'
 

@@ -4,7 +4,7 @@ Changelog
 2.0.24
 ++++++
 
-- FontAwesome 5.12.1 support
+- FontAwesome 5.13.0 support
 - Mermaid 8.4.8 support
 - clipboard.js updated to v2.0.6
 - fix for spam protection with invisible_captcha

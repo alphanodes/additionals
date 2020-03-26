@@ -4,7 +4,9 @@ module Additionals
       def self.included(base)
         base.send(:include, InstanceMethods)
         base.class_eval do
-          invisible_captcha(only: [:register], on_timestamp_spam: :timestamp_spam_check) if Additionals.setting?(:invisible_captcha)
+          invisible_captcha(only: [:register],
+                            on_timestamp_spam: :timestamp_spam_check,
+                            if: -> { Additionals.setting?(:invisible_captcha) })
         end
       end
       module InstanceMethods

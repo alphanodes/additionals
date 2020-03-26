@@ -2,13 +2,16 @@ module Additionals
   module Patches
     module FormatterTextilePatch
       def self.included(base)
-        base.class_eval do
-          base.send(:include, Additionals::Formatter)
-          # Add :inline_emojify to list of textile functions
-          if Additionals.setting?(:legacy_smiley_support)
-            Redmine::WikiFormatting::Textile::Formatter::RULES << :inline_emojify
-            Redmine::WikiFormatting::Textile::Formatter::RULES << :inline_smileys
-          end
+        base.send(:include, Additionals::Formatter)
+        base.send(:prepend, InstancOverwriteMethods)
+
+        Redmine::WikiFormatting::Textile::Formatter::RULES << :inline_emojify
+      end
+
+      module InstancOverwriteMethods
+        def to_html(*rules)
+          Redmine::WikiFormatting::Textile::Formatter::RULES << :inline_smileys if Additionals.setting?(:legacy_smiley_support)
+          super
         end
       end
     end

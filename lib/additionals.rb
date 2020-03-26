@@ -75,8 +75,6 @@ module Additionals
 
     # support with default setting as fall back
     def setting(value)
-      return if settings.nil?
-
       if settings.key? value
         settings[value]
       else

@@ -137,7 +137,7 @@ zh:
   label_without_value: "没有 %{value}"
   label_yearly: 每年
   latest_entries_changes: "Latest %{value} changes"
-  legacy_smiley_support_info_html: '转换为表情符号。如表情符号通过手工输入代码（如 :kiss:），则启用该选项。 若您使用的是 Unicode 表情符号，则应禁用该选项。获取更多关于 Emoji 的信息，请阅读 <a href="http://caniemoji.com/" target="_blank">http://caniemoji.com/</a>. 查看 <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> 获取可用的 Emoji 代码。为激活该配置，必须 <strong>重启Redmine服务</strong> 。'
+  legacy_smiley_support_info_html: 'Convert smileys in text. This option should only be activated if the code for smileys (e.g. :) ) was entered manually and should be displayed as smiley face. In the <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> the available Emoji codes can be used. 为激活该配置，必须 <strong>重启Redmine服务</strong> 。'
   menu_roles_info: "只有所选角色对应的用户才能看到菜单项。"
   new_ticket_message_info: "每个新建问题的用户都会看到提示信息。例如，您可以输入可接受性测试或问题处理规则。这些配置在某个具体的项目范围内适用。"
   open_external_urls_info: "如果启用，则在新窗口/选项卡中打开外部URL。"

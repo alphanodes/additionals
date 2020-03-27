@@ -89,7 +89,7 @@ de:
   label_issue_status_change: "Wird \"Zugewiesen an\" nicht verändert und der Ticketstatus von x auf y geändert, dann wird das Ticket automatisch dem Ersteller zugewiesen"
   label_issue_timelog_required: Zeiterfassung für Ticket erforderlich
   label_last_year: voriges Jahr
-  label_legacy_smiley_support: Smiley/Emoji Support
+  label_legacy_smiley_support: Legacy Smiley Support
   label_macro_plural: Makros
   label_menu_entry: "Menüpunkt"
   label_monthly: monatlich
@@ -137,7 +137,7 @@ de:
   label_without_value: "Ohne %{value}"
   label_yearly: jährlich
   latest_entries_changes: "Die letzten %{value} Änderungen"
-  legacy_smiley_support_info_html: 'Smileys und Emoji Symbole konvertieren. Diese Option sollte nur aktiviert werden, wenn der Code für Smileys oder Emoji manuell eingetragen wird (z.B. :kiss:). Wenn Unicode-Emoji eingesetzt werden sollte diese Option deaktiviert bleiben. Siehe <a href="http://caniemoji.com/" target="_blank">http://caniemoji.com/</a> für Emoji-Browser Support. Im <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> können die zur Verfügung stehenden Emoji-Codes eingesetzt werden. Der <strong>Anwendungsserver muss neu gestartet werden</strong>, damit diese Einstellung aktiv wird.'
+  legacy_smiley_support_info_html: 'Smileys im Text konvertieren. Diese Option sollte nur aktiviert werden, wenn der Code für Smileys (z.B. :) ) manuell eingetragen wurde und als Smiley Gesicht angezeigt werden soll. Im <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> können die zur Verfügung stehenden Emoji-Codes eingesetzt werden. Wird diese Einstellung aktiviert, <strong>muss der Anwendungsserver neu gestartet werden</strong>.'
   menu_roles_info: "Nur den ausgewählten Rollen wird der Menüpunkt angezeigt. Sobald ein Mitglied in einem Projekt die Rolle besitzt, wird der Menüpunkt angezeigt."
   new_ticket_message_info: "Ein Hinweis, der beim Erstellen neuer Tickets angezeigt wird. Es kann beispielsweise auf Akzeptanztests oder Richtlinien zum Erstellen der Tickets hingewiesen werden. Dieser Einstellung ist projektübergreifend und ist in allen Projekten aktiv."
   open_external_urls_info: "Wenn aktiviert, werden externe URLs im neuen Fenster/TAB geöffnet."

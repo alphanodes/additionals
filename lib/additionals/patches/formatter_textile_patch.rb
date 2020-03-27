@@ -10,7 +10,11 @@ module Additionals
 
       module InstancOverwriteMethods
         def to_html(*rules)
-          Redmine::WikiFormatting::Textile::Formatter::RULES << :inline_smileys if Additionals.setting?(:legacy_smiley_support)
+          if Redmine::WikiFormatting::Textile::Formatter::RULES.exclude?(:inline_smileys) &&
+             Additionals.setting?(:legacy_smiley_support)
+            Redmine::WikiFormatting::Textile::Formatter::RULES << :inline_smileys
+          end
+
           super
         end
       end

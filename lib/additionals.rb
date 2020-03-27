@@ -12,9 +12,12 @@ module Additionals
                               redmine_editauthor
                               redmine_changeauthor
                               redmine_auto_watch])
-      patch(%w[AccountController
-               AutoCompletesController
-               Issue
+
+      require_dependency 'additionals/patches/account_controller_patch'
+      require_dependency 'additionals/patches/application_controller_patch'
+      require_dependency 'additionals/patches/auto_completes_controller_patch'
+
+      patch(%w[Issue
                IssuePriority
                TimeEntry
                Project

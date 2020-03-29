@@ -1,6 +1,6 @@
 $VERBOSE = nil
 
-if ENV['COVERAGE']
+if ENV['JENKINS']
   require 'simplecov'
   SimpleCov.start :rails do
     add_filter 'init.rb'

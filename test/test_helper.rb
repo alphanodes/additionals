@@ -2,11 +2,6 @@ $VERBOSE = nil
 
 if ENV['COVERAGE']
   require 'simplecov'
-  require 'simplecov-rcov'
-
-  SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter[SimpleCov::Formatter::HTMLFormatter,
-                                                              SimpleCov::Formatter::RcovFormatter]
-
   SimpleCov.start :rails do
     add_filter 'init.rb'
     root File.expand_path(File.dirname(__FILE__) + '/..')

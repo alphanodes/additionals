@@ -3,8 +3,8 @@ os: linux
 dist: xenial
 
 rvm:
-  - 2.6.5
-  - 2.4.9
+  - 2.6.6
+  - 2.4.10
   - 2.3.8
 
 services:

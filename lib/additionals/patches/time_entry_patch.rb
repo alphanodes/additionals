@@ -2,7 +2,7 @@ module Additionals
   module Patches
     module TimeEntryPatch
       def self.included(base)
-        base.send(:include, InstanceMethods)
+        base.include InstanceMethods
         base.class_eval do
           alias_method :editable_by_without_additionals?, :editable_by?
           alias_method :editable_by?, :editable_by_with_additionals?

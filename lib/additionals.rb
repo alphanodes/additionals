@@ -13,11 +13,10 @@ module Additionals
                               redmine_changeauthor
                               redmine_auto_watch])
 
-      require_dependency 'additionals/patches/account_controller_patch'
-      require_dependency 'additionals/patches/application_controller_patch'
-      require_dependency 'additionals/patches/auto_completes_controller_patch'
-
-      patch(%w[Issue
+      patch(%w[AccountController
+               ApplicationController
+               AutoCompletesController
+               Issue
                IssuePriority
                TimeEntry
                Project
@@ -118,7 +117,7 @@ module Additionals
         target = name.constantize
         patch = "#{plugin_id.camelize}::Patches::#{name}Patch".constantize
 
-        target.send(:include, patch) unless target.included_modules.include?(patch)
+        target.include(patch) unless target.included_modules.include?(patch)
       end
     end
 

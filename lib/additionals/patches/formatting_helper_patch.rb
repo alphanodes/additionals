@@ -2,7 +2,7 @@ module Additionals
   module Patches
     module FormattingHelperPatch
       def self.included(base)
-        base.send(:prepend, InstancOverwriteMethods)
+        base.prepend InstancOverwriteMethods
       end
 
       module InstancOverwriteMethods

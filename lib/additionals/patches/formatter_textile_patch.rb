@@ -2,7 +2,8 @@ module Additionals
   module Patches
     module FormatterTextilePatch
       def self.included(base)
-        base.send(:include, Additionals::Formatter)
+        base.include Additionals::Formatter
+
         # emojify are always enabled
         Redmine::WikiFormatting::Textile::Formatter::RULES << :inline_emojify
       end

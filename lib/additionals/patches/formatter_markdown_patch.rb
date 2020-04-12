@@ -3,7 +3,7 @@ module Additionals
     module FormatterMarkdownPatch
       def self.included(base)
         base.class_eval do
-          base.send(:include, Additionals::Formatter)
+          base.include Additionals::Formatter
 
           # Add a postprocess hook to redcarpet's html formatter
           def postprocess(text)

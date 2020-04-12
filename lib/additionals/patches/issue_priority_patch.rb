@@ -2,7 +2,7 @@ module Additionals
   module Patches
     module IssuePriorityPatch
       def self.included(base)
-        base.send(:include, InstanceMethods)
+        base.include InstanceMethods
         base.class_eval do
           alias_method :css_classes_without_additionals, :css_classes
           alias_method :css_classes, :css_classes_with_additionals

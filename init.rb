@@ -1,7 +1,5 @@
 raise "\n\033[31madditionals requires ruby 2.3 or newer. Please update your ruby version.\033[0m" if RUBY_VERSION < '2.3'
 
-require_dependency 'additionals'
-
 Redmine::Plugin.register :additionals do
   name 'Additionals'
   author 'AlphaNodes GmbH'

@@ -2,8 +2,8 @@ module Additionals
   module Patches
     module IssuePatch
       def self.included(base)
-        base.extend(ClassMethods)
-        base.send(:include, InstanceMethods)
+        base.extend ClassMethods
+        base.include InstanceMethods
         base.class_eval do
           alias_method :editable_without_additionals?, :editable?
           alias_method :editable?, :editable_with_additionals?

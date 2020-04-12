@@ -2,8 +2,8 @@ module Additionals
   module Patches
     module ProjectPatch
       def self.included(base)
-        base.send(:prepend, InstancOverwriteMethods)
-        base.send(:include, InstanceMethods)
+        base.prepend InstancOverwriteMethods
+        base.include InstanceMethods
       end
 
       module InstancOverwriteMethods

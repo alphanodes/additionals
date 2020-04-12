@@ -1,12 +1,14 @@
 module Additionals
   module Patches
     module ProjectPatch
-      def self.included(base)
-        base.prepend InstancOverwriteMethods
-        base.include InstanceMethods
+      extend ActiveSupport::Concern
+
+      included do
+        prepend InstanceOverwriteMethods
+        include InstanceMethods
       end
 
-      module InstancOverwriteMethods
+      module InstanceOverwriteMethods
         def users_by_role
           roles_with_users = super
           roles_with_users.each do |role_with_users|

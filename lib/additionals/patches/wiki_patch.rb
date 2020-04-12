@@ -4,12 +4,13 @@ module Additionals
   module Patches
     # Patch wiki to include sidebar
     module WikiPatch
-      def self.included(base)
-        base.include InstanceMethods
-        base.class_eval do
-          alias_method :sidebar_without_additionals, :sidebar
-          alias_method :sidebar, :sidebar_with_additionals
-        end
+      extend ActiveSupport::Concern
+
+      included do
+        include InstanceMethods
+
+        alias_method :sidebar_without_additionals, :sidebar
+        alias_method :sidebar, :sidebar_with_additionals
       end
 
       module InstanceMethods

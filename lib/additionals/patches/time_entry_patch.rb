@@ -1,13 +1,14 @@
 module Additionals
   module Patches
     module TimeEntryPatch
-      def self.included(base)
-        base.include InstanceMethods
-        base.class_eval do
-          alias_method :editable_by_without_additionals?, :editable_by?
-          alias_method :editable_by?, :editable_by_with_additionals?
-          validate :validate_issue_allowed
-        end
+      extend ActiveSupport::Concern
+
+      included do
+        include InstanceMethods
+
+        alias_method :editable_by_without_additionals?, :editable_by?
+        alias_method :editable_by?, :editable_by_with_additionals?
+        validate :validate_issue_allowed
       end
 
       module InstanceMethods

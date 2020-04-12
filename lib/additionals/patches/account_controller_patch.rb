@@ -1,13 +1,13 @@
 module Additionals
   module Patches
     module AccountControllerPatch
-      def self.included(base)
-        base.include InstanceMethods
-        base.class_eval do
-          invisible_captcha(only: [:register],
-                            on_timestamp_spam: :timestamp_spam_check,
-                            if: -> { Additionals.setting?(:invisible_captcha) })
-        end
+      extend ActiveSupport::Concern
+
+      included do
+        include InstanceMethods
+        invisible_captcha(only: [:register],
+                          on_timestamp_spam: :timestamp_spam_check,
+                          if: -> { Additionals.setting?(:invisible_captcha) })
       end
 
       module InstanceMethods

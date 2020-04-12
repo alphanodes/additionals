@@ -3,12 +3,13 @@ require_dependency 'wiki_controller'
 module Additionals
   module Patches
     module WikiControllerPatch
-      def self.included(base)
-        base.include InstanceMethods
-        base.class_eval do
-          alias_method :respond_to_without_additionals, :respond_to
-          alias_method :respond_to, :respond_to_with_additionals
-        end
+      extend ActiveSupport::Concern
+
+      included do
+        include InstanceMethods
+
+        alias_method :respond_to_without_additionals, :respond_to
+        alias_method :respond_to, :respond_to_with_additionals
       end
 
       module InstanceMethods

@@ -1,11 +1,13 @@
 module Additionals
   module Patches
     module FormattingHelperPatch
-      def self.included(base)
-        base.prepend InstancOverwriteMethods
+      extend ActiveSupport::Concern
+
+      included do
+        prepend InstanceOverwriteMethods
       end
 
-      module InstancOverwriteMethods
+      module InstanceOverwriteMethods
         def heads_for_wiki_formatter
           super
           return if @additionals_macro_list

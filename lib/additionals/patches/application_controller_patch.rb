@@ -1,11 +1,11 @@
 module Additionals
   module Patches
     module ApplicationControllerPatch
-      def self.included(base)
-        base.include InstanceMethods
-        base.class_eval do
-          before_action :enable_smileys
-        end
+      extend ActiveSupport::Concern
+
+      included do
+        include InstanceMethods
+        before_action :enable_smileys
       end
 
       module InstanceMethods

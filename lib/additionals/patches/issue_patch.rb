@@ -1,28 +1,28 @@
 module Additionals
   module Patches
     module IssuePatch
-      def self.included(base)
-        base.extend ClassMethods
-        base.include InstanceMethods
-        base.class_eval do
-          alias_method :editable_without_additionals?, :editable?
-          alias_method :editable?, :editable_with_additionals?
-          validate :validate_change_on_closed
-          validate :validate_timelog_required
-          validate :validate_current_user_status
-          before_validation :auto_assigned_to
-          before_save :change_status_with_assigned_to_change,
-                      :autowatch_involved
+      extend ActiveSupport::Concern
 
-          safe_attributes 'author_id',
-                          if: proc { |issue, user|
-                            issue.new_record? && user.allowed_to?(:change_new_issue_author, issue.project) ||
-                              issue.persisted? && user.allowed_to?(:edit_issue_author, issue.project)
-                          }
-        end
+      included do
+        include InstanceMethods
+
+        alias_method :editable_without_additionals?, :editable?
+        alias_method :editable?, :editable_with_additionals?
+        validate :validate_change_on_closed
+        validate :validate_timelog_required
+        validate :validate_current_user_status
+        before_validation :auto_assigned_to
+        before_save :change_status_with_assigned_to_change,
+                    :autowatch_involved
+
+        safe_attributes 'author_id',
+                        if: proc { |issue, user|
+                          issue.new_record? && user.allowed_to?(:change_new_issue_author, issue.project) ||
+                            issue.persisted? && user.allowed_to?(:edit_issue_author, issue.project)
+                        }
       end
 
-      module ClassMethods
+      class_methods do
         def join_issue_status(options = {})
           sql = "JOIN #{IssueStatus.table_name} ON #{IssueStatus.table_name}.id = #{table_name}.status_id"
           return sql unless options.key?(:is_closed)

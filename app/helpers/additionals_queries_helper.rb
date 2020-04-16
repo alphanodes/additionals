@@ -224,13 +224,13 @@ module AdditionalsQueriesHelper
 
   def xlsx_hyperlink_cell?(token)
     # Match http, https or ftp URL
-    if token =~ %r{\A[fh]tt?ps?://}
+    if %r{\A[fh]tt?ps?://}.match?(token)
       true
       # Match mailto:
     elsif token.present? && token.start_with?('mailto:')
       true
       # Match internal or external sheet link
-    elsif token =~ /\A(?:in|ex)ternal:/
+    elsif /\A(?:in|ex)ternal:/.match?(token)
       true
     end
   end

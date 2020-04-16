@@ -181,7 +181,7 @@ module Additionals
     end
 
     def windows_platform?
-      true if /cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM
+      true if /cygwin|mswin|mingw|bccwin|wince|emx/.match?(RUBY_PLATFORM)
     end
 
     def autocomplete_select_entries(name, type, option_tags, options = {})

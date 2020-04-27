@@ -10,7 +10,12 @@ module Additionals
 
       module InstanceOverwriteMethods
         def users_by_role
-          roles_with_users = super
+          roles_with_users = if Redmine::VERSION::BRANCH == 'devel'
+                               principals_by_role
+                             else
+                               super
+                             end
+
           roles_with_users.each do |role_with_users|
             role = role_with_users.first
             next unless role.hide

@@ -383,3 +383,7 @@ div.relation-list-header {
 @media print {
   .gototop { display: none; }
 }
+
+#settings div.tabular.settings p {
+  padding-left: 300px;
+}

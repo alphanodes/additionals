@@ -8,7 +8,7 @@ Changelog
 - Mermaid 8.4.8 support
 - clipboard.js updated to v2.0.6
 - fix for spam protection with invisible_captcha
-- D3 5.15.1 support
+- D3 5.16.0 support
 - Ruby 2.4 is required
 
 2.0.23

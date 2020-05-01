@@ -14,7 +14,7 @@ function filterAdditionalsFormatState (opt) {
 function additionals_transform_to_select2(field){
   var field_format = availableFilters[field]['field_format'];
   var initialized_select2 = $('#tr_' + field + ' .values .select2');
-  if (initialized_select2.size() == 0 && $.inArray(field_format, additionals_field_formats) >= 0) {
+  if (initialized_select2.length == 0 && $.inArray(field_format, additionals_field_formats) >= 0) {
     $('#tr_' + field + ' .toggle-multiselect').hide();
     $('#tr_' + field + ' .values .value').attr('multiple', 'multiple');
     $('#tr_' + field + ' .values .value').select2({
@@ -116,11 +116,11 @@ function findSelectTagInRowBy(field) {
 }
 
 function rowHasSelectTag(field) {
-  return findInRowBy(field, '.values select.value').size() > 0;
+  return findInRowBy(field, '.values select.value').length > 0;
 }
 
 function rowHasSelect2(field) {
-  return findInRowBy(field, '.values .select2').size() > 0;
+  return findInRowBy(field, '.values .select2').length > 0;
 }
 
 function findInRowBy(field, selector) {

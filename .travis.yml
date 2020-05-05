@@ -4,8 +4,8 @@ dist: xenial
 
 rvm:
   - 2.6.6
+  - 2.5.8
   - 2.4.10
-  - 2.3.8
 
 services:
   - mysql

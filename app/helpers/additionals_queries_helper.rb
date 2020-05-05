@@ -239,7 +239,7 @@ module AdditionalsQueriesHelper
   # columns in ignored_column_names are skipped (names as symbols)
   # TODO: this is a temporary fix and should be removed
   # after https://www.redmine.org/issues/29830 is in Redmine core.
-  def query_as_hidden_field_tags(query, ignored_column_names = nil)
+  def query_as_hidden_field_tags(query, ignored_column_names = [])
     tags = hidden_field_tag('set_filter', '1', id: nil)
 
     if query.filters.present?

@@ -2,10 +2,10 @@ div id="#{export_format}-export-options" style="display: none"
   h3.title = l(:label_export_options, export_format: export_format.upcase)
 
   = form_tag(url, method: :get, id: "#{export_format}-export-form") do
-    - if @query.available_filters.key?('description')
-      = query_as_hidden_field_tags @query, [:description]
-    else
-      = query_as_hidden_field_tags @query
+    - ignored_column_names = []
+    - ignored_column_names << :description if @query.available_filters.key?('description')
+    - ignored_column_names << :last_notes if @query.available_filters.key?('last_notes')
+    - query_as_hidden_field_tags @query, ignored_column_names
     p
       label
         = radio_button_tag 'c[]', '', true
@@ -19,6 +19,10 @@ div id="#{export_format}-export-options" style="display: none"
         label
           = check_box_tag 'c[]', 'description', @query.has_column?(:description)
           = l(:field_description)
+        - if defined?(with_last_notes) && with_last_notes
+          label
+            = check_box_tag 'c[]', 'last_notes', @query.has_column?(:last_notes)
+            = l(:label_last_notes)
     = export_csv_encoding_select_tag
     p.buttons
       = submit_tag l(:button_export), name: nil, onclick: 'hideModal(this);'

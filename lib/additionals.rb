@@ -42,6 +42,7 @@ module Additionals
       IssuesController.send(:helper, AdditionalsIssuesHelper)
       SettingsController.send(:helper, AdditionalsSettingsHelper)
       WikiController.send(:helper, AdditionalsWikiPdfHelper)
+      CustomFieldsController.send(:helper, AdditionalsCustomFieldsHelper)
 
       # Static class patches
       Redmine::AccessControl.include Additionals::Patches::AccessControlPatch

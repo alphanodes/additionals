@@ -51,7 +51,7 @@ module AdditionalsSettingsHelper
     value = options.delete(:value).presence || @settings[name]
 
     options[:class] = 'wiki-edit' unless options.key?(:class)
-    options[:rows] = 8 unless options.key?(:rows)
+    options[:rows] = addtionals_textarea_cols(value) unless options.key?(:rows)
 
     safe_join [label_tag("settings[#{name}]", label_title),
                text_area_tag("settings[#{name}]", value, options)]

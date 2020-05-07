@@ -228,6 +228,10 @@ module Additionals
       options_for_select(fields, current)
     end
 
+    def addtionals_textarea_cols(text, options = {})
+      [[(options[:min].presence || 8), text.to_s.length / 50].max, (options[:max].presence || 20)].min
+    end
+
     private
 
     def additionals_already_loaded(scope, js_name)

@@ -28,9 +28,9 @@ And the following options can be edited by users with administratios rights in t
 
 * Activate the option ``Open external URLs`` in order to open those URLs in a new window or browser tab if someone wants to visit them.
 * Add "Go to top" link. If you have a lot of long pages, it is enabling users to easily return to the top of a page.
-* Activate the ``Legacy smileys / Emoji support`` if you want to use the manual smiley code (e.g. ``:kiss:``). This option is deactivated in the standard setting. If you already use a plugin that supports Smileys and Emojis this option should stay deactivated. For more info on Emoji-Browser support read http://caniemoji.com/. Have a look at the Emoji cheat sheet at https://www.webpagefx.com/tools/emoji-cheat-sheet for available Emoji-Codes.
+* Activate the ``Legacy smileys support`` if you want to use the manual smiley code in your text (e.g. ``:)``). If you already use a plugin that supports Smileys this option should stay deactivated. For more info on Emoji-Browser support read http://caniemoji.com/. Have a look at the Emoji cheat sheet at https://www.webpagefx.com/tools/emoji-cheat-sheet for available Emoji-Codes.
 
-.. note:: Please restart the application server, if you make changes to the external urls settings as well as if you activate the Smileys and Emoji symbol support.
+.. note:: Please restart the application server, if you make changes to the external urls settings as well as if you activate the Smileys support.
 
 .. note:: You can use the following manual smiley codes: :), =), :D, =D, :'(, :(, ;), :P, :O, :/, :S, :|, :X, :*, O:), >:), B), (!), (?), (v), (x), (/) and @}->-
 

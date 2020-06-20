@@ -1,5 +1,7 @@
 Asciinema
-----
+---------
+
+Graphical application developers often use screencasts to demonstrate functions of their programs. With Asciinema you have the possibility to record such videos, but are restricted completely to the terminal. So you can record and publish actions in the shell. With the additionals plugin macro for Asciinema you can implement such videos into Redmine.
 
 asciinema.org wiki macro for Redmine.
 

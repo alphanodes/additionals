@@ -89,7 +89,7 @@ es:
   label_issue_status_change: "Si no se modifica el usuario \"Asignado\" y la el estado de la petición es modificado de x a y, entonces la petición es asignada al autor de la petición"
   label_issue_timelog_required: Se requiere Registro de tiempo para las peticiones
   label_last_year: año anterior
-  label_legacy_smiley_support: Soporte de smiley/emoji antiguo
+  label_legacy_smiley_support: Soporte de smiley antiguo
   label_macro_plural: macros
   label_menu_entry: "Menu item"
   label_monthly: mensual
@@ -137,7 +137,7 @@ es:
   label_without_value: "No %{value}"
   label_yearly: anualmente
   latest_entries_changes: "Últimos %{value} cambios"
-  legacy_smiley_support_info_html: 'Convertir los Smileys y Emoji. Active esta opción solo si los Smileys y Emoji son escritos manuamente (ej. :kiss:). Si utiliza los Emojis Unicode esta opción debe ser desactivada. Para mas información acerca del soporte de Emoji-Browser puede leer <a href="http://caniemoji.com/" target="_blank">http://caniemoji.com/</a>. Además puede dirigirse a <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> para conocer los códigos de Emoji disponibles. Para activar esta configuración debe <strong>Reiniciar el servidor de aplicación</strong>.'
+  legacy_smiley_support_info_html: 'Convierte los smileys en texto. Esta opción sólo debería activarse si el código para los smileys (por ejemplo :) ) se introdujo manualmente y debería mostrarse como carita sonriente. En la <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">hoja de trucos de Emoji </a> se pueden usar los códigos Emoji disponibles. Para activar esta configuración debe <strong>Reiniciar el servidor de aplicación</strong>.'
   menu_roles_info: "Solo los miembros con los roles selccionado podrán ver esta entrada de Menú."
   new_ticket_message_info: "Se mostrará una nota a todos aquellos que quieran agregar una nueva petición. Puede por ejemplo agregar las condiciones de aceptación o las plantillas. Estas configuraciones afectan a todos los proyectos."
   open_external_urls_info: "Si está activo, las URL externas se abren en una nueva ventana/pestaña."

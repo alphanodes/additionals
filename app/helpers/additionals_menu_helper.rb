@@ -120,10 +120,14 @@ module AdditionalsMenuHelper
     user_items = [{ title: 'Redmine Guide', url: Redmine::Info.help_url },
                   { title: "Redmine #{l(:label_macro_plural)}", url: additionals_macros_path }]
 
-    admin_items = [{ title: 'Additionals', url: 'https://additionals.readthedocs.io/en/latest/manual/', manual: true },
-                   { title: 'Redmine Changelog', url: 'https://www.redmine.org/projects/redmine/wiki/Changelog_3_4' },
-                   { title: 'Redmine Upgrade', url: 'https://www.redmine.org/projects/redmine/wiki/RedmineUpgrade' },
-                   { title: 'Redmine Security Advisories', url: 'https://www.redmine.org/projects/redmine/wiki/Security_Advisories' }]
+    admin_items = [{ title: 'Additionals',
+                     url: 'https://additionals.readthedocs.io/en/latest/manual/', manual: true },
+                   { title: 'Redmine Changelog',
+                     url: "https://www.redmine.org/projects/redmine/wiki/Changelog_#{Redmine::VERSION::MAJOR}_#{Redmine::VERSION::MINOR}" },
+                   { title: 'Redmine Upgrade',
+                     url: 'https://www.redmine.org/projects/redmine/wiki/RedmineUpgrade' },
+                   { title: 'Redmine Security Advisories',
+                     url: 'https://www.redmine.org/projects/redmine/wiki/Security_Advisories' }]
 
     Redmine::Plugin.all.each do |plugin|
       next if plugin.id == :additionals

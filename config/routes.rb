@@ -10,6 +10,9 @@ end
 
 resource :additionals_macros, only: :show, path: '/help/macros'
 
-match 'auto_completes/fontawesome' => 'auto_completes#fontawesome',
-      via: :get,
-      as: 'auto_complete_fontawesome'
+resources :auto_completes, only: [] do
+  collection do
+    get :issue_assignee
+    get :fontawesome
+  end
+end

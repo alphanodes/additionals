@@ -13,7 +13,8 @@ class RoutingTest < Redmine::RoutingTest
     should_route 'GET /help/macros' => 'additionals_macros#show'
   end
 
-  def test_auto_completes_fontawesome
+  def test_auto_completes
     should_route 'GET /auto_completes/fontawesome' => 'auto_completes#fontawesome'
+    should_route 'GET /auto_completes/issue_assignee' => 'auto_completes#issue_assignee'
   end
 end

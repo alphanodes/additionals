@@ -181,7 +181,7 @@ module Additionals
     end
 
     def windows_platform?
-      true if /cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM
+      true if /cygwin|mswin|mingw|bccwin|wince|emx/.match?(RUBY_PLATFORM)
     end
 
     def autocomplete_select_entries(name, type, option_tags, options = {})
@@ -226,6 +226,10 @@ module Additionals
       end
 
       options_for_select(fields, current)
+    end
+
+    def addtionals_textarea_cols(text, options = {})
+      [[(options[:min].presence || 8), text.to_s.length / 50].max, (options[:max].presence || 20)].min
     end
 
     private

@@ -20,7 +20,7 @@ module Additionals
 
           options[:name] = raw_link[(start_pos + 34)..-1] if options[:name].blank?
           link = raw_link.gsub('http://', 'https://')
-        elsif raw_link[0] =~ /\w/
+        elsif /\w/.match?(raw_link[0])
           options[:name] = raw_link if options[:name].blank?
           link = "https://www.redmine.org/projects/redmine/wiki/#{Wiki.titleize(raw_link)}"
         else

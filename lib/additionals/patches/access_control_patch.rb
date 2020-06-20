@@ -1,16 +1,16 @@
 module Additionals
   module Patches
     module AccessControlPatch
-      def self.included(base)
-        base.class_eval do
-          def self.available_project_modules
-            @available_project_modules = available_project_modules_all
-                                         .reject { |m| Additionals.setting(:disabled_modules).to_a.include?(m.to_s) }
-          end
+      extend ActiveSupport::Concern
 
-          def self.available_project_modules_all
-            @permissions.collect(&:project_module).compact!.uniq
-          end
+      included do
+        def self.available_project_modules
+          @available_project_modules = available_project_modules_all
+                                       .reject { |m| Additionals.setting(:disabled_modules).to_a.include?(m.to_s) }
+        end
+
+        def self.available_project_modules_all
+          @permissions.collect(&:project_module).compact!.uniq
         end
       end
     end

@@ -1,6 +1,8 @@
 CryptoCompare
 -------------
 
+CryptoCompare is an Internet plattform where you can interactively inform yourself about the latest trends in crypto currencies and follow the development of the crypto market in real-time.
+
 CryptoCompare wiki macro for Redmine.
 
 See https://www.cryptocompare.com/dev/widget/wizard/ for more information.

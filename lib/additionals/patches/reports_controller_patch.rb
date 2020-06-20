@@ -1,11 +1,13 @@
 module Additionals
   module Patches
     module ReportsControllerPatch
-      def self.included(base)
-        base.send(:prepend, InstancOverwriteMethods)
+      extend ActiveSupport::Concern
+
+      included do
+        prepend InstanceOverwriteMethods
       end
 
-      module InstancOverwriteMethods
+      module InstanceOverwriteMethods
         def issue_report_details
           super
           return if @rows.nil?

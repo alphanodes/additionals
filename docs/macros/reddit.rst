@@ -1,6 +1,8 @@
 Reddit
 ------
 
+Reddit is an English-language website for social media news, web content rating and discussions. As a registered member, you can submit content, links or images and present them to other members. Link to your Reddit account or other content within Redmine by using the additionals plugin macro.
+
 Reddit wiki macro for Redmine.
 
 .. function:: {{reddit(name)}}

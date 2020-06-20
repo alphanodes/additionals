@@ -6,8 +6,9 @@ Rails:
   Enabled: true
 
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.4
   TargetRailsVersion: 5.2
+  NewCops: enable
 
 Metrics/AbcSize:
   Enabled: false
@@ -62,4 +63,10 @@ Style/Documentation:
 
 # required for travis/ci (symbolic links problem)
 Style/ExpandPathArguments:
+  Enabled: false
+
+Style/HashTransformKeys:
+  Enabled: false
+
+Style/HashTransformValues:
   Enabled: false

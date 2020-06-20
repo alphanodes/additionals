@@ -7,12 +7,13 @@ module Additionals
 
   class << self
     def setup
-      incompatible_plugins(%w[redmine_tweaks
-                              redmine_issue_control_panel
+      incompatible_plugins(%w[redmine_issue_control_panel
                               redmine_editauthor
                               redmine_changeauthor
                               redmine_auto_watch])
+
       patch(%w[AccountController
+               ApplicationController
                AutoCompletesController
                Issue
                IssuePriority
@@ -41,6 +42,7 @@ module Additionals
       IssuesController.send(:helper, AdditionalsIssuesHelper)
       SettingsController.send(:helper, AdditionalsSettingsHelper)
       WikiController.send(:helper, AdditionalsWikiPdfHelper)
+      CustomFieldsController.send(:helper, AdditionalsCustomFieldsHelper)
 
       # Static class patches
       Redmine::AccessControl.include Additionals::Patches::AccessControlPatch
@@ -63,14 +65,10 @@ module Additionals
 
     def settings_compatible(plugin_name)
       if Setting[plugin_name].class == Hash
-        if Rails.version >= '5.2'
-          # convert Rails 4 data (this runs only once)
-          new_settings = ActiveSupport::HashWithIndifferentAccess.new(Setting[plugin_name])
-          Setting.send("#{plugin_name}=", new_settings)
-          new_settings
-        else
-          ActionController::Parameters.new(Setting[plugin_name])
-        end
+        # convert Rails 4 data (this runs only once)
+        new_settings = ActiveSupport::HashWithIndifferentAccess.new(Setting[plugin_name])
+        Setting.send("#{plugin_name}=", new_settings)
+        new_settings
       else
         # Rails 5 uses ActiveSupport::HashWithIndifferentAccess
         Setting[plugin_name]
@@ -119,7 +117,7 @@ module Additionals
         target = name.constantize
         patch = "#{plugin_id.camelize}::Patches::#{name}Patch".constantize
 
-        target.send(:include, patch) unless target.included_modules.include?(patch)
+        target.include(patch) unless target.included_modules.include?(patch)
       end
     end
 

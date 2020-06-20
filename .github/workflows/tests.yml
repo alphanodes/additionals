@@ -1,0 +1,31 @@
+name: Run Tests
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 5 * * *'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        redmine:
+          - v4.0
+          - v4.1
+          - trunk
+        ruby:
+          - v2.4
+          - v2.6
+        database:
+          - sqlite3
+          - postgres
+
+    steps:
+      - name: Redmine plugin test
+        uses: two-pack/redmine-plugin-test-action@v2
+        with:
+          plugin_name: additionals
+          redmine_version: ${{ matrix.redmine }}
+          ruby_version: ${{ matrix.ruby }}

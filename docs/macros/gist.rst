@@ -1,7 +1,7 @@
 Gist
 ----
 
-Github gist wiki macro for Redmine.
+GitHub, a service for hosting larger projects, also operates other services like Gist. Gist is for hosting code snippets. If you are using the additionals plugin for your Redmine, you can implement your Github Gist by using the following wiki macro.
 
 .. function:: {{gist(gist)}}
 

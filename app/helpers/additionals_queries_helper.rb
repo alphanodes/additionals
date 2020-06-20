@@ -52,9 +52,9 @@ module AdditionalsQueriesHelper
   end
 
   def additionals_load_query_id(query_class, session_key, query_id, options, object_type)
-    cond = 'project_id IS NULL'
-    cond << " OR project_id = #{@project.id}" if @project
-    @query = query_class.where(cond).find(query_id)
+    scope = query_class.where(project_id: nil)
+    scope = scope.or(query_class.where(project_id: @project.id)) if @project
+    @query = scope.find(query_id)
     raise ::Unauthorized unless @query.visible?
 
     @query.project = @project
@@ -73,15 +73,16 @@ module AdditionalsQueriesHelper
 
   def additionals_query_cache_key(object_type)
     project_id = @project ? @project.id : 0
-    "#{object_type}_query_data_#{session[:session_id]}_#{project_id}"
+    "#{object_type}_query_data_#{session.id}_#{project_id}"
   end
 
-  def additionals_select2_search_users(where_filter = '', where_params = {})
+  def additionals_select2_search_users(options = {})
     q = params[:q].to_s.strip
     exclude_id = params[:user_id].to_i
     scope = User.active.where(type: 'User')
+    scope = scope.visible unless options[:all_visible]
     scope = scope.where.not(id: exclude_id) if exclude_id.positive?
-    scope = scope.where(where_filter, where_params) if where_filter.present?
+    scope = scope.where(options[:where_filter], options[:where_params]) if options[:where_filter]
     scope = scope.like(q) if q.present?
     scope = scope.order(last_login_on: :desc)
                  .limit(params[:limit] || Additionals::SELECT2_INIT_ENTRIES)
@@ -223,13 +224,13 @@ module AdditionalsQueriesHelper
 
   def xlsx_hyperlink_cell?(token)
     # Match http, https or ftp URL
-    if token =~ %r{\A[fh]tt?ps?://}
+    if %r{\A[fh]tt?ps?://}.match?(token)
       true
       # Match mailto:
     elsif token.present? && token.start_with?('mailto:')
       true
       # Match internal or external sheet link
-    elsif token =~ /\A(?:in|ex)ternal:/
+    elsif /\A(?:in|ex)ternal:/.match?(token)
       true
     end
   end
@@ -238,7 +239,7 @@ module AdditionalsQueriesHelper
   # columns in ignored_column_names are skipped (names as symbols)
   # TODO: this is a temporary fix and should be removed
   # after https://www.redmine.org/issues/29830 is in Redmine core.
-  def query_as_hidden_field_tags(query, ignored_column_names = nil)
+  def query_as_hidden_field_tags(query)
     tags = hidden_field_tag('set_filter', '1', id: nil)
 
     if query.filters.present?
@@ -252,8 +253,10 @@ module AdditionalsQueriesHelper
     else
       tags << hidden_field_tag('f[]', '', id: nil)
     end
+
+    ignored_block_columns = query.block_columns.map(&:name)
     query.columns.each do |column|
-      next if ignored_column_names.present? && ignored_column_names.include?(column.name)
+      next if ignored_block_columns.include?(column.name)
 
       tags << hidden_field_tag('c[]', column.name, id: nil)
     end

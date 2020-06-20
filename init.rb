@@ -1,12 +1,10 @@
-raise "\n\033[31madditionals requires ruby 2.3 or newer. Please update your ruby version.\033[0m" if RUBY_VERSION < '2.3'
-
-require_dependency 'additionals'
+raise "\n\033[31madditionals requires ruby 2.4 or newer. Please update your ruby version.\033[0m" if RUBY_VERSION < '2.4'
 
 Redmine::Plugin.register :additionals do
   name 'Additionals'
   author 'AlphaNodes GmbH'
   description 'Customizing Redmine, providing wiki macros and act as a library/function provider for other Redmine plugins'
-  version '2.0.23'
+  version '2.0.24'
   author_url 'https://alphanodes.com/'
   url 'https://github.com/alphanodes/additionals'
 
@@ -40,29 +38,17 @@ Redmine::Plugin.register :additionals do
   RedCloth3::ALLOWED_TAGS << 'div'
 end
 
-begin
-  if ActiveRecord::Base.connection.table_exists?(Setting.table_name)
-    Rails.configuration.to_prepare do
-      Additionals.setup
-    end
-
-    Rails.application.config.after_initialize do
-      FONTAWESOME_ICONS = { fab: AdditionalsFontAwesome.load_icons(:fab),
-                            far: AdditionalsFontAwesome.load_icons(:far),
-                            fas: AdditionalsFontAwesome.load_icons(:fas) }.freeze
-    end
-
-    Rails.application.paths['app/overrides'] ||= []
-    Dir.glob(Rails.root.join('plugins/*/app/overrides')).each do |dir|
-      Rails.application.paths['app/overrides'] << dir unless Rails.application.paths['app/overrides'].include?(dir)
-    end
-  end
-rescue ActiveRecord::NoDatabaseError
-  Rails.logger.warn 'database not created yet'
+Rails.configuration.to_prepare do
+  Additionals.setup
 end
 
-if Rails.version < '5.2'
-  jobs_path = File.dirname(__FILE__) + '/app/jobs'
-  ActiveSupport::Dependencies.autoload_paths += [jobs_path]
-  Rails.application.config.eager_load_paths += [jobs_path]
+Rails.application.config.after_initialize do
+  FONTAWESOME_ICONS = { fab: AdditionalsFontAwesome.load_icons(:fab),
+                        far: AdditionalsFontAwesome.load_icons(:far),
+                        fas: AdditionalsFontAwesome.load_icons(:fas) }.freeze
+end
+
+Rails.application.paths['app/overrides'] ||= []
+Dir.glob(Rails.root.join('plugins/*/app/overrides')).each do |dir|
+  Rails.application.paths['app/overrides'] << dir unless Rails.application.paths['app/overrides'].include?(dir)
 end

@@ -1,10 +1,11 @@
 language: ruby
+os: linux
 dist: xenial
 
 rvm:
-  - 2.6.5
-  - 2.4.9
-  - 2.3.8
+  - 2.6.6
+  - 2.5.8
+  - 2.4.10
 
 services:
   - mysql
@@ -15,8 +16,6 @@ env:
   - REDMINE_VER=master DB=postgresql
   - REDMINE_VER=4.0-stable DB=mysql
   - REDMINE_VER=master DB=mysql
-
-sudo: true
 
 before_install:
   - export PLUGIN_NAME=additionals
@@ -36,7 +35,6 @@ before_script:
   - bundle exec rake db:create db:migrate redmine:plugins:migrate
 
 script:
-  - export SKIP_COVERAGE=1
   - if [[ "$REDMINE_VER" == "master" ]] && [[ "$DB" == "postgresql" ]]; then brakeman plugins/$PLUGIN_NAME; fi
   - if [[ "$REDMINE_VER" != "master" ]] && [[ "$DB" == "postgresql" ]]; then rubocop plugins/$PLUGIN_NAME; fi
   - bundle exec rake redmine:plugins:test NAME=$PLUGIN_NAME RUBYOPT="-W0"

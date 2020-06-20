@@ -1,6 +1,16 @@
 Changelog
 =========
 
+2.0.24
+++++++
+
+- FontAwesome 5.13.0 support
+- Mermaid 8.4.8 support
+- clipboard.js updated to v2.0.6
+- fix for spam protection with invisible_captcha
+- D3 5.16.0 support
+- Ruby 2.4 is required
+
 2.0.23
 ++++++
 

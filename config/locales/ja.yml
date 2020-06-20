@@ -89,7 +89,7 @@ ja:
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
   label_issue_timelog_required: Time log for issues required
   label_last_year: previous year
-  label_legacy_smiley_support: Legacy smiley/emoji support
+  label_legacy_smiley_support: Legacy smiley support
   label_macro_plural: macros
   label_menu_entry: "メニュー項目"
   label_monthly: monthly
@@ -137,7 +137,7 @@ ja:
   label_without_value: "%{value} なし"
   label_yearly: '毎年'
   latest_entries_changes: "Latest %{value} changes"
-  legacy_smiley_support_info_html: 'Convert Smileys and Emoji symbols. Activate this option only if Smileys or Emoji are manually typed in by the use of code (e.g. :kiss:). If you use Unicode-Emoji this option should be deactivated. For more info on Emoji-Browser support read <a href="http://caniemoji.com/" target="_blank">http://caniemoji.com/</a>. Have a look at <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> for available Emoji-Codes you can use. <strong>Restart the application server</strong>, in order to activate the settings.'
+  legacy_smiley_support_info_html: 'Convert smileys in text. This option should only be activated if the code for smileys (e.g. :) ) was entered manually and should be displayed as smiley face. In the <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> the available Emoji codes can be used. <strong>Restart the application server</strong>, in order to activate the settings.'
   menu_roles_info: "Only members of selected roles will see this menu entry."
   new_ticket_message_info: "新規チケットを登録したいときに表示されるメモ書き。例えば、チケット入力のルールや承認規程を掲載する目的にでも使えます。これらの設定は全プロジェクトで有効です。"
   open_external_urls_info: "アクティブな場合、外部URLは新しいウィンドウ/タブで開かれます。"

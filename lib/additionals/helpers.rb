@@ -63,9 +63,9 @@ module Additionals
         comment_link = link_to(comment_id, issue_url(issue, only_path: only_path, anchor: "note-#{comment_id}"))
       end
 
-      content_tag :div, class: 'issue-macro box' do
-        content_tag(:div, safe_join([content, '-', l(:label_comment), comment_link], ' '), class: 'issue-macro-subject') +
-          content_tag(:div, textilizable(comment), class: 'issue-macro-comment journal has-notes')
+      tag.div class: 'issue-macro box' do
+        tag.div(safe_join([content, '-', l(:label_comment), comment_link], ' '), class: 'issue-macro-subject') +
+          tag.div(textilizable(comment), class: 'issue-macro-comment journal has-notes')
       end
     end
 
@@ -134,9 +134,12 @@ module Additionals
       rc
     end
 
-    def additionals_library_load(module_name)
-      method = "additionals_load_#{module_name}"
-      send(method)
+    def additionals_library_load(module_names)
+      s = []
+      Array(module_names).each do |module_name|
+        s << send("additionals_load_#{module_name}")
+      end
+      safe_join(s)
     end
 
     def system_uptime

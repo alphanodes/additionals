@@ -62,5 +62,10 @@ class AdditionalsJournal
         entry.instance_variable_set('@last_notes', journal.try(:notes) || '')
       end
     end
+
+    def set_relation_detail(entity, detail, value_key)
+      value = detail.send value_key
+      detail[value_key] = (entity.find_by(id: value) || value) if value.present?
+    end
   end
 end

@@ -8,13 +8,9 @@
   - if query
     ruby:
       count = query.send query_block[:count_method]
-      if query_block[:with_project]
-        query.project = project
-        Rails.logger.debug "debug1 query_list: #{settings[:columns]}"
-        query.column_names = settings[:columns].split(',').map(&:to_sym) if settings[:columns].present?
-        Rails.logger.debug "debug2 query_list: #{settings[:columns]}"
-        query.sort_criteria = settings[:sort] if settings[:sort].present?
-      end
+      query.project = project if query_block[:with_project]
+      query.column_names = settings[:columns].split(',').map(&:to_sym) if settings[:columns].present?
+      query.sort_criteria = settings[:sort] if settings[:sort].present?
 
     h3.query-list-block
       = dashboard_query_list_block_title query, query_block, @project

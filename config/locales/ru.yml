@@ -177,7 +177,7 @@ ru:
   label_disable_sidebar: "отключить боковую панель"
   label_max_entries: "Максимальное количество записей"
   label_dashboard_legacy_left: "Стандарт-Инхальт налево"
-  label_dashboard_legacy_right: "Стандартное право на контент".
+  label_dashboard_legacy_right: "Стандартное право на контент"
   label_add_dashboard_block: "Добавить блок"
   label_spent_time_static: "Static Spent Time"
   label_project_information: "Информация о проекте"

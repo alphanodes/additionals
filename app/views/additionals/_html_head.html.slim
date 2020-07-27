@@ -1,6 +1,6 @@
 - additionals_top_menu_setup
-= additionals_library_load(:font_awesome)
+= additionals_library_load :font_awesome
 = stylesheet_link_tag 'additionals', plugin: 'additionals'
-= javascript_include_tag('additionals', plugin: 'additionals')
+= javascript_include_tag 'additionals', plugin: 'additionals'
 - if User.current.try(:hrm_user_type_id).nil?
   - render_custom_top_menu_item

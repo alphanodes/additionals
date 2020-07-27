@@ -54,6 +54,7 @@ Install ``additionals`` plugin for `Redmine`_.
   $ git clone -b v2-stable git://github.com/alphanodes/additionals.git plugins/additionals
   $ bundle install --without development test
   $ bundle exec rake redmine:plugins:migrate RAILS_ENV=production
+  $ bundle exec rake redmine:additionals:seed RAILS_ENV=production
   $
   $ # if you want to use smiley/emoji legacy support, you have to put emoji icons to
   $ # $REDMINE_ROOT/public/images/emoji
@@ -171,7 +172,7 @@ It provides :
 * `clipboardJS 2.0.6 <https://clipboardjs.com/>`_
 * `d3 5.16.0 <https://d3js.org/>`_
 * `d3plus v2.0.0-alpha.25 <https://d3plus.org/>`_
-* `FontAwesome 5.13.0 <https://fontawesome.com/>`_
+* `FontAwesome 5.14.0 <https://fontawesome.com/>`_
 * `mermaid 8.4.8 <https://github.com/knsv/mermaid/>`_
 * `Select2 4.0.13 <https://select2.org/>`_
 

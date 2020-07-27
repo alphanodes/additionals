@@ -1,0 +1,7 @@
+h2 = l(:label_new_additional_dashboard)
+= labelled_form_for :dashboard,
+                    @dashboard,
+                    url: { action: 'create', project_id: @project },
+                    html: { multipart: true, id: 'dashboard-form' } do |f|
+  = render partial: 'form', locals: { f: f }
+  = submit_tag l(:button_save)

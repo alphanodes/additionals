@@ -11,6 +11,9 @@ de:
     other: Tage
   activerecord:
     errors:
+      models:
+        dashboard:
+            must_be_for_everyone: muss für jeden Benutzer festgelegt werden, wenn System Standard verwendet wird.
       messages:
         issue_cannot_close_with_open_children: "Das Ticket kann nicht geschlossen werden, bevor nicht alle Untertickets geschlossen wurden."
         issue_current_user_status: "Der ausgewählte Status erfordert, dass \"Zugewiesen an\" Dir selbst zugeordnet wird."
@@ -99,13 +102,8 @@ de:
   label_open_in_google_docs: In Google Docs öffnen
   label_open_in_new_windows: In neuen Fenster öffnen
   label_optional: "optional"
-  label_overview_bottom: "Übersichtsseite, unten"
-  label_overview_page: "Übersichtsseite"
-  label_overview_right: "Übersichtsseite, rechts"
-  label_overview_top: "Übersichtsseite, oben"
   label_pdf_wiki_settings: PDF Wiki Einstellungen
   label_project_list: "Projektliste"
-  label_project_overview_content: "Projektwegweiser"
   label_query_delete: Abfrage löschen
   label_query_edit: Abfrage bearbeiten
   label_query_name_search: Nach Name suchen
@@ -115,7 +113,6 @@ de:
   label_redmine_org_wiki: Redmine.org Wikiseite
   label_remove_help: "Entferne 'Hilfe' aus dem Topmenü"
   label_remove_mypage: "Entferne 'Meine Seite' aus dem Topmenü"
-  label_remove_news: "Entferne 'Letzte News' von der Übersichtsseite"
   label_search_by_name: Suche nach Namen
   label_settings_macros: "Makros"
   label_settings_menu: "Menü"
@@ -141,19 +138,17 @@ de:
   menu_roles_info: "Nur den ausgewählten Rollen wird der Menüpunkt angezeigt. Sobald ein Mitglied in einem Projekt die Rolle besitzt, wird der Menüpunkt angezeigt."
   new_ticket_message_info: "Ein Hinweis, der beim Erstellen neuer Tickets angezeigt wird. Es kann beispielsweise auf Akzeptanztests oder Richtlinien zum Erstellen der Tickets hingewiesen werden. Dieser Einstellung ist projektübergreifend und ist in allen Projekten aktiv."
   open_external_urls_info: "Wenn aktiviert, werden externe URLs im neuen Fenster/TAB geöffnet."
-  overview_bottom_info: "Hier kann ein Text hinterlegt werden, welcher auf der Übersichtsseite unten ausgegeben wird. Verweisen Sie beispielsweise auf bestimmte Wiki Seiten."
-  overview_right_info: "Hier kann ein Text hinterlegt werden, welcher auf der rechten Seite der Übersichtsseite ausgegeben wird. Verweisen Sie beispielsweise auf bestimmte Wiki Seiten."
-  overview_top_info: "Hier kann ein Text hinterlegt werden, welcher auf der Übersichtsseite oben ausgegeben wird. Verweisen Sie beispielsweise auf bestimmte Wiki Seiten."
   permission_change_new_issue_author: Autor bei Ticketerstellung festlegen
   permission_edit_closed_issues: "Geschlossene Tickets bearbeiten"
   permission_edit_issue_author: Ticket Autor bearbeiten
   permission_issue_timelog_never_required: Zeitbuchungen nicht erforderlich
-  permission_log_time_on_closed_issues: "Aufwände buchen auf geschlossene Tickets"
-  permission_show_hidden_roles_in_memberbox: "Versteckte Rollen anzeigen"
-  project_overview_content_info: "Hier kann ein Text hinterlegt werden, der auf der Übersichtsprojektseite angezeigt wird. Verweisen Sie beispielsweise auf bestimmte Wiki Seiten, welche projektübergreifend vorhanden sind/sein sollten. Ziel sollte eine Standardisierung in den Projekten und eine einheitliche Wiki-Struktur sein."
+  permission_log_time_on_closed_issues: Aufwände buchen auf geschlossene Tickets
+  permission_show_hidden_roles_in_memberbox: Versteckte Rollen anzeigen
+  permission_set_system_dashboards: System Dashboards festlegen
+  permission_manage_shared_dashboards: Geteilte Dashboards verwalten
+  permission_save_dashboards: Dashboards anlegen
   remove_help_info: "Den Menüpunkt 'Hilfe' aus dem Topmenü entfernen."
   remove_mypage_info: 'Manchmal ist es hilfreich, dass die "Meine Seite" nicht angezeigt wird, um den Einsatz eines Task Boards einzuführen. Der Vorteil eines Task Boards liegt darin, dass Tickets nach Status gelistet werden können.'
-  remove_news_info: "News von der Übersichtsseite entfernen."
   rule_issue_auto_assign_info: 'Use Case: Der Ticketersteller weiss nicht, wem er das Ticket zurordnen soll bzw. welcher Benutzer zuständig für das Ticket ist. Das neue Ticket mit dem Status "To Do" wird in dem Fall automatisch der ersten Gruppe zugewiesen, die Benutzer mit der Rolle Managener enthält.'
   rule_issue_current_user_status_info_html: "Wird diese Funktion zusammen mit der Einstellung \"Ticketstatus über Sidebar\" verwendet, wird automatisch der aktuelle Benutzer dem neu ausgewählten Status zugewiesen.<br />Use Case: Ein Benutzer soll nur den Status auf \"In Progress\" selbst stellen können um damit anzuzeigen, dass er an dem Ticket (gerade) arbeitet."
   rule_issue_freezed_with_close_info: Wird diese Option aktiviert können bereits geschlossene Tickets nicht mehr bearbeitet und kommentiert werden. Auch nicht via Mail oder API. Für Benutzerrollen mit dem Recht "Geschlossene Tickets bearbeiten" gilt diese Einschränkung nicht.
@@ -164,9 +159,41 @@ de:
   show_on_redmine_home: Auf Startseite anzeigen
   show_welcome_left: Links auf der Startseite
   show_welcome_right: Rechts auf der Startseite
-  top_overview_help: Hier kannst Du Inhalte und Einstellungen machen, welche die Übersichtsseite betreffen.
-  top_projects_help: Hier kannst Du Inhalte und Einstellungen zu Projekten festlegen.
   top_rules_help: "Hier können Regeln konfiguriert werden, die den Umgang mit Tickets festlegen. Sobald eine Regel aktiviert wurde, wirkt sich diese auf alle Projekte aus."
   top_wiki_help: Hier kannst Du Inhalte und Einstellungen bzg. der Wiki festlegen.
   wiki_pdf_remove_attachments_info: Wenn aktiv, werden die an der Wiki Seite angehängten Dateien nicht in der PDF Ansicht angezeigt.
   wiki_pdf_remove_title_info: Wenn aktiv, wird der Wiki Titel nicht in der PDF Ansicht angezeigt.
+  label_new_dashboard: Neues Dashboard
+  button_dashboard_edit: Dashboard bearbeiten
+  label_new_additional_dashboard: Neues Dashboard
+  label_dashboard_type_welcome_dashboard: Hauptseite
+  label_dashboard_type_project_dashboard: Projektübersicht
+  label_my_dashboard_plural: Meine Dashboards
+  label_shared_dashboard_plural: Geteilte Dashboards
+  button_dashboard_delete: Dashboard löschen
+  label_dashboard_author: "Autor: %{name}"
+  field_system_default: System Standard
+  field_project_system_default: Projektstandard
+  field_visibility: Sichtbarkeit
+  label_enable_sidebar: Sidebar aktivieren
+  label_disable_sidebar: Sidebar deaktivieren
+  label_max_entries: Maximale Einträge
+  label_dashboard_legacy_left: Standard-Inhalt links
+  label_dashboard_legacy_right: Standard-Inhalt rechts
+  label_add_dashboard_block: Block hinzufügen
+  label_spent_time_static: Statische Aufgewendete Zeit
+  label_project_information: Projektinformation
+  label_issues_summary: Ticket Erfassung
+  label_project_fields: Projektfelder
+  label_chart_with_name: "Chart: %{value}"
+  label_query_with_name: "Abfrage: %{value}"
+  label_custom_fields_distribution: Benutzerdefinierte Felder für Verteilung
+  alert_only_visible_by_admins: Kann nur von Benutzer mit Admin-Rechten gesehen werden
+  alert_only_visible_by_yourself: Kann nur von Dir selbst gesehen werden
+  label_no_permission: Keine Berechtigung
+  label_additionals_feed: Atom+RSS Feed
+  label_invalid_feed_data: Ungültige Feed Daten oder URL
+  label_my_activity: Meine Aktivität
+  label_only_my_activities: Nur meine Aktivität
+  label_change_to_dashboard: Zu Dashboard wechseln
+  label_active_dashboard: Aktives Dashboard

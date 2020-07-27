@@ -49,9 +49,9 @@ class AdditionalsTag
 
     def tag_access(permission)
       projects_allowed = if permission.nil?
-                           Project.visible.pluck(:id)
+                           Project.visible.ids
                          else
-                           Project.where(Project.allowed_to_condition(User.current, permission)).pluck(:id)
+                           Project.where(Project.allowed_to_condition(User.current, permission)).ids
                          end
 
       if projects_allowed.present?

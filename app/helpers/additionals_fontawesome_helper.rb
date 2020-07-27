@@ -12,7 +12,7 @@ module AdditionalsFontawesomeHelper
     return '' if info.blank?
 
     post_text = ''
-    options['aria-hidden'] = 'true'
+    options[:'aria-hidden'] = 'true'
     options[:class] = if options[:class].present?
                         info[:classes] + ' ' + options[:class]
                       else
@@ -29,7 +29,7 @@ module AdditionalsFontawesomeHelper
       post_text = options[:post_text]
       options.delete(:post_text)
     end
-    s << content_tag('span', '', options)
+    s << tag.span(options)
     if post_text.present?
       s << ' '
       s << post_text
@@ -41,7 +41,7 @@ module AdditionalsFontawesomeHelper
     options[:include_blank] ||= true unless options[:required]
     html_options = {}
 
-    additionals_fontawesome_add_selected(selected)
+    additionals_fontawesome_add_selected selected
 
     name, options = Additionals.hash_remove_with_default(:name, options, :icon)
     loader, options = Additionals.hash_remove_with_default(:loader, options, true)
@@ -71,8 +71,6 @@ module AdditionalsFontawesomeHelper
   end
 
   def additionals_fontawesome_loader(options, html_options = {})
-    # Rails.logger.warn "debug selected_store: #{@selected_store.inspect}"
-
     html_options[:class] ||= 'select2-fontawesome-field'
     options[:template_selection] = 'formatFontawesomeText'
     options[:template_result] = 'formatFontawesomeText'

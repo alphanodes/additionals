@@ -1,7 +1,7 @@
 class AdditionalsFontAwesome
   include Redmine::I18n
 
-  FORMAT_REGEXP = /\Afa[rsb]\_[a-zA-Z0-9]+[a-zA-Z0-9\-]*\z/.freeze
+  FORMAT_REGEXP = /\Afa[rsb]_[a-zA-Z0-9]+[a-zA-Z0-9\-]*\z/.freeze
   SEARCH_LIMIT = 50
 
   class << self

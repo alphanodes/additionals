@@ -1,0 +1,3 @@
+$("#block-<%= escape_javascript @block %>").remove();
+$("#list-top").prepend("<%= escape_javascript render_dashboard_blocks([@block], @dashboard) %>");
+$("#block-select").replaceWith("<%= escape_javascript dashboard_block_select_tag(@dashboard) %>");

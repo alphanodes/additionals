@@ -1,0 +1,43 @@
+= call_hook :view_dashboard_top, dashboard: dashboard, project: @project
+
+#my-page.splitcontent class="#{dashboard_css_classes(dashboard)}"
+  - dashboard.available_groups.each do |group|
+    .block-receiver id="list-#{group}" class="splitcontent#{group}"
+      = render_dashboard_blocks dashboard.layout[group], dashboard
+
+= call_hook :view_dashboard_bottom, dashboard: dashboard, project: @project
+
+= context_menu
+
+/ required for drap & drop work
+/ (this should always set, because to support new entries)
+- include_calendar_headers_tags
+
+- if dashboard.content.with_chartjs?
+  - content_for :header_tags do
+    = additionals_library_load %i[chartjs chartjs_colorschemes chartjs_datalabels]
+
+javascript:
+  $(function() {
+    $('#block-select').val('');
+    $('.block-receiver').sortable({
+      connectWith: '.block-receiver',
+      tolerance: 'pointer',
+      handle: '.sort-handle',
+      start: function(event, ui){$(this).parent().addClass('dragging');},
+      stop: function(event, ui){$(this).parent().removeClass('dragging');},
+      update: function(event, ui){
+        // trigger the call on the list that receives the block only
+        if ($(this).find(ui.item).length > 0) {
+          $.ajax({
+            url: "#{escape_javascript _order_blocks_dashboard_path(@project, dashboard)}",
+            type: 'post',
+            data: {
+              'group': $(this).attr('id').replace(/^list-/, ''),
+              'blocks': $.map($(this).children(), function(el){return $(el).attr('id').replace(/^block-/, '');})
+            }
+          });
+        }
+      }
+    });
+  });

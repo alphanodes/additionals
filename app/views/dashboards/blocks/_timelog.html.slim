@@ -1,0 +1,63 @@
+h3
+  = link_to l(:label_spent_time), time_entries_path(user_id: 'me')
+  |  (
+  = l(:label_last_n_days, days)
+  ' :
+  = l_hours_short entries.sum(&:hours)
+  | )
+  - if User.current.allowed_to?(:log_time, nil, global: true)
+    '
+    = link_to l(:button_log_time), new_time_entry_path, class: 'icon-only icon-add', title: l(:button_log_time)
+
+- if @can_edit
+  div id="#{block}-settings" style='display: none;'
+    = form_tag(_update_layout_setting_dashboard_path(@project, @dashboard), remote: true) do
+      .box
+        p
+          label
+            = l(:button_show)
+            ' :
+            = text_field_tag 'settings[timelog][days]', days, size: 6
+            = l(:label_day_plural)
+      p
+        = submit_tag l(:button_save)
+        '
+        = link_to_function l(:button_cancel), "$('#timelog-settings').toggle();"
+
+- if entries.any?
+  = form_tag({}, data: { cm_url: time_entries_context_menu_path }) do
+    table.list.time-entries.odd-even
+      thead
+        tr
+          th = l(:label_activity)
+          th = l(:label_project)
+          th = l(:field_comments)
+          th = l(:field_hours)
+          th
+      tbody
+        - entries_by_day.keys.sort.reverse_each do |day|
+          tr.odd
+            td
+              strong
+                = day == User.current.today ? l(:label_today).titleize : format_date(day)
+            td[colspan='2']
+            td.hours
+              em
+                = html_hours(format_hours(entries_by_day[day].sum(&:hours)))
+            td
+          - entries_by_day[day].each do |entry|
+            tr.time-entry.hascontextmenu id="time-entry-#{entry.id}"
+              td.activity
+                = check_box_tag("ids[]", entry.id, false, style: 'display:none;', id: nil)
+                = entry.activity
+              td.subject
+                = entry.project
+                = h(' - ') + link_to_issue(entry.issue, truncate: 50) if entry.issue
+              td.comments
+                = entry.comments
+              td.hours
+                = html_hours(format_hours(entry.hours))
+              td.buttons
+                = link_to_context_menu
+- else
+  p.nodata = l(:label_no_data)

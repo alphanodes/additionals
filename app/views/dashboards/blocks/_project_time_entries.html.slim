@@ -1,0 +1,20 @@
+h3.icon.icon-time
+  = block_definition[:label]
+ul
+  - if @total_estimated_hours.present?
+    li
+      = l(:field_estimated_hours)
+      ' :
+      = l_hours(@total_estimated_hours)
+  - if @total_hours.present?
+    li
+      = l(:label_spent_time)
+      ' :
+      = l_hours(@total_hours)
+p
+  - if User.current.allowed_to?(:log_time, @project)
+    = link_to l(:button_log_time), new_project_time_entry_path(@project)
+    '  |
+  = link_to(l(:label_details), project_time_entries_path(@project))
+  '  |
+  = link_to(l(:label_report), report_project_time_entries_path(@project))

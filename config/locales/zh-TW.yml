@@ -99,13 +99,8 @@
   label_open_in_google_docs: "在Google文档中打开"
   label_open_in_new_windows: Open in new windows
   label_optional: "選擇性"
-  label_overview_bottom: "概觀頁頁尾"
-  label_overview_page: "概觀頁"
-  label_overview_right: "概觀頁右側"
-  label_overview_top: "概觀頁頁首"
   label_pdf_wiki_settings: "PDF Wiki 設定"
   label_project_list: "專案清單"
-  label_project_overview_content: "專案指南"
   label_query_delete: 刪除查詢
   label_query_edit: 編輯查詢
   label_query_name_search: "搜索名字"
@@ -115,7 +110,6 @@
   label_redmine_org_wiki: Redmine.org wiki page
   label_remove_help: "從頂部選單中移除 \"幫助\" 項"
   label_remove_mypage: "從頂部選單中移除 \"帳戶首頁\" 項"
-  label_remove_news: "從概觀頁中移除 \"最近新聞\" 區域"
   label_search_by_name: "按名稱搜尋"
   label_settings_macros: "macros 語法"
   label_settings_menu: "選單"
@@ -141,19 +135,17 @@
   menu_roles_info: "只有所選的角色權限才能看到選單。"
   new_ticket_message_info: "每個新建立議題用戶都會看到提示訊息。"
   open_external_urls_info: "如果啟用，則在新窗口/選項卡中打開外部URL。"
-  overview_bottom_info: "此處可以添加顯示在概觀頁頁尾的文字訊息，如您可以連結到Wiki頁。"
-  overview_right_info: "此處可以添加顯示在概觀頁右側的文字訊息，如您可以連結到Wiki頁。"
-  overview_top_info: "此處可以添加顯示在概觀頁頁首的文字訊息，如您可以連結到Wiki頁。"
   permission_change_new_issue_author: "設定新議題作者"
   permission_edit_closed_issues: "編輯已結束的議題"
   permission_edit_issue_author: "編輯作者"
   permission_issue_timelog_never_required: Time logging not required
   permission_log_time_on_closed_issues: "在已結束的議題中登記工時"
   permission_show_hidden_roles_in_memberbox: "Show hidden roles"
-  project_overview_content_info: "此處可以添加顯示在專案概觀頁上的文字訊息，如您可以連結到一個專案全體成員都可以看到的Wiki頁。使用目的為形成一個更好的專案標準以維護獨特的Wiki結構。"
+  permission_set_system_dashboards: Set system dashboards
+  permission_manage_shared_dashboards: Manage shared dashboards
+  permission_save_dashboards: Save dashboards
   remove_help_info: "從頂部選單中隱藏 \"幫助\" 項。"
   remove_mypage_info: "為了引入敏捷的任務看板，隱藏 \"帳戶首頁\" 可能會更有幫助。任務看板的優勢為可以依據狀態列出並快速訪問。"
-  remove_news_info: "從概觀頁中隱藏 \"最近新聞\" 區域。"
   rule_issue_auto_assign_info: "範例：議題作者不知道該把議題分配給誰時，狀態為 \"進行中\" 的議題將自動被分派給專案中第一位角色為 \"管理人員\"的成員。"
   rule_issue_current_user_status_info_html: "Is this function used in combination with the setting option \"Issue status on sidebar\" then the current user will automatically be assigned to the issue while changing the issue status.<br />Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."
   rule_issue_freezed_with_close_info: If this option is activated, already closed issues can no longer be edited and commented. Not even via mail or API. This restriction does not apply to user roles with the "Edit closed issues" permission.
@@ -164,9 +156,23 @@
   show_on_redmine_home: "在網站首頁上顯示"
   show_welcome_left: "在網站首頁左側"
   show_welcome_right: "在網站首頁右側"
-  top_overview_help: "您可以在此自訂概觀頁的內容和設定。"
-  top_projects_help: "您可以在此自訂專案清單頁的內容和設定。"
   top_rules_help: "您可以在此自訂議題處理的相關規則。"
   top_wiki_help: "您可以在此自訂Wiki的內容和設定。"
   wiki_pdf_remove_attachments_info: "當啟用時，Wiki附件將不會顯示在PDF中。"
   wiki_pdf_remove_title_info: "當啟用時，Wiki標題訊息不會顯示在PDF中"
+  label_dashboard_type_welcome: welcome
+  label_dashboard_type_project: project
+  field_system_default: System default
+  field_project_system_default: Project system default
+  label_chart_with_name: "Chart: %{value}"
+  label_query_with_name: "Abfrage: %{value}"
+  label_custom_fields_for_distribution: Custom fields for distribution
+  label_project_information: Project information
+  alert_only_visible_by_admins: Kann nur von Benutzer mit Admin-Rechten gesehen werden
+  alert_only_visible_by_yourself: Kann nur von Dir selbst gesehen werden
+  label_no_permission: No permission
+  label_additionals_feed: Atom+RSS feed
+  label_invalid_feed_data: Ungültige Feed Daten oder URL
+  label_my_activity: My activity
+  label_only_my_activities: Only my activity
+  label_change_to_dashboard: Change to dashboard

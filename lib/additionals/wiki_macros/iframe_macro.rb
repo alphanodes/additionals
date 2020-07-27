@@ -28,13 +28,11 @@ module Additionals
 
         src = args[0]
         if Additionals.valid_iframe_url?(src)
-          s = [content_tag(:iframe,
-                           '',
-                           width: width,
-                           height: height,
-                           src: src,
-                           frameborder: 0,
-                           allowfullscreen: 'true')]
+          s = [tag.iframe(width: width,
+                          height: height,
+                          src: src,
+                          frameborder: 0,
+                          allowfullscreen: 'true')]
           if !options[:with_link].nil? && Additionals.true?(options[:with_link])
             s << link_to(l(:label_open_in_new_windows), src, class: 'external')
           end

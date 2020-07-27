@@ -4,7 +4,7 @@ em.info
 br
 
 p
-  = content_tag(:label, l(:label_hidden_macros_in_toolbar))
+  = tag.label l(:label_hidden_macros_in_toolbar)
   = hidden_field_tag('settings[hidden_macros_in_toolbar][]', '')
   - @available_macros = AdditionalsMacro.all(only_names: true).each do |m|
     label.block

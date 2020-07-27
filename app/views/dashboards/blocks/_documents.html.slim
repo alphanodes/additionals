@@ -1,0 +1,27 @@
+h3.icon.icon-document = l(:label_document_plural)
+
+- if @can_edit
+  div id="#{block}-settings" style='display: none;'
+    = form_tag(_update_layout_setting_dashboard_path(@project, @dashboard), remote: true) do
+      .box
+        p
+          label
+            = l(:label_max_entries)
+            ' :
+            = number_field_tag "settings[#{block}][max_entries]", max_entries, min: 1, max: 1000, required: true
+      p
+        = submit_tag l(:button_save)
+        '
+        = link_to_function l(:button_cancel), "$('##{block}-settings').toggle();"
+
+- if documents.any?
+  = render partial: 'documents/document', collection: documents
+  p
+    - if @project
+      = link_to l(:label_document_view_all), project_documents_path(@project)
+    - else
+      / no route available
+      /= link_to l(:label_news_view_all), documents_path
+
+- else
+  p.nodata = l(:label_no_data)

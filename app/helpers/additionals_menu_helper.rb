@@ -60,7 +60,7 @@ module AdditionalsMenuHelper
                      .joins(members: :project).where(projects: { status: Project::STATUS_ACTIVE })
                      .distinct
                      .reorder(nil)
-                     .pluck(:id)
+                     .ids
 
     items.each do |item|
       additionals_custom_top_menu_item(item, user_roles)
@@ -177,15 +177,14 @@ module AdditionalsMenuHelper
     s = []
     pages.each_with_index do |item, idx|
       s << if item[:title] == '-'
-             content_tag(:li, tag(:hr))
+             tag.li(tag.hr)
            else
              html_options = { class: 'help_item_' + idx.to_s }
              if item[:url].include? '://'
                html_options[:class] << ' external'
                html_options[:target] = '_blank'
              end
-             content_tag(:li,
-                         link_to(item[:title], item[:url], html_options))
+             tag.li(link_to(item[:title], item[:url], html_options))
            end
     end
     safe_join(s)

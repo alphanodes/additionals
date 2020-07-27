@@ -1,6 +1,14 @@
 Changelog
 =========
 
+3.0.0
++++++
+
+- Introduce dashboards
+- Redmine 4.1 or newer ist required
+- FontAwesome 5.14.0 support
+
+
 2.0.24
 ++++++
 

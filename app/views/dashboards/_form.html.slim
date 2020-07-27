@@ -1,0 +1,72 @@
+= error_messages_for 'dashboard'
+
+.box.tabular.attributes
+  p
+    = f.text_field :name, size: 255, required: true
+
+  p
+    = f.text_area :description, rows: addtionals_textarea_cols(@dashboard.description, min: 4), class: 'wiki-edit'
+
+  .splitcontent
+    .splitcontentleft
+
+      - if @dashboard.new_record?
+        = hidden_field_tag 'dashboard[dashboard_type]', @dashboard.dashboard_type
+
+      - if @project && @allowed_projects.present? && @allowed_projects.count > 1
+        p = f.select(:project_id,
+                     project_tree_options_for_select(@allowed_projects,
+                                                     selected: @dashboard.project,
+                                                     include_blank: true))
+      - else
+        = hidden_field_tag 'dashboard[project_id]', @project&.id
+
+      - if User.current.allowed_to?(:manage_shared_dashboards, @project, global: true)
+        p
+          label = l(:field_visible)
+          label.block
+            = radio_button 'dashboard', 'visibility', Dashboard::VISIBILITY_PRIVATE
+            '
+            = l(:label_visibility_private)
+          label.block
+            = radio_button 'dashboard', 'visibility', Dashboard::VISIBILITY_PUBLIC
+            '
+            = l(:label_visibility_public)
+          label.block
+            = radio_button 'dashboard', 'visibility', Dashboard::VISIBILITY_ROLES
+            '
+            = l(:label_visibility_roles)
+            ' :
+            - Role.givable.sorted.each do |role|
+              label.block.role-visibility
+                = check_box_tag 'dashboard[role_ids][]', role.id, @dashboard.roles.include?(role), id: nil
+                '
+                = role.name
+            = hidden_field_tag 'dashboard[role_ids][]', ''
+
+    .splitcontentright
+      p
+        = f.check_box :enable_sidebar
+
+      p
+        = f.check_box :always_expose
+
+      p
+        = f.check_box :system_default
+
+      - if @dashboard.persisted?
+        p.object-select
+          = f.select :author_id,
+                     author_options_for_select(@dashboard.project, @dashboard),
+                     required: true
+
+  = call_hook :view_dashboard_form_details_bottom, dashboard: @dashboard, form: f
+
+javascript:
+  $(function() {
+    $("input[name='dashboard[visibility]']").change(function(){
+      var roles_checked = $('#dashboard_visibility_1').is(':checked');
+      var private_checked = $('#dashboard_visibility_0').is(':checked');
+      $("input[name='dashboard[role_ids][]'][type=checkbox]").attr('disabled', !roles_checked);
+    }).trigger('change');
+  });

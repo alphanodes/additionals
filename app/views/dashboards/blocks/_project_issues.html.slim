@@ -1,0 +1,40 @@
+h3.icon.icon-issue
+  = l(:label_issue_tracking)
+  '
+  = link_to l(:label_details),
+             project_issues_report_details_path(@project, detail: 'tracker'),
+             class: 'icon-only icon-zoom-in',
+             title: l(:label_details)
+
+- if @trackers.present?
+  table.list.issue-report
+    thead
+      tr
+        th
+        th
+          = l(:label_open_issues_plural)
+        th
+          = l(:label_closed_issues_plural)
+        th
+          = l(:label_total)
+    tbody
+      - @trackers.each do |tracker|
+        tr
+          td.name
+            = link_to tracker.name, project_issues_path(@project, set_filter: 1, tracker_id: tracker.id), title: tracker.description
+          td
+            = link_to @open_issues_by_tracker[tracker].to_i, project_issues_path(@project, set_filter: 1, tracker_id: tracker.id)
+          td
+            = link_to (@total_issues_by_tracker[tracker].to_i - @open_issues_by_tracker[tracker].to_i), project_issues_path(@project, set_filter: 1, tracker_id: tracker.id, status_id: 'c')
+          td.total
+            = link_to @total_issues_by_tracker[tracker].to_i, project_issues_path(@project, set_filter: 1, tracker_id: tracker.id, status_id: '*')
+p
+  = link_to l(:label_issue_view_all), project_issues_path(@project, set_filter: 1)
+  '  |
+  = link_to l(:field_summary), project_issues_report_path(@project)
+  - if User.current.allowed_to? :view_calendar, @project, global: true
+    '  |
+    = link_to l(:label_calendar), project_calendar_path(@project)
+  - if User.current.allowed_to? :view_gantt, @project, global: true
+    '  |
+    = link_to l(:label_gantt), project_gantt_path(@project)

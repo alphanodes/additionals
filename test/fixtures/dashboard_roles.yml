@@ -1,0 +1,7 @@
+dashboard_role1:
+  dashboard: welcome_for_roles
+  role_id: 1
+
+dashboard_role2:
+  dashboard: welcome_for_roles
+  role_id: 2

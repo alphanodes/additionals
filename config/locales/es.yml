@@ -99,13 +99,8 @@ es:
   label_open_in_google_docs: "Abrir en Google Docs"
   label_open_in_new_windows: Abrir en una nueva ventana
   label_optional: "opcional"
-  label_overview_bottom: "Vistazo (Abajo)"
-  label_overview_page: "Vistazo"
-  label_overview_right: "Vistazo (Derecha)"
-  label_overview_top: "Vistazo (Arriba)"
   label_pdf_wiki_settings: Configuración de la Wiki en PDF
   label_project_list: "Lista de proyectos"
-  label_project_overview_content: "Guía de proyectos"
   label_query_delete: Eliminar consulta
   label_query_edit: Editar Consulta
   label_query_name_search: Buscar por nombre
@@ -115,7 +110,6 @@ es:
   label_redmine_org_wiki: Página Wiki de Redmine.org
   label_remove_help: "Quitar 'Ayuda' del menú superior"
   label_remove_mypage: "Quitar 'Mi página' del menú superior"
-  label_remove_news: "Quitar 'Últimas noticias' del vistazo de un proyecto"
   label_search_by_name: Buscar por nombre
   label_settings_macros: "Macros"
   label_settings_menu: "Menú"
@@ -141,19 +135,17 @@ es:
   menu_roles_info: "Solo los miembros con los roles selccionado podrán ver esta entrada de Menú."
   new_ticket_message_info: "Se mostrará una nota a todos aquellos que quieran agregar una nueva petición. Puede por ejemplo agregar las condiciones de aceptación o las plantillas. Estas configuraciones afectan a todos los proyectos."
   open_external_urls_info: "Si está activo, las URL externas se abren en una nueva ventana/pestaña."
-  overview_bottom_info: "Aquí puede agragar el texto que se mostrará en la parte inferior del vistazo del proyecto. Por ejemplo un link a una página de wiki."
-  overview_right_info: "Aquí puede agragar el texto que se mostrará en la parte derecha del vistazo del proyecto. Por ejemplo un link a una página de wiki."
-  overview_top_info: "Aquí puede agragar el texto que se mostrará en la parte superior del vistazo del proyecto. Por ejemplo un link a una página de wiki."
   permission_change_new_issue_author: Asignar autor en las peticiones nuevas
   permission_edit_closed_issues: "Editar peticiones cerradas"
   permission_edit_issue_author: Editar autor de las peticiones
   permission_issue_timelog_never_required: Registro de tiempo no requerido
-  permission_log_time_on_closed_issues: "Registrar tiempo en peticiones cerradas"
-  permission_show_hidden_roles_in_memberbox: "Mostrar roles ocultos"
-  project_overview_content_info: "Aquí puede agregar su texto, el cual será mostrado en el Vistazo del proyecto. Por ejemplo, un enlace a una página de la Wiki, que está/debe estar disponible para todos los miembros. El objetivo es alcanzar un mejor estándar de proyectos y mantener una estructura de Wiki única."
+  permission_log_time_on_closed_issues: Registrar tiempo en peticiones cerradas
+  permission_show_hidden_roles_in_memberbox: Mostrar roles ocultos
+  permission_set_system_dashboards: Set system dashboards
+  permission_manage_shared_dashboards: Manage shared dashboards
+  permission_save_dashboards: Save dashboards
   remove_help_info: "Quitar el elemento 'Ayuda' del menú superior."
   remove_mypage_info: 'A veces es útil ocultar el enlace a "Mi Página" para incluir el tablero de tareas. La ventaja del tablero de tareas que que las peticiones se muestran de acuerdo a su estado.'
-  remove_news_info: "Quitar las últimas noticias del vistazo de un proyecto."
   rule_issue_auto_assign_info: 'Caso de Uso: El autor de la petición no sabe a quién debe asignarla o quién será el responsable de resolver la tarea. En ese caso las peticiones con el estado (por ejemplo) "Por Hacer" son automáticamente asignadas al primer grupo que contiene un usuario con el rol de Gestor de proyecto.'
   rule_issue_current_user_status_info_html: "Si esta función es utilizada en combinación con la opción \"Estado de las peticiones en la barra lateral\" entonces la petición será automáticamente asignada al usuario actual al cambiar el estado de la petición.<br />Caso de Uso: Un usuario solo puede cambiar el estado de una petición a \"En Progreso\" si es la persona que realmente está trabajando en esa petición."
   rule_issue_freezed_with_close_info: Si esta opción está actia, aquellas peticiones que ya se encuentren cerradas no podrán recibir comentarios o edicionos. Incluso por mail o API. Esta restricción no se aplica a los usuarios con el rol "Editar peticiones cerradas".
@@ -164,9 +156,23 @@ es:
   show_on_redmine_home: Mostrar en la página de inicio
   show_welcome_left: En la página de inicio (izquierda)
   show_welcome_right: En la página de inicio (derecha)
-  top_overview_help: Aquí puede definir los contenidos y configuraciones para la página de vistazo.
-  top_projects_help: Aquí puede definir los contenidos y configuraciones para la página de su proyecto.
   top_rules_help: "Aquí puede definir reglas que serán utizadas en las peticiones de todos los proyectos."
   top_wiki_help: Aquí puede definir contenidos y configuracioens para su Wiki.
   wiki_pdf_remove_attachments_info: Cuando está activa, los adjuntos no serán mostrados en los PDF.
   wiki_pdf_remove_title_info: Cuando está activa, el título de la Wiki no será mostrado en los PDF.
+  label_dashboard_type_welcome: welcome
+  label_dashboard_type_project: project
+  field_system_default: System default
+  field_project_system_default: Project system default
+  label_chart_with_name: "Chart: %{value}"
+  label_query_with_name: "Abfrage: %{value}"
+  label_custom_fields_for_distribution: Custom fields for distribution
+  label_project_information: Project information
+  alert_only_visible_by_admins: Kann nur von Benutzer mit Admin-Rechten gesehen werden
+  alert_only_visible_by_yourself: Kann nur von Dir selbst gesehen werden
+  label_no_permission: No permission
+  label_additionals_feed: Atom+RSS feed
+  label_invalid_feed_data: Ungültige Feed Daten oder URL
+  label_my_activity: My activity
+  label_only_my_activities: Only my activity
+  label_change_to_dashboard: Change to dashboard

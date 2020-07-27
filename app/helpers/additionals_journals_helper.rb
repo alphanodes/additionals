@@ -4,7 +4,6 @@ module AdditionalsJournalsHelper
   # Returns the textual representation of a journal details
   # as an array of strings
   def entity_details_to_strings(entity, details, no_html = false, options = {})
-    Rails.logger.debug "debug entity_details_to_strings: #{details.inspect}"
     entity_type = entity.model_name.param_key
     show_detail_method = "#{entity_type}_show_detail"
     options[:only_path] = options[:only_path] != false

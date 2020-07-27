@@ -3,7 +3,6 @@ class AdditionalsChart < ActiveRecord::Base
 
   CHART_DEFAULT_HEIGHT = 350
   CHART_DEFAULT_WIDTH = 400
-  MAX_ALLOWED_ELEMENTS = 200
 
   class << self
     def color_schema
@@ -23,12 +22,7 @@ class AdditionalsChart < ActiveRecord::Base
 
       required_labels = options.key?(:required_labels) ? options.delete(:required_labels) : 2
 
-      unless options.key?(:valid)
-        data[:valid] = cached_labels.any? &&
-                       cached_labels.count >= required_labels &&
-                       cached_labels.count < self::MAX_ALLOWED_ELEMENTS
-      end
-
+      data[:valid] = cached_labels.any? && cached_labels.count >= required_labels unless options.key?(:valid)
       data[:width] = self::CHART_DEFAULT_WIDTH unless options.key?(:width)
       data[:height] = self::CHART_DEFAULT_HEIGHT unless options.key?(:height)
       data[:value_link_method] = '_project_issues_path' unless options.key?(:value_link_method)

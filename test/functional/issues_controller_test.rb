@@ -1,34 +1,24 @@
 require File.expand_path('../../test_helper', __FILE__)
 
 class IssuesControllerTest < Additionals::ControllerTest
-  fixtures :projects,
-           :users, :email_addresses, :user_preferences,
-           :roles,
-           :members,
-           :member_roles,
-           :issues,
-           :issue_statuses,
-           :issue_relations,
+  fixtures :users, :email_addresses, :roles,
+           :enumerations,
+           :projects, :projects_trackers, :enabled_modules,
+           :members, :member_roles,
+           :issues, :issue_statuses, :issue_categories, :issue_relations,
            :versions,
            :trackers,
-           :projects_trackers,
-           :issue_categories,
-           :enabled_modules,
-           :enumerations,
-           :attachments,
            :workflows,
-           :custom_fields,
-           :custom_values,
-           :custom_fields_projects,
-           :custom_fields_trackers,
+           :custom_fields, :custom_values, :custom_fields_projects, :custom_fields_trackers,
            :time_entries,
-           :journals,
-           :journal_details,
+           :watchers,
+           :journals, :journal_details,
+           :repositories, :changesets,
            :queries
 
   def setup
-    manager_role = roles(:roles_001)
-    manager_role.add_permission!(:edit_issue_author)
+    manager_role = roles :roles_001
+    manager_role.add_permission! :edit_issue_author
   end
 
   test 'author field as authorized user in new with change' do

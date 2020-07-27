@@ -270,4 +270,11 @@ module AdditionalsQueriesHelper
 
     tags
   end
+
+  def render_query_group_view(query, locals = {})
+    return if locals[:group_name].blank?
+
+    render partial: 'queries/additionals_group_view',
+           locals: { query: query }.merge(locals)
+  end
 end

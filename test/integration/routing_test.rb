@@ -17,4 +17,9 @@ class RoutingTest < Redmine::RoutingTest
     should_route 'GET /auto_completes/fontawesome' => 'auto_completes#fontawesome'
     should_route 'GET /auto_completes/issue_assignee' => 'auto_completes#issue_assignee'
   end
+
+  def test_dashboard_async_blocks
+    should_route 'GET /dashboard_async_blocks' => 'dashboard_async_blocks#show'
+    should_route 'GET /projects/foo/dashboard_async_blocks' => 'dashboard_async_blocks#show', project_id: 'foo'
+  end
 end

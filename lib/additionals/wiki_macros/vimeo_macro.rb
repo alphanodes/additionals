@@ -36,7 +36,7 @@ module Additionals
               else
                 '//player.vimeo.com/video/' + v
               end
-        content_tag(:iframe, '', width: width, height: height, src: src, frameborder: 0, allowfullscreen: 'true')
+        tag.iframe width: width, height: height, src: src, frameborder: 0, allowfullscreen: 'true'
       end
     end
   end

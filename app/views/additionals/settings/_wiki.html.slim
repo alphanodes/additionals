@@ -1,29 +1,31 @@
-.info = t(:top_wiki_help)
+em.info = t(:top_wiki_help)
 
 br
-h3 = l(:label_content_plural)
 
-p
-  = additionals_settings_textarea :global_wiki_sidebar
-  em.info
-    = l(:global_wiki_sidebar_info)
-p
-  = additionals_settings_textarea :global_wiki_header
-  em.info
-    = l(:global_wiki_header_info)
-p
-  = additionals_settings_textarea :global_wiki_footer
-  em.info
-    = l(:global_wiki_footer_info)
+fieldset.settings
+  legend = l(:label_content_plural)
 
-br
-h3 = l(:label_pdf_wiki_settings)
+  p
+    = additionals_settings_textarea :global_wiki_sidebar
+    em.info
+      = l(:global_wiki_sidebar_info)
+  p
+    = additionals_settings_textarea :global_wiki_header
+    em.info
+      = l(:global_wiki_header_info)
+  p
+    = additionals_settings_textarea :global_wiki_footer
+    em.info
+      = l(:global_wiki_footer_info)
 
-p
-  = additionals_settings_checkbox :wiki_pdf_remove_title
-  em.info
-    = l(:wiki_pdf_remove_title_info)
-p
-  = additionals_settings_checkbox :wiki_pdf_remove_attachments
-  em.info
-    = l(:wiki_pdf_remove_attachments_info)
+fieldset.settings
+  legend = l(:label_pdf_wiki_settings)
+
+  p
+    = additionals_settings_checkbox :wiki_pdf_remove_title
+    em.info
+      = l(:wiki_pdf_remove_title_info)
+  p
+    = additionals_settings_checkbox :wiki_pdf_remove_attachments
+    em.info
+      = l(:wiki_pdf_remove_attachments_info)

@@ -1,74 +1,86 @@
 require File.expand_path('../../test_helper', __FILE__)
 
+class ViewWelcomeIndexTopRenderOn < Redmine::Hook::ViewListener
+  render_on :view_welcome_index_top, inline: '<div class="test">Example text</div>'
+end
+
+class ViewWelcomeIndexBottomRenderOn < Redmine::Hook::ViewListener
+  render_on :view_welcome_index_bottom, inline: '<div class="test">Example text</div>'
+end
+
+class ViewDashboardTopRenderOn < Redmine::Hook::ViewListener
+  render_on :view_dashboard_top, inline: '<div class="test">Example text</div>'
+end
+
+class ViewDashboardBottomRenderOn < Redmine::Hook::ViewListener
+  render_on :view_dashboard_bottom, inline: '<div class="test">Example text</div>'
+end
+
 class WelcomeControllerTest < Additionals::ControllerTest
-  fixtures :projects, :news, :users, :members
+  fixtures :projects, :news, :users, :members,
+           :dashboards, :dashboard_roles
 
   def setup
     Setting.default_language = 'en'
     User.current = nil
+    Redmine::Hook.clear_listeners
   end
 
-  def test_show_with_overview_right
-    with_additionals_settings(overview_right: 'Lore impsuum') do
-      @request.session[:user_id] = 4
-      get :index
-
-      assert_response :success
-      assert_select 'div.overview-right', text: /Lore impsuum/
-    end
+  def teardown
+    Redmine::Hook.clear_listeners
   end
 
-  def test_show_without_overview_right
-    with_additionals_settings(overview_right: '') do
-      @request.session[:user_id] = 4
-      get :index
+  def test_show_with_left_text_block
+    @request.session[:user_id] = 4
+    get :index
 
-      assert_response :success
-      assert_select 'div.overview-right', count: 0
-    end
+    assert_response :success
+    assert_select 'div#list-left div#block-text', text: /example text/
   end
 
-  def test_show_with_overview_bottom
-    with_additionals_settings(overview_bottom: 'Lore impsuum') do
-      @request.session[:user_id] = 4
-      get :index
+  def test_show_with_right_text_block
+    @request.session[:user_id] = 4
+    get :index
 
-      assert_response :success
-      assert_select 'div.overview-bottom', text: /Lore impsuum/
-    end
+    assert_response :success
+    assert_select 'div#list-right div#block-text__1', text: /example text/
   end
 
-  def test_show_without_overview_bottom
-    with_additionals_settings(overview_bottom: '') do
-      @request.session[:user_id] = 4
-      get :index
+  def test_show_with_hook_view_welcome_index_top
+    Redmine::Hook.add_listener ViewWelcomeIndexTopRenderOn
+    @request.session[:user_id] = 4
+    get :index
 
-      assert_response :success
-      assert_select 'div.overview-bottom', count: 0
-    end
+    assert_select 'div.test', text: 'Example text'
   end
 
-  def test_show_with_overview_top
-    with_additionals_settings(overview_top: 'Lore impsuum') do
-      @request.session[:user_id] = 4
-      get :index
+  def test_show_with_hook_view_welcome_index_bottom
+    Redmine::Hook.add_listener ViewWelcomeIndexBottomRenderOn
+    @request.session[:user_id] = 4
+    get :index
 
-      assert_response :success
-      assert_select 'div.overview-top', text: /Lore impsuum/
-    end
+    assert_select 'div.test', text: 'Example text'
   end
 
-  def test_show_without_overview_top
-    with_additionals_settings(overview_top: '') do
-      @request.session[:user_id] = 4
-      get :index
+  def test_show_with_hook_view_dashboard_top
+    Redmine::Hook.add_listener ViewDashboardTopRenderOn
+    @request.session[:user_id] = 4
+    get :index
 
-      assert_response :success
-      assert_select 'div.overview-top', count: 0
-    end
+    assert_select 'div.test', text: 'Example text'
+  end
+
+  def test_show_with_hook_view_dashboard_bottom
+    Redmine::Hook.add_listener ViewDashboardBottomRenderOn
+    @request.session[:user_id] = 4
+    get :index
+
+    assert_select 'div.test', text: 'Example text'
   end
 
   def test_show_index_with_help_menu
+    skip if Redmine::Plugin.installed?('redmine_hrm')
+
     with_additionals_settings(remove_help: 0) do
       @request.session[:user_id] = 1
       get :index
@@ -78,6 +90,8 @@ class WelcomeControllerTest < Additionals::ControllerTest
   end
 
   def test_show_index_without_help_menu
+    skip if Redmine::Plugin.installed?('redmine_hrm')
+
     with_additionals_settings(remove_help: 1) do
       @request.session[:user_id] = 1
       get :index

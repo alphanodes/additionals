@@ -5,6 +5,8 @@ module Additionals
   GOTO_LIST = " \xc2\xbb".freeze
   LIST_SEPARATOR = GOTO_LIST + ' '
 
+  RenderAsync.configuration.jquery = true
+
   class << self
     def setup
       incompatible_plugins(%w[redmine_issue_control_panel
@@ -21,6 +23,8 @@ module Additionals
                Project
                Wiki
                WikiController
+               ProjectsController
+               WelcomeController
                ReportsController
                Principal
                QueryFilter

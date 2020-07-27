@@ -1,0 +1,53 @@
+.contextual
+  - if User.current.allowed_to? :save_dashboards, nil, global: true
+    - if @dashboard&.editable?
+      = link_to l(:button_dashboard_edit),
+                edit_dashboard_path(@dashboard),
+                class: 'icon icon-edit'
+
+  = call_hook :view_welcome_contextual_links
+
+  - if @dashboard&.editable?
+    = form_tag(add_block_dashboard_path(@dashboard), remote: true, id: 'block-form', authenticity_token: true) do
+      = dashboard_block_select_tag @dashboard
+
+  = actions_dropdown do
+    - if User.current.allowed_to? :save_dashboards, nil, global: true
+      = link_to l(:label_new_dashboard),
+                new_dashboard_path,
+                class: 'icon icon-add new-additionals-dashboard'
+    - if @dashboard&.destroyable?
+      = delete_dashboard_link dashboard_path(@dashboard),
+                              class: 'icon icon-del'
+    = sidebar_action_toggle @dashboard_sidebar, @dashboard
+    - unless @dashboard_sidebar
+      = render_dashboard_actionlist @dashboard
+
+    = call_hook :view_welcome_show_actions_dropdown
+
+h2 = welcome_overview_name @dashboard
+
+= call_hook :view_welcome_index_top
+
+= render partial: 'common/dashboard', locals: { dashboard: @dashboard }
+
+= call_hook :view_welcome_index_bottom
+
+- if @dashboard_sidebar
+  - content_for :sidebar do
+    = render partial: 'sidebar'
+    = call_hook :view_welcome_show_sidebar_bottom
+
+- content_for :header_tags do
+  = auto_discovery_link_tag :atom,
+                            { controller: 'news',
+                              action: 'index',
+                              key: User.current.rss_key,
+                              format: 'atom' },
+                            title: "#{Setting.app_title}: #{l(:label_news_latest)}"
+  = auto_discovery_link_tag :atom,
+                            { controller: 'activities',
+                              action: 'index',
+                              key: User.current.rss_key,
+                              format: 'atom' },
+                            title: "#{Setting.app_title}: #{l(:label_activity)}"

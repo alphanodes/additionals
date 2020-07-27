@@ -99,13 +99,8 @@ ko:
   label_open_in_google_docs: "Google 문서에서 열기"
   label_open_in_new_windows: 새 창에서 열기
   label_optional: "선택"
-  label_overview_bottom: "개요 페이지, 하단"
-  label_overview_page: "개요 페이지"
-  label_overview_right: "개요 페이지, 오른쪽"
-  label_overview_top: "개요 페이지, 상단"
   label_pdf_wiki_settings: PDF Wiki settings
   label_project_list: "프로젝트 목록"
-  label_project_overview_content: "프로젝트 가이드"
   label_query_delete: 검색어 삭제
   label_query_edit: 검색어 수정
   label_query_name_search: 이름 검색
@@ -115,7 +110,6 @@ ko:
   label_redmine_org_wiki: Redmine.org wiki page
   label_remove_help: "없애다 'Help' 톱 메뉴에서"
   label_remove_mypage: "없애다 'My Page' 톱 메뉴에서"
-  label_remove_news: "없애다 'Lastest news' 개요 페이지에서"
   label_search_by_name: 이름으로 검색
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
@@ -141,19 +135,17 @@ ko:
   menu_roles_info: "선택한 역할의 멤버 만이 메뉴 항목을 볼 수 있습니다."
   new_ticket_message_info: "새로운 호를 추가하려는 모든 사람에게 메모가 표시됩니다. 예를 들어 수락 테스트를 입력하거나 규칙을 발행 할 수 있습니다. 이 설정은 프로젝트 전체에서 사용됩니다. "
   open_external_urls_info: "활성화되면 외부 URL이 새 창 / 탭에서 열립니다."
-  overview_bottom_info: "여기에 텍스트를 추가 할 수 있으며, 하단의 개요 페이지에 표시됩니다. 예를 들어 위키 페이지에 링크 할 수 있습니다."
-  overview_right_info: "여기에서 텍스트를 추가 할 수 있습니다.이 개요는 오른쪽의 개요 페이지에 표시됩니다. 예를 들어 위키 페이지에 링크 할 수 있습니다."
-  overview_top_info: "여기에 텍스트를 추가 할 수 있습니다. 상단의 개요 페이지에 표시됩니다. 예를 들어 위키 페이지에 링크 할 수 있습니다."
   permission_change_new_issue_author: 새로운 이슈의 저자 설정
   permission_edit_closed_issues: "닫힌 이슈 편집"
   permission_edit_issue_author: 이슈 작성자 편집
   permission_issue_timelog_never_required: 시간 기록 불필요
   permission_log_time_on_closed_issues: "닫힌 문제에 대한 시간 기록"
   permission_show_hidden_roles_in_memberbox: "숨겨진 역할 표시"
-  project_overview_content_info: "여기에서 프로젝트 개요 페이지에 표시 될 텍스트를 추가 할 수 있습니다. 예를 들어, 모든 팀원이 프로젝트 전체에서 사용할 수있는 위키 페이지에 링크 할 수 있습니다. 목표는 더 나은 프로젝트 표준에 도달하고 고유 한 위키 구조를 유지하는 것입니다."
+  permission_set_system_dashboards: Set system dashboards
+  permission_manage_shared_dashboards: Manage shared dashboards
+  permission_save_dashboards: Save dashboards
   remove_help_info: "상단 메뉴에서 'Help' 항목을 제거"
   remove_mypage_info: 'Sometimes it is more useful to hide the "My Page" link in order to introduce the task board. The task board advantage is that issues can be listed according to their status.'
-  remove_news_info: "개요 페이지에서 최신 뉴스를 제거하십시오."
   rule_issue_auto_assign_info: 'Use Case: The issue author does not know whom to assign the issue or who will be responsible for solving the task. In that case the issue for example with the status "To Do" is automatically assigned to the first group, which does contain a user of the pre-selected project manager role.'
   rule_issue_current_user_status_info_html: "Is this function used in combination with the setting option \"Issue status on sidebar\" then the current user will automatically be assigned to the issue while changing the issue status.<br />Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."
   rule_issue_freezed_with_close_info: 이 옵션을 활성화하면 이미 닫힌 이슈를 더 이상 편집하고 주석을 달 수 없습니다. 메일이나 API를 통해서도 아닙니다. This restriction does not apply to user roles with the "Edit closed issues" permission.
@@ -164,9 +156,23 @@ ko:
   show_on_redmine_home: 환영 페이지에 표시
   show_welcome_left: 시작 페이지 왼쪽
   show_welcome_right: 시작 페이지 오른쪽
-  top_overview_help: 여기서 개요 페이지의 내용과 설정을 정의 할 수 있습니다.
-  top_projects_help: 여기에서 프로젝트 페이지의 내용과 설정을 정의 할 수 있습니다.
   top_rules_help: "여기에서 모든 프로젝트의 문제에 사용되는 규칙을 정의 할 수 있습니다."
   top_wiki_help: 여기에서 위키의 내용과 설정을 정의 할 수 있습니다.
   wiki_pdf_remove_attachments_info: 활성화 된 경우 첨부 된 Wiki 파일은 PDF보기에 표시되지 않습니다.
   wiki_pdf_remove_title_info: 활성화되면 위키 제목 정보가 PDF보기에 표시되지 않습니다.
+  label_dashboard_type_welcome: welcome
+  label_dashboard_type_project: project
+  field_system_default: System default
+  field_project_system_default: Project system default
+  label_chart_with_name: "Chart: %{value}"
+  label_query_with_name: "Abfrage: %{value}"
+  label_custom_fields_for_distribution: Custom fields for distribution
+  label_project_information: Project information
+  alert_only_visible_by_admins: Kann nur von Benutzer mit Admin-Rechten gesehen werden
+  alert_only_visible_by_yourself: Kann nur von Dir selbst gesehen werden
+  label_no_permission: No permission
+  label_additionals_feed: Atom+RSS feed
+  label_invalid_feed_data: Ungültige Feed Daten oder URL
+  label_my_activity: My activity
+  label_only_my_activities: Only my activity
+  label_change_to_dashboard: Change to dashboard

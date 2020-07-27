@@ -4,7 +4,7 @@ Redmine::Plugin.register :additionals do
   name 'Additionals'
   author 'AlphaNodes GmbH'
   description 'Customizing Redmine, providing wiki macros and act as a library/function provider for other Redmine plugins'
-  version '2.0.25-master'
+  version '3.0.0-master'
   author_url 'https://alphanodes.com/'
   url 'https://github.com/alphanodes/additionals'
 
@@ -18,6 +18,18 @@ Redmine::Plugin.register :additionals do
   settings(default: default_settings, partial: 'additionals/settings/additionals')
 
   permission :show_hidden_roles_in_memberbox, {}
+  permission :set_system_dashboards,
+             {},
+             require: :loggedin,
+             read: true
+  permission :manage_shared_dashboards,
+             { dashboards: %i[index new create edit update destroy] },
+             require: :member,
+             read: true
+  permission :save_dashboards,
+             { dashboards: %i[index new create edit update destroy] },
+             require: :loggedin,
+             read: true
 
   project_module :issue_tracking do
     permission :edit_closed_issues, {}
@@ -31,7 +43,7 @@ Redmine::Plugin.register :additionals do
   end
 
   # required redmine version
-  requires_redmine version_or_higher: '4.0.0'
+  requires_redmine version_or_higher: '4.1'
 
   menu :admin_menu, :additionals, { controller: 'settings', action: 'plugin', id: 'additionals' }, caption: :label_additionals
 

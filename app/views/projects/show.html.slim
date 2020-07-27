@@ -1,0 +1,87 @@
+.contextual
+  - if User.current.allowed_to? :save_dashboards, @project
+    - if @dashboard&.editable?
+      = link_to l(:button_dashboard_edit),
+                edit_project_dashboard_path(@project, @dashboard),
+                class: 'icon icon-edit'
+
+  -  unless Redmine::Plugin.installed?('redmine_reporting')
+    = bookmark_link @project
+  = call_hook :view_project_contextual_links, project: @project
+
+  - if @dashboard&.editable?
+    = form_tag(_add_block_dashboard_path(@project, @dashboard), remote: true, id: 'block-form', authenticity_token: true) do
+      = dashboard_block_select_tag @dashboard
+
+  = actions_dropdown do
+    - if User.current.allowed_to? :add_subprojects, @project
+      = link_to l(:label_subproject_new), new_project_path(parent_id: @project), class: 'icon icon-add'
+    - if User.current.allowed_to?(:close_project, @project)
+      - if @project.active?
+        = link_to l(:button_close),
+                  close_project_path(@project),
+                  data: { confirm: l(:text_are_you_sure) }, method: :post, class: 'icon icon-lock'
+      - else
+        = link_to l(:button_reopen),
+                  reopen_project_path(@project),
+                  data: { confirm: l(:text_are_you_sure) }, method: :post, class: 'icon icon-unlock'
+
+    - if User.current.admin?
+      - if @project.archived?
+        = link_to l(:button_unarchive),
+                  unarchive_project_path(@project, status: params[:status]),
+                  method: :post, class: 'icon icon-unlock'
+      - else
+        = link_to l(:button_archive),
+                  archive_project_path(@project, status: params[:status]),
+                  data: { confirm: l(:text_are_you_sure) }, method: :post, class: 'icon icon-lock'
+      = link_to l(:button_copy), copy_project_path(@project), class: 'icon icon-copy'
+      = link_to l(:button_delete), project_path(@project), method: :delete, class: 'icon icon-del'
+
+
+    - if User.current.allowed_to? :save_dashboards, @project
+      = link_to l(:label_new_dashboard),
+                new_project_dashboard_path(@project),
+                class: 'icon icon-add new-additionals-dashboard'
+
+    - if @dashboard&.destroyable?
+      = delete_dashboard_link project_dashboard_path(@project, @dashboard),
+                              class: 'icon icon-del'
+
+    = sidebar_action_toggle @dashboard_sidebar, @dashboard, @project
+    - unless @dashboard_sidebar
+      = render_dashboard_actionlist @dashboard, @project
+
+    = call_hook :view_projects_show_actions_dropdown, project: @project
+
+    - if User.current.allowed_to?(:edit_project, @project)
+      = link_to_if_authorized l(:label_settings),
+                              { controller: 'projects', action: 'settings', id: @project },
+                              class: 'icon icon-settings'
+
+h2 = project_overview_name @project, @dashboard
+
+- unless @project.active?
+  p.warning
+    span.icon.icon-lock
+      = l(:text_project_closed)
+
+= render partial: 'common/dashboard', locals: { dashboard: @dashboard }
+
+= call_hook :view_projects_show_bottom, project: @project
+
+- if @dashboard_sidebar
+  - content_for :sidebar do
+    - if User.current.allowed_to? :save_dashboards, @project, global: true
+      = render_sidebar_dashboards @dashboard, @project
+    = call_hook :view_projects_show_sidebar_bottom, project: @project
+
+- content_for :header_tags do
+  = auto_discovery_link_tag :atom,
+                            { controller: 'activities',
+                              action: 'index',
+                              id: @project,
+                              format: 'atom',
+                              key: User.current.rss_key }
+
+- html_title l(:label_overview)

@@ -6,6 +6,8 @@ module Additionals
       included do
         prepend InstanceOverwriteMethods
         include InstanceMethods
+
+        has_many :dashboards, dependent: :destroy
       end
 
       module InstanceOverwriteMethods

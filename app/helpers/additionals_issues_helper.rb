@@ -1,15 +1,20 @@
 module AdditionalsIssuesHelper
-  def issue_author_options_for_select(project, issue = nil)
-    authors = project.users.sorted
+  def author_options_for_select(project, issue = nil)
+    authors = if project.present?
+                project.users.sorted
+              else
+                Principal.active.where(type: 'User').sorted
+              end
+
     s = []
     return s unless authors.any?
 
-    s << content_tag('option', "<< #{l(:label_me)} >>", value: User.current.id) if authors.include?(User.current)
+    s << tag.option("<< #{l(:label_me)} >>", value: User.current.id) if authors.include?(User.current)
 
     if issue.nil?
       s << options_from_collection_for_select(authors, 'id', 'name')
     else
-      s << content_tag('option', issue.author, value: issue.author_id, selected: true) if issue.author && !authors.include?(issue.author)
+      s << tag.option(issue.author, value: issue.author_id, selected: true) if issue.author && !authors.include?(issue.author)
       s << options_from_collection_for_select(authors, 'id', 'name', issue.author_id)
     end
     safe_join(s)

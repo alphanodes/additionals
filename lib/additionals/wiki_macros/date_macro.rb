@@ -63,7 +63,7 @@ module Additionals
                         format_date(type.to_date)
                       end
 
-        content_tag(:span, date_result, class: 'current-date')
+        tag.span date_result, class: 'current-date'
       end
     end
   end

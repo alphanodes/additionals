@@ -1,0 +1,26 @@
+ruby:
+  title = settings[:title] || l(:label_text)
+  text = settings[:text]
+
+- if title.present?
+  h3 = title
+
+- if @can_edit
+  div id="#{block}-settings" style='display: none;'
+    = form_tag(_update_layout_setting_dashboard_path(@project, @dashboard), remote: true) do
+      .box
+        p
+          label
+            = l :field_title
+            ' :
+            = text_field_tag "settings[#{block}][title]", title
+        p
+            = text_area_tag "settings[#{block}][text]", text, rows: addtionals_textarea_cols(text), class: 'wiki-edit'
+            = wikitoolbar_for "settings_#{block}_text"
+      p
+        = submit_tag l(:button_save)
+        '
+        = link_to_function l(:button_cancel), "$('##{block}-settings').toggle();"
+
+.wiki
+  = textilizable text

@@ -99,13 +99,8 @@ pl:
   label_open_in_google_docs: "Otwarte w dokumentach Google Docs"
   label_open_in_new_windows: "Otwieranie w nowych oknach"
   label_optional: "fakultatywny"
-  label_overview_bottom: "Overview page, pupa"
-  label_overview_page: "Overview page"
-  label_overview_right: "Overview page, słuszny"
-  label_overview_top: "Overview page, góra"
   label_pdf_wiki_settings: "PDF Wiki nastawy"
   label_project_list: "Lista projektów"
-  label_project_overview_content: "Przewodnik po projekcie"
   label_query_delete: "Usuń query"
   label_query_edit: "Edycja query"
   label_query_name_search: "Wyszukaj nazwę"
@@ -115,7 +110,6 @@ pl:
   label_redmine_org_wiki: Redmine.org wiki page
   label_remove_help: "Remove 'Help' from top menu"
   label_remove_mypage: "Remove 'My Page' from top menu"
-  label_remove_news: "Remove 'Lastest news' from overview page"
   label_search_by_name: "Wyszukiwanie według nazwy"
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
@@ -141,19 +135,17 @@ pl:
   menu_roles_info: "Tylko członkowie wybranych ról będą widzieć ten wpis w menu."
   new_ticket_message_info: "Notatka zostanie wyświetlona każdemu, kto chce dodać nową issue. Na przykład, tutaj możesz wprowadzić testy akceptacyjne lub zasady issue. Ustawienia te są używane w całym projekcie."
   open_external_urls_info: "Jeśli jest aktywny, zewnętrzne adresy URL są otwierane w nowym oknie/tabeli."
-  overview_bottom_info: "Tutaj możesz dodać swój tekst, który zostanie wyświetlony na stronie przeglądowej na dole. Na przykład możesz dodać link do strony wiki."
-  overview_right_info: "Tutaj możesz dodać swój tekst, który zostanie wyświetlony na stronie przeglądu po prawej stronie. Na przykład możesz dodać link do strony wiki."
-  overview_top_info: "Tutaj możesz dodać swój tekst, który zostanie wyświetlony na stronie przeglądowej u góry. Na przykład możesz dodać link do strony wiki."
   permission_change_new_issue_author: "Zbiórka autora nowych issues"
   permission_edit_closed_issues: "Edycja zamkniętych issues"
   permission_edit_issue_author: "Edycja autora issue"
   permission_issue_timelog_never_required: "Nie jest wymagane rejestrowanie czasu pracy."
   permission_log_time_on_closed_issues: "Czas rejestracji w zamkniętych issues"
   permission_show_hidden_roles_in_memberbox: "Pokaż ukryte role"
-  project_overview_content_info: "Tutaj możesz dodać swój tekst, który zostanie wyświetlony na stronie przeglądu projektu. Na przykład możesz dodać link do strony wiki, która jest/powinna być szeroko dostępna dla każdego członka zespołu. Celem jest osiągnięcie lepszego standardu projektu i utrzymanie unikalnej struktury wiki."
+  permission_set_system_dashboards: Set system dashboards
+  permission_manage_shared_dashboards: Manage shared dashboards
+  permission_save_dashboards: Save dashboards
   remove_help_info: "Usuń element 'Help' z górnego menu."
   remove_mypage_info: 'Czasami bardziej użyteczne jest ukrywanie linku  "My Page" w celu wprowadzenia tablicy zadań. Zaletą forum zadań jest to, że issues mogą być wymienione zgodnie z ich statusem.'
-  remove_news_info: "Usuń najnowsze wiadomości ze strony przeglądu."
   rule_issue_auto_assign_info: 'Przypadek użycia: Autor issue nie wie, komu przydzielić issue lub kto będzie odpowiedzialny za rozwiązanie zadania. W takim przypadku issue np. ze statusem "To Do" jest automatycznie przypisywana do pierwszej grupy, w której znajduje się użytkownik wstępnie wybranej roli kierownika projektu.'
   rule_issue_current_user_status_info_html: "Is this function used in combination with the setting option \"Issue status on sidebar\" then the current user will automatically be assigned to the issue while changing the issue status.<br />Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."
   rule_issue_freezed_with_close_info: "Jeśli ta opcja jest włączona, już zamknięte issues nie mogą być już edytowane i komentowane. Nawet za pośrednictwem poczty lub API. Ograniczenie to nie dotyczy ról użytkowników z uprawnieniem \"Edit closed issues\"."
@@ -164,9 +156,23 @@ pl:
   show_on_redmine_home: "Pokaż na stronie powitalnej"
   show_welcome_left: "Na stronie powitalnej po lewej stronie"
   show_welcome_right: "Na stronie powitalnej po prawej stronie"
-  top_overview_help: "Tutaj można zdefiniować zawartość i ustawienia dla strony przeglądowej."
-  top_projects_help: "Tutaj można zdefiniować zawartość i ustawienia dla strony projektu."
   top_rules_help: "Tutaj możesz zdefiniować reguły, które są używane w sprawach wszystkich projektów."
   top_wiki_help: "Tutaj możesz zdefiniować zawartość i ustawienia dla swojej Wiki."
   wiki_pdf_remove_attachments_info: "Gdy jest aktywny, załączone pliki Wiki nie będą wyświetlane w widoku PDF."
   wiki_pdf_remove_title_info: "Gdy jest aktywny, informacja o tytule Wiki nie będzie wyświetlana w widoku PDF."
+  label_dashboard_type_welcome: welcome
+  label_dashboard_type_project: project
+  field_system_default: System default
+  field_project_system_default: Project system default
+  label_chart_with_name: "Chart: %{value}"
+  label_query_with_name: "Abfrage: %{value}"
+  label_custom_fields_for_distribution: Custom fields for distribution
+  label_project_information: Project information
+  alert_only_visible_by_admins: Kann nur von Benutzer mit Admin-Rechten gesehen werden
+  alert_only_visible_by_yourself: Kann nur von Dir selbst gesehen werden
+  label_no_permission: No permission
+  label_additionals_feed: Atom+RSS feed
+  label_invalid_feed_data: Ungültige Feed Daten oder URL
+  label_my_activity: My activity
+  label_only_my_activities: Only my activity
+  label_change_to_dashboard: Change to dashboard

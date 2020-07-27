@@ -63,7 +63,7 @@ module AdditionalsQuery
     end
 
     def initialize_project_filter(options = {})
-      if project.nil?
+      if project.nil? || options[:always]
         add_available_filter('project_id', order: options[:position],
                                            type: :list,
                                            values: -> { project_values })

@@ -1,0 +1,26 @@
+- query = klass.visible.find_by(id: settings[:query_id])
+
+div id="#{block}-settings" style="#{'display: none;' if hide}"
+  = form_tag(_update_layout_setting_dashboard_path(@project, dashboard), remote: true) do
+    .box
+      - if query
+        = render_query_columns_selection(query, name: "settings[#{block}][columns]")
+      - else
+        p
+          label
+            = block_definition[:label]
+            '
+            = select_tag "settings[#{block}][query_id]",
+                         tag.option + options_from_collection_for_select(sidebar_queries(klass, @project), :id, :name),
+                         required: true
+      p
+        label
+          = l(:label_max_entries)
+          ' :
+          = number_field_tag "settings[#{block}][max_entries]",
+                             settings[:max_entries].presence || DashboardContent::DEFAULT_MAX_ENTRIES,
+                             min: 1, max: 100, required: true
+    p
+      = submit_tag l(:button_save)
+      '
+      = link_to_function l(:button_cancel), "$('##{block}-settings').toggle();"

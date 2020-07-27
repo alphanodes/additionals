@@ -29,12 +29,7 @@ issue_timelog_required: 0
 legacy_smiley_support: 0
 new_issue_on_profile: 0
 new_ticket_message: "Don't forget to define acceptance criteria!"
-overview_bottom: ''
-overview_right: ''
-overview_top: ''
-project_overview_content: 'Go to admin area and define a nice wiki text here as a fixed skeletal for all projects.'
 remove_help: 0
 remove_mypage: 0
-remove_news: 0
 wiki_pdf_remove_attachments: 0
 wiki_pdf_remove_title: 0

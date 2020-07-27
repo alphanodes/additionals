@@ -1,0 +1,23 @@
+- cache render_async_cache_key(_dashboard_async_blocks_path(@project,
+                                                            dashboard.async_params(block, async, settings))),
+                               expires_in: async[:cache_expires_in] || DashboardContent::RENDER_ASYNC_CACHE_EXPIRES_IN,
+                               skip_digest: true do
+
+  - feed = dashboard_feed_catcher settings[:url], settings[:max_entries]
+  h3
+    = dashboard_feed_title settings[:title], block_definition
+
+  - if feed[:valid]
+    - if feed[:items].count.positive?
+      ul.reporting-list.feed
+        - feed[:items].each do |item|
+          li
+            = link_to item[:title],
+                      item[:link],
+                      class: 'external', rel: 'noopener noreferrer', target: '_blank'
+    - else
+      p.nodata = l(:label_no_data)
+  - elsif settings[:url].blank?
+    p.nodata = l(:label_no_data)
+  - else
+    p.nodata = l(:label_invalid_feed_data)

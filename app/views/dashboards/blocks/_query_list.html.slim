@@ -1,0 +1,33 @@
+ruby:
+  query = klass.visible.find_by(id: settings[:query_id])
+  project = (dashboard.content_project if query_block[:with_project])
+  
+- if query
+  ruby:
+    count = query.send query_block[:count_method]
+    if query_block[:with_project]
+      query.project = project
+      query.column_names = settings[:columns] if settings[:columns].present?
+      query.sort_criteria = settings[:sort] if settings[:sort].present?
+    end
+
+  h3.query-list-block
+    = dashboard_query_list_block_title query, query_block, @project
+    = " (#{count})"
+    = dashboard_query_list_block_alerts dashboard, query, block_definition
+
+  - if query.respond_to?(:description) && query.description.present?
+    .query-description
+      = textilizable query, :description
+
+  - if count.positive?
+    = render partial: query_block[:list_partial],
+             locals: { query_block[:entities_var] => query.send(query_block[:entries_method],
+                                                                limit: settings[:max_entries] || DashboardContent::DEFAULT_MAX_ENTRIES),
+                       query: query,
+                       query_options: { sort_param: "settings[#{block}][sort]",
+                                        sort_link_options: { method: :post, remote: true } } }
+  - else
+    p.nodata = l(:label_no_data)
+- else
+  p.nodata = l(:label_no_data)

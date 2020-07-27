@@ -37,11 +37,11 @@ module Additionals
         end
 
         s = []
-        s << content_tag(:iframe, '', width: width, height: height, src: src, frameborder: 0, allowfullscreen: 'true')
+        s << tag.iframe(width: width, height: height, src: src, frameborder: 0, allowfullscreen: 'true')
         if options[:edit_link].present?
           raise '<edit_link> is not a Google document.' unless options[:edit_link].start_with? 'https://docs.google.com/'
 
-          s << tag(:br)
+          s << tag.br
           s << link_to(font_awesome_icon('fab_google-drive', post_text: :label_open_in_google_docs),
                        options[:edit_link],
                        class: 'external')

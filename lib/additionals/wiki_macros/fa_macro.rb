@@ -58,11 +58,11 @@ module Additionals
         text = options[:text].present? ? ' ' + options[:text] : ''
 
         if options[:link].present?
-          content_tag(:a, href: options[:link]) do
-            content_tag(:i, text, content_options)
+          tag.a href: options[:link] do
+            tag.i text, content_options
           end
         else
-          content_tag(:i, text, content_options)
+          tag.i text, content_options
         end
       end
     end

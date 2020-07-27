@@ -1,0 +1,7 @@
+- if Additionals.setting(:global_sidebar).present?
+  br
+  .sidebar-additionals
+    = textilizable Additionals.setting(:global_sidebar)
+
+- if User.current.allowed_to? :save_dashboards, nil, global: true
+  = render_sidebar_dashboards @dashboard

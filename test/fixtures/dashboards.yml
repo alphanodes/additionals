@@ -1,0 +1,118 @@
+system_default_welcome:
+  name: Global default dashboard
+  dashboard_type: <%= DashboardContentWelcome::TYPE_NAME %>
+  system_default: true
+  enable_sidebar: false
+  author_id: 1
+  visibility: 2
+  options: |
+    ---
+    :layout:
+      top:
+      - issuequery
+      left:
+      - text
+      - legacy_left
+      right:
+      - text__1
+      - legacy_right
+    :layout_settings:
+      issuequery:
+        :query_id: '1'
+      text:
+        :title: Welcome left
+        :text: Some example text in left text block
+      text__1:
+        :title: Welcome right
+        :text: Some example text in right text block
+
+system_default_project:
+  name: Project default dashboard
+  dashboard_type: <%= DashboardContentProject::TYPE_NAME %>
+  system_default: true
+  enable_sidebar: true
+  project_id:
+  author_id: 1
+  visibility: 2
+  options: |
+    ---
+    :layout:
+      top:
+      - issuequery
+      left:
+      - text
+      - legacy_left
+      right:
+      - text__1
+      - legacy_right
+    :layout_settings:
+      issuequery:
+        :query_id: '1'
+      text:
+        :title: Project overview left
+        :text: Some example text in left text block
+      text__1:
+        :title: Project overview right
+        :text: Some example text in right text block
+
+private_welcome:
+  name: Only for user 1
+  dashboard_type: <%= DashboardContentWelcome::TYPE_NAME %>
+  enable_sidebar: true
+  author_id: 1
+  visibility: 0
+  options: |
+    ---
+    :layout:
+      left:
+      - legacy_left
+      right:
+      - legacy_right
+    :layout_settings: {}
+
+private_welcome2:
+  name: Only for user 2
+  dashboard_type: <%= DashboardContentWelcome::TYPE_NAME %>
+  author_id: 2
+  visibility: 0
+  options: |
+    ---
+    :layout:
+      left:
+      - legacy_left
+      right:
+      - legacy_right
+    :layout_settings: {}
+
+private_project_default:
+  name: Private project default
+  dashboard_type: <%= DashboardContentProject::TYPE_NAME %>
+  project_id:
+  author_id: 1
+  visibility: 0
+
+private_project:
+  name: Private project for user 1
+  dashboard_type: <%= DashboardContentProject::TYPE_NAME %>
+  project_id: 1
+  author_id: 1
+  visibility: 0
+
+private_project2:
+  name: Private project for user 2
+  dashboard_type: <%= DashboardContentProject::TYPE_NAME %>
+  project_id: 1
+  author_id: 2
+  visibility: 0
+
+public_welcome:
+  name: Public welcome
+  dashboard_type: <%= DashboardContentWelcome::TYPE_NAME %>
+  author_id: 1
+  visibility: 2
+
+welcome_for_roles:
+  name: Welcome for roles
+  dashboard_type: <%= DashboardContentWelcome::TYPE_NAME %>
+  author_id: 1
+  visibility: 1

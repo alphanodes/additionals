@@ -1,6 +1,6 @@
 require File.expand_path('../../test_helper', __FILE__)
 
-class CommonViewsTest < Redmine::IntegrationTest
+class CommonViewsTest < Additionals::IntegrationTest
   fixtures :projects,
            :users,
            :roles,

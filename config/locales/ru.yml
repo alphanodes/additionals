@@ -99,13 +99,8 @@ ru:
   label_open_in_google_docs: "Открыть в Документах Google"
   label_open_in_new_windows: "Открыть в новом окне"
   label_optional: "необязательный"
-  label_overview_bottom: "Overview page, bottom"
-  label_overview_page: "Overview page"
-  label_overview_right: "Overview page, right"
-  label_overview_top: "Overview page, top"
   label_pdf_wiki_settings: PDF Wiki settings
   label_project_list: "Список проектов"
-  label_project_overview_content: "Project guide"
   label_query_delete: "Удалить query"
   label_query_edit: "Редактировать query"
   label_query_name_search: "Поиск имени"
@@ -115,7 +110,6 @@ ru:
   label_redmine_org_wiki: Redmine.org wiki page
   label_remove_help: "Удалить 'Help' из верхнего меню"
   label_remove_mypage: "Удалить 'My Page' из верхнего меню"
-  label_remove_news: "Удалить 'Lastest news' со страницы обзора"
   label_search_by_name: "Поиск по имени"
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
@@ -141,19 +135,17 @@ ru:
   menu_roles_info: "Этот пункт меню будет доступен только пользователям с выбранными ролями."
   new_ticket_message_info: "Всем, кто хочет добавить новое задание, будет показана заметка. Например, здесь вы можете ввести правила приемочных испытаний или заданий. Эти настройки используются для всего проекта."
   open_external_urls_info: "Если активен, в новом окне/закладке открываются внешние URL-адреса."
-  overview_bottom_info: "Здесь вы можете добавить свой текст, который будет показан на странице обзора внизу. Например, вы можете сделать ссылку на страницу вики."
-  overview_right_info: "Здесь вы можете добавить свой текст, который будет показан на странице обзора справа. Например, вы можете сделать ссылку на страницу вики."
-  overview_top_info: "Здесь вы можете добавить свой текст, который будет показан на странице обзора вверху. Например, вы можете сделать ссылку на страницу вики."
   permission_change_new_issue_author: " Поставить перед автором новые задачи"
   permission_edit_closed_issues: "Редактирование закрытых заданий"
   permission_edit_issue_author: "Редактирование заданий автора"
   permission_issue_timelog_never_required: "Регистрация времени не требуется"
   permission_log_time_on_closed_issues: "Время регистрации на закрытых заданиях"
   permission_show_hidden_roles_in_memberbox: "Показать скрытые роли"
-  project_overview_content_info: "Здесь вы можете добавить свой текст, который будет показан на странице обзора проекта. Например, вы можете сделать ссылку на страницу вики, которая должна быть широко доступна для всех членов команды. Цель состоит в том, чтобы достичь лучшего стандарта проекта и сохранить уникальную структуру вики."
+  permission_set_system_dashboards: Set system dashboards
+  permission_manage_shared_dashboards: Manage shared dashboards
+  permission_save_dashboards: Save dashboards
   remove_help_info: "Удалить пункт 'Help' из верхнего меню."
   remove_mypage_info: "Иногда бывает полезнее скрыть ссылку \"My Page\", чтобы представить панель задач. Преимуществом доски задач является то, что вопросы могут быть перечислены в соответствии с их статусом."
-  remove_news_info: "Remove latest news from overview page."
   rule_issue_auto_assign_info: "Use Case: Автор проблемы не знает, кому назначить задачу или кто будет отвечать за ее решение. В этом случае задание, например со статусом \"To Do\", автоматически присваивается первой группе, которая действительно содержит пользователя с предварительно выбранной ролью менеджера проекта."
   rule_issue_current_user_status_info_html: "Is this function used in combination with the setting option \"Issue status on sidebar\" then the current user will automatically be assigned to the issue while changing the issue status.<br />Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."
   rule_issue_freezed_with_close_info: "Если эта опция включена, то уже закрытые задания больше не могут быть отредактированы и прокомментированы. Даже по почте или API. Это ограничение не распространяется на роли пользователей с правом \"Edit closed issues\"."
@@ -164,9 +156,23 @@ ru:
   show_on_redmine_home: "Показать на странице приветствия"
   show_welcome_left: "На странице приветствия слева"
   show_welcome_right: "На странице приветствия справа"
-  top_overview_help: "Здесь вы можете определить содержание и настройки для вашей обзорной страницы."
-  top_projects_help: "Здесь вы можете определить содержание и настройки для вашей страницы проекта."
   top_rules_help: "Здесь можно определить правила, которые используются в задачах всех проектов."
   top_wiki_help: "Здесь вы можете определить содержимое и настройки для вашей Вики."
   wiki_pdf_remove_attachments_info: "Если флажок установлен, вложенные Вики-файлы не будут отображаться в PDF-формате."
   wiki_pdf_remove_title_info: "При активации этого параметра информация о названии Вики не будет отображаться в PDF-формате."
+  label_dashboard_type_welcome: welcome
+  label_dashboard_type_project: project
+  field_system_default: System default
+  field_project_system_default: Project system default
+  label_chart_with_name: "Chart: %{value}"
+  label_query_with_name: "Abfrage: %{value}"
+  label_custom_fields_for_distribution: Custom fields for distribution
+  label_project_information: Project information
+  alert_only_visible_by_admins: Kann nur von Benutzer mit Admin-Rechten gesehen werden
+  alert_only_visible_by_yourself: Kann nur von Dir selbst gesehen werden
+  label_no_permission: No permission
+  label_additionals_feed: Atom+RSS feed
+  label_invalid_feed_data: Ungültige Feed Daten oder URL
+  label_my_activity: My activity
+  label_only_my_activities: Only my activity
+  label_change_to_dashboard: Change to dashboard

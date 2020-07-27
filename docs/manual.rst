@@ -29,35 +29,12 @@ And the following options can be edited by users with administratios rights in t
 * Activate the option ``Open external URLs`` in order to open those URLs in a new window or browser tab if someone wants to visit them.
 * Add "Go to top" link. If you have a lot of long pages, it is enabling users to easily return to the top of a page.
 * Activate the ``Legacy smileys support`` if you want to use the manual smiley code in your text (e.g. ``:)``). If you already use a plugin that supports Smileys this option should stay deactivated. For more info on Emoji-Browser support read http://caniemoji.com/. Have a look at the Emoji cheat sheet at https://www.webpagefx.com/tools/emoji-cheat-sheet for available Emoji-Codes.
+* ``Disable modules``, this feature will hide the selected modules in the project settings. Even if the module is enabled for use in the admin area it can not be selected by the project manager within the projects. Please note, if these modules already activated in existing projects, you will have to change and re-save the respective project settings first.
+
 
 .. note:: Please restart the application server, if you make changes to the external urls settings as well as if you activate the Smileys support.
 
 .. note:: You can use the following manual smiley codes: :), =), :D, =D, :'(, :(, ;), :P, :O, :/, :S, :|, :X, :*, O:), >:), B), (!), (?), (v), (x), (/) and @}->-
-
-Overview page section
----------------------
-
-If you click on this tab you get to the area, where you can customize contents and settings for your overview page in Redmine.
-These settings allows you to define some special behaviours for your Redmine installation.
-It is divided into two areas called ``Contents`` and ``Settings``.
-
-Contents
-++++++++
-
-The following plugin options are available to be edited by users with administration rights in the area **Contents**:
-
-* Overview page, right. Place information here you want to display at the right side of your overview page.
-* Overview page, top. Place information here you want to display at the top of your overview page.
-* Overview page, bottom. Place information here you want to display on the bottom of your overview page.
-
-All text input fields allow wiki syntax. Keep your text information as short as possible. In case you want to write prosa, you may also link to a wiki page with further information.
-
-Settings
-++++++++
-
-Changes you can make in the area **Settings** are:
-
-* Remove **Latest news** from overview page in case you do not use the **News** function very often. *Remember:* Old news is bad news.
 
 Wiki section
 ------------
@@ -202,16 +179,6 @@ Time log for issues required.
 
 Please note, that a user with administration rights will always be able to do all those things a normal user is not allowed to.
 
-
-Projects section
-----------------
-
-The projects section offers several options for the user with admin rights to define texts, which will be displayed in the project areas of Redmine as well as disable special modules which should not be available for projects.
-
-* Project guide. The project guide box will provide every user information that is necessary for your Redmine projects. Here you can link to a wiki page or leave a text message.
-* ``Disable modules``, this feature will hide the selected modules in the project settings. Even if the module is enabled for use in the admin area it can not be selected by the project manager within the projects. Please note, if these modules already activated in existing projects, you will have to change and re-save the respective project settings first.
-
-.. note:: Use simple text, macros and wiki syntax for your content of the project guide. Make sure every one has access to the displayed information in case you link to a wiki page.
 
 Menu section
 ------------

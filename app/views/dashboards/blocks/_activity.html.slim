@@ -1,0 +1,11 @@
+- cache render_async_cache_key(_dashboard_async_blocks_path(@project,
+                                                            dashboard.async_params(block, async, settings))),
+                               expires_in: async[:cache_expires_in] || DashboardContent::RENDER_ASYNC_CACHE_EXPIRES_IN,
+                               skip_digest: true do
+
+  - events_by_day = activity_dashboard_data settings, dashboard
+  - title = Additionals.true?(settings[:me_only]) ? l(:label_my_activity) : l(:label_activity)
+  h3 = link_to title, activity_path(user_id: User.current,
+                                   from: events_by_day.keys.first)
+
+  = render partial: 'activities/activities', locals: { events_by_day: events_by_day }

@@ -100,13 +100,14 @@ Uninstall ``additionals`` plugin for `Redmine`_.
 Features
 --------
 
-* use "Project guide" on project overview page
-* global header for all projects
-* global footer for all projects
-* welcome text for login page
-* global sidebar content support
-* set info message above new ticket (e.g. for guidelines)
-* wiki macros for:
+* Dashboard (Drag&Drop) Support
+* Text for login page
+* Global footer for all projects
+* Welcome text for login page
+* Global sidebar content support
+* Note for new issues above issue content (e.g. for guidelines)
+* PDF for wiki pages
+* Wiki macros for:
 
   * asciinema
   * cryptocompare
@@ -205,6 +206,7 @@ The following modules are available :
 Redmine Plugins, which are using ``additionals``
 ------------------------------------------------
 
+* `redmine_automation <https://alphanodes.com/redmine-automation>`_
 * `redmine_codimd <https://github.com/AlphaNodes/redmine_codimd>`_
 * `redmine_db <https://alphanodes.com/redmine-db>`_
 * `redmine_git_hosting <http://redmine-git-hosting.io/>`_

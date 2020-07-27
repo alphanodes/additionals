@@ -1,4 +1,5 @@
 - query = klass.visible.find_by(id: settings[:query_id])
+- query.column_names = settings[:columns].map(&:to_sym) if settings[:columns].present?
 
 div id="#{block}-settings" style="#{'display: none;' if hide}"
   = form_tag(_update_layout_setting_dashboard_path(@project, dashboard), remote: true) do

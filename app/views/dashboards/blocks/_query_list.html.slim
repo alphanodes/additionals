@@ -10,7 +10,9 @@
       count = query.send query_block[:count_method]
       if query_block[:with_project]
         query.project = project
-        query.column_names = settings[:columns] if settings[:columns].present?
+        Rails.logger.debug "debug1 query_list: #{settings[:columns]}"
+        query.column_names = settings[:columns].split(',').map(&:to_sym) if settings[:columns].present?
+        Rails.logger.debug "debug2 query_list: #{settings[:columns]}"
         query.sort_criteria = settings[:sort] if settings[:sort].present?
       end
 

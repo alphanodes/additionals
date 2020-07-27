@@ -21,8 +21,8 @@ When accessing Redmine you probably get redirected to the "Home" page of the sys
 
 What you can do here is:
 
-*  Edit dashboard
-*  New dashboard
+*  use the "Edit dashboard" link for modifications
+*  add a "New dashboard"
 *  Enable sidebar or Disable sidebar
 *  Switch to other existing dashboards
 *  Add a dashboard block
@@ -30,7 +30,7 @@ What you can do here is:
 
 
 Edit Dashboard
---------------
+++++++++++++++
 
 Users with appropriate permission can edit an existing dashboard by clicking the "Edit dashboard" link to get to open the edit window.
 
@@ -62,7 +62,7 @@ Author
 
 
 New Dashboard
--------------
++++++++++++++
 
 Users with appropriate permission can add a new dashboard by clicking the "New dashboard" link in the "actions menu" to open the "New dashboard" window to fill out the following fields.
 
@@ -83,3 +83,27 @@ Always expose
 
 System default
   If you want to make your dashboard system default, activate this option. So every user will have to work with it.
+
+
+Add Dashboard blocks
+++++++++++++++++++++
+
+You can fill existing dashboards with content by using the select box "Add block".
+
+.. figure::  images/dashboard-add-block.png
+   :align:   center
+
+The blocks that are available here depend on the functions you are using and the plugins you have on your system. They need to support the dashboard functionality of the additionals plugin. Which is not hard to do so, because it's easy to implement for plugin developers.
+
+1. In order to add a new dashboard block, just select the respective option from the selection box. The block will be added right away.
+
+2. You probably need to position the block. In that case hover your mouse over the right block corner and grap the "Move" icon. Now position it somewhere else. Done.
+
+.. figure::  images/dashboard-actions.png
+   :align:   center
+
+
+3. Some blocks can be configured. In that case hover your mouse over the right block corner and click the "Options" icon. The configuration option appears and you can make your changes. Done.
+
+.. figure::  images/dashboard-options.png
+   :align:   center

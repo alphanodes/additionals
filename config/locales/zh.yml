@@ -11,6 +11,9 @@ zh:
     other: 天
   activerecord:
     errors:
+      models:
+        dashboard:
+            must_be_for_everyone: "如果使用系统默认值，必须为每个用户设置。"
       messages:
         issue_cannot_close_with_open_children: "只有关闭所有子任务以后，才能关闭对应的父任务。"
         issue_current_user_status: "所选状态必须要将 \"指派给\" 设置给你自己。"
@@ -160,35 +163,35 @@ zh:
   top_wiki_help: 您可以在此定义 WIKI 的内容及设置。
   wiki_pdf_remove_attachments_info:  当启用时，WIKI 附件将不会显示在PDF视图中。
   wiki_pdf_remove_title_info: 当启用时，WIKI 标题信息将不会显示在PDF视图中。
-  label_new_dashboard: New dashboard
-  button_dashboard_edit: Edit dashboard
-  label_new_additional_dashboard: New dashboard
-  label_my_dashboard_plural: My dashboards
+  label_new_dashboard: "新建仪表板"
+  button_dashboard_edit: "编辑仪表盘。"
+  label_new_additional_dashboard: "新建仪表板"
+  label_my_dashboard_plural: "新的仪表盘"
   label_shared_dashboard_plural: Shared dashboards
   button_dashboard_delete: Delete dashboard
   label_dashboard_author: "Author: %{name}"
-  field_system_default: System default
-  field_project_system_default: Project default
+  field_system_default: "系统默认值"
+  field_project_system_default: "项目默认值"
   field_visibility: Visibility
-  label_enable_sidebar: Enable sidebar
-  label_disable_sidebar: Disable sidebar
-  label_max_entries: Maximale Einträge
-  label_dashboard_legacy_left: Standard-Inhalt links
-  label_dashboard_legacy_right: Standard-Inhalt rechts
-  label_add_dashboard_block: Block hinzufügen
-  label_spent_time_static: Statische Aufgewendete Zeit
-  label_project_information: Projektinformation
-  label_issues_summary: Ticket Erfassung
-  label_project_fields: Projektfelder
+  label_enable_sidebar: 启用侧栏。
+  label_disable_sidebar: 禁用侧栏。
+  label_max_entries: "最大条目"
+  label_dashboard_legacy_left: "标准-沥青左"
+  label_dashboard_legacy_right: "标准内容权"
+  label_add_dashboard_block: "添加块"
+  label_spent_time_static: "静态花费时间"
+  label_project_information: "项目信息"
+  label_issues_summary: "发行登记"
+  label_project_fields: "项目字段"
   label_chart_with_name: "Chart: %{value}"
-  label_query_with_name: "Abfrage: %{value}"
-  label_custom_fields_distribution: Benutzerdefinierte Felder für Verteilung
-  alert_only_visible_by_admins: Kann nur von Benutzer mit Admin-Rechten gesehen werden
-  alert_only_visible_by_yourself: Kann nur von Dir selbst gesehen werden
-  label_no_permission: Keine Berechtigung
-  label_additionals_feed: Atom+RSS Feed
-  label_invalid_feed_data: Ungültige Feed Daten oder URL
-  label_my_activity: Meine Aktivität
-  label_only_my_activities: Nur meine Aktivität
-  label_change_to_dashboard: Zu Dashboard wechseln
-  label_active_dashboard: Aktives Dashboard
+  label_query_with_name: "查询。: %{value}"
+  label_custom_fields_distribution: "用于分发的自定义字段"
+  alert_only_visible_by_admins: "只有拥有管理员权限的用户才能看到"
+  alert_only_visible_by_yourself: "只能被你看到"
+  label_no_permission: "不允许"
+  label_additionals_feed: "Atom+RSS Feed"
+  label_invalid_feed_data: "无效的feed数据或URL"
+  label_my_activity: "我的活动"
+  label_only_my_activities: "只有我的活动"
+  label_change_to_dashboard: "切换到仪表盘"
+  label_active_dashboard: "Active Dashboard"

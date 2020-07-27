@@ -11,6 +11,9 @@ pl:
     other: dni
   activerecord:
     errors:
+      models:
+        dashboard:
+            must_be_for_everyone: "must be set for each user if System Default is used."
       messages:
         issue_cannot_close_with_open_children: "Ta issue może zostać zamknięta tylko wtedy, gdy wszystkie podtematy również zostaną zamknięte."
         issue_current_user_status: "Wybrany status wymaga, aby \"Assignee\" był sobą."

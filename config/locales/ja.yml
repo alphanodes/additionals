@@ -11,6 +11,9 @@ ja:
     other: days
   activerecord:
     errors:
+      models:
+        dashboard:
+            must_be_for_everyone: "は、System Default を使用している場合は、各ユーザに設定する必要があります。"
       messages:
         issue_cannot_close_with_open_children: "This issue can only be closed, if all sub-issues are closed, too."
         issue_current_user_status: "The selected status requires that the \"Assignee\" is yourself."
@@ -160,35 +163,35 @@ ja:
   top_wiki_help: Here you can define contents and settings for your Wiki.
   wiki_pdf_remove_attachments_info: When active the attached Wiki files will not be displayed in PDF view.
   wiki_pdf_remove_title_info: When active the Wiki title info will not be displayed in PDF view.
-  label_new_dashboard: New dashboard
-  button_dashboard_edit: Edit dashboard
-  label_new_additional_dashboard: New dashboard
-  label_my_dashboard_plural: My dashboards
-  label_shared_dashboard_plural: Shared dashboards
-  button_dashboard_delete: Delete dashboard
+  label_new_dashboard: "新しいダッシュボード"
+  button_dashboard_edit: "ダッシュボードの編集"
+  label_new_additional_dashboard: "新しいダッシュボード"
+  label_my_dashboard_plural: "私のダッシュボード"
+  label_shared_dashboard_plural: "共有ダッシュボード"
+  button_dashboard_delete: "ダッシュボードの削除"
   label_dashboard_author: "Author: %{name}"
-  field_system_default: System default
-  field_project_system_default: Project default
-  field_visibility: Visibility
-  label_enable_sidebar: Enable sidebar
-  label_disable_sidebar: Disable sidebar
-  label_max_entries: Maximale Einträge
-  label_dashboard_legacy_left: Standard-Inhalt links
-  label_dashboard_legacy_right: Standard-Inhalt rechts
-  label_add_dashboard_block: Block hinzufügen
-  label_spent_time_static: Statische Aufgewendete Zeit
-  label_project_information: Projektinformation
-  label_issues_summary: Ticket Erfassung
-  label_project_fields: Projektfelder
+  field_system_default: "システムのデフォルト"
+  field_project_system_default: "プロジェクトのデフォルト"
+  field_visibility: "可視性"
+  label_enable_sidebar: "サイドバーを有効にする"
+  label_disable_sidebar: "サイドバーを無効にする"
+  label_max_entries: "最大エントリ数"
+  label_dashboard_legacy_left: "標準インハルト左"
+  label_dashboard_legacy_right: "標準コンテンツの権利"
+  label_add_dashboard_block: "ブロックを追加"
+  label_spent_time_static: "静的使用時間"
+  label_project_information: "プロジェクト情報"
+  label_issues_summary: "課題登録"
+  label_project_fields: "プロジェクトフィールド"
   label_chart_with_name: "Chart: %{value}"
-  label_query_with_name: "Abfrage: %{value}"
-  label_custom_fields_distribution: Benutzerdefinierte Felder für Verteilung
-  alert_only_visible_by_admins: Kann nur von Benutzer mit Admin-Rechten gesehen werden
-  alert_only_visible_by_yourself: Kann nur von Dir selbst gesehen werden
-  label_no_permission: Keine Berechtigung
+  label_query_with_name: "Query: %{value}"
+  label_custom_fields_distribution: "配布用のカスタムフィールド"
+  alert_only_visible_by_admins: "管理者権限を持つユーザーのみが見ることができます"
+  alert_only_visible_by_yourself: "あなただけが見ることができます"
+  label_no_permission: "許可がありません"
   label_additionals_feed: Atom+RSS Feed
-  label_invalid_feed_data: Ungültige Feed Daten oder URL
-  label_my_activity: Meine Aktivität
-  label_only_my_activities: Nur meine Aktivität
-  label_change_to_dashboard: Zu Dashboard wechseln
-  label_active_dashboard: Aktives Dashboard
+  label_invalid_feed_data: "無効なフィードデータまたはURL"
+  label_my_activity: "私の活動"
+  label_only_my_activities: "私の活動のみ"
+  label_change_to_dashboard: "ダッシュボードに切り替える"
+  label_active_dashboard: "アクティブダッシュボード"

@@ -11,6 +11,9 @@ it:
     other: giorni
   activerecord:
     errors:
+      models:
+        dashboard:
+            must_be_for_everyone: "must be set for each user if System Default is used."
       messages:
         issue_cannot_close_with_open_children: "Questo problema può essere chiuso solo se tutti i sotto-problemi sono chiusi."
         issue_current_user_status: "Lo stato selezionato richiede che \" Assegnato a \" sia lo stesso."

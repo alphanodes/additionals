@@ -13,7 +13,7 @@ en:
     errors:
       models:
         dashboard:
-            must_be_for_everyone: muss für jeden Benutzer festgelegt werden, wenn System Standard verwendet wird.
+            must_be_for_everyone: "must be set for each user if System Default is used."
       messages:
         issue_cannot_close_with_open_children: "This issue can only be closed, if all sub-issues are closed, too."
         issue_current_user_status: "The selected status requires that the \"Assignee\" is yourself."
@@ -153,7 +153,7 @@ en:
   rule_issue_current_user_status_info_html: "Is this function used in combination with the setting option \"Issue status on sidebar\" then the current user will automatically be assigned to the issue while changing the issue status.<br />Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."
   rule_issue_freezed_with_close_info: If this option is activated, already closed issues can no longer be edited and commented. Not even via mail or API. This restriction does not apply to user roles with the "Edit closed issues" permission.
   rule_issue_status_change_info: "Use Case: issues should be automatically assigned to author, if the status changes to \"Approval\"."
-  rule_issue_timelog_required_info_html: 'For each ticket of the selected trackers, a time booking is necessary if the ticket is to receive one of the defined status properties. The time booking is not required if:<br />- no rights exist for the creation of time bookings<br />- the user has the authorization "Time logging not required"<br />Use case: For the acceptance of a ticket with the status "To Verify", the time spent is also required.'
+  rule_issue_timelog_required_info_html: 'For each issue of the selected trackers, a time booking is necessary if the ticket is to receive one of the defined status properties. The time booking is not required if:<br />- no rights exist for the creation of time bookings<br />- the user has the authorization "Time logging not required"<br />Use case: For the acceptance of a ticket with the status "To Verify", the time spent is also required.'
   show_always: Show always
   show_on_project_overview: Show on project overview
   show_on_redmine_home: Show on welcome page
@@ -175,23 +175,23 @@ en:
   field_visibility: Visibility
   label_enable_sidebar: Enable sidebar
   label_disable_sidebar: Disable sidebar
-  label_max_entries: Maximale Einträge
-  label_dashboard_legacy_left: Standard-Inhalt links
-  label_dashboard_legacy_right: Standard-Inhalt rechts
-  label_add_dashboard_block: Block hinzufügen
-  label_spent_time_static: Statische Aufgewendete Zeit
-  label_project_information: Projektinformation
-  label_issues_summary: Ticket Erfassung
-  label_project_fields: Projektfelder
+  label_max_entries: "Maximum entries"
+  label_dashboard_legacy_left: "Standard-Inhalt left"
+  label_dashboard_legacy_right: "Standard content right"
+  label_add_dashboard_block: "Add block"
+  label_spent_time_static: "Static Spent Time"
+  label_project_information: "Projekt information"
+  label_issues_summary: "Issue registration"
+  label_project_fields: "Project fields"
   label_chart_with_name: "Chart: %{value}"
-  label_query_with_name: "Abfrage: %{value}"
-  label_custom_fields_distribution: Benutzerdefinierte Felder für Verteilung
-  alert_only_visible_by_admins: Kann nur von Benutzer mit Admin-Rechten gesehen werden
-  alert_only_visible_by_yourself: Kann nur von Dir selbst gesehen werden
-  label_no_permission: Keine Berechtigung
+  label_query_with_name: "Query: %{value}"
+  label_custom_fields_distribution: "Custom fields for distribution"
+  alert_only_visible_by_admins: "Can only be seen by users with admin permissions"
+  alert_only_visible_by_yourself: "Can only be seen by you"
+  label_no_permission: "No permission"
   label_additionals_feed: Atom+RSS Feed
-  label_invalid_feed_data: Ungültige Feed Daten oder URL
-  label_my_activity: Meine Aktivität
-  label_only_my_activities: Nur meine Aktivität
-  label_change_to_dashboard: Zu Dashboard wechseln
-  label_active_dashboard: Aktives Dashboard
+  label_invalid_feed_data: "Invalid feed data or URL"
+  label_my_activity: "My activity"
+  label_only_my_activities: "Only my activity"
+  label_change_to_dashboard: "Switch to Dashboard"
+  label_active_dashboard: "Active Dashboard"

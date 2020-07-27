@@ -11,6 +11,9 @@ es:
     other: días
   activerecord:
     errors:
+      models:
+        dashboard:
+            must_be_for_everyone: "must be set for each user if System Default is used."
       messages:
         issue_cannot_close_with_open_children: "Esta petición solo puede ser cerrada si todas sus sub-peticiones están cerradas."
         issue_current_user_status: "El estado seleccionado requiere que usted tenga la petición \"Asignada\"."

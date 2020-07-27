@@ -6,21 +6,18 @@ module Additionals
       extend ActiveSupport::Concern
 
       included do
-        include InstanceMethods
-
-        alias_method :respond_to_without_additionals, :respond_to
-        alias_method :respond_to, :respond_to_with_additionals
+        prepend InstanceOverwriteMethods
       end
 
-      module InstanceMethods
-        def respond_to_with_additionals(&block)
+      module InstanceOverwriteMethods
+        def respond_to(&block)
           if @project && @content
             if @_action_name == 'show'
               additionals_include_header
               additionals_include_footer
             end
           end
-          respond_to_without_additionals(&block)
+          super(&block)
         end
 
         private

@@ -66,7 +66,7 @@ Changes you can make in the area **PDF Wiki settings** are:
 =================================  =====================================================================================================
 Field                              Description
 =================================  =====================================================================================================
-Remove Wiki title from PDF view    When activated the general Wiki title info in the page header of the PDF viewl will not be displayed.
+Remove Wiki title from PDF view    When activated the general Wiki title info in the page header of the PDF view will not be displayed.
 Remove attachments from PDF view   When activated the attachments will not be displayed in the PDF view of a Wiki page.
 =================================  =====================================================================================================
 
@@ -120,32 +120,24 @@ A list of all available macros provided by the Additionals plugin is also availa
 Issues section
 --------------
 
-Here you can define issue rules, which are used in issues of all projects as well as special issue content and other settings.
+Here you can define issue rules, which are used in issues of all projects.
 
-Contents
-++++++++
 
-The following plugin options are available to be edited by users with administration rights in the area **Content**:
+Note for new issues
+  Use this section if you want to place important issue notes above every new issue (edit mode). Keep it short and use a link to a common wiki page with further information.
 
-* Note for new issues. Use this section if you want to place important issue notes above every new issue. Keep it short and use a link to a common wiki page with further information.
+.. note:: You can use wiki syntax for your text, but use it wisely. And make sure the wiki page you link to is accessible for every user.
 
-.. note:: You can use wiki syntax for your text, but use it wisely.
-
-Settings
-++++++++
-
-The following options are available at the moment in the area **Settings** where you can define rules which will be used in all projects:
-
-New issue on user profile.
+New issue on user profile
   Activate this option in case you want to display the symbol link ''New issue'' on a user's profile page in the top right corner in order to add a new issue for this user directly from it's user profile page.
 
-Show ''Assign to me'' on issue.
+Show ''Assign to me'' on issue
   Activate this option if you want to display the symbol link ''Assign to me'' in the issue overview page of an issue that you are able to assign it directly to yourself without *editing* the issue. The link is only shown to users who are also members in the correspondent project.
 
-Issue status on sidebar.
+Issue status on sidebar
   Activate this option in case you want to display a list of available issue status options in the right sidebar of the issue view page. One click on the option changes the issue status directly without opening the *edit* mode.
 
-.. note:: All three options above only work for users with appropriate issue tracking rights in the administration area "Roles and permissions" (view, add, edit).
+.. note:: All options above only work for users with appropriate issue tracking rights in the administration area "Roles and permissions" (view, create, edit).
 
 
 Add involved users as watcher automatically
@@ -210,7 +202,7 @@ In the **Settings** area of the menu tab there are the following functions avail
 * Remove ``My Page`` from top menu in order you don't want your users to use this page.
 
 Users section
-------------
+-------------
 
 In case you want to use a SPAM protection for the user registration page you can activate a spam protection function in this area which is based on the honeypot strategy to provide a better user experience.
 We use the simple and flexible SPAM protection solution for Rails applications called ``invisible_captcha`` for it.
@@ -218,6 +210,7 @@ We use the simple and flexible SPAM protection solution for Rails applications c
 In order to activate the checkbox ``SPAM protection for registration`` you must have enabled the registration process in your Redmine settings (Authentication - Self-registration). Otherwise it is not possible to use this function.
 
 .. note:: CAPTCHA is short for ``Completely Automated Public Turing test to tell Computers and Humans Apart``. It is a type of test to determine whether or not the user is human. The honeypot strategy is an alternative and fairly simple. It puts a field onto your form that humans won't fill out because they don't see it. Most spam bots search for forms, fill out every field and submit it. If the honeypot captcha field is filled out you know for sure it is a spam submission.
+
 
 Web APIs section
 ----------------
@@ -247,6 +240,7 @@ The following menu items are currently implemented if a plugin is installed, tha
 Known external plugins that have a user manual and support this feature are currently:
 
 * additionals
+* redmine_automation
 * redmine_privacy_terms
 * redmine_db
 * redmine_passwords
@@ -255,8 +249,8 @@ Known external plugins that have a user manual and support this feature are curr
 
 
 
-Additional permissions
-----------------------
+Additionals permissions
+-----------------------
 
 The following role permissions are provided by the plugin and must be configured in the administration area ``Roles and permissions`` for the plugin functions to make sure it's working properly.
 
@@ -269,12 +263,18 @@ The following role permissions are provided by the plugin and must be configured
 
 **According to the selected Role you can activate / deactivate the following permissions:**
 
-* **Show hidden roles in member box**. In case you have hidden roles in a project that should not be displayed you can give to some special user roles the permission to display the members however. *Important:* If someone in a project has a role that has this right, then this user sees all users everywhere.
+* **Show hidden roles**. Section Project. In case you have hidden roles in a project that should not be displayed in the member box for example you can give to some special user roles the permission to display the members however. *Important:* If someone in a project has a role that has this right, then this user sees all users everywhere even if he or she is user of another project with different roles.
 
-* **Edit issue author**. This permission will always record any changes made to the issue author. You can change the author only in the issue edit mode. This function replaces the use of external plugins (e.g. change_author)
+* **Set system dashboards**. Section Project. Allow users with this permission to change the system wide dashboard. Those user may create own dashboards and make them system default. So all other users must use this dashboard by default.
 
-* **Edit closed issues**. Set this option to those roles you don't want to edit closed issues. Normally a closed issue should not be edited anymore.
+* **Save dashboards**. Section Project. Allow this user role to save dashboards. So this users can add dashboards of their own for every purpose they want.
 
-* **Set author of new issues**. This permission should be set carefully, because in case you allow this, there is no history entry set for this. You will never know if the author has been originally someone else. Normally you don't want this.
+* **Manage shared dashboards**. Section Project. Allow user roles with this permission to manage shared dashboards. This means if someone else shares a dashboard with other, users with this permission may edit those.
 
-* **Log time to closed issues**. Our plugin does not allow time logs to closed issues. In case you still want to allow your members to log time to closed issues, you need to change the permission here.
+* **Edit issue author**. Section Issue tracking. This permission will always record any changes made to the issue author. You can change the author only in the issue edit mode. This function replaces the use of external plugins (e.g. change_author)
+
+* **Edit closed issues**. Section Issue tracking. Set this option to those roles you do not want to edit closed issues. Normally a closed issue should not be edited anymore.
+
+* **Set author of new issues**. Section Issue tracking. This permission should be set carefully, because in case you allow this, there is no history entry set for this. You will never know if the author has been originally someone else. Normally you don't want this.
+
+* **Log time to closed issues**. Section Time tracking. Our plugin does not allow time logs to closed issues. In case you still want to allow your members to log time to closed issues, you need to change the permission here.

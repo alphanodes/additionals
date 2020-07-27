@@ -13,7 +13,7 @@ it:
     errors:
       models:
         dashboard:
-            must_be_for_everyone: "must be set for each user if System Default is used."
+            must_be_for_everyone: "deve essere impostato per ogni utente se viene utilizzato System Default."
       messages:
         issue_cannot_close_with_open_children: "Questo problema può essere chiuso solo se tutti i sotto-problemi sono chiusi."
         issue_current_user_status: "Lo stato selezionato richiede che \" Assegnato a \" sia lo stesso."
@@ -163,12 +163,12 @@ it:
   top_wiki_help: "Qui puoi definire contenuti e impostazioni per il tuo Wiki."
   wiki_pdf_remove_attachments_info: "Quando è attivo, il Wiki file allegati non verranno visualizzati nella vista PDF."
   wiki_pdf_remove_title_info: "Quando è attivo, le informazioni sul titolo del Wiki non verranno visualizzate nella vista PDF."
-  label_new_dashboard: New dashboard
-  button_dashboard_edit: Edit dashboard
-  label_new_additional_dashboard: New dashboard
-  label_my_dashboard_plural: My dashboards
+  label_new_dashboard: "Nuovo dashboard"
+  button_dashboard_edit: "Modifica dashboard"
+  label_new_additional_dashboard: "Nuovo dashboard"
+  label_my_dashboard_plural: "Il mio dashboards"
   label_shared_dashboard_plural: Shared dashboards
-  button_dashboard_delete: Delete dashboard
+  button_dashboard_delete: "Cancella dashboard"
   label_dashboard_author: "Author: %{name}"
   field_system_default: System default
   field_project_system_default: Project default

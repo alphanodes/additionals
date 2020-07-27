@@ -154,15 +154,15 @@ es:
   rule_issue_freezed_with_close_info: Si esta opción está actia, aquellas peticiones que ya se encuentren cerradas no podrán recibir comentarios o edicionos. Incluso por mail o API. Esta restricción no se aplica a los usuarios con el rol "Editar peticiones cerradas".
   rule_issue_status_change_info: "Caso de Uso: las peticiones deben ser automáticamente asignadas al autor en caso de que el estado cambié a \"Aprobación\"."
   rule_issue_timelog_required_info_html: 'Por cada petición de los tipos seleccionados requieren registro de tiempo si la petición recibe una de las definiciones de estado seleccionadas. El registro de tiempo no es requerido si:<br />- no tiene privilegios para la creación de Registros de tiempo<br />- el usuario tiene el permiso "No requiere registro de tiempo"<br />Caso de Uso: Para aceptar una petición con el estado "Por verificar", el tiempo utilizado también es requerido.'
-  show_always: Mostrar siempre
-  show_on_project_overview: Mostrar en el vistazo del proyecto
-  show_on_redmine_home: Mostrar en la página de inicio
-  show_welcome_left: En la página de inicio (izquierda)
-  show_welcome_right: En la página de inicio (derecha)
+  show_always: "Mostrar siempre"
+  show_on_project_overview: "Mostrar en el vistazo del proyecto"
+  show_on_redmine_home: "Mostrar en la página de inicio"
+  show_welcome_left: "En la página de inicio (izquierda)"
+  show_welcome_right: "En la página de inicio (derecha)"
   top_rules_help: "Aquí puede definir reglas que serán utizadas en las peticiones de todos los proyectos."
-  top_wiki_help: Aquí puede definir contenidos y configuracioens para su Wiki.
-  wiki_pdf_remove_attachments_info: Cuando está activa, los adjuntos no serán mostrados en los PDF.
-  wiki_pdf_remove_title_info: Cuando está activa, el título de la Wiki no será mostrado en los PDF.
+  top_wiki_help: "Aquí puede definir contenidos y configuracioens para su Wiki."
+  wiki_pdf_remove_attachments_info: "Cuando está activa, los adjuntos no serán mostrados en los PDF."
+  wiki_pdf_remove_title_info: "Cuando está activa, el título de la Wiki no será mostrado en los PDF."
   label_new_dashboard: "Nuevo dashboard"
   button_dashboard_edit: "Editar el dashboard"
   label_new_additional_dashboard: "Nuevo dashboard"
@@ -192,6 +192,6 @@ es:
   label_additionals_feed: "Atom+RSS Feed"
   label_invalid_feed_data: "Datos o URL de alimentación inválidos"
   label_my_activity: "Mi actividad"
-  label_only_my_activities: "Sólo mi actividad""
+  label_only_my_activities: "Sólo mi actividad"
   label_change_to_dashboard: "Cambiar a Dashboard"
   label_active_dashboard: "Dashboard activo"

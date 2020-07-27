@@ -134,7 +134,7 @@ class AdditionalsFontAwesome
         break if SEARCH_LIMIT == cnt
 
         id = key2value(fa_symbol, type[-1])
-        next if !selected_store.include?(id) &&
+        next if selected_store.exclude?(id) &&
                 search.present? &&
                 (first_letter_search.present? && !values[:label].downcase.start_with?(first_letter_search) ||
                  first_letter_search.blank? && values[:label] !~ /#{search}/i)

@@ -363,7 +363,9 @@ module DashboardsHelper
               .joins(:activity, :project)
               .references(issue: %i[tracker status])
               .includes(issue: %i[tracker status])
-              .order("#{TimeEntry.table_name}.spent_on DESC, #{Project.table_name}.name ASC, #{Tracker.table_name}.position ASC, #{Issue.table_name}.id ASC")
+              .order("#{TimeEntry.table_name}.spent_on DESC,
+                      #{Project.table_name}.name ASC,
+                      #{Tracker.table_name}.position ASC, #{Issue.table_name}.id ASC")
               .to_a
     entries_by_day = entries.group_by(&:spent_on)
 

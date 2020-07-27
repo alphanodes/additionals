@@ -26,7 +26,8 @@ before_install:
   - git clone $REDMINE_GIT_REPO $REDMINE_PATH
   - cd $REDMINE_PATH
   - if [[ "$REDMINE_VER" != "master" ]]; then git checkout -b $REDMINE_VER origin/$REDMINE_VER; fi
-  - if [[ "$REDMINE_VER" != "master" ]]; then cp $TRAVIS_BUILD_DIR/test/support/Gemfile.local $REDMINE_PATH; fi
+  - sed -i ".bak" '/rubocop/d' $REDMINE_PATH/Gemfile
+  - cp $TRAVIS_BUILD_DIR/test/support/Gemfile.local $REDMINE_PATH; fi
   - ln -s $TRAVIS_BUILD_DIR $REDMINE_PATH/plugins/$PLUGIN_NAME
   - cp $TRAVIS_BUILD_DIR/test/support/additional_environment.rb $REDMINE_PATH/config/
   - cp $TRAVIS_BUILD_DIR/test/support/database-$DB-travis.yml $REDMINE_PATH/config/database.yml

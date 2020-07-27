@@ -166,8 +166,6 @@ de:
   label_new_dashboard: Neues Dashboard
   button_dashboard_edit: Dashboard bearbeiten
   label_new_additional_dashboard: Neues Dashboard
-  label_dashboard_type_welcome_dashboard: Hauptseite
-  label_dashboard_type_project_dashboard: Projektübersicht
   label_my_dashboard_plural: Meine Dashboards
   label_shared_dashboard_plural: Geteilte Dashboards
   button_dashboard_delete: Dashboard löschen

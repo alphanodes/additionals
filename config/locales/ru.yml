@@ -160,19 +160,35 @@ ru:
   top_wiki_help: "Здесь вы можете определить содержимое и настройки для вашей Вики."
   wiki_pdf_remove_attachments_info: "Если флажок установлен, вложенные Вики-файлы не будут отображаться в PDF-формате."
   wiki_pdf_remove_title_info: "При активации этого параметра информация о названии Вики не будет отображаться в PDF-формате."
-  label_dashboard_type_welcome: welcome
-  label_dashboard_type_project: project
+  label_new_dashboard: New dashboard
+  button_dashboard_edit: Edit dashboard
+  label_new_additional_dashboard: New dashboard
+  label_my_dashboard_plural: My dashboards
+  label_shared_dashboard_plural: Shared dashboards
+  button_dashboard_delete: Delete dashboard
+  label_dashboard_author: "Author: %{name}"
   field_system_default: System default
-  field_project_system_default: Project system default
+  field_project_system_default: Project default
+  field_visibility: Visibility
+  label_enable_sidebar: Enable sidebar
+  label_disable_sidebar: Disable sidebar
+  label_max_entries: Maximale Einträge
+  label_dashboard_legacy_left: Standard-Inhalt links
+  label_dashboard_legacy_right: Standard-Inhalt rechts
+  label_add_dashboard_block: Block hinzufügen
+  label_spent_time_static: Statische Aufgewendete Zeit
+  label_project_information: Projektinformation
+  label_issues_summary: Ticket Erfassung
+  label_project_fields: Projektfelder
   label_chart_with_name: "Chart: %{value}"
   label_query_with_name: "Abfrage: %{value}"
-  label_custom_fields_for_distribution: Custom fields for distribution
-  label_project_information: Project information
+  label_custom_fields_distribution: Benutzerdefinierte Felder für Verteilung
   alert_only_visible_by_admins: Kann nur von Benutzer mit Admin-Rechten gesehen werden
   alert_only_visible_by_yourself: Kann nur von Dir selbst gesehen werden
-  label_no_permission: No permission
-  label_additionals_feed: Atom+RSS feed
+  label_no_permission: Keine Berechtigung
+  label_additionals_feed: Atom+RSS Feed
   label_invalid_feed_data: Ungültige Feed Daten oder URL
-  label_my_activity: My activity
-  label_only_my_activities: Only my activity
-  label_change_to_dashboard: Change to dashboard
+  label_my_activity: Meine Aktivität
+  label_only_my_activities: Nur meine Aktivität
+  label_change_to_dashboard: Zu Dashboard wechseln
+  label_active_dashboard: Aktives Dashboard

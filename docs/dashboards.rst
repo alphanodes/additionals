@@ -34,7 +34,7 @@ Edit Dashboard
 
 Users with appropriate permission can edit an existing dashboard by clicking the "Edit dashboard" link to get to open the edit window.
 
-.. figure::  images/dashboard-home.png
+.. figure::  images/dashboard-edit.png
    :align:   center
 
 There you can make changes to the following fields:
@@ -59,3 +59,27 @@ System default
 
 Author
   You can change the dashboard author in case it is necessary. This is sometimes necessary, if you create a dasboard for someone else but want this person to be able to edit it afterwards.
+
+
+New Dashboard
+-------------
+
+Users with appropriate permission can add a new dashboard by clicking the "New dashboard" link in the "actions menu" to open the "New dashboard" window to fill out the following fields.
+
+Name
+  Assign a meaningful name. The dashboard name will be displayed in the sidebar for later selection. If the sidebar has been disabled, you can select the dashboard from the "Actions" menu.
+
+Description
+  The dashboard description will be displayed in the sidebar next to the dashboard as soon as a dashboard has been been selected to be active.
+
+Visible
+  There are various visibility settings for a dashboard like "to me only", "to any users", "to these roles only". If you want to mak a dashboard publicly available to all other users you have to choose the option "to any users". For a specific role choose the respective role instead.
+
+Enable sidebar
+  The dashboard sidebar contains some useful information for the user. Since it is sometimes disturbing, it is hidden. To prevent this you can choose this option.
+
+Always expose
+  If you want to make the dashboard name visible to the users in the head section of the dashboard page, you can activate this option.
+
+System default
+  If you want to make your dashboard system default, activate this option. So every user will have to work with it.

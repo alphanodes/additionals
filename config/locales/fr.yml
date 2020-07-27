@@ -175,23 +175,23 @@ fr:
   field_visibility: Visibility
   label_enable_sidebar: Enable sidebar
   label_disable_sidebar: Disable sidebar
-  label_max_entries: Maximale Einträge
-  label_dashboard_legacy_left: Standard-Inhalt links
-  label_dashboard_legacy_right: Standard-Inhalt rechts
-  label_add_dashboard_block: Block hinzufügen
-  label_spent_time_static: Statische Aufgewendete Zeit
-  label_project_information: Projektinformation
-  label_issues_summary: Ticket Erfassung
-  label_project_fields: Projektfelder
+  label_max_entries: "Maximum entries"
+  label_dashboard_legacy_left: "Standard-Inhalt left"
+  label_dashboard_legacy_right: "Standard content right"
+  label_add_dashboard_block: "Add block"
+  label_spent_time_static: "Static Spent Time"
+  label_project_information: "Projekt information"
+  label_issues_summary: "Issue registration"
+  label_project_fields: "Project fields"
   label_chart_with_name: "Chart: %{value}"
-  label_query_with_name: "Abfrage: %{value}"
-  label_custom_fields_distribution: Benutzerdefinierte Felder für Verteilung
-  alert_only_visible_by_admins: Kann nur von Benutzer mit Admin-Rechten gesehen werden
-  alert_only_visible_by_yourself: Kann nur von Dir selbst gesehen werden
-  label_no_permission: Keine Berechtigung
+  label_query_with_name: "Query: %{value}"
+  label_custom_fields_distribution: "Custom fields for distribution"
+  alert_only_visible_by_admins: "Can only be seen by users with admin permissions"
+  alert_only_visible_by_yourself: "Can only be seen by you"
+  label_no_permission: "No permission"
   label_additionals_feed: Atom+RSS Feed
-  label_invalid_feed_data: Ungültige Feed Daten oder URL
-  label_my_activity: Meine Aktivität
-  label_only_my_activities: Nur meine Aktivität
-  label_change_to_dashboard: Zu Dashboard wechseln
-  label_active_dashboard: Aktives Dashboard
+  label_invalid_feed_data: "Invalid feed data or URL"
+  label_my_activity: "My activity"
+  label_only_my_activities: "Only my activity"
+  label_change_to_dashboard: "Switch to Dashboard"
+  label_active_dashboard: "Active Dashboard"

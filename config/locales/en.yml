@@ -176,7 +176,7 @@ en:
   label_enable_sidebar: Enable sidebar
   label_disable_sidebar: Disable sidebar
   label_max_entries: "Maximum entries"
-  label_dashboard_legacy_left: "Standard-Inhalt left"
+  label_dashboard_legacy_left: "Standard content left"
   label_dashboard_legacy_right: "Standard content right"
   label_add_dashboard_block: "Add block"
   label_spent_time_static: "Static Spent Time"

@@ -13,7 +13,7 @@ es:
     errors:
       models:
         dashboard:
-            must_be_for_everyone: "must be set for each user if System Default is used."
+            must_be_for_everyone: "debe establecerse para cada usuario si se utiliza el sistema por defecto."
       messages:
         issue_cannot_close_with_open_children: "Esta petición solo puede ser cerrada si todas sus sub-peticiones están cerradas."
         issue_current_user_status: "El estado seleccionado requiere que usted tenga la petición \"Asignada\"."
@@ -163,35 +163,35 @@ es:
   top_wiki_help: Aquí puede definir contenidos y configuracioens para su Wiki.
   wiki_pdf_remove_attachments_info: Cuando está activa, los adjuntos no serán mostrados en los PDF.
   wiki_pdf_remove_title_info: Cuando está activa, el título de la Wiki no será mostrado en los PDF.
-  label_new_dashboard: New dashboard
-  button_dashboard_edit: Edit dashboard
-  label_new_additional_dashboard: New dashboard
-  label_my_dashboard_plural: My dashboards
-  label_shared_dashboard_plural: Shared dashboards
-  button_dashboard_delete: Delete dashboard
+  label_new_dashboard: "Nuevo dashboard"
+  button_dashboard_edit: "Editar el dashboard"
+  label_new_additional_dashboard: "Nuevo dashboard"
+  label_my_dashboard_plural: "Mis dashboards"
+  label_shared_dashboard_plural: "Tableros compartidos"
+  button_dashboard_delete: "Borrar el dashboard"
   label_dashboard_author: "Author: %{name}"
-  field_system_default: System default
-  field_project_system_default: Project default
-  field_visibility: Visibility
-  label_enable_sidebar: Enable sidebar
-  label_disable_sidebar: Disable sidebar
-  label_max_entries: Maximale Einträge
-  label_dashboard_legacy_left: Standard-Inhalt links
-  label_dashboard_legacy_right: Standard-Inhalt rechts
-  label_add_dashboard_block: Block hinzufügen
-  label_spent_time_static: Statische Aufgewendete Zeit
-  label_project_information: Projektinformation
-  label_issues_summary: Ticket Erfassung
-  label_project_fields: Projektfelder
+  field_system_default: "System default"
+  field_project_system_default: "Proyecto por defecto"
+  field_visibility: "Visibilidad"
+  label_enable_sidebar: "Activar la barra lateral"
+  label_disable_sidebar: "Deshabilitar la barra lateral"
+  label_max_entries: "Entradas máximas"
+  label_dashboard_legacy_left: "Contenido estándar a la izquierda"
+  label_dashboard_legacy_right: "Contenido estándar correcto"
+  label_add_dashboard_block: "Añadir bloque"
+  label_spent_time_static: "Static Spent Time"
+  label_project_information: "Información del proyecto"
+  label_issues_summary: "Registro de temas"
+  label_project_fields: "Campos de proyecto"
   label_chart_with_name: "Chart: %{value}"
-  label_query_with_name: "Abfrage: %{value}"
-  label_custom_fields_distribution: Benutzerdefinierte Felder für Verteilung
-  alert_only_visible_by_admins: Kann nur von Benutzer mit Admin-Rechten gesehen werden
-  alert_only_visible_by_yourself: Kann nur von Dir selbst gesehen werden
-  label_no_permission: Keine Berechtigung
-  label_additionals_feed: Atom+RSS Feed
-  label_invalid_feed_data: Ungültige Feed Daten oder URL
-  label_my_activity: Meine Aktivität
-  label_only_my_activities: Nur meine Aktivität
-  label_change_to_dashboard: Zu Dashboard wechseln
-  label_active_dashboard: Aktives Dashboard
+  label_query_with_name: "Query: %{value}"
+  label_custom_fields_distribution: "Campos customizados para la distribución"
+  alert_only_visible_by_admins: "Sólo puede ser visto por usuarios con permisos de administrador"
+  alert_only_visible_by_yourself: "Sólo puede ser visto por ti"
+  label_no_permission: "Sin permiso"
+  label_additionals_feed: "Atom+RSS Feed"
+  label_invalid_feed_data: "Datos o URL de alimentación inválidos"
+  label_my_activity: "Mi actividad"
+  label_only_my_activities: "Sólo mi actividad""
+  label_change_to_dashboard: "Cambiar a Dashboard"
+  label_active_dashboard: "Dashboard activo"

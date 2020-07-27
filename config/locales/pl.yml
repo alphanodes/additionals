@@ -13,7 +13,7 @@ pl:
     errors:
       models:
         dashboard:
-            must_be_for_everyone: "must be set for each user if System Default is used."
+            must_be_for_everyone: "musi być ustawiony dla każdego użytkownika, jeśli używane są ustawienia domyślne systemu."
       messages:
         issue_cannot_close_with_open_children: "Ta issue może zostać zamknięta tylko wtedy, gdy wszystkie podtematy również zostaną zamknięte."
         issue_current_user_status: "Wybrany status wymaga, aby \"Assignee\" był sobą."
@@ -163,35 +163,35 @@ pl:
   top_wiki_help: "Tutaj możesz zdefiniować zawartość i ustawienia dla swojej Wiki."
   wiki_pdf_remove_attachments_info: "Gdy jest aktywny, załączone pliki Wiki nie będą wyświetlane w widoku PDF."
   wiki_pdf_remove_title_info: "Gdy jest aktywny, informacja o tytule Wiki nie będzie wyświetlana w widoku PDF."
-  label_new_dashboard: New dashboard
+  label_new_dashboard: "Nowa tablica rozdzielcza"
   button_dashboard_edit: Edit dashboard
-  label_new_additional_dashboard: New dashboard
-  label_my_dashboard_plural: My dashboards
-  label_shared_dashboard_plural: Shared dashboards
-  button_dashboard_delete: Delete dashboard
+  label_new_additional_dashboard: "Nowa tablica rozdzielcza"
+  label_my_dashboard_plural: "Moje tablice rozdzielcze"
+  label_shared_dashboard_plural: "Współdzielone tablice rozdzielcze"
+  button_dashboard_delete: "Usuń tablicę rozdzielczą"
   label_dashboard_author: "Author: %{name}"
-  field_system_default: System default
-  field_project_system_default: Project default
-  field_visibility: Visibility
-  label_enable_sidebar: Enable sidebar
-  label_disable_sidebar: Disable sidebar
-  label_max_entries: Maximale Einträge
-  label_dashboard_legacy_left: Standard-Inhalt links
-  label_dashboard_legacy_right: Standard-Inhalt rechts
-  label_add_dashboard_block: Block hinzufügen
-  label_spent_time_static: Statische Aufgewendete Zeit
-  label_project_information: Projektinformation
-  label_issues_summary: Ticket Erfassung
-  label_project_fields: Projektfelder
+  field_system_default: "Domyślny system"
+  field_project_system_default: "Domyślny projekt"
+  field_visibility: "Widoczność"
+  label_enable_sidebar: "Włącz pasek boczny"
+  label_disable_sidebar: "Wyłączyć pasek boczny"
+  label_max_entries: "Maksymalne wpisy"
+  label_dashboard_legacy_left: "Zawartość standardowa lewy"
+  label_dashboard_legacy_right: "Zawartość standardowa prawa"
+  label_add_dashboard_block: "Dodaj blok"
+  label_spent_time_static: "Statyczny czas spędzony"
+  label_project_information: "Informacja o projekcie"
+  label_issues_summary: "Wydaj rejestrację"
+  label_project_fields: "Pola projektu"
   label_chart_with_name: "Chart: %{value}"
-  label_query_with_name: "Abfrage: %{value}"
-  label_custom_fields_distribution: Benutzerdefinierte Felder für Verteilung
-  alert_only_visible_by_admins: Kann nur von Benutzer mit Admin-Rechten gesehen werden
-  alert_only_visible_by_yourself: Kann nur von Dir selbst gesehen werden
-  label_no_permission: Keine Berechtigung
-  label_additionals_feed: Atom+RSS Feed
-  label_invalid_feed_data: Ungültige Feed Daten oder URL
-  label_my_activity: Meine Aktivität
-  label_only_my_activities: Nur meine Aktivität
-  label_change_to_dashboard: Zu Dashboard wechseln
-  label_active_dashboard: Aktives Dashboard
+  label_query_with_name: "Query: %{value}"
+  label_custom_fields_distribution: "Pola niestandardowe dla dystrybucji"
+  alert_only_visible_by_admins: "Może być widziany tylko przez użytkowników z uprawnieniami administratora"
+  alert_only_visible_by_yourself: "Może być widziany tylko przez ciebie"
+  label_no_permission: "Brak pozwolenia"
+  label_additionals_feed: "Atom+RSS Feed"
+  label_invalid_feed_data: "Invalid feed data or URL"
+  label_my_activity: "Moja aktywność"
+  label_only_my_activities: "Tylko moja działalność"
+  label_change_to_dashboard: "Przełącz się na tablicę rozdzielczą"
+  label_active_dashboard: "Active Dashboard"

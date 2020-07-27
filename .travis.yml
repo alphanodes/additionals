@@ -12,9 +12,9 @@ services:
   - postgresql
 
 env:
-  - REDMINE_VER=4.0-stable DB=postgresql
+  - REDMINE_VER=4.1-stable DB=postgresql
   - REDMINE_VER=master DB=postgresql
-  - REDMINE_VER=4.0-stable DB=mysql
+  - REDMINE_VER=4.1-stable DB=mysql
   - REDMINE_VER=master DB=mysql
 
 before_install:

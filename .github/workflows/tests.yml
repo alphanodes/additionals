@@ -12,7 +12,6 @@ jobs:
     strategy:
       matrix:
         redmine:
-          - v4.0
           - v4.1
           - trunk
         ruby:

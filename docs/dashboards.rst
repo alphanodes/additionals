@@ -97,13 +97,40 @@ The blocks that are available here depend on the functions you are using and the
 
 1. In order to add a new dashboard block, just select the respective option from the selection box. The block will be added right away.
 
-2. You probably need to position the block. In that case hover your mouse over the right block corner and grap the "Move" icon. Now position it somewhere else. Done.
+.. note::
+  The selection displays only blocks, that are allowed to be displayed on the Redmine Home page. Others are not available for selection. Currently the following plugins have additionals dashboard support implemented: DB, Passwords, Reporting, HRM, Automation, additionals
+
+
+2. You probably need to position the block. In that case hover your mouse over the right block corner and grap the "Move" icon. Now position it somewhere else. If you need to remove it again use the "Delete" icon.
 
 .. figure::  images/dashboard-actions.png
    :align:   center
 
+.. note::
+  Be careful with the deletion option. If you delete a block it will be gone right away.
 
 3. Some blocks can be configured. In that case hover your mouse over the right block corner and click the "Options" icon. The configuration option appears and you can make your changes. Done.
 
 .. figure::  images/dashboard-options.png
    :align:   center
+
+.. note::
+  Not every block is configurable and the block configuration may differ depending on the selection you have made. Some blocks may allow to change the column settings and other only the maximum entries, for example.
+
+
+Dashboard: Project overview
+---------------------------
+
+The project overview page is also supporting the new Dashboard function. Users with appropriate permissions can modify the existing dashboard or add new dashboards by using the respective action links in the head section of the content area.
+
+.. figure::  images/dashboard-projectoverview.png
+   :align:   center
+
+What you can do here is:
+
+*  use the "Edit dashboard" link for modifications
+*  add a "New dashboard"
+*  Enable sidebar or Disable sidebar
+*  Switch to other existing dashboards
+*  Add a dashboard block
+*  Move, Delete or configure added dashboard blocks

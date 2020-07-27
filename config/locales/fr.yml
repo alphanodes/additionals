@@ -13,7 +13,7 @@ fr:
     errors:
       models:
         dashboard:
-            must_be_for_everyone: "must be set for each user if System Default is used."
+            must_be_for_everyone: "doit être défini pour chaque utilisateur si le système par défaut est utilisé."
       messages:
         issue_cannot_close_with_open_children: "Ce issue ne peut être clôturé que si toutes les sub-issues sont également clôturées."
         issue_current_user_status: "Le statut sélectionné exige que le \"cessionnaire\" soit vous-même."
@@ -163,35 +163,35 @@ fr:
   top_wiki_help: "Ici vous pouvez définir le contenu et les paramètres de votre Wiki."
   wiki_pdf_remove_attachments_info: "Lorsqu'ils sont actifs, les fichiers Wiki joints ne seront pas affichés en vue PDF."
   wiki_pdf_remove_title_info: "Lorsqu'elle est active, l'information sur le titre du wiki ne sera pas affichée dans la vue PDF."
-  label_new_dashboard: New dashboard
-  button_dashboard_edit: Edit dashboard
-  label_new_additional_dashboard: New dashboard
-  label_my_dashboard_plural: My dashboards
-  label_shared_dashboard_plural: Shared dashboards
-  button_dashboard_delete: Delete dashboard
-  label_dashboard_author: "Author: %{name}"
-  field_system_default: System default
-  field_project_system_default: Project default
-  field_visibility: Visibility
-  label_enable_sidebar: Enable sidebar
-  label_disable_sidebar: Disable sidebar
-  label_max_entries: "Maximum entries"
-  label_dashboard_legacy_left: "Standard-Inhalt left"
-  label_dashboard_legacy_right: "Standard content right"
-  label_add_dashboard_block: "Add block"
-  label_spent_time_static: "Static Spent Time"
-  label_project_information: "Projekt information"
+  label_new_dashboard: "Nouveau dashboard"
+  button_dashboard_edit: "Modifier dashboard"
+  label_new_additional_dashboard: "Nouveau dashboard"
+  label_my_dashboard_plural: "Mes dashboards"
+  label_shared_dashboard_plural: "Dashboards partagés"
+  button_dashboard_delete: "Supprimer dashboard"
+  label_dashboard_author: "Auteur: %{name}"
+  field_system_default: "Défaut du système"
+  field_project_system_default: "Projet par défaut"
+  field_visibility: "Visibilité"
+  label_enable_sidebar: "Activer la sidebar"
+  label_disable_sidebar: "Désactiver la sidebar"
+  label_max_entries: "Entrées maximales"
+  label_dashboard_legacy_left: "Contenu standard à gauche"
+  label_dashboard_legacy_right: "Droit au contenu standard"
+  label_add_dashboard_block: "Ajouter un bloc"
+  label_spent_time_static: "Temps passé statique"
+  label_project_information: "Informations sur le projet"
   label_issues_summary: "Issue registration"
-  label_project_fields: "Project fields"
+  label_project_fields: "Champs de projet"
   label_chart_with_name: "Chart: %{value}"
   label_query_with_name: "Query: %{value}"
-  label_custom_fields_distribution: "Custom fields for distribution"
-  alert_only_visible_by_admins: "Can only be seen by users with admin permissions"
-  alert_only_visible_by_yourself: "Can only be seen by you"
-  label_no_permission: "No permission"
+  label_custom_fields_distribution: "Champs personnalisés pour la distribution"
+  alert_only_visible_by_admins: "Ne peut être vu que par les utilisateurs ayant les droits d'administrateur"
+  alert_only_visible_by_yourself: "Ne peut être vu que par vous"
+  label_no_permission: "Pas de permission"
   label_additionals_feed: Atom+RSS Feed
-  label_invalid_feed_data: "Invalid feed data or URL"
-  label_my_activity: "My activity"
-  label_only_my_activities: "Only my activity"
-  label_change_to_dashboard: "Switch to Dashboard"
-  label_active_dashboard: "Active Dashboard"
+  label_invalid_feed_data: "Données d'alimentation ou URL invalides"
+  label_my_activity: "Mon activité"
+  label_only_my_activities: "Seulement mon activité"
+  label_change_to_dashboard: "Passer au Dashboard"
+  label_active_dashboard: "Dashboard actif"

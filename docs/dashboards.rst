@@ -336,10 +336,38 @@ Atom+RSS Feed
   You can configure the block content by changing the *Title*, adding an *URL* and choosing a number for *Maximum entries* to be displayed.
   Maximum number of such blocks per dashboard: **5**
 
-Standard content left / Standard content right
-  There are plugin developers who do not support our dashboard function and may have implement own content on the start page. These are usually not displayed due to the lack of dashboard support. If you still want to see this, select one of the two blocks for displaying such content.
 
-Special blocks for *Home* are:
+Special blocks for the welcome page *Home* are:
+
+Standard content left / Standard content right
+  There are plugin developers who do not support our dashboard function and may have implement own content on the Redmine start page (legacy_left and legacy_right). These are usually not displayed due to the lack of dashboard support. If you still want to see this, select one of the two blocks or both for displaying such content.
+
+Activity
+  You can configure the activity block content by choosing a number for *Maximum entries* to be displayed. And in case you are only interested in your own activities by activating the option *Only my activity*. Maximum number of such blocks per dashboard: **1**
+
+Welcome
+  If you have specified a welcome text in the Redmine system settings you can display this text in the dashboard as well, by choosing the *Welcome* block. Maximum number of such blocks per dashboard: **1**
 
 
 Special blocks for *Project overview* are:
+
+Standard content left / Standard content right
+  There are plugin developers who do not support our dashboard function and may have implement own content on the Redmine project overview page (legacy_left and legacy_right). These are usually not displayed due to the lack of dashboard support. If you still want to see this, select one of the two blocks or both for displaying such content as well.
+
+Project information
+  Displays the standard project information of Redmine in a block. Containing the project information from the project settings like custom fields for projects, description, URL etc. The block is not configurable, but you can remove it if not needed or reposition it.
+
+Subprojects
+  Displays the standard subproject information of Redmine in a block, if you have configured them in the project settings. The block is not configurable, but you can remove it if not needed or reposition it.
+
+Issue tracking
+  Displays the standard issue tracking information of Redmine in a block. The block is not configurable, but you can remove it if not needed or reposition it.
+
+Time tracking
+  Displays the standard issue tracking information of Redmine in a block including the additionals adaption to the information displayed there. The block is not configurable, but you can remove it if not needed or reposition it.
+
+Members
+  Displays the standard member box of Redmine in a block including the additionals permission adaption to the information displayed there. The block is not configurable, but you can remove it if not needed or reposition it.
+
+.. note::
+  These are the basic blocks that come with the additionals plugin dashboard functionality. Other plugins, that also support the *Drag&Drop* dashboard function may deliver additional blocks for selection. 

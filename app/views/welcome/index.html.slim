@@ -1,3 +1,5 @@
+/ Some plugins use @news (e.g. redmine_wysiwyg_editor), to detect news
+- @news = nil
 .contextual
   - if User.current.allowed_to? :save_dashboards, nil, global: true
     - if @dashboard&.editable?

@@ -1,7 +1,9 @@
 Dashboards
 ==========
 
-The additionals plugin version 3.0.0 comes with new dashboard support (Drag & Drop).
+The additionals plugin version 3.0.0 comes with new dashboard support (Drag & Drop). The new *Dashboard* feature of the additionals plugin provides customizable areas to display and organize content from Redmine that support the functionality.
+
+Specifically, you can customize the traditional Redmine main page, as well as the project overview pages according to your needs using the available dashboard blocks. The goal is to give the viewer an immediate overview of the issues or to display the metrics that are important to you.
 
 The dashboard configuration takes place directly in Redmine:
 
@@ -11,6 +13,16 @@ The dashboard configuration takes place directly in Redmine:
 
     * Redmine HRM Plugin: HRM overview page
 
+
+**Dashboard examples**
+
+With the *Dashboard* of the *additionals* plugin for Redmine you can for example:
+
+*  design the Redmine main page or project overview page so that the information relevant to you is displayed there at a glance.
+*  create your own (private) dashboards independent of the predefined default dashboard and switch between them as needed.
+*  create dashboards for other users or specific roles. As well as share your own dashboards publicly and make them available to your team.
+
+
 Dashboard: Home
 ---------------
 
@@ -18,6 +30,8 @@ When accessing Redmine you probably get redirected to the "Home" page of the sys
 
 .. figure::  images/dashboard-home.png
    :align:   center
+
+   Figure shows the Redmine *Home* page and where to find the dashboard actions
 
 What you can do here is:
 
@@ -125,6 +139,8 @@ The project overview page is also supporting the new Dashboard function. Users w
 
 .. figure::  images/dashboard-projectoverview.png
    :align:   center
+
+   Figure shows the project overview page and where to find the dashboard actions
 
 What you can do here is:
 

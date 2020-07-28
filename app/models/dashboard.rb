@@ -14,7 +14,6 @@ class Dashboard < ActiveRecord::Base
   has_many :dashboard_roles,
            dependent: :destroy
   has_many :roles, through: :dashboard_roles
-  has_many :users, through: :dashboard_defaults
 
   VISIBILITY_PRIVATE = 0
   VISIBILITY_ROLES   = 1
@@ -166,7 +165,7 @@ class Dashboard < ActiveRecord::Base
         user.memberships.joins(:member_roles).where(member_roles: { role_id: roles.map(&:id) }).any?
       end
     else
-      user == self.user
+      user == author
     end
   end
 

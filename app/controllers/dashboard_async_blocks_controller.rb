@@ -63,6 +63,7 @@ class DashboardAsyncBlocksController < ApplicationController
   def find_block
     @block = params['block']
     @block_definition = @dashboard.content.find_block @block
+
     render_404 if @block.blank?
     render_403 if @block_definition.blank?
 
@@ -76,5 +77,7 @@ class DashboardAsyncBlocksController < ApplicationController
       render_404
     end
     deny_access unless User.current.allowed_to?(:view_project, @project)
+
+    @project
   end
 end

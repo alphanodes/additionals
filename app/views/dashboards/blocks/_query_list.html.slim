@@ -10,7 +10,7 @@
       count = query.send query_block[:count_method]
       query.project = project if query_block[:with_project]
       query.column_names = settings[:columns].split(',').map(&:to_sym) if settings[:columns].present?
-      query.sort_criteria = settings[:sort] if settings[:sort].present?
+      query.sort_criteria = params[:sort] if params[:sort].present?
 
     h3.query-list-block
       = dashboard_query_list_block_title query, query_block, @project
@@ -26,7 +26,7 @@
                locals: { query_block[:entities_var] => query.send(query_block[:entries_method],
                                                                   limit: settings[:max_entries] || DashboardContent::DEFAULT_MAX_ENTRIES),
                          query: query,
-                         query_options: { sort_param: "settings[#{block}][sort]",
+                         query_options: { sort_param: "sort",
                                           sort_link_options: { method: :post, remote: true } } }
     - else
       p.nodata = l(:label_no_data)

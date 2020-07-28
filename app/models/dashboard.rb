@@ -307,6 +307,15 @@ class Dashboard < ActiveRecord::Base
     if settings.present?
       settings.each do |key, setting|
         settings[key] = setting.reject(&:blank?).join(',') if setting.is_a? Array
+
+        next if options[:exposed_params].blank?
+
+        options[:exposed_params].each do |exposed_param|
+          if key == exposed_param
+            config[key] = settings[key]
+            settings.delete key
+          end
+        end
       end
 
       unique_params = settings.flatten

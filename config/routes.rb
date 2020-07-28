@@ -8,7 +8,7 @@ resources :issues, only: [] do
   resource 'change_status', only: %i[update], controller: 'additionals_change_status'
 end
 
-resource :dashboard_async_blocks, only: :show
+resource :dashboard_async_blocks, only: %i[show create]
 
 resources :dashboards do
   member do
@@ -28,7 +28,7 @@ resources :projects, only: [] do
       post :order_blocks
     end
   end
-  resource :dashboard_async_blocks, only: :show
+  resource :dashboard_async_blocks, only: %i[show create]
 end
 
 resource :additionals_macros, only: :show, path: '/help/macros'

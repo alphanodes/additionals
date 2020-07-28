@@ -15,12 +15,28 @@ class DashboardAsyncBlocksController < ApplicationController
   include DashboardsHelper
 
   def show
+    @settings[:sort] = params[:sort] if params[:sort].present?
     partial_locals = build_dashboard_partial_locals @block, @block_definition, @settings, @dashboard
 
     respond_to do |format|
       format.js do
         render partial: partial_locals[:async][:partial],
                content_type: 'text/html',
+               locals: partial_locals
+      end
+    end
+  end
+
+  # abuse create for query list sort order support
+  def create
+    return render_403 if params[:sort].blank?
+
+    partial_locals = build_dashboard_partial_locals @block, @block_definition, @settings, @dashboard
+    partial_locals[:sort_options] = { sort: params[:sort] }
+
+    respond_to do |format|
+      format.js do
+        render partial: 'update_order_by',
                locals: partial_locals
       end
     end

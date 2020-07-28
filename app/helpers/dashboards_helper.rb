@@ -189,8 +189,8 @@ module DashboardsHelper
   end
 
   # Renders a single block
-  def render_dashboard_block(block, dashboard)
-    content = render_dashboard_block_content block, dashboard
+  def render_dashboard_block(block, dashboard, overwritten_settings = {})
+    content = render_dashboard_block_content block, dashboard, overwritten_settings
     return if content.blank?
 
     if dashboard.editable?
@@ -225,6 +225,7 @@ module DashboardsHelper
       partial_locals[:query_block] = block_definition[:query_block]
       partial_locals[:klass] = block_definition[:query_block][:class]
       partial_locals[:async] = { required_settings: %i[query_id],
+                                 exposed_params: %i[sort],
                                  partial: 'dashboards/blocks/query_list' }
       partial_locals[:async] = partial_locals[:async].merge(block_definition[:async]) if block_definition[:async]
     elsif block_definition[:async]
@@ -232,37 +233,6 @@ module DashboardsHelper
     end
 
     partial_locals
-  end
-
-  # Renders a single block content
-  def render_dashboard_block_content(block, dashboard)
-    block_definition = dashboard.content.find_block block
-
-    unless block_definition
-      Rails.logger.warn "Unknown block \"#{block}\" found in #{dashboard.name} (id=#{dashboard.id})"
-      return
-    end
-
-    settings = dashboard.layout_settings block
-    partial = block_definition[:partial]
-    partial_locals = build_dashboard_partial_locals block, block_definition, settings, dashboard
-
-    if block_definition[:query_block] || block_definition[:async]
-      render partial: 'dashboards/blocks/async', locals: partial_locals
-    elsif partial
-      begin
-        render partial: partial, locals: partial_locals
-      rescue ActionView::MissingTemplate
-        Rails.logger.warn("Partial \"#{partial}\" missing for block \"#{block}\" found in #{dashboard.name} (id=#{dashboard.id})")
-        nil
-      end
-    else
-      send "render_#{block_definition[:name]}_block",
-           block,
-           block_definition,
-           settings,
-           dashboard
-    end
   end
 
   def dashboard_async_required_settings?(settings, async)
@@ -417,6 +387,39 @@ module DashboardsHelper
   end
 
   private
+
+  # Renders a single block content
+  def render_dashboard_block_content(block, dashboard, overwritten_settings = {})
+    block_definition = dashboard.content.find_block block
+
+    unless block_definition
+      Rails.logger.warn "Unknown block \"#{block}\" found in #{dashboard.name} (id=#{dashboard.id})"
+      return
+    end
+
+    settings = dashboard.layout_settings block
+    settings = settings.merge(overwritten_settings) if overwritten_settings.present?
+
+    partial = block_definition[:partial]
+    partial_locals = build_dashboard_partial_locals block, block_definition, settings, dashboard
+
+    if block_definition[:query_block] || block_definition[:async]
+      render partial: 'dashboards/blocks/async', locals: partial_locals
+    elsif partial
+      begin
+        render partial: partial, locals: partial_locals
+      rescue ActionView::MissingTemplate
+        Rails.logger.warn("Partial \"#{partial}\" missing for block \"#{block}\" found in #{dashboard.name} (id=#{dashboard.id})")
+        nil
+      end
+    else
+      send "render_#{block_definition[:name]}_block",
+           block,
+           block_definition,
+           settings,
+           dashboard
+    end
+  end
 
   def resently_used_dashboard_save(dashboard, project = nil)
     user = User.current

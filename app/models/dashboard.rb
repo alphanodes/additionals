@@ -96,7 +96,7 @@ class Dashboard < ActiveRecord::Base
 
     def visible(user = User.current, options = {})
       scope = Dashboard.left_outer_joins(:project)
-                       .where("#{Project.table_name}.id IS NULL OR (#{Project.allowed_to_condition(user, :view_project, options)})")
+      scope = scope.where(projects: { id: nil }).or(scope.where(Project.allowed_to_condition(user, :view_project, options)))
 
       if user.admin?
         scope.where("#{table_name}.visibility <> ? OR #{table_name}.author_id = ?", VISIBILITY_PRIVATE, user.id)

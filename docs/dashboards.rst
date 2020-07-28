@@ -14,6 +14,12 @@ The dashboard configuration takes place directly in Redmine:
     * Redmine HRM Plugin: HRM overview page
 
 
+.. figure::  images/dashboard-overview.png
+   :align:   center
+
+   Figure shows the main areas of the dashboard function
+
+
 **Dashboard examples**
 
 With the *Dashboard* of the *additionals* plugin for Redmine you can for example:
@@ -21,6 +27,10 @@ With the *Dashboard* of the *additionals* plugin for Redmine you can for example
 *  design the Redmine main page or project overview page so that the information relevant to you is displayed there at a glance.
 *  create your own (private) dashboards independent of the predefined default dashboard and switch between them as needed.
 *  create dashboards for other users or specific roles. As well as share your own dashboards publicly and make them available to your team.
+
+
+.. note::
+  When using the dashboard function make sure you have already configured the *additionals permissions* the way you need them.
 
 
 Dashboard: Home
@@ -46,7 +56,7 @@ What you can do here is:
 Edit Dashboard
 ++++++++++++++
 
-Users with appropriate permission can edit an existing dashboard by clicking the "Edit dashboard" link to get to open the edit window.
+Users with appropriate permission can edit an existing dashboard by clicking the "Edit dashboard" link to open the edit window.
 
 .. figure::  images/dashboard-edit.png
    :align:   center
@@ -54,7 +64,7 @@ Users with appropriate permission can edit an existing dashboard by clicking the
 There you can make changes to the following fields:
 
 Name
-  The standard dashboard after the plugin installaion is called "Welcome Dashboard". Modify it according to your needs.
+  The standard dashboard after the plugin installation is called "Welcome Dashboard". Modify it according to your needs.
 
 Description
   The dashboard description will be displayed in the sidebar next to the dashboard as soon as a dashboard has been been selected to be active.
@@ -72,7 +82,11 @@ System default
   If you want to make your dashboard system default, activate this option. So every user will have to work with it.
 
 Author
-  You can change the dashboard author in case it is necessary. This is sometimes necessary, if you create a dasboard for someone else but want this person to be able to edit it afterwards.
+  You can change the dashboard author in case it is necessary. This is sometimes necessary, if you create a dasboard for someone else but want this person to be able to edit it afterwards. Or if a user will no longer be active in your Redmine system. *Important:* Only the author of a dashboard is able to edit or remove it. If the author is no longer an active user in your system, only a user with administration rights is allowed to modify the dashboard.
+
+.. hint::
+  In general, dashboards can only be edited by a single author. Not by a group. Users with administrator rights can change the author in an emergency.
+
 
 
 New Dashboard
@@ -81,7 +95,7 @@ New Dashboard
 Users with appropriate permission can add a new dashboard by clicking the "New dashboard" link in the "actions menu" to open the "New dashboard" window to fill out the following fields.
 
 Name
-  Assign a meaningful name. The dashboard name will be displayed in the sidebar for later selection. If the sidebar has been disabled, you can select the dashboard from the "Actions" menu.
+  Assign a meaningful and unique name. The dashboard name will be displayed in the sidebar for later selection. If the sidebar has been disabled, you can select the dashboard from the "Actions" menu. The name must be unique.
 
 Description
   The dashboard description will be displayed in the sidebar next to the dashboard as soon as a dashboard has been been selected to be active.
@@ -132,6 +146,8 @@ The blocks that are available here depend on the functions you are using and the
   Not every block is configurable and the block configuration may differ depending on the selection you have made. Some blocks may allow to change the column settings and other only the maximum entries, for example.
 
 
+
+
 Dashboard: Project overview
 ---------------------------
 
@@ -150,3 +166,131 @@ What you can do here is:
 *  Switch to other existing dashboards
 *  Add a dashboard block
 *  Move, Delete or configure added dashboard blocks
+
+
+Edit project dashboard
+++++++++++++++++++++++
+
+Users with appropriate permission can edit an existing dashboard by clicking the "Edit dashboard" link to open the edit window.
+
+.. figure::  images/dashboard-edit-project.png
+   :align:   center
+
+There you can make changes to the following fields:
+
+Name
+  The standard dashboard after the plugin installation is called "Project Dashboard". Modify it according to your needs. The name must be unique.
+
+Description
+  The dashboard description will be displayed in the sidebar next to the dashboard as soon as a dashboard has been been selected to be active.
+
+Project
+  Here you can select the project this dashboard should be assigned to in case you decide to make it available to special project, only. It is for all projects, if you do not select a project.
+
+Visible
+  There are various visibility settings for a dashboard like "to me only", "to any users", "to these roles only". If you want to mak a dashboard publicly available to all other users you have to choose the option "to any users". For a specific role choose the respective role instead.
+
+Enable sidebar
+  The dashboard sidebar contains some useful information for the user. Since it is sometimes disturbing, it is hidden. To prevent this you can select this option.
+
+Always expose
+  If you want to make the dashboard name visible to the users in the head section of the dashboard page, you can activate this option.
+
+System default
+  If you want to make your dashboard system default, activate this option. So every user will have to work with it.
+
+Author
+  You can change the dashboard author in case it is necessary. This is sometimes necessary, if you create a dasboard for someone else but want this person to be able to edit it afterwards. Or if a user will no longer be active in your Redmine system. *Important:* Only the author of a dashboard is able to edit or remove it. If the author is no longer an active user in your system, only a user with administration rights is allowed to modify the dashboard.
+
+
+.. hint::
+  In general, dashboards can only be edited by a single author. Not by a group. Users with administrator rights can change the author in an emergency.
+
+
+.. note::
+  Usually the system default "Project dashboard" looks like the standard project page of Redmine. It contains the same areas as "blocks". These can be repositioned or partially hidden. It is up to you if you want to change it. If not, just leave it the way they are.
+
+
+New project dashboard
++++++++++++++++++++++
+
+Users with appropriate permission can add a new project dashboard by clicking the "New dashboard" link in the "actions menu" to open the "New dashboard" window in order to fill out the following fields.
+
+Name
+  Assign a meaningful and unique name. The dashboard name will be displayed in the sidebar for later selection. If the sidebar has been disabled, you can still select the dashboard from the "Actions" menu. It will then be listed there.
+
+Description
+  The dashboard description will be displayed in the sidebar next to the dashboard as soon as a dashboard has been been selected to be active.
+
+Project
+  Select a project for which the new dashboard is planned. If no project is selected here, it will be available to all projects.
+
+Visible
+  There are various visibility settings for a dashboard like "to me only", "to any users", "to these roles only". If you want to mak a dashboard publicly available to all other users you have to choose the option "to any users". For a specific role choose the respective role instead.
+
+Enable sidebar
+  The dashboard sidebar contains some useful information for the user. Since it is sometimes disturbing, it is hidden. To prevent this you can choose this option.
+
+Always expose
+  If you want to make the dashboard name visible to the users in the head section of the dashboard page, you can activate this option.
+
+System default
+  If you want to make your project dashboard system default, activate this option. So every user will have to work with it for the selected project.
+
+
+
+Add project dashboard blocks
+++++++++++++++++++++++++++++
+
+You can fill existing project dashboards with content by using the select box "Add block".
+
+The blocks that are available here depend on the functions you are using and the projects. They need to support the dashboard functionality of the additionals plugin. Which is not hard to do so, because it's easy to implement for plugin developers.
+
+1. In order to add a new project dashboard block, just select the respective option from the selection box. The block will be added right away.
+
+.. note::
+  The selection displays only blocks, that are allowed to be displayed on the Redmine project area. Others are not available for selection. Currently the following plugins have additionals dashboard support implemented: DB, Passwords, Reporting, HRM, Automation, additionals
+
+
+2. You probably need to position the block. In that case hover your mouse over the right block corner and grap the "Move" icon. Now position it somewhere else. If you need to remove it again use the "Delete" icon.
+
+.. figure::  images/dashboard-actions.png
+   :align:   center
+
+.. note::
+  Be careful with the deletion option. If you delete a block it will be gone right away.
+
+3. Some blocks can be configured. In that case hover your mouse over the right block corner and click the "Options" icon. The configuration option appears and you can make your changes. Done.
+
+.. figure::  images/dashboard-options.png
+   :align:   center
+
+.. note::
+  Not every block is configurable and the block configuration may differ depending on the selection you have made. Some blocks may allow to change the column settings and other only the maximum entries, for example.
+
+
+General dashboard actions
+-------------------------
+
+Some actions on the dashboards are the same whether you are on a dashboard of the home page or the project overview page.
+
+
+Switching dashboards
+  You have two options to switch between existing dashboards. If the sidebar is activated for the dashboard you can select the respective dashboard from the sidebar section. They are grouped by *My dashboards* or *Shared dashboards*.
+
+
+Enable or disable sidebar
+  If the sidebar is hidden by default you can activate it via the *Actions* menu. Just select the menu option *Enable sidebar*. If the sidebar is displayed but you want to hide it select the menu option *Disable sidebar*.
+
+
+View sidebar information
+  The sidebar contains always the same information for the user like general globa infos, that are stored there or dashboard specific information regarding the *Active Dashboard* or other dashboards, which are available to you as user.
+
+
+.. figure::  images/dashboard-sidebar.png
+   :align:   center
+
+Some other general dashboard actions are the selection box in order to
+
+Add blocks
+  The content which can be added to the active dashboard depends on the functions you are using on your Redmine and the developer of the function. Those need to support the dashboard *Drag & Drop* functionality with their plugin. Regardless of this, the dashboard is always filled with content via the "Add block" selection.

@@ -84,6 +84,10 @@ System default
 Author
   You can change the dashboard author in case it is necessary. This is sometimes necessary, if you create a dasboard for someone else but want this person to be able to edit it afterwards. Or if a user will no longer be active in your Redmine system. *Important:* Only the author of a dashboard is able to edit or remove it. If the author is no longer an active user in your system, only a user with administration rights is allowed to modify the dashboard.
 
+.. hint::
+  In general, dashboards can only be edited by a single author. Not by a group. Users with administrator rights can change the author in an emergency.
+
+
 
 New Dashboard
 +++++++++++++
@@ -199,6 +203,10 @@ Author
   You can change the dashboard author in case it is necessary. This is sometimes necessary, if you create a dasboard for someone else but want this person to be able to edit it afterwards. Or if a user will no longer be active in your Redmine system. *Important:* Only the author of a dashboard is able to edit or remove it. If the author is no longer an active user in your system, only a user with administration rights is allowed to modify the dashboard.
 
 
+.. hint::
+  In general, dashboards can only be edited by a single author. Not by a group. Users with administrator rights can change the author in an emergency.
+
+
 .. note::
   Usually the system default "Project dashboard" looks like the standard project page of Redmine. It contains the same areas as "blocks". These can be repositioned or partially hidden. It is up to you if you want to change it. If not, just leave it the way they are.
 
@@ -267,6 +275,22 @@ General dashboard actions
 Some actions on the dashboards are the same whether you are on a dashboard of the home page or the project overview page.
 
 
-*  Switching dashboards
-*  Enable or disable sidebar
-*  Sidebar information
+Switching dashboards
+  You have two options to switch between existing dashboards. If the sidebar is activated for the dashboard you can select the respective dashboard from the sidebar section. They are grouped by *My dashboards* or *Shared dashboards*.
+
+
+Enable or disable sidebar
+  If the sidebar is hidden by default you can activate it via the *Actions* menu. Just select the menu option *Enable sidebar*. If the sidebar is displayed but you want to hide it select the menu option *Disable sidebar*.
+
+
+View sidebar information
+  The sidebar contains always the same information for the user like general globa infos, that are stored there or dashboard specific information regarding the *Active Dashboard* or other dashboards, which are available to you as user.
+
+
+.. figure::  images/dashboard-sidebar.png
+   :align:   center
+
+Some other general dashboard actions are the selection box in order to
+
+Add blocks
+  The content which can be added to the active dashboard depends on the functions you are using on your Redmine and the developer of the function. Those need to support the dashboard *Drag & Drop* functionality with their plugin. Regardless of this, the dashboard is always filled with content via the "Add block" selection.

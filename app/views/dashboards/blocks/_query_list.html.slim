@@ -1,14 +1,12 @@
 - cache render_async_cache_key(_dashboard_async_blocks_path(@project, dashboard.async_params(block, async, settings))),
                                expires_in: DashboardContent::RENDER_ASYNC_CACHE_EXPIRES_IN,
                                skip_digest: true do
-  ruby:
-    query = klass.visible.find_by(id: settings[:query_id])
-    project = (dashboard.content_project if query_block[:with_project])
 
+  - query = klass.visible.find_by(id: settings[:query_id])
   - if query
     ruby:
+      query.project = @project if query_block[:with_project]
       count = query.send query_block[:count_method]
-      query.project = project if query_block[:with_project]
       query.column_names = settings[:columns].split(',').map(&:to_sym) if settings[:columns].present?
       query.sort_criteria = params[:sort] if params[:sort].present?
 

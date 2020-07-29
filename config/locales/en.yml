@@ -180,7 +180,7 @@ en:
   label_dashboard_legacy_right: "Standard content right"
   label_add_dashboard_block: "Add block"
   label_spent_time_static: "Static Spent Time"
-  label_project_information: "Projekt information"
+  label_project_information: "Project information"
   label_issues_summary: "Issue registration"
   label_project_fields: "Project fields"
   label_chart_with_name: "Chart: %{value}"

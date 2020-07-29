@@ -19,13 +19,13 @@ class I18nTest < Additionals::TestCase
 
   def test_locales_validness
     lang_files_count = Dir[Rails.root.join('plugins/additionals/config/locales/*.yml')].size
-    assert_equal 11, lang_files_count
+    assert_equal 12, lang_files_count
     valid_languages.each do |lang|
       assert set_language_if_valid(lang)
       case lang.to_s
       when 'en'
         assert_equal 'Open external URLs', l(:label_open_external_urls)
-      when 'de', 'es', 'fr', 'it', 'ja', 'ko', 'po', 'ru', 'zh-TW', 'zh'
+      when 'cs', 'de', 'es', 'fr', 'it', 'ja', 'ko', 'po', 'ru', 'zh-TW', 'zh'
         assert_not l(:label_open_external_urls) == 'Open external URLs', lang
       end
     end

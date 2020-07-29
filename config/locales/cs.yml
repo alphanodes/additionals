@@ -1,0 +1,197 @@
+# Czech strings
+cs:
+  minutes:
+    one: minuta
+    other: minut
+  hours:
+    one: hodina
+    other: hodiny
+  days:
+    one: den
+    other: dny
+  activerecord:
+    errors:
+      models:
+        dashboard:
+            must_be_for_everyone: "musí být nastaven pro každého uživatele, pokud je použita výchozí hodnota systému."
+      messages:
+        issue_cannot_close_with_open_children: "Tento problém lze uzavřít pouze v případě, že jsou uzavřeny také všechny dílčí problémy."
+        issue_current_user_status: "Vybraný stav vyžaduje, aby \"Assignee\" jste sami."
+        issue_log_time_not_allowed: "je uzavřený problém. Nemáte povoleno se přihlásit."
+        issue_changes_not_allowed: "Tento problém je uzavřen, nemáte žádné právo jej změnit."
+        issue_requires_timelog: "Vybraný stav vydání vyžaduje časové protokolování."
+        invalid_icon_format: "je neplatný font-awesome kód"
+        relation_not_unique: "více přiřazeno."
+  account_login_info: "Tato textová zpráva se zobrazí na přihlašovací stránce a měla by být použita pro registrační informace. Tato nastavení jsou aktivní ve všech projektech."
+  add_go_to_top_info: "Pokud máte mnoho dlouhých stránek, je užitečné přidat odkaz na odkaz na začátek."
+  additionals_query_list_default_totals: "Výchozí částky pro zobrazení seznamu"
+  additionals_query_list_defaults: "Výchozí sloupce pro zobrazení seznamu"
+  button_assign_to_me: "Přiřaďte mi"
+  disabled_modules_info: "Moduly, které by neměly být k dispozici pro výběr v rámci projektů. Pokud jsou tyto moduly již aktivovány ve stávajících projektech, musíte nejprve změnit a znovu uložit příslušná nastavení projektu."
+  error_issue_status_could_not_changed: "Stav vydání nelze změnit"
+  error_issues_could_not_be_assigned_to_me: "Problém se mi nepodařilo přiřadit"
+  error_query_statement_invalid: "Při provádění dotazu došlo k chybě a bylo zaznamenáno. Nahlaste tuto chybu administrátorovi Redmine."
+  errors_no_or_invalid_arguments: "Žádné nebo neplatné argumenty"
+  field_autowatch_involved_issue: "Problémy s automatickým sledováním"
+  field_color: Barva
+  field_hide: "Skrýt"
+  field_icon: Icon
+  field_issue_relation_plural: Issue relations
+  field_tag_list: Tags
+  field_tag_sidebar_style_cloud: Cloud
+  field_tag_sidebar_style_list: Seznam
+  field_tags: Tags
+  field_website: Website
+  global_footer_info: 'Sem zadejte zápatí široké wiki projektu.'
+  global_sidebar_info: "Sem zadejte textovou zprávu dostupnou pro celý projekt. Tento text postranního panelu se zobrazí v přehledu projektu, na problémových stránkách a na wiki stránkách."
+  global_wiki_footer_info: 'Sem zadejte zápatí široké wiki projektu. V případě, že zápatí wiki specifické pro projekt používá "Wiki Extensions", bude to místo toho zobrazeno.'
+  global_wiki_header_info: 'Sem zadejte záhlaví wiki pro celý projekt. V případě, že záhlaví wiki specifické pro projekt používá „Wiki Extensions“, bude to místo toho zobrazeno.'
+  global_wiki_sidebar_info: 'Zde zadejte textovou textovou zprávu, která je k dispozici pro váš postranní panel wiki. Tento text postranního panelu se zobrazí pouze na stránkách wiki. Tento prostor použijte například pro makra, například „Last changed pages“. V případě, že je použit boční panel specifický pro projekt (wiki stránka), bude to místo toho zobrazen na postranním panelu.'
+  google_maps_embed_api_html: "V případě, že chcete k zobrazení map Goole použít makro Gmap, implementujte zde klíč API Google Maps API. Poté můžete použít makro a různé parametry. Více informací o tom, jak používat parametry, naleznete na <a href=\"https://developers.google.com/maps/documentation/embed/guide\" target=\"_blank\">https://developers.google.com/maps/documentation/embed/guide</a>. Makro Gmap zde funguje pouze v kombinaci s vloženým klíčem."
+  hidden_macros_in_toolbar_info: "Všechna dostupná makra, která může přihlášený uživatel použít, jsou uvedena prostřednictvím tlačítka makro na panelu nástrojů wiki. Makra zde označená nejsou nabízena k výběru. To vám umožní omezit rozsah seznamu."
+  info_hidden_roles_html: "Skryté role lze použít pouze spolu s viditelností uživatele \"Members of visible projects\". Pokud uživatel není v roli, která je viditelná pro aktuálního uživatele, je tato role včetně uživatele skryta na stránce s přehledem projektu a v seznamech dotazů."
+  invisible_captcha_info_html: In case this option is activated an <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection is activated for the registration page of new users. This function is only available, if you enabled self-registration, too.
+  label_account_login_bottom: "Text pro přihlašovací stránku"
+  label_add_go_to_top: 'Add "Go to top" link'
+  label_add_tags: Add tags
+  label_additionals_doc: Additionals documentation
+  label_additionals: Additionals
+  label_app_menu: App menu
+  label_change_is_private: "Změnit soukromé / neveřejné"
+  label_chart_color_schema: "Barevné schéma grafů"
+  label_chartjs_colorscheme_info: Seznam barev
+  label_content_plural: Obsah
+  label_custom_menu_items: "Vlastní položky nabídky"
+  label_daily: denně
+  label_dashboard_plural: Dashboards
+  label_dashboard: Dashboard
+  label_day: den
+  label_disabled_modules: "Zakázané moduly"
+  label_docs_access_token: Access token
+  label_edit_tags: Edit tags
+  label_global_footer: "Široká zápatí projektu"
+  label_global_sidebar: "Globální postranní panel"
+  label_global_wiki_footer: "Zápatí široké wiki projektu"
+  label_global_wiki_header: "Projděte širokou hlavičku wiki"
+  label_global_wiki_sidebar: "Globální postranní panel wiki"
+  label_go_to_top: "Go to top"
+  label_google_maps_api_key: Google Maps Embed API Key
+  label_help_integration: "Integrace online nápovědy"
+  label_help_manual: "manuál"
+  label_hidden_macros_in_toolbar: "Skrytá makra"
+  label_hour: "hodina"
+  label_icon_color: "Barva ikony"
+  label_invisible_captcha: "Ochrana proti SPAMu pro registraci"
+  label_issue_assign_to_me: Show "Assign to me" on issue
+  label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
+  label_issue_autowatch_involved: "Automaticky přidejte zúčastněné uživatele jako sledovatele"
+  label_issue_change_status_in_sidebar: "Stav vydání na postranním panelu"
+  label_issue_change_status: "Změnit stav"
+  label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
+  label_issue_freezed_with_close: "Zakázat úpravy uzavřených čísel (Freeze)"
+  label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
+  label_issue_timelog_required: "Časový záznam potřebných problémů"
+  label_last_year: "minulý rok"
+  label_legacy_smiley_support: Legacy smiley support
+  label_macro_plural: "Makra"
+  label_menu_entry: "Menu item"
+  label_monthly: "měsíční"
+  label_new_issue_on_profile: "Nový úkol v uživatelském profilu"
+  label_new_ticket_message: "Poznámka k nové úloze"
+  label_open_external_urls: "Otevřete externí adresy URL"
+  label_open_in_google_docs: "Otevřít v Docs Google"
+  label_open_in_new_windows: "Otevřít v nových oknech"
+  label_optional: "volitelný"
+  label_pdf_wiki_settings: "PDF Wiki nastavení"
+  label_project_list: "Seznam projektů"
+  label_query_delete: "Smazat dotaz"
+  label_query_edit: "Upravit dotaz"
+  label_query_name_search: "Hledejte jméno"
+  label_reddit_subject: Reddit subject
+  label_reddit_user_account: Reddit user account
+  label_redmine_org_issue: Redmine.org issue
+  label_redmine_org_wiki: Redmine.org wiki page
+  label_remove_help: "Remove 'Help' from top menu"
+  label_remove_mypage: "Remove 'My Page' from top menu"
+  label_search_by_name: "Hledat podle jména"
+  label_settings_macros: "Makra"
+  label_settings_menu: "Menu"
+  label_show_all: "Ukázat vše"
+  label_system_info: "Systémová informace"
+  label_tags_without_color: Show tags without color
+  label_tomorrow: "zítra"
+  label_top_macros_help_html: "Zde získáte seznam všech dostupných maker Redmine vaší instalace, která jsou poskytována doplňky Redmine a Redmine."
+  label_top_menu_help_html: "Zde můžete definovat nové položky horní nabídky."
+  label_top_menu: Top menu
+  label_twitter_account: Twitter account
+  label_twitter_hashtag: Twitter hashtag
+  label_uptime: Uptime
+  label_user_list: "Seznam uživatelů"
+  label_web_apis: Web APIs
+  label_weekly: "týdně"
+  label_wiki_pdf_remove_attachments: "Odebrat přílohy ze zobrazení PDF"
+  label_wiki_pdf_remove_title: "Odebrat název Wiki ze zobrazení PDF"
+  label_without_value: "No %{value}"
+  label_yearly: "roční"
+  latest_entries_changes: "Poslední %{value} změny"
+  legacy_smiley_support_info_html: 'Převod smajlíků v textu. Tato volba by měla být aktivována, pouze pokud je kód pro smajlíky (e.g. :) ) byl zadán ručně a měl by být zobrazen jako smajlík. In the <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> the available Emoji codes can be used. <strong>Restart the application server</strong>, in order to activate the settings.'
+  menu_roles_info: "Tuto položku nabídky uvidí pouze členové vybraných rolí."
+  new_ticket_message_info: "Všem, kteří chtějí přidat nové vydání, se zobrazí poznámka. Například zde můžete zadat akceptační testy nebo vydat pravidla. Tato nastavení se používají v celém projektu."
+  open_external_urls_info: "Pokud je aktivní, v novém okně / kartě se otevírají externí adresy URL."
+  permission_change_new_issue_author: "Nastavit autora nového úkolu"
+  permission_edit_closed_issues: "Upravit uzavřené úkoly"
+  permission_edit_issue_author: "Upravit autora úkolu"
+  permission_issue_timelog_never_required: "Časování není nutné"
+  permission_log_time_on_closed_issues: "Přihlaste se k uzavřeným úkolům"
+  permission_show_hidden_roles_in_memberbox: "Zobrazit skryté role"
+  permission_set_system_dashboards: Set system dashboards
+  permission_manage_shared_dashboards: Manage shared dashboards
+  permission_save_dashboards: Save dashboards
+  remove_help_info: "Remove the item 'Help' from the top menu."
+  remove_mypage_info: "Někdy je užitečné skrýt odkaz \"My Page\", aby bylo možné představit základní desku. Výhodou desky úloh je, že problémy lze vypsat podle jejich stavu."
+  rule_issue_auto_assign_info: "Případ použití: Autor úkolu neví, komu úkol přiřadit nebo kdo bude odpovědný za jeho vyřešení. V takovém případě je například úloha se stavem „Úkol“ automaticky přiřazena k první skupině, která obsahuje uživatele předvolené role vedoucího projektu."
+  rule_issue_current_user_status_info_html: "Is this function used in combination with the setting option \"Issue status on sidebar\" then the current user will automatically be assigned to the issue while changing the issue status.<br />Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."
+  rule_issue_freezed_with_close_info: "Pokud je tato možnost aktivována, již uzavřené problémy již nelze upravovat a komentovat. Ani přes mail nebo API. Toto omezení se nevztahuje na uživatelské role s povolením \"Edit closed issues\"."
+  rule_issue_status_change_info: "Případ použití: problémy by měly být automaticky přiřazeny autorovi, pokud se stav změní na \"Approval\"."
+  rule_issue_timelog_required_info_html: 'Pro každý úkol vybraných sledovačů je nutná časová rezervace, pokud má lístek obdržet jednu z definovaných stavových vlastností. The time booking is not required if:<br />- no rights exist for the creation of time bookings<br />- the user has the authorization "Time logging not required"<br />Use case: For the acceptance of a ticket with the status "To Verify", the time spent is also required.'
+  show_always: "Zobrazit vždy"
+  show_on_project_overview: "Zobrazit na přehledu projektu"
+  show_on_redmine_home: "Zobrazit na úvodní stránce"
+  show_welcome_left: "Na úvodní stránce vlevo"
+  show_welcome_right: "Na úvodní stránce vpravo"
+  top_rules_help: "Zde můžete definovat pravidla, která se používají v úkolech všech projektů."
+  top_wiki_help: "Zde můžete definovat obsah a nastavení vaší Wiki."
+  wiki_pdf_remove_attachments_info: "Pokud je aktivní, připojené soubory Wiki se nebudou zobrazovat v zobrazení PDF."
+  wiki_pdf_remove_title_info: "Pokud je aktivní, informace o názvu Wiki se nebudou zobrazovat v zobrazení PDF."
+  label_new_dashboard: "Nový dashboard"
+  button_dashboard_edit: "Upravit dashboard"
+  label_new_additional_dashboard: "Nový dashboard"
+  label_my_dashboard_plural: "Můj dashboards"
+  label_shared_dashboard_plural: "Sdíleno dashboards"
+  button_dashboard_delete: "Vymazat dashboard"
+  label_dashboard_author: "Autor: %{name}"
+  field_system_default: "Výchozí systém"
+  field_project_system_default: "Výchozí nastavení projektu"
+  field_visibility: "Viditelnost"
+  label_enable_sidebar: "Umožnit sidebar"
+  label_disable_sidebar: "Zakázat sidebar"
+  label_max_entries: "Maximální počet záznamů"
+  label_dashboard_legacy_left: "Zbývá standardní obsah"
+  label_dashboard_legacy_right: "Standardní obsahové právo"
+  label_add_dashboard_block: "Přidat blok"
+  label_spent_time_static: "Static Spent Time"
+  label_project_information: "Informace o projektu"
+  label_issues_summary: "Issue registration"
+  label_project_fields: "Pole projektu"
+  label_chart_with_name: "Chart: %{value}"
+  label_query_with_name: "Query: %{value}"
+  label_custom_fields_distribution: "Vlastní pole pro distribuci"
+  alert_only_visible_by_admins: "Vidí je pouze uživatelé s oprávněními správce"
+  alert_only_visible_by_yourself: "Vidíte jen vy"
+  label_no_permission: "Bez povolení"
+  label_additionals_feed: Atom+RSS Feed
+  label_invalid_feed_data: "Neplatná data zdroje nebo adresa URL"
+  label_my_activity: "Moje aktivita"
+  label_only_my_activities: "Pouze moje činnost"
+  label_change_to_dashboard: "Přepnout na Dashboard"
+  label_active_dashboard: "Aktivní Dashboard"

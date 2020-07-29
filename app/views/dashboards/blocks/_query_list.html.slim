@@ -20,6 +20,8 @@
         = textilizable query, :description
 
     - if count.positive?
+      / required by some helpers of other plugins
+      - @query = query
       = render partial: query_block[:list_partial],
                locals: { query_block[:entities_var] => query.send(query_block[:entries_method],
                                                                   limit: settings[:max_entries] || DashboardContent::DEFAULT_MAX_ENTRIES),

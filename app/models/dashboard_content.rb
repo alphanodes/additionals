@@ -66,7 +66,7 @@ class DashboardContent
     available_blocks = begin block_definitions.reject do |_block_name, block_specs|
                                block_specs.key?(:permission) && !user.allowed_to?(block_specs[:permission], project, global: true) ||
                                  block_specs.key?(:admin_only) && block_specs[:admin_only] && !user.admin? ||
-                                 block_specs.key?(:if) && !block_specs[:if].call(self)
+                                 block_specs.key?(:if) && !block_specs[:if].call(project)
                              end
     end
 

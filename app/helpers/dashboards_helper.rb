@@ -29,11 +29,11 @@ module DashboardsHelper
 
     scope = Dashboard.visible
     scope = if project.present?
+              scope = scope.project_only
               scope.where(project_id: project.id)
-                   .or(scope.where(dashboard_type: DashboardContentProject::TYPE_NAME)
-                            .where(system_default: true))
-                   .or(scope.where(dashboard_type: DashboardContentProject::TYPE_NAME)
-                            .where(author_id: user.id)
+                   .or(scope.where(system_default: true)
+                            .where(project_id: nil))
+                   .or(scope.where(author_id: user.id)
                             .where(project_id: nil))
             else
               scope.where dashboard_type: dashboard.dashboard_type

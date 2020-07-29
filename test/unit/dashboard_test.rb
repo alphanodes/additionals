@@ -15,6 +15,23 @@ class DashboardTest < Additionals::TestCase
     User.current = users :users_002
   end
 
+  def test_create_welcome_dashboard
+    dashboard = Dashboard.new name: 'my welcome dashboard',
+                              dashboard_type: DashboardContentWelcome::TYPE_NAME,
+                              author_id: 2
+
+    assert dashboard.save
+  end
+
+  def test_create_project_dashboard
+    dashboard = Dashboard.new name: 'my project dashboard',
+                              dashboard_type: DashboardContentProject::TYPE_NAME,
+                              project: Project.find(1),
+                              author_id: 2
+
+    assert dashboard.save
+  end
+
   def test_system_default_welcome_should_exist
     assert_equal 1, Dashboard.welcome_only.where(system_default: true).count
   end

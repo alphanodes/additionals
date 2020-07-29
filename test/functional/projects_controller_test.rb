@@ -26,11 +26,6 @@ class ProjectsControllerTest < Additionals::ControllerTest
   def setup
     Setting.default_language = 'en'
     User.current = nil
-    Redmine::Hook.clear_listeners
-  end
-
-  def teardown
-    Redmine::Hook.clear_listeners
   end
 
   def test_show_with_left_text_block

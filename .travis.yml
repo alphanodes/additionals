@@ -37,7 +37,7 @@ before_script:
   - bundle exec rake db:create db:migrate redmine:plugins:migrate
 
 script:
-  - if [[ "$REDMINE_VER" == "master" ]] && [[ "$DB" == "postgresql" ]]; then brakeman plugins/$PLUGIN_NAME; fi
+  - if [[ "$REDMINE_VER" != "master" ]] && [[ "$DB" == "postgresql" ]]; then brakeman plugins/$PLUGIN_NAME; fi
   - if [[ "$REDMINE_VER" != "master" ]] && [[ "$DB" == "postgresql" ]]; then rubocop plugins/$PLUGIN_NAME; fi
   - bundle exec rake redmine:plugins:test NAME=$PLUGIN_NAME RUBYOPT="-W0"
   - bundle exec rake redmine:plugins:migrate NAME=$PLUGIN_NAME VERSION=0

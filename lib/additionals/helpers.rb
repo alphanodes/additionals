@@ -41,7 +41,7 @@ module Additionals
       if comment_id.nil?
         content
       else
-        render_issue_with_comment(issue, content, comment_id, only_path)
+        render_issue_with_comment issue, content, comment_id, only_path
       end
     end
 

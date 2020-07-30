@@ -83,9 +83,9 @@ module AdditionalsQueriesHelper
     scope = scope.visible unless options[:all_visible]
     scope = scope.where.not(id: exclude_id) if exclude_id.positive?
     scope = scope.where(options[:where_filter], options[:where_params]) if options[:where_filter]
-    scope = scope.like(q) if q.present?
+    q.split(' ').map { |search_string| scope = scope.like(search_string) } if q.present?
     scope = scope.order(last_login_on: :desc)
-                 .limit(params[:limit] || Additionals::SELECT2_INIT_ENTRIES)
+                 .limit(Additionals::SELECT2_INIT_ENTRIES)
     @users = scope.to_a.sort! { |x, y| x.name <=> y.name }
     render layout: false, partial: 'auto_completes/additionals_users'
   end

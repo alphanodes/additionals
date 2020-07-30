@@ -196,15 +196,18 @@ module DashboardsHelper
     if dashboard.editable?
       icons = []
       blocks = dashboard.content.available_blocks
-      unless blocks[block].present? && blocks[block][:no_settings]
-        icons << link_to_function(l(:label_options),
-                                  "$('##{block}-settings').toggle();",
-                                  class: 'icon-only icon-settings',
-                                  title: l(:label_options))
+      block_specs = blocks[block]
+      if block_specs.present? && block_specs[:no_settings].blank?
+        if !block_specs.key?(:with_settings_if) || block_specs[:with_settings_if].call(@project)
+          icons << link_to_function(l(:label_options),
+                                    "$('##{block}-settings').toggle();",
+                                    class: 'icon-only icon-settings',
+                                    title: l(:label_options))
+        end
       end
       icons << tag.span('', class: 'icon-only icon-sort-handle sort-handle', title: l(:button_move))
       icons << link_to(l(:button_delete),
-                       _remove_block_dashboard_path(@project, @dashboard, block: block),
+                       _remove_block_dashboard_path(@project, dashboard, block: block),
                        remote: true, method: 'post',
                        class: 'icon-only icon-close', title: l(:button_delete))
 

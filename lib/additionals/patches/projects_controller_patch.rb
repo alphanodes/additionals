@@ -30,7 +30,7 @@ module Additionals
               raise ::Unauthorized unless @dashboard.visible?
               raise ::Unauthorized unless @dashboard.project.nil? || @dashboard.project == @project
             rescue ActiveRecord::RecordNotFound
-              render_404
+              return render_404
             end
           else
             @dashboard = Dashboard.default DashboardContentProject::TYPE_NAME, @project

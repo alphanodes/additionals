@@ -220,17 +220,6 @@ module Additionals
       classes.join(' ')
     end
 
-    def options_with_custom_fields(type, format, current, options = {})
-      klass = Object.const_get("#{type}CustomField")
-      fields = []
-      fields << ["- #{l(:label_disabled)} -", 0] if options[:include_disabled]
-      klass.sorted.each do |field|
-        fields << [field.name, field.id] if Array(format).include?(field.field_format)
-      end
-
-      options_for_select(fields, current)
-    end
-
     def addtionals_textarea_cols(text, options = {})
       [[(options[:min].presence || 8), text.to_s.length / 50].max, (options[:max].presence || 20)].min
     end

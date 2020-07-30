@@ -3,7 +3,9 @@
 - unless with_async
   h3 = settings[:title].presence || block_definition[:label]
 
-- if @can_edit && block_definition[:no_settings].blank?
+- if @can_edit && \
+     block_definition[:no_settings].blank? && \
+     (!block_definition.key?(:with_settings_if) || block_definition[:with_settings_if].call(@project))
   = render partial: block_definition[:settings_partial].presence || "#{async[:partial]}_settings",
            locals: build_dashboard_partial_locals(block,
                                                   block_definition,

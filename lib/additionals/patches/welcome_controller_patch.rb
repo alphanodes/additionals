@@ -28,7 +28,7 @@ module Additionals
               @dashboard = Dashboard.welcome_only.find(params[:dashboard_id])
               raise ::Unauthorized unless @dashboard.visible?
             rescue ActiveRecord::RecordNotFound
-              render_404
+              return render_404
             end
           else
             @dashboard = Dashboard.default(DashboardContentWelcome::TYPE_NAME)

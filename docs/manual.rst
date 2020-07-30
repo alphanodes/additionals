@@ -17,9 +17,15 @@ Contents
 
 The following plugin options are available to be edited by users with administration rights in the area **Contents**:
 
-* Text for login page. This section is for a short information on the login page below the login mask. For example who to contact in order to get Redmine access.
-* Global sidebar. Place your global information here, if needed. Use wiki links or available macros that can be seen by every one.
-* Project wide footer. In case you want to put some information about your company or for your imprint. Here you can also use wiki syntax for structuring your text.
+Text for login page
+  This section is for a short information on the login page below the login mask. For example who to contact in order to get Redmine access.
+
+Global sidebar
+  Place your global information here, if needed. Use wiki links or available macros that can be seen by every one.
+
+Project wide footer
+  In case you want to put some information about your company or for your imprint. Here you can also use wiki syntax for structuring your text.
+
 
 Settings
 ++++++++
@@ -256,25 +262,34 @@ The following role permissions are provided by the plugin and must be configured
 
 **According to the selected Role you can activate / deactivate the following option:**
 
-* **Hide**. This option hides ``members`` of the selected role in the member box of each project overview page. Project members of other roles will still be listed. For example: You don't want others to catch a glimpse of your development team (Role: Development). So activate the role "Developer" to hide the list of your team members assigned to this role in this box. This function is also useful if your member box is too crowded.
+Hide
+  This option hides ``members`` of the selected role in the member box of each project overview page. Project members of other roles will still be listed. For example: You don't want others to catch a glimpse of your development team (Role: Development). So activate the role "Developer" to hide the list of your team members assigned to this role in this box. This function is also useful if your member box is too crowded.
 
 .. note:: This setting is also taken into account in all related query lists (e.g. issues, spent time etc.). So that the members with this role are also hidden there. **Important:** If the user has in one project a role, that allows him / her to view a specific "hidden role" this rule is not taken into account anymore.
 
 
 **According to the selected Role you can activate / deactivate the following permissions:**
 
-* **Show hidden roles**. Section Project. In case you have hidden roles in a project that should not be displayed in the member box for example you can give to some special user roles the permission to display the members however. *Important:* If someone in a project has a role that has this right, then this user sees all users everywhere even if he or she is user of another project with different roles.
+Show hidden roles
+  Section Project. In case you have hidden roles in a project that should not be displayed in the member box for example you can give to some special user roles the permission to display the members however. *Important:* If someone in a project has a role that has this right, then this user sees all users everywhere even if he or she is user of another project with different roles.
 
-* **Set system dashboards**. Section Project. Allow users with this permission to change the system wide dashboard. Those user may create own dashboards and make them system default. So all other users must use this dashboard by default.
+Set system dashboards
+  Section Project. Allow users with this permission to change the system wide dashboard. Those user may create own dashboards and make them system default. So all other users must use this dashboard by default.
 
-* **Save dashboards**. Section Project. Allow this user role to save dashboards. So this users can add dashboards of their own for every purpose they want.
+Save dashboards
+  Section Project. Allow this user role to save dashboards. So this users can add dashboards of their own for every purpose they want.
 
-* **Manage shared dashboards**. Section Project. Allow user roles with this permission to manage shared dashboards. This means if someone else shares a dashboard with other, users with this permission may edit those.
+Manage shared dashboards
+  Section Project. Allow user roles with this permission to manage shared dashboards. This means if someone else shares a dashboard with other, users with this permission may edit those.
 
-* **Edit issue author**. Section Issue tracking. This permission will always record any changes made to the issue author. You can change the author only in the issue edit mode. This function replaces the use of external plugins (e.g. change_author)
+Edit issue author
+  Section Issue tracking. This permission will always record any changes made to the issue author. You can change the author only in the issue edit mode. This function replaces the use of external plugins (e.g. change_author)
 
-* **Edit closed issues**. Section Issue tracking. Set this option to those roles you do not want to edit closed issues. Normally a closed issue should not be edited anymore.
+Edit closed issues
+  Section Issue tracking. Set this option to those roles you do not want to edit closed issues. Normally a closed issue should not be edited anymore.
 
-* **Set author of new issues**. Section Issue tracking. This permission should be set carefully, because in case you allow this, there is no history entry set for this. You will never know if the author has been originally someone else. Normally you don't want this.
+Set author of new issues
+  Section Issue tracking. This permission should be set carefully, because in case you allow this, there is no history entry set for this. You will never know if the author has been originally someone else. Normally you don't want this.
 
-* **Log time to closed issues**. Section Time tracking. Our plugin does not allow time logs to closed issues. In case you still want to allow your members to log time to closed issues, you need to change the permission here.
+Log time to closed issues
+  Section Time tracking. Our plugin does not allow time logs to closed issues. In case you still want to allow your members to log time to closed issues, you need to change the permission here.

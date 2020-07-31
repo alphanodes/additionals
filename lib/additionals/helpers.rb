@@ -326,26 +326,6 @@ module Additionals
                            l(:label_app_menu) => 'app' }, active)
     end
 
-    def options_for_overview_select(active)
-      options_for_select({ l(:button_hide) => '',
-                           l(:show_on_redmine_home) => 'home',
-                           l(:show_on_project_overview) => 'project',
-                           l(:show_always) => 'always' }, active)
-    end
-
-    # if project exists, for project/show
-    # if project does not exist, for welcome/index
-    def option_of_overview_select(selected, project = nil)
-      project.present? && %w[project always].include?(selected) ||
-        project.nil? && %w[home always].include?(selected)
-    end
-
-    def options_for_welcome_select(active)
-      options_for_select({ l(:button_hide) => '',
-                           l(:show_welcome_left) => 'left',
-                           l(:show_welcome_right) => 'right' }, active)
-    end
-
     def human_float_number(value, options = {})
       ActionController::Base.helpers.number_with_precision(value,
                                                            precision: options[:precision].presence || 2,

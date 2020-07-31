@@ -26,21 +26,30 @@ de:
   add_go_to_top_info: 'Bei langen Seiten ist es hilfreich, wenn ein Link zur Verfügung steht, mit dem man zum Seitenanfang springen kann.'
   additionals_query_list_default_totals: Standard-Summen in der Listenansicht
   additionals_query_list_defaults: Standard-Spalten Listenansicht
+  alert_only_visible_by_admins: Kann nur von Benutzer mit Admin-Rechten gesehen werden
+  alert_only_visible_by_yourself: Kann nur von Dir selbst gesehen werden
   button_assign_to_me: Mir zuweisen
+  button_dashboard_delete: Dashboard löschen
+  button_dashboard_edit: Dashboard bearbeiten
   disabled_modules_info: "Module, die nicht zur Auswahl innerhalb der Projekte zur Verfügung stehen sollen. Sind in bestehenden Projekten schon diese Module aktiviert worden, werden die Einstellungen für diese Projekte erst nach erneuten Abspeichern der jeweiligen Projekteinstellungen aktiv."
   error_issue_status_could_not_changed: Der Ticket-Status konnte nicht geändert werden
   error_issues_could_not_be_assigned_to_me: Das Ticket konnte nicht mir zugeordnet werden
   error_query_statement_invalid: Beim Ausführen der Query ist ein Fehler aufgetreten und wurde protokolliert. Bitte melden Sie diesen Fehler Ihrem Redmine-Administrator.
   errors_no_or_invalid_arguments: Kein oder ungültiger Parameter
+  field_always_expose: Name immer anzeigen
   field_autowatch_involved_issue: Involvierte Tickets automatisch beobachten
   field_color: Farbe
+  field_enable_sidebar: Sidebar aktivieren
   field_hide: Verstecken
   field_icon: Symbol
   field_issue_relation_plural: Ticket Beziehungen
+  field_project_system_default: Projektstandard
+  field_system_default: System Standard
   field_tag_list: Tags
   field_tag_sidebar_style_cloud: Cloud
   field_tag_sidebar_style_list: Listenansicht
   field_tags: Tags
+  field_visibility: Sichtbarkeit
   field_website: Website
   global_footer_info: 'Hier kann ein projektübergreifender Footer hinterlegt werden, z.B. um einen Verweis auf die Datenschutzbestimmungen zu setzen.'
   global_sidebar_info: "Hier kann für die Sidebar ein projektübergreifender Text hinterlegt werden. Der hier hinterlegte Sidebar Inhalt wird auf der Projektübersichtsseite, auf den Ticketseiten und den Wikiseiten angezeigt."
@@ -52,23 +61,34 @@ de:
   info_hidden_roles_html: Versteckte Rollen können nur zusammen mit der Benutzersichtbarkeit "Mitglieder von sichtbaren Projekten" verwendet werden. Diese Option funktioniert nur, wenn der Benutzer in keiner Rolle ist die für den aktuellen Benutzer sichtbar ist. Passt alles wird diese Rolle inklusive Benutzer auf der Projektübersichtsseite und in Abfragelisten ausgeblendet.
   invisible_captcha_info_html: Ist diese Option aktiviert, wird mit Hilfe von <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> ein SPAM Schutz auf die Registrierungs-Seite für neue Benutzer eingesetzt. Diese steht nur zur Verfügung, wenn Redmine die Registrierung neuer Benutzer zulässt.
   label_account_login_bottom: "Text für Anmeldeseite"
+  label_active_dashboard: Aktives Dashboard
+  label_add_dashboard_block: Block hinzufügen
   label_add_go_to_top: '"Nach oben" Link hinzufügen'
   label_add_tags: Tags hinzufügen
   label_additionals_doc: Additionals Dokumentation (englisch)
+  label_additionals_feed: Atom+RSS Feed
   label_additionals: Additionals
   label_app_menu: App Menü
   label_change_is_private: Privat/Nicht-Privat ändern
+  label_change_to_dashboard: Zu Dashboard wechseln
   label_chart_color_schema: Charts Farbschema
+  label_chart_with_name: "Chart: %{value}"
   label_chartjs_colorscheme_info: Farbschema Auflistung
   label_content_plural: Inhalte
+  label_custom_fields_distribution: Benutzerdefinierte Felder für Verteilung
   label_custom_menu_items: Benutzerdefinierte Menüpunkte
   label_daily: täglich
+  label_dashboard_author: "Autor: %{name}"
+  label_dashboard_legacy_left: Standard-Inhalt links
+  label_dashboard_legacy_right: Standard-Inhalt rechts
   label_dashboard_plural: Dashboards
   label_dashboard: Dashboard
   label_day: Tag
+  label_disable_sidebar: Sidebar deaktivieren
   label_disabled_modules: "Deaktivierte Module"
   label_docs_access_token: Zugriffstoken
   label_edit_tags: Tags bearbeiten
+  label_enable_sidebar: Sidebar aktivieren
   label_global_footer: "Projektübergreifender Footer"
   label_global_sidebar: "Projektübergreifender Sidebar Inhalt"
   label_global_wiki_footer: "Projektübergreifender Wiki Footer"
@@ -81,6 +101,7 @@ de:
   label_hidden_macros_in_toolbar: Versteckte Makros
   label_hour: Stunde
   label_icon_color: Symbolfarbe
+  label_invalid_feed_data: Ungültige Feed Daten oder URL
   label_invisible_captcha: SPAM Schutz bei Registrierung
   label_issue_assign_to_me: Ticket "Mir zuweisen" anzeigen
   label_issue_auto_assign: "Wird \"Zugewiesen an\" nicht zugewiesen und der neue Ticketstatus ist x, dann wird die ersten Gruppe mit Benutzern der festgelegten Rolle das Ticket zugewiesen."
@@ -91,22 +112,32 @@ de:
   label_issue_freezed_with_close: Bearbeitung geschlossener Tickets verbieten (Freeze)
   label_issue_status_change: "Wird \"Zugewiesen an\" nicht verändert und der Ticketstatus von x auf y geändert, dann wird das Ticket automatisch dem Ersteller zugewiesen"
   label_issue_timelog_required: Zeiterfassung für Ticket erforderlich
+  label_issues_summary: Ticket Erfassung
   label_last_year: voriges Jahr
   label_legacy_smiley_support: Legacy Smiley Support
   label_macro_plural: Makros
-  label_menu_entry: "Menüpunkt"
+  label_max_entries: Maximale Einträge
+  label_menu_entry: Menüpunkt
   label_monthly: monatlich
+  label_my_activity: Meine Aktivität
+  label_my_dashboard_plural: Meine Dashboards
+  label_new_additional_dashboard: Neues Dashboard
+  label_new_dashboard: Neues Dashboard
   label_new_issue_on_profile: Neues Ticket auf Benutzerprofil
   label_new_ticket_message: "Hinweistext für neue Tickets"
+  label_no_permission: Keine Berechtigung
+  label_only_my_activities: Nur meine Aktivität
   label_open_external_urls: "Externe URLs öffnen"
   label_open_in_google_docs: In Google Docs öffnen
   label_open_in_new_windows: In neuen Fenster öffnen
-  label_optional: "optional"
+  label_optional: optional
   label_pdf_wiki_settings: PDF Wiki Einstellungen
-  label_project_list: "Projektliste"
+  label_project_information: Projektinformation
+  label_project_list: Projektliste
   label_query_delete: Abfrage löschen
   label_query_edit: Abfrage bearbeiten
   label_query_name_search: Nach Name suchen
+  label_query_with_name: "Abfrage: %{value}"
   label_reddit_subject: Reddit Thema
   label_reddit_user_account: Reddit Benutzer
   label_redmine_org_issue: Redmine.org Ticket
@@ -116,17 +147,18 @@ de:
   label_search_by_name: Suche nach Namen
   label_settings_macros: "Makros"
   label_settings_menu: "Menü"
+  label_shared_dashboard_plural: Geteilte Dashboards
   label_show_all: Alle anzeigen
+  label_spent_time_static: Statische Aufgewendete Zeit
   label_system_info: Systeminformation
   label_tags_without_color: Zeige TAGs ohne Farbe
-  label_tomorrow: morgen
   label_top_macros_help_html: "Hier sind alle Makros aufgelistet, welche über Redmine selbst oder Plugins bereitgestellt werden (nicht nur über Additionals). Diese Makros können in allen Texten innerhalb Redmines verwendet werden (sofern diese im jeweiligen Kontext Sinn machen)."
   label_top_menu_help_html: "Hier können Menüpunkte festgelegt werden, die im Top-Menü angezeigt werden."
   label_top_menu: Top Menü
   label_twitter_account: Twitter Benutzer
   label_twitter_hashtag: Twitter Hashtag
   label_uptime: Betriebszeit
-  label_user_list: "Benutzerliste"
+  label_user_list: Benutzerliste
   label_web_apis: Web APIs
   label_weekly: wöchentlich
   label_wiki_pdf_remove_attachments: Dateianhänge nicht anzeigen
@@ -143,10 +175,10 @@ de:
   permission_edit_issue_author: Ticket Autor bearbeiten
   permission_issue_timelog_never_required: Zeitbuchungen nicht erforderlich
   permission_log_time_on_closed_issues: Aufwände buchen auf geschlossene Tickets
-  permission_show_hidden_roles_in_memberbox: Versteckte Rollen anzeigen
-  permission_set_system_dashboards: System Dashboards festlegen
   permission_manage_shared_dashboards: Geteilte Dashboards verwalten
   permission_save_dashboards: Dashboards anlegen
+  permission_set_system_dashboards: System Dashboards festlegen
+  permission_show_hidden_roles_in_memberbox: Versteckte Rollen anzeigen
   remove_help_info: "Den Menüpunkt 'Hilfe' aus dem Topmenü entfernen."
   remove_mypage_info: 'Manchmal ist es hilfreich, dass die "Meine Seite" nicht angezeigt wird, um den Einsatz eines Task Boards einzuführen. Der Vorteil eines Task Boards liegt darin, dass Tickets nach Status gelistet werden können.'
   rule_issue_auto_assign_info: 'Use Case: Der Ticketersteller weiss nicht, wem er das Ticket zurordnen soll bzw. welcher Benutzer zuständig für das Ticket ist. Das neue Ticket mit dem Status "To Do" wird in dem Fall automatisch der ersten Gruppe zugewiesen, die Benutzer mit der Rolle Managener enthält.'
@@ -154,44 +186,7 @@ de:
   rule_issue_freezed_with_close_info: Wird diese Option aktiviert können bereits geschlossene Tickets nicht mehr bearbeitet und kommentiert werden. Auch nicht via Mail oder API. Für Benutzerrollen mit dem Recht "Geschlossene Tickets bearbeiten" gilt diese Einschränkung nicht.
   rule_issue_status_change_info: "Use Case: Zur Abnahme der Tickets sollen alle Tickets automatisch dem Ersteller des Tickets zugeordnet werden, sofern kein anderer Benutzer ausgewählt wird."
   rule_issue_timelog_required_info_html: 'Zu jedem Ticket der ausgewählten Tracker wird eine Zeitbuchung notwendig, wenn das Ticket eine der festgelegten Status-Eigenschaften erhalten soll. Nicht erforderlich ist die Zeitbuchung, wenn:<br />- keine Rechte für das Anlegen von Zeitbuchungen bestehen<br />- der Benutzer die Berechtigung "Zeitbuchungen nicht erforderlich" besitzt<br />Use case: Zur Abnahme eines Tickets mit dem Status "To Verify" werden auch die aufgewendete Zeiten benötigt.'
-  show_always: Immer anzeigen
-  show_on_project_overview: Auf Projektübersicht anzeigen
-  show_on_redmine_home: Auf Startseite anzeigen
-  show_welcome_left: Links auf der Startseite
-  show_welcome_right: Rechts auf der Startseite
   top_rules_help: "Hier können Regeln konfiguriert werden, die den Umgang mit Tickets festlegen. Sobald eine Regel aktiviert wurde, wirkt sich diese auf alle Projekte aus."
   top_wiki_help: Hier kannst Du Inhalte und Einstellungen bzg. der Wiki festlegen.
   wiki_pdf_remove_attachments_info: Wenn aktiv, werden die an der Wiki Seite angehängten Dateien nicht in der PDF Ansicht angezeigt.
   wiki_pdf_remove_title_info: Wenn aktiv, wird der Wiki Titel nicht in der PDF Ansicht angezeigt.
-  label_new_dashboard: Neues Dashboard
-  button_dashboard_edit: Dashboard bearbeiten
-  label_new_additional_dashboard: Neues Dashboard
-  label_my_dashboard_plural: Meine Dashboards
-  label_shared_dashboard_plural: Geteilte Dashboards
-  button_dashboard_delete: Dashboard löschen
-  label_dashboard_author: "Autor: %{name}"
-  field_system_default: System Standard
-  field_project_system_default: Projektstandard
-  field_visibility: Sichtbarkeit
-  label_enable_sidebar: Sidebar aktivieren
-  label_disable_sidebar: Sidebar deaktivieren
-  label_max_entries: Maximale Einträge
-  label_dashboard_legacy_left: Standard-Inhalt links
-  label_dashboard_legacy_right: Standard-Inhalt rechts
-  label_add_dashboard_block: Block hinzufügen
-  label_spent_time_static: Statische Aufgewendete Zeit
-  label_project_information: Projektinformation
-  label_issues_summary: Ticket Erfassung
-  label_project_fields: Projektfelder
-  label_chart_with_name: "Chart: %{value}"
-  label_query_with_name: "Abfrage: %{value}"
-  label_custom_fields_distribution: Benutzerdefinierte Felder für Verteilung
-  alert_only_visible_by_admins: Kann nur von Benutzer mit Admin-Rechten gesehen werden
-  alert_only_visible_by_yourself: Kann nur von Dir selbst gesehen werden
-  label_no_permission: Keine Berechtigung
-  label_additionals_feed: Atom+RSS Feed
-  label_invalid_feed_data: Ungültige Feed Daten oder URL
-  label_my_activity: Meine Aktivität
-  label_only_my_activities: Nur meine Aktivität
-  label_change_to_dashboard: Zu Dashboard wechseln
-  label_active_dashboard: Aktives Dashboard

@@ -26,21 +26,30 @@ it:
   add_go_to_top_info: 'Se hai un sacco di pagine lunghe, è utile aggiungere un To top link principale.'
   additionals_query_list_default_totals: "Importi predefiniti per la vista elenco"
   additionals_query_list_defaults: "Colonne predefinite per la vista elenco"
+  alert_only_visible_by_admins: "Può essere visto solo dagli utenti con permessi di amministrazione"
+  alert_only_visible_by_yourself: "Può essere visto solo da te"
   button_assign_to_me: Assign to me
+  button_dashboard_delete: "Cancella dashboard"
+  button_dashboard_edit: "Modifica dashboard"
   disabled_modules_info: "Moduli che non dovrebbero essere disponibili per la selezione all'interno dei progetti. Se questi moduli sono già stati attivati in progetti esistenti, dovrete prima cambiare e salvare nuovamente le rispettive impostazioni del progetto."
   error_issue_status_could_not_changed: Issue state could not be changed
   error_issues_could_not_be_assigned_to_me: Issue could not assigned to me
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   errors_no_or_invalid_arguments: No o non valido argomenti
+  field_always_expose: Always expose
   field_autowatch_involved_issue: Autowatch involved issues
   field_color: Colore
+  field_enable_sidebar: Enable sidebar
   field_hide: "Nascondi"
   field_icon: Icon
   field_issue_relation_plural: Relazione di issues
+  field_project_system_default: "Progetto predefinito"
+  field_system_default: "Default di sistema"
   field_tag_list: Tags
   field_tag_sidebar_style_cloud: Cloud
   field_tag_sidebar_style_list: List
   field_tags: Tags
+  field_visibility: "Visibilità"
   field_website: Website
   global_footer_info: 'Enter a project wide wiki footer here.'
   global_sidebar_info: "Enter a project wide available text message here. This sidebar text will be displayed at the project overview, the issue pages and the wiki pages."
@@ -52,23 +61,34 @@ it:
   info_hidden_roles_html: "I ruoli nascosti possono essere utilizzati solo insieme alla visibilità dell'utente \"Membri di progetti visibili\". Se l'utente non è in un ruolo visibile all'utente corrente, questo ruolo, incluso l'utente, è nascosto nella pagina di panoramica del progetto e nelle liste di ricerca."
   invisible_captcha_info_html: In case this option is activated an <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection is activated for the registration page of new users. This function is only available, if you enabled self-registration, too.
   label_account_login_bottom: "Testo per la pagina di accesso"
+  label_active_dashboard: "Dashboard attivo"
+  label_add_dashboard_block: "Aggiungi blocco"
   label_add_go_to_top: 'Add "Go to top" link'
   label_add_tags: Add tags
   label_additionals_doc: Additionals documentation
+  label_additionals_feed: Atom+RSS Feed
   label_additionals: Additionals
   label_app_menu: App menu
   label_change_is_private: Change private/non-private
+  label_change_to_dashboard: "Passa a Dashboard"
   label_chart_color_schema: Charts color scheme
+  label_chart_with_name: "Chart: %{value}"
   label_chartjs_colorscheme_info: Color list
   label_content_plural: Il contentuto
+  label_custom_fields_distribution: "Campi personalizzati per la distribuzione"
   label_custom_menu_items: Custom menu items
   label_daily: giornalmente
+  label_dashboard_author: "Autore: %{name}"
+  label_dashboard_legacy_left: "Contenuto standard a sinistra"
+  label_dashboard_legacy_right: "Contenuto standard a destra"
   label_dashboard_plural: Dashboards
   label_dashboard: Dashboard
   label_day: giorno
+  label_disable_sidebar: "Disattivare la barra laterale"
   label_disabled_modules: "Disattivare modules"
   label_docs_access_token: Access token
   label_edit_tags: Modifica tags
+  label_enable_sidebar: "Attivare la barra laterale"
   label_global_footer: "Project wide footer"
   label_global_sidebar: "Globale sidebar"
   label_global_wiki_footer: "Project wide wiki footer"
@@ -81,6 +101,7 @@ it:
   label_hidden_macros_in_toolbar: Hidden macros
   label_hour: ora
   label_icon_color: Icon colore
+  label_invalid_feed_data: "Dati di alimentazione o URL non validi"
   label_invisible_captcha: Protezione SPAM per la pagina di registrazione
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
@@ -91,22 +112,32 @@ it:
   label_issue_freezed_with_close: "Impedire la modifica dei problemi chiusi (Freeze)"
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
   label_issue_timelog_required: "Time log per i problemi richiesti"
+  label_issues_summary: "Issue Notification"
   label_last_year: l'anno scorso
   label_legacy_smiley_support: Legacy smiley support
   label_macro_plural: macros
+  label_max_entries: "Voci massime"
   label_menu_entry: "Menu item"
   label_monthly: mensile
+  label_my_activity: "La mia attività"
+  label_my_dashboard_plural: "Il mio dashboards"
+  label_new_additional_dashboard: "Nuovo dashboard"
+  label_new_dashboard: "Nuovo dashboard"
   label_new_issue_on_profile: Nuovo numero sul profilo utente
   label_new_ticket_message: "Nota per il nuovo issues"
+  label_no_permission: "Nessun permesso"
+  label_only_my_activities: "Solo la mia attività"
   label_open_external_urls: "Aprire gli URL esterni"
   label_open_in_google_docs: "Apri in Google Docs"
   label_open_in_new_windows: Open in new windows
   label_optional: "opzionale"
   label_pdf_wiki_settings: PDF Wiki settings
+  label_project_information: "Informazioni sul progetto"
   label_project_list: "Elenco dei progetti"
   label_query_delete: Elimina query
   label_query_edit: Modifica query
   label_query_name_search: Ricerca per nome
+  label_query_with_name: "Quero: %{value}"
   label_reddit_subject: Reddit subject
   label_reddit_user_account: Reddit user account
   label_redmine_org_issue: Redmine.org issue
@@ -116,10 +147,11 @@ it:
   label_search_by_name: Cerca per nome
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
+  label_shared_dashboard_plural: "Dashboards condivisi"
   label_show_all: Mostra tutto
+  label_spent_time_static: "Tempo speso statico"
   label_system_info: System info
   label_tags_without_color: "Mostra tag senza colore"
-  label_tomorrow: domani
   label_top_macros_help_html: "Qui trovate un elenco di tutte le macro Redmine disponibili della vostra installazione, fornite da Redmine e dai plugin Redmine."
   label_top_menu_help_html: "Qui è possibile definire nuove voci di menu in alto."
   label_top_menu: Top menu
@@ -143,10 +175,10 @@ it:
   permission_edit_issue_author: "Modifica l'autore"
   permission_issue_timelog_never_required: Registrazioni di tempo non richieste
   permission_log_time_on_closed_issues: "Il tempo di registrazione su problemi chiusi"
-  permission_show_hidden_roles_in_memberbox: "Mostra ruoli nascosti"
-  permission_set_system_dashboards: Set system dashboards
   permission_manage_shared_dashboards: Manage shared dashboards
   permission_save_dashboards: Save dashboards
+  permission_set_system_dashboards: Set system dashboards
+  permission_show_hidden_roles_in_memberbox: "Mostra ruoli nascosti"
   remove_help_info: "Rimuove l'elemento \"Aiuto\" dal menu superiore."
   remove_mypage_info: "Sometimes it is more useful to hide the \"My Page\" link in order to introduce the task board. The task board advantage is that issues can be listed according to their status."
   rule_issue_auto_assign_info: 'Use Case: The issue author does not know whom to assign the issue or who will be responsible for solving the task. In that case the issue for example with the status "To Do" is automatically assigned to the first group, which does contain a user of the pre-selected project manager role.'
@@ -154,44 +186,7 @@ it:
   rule_issue_freezed_with_close_info: "Se questa opzione è attivata, i numeri già chiusi non possono più essere modificati e commentati. Nemmeno via mail o API. Questa restrizione non si applica ai ruoli utente con il permesso \"Modifica problemi chiusi\"."
   rule_issue_status_change_info: "Use Case: issues should be automatically assigned to author, if the status changes to \"Approval\"."
   rule_issue_timelog_required_info_html: "Per ogni biglietto degli inseguitori selezionati, è necessaria una prenotazione a tempo se il biglietto deve ricevere una delle proprietà di stato definite. La prenotazione del tempo non è richiesta se:<br />- non esistono diritti per la creazione di prenotazioni di tempo<br />- l'utente ha l'autorizzazione \"Tempo di prenotazione non richiesto\" <br />Use case: Per accettare un biglietto con lo stato \"Per verificare\", è richiesto anche il tempo trascorso."
-  show_always: "Visualizzare sempre"
-  show_on_project_overview: "Mostrare sulla panoramica"
-  show_on_redmine_home: "Mostrare sulla pagina iniziale"
-  show_welcome_left: "A sinistra sulla pagina iniziale"
-  show_welcome_right: "A destra sulla pagina iniziale"
   top_rules_help: "Here you can define rules, which are used in issues of all projects."
   top_wiki_help: "Qui puoi definire contenuti e impostazioni per il tuo Wiki."
   wiki_pdf_remove_attachments_info: "Quando è attivo, il Wiki file allegati non verranno visualizzati nella vista PDF."
   wiki_pdf_remove_title_info: "Quando è attivo, le informazioni sul titolo del Wiki non verranno visualizzate nella vista PDF."
-  label_new_dashboard: "Nuovo dashboard"
-  button_dashboard_edit: "Modifica dashboard"
-  label_new_additional_dashboard: "Nuovo dashboard"
-  label_my_dashboard_plural: "Il mio dashboards"
-  label_shared_dashboard_plural: "Dashboards condivisi"
-  button_dashboard_delete: "Cancella dashboard"
-  label_dashboard_author: "Autore: %{name}"
-  field_system_default: "Default di sistema"
-  field_project_system_default: "Progetto predefinito"
-  field_visibility: "Visibilità"
-  label_enable_sidebar: "Attivare la barra laterale"
-  label_disable_sidebar: "Disattivare la barra laterale"
-  label_max_entries: "Voci massime"
-  label_dashboard_legacy_left: "Contenuto standard a sinistra"
-  label_dashboard_legacy_right: "Contenuto standard a destra"
-  label_add_dashboard_block: "Aggiungi blocco"
-  label_spent_time_static: "Tempo speso statico"
-  label_project_information: "Informazioni sul progetto"
-  label_issues_summary: "Issue Notification"
-  label_project_fields: "Campi di progetto"
-  label_chart_with_name: "Chart: %{value}"
-  label_query_with_name: "Quero: %{value}"
-  label_custom_fields_distribution: "Campi personalizzati per la distribuzione"
-  alert_only_visible_by_admins: "Può essere visto solo dagli utenti con permessi di amministrazione"
-  alert_only_visible_by_yourself: "Può essere visto solo da te"
-  label_no_permission: "Nessun permesso"
-  label_additionals_feed: Atom+RSS Feed
-  label_invalid_feed_data: "Dati di alimentazione o URL non validi"
-  label_my_activity: "La mia attività"
-  label_only_my_activities: "Solo la mia attività"
-  label_change_to_dashboard: "Passa a Dashboard"
-  label_active_dashboard: "Dashboard attivo"

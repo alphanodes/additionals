@@ -26,21 +26,30 @@
   add_go_to_top_info: "如果你有很長的頁面，建議增加 \"回到頁首\" 的按鈕。"
   additionals_query_list_default_totals: Default sums for list view
   additionals_query_list_defaults: Default columns for list view
+  alert_only_visible_by_admins: "Can only be seen by users with admin permissions"
+  alert_only_visible_by_yourself: "Can only be seen by you"
   button_assign_to_me: Assign to me
+  button_dashboard_delete: Delete dashboard
+  button_dashboard_edit: Edit dashboard
   disabled_modules_info: "專案中無法選擇模組。如果這些模組已經在現有專案中啟用，必須先變更對應的專案設定。"
   error_issue_status_could_not_changed: Issue state could not be changed
   error_issues_could_not_be_assigned_to_me: Issue could not assigned to me
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   errors_no_or_invalid_arguments: "參數無效或不存在。"
+  field_always_expose: Always expose
   field_autowatch_involved_issue: "自動監看參與的議題"
   field_color: 顏色
+  field_enable_sidebar: Enable sidebar
   field_hide: Hide
   field_icon: 圖案
   field_issue_relation_plural: 關聯的議題
+  field_project_system_default: Project default
+  field_system_default: System default
   field_tag_list: 標籤清單
   field_tag_sidebar_style_cloud: 雲
   field_tag_sidebar_style_list: 清單
   field_tags: 標籤
+  field_visibility: Visibility
   field_website: 網站
   global_footer_info: "專案中頁尾訊息。"
   global_sidebar_info: "專案中側邊訊息。自訂側邊訊息將在專案概觀頁、議題清單頁及Wiki頁顯示。"
@@ -52,23 +61,34 @@
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.
   invisible_captcha_info_html: In case this option is activated an <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection is activated for the registration page of new users. This function is only available, if you enabled self-registration, too.
   label_account_login_bottom: "登入頁文字"
+  label_active_dashboard: "Active Dashboard"
+  label_add_dashboard_block: "Add block"
   label_add_go_to_top: "增加 \"回到頁首\" 連結"
   label_add_tags: "增加標籤"
   label_additionals_doc: Additionals 外掛文件
+  label_additionals_feed: Atom+RSS Feed
   label_additionals: Additionals
   label_app_menu: App 選單
   label_change_is_private: Change private/non-private
+  label_change_to_dashboard: "Switch to Dashboard"
   label_chart_color_schema: Charts color scheme
+  label_chart_with_name: "Chart: %{value}"
   label_chartjs_colorscheme_info: "顏色清單"
   label_content_plural: 内容
+  label_custom_fields_distribution: "Custom fields for distribution"
   label_custom_menu_items: "自訂選單項目"
   label_daily: 每天
+  label_dashboard_author: "Author: %{name}"
+  label_dashboard_legacy_left: "Standard-Inhalt left"
+  label_dashboard_legacy_right: "Standard content right"
   label_dashboard_plural: Dashboards
   label_dashboard: Dashboard
   label_day: 天
+  label_disable_sidebar: Disable sidebar
   label_disabled_modules: "禁用模組"
   label_docs_access_token: Access token
   label_edit_tags: "編輯標籤"
+  label_enable_sidebar: Enable sidebar
   label_global_footer: "專案中頁尾設定"
   label_global_sidebar: "專案中側邊設定"
   label_global_wiki_footer: "專案中Wiki頁尾訊息設定"
@@ -81,6 +101,7 @@
   label_hidden_macros_in_toolbar: Hidden macros
   label_hour: 小時
   label_icon_color: 圖示顏色
+  label_invalid_feed_data: "Invalid feed data or URL"
   label_invisible_captcha: "註冊SPAM保護"
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_auto_assign: "若建立新議題的 \"被分派者\" 未設定，且狀態為 X 時，將被自動分派給指定角色。"
@@ -91,22 +112,32 @@
   label_issue_freezed_with_close: Disallow editing of closed issues (Freeze)
   label_issue_status_change: "若未修改 \"被分派者\" ，且議題狀態要從 X 變更為 Y ，則該議題必須被分派給議題作者。"
   label_issue_timelog_required: Time log for issues required
+  label_issues_summary: "Issue registration"
   label_last_year: 去年
   label_legacy_smiley_support: 支援表情符號
   label_macro_plural: macros
+  label_max_entries: "Maximum entries"
   label_menu_entry: "選單項"
   label_monthly: 每月
+  label_my_activity: "My activity"
+  label_my_dashboard_plural: My dashboards
+  label_new_additional_dashboard: New dashboard
+  label_new_dashboard: New dashboard
   label_new_issue_on_profile: New issue on user profile
   label_new_ticket_message: "建立新議題時的提示訊息"
+  label_no_permission: "No permission"
+  label_only_my_activities: "Only my activity"
   label_open_external_urls: "打開外部URL"
   label_open_in_google_docs: "在Google文档中打开"
   label_open_in_new_windows: Open in new windows
   label_optional: "選擇性"
   label_pdf_wiki_settings: "PDF Wiki 設定"
+  label_project_information: "Projekt information"
   label_project_list: "專案清單"
   label_query_delete: 刪除查詢
   label_query_edit: 編輯查詢
   label_query_name_search: "搜索名字"
+  label_query_with_name: "Query: %{value}"
   label_reddit_subject: Reddit 主題
   label_reddit_user_account: Reddit 帳號
   label_redmine_org_issue: Redmine.org issue
@@ -116,10 +147,11 @@
   label_search_by_name: "按名稱搜尋"
   label_settings_macros: "macros 語法"
   label_settings_menu: "選單"
+  label_shared_dashboard_plural: Shared dashboards
   label_show_all: "顯示全部"
+  label_spent_time_static: "Static Spent Time"
   label_system_info: "系統訊息"
   label_tags_without_color: "顯示無顏色標籤"
-  label_tomorrow: 明天
   label_top_macros_help_html: "此處列出Redmine與Redmine外掛支援的macros指令。"
   label_top_menu_help_html: "此處可以自訂頂部選單。在移除或修改後，必須 <strong>重啟 Redmine</strong> 以確保修改生效。"
   label_top_menu: "頂部選單"
@@ -143,10 +175,10 @@
   permission_edit_issue_author: "編輯作者"
   permission_issue_timelog_never_required: Time logging not required
   permission_log_time_on_closed_issues: "在已結束的議題中登記工時"
-  permission_show_hidden_roles_in_memberbox: "Show hidden roles"
-  permission_set_system_dashboards: Set system dashboards
   permission_manage_shared_dashboards: Manage shared dashboards
   permission_save_dashboards: Save dashboards
+  permission_set_system_dashboards: Set system dashboards
+  permission_show_hidden_roles_in_memberbox: "Show hidden roles"
   remove_help_info: "從頂部選單中隱藏 \"幫助\" 項。"
   remove_mypage_info: "為了引入敏捷的任務看板，隱藏 \"帳戶首頁\" 可能會更有幫助。任務看板的優勢為可以依據狀態列出並快速訪問。"
   rule_issue_auto_assign_info: "範例：議題作者不知道該把議題分配給誰時，狀態為 \"進行中\" 的議題將自動被分派給專案中第一位角色為 \"管理人員\"的成員。"
@@ -154,44 +186,7 @@
   rule_issue_freezed_with_close_info: If this option is activated, already closed issues can no longer be edited and commented. Not even via mail or API. This restriction does not apply to user roles with the "Edit closed issues" permission.
   rule_issue_status_change_info: "範例：若議題的狀態修改為 \"已完成\"，則自動被分派給議題作者。"
   rule_issue_timelog_required_info_html: 'For each ticket of the selected trackers, a time booking is necessary if the ticket is to receive one of the defined status properties. The time booking is not required if:<br />- no rights exist for the creation of time bookings<br />- the user has the authorization "Time logging not required"<br />Use case: For the acceptance of a ticket with the status "To Verify", the time spent is also required.'
-  show_always: "總是顯示"
-  show_on_project_overview: "在專案概觀頁上顯示"
-  show_on_redmine_home: "在網站首頁上顯示"
-  show_welcome_left: "在網站首頁左側"
-  show_welcome_right: "在網站首頁右側"
   top_rules_help: "您可以在此自訂議題處理的相關規則。"
   top_wiki_help: "您可以在此自訂Wiki的內容和設定。"
   wiki_pdf_remove_attachments_info: "當啟用時，Wiki附件將不會顯示在PDF中。"
   wiki_pdf_remove_title_info: "當啟用時，Wiki標題訊息不會顯示在PDF中"
-  label_new_dashboard: New dashboard
-  button_dashboard_edit: Edit dashboard
-  label_new_additional_dashboard: New dashboard
-  label_my_dashboard_plural: My dashboards
-  label_shared_dashboard_plural: Shared dashboards
-  button_dashboard_delete: Delete dashboard
-  label_dashboard_author: "Author: %{name}"
-  field_system_default: System default
-  field_project_system_default: Project default
-  field_visibility: Visibility
-  label_enable_sidebar: Enable sidebar
-  label_disable_sidebar: Disable sidebar
-  label_max_entries: "Maximum entries"
-  label_dashboard_legacy_left: "Standard-Inhalt left"
-  label_dashboard_legacy_right: "Standard content right"
-  label_add_dashboard_block: "Add block"
-  label_spent_time_static: "Static Spent Time"
-  label_project_information: "Projekt information"
-  label_issues_summary: "Issue registration"
-  label_project_fields: "Project fields"
-  label_chart_with_name: "Chart: %{value}"
-  label_query_with_name: "Query: %{value}"
-  label_custom_fields_distribution: "Custom fields for distribution"
-  alert_only_visible_by_admins: "Can only be seen by users with admin permissions"
-  alert_only_visible_by_yourself: "Can only be seen by you"
-  label_no_permission: "No permission"
-  label_additionals_feed: Atom+RSS Feed
-  label_invalid_feed_data: "Invalid feed data or URL"
-  label_my_activity: "My activity"
-  label_only_my_activities: "Only my activity"
-  label_change_to_dashboard: "Switch to Dashboard"
-  label_active_dashboard: "Active Dashboard"

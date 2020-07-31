@@ -26,21 +26,30 @@ en:
   add_go_to_top_info: 'If you have a lot of long pages, it is helpful to add a jump to top link.'
   additionals_query_list_default_totals: Default sums for list view
   additionals_query_list_defaults: Default columns for list view
+  alert_only_visible_by_admins: "Can only be seen by users with admin permissions"
+  alert_only_visible_by_yourself: "Can only be seen by you"
   button_assign_to_me: Assign to me
+  button_dashboard_delete: Delete dashboard
+  button_dashboard_edit: Edit dashboard
   disabled_modules_info: "Modules which should not be available for selection within the projects. If these modules already activated in existing projects, you will have to change and re-save the respective project settings first."
   error_issue_status_could_not_changed: Issue state could not be changed
   error_issues_could_not_be_assigned_to_me: Issue could not be assigned to me
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   errors_no_or_invalid_arguments: No or invalid arguments
+  field_always_expose: Always expose
   field_autowatch_involved_issue: Autowatch involved issues
   field_color: Color
+  field_enable_sidebar: Enable sidebar
   field_hide: Hide
   field_icon: Icon
   field_issue_relation_plural: Issue relations
+  field_project_system_default: Project default
+  field_system_default: System default
   field_tag_list: Tags
   field_tag_sidebar_style_cloud: Cloud
   field_tag_sidebar_style_list: List
   field_tags: Tags
+  field_visibility: Visibility
   field_website: Website
   global_footer_info: 'Enter a project wide wiki footer here.'
   global_sidebar_info: "Enter a project wide available text message here. This sidebar text will be displayed at the project overview, the issue pages and the wiki pages."
@@ -52,23 +61,34 @@ en:
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.
   invisible_captcha_info_html: In case this option is activated an <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection is activated for the registration page of new users. This function is only available, if you enabled self-registration, too.
   label_account_login_bottom: "Text for login page"
+  label_active_dashboard: "Active Dashboard"
+  label_add_dashboard_block: "Add block"
   label_add_go_to_top: 'Add "Go to top" link'
   label_add_tags: Add tags
   label_additionals_doc: Additionals documentation
+  label_additionals_feed: Atom+RSS Feed
   label_additionals: Additionals
   label_app_menu: App menu
   label_change_is_private: Change private/non-private
+  label_change_to_dashboard: "Switch to Dashboard"
   label_chart_color_schema: Charts color scheme
+  label_chart_with_name: "Chart: %{value}"
   label_chartjs_colorscheme_info: Color list
   label_content_plural: Contents
+  label_custom_fields_distribution: "Custom fields for distribution"
   label_custom_menu_items: Custom menu items
   label_daily: daily
+  label_dashboard_author: "Author: %{name}"
+  label_dashboard_legacy_left: "Standard content left"
+  label_dashboard_legacy_right: "Standard content right"
   label_dashboard_plural: Dashboards
   label_dashboard: Dashboard
   label_day: day
+  label_disable_sidebar: Disable sidebar
   label_disabled_modules: "Disabled modules"
   label_docs_access_token: Access token
   label_edit_tags: Edit tags
+  label_enable_sidebar: Enable sidebar
   label_global_footer: "Project wide footer"
   label_global_sidebar: "Global sidebar"
   label_global_wiki_footer: "Project wide wiki footer"
@@ -81,6 +101,7 @@ en:
   label_hidden_macros_in_toolbar: Hidden macros
   label_hour: hour
   label_icon_color: Icon color
+  label_invalid_feed_data: "Invalid feed data or URL"
   label_invisible_captcha: SPAM protection for registration
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
@@ -91,22 +112,32 @@ en:
   label_issue_freezed_with_close: Disallow editing of closed issues (Freeze)
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
   label_issue_timelog_required: Time log for issues required
+  label_issues_summary: "Issue registration"
   label_last_year: previous year
   label_legacy_smiley_support: Legacy smiley support
   label_macro_plural: Macros
+  label_max_entries: "Maximum entries"
   label_menu_entry: "Menu item"
   label_monthly: monthly
+  label_my_activity: "My activity"
+  label_my_dashboard_plural: My dashboards
+  label_new_additional_dashboard: New dashboard
+  label_new_dashboard: New dashboard
   label_new_issue_on_profile: New issue on user profile
   label_new_ticket_message: "Note for new issues"
+  label_no_permission: "No permission"
+  label_only_my_activities: "Only my activity"
   label_open_external_urls: Open external URLs
   label_open_in_google_docs: Open in Google Docs
   label_open_in_new_windows: Open in new windows
   label_optional: "optional"
   label_pdf_wiki_settings: PDF Wiki settings
+  label_project_information: "Project information"
   label_project_list: "Project list"
   label_query_delete: Delete query
   label_query_edit: Edit query
   label_query_name_search: Search for name
+  label_query_with_name: "Query: %{value}"
   label_reddit_subject: Reddit subject
   label_reddit_user_account: Reddit user account
   label_redmine_org_issue: Redmine.org issue
@@ -116,10 +147,11 @@ en:
   label_search_by_name: Search by name
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
+  label_shared_dashboard_plural: Shared dashboards
   label_show_all: Show all
+  label_spent_time_static: "Static Spent Time"
   label_system_info: System info
   label_tags_without_color: Show tags without color
-  label_tomorrow: tomorrow
   label_top_macros_help_html: "Here you get a list of all available Redmine macros of your installation, which are provided by Redmine and the Redmine plugins."
   label_top_menu_help_html: "Here you can define new top menu items."
   label_top_menu: Top menu
@@ -143,10 +175,10 @@ en:
   permission_edit_issue_author: Edit issue author
   permission_issue_timelog_never_required: Time logging not required
   permission_log_time_on_closed_issues: Log time on closed issues
-  permission_show_hidden_roles_in_memberbox: Show hidden roles
-  permission_set_system_dashboards: Set system dashboards
   permission_manage_shared_dashboards: Manage shared dashboards
   permission_save_dashboards: Save dashboards
+  permission_set_system_dashboards: Set system dashboards
+  permission_show_hidden_roles_in_memberbox: Show hidden roles
   remove_help_info: "Remove the item 'Help' from the top menu."
   remove_mypage_info: 'Sometimes it is more useful to hide the "My Page" link in order to introduce the task board. The task board advantage is that issues can be listed according to their status.'
   rule_issue_auto_assign_info: 'Use Case: The issue author does not know whom to assign the issue or who will be responsible for solving the task. In that case the issue for example with the status "To Do" is automatically assigned to the first group, which does contain a user of the pre-selected project manager role.'
@@ -154,44 +186,7 @@ en:
   rule_issue_freezed_with_close_info: If this option is activated, already closed issues can no longer be edited and commented. Not even via mail or API. This restriction does not apply to user roles with the "Edit closed issues" permission.
   rule_issue_status_change_info: "Use Case: issues should be automatically assigned to author, if the status changes to \"Approval\"."
   rule_issue_timelog_required_info_html: 'For each issue of the selected trackers, a time booking is necessary if the ticket is to receive one of the defined status properties. The time booking is not required if:<br />- no rights exist for the creation of time bookings<br />- the user has the authorization "Time logging not required"<br />Use case: For the acceptance of a ticket with the status "To Verify", the time spent is also required.'
-  show_always: Show always
-  show_on_project_overview: Show on project overview
-  show_on_redmine_home: Show on welcome page
-  show_welcome_left: On welcome page left
-  show_welcome_right: On welcome page right
   top_rules_help: "Here you can define rules, which are used in issues of all projects."
   top_wiki_help: Here you can define contents and settings for your Wiki.
   wiki_pdf_remove_attachments_info: When active the attached Wiki files will not be displayed in PDF view.
   wiki_pdf_remove_title_info: When active the Wiki title info will not be displayed in PDF view.
-  label_new_dashboard: New dashboard
-  button_dashboard_edit: Edit dashboard
-  label_new_additional_dashboard: New dashboard
-  label_my_dashboard_plural: My dashboards
-  label_shared_dashboard_plural: Shared dashboards
-  button_dashboard_delete: Delete dashboard
-  label_dashboard_author: "Author: %{name}"
-  field_system_default: System default
-  field_project_system_default: Project default
-  field_visibility: Visibility
-  label_enable_sidebar: Enable sidebar
-  label_disable_sidebar: Disable sidebar
-  label_max_entries: "Maximum entries"
-  label_dashboard_legacy_left: "Standard content left"
-  label_dashboard_legacy_right: "Standard content right"
-  label_add_dashboard_block: "Add block"
-  label_spent_time_static: "Static Spent Time"
-  label_project_information: "Project information"
-  label_issues_summary: "Issue registration"
-  label_project_fields: "Project fields"
-  label_chart_with_name: "Chart: %{value}"
-  label_query_with_name: "Query: %{value}"
-  label_custom_fields_distribution: "Custom fields for distribution"
-  alert_only_visible_by_admins: "Can only be seen by users with admin permissions"
-  alert_only_visible_by_yourself: "Can only be seen by you"
-  label_no_permission: "No permission"
-  label_additionals_feed: Atom+RSS Feed
-  label_invalid_feed_data: "Invalid feed data or URL"
-  label_my_activity: "My activity"
-  label_only_my_activities: "Only my activity"
-  label_change_to_dashboard: "Switch to Dashboard"
-  label_active_dashboard: "Active Dashboard"

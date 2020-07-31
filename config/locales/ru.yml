@@ -26,21 +26,30 @@ ru:
   add_go_to_top_info: "Если у вас много длинных страниц, полезно добавить переход на главную страницу."
   additionals_query_list_default_totals: "Суммы по умолчанию для просмотра списка"
   additionals_query_list_defaults: "Колонки по умолчанию для просмотра списка"
+  alert_only_visible_by_admins: "Можно увидеть только пользователям с правами администратора"
+  alert_only_visible_by_yourself: "Можно видеть только тебя"
   button_assign_to_me: "Назначить мне"
+  button_dashboard_delete: "Удалить приборную панель"
+  button_dashboard_edit: "Редактировать панель инструментов"
   disabled_modules_info: "Модули, которые не должны быть доступны для отбора в рамках проектов. Если эти модули уже активированы в существующих проектах, сначала необходимо изменить и сохранить соответствующие настройки проекта."
   error_issue_status_could_not_changed: "Состояние задач не может быть изменено"
   error_issues_could_not_be_assigned_to_me: "Задача не могла быть поручена мне."
   error_query_statement_invalid: "Во время выполнения запроса возникла ошибка, которая была зарегистрирована в журнале. Пожалуйста, сообщите об этой ошибке своему администратору Redmine."
   errors_no_or_invalid_arguments: "Нет или недействительные аргументы"
+  field_always_expose: Always expose
   field_autowatch_involved_issue: "Автонаблюдение включало в себя задачу"
   field_color: Color
+  field_enable_sidebar: Enable sidebar
   field_hide: "Спрятать"
   field_icon: Icon
   field_issue_relation_plural: "Отношения задач"
+  field_project_system_default: "Значение по умолчанию проекта"
+  field_system_default: "По умолчанию системы"
   field_tag_list: Tags
   field_tag_sidebar_style_cloud: Cloud
   field_tag_sidebar_style_list: List
   field_tags: Tags
+  field_visibility: "Видимость"
   field_website: "Веб-сайт"
   global_footer_info: "Введите здесь проект в нижний колонтитул вики-проекта."
   global_sidebar_info: "Введите сюда широко доступное текстовое сообщение для проекта. Этот текст на боковой панели будет отображаться в обзоре проекта, на страницах задач и вики-страницах."
@@ -52,23 +61,34 @@ ru:
   info_hidden_roles_html: "Скрытые роли могут использоваться только вместе с видимостью пользователя \"Members of visible projects\". Если пользователь не находится в роли, видимой для текущего пользователя, эта роль, включая пользователя, скрыта на странице обзора проекта и в списках запросов."
   invisible_captcha_info_html: In case this option is activated an <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection is activated for the registration page of new users. This function is only available, if you enabled self-registration, too.
   label_account_login_bottom: "Текст страницы входа в систему"
+  label_active_dashboard: "Активная панель управления"
+  label_add_dashboard_block: "Добавить блок"
   label_add_go_to_top: 'Add "Go to top" link'
   label_add_tags: Add tags
   label_additionals_doc: "Additionals документация"
+  label_additionals_feed: Atom+RSS Feed
   label_additionals: Additionals
   label_app_menu: App menu
   label_change_is_private: "Изменение частного / не-частного"
+  label_change_to_dashboard: "Переключиться на приборную панель"
   label_chart_color_schema: Charts color scheme
+  label_chart_with_name: "Chart: %{value}"
   label_chartjs_colorscheme_info: "Список цветов"
   label_content_plural: Contents
+  label_custom_fields_distribution: "Пользовательские поля для распределения"
   label_custom_menu_items: "Пользовательские пункты меню"
   label_daily: "ежедневный"
+  label_dashboard_author: "Author: %{name}"
+  label_dashboard_legacy_left: "Стандарт-Инхальт налево"
+  label_dashboard_legacy_right: "Стандартное право на контент"
   label_dashboard_plural: Dashboards
   label_dashboard: Dashboard
   label_day: "день"
+  label_disable_sidebar: "отключить боковую панель"
   label_disabled_modules: "Отключенные модули"
   label_docs_access_token: "Токен доступа"
   label_edit_tags: "Редактировать метки"
+  label_enable_sidebar: "Включить боковую панель"
   label_global_footer: "Project wide footer"
   label_global_sidebar: "Глобальная боковая панель"
   label_global_wiki_footer: "Широкий вики-футбол проекта"
@@ -81,6 +101,7 @@ ru:
   label_hidden_macros_in_toolbar: Hidden macros
   label_hour: "час"
   label_icon_color: Icon color
+  label_invalid_feed_data: "Недействительные данные корма или URL-адрес"
   label_invisible_captcha: "Защита от спама при регистрации"
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
@@ -91,22 +112,32 @@ ru:
   label_issue_freezed_with_close: "Запрет редактирования закрытых заданий (Freeze)"
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
   label_issue_timelog_required: Time log for issues required
+  label_issues_summary: "Регистрация выпуска"
   label_last_year: "прошедший год"
   label_legacy_smiley_support: Legacy smiley support
   label_macro_plural: Macros
+  label_max_entries: "Максимальное количество записей"
   label_menu_entry: "Пункты меню"
   label_monthly: "ежемесячно"
+  label_my_activity: "Моя деятельность"
+  label_my_dashboard_plural: "Мои приборные панели"
+  label_new_additional_dashboard: "Новая приборная панель"
+  label_new_dashboard: "Новая приборная панель"
   label_new_issue_on_profile: "Новая задача в профиле пользователя"
   label_new_ticket_message: "Примечание для нового задания"
+  label_no_permission: "Нет разрешения"
+  label_only_my_activities:  "Только моя деятельность"
   label_open_external_urls: Открыть внешний URL-адрес
   label_open_in_google_docs: "Открыть в Документах Google"
   label_open_in_new_windows: "Открыть в новом окне"
   label_optional: "необязательный"
   label_pdf_wiki_settings: PDF Wiki settings
+  label_project_information: "Информация о проекте"
   label_project_list: "Список проектов"
   label_query_delete: "Удалить query"
   label_query_edit: "Редактировать query"
   label_query_name_search: "Поиск имени"
+  label_query_with_name: "Query: %{value}"
   label_reddit_subject: Reddit subject
   label_reddit_user_account: Reddit user account
   label_redmine_org_issue: Redmine.org issue
@@ -116,10 +147,11 @@ ru:
   label_search_by_name: "Поиск по имени"
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
+  label_shared_dashboard_plural: "разделяемые приборные панели"
   label_show_all: "Показать все"
+  label_spent_time_static: "Static Spent Time"
   label_system_info: System info
   label_tags_without_color: Show tags without color
-  label_tomorrow: "завтра"
   label_top_macros_help_html: "Здесь вы получите список всех доступных макросов Redmine вашей установки, которые предоставляются плагинами Redmine и Redmine."
   label_top_menu_help_html: "Здесь можно задать новые пункты верхнего меню."
   label_top_menu: Top menu
@@ -143,10 +175,10 @@ ru:
   permission_edit_issue_author: "Редактирование заданий автора"
   permission_issue_timelog_never_required: "Регистрация времени не требуется"
   permission_log_time_on_closed_issues: "Время регистрации на закрытых заданиях"
-  permission_show_hidden_roles_in_memberbox: "Показать скрытые роли"
-  permission_set_system_dashboards: Set system dashboards
   permission_manage_shared_dashboards: Manage shared dashboards
   permission_save_dashboards: Save dashboards
+  permission_set_system_dashboards: Set system dashboards
+  permission_show_hidden_roles_in_memberbox: "Показать скрытые роли"
   remove_help_info: "Удалить пункт 'Help' из верхнего меню."
   remove_mypage_info: "Иногда бывает полезнее скрыть ссылку \"My Page\", чтобы представить панель задач. Преимуществом доски задач является то, что вопросы могут быть перечислены в соответствии с их статусом."
   rule_issue_auto_assign_info: "Use Case: Автор проблемы не знает, кому назначить задачу или кто будет отвечать за ее решение. В этом случае задание, например со статусом \"To Do\", автоматически присваивается первой группе, которая действительно содержит пользователя с предварительно выбранной ролью менеджера проекта."
@@ -154,44 +186,7 @@ ru:
   rule_issue_freezed_with_close_info: "Если эта опция включена, то уже закрытые задания больше не могут быть отредактированы и прокомментированы. Даже по почте или API. Это ограничение не распространяется на роли пользователей с правом \"Edit closed issues\"."
   rule_issue_status_change_info: "Use Case: issues should be automatically assigned to author, if the status changes to \"Approval\"."
   rule_issue_timelog_required_info_html: "Для каждого билета выбранных трекеров необходимо забронировать время, если билет должен получить одно из определенных свойств статуса. Бронирование времени не требуется, если:<br />- не существует никаких прав на резервирование времени.<br />- у пользователя есть авторизация \"Time logging not required\"<br />Используй кейс: Для принятия билета со статусом \"To Verify\" также требуется потраченное время."
-  show_always: "Показать всегда"
-  show_on_project_overview: "Показать обзор проекта"
-  show_on_redmine_home: "Показать на странице приветствия"
-  show_welcome_left: "На странице приветствия слева"
-  show_welcome_right: "На странице приветствия справа"
   top_rules_help: "Здесь можно определить правила, которые используются в задачах всех проектов."
   top_wiki_help: "Здесь вы можете определить содержимое и настройки для вашей Вики."
   wiki_pdf_remove_attachments_info: "Если флажок установлен, вложенные Вики-файлы не будут отображаться в PDF-формате."
   wiki_pdf_remove_title_info: "При активации этого параметра информация о названии Вики не будет отображаться в PDF-формате."
-  label_new_dashboard: "Новая приборная панель"
-  button_dashboard_edit: "Редактировать панель инструментов"
-  label_new_additional_dashboard: "Новая приборная панель"
-  label_my_dashboard_plural: "Мои приборные панели"
-  label_shared_dashboard_plural: "разделяемые приборные панели"
-  button_dashboard_delete: "Удалить приборную панель"
-  label_dashboard_author: "Author: %{name}"
-  field_system_default: "По умолчанию системы"
-  field_project_system_default: "Значение по умолчанию проекта"
-  field_visibility: "Видимость"
-  label_enable_sidebar: "Включить боковую панель"
-  label_disable_sidebar: "отключить боковую панель"
-  label_max_entries: "Максимальное количество записей"
-  label_dashboard_legacy_left: "Стандарт-Инхальт налево"
-  label_dashboard_legacy_right: "Стандартное право на контент"
-  label_add_dashboard_block: "Добавить блок"
-  label_spent_time_static: "Static Spent Time"
-  label_project_information: "Информация о проекте"
-  label_issues_summary: "Регистрация выпуска"
-  label_project_fields: "Поля проекта"
-  label_chart_with_name: "Chart: %{value}"
-  label_query_with_name: "Query: %{value}"
-  label_custom_fields_distribution: "Пользовательские поля для распределения"
-  alert_only_visible_by_admins: "Можно увидеть только пользователям с правами администратора"
-  alert_only_visible_by_yourself: "Можно видеть только тебя"
-  label_no_permission: "Нет разрешения"
-  label_additionals_feed: Atom+RSS Feed
-  label_invalid_feed_data: "Недействительные данные корма или URL-адрес"
-  label_my_activity: "Моя деятельность"
-  label_only_my_activities:  "Только моя деятельность"
-  label_change_to_dashboard: "Переключиться на приборную панель"
-  label_active_dashboard: "Активная панель управления"

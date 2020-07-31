@@ -267,12 +267,17 @@ class Dashboard < ActiveRecord::Base
     @editable ||= editable_by?(usr)
   end
 
-  def destroyable_by?(usr = User.current, prj = nil)
-    !system_default && editable_by?(usr, prj)
+  def destroyable_by?(usr = User.current)
+    return unless editable_by?(usr, project) || usr.admin?
+
+    return !system_default? if dashboard_type != DashboardContentProject::TYPE_NAME
+
+    # project dashboards needs special care
+    project.present? || !system_default?
   end
 
-  def destroyable?(usr = User.current)
-    @destroyable ||= destroyable_by?(usr)
+  def destroyable?
+    @destroyable ||= destroyable_by?(User.current)
   end
 
   def to_s

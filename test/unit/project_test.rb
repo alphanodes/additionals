@@ -34,12 +34,26 @@ class ProjectTest < Additionals::TestCase
   end
 
   def test_visible_users
-    project = projects(:projects_005)
+    project = projects :projects_005
     assert_equal 3, project.visible_users.count
   end
 
   def test_visible_principals
-    project = projects(:projects_005)
+    project = projects :projects_005
     assert_equal 4, project.visible_principals.count
+  end
+
+  def test_destroy_project
+    User.current = users :users_001
+
+    @ecookbook = projects :projects_001
+    # dashboards
+    assert @ecookbook.dashboards.any?
+
+    @ecookbook.destroy
+    # make sure that the project non longer exists
+    assert_raise(ActiveRecord::RecordNotFound) { Project.find(@ecookbook.id) }
+    # make sure related data was removed
+    assert_nil Dashboard.where(project_id: @ecookbook.id).first
   end
 end

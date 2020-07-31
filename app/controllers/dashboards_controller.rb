@@ -107,19 +107,19 @@ class DashboardsController < ApplicationController
     if @dashboard.save
       flash[:notice] = l(:notice_successful_update)
       respond_to do |format|
-        format.html { redirect_to dashboard_link_path(@project, @dashboard) }
+        format.html { redirect_to dashboard_link_path @project, @dashboard }
         format.api  { head :ok }
       end
     else
       respond_to do |format|
         format.html { render action: 'edit' }
-        format.api  { render_validation_errors(@dashboard) }
+        format.api  { render_validation_errors @dashboard }
       end
     end
   end
 
   def destroy
-    return render_403 unless @dashboard.destroyable_by?(User.current)
+    return render_403 unless @dashboard.destroyable_by? User.current
 
     begin
       @dashboard.destroy

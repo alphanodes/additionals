@@ -63,4 +63,22 @@ class ProjectsControllerTest < Additionals::ControllerTest
 
     assert_select 'div.test', text: 'Example text'
   end
+
+  def test_show_with_invalid_dashboard
+    get :show,
+        params: { id: 1,
+                  dashboard_id: 444 }
+
+    assert_response :missing
+  end
+
+  def test_show_dashboard_without_permission
+    @request.session[:user_id] = 3
+
+    get :show,
+        params: { id: 1,
+                  dashboard_id: dashboards(:private_project2) }
+
+    assert_response :forbidden
+  end
 end

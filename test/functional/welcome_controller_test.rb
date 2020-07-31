@@ -94,4 +94,11 @@ class WelcomeControllerTest < Additionals::ControllerTest
       assert_select 'div#top-menu a.help', count: 0
     end
   end
+
+  def test_index_with_invalid_dashboard
+    get :index,
+        params: { dashboard_id: 444 }
+
+    assert_response :missing
+  end
 end

@@ -154,16 +154,6 @@ module Additionals
       [value, options]
     end
 
-    def custom_fields_with_format(entity, format, project = nil, options = {})
-      scope = if project.nil?
-                Object.const_get "#{entity}CustomField"
-              else
-                project.send options[:custom_fields_method].presence || "#{entity.underscore}_custom_fields"
-              end
-
-      scope.where field_format: format
-    end
-
     private
 
     def settings

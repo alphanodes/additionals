@@ -1,9 +1,12 @@
 module AdditionalsIssuesHelper
   def author_options_for_select(project, issue = nil)
     authors = if project.present?
-                project.users.sorted
+                project.users.visible.sorted
               else
-                Principal.active.where(type: 'User').sorted
+                Principal.visible
+                         .active
+                         .where(type: 'User')
+                         .sorted
               end
 
     s = []

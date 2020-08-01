@@ -40,21 +40,19 @@ class DashboardTest < Additionals::TestCase
     assert_equal 1, Dashboard.project_only.where(system_default: true).count
   end
 
-  def test_change_system_default_welcome_requires_permission
+  def test_change_system_default_welcome_without_set_system_default
     dashboard = Dashboard.new dashboard_type: DashboardContentWelcome::TYPE_NAME,
                               name: 'WelcomeTest',
                               system_default: true,
                               author: User.current,
                               visibility: 2
-    assert dashboard.valid?
+    assert dashboard.save
 
-    User.current = users :users_004
-    assert_raise(Exception) do
-      dashboard.valid?
-    end
+    assert dashboard.system_default
+    assert_equal 2, dashboard.visibility
   end
 
-  def test_change_system_default_project_requires_permission
+  def test_change_system_default_project_without_set_system_default
     dashboard = Dashboard.new dashboard_type: DashboardContentProject::TYPE_NAME,
                               name: 'ProjectTest',
                               system_default: true,
@@ -62,10 +60,10 @@ class DashboardTest < Additionals::TestCase
                               visibility: 2
     assert dashboard.valid?
 
-    User.current = users :users_004
-    assert_raise(Exception) do
-      dashboard.valid?
-    end
+    assert dashboard.save
+
+    assert dashboard.system_default
+    assert_equal 2, dashboard.visibility
   end
 
   def test_system_default_welcome_allowed_only_once

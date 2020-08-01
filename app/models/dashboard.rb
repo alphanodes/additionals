@@ -58,7 +58,7 @@ class Dashboard < ActiveRecord::Base
   validate :validate_roles
   validate :validate_visibility
   validate :validate_name
-  validate :validate_system_default
+  # validate :validate_system_default
 
   class << self
     def system_default(dashboard_type)
@@ -377,7 +377,8 @@ class Dashboard < ActiveRecord::Base
   def visibility_check
     user = User.current
 
-    return if user.allowed_to?(:manage_shared_dashboards, project, global: true) ||
+    return if system_default? ||
+              user.allowed_to?(:manage_shared_dashboards, project, global: true) ||
               user.allowed_to?(:set_system_dashboards, project, global: true)
 
     # change to private

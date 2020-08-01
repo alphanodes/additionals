@@ -315,13 +315,16 @@ module DashboardsHelper
   def render_news_block(block, _block_definition, settings, dashboard)
     max_entries = settings[:max_entries] || DashboardContent::DEFAULT_MAX_ENTRIES
 
-    news = News.visible
-               .where(project: dashboard.content_project.nil? ? User.current.projects : dashboard.content_project)
-               .order(created_on: :desc)
-               .limit(max_entries)
-               .includes(:project, :author)
-               .references(:project, :author)
-               .to_a
+    news = if dashboard.content_project.nil?
+             News.latest User.current
+           else
+             dashboard.content_project
+                      .news
+                      .limit(max_entries)
+                      .includes(:author, :project)
+                      .reorder(created_on: :desc)
+                      .to_a
+           end
 
     render partial: 'dashboards/blocks/news', locals: { block: block,
                                                         max_entries: max_entries,

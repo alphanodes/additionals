@@ -70,6 +70,11 @@ h2 = project_overview_name @project, @dashboard
 
 = render partial: 'common/dashboard', locals: { dashboard: @dashboard }
 
+javascript:
+  $(function() {
+    $('#block-projectmembers div.members').removeClass('box');
+  });
+
 = call_hook :view_projects_show_bottom, project: @project
 
 - if @dashboard_sidebar

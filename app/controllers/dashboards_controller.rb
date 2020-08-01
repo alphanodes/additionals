@@ -49,6 +49,7 @@ class DashboardsController < ApplicationController
 
   def show
     respond_to do |format|
+      format.html { head 406 }
       format.js if request.xhr?
       format.api
     end

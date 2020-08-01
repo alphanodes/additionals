@@ -52,7 +52,7 @@
 
       - if User.current.allowed_to? :set_system_dashboards, @project, global: true
         p = f.check_box :system_default
-        p = f.check_box :always_expose
+        p#always-expose = f.check_box :always_expose
       - elsif @dashboard.system_default?
         p = f.check_box :system_default, disabled: true
         p = f.check_box :always_expose
@@ -71,5 +71,16 @@ javascript:
       var roles_checked = $('#dashboard_visibility_1').is(':checked');
       var private_checked = $('#dashboard_visibility_0').is(':checked');
       $("input[name='dashboard[role_ids][]'][type=checkbox]").attr('disabled', !roles_checked);
+    }).trigger('change');
+
+    $("input[name='dashboard[system_default]']").change(function(){
+      var selection = $('#dashboard_system_default').is(':checked');
+      console.log(selection)
+      if (selection) {
+        $('#always-expose').show();
+      }
+      else {
+        $('#always-expose').hide();
+      }
     }).trigger('change');
   });

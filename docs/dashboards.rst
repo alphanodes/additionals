@@ -84,11 +84,11 @@ Visible
 Enable sidebar
   The dashboard sidebar contains some useful information for the user. Since it is sometimes disturbing, it is hidden. To prevent this you can select this option.
 
-Always expose
-  If you want to make the dashboard name visible to the users in the head section of the dashboard page, you can activate this option.
-
 System default
-  If you want to make your dashboard system default, activate this option. So every user will have to work with it.
+  If you want to make your project dashboard system default, activate this option. So every user will have to work with it for the selected project.
+
+Always expose
+  If you want to make the system default dashboard name visible to the users in the head section of the dashboard page, you can activate this option. Then also the dashboard information in the sidebar is displayed.
 
 Author
   You can change the dashboard author in case it is necessary. This is sometimes necessary, if you create a dasboard for someone else but want this person to be able to edit it afterwards. Or if a user will no longer be active in your Redmine system. *Important:* Only the author of a dashboard is able to edit or remove it. If the author is no longer an active user in your system, only a user with administration rights is allowed to modify the dashboard.
@@ -115,11 +115,11 @@ Visible
 Enable sidebar
   The dashboard sidebar contains some useful information for the user. Since it is sometimes disturbing, it is hidden. To prevent this you can choose this option.
 
-Always expose
-  If you want to make the dashboard name visible to the users in the head section of the dashboard page, you can activate this option.
-
 System default
-  If you want to make your dashboard system default, activate this option. So every user will have to work with it.
+  If you want to make your project dashboard system default, activate this option. So every user will have to work with it for the selected project.
+
+Always expose
+  If you want to make the system default dashboard name visible to the users in the head section of the dashboard page, you can activate this option. Then also the dashboard information in the sidebar is displayed.
 
 
 Add Dashboard blocks
@@ -202,11 +202,11 @@ Visible
 Enable sidebar
   The dashboard sidebar contains some useful information for the user. Since it is sometimes disturbing, it is hidden. To prevent this you can select this option.
 
-Always expose
-  If you want to make the dashboard name visible to the users in the head section of the dashboard page, you can activate this option.
-
 System default
-  If you want to make your dashboard system default, activate this option. So every user will have to work with it.
+  If you want to make your project dashboard system default, activate this option. So every user will have to work with it for the selected project.
+
+Always expose
+  If you want to make the system default dashboard name visible to the users in the head section of the dashboard page, you can activate this option. Then also the dashboard information in the sidebar is displayed.
 
 Author
   You can change the dashboard author in case it is necessary. This is sometimes necessary, if you create a dasboard for someone else but want this person to be able to edit it afterwards. Or if a user will no longer be active in your Redmine system. *Important:* Only the author of a dashboard is able to edit or remove it (required permissions assumed). If the author is no longer an active user in your system, only a user with administration rights is allowed to modify the dashboard.
@@ -240,11 +240,11 @@ Visible
 Enable sidebar
   The dashboard sidebar contains some useful information for the user. Since it is sometimes disturbing, it is hidden. To prevent this you can choose this option.
 
-Always expose
-  If you want to make the dashboard name visible to the users in the head section of the dashboard page, you can activate this option.
-
 System default
   If you want to make your project dashboard system default, activate this option. So every user will have to work with it for the selected project.
+
+Always expose
+  If you want to make the system default dashboard name visible to the users in the head section of the dashboard page, you can activate this option. Then also the dashboard information in the sidebar is displayed.
 
 
 

@@ -36,7 +36,7 @@ de:
   error_issues_could_not_be_assigned_to_me: Das Ticket konnte nicht mir zugeordnet werden
   error_query_statement_invalid: Beim Ausführen der Query ist ein Fehler aufgetreten und wurde protokolliert. Bitte melden Sie diesen Fehler Ihrem Redmine-Administrator.
   errors_no_or_invalid_arguments: Kein oder ungültiger Parameter
-  field_always_expose: Dashboard immer exponieren
+  field_always_expose: Dashboard immer offenlegen
   field_autowatch_involved_issue: Involvierte Tickets automatisch beobachten
   field_color: Farbe
   field_enable_sidebar: Sidebar aktivieren

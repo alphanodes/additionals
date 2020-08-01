@@ -180,7 +180,7 @@ What you can do here is:
 Edit project dashboard
 ++++++++++++++++++++++
 
-Users with appropriate permission can edit an existing dashboard by clicking the "Edit dashboard" link to open the edit window.
+Users with appropriate permission can edit an existing dashboard by clicking the "Edit dashboard" link to open the edit window. What fields are displayed also depends on the permission the role your user has.
 
 .. figure::  images/dashboard-edit-project.png
    :align:   center
@@ -209,7 +209,7 @@ System default
   If you want to make your dashboard system default, activate this option. So every user will have to work with it.
 
 Author
-  You can change the dashboard author in case it is necessary. This is sometimes necessary, if you create a dasboard for someone else but want this person to be able to edit it afterwards. Or if a user will no longer be active in your Redmine system. *Important:* Only the author of a dashboard is able to edit or remove it. If the author is no longer an active user in your system, only a user with administration rights is allowed to modify the dashboard.
+  You can change the dashboard author in case it is necessary. This is sometimes necessary, if you create a dasboard for someone else but want this person to be able to edit it afterwards. Or if a user will no longer be active in your Redmine system. *Important:* Only the author of a dashboard is able to edit or remove it (required permissions assumed). If the author is no longer an active user in your system, only a user with administration rights is allowed to modify the dashboard.
 
 
 .. hint::
@@ -223,7 +223,7 @@ Author
 New project dashboard
 +++++++++++++++++++++
 
-Users with appropriate permission can add a new project dashboard by clicking the "New dashboard" link in the "actions menu" to open the "New dashboard" window in order to fill out the following fields.
+Users with appropriate permission can add a new project dashboard by clicking the "New dashboard" link in the "actions menu" to open the "New dashboard" window in order to fill out the following fields. What fields are displayed also depends on the permission the role your user has.
 
 Name
   Assign a meaningful and unique name. The dashboard name will be displayed in the sidebar for later selection. If the sidebar has been disabled, you can still select the dashboard from the "Actions" menu. It will then be listed there.
@@ -370,4 +370,4 @@ Members
   Displays the standard member box of Redmine in a block including the additionals permission adaption to the information displayed there. The block is not configurable, but you can remove it if not needed or reposition it.
 
 .. note::
-  These are the basic blocks that come with the additionals plugin dashboard functionality. Other plugins, that also support the *Drag&Drop* dashboard function may deliver additional blocks for selection. 
+  These are the basic blocks that come with the additionals plugin dashboard functionality. Other plugins, that also support the *Drag&Drop* dashboard function may deliver additional blocks for selection.

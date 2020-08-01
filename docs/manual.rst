@@ -273,14 +273,14 @@ Hide
 Show hidden roles
   Section Project. In case you have hidden roles in a project that should not be displayed in the member box for example you can give to some special user roles the permission to display the members however. *Important:* If someone in a project has a role that has this right, then this user sees all users everywhere even if he or she is user of another project with different roles.
 
-Set system dashboards
-  Section Project. Allow users with this permission to change the system wide dashboard. Those user may create own dashboards and make them system default. So all other users must use this dashboard by default.
-
 Save dashboards
-  Section Project. Allow this user role to save dashboards. So this users can add dashboards of their own for every purpose they want.
+  Section Project. Allow this user role to add, edit or delete dashboards of their own. So this users can add dashboards for every purpose they want and switch between them.
+
+Set system dashboards
+  Section Project. This permission requires *Save dashboards* permission. If you activate it, you allow users with this permission to change the system wide dashboard. Those user may create dashboards and make them system default. They get additional options: *Visible*, *System default* and *Always expose*.
 
 Manage shared dashboards
-  Section Project. Allow user roles with this permission to manage shared dashboards. This means if someone else shares a dashboard with other, users with this permission may edit those.
+  Section Project. Allow user roles with this permission to shared dashboards with other users. This means if someone else assigns you a dashboard via *Author* selection, you are allowed to edit those dashboards as long as you are the assigned *Author* and also hav the permission to *Save dashboards*.
 
 Edit issue author
   Section Issue tracking. This permission will always record any changes made to the issue author. You can change the author only in the issue edit mode. This function replaces the use of external plugins (e.g. change_author)

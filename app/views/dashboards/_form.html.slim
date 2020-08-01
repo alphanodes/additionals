@@ -21,7 +21,9 @@
       - else
         = hidden_field_tag 'dashboard[project_id]', @project&.id
 
-      - if User.current.allowed_to?(:manage_shared_dashboards, @project, global: true)
+      - if User.current.allowed_to?(:manage_shared_dashboards, @project, global: true) || \
+           User.current.allowed_to?(:set_system_dashboards, @project, global: true)
+
         p
           label = l(:field_visible)
           label.block
@@ -48,11 +50,12 @@
       p
         = f.check_box :enable_sidebar
 
-      p
-        = f.check_box :always_expose
+      - if User.current.allowed_to? :set_system_dashboards, @project, global: true
+        p
+          = f.check_box :system_default
 
-      p
-        = f.check_box :system_default
+        p
+          = f.check_box :always_expose
 
       - if @dashboard.persisted?
         p.object-select

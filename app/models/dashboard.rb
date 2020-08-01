@@ -24,12 +24,11 @@ class Dashboard < ActiveRecord::Base
   scope :welcome_only, (-> { where(dashboard_type: DashboardContentWelcome::TYPE_NAME) })
   scope :project_only, (-> { where(dashboard_type: DashboardContentProject::TYPE_NAME) })
 
-  safe_attributes 'name', 'description', 'visibility', 'enable_sidebar',
+  safe_attributes 'name', 'description', 'enable_sidebar',
                   'always_expose', 'project_id', 'author_id',
                   if: (lambda do |dashboard, user|
                     dashboard.new_record? ||
-                      user.allowed_to?(:save_dashboards, dashboard.project, global: true) ||
-                      user.allowed_to?(:manage_shared_dashboards, dashboard.project, global: true)
+                      user.allowed_to?(:save_dashboards, dashboard.project, global: true)
                   end)
 
   safe_attributes 'dashboard_type',
@@ -37,13 +36,18 @@ class Dashboard < ActiveRecord::Base
                     dashboard.new_record?
                   end)
 
-  safe_attributes 'system_default',
+  safe_attributes 'visibility',
                   if: (lambda do |dashboard, user|
-                    dashboard.new_record? ||
+                    user.allowed_to?(:manage_shared_dashboards, dashboard.project, global: true) ||
                       user.allowed_to?(:set_system_dashboards, dashboard.project, global: true)
                   end)
 
-  before_save :dashboard_type_check, :set_options_hash, :clear_unused_block_settings
+  safe_attributes 'system_default',
+                  if: (lambda do |dashboard, user|
+                    user.allowed_to?(:set_system_dashboards, dashboard.project, global: true)
+                  end)
+
+  before_save :dashboard_type_check, :visibility_check, :set_options_hash, :clear_unused_block_settings
 
   before_destroy :check_destroy_system_default
   after_save :update_system_defaults
@@ -247,19 +251,9 @@ class Dashboard < ActiveRecord::Base
     visibility != VISIBILITY_PRIVATE
   end
 
-  # Returns true if the query is available for all projects
-  def global?
-    new_record? ? project_id.nil? : project_id_in_database.nil?
-  end
-
-  def dashboard_type_name
-    test = 'dd'
-    l("label_dashboard_#{test}")
-  end
-
   def editable_by?(usr = User.current, prj = nil)
     prj ||= project
-    usr && (usr.allowed_to?(:manage_dashboards, prj, global: true) ||
+    usr && (usr.admin? ||
            (author == usr && usr.allowed_to?(:save_dashboards, prj, global: true)))
   end
 
@@ -268,7 +262,7 @@ class Dashboard < ActiveRecord::Base
   end
 
   def destroyable_by?(usr = User.current)
-    return unless editable_by?(usr, project) || usr.admin?
+    return unless editable_by?(usr, project)
 
     return !system_default? if dashboard_type != DashboardContentProject::TYPE_NAME
 
@@ -377,6 +371,17 @@ class Dashboard < ActiveRecord::Base
     scope = scope.where(project: project) if dashboard_type == DashboardContentProject::TYPE_NAME
 
     scope.update_all(system_default: false)
+  end
+
+  # check if permissions changed and dashboard settings have to be corrected
+  def visibility_check
+    user = User.current
+
+    return if user.allowed_to?(:manage_shared_dashboards, project, global: true) ||
+              user.allowed_to?(:set_system_dashboards, project, global: true)
+
+    # change to private
+    self.visibility = VISIBILITY_PRIVATE
   end
 
   def validate_visibility

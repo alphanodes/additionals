@@ -73,8 +73,9 @@ module DashboardsHelper
            dashboard_links(l(:label_shared_dashboard_plural),
                            dashboard,
                            dashboards.select(&:public?),
-                           project),
-           dashboard_info(dashboard)]
+                           project)]
+
+    out << dashboard_info(dashboard) if dashboard.always_expose? || !dashboard.system_default
 
     safe_join out
   end

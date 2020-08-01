@@ -5,9 +5,9 @@ api.array :dashboards, api_meta(total_count: @query_count, offset: @offset, limi
       api.name dashboard.name
       api.dashboard_type dashboard.dashboard_type
       api.description dashboard.description
+      api.enable_sidebar dashboard.enable_sidebar
       api.system_default dashboard.system_default
       api.always_expose dashboard.always_expose
-      api.enable_sidebar dashboard.enable_sidebar
       api.project(id: dashboard.project_id, name: dashboard.project.name) unless dashboard.project.nil?
       api.author id: dashboard.author_id, name: dashboard.author.name
       api.visibility dashboard.visibility

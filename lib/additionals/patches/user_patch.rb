@@ -21,7 +21,6 @@ module Additionals
 
           member_scope = Member.joins(:member_roles)
                                .joins(:project)
-                               .active
                                .where(projects: { status: Project::STATUS_ACTIVE })
                                .where(user_id: all.ids)
                                .where(member_roles: { role_id: role_ids })
@@ -31,8 +30,8 @@ module Additionals
             user_ids = member_scope.pluck(:user_id) | admin_ids
             where(id: user_ids)
           else
-            member_ids = member_scope.where(project_id: project).pluck(:user_id)
-            where(id: member_ids).or(where(id: admin_ids))
+            user_ids = member_scope.where(project_id: project).pluck(:user_id)
+            where(id: user_ids).or(where(id: admin_ids))
           end
         end
       end

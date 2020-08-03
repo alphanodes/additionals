@@ -1,7 +1,7 @@
 module AdditionalsIssuesHelper
   def author_options_for_select(project, entity = nil, permission = nil)
     scope = project.present? ? project.users.visible : User.active.visible
-    scope = User.with_permission(scope, permission, project) unless permission.nil?
+    scope = scope.with_permission(permission, project) unless permission.nil?
     authors = scope.sorted.to_a
 
     unless entity.nil?

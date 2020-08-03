@@ -1,0 +1,30 @@
+require File.expand_path('../../test_helper', __FILE__)
+
+class UserTest < Additionals::TestCase
+  fixtures :users, :email_addresses, :members, :projects, :roles, :member_roles, :auth_sources,
+           :trackers, :issue_statuses,
+           :projects_trackers,
+           :watchers,
+           :issue_categories, :enumerations, :issues,
+           :journals, :journal_details,
+           :groups_users,
+           :enabled_modules,
+           :tokens,
+           :user_preferences
+
+  def setup
+    prepare_tests
+  end
+
+  def test_with_permission
+    admin_user = User.generate!(admin: true)
+
+    users = User.visible.active.with_permission(:save_dashboards)
+    assert_equal 5, users.count
+    assert users.exists?(id: admin_user)
+  end
+
+  def test_with_permission_on_project
+    assert_equal 3, User.visible.active.with_permission(:save_dashboards, projects(:projects_001)).count
+  end
+end

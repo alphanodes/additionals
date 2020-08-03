@@ -8,26 +8,31 @@ module Additionals
       end
 
       class_methods do
-        def with_permission(users, permission, project)
+        # NOTE: this is a better (performance related) solution as:
+        # authors = users.to_a.select { |u| u.allowed_to? permission, project, global: project.nil? }
+        def with_permission(permission, project = nil)
           # Clear cache for debuging performance issue
           # ActiveRecord::Base.connection.clear_query_cache
-
-          # TODO: find a better solution with better performance
-          # authors = users.to_a.select { |u| u.allowed_to? permission, project, global: project.nil? }
 
           role_ids = Role.builtin(false).select { |p| p.permissions.include? permission }
           role_ids.map!(&:id)
 
           admin_ids = User.visible.active.where(admin: true).ids
 
-          member_scope = Member.joins(:member_roles).active.where(user_id: users.ids).where(member_roles: { role_id: role_ids })
+          member_scope = Member.joins(:member_roles)
+                               .joins(:project)
+                               .active
+                               .where(projects: { status: Project::STATUS_ACTIVE })
+                               .where(user_id: all.ids)
+                               .where(member_roles: { role_id: role_ids })
+                               .distinct
 
           if project.nil?
-            ids = member_scope.map(&:user_id) | admin_ids
-            users.where(id: ids)
+            ids = member_scope.pluck(:user_id) | admin_ids
+            where(id: ids)
           else
-            member_ids = member_scope.where(project_id: project).map(&:user_id)
-            users.where(id: member_ids).or(users.where(id: admin_ids))
+            member_ids = member_scope.where(project_id: project).pluck(:user_id)
+            where(id: member_ids).or(where(id: admin_ids))
           end
         end
       end

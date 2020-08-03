@@ -10,7 +10,7 @@ class RoleTest < Additionals::TestCase
     prepare_tests
   end
 
-  def test_create
+  def test_with_permission
     role = Role.new(name: 'role without hide')
     assert role.save
 

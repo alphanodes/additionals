@@ -96,6 +96,10 @@ Author
 .. hint::
   In general, dashboards can only be edited by a single author. Not by a group. Users with administrator rights can change the author in an emergency.
 
+.. note::
+  The selection of the Author depends on the set permission for a role in the administration area. Only those user roles with the minimum permission **Save dashboards** or users with administration rights are selectable.
+
+
 
 
 New Dashboard
@@ -215,7 +219,9 @@ Author
 .. hint::
   In general, dashboards can only be edited by a single author. Not by a group. Users with administrator rights can change the author in an emergency.
 
-
+.. note::
+  The selection of the Author depends on the set permission for a role in the administration area. Only those user roles with the minimum permission **Save dashboards** or users with administration rights are selectable.
+  
 .. note::
   Usually the system default "Project dashboard" looks like the standard project page of Redmine. It contains the same areas as "blocks". These can be repositioned or partially hidden. It is up to you if you want to change it. If not, just leave it the way they are.
 

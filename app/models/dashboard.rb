@@ -11,8 +11,7 @@ class Dashboard < ActiveRecord::Base
 
   serialize :options
 
-  has_many :dashboard_roles,
-           dependent: :destroy
+  has_many :dashboard_roles, dependent: :destroy
   has_many :roles, through: :dashboard_roles
 
   VISIBILITY_PRIVATE = 0

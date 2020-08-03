@@ -39,9 +39,10 @@
             '
             = l(:label_visibility_roles)
             ' :
+            - used_roles = @dashboard.roles.includes(:dashboard_roles)
             - Role.givable.sorted.each do |role|
               label.block.role-visibility
-                = check_box_tag 'dashboard[role_ids][]', role.id, @dashboard.roles.include?(role), id: nil
+                = check_box_tag 'dashboard[role_ids][]', role.id, used_roles.include?(role), id: nil
                 '
                 = role.name
             = hidden_field_tag 'dashboard[role_ids][]', ''
@@ -60,7 +61,7 @@
       - if @dashboard.persisted?
         p.object-select
           = f.select :author_id,
-                     author_options_for_select(@dashboard.project, @dashboard),
+                     author_options_for_select(@project, @dashboard, :save_dashboards),
                      required: true
 
   = call_hook :view_dashboard_form_details_bottom, dashboard: @dashboard, form: f
@@ -75,7 +76,6 @@ javascript:
 
     $("input[name='dashboard[system_default]']").change(function(){
       var selection = $('#dashboard_system_default').is(':checked');
-      console.log(selection)
       if (selection) {
         $('#always-expose').show();
       }

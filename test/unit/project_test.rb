@@ -56,4 +56,29 @@ class ProjectTest < Additionals::TestCase
     # make sure related data was removed
     assert_nil Dashboard.where(project_id: @ecookbook.id).first
   end
+
+  def test_users_by_role
+    users_by_role = Project.find(1).users_by_role
+    assert_kind_of Hash, users_by_role
+    role = Role.find(1)
+    assert_kind_of Array, users_by_role[role]
+    assert users_by_role[role].include?(User.find(2))
+  end
+
+  def test_users_by_role_with_hidden_role
+    Role.update_all users_visibility: 'members_of_visible_projects'
+
+    role = Role.find 2
+    role.hide = 1
+    role.save!
+
+    assert_equal 0, Role.where.not(users_visibility: 'members_of_visible_projects').count
+    assert role.hide
+
+    # User.current = User.find 2
+    assert_equal 1, Project.find(1).users_by_role.count
+
+    User.current = User.find 1
+    assert_equal 2, Project.find(1).users_by_role.count
+  end
 end

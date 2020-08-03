@@ -28,8 +28,8 @@ module Additionals
                                .distinct
 
           if project.nil?
-            ids = member_scope.pluck(:user_id) | admin_ids
-            where(id: ids)
+            user_ids = member_scope.pluck(:user_id) | admin_ids
+            where(id: user_ids)
           else
             member_ids = member_scope.where(project_id: project).pluck(:user_id)
             where(id: member_ids).or(where(id: admin_ids))

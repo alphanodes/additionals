@@ -102,7 +102,7 @@ class DashboardsController < ApplicationController
     @dashboard.safe_attributes = params[:dashboard]
     @dashboard.role_ids = params[:dashboard][:role_ids] if params[:dashboard].present?
 
-    @project = @dashboard.project if @project && @dashboard.project.present? && @dashboard.project != @project
+    @project = @dashboard.project if @project && @dashboard.project_id.present? && @dashboard.project != @project
     @allowed_projects = @dashboard.allowed_target_projects
 
     if @dashboard.save

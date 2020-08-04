@@ -26,8 +26,8 @@ module DashboardsHelper
 
   def sidebar_dashboards(dashboard, project = nil, user = nil)
     user ||= User.current
+    scope = Dashboard.visible.includes([:author])
 
-    scope = Dashboard.visible
     scope = if project.present?
               scope = scope.project_only
               scope.where(project_id: project.id)
@@ -112,14 +112,14 @@ module DashboardsHelper
           css << ' selected' if selected
           link = [dashboard_link(dashboard, project, class: css)]
           if dashboard.system_default?
-            link << if dashboard.project.present?
-                      font_awesome_icon('fas_cube',
-                                        title: l(:field_project_system_default),
-                                        class: 'dashboard-system-default project')
-                    else
+            link << if dashboard.project_id.nil?
                       font_awesome_icon('fas_cube',
                                         title: l(:field_system_default),
                                         class: 'dashboard-system-default global')
+                    else
+                      font_awesome_icon('fas_cube',
+                                        title: l(:field_project_system_default),
+                                        class: 'dashboard-system-default project')
                     end
           end
           concat tag.li safe_join(link)
@@ -191,15 +191,19 @@ module DashboardsHelper
 
   # Renders a single block
   def render_dashboard_block(block, dashboard, overwritten_settings = {})
-    content = render_dashboard_block_content block, dashboard, overwritten_settings
+    block_definition = dashboard.content.find_block block
+    unless block_definition
+      Rails.logger.warn "Unknown block \"#{block}\" found in #{dashboard.name} (id=#{dashboard.id})"
+      return
+    end
+
+    content = render_dashboard_block_content block, block_definition, dashboard, overwritten_settings
     return if content.blank?
 
     if dashboard.editable?
       icons = []
-      blocks = dashboard.content.available_blocks
-      block_specs = blocks[block]
-      if block_specs.present? && block_specs[:no_settings].blank?
-        if !block_specs.key?(:with_settings_if) || block_specs[:with_settings_if].call(@project)
+      if block_definition[:no_settings].blank?
+        if !block_definition.key?(:with_settings_if) || block_definition[:with_settings_if].call(@project)
           icons << link_to_function(l(:label_options),
                                     "$('##{block}-settings').toggle();",
                                     class: 'icon-only icon-settings',
@@ -396,14 +400,7 @@ module DashboardsHelper
   private
 
   # Renders a single block content
-  def render_dashboard_block_content(block, dashboard, overwritten_settings = {})
-    block_definition = dashboard.content.find_block block
-
-    unless block_definition
-      Rails.logger.warn "Unknown block \"#{block}\" found in #{dashboard.name} (id=#{dashboard.id})"
-      return
-    end
-
+  def render_dashboard_block_content(block, block_definition, dashboard, overwritten_settings = {})
     settings = dashboard.layout_settings block
     settings = settings.merge(overwritten_settings) if overwritten_settings.present?
 

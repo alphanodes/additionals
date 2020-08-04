@@ -3,7 +3,7 @@ class DashboardContent
 
   attr_accessor :user, :project
 
-  MAX_MULTIPLE_OCCURS = 5
+  MAX_MULTIPLE_OCCURS = 8
   DEFAULT_MAX_ENTRIES = 10
   RENDER_ASYNC_CACHE_EXPIRES_IN = 30
 

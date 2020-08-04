@@ -221,7 +221,7 @@ Author
 
 .. note::
   The selection of the Author depends on the set permission for a role in the administration area. Only those user roles with the minimum permission **Save dashboards** or users with administration rights are selectable.
-  
+
 .. note::
   Usually the system default "Project dashboard" looks like the standard project page of Redmine. It contains the same areas as "blocks". These can be repositioned or partially hidden. It is up to you if you want to change it. If not, just leave it the way they are.
 
@@ -320,11 +320,11 @@ General blocks for all areas (e.g. *Home* and *Project overview*) are:
 
 Query: Issues
   You can configure the block content by selecting the *Issue Query* you want to display and choosing a number for *Maximum entries* to be displayed.
-  Maximum number of such blocks per dashboard: **5**
+  Maximum number of such blocks per dashboard: **8**
 
 Long text
   You can add individual text passages to your dashboard and use the wiki editor for structuring this text.
-  Maximum number of such blocks per dashboard: **5**
+  Maximum number of such blocks per dashboard: **8**
 
 Latest news
   Add the latest news block to your dashboard to show your user's what is going on in your system. The block configuration allows you to edit the number of *Maximum entries*.
@@ -340,7 +340,7 @@ Static spent time
 
 Atom+RSS Feed
   You can configure the block content by changing the *Title*, adding an *URL* and choosing a number for *Maximum entries* to be displayed.
-  Maximum number of such blocks per dashboard: **5**
+  Maximum number of such blocks per dashboard: **8**
 
 
 Special blocks for the welcome page *Home* are:

@@ -71,7 +71,7 @@ class Dashboard < ActiveRecord::Base
       scope = where(dashboard_type: dashboard_type)
       scope = scope.where(project_id: project.id).or(scope.where(project_id: nil)) if project.present?
 
-      dashboard = scope.find_by(id: recently_id) if recently_id.present?
+      dashboard = scope.visible.find_by(id: recently_id) if recently_id.present?
 
       if dashboard.blank?
         scope = scope.where(system_default: true).or(scope.where(author_id: user.id))

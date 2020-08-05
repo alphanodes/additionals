@@ -31,7 +31,7 @@ module Additionals
               return render_404
             end
           else
-            @dashboard = Dashboard.default(DashboardContentWelcome::TYPE_NAME)
+            @dashboard = Dashboard.default DashboardContentWelcome::TYPE_NAME
           end
 
           resently_used_dashboard_save @dashboard

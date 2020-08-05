@@ -22,16 +22,19 @@ module Additionals
           member_scope = Member.joins(:member_roles)
                                .joins(:project)
                                .where(projects: { status: Project::STATUS_ACTIVE })
-                               .where(user_id: all.ids)
+                               .where(user_id: User.all)
                                .where(member_roles: { role_id: role_ids })
+                               .select(:user_id)
                                .distinct
 
           if project.nil?
-            user_ids = member_scope.pluck(:user_id) | admin_ids
-            where(id: user_ids)
+            # user_ids = member_scope.pluck(:user_id) | admin_ids
+            # where(id: user_ids)
+            where(id: member_scope).or(where(id: admin_ids))
           else
-            user_ids = member_scope.where(project_id: project).pluck(:user_id)
-            where(id: user_ids).or(where(id: admin_ids))
+            # user_ids = member_scope.where(project_id: project).pluck(:user_id)
+            # where(id: user_ids).or(where(id: admin_ids))
+            where(id: member_scope.where(project_id: project)).or(where(id: admin_ids))
           end
         end
       end

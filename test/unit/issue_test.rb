@@ -113,8 +113,7 @@ class IssueTest < Additionals::TestCase
   end
 
   def test_auto_assigned_to
-    with_additionals_settings(issue_status_change: '0',
-                              issue_auto_assign: '1',
+    with_additionals_settings(issue_auto_assign: 1,
                               issue_auto_assign_status: ['1'],
                               issue_auto_assign_role: '1') do
       issue = Issue.new(project_id: 1, tracker_id: 1, author_id: 3, subject: 'test_create')
@@ -124,10 +123,25 @@ class IssueTest < Additionals::TestCase
   end
 
   def test_disabled_auto_assigned_to
-    with_additionals_settings(issue_status_change: '0',
-                              issue_auto_assign: '0',
+    with_additionals_settings(issue_auto_assign: 0,
                               issue_auto_assign_status: ['1'],
                               issue_auto_assign_role: '1') do
+      issue = Issue.new(project_id: 1, tracker_id: 1, author_id: 3, subject: 'test_create')
+      assert issue.save
+      assert_nil issue.assigned_to_id
+    end
+
+    with_additionals_settings(issue_auto_assign: 1,
+                              issue_auto_assign_status: [],
+                              issue_auto_assign_role: '1') do
+      issue = Issue.new(project_id: 1, tracker_id: 1, author_id: 3, subject: 'test_create')
+      assert issue.save
+      assert_nil issue.assigned_to_id
+    end
+
+    with_additionals_settings(issue_auto_assign: 1,
+                              issue_auto_assign_status: ['1'],
+                              issue_auto_assign_role: '') do
       issue = Issue.new(project_id: 1, tracker_id: 1, author_id: 3, subject: 'test_create')
       assert issue.save
       assert_nil issue.assigned_to_id

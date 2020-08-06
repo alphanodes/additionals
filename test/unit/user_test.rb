@@ -1,16 +1,16 @@
 require File.expand_path('../../test_helper', __FILE__)
 
 class UserTest < Additionals::TestCase
-  fixtures :users, :email_addresses, :members, :projects, :roles, :member_roles, :auth_sources,
+  fixtures :users, :groups_users, :email_addresses,
+           :members, :projects, :roles, :member_roles, :auth_sources,
            :trackers, :issue_statuses,
            :projects_trackers,
            :watchers,
            :issue_categories, :enumerations, :issues,
            :journals, :journal_details,
-           :groups_users,
            :enabled_modules,
-           :tokens,
-           :user_preferences
+           :tokens, :user_preferences,
+           :dashboards, :dashboard_roles
 
   def setup
     prepare_tests

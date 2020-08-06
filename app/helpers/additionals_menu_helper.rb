@@ -2,13 +2,13 @@ module AdditionalsMenuHelper
   def additionals_top_menu_setup
     return unless User.current.try(:hrm_user_type_id).nil?
 
-    if Additionals.setting?(:remove_mypage)
+    if Additionals.setting? :remove_mypage
       Redmine::MenuManager.map(:top_menu).delete(:my_page) if Redmine::MenuManager.map(:top_menu).exists?(:my_page)
     else
       handle_top_menu_item(:my_page, url: my_page_path, after: :home, if: proc { User.current.logged? })
     end
 
-    if Additionals.setting?(:remove_help)
+    if Additionals.setting? :remove_help
       Redmine::MenuManager.map(:top_menu).delete(:help) if Redmine::MenuManager.map(:top_menu).exists?(:help)
     elsif User.current.logged?
       handle_top_menu_item(:help, url: '#', symbol: 'fas_question', last: true)
@@ -48,7 +48,7 @@ module AdditionalsMenuHelper
       menu_options[:before] = :help
     end
 
-    Redmine::MenuManager.map(:top_menu).push(menu_name, item[:url], menu_options)
+    Redmine::MenuManager.map(:top_menu).push menu_name, item[:url], menu_options
   end
 
   def render_custom_top_menu_item
@@ -63,7 +63,7 @@ module AdditionalsMenuHelper
                      .ids
 
     items.each do |item|
-      additionals_custom_top_menu_item(item, user_roles)
+      additionals_custom_top_menu_item item, user_roles
     end
   end
 
@@ -72,10 +72,10 @@ module AdditionalsMenuHelper
     Additionals::MAX_CUSTOM_MENU_ITEMS.times do |num|
       menu_name = "custom_menu#{num}"
       item = { menu_name: menu_name.to_sym,
-               url: Additionals.setting(menu_name + '_url'),
-               name: Additionals.setting(menu_name + '_name'),
-               title: Additionals.setting(menu_name + '_title'),
-               roles: Additionals.setting(menu_name + '_roles') }
+               url: Additionals.setting("#{menu_name}_url"),
+               name: Additionals.setting("#{menu_name}_name"),
+               title: Additionals.setting("#{menu_name}_title"),
+               roles: Additionals.setting("#{menu_name}_roles") }
 
       if item[:name].present? && item[:url].present? && item[:roles].present?
         items << item
@@ -179,7 +179,7 @@ module AdditionalsMenuHelper
       s << if item[:title] == '-'
              tag.li(tag.hr)
            else
-             html_options = { class: 'help_item_' + idx.to_s }
+             html_options = { class: "help_item_#{idx}" }
              if item[:url].include? '://'
                html_options[:class] << ' external'
                html_options[:target] = '_blank'

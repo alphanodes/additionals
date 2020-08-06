@@ -7,7 +7,7 @@ module Additionals
                          issue_path(options[:issue]),
                          class: options[:issue].css_classes)
       elsif options[:user]
-        title << avatar(options[:user], size: 50) + ' ' + options[:user].name
+        title << safe_join([avatar(options[:user], size: 50), options[:user].name], ' ')
       end
       title << options[:name] if options[:name]
       title << h(options[:query].name) if options[:query] && !options[:query].new_record?
@@ -28,9 +28,9 @@ module Additionals
 
     def additionals_i18n_title(options, title)
       i18n_title = "#{title}_#{::I18n.locale}".to_sym
-      if options.key?(i18n_title)
+      if options.key? i18n_title
         options[i18n_title]
-      elsif options.key?(title)
+      elsif options.key? title
         options[title]
       end
     end
@@ -41,11 +41,11 @@ module Additionals
       if comment_id.nil?
         content
       else
-        render_issue_with_comment issue, content, comment_id, only_path
+        render_issue_with_comment issue, content, comment_id, only_path: only_path
       end
     end
 
-    def render_issue_with_comment(issue, content, comment_id, only_path = false)
+    def render_issue_with_comment(issue, content, comment_id, only_path: false)
       journal = issue.journals.select(:notes, :private_notes, :user_id).offset(comment_id - 1).limit(1).first
       comment = if journal
                   user = User.current
@@ -236,18 +236,18 @@ module Additionals
     end
 
     def additionals_include_js(js_name)
-      if additionals_already_loaded('js', js_name)
+      if additionals_already_loaded 'js', js_name
         ''
       else
-        javascript_include_tag(js_name, plugin: 'additionals') + "\n"
+        javascript_include_tag js_name, plugin: 'additionals'
       end
     end
 
     def additionals_include_css(css)
-      if additionals_already_loaded('css', css)
+      if additionals_already_loaded 'css', css
         ''
       else
-        stylesheet_link_tag(css, plugin: 'additionals') + "\n"
+        stylesheet_link_tag css, plugin: 'additionals'
       end
     end
 
@@ -258,15 +258,15 @@ module Additionals
     end
 
     def additionals_load_clipboardjs
-      additionals_include_js('clipboard.min')
+      additionals_include_js 'clipboard.min'
     end
 
     def additionals_load_observe_field
-      additionals_include_js('additionals_observe_field')
+      additionals_include_js 'additionals_observe_field'
     end
 
     def additionals_load_font_awesome
-      additionals_include_css('fontawesome-all.min')
+      additionals_include_css 'fontawesome-all.min'
     end
 
     def additionals_load_chartjs
@@ -275,11 +275,11 @@ module Additionals
     end
 
     def additionals_load_chartjs_datalabels
-      additionals_include_js('chartjs-plugin-datalabels.min')
+      additionals_include_js 'chartjs-plugin-datalabels.min'
     end
 
     def additionals_load_chartjs_colorschemes
-      additionals_include_js('chartjs-plugin-colorschemes.min')
+      additionals_include_js 'chartjs-plugin-colorschemes.min'
     end
 
     def additionals_load_mermaid
@@ -288,11 +288,11 @@ module Additionals
     end
 
     def additionals_load_d3
-      additionals_include_js('d3.min')
+      additionals_include_js 'd3.min'
     end
 
     def additionals_load_d3plus
-      additionals_include_js('d3plus.full.min')
+      additionals_include_js 'd3plus.full.min'
     end
 
     def user_with_avatar(user, options = {})

@@ -21,68 +21,67 @@ module Additionals
           widget_type = 'chart'
         else
           widget_type = options[:type]
-          options.delete(:type)
+          options.delete :type
         end
-
-        base_url = 'https://widgets.cryptocompare.com/'
 
         case widget_type
         when 'chart'
-          url = base_url + 'serve/v2/coin/chart'
+          url = 'serve/v2/coin/chart'
         when 'news'
           options[:feedType] = 'CoinTelegraph' if options[:feedType].blank?
-          url = base_url + 'serve/v1/coin/feed'
+          url = 'serve/v1/coin/feed'
         when 'list'
-          options[:tsyms] = Additionals.crypto_default(options, :tsyms, 'EUR,USD')
-          options.delete(:tsym)
-          url = base_url + 'serve/v1/coin/list'
+          options[:tsyms] = Additionals.crypto_default options, :tsyms, 'EUR,USD'
+          options.delete :tsym
+          url = 'serve/v1/coin/list'
         when 'titles'
-          options[:tsyms] = Additionals.crypto_default(options, :tsyms, 'EUR,USD')
-          options.delete(:tsym)
-          url = base_url + 'serve/v1/coin/tiles'
+          options[:tsyms] = Additionals.crypto_default options, :tsyms, 'EUR,USD'
+          options.delete :tsym
+          url = 'serve/v1/coin/tiles'
         when 'tabbed'
-          options[:fsyms] = Additionals.crypto_default(options, :fsyms, 'BTC,ETH,LTC')
-          options[:tsyms] = Additionals.crypto_default(options, :tsyms, 'EUR,USD')
-          options.delete(:fsym)
-          options.delete(:tsym)
-          url = base_url + 'serve/v1/coin/multi'
+          options[:fsyms] = Additionals.crypto_default options, :fsyms, 'BTC,ETH,LTC'
+          options[:tsyms] = Additionals.crypto_default options, :tsyms, 'EUR,USD'
+          options.delete :fsym
+          options.delete :tsym
+          url = 'serve/v1/coin/multi'
         when 'header', 'header_v1'
-          options[:tsyms] = Additionals.crypto_default(options, :tsyms, 'EUR,USD')
-          options.delete(:tsym)
-          url = base_url + 'serve/v1/coin/header'
+          options[:tsyms] = Additionals.crypto_default options, :tsyms, 'EUR,USD'
+          options.delete :tsym
+          url = 'serve/v1/coin/header'
         when 'header_v2'
-          options[:fsyms] = Additionals.crypto_default(options, :fsyms, 'BTC,ETH,LTC')
-          options[:tsyms] = Additionals.crypto_default(options, :tsyms, 'EUR,USD')
-          options.delete(:fsym)
-          options.delete(:tsym)
-          url = base_url + 'serve/v2/coin/header'
+          options[:fsyms] = Additionals.crypto_default options, :fsyms, 'BTC,ETH,LTC'
+          options[:tsyms] = Additionals.crypto_default options, :tsyms, 'EUR,USD'
+          options.delete :fsym
+          options.delete :tsym
+          url = 'serve/v2/coin/header'
         when 'header_v3'
-          options[:fsyms] = Additionals.crypto_default(options, :fsyms, 'BTC,ETH,LTC')
-          options[:tsyms] = Additionals.crypto_default(options, :tsyms, 'EUR')
-          options.delete(:fsym)
-          options.delete(:tsym)
-          url = base_url + 'serve/v3/coin/header'
+          options[:fsyms] = Additionals.crypto_default options, :fsyms, 'BTC,ETH,LTC'
+          options[:tsyms] = Additionals.crypto_default options, :tsyms, 'EUR'
+          options.delete :fsym
+          options.delete :tsym
+          url = 'serve/v3/coin/header'
         when 'summary'
-          options[:tsyms] = Additionals.crypto_default(options, :tsyms, 'EUR,USD')
-          options.delete(:tsym)
-          url = base_url + 'serve/v1/coin/summary'
+          options[:tsyms] = Additionals.crypto_default options, :tsyms, 'EUR,USD'
+          options.delete :tsym
+          url = 'serve/v1/coin/summary'
         when 'historical'
-          url = base_url + 'serve/v1/coin/histo_week'
+          url = 'serve/v1/coin/histo_week'
         when 'converter'
-          options[:tsyms] = Additionals.crypto_default(options, :tsyms, 'EUR,USD')
-          options.delete(:tsym)
-          url = base_url + 'serve/v1/coin/converter'
+          options[:tsyms] = Additionals.crypto_default options, :tsyms, 'EUR,USD'
+          options.delete :tsym
+          url = 'serve/v1/coin/converter'
         when 'advanced'
-          options[:tsyms] = Additionals.crypto_default(options, :tsyms, 'EUR,USD')
-          options.delete(:tsym)
-          url = base_url + 'serve/v3/coin/chart'
+          options[:tsyms] = Additionals.crypto_default options, :tsyms, 'EUR,USD'
+          options.delete :tsym
+          url = 'serve/v3/coin/chart'
         else
           raise 'type is not supported'
         end
 
+        params = options.map { |k, v| "#{k}=#{v}" }.join('&')
         render partial: 'wiki/cryptocompare',
                formats: [:html],
-               locals: { url: url + '?' + options.map { |k, v| "#{k}=#{v}" }.join('&') }
+               locals: { url: "https://widgets.cryptocompare.com/#{url}?#{params}" }
       end
     end
   end

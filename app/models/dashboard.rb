@@ -343,7 +343,8 @@ class Dashboard < ActiveRecord::Base
   def validate_roles
     return if visibility != VISIBILITY_ROLES || roles.present?
 
-    errors.add(:base, l(:label_role_plural) + ' ' + l('activerecord.errors.messages.blank'))
+    errors.add(:base,
+               [l(:label_role_plural), l('activerecord.errors.messages.blank')].join(' '))
   end
 
   def validate_system_default

@@ -32,9 +32,9 @@ module Additionals
 
         v = args[0]
         src = if autoplay
-                '//www.youtube.com/embed/' + v + '?autoplay=1'
+                "//www.youtube.com/embed/#{v}?autoplay=1"
               else
-                '//www.youtube-nocookie.com/embed/' + v
+                "//www.youtube-nocookie.com/embed/#{v}"
               end
         tag.iframe width: width, height: height, src: src, frameborder: 0, allowfullscreen: 'true'
       end

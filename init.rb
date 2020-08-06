@@ -10,9 +10,9 @@ Redmine::Plugin.register :additionals do
 
   default_settings = Additionals.load_settings
   5.times do |i|
-    default_settings['custom_menu' + i.to_s + '_name'] = ''
-    default_settings['custom_menu' + i.to_s + '_url'] = ''
-    default_settings['custom_menu' + i.to_s + '_title'] = ''
+    default_settings["custom_menu#{i}_name"] = ''
+    default_settings["custom_menu#{i}_url"] = ''
+    default_settings["custom_menu#{i}_title"] = ''
   end
 
   settings(default: default_settings, partial: 'additionals/settings/additionals')

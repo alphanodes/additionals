@@ -36,7 +36,10 @@ module Additionals
                end
 
         s = []
-        s << avatar(user, size: 14) + ' ' if options[:avatar].present? && options[:avatar]
+        if options[:avatar].present? && options[:avatar]
+          s << avatar(user, size: 14)
+          s << ' '
+        end
 
         s << if user.active?
                link_to(h(name), user_url(user, only_path: controller_path != 'mailer'), class: user.css_classes)

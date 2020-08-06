@@ -26,11 +26,9 @@ module Additionals
         raise 'The correct usage is {{slideshare(<key>[, width=x, height=y, slide=number])}}' if args.empty?
 
         v = args[0]
-        src = if slide.positive?
-                '//www.slideshare.net/slideshow/embed_code/' + v + '?startSlide=' + slide.to_s
-              else
-                '//www.slideshare.net/slideshow/embed_code/' + v
-              end
+        src = "//www.slideshare.net/slideshow/embed_code/#{v}"
+        src += "?startSlide=#{slide}" if slide.positive?
+
         tag.iframe width: width, height: height, src: src, frameborder: 0, allowfullscreen: 'true'
       end
     end

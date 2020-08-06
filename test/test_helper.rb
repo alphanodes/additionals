@@ -4,12 +4,12 @@ if ENV['JENKINS']
   require 'simplecov'
   SimpleCov.start :rails do
     add_filter 'init.rb'
-    root File.expand_path(File.dirname(__FILE__) + '/..')
+    root File.expand_path "#{File.dirname(__FILE__)}/.."
   end
 end
 
-require File.expand_path(File.dirname(__FILE__) + '/../../../test/test_helper')
-require File.expand_path(File.dirname(__FILE__) + '/global_test_helper')
+require File.expand_path "#{File.dirname(__FILE__)}/../../../test/test_helper"
+require File.expand_path "#{File.dirname(__FILE__)}/global_test_helper"
 
 module Additionals
   module TestHelper
@@ -28,14 +28,14 @@ module Additionals
       end
 
       Project.where(id: [1, 2]).each do |project|
-        EnabledModule.create(project: project, name: 'issue_tracking')
+        EnabledModule.create project: project, name: 'issue_tracking'
       end
     end
   end
 
   module PluginFixturesLoader
     def fixtures(*table_names)
-      dir = File.dirname(__FILE__) + '/fixtures/'
+      dir = "#{File.dirname(__FILE__)}/fixtures/"
       table_names.each do |x|
         ActiveRecord::FixtureSet.create_fixtures(dir, x) if File.exist?("#{dir}/#{x}.yml")
       end

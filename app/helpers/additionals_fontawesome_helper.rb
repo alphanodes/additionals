@@ -14,7 +14,7 @@ module AdditionalsFontawesomeHelper
     post_text = ''
     options[:'aria-hidden'] = 'true'
     options[:class] = if options[:class].present?
-                        info[:classes] + ' ' + options[:class]
+                        "#{info[:classes]} #{options[:class]}"
                       else
                         info[:classes]
                       end

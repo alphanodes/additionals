@@ -3,10 +3,11 @@ module AdditionalsJournalsHelper
 
   # Returns the textual representation of a journal details
   # as an array of strings
-  def entity_details_to_strings(entity, details, no_html = false, options = {})
+  def entity_details_to_strings(entity, details, options = {})
     entity_type = entity.model_name.param_key
     show_detail_method = "#{entity_type}_show_detail"
     options[:only_path] = options[:only_path] != false
+    no_html = options.delete(:no_html)
     strings = []
     values_by_field = {}
 

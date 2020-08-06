@@ -32,9 +32,9 @@ module Additionals
 
         v = args[0]
         src = if autoplay
-                '//player.vimeo.com/video/' + v + '?autoplay=1'
+                "//player.vimeo.com/video/#{v}?autoplay=1"
               else
-                '//player.vimeo.com/video/' + v
+                "//player.vimeo.com/video/#{v}"
               end
         tag.iframe width: width, height: height, src: src, frameborder: 0, allowfullscreen: 'true'
       end

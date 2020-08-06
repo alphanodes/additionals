@@ -52,7 +52,7 @@ module DashboardsHelper
       out << if dashboard.id == active_dashboard.id
                link_to dashboard_name, '#',
                        onclick: 'return false;',
-                       class: base_css + ' disabled'
+                       class: "#{base_css} disabled"
              else
                dashboard_link dashboard, project,
                               class: css_class,

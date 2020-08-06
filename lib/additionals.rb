@@ -3,7 +3,7 @@ module Additionals
   SELECT2_INIT_ENTRIES = 20
 
   GOTO_LIST = " \xc2\xbb".freeze
-  LIST_SEPARATOR = GOTO_LIST + ' '
+  LIST_SEPARATOR = "#{GOTO_LIST} ".freeze
 
   RenderAsync.configuration.jquery = true
 
@@ -133,7 +133,7 @@ module Additionals
     end
 
     def load_settings(plugin_id = 'additionals')
-      cached_settings_name = '@load_settings_' + plugin_id
+      cached_settings_name = "@load_settings_#{plugin_id}"
       cached_settings = instance_variable_get(cached_settings_name)
       if cached_settings.nil?
         data = YAML.safe_load(ERB.new(IO.read(Rails.root.join("plugins/#{plugin_id}/config/settings.yml"))).result) || {}

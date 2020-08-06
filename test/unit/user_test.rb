@@ -14,6 +14,7 @@ class UserTest < Additionals::TestCase
 
   def setup
     prepare_tests
+    User.current = users :users_002
   end
 
   def test_with_permission

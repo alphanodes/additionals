@@ -54,7 +54,6 @@ Install ``additionals`` plugin for `Redmine`_.
   $ git clone -b v2-stable git://github.com/alphanodes/additionals.git plugins/additionals
   $ bundle install --without development test
   $ bundle exec rake redmine:plugins:migrate RAILS_ENV=production
-  $ bundle exec rake redmine:additionals:seed RAILS_ENV=production
   $
   $ # if you want to use smiley/emoji legacy support, you have to put emoji icons to
   $ # $REDMINE_ROOT/public/images/emoji

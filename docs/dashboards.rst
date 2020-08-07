@@ -37,9 +37,9 @@ With the *Dashboard* of the *additionals* plugin for Redmine you can for example
 
 If you want to use the dashboard functionality you need to configure the permissions for the respective user roles, which are:
 
-*  Set system dashboards
-*  Manage shared dashboards
 *  Save dashboards
+*  Set system dashboards
+*  Share dashboards
 
 
 Dashboard: Home

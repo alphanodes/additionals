@@ -175,9 +175,9 @@ es:
   permission_edit_issue_author: Editar autor de las peticiones
   permission_issue_timelog_never_required: Registro de tiempo no requerido
   permission_log_time_on_closed_issues: Registrar tiempo en peticiones cerradas
-  permission_share_dashboards: Share dashboards
-  permission_save_dashboards: Save dashboards
-  permission_set_system_dashboards: Set system dashboards
+  permission_share_dashboards: "Compartir los tableros"
+  permission_save_dashboards: "Guardar los tableros"
+  permission_set_system_dashboards: "Establecer los tableros del sistema"
   permission_show_hidden_roles_in_memberbox: Mostrar roles ocultos
   remove_help_info: "Quitar el elemento 'Ayuda' del menú superior."
   remove_mypage_info: 'A veces es útil ocultar el enlace a "Mi Página" para incluir el tablero de tareas. La ventaja del tablero de tareas que que las peticiones se muestran de acuerdo a su estado.'

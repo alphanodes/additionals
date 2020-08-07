@@ -21,7 +21,7 @@
       - else
         = hidden_field_tag 'dashboard[project_id]', @project&.id
 
-      - if User.current.allowed_to?(:manage_shared_dashboards, @project, global: true) || \
+      - if User.current.allowed_to?(:share_dashboards, @project, global: true) || \
            User.current.allowed_to?(:set_system_dashboards, @project, global: true)
 
         p

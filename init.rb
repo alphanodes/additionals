@@ -22,7 +22,7 @@ Redmine::Plugin.register :additionals do
              {},
              require: :loggedin,
              read: true
-  permission :manage_shared_dashboards,
+  permission :share_dashboards,
              { dashboards: %i[index new create edit update destroy] },
              require: :member,
              read: true

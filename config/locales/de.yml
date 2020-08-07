@@ -175,7 +175,7 @@ de:
   permission_edit_issue_author: Ticket Autor bearbeiten
   permission_issue_timelog_never_required: Zeitbuchungen nicht erforderlich
   permission_log_time_on_closed_issues: Aufwände buchen auf geschlossene Tickets
-  permission_manage_shared_dashboards: Geteilte Dashboards verwalten
+  permission_share_dashboards: Dashboards teilen
   permission_save_dashboards: Dashboards anlegen
   permission_set_system_dashboards: System Dashboards festlegen
   permission_show_hidden_roles_in_memberbox: Versteckte Rollen anzeigen

@@ -175,7 +175,7 @@ es:
   permission_edit_issue_author: Editar autor de las peticiones
   permission_issue_timelog_never_required: Registro de tiempo no requerido
   permission_log_time_on_closed_issues: Registrar tiempo en peticiones cerradas
-  permission_manage_shared_dashboards: Manage shared dashboards
+  permission_share_dashboards: Share dashboards
   permission_save_dashboards: Save dashboards
   permission_set_system_dashboards: Set system dashboards
   permission_show_hidden_roles_in_memberbox: Mostrar roles ocultos

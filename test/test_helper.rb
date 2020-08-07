@@ -22,7 +22,7 @@ module Additionals
       end
 
       Role.where(id: [1]).each do |r|
-        r.permissions << :manage_shared_dashboards
+        r.permissions << :share_dashboards
         r.permissions << :set_system_dashboards
         r.save
       end

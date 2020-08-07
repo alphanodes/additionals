@@ -32,6 +32,42 @@ class DashboardTest < Additionals::TestCase
     assert dashboard.save
   end
 
+  def test_do_not_create_dashboard_for_role_without_roles
+    dashboard = Dashboard.new name: 'dashboard for roles',
+                              dashboard_type: DashboardContentWelcome::TYPE_NAME,
+                              author_id: 2,
+                              visibility: Dashboard::VISIBILITY_ROLES
+
+    assert_not dashboard.valid?
+  end
+
+  def test_create_dashboard_with_roles
+    dashboard = Dashboard.new name: 'dashboard for roles',
+                              dashboard_type: DashboardContentWelcome::TYPE_NAME,
+                              author_id: 2,
+                              visibility: Dashboard::VISIBILITY_ROLES,
+                              roles: Role.where(id: [1, 3]).to_a
+
+    assert dashboard.save
+    dashboard.reload
+
+    assert_equal [1, 3], dashboard.role_ids.sort
+  end
+
+  def test_create_dashboard_with_unused_role_should_visible_for_author
+    used_role = Role.generate!
+    dashboard = Dashboard.new name: 'dashboard for unused role',
+                              dashboard_type: DashboardContentWelcome::TYPE_NAME,
+                              author_id: 2,
+                              visibility: Dashboard::VISIBILITY_ROLES,
+                              roles: [used_role]
+    assert dashboard.save
+    dashboard.reload
+
+    assert_equal [used_role.id], dashboard.role_ids
+    assert dashboard.visible?
+  end
+
   def test_system_default_welcome_should_exist
     assert_equal 1, Dashboard.welcome_only.where(system_default: true).count
   end

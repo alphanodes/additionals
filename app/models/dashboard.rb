@@ -35,9 +35,9 @@ class Dashboard < ActiveRecord::Base
                     dashboard.new_record?
                   end)
 
-  safe_attributes 'visibility',
+  safe_attributes 'visibility', 'role_ids',
                   if: (lambda do |dashboard, user|
-                    user.allowed_to?(:manage_shared_dashboards, dashboard.project, global: true) ||
+                    user.allowed_to?(:share_dashboards, dashboard.project, global: true) ||
                       user.allowed_to?(:set_system_dashboards, dashboard.project, global: true)
                   end)
 
@@ -157,6 +157,7 @@ class Dashboard < ActiveRecord::Base
   def visible?(user = User.current)
     return true if user.admin?
     return false unless project.nil? || user.allowed_to?(:view_project, project)
+    return true if user == author
 
     case visibility
     when VISIBILITY_PUBLIC
@@ -167,8 +168,6 @@ class Dashboard < ActiveRecord::Base
       else
         user.memberships.joins(:member_roles).where(member_roles: { role_id: roles.map(&:id) }).any?
       end
-    else
-      user == author
     end
   end
 
@@ -335,7 +334,7 @@ class Dashboard < ActiveRecord::Base
   end
 
   def remove_unused_role_relations
-    return unless saved_change_to_visibility? && visibility == VISIBILITY_ROLES
+    return if !saved_change_to_visibility? || visibility == VISIBILITY_ROLES
 
     roles.clear
   end
@@ -378,7 +377,7 @@ class Dashboard < ActiveRecord::Base
     user = User.current
 
     return if system_default? ||
-              user.allowed_to?(:manage_shared_dashboards, project, global: true) ||
+              user.allowed_to?(:share_dashboards, project, global: true) ||
               user.allowed_to?(:set_system_dashboards, project, global: true)
 
     # change to private

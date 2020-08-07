@@ -175,7 +175,7 @@ en:
   permission_edit_issue_author: Edit issue author
   permission_issue_timelog_never_required: Time logging not required
   permission_log_time_on_closed_issues: Log time on closed issues
-  permission_manage_shared_dashboards: Manage shared dashboards
+  permission_share_dashboards: Share dashboards
   permission_save_dashboards: Save dashboards
   permission_set_system_dashboards: Set system dashboards
   permission_show_hidden_roles_in_memberbox: Show hidden roles

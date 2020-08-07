@@ -175,7 +175,7 @@ cs:
   permission_edit_issue_author: "Upravit autora úkolu"
   permission_issue_timelog_never_required: "Časování není nutné"
   permission_log_time_on_closed_issues: "Přihlaste se k uzavřeným úkolům"
-  permission_manage_shared_dashboards: Manage shared dashboards
+  permission_share_dashboards: Share dashboards
   permission_save_dashboards: Save dashboards
   permission_set_system_dashboards: Set system dashboards
   permission_show_hidden_roles_in_memberbox: "Zobrazit skryté role"

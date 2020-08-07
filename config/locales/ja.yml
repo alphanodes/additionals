@@ -175,9 +175,9 @@ ja:
   permission_edit_issue_author: "著者を編集"
   permission_issue_timelog_never_required: '時間の予約は必要ありません'
   permission_log_time_on_closed_issues: "Log time on closed issues"
-  permission_share_dashboards: Share dashboards
-  permission_save_dashboards: Save dashboards
-  permission_set_system_dashboards: Set system dashboards
+  permission_share_dashboards: "ダッシュボードの共有"
+  permission_save_dashboards: "ダッシュボードの保存"
+  permission_set_system_dashboards: "システムダッシュボードの設定"
   permission_show_hidden_roles_in_memberbox: "Show hidden roles"
   remove_help_info: "ヘルプ」項目をトップメニューから外す"
   remove_mypage_info: 'タスクボードを導入するために、「マイ・ページ」のリンクを隠した方が便利な場合があります。タスクボードにより、ステータス毎の順番並び替えに出来るメリットがあります。'

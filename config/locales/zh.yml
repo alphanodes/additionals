@@ -175,9 +175,9 @@ zh:
   permission_edit_issue_author: 修改已创建问题的问题作者
   permission_issue_timelog_never_required: 无需登记工时
   permission_log_time_on_closed_issues: "在已关闭的问题中登记工时"
-  permission_share_dashboards: Share dashboards
-  permission_save_dashboards: Save dashboards
-  permission_set_system_dashboards: Set system dashboards
+  permission_share_dashboards: "共享仪表盘"
+  permission_save_dashboards: "保存仪表盘"
+  permission_set_system_dashboards: "设置系统仪表盘"
   permission_show_hidden_roles_in_memberbox: "显示隐藏的角色"
   remove_help_info: "从顶部菜单栏中隐藏 '帮助' 菜单项。"
   remove_mypage_info: '有时，为了引入敏捷的任务看板，隐藏【我的工作台】链接可能会更有用。任务看板的优势即是可以根据状态罗列并快速访问。'

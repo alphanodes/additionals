@@ -175,9 +175,9 @@ ru:
   permission_edit_issue_author: "Редактирование заданий автора"
   permission_issue_timelog_never_required: "Регистрация времени не требуется"
   permission_log_time_on_closed_issues: "Время регистрации на закрытых заданиях"
-  permission_share_dashboards: Share dashboards
-  permission_save_dashboards: Save dashboards
-  permission_set_system_dashboards: Set system dashboards
+  permission_share_dashboards: "Приборные панели"
+  permission_save_dashboards: "Сохранить приборные панели"
+  permission_set_system_dashboards: "Установочные системные панели"
   permission_show_hidden_roles_in_memberbox: "Показать скрытые роли"
   remove_help_info: "Удалить пункт 'Help' из верхнего меню."
   remove_mypage_info: "Иногда бывает полезнее скрыть ссылку \"My Page\", чтобы представить панель задач. Преимуществом доски задач является то, что вопросы могут быть перечислены в соответствии с их статусом."

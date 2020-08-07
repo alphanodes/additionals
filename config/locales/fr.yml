@@ -175,9 +175,9 @@ fr:
   permission_edit_issue_author: "Modifier l'auteur"
   permission_issue_timelog_never_required: Enregistrements de temps non requis
   permission_log_time_on_closed_issues: "Enregistrer le temps passé sur les questions fermées"
-  permission_share_dashboards: Share dashboards
-  permission_save_dashboards: Save dashboards
-  permission_set_system_dashboards: Set system dashboards
+  permission_share_dashboards: "Partager les tableaux de bord"
+  permission_save_dashboards: "Sauvegarder les tableaux de bord"
+  permission_set_system_dashboards: "Définir les tableaux de bord du système"
   permission_show_hidden_roles_in_memberbox: "Afficher les rôles cachés"
   remove_help_info: "Remove the item 'Help' from the top menu."
   remove_mypage_info: 'Sometimes it is more useful to hide the "My Page" link in order to introduce the task board. The task board advantage is that issues can be listed according to their status.'

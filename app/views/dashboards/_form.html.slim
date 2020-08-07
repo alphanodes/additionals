@@ -39,10 +39,9 @@
             '
             = l(:label_visibility_roles)
             ' :
-            - used_roles = @dashboard.roles.includes(:dashboard_roles)
             - Role.givable.sorted.each do |role|
               label.block.role-visibility
-                = check_box_tag 'dashboard[role_ids][]', role.id, used_roles.include?(role), id: nil
+                = check_box_tag 'dashboard[role_ids][]', role.id, @dashboard.role_ids.include?(role.id), id: nil
                 '
                 = role.name
             = hidden_field_tag 'dashboard[role_ids][]', ''

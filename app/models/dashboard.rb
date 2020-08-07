@@ -3,6 +3,8 @@ class Dashboard < ActiveRecord::Base
   include Redmine::SafeAttributes
   include Additionals::EntityMethods
 
+  class SystemDefaultChangeException < StandardError; end
+
   belongs_to :project
   belongs_to :author, class_name: 'User'
 
@@ -57,7 +59,7 @@ class Dashboard < ActiveRecord::Base
   validate :validate_roles
   validate :validate_visibility
   validate :validate_name
-  # validate :validate_system_default
+  validate :validate_system_default
 
   class << self
     def system_default(dashboard_type)
@@ -262,10 +264,10 @@ class Dashboard < ActiveRecord::Base
   def destroyable_by?(usr = User.current)
     return unless editable_by?(usr, project)
 
-    return !system_default? if dashboard_type != DashboardContentProject::TYPE_NAME
+    return !system_default_was if dashboard_type != DashboardContentProject::TYPE_NAME
 
     # project dashboards needs special care
-    project.present? || !system_default?
+    project.present? || !system_default_was
   end
 
   def destroyable?
@@ -347,9 +349,9 @@ class Dashboard < ActiveRecord::Base
   end
 
   def validate_system_default
-    return if !system_default? || User.current.allowed_to?(:set_system_dashboards, project, global: true)
+    return if new_record? || system_default_was == system_default || system_default?
 
-    raise 'no permission to set system default'
+    raise SystemDefaultChangeException
   end
 
   def check_destroy_system_default

@@ -243,4 +243,23 @@ class DashboardTest < Additionals::TestCase
       end
     end
   end
+
+  def test_disable_welcome_system_default_on_system_default_dashboard_should_not_possible
+    dashboard = dashboards :system_default_welcome
+    assert dashboard.system_default
+
+    dashboard.system_default = false
+    assert_raise Dashboard::SystemDefaultChangeException do
+      dashboard.save!
+    end
+  end
+
+  def test_disable_project_system_default_on_system_default_dashboard_should_not_possible
+    dashboard = dashboards :system_default_project
+
+    dashboard.system_default = false
+    assert_raise Dashboard::SystemDefaultChangeException do
+      dashboard.save!
+    end
+  end
 end

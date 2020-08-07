@@ -1,4 +1,4 @@
-- query = klass.visible.find_by(id: settings[:query_id])
+- query = klass.find_by(id: settings[:query_id])
 - query.column_names = settings[:columns].map(&:to_sym) if settings[:columns].present?
 
 div id="#{block}-settings" style="#{'display: none;' if hide}"

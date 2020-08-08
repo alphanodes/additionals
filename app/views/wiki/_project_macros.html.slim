@@ -4,7 +4,7 @@
 
   table.list.projects
     - project_tree(@projects, init_level: false) do |project, level|
-      tr id="project-#{project.id}" class="#{project_list_css_classes(project, level)}"
+      tr id="project-#{project.id}" class="#{project_list_css_classes project, level}"
         td.name
           span[style='font-weight: bold;']
             - if Redmine::Plugin.installed? 'redmine_reporting'

@@ -2,7 +2,7 @@
   - if list_title
     h3 = list_title
   - users.each do |user|
-    .user.box class="#{cycle('odd', 'even')}"
+    .user.box class="#{cycle 'odd', 'even'}"
       div[style="float: left; display: block; margin-right: 5px;"]
         = avatar(user, size: 50)
       .user.line[style="font-weight: bold;"]

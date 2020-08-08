@@ -118,7 +118,7 @@ module AdditionalsMenuHelper
 
   def addtionals_help_plugin_items
     user_items = [{ title: 'Redmine Guide', url: Redmine::Info.help_url },
-                  { title: "Redmine #{l(:label_macro_plural)}", url: additionals_macros_path }]
+                  { title: "Redmine #{l :label_macro_plural}", url: additionals_macros_path }]
 
     admin_items = [{ title: 'Additionals',
                      url: 'https://additionals.readthedocs.io/en/latest/manual/', manual: true },
@@ -149,7 +149,7 @@ module AdditionalsMenuHelper
 
       plugin_item.each do |temp_item|
         u_items = if !temp_item[:manual].nil? && temp_item[:manual]
-                    { title: "#{temp_item[:title]} #{l(:label_help_manual)}", url: temp_item[:url] }
+                    { title: "#{temp_item[:title]} #{l :label_help_manual}", url: temp_item[:url] }
                   else
                     { title: temp_item[:title], url: temp_item[:url] }
                   end

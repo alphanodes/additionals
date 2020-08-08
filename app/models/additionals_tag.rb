@@ -55,7 +55,7 @@ class AdditionalsTag
                          end
 
       if projects_allowed.present?
-        "#{PROJECT_TABLE_NAME}.id IN (#{projects_allowed.join(',')})" unless projects_allowed.empty?
+        "#{PROJECT_TABLE_NAME}.id IN (#{projects_allowed.join ','})" unless projects_allowed.empty?
       else
         '1=0'
       end

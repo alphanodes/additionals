@@ -5,7 +5,7 @@ h3 = l :label_custom_menu_items
 - 5.times do |i|
   fieldset
     legend
-      b = "#{l(:label_menu_entry)} ##{i + 1}"
+      b = "#{l :label_menu_entry} ##{i + 1}"
     div
       p
         = additionals_settings_textfield "custom_menu#{i}_name".to_sym, label: l(:field_name), size: 40

@@ -48,7 +48,7 @@ module DashboardsHelper
     out = []
     dashboards.each do |dashboard|
       css_class = base_css
-      dashboard_name = "#{l(:label_dashboard)}: #{dashboard.name}"
+      dashboard_name = "#{l :label_dashboard}: #{dashboard.name}"
       out << if dashboard.id == active_dashboard.id
                link_to dashboard_name, '#',
                        onclick: 'return false;',
@@ -84,10 +84,10 @@ module DashboardsHelper
     tag.div class: 'active-dashboards' do
       out = [tag.h3(l(:label_active_dashboard)),
              tag.ul do
-               concat tag.ul "#{l(:field_name)}: #{h dashboard.name}"
+               concat tag.ul "#{l :field_name}: #{h dashboard.name}"
                concat tag.ul safe_join([l(:field_author), link_to_user(dashboard.author)], ': ')
-               concat tag.ul "#{l(:field_created_on)}: #{format_time dashboard.created_at}"
-               concat tag.ul "#{l(:field_updated_on)}: #{format_time dashboard.updated_at}"
+               concat tag.ul "#{l :field_created_on}: #{format_time dashboard.created_at}"
+               concat tag.ul "#{l :field_updated_on}: #{format_time dashboard.updated_at}"
              end]
 
       out << tag.div(textilizable(dashboard, :description), class: 'dashboard-description') if dashboard.description.present?
@@ -166,7 +166,7 @@ module DashboardsHelper
   # Returns the select tag used to add or remove a block
   def dashboard_block_select_tag(dashboard)
     blocks_in_use = dashboard.layout.values.flatten
-    options = tag.option "<< #{l(:label_add_dashboard_block)} >>", value: ''
+    options = tag.option "<< #{l :label_add_dashboard_block} >>", value: ''
     dashboard.content.block_options(blocks_in_use).each do |label, block|
       options << tag.option(label, value: block, disabled: block.blank?)
     end

@@ -35,7 +35,7 @@ module AdditionalsQuery
       # accepts a comma separated list of ids
       ids = value.first.to_s.scan(/\d+/).map(&:to_i)
       if ids.present?
-        "#{queried_table_name}.id IN (#{ids.join(',')})"
+        "#{queried_table_name}.id IN (#{ids.join ','})"
       else
         '1=0'
       end
@@ -132,14 +132,14 @@ module AdditionalsQuery
   # issue independend values. Use  assigned_to_values from Redmine, if you want it only for issues
   def assigned_to_all_values
     assigned_to_values = []
-    assigned_to_values << ["<< #{l(:label_me)} >>", 'me'] if User.current.logged?
+    assigned_to_values << ["<< #{l :label_me} >>", 'me'] if User.current.logged?
     assigned_to_values += principals.sort_by(&:status).collect { |s| [s.name, s.id.to_s, l("status_#{User::LABEL_BY_STATUS[s.status]}")] }
 
     assigned_to_values
   end
 
   def watcher_values
-    watcher_values = [["<< #{l(:label_me)} >>", 'me']]
+    watcher_values = [["<< #{l :label_me} >>", 'me']]
     watcher_values += users.collect { |s| [s.name, s.id.to_s] } if User.current.allowed_to?(:manage_public_queries, project, global: true)
     watcher_values
   end

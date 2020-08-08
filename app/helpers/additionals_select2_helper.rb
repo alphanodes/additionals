@@ -3,7 +3,7 @@ module AdditionalsSelect2Helper
     s = select_tag(name, option_tags, options)
     s << hidden_field_tag("#{name}[]", '') if options[:multiple] && options.fetch(:include_hidden, true)
 
-    s + javascript_tag("select2Tag('#{sanitize_to_id(name)}', #{options.to_json});")
+    s + javascript_tag("select2Tag('#{sanitize_to_id name}', #{options.to_json});")
   end
 
   # Transforms select filters of +type+ fields into select2

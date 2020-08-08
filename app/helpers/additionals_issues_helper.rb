@@ -15,7 +15,7 @@ module AdditionalsIssuesHelper
     s = []
     return s unless authors.any?
 
-    s << tag.option("<< #{l(:label_me)} >>", value: User.current.id) if authors.include?(User.current)
+    s << tag.option("<< #{l :label_me} >>", value: User.current.id) if authors.include?(User.current)
 
     if entity.nil?
       s << options_from_collection_for_select(authors, 'id', 'name')

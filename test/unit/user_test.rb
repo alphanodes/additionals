@@ -1,4 +1,4 @@
-require File.expand_path('../../test_helper', __FILE__)
+require File.expand_path '../../test_helper', __FILE__
 
 class UserTest < Additionals::TestCase
   fixtures :users, :groups_users, :email_addresses,

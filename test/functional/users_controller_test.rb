@@ -1,4 +1,4 @@
-require File.expand_path('../../test_helper', __FILE__)
+require File.expand_path '../../test_helper', __FILE__
 
 class ViewUsersShowContextualRenderOn < Redmine::Hook::ViewListener
   render_on :view_users_show_contextual, inline: '<div class="test">Example text</div>'

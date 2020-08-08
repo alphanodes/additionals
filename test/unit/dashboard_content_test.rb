@@ -1,4 +1,4 @@
-require File.expand_path('../../test_helper', __FILE__)
+require File.expand_path '../../test_helper', __FILE__
 
 class DashboardContentTest < Additionals::TestCase
   fixtures :projects, :users, :members, :member_roles, :roles,

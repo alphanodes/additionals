@@ -1,4 +1,4 @@
-require File.expand_path('../../test_helper', __FILE__)
+require File.expand_path '../../test_helper', __FILE__
 
 class AutoCompletesControllerTest < Additionals::ControllerTest
   fixtures :projects, :email_addresses,

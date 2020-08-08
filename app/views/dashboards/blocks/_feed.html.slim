@@ -16,8 +16,8 @@
                       item[:link],
                       class: 'external', rel: 'noopener noreferrer', target: '_blank'
     - else
-      p.nodata = l(:label_no_data)
+      p.nodata = l :label_no_data
   - elsif settings[:url].blank?
-    p.nodata = l(:label_no_data)
+    p.nodata = l :label_no_data
   - else
     p.nodata = l(:label_invalid_feed_data)

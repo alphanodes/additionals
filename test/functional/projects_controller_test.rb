@@ -1,4 +1,4 @@
-require File.expand_path('../../test_helper', __FILE__)
+require File.expand_path '../../test_helper', __FILE__
 
 class ViewDashboardTopRenderOn < Redmine::Hook::ViewListener
   render_on :view_dashboard_top, inline: '<div class="test">Example text</div>'

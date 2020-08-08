@@ -6,7 +6,7 @@ h3 = block_definition[:label]
 
 - if @project.homepage.present? || @project.visible_custom_field_values.any?(&:present?)
   ul.reporting-list
-    - unless @project.homepage.blank?
+    - if @project.homepage.present?
       li
         span.label
           = l(:field_homepage)

@@ -1,6 +1,6 @@
-.info = t(:label_top_menu_help_html)
+.info = t :label_top_menu_help_html
 br
-h3 = l(:label_custom_menu_items)
+h3 = l :label_custom_menu_items
 
 - 5.times do |i|
   fieldset
@@ -15,13 +15,13 @@ h3 = l(:label_custom_menu_items)
         = additionals_settings_textfield "custom_menu#{i}_title".to_sym, label: l(:field_title), size: 80
         i
           | (
-          = l(:label_optional)
+          = l :label_optional
           | )
       p
         label = h l(:label_permissions)
-        - permission_field = 'custom_menu' + i.to_s + '_roles'
+        - permission_field = "custom_menu#{i}_roles"
         - menu_roles = Struct.new(:id, :name)
-        = select_tag('settings[' + permission_field + ']',
+        = select_tag("settings[#{permission_field}]",
                      options_from_collection_for_select(Role.sorted.collect { |m| menu_roles.new(m.id, m.name) },
                                                         :id,
                                                         :name,
@@ -30,10 +30,12 @@ h3 = l(:label_custom_menu_items)
         em.info = l(:menu_roles_info)
 
 br
-h3 = l(:label_settings)
+
+h3 = l :label_settings
+
 p
   = additionals_settings_checkbox :remove_help
-  em.info = l(:remove_help_info)
+  em.info = l :remove_help_info
 p
   = additionals_settings_checkbox :remove_mypage
-  em.info = l(:remove_mypage_info)
+  em.info = l :remove_mypage_info

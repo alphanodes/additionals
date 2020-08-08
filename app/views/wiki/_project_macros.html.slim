@@ -7,14 +7,14 @@
       tr id="project-#{project.id}" class="#{project_list_css_classes(project, level)}"
         td.name
           span[style='font-weight: bold;']
-            - if Redmine::Plugin.installed?('redmine_reporting')
-              = project_name_with_icon(project)
+            - if Redmine::Plugin.installed? 'redmine_reporting'
+              = project_name_with_icon project
             - else
-              = link_to_project(project)
+              = link_to_project project
           - if project.homepage?
             ' :
             = link_to(project.homepage, project.homepage, @html_options)
           - if with_create_issue && User.current.allowed_to?(:add_issues, project)
-            = link_to('',
+            = link_to '',
                       new_project_issue_path(project_id: project),
-                      class: 'icon icon-add', title: l(:label_issue_new))
+                      class: 'icon icon-add', title: l(:label_issue_new)

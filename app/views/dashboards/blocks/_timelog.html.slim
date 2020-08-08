@@ -48,7 +48,7 @@ h3
           - entries_by_day[day].each do |entry|
             tr.time-entry.hascontextmenu id="time-entry-#{entry.id}"
               td.activity
-                = check_box_tag("ids[]", entry.id, false, style: 'display:none;', id: nil)
+                = check_box_tag('ids[]', entry.id, false, style: 'display: none;', id: nil)
                 = entry.activity
               td.subject
                 = entry.project

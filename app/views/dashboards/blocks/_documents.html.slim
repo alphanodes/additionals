@@ -1,4 +1,4 @@
-h3.icon.icon-document = l(:label_document_plural)
+h3.icon.icon-document = l :label_document_plural
 
 - if @can_edit
   div id="#{block}-settings" style='display: none;'
@@ -19,9 +19,9 @@ h3.icon.icon-document = l(:label_document_plural)
   p
     - if @project
       = link_to l(:label_document_view_all), project_documents_path(@project)
-    - else
+    /- else
       / no route available
       /= link_to l(:label_news_view_all), documents_path
 
 - else
-  p.nodata = l(:label_no_data)
+  p.nodata = l :label_no_data

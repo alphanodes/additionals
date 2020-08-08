@@ -7,7 +7,7 @@
                 edit_project_dashboard_path(@project, @dashboard),
                 class: 'icon icon-edit'
 
-  -  unless Redmine::Plugin.installed?('redmine_reporting')
+  -  unless Redmine::Plugin.installed? 'redmine_reporting'
     = bookmark_link @project
   = call_hook :view_project_contextual_links, project: @project
 
@@ -39,7 +39,6 @@
                   data: { confirm: l(:text_are_you_sure) }, method: :post, class: 'icon icon-lock'
       = link_to l(:button_copy), copy_project_path(@project), class: 'icon icon-copy'
       = link_to l(:button_delete), project_path(@project), method: :delete, class: 'icon icon-del'
-
 
     - if User.current.allowed_to? :save_dashboards, @project
       = link_to l(:label_new_dashboard),

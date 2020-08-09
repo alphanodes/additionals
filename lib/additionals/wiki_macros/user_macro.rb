@@ -25,14 +25,14 @@ module Additionals
 
         user_id = args[0]
 
-        user = User.find_by(id: user_id)
+        user = User.find_by id: user_id
         user ||= User.find_by(login: user_id)
         return if user.nil?
 
         name = if options[:format].blank?
                  user.name
                else
-                 user.name(options[:format].to_sym)
+                 user.name options[:format].to_sym
                end
 
         s = []
@@ -42,11 +42,11 @@ module Additionals
         end
 
         s << if user.active?
-               link_to(h(name), user_url(user, only_path: controller_path != 'mailer'), class: user.css_classes)
+               link_to h(name), user_url(user, only_path: controller_path != 'mailer'), class: user.css_classes
              else
-               h(name)
+               h name
              end
-        safe_join(s)
+        safe_join s
       end
     end
   end

@@ -177,7 +177,7 @@ module AdditionalsMenuHelper
     s = []
     pages.each_with_index do |item, idx|
       s << if item[:title] == '-'
-             tag.li(tag.hr)
+             tag.li tag.hr
            else
              html_options = { class: "help_item_#{idx}" }
              if item[:url].include? '://'
@@ -187,7 +187,7 @@ module AdditionalsMenuHelper
              tag.li(link_to(item[:title], item[:url], html_options))
            end
     end
-    safe_join(s)
+    safe_join s
   end
 
   # Plugin help items definition for plugins,

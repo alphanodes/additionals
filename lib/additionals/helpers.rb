@@ -11,7 +11,7 @@ module Additionals
       end
       title << options[:name] if options[:name]
       title << h(options[:query].name) if options[:query] && !options[:query].new_record?
-      safe_join(title, Additionals::LIST_SEPARATOR)
+      safe_join title, Additionals::LIST_SEPARATOR
     end
 
     def additionals_title_for_locale(title, lang)
@@ -139,7 +139,7 @@ module Additionals
       Array(module_names).each do |module_name|
         s << send("additionals_load_#{module_name}")
       end
-      safe_join(s)
+      safe_join s
     end
 
     def system_uptime
@@ -207,7 +207,7 @@ module Additionals
                   locals: { field_id: sanitize_to_id(name),
                             ajax_url: send("#{type}_path", project_id: options[:project], user_id: options[:user_id]),
                             options: options })
-      safe_join(s)
+      safe_join s
     end
 
     def project_list_css_classes(project, level)
@@ -301,8 +301,8 @@ module Additionals
       if user.type == 'Group'
         if options[:no_link]
           user.name
-        elsif Redmine::Plugin.installed?('redmine_hrm')
-          link_to_hrm_group(user)
+        elsif Redmine::Plugin.installed? 'redmine_hrm'
+          link_to_hrm_group user
         else
           user.name
         end
@@ -314,9 +314,9 @@ module Additionals
         s << if options[:no_link]
                user.name
              else
-               link_to_user(user)
+               link_to_user user
              end
-        safe_join(s)
+        safe_join s
       end
     end
 

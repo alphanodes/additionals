@@ -28,7 +28,7 @@ module Additionals
         raise '<link> is not a Google document.' unless v.start_with? 'https://docs.google.com/'
 
         src = v.dup
-        unless src.include?('?')
+        unless src.include? '?'
           src << if src.include?('edit')
                    '?rm=minimal'
                  else
@@ -47,7 +47,7 @@ module Additionals
                        class: 'external')
         end
 
-        safe_join(s)
+        safe_join s
       end
     end
   end

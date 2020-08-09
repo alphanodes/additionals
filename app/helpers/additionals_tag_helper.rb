@@ -21,7 +21,7 @@ module AdditionalsTagHelper
             ' '
           end
 
-    tag.div(safe_join(s, sep), class: 'tags')
+    tag.div safe_join(s, sep), class: 'tags'
   end
 
   # plain list of tags
@@ -44,7 +44,7 @@ module AdditionalsTagHelper
           end
 
     safe_join(tag_list.map do |tag|
-      additionals_tag_link(tag, options)
+      additionals_tag_link tag, options
     end, sep)
   end
 
@@ -61,14 +61,14 @@ module AdditionalsTagHelper
     tag_name << tag.span("(#{tag_object.count})", class: 'tag-count') if options[:show_count]
 
     if options[:tags_without_color]
-      tag.span(link_to(safe_join(tag_name), additionals_tag_url(tag_object.name, options)),
-               class: 'tag-label')
+      tag.span link_to(safe_join(tag_name), additionals_tag_url(tag_object.name, options)),
+               class: 'tag-label'
     else
-      tag.span(link_to(safe_join(tag_name),
+      tag.span link_to(safe_join(tag_name),
                        additionals_tag_url(tag_object.name, options),
                        style: tag_style),
                class: 'additionals-tag-label-color',
-               style: tag_style)
+               style: tag_style
     end
   end
 

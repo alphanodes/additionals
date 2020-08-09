@@ -40,12 +40,12 @@ module AdditionalsQuery
         '1=0'
       end
     else
-      sql_for_field('id', operator, value, queried_table_name, 'id')
+      sql_for_field 'id', operator, value, queried_table_name, 'id'
     end
   end
 
   def sql_for_project_status_field(field, operator, value)
-    sql_for_field(field, operator, value, Project.table_name, 'status')
+    sql_for_field field, operator, value, Project.table_name, 'status'
   end
 
   def initialize_project_status_filter
@@ -150,7 +150,7 @@ module AdditionalsQuery
     db_table = Watcher.table_name
     "#{queried_table_name}.id #{operator == '=' ? 'IN' : 'NOT IN'}" \
     " (SELECT #{db_table}.watchable_id FROM #{db_table} WHERE #{db_table}.watchable_type='#{watchable_type}' AND" \
-    " #{sql_for_field(field, '=', value, db_table, 'user_id')})"
+    " #{sql_for_field field, '=', value, db_table, 'user_id'})"
   end
 
   def sql_for_tags_field(field, _operator, value)

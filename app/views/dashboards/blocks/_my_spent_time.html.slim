@@ -6,10 +6,11 @@ h3 = block_definition[:label]
       .box
         p
           label
-            = l(:button_show)
+            = l :button_show
             ' :
-            = text_field_tag 'settings[my_spent_time][days]', days, size: 6
-            = l(:label_day_plural)
+            = number_field_tag "settings[#{block}][days]", days, min: 1, max: 1000, required: true
+            '
+            = l :label_day_plural
       p
         = submit_tag l(:button_save)
         '

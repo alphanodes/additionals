@@ -49,7 +49,7 @@ class DashboardContent
       'documents' => { label: l(:label_document_plural),
                        permission: :view_documents },
       'my_spent_time' => { label: l(:label_my_spent_time),
-                           permission: :view_time_entries },
+                           permission: :log_time },
       'feed' => { label: l(:label_additionals_feed),
                   max_occurs: DashboardContent::MAX_MULTIPLE_OCCURS,
                   async: { required_settings: %i[url],

@@ -28,12 +28,8 @@ ul.reporting-list
     = l_hours_short entries_days.sum(&:hours)
 
 = link_to l(:label_spent_time), _time_entries_path(@project, nil, user_id: 'me')
-
-- if User.current.allowed_to?(:log_time, nil, global: true)
-  '
-  = link_to l(:button_log_time),
-            _new_time_entry_path(@project, nil),
-            class: 'icon-only icon-add',
-            title: l(:button_log_time)
-- else
-  p.nodata = l :label_no_data
+'
+= link_to l(:button_log_time),
+          _new_time_entry_path(@project, nil),
+          class: 'icon-only icon-add',
+          title: l(:button_log_time)

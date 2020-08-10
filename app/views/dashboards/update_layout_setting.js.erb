@@ -1,3 +1,14 @@
 <% @updated_blocks.each do |block| %>
   $("#block-<%= block %>").replaceWith("<%= escape_javascript render_dashboard_block(block.to_s, @dashboard) %>");
 <% end %>
+
+
+$('[title]').tooltip({
+    show: {
+      delay: 400
+    },
+    position: {
+      my: "center bottom-5",
+      at: "center top"
+    }
+});

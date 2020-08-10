@@ -149,7 +149,6 @@ cs:
   label_settings_menu: "Menu"
   label_shared_dashboard_plural: "Sdíleno dashboards"
   label_show_all: "Ukázat vše"
-  label_spent_time_static: "Static Spent Time"
   label_system_info: "Systémová informace"
   label_tags_without_color: Show tags without color
   label_top_macros_help_html: "Zde získáte seznam všech dostupných maker Redmine vaší instalace, která jsou poskytována doplňky Redmine a Redmine."

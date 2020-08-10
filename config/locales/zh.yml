@@ -149,7 +149,6 @@ zh:
   label_settings_menu: "菜单"
   label_shared_dashboard_plural: Shared dashboards
   label_show_all: 显示所有
-  label_spent_time_static: "静态花费时间"
   label_system_info: 系统信息
   label_tags_without_color: Show tags without color
   label_top_macros_help_html: "此处列出了来自 Redmine 及 Redmine 插件中提供的所有可用的宏命令。"

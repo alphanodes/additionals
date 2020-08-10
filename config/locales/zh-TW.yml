@@ -149,7 +149,6 @@
   label_settings_menu: "選單"
   label_shared_dashboard_plural: Shared dashboards
   label_show_all: "顯示全部"
-  label_spent_time_static: "Static Spent Time"
   label_system_info: "系統訊息"
   label_tags_without_color: "顯示無顏色標籤"
   label_top_macros_help_html: "此處列出Redmine與Redmine外掛支援的macros指令。"

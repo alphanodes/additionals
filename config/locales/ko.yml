@@ -149,7 +149,6 @@ ko:
   label_settings_menu: "Menu"
   label_shared_dashboard_plural: Shared dashboards
   label_show_all: 모두 표시
-  label_spent_time_static: "Static Spent Time"
   label_system_info: 시스템 정보
   label_tags_without_color: 색상없이 태그 표시
   label_top_macros_help_html: "다음은 Redmine 및 Redmine 플러그인에서 제공하는 설치에 사용 가능한 모든 Redmine 매크로 목록입니다."

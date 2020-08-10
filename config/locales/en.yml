@@ -149,7 +149,6 @@ en:
   label_settings_menu: "Menu"
   label_shared_dashboard_plural: Shared dashboards
   label_show_all: Show all
-  label_spent_time_static: "Static Spent Time"
   label_system_info: System info
   label_tags_without_color: Show tags without color
   label_top_macros_help_html: "Here you get a list of all available Redmine macros of your installation, which are provided by Redmine and the Redmine plugins."

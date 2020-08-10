@@ -10,6 +10,7 @@ system_default_welcome:
     :layout:
       top:
       - issuequery
+      - my_spent_time
       left:
       - text
       - legacy_left

@@ -1,0 +1,38 @@
+h3 = block_definition[:label]
+
+- if @can_edit
+  div id="#{block}-settings" style='display: none;'
+    = form_tag(_update_layout_setting_dashboard_path(@project, @dashboard), remote: true) do
+      .box
+        p
+          label
+            = l(:button_show)
+            ' :
+            = text_field_tag 'settings[my_spent_time][days]', days, size: 6
+            = l(:label_day_plural)
+      p
+        = submit_tag l(:button_save)
+        '
+        = link_to_function l(:button_cancel), "$('#my_spent_time-settings').toggle();"
+
+ul.reporting-list
+  li.today
+    = l :label_today
+    ' :
+    = l_hours_short entries_today.sum(&:hours)
+
+  li.days
+    = l :label_last_n_days, days
+    ' :
+    = l_hours_short entries_days.sum(&:hours)
+
+= link_to l(:label_spent_time), _time_entries_path(@project, nil, user_id: 'me')
+
+- if User.current.allowed_to?(:log_time, nil, global: true)
+  '
+  = link_to l(:button_log_time),
+            _new_time_entry_path(@project, nil),
+            class: 'icon-only icon-add',
+            title: l(:button_log_time)
+- else
+  p.nodata = l :label_no_data

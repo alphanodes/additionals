@@ -338,23 +338,22 @@ module DashboardsHelper
                                                         news: news }
   end
 
-  def render_timelog_block(block, _block_definition, settings, _dashboard)
+  def render_my_spent_time_block(block, block_definition, settings, dashboard)
     days = settings[:days].to_i
     days = 7 if days < 1 || days > 365
 
-    entries = TimeEntry
-              .where("#{TimeEntry.table_name}.user_id = ? AND #{TimeEntry.table_name}.spent_on BETWEEN ? AND ?",
-                     User.current.id, User.current.today - (days - 1), User.current.today)
-              .joins(:activity, :project)
-              .references(issue: %i[tracker status])
-              .includes(issue: %i[tracker status])
-              .order("#{TimeEntry.table_name}.spent_on DESC,
-                      #{Project.table_name}.name ASC,
-                      #{Tracker.table_name}.position ASC, #{Issue.table_name}.id ASC")
-              .to_a
-    entries_by_day = entries.group_by(&:spent_on)
+    scope = TimeEntry.where user_id: User.current.id
+    scope = scope.where(project_id: dashboard.content_project.id) unless dashboard.content_project.nil?
 
-    render partial: 'dashboards/blocks/timelog', locals: { block: block, entries: entries, entries_by_day: entries_by_day, days: days }
+    entries_today = scope.where(spent_on: User.current.today)
+    entries_days = scope.where(spent_on: User.current.today - (days - 1)..User.current.today)
+
+    render partial: 'dashboards/blocks/my_spent_time',
+           locals: { block: block,
+                     block_definition: block_definition,
+                     entries_today: entries_today,
+                     entries_days: entries_days,
+                     days: days }
   end
 
   def activity_dashboard_data(settings, dashboard)

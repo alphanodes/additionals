@@ -53,7 +53,7 @@ class DashboardContent
       'feed' => { label: l(:label_additionals_feed),
                   max_occurs: DashboardContent::MAX_MULTIPLE_OCCURS,
                   async: { required_settings: %i[url],
-                           cache_expires_in: 360,
+                           cache_expires_in: 600,
                            skip_user_id: true,
                            partial: 'dashboards/blocks/feed' } }
     }

@@ -90,7 +90,10 @@ module DashboardsHelper
                concat tag.ul "#{l :field_updated_on}: #{format_time dashboard.updated_at}"
              end]
 
-      out << tag.div(textilizable(dashboard, :description), class: 'dashboard-description') if dashboard.description.present?
+      if dashboard.description.present?
+        out << tag.div(textilizable(dashboard, :description, inline_attachments: false),
+                       class: 'dashboard-description')
+      end
 
       safe_join out
     end

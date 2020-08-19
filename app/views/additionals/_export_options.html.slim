@@ -15,6 +15,9 @@ div id="#{export_format}-export-options" style="display: none"
         label
           = radio_button_tag 'c[]', 'all_inline'
           = l(:description_all_columns)
+
+    hr
+
     - if @query.available_filters.key?('description')
       p
         label
@@ -24,7 +27,9 @@ div id="#{export_format}-export-options" style="display: none"
           label
             = check_box_tag 'c[]', 'last_notes', @query.has_column?(:last_notes)
             = l(:label_last_notes)
+
     = export_csv_encoding_select_tag
+
     p.buttons
       = submit_tag l(:button_export), name: nil, onclick: 'hideModal(this);'
       '

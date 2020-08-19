@@ -1,7 +1,7 @@
 module Additionals
   MAX_CUSTOM_MENU_ITEMS = 5
   SELECT2_INIT_ENTRIES = 20
-
+  DEFAULT_MODAL_WIDTH = '350px'.freeze
   GOTO_LIST = " \xc2\xbb".freeze
   LIST_SEPARATOR = "#{GOTO_LIST} ".freeze
 

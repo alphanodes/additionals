@@ -3,12 +3,12 @@ h3 = block_definition[:label]
 - if @project.description.present?
   .wiki.project-description
     = textilizable @project.description
-- if @project.homepage.present? || @project.visible_custom_field_values.any?(&:present?)
+- if @project.homepage.present? || @project.visible_custom_field_values.any? { |o| o.value.present? }
   ul.reporting-list
     - if @project.homepage.present?
       li
         span.label
-          = l(:field_homepage)
+          = l :field_homepage
           ' :
         = link_to_if uri_with_safe_scheme?(@project.homepage), @project.homepage, @project.homepage
     - render_custom_field_values(@project) do |custom_field, formatted|

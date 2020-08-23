@@ -17,7 +17,7 @@ class DashboardContentProject < DashboardContent
                                      if: (lambda do |project|
                                        project.description.present? ||
                                        project.homepage.present? ||
-                                       project.visible_custom_field_values.any?(&:present?)
+                                       project.visible_custom_field_values.any? { |o| o.value.present? }
                                      end),
                                      partial: 'dashboards/blocks/project_information' }
 

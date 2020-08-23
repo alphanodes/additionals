@@ -1,0 +1,192 @@
+# English strings
+en:
+  minutes:
+    one: minuto
+    other: minutas
+  hours:
+    one: hora
+    other: horas
+  days:
+    one: dia
+    other: dias
+  activerecord:
+    errors:
+      models:
+        dashboard:
+            must_be_for_everyone: "deve ser definido para cada usuário se for utilizado o padrão do sistema."
+      messages:
+        issue_cannot_close_with_open_children: "Esta tarefa só pode ser fechada, se todas as subtarefas também estiverem fechadas."
+        issue_current_user_status: "O status selecionado requer que o \"Assignee\" seja você mesmo."
+        issue_log_time_not_allowed: "é uma tarefa fechada. Você não está autorizado a registrar o tempo."
+        issue_changes_not_allowed: "Esta tarefa está encerrada, você não tem nenhum direito de mudá-la."
+        issue_requires_timelog: "O status da tarefa selecionada requer um registro de tempo."
+        invalid_icon_format: "é um código de font-awesome"
+        relation_not_unique: "múltiplos atribuídos."
+  account_login_info: "Esta mensagem de texto será mostrada na página de login e deve ser usada para informações de registro. Estas configurações estão ativas em todos os projetos."
+  add_go_to_top_info: "Se você tem muitas páginas longas, é útil adicionar um salto ao link superior."
+  additionals_query_list_default_totals: "Valores padrão para visualização de lista"
+  additionals_query_list_defaults: "Colunas predefinidas para visualização de lista"
+  alert_only_visible_by_admins: "Só pode ser visto por usuários com permissões administrativas"
+  alert_only_visible_by_yourself: "Só pode ser visto por você"
+  button_assign_to_me: "Atribua a mim"
+  button_dashboard_delete: "Eliminar dashboard"
+  button_dashboard_edit: "Editar dashboard"
+  disabled_modules_info: "Módulos que não devem estar disponíveis para seleção dentro dos projetos. Se estes módulos já estiverem ativados em projetos existentes, você terá que alterar e salvar novamente as configurações dos respectivos projetos primeiro."
+  error_issue_status_could_not_changed: "O estado da tarefa não poderia ser alterado"
+  error_issues_could_not_be_assigned_to_me: "A tarefa não poderia ser me atribuída"
+  error_query_statement_invalid: "Ocorreu um erro durante a execução da consulta e foi registrado. Favor reportar este erro ao seu administrador Redmine."
+  errors_no_or_invalid_arguments: "Nenhum argumento ou argumentos inválidos"
+  field_always_expose: "Expor sempre"
+  field_autowatch_involved_issue: "Tarefa envolvida no Autowatch"
+  field_color: "Cor"
+  field_enable_sidebar: "Habilitar barra lateral"
+  field_hide: "Esconder"
+  field_icon: "Ícone"
+  field_issue_relation_plural: "Relações de tarefas"
+  field_project_system_default: "Projeto padrão"
+  field_system_default: "Padrão do sistema"
+  field_tag_list: Tags
+  field_tag_sidebar_style_cloud: Cloud
+  field_tag_sidebar_style_list: Lista
+  field_tags: Tags
+  field_visibility: "Visibilidade"
+  field_website: Website
+  global_footer_info: 'Insira aqui um rodapé do wiki do projeto.'
+  global_sidebar_info: "Digite aqui uma ampla mensagem de texto disponível para o projeto. Este texto lateral será exibido na visão geral do projeto, nas páginas de tarefas e nas páginas wiki."
+  global_wiki_footer_info: "Insira aqui um rodapé do wiki do projeto. Caso um rodapé de wiki específico do projeto seja usado por \"Wiki Extensions\", este será exibido de preferência no lugar."
+  global_wiki_header_info: "Digite aqui um cabeçalho de projeto wiki. Caso um cabeçalho wiki específico de um projeto seja usado por \"Wiki Extensions\", isto será preferencialmente exibido em seu lugar."
+  global_wiki_sidebar_info: "Digite aqui uma mensagem de texto disponível para o projeto de sua barra lateral wiki. Este texto da barra lateral será exibido apenas nas páginas do wiki. Use este espaço para Macros como \"Last changed pages\", por exemplo. Caso seja usada uma barra lateral específica de um projeto (página wiki), esta será exibida preferencialmente na barra lateral."
+  google_maps_embed_api_html: "Caso você queira usar a macro Gmap para exibir os mapas Goole, por favor, implemente sua chave API do Google Maps aqui. Em seguida, você pode usar a macro e vários parâmetros. Mais informações sobre como usar os paramaters são fornecidas em <a href=\"https://developers.google.com/maps/documentation/embed/guide\" target=\"_blank\">https://developers.google.com/maps/documentation/embed/guide</a>. A macro Gmap funciona apenas em combinação com a chave embutida aqui."
+  hidden_macros_in_toolbar_info: "Todas as macros disponíveis que o usuário logado pode usar são listadas através do botão de macro da barra de ferramentas do wiki. As macros aqui marcadas não são oferecidas para seleção. Isto permite limitar o escopo da lista."
+  info_hidden_roles_html: "As funções ocultas só podem ser usadas junto com a visibilidade do usuário \"Members of visible projects\". Se o usuário não estiver em uma função que seja visível para o usuário atual, esta função, incluindo o usuário, está oculta na página de síntese do projeto e nas listas de consulta."
+  invisible_captcha_info_html: In case this option is activated an <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection is activated for the registration page of new users. This function is only available, if you enabled self-registration, too.
+  label_account_login_bottom: "Texto para página de login"
+  label_active_dashboard: "Ativo Dashboard"
+  label_add_dashboard_block: "Adicionar bloco"
+  label_add_go_to_top: 'Add "Go to top" link'
+  label_add_tags: "Adicionar tags"
+  label_additionals_doc: "Additionals documentação"
+  label_additionals_feed: Atom+RSS Feed
+  label_additionals: Additionals
+  label_app_menu: App menu
+  label_change_is_private: "Mudança privada/não-privada"
+  label_change_to_dashboard: "Mude para Dashboard"
+  label_chart_color_schema: "Esquema de cores dos gráficos"
+  label_chart_with_name: "Gráfico: %{value}"
+  label_chartjs_colorscheme_info: "Lista de cores"
+  label_content_plural: "Conteúdo"
+  label_custom_fields_distribution: "Campos personalizados para distribuição"
+  label_custom_menu_items: "Itens de menu personalizados"
+  label_daily: "diariamente"
+  label_dashboard_author: "Autor: %{name}"
+  label_dashboard_legacy_left: "Conteúdo padrão restante"
+  label_dashboard_legacy_right: "Direito de conteúdo padrão"
+  label_dashboard_plural: Dashboards
+  label_dashboard: Dashboard
+  label_day: dia
+  label_disable_sidebar: "Desativar sidebar"
+  label_disabled_modules: "Desativar módulos"
+  label_docs_access_token: Access token
+  label_edit_tags: "Editar tags"
+  label_enable_sidebar: "Habilitar barra lateral"
+  label_global_footer: "Projeto de rodapé largo"
+  label_global_sidebar: "Barra lateral global"
+  label_global_wiki_footer: "Projeto de rodapé largo wiki"
+  label_global_wiki_header: "Cabeçalho do wiki do projeto"
+  label_global_wiki_sidebar: "Barra lateral wiki global"
+  label_go_to_top: "Ir para o topo"
+  label_google_maps_api_key: Google Maps Embed API Key
+  label_help_integration: "Integração da ajuda online"
+  label_help_manual: manual
+  label_hidden_macros_in_toolbar: "Macros escondidas"
+  label_hour: "hora"
+  label_icon_color: "Cor do ícone"
+  label_invalid_feed_data: "Dados de alimentação inválidos ou URL"
+  label_invisible_captcha: "Proteção de SPAM para registro"
+  label_issue_assign_to_me: "Mostrar \"Designar para mim\" em questão"
+  label_issue_auto_assign: "Se \"Atribuído a\" não é atribuído a um usuário e o novo status de emissão é x então a emissão é automaticamente atribuída ao primeiro grupo com usuários da função pré-definida."
+  label_issue_autowatch_involved: "Adicionar automaticamente os usuários envolvidos como observadores"
+  label_issue_change_status_in_sidebar: "Status da tarefa na barra lateral"
+  label_issue_change_status: "Mudança de status"
+  label_issue_current_user_status: "O status atual de tarifa x só é permitido se \"Assignee\" for o usuário atual."
+  label_issue_freezed_with_close: "Proibir a edição de tarefas fechadas (Congelamento)"
+  label_issue_status_change: "Se \"Assignee\" é inalterado e o status da tarefa mudou de x para y, do que o autor é designado para a tarefa"
+  label_issue_timelog_required: "Registro de tempo para as tarefas necessárias"
+  label_issues_summary: "Issue registration"
+  label_last_year: "ano anterior"
+  label_legacy_smiley_support: Legacy smiley support
+  label_macro_plural: Macros
+  label_max_entries: "Máximo de entradas"
+  label_menu_entry: "Item do menu"
+  label_monthly: "mensalmente"
+  label_my_activity: "Minha atividade"
+  label_my_dashboard_plural: Minha dashboards
+  label_new_additional_dashboard: Novo dashboard
+  label_new_dashboard: Novo dashboard
+  label_new_issue_on_profile: "Nova tarefa no perfil do usuário"
+  label_new_ticket_message: "Nota para nova tarefa"
+  label_no_permission: "Sem permissão"
+  label_only_my_activities: "Somente minha atividade"
+  label_open_external_urls: "Abrir URLs externas"
+  label_open_in_google_docs: "Aberto em Google Docs"
+  label_open_in_new_windows: "Abrir em novas janelas"
+  label_optional: "opcional"
+  label_pdf_wiki_settings: "Configurações do Wiki em PDF"
+  label_project_information: "Informações sobre o projeto"
+  label_project_list: "Lista de projetos"
+  label_query_delete: "Eliminar consulta"
+  label_query_edit: "Editar consulta"
+  label_query_name_search: "Busca por nome"
+  label_query_with_name: "Query: %{value}"
+  label_reddit_subject: "Reddit tema"
+  label_reddit_user_account: "Reddit conta de usuário"
+  label_redmine_org_issue: "Redmine.org tarefa"
+  label_redmine_org_wiki: "Redmine.org página wiki"
+  label_remove_help: "Remove 'Help' from top menu"
+  label_remove_mypage: "Remove 'My Page' from top menu"
+  label_search_by_name: "Busca pelo nome"
+  label_settings_macros: "Macros"
+  label_settings_menu: "Menu"
+  label_shared_dashboard_plural: "Compartilhado dashboards"
+  label_show_all: "Mostrar tudo"
+  label_system_info: "Informações do sistema"
+  label_tags_without_color: "Mostrar TAGs sem cor"
+  label_top_macros_help_html: "Aqui você obtém uma lista de todas as macros Redmine disponíveis de sua instalação, que são fornecidas pela Redmine e pelos plugins Redmine."
+  label_top_menu_help_html: "Aqui você pode definir novos itens do menu superior."
+  label_top_menu: Top menu
+  label_twitter_account: Twitter account
+  label_twitter_hashtag: Twitter hashtag
+  label_uptime: "Horário de funcionamento"
+  label_user_list: "Lista de usuários"
+  label_web_apis: Web APIs
+  label_weekly: "semanalmente"
+  label_wiki_pdf_remove_attachments: "Remover anexos da visualização em PDF"
+  label_wiki_pdf_remove_title: "Remover o título do Wiki da visualização em PDF"
+  label_without_value: "Não %{value}"
+  label_yearly: "anual"
+  latest_entries_changes: "Últimas %{value} mudanças"
+  legacy_smiley_support_info_html: 'Convert smileys in text. This option should only be activated if the code for smileys (e.g. :) ) was entered manually and should be displayed as smiley face. In the <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> the available Emoji codes can be used. <strong>Restart the application server</strong>, in order to activate the settings.'
+  menu_roles_info: "Somente membros de funções selecionadas verão esta entrada de menu."
+  new_ticket_message_info: "Uma nota será mostrada a todos que quiserem acrescentar uma nova tarefa. Por exemplo, você pode inserir aqui testes de aceitação ou regras de tarefa. Estas configurações são usadas em todo o projeto."
+  open_external_urls_info: "Se ativo, as URLs externas são abertas em uma nova janela/tab."
+  permission_change_new_issue_author: "Definir o autor de novas tarefas"
+  permission_edit_closed_issues: "Editar tarefas fechadas"
+  permission_edit_issue_author: "Editar autor da tarefa"
+  permission_issue_timelog_never_required: "Não é necessário registro de tempo"
+  permission_log_time_on_closed_issues: "Tempo de registro em tarefas fechadas"
+  permission_share_dashboards: "Compartilhe dashboards"
+  permission_save_dashboards: "Salvar dashboards"
+  permission_set_system_dashboards: "Sistema de configuração dashboards"
+  permission_show_hidden_roles_in_memberbox: "Mostrar papéis ocultos"
+  remove_help_info: "Remova o item 'Help' do menu superior."
+  remove_mypage_info: "Às vezes é mais útil esconder o link \"My Page\" para introduzir o quadro de tarefas. A vantagem do quadro de tarefas é que as questões podem ser listadas de acordo com seu status."
+  rule_issue_auto_assign_info: "Caso de uso: O autor da tarefa não sabe a quem atribuir a tarefa ou quem será responsável pela solução da tarefa. Neste caso, a tarefa, por exemplo, com o status \"To Do\" é automaticamente atribuído ao primeiro grupo, que contém um usuário da função de gerente de projeto pré-selecionado."
+  rule_issue_current_user_status_info_html: "Esta função é usada em combinação com a opção de configuração \"Issue status on sidebar\" então o usuário atual será automaticamente designado para a tarefa enquanto muda o status da tarefa.<br />Estojo de uso: Os usuários só estão autorizados a mudar o status para \"In Progress\" se eles são a pessoa que está realmente trabalhando na tarefa neste momento."
+  rule_issue_freezed_with_close_info: "Se esta opção for ativada, os assuntos já fechados não poderão mais ser editados e comentados. Nem mesmo via correio ou API. Esta restrição não se aplica às funções do usuário com a permissão \"Edit closed issues\"."
+  rule_issue_status_change_info: "Use Case: issues should be automatically assigned to author, if the status changes to \"Approval\"."
+  rule_issue_timelog_required_info_html: "Para cada tarefa dos rastreadores selecionados, uma reserva de tempo é necessária para que a tarefa receba uma das propriedades de status definidas. A reserva de tempo não é necessária se:<br />- não existem direitos para a criação de reservas de tempo<br />- o usuário tem a autorização \"Time logging not required\"<br />Estojo de uso: Para a aceitação de uma tarefa com o status \"To Verify\", o tempo gasto também é necessário."
+  top_rules_help: "Aqui você pode definir regras, que são utilizadas em tarefas de todos os projetos."
+  top_wiki_help: "Aqui você pode definir conteúdos e configurações para seu Wiki."
+  wiki_pdf_remove_attachments_info: "Quando ativo, os arquivos Wiki anexos não serão exibidos na visualização em PDF."
+  wiki_pdf_remove_title_info: "Quando ativo, o título do Wiki não será exibido na visualização em PDF."
+  label_my_spent_time: "Meu tempo passado"

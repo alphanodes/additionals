@@ -14,6 +14,11 @@ class DashboardContentProject < DashboardContent
 
     blocks['projectinformation'] = { label: l(:label_project_information),
                                      no_settings: true,
+                                     if: (lambda do |project|
+                                       project.description.present? ||
+                                       project.homepage.present? ||
+                                       project.visible_custom_field_values.any?(&:present?)
+                                     end),
                                      partial: 'dashboards/blocks/project_information' }
 
     blocks['projectissues'] = { label: l(:label_issues_summary),

@@ -4,6 +4,7 @@ class Dashboard < ActiveRecord::Base
   include Additionals::EntityMethods
 
   class SystemDefaultChangeException < StandardError; end
+  class ProjectSystemDefaultChangeException < StandardError; end
 
   belongs_to :project
   belongs_to :author, class_name: 'User'
@@ -60,6 +61,7 @@ class Dashboard < ActiveRecord::Base
   validate :validate_visibility
   validate :validate_name
   validate :validate_system_default
+  validate :validate_project_system_default
 
   class << self
     def system_default(dashboard_type)
@@ -328,6 +330,13 @@ class Dashboard < ActiveRecord::Base
     config
   end
 
+  def project_id_can_change?
+    return true if new_record? ||
+                   dashboard_type != DashboardContentProject::TYPE_NAME ||
+                   !system_default_was ||
+                   project_id_was.present?
+  end
+
   private
 
   def clear_unused_block_settings
@@ -352,6 +361,12 @@ class Dashboard < ActiveRecord::Base
     return if new_record? || system_default_was == system_default || system_default?
 
     raise SystemDefaultChangeException
+  end
+
+  def validate_project_system_default
+    return if project_id_can_change?
+
+    raise ProjectSystemDefaultChangeException if project_id.present?
   end
 
   def check_destroy_system_default

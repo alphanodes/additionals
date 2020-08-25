@@ -262,4 +262,20 @@ class DashboardTest < Additionals::TestCase
       dashboard.save!
     end
   end
+
+  def test_project_system_default_should_not_assignable_with_project_id
+    dashboard = dashboards :system_default_project
+
+    dashboard.project_id = 1
+    assert_raise Dashboard::ProjectSystemDefaultChangeException do
+      dashboard.save!
+    end
+  end
+
+  def test_project_id_should_changeable_on_non_system_default
+    dashboard = dashboards :private_project_default
+
+    dashboard.project_id = 1
+    dashboard.save!
+  end
 end

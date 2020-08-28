@@ -58,6 +58,7 @@ pl:
   global_wiki_sidebar_info: 'Wprowadź ogólnodostępną wiadomość tekstową dla paska bocznego wiki, tutaj. Ten pasek boczny będzie wyświetlany tylko na stronach wiki. Użyj tego miejsca dla makr, jak na przykład "Last changed pages". W przypadku użycia paska bocznego specyficznego dla projektu (strona wiki), zostanie on wyświetlony na pasku bocznym.'
   google_maps_embed_api_html: "W przypadku, gdy chcesz użyć makra Gmapy do wyświetlania map Google, zaimplementuj tutaj swój klucz API Google Maps. Następnie możesz użyć makra i różnych parametrów. Więcej informacji na temat korzystania z paramaterów znajduje się na stronie <a href=\"https://developers.google.com/maps/documentation/embed/guide\" target=\"_blank\">https://developers.google.com/maps/documentation/embed/guide</a>. The Gmap macro works only in combination with the embedded key here."
   hidden_macros_in_toolbar_info: "Wszystkie dostępne makra, których może używać zalogowany użytkownik, są wymienione za pomocą przycisku makro na pasku narzędzi wiki. Makra zaznaczone tutaj nie są oferowane do wyboru. Pozwala to na ograniczenie zakresu listy."
+  info_dashboard_project_select: Leave it blank, if you want to use this dashboard for all projects.
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects".Jeśli użytkownik nie jest w roli, która jest widoczna dla bieżącego użytkownika, rola ta wraz z użytkownikiem jest ukryta na stronie przeglądu projektu i na listach zapytań.
   invisible_captcha_info_html: W przypadku gdy opcja ta jest aktywna <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection jest aktywowany dla strony rejestracji nowych użytkowników. Funkcja ta jest dostępna tylko wtedy, gdy włączyłeś funkcję samorejestracji..
   label_account_login_bottom: "Tekst dla strony logowania"
@@ -121,6 +122,7 @@ pl:
   label_monthly: "miesięcznik"
   label_my_activity: "Moja aktywność"
   label_my_dashboard_plural: "Moje tablice rozdzielcze"
+  label_my_spent_time: My spent time
   label_new_additional_dashboard: "Nowa tablica rozdzielcza"
   label_new_dashboard: "Nowa tablica rozdzielcza"
   label_new_issue_on_profile: "Nowe issue na profilu użytkownika"
@@ -174,9 +176,9 @@ pl:
   permission_edit_issue_author: "Edycja autora issue"
   permission_issue_timelog_never_required: "Nie jest wymagane rejestrowanie czasu pracy."
   permission_log_time_on_closed_issues: "Czas rejestracji w zamkniętych issues"
-  permission_share_dashboards: Share dashboards
   permission_save_dashboards: Save dashboards
   permission_set_system_dashboards: Set system dashboards
+  permission_share_dashboards: Share dashboards
   permission_show_hidden_roles_in_memberbox: "Pokaż ukryte role"
   remove_help_info: "Usuń element 'Help' z górnego menu."
   remove_mypage_info: 'Czasami bardziej użyteczne jest ukrywanie linku  "My Page" w celu wprowadzenia tablicy zadań. Zaletą forum zadań jest to, że issues mogą być wymienione zgodnie z ich statusem.'
@@ -189,4 +191,3 @@ pl:
   top_wiki_help: "Tutaj możesz zdefiniować zawartość i ustawienia dla swojej Wiki."
   wiki_pdf_remove_attachments_info: "Gdy jest aktywny, załączone pliki Wiki nie będą wyświetlane w widoku PDF."
   wiki_pdf_remove_title_info: "Gdy jest aktywny, informacja o tytule Wiki nie będzie wyświetlana w widoku PDF."
-  label_my_spent_time: My spent time

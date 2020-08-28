@@ -58,6 +58,7 @@ es:
   global_wiki_sidebar_info: 'Ingrese aquí un el texto a ser mostrado en la barra lateral de la Wiki. Esta barra lateral solo será mostrada en las Wiki. Puede utilizar este espacio para macros como "Últimas páginas modificadas". En caso de que se utilice una barra lateral de proyecto esté en uso, este texto será mostrado en su lugar.'
   google_maps_embed_api_html: En caso de querer utilizar el macro Gmap para mostrar mapas de Google necesita ingresar su Clave de API de Google Maps aquí. Luego podrá utilizar el macro y varios parámetros. Mas información acerca de como utilizar estos parametros está disponible en <a href="https://developers.google.com/maps/documentation/embed/guide" target="_blank">https://developers.google.com/maps/documentation/embed/guide</a>. El macro Gmap funciona solamente si se ingresa esta clave.
   hidden_macros_in_toolbar_info: Todas las macros disponibles que el usuario conectado puede utilizar se enumeran mediante el botón de macros de la barra de herramientas wiki. Las macros marcadas aquí no se ofrecen para la selección. Esto permite restringir el alcance de la lista.
+  info_dashboard_project_select: Leave it blank, if you want to use this dashboard for all projects.
   info_hidden_roles_html: Los roles ocultos sólo se pueden utilizar junto con la visibilidad del usuario "Miembros de proyectos visibles". Si el usuario no está en una función que sea visible para el usuario actual, esta función, que incluye al usuario, se oculta en la página de resumen del proyecto y en las listas de consulta.
   invisible_captcha_info_html: En caso de que esta opción se encuentre activa se activará un sistema de protección de SPAM <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> para la página de registro de usuarios. Esta función solo está disponible si activa el autoregistro.
   label_account_login_bottom: "Texto para la página de inicio de sesión"
@@ -121,6 +122,7 @@ es:
   label_monthly: mensual
   label_my_activity: "Mi actividad"
   label_my_dashboard_plural: "Mis dashboards"
+  label_my_spent_time: My spent time
   label_new_additional_dashboard: "Nuevo dashboard"
   label_new_dashboard: "Nuevo dashboard"
   label_new_issue_on_profile: Nueva petición en el perfil de usuario
@@ -174,9 +176,9 @@ es:
   permission_edit_issue_author: Editar autor de las peticiones
   permission_issue_timelog_never_required: Registro de tiempo no requerido
   permission_log_time_on_closed_issues: Registrar tiempo en peticiones cerradas
-  permission_share_dashboards: "Compartir los tableros"
   permission_save_dashboards: "Guardar los tableros"
   permission_set_system_dashboards: "Establecer los tableros del sistema"
+  permission_share_dashboards: "Compartir los tableros"
   permission_show_hidden_roles_in_memberbox: Mostrar roles ocultos
   remove_help_info: "Quitar el elemento 'Ayuda' del menú superior."
   remove_mypage_info: 'A veces es útil ocultar el enlace a "Mi Página" para incluir el tablero de tareas. La ventaja del tablero de tareas que que las peticiones se muestran de acuerdo a su estado.'
@@ -189,4 +191,3 @@ es:
   top_wiki_help: "Aquí puede definir contenidos y configuracioens para su Wiki."
   wiki_pdf_remove_attachments_info: "Cuando está activa, los adjuntos no serán mostrados en los PDF."
   wiki_pdf_remove_title_info: "Cuando está activa, el título de la Wiki no será mostrado en los PDF."
-  label_my_spent_time: My spent time

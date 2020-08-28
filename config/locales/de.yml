@@ -58,6 +58,7 @@ de:
   global_wiki_sidebar_info: 'Hier kann für die Wiki Sidebar ein projektübergreifender Text hinterlegt werden. Diese Sidebar wird nur auf den Wiki Seiten angezeigt und kann z.B. für  Makros wie "Zuletzt geänderte Seiten" verwendet werden. Wird eine projektspezifische Sidebar angelegt (über eine Wiki Seite), dann wird diese anstelle der projektübergreifenden Sidebar angezeigt.'
   google_maps_embed_api_html: Wenn Du das Gmap Makro verwenden willst um Google Karten darzustellen, musst Du hier Deinen Google Maps Embed API Schlüssel eintragen. Mehr Informationen dazu findest Du unter <a href="https://developers.google.com/maps/documentation/embed/guide" target="_blank">https://developers.google.com/maps/documentation/embed/guide</a>. Wird hier kein Schlüssel eingetragen, kann das gmap Makro nicht verwendet werden.
   hidden_macros_in_toolbar_info: Alle verfügbaren Makros, die der angemeldete Benutzer verwenden kann, werden über den Makro-Button der Wiki-Toolbar aufgelistet. Hier markierte Makros werden nicht zur Auswahl angeboten. Damit lässt sich der Listenumfang einschränken.
+  info_dashboard_project_select: Wird hier kein Projekt angegeben, ist dieses Dashboard für alle Projekte verfügbar.
   info_hidden_roles_html: Versteckte Rollen können nur zusammen mit der Benutzersichtbarkeit "Mitglieder von sichtbaren Projekten" verwendet werden. Diese Option funktioniert nur, wenn der Benutzer in keiner Rolle ist die für den aktuellen Benutzer sichtbar ist. Passt alles wird diese Rolle inklusive Benutzer auf der Projektübersichtsseite und in Abfragelisten ausgeblendet.
   invisible_captcha_info_html: Ist diese Option aktiviert, wird mit Hilfe von <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> ein SPAM Schutz auf die Registrierungs-Seite für neue Benutzer eingesetzt. Diese steht nur zur Verfügung, wenn Redmine die Registrierung neuer Benutzer zulässt.
   label_account_login_bottom: "Text für Anmeldeseite"
@@ -121,6 +122,7 @@ de:
   label_monthly: monatlich
   label_my_activity: Meine Aktivität
   label_my_dashboard_plural: Meine Dashboards
+  label_my_spent_time: Meine aufgewendete Zeit
   label_new_additional_dashboard: Neues Dashboard
   label_new_dashboard: Neues Dashboard
   label_new_issue_on_profile: Neues Ticket auf Benutzerprofil
@@ -174,9 +176,9 @@ de:
   permission_edit_issue_author: Ticket Autor bearbeiten
   permission_issue_timelog_never_required: Zeitbuchungen nicht erforderlich
   permission_log_time_on_closed_issues: Aufwände buchen auf geschlossene Tickets
-  permission_share_dashboards: Dashboards teilen
   permission_save_dashboards: Dashboards anlegen
   permission_set_system_dashboards: System Dashboards festlegen
+  permission_share_dashboards: Dashboards teilen
   permission_show_hidden_roles_in_memberbox: Versteckte Rollen anzeigen
   remove_help_info: "Den Menüpunkt 'Hilfe' aus dem Topmenü entfernen."
   remove_mypage_info: 'Manchmal ist es hilfreich, dass die "Meine Seite" nicht angezeigt wird, um den Einsatz eines Task Boards einzuführen. Der Vorteil eines Task Boards liegt darin, dass Tickets nach Status gelistet werden können.'
@@ -189,4 +191,3 @@ de:
   top_wiki_help: Hier kannst Du Inhalte und Einstellungen bzg. der Wiki festlegen.
   wiki_pdf_remove_attachments_info: Wenn aktiv, werden die an der Wiki Seite angehängten Dateien nicht in der PDF Ansicht angezeigt.
   wiki_pdf_remove_title_info: Wenn aktiv, wird der Wiki Titel nicht in der PDF Ansicht angezeigt.
-  label_my_spent_time: Meine aufgewendete Zeit

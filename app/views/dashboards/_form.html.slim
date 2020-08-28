@@ -14,12 +14,15 @@
         = hidden_field_tag 'dashboard[dashboard_type]', @dashboard.dashboard_type
 
       - if @project && @allowed_projects.present? && @allowed_projects.count > 1
-        p = f.select :project_id,
+        p
+          = f.select :project_id,
                      project_tree_options_for_select(@allowed_projects,
                                                      selected: @dashboard.project,
                                                      include_blank: true),
                      {},
                      disabled: !@dashboard.project_id_can_change?
+          em.info
+            = l(:info_dashboard_project_select)
       - else
         = hidden_field_tag 'dashboard[project_id]', @project&.id
 

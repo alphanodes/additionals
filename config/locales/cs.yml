@@ -58,6 +58,7 @@ cs:
   global_wiki_sidebar_info: 'Zde zadejte textovou textovou zprávu, která je k dispozici pro váš postranní panel wiki. Tento text postranního panelu se zobrazí pouze na stránkách wiki. Tento prostor použijte například pro makra, například „Last changed pages“. V případě, že je použit boční panel specifický pro projekt (wiki stránka), bude to místo toho zobrazen na postranním panelu.'
   google_maps_embed_api_html: "V případě, že chcete k zobrazení map Goole použít makro Gmap, implementujte zde klíč API Google Maps API. Poté můžete použít makro a různé parametry. Více informací o tom, jak používat parametry, naleznete na <a href=\"https://developers.google.com/maps/documentation/embed/guide\" target=\"_blank\">https://developers.google.com/maps/documentation/embed/guide</a>. Makro Gmap zde funguje pouze v kombinaci s vloženým klíčem."
   hidden_macros_in_toolbar_info: "Všechna dostupná makra, která může přihlášený uživatel použít, jsou uvedena prostřednictvím tlačítka makro na panelu nástrojů wiki. Makra zde označená nejsou nabízena k výběru. To vám umožní omezit rozsah seznamu."
+  info_dashboard_project_select: Leave it blank, if you want to use this dashboard for all projects.
   info_hidden_roles_html: "Skryté role lze použít pouze spolu s viditelností uživatele \"Members of visible projects\". Pokud uživatel není v roli, která je viditelná pro aktuálního uživatele, je tato role včetně uživatele skryta na stránce s přehledem projektu a v seznamech dotazů."
   invisible_captcha_info_html: In case this option is activated an <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection is activated for the registration page of new users. This function is only available, if you enabled self-registration, too.
   label_account_login_bottom: "Text pro přihlašovací stránku"
@@ -121,6 +122,7 @@ cs:
   label_monthly: "měsíční"
   label_my_activity: "Moje aktivita"
   label_my_dashboard_plural: "Můj dashboards"
+  label_my_spent_time: My spent time
   label_new_additional_dashboard: "Nový dashboard"
   label_new_dashboard: "Nový dashboard"
   label_new_issue_on_profile: "Nový úkol v uživatelském profilu"
@@ -174,9 +176,9 @@ cs:
   permission_edit_issue_author: "Upravit autora úkolu"
   permission_issue_timelog_never_required: "Časování není nutné"
   permission_log_time_on_closed_issues: "Přihlaste se k uzavřeným úkolům"
-  permission_share_dashboards: "Sdílejte řídicí panely"
   permission_save_dashboards: "Uložte řídicí panely"
   permission_set_system_dashboards: "Nastavit systémové panely"
+  permission_share_dashboards: "Sdílejte řídicí panely"
   permission_show_hidden_roles_in_memberbox: "Zobrazit skryté role"
   remove_help_info: "Remove the item 'Help' from the top menu."
   remove_mypage_info: "Někdy je užitečné skrýt odkaz \"My Page\", aby bylo možné představit základní desku. Výhodou desky úloh je, že problémy lze vypsat podle jejich stavu."
@@ -189,4 +191,3 @@ cs:
   top_wiki_help: "Zde můžete definovat obsah a nastavení vaší Wiki."
   wiki_pdf_remove_attachments_info: "Pokud je aktivní, připojené soubory Wiki se nebudou zobrazovat v zobrazení PDF."
   wiki_pdf_remove_title_info: "Pokud je aktivní, informace o názvu Wiki se nebudou zobrazovat v zobrazení PDF."
-  label_my_spent_time: My spent time

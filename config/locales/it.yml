@@ -58,6 +58,7 @@ it:
   global_wiki_sidebar_info: 'Enter a project wide available text message for your wiki sidebar, here. This sidebar text will be displayed at the wiki pages only. Use this space for Macros like "Last changed pages" for example. In case a project specific sidebar is used (wiki page), this will be preferably displayed in the sidebar instead.'
   google_maps_embed_api_html: Se si desidera utilizzare la macro Gmap per visualizzare Google Maps, è necessario immettere qui la chiave API incorporata di Google Maps. Potete trovare maggiori informazioni sotto <a href="https://developers.google.com/maps/documentation/embed/guide">https://developers.google.com/maps/documentation/embed/guide</a>
   hidden_macros_in_toolbar_info: "Tutte le macro disponibili che l'utente registrato può utilizzare sono elencate tramite il pulsante macro della barra degli strumenti del wiki. Le macro contrassegnate qui non vengono offerte per la selezione. In questo modo è possibile limitare la portata dell'elenco."
+  info_dashboard_project_select: Leave it blank, if you want to use this dashboard for all projects.
   info_hidden_roles_html: "I ruoli nascosti possono essere utilizzati solo insieme alla visibilità dell'utente \"Membri di progetti visibili\". Se l'utente non è in un ruolo visibile all'utente corrente, questo ruolo, incluso l'utente, è nascosto nella pagina di panoramica del progetto e nelle liste di ricerca."
   invisible_captcha_info_html: In case this option is activated an <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection is activated for the registration page of new users. This function is only available, if you enabled self-registration, too.
   label_account_login_bottom: "Testo per la pagina di accesso"
@@ -121,6 +122,7 @@ it:
   label_monthly: mensile
   label_my_activity: "La mia attività"
   label_my_dashboard_plural: "Il mio dashboards"
+  label_my_spent_time: My spent time
   label_new_additional_dashboard: "Nuovo dashboard"
   label_new_dashboard: "Nuovo dashboard"
   label_new_issue_on_profile: Nuovo numero sul profilo utente
@@ -174,9 +176,9 @@ it:
   permission_edit_issue_author: "Modifica l'autore"
   permission_issue_timelog_never_required: Registrazioni di tempo non richieste
   permission_log_time_on_closed_issues: "Il tempo di registrazione su problemi chiusi"
-  permission_share_dashboards: "Condividi dashboard"
   permission_save_dashboards: "Salvare i dashboard"
   permission_set_system_dashboards: "Set di dashboard di sistema"
+  permission_share_dashboards: "Condividi dashboard"
   permission_show_hidden_roles_in_memberbox: "Mostra ruoli nascosti"
   remove_help_info: "Rimuove l'elemento \"Aiuto\" dal menu superiore."
   remove_mypage_info: "Sometimes it is more useful to hide the \"My Page\" link in order to introduce the task board. The task board advantage is that issues can be listed according to their status."
@@ -189,4 +191,3 @@ it:
   top_wiki_help: "Qui puoi definire contenuti e impostazioni per il tuo Wiki."
   wiki_pdf_remove_attachments_info: "Quando è attivo, il Wiki file allegati non verranno visualizzati nella vista PDF."
   wiki_pdf_remove_title_info: "Quando è attivo, le informazioni sul titolo del Wiki non verranno visualizzate nella vista PDF."
-  label_my_spent_time: My spent time

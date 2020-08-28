@@ -58,6 +58,7 @@ ko:
   global_wiki_sidebar_info: '위키 사이드 바에 사용할 수있는 프로젝트 전체 문자 메시지를 여기에 입력하십시오. 이 사이드 바 텍스트는 위키 페이지에만 표시됩니다. 예를 들어 "마지막으로 변경된 페이지"와 같은 매크로에이 공간을 사용하십시오. 프로젝트 특정 사이드 바가 사용되는 경우 (위키 페이지), 대신 사이드 바에 표시되는 것이 좋습니다.'
   google_maps_embed_api_html: 'Goole지도를 표시하기 위해 Gmap 매크로를 사용하려는 경우 여기에 Google Maps API 키를 구현하십시오. 그 후 매크로 및 다양한 매개 변수를 사용할 수 있습니다. 매개 변수를 사용하는 방법에 대한 자세한 내용은 <a href="https://developers.google.com/maps/documentation/embed/guide" target="_blank">https://developers.google.com/maps/documentation/embed/guide</a>. Gmap 매크로는 여기에 포함 된 키와 조합해서 만 작동합니다.'
   hidden_macros_in_toolbar_info: 로그인 한 사용자가 사용할 수있는 모든 매크로가 위키 도구 모음의 매크로 버튼을 통해 나열됩니다. 여기에 표시된 매크로는 선택할 수 없습니다. 이를 통해 목록의 범위를 제한 할 수 있습니다.
+  info_dashboard_project_select: Leave it blank, if you want to use this dashboard for all projects.
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". 사용자가 현재 사용자에게 보이는 역할이 아닌 경우 사용자를 포함한이 역할은 프로젝트 개요 페이지와 쿼리 목록에서 숨겨집니다.
   invisible_captcha_info_html: In case this option is activated an <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection is activated for the registration page of new users. This function is only available, if you enabled self-registration, too.
   label_account_login_bottom: "로그인 페이지의 텍스트"
@@ -121,6 +122,7 @@ ko:
   label_monthly: 월간 간행물
   label_my_activity: "My activity"
   label_my_dashboard_plural: My dashboards
+  label_my_spent_time: My spent time
   label_new_additional_dashboard: New dashboard
   label_new_dashboard: New dashboard
   label_new_issue_on_profile: 사용자 프로필의 새로운 문제
@@ -174,9 +176,9 @@ ko:
   permission_edit_issue_author: 이슈 작성자 편집
   permission_issue_timelog_never_required: 시간 기록 불필요
   permission_log_time_on_closed_issues: "닫힌 문제에 대한 시간 기록"
-  permission_share_dashboards: Share dashboards
   permission_save_dashboards: Save dashboards
   permission_set_system_dashboards: Set system dashboards
+  permission_share_dashboards: Share dashboards
   permission_show_hidden_roles_in_memberbox: "숨겨진 역할 표시"
   remove_help_info: "상단 메뉴에서 'Help' 항목을 제거"
   remove_mypage_info: 'Sometimes it is more useful to hide the "My Page" link in order to introduce the task board. The task board advantage is that issues can be listed according to their status.'
@@ -189,4 +191,3 @@ ko:
   top_wiki_help: 여기에서 위키의 내용과 설정을 정의 할 수 있습니다.
   wiki_pdf_remove_attachments_info: 활성화 된 경우 첨부 된 Wiki 파일은 PDF보기에 표시되지 않습니다.
   wiki_pdf_remove_title_info: 활성화되면 위키 제목 정보가 PDF보기에 표시되지 않습니다.
-  label_my_spent_time: My spent time

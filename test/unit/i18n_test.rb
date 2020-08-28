@@ -25,7 +25,7 @@ class I18nTest < Additionals::TestCase
       case lang.to_s
       when 'en'
         assert_equal 'Open external URLs', l(:label_open_external_urls)
-      when 'br', 'cs', 'de', 'es', 'fr', 'it', 'ja', 'ko', 'po', 'ru', 'zh-TW', 'zh'
+      when 'pt-BR', 'cs', 'de', 'es', 'fr', 'it', 'ja', 'ko', 'po', 'ru', 'zh-TW', 'zh'
         assert_not l(:label_open_external_urls) == 'Open external URLs', lang
       end
     end

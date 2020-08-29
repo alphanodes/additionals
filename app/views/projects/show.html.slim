@@ -78,8 +78,7 @@ javascript:
 
 - if @dashboard_sidebar
   - content_for :sidebar do
-    - if User.current.allowed_to? :save_dashboards, @project, global: true
-      = render_sidebar_dashboards @dashboard, @project
+    = render_sidebar_dashboards @dashboard, @project
     = call_hook :view_projects_show_sidebar_bottom, project: @project
 
 - content_for :header_tags do

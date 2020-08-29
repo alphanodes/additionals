@@ -43,9 +43,11 @@ module DashboardsHelper
   end
 
   def render_dashboard_actionlist(active_dashboard, project = nil)
-    dashboards = sidebar_dashboards(active_dashboard, project)
+    dashboards = sidebar_dashboards active_dashboard, project
     base_css = 'icon icon-dashboard'
     out = []
+
+    dashboards.select!(&:public?) unless User.current.allowed_to? :save_dashboards, project, global: true
     dashboards.each do |dashboard|
       css_class = base_css
       dashboard_name = "#{l :label_dashboard}: #{dashboard.name}"
@@ -65,10 +67,10 @@ module DashboardsHelper
   end
 
   def render_sidebar_dashboards(dashboard, project = nil)
-    dashboards = sidebar_dashboards(dashboard, project)
+    dashboards = sidebar_dashboards dashboard, project
     out = [dashboard_links(l(:label_my_dashboard_plural),
                            dashboard,
-                           dashboards.select(&:private?),
+                           User.current.allowed_to?(:save_dashboards, project, global: true) ? dashboards.select(&:private?) : [],
                            project),
            dashboard_links(l(:label_shared_dashboard_plural),
                            dashboard,

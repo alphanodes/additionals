@@ -28,4 +28,39 @@ class UserTest < Additionals::TestCase
   def test_with_permission_on_project
     assert_equal 3, User.visible.active.with_permission(:save_dashboards, projects(:projects_001)).count
   end
+
+  def test_admin_should_can_be_admin
+    assert User.where(admin: true).first.can_be_admin?
+  end
+
+  def test_non_admin_should_can_not_be_admin
+    assert_not User.where(admin: false).first.can_be_admin?
+  end
+
+  def test_sudoer_should_can_be_admin
+    skip 'Skip redmine_sudo test, because redmine_contacts is not installed' unless Redmine::Plugin.installed?('redmine_sudo')
+
+    user = users :users_001
+    user.sudoer = true
+    user.save!
+    user.reload
+
+    assert user.sudoer
+    assert user.admin
+    assert User.where(sudoer: true).first.can_be_admin?
+
+    user.admin = false
+    user.save!
+    user.reload
+
+    assert user.sudoer
+    assert_not user.admin
+    assert User.where(sudoer: true).first.can_be_admin?
+  end
+
+  def test_non_sudoer_without_admin_should_can_not_be_admin
+    skip 'Skip redmine_sudo test, because redmine_contacts is not installed' unless Redmine::Plugin.installed?('redmine_sudo')
+
+    assert_not User.where(sudoer: false, admin: false).first.can_be_admin?
+  end
 end

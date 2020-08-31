@@ -40,6 +40,10 @@ module Additionals
       end
 
       module InstanceMethods
+        def can_be_admin?
+          @can_be_admin ||= Redmine::Plugin.installed?('redmine_sudo') ? (admin || sudoer) : admin
+        end
+
         def issues_assignable?(project = nil)
           scope = Principal.joins(members: :roles)
                            .where(users: { id: id }, roles: { assignable: true })

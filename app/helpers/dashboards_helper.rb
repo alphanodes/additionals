@@ -207,13 +207,12 @@ module DashboardsHelper
 
     if dashboard.editable?
       icons = []
-      if block_definition[:no_settings].blank?
-        if !block_definition.key?(:with_settings_if) || block_definition[:with_settings_if].call(@project)
-          icons << link_to_function(l(:label_options),
-                                    "$('##{block}-settings').toggle();",
-                                    class: 'icon-only icon-settings',
-                                    title: l(:label_options))
-        end
+      if block_definition[:no_settings].blank? &&
+         (!block_definition.key?(:with_settings_if) || block_definition[:with_settings_if].call(@project))
+        icons << link_to_function(l(:label_options),
+                                  "$('##{block}-settings').toggle();",
+                                  class: 'icon-only icon-settings',
+                                  title: l(:label_options))
       end
       icons << tag.span('', class: 'icon-only icon-sort-handle sort-handle', title: l(:button_move))
       icons << link_to(l(:button_delete),

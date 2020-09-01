@@ -63,8 +63,9 @@ module Additionals
 
           add_autowatcher(User.current)
           add_autowatcher(author) if (new_record? || author_id != author_id_was) && author != User.current
-          unless assigned_to_id.nil? || assigned_to_id == User.current.id
-            add_autowatcher(assigned_to) if new_record? || assigned_to_id != assigned_to_id_was
+
+          if !assigned_to_id.nil? && assigned_to_id != User.current.id && (new_record? || assigned_to_id != assigned_to_id_was)
+            add_autowatcher(assigned_to)
           end
 
           true
@@ -75,11 +76,11 @@ module Additionals
         end
 
         def editable_with_additionals?(user = User.current)
-          return false unless editable_without_additionals?(user)
+          return false unless editable_without_additionals? user
           return true unless closed?
-          return true unless Additionals.setting?(:issue_freezed_with_close)
+          return true unless Additionals.setting? :issue_freezed_with_close
 
-          user.allowed_to?(:edit_closed_issues, project)
+          user.allowed_to? :edit_closed_issues, project
         end
       end
 

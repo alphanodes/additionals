@@ -11,12 +11,11 @@ module Additionals
 
       module InstanceOverwriteMethods
         def respond_to(&block)
-          if @project && @content
-            if @_action_name == 'show'
-              additionals_include_header
-              additionals_include_footer
-            end
+          if @project && @content && @_action_name == 'show'
+            additionals_include_header
+            additionals_include_footer
           end
+
           super(&block)
         end
 

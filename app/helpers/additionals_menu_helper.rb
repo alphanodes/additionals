@@ -22,7 +22,8 @@ module AdditionalsMenuHelper
     Redmine::MenuManager.map(:top_menu).delete(menu_name.to_sym) if Redmine::MenuManager.map(:top_menu).exists?(menu_name.to_sym)
 
     html_options = {}
-    html_options[:class] = 'external' if item[:url].include? '://'
+    html_options[:class] = 'submenu'
+    html_options[:class] << ' external' if item[:url].include? '://'
     html_options[:title] = item[:title] if item[:title].present?
 
     menu_options = { parent: item[:parent].present? ? item[:parent].to_sym : nil,

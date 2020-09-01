@@ -12,6 +12,10 @@
   padding-left: 0;
 }
 
+#top-menu a.submenu {
+  padding-bottom: 10px;
+}
+
 .query-description,
 .dashboard-description {
   color: #666;

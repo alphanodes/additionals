@@ -5,7 +5,6 @@ module Additionals
 
     render_on(:view_layouts_base_html_head, partial: 'additionals/html_head')
     render_on(:view_layouts_base_body_top, partial: 'additionals/body_top')
-    render_on(:view_layouts_base_content, partial: 'additionals/content')
     render_on(:view_layouts_base_body_bottom, partial: 'additionals/body_bottom')
 
     render_on(:view_account_login_bottom, partial: 'login_text')
@@ -27,6 +26,21 @@ module Additionals
 
       detail[:value] = find_name_by_reflection('author', detail.value) || detail.value
       detail[:old_value] = find_name_by_reflection('author', detail.old_value) || detail.old_value
+    end
+
+    def view_layouts_base_content(context = {})
+      controller = context[:controller]
+      return if controller.nil?
+
+      controller_name = context[:controller].params[:controller]
+      action_name = context[:controller].params[:action]
+
+      return if controller_name == 'account' && action_name == 'login' ||
+                controller_name == 'my' ||
+                controller_name == 'account' && action_name == 'lost_password' ||
+                !Additionals.setting?(:add_go_to_top)
+
+      link_to l(:label_go_to_top), '#gototop', class: 'gototop'
     end
   end
 end

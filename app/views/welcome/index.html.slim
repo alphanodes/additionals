@@ -1,11 +1,10 @@
 / Some plugins use @news (e.g. redmine_wysiwyg_editor), to detect news
 - @news = nil
 .contextual
-  - if User.current.allowed_to? :save_dashboards, nil, global: true
-    - if @dashboard&.editable?
-      = link_to l(:button_dashboard_edit),
-                edit_dashboard_path(@dashboard),
-                class: 'icon icon-edit'
+  - if User.current.allowed_to?(:save_dashboards, nil, global: true) && @dashboard&.editable?
+    = link_to l(:button_dashboard_edit),
+              edit_dashboard_path(@dashboard),
+              class: 'icon icon-edit'
 
   = call_hook :view_welcome_contextual_links
 

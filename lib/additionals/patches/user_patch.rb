@@ -8,6 +8,10 @@ module Additionals
       end
 
       class_methods do
+        def admin_column_field
+          Redmine::Plugin.installed?('redmine_sudo') ? 'sudoer' : 'admin'
+        end
+
         # NOTE: this is a better (performance related) solution as:
         # authors = users.to_a.select { |u| u.allowed_to? permission, project, global: project.nil? }
         def with_permission(permission, project = nil)

@@ -5,25 +5,33 @@ module AdditionalsMenuHelper
     if Additionals.setting? :remove_mypage
       Redmine::MenuManager.map(:top_menu).delete(:my_page) if Redmine::MenuManager.map(:top_menu).exists?(:my_page)
     else
-      handle_top_menu_item(:my_page, url: my_page_path, after: :home, if: proc { User.current.logged? })
+      handle_top_menu_item(:my_page, { url: my_page_path, after: :home, if: proc { User.current.logged? } })
     end
 
     if Additionals.setting? :remove_help
       Redmine::MenuManager.map(:top_menu).delete(:help) if Redmine::MenuManager.map(:top_menu).exists?(:help)
     elsif User.current.logged?
-      handle_top_menu_item(:help, url: '#', symbol: 'fas_question', last: true)
+      handle_top_submenu_item(:help, url: '#', symbol: 'fas_question', last: true)
       @additionals_help_items = additionals_help_menu_items
     else
       handle_top_menu_item(:help, url: Redmine::Info.help_url, symbol: 'fas_question', last: true)
     end
   end
 
-  def handle_top_menu_item(menu_name, item)
+  def handle_top_submenu_item(menu_name, item)
+    handle_top_menu_item menu_name, item, with_submenu: true
+  end
+
+  def handle_top_menu_item(menu_name, item, with_submenu: false)
     Redmine::MenuManager.map(:top_menu).delete(menu_name.to_sym) if Redmine::MenuManager.map(:top_menu).exists?(menu_name.to_sym)
 
     html_options = {}
-    html_options[:class] = 'submenu'
-    html_options[:class] << ' external' if item[:url].include? '://'
+
+    css_classes = []
+    css_classes << 'top-submenu' if with_submenu
+    css_classes << 'external' if item[:url].include? '://'
+    html_options[:class] = css_classes.join(' ') if css_classes.present?
+
     html_options[:title] = item[:title] if item[:title].present?
 
     menu_options = { parent: item[:parent].present? ? item[:parent].to_sym : nil,
@@ -111,7 +119,7 @@ module AdditionalsMenuHelper
     end
 
     if show_entry
-      handle_top_menu_item(item[:menu_name], item)
+      handle_top_submenu_item(item[:menu_name], item)
     elsif Redmine::MenuManager.map(:top_menu).exists?(item[:menu_name])
       Redmine::MenuManager.map(:top_menu).delete(item[:menu_name])
     end

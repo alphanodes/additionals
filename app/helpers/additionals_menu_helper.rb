@@ -119,7 +119,7 @@ module AdditionalsMenuHelper
     end
 
     if show_entry
-      handle_top_submenu_item item[:menu_name], item
+      handle_top_menu_item item[:menu_name], item
     elsif Redmine::MenuManager.map(:top_menu).exists?(item[:menu_name])
       Redmine::MenuManager.map(:top_menu).delete(item[:menu_name])
     end

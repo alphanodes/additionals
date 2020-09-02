@@ -11,10 +11,10 @@ module AdditionalsMenuHelper
     if Additionals.setting? :remove_help
       Redmine::MenuManager.map(:top_menu).delete(:help) if Redmine::MenuManager.map(:top_menu).exists?(:help)
     elsif User.current.logged?
-      handle_top_submenu_item(:help, url: '#', symbol: 'fas_question', last: true)
+      handle_top_submenu_item :help, url: '#', symbol: 'fas_question', last: true
       @additionals_help_items = additionals_help_menu_items
     else
-      handle_top_menu_item(:help, url: Redmine::Info.help_url, symbol: 'fas_question', last: true)
+      handle_top_menu_item :help, url: Redmine::Info.help_url, symbol: 'fas_question', last: true
     end
   end
 
@@ -119,7 +119,7 @@ module AdditionalsMenuHelper
     end
 
     if show_entry
-      handle_top_submenu_item(item[:menu_name], item)
+      handle_top_submenu_item item[:menu_name], item
     elsif Redmine::MenuManager.map(:top_menu).exists?(item[:menu_name])
       Redmine::MenuManager.map(:top_menu).delete(item[:menu_name])
     end

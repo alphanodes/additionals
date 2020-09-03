@@ -9,4 +9,5 @@ gem 'slim-rails'
 
 group :development, :test do
   gem 'brakeman', require: false
+  gem 'slim_lint', require: false
 end

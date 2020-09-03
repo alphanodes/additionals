@@ -28,6 +28,8 @@
   padding-left: 8px !important;
 }
 
+.sudo-admin { color: #d80000; }
+
 .nodata.nodata-left { text-align: left; }
 
 /* Go to top link */

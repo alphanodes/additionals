@@ -99,6 +99,10 @@ module Additionals
       false
     end
 
+    def os_is_mac?
+      !RUBY_PLATFORM.include?('darwin').nil?
+    end
+
     def now_with_user_time_zone(user = User.current)
       if user.time_zone.nil?
         Time.zone.now

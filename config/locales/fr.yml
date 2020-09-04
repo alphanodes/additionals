@@ -191,5 +191,5 @@ fr:
   top_wiki_help: "Ici vous pouvez définir le contenu et les paramètres de votre Wiki."
   wiki_pdf_remove_attachments_info: "Lorsqu'ils sont actifs, les fichiers Wiki joints ne seront pas affichés en vue PDF."
   wiki_pdf_remove_title_info: "Lorsqu'elle est active, l'information sur le titre du wiki ne sera pas affichée dans la vue PDF."
-  label_copied_to_clipboard: Copied!
-  label_copy_to_clipboard: Copy to clipboard
+  label_copied_to_clipboard: "Copie !"
+  label_copy_to_clipboard: "Copie dans le presse-papiers"

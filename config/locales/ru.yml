@@ -191,5 +191,5 @@ ru:
   top_wiki_help: "Здесь вы можете определить содержимое и настройки для вашей Вики."
   wiki_pdf_remove_attachments_info: "Если флажок установлен, вложенные Вики-файлы не будут отображаться в PDF-формате."
   wiki_pdf_remove_title_info: "При активации этого параметра информация о названии Вики не будет отображаться в PDF-формате."
-  label_copied_to_clipboard: Copied!
-  label_copy_to_clipboard: Copy to clipboard
+  label_copied_to_clipboard: "Принято!"
+  label_copy_to_clipboard: "Скопировано в буфер обмена"

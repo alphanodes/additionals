@@ -5,9 +5,11 @@ Changelog
 +++++
 
 - Introduce dashboards
-- Redmine 4.1 or newer ist required
+- Redmine 4.1 or newer is required
 - FontAwesome 5.14.0 support
-
+- D3 6.1.1 support
+- Mermaid 8.7.0 support
+- d3plus to v2.0.0-alpha.29 support
 
 2.0.24
 ++++++

@@ -295,6 +295,18 @@ module Additionals
       additionals_include_js 'd3plus.full.min'
     end
 
+    def additionals_load_d3plus_old
+      additionals_include_js 'd3plus-old.full.min'
+    end
+
+    def additionals_load_d3plus_hierarchy
+      additionals_include_js 'd3plus-hierarchy.full'
+    end
+
+    def additionals_load_d3plus_network
+      additionals_include_js 'd3plus-network.full.min'
+    end
+
     def user_with_avatar(user, options = {})
       return if user.nil?
 

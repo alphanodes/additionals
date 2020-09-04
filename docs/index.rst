@@ -170,10 +170,10 @@ It provides :
 * `Chart.js Plugin colorschemes 0.4.0 <https://github.com/nagix/chartjs-plugin-colorschemes>`_
 * `Chart.js Plugin datalabels 0.7.0 <https://github.com/chartjs/chartjs-plugin-datalabels>`_
 * `clipboardJS 2.0.6 <https://clipboardjs.com/>`_
-* `d3 5.16.0 <https://d3js.org/>`_
-* `d3plus v2.0.0-alpha.25 <https://d3plus.org/>`_
+* `d3 6.1.1 <https://d3js.org/>`_
+* `d3plus v2.0.0-alpha.29 <https://d3plus.org/>`_
 * `FontAwesome 5.14.0 <https://fontawesome.com/>`_
-* `mermaid 8.4.8 <https://github.com/knsv/mermaid/>`_
+* `mermaid 8.7.0 <https://github.com/knsv/mermaid/>`_
 * `Select2 4.0.13 <https://select2.org/>`_
 
 And a set of various Rails helper methods (see below).
@@ -215,6 +215,7 @@ Redmine Plugins, which are using ``additionals``
 * `redmine_postgresql_search <https://github.com/AlphaNodes/redmine_postgresql_search>`_
 * `redmine_privacy_terms <https://github.com/AlphaNodes/redmine_privacy_terms>`_
 * `redmine_reporting <https://alphanodes.com/redmine-reporting>`_
+* `redmine_sudo <https://github.com/AlphaNodes/redmine_sudo>`_
 
 If you know other plugins, which are using ``additionals``, please let us know or create a `PR <https://github.com/alphanodes/additionals/pulls>`_.
 

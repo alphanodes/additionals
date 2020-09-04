@@ -31,12 +31,8 @@ class AdditionalsTag
     end
 
     def remove_unused_tags
-      unused = RedmineCrm::Tag.find_by_sql(<<-SQL)
-        SELECT * FROM tags WHERE id NOT IN (
-          SELECT DISTINCT tag_id FROM taggings
-        )
-      SQL
-      unused.each(&:destroy)
+      RedmineCrm::Tag.where.not(id: RedmineCrm::Tagging.select(:tag_id).distinct)
+                     .each(&:destroy)
     end
 
     def sql_for_tags_field(klass, operator, value)

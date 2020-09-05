@@ -53,8 +53,6 @@ pl:
   field_website: Strona internetowa
   global_footer_info: "Wprowadź tutaj szeroką stopkę projektu wiki footer."
   global_sidebar_info: "Wprowadź tutaj ogólnodostępną wiadomość tekstową dotyczącą projektu. Ten pasek boczny będzie wyświetlany w przeglądzie projektu, na stronach spraw i na stronach wiki."
-  global_wiki_footer_info: 'Wprowadź tutaj szeroką stopkę projektu wiki footer. In case a project specific wiki footer is used by "Wiki Extensions", this will be preferably displayed instead.'
-  global_wiki_header_info: 'Wprowadź tutaj szeroką stopkę projektu wiki footer. In case a project specific wiki header is used by "Wiki Extensions", this will be preferably displayed instead.'
   global_wiki_sidebar_info: 'Wprowadź ogólnodostępną wiadomość tekstową dla paska bocznego wiki, tutaj. Ten pasek boczny będzie wyświetlany tylko na stronach wiki. Użyj tego miejsca dla makr, jak na przykład "Last changed pages". W przypadku użycia paska bocznego specyficznego dla projektu (strona wiki), zostanie on wyświetlony na pasku bocznym.'
   google_maps_embed_api_html: "W przypadku, gdy chcesz użyć makra Gmapy do wyświetlania map Google, zaimplementuj tutaj swój klucz API Google Maps. Następnie możesz użyć makra i różnych parametrów. Więcej informacji na temat korzystania z paramaterów znajduje się na stronie <a href=\"https://developers.google.com/maps/documentation/embed/guide\" target=\"_blank\">https://developers.google.com/maps/documentation/embed/guide</a>. The Gmap macro works only in combination with the embedded key here."
   hidden_macros_in_toolbar_info: "Wszystkie dostępne makra, których może używać zalogowany użytkownik, są wymienione za pomocą przycisku makro na pasku narzędzi wiki. Makra zaznaczone tutaj nie są oferowane do wyboru. Pozwala to na ograniczenie zakresu listy."
@@ -92,8 +90,6 @@ pl:
   label_enable_sidebar: "Włącz pasek boczny"
   label_global_footer: "Szeroka podstawa projektu"
   label_global_sidebar: "Globalny pasek boczny"
-  label_global_wiki_footer: "Szeroka stopka wikii projektu"
-  label_global_wiki_header: "Szeroki nagłówek projektu wiki"
   label_global_wiki_sidebar: "Globalny pasek boczny Wiki"
   label_go_to_top: "Go to top"
   label_google_maps_api_key: Google Maps Embed API Key

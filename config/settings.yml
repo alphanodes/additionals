@@ -5,8 +5,6 @@ disabled_modules:
 open_external_urls: 1
 global_footer: ''
 global_sidebar: ''
-global_wiki_footer: ''
-global_wiki_header: ''
 global_wiki_sidebar: ''
 google_maps_api_key: ''
 hidden_macros_in_toolbar:

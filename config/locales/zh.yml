@@ -53,8 +53,6 @@ zh:
   field_website: Website
   global_footer_info: '请在此处输入项目范围内 WIKI 页尾信息。'
   global_sidebar_info: "请在此处输入项目范围内侧边栏信息。自定义侧边栏信息将在项目概述页、问题列表页及WIKI页显示。"
-  global_wiki_footer_info: '请在此处输入项目范围内的 WIKI 页脚信息。若"Wiki Extensions"插件使用了指定的WIKI页脚，则该信息会被优先显示。'
-  global_wiki_header_info: '请在此处输入项目范围内的 WIKI 页首信息。若"Wiki Extensions"插件使用了指定的WIKI页首，则该信息会被优先显示。'
   global_wiki_sidebar_info: '请在此处输入项目范围内的 WIKI 侧边栏信息。该侧边栏信息将只显示在WIKI页内。在此空间内输入诸如 "Last changed pages" 的宏命令。若项目内使用指定的侧边栏（WIKI页），则该信息将优先显示在侧边栏内。'
   google_maps_embed_api_html: In case you want to use the Gmap macro in order to display Goole maps please implement your Google Maps API key here. Afterwards you can use the macro and various paramters. More information on how to use the paramaters are provided at <a href="https://developers.google.com/maps/documentation/embed/guide" target="_blank">https://developers.google.com/maps/documentation/embed/guide</a>. The Gmap macro works only in combination with the embedded key here.
   hidden_macros_in_toolbar_info: 登录用户可以使用的所有可用宏都可通过Wiki页面工具栏 的 宏 按钮列出。请在此处选择不希望列出的宏。
@@ -92,8 +90,6 @@ zh:
   label_enable_sidebar: 启用侧栏。
   label_global_footer: "项目范围内的页脚设置"
   label_global_sidebar: "全局侧边栏设置"
-  label_global_wiki_footer: "项目范围内 WIKI 页脚设置"
-  label_global_wiki_header: "项目范围内的页首设置"
   label_global_wiki_sidebar: "全局 WIKI 侧边栏设置"
   label_go_to_top: "回到顶部"
   label_google_maps_api_key: Google Maps Embed API Key

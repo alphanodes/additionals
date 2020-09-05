@@ -10,6 +10,7 @@ Changelog
 - D3 6.1.1 support
 - Mermaid 8.8.0 support
 - d3plus to v2.0.0-alpha.29 support
+- drop wiki header and footer settings
 
 2.0.24
 ++++++

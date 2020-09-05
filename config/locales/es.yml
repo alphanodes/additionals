@@ -53,8 +53,6 @@ es:
   field_website: Sitio Web
   global_footer_info: 'Ingrese un pie de página para la wiki de todo el proyecto.'
   global_sidebar_info: "Ingrese aquí el texto de Barra lateral de wiki. Esta Barra lateral será mostrada en el vistazo del proyecto, las peticiones y las páginas de la Wiki."
-  global_wiki_footer_info: 'Ingrese aquí un pie de página para la Wiki de los proyectos. En caso de que se utilice un encabezado específico para el proyecto con "Wiki Extensions", este texto será mostrado en su lugar.'
-  global_wiki_header_info: 'Ingrese aquí un encabezado para la Wiki de los proyectos. En caso de que se utilice un encabezado específico para el proyecto con "Wiki Extensions", este texto será mostrado en su lugar.'
   global_wiki_sidebar_info: 'Ingrese aquí un el texto a ser mostrado en la barra lateral de la Wiki. Esta barra lateral solo será mostrada en las Wiki. Puede utilizar este espacio para macros como "Últimas páginas modificadas". En caso de que se utilice una barra lateral de proyecto esté en uso, este texto será mostrado en su lugar.'
   google_maps_embed_api_html: En caso de querer utilizar el macro Gmap para mostrar mapas de Google necesita ingresar su Clave de API de Google Maps aquí. Luego podrá utilizar el macro y varios parámetros. Mas información acerca de como utilizar estos parametros está disponible en <a href="https://developers.google.com/maps/documentation/embed/guide" target="_blank">https://developers.google.com/maps/documentation/embed/guide</a>. El macro Gmap funciona solamente si se ingresa esta clave.
   hidden_macros_in_toolbar_info: Todas las macros disponibles que el usuario conectado puede utilizar se enumeran mediante el botón de macros de la barra de herramientas wiki. Las macros marcadas aquí no se ofrecen para la selección. Esto permite restringir el alcance de la lista.
@@ -92,8 +90,6 @@ es:
   label_enable_sidebar: "Activar la barra lateral"
   label_global_footer: "Footer para todo el proyecto"
   label_global_sidebar: "Barra lateral global"
-  label_global_wiki_footer: "Footer de wiki para todo el proyecto"
-  label_global_wiki_header: "Header de wiki para todo el proyecto"
   label_global_wiki_sidebar: "Barra lateral de wiki global"
   label_go_to_top: "Volver al inicio"
   label_google_maps_api_key: Google Maps Embed API Key

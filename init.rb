@@ -46,8 +46,6 @@ Redmine::Plugin.register :additionals do
   requires_redmine version_or_higher: '4.1'
 
   menu :admin_menu, :additionals, { controller: 'settings', action: 'plugin', id: 'additionals' }, caption: :label_additionals
-
-  RedCloth3::ALLOWED_TAGS << 'div'
 end
 
 Rails.configuration.to_prepare do

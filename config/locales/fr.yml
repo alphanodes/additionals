@@ -53,8 +53,6 @@ fr:
   field_website: Website
   global_footer_info: 'Entrez un projet en bas de page wiki ici.'
   global_sidebar_info: "Saisissez ici un message texte disponible pour l'ensemble du projet. Ce texte latéral sera affiché dans la vue d'ensemble du projet, les pages d'édition et les pages wiki."
-  global_wiki_footer_info: "Entrez ici un pied de page wiki pour l'ensemble du projet. Dans le cas où un pied de page wiki spécifique à un projet est utilisé par \"Wiki Extensions\", celui-ci sera de préférence affiché à la place."
-  global_wiki_header_info: "Entrez ici un en-tête wiki pour l'ensemble du projet. Dans le cas où un en-tête wiki spécifique à un projet est utilisé par \"Wiki Extensions\", celui-ci sera de préférence affiché à la place."
   global_wiki_sidebar_info: "Entrez ici un message texte disponible pour l'ensemble du projet pour votre barre latérale wiki. Ce texte de la barre latérale sera affiché uniquement sur les pages wiki. Use this space for Macros like \"Last changed pages\" for example. Dans le cas où une barre latérale spécifique au projet est utilisée (page wiki), celle-ci sera de préférence affichée dans la barre latérale."
   google_maps_embed_api_html: "Si vous souhaitez utiliser la macro Gmap pour afficher les cartes de Goole, veuillez implémenter votre clé API Google Maps ici. Ensuite, vous pouvez utiliser la macro et divers paramètres. Pour plus d'informations sur l'utilisation des paramètres, voir <a href=\"https://developers.google.com/maps/documentation/embed/guide\">https://developers.google.com/maps/documentation/embed/guide</a>. La macro Gmap ne fonctionne qu'en combinaison avec la clé intégrée."
   hidden_macros_in_toolbar_info: "Toutes les macros disponibles que l'utilisateur connecté peut utiliser sont listées via le bouton macro de la barre d'outils wiki. Les macros marquées ici ne sont pas proposées à la sélection. Ceci vous permet de limiter la portée de la liste."
@@ -92,8 +90,6 @@ fr:
   label_enable_sidebar: "Activer la sidebar"
   label_global_footer: "Project wide footer"
   label_global_sidebar: "Global sidebar"
-  label_global_wiki_footer: "Project wide wiki footer"
-  label_global_wiki_header: "Project wide wiki header"
   label_global_wiki_sidebar: "Global wiki sidebar"
   label_go_to_top: "Go to top"
   label_google_maps_api_key: Google Maps Embed API Key

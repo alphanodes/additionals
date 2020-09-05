@@ -53,8 +53,6 @@
   field_website: 網站
   global_footer_info: "專案中頁尾訊息。"
   global_sidebar_info: "專案中側邊訊息。自訂側邊訊息將在專案概觀頁、議題清單頁及Wiki頁顯示。"
-  global_wiki_footer_info: "專案中Wiki頁尾訊息。若 \"Wiki Extensions\" 外掛設定了Wiki頁尾訊息，則該優先顯示該訊息。"
-  global_wiki_header_info: "專案中Wiki頁首訊息。若 \"Wiki Extensions\" 外掛設定了Wiki頁首訊息，則該優先顯示該訊息。"
   global_wiki_sidebar_info: "專案中Wiki側邊訊息。僅在wiki頁內顯示。可輸入如 \"Last changed pages\" 等macro指令。若專案內使用指定的Wiki側邊訊息，則該優先顯示該訊息。"
   google_maps_embed_api_html: In case you want to use the Gmap macro in order to display Goole maps please implement your Google Maps API key here. Afterwards you can use the macro and various paramters. More information on how to use the paramaters are provided at <a href="https://developers.google.com/maps/documentation/embed/guide" target="_blank">https://developers.google.com/maps/documentation/embed/guide</a>. The Gmap macro works only in combination with the embedded key here.
   hidden_macros_in_toolbar_info: All available macros that the logged in user can use are listed via the macro button of the wiki toolbar. Macros marked here are not offered for selection. This allows you to limit the scope of the list.
@@ -92,8 +90,6 @@
   label_enable_sidebar: Enable sidebar
   label_global_footer: "專案中頁尾設定"
   label_global_sidebar: "專案中側邊設定"
-  label_global_wiki_footer: "專案中Wiki頁尾訊息設定"
-  label_global_wiki_header: "專案中Wiki頁首訊息設定"
   label_global_wiki_sidebar: "專案中Wiki側邊設定"
   label_go_to_top: "回到頁首"
   label_google_maps_api_key: Google Maps Embed API Key

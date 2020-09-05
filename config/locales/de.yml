@@ -53,8 +53,6 @@ de:
   field_website: Website
   global_footer_info: 'Hier kann ein projektübergreifender Footer hinterlegt werden, z.B. um einen Verweis auf die Datenschutzbestimmungen zu setzen.'
   global_sidebar_info: "Hier kann für die Sidebar ein projektübergreifender Text hinterlegt werden. Der hier hinterlegte Sidebar Inhalt wird auf der Projektübersichtsseite, auf den Ticketseiten und den Wikiseiten angezeigt."
-  global_wiki_footer_info: 'Hier kann ein projektübergreifender Wiki Footer hinterlegt werden. Wird über "Wiki Extensions" ein projektspezifischer Footer angelegt, wird dieser anstelle des projektübergreifenden Footers verwendet.'
-  global_wiki_header_info: 'Hier kann ein projektübergreifender Wiki Header hinterlegt werden. Wird über "Wiki Extensions" ein projektspezifischer Header angelegt, wird dieser immer vorzugsweise vor dem projektübergreifenden Header verwendet.'
   global_wiki_sidebar_info: 'Hier kann für die Wiki Sidebar ein projektübergreifender Text hinterlegt werden. Diese Sidebar wird nur auf den Wiki Seiten angezeigt und kann z.B. für  Makros wie "Zuletzt geänderte Seiten" verwendet werden. Wird eine projektspezifische Sidebar angelegt (über eine Wiki Seite), dann wird diese anstelle der projektübergreifenden Sidebar angezeigt.'
   google_maps_embed_api_html: Wenn Du das Gmap Makro verwenden willst um Google Karten darzustellen, musst Du hier Deinen Google Maps Embed API Schlüssel eintragen. Mehr Informationen dazu findest Du unter <a href="https://developers.google.com/maps/documentation/embed/guide" target="_blank">https://developers.google.com/maps/documentation/embed/guide</a>. Wird hier kein Schlüssel eingetragen, kann das gmap Makro nicht verwendet werden.
   hidden_macros_in_toolbar_info: Alle verfügbaren Makros, die der angemeldete Benutzer verwenden kann, werden über den Makro-Button der Wiki-Toolbar aufgelistet. Hier markierte Makros werden nicht zur Auswahl angeboten. Damit lässt sich der Listenumfang einschränken.
@@ -92,8 +90,6 @@ de:
   label_enable_sidebar: Sidebar aktivieren
   label_global_footer: "Projektübergreifender Footer"
   label_global_sidebar: "Projektübergreifender Sidebar Inhalt"
-  label_global_wiki_footer: "Projektübergreifender Wiki Footer"
-  label_global_wiki_header: "Projektübergreifender Wiki Header"
   label_global_wiki_sidebar: "Projektübergreifender Wiki-Sidebar Inhalt"
   label_go_to_top: "Nach oben"
   label_google_maps_api_key: Google Maps Embed API Key

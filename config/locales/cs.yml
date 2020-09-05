@@ -53,8 +53,6 @@ cs:
   field_website: Website
   global_footer_info: 'Sem zadejte zápatí široké wiki projektu.'
   global_sidebar_info: "Sem zadejte textovou zprávu dostupnou pro celý projekt. Tento text postranního panelu se zobrazí v přehledu projektu, na problémových stránkách a na wiki stránkách."
-  global_wiki_footer_info: 'Sem zadejte zápatí široké wiki projektu. V případě, že zápatí wiki specifické pro projekt používá "Wiki Extensions", bude to místo toho zobrazeno.'
-  global_wiki_header_info: 'Sem zadejte záhlaví wiki pro celý projekt. V případě, že záhlaví wiki specifické pro projekt používá „Wiki Extensions“, bude to místo toho zobrazeno.'
   global_wiki_sidebar_info: 'Zde zadejte textovou textovou zprávu, která je k dispozici pro váš postranní panel wiki. Tento text postranního panelu se zobrazí pouze na stránkách wiki. Tento prostor použijte například pro makra, například „Last changed pages“. V případě, že je použit boční panel specifický pro projekt (wiki stránka), bude to místo toho zobrazen na postranním panelu.'
   google_maps_embed_api_html: "V případě, že chcete k zobrazení map Goole použít makro Gmap, implementujte zde klíč API Google Maps API. Poté můžete použít makro a různé parametry. Více informací o tom, jak používat parametry, naleznete na <a href=\"https://developers.google.com/maps/documentation/embed/guide\" target=\"_blank\">https://developers.google.com/maps/documentation/embed/guide</a>. Makro Gmap zde funguje pouze v kombinaci s vloženým klíčem."
   hidden_macros_in_toolbar_info: "Všechna dostupná makra, která může přihlášený uživatel použít, jsou uvedena prostřednictvím tlačítka makro na panelu nástrojů wiki. Makra zde označená nejsou nabízena k výběru. To vám umožní omezit rozsah seznamu."
@@ -92,8 +90,6 @@ cs:
   label_enable_sidebar: "Umožnit sidebar"
   label_global_footer: "Široká zápatí projektu"
   label_global_sidebar: "Globální postranní panel"
-  label_global_wiki_footer: "Zápatí široké wiki projektu"
-  label_global_wiki_header: "Projděte širokou hlavičku wiki"
   label_global_wiki_sidebar: "Globální postranní panel wiki"
   label_go_to_top: "Go to top"
   label_google_maps_api_key: Google Maps Embed API Key

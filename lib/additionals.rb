@@ -22,7 +22,6 @@ module Additionals
                TimeEntry
                Project
                Wiki
-               WikiController
                ProjectsController
                WelcomeController
                ReportsController

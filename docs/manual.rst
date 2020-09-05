@@ -58,8 +58,8 @@ Field                      Description
 =========================  ===========================================================================================
 Global wiki sidebar        Here you can implement useful macros like a display of your page hierarchy.
                            But remember - only people with the correspondent rights will get a display of the content.
-Project wide wiki header   You can also implement useful macros in this section.
-Project wide wiki footer   For example to implement some date or author macros (e.g. last_updated_at, last_updated_by)
+                           You can also implement useful macros in this section.
+                           For example to implement some date or author macros (e.g. last_updated_at, last_updated_by)
 =========================  ===========================================================================================
 
 .. note:: Use simple text, macros and wiki syntax for your content.

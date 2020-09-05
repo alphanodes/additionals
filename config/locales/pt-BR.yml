@@ -53,8 +53,6 @@ pt-BR:
   field_website: Website
   global_footer_info: 'Insira aqui um rodapé do wiki do projeto.'
   global_sidebar_info: "Digite aqui uma ampla mensagem de texto disponível para o projeto. Este texto lateral será exibido na visão geral do projeto, nas páginas de tarefas e nas páginas wiki."
-  global_wiki_footer_info: "Insira aqui um rodapé do wiki do projeto. Caso um rodapé de wiki específico do projeto seja usado por \"Wiki Extensions\", este será exibido de preferência no lugar."
-  global_wiki_header_info: "Digite aqui um cabeçalho de projeto wiki. Caso um cabeçalho wiki específico de um projeto seja usado por \"Wiki Extensions\", isto será preferencialmente exibido em seu lugar."
   global_wiki_sidebar_info: "Digite aqui uma mensagem de texto disponível para o projeto de sua barra lateral wiki. Este texto da barra lateral será exibido apenas nas páginas do wiki. Use este espaço para Macros como \"Last changed pages\", por exemplo. Caso seja usada uma barra lateral específica de um projeto (página wiki), esta será exibida preferencialmente na barra lateral."
   google_maps_embed_api_html: "Caso você queira usar a macro Gmap para exibir os mapas Goole, por favor, implemente sua chave API do Google Maps aqui. Em seguida, você pode usar a macro e vários parâmetros. Mais informações sobre como usar os paramaters são fornecidas em <a href=\"https://developers.google.com/maps/documentation/embed/guide\" target=\"_blank\">https://developers.google.com/maps/documentation/embed/guide</a>. A macro Gmap funciona apenas em combinação com a chave embutida aqui."
   hidden_macros_in_toolbar_info: "Todas as macros disponíveis que o usuário logado pode usar são listadas através do botão de macro da barra de ferramentas do wiki. As macros aqui marcadas não são oferecidas para seleção. Isto permite limitar o escopo da lista."
@@ -92,8 +90,6 @@ pt-BR:
   label_enable_sidebar: "Habilitar barra lateral"
   label_global_footer: "Projeto de rodapé largo"
   label_global_sidebar: "Barra lateral global"
-  label_global_wiki_footer: "Projeto de rodapé largo wiki"
-  label_global_wiki_header: "Cabeçalho do wiki do projeto"
   label_global_wiki_sidebar: "Barra lateral wiki global"
   label_go_to_top: "Ir para o topo"
   label_google_maps_api_key: Google Maps Embed API Key

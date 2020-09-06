@@ -52,7 +52,7 @@
     - unless @dashboard_sidebar
       = render_dashboard_actionlist @dashboard, @project
 
-    = call_hook :view_projects_show_actions_dropdown, project: @project
+    = call_hook :view_project_actions_dropdown, project: @project
 
     - if User.current.allowed_to?(:edit_project, @project)
       = link_to_if_authorized l(:label_settings),
@@ -77,7 +77,13 @@ javascript:
 
 - if @dashboard_sidebar
   - content_for :sidebar do
+    = call_hook :view_projects_show_sidebar_top, project: @project
     = render_sidebar_dashboards @dashboard, @project
+    - if Additionals.setting(:global_sidebar).present?
+      br
+      .sidebar-additionals
+        = textilizable Additionals.setting(:global_sidebar)
+
     = call_hook :view_projects_show_sidebar_bottom, project: @project
 
 - content_for :header_tags do

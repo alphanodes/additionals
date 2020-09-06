@@ -86,7 +86,7 @@ module DashboardsHelper
     tag.div class: 'active-dashboards' do
       out = [tag.h3(l(:label_active_dashboard)),
              tag.ul do
-               concat tag.ul "#{l :field_name}: #{h dashboard.name}"
+               concat tag.ul "#{l :field_name}: #{dashboard.name}"
                concat tag.ul safe_join([l(:field_author), link_to_user(dashboard.author)], ': ')
                concat tag.ul "#{l :field_created_on}: #{format_time dashboard.created_at}"
                concat tag.ul "#{l :field_updated_on}: #{format_time dashboard.updated_at}"

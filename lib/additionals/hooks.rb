@@ -3,22 +3,21 @@ module Additionals
     include IssuesHelper
     include AdditionalsIssuesHelper
 
-    render_on(:view_layouts_base_html_head, partial: 'additionals/html_head')
-    render_on(:view_layouts_base_body_top, partial: 'additionals/body_top')
-    render_on(:view_layouts_base_body_bottom, partial: 'additionals/body_bottom')
+    render_on :view_layouts_base_html_head, partial: 'additionals/html_head'
+    render_on :view_layouts_base_body_top, partial: 'additionals/body_top'
+    render_on :view_layouts_base_body_bottom, partial: 'additionals/body_bottom'
 
-    render_on(:view_account_login_bottom, partial: 'login_text')
-    render_on(:view_issues_context_menu_start, partial: 'additionals_closed_issues')
-    render_on(:view_issues_bulk_edit_details_bottom, partial: 'change_author_bulk')
-    render_on(:view_issues_form_details_bottom, partial: 'change_author')
-    render_on(:view_issues_new_top, partial: 'new_ticket_message')
-    render_on(:view_issues_sidebar_issues_bottom, partial: 'issues/additionals_sidebar_issues')
-    render_on(:view_issues_sidebar_queries_bottom, partial: 'issues/additionals_sidebar_queries')
-    render_on(:view_projects_show_sidebar_bottom, partial: 'projects/additionals_sidebar')
-    render_on(:view_my_account_preferences, partial: 'users/autowatch_involved_issue')
-    render_on(:view_users_form_preferences, partial: 'users/autowatch_involved_issue')
-    render_on(:view_users_show_contextual, partial: 'users/additionals_contextual')
-    render_on(:view_wiki_show_sidebar_bottom, partial: 'additionals_sidebar')
+    render_on :view_account_login_bottom, partial: 'login_text'
+    render_on :view_issues_context_menu_start, partial: 'additionals_closed_issues'
+    render_on :view_issues_bulk_edit_details_bottom, partial: 'change_author_bulk'
+    render_on :view_issues_form_details_bottom, partial: 'change_author'
+    render_on :view_issues_new_top, partial: 'new_ticket_message'
+    render_on :view_issues_sidebar_issues_bottom, partial: 'issues/additionals_sidebar_issues'
+    render_on :view_issues_sidebar_queries_bottom, partial: 'issues/additionals_sidebar_queries'
+    render_on :view_my_account_preferences, partial: 'users/autowatch_involved_issue'
+    render_on :view_users_form_preferences, partial: 'users/autowatch_involved_issue'
+    render_on :view_users_show_contextual, partial: 'users/additionals_contextual'
+    render_on :view_wiki_show_sidebar_bottom, partial: 'additionals_sidebar'
 
     def helper_issues_show_detail_after_setting(context = {})
       detail = context[:detail]

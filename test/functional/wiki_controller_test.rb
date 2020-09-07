@@ -25,7 +25,7 @@ class WikiControllerTest < Additionals::ControllerTest
   def setup
     prepare_tests
     EnabledModule.create(project_id: 1, name: 'wiki')
-    @project = projects(:projects_001)
+    @project = projects :projects_001
     @wiki = @project.wiki
     @page_name = 'additionals_macro_test'
     @page = @wiki.find_or_new_page(@page_name)

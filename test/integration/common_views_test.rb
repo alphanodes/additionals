@@ -23,15 +23,15 @@ class CommonViewsTest < Additionals::IntegrationTest
   end
 
   test 'View user' do
-    log_user('admin', 'admin')
+    log_user 'admin', 'admin'
     get '/users/2'
     assert_response :success
   end
 
   test 'View issue' do
-    log_user('admin', 'admin')
-    EnabledModule.create(project_id: 1, name: 'issue_tracking')
-    issue = issues(:issues_001)
+    log_user 'admin', 'admin'
+    EnabledModule.create project_id: 1, name: 'issue_tracking'
+    issue = issues :issues_001
     issue.description = 'new value'
     issue.save
     get '/issues/1'

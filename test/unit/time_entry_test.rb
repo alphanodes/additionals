@@ -42,10 +42,10 @@ class TimeEntryTest < Additionals::TestCase
   end
 
   def test_create_time_entry_with_closed_issue_with_permission
-    User.current = users(:users_003)
+    User.current = users :users_003
     role = Role.create!(name: 'Additionals Tester', permissions: [:log_time_on_closed_issues])
     Member.where(user_id: User.current).delete_all
-    project = projects(:projects_001)
+    project = projects :projects_001
     Member.create!(principal: User.current, project_id: project.id, role_ids: [role.id])
 
     entry = TimeEntry.generate(issue: issues(:issues_008))

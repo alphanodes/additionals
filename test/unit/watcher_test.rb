@@ -9,15 +9,15 @@ class WatcherTest < Additionals::TestCase
 
   def setup
     prepare_tests
-    @author = users(:users_001)
-    @assigned_user = users(:users_002)
-    @changing_user = users(:users_004)
+    @author = users :users_001
+    @assigned_user = users :users_002
+    @changing_user = users :users_004
   end
 
   def test_new_issue_with_no_autowatch
-    with_additionals_settings(issue_autowatch_involved: 0) do
+    with_additionals_settings issue_autowatch_involved: 0 do
       User.current = @author
-      issue = Issue.generate(author_id: @author.id)
+      issue = Issue.generate author_id: @author.id
       issue.save
       assert_equal 0, issue.watchers.count
       assert_not issue.watched_by?(@author)

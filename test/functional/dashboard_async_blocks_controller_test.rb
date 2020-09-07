@@ -22,7 +22,7 @@ class DashboardAsyncBlocksControllerTest < Additionals::ControllerTest
     prepare_tests
     Setting.default_language = 'en'
 
-    @project = projects(:projects_001)
+    @project = projects :projects_001
     @welcome_dashboard = dashboards :system_default_welcome
     @project_dashboard = dashboards :system_default_project
   end

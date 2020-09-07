@@ -11,8 +11,8 @@ class AdditionalsJournalTest < Additionals::TestCase
 
   def setup
     prepare_tests
-    @issue = issues(:issues_001)
-    @current_journal = Journal.new(journalized: @issue, user: users(:users_001), notes: '')
+    @issue = issues :issues_001
+    @current_journal = Journal.new journalized: @issue, user: users(:users_001), notes: ''
   end
 
   def test_journal_history_with_added_entries

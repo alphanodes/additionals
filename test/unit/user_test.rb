@@ -58,7 +58,7 @@ class UserTest < Additionals::TestCase
     assert User.where(sudoer: true).first.can_be_admin?
   end
 
-  def test_non_sudoer_without_admin_should_can_not_be_admin
+  def test_non_sudoer_without_admin_can_not_be_admin
     skip 'Skip redmine_sudo test, because redmine_contacts is not installed' unless Redmine::Plugin.installed?('redmine_sudo')
 
     assert_not User.where(sudoer: false, admin: false).first.can_be_admin?

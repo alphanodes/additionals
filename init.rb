@@ -53,7 +53,8 @@ Rails.configuration.to_prepare do
 end
 
 Rails.application.config.after_initialize do
-  FONTAWESOME_ICONS = { fab: AdditionalsFontAwesome.load_icons(:fab),
+  # @TODO: this should be moved to AdditionalsFontAwesome and use an instance of it
+  FONTAWESOME_ICONS = { fab: AdditionalsFontAwesome.load_icons(:fab), # rubocop: disable Lint/ConstantDefinitionInBlock
                         far: AdditionalsFontAwesome.load_icons(:far),
                         fas: AdditionalsFontAwesome.load_icons(:fas) }.freeze
 end

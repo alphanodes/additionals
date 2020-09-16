@@ -198,7 +198,7 @@ module DashboardsHelper
   def render_dashboard_block(block, dashboard, overwritten_settings = {})
     block_definition = dashboard.content.find_block block
     unless block_definition
-      Rails.logger.warn "Unknown block \"#{block}\" found in #{dashboard.name} (id=#{dashboard.id})"
+      Rails.logger.info "Unknown block \"#{block}\" found in #{dashboard.name} (id=#{dashboard.id})"
       return
     end
 

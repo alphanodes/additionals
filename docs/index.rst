@@ -51,7 +51,7 @@ Install ``additionals`` plugin for `Redmine`_.
 .. code-block:: bash
 
   $ cd $REDMINE_ROOT
-  $ git clone -b v2-stable git://github.com/alphanodes/additionals.git plugins/additionals
+  $ git clone -b v2-stable https://github.com/AlphaNodes/additionals.git plugins/additionals
   $ bundle install --without development test
   $ bundle exec rake redmine:plugins:migrate RAILS_ENV=production
   $

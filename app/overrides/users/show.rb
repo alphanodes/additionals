@@ -1,4 +1,4 @@
-if User.current.try(:hrm_user_type_id).nil?
+unless Redmine::Plugin.installed? 'redmine_hrm'
   Deface::Override.new virtual_path: 'users/show',
                        name: 'user-show-info-hook',
                        insert_top: 'div.splitcontentleft ul:first-child',

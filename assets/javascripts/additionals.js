@@ -1,12 +1,3 @@
-/* exported openExternalLink */
-function openExternalLink() {
-  var handleNewWindow = function() {
-    this.target = '_blank';
-    this.rel = 'noopener noreferrer';
-  };
-  $('div.attachments a, a.external').each(handleNewWindow);
-}
-
 /* exported setClipboardJS */
 /* global ClipboardJS */
 function setClipboardJS(element){

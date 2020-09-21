@@ -12,5 +12,6 @@
 - if Additionals.setting?(:open_external_urls)
   javascript:
     $(function() {
-      openExternalLink();
+      $('a.external').attr({ 'target': '_blank',
+                             'rel': 'noopener noreferrer'});
     });

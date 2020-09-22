@@ -65,8 +65,9 @@ module AdditionalsMenuHelper
     return if items.empty?
 
     user_roles = Role.givable
-                     .joins(:members).where(members: { user_id: User.current.id })
-                     .joins(members: :project).where(projects: { status: Project::STATUS_ACTIVE })
+                     .joins(members: :project)
+                     .where(members: { user_id: User.current.id },
+                            projects: { status: Project::STATUS_ACTIVE })
                      .distinct
                      .reorder(nil)
                      .ids

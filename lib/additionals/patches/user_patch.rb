@@ -23,11 +23,10 @@ module Additionals
 
           admin_ids = User.visible.active.where(admin: true).ids
 
-          member_scope = Member.joins(:member_roles)
-                               .joins(:project)
-                               .where(projects: { status: Project::STATUS_ACTIVE })
-                               .where(user_id: User.all)
-                               .where(member_roles: { role_id: role_ids })
+          member_scope = Member.joins(:member_roles, :project)
+                               .where(projects: { status: Project::STATUS_ACTIVE },
+                                      user_id: User.all,
+                                      member_roles: { role_id: role_ids })
                                .select(:user_id)
                                .distinct
 
@@ -50,7 +49,8 @@ module Additionals
 
         def issues_assignable?(project = nil)
           scope = Principal.joins(members: :roles)
-                           .where(users: { id: id }, roles: { assignable: true })
+                           .where(users: { id: id },
+                                  roles: { assignable: true })
           scope = scope.where(members: { project_id: project.id }) if project
           scope.exists?
         end

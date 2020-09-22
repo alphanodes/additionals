@@ -101,11 +101,11 @@ class Dashboard < ActiveRecord::Base
     end
 
     def visible(user = User.current, options = {})
-      scope = Dashboard.left_outer_joins(:project)
+      scope = left_outer_joins :project
       scope = scope.where(projects: { id: nil }).or(scope.where(Project.allowed_to_condition(user, :view_project, options)))
 
       if user.admin?
-        scope.where("#{table_name}.visibility <> ? OR #{table_name}.author_id = ?", VISIBILITY_PRIVATE, user.id)
+        scope.where.not(visibility: VISIBILITY_PRIVATE).or(scope.where(author_id: user.id))
       elsif user.memberships.any?
         scope.where("#{table_name}.visibility = ?" \
             " OR (#{table_name}.visibility = ? AND #{table_name}.id IN (" \
@@ -122,9 +122,9 @@ class Dashboard < ActiveRecord::Base
                     Project::STATUS_ARCHIVED,
                     user.id)
       elsif user.logged?
-        scope.where("#{table_name}.visibility = ? OR #{table_name}.author_id = ?", VISIBILITY_PUBLIC, user.id)
+        scope.where(visibility: VISIBILITY_PUBLIC).or(scope.where(author_id: user.id))
       else
-        scope.where(visibility: VISIBILITY_PUBLIC)
+        scope.where visibility: VISIBILITY_PUBLIC
       end
     end
   end
@@ -207,7 +207,7 @@ class Dashboard < ActiveRecord::Base
   def remove_block(block)
     block = block.to_s.underscore
     layout.each_key do |group|
-      layout[group].delete(block)
+      layout[group].delete block
     end
     layout
   end
@@ -217,14 +217,14 @@ class Dashboard < ActiveRecord::Base
   # present in the user page layout
   def add_block(block)
     block = block.to_s.underscore
-    return unless content.valid_block?(block, layout.values.flatten)
+    return unless content.valid_block? block, layout.values.flatten
 
     remove_block block
     # add it to the first group
     # add it to the first group
     group = available_groups.first
     layout[group] ||= []
-    layout[group].unshift(block)
+    layout[group].unshift block
   end
 
   # Sets the block order for the given group.
@@ -264,7 +264,7 @@ class Dashboard < ActiveRecord::Base
   end
 
   def destroyable_by?(usr = User.current)
-    return unless editable_by?(usr, project)
+    return unless editable_by? usr, project
 
     return !system_default_was if dashboard_type != DashboardContentProject::TYPE_NAME
 
@@ -288,7 +288,7 @@ class Dashboard < ActiveRecord::Base
   end
 
   def allowed_target_projects(user = User.current)
-    Project.where(Project.allowed_to_condition(user, :save_dashboards))
+    Project.where Project.allowed_to_condition(user, :save_dashboards)
   end
 
   # this is used to get unique cache for blocks
@@ -386,7 +386,7 @@ class Dashboard < ActiveRecord::Base
 
     scope = scope.where(project: project) if dashboard_type == DashboardContentProject::TYPE_NAME
 
-    scope.update_all(system_default: false)
+    scope.update_all system_default: false
   end
 
   # check if permissions changed and dashboard settings have to be corrected
@@ -411,7 +411,7 @@ class Dashboard < ActiveRecord::Base
     scope = self.class.visible.where(name: name)
     if dashboard_type == DashboardContentProject::TYPE_NAME
       scope = scope.project_only
-      scope = scope.where(project_id: project_id)
+      scope = scope.where project_id: project_id
       scope = scope.or(scope.where(project_id: nil)) if project_id.present?
     else
       scope = scope.welcome_only

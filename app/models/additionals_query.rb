@@ -200,4 +200,16 @@ module AdditionalsQuery
 
     raise ::Query::StatementInvalid, e.message
   end
+
+  def grouped_name_for(group_name, replace_fields = {})
+    return unless group_name
+
+    if grouped? && group_by_column.present?
+      replace_fields.each do |field, new_name|
+        return new_name.presence || group_name if group_by_column.name == field
+      end
+    end
+
+    group_name
+  end
 end

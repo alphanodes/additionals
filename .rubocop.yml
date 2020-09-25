@@ -20,7 +20,7 @@ Metrics/ClassLength:
   Enabled: false
 
 Metrics/CyclomaticComplexity:
-  Max: 20
+  Max: 25
 
 Layout/LineLength:
   Max: 140

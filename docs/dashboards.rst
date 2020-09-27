@@ -323,7 +323,7 @@ Query: Issues
   Maximum number of such blocks per dashboard: **8**
 
 Long text
-  You can add individual text passages to your dashboard and use the wiki editor for structuring this text.
+  You can add individual text passages to your dashboard and use the wiki editor for structuring this text. Please note, that some macros are only usable in Wiki pages of a project, but not in issues or dashboard blocks. In that case no content will be displayed, but only the macro code.
   Maximum number of such blocks per dashboard: **8**
 
 Latest news
@@ -379,4 +379,4 @@ Members
   These are the basic blocks that come with the additionals plugin dashboard functionality. Other plugins, that also support the *Drag&Drop* dashboard function may deliver additional blocks for selection.
 
 .. note::
-  Notes about caching: All blocks are cached asynchron (every 30 seconds). The RSS Feed blocks are cached asynchron (every 10 minutes). The time tracking block is chached asynchron (every 1 hour). 
+  Notes about caching: All blocks are cached asynchron (every 30 seconds). The RSS Feed blocks are cached asynchron (every 10 minutes). The time tracking block is chached asynchron (every 1 hour).

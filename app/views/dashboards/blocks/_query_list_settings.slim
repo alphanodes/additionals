@@ -12,7 +12,7 @@ div id="#{block}-settings" style="#{'display: none;' if hide}"
             = block_definition[:label]
             '
             = select_tag "settings[#{block}][query_id]",
-                         tag.option + options_from_collection_for_select(sidebar_queries(klass, @project), :id, :name),
+                         options_for_query_select(klass, @project),
                          required: true
       p
         label

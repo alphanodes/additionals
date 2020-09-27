@@ -345,13 +345,15 @@ module Additionals
                                                            strip_insignificant_zeros: true)
     end
 
-    def query_list_back_url_tag(project = nil)
+    def query_list_back_url_tag(project = nil, params = nil)
       url = if controller_name == 'dashboard_async_blocks' && request.query_parameters.key?('dashboard_id')
               dashboard_link_path project,
                                   Dashboard.find_by(id: request.query_parameters['dashboard_id']),
                                   refresh: 1
+            elsif params.nil?
+              url_for params: request.query_parameters
             else
-              url_for(params: request.query_parameters)
+              url_for params: params
             end
 
       hidden_field_tag 'back_url', url, id: nil

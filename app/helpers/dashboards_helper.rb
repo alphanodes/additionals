@@ -239,6 +239,7 @@ module DashboardsHelper
       partial_locals[:async] = { required_settings: %i[query_id],
                                  exposed_params: %i[sort],
                                  partial: 'dashboards/blocks/query_list' }
+      partial_locals[:async][:unique_params] = [Redmine::Utils.random_hex(16)] if params[:refresh].present?
       partial_locals[:async] = partial_locals[:async].merge(block_definition[:async]) if block_definition[:async]
     elsif block_definition[:async]
       partial_locals[:async] = block_definition[:async]

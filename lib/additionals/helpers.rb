@@ -344,5 +344,17 @@ module Additionals
                                                            separator: options[:separator].presence || '.',
                                                            strip_insignificant_zeros: true)
     end
+
+    def query_list_back_url_tag(project = nil)
+      url = if controller_name == 'dashboard_async_blocks' && request.query_parameters.key?('dashboard_id')
+              dashboard_link_path project,
+                                  Dashboard.find_by(id: request.query_parameters['dashboard_id']),
+                                  refresh: 1
+            else
+              url_for(params: request.query_parameters)
+            end
+
+      hidden_field_tag 'back_url', url, id: nil
+    end
   end
 end

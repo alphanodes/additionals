@@ -1,6 +1,12 @@
 Changelog
 =========
 
+3.0.1
++++++
+
+- Do not show "Assign to me" if assigned_to is disabled for tracker
+
+
 3.0.0
 +++++
 

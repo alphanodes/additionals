@@ -3,4 +3,7 @@ class DashboardRole < ActiveRecord::Base
 
   belongs_to :dashboard
   belongs_to :role
+
+  validates :dashboard, :role,
+            presence: true
 end

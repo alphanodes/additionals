@@ -1,4 +1,5 @@
-class AdditionalsChart < ActiveRecord::Base
+class AdditionalsChart
+  include ActiveRecord::Sanitization
   include Redmine::I18n
 
   CHART_DEFAULT_HEIGHT = 350

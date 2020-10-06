@@ -20,7 +20,7 @@ class DashboardTest < Additionals::TestCase
                               dashboard_type: DashboardContentWelcome::TYPE_NAME,
                               author_id: 2
 
-    assert dashboard.save
+    assert_save dashboard
   end
 
   def test_create_project_dashboard
@@ -29,7 +29,7 @@ class DashboardTest < Additionals::TestCase
                               project: Project.find(1),
                               author_id: 2
 
-    assert dashboard.save
+    assert_save dashboard
   end
 
   def test_do_not_create_dashboard_for_role_without_roles
@@ -48,7 +48,7 @@ class DashboardTest < Additionals::TestCase
                               visibility: Dashboard::VISIBILITY_ROLES,
                               roles: Role.where(id: [1, 3]).to_a
 
-    assert dashboard.save
+    assert_save dashboard
     dashboard.reload
 
     assert_equal [1, 3], dashboard.role_ids.sort
@@ -61,7 +61,7 @@ class DashboardTest < Additionals::TestCase
                               author_id: 2,
                               visibility: Dashboard::VISIBILITY_ROLES,
                               roles: [used_role]
-    assert dashboard.save
+    assert_save dashboard
     dashboard.reload
 
     assert_equal [used_role.id], dashboard.role_ids
@@ -82,7 +82,7 @@ class DashboardTest < Additionals::TestCase
                               system_default: true,
                               author: User.current,
                               visibility: 2
-    assert dashboard.save
+    assert_save dashboard
 
     assert dashboard.system_default
     assert_equal 2, dashboard.visibility
@@ -96,7 +96,7 @@ class DashboardTest < Additionals::TestCase
                               visibility: 2
     assert dashboard.valid?
 
-    assert dashboard.save
+    assert_save dashboard
 
     assert dashboard.system_default
     assert_equal 2, dashboard.visibility
@@ -206,7 +206,7 @@ class DashboardTest < Additionals::TestCase
     assert_equal 2, dashboard.roles.count
 
     relation = DashboardRole.new(role_id: 3, dashboard_id: dashboard.id)
-    assert relation.save
+    assert_save relation
 
     dashboard.reload
     assert_equal 3, dashboard.roles.count
@@ -217,7 +217,7 @@ class DashboardTest < Additionals::TestCase
     assert_equal 2, dashboard.roles.count
 
     dashboard.roles << Role.generate!
-    assert dashboard.save
+    assert_save dashboard
     dashboard.reload
     assert_equal 3, dashboard.roles.count
   end
@@ -228,7 +228,7 @@ class DashboardTest < Additionals::TestCase
     # change system default
     dashboard2 = dashboards :public_welcome
     dashboard2.system_default = true
-    assert dashboard2.save
+    assert_save dashboard2
 
     dashboard = dashboards :welcome_for_roles
     dashboard.reload
@@ -276,6 +276,6 @@ class DashboardTest < Additionals::TestCase
     dashboard = dashboards :private_project_default
 
     dashboard.project_id = 1
-    dashboard.save!
+    assert_save dashboard
   end
 end

@@ -12,13 +12,13 @@ class RoleTest < Additionals::TestCase
 
   def test_with_permission
     role = Role.new(name: 'role without hide')
-    assert role.save
+    assert_save role
 
     role.reload
     assert_not role.hide
 
     role = Role.new(name: 'role with hide', hide: true)
-    assert role.save
+    assert_save role
 
     role.reload
     assert role.hide
@@ -27,7 +27,7 @@ class RoleTest < Additionals::TestCase
   def test_edit
     role = roles(:roles_001)
     role.hide = true
-    assert role.save
+    assert_save role
 
     role.reload
     assert role.hide

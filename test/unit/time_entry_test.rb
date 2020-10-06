@@ -22,14 +22,14 @@ class TimeEntryTest < Additionals::TestCase
   def test_create_time_entry_without_issue
     entry = TimeEntry.generate(project: projects(:projects_001))
     assert entry.valid?
-    assert entry.save
+    assert_save entry
   end
 
   def test_create_time_entry_with_open_issue
     entry = TimeEntry.generate(issue: issues(:issues_002))
     assert_not entry.issue.closed?
     assert entry.valid?
-    assert entry.save
+    assert_save entry
   end
 
   def test_create_time_entry_with_closed_issue_without_permission
@@ -51,6 +51,6 @@ class TimeEntryTest < Additionals::TestCase
     entry = TimeEntry.generate(issue: issues(:issues_008))
     assert entry.issue.closed?
     assert entry.valid?
-    assert entry.save
+    assert_save entry
   end
 end

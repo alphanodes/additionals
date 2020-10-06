@@ -380,3 +380,22 @@ Members
 
 .. note::
   Notes about caching: All blocks are cached asynchron (every 30 seconds). The RSS Feed blocks are cached asynchron (every 10 minutes). The time tracking block is chached asynchron (every 1 hour).
+
+
+Dashboard FAQ
+-------------
+
+Is there a restore function?
+  No, there is no restore function for your default dashboard. If you add dashboard blocks you don't like, just remove them and add other ones.
+
+I messed up my default Dashboard
+  There is nothing bad about it. Just remove the dashboard blocks you don't like and start over. The best way to start a new default dashboard anyway is to create a new dashboard, first and add the blocks you like. If everything is the way you want it, make it "Default". Keep the old "Default" as backup.
+
+I accidently deleted a Dashboard block
+  This will always happen, if you work as user with the appropriate permission to do so (e.g. administration permissions). We recommend not do work with those permission in your regular work day. Create your dashboards one time and switch user permissions afterwards. So this will not happen again.
+
+How many default Dashboards can be created?
+  There is just one system default dashboard possible for every area. This means one default dashboard for the Redmine "Home" page. And one for the general project overview page. But you can create also one default for a specific project overview page, which will than be "Project default".
+
+Does every user sees the content of every Dashboard block?
+  You do not control the content a user in your project sees via the dashboard block you add, but still by setting up the correct user permissions in the administration area "Roles and permissions". Those permissions for a user role are relevant for the content a user can view in your project and must be set correctly.

@@ -5,7 +5,8 @@ Changelog
 +++++
 
 - Do not show "Assign to me" if assigned_to is disabled for tracker
-- FontAwesome 5.15.0 support
+- FontAwesome 5.15.1 support
+- D3 6.2.0 support
 
 3.0.0
 +++++

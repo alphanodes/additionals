@@ -42,6 +42,11 @@ Requirements
 | Database version   | MySQL >= 5.7 or PostgreSQL >= 9.6 |
 +--------------------+-----------------------------------+
 
+.. note:: If you use MySQL, make sure all database tables using the same storage engine (InnoDB is recommended) and character set (utf8mb4 is recommended).
+
+.. note:: For more information use the official `Redmine install documentation <https://www.redmine.org/projects/redmine/wiki/RedmineInstall>`_
+
+
 Installation
 ------------
 

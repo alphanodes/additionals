@@ -382,6 +382,25 @@ Members
   Notes about caching: All blocks are cached asynchron (every 30 seconds). The RSS Feed blocks are cached asynchron (every 10 minutes). The time tracking block is chached asynchron (every 1 hour).
 
 
+Default Dashboards
+------------------
+
+When installing the Additionals plugin it comes with default dashboards for the Redmine *Home* page as well as the Redmine *Project overview* page. The typical default dashboard has the following key options:
+
+* Visible: *to any users*
+* Marked as *System default*
+
+In case you want to restore the default dashboard you can simply add a new one or arrange an existing one by using the following blocks and position them in the left or right area.
+
+Default Dashboard blocks: Home
+  Welcome (left), Standard content left (left), Standard content right (right)
+
+
+Default Dashboard blocks: Project overview
+  Project information (left), Issue tracking (left), Time tracking (left), Members (right), Sub projects (right)
+
+
+
 Dashboard FAQ
 -------------
 

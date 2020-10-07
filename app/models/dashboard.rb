@@ -358,7 +358,10 @@ class Dashboard < ActiveRecord::Base
   end
 
   def validate_system_default
-    return if new_record? || system_default_was == system_default || system_default?
+    return if new_record? ||
+              system_default_was == system_default ||
+              system_default? ||
+              project_id.present?
 
     raise SystemDefaultChangeException
   end

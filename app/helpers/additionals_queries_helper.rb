@@ -140,13 +140,13 @@ module AdditionalsQueriesHelper
   def xlsx_write_header_row(workbook, worksheet, columns)
     columns_width = []
     columns.each_with_index do |c, index|
-      value = if c.class.name == 'String'
+      value = if c.instance_of?('String')
                 c
               else
                 c.caption.to_s
               end
 
-      worksheet.write(0, index, value, workbook.add_format(xlsx_cell_format(:header)))
+      worksheet.write 0, index, value, workbook.add_format(xlsx_cell_format(:header))
       columns_width << xlsx_get_column_width(value)
     end
     columns_width

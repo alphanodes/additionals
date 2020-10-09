@@ -67,7 +67,7 @@ module Additionals
     end
 
     def settings_compatible(plugin_name)
-      if Setting[plugin_name].instance_of? Hash
+      if Setting[plugin_name].is_a? Hash
         # convert Rails 4 data (this runs only once)
         new_settings = ActiveSupport::HashWithIndifferentAccess.new Setting[plugin_name]
         Setting.send "#{plugin_name}=", new_settings

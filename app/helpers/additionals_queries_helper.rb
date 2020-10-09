@@ -4,8 +4,8 @@ module AdditionalsQueriesHelper
   end
 
   def additionals_retrieve_query(object_type, options = {})
-    session_key = additionals_query_session_key(object_type)
-    query_class = Object.const_get("#{object_type.camelcase}Query")
+    session_key = additionals_query_session_key object_type
+    query_class = Object.const_get "#{object_type.camelcase}Query"
     if params[:query_id].present?
       additionals_load_query_id(query_class, session_key, params[:query_id], options, object_type)
     elsif api_request? ||
@@ -28,7 +28,7 @@ module AdditionalsQueriesHelper
     else
       # retrieve from session
       @query = query_class.find_by(id: session[session_key][:id]) if session[session_key][:id]
-      session_data = Rails.cache.read(additionals_query_cache_key(object_type))
+      session_data = Rails.cache.read additionals_query_cache_key(object_type)
       @query ||= query_class.new(name: '_',
                                  filters: session_data.nil? ? nil : session_data[:filters],
                                  group_by: session_data.nil? ? nil : session_data[:group_by],
@@ -140,7 +140,7 @@ module AdditionalsQueriesHelper
   def xlsx_write_header_row(workbook, worksheet, columns)
     columns_width = []
     columns.each_with_index do |c, index|
-      value = if c.instance_of?('String')
+      value = if c.is_a? String
                 c
               else
                 c.caption.to_s

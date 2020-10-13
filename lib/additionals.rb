@@ -98,6 +98,11 @@ module Additionals
       false
     end
 
+    def class_prefix(klass)
+      klass_name = klass.is_a?(String) ? klass : klass.name
+      klass_name.underscore.tr '/', '_'
+    end
+
     def now_with_user_time_zone(user = User.current)
       if user.time_zone.nil?
         Time.zone.now

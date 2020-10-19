@@ -54,18 +54,19 @@ module Additionals
                     !watcher.active? ||
                     watched_by?(watcher)
 
-          add_watcher(watcher)
+          add_watcher watcher
         end
 
         def autowatch_involved
           return unless Additionals.setting?(:issue_autowatch_involved) &&
                         User.current.pref.autowatch_involved_issue
+          return if Redmine::Plugin.installed?('redmine_automation') && author_id == RedmineAutomation.bot_user_id
 
-          add_autowatcher(User.current)
+          add_autowatcher User.current
           add_autowatcher(author) if (new_record? || author_id != author_id_was) && author != User.current
 
           if !assigned_to_id.nil? && assigned_to_id != User.current.id && (new_record? || assigned_to_id != assigned_to_id_was)
-            add_autowatcher(assigned_to)
+            add_autowatcher assigned_to
           end
 
           true

@@ -378,7 +378,7 @@ module DashboardsHelper
     max_entries = max_entries.present? ? max_entries.to_i : 10
 
     begin
-      URI.open(url) do |rss_feed|
+      URI.parse(url).open do |rss_feed|
         rss = RSS::Parser.parse(rss_feed)
         rss.items.each do |item|
           cnt += 1

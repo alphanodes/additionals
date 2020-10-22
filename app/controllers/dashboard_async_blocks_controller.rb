@@ -14,6 +14,12 @@ class DashboardAsyncBlocksController < ApplicationController
 
   include DashboardsHelper
 
+  # support for redmine_contacts_helpdesk plugin
+  if Redmine::Plugin.installed? 'redmine_contacts_helpdesk'
+    include HelpdeskHelper
+    helper :helpdesk
+  end
+
   rescue_from Query::StatementInvalid, with: :query_statement_invalid
   rescue_from StandardError, with: :dashboard_with_invalid_block
 

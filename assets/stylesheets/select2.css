@@ -174,6 +174,7 @@
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
   padding-left: 8px !important;
+  padding-top: 2px;
   line-height: 18px;
   font-size: 11px;
   height: 23px;
@@ -238,7 +239,6 @@
 .select2-container--default .select2-selection--multiple {
   background-color: white;
   border: 1px solid #ccc;
-  line-height: inherit;
   border-radius: 2px;
   cursor: text;
   min-height: 20px;
@@ -248,8 +248,8 @@
 .select2-container--default .select2-selection--multiple .select2-selection__rendered {
   box-sizing: border-box;
   list-style: none;
-  margin: 0;
-  padding: 0 2px 2px 2px;
+  margin: -3px 0 -4px 0;
+  padding: 2px 2px 2px 2px;
   width: 100%;
 }
 

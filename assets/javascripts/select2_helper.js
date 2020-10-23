@@ -32,7 +32,7 @@ function additionals_transform_to_select2(field){
       },
       placeholder: ' ',
       minimumInputLength: 1,
-      width: '60%',
+      width: '90%',
       templateResult: filterAdditionalsFormatState
     }).on('select2:open', function (e) {
       $(this).parent('span').find('.select2-search__field').val(' ').trigger($.Event('input', { which: 13 })).val('');
@@ -168,7 +168,7 @@ function buildSelect2Options(options) {
     allowClear: !!options['allow_clear'],
     minimumInputLength: options['min_input_length'] || 0,
     templateResult: window[options['format_state']],
-    width: options['width'] || '60%'
+    width: options['width'] || '90%'
   };
 
   addDataSourceOptions(result, options);

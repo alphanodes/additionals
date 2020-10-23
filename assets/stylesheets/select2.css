@@ -237,11 +237,11 @@
 
 .select2-container--default .select2-selection--multiple {
   background-color: white;
-  border: 1px solid #9eb1c2;
-  height: 24px;
-  line-height: 1.3em;
+  border: 1px solid #ccc;
+  line-height: inherit;
   border-radius: 2px;
   cursor: text;
+  min-height: 20px;
 }
 
 #sidebar .select2-container--default .select2-selection--multiple .select2-selection__rendered,

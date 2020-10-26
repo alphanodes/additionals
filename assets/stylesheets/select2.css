@@ -405,7 +405,6 @@
 
 .filter .select2-selection--multiple .select2-search--inline .select2-search__field {
   border: 0 !important;
-  height: inherit !important;
   padding: 0 !important;
   width: 2em !important;
 }

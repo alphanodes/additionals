@@ -92,7 +92,7 @@ class DashboardsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.xml {}
+      format.api
     end
   end
 

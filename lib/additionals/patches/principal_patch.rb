@@ -4,6 +4,14 @@ module Additionals
       extend ActiveSupport::Concern
 
       included do
+        scope :assignable, -> { active.visible.where(type: %w[User Group]) }
+
+        scope :assignable_for_issues, lambda {
+          scope = assignable
+          scope = scope.where.not(type: 'Group') unless Setting.issue_group_assignment?
+          scope
+        }
+
         # TODO: find better solution, which not requires overwrite visible
         # to filter out hide role members
         scope :visible, lambda { |*args|

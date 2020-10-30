@@ -36,6 +36,7 @@ resource :additionals_macros, only: :show, path: '/help/macros'
 resources :auto_completes, only: [] do
   collection do
     get :issue_assignee
+    get :global_users
     get :fontawesome
   end
 end

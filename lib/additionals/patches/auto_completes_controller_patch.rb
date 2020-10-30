@@ -12,11 +12,15 @@ module Additionals
         end
       end
 
+      def global_users
+        scope = Principal.assignable
+        @assignee = scope.like(params[:q]).sorted.limit(100).to_a
+        render layout: false, partial: 'issue_assignee'
+      end
+
       def issue_assignee
-        scope = Principal.assignable_for_issues
-        scope = scope.member_of(project) if @project.present?
-        @assignee = scope.limit(100).distinct.sorted.like(params[:q]).to_a
-        @assignee = @assignee.sort! { |x, y| x.name <=> y.name }
+        scope = Principal.assignable_for_issues @project
+        @assignee = scope.like(params[:q]).sorted.limit(100).to_a
         render layout: false, partial: 'issue_assignee'
       end
     end

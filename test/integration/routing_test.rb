@@ -16,6 +16,7 @@ class RoutingTest < Redmine::RoutingTest
   def test_auto_completes
     should_route 'GET /auto_completes/fontawesome' => 'auto_completes#fontawesome'
     should_route 'GET /auto_completes/issue_assignee' => 'auto_completes#issue_assignee'
+    should_route 'GET /auto_completes/global_users' => 'auto_completes#global_users'
   end
 
   def test_dashboards

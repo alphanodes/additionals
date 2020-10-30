@@ -70,10 +70,9 @@ module Additionals
         # assignable_users result depends on Setting.issue_group_assignment?
         # this result is not depending on issue settings
         def assignable_users_and_groups
-          Principal.active
+          Principal.assignable
                    .joins(members: :roles)
-                   .where(type: %w[User Group],
-                          members: { project_id: id },
+                   .where(members: { project_id: id },
                           roles: { assignable: true })
                    .distinct
                    .sorted

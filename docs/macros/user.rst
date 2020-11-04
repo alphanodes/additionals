@@ -3,13 +3,14 @@ User
 
 User wiki macro for Redmine.
 
-.. function:: {{user_name [, format=FORMAT, avatar=BOOL])}}
+.. function:: {{user_name [, format=FORMAT, text=BOOL, avatar=BOOL])}}
 
     Display link to user profile
 
     :param string user_name: username (login name) or user id of the user
     :param string format: custom format of link name. If not specified system settings will be used. You can use format with the same options as for system settings.
-    :param bool avatar: show avatar, if true
+    :param bool text: show text only (without link), if true (default: false)
+    :param bool avatar: show avatar, if true (default: false)
 
 Scope
 +++++

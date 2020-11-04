@@ -4,7 +4,7 @@ module Additionals
     Redmine::WikiFormatting::Macros.register do
       desc "Display link to user profile\n\n" \
            "Syntax:\n\n" \
-           "{{user(USER_NAME [, format=USER_FORMAT, avatar=BOOL])}}\n\n" \
+           "{{user(USER_NAME [, format=USER_FORMAT, text=BOOL], avatar=BOOL])}}\n\n" \
            "USER_NAME can be user id or user name (login name)\n" \
            "USER_FORMATS\n" \
            "- system (use system settings) (default)\n- " +
@@ -14,19 +14,26 @@ module Additionals
            "...Link to user with user id 1\n\n" \
            "{{user(1, avatar=true)}}\n" \
            "...Link to user with user id 1 with avatar\n\n" \
+           "{{user(current_user, text=true)}}\n" \
+           "...Show only user (without link) of the current user\n\n" \
            "{{user(admin)}}\n" \
            "...Link to user with username 'admin'\n\n" \
            "{{user(admin, format=firstname)}}\n" \
            "...Link to user with username 'admin' and show firstname as link text"
 
       macro :user do |_obj, args|
-        args, options = extract_macro_options(args, :format, :avatar)
+        args, options = extract_macro_options(args, :format, :avatar, :text)
         raise 'The correct usage is {{user(<user_id or username>, format=USER_FORMAT)}}' if args.empty?
 
         user_id = args[0]
 
         user = User.find_by id: user_id
-        user ||= User.find_by(login: user_id)
+        user ||= if user_id == 'current_user'
+                   User.current
+                 else
+                   User.find_by login: user_id
+                 end
+
         return if user.nil?
 
         name = if options[:format].blank?
@@ -41,10 +48,12 @@ module Additionals
           s << ' '
         end
 
-        s << if user.active?
-               link_to h(name), user_url(user, only_path: controller_path != 'mailer'), class: user.css_classes
+        link_css = "macro #{user.css_classes}"
+
+        s << if user.active? && (options[:text].blank? || !options[:text])
+               link_to h(name), user_url(user, only_path: controller_path != 'mailer'), class: link_css
              else
-               h name
+               tag.span h(name), class: link_css
              end
         safe_join s
       end

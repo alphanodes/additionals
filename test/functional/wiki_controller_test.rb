@@ -433,6 +433,27 @@ class WikiControllerTest < Additionals::ControllerTest
                   text: '#2 Add ingredients categories'
   end
 
+  def test_show_user_with_current_user
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    @page.content.text = '{{user(current_user)}}'
+    @page.content.save!
+    get :show,
+        params: { project_id: 1, id: @page_name }
+    assert_response :success
+    assert_select '#content a.user.active[href=?]', '/users/2',
+                  text: 'John Smith'
+  end
+
+  def test_show_user_with_current_user_as_text
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    @page.content.text = '{{user(current_user, text=true)}}'
+    @page.content.save!
+    get :show,
+        params: { project_id: 1, id: @page_name }
+    assert_response :success
+    assert_select '#content span.user.active', text: 'John Smith'
+  end
+
   def test_show_user_with_id
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{user(1)}}'
@@ -440,7 +461,7 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_select 'a[href=?]', '/users/1',
+    assert_select '#content a[href=?]', '/users/1',
                   text: 'Redmine Admin'
   end
 
@@ -451,8 +472,8 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_select 'a.user', text: 'Redmine Admin'
-    assert_select 'a[href=?]', '/users/1',
+    assert_select '#content a.user', text: 'Redmine Admin'
+    assert_select '#content a[href=?]', '/users/1',
                   text: 'Redmine Admin'
   end
 
@@ -463,8 +484,8 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_select 'a[href=?]', '/users/2',
-                  text: 'jsmith'
+    assert_select '#content a[href=?]', '/users/2',
+                  text: 'John Smith'
   end
 
   def test_show_user_with_name_fullname
@@ -474,8 +495,8 @@ class WikiControllerTest < Additionals::ControllerTest
     get :show,
         params: { project_id: 1, id: @page_name }
     assert_response :success
-    assert_select 'a.user', text: 'John Smith'
-    assert_select 'a[href=?]', '/users/2',
+    assert_select '#content a.user', text: 'John Smith'
+    assert_select '#content a[href=?]', '/users/2',
                   text: 'John Smith'
   end
 end

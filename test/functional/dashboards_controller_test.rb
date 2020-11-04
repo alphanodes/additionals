@@ -16,18 +16,30 @@ class DashboardsControllerTest < Additionals::ControllerTest
            :dashboards, :dashboard_roles,
            :queries
 
+  include CrudControllerBase
+
   def setup
     prepare_tests
-    @request.session[:user_id] = 2
-  end
 
-  def test_create
-    assert_difference 'Dashboard.count', 1 do
-      post :create,
-           params: { dashboard: { name: 'my test dashboard',
-                                  dashboard_type: DashboardContentWelcome::TYPE_NAME,
-                                  description: 'test desc',
-                                  author_id: 2 } }
-    end
+    User.current = nil
+    @user = users :users_002
+    @user_without_permission = users :users_004
+
+    @crud = { form: :dashboard,
+              show_assert_response: 406,
+              index_assert_response: 406,
+              create_params: { name: 'tester board',
+                               enable_sidebar: true,
+                               dashboard_type: DashboardContentWelcome::TYPE_NAME,
+                               author_id: @user.id },
+              create_assert_equals: { name: 'tester board' },
+              create_assert: %i[enable_sidebar],
+              edit_assert_select: ['form#dashboard-form'],
+              update_params: { name: 'changed',
+                               enable_sidebar: true },
+              update_assert_equals: { name: 'changed' },
+              update_assert: %i[enable_sidebar],
+              entity: dashboards(:private_welcome2),
+              delete_redirect_to: home_url }
   end
 end

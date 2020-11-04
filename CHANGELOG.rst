@@ -8,6 +8,8 @@ Changelog
 - FontAwesome 5.15.1 support
 - D3 6.2.0 support
 - Mermaid 8.8.2 support
+- add current_user as special login name for user macro (which shows current login user)
+- add text parameter to user macro (which disable link to user)
 
 3.0.0
 +++++

@@ -70,3 +70,6 @@ Style/HashTransformKeys:
 
 Style/HashTransformValues:
   Enabled: false
+
+Naming/VariableNumber:
+  Enabled: false

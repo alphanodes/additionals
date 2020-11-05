@@ -106,23 +106,19 @@ module AdditionalsQuery
   end
 
   def initialize_author_filter(options = {})
-    return if author_values.empty?
-
     add_available_filter('author_id', order: options[:position],
                                       type: :list_optional,
                                       values: options[:no_lambda].nil? ? author_values : -> { author_values })
   end
 
   def initialize_assignee_filter(options = {})
-    return if author_values.empty?
-
     add_available_filter('assigned_to_id', order: options[:position],
                                            type: :list_optional,
                                            values: options[:no_lambda] ? assigned_to_all_values : -> { assigned_to_all_values })
   end
 
   def initialize_watcher_filter(options = {})
-    return if watcher_values.empty? || !User.current.logged?
+    return unless User.current.logged?
 
     add_available_filter('watcher_id', order: options[:position],
                                        type: :list,

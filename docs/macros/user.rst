@@ -3,11 +3,11 @@ User
 
 User wiki macro for Redmine.
 
-.. function:: {{user_name [, format=FORMAT, text=BOOL, avatar=BOOL])}}
+.. function:: {{user(user [, format=FORMAT, text=BOOL, avatar=BOOL])}}
 
     Display link to user profile
 
-    :param string user_name: username (login name) or user id of the user
+    :param string user: user name (login name) or user id of the user. If current user is used as login name the currently logged in user will be used.
     :param string format: custom format of link name. If not specified system settings will be used. You can use format with the same options as for system settings.
     :param bool text: show text only (without link), if true (default: false)
     :param bool avatar: show avatar, if true (default: false)
@@ -61,3 +61,15 @@ Link to user profile with login name ``admin`` with first name and last name as 
 .. code-block:: smarty
 
   {{user(admin, format=firstname_lastname)}}
+
+Display name of currently logged in user with username as text
+
+.. code-block:: smarty
+
+  {{user(current_user, text=true)}}
+
+Display name of currently logged in user with username
+
+.. code-block:: smarty
+
+  {{user(current_user)}}

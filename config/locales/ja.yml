@@ -151,8 +151,8 @@ ja:
   label_show_all: Show all
   label_system_info: System info
   label_tags_without_color: Show tags without color
-  label_text_async: Text (asynchronous)
-  label_text_sync: Text
+  label_text_async: "テキスト（非同期)"
+  label_text_sync: "テキスト"
   label_top_macros_help_html: "Here you get a list of all available Redmine macros of your installation, which are provided by Redmine and the Redmine plugins."
   label_top_menu_help: "ここで新しいトップメニューの項目を定義出来ます。"
   label_top_menu: Top menu

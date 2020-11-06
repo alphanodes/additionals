@@ -151,8 +151,8 @@
   label_show_all: "顯示全部"
   label_system_info: "系統訊息"
   label_tags_without_color: "顯示無顏色標籤"
-  label_text_async: Text (asynchronous)
-  label_text_sync: Text
+  label_text_async: "文本（异步）"
+  label_text_sync: "文本"
   label_top_macros_help_html: "此處列出Redmine與Redmine外掛支援的macros指令。"
   label_top_menu_help_html: "此處可以自訂頂部選單。在移除或修改後，必須 <strong>重啟 Redmine</strong> 以確保修改生效。"
   label_top_menu: "頂部選單"

@@ -74,6 +74,8 @@ pl:
   label_chart_with_name: "Chart: %{value}"
   label_chartjs_colorscheme_info: "Lista kolorów"
   label_content_plural: "Spis treści"
+  label_copied_to_clipboard: "Skopiowane!"
+  label_copy_to_clipboard: "Kopia do schowka"
   label_custom_fields_distribution: "Pola niestandardowe dla dystrybucji"
   label_custom_menu_items: "Niestandardowe pozycje menu"
   label_daily: "dobowy"
@@ -149,6 +151,8 @@ pl:
   label_show_all: "Pokaż wszystkof"
   label_system_info: "Informacje systemowe"
   label_tags_without_color: Show tags without color
+  label_text_async: Text (asynchronous)
+  label_text_sync: Text
   label_top_macros_help_html: "Tutaj otrzymujesz listę wszystkich dostępnych makr Redmine z Twojej instalacji, które są dostarczane przez Redmine i wtyczki Redmine."
   label_top_menu_help_html: "Tutaj możesz zdefiniować nowe pozycje menu górnego."
   label_top_menu: Top menu
@@ -187,5 +191,3 @@ pl:
   top_wiki_help: "Tutaj możesz zdefiniować zawartość i ustawienia dla swojej Wiki."
   wiki_pdf_remove_attachments_info: "Gdy jest aktywny, załączone pliki Wiki nie będą wyświetlane w widoku PDF."
   wiki_pdf_remove_title_info: "Gdy jest aktywny, informacja o tytule Wiki nie będzie wyświetlana w widoku PDF."
-  label_copied_to_clipboard: "Skopiowane!"
-  label_copy_to_clipboard: "Kopia do schowka"

@@ -74,6 +74,8 @@ ru:
   label_chart_with_name: "Chart: %{value}"
   label_chartjs_colorscheme_info: "Список цветов"
   label_content_plural: Contents
+  label_copied_to_clipboard: "Принято!"
+  label_copy_to_clipboard: "Скопировано в буфер обмена"
   label_custom_fields_distribution: "Пользовательские поля для распределения"
   label_custom_menu_items: "Пользовательские пункты меню"
   label_daily: "ежедневный"
@@ -149,6 +151,8 @@ ru:
   label_show_all: "Показать все"
   label_system_info: System info
   label_tags_without_color: Show tags without color
+  label_text_async: Text (asynchronous)
+  label_text_sync: Text
   label_top_macros_help_html: "Здесь вы получите список всех доступных макросов Redmine вашей установки, которые предоставляются плагинами Redmine и Redmine."
   label_top_menu_help_html: "Здесь можно задать новые пункты верхнего меню."
   label_top_menu: Top menu
@@ -187,5 +191,3 @@ ru:
   top_wiki_help: "Здесь вы можете определить содержимое и настройки для вашей Вики."
   wiki_pdf_remove_attachments_info: "Если флажок установлен, вложенные Вики-файлы не будут отображаться в PDF-формате."
   wiki_pdf_remove_title_info: "При активации этого параметра информация о названии Вики не будет отображаться в PDF-формате."
-  label_copied_to_clipboard: "Принято!"
-  label_copy_to_clipboard: "Скопировано в буфер обмена"

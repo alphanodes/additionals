@@ -74,6 +74,8 @@ de:
   label_chart_with_name: "Chart: %{value}"
   label_chartjs_colorscheme_info: Farbschema Auflistung
   label_content_plural: Inhalte
+  label_copied_to_clipboard: Kopiert!
+  label_copy_to_clipboard: In die Zwischenablage kopieren
   label_custom_fields_distribution: Benutzerdefinierte Felder für Verteilung
   label_custom_menu_items: Benutzerdefinierte Menüpunkte
   label_daily: täglich
@@ -149,6 +151,8 @@ de:
   label_show_all: Alle anzeigen
   label_system_info: Systeminformation
   label_tags_without_color: Zeige TAGs ohne Farbe
+  label_text_async: Text (asynchron)
+  label_text_sync: Text
   label_top_macros_help_html: "Hier sind alle Makros aufgelistet, welche über Redmine selbst oder Plugins bereitgestellt werden (nicht nur über Additionals). Diese Makros können in allen Texten innerhalb Redmines verwendet werden (sofern diese im jeweiligen Kontext Sinn machen)."
   label_top_menu_help_html: "Hier können Menüpunkte festgelegt werden, die im Top-Menü angezeigt werden."
   label_top_menu: Top Menü
@@ -187,5 +191,3 @@ de:
   top_wiki_help: Hier kannst Du Inhalte und Einstellungen bzg. der Wiki festlegen.
   wiki_pdf_remove_attachments_info: Wenn aktiv, werden die an der Wiki Seite angehängten Dateien nicht in der PDF Ansicht angezeigt.
   wiki_pdf_remove_title_info: Wenn aktiv, wird der Wiki Titel nicht in der PDF Ansicht angezeigt.
-  label_copied_to_clipboard: Kopiert!
-  label_copy_to_clipboard: In die Zwischenablage kopieren

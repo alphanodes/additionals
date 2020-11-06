@@ -321,11 +321,11 @@ class Dashboard < ActiveRecord::Base
       unique_params = settings.flatten
       unique_params += options[:unique_params].reject(&:blank?) if options[:unique_params].present?
 
-      Rails.logger.debug "debug async_params for #{block}: unique_params=#{unique_params.inspect}"
+      # Rails.logger.debug "debug async_params for #{block}: unique_params=#{unique_params.inspect}"
       config[:unique_key] = Digest::SHA256.hexdigest(unique_params.join('_'))
     end
 
-    Rails.logger.debug "debug async_params for #{block}: config=#{config.inspect}"
+    # Rails.logger.debug "debug async_params for #{block}: config=#{config.inspect}"
 
     config
   end

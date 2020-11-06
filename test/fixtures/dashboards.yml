@@ -13,6 +13,7 @@ system_default_welcome:
       - my_spent_time
       left:
       - text
+      - text_async
       - legacy_left
       right:
       - text__1
@@ -23,6 +24,9 @@ system_default_welcome:
       text:
         :title: Welcome left
         :text: Some example text in left text block
+      text_async:
+        :title: Async loaded
+        :text: Use it for better performance
       text__1:
         :title: Welcome right
         :text: Some example text in right text block

@@ -74,6 +74,8 @@ cs:
   label_chart_with_name: "Chart: %{value}"
   label_chartjs_colorscheme_info: Seznam barev
   label_content_plural: Obsah
+  label_copied_to_clipboard: "Zkopírováno!"
+  label_copy_to_clipboard: "Zkopírovat do schránky"
   label_custom_fields_distribution: "Vlastní pole pro distribuci"
   label_custom_menu_items: "Vlastní položky nabídky"
   label_daily: denně
@@ -149,6 +151,8 @@ cs:
   label_show_all: "Ukázat vše"
   label_system_info: "Systémová informace"
   label_tags_without_color: Show tags without color
+  label_text_async: Text (asynchronous)
+  label_text_sync: Text
   label_top_macros_help_html: "Zde získáte seznam všech dostupných maker Redmine vaší instalace, která jsou poskytována doplňky Redmine a Redmine."
   label_top_menu_help_html: "Zde můžete definovat nové položky horní nabídky."
   label_top_menu: Top menu
@@ -187,5 +191,3 @@ cs:
   top_wiki_help: "Zde můžete definovat obsah a nastavení vaší Wiki."
   wiki_pdf_remove_attachments_info: "Pokud je aktivní, připojené soubory Wiki se nebudou zobrazovat v zobrazení PDF."
   wiki_pdf_remove_title_info: "Pokud je aktivní, informace o názvu Wiki se nebudou zobrazovat v zobrazení PDF."
-  label_copied_to_clipboard: "Zkopírováno!"
-  label_copy_to_clipboard: "Zkopírovat do schránky"

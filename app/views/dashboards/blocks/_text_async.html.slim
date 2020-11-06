@@ -1,0 +1,10 @@
+- cache render_async_cache_key(_dashboard_async_blocks_path(@project,
+                                                            dashboard.async_params(block, async, settings))),
+                               expires_in: async[:cache_expires_in],
+                               skip_digest: true do
+
+  - if settings[:title].present?
+    h3 = settings[:title]
+
+  .wiki
+    = textilizable settings[:text]

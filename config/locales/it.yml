@@ -74,6 +74,8 @@ it:
   label_chart_with_name: "Chart: %{value}"
   label_chartjs_colorscheme_info: Color list
   label_content_plural: Il contentuto
+  label_copied_to_clipboard: "Copiato!"
+  label_copy_to_clipboard: "Copia negli appunti"
   label_custom_fields_distribution: "Campi personalizzati per la distribuzione"
   label_custom_menu_items: Custom menu items
   label_daily: giornalmente
@@ -149,6 +151,8 @@ it:
   label_show_all: Mostra tutto
   label_system_info: System info
   label_tags_without_color: "Mostra tag senza colore"
+  label_text_async: Text (asynchronous)
+  label_text_sync: Text
   label_top_macros_help_html: "Qui trovate un elenco di tutte le macro Redmine disponibili della vostra installazione, fornite da Redmine e dai plugin Redmine."
   label_top_menu_help_html: "Qui è possibile definire nuove voci di menu in alto."
   label_top_menu: Top menu
@@ -187,5 +191,3 @@ it:
   top_wiki_help: "Qui puoi definire contenuti e impostazioni per il tuo Wiki."
   wiki_pdf_remove_attachments_info: "Quando è attivo, il Wiki file allegati non verranno visualizzati nella vista PDF."
   wiki_pdf_remove_title_info: "Quando è attivo, le informazioni sul titolo del Wiki non verranno visualizzate nella vista PDF."
-  label_copied_to_clipboard: "Copiato!"
-  label_copy_to_clipboard: "Copia negli appunti"

@@ -74,6 +74,8 @@
   label_chart_with_name: "Chart: %{value}"
   label_chartjs_colorscheme_info: "顏色清單"
   label_content_plural: 内容
+  label_copied_to_clipboard: "复制!"
+  label_copy_to_clipboard: "复制到剪贴板"
   label_custom_fields_distribution: "Custom fields for distribution"
   label_custom_menu_items: "自訂選單項目"
   label_daily: 每天
@@ -149,6 +151,8 @@
   label_show_all: "顯示全部"
   label_system_info: "系統訊息"
   label_tags_without_color: "顯示無顏色標籤"
+  label_text_async: Text (asynchronous)
+  label_text_sync: Text
   label_top_macros_help_html: "此處列出Redmine與Redmine外掛支援的macros指令。"
   label_top_menu_help_html: "此處可以自訂頂部選單。在移除或修改後，必須 <strong>重啟 Redmine</strong> 以確保修改生效。"
   label_top_menu: "頂部選單"
@@ -187,5 +191,3 @@
   top_wiki_help: "您可以在此自訂Wiki的內容和設定。"
   wiki_pdf_remove_attachments_info: "當啟用時，Wiki附件將不會顯示在PDF中。"
   wiki_pdf_remove_title_info: "當啟用時，Wiki標題訊息不會顯示在PDF中"
-  label_copied_to_clipboard: "复制!"
-  label_copy_to_clipboard: "复制到剪贴板"

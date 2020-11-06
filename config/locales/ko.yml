@@ -74,6 +74,8 @@ ko:
   label_chart_with_name: "Chart: %{value}"
   label_chartjs_colorscheme_info: 컬러리스트
   label_content_plural: 내용
+  label_copied_to_clipboard: "복사되었습니다!"
+  label_copy_to_clipboard: "클립 보드에 복사"
   label_custom_fields_distribution: "Custom fields for distribution"
   label_custom_menu_items: 맞춤 메뉴 항목
   label_daily: 매일
@@ -149,6 +151,8 @@ ko:
   label_show_all: 모두 표시
   label_system_info: 시스템 정보
   label_tags_without_color: 색상없이 태그 표시
+  label_text_async: Text (asynchronous)
+  label_text_sync: Text
   label_top_macros_help_html: "다음은 Redmine 및 Redmine 플러그인에서 제공하는 설치에 사용 가능한 모든 Redmine 매크로 목록입니다."
   label_top_menu_help_html: "여기에서 새로운 최상위 메뉴 항목을 정의 할 수 있습니다."
   label_top_menu: 톱 메뉴
@@ -187,5 +191,3 @@ ko:
   top_wiki_help: 여기에서 위키의 내용과 설정을 정의 할 수 있습니다.
   wiki_pdf_remove_attachments_info: 활성화 된 경우 첨부 된 Wiki 파일은 PDF보기에 표시되지 않습니다.
   wiki_pdf_remove_title_info: 활성화되면 위키 제목 정보가 PDF보기에 표시되지 않습니다.
-  label_copied_to_clipboard: "복사되었습니다!"
-  label_copy_to_clipboard: "클립 보드에 복사"

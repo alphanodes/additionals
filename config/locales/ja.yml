@@ -74,6 +74,8 @@ ja:
   label_chart_with_name: "チャート: %{value}"
   label_chartjs_colorscheme_info: "カラーリスト"
   label_content_plural: "内容"
+  label_copied_to_clipboard: "コピーしました"
+  label_copy_to_clipboard: "クリップボードにコピー"
   label_custom_fields_distribution: "配布用のカスタムフィールド"
   label_custom_menu_items: Custom menu items
   label_daily: daily
@@ -149,6 +151,8 @@ ja:
   label_show_all: Show all
   label_system_info: System info
   label_tags_without_color: Show tags without color
+  label_text_async: Text (asynchronous)
+  label_text_sync: Text
   label_top_macros_help_html: "Here you get a list of all available Redmine macros of your installation, which are provided by Redmine and the Redmine plugins."
   label_top_menu_help: "ここで新しいトップメニューの項目を定義出来ます。"
   label_top_menu: Top menu
@@ -187,5 +191,3 @@ ja:
   top_wiki_help: "ここでは、Wikiの内容や設定を定義することができます。"
   wiki_pdf_remove_attachments_info: "アクティブな場合、添付されたWikiファイルはPDFビューに表示されません。"
   wiki_pdf_remove_title_info: "アクティブな場合、Wikiのタイトル情報はPDFビューに表示されません。"
-  label_copied_to_clipboard: "コピーしました"
-  label_copy_to_clipboard: "クリップボードにコピー"

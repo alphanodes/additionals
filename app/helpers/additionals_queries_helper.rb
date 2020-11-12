@@ -79,7 +79,7 @@ module AdditionalsQueriesHelper
   def additionals_select2_search_users(options = {})
     q = params[:q].to_s.strip
     exclude_id = params[:user_id].to_i
-    scope = User.active.where(type: 'User')
+    scope = User.active.where type: 'User'
     scope = scope.visible unless options[:all_visible]
     scope = scope.where.not(id: exclude_id) if exclude_id.positive?
     scope = scope.where(options[:where_filter], options[:where_params]) if options[:where_filter]

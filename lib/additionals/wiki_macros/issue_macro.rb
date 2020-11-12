@@ -43,7 +43,7 @@ module Additionals
                     comment_id = info[:comment_id] if comment_id.nil?
                     info[:issue_id])
 
-        issue = Issue.find_by(id: issue_id)
+        issue = Issue.find_by id: issue_id
         return if issue.nil? || !issue.visible?
 
         text = case options[:format]

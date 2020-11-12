@@ -23,7 +23,7 @@ module Additionals
 
       macro :projects do |_obj, args|
         _args, options = extract_macro_options(args, :title, :with_create_issue)
-        @projects = Additionals.load_projects
+        @projects = User.current.projects.active.includes(:enabled_modules).sorted
         return if @projects.nil?
 
         @html_options = { class: 'external' }
@@ -34,14 +34,5 @@ module Additionals
                          with_create_issue: options[:with_create_issue] }
       end
     end
-  end
-
-  def self.load_projects
-    all_projects = Project.active.visible.sorted
-    my_projects = []
-    all_projects.each do |p|
-      my_projects << p if User.current.member_of?(p)
-    end
-    my_projects
   end
 end

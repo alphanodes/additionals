@@ -100,12 +100,9 @@ module AdditionalsMenuHelper
   def additionals_custom_top_menu_item(item, user_roles)
     show_entry = false
     item[:roles].each do |role|
-      if user_roles.empty? && role.to_i == Role::BUILTIN_ANONYMOUS
-        show_entry = true
-        break
-      elsif User.current.logged? && role.to_i == Role::BUILTIN_NON_MEMBER
-        # if user is logged in and non_member is active in item,
-        # always show it
+      if user_roles.empty? && role.to_i == Role::BUILTIN_ANONYMOUS ||
+         # if user is logged in and non_member is active in item, always show it
+         User.current.logged? && role.to_i == Role::BUILTIN_NON_MEMBER
         show_entry = true
         break
       end

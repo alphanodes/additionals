@@ -311,12 +311,10 @@ module Additionals
       return if user.nil?
 
       if user.type == 'Group'
-        if options[:no_link]
+        if options[:no_link] || !Redmine::Plugin.installed?('redmine_hrm')
           user.name
-        elsif Redmine::Plugin.installed? 'redmine_hrm'
-          link_to_hrm_group user
         else
-          user.name
+          link_to_hrm_group user
         end
       else
         options[:size] = 14 if options[:size].nil?

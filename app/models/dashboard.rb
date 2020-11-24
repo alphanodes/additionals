@@ -4,6 +4,7 @@ class Dashboard < ActiveRecord::Base
   include Additionals::EntityMethods
 
   class SystemDefaultChangeException < StandardError; end
+
   class ProjectSystemDefaultChangeException < StandardError; end
 
   belongs_to :project

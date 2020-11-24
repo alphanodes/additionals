@@ -212,12 +212,12 @@ module Additionals
 
     def project_list_css_classes(project, level)
       classes = [cycle('odd', 'even')]
-      classes += project.css_classes.split(' ')
+      classes += project.css_classes.split
       if level.positive?
         classes << 'idnt'
         classes << "idnt-#{level}"
       end
-      classes.join(' ')
+      classes.join ' '
     end
 
     def addtionals_textarea_cols(text, options = {})

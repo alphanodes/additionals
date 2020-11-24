@@ -48,7 +48,7 @@ module Additionals
           classes << "fa-#{values[0]}"
         end
 
-        classes += options[:class].split(' ') if options[:class].present?
+        classes += options[:class].split if options[:class].present?
         classes << "fa-#{options[:size]}" if options[:size].present?
 
         content_options = { class: classes.uniq.join(' ') }

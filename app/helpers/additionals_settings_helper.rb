@@ -4,7 +4,6 @@ module AdditionalsSettingsHelper
             { name: 'wiki', partial: 'additionals/settings/wiki', label: :label_wiki },
             { name: 'macros', partial: 'additionals/settings/macros', label: :label_macro_plural },
             { name: 'rules', partial: 'additionals/settings/issues', label: :label_issue_plural },
-            { name: 'users', partial: 'additionals/settings/users', label: :label_user_plural },
             { name: 'web', partial: 'additionals/settings/web_apis', label: :label_web_apis }]
 
     unless Redmine::Plugin.installed? 'redmine_hrm'

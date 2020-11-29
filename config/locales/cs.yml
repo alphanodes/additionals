@@ -58,7 +58,6 @@ cs:
   hidden_macros_in_toolbar_info: "Všechna dostupná makra, která může přihlášený uživatel použít, jsou uvedena prostřednictvím tlačítka makro na panelu nástrojů wiki. Makra zde označená nejsou nabízena k výběru. To vám umožní omezit rozsah seznamu."
   info_dashboard_project_select: Leave it blank, if you want to use this dashboard for all projects.
   info_hidden_roles_html: "Skryté role lze použít pouze spolu s viditelností uživatele \"Members of visible projects\". Pokud uživatel není v roli, která je viditelná pro aktuálního uživatele, je tato role včetně uživatele skryta na stránce s přehledem projektu a v seznamech dotazů."
-  invisible_captcha_info_html: In case this option is activated an <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection is activated for the registration page of new users. This function is only available, if you enabled self-registration, too.
   label_account_login_bottom: "Text pro přihlašovací stránku"
   label_active_dashboard: "Aktivní Dashboard"
   label_add_dashboard_block: "Přidat blok"
@@ -101,7 +100,6 @@ cs:
   label_hour: "hodina"
   label_icon_color: "Barva ikony"
   label_invalid_feed_data: "Neplatná data zdroje nebo adresa URL"
-  label_invisible_captcha: "Ochrana proti SPAMu pro registraci"
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
   label_issue_autowatch_involved: "Automaticky přidejte zúčastněné uživatele jako sledovatele"
@@ -150,7 +148,6 @@ cs:
   label_shared_dashboard_plural: "Sdíleno dashboards"
   label_show_all: "Ukázat vše"
   label_system_info: "Systémová informace"
-  label_tags_without_color: Show tags without color
   label_text_async: Text (asynchronous)
   label_text_sync: Text
   label_top_macros_help_html: "Zde získáte seznam všech dostupných maker Redmine vaší instalace, která jsou poskytována doplňky Redmine a Redmine."

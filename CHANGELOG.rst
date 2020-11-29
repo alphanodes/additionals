@@ -11,6 +11,8 @@ Changelog
 - add current_user as special login name for user macro (which shows current login user)
 - add text parameter to user macro (which disable link to user)
 - add asynchronous text block
+- gemify plugin to use it with Gemfile.local or other plugins
+- remove spam protection functionality
 
 3.0.0
 +++++

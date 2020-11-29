@@ -145,7 +145,6 @@ Features
 * anonymize referrer for external urls
 * hide role in project memberbox
 * change issue author
-* spam protection on registration form
 * add involved issue users as watcher automatically
 * create issue on user profile
 * "assign to me" link on issue

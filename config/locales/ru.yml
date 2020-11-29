@@ -45,7 +45,6 @@ ru:
   field_issue_relation_plural: "Отношения задач"
   field_project_system_default: "Значение по умолчанию проекта"
   field_system_default: "По умолчанию системы"
-  field_tag_list: Tags
   field_tag_sidebar_style_cloud: Cloud
   field_tag_sidebar_style_list: List
   field_tags: Tags
@@ -58,7 +57,6 @@ ru:
   hidden_macros_in_toolbar_info: "Все доступные макросы, которые может использовать вошедший в систему пользователь, перечислены с помощью кнопки макроса на панели инструментов вики. Макросы, отмеченные здесь, не предлагаются для выбора. Это позволяет вам ограничить область действия списка."
   info_dashboard_project_select: Leave it blank, if you want to use this dashboard for all projects.
   info_hidden_roles_html: "Скрытые роли могут использоваться только вместе с видимостью пользователя \"Members of visible projects\". Если пользователь не находится в роли, видимой для текущего пользователя, эта роль, включая пользователя, скрыта на странице обзора проекта и в списках запросов."
-  invisible_captcha_info_html: In case this option is activated an <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection is activated for the registration page of new users. This function is only available, if you enabled self-registration, too.
   label_account_login_bottom: "Текст страницы входа в систему"
   label_active_dashboard: "Активная панель управления"
   label_add_dashboard_block: "Добавить блок"
@@ -101,7 +99,6 @@ ru:
   label_hour: "час"
   label_icon_color: Icon color
   label_invalid_feed_data: "Недействительные данные корма или URL-адрес"
-  label_invisible_captcha: "Защита от спама при регистрации"
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
   label_issue_autowatch_involved: "Автоматическое добавление привлеченных пользователей в качестве наблюдателя"
@@ -150,7 +147,6 @@ ru:
   label_shared_dashboard_plural: "разделяемые приборные панели"
   label_show_all: "Показать все"
   label_system_info: System info
-  label_tags_without_color: Show tags without color
   label_text_async: "Текст (асинхронный)"
   label_text_sync: "Текст"
   label_top_macros_help_html: "Здесь вы получите список всех доступных макросов Redmine вашей установки, которые предоставляются плагинами Redmine и Redmine."

@@ -6,7 +6,7 @@ class DashboardAsyncBlocksController < ApplicationController
 
   helper :additionals_routes
   helper :additionals_queries
-  helper :additionals_tag
+  helper :additional_tags
   helper :queries
   helper :issues
   helper :activities

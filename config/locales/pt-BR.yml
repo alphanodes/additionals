@@ -45,7 +45,6 @@ pt-BR:
   field_issue_relation_plural: "Relações de tarefas"
   field_project_system_default: "Projeto padrão"
   field_system_default: "Padrão do sistema"
-  field_tag_list: Tags
   field_tag_sidebar_style_cloud: Cloud
   field_tag_sidebar_style_list: Lista
   field_tags: Tags
@@ -58,7 +57,6 @@ pt-BR:
   hidden_macros_in_toolbar_info: "Todas as macros disponíveis que o usuário logado pode usar são listadas através do botão de macro da barra de ferramentas do wiki. As macros aqui marcadas não são oferecidas para seleção. Isto permite limitar o escopo da lista."
   info_dashboard_project_select: Leave it blank, if you want to use this dashboard for all projects.
   info_hidden_roles_html: "As funções ocultas só podem ser usadas junto com a visibilidade do usuário \"Members of visible projects\". Se o usuário não estiver em uma função que seja visível para o usuário atual, esta função, incluindo o usuário, está oculta na página de síntese do projeto e nas listas de consulta."
-  invisible_captcha_info_html: In case this option is activated an <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection is activated for the registration page of new users. This function is only available, if you enabled self-registration, too.
   label_account_login_bottom: "Texto para página de login"
   label_active_dashboard: "Ativo Dashboard"
   label_add_dashboard_block: "Adicionar bloco"
@@ -101,7 +99,6 @@ pt-BR:
   label_hour: "hora"
   label_icon_color: "Cor do ícone"
   label_invalid_feed_data: "Dados de alimentação inválidos ou URL"
-  label_invisible_captcha: "Proteção de SPAM para registro"
   label_issue_assign_to_me: "Mostrar \"Designar para mim\" em questão"
   label_issue_auto_assign: "Se \"Atribuído a\" não é atribuído a um usuário e o novo status de emissão é x então a emissão é automaticamente atribuída ao primeiro grupo com usuários da função pré-definida."
   label_issue_autowatch_involved: "Adicionar automaticamente os usuários envolvidos como observadores"
@@ -150,7 +147,6 @@ pt-BR:
   label_shared_dashboard_plural: "Compartilhado dashboards"
   label_show_all: "Mostrar tudo"
   label_system_info: "Informações do sistema"
-  label_tags_without_color: "Mostrar TAGs sem cor"
   label_text_async: "Texto (assíncrono)"
   label_text_sync: Texto
   label_top_macros_help_html: "Aqui você obtém uma lista de todas as macros Redmine disponíveis de sua instalação, que são fornecidas pela Redmine e pelos plugins Redmine."

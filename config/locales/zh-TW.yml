@@ -45,7 +45,6 @@
   field_issue_relation_plural: 關聯的議題
   field_project_system_default: Project default
   field_system_default: System default
-  field_tag_list: 標籤清單
   field_tag_sidebar_style_cloud: 雲
   field_tag_sidebar_style_list: 清單
   field_tags: 標籤
@@ -58,7 +57,6 @@
   hidden_macros_in_toolbar_info: All available macros that the logged in user can use are listed via the macro button of the wiki toolbar. Macros marked here are not offered for selection. This allows you to limit the scope of the list.
   info_dashboard_project_select: Leave it blank, if you want to use this dashboard for all projects.
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.
-  invisible_captcha_info_html: In case this option is activated an <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection is activated for the registration page of new users. This function is only available, if you enabled self-registration, too.
   label_account_login_bottom: "登入頁文字"
   label_active_dashboard: "Active Dashboard"
   label_add_dashboard_block: "Add block"
@@ -101,7 +99,6 @@
   label_hour: 小時
   label_icon_color: 圖示顏色
   label_invalid_feed_data: "Invalid feed data or URL"
-  label_invisible_captcha: "註冊SPAM保護"
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_auto_assign: "若建立新議題的 \"被分派者\" 未設定，且狀態為 X 時，將被自動分派給指定角色。"
   label_issue_autowatch_involved: "自動設定參與者為監看者"
@@ -150,7 +147,6 @@
   label_shared_dashboard_plural: Shared dashboards
   label_show_all: "顯示全部"
   label_system_info: "系統訊息"
-  label_tags_without_color: "顯示無顏色標籤"
   label_text_async: "文本（异步）"
   label_text_sync: "文本"
   label_top_macros_help_html: "此處列出Redmine與Redmine外掛支援的macros指令。"

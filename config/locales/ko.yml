@@ -45,7 +45,6 @@ ko:
   field_issue_relation_plural: 이슈 관계
   field_project_system_default: Project default
   field_system_default: System default
-  field_tag_list: 태그
   field_tag_sidebar_style_cloud: 구름
   field_tag_sidebar_style_list: 명부
   field_tags: 태그
@@ -58,7 +57,6 @@ ko:
   hidden_macros_in_toolbar_info: 로그인 한 사용자가 사용할 수있는 모든 매크로가 위키 도구 모음의 매크로 버튼을 통해 나열됩니다. 여기에 표시된 매크로는 선택할 수 없습니다. 이를 통해 목록의 범위를 제한 할 수 있습니다.
   info_dashboard_project_select: Leave it blank, if you want to use this dashboard for all projects.
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". 사용자가 현재 사용자에게 보이는 역할이 아닌 경우 사용자를 포함한이 역할은 프로젝트 개요 페이지와 쿼리 목록에서 숨겨집니다.
-  invisible_captcha_info_html: In case this option is activated an <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection is activated for the registration page of new users. This function is only available, if you enabled self-registration, too.
   label_account_login_bottom: "로그인 페이지의 텍스트"
   label_active_dashboard: "Active Dashboard"
   label_add_dashboard_block: "Add block"
@@ -101,7 +99,6 @@ ko:
   label_hour: 시간
   label_icon_color: 시간
   label_invalid_feed_data: "Invalid feed data or URL"
-  label_invisible_captcha: SPAM protection for registration
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
   label_issue_autowatch_involved: 관련 사용자를 감시자로 자동 추가
@@ -150,7 +147,6 @@ ko:
   label_shared_dashboard_plural: Shared dashboards
   label_show_all: 모두 표시
   label_system_info: 시스템 정보
-  label_tags_without_color: 색상없이 태그 표시
   label_text_async: Text (asynchronous)
   label_text_sync: Text
   label_top_macros_help_html: "다음은 Redmine 및 Redmine 플러그인에서 제공하는 설치에 사용 가능한 모든 Redmine 매크로 목록입니다."

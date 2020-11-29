@@ -80,6 +80,7 @@ class IssuesControllerTest < Additionals::ControllerTest
       @request.session[:user_id] = 2
       get :show,
           params: { id: 2 }
+
       assert_select 'a.assign-to-me'
     end
   end

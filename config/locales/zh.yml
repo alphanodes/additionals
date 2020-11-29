@@ -45,7 +45,6 @@ zh:
   field_issue_relation_plural: 问题关联关系
   field_project_system_default: "项目默认值"
   field_system_default: "系统默认值"
-  field_tag_list: Tags
   field_tag_sidebar_style_cloud: Cloud
   field_tag_sidebar_style_list: List
   field_tags: Tags
@@ -58,7 +57,6 @@ zh:
   hidden_macros_in_toolbar_info: 登录用户可以使用的所有可用宏都可通过Wiki页面工具栏 的 宏 按钮列出。请在此处选择不希望列出的宏。
   info_dashboard_project_select: Leave it blank, if you want to use this dashboard for all projects.
   info_hidden_roles_html: 隐藏功能只能与"用户可见度"选项一起使用。如果某用户不在对当前用户可见的角色，则此用户及其角色在项目概述页和查询列表中将对当前用户隐藏。
-  invisible_captcha_info_html: 如果激活此选项，针对新用户的注册页则激活恶意注册防护<a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha隐形验证码</a>。此功能仅在启用了自注册(self-registration)时可用。
   label_account_login_bottom: "用于登陆页的文本"
   label_active_dashboard: "Active Dashboard"
   label_add_dashboard_block: "添加块"
@@ -101,7 +99,6 @@ zh:
   label_hour: 小时
   label_icon_color: 图标颜色
   label_invalid_feed_data: "无效的feed数据或URL"
-  label_invisible_captcha: SPAM恶意注册防护
   label_issue_assign_to_me: 在问题(issue)页显示“指派给我”
   label_issue_auto_assign: "若 \"指派给\" 的值未设置为具体用户，且新建问题的状态为 X， 那么问题将自动指派给预定义角色用户的对应组。"
   label_issue_autowatch_involved: 自动添加涉及到的用户为关注者
@@ -150,7 +147,6 @@ zh:
   label_shared_dashboard_plural: Shared dashboards
   label_show_all: 显示所有
   label_system_info: 系统信息
-  label_tags_without_color: Show tags without color
   label_text_async: "文本（异步）"
   label_text_sync: "文本"
   label_top_macros_help_html: "此处列出了来自 Redmine 及 Redmine 插件中提供的所有可用的宏命令。"

@@ -45,7 +45,6 @@ fr:
   field_issue_relation_plural: Issue relations
   field_project_system_default: "Projet par défaut"
   field_system_default: "Défaut du système"
-  field_tag_list: Tags
   field_tag_sidebar_style_cloud: Cloud
   field_tag_sidebar_style_list: List
   field_tags: Tags
@@ -58,7 +57,6 @@ fr:
   hidden_macros_in_toolbar_info: "Toutes les macros disponibles que l'utilisateur connecté peut utiliser sont listées via le bouton macro de la barre d'outils wiki. Les macros marquées ici ne sont pas proposées à la sélection. Ceci vous permet de limiter la portée de la liste."
   info_dashboard_project_select: Leave it blank, if you want to use this dashboard for all projects.
   info_hidden_roles_html: "Les rôles cachés ne peuvent être utilisés qu'avec la visibilité utilisateur \"Membres de projets visibles\". Si l'utilisateur n'est pas dans un rôle visible par l'utilisateur actuel, ce rôle, y compris l'utilisateur, est masqué sur la page de synthèse du projet et dans les listes de requêtes."
-  invisible_captcha_info_html: In case this option is activated an <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection is activated for the registration page of new users. This function is only available, if you enabled self-registration, too.
   label_account_login_bottom: "Texte pour la page de login"
   label_active_dashboard: "Dashboard actif"
   label_add_dashboard_block: "Ajouter un bloc"
@@ -101,7 +99,6 @@ fr:
   label_hour: Heure
   label_icon_color: Icon color
   label_invalid_feed_data: "Données d'alimentation ou URL invalides"
-  label_invisible_captcha: SPAM protection for registration
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
   label_issue_autowatch_involved: "Ajout automatique des utilisateurs impliqués en tant qu'observateurs"
@@ -150,7 +147,6 @@ fr:
   label_shared_dashboard_plural: "Dashboards partagés"
   label_show_all: Montrer tout
   label_system_info: System info
-  label_tags_without_color: "Afficher les étiquettes sans couleur"
   label_text_async: "Texte (asynchrone)"
   label_text_sync: Texte
   label_top_macros_help_html: "Vous obtenez ici une liste de toutes les macros Redmine disponibles de votre installation, qui sont fournies par Redmine et les plugins Redmine."

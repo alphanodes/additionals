@@ -1,13 +1,4 @@
 source 'https://rubygems.org'
 
-gem 'deface', '1.5.3'
-gem 'gemoji', '~> 3.0.0'
-gem 'invisible_captcha'
-gem 'render_async'
-gem 'rss'
-gem 'slim-rails'
-
-group :development, :test do
-  gem 'brakeman', require: false
-  gem 'slim_lint', require: false
-end
+# Specify your gem's dependencies in additionals.gemspec
+gemspec

@@ -45,7 +45,6 @@ en:
   field_issue_relation_plural: Issue relations
   field_project_system_default: Project default
   field_system_default: System default
-  field_tag_list: TAGs
   field_tag_sidebar_style_cloud: Cloud
   field_tag_sidebar_style_list: List
   field_tags: TAGs
@@ -58,7 +57,6 @@ en:
   hidden_macros_in_toolbar_info: All available macros that the logged in user can use are listed via the macro button of the wiki toolbar. Macros marked here are not offered for selection. This allows you to limit the scope of the list.
   info_dashboard_project_select: Leave it blank, if you want to use this dashboard for all projects.
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.
-  invisible_captcha_info_html: In case this option is activated an <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> SPAM protection is activated for the registration page of new users. This function is only available, if you enabled self-registration, too.
   label_account_login_bottom: "Text for login page"
   label_active_dashboard: "Active Dashboard"
   label_add_dashboard_block: "Add block"
@@ -101,7 +99,6 @@ en:
   label_hour: hour
   label_icon_color: Icon color
   label_invalid_feed_data: "Invalid feed data or URL"
-  label_invisible_captcha: SPAM protection for registration
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
   label_issue_autowatch_involved: Add involved users as watcher automatically
@@ -150,7 +147,6 @@ en:
   label_shared_dashboard_plural: Shared dashboards
   label_show_all: Show all
   label_system_info: System info
-  label_tags_without_color: Show TAGs without color
   label_text_async: Text (asynchronous)
   label_text_sync: Text
   label_top_macros_help_html: "Here you get a list of all available Redmine macros of your installation, which are provided by Redmine and the Redmine plugins."

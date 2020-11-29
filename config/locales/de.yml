@@ -45,7 +45,6 @@ de:
   field_issue_relation_plural: Ticket Beziehungen
   field_project_system_default: Projektstandard
   field_system_default: System Standard
-  field_tag_list: Tags
   field_tag_sidebar_style_cloud: Cloud
   field_tag_sidebar_style_list: Listenansicht
   field_tags: Tags
@@ -58,7 +57,6 @@ de:
   hidden_macros_in_toolbar_info: Alle verfügbaren Makros, die der angemeldete Benutzer verwenden kann, werden über den Makro-Button der Wiki-Toolbar aufgelistet. Hier markierte Makros werden nicht zur Auswahl angeboten. Damit lässt sich der Listenumfang einschränken.
   info_dashboard_project_select: Wird hier kein Projekt angegeben, ist dieses Dashboard für alle Projekte verfügbar.
   info_hidden_roles_html: Versteckte Rollen können nur zusammen mit der Benutzersichtbarkeit "Mitglieder von sichtbaren Projekten" verwendet werden. Diese Option funktioniert nur, wenn der Benutzer in keiner Rolle ist die für den aktuellen Benutzer sichtbar ist. Passt alles wird diese Rolle inklusive Benutzer auf der Projektübersichtsseite und in Abfragelisten ausgeblendet.
-  invisible_captcha_info_html: Ist diese Option aktiviert, wird mit Hilfe von <a href="https://github.com/markets/invisible_captcha" target="_blank">invisible_captcha</a> ein SPAM Schutz auf die Registrierungs-Seite für neue Benutzer eingesetzt. Diese steht nur zur Verfügung, wenn Redmine die Registrierung neuer Benutzer zulässt.
   label_account_login_bottom: "Text für Anmeldeseite"
   label_active_dashboard: Aktives Dashboard
   label_add_dashboard_block: Block hinzufügen
@@ -101,7 +99,6 @@ de:
   label_hour: Stunde
   label_icon_color: Symbolfarbe
   label_invalid_feed_data: Ungültige Feed Daten oder URL
-  label_invisible_captcha: SPAM Schutz bei Registrierung
   label_issue_assign_to_me: Ticket "Mir zuweisen" anzeigen
   label_issue_auto_assign: "Wird \"Zugewiesen an\" nicht zugewiesen und der neue Ticketstatus ist x, dann wird die ersten Gruppe mit Benutzern der festgelegten Rolle das Ticket zugewiesen."
   label_issue_autowatch_involved: Involvierte Benutzer automatisch als Beobachter hinzufügen
@@ -150,7 +147,6 @@ de:
   label_shared_dashboard_plural: Geteilte Dashboards
   label_show_all: Alle anzeigen
   label_system_info: Systeminformation
-  label_tags_without_color: Zeige TAGs ohne Farbe
   label_text_async: Text (asynchron)
   label_text_sync: Text
   label_top_macros_help_html: "Hier sind alle Makros aufgelistet, welche über Redmine selbst oder Plugins bereitgestellt werden (nicht nur über Additionals). Diese Makros können in allen Texten innerhalb Redmines verwendet werden (sofern diese im jeweiligen Kontext Sinn machen)."

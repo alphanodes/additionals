@@ -45,10 +45,6 @@ cs:
   field_issue_relation_plural: Issue relations
   field_project_system_default: "Výchozí nastavení projektu"
   field_system_default: "Výchozí systém"
-  field_tag_list: Tags
-  field_tag_sidebar_style_cloud: Cloud
-  field_tag_sidebar_style_list: Seznam
-  field_tags: Tags
   field_visibility: "Viditelnost"
   field_website: Website
   global_footer_info: 'Sem zadejte zápatí široké wiki projektu.'
@@ -62,7 +58,6 @@ cs:
   label_active_dashboard: "Aktivní Dashboard"
   label_add_dashboard_block: "Přidat blok"
   label_add_go_to_top: 'Add "Go to top" link'
-  label_add_tags: Add tags
   label_additionals_doc: Additionals documentation
   label_additionals_feed: Atom+RSS Feed
   label_additionals: Additionals
@@ -87,7 +82,6 @@ cs:
   label_disable_sidebar: "Zakázat sidebar"
   label_disabled_modules: "Zakázané moduly"
   label_docs_access_token: Access token
-  label_edit_tags: Edit tags
   label_enable_sidebar: "Umožnit sidebar"
   label_global_footer: "Široká zápatí projektu"
   label_global_sidebar: "Globální postranní panel"

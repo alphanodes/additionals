@@ -45,9 +45,6 @@ es:
   field_issue_relation_plural: Relaciones de peticiones
   field_project_system_default: "Proyecto por defecto"
   field_system_default: "System default"
-  field_tag_sidebar_style_cloud: Nube
-  field_tag_sidebar_style_list: Lista
-  field_tags: Etiquetas
   field_visibility: "Visibilidad"
   field_website: Sitio Web
   global_footer_info: 'Ingrese un pie de página para la wiki de todo el proyecto.'
@@ -61,7 +58,6 @@ es:
   label_active_dashboard: "Dashboard activo"
   label_add_dashboard_block: "Añadir bloque"
   label_add_go_to_top: 'Agregar "Volver al inicio"'
-  label_add_tags: Agregar etiquetas
   label_additionals_doc: Documentación de Additionals
   label_additionals_feed: "Atom+RSS Feed"
   label_additionals: Additionals
@@ -86,7 +82,6 @@ es:
   label_disable_sidebar: "Deshabilitar la barra lateral"
   label_disabled_modules: "Módulos desactivados"
   label_docs_access_token: Token de acceso
-  label_edit_tags: Tratar tags
   label_enable_sidebar: "Activar la barra lateral"
   label_global_footer: "Footer para todo el proyecto"
   label_global_sidebar: "Barra lateral global"

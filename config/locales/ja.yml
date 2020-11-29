@@ -45,9 +45,6 @@ ja:
   field_issue_relation_plural: Issue relations
   field_project_system_default: "プロジェクトのデフォルト"
   field_system_default: "システムのデフォルト"
-  field_tag_sidebar_style_cloud: Cloud
-  field_tag_sidebar_style_list: List
-  field_tags: Tags
   field_visibility: "可視性"
   field_website: Website
   global_footer_info: 'プロジェクト全体のWikiフッターをここに入力する'
@@ -61,7 +58,6 @@ ja:
   label_active_dashboard: "アクティブダッシュボード"
   label_add_dashboard_block: "ブロックを追加"
   label_add_go_to_top: '「トップへ」リンクを追加する'
-  label_add_tags: Add tags
   label_additionals_doc: Additionals documentation
   label_additionals_feed: Atom+RSS Feed
   label_additionals: Additionals
@@ -86,7 +82,6 @@ ja:
   label_disable_sidebar: "サイドバーを無効にする"
   label_disabled_modules: "無効化したいモジュール"
   label_docs_access_token: Access token
-  label_edit_tags: "編集 TAGs"
   label_enable_sidebar: "サイドバーを有効にする"
   label_global_footer: "プロジェクト全体フッター"
   label_global_sidebar: "グローバルサイドバー"

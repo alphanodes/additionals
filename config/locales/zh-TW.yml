@@ -45,9 +45,6 @@
   field_issue_relation_plural: 關聯的議題
   field_project_system_default: Project default
   field_system_default: System default
-  field_tag_sidebar_style_cloud: 雲
-  field_tag_sidebar_style_list: 清單
-  field_tags: 標籤
   field_visibility: Visibility
   field_website: 網站
   global_footer_info: "專案中頁尾訊息。"
@@ -61,7 +58,6 @@
   label_active_dashboard: "Active Dashboard"
   label_add_dashboard_block: "Add block"
   label_add_go_to_top: "增加 \"回到頁首\" 連結"
-  label_add_tags: "增加標籤"
   label_additionals_doc: Additionals 外掛文件
   label_additionals_feed: Atom+RSS Feed
   label_additionals: Additionals
@@ -86,7 +82,6 @@
   label_disable_sidebar: Disable sidebar
   label_disabled_modules: "禁用模組"
   label_docs_access_token: Access token
-  label_edit_tags: "編輯標籤"
   label_enable_sidebar: Enable sidebar
   label_global_footer: "專案中頁尾設定"
   label_global_sidebar: "專案中側邊設定"

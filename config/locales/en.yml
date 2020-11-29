@@ -45,9 +45,6 @@ en:
   field_issue_relation_plural: Issue relations
   field_project_system_default: Project default
   field_system_default: System default
-  field_tag_sidebar_style_cloud: Cloud
-  field_tag_sidebar_style_list: List
-  field_tags: TAGs
   field_visibility: Visibility
   field_website: Website
   global_footer_info: 'Enter a project wide wiki footer here.'
@@ -61,7 +58,6 @@ en:
   label_active_dashboard: "Active Dashboard"
   label_add_dashboard_block: "Add block"
   label_add_go_to_top: 'Add "Go to top" link'
-  label_add_tags: Add TAGs
   label_additionals_doc: Additionals documentation
   label_additionals_feed: Atom+RSS Feed
   label_additionals: Additionals
@@ -86,7 +82,6 @@ en:
   label_disable_sidebar: Disable sidebar
   label_disabled_modules: "Disabled modules"
   label_docs_access_token: "Access token"
-  label_edit_tags: "Edit TAGs"
   label_enable_sidebar: Enable sidebar
   label_global_footer: "Project wide footer"
   label_global_sidebar: "Global sidebar"

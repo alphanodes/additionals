@@ -45,9 +45,6 @@ ru:
   field_issue_relation_plural: "Отношения задач"
   field_project_system_default: "Значение по умолчанию проекта"
   field_system_default: "По умолчанию системы"
-  field_tag_sidebar_style_cloud: Cloud
-  field_tag_sidebar_style_list: List
-  field_tags: Tags
   field_visibility: "Видимость"
   field_website: "Веб-сайт"
   global_footer_info: "Введите здесь проект в нижний колонтитул вики-проекта."
@@ -61,7 +58,6 @@ ru:
   label_active_dashboard: "Активная панель управления"
   label_add_dashboard_block: "Добавить блок"
   label_add_go_to_top: 'Add "Go to top" link'
-  label_add_tags: Add tags
   label_additionals_doc: "Additionals документация"
   label_additionals_feed: Atom+RSS Feed
   label_additionals: Additionals
@@ -86,7 +82,6 @@ ru:
   label_disable_sidebar: "отключить боковую панель"
   label_disabled_modules: "Отключенные модули"
   label_docs_access_token: "Токен доступа"
-  label_edit_tags: "Редактировать метки"
   label_enable_sidebar: "Включить боковую панель"
   label_global_footer: "Project wide footer"
   label_global_sidebar: "Глобальная боковая панель"

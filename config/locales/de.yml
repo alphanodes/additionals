@@ -45,9 +45,6 @@ de:
   field_issue_relation_plural: Ticket Beziehungen
   field_project_system_default: Projektstandard
   field_system_default: System Standard
-  field_tag_sidebar_style_cloud: Cloud
-  field_tag_sidebar_style_list: Listenansicht
-  field_tags: Tags
   field_visibility: Sichtbarkeit
   field_website: Website
   global_footer_info: 'Hier kann ein projektübergreifender Footer hinterlegt werden, z.B. um einen Verweis auf die Datenschutzbestimmungen zu setzen.'
@@ -61,7 +58,6 @@ de:
   label_active_dashboard: Aktives Dashboard
   label_add_dashboard_block: Block hinzufügen
   label_add_go_to_top: '"Nach oben" Link hinzufügen'
-  label_add_tags: Tags hinzufügen
   label_additionals_doc: Additionals Dokumentation (englisch)
   label_additionals_feed: Atom+RSS Feed
   label_additionals: Additionals
@@ -86,7 +82,6 @@ de:
   label_disable_sidebar: Sidebar deaktivieren
   label_disabled_modules: "Deaktivierte Module"
   label_docs_access_token: Zugriffstoken
-  label_edit_tags: Tags bearbeiten
   label_enable_sidebar: Sidebar aktivieren
   label_global_footer: "Projektübergreifender Footer"
   label_global_sidebar: "Projektübergreifender Sidebar Inhalt"

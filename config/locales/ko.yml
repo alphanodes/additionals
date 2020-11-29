@@ -45,9 +45,6 @@ ko:
   field_issue_relation_plural: 이슈 관계
   field_project_system_default: Project default
   field_system_default: System default
-  field_tag_sidebar_style_cloud: 구름
-  field_tag_sidebar_style_list: 명부
-  field_tags: 태그
   field_visibility: Visibility
   field_website: 웹 사이트
   global_footer_info: '여기에 프로젝트 전체 위키 바닥 글을 입력하십시오.'
@@ -61,7 +58,6 @@ ko:
   label_active_dashboard: "Active Dashboard"
   label_add_dashboard_block: "Add block"
   label_add_go_to_top: 'Add "Go to top" link'
-  label_add_tags: 태그 추가
   label_additionals_doc: "추가 문서 (EN)"
   label_additionals_feed: Atom+RSS Feed
   label_additionals: Additionals
@@ -86,7 +82,6 @@ ko:
   label_disable_sidebar: Disable sidebar
   label_disabled_modules: "비활성화 된 모듈"
   label_docs_access_token: Access token
-  label_edit_tags: 태그 편집
   label_enable_sidebar: Enable sidebar
   label_global_footer: "넓은 바닥 글 프로젝트"
   label_global_sidebar: "글로벌 사이드 바"

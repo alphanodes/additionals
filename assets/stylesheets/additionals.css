@@ -357,35 +357,3 @@ div.drdn-items a.disabled:hover { color: #aaa; }
 @media print {
   .gototop { display: none; }
 }
-
-.panel {
-  border-style: solid;
-  border-width: 0 0 0 6px;
-  margin: 12px 0 12px 0;
-  padding: 12px 0 12px 18px;
-}
-
-.panel-header {
-  font-size: 1.4em;
-  font-weight: bold;
-}
-
-.panel-info {
-  border-color: #03af7a;
-  background-color: #f0f0f5;
-}
-
-.panel-tip {
-  border: 1px solid #91c89d;
-  background-color: #f3f9f4;
-}
-
-.panel-note {
-  border-color: #dfd402;
-  background-color: #fffed0;
-}
-
-.panel-warning {
-  border-color: #ff4b00;
-  background-color: #fff0f0;
-}

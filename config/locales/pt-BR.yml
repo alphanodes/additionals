@@ -182,3 +182,4 @@ pt-BR:
   top_wiki_help: "Aqui você pode definir conteúdos e configurações para seu Wiki."
   wiki_pdf_remove_attachments_info: "Quando ativo, os arquivos Wiki anexos não serão exibidos na visualização em PDF."
   wiki_pdf_remove_title_info: "Quando ativo, o título do Wiki não será exibido na visualização em PDF."
+  button_merge: Merge

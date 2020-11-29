@@ -182,3 +182,4 @@ zh:
   top_wiki_help: 您可以在此定义 WIKI 的内容及设置。
   wiki_pdf_remove_attachments_info:  当启用时，WIKI 附件将不会显示在PDF视图中。
   wiki_pdf_remove_title_info: 当启用时，WIKI 标题信息将不会显示在PDF视图中。
+  button_merge: Merge

@@ -21,8 +21,8 @@ Additionals is a `Redmine`_ plugin for customizing Redmine, providing wiki macro
    :target: https://additionals.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
 
-.. image:: https://travis-ci.org/AlphaNodes/additionals.svg?branch=master
-   :target: https://travis-ci.org/AlphaNodes/additionals
+.. image:: https://github.com/AlphaNodes/additionals/workflows/Tests/badge.svg
+   :target: https://github.com/AlphaNodes/additionals/actions?query=workflow%3A"Run+Tests
 
 .. image:: https://github.com/AlphaNodes/additionals/workflows/Run%20Linters/badge.svg
    :target: https://github.com/AlphaNodes/additionals/actions?query=workflow%3A%22Run+Linters%22

@@ -166,6 +166,7 @@ module Additionals
     require 'emoji'
     require 'render_async'
     require 'rss'
+    require 'slim'
 
     config.after_initialize do
       # engine_name could be used (additionals_plugin), but can

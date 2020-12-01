@@ -2,5 +2,4 @@
 = additionals_library_load :font_awesome
 = stylesheet_link_tag 'additionals', plugin: 'additionals'
 = javascript_include_tag 'additionals', plugin: 'additionals'
-- unless Redmine::Plugin.installed? 'redmine_hrm'
-  - render_custom_top_menu_item
+- render_custom_top_menu_item unless Redmine::Plugin.installed? 'redmine_hrm'

@@ -6,8 +6,7 @@
               edit_project_dashboard_path(@project, @dashboard),
               class: 'icon icon-edit'
 
-  -  unless Redmine::Plugin.installed? 'redmine_reporting'
-    = bookmark_link @project
+  = bookmark_link @project unless Redmine::Plugin.installed? 'redmine_reporting'
   = call_hook :view_project_contextual_links, project: @project
 
   - if @dashboard&.editable?
@@ -49,9 +48,7 @@
                               class: 'icon icon-del'
 
     = sidebar_action_toggle @dashboard_sidebar, @dashboard, @project
-    - unless @dashboard_sidebar
-      = render_dashboard_actionlist @dashboard, @project
-
+    = render_dashboard_actionlist @dashboard, @project unless @dashboard_sidebar
     = call_hook :view_project_actions_dropdown, project: @project
 
     - if User.current.allowed_to?(:edit_project, @project)

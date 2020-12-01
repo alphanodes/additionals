@@ -7,8 +7,7 @@ table.list.issue-report.table-of-values
   tbody
     - options = { set_filter: 1 }
     - @chart[:filters].each do |line|
-      - if line[:filter]
-        - options.merge! line[:filter]
+      - options.merge! line[:filter] if line[:filter]
       tr class="#{cycle 'odd', 'even'}"
         td.name class="#{line[:id].to_s == '0' ? 'summary' : ''}"
           - if line[:filter].nil?

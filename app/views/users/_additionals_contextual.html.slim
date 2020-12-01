@@ -1,4 +1,3 @@
 - if Additionals.setting?(:new_issue_on_profile) && @memberships.present?
   - project_url = memberships_new_issue_project_url user, @memberships
-  - if project_url.present?
-    = link_to l(:label_issue_new), project_url, class: 'user-new-issue icon icon-add'
+  = link_to l(:label_issue_new), project_url, class: 'user-new-issue icon icon-add' if project_url.present?

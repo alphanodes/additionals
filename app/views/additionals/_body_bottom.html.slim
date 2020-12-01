@@ -1,7 +1,7 @@
-- footer = Additionals.setting(:global_footer)
+- footer = Additionals.setting :global_footer
 - if footer.present?
   .additionals-footer
-    = textilizable(footer)
+    = textilizable footer
 
 - if @additionals_help_items.present?
   javascript:
@@ -9,7 +9,7 @@
       $('a.help').parent().append("<ul class=\"menu-children\">#{escape_javascript @additionals_help_items}</ul>");
     });
 
-- if Additionals.setting?(:open_external_urls)
+- if Additionals.setting? :open_external_urls
   javascript:
     $(function() {
       $('a.external').attr({ 'target': '_blank',

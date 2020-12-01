@@ -9,10 +9,7 @@
 
   .splitcontent
     .splitcontentleft
-
-      - if @dashboard.new_record?
-        = hidden_field_tag 'dashboard[dashboard_type]', @dashboard.dashboard_type
-
+      = hidden_field_tag 'dashboard[dashboard_type]', @dashboard.dashboard_type if @dashboard.new_record?
       - if @project && @allowed_projects.present? && @allowed_projects.count > 1
         p
           = f.select :project_id,

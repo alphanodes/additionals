@@ -21,8 +21,7 @@
       = delete_dashboard_link dashboard_path(@dashboard),
                               class: 'icon icon-del'
     = sidebar_action_toggle @dashboard_sidebar, @dashboard
-    - unless @dashboard_sidebar
-      = render_dashboard_actionlist @dashboard
+    = render_dashboard_actionlist @dashboard unless @dashboard_sidebar
 
     = call_hook :view_welcome_show_actions_dropdown
 

@@ -1,7 +1,7 @@
 - if @subprojects.any?
   h3.icon.icon-projects
-    = l(:label_subproject_plural)
+    = l :label_subproject_plural
   ul.subprojects
     - @subprojects.each do |project|
       li
-        = link_to(project.name, project_path(project), class: project.css_classes).html_safe
+        = link_to project.name, project_path(project), class: project.css_classes

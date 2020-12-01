@@ -73,3 +73,7 @@ Style/HashTransformValues:
 
 Naming/VariableNumber:
   Enabled: false
+
+Style/StringConcatenation:
+  Exclude:
+    - 'app/views/additionals/_select2_ajax_call.*'

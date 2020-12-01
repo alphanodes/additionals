@@ -122,10 +122,13 @@ Features
   * group_users
   * iframe
   * issues
+  * last_updated_at
+  * last_updated_by
   * members
   * meteoblue
   * new_issue
   * projects
+  * recently_updated
   * reddit
   * redmine.org issue and wiki page (redmine_issue and reminde_wiki)
   * slideshare
@@ -208,6 +211,7 @@ The following modules are available :
 Redmine Plugins, which are using ``additionals``
 ------------------------------------------------
 
+* `additional_tags <https://github.com/AlphaNodes/additional_tags>`_
 * `redmine_automation <https://alphanodes.com/redmine-automation>`_
 * `redmine_codimd <https://github.com/AlphaNodes/redmine_codimd>`_
 * `redmine_db <https://alphanodes.com/redmine-db>`_

@@ -2,6 +2,8 @@ name: Run Linters
 on:
   push:
   pull_request:
+  schedule:
+    - cron: '30 5 * * *'
 
 jobs:
   test:
@@ -19,9 +21,11 @@ jobs:
       run: |
         echo "">> Gemfile
         echo "group :test do">> Gemfile
+        echo "  gem 'pandoc-ruby', require: false" >> Gemfile
         echo "  gem 'rubocop', require: false" >> Gemfile
         echo "  gem 'rubocop-performance', require: false" >> Gemfile
         echo "  gem 'rubocop-rails', require: false" >> Gemfile
+        echo "  gem 'slim_lint', require: false" >> Gemfile
         echo "end">> Gemfile
 
     - name: Setup gems
@@ -32,6 +36,11 @@ jobs:
     - name: Run RuboCop
       run: |
         bundle exec rubocop -S
+
+    - name: Run Slim-Lint
+      run: |
+        bundle exec slim-lint app/views
+      if: always()
 
     - name: Run Brakeman
       run: |

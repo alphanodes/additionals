@@ -54,6 +54,8 @@ module Additionals
   See #{plugin_id} gem installed directory.
 PLUGIN_HINT
         end
+      rescue Errno::EACCES => e
+        Rails.logger.warn "Could not create plugin hint file: #{e.message}"
       end
     end
   end

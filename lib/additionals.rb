@@ -77,6 +77,15 @@ module Additionals
       true? setting(value)
     end
 
+    # required multiple times because of this bug: https://www.redmine.org/issues/33290
+    def redmine_database_ready?(with_table = nil)
+      ActiveRecord::Base.connection
+    rescue ActiveRecord::NoDatabaseError
+      false
+    else
+      with_table.nil? || ActiveRecord::Base.connection.table_exists?(with_table)
+    end
+
     def true?(value)
       return false if value.is_a? FalseClass
       return true if value.is_a?(TrueClass) || value.to_i == 1 || value.to_s.casecmp('true').zero?

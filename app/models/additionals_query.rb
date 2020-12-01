@@ -83,16 +83,9 @@ module AdditionalsQuery
   end
 
   def initialize_tags_filter(options = {})
-    values = if project
-               queried_class.available_tags(project: project.id)
-             else
-               queried_class.available_tags
-             end
-    return if values.blank?
-
     add_available_filter 'tags', order: options[:position],
                                  type: :list,
-                                 values: values.collect { |t| [t.name, t.name] }
+                                 values: -> { tag_values(project) }
   end
 
   def initialize_approved_filter
@@ -123,6 +116,18 @@ module AdditionalsQuery
     add_available_filter('watcher_id', order: options[:position],
                                        type: :list,
                                        values: options[:no_lambda] ? watcher_values : -> { watcher_values })
+  end
+
+  def tag_values
+    values = if project
+               queried_class.available_tags(project: project.id)
+             else
+               queried_class.available_tags
+             end
+
+    return [] if values.blank?
+
+    values.collect { |t| [t.name, t.name] }
   end
 
   # issue independend values. Use  assigned_to_values from Redmine, if you want it only for issues

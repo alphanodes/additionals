@@ -118,7 +118,7 @@ module AdditionalsQuery
                                        values: options[:no_lambda] ? watcher_values : -> { watcher_values })
   end
 
-  def tag_values
+  def tag_values(project)
     values = if project
                queried_class.available_tags(project: project.id)
              else

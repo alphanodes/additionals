@@ -51,23 +51,23 @@ module AdditionalsQuery
   def initialize_project_status_filter
     return if project&.leaf?
 
-    add_available_filter('project.status',
+    add_available_filter 'project.status',
                          type: :list,
                          name: l(:label_attribute_of_project, name: l(:field_status)),
-                         values: -> { project_statuses_values })
+                         values: -> { project_statuses_values }
   end
 
   def initialize_project_filter(options = {})
     if project.nil? || options[:always]
-      add_available_filter('project_id', order: options[:position],
+      add_available_filter 'project_id', order: options[:position],
                                          type: :list,
-                                         values: -> { project_values })
+                                         values: -> { project_values }
     end
     return if project.nil? || project.leaf? || subproject_values.empty?
 
-    add_available_filter('subproject_id', order: options[:position],
+    add_available_filter 'subproject_id', order: options[:position],
                                           type: :list_subprojects,
-                                          values: -> { subproject_values })
+                                          values: -> { subproject_values }
   end
 
   def initialize_created_filter(options = {})
@@ -99,28 +99,28 @@ module AdditionalsQuery
   end
 
   def initialize_author_filter(options = {})
-    add_available_filter('author_id', order: options[:position],
+    add_available_filter 'author_id', order: options[:position],
                                       type: :list_optional,
-                                      values: options[:no_lambda].nil? ? author_values : -> { author_values })
+                                      values: -> { author_values }
   end
 
   def initialize_assignee_filter(options = {})
-    add_available_filter('assigned_to_id', order: options[:position],
+    add_available_filter 'assigned_to_id', order: options[:position],
                                            type: :list_optional,
-                                           values: options[:no_lambda] ? assigned_to_all_values : -> { assigned_to_all_values })
+                                           values: -> { assigned_to_all_values }
   end
 
   def initialize_watcher_filter(options = {})
     return unless User.current.logged?
 
-    add_available_filter('watcher_id', order: options[:position],
+    add_available_filter 'watcher_id', order: options[:position],
                                        type: :list,
-                                       values: options[:no_lambda] ? watcher_values : -> { watcher_values })
+                                       values: -> { watcher_values }
   end
 
   def tag_values(project)
     values = if project
-               queried_class.available_tags(project: project.id)
+               queried_class.available_tags project: project.id
              else
                queried_class.available_tags
              end

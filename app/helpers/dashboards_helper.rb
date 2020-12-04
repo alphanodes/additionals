@@ -86,10 +86,10 @@ module DashboardsHelper
     tag.div class: 'active-dashboards' do
       out = [tag.h3(l(:label_active_dashboard)),
              tag.ul do
-               concat tag.ul "#{l :field_name}: #{dashboard.name}"
-               concat tag.ul safe_join([l(:field_author), link_to_user(dashboard.author)], ': ')
-               concat tag.ul "#{l :field_created_on}: #{format_time dashboard.created_at}"
-               concat tag.ul "#{l :field_updated_on}: #{format_time dashboard.updated_at}"
+               concat tag.li "#{l :field_name}: #{dashboard.name}"
+               concat tag.li safe_join([l(:field_author), link_to_user(dashboard.author)], ': ')
+               concat tag.li "#{l :field_created_on}: #{format_time dashboard.created_at}"
+               concat tag.li "#{l :field_updated_on}: #{format_time dashboard.updated_at}"
              end]
 
       if dashboard.description.present?
@@ -105,7 +105,7 @@ module DashboardsHelper
     return '' unless dashboards.any?
 
     tag.h3(title, class: 'dashboards') +
-      tag.ul do
+      tag.ul(class: 'dashboards') do
         dashboards.each do |dashboard|
           selected = dashboard.id == if params[:dashboard_id].present?
                                        params[:dashboard_id].to_i
@@ -115,19 +115,24 @@ module DashboardsHelper
 
           css = 'dashboard'
           css << ' selected' if selected
+          li_class = nil
+
           link = [dashboard_link(dashboard, project, class: css)]
           if dashboard.system_default?
             link << if dashboard.project_id.nil?
+                      li_class = 'global'
                       font_awesome_icon('fas_cube',
                                         title: l(:field_system_default),
-                                        class: 'dashboard-system-default global')
+                                        class: "dashboard-system-default #{li_class}")
                     else
+                      li_class = 'project'
                       font_awesome_icon('fas_cube',
                                         title: l(:field_project_system_default),
-                                        class: 'dashboard-system-default project')
+                                        class: "dashboard-system-default #{li_class}")
                     end
           end
-          concat tag.li safe_join(link)
+
+          concat tag.li safe_join(link), class: li_class
         end
       end
   end

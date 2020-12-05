@@ -121,14 +121,14 @@ module DashboardsHelper
           if dashboard.system_default?
             link << if dashboard.project_id.nil?
                       li_class = 'global'
-                      font_awesome_icon('fas_cube',
+                      font_awesome_icon 'fas_cube',
                                         title: l(:field_system_default),
-                                        class: "dashboard-system-default #{li_class}")
+                                        class: "dashboard-system-default #{li_class}"
                     else
                       li_class = 'project'
-                      font_awesome_icon('fas_cube',
+                      font_awesome_icon 'fas_cube',
                                         title: l(:field_project_system_default),
-                                        class: "dashboard-system-default #{li_class}")
+                                        class: "dashboard-system-default #{li_class}"
                     end
           end
 

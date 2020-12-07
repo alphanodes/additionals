@@ -7,6 +7,7 @@
         = avatar(user, size: 50)
       .user.line[style="font-weight: bold;"]
         = link_to_user user
+
       - if !user_roles.nil? && user_roles[user.id]
         .user.line
           = l :field_role
@@ -16,9 +17,9 @@
         = l :field_login
         ' :
         = link_to user.login, "/users/#{user.id}"
-      - next if user.pref.hide_mail
 
-      .user.line
-        = l :field_mail
-        ' :
-        = mail_to user.mail, nil, encode: 'javascript'
+      - unless user.pref.hide_mail
+        .user.line
+          = l :field_mail
+          ' :
+          = mail_to user.mail, nil, encode: 'javascript'

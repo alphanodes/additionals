@@ -2,18 +2,18 @@
      @issue && \
      User.current.allowed_to?(:edit_issues, @project) && \
      (!@issue.closed? || User.current.allowed_to?(:edit_closed_issues, @project))
-  - statuses = @issue.sidbar_change_status_allowed_to(User.current)
+  - statuses = @issue.sidbar_change_status_allowed_to User.current
   - if statuses.present?
-    h3 = l(:label_issue_change_status)
+    h3 = l :label_issue_change_status
     ul.issue-status-change-sidebar
       - statuses.each do |s|
-        - next if s == @issue.status
-        li
-          - if s.is_closed?
-            = link_to(font_awesome_icon('fas_caret-square-left', post_text: s.name),
-                      issue_change_status_path(@issue, new_status_id: s.id),
-                      method: :put, class: "status-switch status-#{s.id}")
-          - else
-            = link_to(font_awesome_icon('far_caret-square-left', post_text: s.name),
-                      issue_change_status_path(@issue, new_status_id: s.id),
-                      method: :put, class: "status-switch status-#{s.id}")
+        - unless s == @issue.status
+          li
+            - if s.is_closed?
+              = link_to font_awesome_icon('fas_caret-square-left', post_text: s.name),
+                        issue_change_status_path(@issue, new_status_id: s.id),
+                        method: :put, class: "status-switch status-#{s.id}"
+            - else
+              = link_to font_awesome_icon('far_caret-square-left', post_text: s.name),
+                        issue_change_status_path(@issue, new_status_id: s.id),
+                        method: :put, class: "status-switch status-#{s.id}"

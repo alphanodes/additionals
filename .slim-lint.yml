@@ -18,6 +18,8 @@ linters:
       - Layout/MultilineOperationIndentation
       - Layout/TrailingEmptyLines
       - Lint/Void
+      - Metrics/BlockNesting
       - Rails/OutputSafety
       - Style/IfUnlessModifier
+      - Style/Next
       - Style/WhileUntilModifier

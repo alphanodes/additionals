@@ -6,7 +6,7 @@ Changelog
 
 - Do not show "Assign to me" if assigned_to is disabled for tracker
 - FontAwesome 5.15.1 support
-- D3 6.2.0 support
+- D3 6.3.1 support
 - Mermaid 8.8.4 support
 - add current_user as special login name for user macro (which shows current login user)
 - add text parameter to user macro (which disable link to user)

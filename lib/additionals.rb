@@ -93,6 +93,12 @@ module Additionals
       false
     end
 
+    def debug(message)
+      return if Rails.env.production?
+
+      Rails.logger.debug "#{Time.current.strftime('%H:%M:%S')} DEBUG [#{caller_locations(1..1).first.label}]: #{message}"
+    end
+
     def class_prefix(klass)
       klass_name = klass.is_a?(String) ? klass : klass.name
       klass_name.underscore.tr '/', '_'

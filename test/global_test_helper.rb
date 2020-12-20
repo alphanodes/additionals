@@ -1,5 +1,15 @@
 module Additionals
   module GlobalTestHelper
+    def assert_select_td_column(column_name)
+      c = column_name.to_s
+                     .gsub('issue.cf', 'issue_cf')
+                     .gsub('project.cf', 'project_cf')
+                     .gsub('user.cf', 'user_cf')
+                     .tr('.', '-')
+
+      assert_select "td.#{c}"
+    end
+
     def with_additionals_settings(settings, &_block)
       change_additionals_settings(settings)
       yield

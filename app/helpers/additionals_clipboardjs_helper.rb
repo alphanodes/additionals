@@ -3,20 +3,32 @@ module AdditionalsClipboardjsHelper
     render_clipboardjs_button(target, clipboard_text_from_button) + render_clipboardjs_javascript(target)
   end
 
+  def render_text_with_clipboardjs(text)
+    tag.span text,
+             class: 'clipboard-text',
+             title: l(:label_copy_to_clipboard),
+             data: clipboardjs_data(text: text)
+  end
+
   private
 
   def render_clipboardjs_button(target, clipboard_text_from_button)
-    data = { 'clipboard-target' => "##{target}",
-             'label-copied' => l(:label_copied_to_clipboard),
-             'label-to-copy' => l(:label_copy_to_clipboard) }
-
-    data['clipboard-text'] = clipboard_text_from_button if clipboard_text_from_button.present?
-
     tag.button id: "zc_#{target}",
-               class: 'clipboard_button far fa-copy',
+               class: 'clipboard-button far fa-copy',
                type: 'button',
                title: l(:label_copy_to_clipboard),
-               data: data
+               data: clipboardjs_data(target: "##{target}", text: clipboard_text_from_button)
+  end
+
+  def clipboardjs_data(clipboard_data)
+    data = { 'label-copied' => l(:label_copied_to_clipboard),
+             'label-to-copy' => l(:label_copy_to_clipboard) }
+
+    clipboard_data.each do |key, value|
+      data["clipboard-#{key}"] = value if value.present?
+    end
+
+    data
   end
 
   def render_clipboardjs_javascript(target)

@@ -4,6 +4,8 @@ module AdditionalsClipboardjsHelper
   end
 
   def render_text_with_clipboardjs(text)
+    return if text.blank?
+
     tag.span text,
              class: 'clipboard-text',
              title: l(:label_copy_to_clipboard),

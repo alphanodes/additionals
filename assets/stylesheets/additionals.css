@@ -176,6 +176,8 @@ div.clear-both { clear: both; }
   float: left;
 }
 
+.clipboard-text { cursor: pointer; }
+
 img.additionals-avatar { margin-right: 0.25em; }
 
 /* Live search */

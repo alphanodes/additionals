@@ -14,6 +14,7 @@ Changelog
 - gemify plugin to use it with Gemfile.local or other plugins
 - remove spam protection functionality
 - Chart.js 2.9.4 support
+- Allow overwrite mermaid theme and variables
 
 3.0.0
 +++++

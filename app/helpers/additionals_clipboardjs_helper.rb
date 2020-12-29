@@ -6,20 +6,10 @@ module AdditionalsClipboardjsHelper
   def render_text_with_clipboardjs(text)
     return if text.blank?
 
-    tag.span text,
-             class: 'clipboard-text',
-             title: l(:label_copy_to_clipboard),
-             data: clipboardjs_data(text: text)
-  end
-
-  private
-
-  def render_clipboardjs_button(target, clipboard_text_from_button)
-    tag.button id: "zc_#{target}",
-               class: 'clipboard-button far fa-copy',
-               type: 'button',
-               title: l(:label_copy_to_clipboard),
-               data: clipboardjs_data(target: "##{target}", text: clipboard_text_from_button)
+    tag.acronym text,
+                class: 'clipboard-text',
+                title: l(:label_copy_to_clipboard),
+                data: clipboardjs_data(text: text)
   end
 
   def clipboardjs_data(clipboard_data)
@@ -31,6 +21,16 @@ module AdditionalsClipboardjsHelper
     end
 
     data
+  end
+
+  private
+
+  def render_clipboardjs_button(target, clipboard_text_from_button)
+    tag.button id: "zc_#{target}",
+               class: 'clipboard-button far fa-copy',
+               type: 'button',
+               title: l(:label_copy_to_clipboard),
+               data: clipboardjs_data(target: "##{target}", text: clipboard_text_from_button)
   end
 
   def render_clipboardjs_javascript(target)

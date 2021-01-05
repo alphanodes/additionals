@@ -181,7 +181,10 @@ div.clear-both { clear: both; }
 img.additionals-avatar { margin-right: 0.25em; }
 
 /* Live search */
-.additionals-live-search input.live-search-field { font-size: 16px; }
+.additionals-live-search input.live-search-field {
+  font-size: 16px;
+  width: 50%;
+}
 
 .additionals-live-search {
   margin-left: 5px;

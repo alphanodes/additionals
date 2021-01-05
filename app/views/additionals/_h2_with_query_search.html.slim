@@ -1,4 +1,4 @@
-= render(partial: 'additionals/live_search_ajax_call.js', layout: false, formats: [:js])
+= render partial: 'additionals/live_search_ajax_call.js', layout: false, formats: [:js]
 - classes = 'title' unless defined? classes
 h2 class="#{classes}"
   = @query.new_record? ? l(title) : h(@query.name)

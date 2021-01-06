@@ -22,6 +22,17 @@ module AdditionalsQuery
     sql.join(' AND ')
   end
 
+  def fix_sql_for_text_field(field, operator, value, table_name = nil, target_field = nil)
+    table_name = queried_table_name if table_name.blank?
+    target_field = field if target_field.blank?
+
+    sql = []
+    sql << "(#{sql_for_field(field, operator, value, table_name, target_field)})"
+    sql << "#{table_name}.#{target_field} != ''" if operator == '*'
+
+    sql.join(' AND ')
+  end
+
   def initialize_ids_filter(options = {})
     if options[:label]
       add_available_filter 'ids', type: :integer, label: options[:label]

@@ -1,6 +1,11 @@
 Changelog
 =========
 
+3.0.2
++++++
+
+- d3plus to v2.0.0-alpha.30 support
+
 3.0.1
 +++++
 

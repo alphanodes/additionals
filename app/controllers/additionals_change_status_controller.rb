@@ -13,7 +13,7 @@ class AdditionalsChangeStatusController < ApplicationController
       return
     end
 
-    @issue.init_journal(User.current)
+    @issue.init_journal User.current
     @issue.status_id = new_status_id
     @issue.assigned_to = User.current if @issue.status_x_affected?(new_status_id) && issue_old_user != User.current
 

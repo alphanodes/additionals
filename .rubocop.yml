@@ -76,9 +76,6 @@ Naming/VariableNumber:
   Exclude:
     - 'test/**/*'
 
-Layout/SpaceBeforeBrackets:
-  Enabled: false
-
 Style/StringConcatenation:
   Exclude:
     - 'app/views/additionals/_select2_ajax_call.*'

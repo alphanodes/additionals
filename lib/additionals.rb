@@ -11,8 +11,7 @@ module Additionals
     def setup
       RenderAsync.configuration.jquery = true
 
-      incompatible_plugins %w[redmine_issue_control_panel
-                              redmine_editauthor
+      incompatible_plugins %w[redmine_editauthor
                               redmine_changeauthor
                               redmine_auto_watch]
 

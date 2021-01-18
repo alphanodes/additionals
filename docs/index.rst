@@ -213,9 +213,9 @@ Redmine Plugins, which are using ``additionals``
 
 * `additional_tags <https://github.com/AlphaNodes/additional_tags>`_
 * `redmine_automation <https://alphanodes.com/redmine-automation>`_
-* `redmine_codimd <https://github.com/AlphaNodes/redmine_codimd>`_
 * `redmine_db <https://alphanodes.com/redmine-db>`_
 * `redmine_git_hosting <http://redmine-git-hosting.io/>`_
+* `redmine_hedgedoc <https://github.com/AlphaNodes/redmine_hedgedoc>`_
 * `redmine_hrm <https://alphanodes.com/redmine-hrm>`_
 * `redmine_omniauth_saml <https://github.com/alexandermeindl/redmine_omniauth_saml>`_
 * `redmine_passwords <https://alphanodes.com/redmine-passwords>`_

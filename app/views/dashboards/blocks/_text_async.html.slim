@@ -1,6 +1,6 @@
 - cache render_async_cache_key(_dashboard_async_blocks_path(@project,
                                                             dashboard.async_params(block, async, settings))),
-                               expires_in: async[:cache_expires_in],
+                               expires_in: async[:cache_expires_in] || DashboardContent::RENDER_ASYNC_CACHE_EXPIRES_IN,
                                skip_digest: true do
 
   - if settings[:title].present?

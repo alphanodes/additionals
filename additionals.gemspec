@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/alphanodes/alphanodes'
   spec.license       = 'GPL-2.0'
 
-  spec.files         = Dir['**/*'] - Dir['test/**/*'] - Dir['Gemfile', 'Gemfile.lock']
+  spec.files         = Dir['**/*'] - Dir['test/**/*'] - Dir['Gemfile', 'Gemfile.lock', 'README.rst']
   spec.require_paths = ['lib']
   spec.required_ruby_version = '>= 2.4'
 

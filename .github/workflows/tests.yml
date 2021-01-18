@@ -128,3 +128,7 @@ jobs:
           REDMINE_VERSION: ${{ matrix.redmine }}
         working-directory: redmine
         run: bundle exec rake redmine:plugins:migrate NAME=additionals VERSION=0
+
+      - name: Run build gem file
+        working-directory: redmine/plugins/additionals
+        run: gem build additionals.gemspec

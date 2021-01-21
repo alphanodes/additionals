@@ -178,7 +178,7 @@ It provides :
 * `clipboardJS 2.0.6 <https://clipboardjs.com/>`_
 * `d3 6.3.1 <https://d3js.org/>`_
 * `d3plus v2.0.0-alpha.30 <https://d3plus.org/>`_
-* `FontAwesome 5.15.1 <https://fontawesome.com/>`_
+* `FontAwesome 5.15.2 <https://fontawesome.com/>`_
 * `mermaid 8.8.4 <https://github.com/knsv/mermaid/>`_
 * `Select2 4.0.13 <https://select2.org/>`_
 

@@ -8,6 +8,7 @@ Changelog
 - Mermaid 8.9.0 support
 - Bug fix for select2 loading without named field
 - FontAwesome 5.15.2 support
+- D3 6.4.0 support
 
 3.0.1
 +++++

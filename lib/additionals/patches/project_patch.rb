@@ -51,6 +51,11 @@ module Additionals
           end
         end
 
+        def visible_principals
+          query = ::Query.new(project: self, name: '_')
+          query&.principals
+        end
+
         def visible_users
           query = ::Query.new(project: self, name: '_')
           query&.users

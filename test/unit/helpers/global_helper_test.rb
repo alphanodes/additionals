@@ -65,7 +65,7 @@ class GlobalHelperTest < ActionView::TestCase
     assert_equal({ issue_id: nil, comment_id: nil },
                  parse_issue_url('', nil))
     assert_equal({ issue_id: nil, comment_id: nil },
-                 parse_issue_url('http://localhost/issues/23', nil))
+                 parse_issue_url('http://localhost/issue/23', nil))
     assert_equal({ issue_id: '23', comment_id: nil },
                  parse_issue_url('http://redmine.local/issues/23', nil))
     assert_equal({ issue_id: '23', comment_id: 2 },

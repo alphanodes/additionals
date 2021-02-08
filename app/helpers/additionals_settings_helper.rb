@@ -45,6 +45,14 @@ module AdditionalsSettingsHelper
                text_field_tag("settings[#{name}]", value, options)]
   end
 
+  def additionals_settings_passwordfield(name, options = {})
+    label_title = options.delete(:label).presence || l("label_#{name}")
+    value = options.delete(:value).presence || @settings[name]
+
+    safe_join [label_tag("settings[#{name}]", label_title),
+               password_field_tag("settings[#{name}]", value, options)]
+  end
+
   def additionals_settings_textarea(name, options = {})
     label_title = options.delete(:label).presence || l("label_#{name}")
     value = options.delete(:value).presence || @settings[name]

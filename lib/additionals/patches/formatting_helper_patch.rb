@@ -4,12 +4,15 @@ module Additionals
       extend ActiveSupport::Concern
 
       included do
-        prepend InstanceOverwriteMethods
+        include InstanceMethods
+        alias_method :heads_for_wiki_formatter_without_additionals, :heads_for_wiki_formatter
+        alias_method :heads_for_wiki_formatter, :heads_for_wiki_formatter_with_additionals
       end
 
-      module InstanceOverwriteMethods
-        def heads_for_wiki_formatter
-          super
+      module InstanceMethods
+        def heads_for_wiki_formatter_with_additionals
+          heads_for_wiki_formatter_without_additionals
+
           return if @additionals_macro_list
 
           @additionals_macro_list = AdditionalsMacro.all(filtered: Additionals.setting(:hidden_macros_in_toolbar).to_a,

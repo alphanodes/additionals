@@ -9,6 +9,8 @@ Changelog
 - Bug fix for select2 loading without named field
 - FontAwesome 5.15.2 support
 - D3 6.5.0 support
+- Fix news limit for welcome dashboard block
+- Frensh translation updated, thanks to Brice BEAUMESNIL!
 
 3.0.1
 +++++

@@ -330,7 +330,7 @@ module DashboardsHelper
     max_entries = settings[:max_entries] || DashboardContent::DEFAULT_MAX_ENTRIES
 
     news = if dashboard.content_project.nil?
-             News.latest User.current
+             News.latest User.current, max_entries
            else
              dashboard.content_project
                       .news

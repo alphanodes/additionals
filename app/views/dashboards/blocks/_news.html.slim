@@ -6,7 +6,7 @@ h3.icon.icon-news = l :label_news_latest
       .box
         p
           label
-            = l(:label_max_entries)
+            = l :label_max_entries
             ' :
             = number_field_tag "settings[#{block}][max_entries]", max_entries, min: 1, max: 1000, required: true
       p

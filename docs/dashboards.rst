@@ -426,13 +426,14 @@ Does every user sees the content of every Dashboard block?
 Developer Information
 ---------------------
 
-If you are a plugin developer and want to support Dashboards for your plugin as well? Great! Thank you for that.
-Learn how to implement Dashboard blocks in your plugins. Two things are required for that:
+You are a plugin developer and want to support Dashboards for your plugin as well? Great! Thank you for that.
+Learn how to implement Dashboard blocks in your plugins. There are only two things required for that:
 
-Create block teamplate
+Create block template
   Create a template for your block in *app/views/dashboards/blocks/*. The name of your template should be unique, that there are no conflicts with other blocks (e.g. from other plugins)
 
-  Examples: Go to https://github.com/AlphaNodes/additionals/tree/master/app/views/dashboards/blocks for examples.
+  .. note::
+    Examples: Go to https://github.com/AlphaNodes/additionals/tree/master/app/views/dashboards/blocks for examples.
 
 Add block definitions
   Add your block definition in *block_definitions*. This could be in:
@@ -441,10 +442,12 @@ Add block definitions
   * dashboard_content_project.rb (if your block should be available in project dashboards only)
   * dashboard_content_welcome.rb (if your block should be available in welcome dashboards only)
 
-  Exampldes: Got to https://github.com/AlphaNodes/additionals/blob/master/app/models/dashboard_content.rb#L29 for examples for that.
+  .. note::
+    Examples: Got to https://github.com/AlphaNodes/additionals/blob/master/app/models/dashboard_content.rb#L29 for examples for that.
 
-  Overwrite it with *prepend* (not alias_method) to get not conflict with other plugins. See *redmine_git_hosting* [#githosting]_ for an example implementation for a *block template* [#blocktemplate]_ and a *block definition* [#blockdefinition]_
+  Overwrite it with *prepend* (not alias_method) to get no conflicts with other plugins. See *redmine_git_hosting* [#githosting]_ for an example implementation for a *block template* [#blocktemplate]_ and a *block definition* [#blockdefinition]_
 
+That's it. In case of further questions use the issue tracking system for this project on GitHub.
 
   .. rubric:: Footnotes
 

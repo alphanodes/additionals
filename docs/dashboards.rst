@@ -443,11 +443,12 @@ Add block definitions
   * dashboard_content_welcome.rb (if your block should be available in welcome dashboards only)
 
   .. note::
-    Examples: Got to https://github.com/AlphaNodes/additionals/blob/master/app/models/dashboard_content.rb#L29 for examples for that.
+    Examples: Go to https://github.com/AlphaNodes/additionals/blob/master/app/models/dashboard_content.rb#L29 for examples for that.
 
   Overwrite it with *prepend* (not alias_method) to get no conflicts with other plugins. See *redmine_git_hosting* [#githosting]_ for an example implementation for a *block template* [#blocktemplate]_ and a *block definition* [#blockdefinition]_
 
-That's it. In case of further questions use the issue tracking system for this project on GitHub.
+That's it. As you can see, it's not so hard.
+In case of further questions use the issue tracking system for this project on GitHub.
 
   .. rubric:: Footnotes
 

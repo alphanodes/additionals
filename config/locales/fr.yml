@@ -23,7 +23,7 @@ fr:
         invalid_icon_format: est un code font-awesome invalide
         relation_not_unique: affectation multiple.
   account_login_info: "Ce message texte sera affiché à la page de connexion et devrait être utilisé pour les informations d'inscription. Ces options sont actives dans tous les projets."
-  add_go_to_top_info: "Si vous avez beaucoup de pages longues, il est utile d'ajouter un saut au lien du haut."
+  add_go_to_top_info: "Si vous avez beaucoup de pages longues, il est utile d'ajouter un lien pour revenir en haut de la page."
   additionals_query_list_default_totals: "Montants par défaut pour la vue en liste"
   additionals_query_list_defaults: "Colonnes par défaut pour la vue en liste"
   alert_only_visible_by_admins: "Ne peut être vu que par les utilisateurs ayant les droits d'administrateur"
@@ -31,7 +31,7 @@ fr:
   button_assign_to_me: M'affecter
   button_dashboard_delete: "Supprimer le tableau de bord"
   button_dashboard_edit: "Modifier le tableau de bord"
-  disabled_modules_info: "Les modules qui ne devraient pas être disponibles pour la sélection dans le cadre des projets. Si ces modules sont déjà activés dans des projets existants, vous devez d'abord modifier et sauvegarder à nouveau les paramètres de projet respectifs."
+  disabled_modules_info: "Les modules qui ne devraient pas être disponibles pour la sélection dans le cadre des projets. Si ces modules sont déjà activés dans des projets existants, vous devez d'abord modifier et sauvegarder à nouveau les paramètres projet respectifs."
   error_issue_status_could_not_changed: "L'état de la tâche n'a pas pu être modifié"
   error_issues_could_not_be_assigned_to_me: "La tâche n'a pas pu m'être affectée"
   error_query_statement_invalid: "Une erreur s'est produite lors de l'exécution de la requête et a été enregistrée. Veuillez signaler cette erreur à votre administrateur Redmine."
@@ -39,8 +39,8 @@ fr:
   field_always_expose: Toujours affiché
   field_autowatch_involved_issue: "Problèmes liés à la surveillance automatique"
   field_color: Couleur
-  field_enable_sidebar: Enable sidebar
-  field_hide: "Cuir"
+  field_enable_sidebar: Activer le menu latéral
+  field_hide: "Cacher"
   field_icon: Icône
   field_issue_relation_plural: Relations entre tâches
   field_project_system_default: "Projet par défaut"
@@ -54,21 +54,21 @@ fr:
   hidden_macros_in_toolbar_info: "Toutes les macros disponibles que l'utilisateur connecté peut utiliser sont listées via le bouton macro de la barre d'outils wiki. Les macros marquées ici ne sont pas proposées à la sélection. Ceci vous permet de limiter la portée de la liste."
   info_dashboard_project_select: Laisser vide, si vous souhaitez utiliser ce tableau de bord pour toutes les projets.
   info_hidden_roles_html: "Les rôles cachés ne peuvent être utilisés qu'avec la visibilité utilisateur \"Membres de projets visibles\". Si l'utilisateur n'est pas dans un rôle visible par l'utilisateur actuel, ce rôle, y compris l'utilisateur, est masqué sur la page de synthèse du projet et dans les listes de requêtes."
-  label_account_login_bottom: "Texte pour la page de login"
+  label_account_login_bottom: "Texte pour la page de connexion"
   label_active_dashboard: "Tableau de bord actif"
   label_add_dashboard_block: "Ajouter un bloc"
   label_add_go_to_top: 'Ajouter un lien "Revenir en haut"'
   label_additionals_doc: Documentation Additionals
   label_additionals_feed: Flux Atom+RSS
   label_additionals: Additionals
-  label_app_menu: App menu
-  label_change_is_private: Change private/non-private
+  label_app_menu: Menu applicatif
+  label_change_is_private: Changer Privé/non privé
   label_change_to_dashboard: "Passer au tableau de bord"
-  label_chart_color_schema: Charts color scheme
-  label_chart_with_name: "Chart: %{value}"
+  label_chart_color_schema: Schéma de couleur graphique
+  label_chart_with_name: "Graphique: %{value}"
   label_chartjs_colorscheme_info: "Liste des couleurs"
-  label_content_plural: Contents
-  label_copied_to_clipboard: "Copie !"
+  label_content_plural: Contenus
+  label_copied_to_clipboard: "Copié !"
   label_copy_to_clipboard: "Copie dans le presse-papiers"
   label_custom_fields_distribution: "Champs personnalisés pour la distribution"
   label_custom_menu_items: Éléments de menu personnalisés
@@ -81,13 +81,13 @@ fr:
   label_day: Jour
   label_disable_sidebar: "Désactiver la sidebar"
   label_disabled_modules: "Modules désactivés"
-  label_docs_access_token: Access token
+  label_docs_access_token: Jeton d'accès
   label_enable_sidebar: "Activer la sidebar"
-  label_global_footer: "Project wide footer"
-  label_global_sidebar: "Global sidebar"
-  label_global_wiki_sidebar: "Global wiki sidebar"
+  label_global_footer: "Pied de page projet"
+  label_global_sidebar: "Barre latéral globale"
+  label_global_wiki_sidebar: "Barre latéral global du wiki"
   label_go_to_top: "Revenir en haut"
-  label_google_maps_api_key: Google Maps Embed API Key
+  label_google_maps_api_key: Clé API de Google Maps
   label_help_integration: "Intégration de notre aide en ligne"
   label_help_manual: manuel
   label_hidden_macros_in_toolbar: Cacher les macros
@@ -97,8 +97,8 @@ fr:
   label_issue_assign_to_me: Voir "M'affecter" sur les tâches
   label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
   label_issue_autowatch_involved: "Ajout automatique des utilisateurs impliqués en tant qu'observateurs"
-  label_issue_change_status_in_sidebar: Issue status on sidebar
-  label_issue_change_status: Modifier statut
+  label_issue_change_status_in_sidebar: Statuts des tâches dans la bare latérale
+  label_issue_change_status: Modifier le statut
   label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
   label_issue_freezed_with_close: "Interdire l'édition des tâches fermées (freeze)"
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
@@ -112,7 +112,7 @@ fr:
   label_monthly: mensuel
   label_my_activity: "Mon activité"
   label_my_dashboard_plural: "Mes tableaux de bord"
-  label_my_spent_time: My spent time
+  label_my_spent_time: Ma saisie de temps d'activité
   label_new_additional_dashboard: "Nouveau tableau de bord"
   label_new_dashboard: "Nouveau tableau de bord"
   label_new_issue_on_profile: "Nouvelle tâche sur le profil de l'utilisateur"
@@ -121,17 +121,17 @@ fr:
   label_only_my_activities: "Seulement mon activité"
   label_open_external_urls: Ouvrir des URL externes
   label_open_in_google_docs: "Ouvrir dans Google Docs"
-  label_open_in_new_windows: Open in new windows
-  label_optional: "optional"
-  label_pdf_wiki_settings: PDF Wiki settings
+  label_open_in_new_windows: Ouvrir dans une nouvelle fenêtre
+  label_optional: "optionnel"
+  label_pdf_wiki_settings: paramètres d'édition PDF d'une page Wiki
   label_project_information: "Informations sur le projet"
-  label_project_list: "Project list"
-  label_query_delete: Annuler query
-  label_query_edit: Modifier query
+  label_project_list: "liste des projets"
+  label_query_delete: Annuler la requête
+  label_query_edit: Modifier la requête
   label_query_name_search: Rechercher un nom
   label_query_with_name: "Requête: %{value}"
-  label_reddit_subject: Reddit subject
-  label_reddit_user_account: Reddit user account
+  label_reddit_subject: Sujet Reddit
+  label_reddit_user_account: Compte utilisateur Reddit
   label_redmine_org_issue: Redmine.org issue
   label_redmine_org_wiki: Redmine.org wiki page
   label_remove_help: "Retirer 'Aide' du menu"

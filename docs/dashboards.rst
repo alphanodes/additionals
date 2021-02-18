@@ -422,3 +422,34 @@ How many default Dashboards can be created?
 
 Does every user sees the content of every Dashboard block?
   You do not control the content a user in your project sees via the dashboard block you add, but still by setting up the correct user permissions in the administration area "Roles and permissions". Those permissions for a user role are relevant for the content a user can view in your project and must be set correctly.
+
+Developer Information
+---------------------
+
+If you are a plugin developer and want to support Dashboards for your plugin as well? Great! Thank you for that.
+Learn how to implement Dashboard blocks in your plugins. Two things are required for that:
+
+Create block teamplate
+  Create a template for your block in *app/views/dashboards/blocks/*. The name of your template should be unique, that there are no conflicts with other blocks (e.g. from other plugins)
+
+  Examples: Go to https://github.com/AlphaNodes/additionals/tree/master/app/views/dashboards/blocks for examples.
+
+Add block definitions
+  Add your block definition in *block_definitions*. This could be in:
+
+  * dashboard_content.rb (if your block should be available in all dashboards)
+  * dashboard_content_project.rb (if your block should be available in project dashboards only)
+  * dashboard_content_welcome.rb (if your block should be available in welcome dashboards only)
+
+  Exampldes: Got to https://github.com/AlphaNodes/additionals/blob/master/app/models/dashboard_content.rb#L29 for examples for that.
+
+  Overwrite it with *prepend* (not alias_method) to get not conflict with other plugins. See *redmine_git_hosting* [#githosting]_ for an example implementation for a *block template* [#blocktemplate]_ and a *block definition* [#blockdefinition]_
+
+
+  .. rubric:: Footnotes
+
+  .. [#githosting] https://github.com/jbox-web/redmine_git_hosting
+
+  .. [#blocktemplate] https://github.com/jbox-web/redmine_git_hosting/blob/master/app/views/dashboards/blocks/_git_urls.html.slim
+
+  .. [#blockdefinition] https://github.com/jbox-web/redmine_git_hosting/blob/master/lib/redmine_git_hosting/patches/dashboard_content_project_patch.rb

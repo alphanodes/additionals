@@ -47,6 +47,11 @@ function observeLiveSearchField(fieldId, targetId, target_url) {
         var form = $('#query_form'); // grab the form wrapping the search bar.
         var formData;
         var url;
+
+        form.find('[name="c[]"] option').each(function(i, elem) {
+          $(elem).attr('selected', true);
+        });
+
         if (typeof target_url === 'undefined') {
           url = form.attr('action');
           formData = form.serialize();
@@ -55,9 +60,6 @@ function observeLiveSearchField(fieldId, targetId, target_url) {
           formData = { q: val };
         }
 
-        form.find('[name="c[]"] option').each(function(i, elem) {
-          $(elem).attr('selected', true);
-        });
         form.find('[name="c[]"] option').each(function(i, elem) {
           $(elem).attr('selected', false);
         });

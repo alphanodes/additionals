@@ -256,10 +256,6 @@ module Additionals
       additionals_include_js 'clipboard.min'
     end
 
-    def additionals_load_observe_field
-      additionals_include_js 'additionals_observe_field'
-    end
-
     def additionals_load_font_awesome
       additionals_include_css 'fontawesome-all.min'
     end

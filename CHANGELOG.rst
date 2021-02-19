@@ -5,7 +5,7 @@ Changelog
 +++++
 
 - d3plus to v2.0.0-alpha.30 support
-- Mermaid 8.9.0 support
+- Mermaid 8.9.1 support
 - Bug fix for select2 loading without named field
 - FontAwesome 5.15.2 support
 - D3 6.5.0 support

@@ -6,7 +6,7 @@ h2 class="#{classes}"
                      q,
                      autocomplete: 'off',
                      class: 'live-search-field',
-                     placeholder: l(:label_query_name_search)
+                     placeholder: defined?(placeholder) ? placeholder : l(:label_query_name_search)
 
     javascript:
       observeLiveSearchField('search',

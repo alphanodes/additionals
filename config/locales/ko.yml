@@ -2,7 +2,7 @@
 ko:
   minutes:
     one: 분
-    other: 의사록
+    other: 분
   hours:
     one: 시간
     other: 시간
@@ -29,8 +29,8 @@ ko:
   alert_only_visible_by_admins: "Can only be seen by users with admin permissions"
   alert_only_visible_by_yourself: "Can only be seen by you"
   button_assign_to_me: 나에게 할당
-  button_dashboard_delete: Delete dashboard
-  button_dashboard_edit: Edit dashboard
+  button_dashboard_delete: 대시보드 삭제
+  button_dashboard_edit: 대시보드 수정
   disabled_modules_info: "프로젝트 내에서 선택할 수없는 모듈. 이러한 모듈이 기존 프로젝트에서 이미 활성화 된 경우 먼저 해당 프로젝트 설정을 변경하고 다시 저장해야합니다."
   error_issue_status_could_not_changed: "문제 상태를 변경할 수 없습니다"
   error_issues_could_not_be_assigned_to_me: "나에게 문제를 할당 할 수 없습니다"
@@ -39,12 +39,12 @@ ko:
   field_always_expose: Always expose
   field_autowatch_involved_issue: "오토 워치 관련 문제"
   field_color: 색깔
-  field_enable_sidebar: Enable sidebar
+  field_enable_sidebar: 사이드바 표시
   field_hide: 숨는 장소
   field_icon: 상
   field_issue_relation_plural: 이슈 관계
-  field_project_system_default: Project default
-  field_system_default: System default
+  field_project_system_default: 프로젝트 디폴트
+  field_system_default: 시스템 디폴트
   field_visibility: Visibility
   field_website: 웹 사이트
   global_footer_info: '여기에 프로젝트 전체 위키 바닥 글을 입력하십시오.'
@@ -52,7 +52,7 @@ ko:
   global_wiki_sidebar_info: '위키 사이드 바에 사용할 수있는 프로젝트 전체 문자 메시지를 여기에 입력하십시오. 이 사이드 바 텍스트는 위키 페이지에만 표시됩니다. 예를 들어 "마지막으로 변경된 페이지"와 같은 매크로에이 공간을 사용하십시오. 프로젝트 특정 사이드 바가 사용되는 경우 (위키 페이지), 대신 사이드 바에 표시되는 것이 좋습니다.'
   google_maps_embed_api_html: 'Goole지도를 표시하기 위해 Gmap 매크로를 사용하려는 경우 여기에 Google Maps API 키를 구현하십시오. 그 후 매크로 및 다양한 매개 변수를 사용할 수 있습니다. 매개 변수를 사용하는 방법에 대한 자세한 내용은 <a href="https://developers.google.com/maps/documentation/embed/guide" target="_blank">https://developers.google.com/maps/documentation/embed/guide</a>. Gmap 매크로는 여기에 포함 된 키와 조합해서 만 작동합니다.'
   hidden_macros_in_toolbar_info: 로그인 한 사용자가 사용할 수있는 모든 매크로가 위키 도구 모음의 매크로 버튼을 통해 나열됩니다. 여기에 표시된 매크로는 선택할 수 없습니다. 이를 통해 목록의 범위를 제한 할 수 있습니다.
-  info_dashboard_project_select: Leave it blank, if you want to use this dashboard for all projects.
+  info_dashboard_project_select: 이 대시보드가 모든 프로젝트에서 보이기 원하면 이 항목을 비워두세요.
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". 사용자가 현재 사용자에게 보이는 역할이 아닌 경우 사용자를 포함한이 역할은 프로젝트 개요 페이지와 쿼리 목록에서 숨겨집니다.
   label_account_login_bottom: "로그인 페이지의 텍스트"
   label_active_dashboard: "Active Dashboard"
@@ -124,7 +124,7 @@ ko:
   label_open_in_new_windows: 새 창에서 열기
   label_optional: "선택"
   label_pdf_wiki_settings: PDF Wiki settings
-  label_project_information: "Projekt information"
+  label_project_information: "프로젝트 정보"
   label_project_list: "프로젝트 목록"
   label_query_delete: 검색어 삭제
   label_query_edit: 검색어 수정
@@ -134,8 +134,8 @@ ko:
   label_reddit_user_account: Reddit user account
   label_redmine_org_issue: Redmine.org issue
   label_redmine_org_wiki: Redmine.org wiki page
-  label_remove_help: "없애다 'Help' 톱 메뉴에서"
-  label_remove_mypage: "없애다 'My Page' 톱 메뉴에서"
+  label_remove_help: "톱 메뉴에서 'Help' 항목 제거"
+  label_remove_mypage: "톱 메뉴에서 'My Page' 항목 제거"
   label_search_by_name: 이름으로 검색
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"

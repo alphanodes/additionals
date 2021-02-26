@@ -219,6 +219,13 @@ module Additionals
       [[(options[:min].presence || 8), text.to_s.length / 50].max, (options[:max].presence || 20)].min
     end
 
+    def title_with_fontawesome(title, symbole, wrapper = 'span')
+      tag.send(wrapper) do
+        concat tag.i class: "#{symbole} for-fa-title", 'aria-hidden': 'true'
+        concat title
+      end
+    end
+
     private
 
     def additionals_already_loaded(scope, js_name)

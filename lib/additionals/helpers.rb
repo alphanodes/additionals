@@ -137,51 +137,6 @@ module Additionals
       safe_join s
     end
 
-    def system_uptime
-      if windows_platform?
-        `net stats srv | find "Statist"`
-      elsif File.exist?('/proc/uptime')
-        secs = `cat /proc/uptime`.to_i
-        min = 0
-        hours = 0
-        days = 0
-        if secs.positive?
-          min = (secs / 60).round
-          hours = (secs / 3_600).round
-          days = (secs / 86_400).round
-        end
-        if days >= 1
-          "#{days} #{l(:days, count: days)}"
-        elsif hours >= 1
-          "#{hours} #{l(:hours, count: hours)}"
-        else
-          "#{min} #{l(:minutes, count: min)}"
-        end
-      else
-        # this should be mac os
-        seconds = `sysctl -n kern.boottime | awk '{print $4}'`.tr(',', '')
-        so = DateTime.strptime(seconds.strip, '%s')
-        if so.present?
-          time_tag(so)
-        else
-          days = `uptime | awk '{print $3}'`.to_i.round
-          "#{days} #{l(:days, count: days)}"
-        end
-      end
-    end
-
-    def system_info
-      if windows_platform?
-        'unknown'
-      else
-        `uname -a`
-      end
-    end
-
-    def windows_platform?
-      true if /cygwin|mswin|mingw|bccwin|wince|emx/.match?(RUBY_PLATFORM)
-    end
-
     def autocomplete_select_entries(name, type, option_tags, options = {})
       unless option_tags.is_a?(String) || option_tags.blank?
         # if option_tags is not an array, it should be an object

@@ -1,13 +1,6 @@
 table.list
-  tr
-    td.name
-      = l :label_system_info
-      | :
-    td.name
-      = system_info
-  tr
-    td.name
-      = l :label_uptime
-      | :
-    td.name
-      = system_uptime
+  - AdditionalsInfo.system_infos.each_value do |system_info|
+    tr
+      td.name
+        = "#{system_info[:label]}:"
+      td.name = system_info[:value]

@@ -26,17 +26,6 @@ class GlobalHelperTest < ActionView::TestCase
     User.current = nil
   end
 
-  def test_system_info
-    text = system_info
-
-    assert_not_equal '', text
-    assert_not_equal 'unknown', text
-  end
-
-  def test_windows_platform
-    assert_nil windows_platform?
-  end
-
   def test_user_with_avatar
     html = user_with_avatar(users(:users_001))
 

@@ -38,12 +38,19 @@ span.additionals-live-search input::placeholder {
 
 /* Go to top link */
 .gototop {
-  border-top: 1px solid #eee;
   display: block;
   margin-top: 20px;
   padding: 10px 0;
   text-align: right;
   clear: both;
+}
+
+.gototop::before {
+  font-family: Font Awesome\ 5 Free;
+  font-weight: 900;
+  content: "\f139"; /* fas fa-chevron-circle-up */
+  padding-right: 4px;
+  opacity: 0.8;
 }
 
 /* Footer */

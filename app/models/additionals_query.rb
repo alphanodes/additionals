@@ -166,10 +166,7 @@ module AdditionalsQuery
   end
 
   def sql_for_tags_field(field, _operator, value)
-    AdditionalTags.sql_for_tags_field queried_class,
-                                      operator_for(field),
-                                      value,
-                                      project
+    AdditionalTags.sql_for_tags_field queried_class, operator_for(field), value
   end
 
   def sql_for_is_private_field(_field, operator, value)

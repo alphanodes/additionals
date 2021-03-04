@@ -95,7 +95,7 @@ module AdditionalsQuery
 
   def initialize_tags_filter(options = {})
     add_available_filter 'tags', order: options[:position],
-                                 type: :list,
+                                 type: :list_optional,
                                  values: -> { tag_values(project) }
   end
 
@@ -166,7 +166,10 @@ module AdditionalsQuery
   end
 
   def sql_for_tags_field(field, _operator, value)
-    AdditionalTags.sql_for_tags_field(queried_class, operator_for(field), value)
+    AdditionalTags.sql_for_tags_field queried_class,
+                                      operator_for(field),
+                                      value,
+                                      project
   end
 
   def sql_for_is_private_field(_field, operator, value)

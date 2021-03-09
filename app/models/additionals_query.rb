@@ -74,7 +74,7 @@ module AdditionalsQuery
   end
 
   def initialize_project_status_filter
-    return if project&.leaf?
+    return if project
 
     add_available_filter 'project.status',
                          type: :list,

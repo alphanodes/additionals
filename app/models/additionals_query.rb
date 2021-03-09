@@ -55,8 +55,22 @@ module AdditionalsQuery
     end
   end
 
+  def sql_for_project_identifier_field(field, operator, values)
+    value = values.first
+    values = value.split(',').map(&:strip) if ['=', '!'].include?(operator) && value.include?(',')
+    sql_for_field field, operator, values, Project.table_name, 'identifier'
+  end
+
   def sql_for_project_status_field(field, operator, value)
     sql_for_field field, operator, value, Project.table_name, 'status'
+  end
+
+  def initialize_project_identifier_filter
+    return if project
+
+    add_available_filter 'project.identifier',
+                         type: :string,
+                         name: l(:label_attribute_of_project, name: l(:field_identifier))
   end
 
   def initialize_project_status_filter

@@ -11,10 +11,7 @@
     - if feed[:items].count.positive?
       ul.reporting-list.feed
         - feed[:items].each do |item|
-          li
-            = link_to item[:title],
-                      item[:link],
-                      class: 'external', rel: 'noopener noreferrer', target: '_blank'
+          li = link_to_external item[:title], item[:link]
     - else
       p.nodata = l :label_no_data
   - elsif settings[:url].blank?

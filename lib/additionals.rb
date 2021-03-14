@@ -113,7 +113,7 @@ module Additionals
 
     def incompatible_plugins(plugins = [], title = 'additionals')
       plugins.each do |plugin|
-        raise "\n\033[31m#{title} plugin cannot be used with #{plugin} plugin'.\033[0m" if Redmine::Plugin.installed?(plugin)
+        raise "\n\033[31m#{title} plugin cannot be used with #{plugin} plugin.\033[0m" if Redmine::Plugin.installed?(plugin)
       end
     end
 
@@ -139,7 +139,7 @@ module Additionals
 
     def plugin_dir(plugin_id = 'additionals')
       if Gem.loaded_specs[plugin_id].nil?
-        File.join(Redmine::Plugin.directory, plugin_id)
+        File.join Redmine::Plugin.directory, plugin_id
       else
         Gem.loaded_specs[plugin_id].full_gem_path
       end

@@ -183,3 +183,4 @@ fr:
   wiki_pdf_remove_attachments_info: "Lorsqu'ils sont actifs, les fichiers Wiki joints ne seront pas affichés en vue PDF."
   wiki_pdf_remove_title_info: "Lorsqu'elle est active, l'information sur le titre du wiki ne sera pas affichée dans la vue PDF."
   button_merge: Fusionner
+  label_live_search_hints: "Available field searches: %{value}"

@@ -16,10 +16,6 @@
   padding-bottom: 10px;
 }
 
-span.additionals-live-search input::placeholder {
-  font-size: 90%;
-}
-
 .query-description,
 .dashboard-description {
   color: #666;
@@ -143,12 +139,6 @@ span.additionals-live-search input::placeholder {
   background-image: url(../images/smileys/smiley-cool.png);
 }
 
-.smiley-rose {
-  background-image: url(../images/smileys/rose.png);
-  width: 24px;
-  height: 24px;
-}
-
 .smiley-check {
   background-image: url(../images/smileys/check.png);
 }
@@ -191,26 +181,25 @@ div.clear-both { clear: both; }
 
 img.additionals-avatar { margin-right: 0.25em; }
 
-/* Live search */
-.additionals-live-search input.live-search-field {
+h2#page-title input {
   font-size: 16px;
-  width: 65%;
 }
 
-.additionals-live-search {
+h2#page-title::before {
+  font-family: Font Awesome\ 5 Free;
+  padding-right: 5px;
+  text-shadow: 0 2px 0 #efefef;
+  font-size: 90%;
+}
+
+/* Live search */
+h2#page-title.live-search input {
   margin-left: 5px;
 }
 
-.ui-tooltip {
-  color: #fff;
-  background: #000;
-  opacity: 0.85;
-  padding: 8px;
-  border: 0;
-  max-width: inherit;
-  border-radius: 4px;
-  box-shadow: 0 0 6px #888;
-  font-size: 12px;
+h2#page-title.import::before {
+  font-weight: 900;
+  content: "\f093"; /* fas fa-upload */
 }
 
 a.external.redmine-link {

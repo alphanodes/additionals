@@ -1,13 +1,13 @@
-- classes = 'title' unless defined? classes
-h2 class="#{classes}"
+- classes = 'live-search'
+- if defined? css_class
+  - classes << " #{css_class}"
+h2#page-title class="#{classes}"
   = @query.new_record? ? l(title) : h(@query.name)
-  span.additionals-live-search
-    = text_field_tag :search,
-                     q,
-                     autocomplete: 'off',
-                     class: 'live-search-field',
-                     placeholder: defined?(placeholder) ? placeholder : l(:label_query_name_search)
+  = text_field_tag :search,
+                    q,
+                    class: 'no-tooltip',
+                    autocomplete: 'off',
+                    title: defined?(title_info) ? title_info : nil
 
-    javascript:
-      observeLiveSearchField('search',
-                             'query-result-list')
+  javascript:
+    observeLiveSearchField('search', 'query-result-list');

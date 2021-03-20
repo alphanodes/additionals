@@ -183,3 +183,4 @@ zh:
   wiki_pdf_remove_attachments_info:  当启用时，WIKI 附件将不会显示在PDF视图中。
   wiki_pdf_remove_title_info: 当启用时，WIKI 标题信息将不会显示在PDF视图中。
   button_merge: Merge
+  label_live_search_hints: "Available field searches: %{value}"

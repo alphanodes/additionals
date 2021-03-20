@@ -1,5 +1,11 @@
 module Additionals
   module Helpers
+    def live_search_title_info(entity)
+      fields = "LiveSearch::#{entity.to_s.classify}".constantize.info_fields
+      all_fields = fields.map { |f| "#{f}:term" }.join ', '
+      l :label_live_search_hints, value: all_fields
+    end
+
     def link_to_external(name, link, options = {})
       options[:class] ||= 'external'
       options[:class] << ' external' if options[:class].exclude? 'external'

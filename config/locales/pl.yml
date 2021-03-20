@@ -183,4 +183,4 @@ pl:
   wiki_pdf_remove_attachments_info: "Gdy jest aktywny, załączone pliki Wiki nie będą wyświetlane w widoku PDF."
   wiki_pdf_remove_title_info: "Gdy jest aktywny, informacja o tytule Wiki nie będzie wyświetlana w widoku PDF."
   button_merge: Merge
-  label_live_search_hints: "Available field searches: %{value}"
+  label_live_search_hints: "Dostępne wyszukiwania w terenie: %{value}"

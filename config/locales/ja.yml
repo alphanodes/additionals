@@ -183,4 +183,4 @@ ja:
   wiki_pdf_remove_attachments_info: "アクティブな場合、添付されたWikiファイルはPDFビューに表示されません。"
   wiki_pdf_remove_title_info: "アクティブな場合、Wikiのタイトル情報はPDFビューに表示されません。"
   button_merge: Merge
-  label_live_search_hints: "Available field searches: %{value}"
+  label_live_search_hints: "利用可能なフィールド検索: %{value}"

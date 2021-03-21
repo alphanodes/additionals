@@ -183,4 +183,4 @@ cs:
   wiki_pdf_remove_attachments_info: "Pokud je aktivní, připojené soubory Wiki se nebudou zobrazovat v zobrazení PDF."
   wiki_pdf_remove_title_info: "Pokud je aktivní, informace o názvu Wiki se nebudou zobrazovat v zobrazení PDF."
   button_merge: Merge
-  label_live_search_hints: "Available field searches: %{value}"
+  label_live_search_hints: "Dostupná vyhledávání v polích: %{value}"

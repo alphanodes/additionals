@@ -184,3 +184,5 @@ cs:
   wiki_pdf_remove_title_info: "Pokud je aktivní, informace o názvu Wiki se nebudou zobrazovat v zobrazení PDF."
   button_merge: Merge
   label_live_search_hints: "Dostupná vyhledávání v polích: %{value}"
+  label_stats_new_today: "New today"
+  label_stats_totals: "Total"

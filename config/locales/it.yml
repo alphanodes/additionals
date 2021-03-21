@@ -184,3 +184,5 @@ it:
   wiki_pdf_remove_title_info: "Quando è attivo, le informazioni sul titolo del Wiki non verranno visualizzate nella vista PDF."
   button_merge: Merge
   label_live_search_hints: "Ricerche sul campo disponibili: %{value}"
+  label_stats_new_today: "New today"
+  label_stats_totals: "Total"

@@ -184,3 +184,5 @@ ko:
   wiki_pdf_remove_title_info: 활성화되면 위키 제목 정보가 PDF보기에 표시되지 않습니다.
   button_merge: Merge
   label_live_search_hints: "Available field searches: %{value}"
+  label_stats_new_today: "New today"
+  label_stats_totals: "Total"

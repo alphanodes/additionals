@@ -182,7 +182,7 @@ ja:
   top_wiki_help: "ここでは、Wikiの内容や設定を定義することができます。"
   wiki_pdf_remove_attachments_info: "アクティブな場合、添付されたWikiファイルはPDFビューに表示されません。"
   wiki_pdf_remove_title_info: "アクティブな場合、Wikiのタイトル情報はPDFビューに表示されません。"
-  button_merge: Merge
+  button_merge: "マージ"
   label_live_search_hints: "利用可能なフィールド検索: %{value}"
-  label_stats_new_today: "New today"
-  label_stats_totals: "Total"
+  label_stats_new_today: "本日の新着情報"
+  label_stats_totals: "合計"

@@ -182,7 +182,7 @@ ko:
   top_wiki_help: 여기에서 위키의 내용과 설정을 정의 할 수 있습니다.
   wiki_pdf_remove_attachments_info: 활성화 된 경우 첨부 된 Wiki 파일은 PDF보기에 표시되지 않습니다.
   wiki_pdf_remove_title_info: 활성화되면 위키 제목 정보가 PDF보기에 표시되지 않습니다.
-  button_merge: Merge
-  label_live_search_hints: "Available field searches: %{value}"
-  label_stats_new_today: "New today"
-  label_stats_totals: "Total"
+  button_merge: "병합 "
+  label_live_search_hints: "사용 가능한 필드 검색 : %{value}"
+  label_stats_new_today: "오늘 새로운"
+  label_stats_totals: "합계"

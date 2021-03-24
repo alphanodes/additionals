@@ -22,6 +22,9 @@ Metrics/ClassLength:
 Metrics/CyclomaticComplexity:
   Max: 25
 
+Style/HashConversion:
+  Enabled: true
+
 Layout/LineLength:
   Max: 140
 
@@ -63,9 +66,6 @@ Style/Documentation:
 
 # required for travis/ci (symbolic links problem)
 Style/ExpandPathArguments:
-  Enabled: false
-
-Style/HashTransformKeys:
   Enabled: false
 
 Style/HashTransformValues:

@@ -90,7 +90,7 @@ class DashboardAsyncBlocksController < ApplicationController
   end
 
   def dashboard_with_invalid_block(exception)
-    logger&.error "Invalid dashboard block for #{@block}: #{exception.message}"
+    logger&.error "Invalid dashboard block for #{@block} (#{exception.class.name}): #{exception.message}"
     respond_to do |format|
       format.html do
         render template: 'dashboards/block_error', layout: false

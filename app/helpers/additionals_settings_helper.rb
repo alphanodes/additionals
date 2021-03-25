@@ -14,6 +14,9 @@ module AdditionalsSettingsHelper
   end
 
   def additionals_settings_checkbox(name, options = {})
+    active_value = options.delete(:active_value).presence || @settings.present? && @settings[name]
+    tag_name = options.delete(:tag_name).presence || "settings[#{name}]"
+
     label_title = options.delete(:label).presence || l("label_#{name}")
     value = options.delete :value
     value_is_bool = options.delete :value_is_bool
@@ -26,14 +29,14 @@ module AdditionalsSettingsHelper
                    end
 
     checked = if custom_value && !value_is_bool
-                @settings[name]
+                active_value
               else
-                Additionals.true? @settings[name]
+                Additionals.true? active_value
               end
 
-    s = [label_tag("settings[#{name}]", label_title)]
-    s << hidden_field_tag("settings[#{name}]", 0, id: nil) if !custom_value || value_is_bool
-    s << check_box_tag("settings[#{name}]", value, checked, options)
+    s = [label_tag(tag_name, label_title)]
+    s << hidden_field_tag(tag_name, 0, id: nil) if !custom_value || value_is_bool
+    s << check_box_tag(tag_name, value, checked, options)
     safe_join s
   end
 

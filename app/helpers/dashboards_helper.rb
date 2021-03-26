@@ -222,6 +222,7 @@ module DashboardsHelper
       icons << tag.span('', class: 'icon-only icon-sort-handle sort-handle', title: l(:button_move))
       icons << delete_link(_remove_block_dashboard_path(@project, dashboard, block: block),
                            method: :post,
+                           remote: true,
                            class: 'icon-only icon-close',
                            title: l(:button_delete))
 

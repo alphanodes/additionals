@@ -2,7 +2,7 @@
 
 div id="#{block}-settings" style="#{'display: none;' if hide}"
   = form_tag(_update_layout_setting_dashboard_path(@project, @dashboard), remote: true) do
-    .box
+    .box.settings
       p
         label
           = l :field_title

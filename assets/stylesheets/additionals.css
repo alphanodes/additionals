@@ -23,6 +23,12 @@
   font-size: 95%;
 }
 
+#my-page.dashboard .box.settings input[type=text],
+#my-page.dashboard .box.settings input[type=password],
+#my-page.dashboard .box.settings input[type=url] {
+  width: 90%;
+}
+
 /* Mobile menu style FontAwesome icon */
 .flyout-is-active #admin-menu li a.additionals {
   padding-left: 8px !important;

@@ -220,10 +220,10 @@ module DashboardsHelper
                                   title: l(:label_options))
       end
       icons << tag.span('', class: 'icon-only icon-sort-handle sort-handle', title: l(:button_move))
-      icons << link_to(l(:button_delete),
-                       _remove_block_dashboard_path(@project, dashboard, block: block),
-                       remote: true, method: 'post',
-                       class: 'icon-only icon-close', title: l(:button_delete))
+      icons << delete_link(_remove_block_dashboard_path(@project, dashboard, block: block),
+                           method: :post,
+                           class: 'icon-only icon-close',
+                           title: l(:button_delete))
 
       content = tag.div(safe_join(icons), class: 'contextual') + content
     end

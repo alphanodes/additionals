@@ -40,28 +40,30 @@ module AdditionalsSettingsHelper
     safe_join s
   end
 
-  def additionals_settings_textfield(name, options = {})
-    label_title = options.delete(:label).presence || l("label_#{name}")
-    value = options.delete(:value).presence || @settings[name]
+  def additionals_settings_numberfield(name, options = {})
+    additionals_settings_input_field :number_field_tag, name, options
+  end
 
-    safe_join [label_tag("settings[#{name}]", label_title),
-               text_field_tag("settings[#{name}]", value, options)]
+  def additionals_settings_textfield(name, options = {})
+    additionals_settings_input_field :text_field_tag, name, options
   end
 
   def additionals_settings_passwordfield(name, options = {})
-    label_title = options.delete(:label).presence || l("label_#{name}")
-    value = options.delete(:value).presence || @settings[name]
-
-    safe_join [label_tag("settings[#{name}]", label_title),
-               password_field_tag("settings[#{name}]", value, options)]
+    additionals_settings_input_field :password_field_tag, name, options
   end
 
   def additionals_settings_urlfield(name, options = {})
-    label_title = options.delete(:label).presence || l("label_#{name}")
-    value = options.delete(:value).presence || @settings[name]
+    additionals_settings_input_field :url_field_tag, name, options
+  end
 
-    safe_join [label_tag("settings[#{name}]", label_title),
-               url_field_tag("settings[#{name}]", value, options)]
+  def additionals_settings_select(name, values, options = {})
+    tag_name = options.delete(:tag_name).presence || "settings[#{name}]"
+
+    label_title = [options.delete(:label).presence || l("label_#{name}")]
+    label_title << tag.span('*', class: 'required') if options[:required].present?
+
+    safe_join [label_tag(tag_name, safe_join(label_title, ' ')),
+               select_tag(tag_name, values, options)]
   end
 
   def additionals_settings_textarea(name, options = {})
@@ -73,5 +75,22 @@ module AdditionalsSettingsHelper
 
     safe_join [label_tag("settings[#{name}]", label_title),
                text_area_tag("settings[#{name}]", value, options)]
+  end
+
+  private
+
+  def additionals_settings_input_field(tag_field, name, options = {})
+    tag_name = options.delete(:tag_name).presence || "settings[#{name}]"
+    value = if options.key? :value
+              options.delete(:value).presence
+            elsif @settings.present?
+              @settings[name]
+            end
+
+    label_title = [options.delete(:label).presence || l("label_#{name}")]
+    label_title << tag.span('*', class: 'required') if options[:required].present?
+
+    safe_join [label_tag(tag_name, safe_join(label_title, ' ')),
+               send(tag_field, tag_name, value, options)]
   end
 end

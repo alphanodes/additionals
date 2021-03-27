@@ -6,7 +6,13 @@
     = settings[:title]
 
 - if @can_edit
-  = render partial: 'dashboards/blocks/text_async_settings', locals: { block: block, settings: settings }
+  div id="#{block}-settings" style='display: none;'
+    = form_tag(_update_layout_setting_dashboard_path(@project, @dashboard), remote: true) do
+      = render partial: 'dashboards/blocks/text_async_settings', locals: { block: block, settings: settings }
+      p
+        = submit_tag l :button_save
+        '
+        = link_to_function l(:button_cancel), "$('##{block}-settings').toggle();"
 
 .wiki
   = textilizable settings[:text]

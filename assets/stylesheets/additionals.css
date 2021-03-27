@@ -23,9 +23,9 @@
   font-size: 95%;
 }
 
-#my-page.dashboard .box.settings input[type=text],
-#my-page.dashboard .box.settings input[type=password],
-#my-page.dashboard .box.settings input[type=url] {
+#my-page.dashboard .settings input[type=text],
+#my-page.dashboard .settings input[type=password],
+#my-page.dashboard .settings input[type=url] {
   width: 90%;
 }
 

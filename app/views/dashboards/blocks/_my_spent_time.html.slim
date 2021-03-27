@@ -3,14 +3,15 @@ h3 = block_definition[:label]
 - if @can_edit
   div id="#{block}-settings" style='display: none;'
     = form_tag(_update_layout_setting_dashboard_path(@project, @dashboard), remote: true) do
-      .box
+      .box.tabular.settings
         p
-          label
-            = l :button_show
-            ' :
-            = number_field_tag "settings[#{block}][days]", days, min: 1, max: 1000, required: true
-            '
-            = l :label_day_plural
+          = additionals_settings_numberfield :day,
+                                              value: days,
+                                              label: l(:button_show),
+                                              tag_name: "settings[#{block}][days]",
+                                              min: 1, max: 1000, required: true
+          '
+          = l :label_day_plural
       p
         = submit_tag l(:button_save)
         '

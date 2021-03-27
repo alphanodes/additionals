@@ -199,6 +199,10 @@ module DashboardsHelper
     s
   end
 
+  def dashboard_block_div(block)
+    "id='#{block}-settings' style='display: none;'"
+  end
+
   # Renders a single block
   def render_dashboard_block(block, dashboard, overwritten_settings = {})
     block_definition = dashboard.content.find_block block

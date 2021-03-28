@@ -3,7 +3,7 @@ Deface::Override.new virtual_path: 'issues/_action_menu',
                      replace: 'erb[loud]:contains("User.current.allowed_to?(:log_time, @project)")',
                      original: '4bbf065b9f960687e07f76e7232eb21bf183a981',
                      partial: 'issues/additionals_action_menu_log_time'
-if Redmine::VERSION.to_s >= '4.2' || Redmine::VERSION.to_s == '4.1.2.devel'
+if Redmine::VERSION.to_s >= '4.2'
   Deface::Override.new virtual_path: 'issues/_action_menu',
                        name: 'add-issue-assign-to-me',
                        insert_after: 'erb[loud]:contains("watcher_link")',

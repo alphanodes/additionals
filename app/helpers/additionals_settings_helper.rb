@@ -91,6 +91,6 @@ module AdditionalsSettingsHelper
     label_title << tag.span('*', class: 'required') if options[:required].present?
 
     safe_join [label_tag(tag_name, safe_join(label_title, ' ')),
-               send(tag_field, tag_name, value, options)]
+               send(tag_field, tag_name, value, options)], ' '
   end
 end

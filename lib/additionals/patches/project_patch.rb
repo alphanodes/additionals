@@ -13,7 +13,7 @@ module Additionals
       module InstanceOverwriteMethods
         # this change take care of hidden roles and performance issues (includes for hrm, if installed)
         def users_by_role
-          if Redmine::VERSION.to_s >= '4.2' || Redmine::VERSION.to_s == '4.1.2.devel'
+          if Redmine::VERSION.to_s >= '4.2'
             includes = Redmine::Plugin.installed?('redmine_hrm') ? [:roles, { principal: :hrm_user_type }] : %i[roles principal]
             memberships.includes(includes).each_with_object({}) do |m, h|
               m.roles.each do |r|

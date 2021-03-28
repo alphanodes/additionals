@@ -362,6 +362,17 @@ select.dashboard-block-select {
   min-width: 200px;
 }
 
+#my-page.dashboard #list-left .tabular.settings p,
+#my-page.dashboard #list-right .tabular.settings p {
+  padding-left: 0;
+}
+
+#my-page.dashboard #list-left .tabular.settings label,
+#my-page.dashboard #list-right .tabular.settings label {
+  margin-left: 0;
+  width: auto;
+}
+
 div.drdn-items a.disabled,
 div.drdn-items a.disabled:hover { color: #aaa; }
 

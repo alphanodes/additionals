@@ -370,7 +370,8 @@ select.dashboard-block-select {
 #my-page.dashboard #list-left .tabular.settings label,
 #my-page.dashboard #list-right .tabular.settings label {
   margin-left: 0;
-  width: auto;
+  width: 100%;
+  text-align: left;
 }
 
 div.drdn-items a.disabled,

@@ -31,6 +31,10 @@ div id="#{export_format}-export-options" style="display: none"
     = export_csv_encoding_select_tag
 
     p.buttons
-      = submit_tag l(:button_export), name: nil, onclick: 'hideModal(this);'
+      = submit_tag l(:button_export),
+                   name: nil,
+                   onclick: 'hideModal(this);',
+                   data: { disable_with: false }
+
       '
       = link_to_function l(:button_cancel), 'hideModal(this);'

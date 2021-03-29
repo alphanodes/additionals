@@ -8,7 +8,7 @@ Changelog
 - Mermaid 8.9.2 support
 - Bug fix for select2 loading without named field
 - FontAwesome 5.15.3 support
-- D3 6.6.1 support
+- D3 6.6.2 support
 - Fix news limit for welcome dashboard block
 - Frensh translation updated, thanks to Brice BEAUMESNIL!
 - clipboard.js updated to v2.0.8

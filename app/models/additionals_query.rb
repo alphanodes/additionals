@@ -140,7 +140,7 @@ module AdditionalsQuery
 
     add_available_filter 'watcher_id', order: options[:position],
                                        type: :list,
-                                       values: -> { watcher_values }
+                                       values: -> { watcher_values_for_manage_public_queries }
   end
 
   def tag_values(project)
@@ -164,7 +164,9 @@ module AdditionalsQuery
     assigned_to_values
   end
 
-  def watcher_values
+  # watcher_values of query checks view_issue_watchers, this checks manage_public_queries permission
+  # and with users (not groups)
+  def watcher_values_for_manage_public_queries
     watcher_values = [["<< #{l :label_me} >>", 'me']]
     watcher_values += users.collect { |s| [s.name, s.id.to_s] } if User.current.allowed_to?(:manage_public_queries, project, global: true)
     watcher_values

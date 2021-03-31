@@ -8,7 +8,7 @@ module Additionals
 
     def link_to_external(name, link, options = {})
       options[:class] ||= 'external'
-      options[:class] << ' external' if options[:class].exclude? 'external'
+      options[:class] = "#{options[:class]} external" if options[:class].exclude? 'external'
 
       options[:rel] ||= 'noopener'
       options[:target] ||= '_blank'

@@ -32,12 +32,10 @@ module Additionals
         end
 
         source_files.each do |file|
-          begin
-            target = File.join destination, file.gsub(source, '')
-            FileUtils.cp(file, target) unless File.exist?(target) && FileUtils.identical?(file, target)
-          rescue StandardError => e
-            raise "Could not copy #{file} to #{target}: " + e.message
-          end
+          target = File.join destination, file.gsub(source, '')
+          FileUtils.cp(file, target) unless File.exist?(target) && FileUtils.identical?(file, target)
+        rescue StandardError => e
+          raise "Could not copy #{file} to #{target}: " + e.message
         end
       end
 

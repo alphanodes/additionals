@@ -12,7 +12,8 @@ Changelog
 - Fix news limit for welcome dashboard block
 - Frensh translation updated, thanks to Brice BEAUMESNIL!
 - clipboard.js updated to v2.0.8
--
+- Ruby 2.5 is required
+
 3.0.1
 +++++
 

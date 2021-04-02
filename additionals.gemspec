@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
 
   spec.files         = Dir['**/*'] - Dir['test/**/*'] - Dir['Gemfile', 'Gemfile.lock', 'README.rst']
   spec.require_paths = ['lib']
-  spec.required_ruby_version = '>= 2.4'
+  spec.required_ruby_version = '>= 2.5'
 
   spec.add_runtime_dependency 'deface', '1.5.3'
   spec.add_runtime_dependency 'gemoji', '~> 3.0.0'

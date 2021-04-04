@@ -10,9 +10,9 @@
     = form_tag(_update_layout_setting_dashboard_path(@project, dashboard), remote: true) do
       = render partial: block_definition[:settings_partial].presence || "#{async[:partial]}_settings",
               locals: build_dashboard_partial_locals(block,
-                                                      block_definition,
-                                                      settings,
-                                                      dashboard)
+                                                     block_definition,
+                                                     settings,
+                                                     dashboard)
 
       p
         = submit_tag l(:button_save)
@@ -26,7 +26,7 @@
     p
       i.fas.fa-sync.fa-spin
       '
-      = l(:label_loading)
+      = l :label_loading
 
   = content_for :render_async
 

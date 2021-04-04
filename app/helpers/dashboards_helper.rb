@@ -1,4 +1,10 @@
 module DashboardsHelper
+  def dashboard_async_cache(dashboard, block, async, settings, &content_block)
+    cache render_async_cache_key(_dashboard_async_blocks_path(@project, dashboard.async_params(block, async, settings))),
+          expires_in: async[:cache_expires_in] || DashboardContent::RENDER_ASYNC_CACHE_EXPIRES_IN,
+          skip_digest: true, &content_block
+  end
+
   def dashboard_sidebar?(dashboard, params)
     if params['enable_sidebar'].blank?
       if dashboard.blank?

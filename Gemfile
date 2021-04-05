@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
-
-# Specify your gem's dependencies in additionals.gemspec
-gemspec
+source 'https://rubygems.org' do
+  # Specify your gem's dependencies in additionals.gemspec
+  gemspec
+end

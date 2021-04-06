@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - name: Set Gemfile
+    - name: Setup Gemfile
       run: |
         cp test/support/gemfile.rb Gemfile
 

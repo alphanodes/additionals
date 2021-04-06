@@ -86,8 +86,6 @@ jobs:
       - name: Prepare Redmine source
         working-directory: redmine
         run: |
-          sed -i '/rubocop/d' Gemfile
-          rm -f .rubocop*
           cp plugins/additionals/test/support/database-${{ matrix.db }}.yml config/database.yml
           cp plugins/additionals/test/support/configuration.yml config/configuration.yml
 

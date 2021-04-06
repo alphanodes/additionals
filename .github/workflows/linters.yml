@@ -12,6 +12,10 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
+    - name: Set Gemfile
+      run: |
+        cp test/support/gemfile.rb Gemfile
+
     - name: Setup Ruby
       uses: ruby/setup-ruby@v1
       with:
@@ -20,7 +24,6 @@ jobs:
 
     - name: Setup gems
       run: |
-        cp test/support/gemfile.rb Gemfile
         bundle install --jobs 4 --retry 3
 
     - name: Run RuboCop

@@ -37,26 +37,20 @@ module Additionals
             end
           end
         end
-
-        def users_by_role_old
-          roles_with_users = if Redmine::VERSION.to_s >= '4.2'
-                               principals_by_role
-                             else
-                               super
-                             end
-
-          roles_with_users.each do |role_with_users|
-            role = role_with_users.first
-            next unless role.hide
-
-            roles_with_users.delete(role) unless User.current.allowed_to?(:show_hidden_roles_in_memberbox, project)
-          end
-
-          roles_with_users
-        end
       end
 
       module InstanceMethods
+        # without hidden roles!
+        def all_principals_by_role
+          memberships.includes(:principal, :roles).each_with_object({}) do |m, h|
+            m.roles.each do |r|
+              h[r] ||= []
+              h[r] << m.principal
+            end
+            h
+          end
+        end
+
         def visible_principals
           query = ::Query.new(project: self, name: '_')
           query&.principals

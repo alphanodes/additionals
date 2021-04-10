@@ -106,14 +106,10 @@ module Additionals
       end
 
       def status_x_affected?(new_status_id)
-        return false unless Additionals.setting?(:issue_current_user_status)
+        return false unless Additionals.setting? :issue_current_user_status
         return false if Additionals.setting(:issue_assign_to_x).blank?
 
-        if Additionals.setting(:issue_assign_to_x).include?(new_status_id.to_s)
-          true
-        else
-          false
-        end
+        Additionals.setting(:issue_assign_to_x).include? new_status_id.to_s
       end
 
       private

@@ -3,12 +3,12 @@ h3.icon.icon-news = l :label_news_latest
 - if @can_edit
   div id="#{block}-settings" style='display: none;'
     = form_tag(_update_layout_setting_dashboard_path(@project, @dashboard), remote: true) do
-      .box
+      .box.tabular.settings
         p
-          label
-            = l(:label_max_entries)
-            ' :
-            = number_field_tag "settings[#{block}][max_entries]", max_entries, min: 1, max: 1000, required: true
+          = additionals_settings_numberfield :max_entries,
+                                              value: max_entries,
+                                              tag_name: "settings[#{block}][max_entries]",
+                                              min: 1, max: 1000, required: true
       p
         = submit_tag l(:button_save)
         '

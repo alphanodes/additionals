@@ -1,25 +1,19 @@
 - max_entries = settings[:max_entries].presence || DashboardContent::DEFAULT_MAX_ENTRIES
 
-div id="#{block}-settings" style="#{'display: none;' if hide}"
-  = form_tag(_update_layout_setting_dashboard_path(@project, @dashboard), remote: true) do
-    .box
-      p
-        label
-          = l :field_title
-          ' :
-          = text_field_tag "settings[#{block}][title]", dashboard_feed_title(settings[:title], block_definition)
-      p
-        label
-          = l :field_url
-          ' :
-          = url_field_tag "settings[#{block}][url]", settings[:url], required: true
-      p
-        label
-          = l(:label_max_entries)
-          ' :
-          = number_field_tag "settings[#{block}][max_entries]", max_entries, min: 1, max: 100, required: true
-
-    p
-      = submit_tag l(:button_save)
-      '
-      = link_to_function l(:button_cancel), "$('##{block}-settings').toggle();"
+.box.tabular.settings
+  p
+    = additionals_settings_textfield :title,
+                                     label: l(:field_title),
+                                     value: dashboard_feed_title(settings[:title], block_definition),
+                                     tag_name: "settings[#{block}][title]"
+  p
+    = additionals_settings_urlfield :url,
+                                    value: settings[:url],
+                                    label: l(:field_url),
+                                    tag_name: "settings[#{block}][url]",
+                                    required: true
+  p
+    = additionals_settings_numberfield :max_entries,
+                                        value: max_entries,
+                                        tag_name: "settings[#{block}][max_entries]",
+                                        min: 1, max: 100, required: true

@@ -1,15 +1,14 @@
-div id="#{block}-settings" style='display: none;'
-  = form_tag(_update_layout_setting_dashboard_path(@project, @dashboard), remote: true) do
-    .box
-      p
-        label
-          = l :field_title
-          ' :
-          = text_field_tag "settings[#{block}][title]", (settings[:title] || l(:label_text_sync))
-      p
-          = text_area_tag "settings[#{block}][text]", settings[:text], rows: addtionals_textarea_cols(settings[:text]), class: 'wiki-edit'
-          = wikitoolbar_for "settings_#{block}_text"
+.box
+  .settings
     p
-      = submit_tag l :button_save
-      '
-      = link_to_function l(:button_cancel), "$('##{block}-settings').toggle();"
+      = additionals_settings_textfield :title,
+                                      label: l(:field_title),
+                                      value: settings[:title] || l(:label_text_sync),
+                                      tag_name: "settings[#{block}][title]"
+  p
+      = text_area_tag "settings[#{block}][text]",
+                      settings[:text],
+                      rows: addtionals_textarea_cols(settings[:text]),
+                      class: 'wiki-edit',
+                      required: true
+      = wikitoolbar_for "settings_#{block}_text"

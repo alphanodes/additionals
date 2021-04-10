@@ -17,6 +17,7 @@ class DashboardsController < ApplicationController
   helper :dashboards
   helper :additionals_issues
   helper :additionals_queries
+  helper :additionals_settings
 
   include AdditionalsRoutesHelper
   include AdditionalsQueriesHelper

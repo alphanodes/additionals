@@ -1,21 +1,11 @@
-- max_entries = settings[:max_entries].presence || DashboardContent::DEFAULT_MAX_ENTRIES
-div id="#{block}-settings" style="#{'display: none;' if hide}"
-  = form_tag(_update_layout_setting_dashboard_path(@project, @dashboard), remote: true) do
-    = hidden_field_tag "settings[#{block}][me_only]", '0'
-    .box
-      p
-        label
-          = l(:label_max_entries)
-          ' :
-          = number_field_tag "settings[#{block}][max_entries]", max_entries, min: 1, max: 1000, required: true
-
-      p
-        label
-          = l(:label_only_my_activities)
-          ' :
-          = check_box_tag "settings[#{block}][me_only]", '1', Additionals.true?(settings[:me_only])
-
-    p
-      = submit_tag l(:button_save)
-      '
-      = link_to_function l(:button_cancel), "$('##{block}-settings').toggle();"
+.box.tabular.settings
+  p
+    = additionals_settings_numberfield :max_entries,
+                                        value: settings[:max_entries].presence || DashboardContent::DEFAULT_MAX_ENTRIES,
+                                        tag_name: "settings[#{block}][max_entries]",
+                                        min: 1, max: 1000, required: true
+  p
+    = additionals_settings_checkbox :me_only,
+                                    label: l(:label_only_my_activities),
+                                    active_value: settings[:me_only],
+                                    tag_name: "settings[#{block}][me_only]"

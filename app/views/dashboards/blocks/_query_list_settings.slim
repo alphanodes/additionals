@@ -1,27 +1,25 @@
 - query = klass.find_by id: settings[:query_id]
 - query.column_names = settings[:columns].map(&:to_sym) if query && settings[:columns].present?
 
-div id="#{block}-settings" style="#{'display: none;' if hide}"
-  = form_tag(_update_layout_setting_dashboard_path(@project, dashboard), remote: true) do
-    .box
-      - if query
-        = render_query_columns_selection query, name: "settings[#{block}][columns]"
-      - else
-        p
-          label
-            = block_definition[:label]
-            '
-            = select_tag "settings[#{block}][query_id]",
-                         options_for_query_select(klass, @project),
-                         required: true
+- if query
+  .box
+    = render_query_columns_selection query, name: "settings[#{block}][columns]"
+    .tabular.settings
       p
-        label
-          = l :label_max_entries
-          ' :
-          = number_field_tag "settings[#{block}][max_entries]",
-                             settings[:max_entries].presence || DashboardContent::DEFAULT_MAX_ENTRIES,
-                             min: 1, max: 100, required: true
+        = additionals_settings_numberfield :max_entries,
+                                            value: settings[:max_entries].presence || DashboardContent::DEFAULT_MAX_ENTRIES,
+                                            tag_name: "settings[#{block}][max_entries]",
+                                            min: 1, max: 100, required: true
+- else
+  .box.tabular.settings
     p
-      = submit_tag l(:button_save)
-      '
-      = link_to_function l(:button_cancel), "$('##{block}-settings').toggle();"
+      = additionals_settings_select :query_id,
+                                    options_for_query_select(klass, @project),
+                                    label: block_definition[:label],
+                                    tag_name: "settings[#{block}][query_id]",
+                                    required: true
+    p
+      = additionals_settings_numberfield :max_entries,
+                                          value: settings[:max_entries].presence || DashboardContent::DEFAULT_MAX_ENTRIES,
+                                          tag_name: "settings[#{block}][max_entries]",
+                                          min: 1, max: 100, required: true

@@ -15,60 +15,60 @@ fr:
         dashboard:
             must_be_for_everyone: "doit être défini pour chaque utilisateur si le système par défaut est utilisé."
       messages:
-        issue_cannot_close_with_open_children: "Ce issue ne peut être clôturé que si toutes les sub-issues sont également clôturées."
+        issue_cannot_close_with_open_children: "Cette tâche ne peut être clôturée que si toutes les sous-tâches sont également clôturées."
         issue_current_user_status: "Le statut sélectionné exige que le \"cessionnaire\" soit vous-même."
-        issue_log_time_not_allowed: "est une issue close. Vous n'avez pas le droit de vous connecter."
-        issue_changes_not_allowed: "Ce issue est clos, vous n'avez pas le droit de le modifier."
+        issue_log_time_not_allowed: "est une tâche close. Vous n'avez pas le droit de vous connecter."
+        issue_changes_not_allowed: "Cette tâche est close, vous n'avez pas le droit de la modifier."
         issue_requires_timelog: "Le statut de sortie sélectionné nécessite un enregistrement temporel."
-        invalid_icon_format: is an invalid font-awesome code
-        relation_not_unique: multiple assigned.
+        invalid_icon_format: est un code font-awesome invalide
+        relation_not_unique: affectation multiple.
   account_login_info: "Ce message texte sera affiché à la page de connexion et devrait être utilisé pour les informations d'inscription. Ces options sont actives dans tous les projets."
-  add_go_to_top_info: "Si vous avez beaucoup de pages longues, il est utile d'ajouter un saut au lien du haut."
+  add_go_to_top_info: "Si vous avez beaucoup de pages longues, il est utile d'ajouter un lien pour revenir en haut de la page."
   additionals_query_list_default_totals: "Montants par défaut pour la vue en liste"
   additionals_query_list_defaults: "Colonnes par défaut pour la vue en liste"
   alert_only_visible_by_admins: "Ne peut être vu que par les utilisateurs ayant les droits d'administrateur"
   alert_only_visible_by_yourself: "Ne peut être vu que par vous"
-  button_assign_to_me: Assign to me
-  button_dashboard_delete: "Supprimer dashboard"
-  button_dashboard_edit: "Modifier dashboard"
-  disabled_modules_info: "Les modules qui ne devraient pas être disponibles pour la sélection dans le cadre des projets. Si ces modules sont déjà activés dans des projets existants, vous devez d'abord modifier et sauvegarder à nouveau les paramètres de projet respectifs."
-  error_issue_status_could_not_changed: "L'état de la question n'a pas pu être modifié"
-  error_issues_could_not_be_assigned_to_me: "La question n'a pas pu m'être assignée"
+  button_assign_to_me: M'affecter
+  button_dashboard_delete: "Supprimer le tableau de bord"
+  button_dashboard_edit: "Modifier le tableau de bord"
+  disabled_modules_info: "Les modules qui ne devraient pas être disponibles pour la sélection dans le cadre des projets. Si ces modules sont déjà activés dans des projets existants, vous devez d'abord modifier et sauvegarder à nouveau les paramètres projet respectifs."
+  error_issue_status_could_not_changed: "L'état de la tâche n'a pas pu être modifié"
+  error_issues_could_not_be_assigned_to_me: "La tâche n'a pas pu m'être affectée"
   error_query_statement_invalid: "Une erreur s'est produite lors de l'exécution de la requête et a été enregistrée. Veuillez signaler cette erreur à votre administrateur Redmine."
   errors_no_or_invalid_arguments: "Pas d'arguments ou arguments invalides"
-  field_always_expose: Always expose
+  field_always_expose: Toujours affiché
   field_autowatch_involved_issue: "Problèmes liés à la surveillance automatique"
   field_color: Couleur
-  field_enable_sidebar: Enable sidebar
-  field_hide: "Cuir"
-  field_icon: Icon
-  field_issue_relation_plural: Issue relations
+  field_enable_sidebar: Activer le menu latéral
+  field_hide: "Cacher"
+  field_icon: Icône
+  field_issue_relation_plural: Relations entre tâches
   field_project_system_default: "Projet par défaut"
   field_system_default: "Défaut du système"
   field_visibility: "Visibilité"
-  field_website: Website
+  field_website: Site Web
   global_footer_info: 'Entrez un projet en bas de page wiki ici.'
   global_sidebar_info: "Saisissez ici un message texte disponible pour l'ensemble du projet. Ce texte latéral sera affiché dans la vue d'ensemble du projet, les pages d'édition et les pages wiki."
   global_wiki_sidebar_info: "Entrez ici un message texte disponible pour l'ensemble du projet pour votre barre latérale wiki. Ce texte de la barre latérale sera affiché uniquement sur les pages wiki. Use this space for Macros like \"Last changed pages\" for example. Dans le cas où une barre latérale spécifique au projet est utilisée (page wiki), celle-ci sera de préférence affichée dans la barre latérale."
   google_maps_embed_api_html: "Si vous souhaitez utiliser la macro Gmap pour afficher les cartes de Goole, veuillez implémenter votre clé API Google Maps ici. Ensuite, vous pouvez utiliser la macro et divers paramètres. Pour plus d'informations sur l'utilisation des paramètres, voir <a href=\"https://developers.google.com/maps/documentation/embed/guide\">https://developers.google.com/maps/documentation/embed/guide</a>. La macro Gmap ne fonctionne qu'en combinaison avec la clé intégrée."
   hidden_macros_in_toolbar_info: "Toutes les macros disponibles que l'utilisateur connecté peut utiliser sont listées via le bouton macro de la barre d'outils wiki. Les macros marquées ici ne sont pas proposées à la sélection. Ceci vous permet de limiter la portée de la liste."
-  info_dashboard_project_select: Leave it blank, if you want to use this dashboard for all projects.
+  info_dashboard_project_select: Laisser vide, si vous souhaitez utiliser ce tableau de bord pour toutes les projets.
   info_hidden_roles_html: "Les rôles cachés ne peuvent être utilisés qu'avec la visibilité utilisateur \"Membres de projets visibles\". Si l'utilisateur n'est pas dans un rôle visible par l'utilisateur actuel, ce rôle, y compris l'utilisateur, est masqué sur la page de synthèse du projet et dans les listes de requêtes."
-  label_account_login_bottom: "Texte pour la page de login"
-  label_active_dashboard: "Dashboard actif"
+  label_account_login_bottom: "Texte pour la page de connexion"
+  label_active_dashboard: "Tableau de bord actif"
   label_add_dashboard_block: "Ajouter un bloc"
-  label_add_go_to_top: 'Add "Go to top" link'
-  label_additionals_doc: Additionals documentation
-  label_additionals_feed: Atom+RSS Feed
+  label_add_go_to_top: 'Ajouter un lien "Revenir en haut"'
+  label_additionals_doc: Documentation Additionals
+  label_additionals_feed: Flux Atom+RSS
   label_additionals: Additionals
-  label_app_menu: App menu
-  label_change_is_private: Change private/non-private
-  label_change_to_dashboard: "Passer au Dashboard"
-  label_chart_color_schema: Charts color scheme
-  label_chart_with_name: "Chart: %{value}"
+  label_app_menu: Menu applicatif
+  label_change_is_private: Changer Privé/non privé
+  label_change_to_dashboard: "Passer au tableau de bord"
+  label_chart_color_schema: Schéma de couleur graphique
+  label_chart_with_name: "Graphique: %{value}"
   label_chartjs_colorscheme_info: "Liste des couleurs"
-  label_content_plural: Contents
-  label_copied_to_clipboard: "Copie !"
+  label_content_plural: Contenus
+  label_copied_to_clipboard: "Copié !"
   label_copy_to_clipboard: "Copie dans le presse-papiers"
   label_custom_fields_distribution: "Champs personnalisés pour la distribution"
   label_custom_menu_items: Éléments de menu personnalisés
@@ -76,82 +76,82 @@ fr:
   label_dashboard_author: "Auteur: %{name}"
   label_dashboard_legacy_left: "Contenu standard à gauche"
   label_dashboard_legacy_right: "Droit au contenu standard"
-  label_dashboard_plural: Dashboards
-  label_dashboard: Dashboard
+  label_dashboard_plural: Tableaux de bord
+  label_dashboard: Tableau de bord
   label_day: Jour
   label_disable_sidebar: "Désactiver la sidebar"
   label_disabled_modules: "Modules désactivés"
-  label_docs_access_token: Access token
+  label_docs_access_token: Jeton d'accès
   label_enable_sidebar: "Activer la sidebar"
-  label_global_footer: "Project wide footer"
-  label_global_sidebar: "Global sidebar"
-  label_global_wiki_sidebar: "Global wiki sidebar"
-  label_go_to_top: "Go to top"
-  label_google_maps_api_key: Google Maps Embed API Key
+  label_global_footer: "Pied de page projet"
+  label_global_sidebar: "Barre latéral globale"
+  label_global_wiki_sidebar: "Barre latéral global du wiki"
+  label_go_to_top: "Revenir en haut"
+  label_google_maps_api_key: Clé API de Google Maps
   label_help_integration: "Intégration de notre aide en ligne"
-  label_help_manual: manual
-  label_hidden_macros_in_toolbar: Hidden macros
+  label_help_manual: manuel
+  label_hidden_macros_in_toolbar: Cacher les macros
   label_hour: Heure
-  label_icon_color: Icon color
+  label_icon_color: Couleur d'icône
   label_invalid_feed_data: "Données d'alimentation ou URL invalides"
-  label_issue_assign_to_me: Show "Assign to me" on issue
+  label_issue_assign_to_me: Voir "M'affecter" sur les tâches
   label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
   label_issue_autowatch_involved: "Ajout automatique des utilisateurs impliqués en tant qu'observateurs"
-  label_issue_change_status_in_sidebar: Issue status on sidebar
-  label_issue_change_status: Modifier statut
+  label_issue_change_status_in_sidebar: Statuts des tâches dans la bare latérale
+  label_issue_change_status: Modifier le statut
   label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
-  label_issue_freezed_with_close: "Interdire l'édition des questions fermées (freeze)"
+  label_issue_freezed_with_close: "Interdire l'édition des tâches fermées (freeze)"
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
-  label_issue_timelog_required: Time log for issues required
+  label_issue_timelog_required: Saisie de temps obligatoire pour une tâche
   label_issues_summary: "Issue registration"
-  label_last_year: previous year
+  label_last_year: année dernière
   label_legacy_smiley_support: Legacy smiley support
   label_macro_plural: macros
   label_max_entries: "Entrées maximales"
   label_menu_entry: "Menu item"
   label_monthly: mensuel
   label_my_activity: "Mon activité"
-  label_my_dashboard_plural: "Mes dashboards"
-  label_my_spent_time: My spent time
-  label_new_additional_dashboard: "Nouveau dashboard"
-  label_new_dashboard: "Nouveau dashboard"
-  label_new_issue_on_profile: "Nouveau issue sur le profil de l'utilisateur"
-  label_new_ticket_message: "Note for new issues"
+  label_my_dashboard_plural: "Mes tableaux de bord"
+  label_my_spent_time: Ma saisie de temps d'activité
+  label_new_additional_dashboard: "Nouveau tableau de bord"
+  label_new_dashboard: "Nouveau tableau de bord"
+  label_new_issue_on_profile: "Nouvelle tâche sur le profil de l'utilisateur"
+  label_new_ticket_message: "Note pour les nouvelles tâches"
   label_no_permission: "Pas de permission"
   label_only_my_activities: "Seulement mon activité"
   label_open_external_urls: Ouvrir des URL externes
   label_open_in_google_docs: "Ouvrir dans Google Docs"
-  label_open_in_new_windows: Open in new windows
-  label_optional: "optional"
-  label_pdf_wiki_settings: PDF Wiki settings
+  label_open_in_new_windows: Ouvrir dans une nouvelle fenêtre
+  label_optional: "optionnel"
+  label_pdf_wiki_settings: paramètres d'édition PDF d'une page Wiki
   label_project_information: "Informations sur le projet"
-  label_project_list: "Project list"
-  label_query_delete: Annuler query
-  label_query_edit: Modifier query
+  label_project_list: "liste des projets"
+  label_query_delete: Annuler la requête
+  label_query_edit: Modifier la requête
   label_query_name_search: Rechercher un nom
-  label_query_with_name: "Query: %{value}"
-  label_reddit_subject: Reddit subject
-  label_reddit_user_account: Reddit user account
+  label_query_with_name: "Requête: %{value}"
+  label_reddit_subject: Sujet Reddit
+  label_reddit_user_account: Compte utilisateur Reddit
   label_redmine_org_issue: Redmine.org issue
   label_redmine_org_wiki: Redmine.org wiki page
-  label_remove_help: "Remove 'Help' from top menu"
-  label_remove_mypage: "Remove 'My Page' from top menu"
+  label_remove_help: "Retirer 'Aide' du menu"
+  label_remove_mypage: "Retirer 'Ma Page' du menu"
   label_search_by_name: Recherche par nom
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
-  label_shared_dashboard_plural: "Dashboards partagés"
+  label_shared_dashboard_plural: "Tableaux de bord partagés"
   label_show_all: Montrer tout
-  label_system_info: System info
+  label_system_info: Info système
   label_text_async: "Texte (asynchrone)"
   label_text_sync: Texte
   label_top_macros_help_html: "Vous obtenez ici une liste de toutes les macros Redmine disponibles de votre installation, qui sont fournies par Redmine et les plugins Redmine."
   label_top_menu_help_html: "Ici, vous pouvez définir de nouveaux éléments de menu du haut."
-  label_top_menu: Top menu
-  label_twitter_account: Twitter account
-  label_twitter_hashtag: Twitter hashtag
+  label_top_menu: Menu supérieur
+  label_twitter_account: Compte Twitter
+  label_twitter_hashtag: Hashtag Twitter
   label_uptime: Uptime
   label_user_list: "Liste des utilisateurs"
-  label_web_apis: Web APIs
+  label_web_apis: APIs Web
   label_weekly: hebdomadaire
   label_wiki_pdf_remove_attachments: "Supprimer les pièces jointes de la vue PDF"
   label_wiki_pdf_remove_title: "Supprimer le titre du wiki de la vue PDF"
@@ -166,20 +166,23 @@ fr:
   permission_edit_closed_issues: "Éditer les dossiers fermés"
   permission_edit_issue_author: "Modifier l'auteur"
   permission_issue_timelog_never_required: Enregistrements de temps non requis
-  permission_log_time_on_closed_issues: "Enregistrer le temps passé sur les questions fermées"
+  permission_log_time_on_closed_issues: "Enregistrer le temps passé sur les tâches fermées"
   permission_save_dashboards: "Sauvegarder les tableaux de bord"
   permission_set_system_dashboards: "Définir les tableaux de bord du système"
   permission_share_dashboards: "Partager les tableaux de bord"
   permission_show_hidden_roles_in_memberbox: "Afficher les rôles cachés"
-  remove_help_info: "Remove the item 'Help' from the top menu."
+  remove_help_info: "Retire le lien 'Aide' du menu placé en haut de la page."
   remove_mypage_info: 'Sometimes it is more useful to hide the "My Page" link in order to introduce the task board. The task board advantage is that issues can be listed according to their status.'
-  rule_issue_auto_assign_info: "Cas d'utilisation : L'auteur du problème ne sait pas à qui attribuer le problème ou qui sera responsable de la résolution de la tâche. Dans ce cas, le problème par exemple avec le statut \"A faire\" est automatiquement affecté au premier groupe, qui contient un utilisateur du rôle de chef de projet présélectionné."
+  rule_issue_auto_assign_info: "Cas d'utilisation : L'auteur du problème ne sait pas à qui affecter le problème ou qui sera responsable de la résolution de la tâche. Dans ce cas, le problème par exemple avec le statut \"A faire\" est automatiquement affecté au premier groupe, qui contient un utilisateur du rôle de chef de projet présélectionné."
   rule_issue_current_user_status_info_html: "Si cette fonction est utilisée en combinaison avec l'option de paramétrage \"Etat du problème dans la barre latérale\", l'utilisateur actuel sera automatiquement affecté au problème lors de la modification de l'état du problème.<br />Use Case: Les utilisateurs ne sont autorisés à changer le statut en \"En cours\" que s'ils sont la personne qui travaille réellement sur le problème en ce moment."
   rule_issue_freezed_with_close_info: "Si cette option est activée, les numéros déjà fermés ne peuvent plus être édités et commentés. Pas même par courrier ou API. Cette restriction ne s'applique pas aux rôles utilisateurs avec l'autorisation \"Modifier les problèmes fermés\"."
-  rule_issue_status_change_info: "Cas d'utilisation: les problèmes doivent être automatiquement assignés à autor, si l'état passe à \"Approval\"."
+  rule_issue_status_change_info: "Cas d'utilisation: les problèmes doivent être automatiquement affectés à l'auteur, si l'état passe à \"Approuvé\"."
   rule_issue_timelog_required_info_html: "Pour chaque ticket des trackers sélectionnés, une réservation temporelle est nécessaire si le ticket doit recevoir l'une des propriétés de statut définies. La réservation de temps n'est pas nécessaire si:<br />- aucun droit n'existe pour créer des réservations de temps <br />- l'utilisateur a l'autorisation \"Réservations de temps non nécessaires\" <br />Use case: Pour accepter un ticket avec le statut \"Vérifier\", le temps passé est également requis."
-  top_rules_help: "Ici, vous pouvez définir des règles, qui sont utilisées dans les questions de tous les projets."
+  top_rules_help: "Ici, vous pouvez définir des règles, qui sont utilisées dans les tâches de tous les projets."
   top_wiki_help: "Ici vous pouvez définir le contenu et les paramètres de votre Wiki."
   wiki_pdf_remove_attachments_info: "Lorsqu'ils sont actifs, les fichiers Wiki joints ne seront pas affichés en vue PDF."
   wiki_pdf_remove_title_info: "Lorsqu'elle est active, l'information sur le titre du wiki ne sera pas affichée dans la vue PDF."
-  button_merge: Merge
+  button_merge: Fusionner
+  label_live_search_hints: "Recherches par champ disponibles: %{value}"
+  label_stats_new_today: "Nouveau aujourd'hui"
+  label_stats_totals: "Total"

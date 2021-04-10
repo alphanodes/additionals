@@ -33,6 +33,8 @@ module Additionals
                         .where("#{WikiContent.table_name}.updated_on > ?", User.current.today - days)
                         .order("#{WikiContent.table_name}.updated_on desc")
 
+        pages = pages.visible(User.current, project: project) if pages.respond_to? :visible
+
         s = []
         date = nil
         pages.each do |page_raw|

@@ -6,11 +6,18 @@
 - if @can_edit && \
      block_definition[:no_settings].blank? && \
      (!block_definition.key?(:with_settings_if) || block_definition[:with_settings_if].call(@project))
-  = render partial: block_definition[:settings_partial].presence || "#{async[:partial]}_settings",
-           locals: build_dashboard_partial_locals(block,
-                                                  block_definition,
-                                                  settings,
-                                                  dashboard).merge({ hide: with_async })
+  div id="#{block}-settings" style="#{'display: none;' if with_async}"
+    = form_tag(_update_layout_setting_dashboard_path(@project, dashboard), remote: true) do
+      = render partial: block_definition[:settings_partial].presence || "#{async[:partial]}_settings",
+              locals: build_dashboard_partial_locals(block,
+                                                     block_definition,
+                                                     settings,
+                                                     dashboard).merge(with_async: with_async)
+
+      p
+        = submit_tag l(:button_save)
+        '
+        = link_to_function l(:button_cancel), "$('##{block}-settings').toggle();"
 
 - if with_async
   = render_async_cache _dashboard_async_blocks_path(@project,
@@ -19,7 +26,7 @@
     p
       i.fas.fa-sync.fa-spin
       '
-      = l(:label_loading)
+      = l :label_loading
 
   = content_for :render_async
 

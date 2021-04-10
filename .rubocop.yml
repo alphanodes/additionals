@@ -6,7 +6,7 @@ Rails:
   Enabled: true
 
 AllCops:
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 2.5
   TargetRailsVersion: 5.2
   NewCops: enable
 
@@ -21,6 +21,9 @@ Metrics/ClassLength:
 
 Metrics/CyclomaticComplexity:
   Max: 25
+
+Style/HashConversion:
+  Enabled: true
 
 Layout/LineLength:
   Max: 140
@@ -65,9 +68,6 @@ Style/Documentation:
 Style/ExpandPathArguments:
   Enabled: false
 
-Style/HashTransformKeys:
-  Enabled: false
-
 Style/HashTransformValues:
   Enabled: false
 
@@ -75,9 +75,6 @@ Naming/VariableNumber:
   Enabled: true
   Exclude:
     - 'test/**/*'
-
-Layout/SpaceBeforeBrackets:
-  Enabled: false
 
 Style/StringConcatenation:
   Exclude:

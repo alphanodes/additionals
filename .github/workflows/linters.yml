@@ -12,25 +12,18 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - name: Set up Ruby 2.6
-      uses: actions/setup-ruby@v1
-      with:
-        ruby-version: 2.6.x
-
-    - name: Set Gemfile
+    - name: Setup Gemfile
       run: |
-        echo "">> Gemfile
-        echo "group :test do">> Gemfile
-        echo "  gem 'pandoc-ruby', require: false" >> Gemfile
-        echo "  gem 'rubocop', require: false" >> Gemfile
-        echo "  gem 'rubocop-performance', require: false" >> Gemfile
-        echo "  gem 'rubocop-rails', require: false" >> Gemfile
-        echo "  gem 'slim_lint', require: false" >> Gemfile
-        echo "end">> Gemfile
+        cp test/support/gemfile.rb Gemfile
+
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.6
+        bundler-cache: true
 
     - name: Setup gems
       run: |
-        gem install bundler
         bundle install --jobs 4 --retry 3
 
     - name: Run RuboCop

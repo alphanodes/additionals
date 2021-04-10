@@ -303,7 +303,10 @@ class Dashboard < ActiveRecord::Base
     config = { dashboard_id: id,
                block: block }
 
-    settings[:user_id] = User.current.id if !options.key?(:skip_user_id) || !options[:skip_user_id]
+    if !options.key?(:skip_user_id) || !options[:skip_user_id]
+      settings[:user_id] = User.current.id
+      settings[:user_is_admin] = User.current.admin?
+    end
 
     if settings.present?
       settings.each do |key, setting|

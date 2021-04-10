@@ -1,7 +1,4 @@
-- cache render_async_cache_key(_dashboard_async_blocks_path(@project,
-                                                            dashboard.async_params(block, async, settings))),
-                               expires_in: async[:cache_expires_in],
-                               skip_digest: true do
+- dashboard_async_cache dashboard, block, async, settings do
 
   - feed = dashboard_feed_catcher settings[:url], settings[:max_entries]
   h3
@@ -11,13 +8,10 @@
     - if feed[:items].count.positive?
       ul.reporting-list.feed
         - feed[:items].each do |item|
-          li
-            = link_to item[:title],
-                      item[:link],
-                      class: 'external', rel: 'noopener noreferrer', target: '_blank'
+          li = link_to_external item[:title], item[:link]
     - else
       p.nodata = l :label_no_data
   - elsif settings[:url].blank?
     p.nodata = l :label_no_data
   - else
-    p.nodata = l(:label_invalid_feed_data)
+    p.nodata = l :label_invalid_feed_data

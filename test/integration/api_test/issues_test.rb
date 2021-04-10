@@ -66,7 +66,7 @@ module ApiTest
         assert_equal 'API test', issue.subject
 
         assert_response :created
-        assert_equal 'application/xml', @response.content_type
+        assert_equal 'application/xml', @response.media_type
         assert_select 'issue > id', text: issue.id.to_s
       end
     end
@@ -96,7 +96,7 @@ module ApiTest
         assert_equal 'API test', issue.subject
 
         assert_response :created
-        assert_equal 'application/xml', @response.content_type
+        assert_equal 'application/xml', @response.media_type
         assert_select 'issue > id', text: issue.id.to_s
       end
     end

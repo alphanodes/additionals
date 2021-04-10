@@ -3,7 +3,7 @@ Iframe
 
 Iframe macro for Redmine. The iframe is a square HTML element. It can be embedded e.g. within a Wiki page of Redmine. Via an iframe, content from other Internet pages can be integrated just like via a small integrated browser window.
 
-For example you can integrate a CodiMD Pad page into your Wiki pages.
+For example you can integrate a HedgeDoc Pad page into your Wiki pages.
 
 .. function:: {{iframe(url [, width=INT, height=INT, with_link=BOOL])}}
 

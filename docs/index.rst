@@ -22,7 +22,7 @@ Additionals is a `Redmine`_ plugin for customizing Redmine, providing wiki macro
    :alt: Documentation Status
 
 .. image:: https://github.com/AlphaNodes/additionals/workflows/Tests/badge.svg
-   :target: https://github.com/AlphaNodes/additionals/actions?query=workflow%3A"Run+Tests
+   :target: https://github.com/AlphaNodes/additionals/actions?query=workflow%3ATests
 
 .. image:: https://github.com/AlphaNodes/additionals/workflows/Run%20Linters/badge.svg
    :target: https://github.com/AlphaNodes/additionals/actions?query=workflow%3A%22Run+Linters%22
@@ -37,7 +37,7 @@ Requirements
 +--------------------+-----------------------------------+
 | `Redmine`_ version | >= 4.1.0                          |
 +--------------------+-----------------------------------+
-| `Ruby`_ version    | >= 2.4.0                          |
+| `Ruby`_ version    | >= 2.5.0                          |
 +--------------------+-----------------------------------+
 | Database version   | MySQL >= 5.7 or PostgreSQL >= 9.6 |
 +--------------------+-----------------------------------+
@@ -55,7 +55,7 @@ Install ``additionals`` plugin for `Redmine`_.
 .. code-block:: bash
 
   $ cd $REDMINE_ROOT
-  $ git clone -b v3-stable https://github.com/AlphaNodes/additionals.git plugins/additionals
+  $ git clone -b stable https://github.com/AlphaNodes/additionals.git plugins/additionals
   $ bundle install --without development test
   $ bundle exec rake redmine:plugins:migrate RAILS_ENV=production
   $
@@ -175,11 +175,11 @@ It provides :
 * `Chart.js 2.9.4 <https://www.chartjs.org/>`_
 * `Chart.js Plugin colorschemes 0.4.0 <https://github.com/nagix/chartjs-plugin-colorschemes>`_
 * `Chart.js Plugin datalabels 0.7.0 <https://github.com/chartjs/chartjs-plugin-datalabels>`_
-* `clipboardJS 2.0.6 <https://clipboardjs.com/>`_
-* `d3 6.3.1 <https://d3js.org/>`_
-* `d3plus v2.0.0-alpha.29 <https://d3plus.org/>`_
-* `FontAwesome 5.15.1 <https://fontawesome.com/>`_
-* `mermaid 8.8.4 <https://github.com/knsv/mermaid/>`_
+* `clipboardJS 2.0.8 <https://clipboardjs.com/>`_
+* `d3 6.6.2 <https://d3js.org/>`_
+* `d3plus v2.0.0-alpha.30 <https://d3plus.org/>`_
+* `FontAwesome 5.15.3 <https://fontawesome.com/>`_
+* `mermaid 8.9.2 <https://github.com/knsv/mermaid/>`_
 * `Select2 4.0.13 <https://select2.org/>`_
 
 And a set of various Rails helper methods (see below).
@@ -213,9 +213,9 @@ Redmine Plugins, which are using ``additionals``
 
 * `additional_tags <https://github.com/AlphaNodes/additional_tags>`_
 * `redmine_automation <https://alphanodes.com/redmine-automation>`_
-* `redmine_codimd <https://github.com/AlphaNodes/redmine_codimd>`_
 * `redmine_db <https://alphanodes.com/redmine-db>`_
 * `redmine_git_hosting <http://redmine-git-hosting.io/>`_
+* `redmine_hedgedoc <https://github.com/AlphaNodes/redmine_hedgedoc>`_
 * `redmine_hrm <https://alphanodes.com/redmine-hrm>`_
 * `redmine_omniauth_saml <https://github.com/alexandermeindl/redmine_omniauth_saml>`_
 * `redmine_passwords <https://alphanodes.com/redmine-passwords>`_

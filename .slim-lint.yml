@@ -16,11 +16,12 @@ linters:
       - Layout/MultilineMethodCallIndentation
       - Layout/MultilineMethodDefinitionBraceLayout
       - Layout/MultilineOperationIndentation
+      - Layout/SpaceBeforeBrackets
       - Layout/TrailingEmptyLines
       - Lint/Void
       - Metrics/BlockNesting
       - Rails/OutputSafety
+      - Style/IdenticalConditionalBranches
       - Style/IfUnlessModifier
       - Style/Next
       - Style/WhileUntilModifier
-      - Layout/SpaceBeforeBrackets

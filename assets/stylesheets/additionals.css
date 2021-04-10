@@ -23,6 +23,12 @@
   font-size: 95%;
 }
 
+#my-page.dashboard .settings input[type=text],
+#my-page.dashboard .settings input[type=password],
+#my-page.dashboard .settings input[type=url] {
+  width: 90%;
+}
+
 /* Mobile menu style FontAwesome icon */
 .flyout-is-active #admin-menu li a.additionals {
   padding-left: 8px !important;
@@ -34,12 +40,19 @@
 
 /* Go to top link */
 .gototop {
-  border-top: 1px solid #eee;
   display: block;
   margin-top: 20px;
   padding: 10px 0;
   text-align: right;
   clear: both;
+}
+
+.gototop::before {
+  font-family: Font Awesome\ 5 Free;
+  font-weight: 900;
+  content: "\f139"; /* fas fa-chevron-circle-up */
+  padding-right: 4px;
+  opacity: 0.8;
 }
 
 /* Footer */
@@ -132,12 +145,6 @@
   background-image: url(../images/smileys/smiley-cool.png);
 }
 
-.smiley-rose {
-  background-image: url(../images/smileys/rose.png);
-  width: 24px;
-  height: 24px;
-}
-
 .smiley-check {
   background-image: url(../images/smileys/check.png);
 }
@@ -180,23 +187,36 @@ div.clear-both { clear: both; }
 
 img.additionals-avatar { margin-right: 0.25em; }
 
-/* Live search */
-.additionals-live-search input.live-search-field { font-size: 16px; }
+h2#page-title input {
+  font-size: 16px;
+}
 
-.additionals-live-search {
+h2#page-title::before {
+  font-family: Font Awesome\ 5 Free;
+  padding-right: 5px;
+  text-shadow: 0 2px 0 #efefef;
+  font-size: 90%;
+}
+
+/* Tooltips  */
+.ui-tooltip {
+  background: #000;
+  color: #fff;
+  font-size: 12px;
+  opacity: 0.85;
+  padding: 8px;
+  max-width: inherit;
+  box-shadow: 0 0 6px #888;
+}
+
+/* Live search */
+h2#page-title.live-search input {
   margin-left: 5px;
 }
 
-.ui-tooltip {
-  color: #fff;
-  background: #000;
-  opacity: 0.85;
-  padding: 8px;
-  border: 0;
-  max-width: inherit;
-  border-radius: 4px;
-  box-shadow: 0 0 6px #888;
-  font-size: 12px;
+h2#page-title.import::before {
+  font-weight: 900;
+  content: "\f093"; /* fas fa-upload */
 }
 
 a.external.redmine-link {
@@ -340,6 +360,18 @@ span.dashboard-system-default.global {
 
 select.dashboard-block-select {
   min-width: 200px;
+}
+
+#my-page.dashboard #list-left .tabular.settings p,
+#my-page.dashboard #list-right .tabular.settings p {
+  padding-left: 0;
+}
+
+#my-page.dashboard #list-left .tabular.settings label,
+#my-page.dashboard #list-right .tabular.settings label {
+  margin-left: 0;
+  width: 100%;
+  text-align: left;
 }
 
 div.drdn-items a.disabled,

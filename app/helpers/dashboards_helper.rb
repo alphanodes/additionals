@@ -1,4 +1,10 @@
 module DashboardsHelper
+  def dashboard_async_cache(dashboard, block, async, settings, &content_block)
+    cache render_async_cache_key(_dashboard_async_blocks_path(@project, dashboard.async_params(block, async, settings))),
+          expires_in: async[:cache_expires_in] || DashboardContent::RENDER_ASYNC_CACHE_EXPIRES_IN,
+          skip_digest: true, &content_block
+  end
+
   def dashboard_sidebar?(dashboard, params)
     if params['enable_sidebar'].blank?
       if dashboard.blank?
@@ -220,10 +226,11 @@ module DashboardsHelper
                                   title: l(:label_options))
       end
       icons << tag.span('', class: 'icon-only icon-sort-handle sort-handle', title: l(:button_move))
-      icons << link_to(l(:button_delete),
-                       _remove_block_dashboard_path(@project, dashboard, block: block),
-                       remote: true, method: 'post',
-                       class: 'icon-only icon-close', title: l(:button_delete))
+      icons << delete_link(_remove_block_dashboard_path(@project, dashboard, block: block),
+                           method: :post,
+                           remote: true,
+                           class: 'icon-only icon-close',
+                           title: l(:button_delete))
 
       content = tag.div(safe_join(icons), class: 'contextual') + content
     end
@@ -330,7 +337,7 @@ module DashboardsHelper
     max_entries = settings[:max_entries] || DashboardContent::DEFAULT_MAX_ENTRIES
 
     news = if dashboard.content_project.nil?
-             News.latest User.current
+             News.latest User.current, max_entries
            else
              dashboard.content_project
                       .news

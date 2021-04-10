@@ -14,6 +14,7 @@ module Additionals
         helper :issues
         helper :queries
         helper :additionals_queries
+        helper :additionals_settings
         helper :dashboards
 
         include DashboardsHelper

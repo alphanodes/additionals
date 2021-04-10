@@ -1,7 +1,4 @@
-- cache render_async_cache_key(_dashboard_async_blocks_path(@project,
-                                                            dashboard.async_params(block, async, settings))),
-                               expires_in: async[:cache_expires_in],
-                               skip_digest: true do
+- dashboard_async_cache dashboard, block, async, settings do
 
   - if settings[:title].present?
     h3 = settings[:title]

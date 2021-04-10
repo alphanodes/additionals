@@ -67,11 +67,10 @@ class DashboardContent
   def available_blocks
     return @available_blocks if defined? @available_blocks
 
-    available_blocks = begin block_definitions.reject do |_block_name, block_specs|
-                               block_specs.key?(:permission) && !user.allowed_to?(block_specs[:permission], project, global: true) ||
-                                 block_specs.key?(:admin_only) && block_specs[:admin_only] && !user.admin? ||
-                                 block_specs.key?(:if) && !block_specs[:if].call(project)
-                             end
+    available_blocks = block_definitions.reject do |_block_name, block_specs|
+      block_specs.key?(:permission) && !user.allowed_to?(block_specs[:permission], project, global: true) ||
+        block_specs.key?(:admin_only) && block_specs[:admin_only] && !user.admin? ||
+        block_specs.key?(:if) && !block_specs[:if].call(project)
     end
 
     @available_blocks = available_blocks.sort_by { |_k, v| v[:label] }.to_h

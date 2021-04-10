@@ -17,7 +17,7 @@ module Additionals
     render_on :view_my_account_preferences, partial: 'users/autowatch_involved_issue'
     render_on :view_users_form_preferences, partial: 'users/autowatch_involved_issue'
     render_on :view_users_show_contextual, partial: 'users/additionals_contextual'
-    render_on :view_wiki_show_sidebar_bottom, partial: 'additionals_sidebar'
+    render_on :view_wiki_show_sidebar_bottom, partial: 'wiki/additionals_sidebar'
 
     def helper_issues_show_detail_after_setting(context = {})
       detail = context[:detail]

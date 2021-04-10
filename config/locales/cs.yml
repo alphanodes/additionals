@@ -112,7 +112,7 @@ cs:
   label_monthly: "měsíční"
   label_my_activity: "Moje aktivita"
   label_my_dashboard_plural: "Můj dashboards"
-  label_my_spent_time: My spent time
+  label_my_spent_time: "Strávený čas"
   label_new_additional_dashboard: "Nový dashboard"
   label_new_dashboard: "Nový dashboard"
   label_new_issue_on_profile: "Nový úkol v uživatelském profilu"
@@ -166,7 +166,7 @@ cs:
   permission_edit_closed_issues: "Upravit uzavřené úkoly"
   permission_edit_issue_author: "Upravit autora úkolu"
   permission_issue_timelog_never_required: "Časování není nutné"
-  permission_log_time_on_closed_issues: "Přihlaste se k uzavřeným úkolům"
+  permission_log_time_on_closed_issues: "Zapisovat čas na uzavřené úkoly"
   permission_save_dashboards: "Uložte řídicí panely"
   permission_set_system_dashboards: "Nastavit systémové panely"
   permission_share_dashboards: "Sdílejte řídicí panely"
@@ -182,4 +182,7 @@ cs:
   top_wiki_help: "Zde můžete definovat obsah a nastavení vaší Wiki."
   wiki_pdf_remove_attachments_info: "Pokud je aktivní, připojené soubory Wiki se nebudou zobrazovat v zobrazení PDF."
   wiki_pdf_remove_title_info: "Pokud je aktivní, informace o názvu Wiki se nebudou zobrazovat v zobrazení PDF."
-  button_merge: Merge
+  button_merge: "Sloučení"
+  label_live_search_hints: "Dostupná vyhledávání v polích: %{value}"
+  label_stats_new_today: "Dnes novinka"
+  label_stats_totals: "Total"

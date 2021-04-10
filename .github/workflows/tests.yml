@@ -2,8 +2,6 @@ name: Tests
 on:
   push:
   pull_request:
-  schedule:
-    - cron: '0 5 * * *'
 
 jobs:
   test:
@@ -12,9 +10,12 @@ jobs:
 
     strategy:
       matrix:
-        ruby: ['2.6', '2.4']
-        redmine: ['4.1-stable', 'master']
+        ruby: ['2.7', '2.6', '2.5']
+        redmine: ['4.1-stable', '4.2-stable', 'master']
         db: ['postgres', 'mysql']
+        exclude:
+          - ruby: '2.7'
+            redmine: 4.1-stable
       fail-fast: false
 
     services:
@@ -33,13 +34,12 @@ jobs:
           --health-retries 5
 
       mysql:
-        image: mysql:5.7
+        image: mysql:8.0
         env:
-          MYSQL_USER: root
-          MYSQL_PASSWORD: ''
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_ROOT_PASSWORD: 'BestPasswordEver'
         ports:
-          - 3306:3306
+          # will assign a random free host port
+          - 3306/tcp
         options: >-
           --health-cmd="mysqladmin ping"
           --health-interval=10s
@@ -49,7 +49,7 @@ jobs:
     steps:
       - name: Verify MySQL connection from host
         run: |
-          mysql --host 127.0.0.1 --port 3306 -uroot -e "SHOW DATABASES"
+          mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports[3306] }} -uroot -pBestPasswordEver -e "SHOW DATABASES"
         if: matrix.db == 'mysql'
 
       - name: Checkout Redmine
@@ -78,37 +78,27 @@ jobs:
           libmysqlclient-dev
 
       - name: Setup Ruby
-        uses: actions/setup-ruby@v1
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
-
-      - name: Setup Cache
-        uses: actions/cache@v1
-        with:
-          path: vendor
-          key: v1-ruby-${{ matrix.ruby }}-redmine-${{ matrix.redmine }}
-
-      - name: Setup Bundler
-        run: |
-          gem install bundler -v '~> 1.0'
-          bundle config path "$(pwd)/vendor/bundle"
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
 
       - name: Prepare Redmine source
         working-directory: redmine
         run: |
-          sed -i '/rubocop/d' Gemfile
-          rm -f .rubocop*
           cp plugins/additionals/test/support/database-${{ matrix.db }}.yml config/database.yml
           cp plugins/additionals/test/support/configuration.yml config/configuration.yml
 
       - name: Install Ruby dependencies
         working-directory: redmine
         run: |
-          bundle install --jobs=4 --retry=3 --without development
+          bundle config set --local without 'development'
+          bundle install --jobs=4 --retry=3
 
       - name: Run Redmine rake tasks
         env:
           RAILS_ENV: test
+          MYSQL_PORT: ${{ job.services.mysql.ports[3306] }}
         working-directory: redmine
         run: |
           bundle exec rake generate_secret_token
@@ -118,13 +108,17 @@ jobs:
       - name: Run tests
         env:
           RAILS_ENV: test
-          REDMINE_VERSION: ${{ matrix.redmine }}
+          MYSQL_PORT: ${{ job.services.mysql.ports[3306] }}
         working-directory: redmine
         run: bundle exec rake redmine:plugins:test NAME=additionals RUBYOPT="-W0"
 
       - name: Run uninstall test
         env:
           RAILS_ENV: test
-          REDMINE_VERSION: ${{ matrix.redmine }}
+          MYSQL_PORT: ${{ job.services.mysql.ports[3306] }}
         working-directory: redmine
         run: bundle exec rake redmine:plugins:migrate NAME=additionals VERSION=0
+
+      - name: Run build gem file
+        working-directory: redmine/plugins/additionals
+        run: gem build additionals.gemspec

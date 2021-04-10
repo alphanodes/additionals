@@ -49,7 +49,7 @@ Disable modules
   Please restart the application server, if you make changes to the external urls settings as well as if you activate the Smileys support.
 
 .. note::
-  You can use the following manual smiley codes: :), =), :D, =D, :'(, :(, ;), :P, :O, :/, :S, :|, :X, :*, O:), >:), B), (!), (?), (v), (x), (/) and @}->-
+  You can use the following manual smiley codes: :), =), :D, =D, :'(, :(, ;), :P, :O, :/, :S, :|, :X, :*, O:), >:), B), (!), (?), (v), (x) and  (/)
 
 
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Deface::Override.new virtual_path: 'wiki/show',
                      name: 'wiki-show-bottom',
                      insert_before: 'p.wiki-update-info',

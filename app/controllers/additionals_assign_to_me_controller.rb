@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AdditionalsAssignToMeController < ApplicationController
   before_action :find_issue
   helper :additionals_issues
@@ -11,11 +13,11 @@ class AdditionalsAssignToMeController < ApplicationController
       return
     end
 
-    @issue.init_journal(User.current)
+    @issue.init_journal User.current
     @issue.assigned_to = User.current
 
     if !@issue.save || old_user == @issue.assigned_to
-      flash[:error] = l(:error_issues_could_not_be_assigned_to_me)
+      flash[:error] = l :error_issues_could_not_be_assigned_to_me
       return redirect_to(issue_path(@issue))
     end
 
@@ -29,7 +31,7 @@ class AdditionalsAssignToMeController < ApplicationController
   private
 
   def find_issue
-    @issue = Issue.find(params[:issue_id])
+    @issue = Issue.find params[:issue_id]
     raise Unauthorized unless @issue.visible? && @issue.editable?
 
     @project = @issue.project

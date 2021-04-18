@@ -1,4 +1,5 @@
-# Last_updated_at wiki macros
+# frozen_string_literal: true
+
 module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
@@ -19,14 +20,14 @@ module Additionals
 
           project_name = args[0].strip
           page_name = args[1].strip
-          project = Project.find_by(name: project_name)
-          project ||= Project.find_by(identifier: project_name)
+          project = Project.find_by name: project_name
+          project ||= Project.find_by identifier: project_name
           return unless project
 
-          wiki = Wiki.find_by(project_id: project.id)
+          wiki = Wiki.find_by project_id: project.id
           return unless wiki
 
-          page = wiki.find_page(page_name)
+          page = wiki.find_page page_name
         end
 
         return unless page

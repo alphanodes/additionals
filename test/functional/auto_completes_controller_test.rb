@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path '../../test_helper', __FILE__
 
 class AutoCompletesControllerTest < Additionals::ControllerTest
@@ -11,7 +13,7 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
     get :fontawesome
 
     assert_response :success
-    json = ActiveSupport::JSON.decode(response.body)
+    json = ActiveSupport::JSON.decode response.body
     assert_kind_of Array, json
     icon = json.first
     assert_kind_of Hash, icon
@@ -24,7 +26,7 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
         params: { q: 'sun' }
 
     assert_response :success
-    json = ActiveSupport::JSON.decode(response.body)
+    json = ActiveSupport::JSON.decode response.body
     assert_kind_of Array, json
     assert_equal 5, json.count
     icon = json.first
@@ -38,7 +40,7 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
         params: { q: 'doesnotexist' }
 
     assert_response :success
-    json = ActiveSupport::JSON.decode(response.body)
+    json = ActiveSupport::JSON.decode response.body
     assert_kind_of Array, json
     assert_equal 0, json.count
   end

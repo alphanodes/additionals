@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DashboardContent
   include Redmine::I18n
 
@@ -100,7 +102,7 @@ class DashboardContent
 
   def find_block(block)
     block.to_s =~  /\A(.*?)(__\d+)?\z/
-    name = Regexp.last_match(1)
+    name = Regexp.last_match 1
     available_blocks.key?(name) ? available_blocks[name].merge(name: name) : nil
   end
 

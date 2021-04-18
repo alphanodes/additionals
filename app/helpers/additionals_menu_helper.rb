@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AdditionalsMenuHelper
   def additionals_top_menu_setup
     return if Redmine::Plugin.installed? 'redmine_hrm'
@@ -18,11 +20,11 @@ module AdditionalsMenuHelper
     end
   end
 
-  def handle_top_submenu_item(menu_name, item)
-    handle_top_menu_item menu_name, item, with_submenu: true
+  def handle_top_submenu_item(menu_name, **item)
+    handle_top_menu_item menu_name, with_submenu: true, **item
   end
 
-  def handle_top_menu_item(menu_name, item, with_submenu: false)
+  def handle_top_menu_item(menu_name, with_submenu: false, **item)
     Redmine::MenuManager.map(:top_menu).delete(menu_name.to_sym) if Redmine::MenuManager.map(:top_menu).exists?(menu_name.to_sym)
 
     html_options = {}
@@ -30,7 +32,7 @@ module AdditionalsMenuHelper
     css_classes = []
     css_classes << 'top-submenu' if with_submenu
     css_classes << 'external' if item[:url].include? '://'
-    html_options[:class] = css_classes.join(' ') if css_classes.present?
+    html_options[:class] = css_classes.join ' ' if css_classes.present?
 
     html_options[:title] = item[:title] if item[:title].present?
 
@@ -40,9 +42,9 @@ module AdditionalsMenuHelper
     menu_options[:if] = menu_options[:if] if menu_options[:if].present?
 
     menu_options[:caption] = if item[:symbol].present? && item[:name].present?
-                               font_awesome_icon(item[:symbol], post_text: item[:name])
+                               font_awesome_icon item[:symbol], post_text: item[:name]
                              elsif item[:symbol].present?
-                               font_awesome_icon(item[:symbol])
+                               font_awesome_icon item[:symbol]
                              elsif item[:name].present?
                                item[:name].to_s
                              end
@@ -149,8 +151,8 @@ module AdditionalsMenuHelper
         raise e unless e.class.to_s == 'NameError'
       end
 
-      plugin_item = plugin_item_base.try(:additionals_help_items) unless plugin_item_base.nil?
-      plugin_item = additionals_help_items_fallbacks(plugin.id) if plugin_item.nil?
+      plugin_item = plugin_item_base.try :additionals_help_items unless plugin_item_base.nil?
+      plugin_item = additionals_help_items_fallbacks plugin.id if plugin_item.nil?
 
       next if plugin_item.nil?
 
@@ -186,12 +188,12 @@ module AdditionalsMenuHelper
       s << if item[:title] == '-'
              tag.li tag.hr
            else
-             html_options = { class: "help_item_#{idx}" }
+             html_options = { class: +"help_item_#{idx}" }
              if item[:url].include? '://'
                html_options[:class] << ' external'
                html_options[:target] = '_blank'
              end
-             tag.li(link_to(item[:title], item[:url], html_options))
+             tag.li link_to(item[:title], item[:url], html_options)
            end
     end
     safe_join s
@@ -200,13 +202,8 @@ module AdditionalsMenuHelper
   # Plugin help items definition for plugins,
   # which do not have additionals_help_menu_items integration
   def additionals_help_items_fallbacks(plugin_id)
-    plugins = { redmine_wiki_lists: [{ title: 'Wiki Lists Macros',
-                                       url: 'https://www.r-labs.org/projects/wiki_lists/wiki/Wiki_Lists_en' }],
-                redmine_wiki_extensions: [{ title: 'Wiki Extensions',
-                                            url: 'https://www.r-labs.org/projects/r-labs/wiki/Wiki_Extensions_en' }],
-                redmine_git_hosting: [{ title: 'Redmine Git Hosting',
-                                        url: 'http://redmine-git-hosting.io/get_started/',
-                                        admin: true }],
+    plugins = { redmine_drawio: [{ title: 'draw.io usage',
+                                   url: 'https://github.com/mikitex70/redmine_drawio#usage' }],
                 redmine_contacts: [{ title: 'Redmine CRM',
                                      url: 'https://www.redmineup.com/pages/help/crm',
                                      admin: true }],

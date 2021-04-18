@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Additionals
   module Patches
     module ProjectPatch
@@ -52,12 +54,12 @@ module Additionals
         end
 
         def visible_principals
-          query = ::Query.new(project: self, name: '_')
+          query = ::Query.new project: self, name: '_'
           query&.principals
         end
 
         def visible_users
-          query = ::Query.new(project: self, name: '_')
+          query = ::Query.new project: self, name: '_'
           query&.users
         end
 

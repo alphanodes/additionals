@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # see https://github.com/nagix/chartjs-plugin-colorschemes
 # see https://nagix.github.io/chartjs-plugin-colorschemes/colorchart.html
 #
@@ -16,8 +18,8 @@ colorschemes_files = [{ name: 'brewer', src: "#{working_path}/src/colorschemes/c
 FileUtils.rm_rf working_path
 system "git clone https://github.com/nagix/chartjs-plugin-colorschemes.git #{working_path}"
 
-File.open(target_file, 'w') do |file|
-  file.write("---\n")
+File.open target_file, 'w' do |file|
+  file.write "---\n"
   colorschemes_files.each do |color_scheme_file|
     file.write "#{color_scheme_file[:name].capitalize}:\n"
     File.readlines(color_scheme_file[:src]).each do |line|

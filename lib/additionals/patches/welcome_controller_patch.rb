@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency 'welcome_controller'
 
 module Additionals
@@ -26,7 +28,7 @@ module Additionals
         def find_dashboard
           if params[:dashboard_id].present?
             begin
-              @dashboard = Dashboard.welcome_only.find(params[:dashboard_id])
+              @dashboard = Dashboard.welcome_only.find params[:dashboard_id]
               raise ::Unauthorized unless @dashboard.visible?
             rescue ActiveRecord::RecordNotFound
               return render_404

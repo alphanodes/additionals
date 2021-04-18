@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path '../../test_helper', __FILE__
 
 class AdditionalsJournalTest < Additionals::TestCase
@@ -16,7 +18,7 @@ class AdditionalsJournalTest < Additionals::TestCase
   end
 
   def test_journal_history_with_added_entries
-    assert_difference('JournalDetail.count', 2) do
+    assert_difference 'JournalDetail.count', 2 do
       assert AdditionalsJournal.save_journal_history(@current_journal,
                                                      'issue_test_relation',
                                                      [1],
@@ -25,7 +27,7 @@ class AdditionalsJournalTest < Additionals::TestCase
   end
 
   def test_journal_history_with_removed_entries
-    assert_difference('JournalDetail.count', 2) do
+    assert_difference 'JournalDetail.count', 2 do
       assert AdditionalsJournal.save_journal_history(@current_journal,
                                                      'issue_test_relation',
                                                      [1, 2, 3],
@@ -34,7 +36,7 @@ class AdditionalsJournalTest < Additionals::TestCase
   end
 
   def test_journal_history_without_changes
-    assert_difference('JournalDetail.count', 0) do
+    assert_no_difference 'JournalDetail.count' do
       assert AdditionalsJournal.save_journal_history(@current_journal,
                                                      'issue_test_relation',
                                                      [1, 2, 3],

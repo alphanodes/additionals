@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path '../../test_helper', __FILE__
 
 class AdditionalsMacroTest < Additionals::TestCase
@@ -25,31 +27,31 @@ class AdditionalsMacroTest < Additionals::TestCase
   end
 
   def test_all_with_only_names
-    available_macros = AdditionalsMacro.all(only_names: true)
+    available_macros = AdditionalsMacro.all only_names: true
     assert available_macros.include?('child_pages')
   end
 
   def test_with_filter
-    available_macros = AdditionalsMacro.all(filtered: ['child_pages'], only_names: true)
+    available_macros = AdditionalsMacro.all filtered: ['child_pages'], only_names: true
     assert available_macros.exclude?('child_pages')
 
     for_two_macros_selection = @all_macros - %w[child_pages collapse] + ['', 'nonexistingmacro']
-    available_macros = AdditionalsMacro.all(filtered: for_two_macros_selection, only_names: true)
+    available_macros = AdditionalsMacro.all filtered: for_two_macros_selection, only_names: true
 
     # -1 (hello world is always removed)
     assert_equal %w[child_pages collapse], available_macros
   end
 
   def test_with_filter_all
-    available_macros = AdditionalsMacro.all(filtered: @all_macros, only_names: true)
+    available_macros = AdditionalsMacro.all filtered: @all_macros, only_names: true
     assert_equal 0, available_macros.count
   end
 
   def test_with_controller_limit
-    available_macros = AdditionalsMacro.all(only_names: true, controller_only: 'issue')
+    available_macros = AdditionalsMacro.all only_names: true, controller_only: 'issue'
     assert available_macros.exclude?('child_pages')
 
-    available_macros = AdditionalsMacro.all(only_names: true, controller_only: 'wiki')
+    available_macros = AdditionalsMacro.all only_names: true, controller_only: 'wiki'
     assert available_macros.include?('child_pages')
   end
 end

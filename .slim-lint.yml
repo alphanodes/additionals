@@ -4,6 +4,7 @@ linters:
   RuboCop:
     ignored_cops:
       - Layout/ArgumentAlignment
+      - Layout/ArrayAlignment
       - Layout/BlockEndNewline
       - Layout/EmptyLineAfterGuardClause
       - Layout/HashAlignment
@@ -21,6 +22,7 @@ linters:
       - Lint/Void
       - Metrics/BlockNesting
       - Rails/OutputSafety
+      - Style/FrozenStringLiteralComment
       - Style/IdenticalConditionalBranches
       - Style/IfUnlessModifier
       - Style/Next

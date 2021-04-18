@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path '../../test_helper', __FILE__
 
 class ProjectTest < Additionals::TestCase
@@ -24,11 +26,11 @@ class ProjectTest < Additionals::TestCase
 
   def test_assignable_users_amount
     with_settings issue_group_assignment: '1' do
-      project = Project.find(5)
+      project = Project.find 5
       assert_equal project.assignable_users.count, project.assignable_users_and_groups.count
     end
     with_settings issue_group_assignment: '0' do
-      project = Project.find(5)
+      project = Project.find 5
       assert_not_equal project.assignable_users.count, project.assignable_users_and_groups.count
     end
   end
@@ -52,7 +54,7 @@ class ProjectTest < Additionals::TestCase
 
     @ecookbook.destroy
     # make sure that the project non longer exists
-    assert_raise(ActiveRecord::RecordNotFound) { Project.find(@ecookbook.id) }
+    assert_raise(ActiveRecord::RecordNotFound) { Project.find @ecookbook.id }
     # make sure related data was removed
     assert_nil Dashboard.where(project_id: @ecookbook.id).first
   end
@@ -60,7 +62,7 @@ class ProjectTest < Additionals::TestCase
   def test_users_by_role
     users_by_role = Project.find(1).users_by_role
     assert_kind_of Hash, users_by_role
-    role = Role.find(1)
+    role = Role.find 1
     assert_kind_of Array, users_by_role[role]
     assert users_by_role[role].include?(User.find(2))
   end

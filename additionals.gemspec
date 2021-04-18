@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 lib = File.expand_path '../lib', __FILE__
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+$LOAD_PATH.unshift lib unless $LOAD_PATH.include? lib
 require 'additionals/version'
 
 Gem::Specification.new do |spec|
@@ -22,9 +24,4 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'render_async'
   spec.add_runtime_dependency 'rss'
   spec.add_runtime_dependency 'slim-rails'
-
-  spec.add_development_dependency 'brakeman'
-  spec.add_development_dependency 'bundler'
-  spec.add_development_dependency 'rake'
-  spec.add_development_dependency 'slim_lint'
 end

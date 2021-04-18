@@ -1,4 +1,5 @@
-# Gist wiki macros
+# frozen_string_literal: true
+
 module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
@@ -70,11 +71,11 @@ module Additionals
           raise 'The correct usage is {{gmap([q=QUERY, mode=MODE, widths=x, height=y])}}'
         end
 
-        src = "https://www.google.com/maps/embed/v1/#{mode}?key=" + Additionals.setting(:google_maps_api_key)
+        src = +"https://www.google.com/maps/embed/v1/#{mode}?key=" + Additionals.setting(:google_maps_api_key)
         if options[:q].present?
-          src << "&q=#{ERB::Util.url_encode(options[:q])}"
+          src << "&q=#{ERB::Util.url_encode options[:q]}"
         elsif mode == 'search'
-          src << "&q=#{ERB::Util.url_encode(args[0])}"
+          src << "&q=#{ERB::Util.url_encode args[0]}"
         end
 
         src_options.each do |key|

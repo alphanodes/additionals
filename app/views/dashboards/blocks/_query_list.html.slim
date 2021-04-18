@@ -1,6 +1,6 @@
 - dashboard_async_cache dashboard, block, async, settings do
 
-  - query = klass.visible.find_by(id: settings[:query_id])
+  - query = klass.visible.find_by id: settings[:query_id]
   - if query
     ruby:
       query.project = @project if query_block[:with_project]

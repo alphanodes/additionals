@@ -1,4 +1,5 @@
-# Project wiki macros
+# frozen_string_literal: true
+
 module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
@@ -22,7 +23,7 @@ module Additionals
       DESCRIPTION
 
       macro :projects do |_obj, args|
-        _args, options = extract_macro_options(args, :title, :with_create_issue)
+        _args, options = extract_macro_options args, :title, :with_create_issue
         @projects = User.current.projects.active.includes(:enabled_modules).sorted
         return if @projects.nil?
 

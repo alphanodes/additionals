@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 module AdditionalsJournalsHelper
-  MultipleValuesDetail = Struct.new(:property, :prop_key, :custom_field, :old_value, :value)
+  MultipleValuesDetail = Struct.new :property, :prop_key, :custom_field, :old_value, :value
 
   # Returns the textual representation of a journal details
   # as an array of strings
-  def entity_details_to_strings(entity, details, options = {})
+  def entity_details_to_strings(entity, details, **options)
     entity_type = entity.model_name.param_key
     show_detail_method = "#{entity_type}_show_detail"
     options[:only_path] = options[:only_path] != false
-    no_html = options.delete(:no_html)
+    no_html = options.delete :no_html
     strings = []
     values_by_field = {}
 
@@ -21,21 +23,21 @@ module AdditionalsJournalsHelper
           next
         end
       end
-      strings << send(show_detail_method, detail, no_html, options)
+      strings << send(show_detail_method, detail, no_html, **options)
     end
 
     if values_by_field.present?
       values_by_field.each do |field, changes|
         if changes[:added].any?
-          detail = MultipleValuesDetail.new('cf', field.id.to_s, field)
+          detail = MultipleValuesDetail.new 'cf', field.id.to_s, field
           detail.value = changes[:added]
-          strings << send(show_detail_method, detail, no_html, options)
+          strings << send(show_detail_method, detail, no_html, **options)
         end
         next unless changes[:deleted].any?
 
-        detail = MultipleValuesDetail.new('cf', field.id.to_s, field)
+        detail = MultipleValuesDetail.new 'cf', field.id.to_s, field
         detail.old_value = changes[:deleted]
-        strings << send(show_detail_method, detail, no_html, options)
+        strings << send(show_detail_method, detail, no_html, **options)
       end
     end
     strings
@@ -64,7 +66,7 @@ module AdditionalsJournalsHelper
 
   # Returns the textual representation of a single journal detail
   # rubocop: disable Rails/OutputSafety
-  def entity_show_detail(entity, detail, no_html = false, options = {}) # rubocop:disable Style/OptionalBooleanParameter:
+  def entity_show_detail(entity, detail, no_html = false, **options) # rubocop:disable Style/OptionalBooleanParameter:
     multiple = false
     no_detail = false
     show_diff = false
@@ -82,17 +84,17 @@ module AdditionalsJournalsHelper
 
     if label || show_diff
       unless no_html
-        label = tag.strong(label)
-        old_value = tag.i(old_value) if detail.old_value
-        old_value = tag.del(old_value) if detail.old_value && detail.value.blank?
-        value = tag.i(value) if value
+        label = tag.strong label
+        old_value = tag.i old_value if detail.old_value
+        old_value = tag.del old_value if detail.old_value && detail.value.blank?
+        value = tag.i value if value
       end
 
       html =
         if no_detail
-          l(:text_journal_changed_no_detail, label: label)
+          l :text_journal_changed_no_detail, label: label
         elsif show_diff
-          s = l(:text_journal_changed_no_detail, label: label)
+          s = l :text_journal_changed_no_detail, label: label
           unless no_html
             diff_link = link_to l(:label_diff),
                                 send(diff_url_method,
@@ -105,11 +107,11 @@ module AdditionalsJournalsHelper
           s.html_safe
         elsif detail.value.present?
           if detail.old_value.present?
-            l(:text_journal_changed, label: label, old: old_value, new: value)
+            l :text_journal_changed, label: label, old: old_value, new: value
           elsif multiple
-            l(:text_journal_added, label: label, value: value)
+            l :text_journal_added, label: label, value: value
           else
-            l(:text_journal_set_to, label: label, value: value)
+            l :text_journal_set_to, label: label, value: value
           end
         else
           l(:text_journal_deleted, label: label, old: old_value).html_safe
@@ -138,20 +140,20 @@ module AdditionalsJournalsHelper
       prop = { label: custom_field.name }
       project = Project.visible.where(id: detail.value).first if detail.value.present?
       old_project = Project.visible.where(id: detail.old_value).first if detail.old_value.present?
-      prop[:value] = link_to_project(project) if project.present?
-      prop[:old_value] = link_to_project(old_project) if old_project.present?
+      prop[:value] = link_to_project project if project.present?
+      prop[:old_value] = link_to_project old_project if old_project.present?
     when 'db_entry'
       prop = { label: custom_field.name }
       db_entry = DbEntry.visible.where(id: detail.value).first if detail.value.present?
       old_db_entry = DbEntry.visible.where(id: detail.old_value).first if detail.old_value.present?
-      prop[:value] = link_to(db_entry.name, db_entry_url(db_entry)) if db_entry.present?
-      prop[:old_value] = link_to(old_db_entry.name, db_entry_url(old_db_entry)) if old_db_entry.present?
+      prop[:value] = link_to db_entry.name, db_entry_url(db_entry) if db_entry.present?
+      prop[:old_value] = link_to old_db_entry.name, db_entry_url(old_db_entry) if old_db_entry.present?
     when 'password'
       prop = { label: custom_field.name }
       password = Password.visible.where(id: detail.value).first if detail.value.present? && defined?(Password)
       old_password = Password.visible.where(id: detail.old_value).first if detail.old_value.present? && defined?(Password)
-      prop[:value] = link_to(password.name, password_url(password)) if password.present?
-      prop[:old_value] = link_to(old_password.name, password_url(old_password)) if old_password.present?
+      prop[:value] = link_to password.name, password_url(password) if password.present?
+      prop[:old_value] = link_to old_password.name, password_url(old_password) if old_password.present?
     end
 
     prop

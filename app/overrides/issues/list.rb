@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Deface::Override.new virtual_path: 'issues/_list',
                      name: 'list-issue-back-url',
                      replace: 'erb[loud]:contains("hidden_field_tag \'back_url\'")',

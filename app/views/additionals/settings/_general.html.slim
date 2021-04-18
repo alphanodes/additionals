@@ -1,47 +1,47 @@
 fieldset.settings
-  legend = l(:label_content_plural)
+  legend = l :label_content_plural
 
   p
     = additionals_settings_textarea :account_login_bottom
     em.info
-      = l(:account_login_info)
+      = l :account_login_info
   p
     = additionals_settings_textarea :global_sidebar
     em.info
-      = l(:global_sidebar_info)
+      = l :global_sidebar_info
   p
     = additionals_settings_textarea :global_footer
     em.info
-      = l(:global_footer_info)
+      = l :global_footer_info
 
 fieldset.settings
-  legend = l(:label_settings)
+  legend = l :label_settings
 
   p
     = additionals_settings_checkbox :open_external_urls
     em.info
-      = t(:open_external_urls_info)
+      = t :open_external_urls_info
   p
     = additionals_settings_checkbox :add_go_to_top
     em.info
-      = t(:add_go_to_top_info)
+      = t :add_go_to_top_info
   p
     = additionals_settings_checkbox :legacy_smiley_support
     em.info
-      = t(:legacy_smiley_support_info_html)
+      = t :legacy_smiley_support_info_html
 
 fieldset.settings
-  legend = l(:label_disabled_modules)
+  legend = l :label_disabled_modules
 
   p
     = tag.label l(:label_disabled_modules)
-    = hidden_field_tag('settings[disabled_modules][]', '')
+    = hidden_field_tag 'settings[disabled_modules][]', ''
     - Redmine::AccessControl.available_project_modules_all.sort.each do |m|
       label.block
         - value = @settings[:disabled_modules].present? ? @settings[:disabled_modules].include?(m.to_s) : false
-        = check_box_tag('settings[disabled_modules][]', m, value, id: nil)
-        = l_or_humanize(m, prefix: 'project_module_')
+        = check_box_tag 'settings[disabled_modules][]', m, value, id: nil
+        = l_or_humanize m, prefix: 'project_module_'
 
     br
     em.info
-      = l(:disabled_modules_info)
+      = l :disabled_modules_info

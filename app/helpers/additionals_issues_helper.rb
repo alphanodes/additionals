@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module AdditionalsIssuesHelper
   def author_options_for_select(project, entity = nil, permission = nil)
     scope = project.present? ? project.users.visible : User.active.visible
-    scope = scope.with_permission(permission, project) unless permission.nil?
+    scope = scope.with_permission permission, project unless permission.nil?
     authors = scope.sorted.to_a
 
     unless entity.nil?
@@ -15,7 +17,7 @@ module AdditionalsIssuesHelper
     s = []
     return s unless authors.any?
 
-    s << tag.option("<< #{l :label_me} >>", value: User.current.id) if authors.include?(User.current)
+    s << tag.option("<< #{l :label_me} >>", value: User.current.id) if authors.include? User.current
 
     if entity.nil?
       s << options_from_collection_for_select(authors, 'id', 'name')

@@ -1,4 +1,5 @@
-# Member wiki macros
+# frozen_string_literal: true
+
 module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
@@ -32,7 +33,7 @@ module Additionals
       DESCRIPTION
 
       macro :members do |_obj, args|
-        args, options = extract_macro_options(args, :role, :title, :with_sum)
+        args, options = extract_macro_options args, :role, :title, :with_sum
 
         project_id = args[0]
         user_roles = []
@@ -40,9 +41,9 @@ module Additionals
         if project_id.present?
           project_id.strip!
 
-          project = Project.visible.find_by(id: project_id)
-          project ||= Project.visible.find_by(identifier: project_id)
-          project ||= Project.visible.find_by(name: project_id)
+          project = Project.visible.find_by id: project_id
+          project ||= Project.visible.find_by identifier: project_id
+          project ||= Project.visible.find_by name: project_id
           return if project.nil?
 
           principals = project.visible_users
@@ -52,7 +53,7 @@ module Additionals
           principals.each do |principal|
             next unless principal.type == 'User'
 
-            user_roles[principal.id] = principal.roles_for_project(project)
+            user_roles[principal.id] = principal.roles_for_project project
             users << principal if options[:role].blank? || Additionals.check_role_matches(user_roles[principal.id], options[:role])
           end
         else

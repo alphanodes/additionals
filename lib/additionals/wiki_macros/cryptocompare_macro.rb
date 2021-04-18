@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # CryptoCompare wiki macros
 # see https://www.cryptocompare.com/dev/widget/wizard/
 module Additionals
@@ -12,7 +14,7 @@ module Additionals
       macro :cryptocompare do |_obj, args|
         raise 'The correct usage is {{cryptocompare(options)}}' if args.empty?
 
-        _args, options = extract_macro_options(args, :fsym, :fsyms, :tsym, :tsyms, :period, :type)
+        _args, options = extract_macro_options args, :fsym, :fsyms, :tsym, :tsyms, :period, :type
 
         options[:fsym] = 'BTC' if options[:fsym].blank?
         options[:tsym] = 'EUR' if options[:tsym].blank?
@@ -90,7 +92,7 @@ module Additionals
     if options[name].blank?
       defaults
     else
-      options[name].tr(';', ',')
+      options[name].tr ';', ','
     end
   end
 end

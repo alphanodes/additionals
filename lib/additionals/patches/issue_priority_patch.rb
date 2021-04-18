@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Additionals
   module Patches
     module IssuePriorityPatch
@@ -13,7 +15,7 @@ module Additionals
       module InstanceMethods
         def css_classes_with_additionals
           classes = [css_classes_without_additionals, css_name_based_class]
-          classes.join(' ')
+          classes.join ' '
         end
 
         # css class based on priority name

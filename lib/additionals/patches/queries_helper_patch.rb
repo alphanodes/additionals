@@ -2,11 +2,12 @@
 
 module Additionals
   module Patches
-    module RolePatch
+    module QueriesHelperPatch
       extend ActiveSupport::Concern
-
       included do
-        safe_attributes 'hide'
+        def additional_csv_separator
+          l(:general_csv_separator) == ',' ? ';' : ','
+        end
       end
     end
   end

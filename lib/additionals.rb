@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require 'additionals/version'
 
 module Additionals
   MAX_CUSTOM_MENU_ITEMS = 5
   SELECT2_INIT_ENTRIES = 20
-  DEFAULT_MODAL_WIDTH = '350px'.freeze
-  GOTO_LIST = " \xc2\xbb".freeze
-  LIST_SEPARATOR = "#{GOTO_LIST} ".freeze
+  DEFAULT_MODAL_WIDTH = '350px'
+  GOTO_LIST = " \xc2\xbb"
+  LIST_SEPARATOR = "#{GOTO_LIST} "
 
   class << self
     def setup
@@ -27,6 +29,7 @@ module Additionals
                ReportsController
                Principal
                QueryFilter
+               QueriesHelper
                Role
                User
                UserPreference]
@@ -95,7 +98,8 @@ module Additionals
     def debug(message)
       return if Rails.env.production?
 
-      Rails.logger.debug "#{Time.current.strftime('%H:%M:%S')} DEBUG [#{caller_locations(1..1).first.label}]: #{message}"
+      msg = message.is_a?(String) ? message : message.inspect
+      Rails.logger.debug "#{Time.current.strftime '%H:%M:%S'} DEBUG [#{caller_locations(1..1).first.label}]: #{msg}"
     end
 
     def class_prefix(klass)
@@ -113,19 +117,19 @@ module Additionals
 
     def incompatible_plugins(plugins = [], title = 'additionals')
       plugins.each do |plugin|
-        raise "\n\033[31m#{title} plugin cannot be used with #{plugin} plugin.\033[0m" if Redmine::Plugin.installed?(plugin)
+        raise "\n\033[31m#{title} plugin cannot be used with #{plugin} plugin.\033[0m" if Redmine::Plugin.installed? plugin
       end
     end
 
     def patch(patches = [], plugin_id = 'additionals')
       patches.each do |name|
-        patch_dir = Rails.root.join("plugins/#{plugin_id}/lib/#{plugin_id}/patches")
+        patch_dir = Rails.root.join "plugins/#{plugin_id}/lib/#{plugin_id}/patches"
         require "#{patch_dir}/#{name.underscore}_patch"
 
         target = name.constantize
         patch = "#{plugin_id.camelize}::Patches::#{name}Patch".constantize
 
-        target.include(patch) unless target.included_modules.include?(patch)
+        target.include patch unless target.included_modules.include? patch
       end
     end
 

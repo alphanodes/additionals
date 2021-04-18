@@ -1,4 +1,5 @@
-# Tradingview wiki macros
+# frozen_string_literal: true
+
 # see https://www.tradingview.com/widget/
 module Additionals
   module WikiMacros

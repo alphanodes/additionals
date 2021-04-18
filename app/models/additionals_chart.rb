@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AdditionalsChart
   include ActiveRecord::Sanitization
   include Redmine::I18n
@@ -15,7 +17,7 @@ class AdditionalsChart
     end
 
     # build return value
-    def build_chart_data(datasets, options = {})
+    def build_chart_data(datasets, **options)
       cached_labels = labels
       data = { datasets: datasets.to_json,
                labels: cached_labels.keys,
@@ -23,13 +25,13 @@ class AdditionalsChart
 
       required_labels = options.key?(:required_labels) ? options.delete(:required_labels) : 2
 
-      data[:valid] = cached_labels.any? && cached_labels.count >= required_labels unless options.key?(:valid)
-      data[:width] = self::CHART_DEFAULT_WIDTH unless options.key?(:width)
-      data[:height] = self::CHART_DEFAULT_HEIGHT unless options.key?(:height)
-      data[:value_link_method] = '_project_issues_path' unless options.key?(:value_link_method)
+      data[:valid] = cached_labels.any? && cached_labels.count >= required_labels unless options.key? :valid
+      data[:width] = self::CHART_DEFAULT_WIDTH unless options.key? :width
+      data[:height] = self::CHART_DEFAULT_HEIGHT unless options.key? :height
+      data[:value_link_method] = '_project_issues_path' unless options.key? :value_link_method
       data[:color_schema] = color_schema
 
-      data.merge(options)
+      data.merge options
     end
 
     private
@@ -37,7 +39,7 @@ class AdditionalsChart
     def build_values_without_gaps(data, gap_value = 0)
       values = []
       labels.each do |label, _label_id|
-        values << if data.key?(label)
+        values << if data.key? label
                     data[label]
                   else
                     gap_value

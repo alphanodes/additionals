@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AdditionalsProjectsHelper
   def project_overview_name(_project, dashboard = nil)
     name = [l(:label_overview)]

@@ -1,4 +1,5 @@
-# User wiki macros
+# frozen_string_literal: true
+
 module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
@@ -22,7 +23,7 @@ module Additionals
            "...Link to user with username 'admin' and show firstname as link text"
 
       macro :user do |_obj, args|
-        args, options = extract_macro_options(args, :format, :avatar, :text)
+        args, options = extract_macro_options args, :format, :avatar, :text
         raise 'The correct usage is {{user(<user_id or username>, format=USER_FORMAT)}}' if args.empty?
 
         user_id = args[0]

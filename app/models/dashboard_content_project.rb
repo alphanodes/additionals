@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class DashboardContentProject < DashboardContent
-  TYPE_NAME = 'ProjectDashboard'.freeze
+  TYPE_NAME = 'ProjectDashboard'
 
   def block_definitions
     blocks = super

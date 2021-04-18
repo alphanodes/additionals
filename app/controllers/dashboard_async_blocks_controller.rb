@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'open-uri'
 
 class DashboardAsyncBlocksController < ApplicationController
@@ -84,7 +86,7 @@ class DashboardAsyncBlocksController < ApplicationController
     rescue ActiveRecord::RecordNotFound
       render_404
     end
-    deny_access unless User.current.allowed_to?(:view_project, @project)
+    deny_access unless User.current.allowed_to? :view_project, @project
 
     @project
   end

@@ -1,4 +1,6 @@
-require File.expand_path('../../../test_helper', __FILE__)
+# frozen_string_literal: true
+
+require File.expand_path '../../../test_helper', __FILE__
 
 class GlobalHelperTest < ActionView::TestCase
   include Additionals::Helpers
@@ -22,7 +24,7 @@ class GlobalHelperTest < ActionView::TestCase
 
   def setup
     super
-    set_language_if_valid('en')
+    set_language_if_valid 'en'
     User.current = nil
   end
 
@@ -33,16 +35,16 @@ class GlobalHelperTest < ActionView::TestCase
   end
 
   def test_font_awesome_icon
-    html = font_awesome_icon('fas_cloud-upload-alt', class: 'test')
+    html = font_awesome_icon 'fas_cloud-upload-alt', class: 'test'
     assert_include 'class="fas fa-cloud-upload-alt test"', html
 
-    html = font_awesome_icon('fab_xing', class: 'test')
+    html = font_awesome_icon 'fab_xing', class: 'test'
     assert_include 'class="fab fa-xing test"', html
 
-    html = font_awesome_icon('fas_cloud-upload-alt', pre_text: 'Testing')
+    html = font_awesome_icon 'fas_cloud-upload-alt', pre_text: 'Testing'
     assert_include 'Testing <span', html
 
-    html = font_awesome_icon('fas_cloud-upload-alt', post_text: 'Testing')
+    html = font_awesome_icon 'fas_cloud-upload-alt', post_text: 'Testing'
     assert_include '</span> Testing', html
   end
 
@@ -65,7 +67,7 @@ class GlobalHelperTest < ActionView::TestCase
 
   def test_render_issue_macro_link
     issue = Issue.generate!
-    issue.init_journal(User.first, 'Adding notes')
+    issue.init_journal User.first, 'Adding notes'
     issue.save
 
     stubs(:request).returns(stub('original_url' => 'http://redmine.local/issues/1#note-2'))

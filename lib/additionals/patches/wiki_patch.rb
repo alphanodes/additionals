@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency 'wiki'
 
 module Additionals
@@ -15,12 +17,12 @@ module Additionals
 
       module InstanceMethods
         def sidebar_with_additionals
-          @sidebar ||= find_page('Sidebar', with_redirect: false)
+          @sidebar ||= find_page 'Sidebar', with_redirect: false
           if @sidebar&.content
             sidebar_without_additionals
           else
             wiki_sidebar = Additionals.setting(:global_wiki_sidebar).to_s
-            @sidebar ||= find_page(project.wiki.start_page, with_redirect: false)
+            @sidebar ||= find_page project.wiki.start_page, with_redirect: false
             @sidebar.content.text = wiki_sidebar if wiki_sidebar != '' && @sidebar.try(:content)
           end
         end

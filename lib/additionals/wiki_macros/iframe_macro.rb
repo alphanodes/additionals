@@ -1,4 +1,5 @@
-# Slideshare wiki macros
+# frozen_string_literal: true
+
 module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
@@ -19,7 +20,7 @@ module Additionals
       DESCRIPTION
 
       macro :iframe do |_obj, args|
-        args, options = extract_macro_options(args, :width, :height, :slide, :with_link)
+        args, options = extract_macro_options args, :width, :height, :slide, :with_link
 
         width = options[:width].presence || '100%'
         height = options[:height].presence || 485
@@ -27,7 +28,7 @@ module Additionals
         raise 'The correct usage is {{iframe(<url>[, width=x, height=y, with_link=bool])}}' if args.empty?
 
         src = args[0]
-        if Additionals.valid_iframe_url?(src)
+        if Additionals.valid_iframe_url? src
           s = [tag.iframe(width: width,
                           height: height,
                           src: src,
@@ -47,7 +48,7 @@ module Additionals
   end
 
   def self.valid_iframe_url?(url)
-    uri = URI.parse(url)
+    uri = URI.parse url
     if Setting.protocol == 'https'
       uri.is_a?(URI::HTTPS) && !uri.host.nil?
     else

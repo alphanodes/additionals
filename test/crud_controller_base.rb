@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CrudControllerBase
   extend ActiveSupport::Concern
 
@@ -97,7 +99,7 @@ module CrudControllerBase
         return
       end
 
-      assert_difference("#{@crud[:entity].class.name}.count") do
+      assert_difference "#{@crud[:entity].class.name}.count" do
         assert_no_difference 'Journal.count' do
           post :create, params: form_params(:create)
         end
@@ -133,7 +135,7 @@ module CrudControllerBase
     def test_create_without_permission
       return unless prepare_crud_test :create, no_permission: true
 
-      assert_no_difference("#{@crud[:entity].class.name}.count") do
+      assert_no_difference "#{@crud[:entity].class.name}.count" do
         post :create, params: form_params(:create)
       end
 
@@ -247,7 +249,7 @@ module CrudControllerBase
     def test_delete_without_permission
       return unless prepare_crud_test :delete, no_permission: true
 
-      assert_no_difference("#{@crud[:entity].class.name}.count") do
+      assert_no_difference "#{@crud[:entity].class.name}.count" do
         delete :destroy, params: { id: @crud[:entity].id }
       end
 

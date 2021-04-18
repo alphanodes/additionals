@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Additionals
   module EntityMethods
     def assignable_users(prj = nil)

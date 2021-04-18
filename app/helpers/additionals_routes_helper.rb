@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AdditionalsRoutesHelper
   def _dashboards_path(project, *args)
     if project
@@ -71,7 +73,7 @@ module AdditionalsRoutesHelper
     end
   end
 
-  def dashboard_link_path(project, dashboard, options = {})
+  def dashboard_link_path(project, dashboard, **options)
     options[:dashboard_id] = dashboard.id
     if dashboard.dashboard_type == DashboardContentProject::TYPE_NAME
       project_path project, options

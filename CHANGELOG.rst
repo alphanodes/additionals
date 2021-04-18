@@ -1,6 +1,11 @@
 Changelog
 =========
 
+3.0.3
++++++
+
+- Ruby 2.7 warnings fixed
+
 3.0.2
 +++++
 

@@ -14,7 +14,8 @@ jobs:
 
     - name: Setup Gemfile
       run: |
-        cp test/support/gemfile.rb Gemfile
+        touch .enable_dev
+        sed -i "3isource 'https://rubygems.org'" Gemfile
 
     - name: Setup Ruby
       uses: ruby/setup-ruby@v1

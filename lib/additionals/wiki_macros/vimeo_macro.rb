@@ -1,4 +1,5 @@
-# Vimeo wiki macros
+# frozen_string_literal: true
+
 module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
@@ -17,7 +18,7 @@ module Additionals
       DESCRIPTION
 
       macro :vimeo do |_obj, args|
-        args, options = extract_macro_options(args, :width, :height, :autoplay)
+        args, options = extract_macro_options args, :width, :height, :autoplay
 
         width = options[:width].presence || 640
         height = options[:height].presence || 360

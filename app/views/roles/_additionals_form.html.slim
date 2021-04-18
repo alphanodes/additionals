@@ -1,7 +1,7 @@
 p
   = f.check_box :hide, disabled: @role.users_visibility != 'members_of_visible_projects'
   em.info
-    = t(:info_hidden_roles_html)
+    = t :info_hidden_roles_html
 
 javascript:
   $(function() {

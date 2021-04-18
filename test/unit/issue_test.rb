@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path '../../test_helper', __FILE__
 
 class IssueTest < Additionals::TestCase
@@ -22,14 +24,14 @@ class IssueTest < Additionals::TestCase
   end
 
   def test_create
-    issue = Issue.new(project_id: 1, tracker_id: 1, author_id: 3, subject: 'test_create')
+    issue = Issue.new project_id: 1, tracker_id: 1, author_id: 3, subject: 'test_create'
     assert_save issue
     assert_equal issue.tracker.default_status, issue.status
     assert_nil issue.description
   end
 
   def test_change_open_issue
-    with_additionals_settings(issue_freezed_with_close: 1) do
+    with_additionals_settings issue_freezed_with_close: 1 do
       User.current = users :users_003
       issue = issues :issues_007
       issue.subject = 'Should be be saved'
@@ -38,12 +40,12 @@ class IssueTest < Additionals::TestCase
   end
 
   def test_change_closed_issue_with_permission
-    with_additionals_settings(issue_freezed_with_close: 1) do
+    with_additionals_settings issue_freezed_with_close: 1 do
       User.current = users :users_003
-      role = Role.create!(name: 'Additionals Tester', permissions: [:edit_closed_issues])
+      role = Role.create! name: 'Additionals Tester', permissions: [:edit_closed_issues]
       Member.where(user_id: User.current).delete_all
       project = projects :projects_001
-      Member.create!(principal: User.current, project_id: project.id, role_ids: [role.id])
+      Member.create! principal: User.current, project_id: project.id, role_ids: [role.id]
 
       issue = issues :issues_008
 
@@ -56,7 +58,7 @@ class IssueTest < Additionals::TestCase
   end
 
   def test_change_closed_issue_without_permission
-    with_additionals_settings(issue_freezed_with_close: 1) do
+    with_additionals_settings issue_freezed_with_close: 1 do
       User.current = users :users_003
       issue = issues :issues_008
 
@@ -116,7 +118,7 @@ class IssueTest < Additionals::TestCase
     with_additionals_settings issue_auto_assign: 1,
                               issue_auto_assign_status: ['1'],
                               issue_auto_assign_role: '1' do
-      issue = Issue.new(project_id: 1, tracker_id: 1, author_id: 3, subject: 'test_create')
+      issue = Issue.new project_id: 1, tracker_id: 1, author_id: 3, subject: 'test_create'
       assert_save issue
       assert_equal 2, issue.assigned_to_id
     end
@@ -126,7 +128,7 @@ class IssueTest < Additionals::TestCase
     with_additionals_settings issue_auto_assign: 0,
                               issue_auto_assign_status: ['1'],
                               issue_auto_assign_role: '1' do
-      issue = Issue.new(project_id: 1, tracker_id: 1, author_id: 3, subject: 'test_create')
+      issue = Issue.new project_id: 1, tracker_id: 1, author_id: 3, subject: 'test_create'
       assert_save issue
       assert_nil issue.assigned_to_id
     end
@@ -134,7 +136,7 @@ class IssueTest < Additionals::TestCase
     with_additionals_settings issue_auto_assign: 1,
                               issue_auto_assign_status: [],
                               issue_auto_assign_role: '1' do
-      issue = Issue.new(project_id: 1, tracker_id: 1, author_id: 3, subject: 'test_create')
+      issue = Issue.new project_id: 1, tracker_id: 1, author_id: 3, subject: 'test_create'
       assert_save issue
       assert_nil issue.assigned_to_id
     end
@@ -142,7 +144,7 @@ class IssueTest < Additionals::TestCase
     with_additionals_settings issue_auto_assign: 1,
                               issue_auto_assign_status: ['1'],
                               issue_auto_assign_role: '' do
-      issue = Issue.new(project_id: 1, tracker_id: 1, author_id: 3, subject: 'test_create')
+      issue = Issue.new project_id: 1, tracker_id: 1, author_id: 3, subject: 'test_create'
       assert_save issue
       assert_nil issue.assigned_to_id
     end

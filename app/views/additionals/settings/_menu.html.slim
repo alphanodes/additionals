@@ -20,14 +20,14 @@ h3 = l :label_custom_menu_items
       p
         label = h l(:label_permissions)
         - permission_field = "custom_menu#{i}_roles"
-        - menu_roles = Struct.new(:id, :name)
+        - menu_roles = Struct.new :id, :name
         = select_tag("settings[#{permission_field}]",
-                     options_from_collection_for_select(Role.sorted.collect { |m| menu_roles.new(m.id, m.name) },
+                     options_from_collection_for_select(Role.sorted.collect { |m| menu_roles.new m.id, m.name },
                                                         :id,
                                                         :name,
                                                         @settings[permission_field]),
                      multiple: true, style: 'height: 100px;')
-        em.info = l(:menu_roles_info)
+        em.info = l :menu_roles_info
 
 br
 

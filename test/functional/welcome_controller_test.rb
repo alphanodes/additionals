@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path '../../test_helper', __FILE__
 
 class ViewWelcomeIndexTopRenderOn < Redmine::Hook::ViewListener
@@ -74,9 +76,9 @@ class WelcomeControllerTest < Additionals::ControllerTest
   end
 
   def test_show_index_with_help_menu
-    skip if Redmine::Plugin.installed?('redmine_hrm')
+    skip if Redmine::Plugin.installed? 'redmine_hrm'
 
-    with_additionals_settings(remove_help: 0) do
+    with_additionals_settings remove_help: 0 do
       @request.session[:user_id] = 1
       get :index
 
@@ -85,9 +87,9 @@ class WelcomeControllerTest < Additionals::ControllerTest
   end
 
   def test_show_index_without_help_menu
-    skip if Redmine::Plugin.installed?('redmine_hrm')
+    skip if Redmine::Plugin.installed? 'redmine_hrm'
 
-    with_additionals_settings(remove_help: 1) do
+    with_additionals_settings remove_help: 1 do
       @request.session[:user_id] = 1
       get :index
 

@@ -1,7 +1,7 @@
 - if @project && User.current.allowed_to?(:edit_issue_author, @project)
-  - author_options = author_options_for_select(@project)
+  - author_options = author_options_for_select @project
   - if author_options.present?
     p#change_author
-      = label_tag('issue[author_id]', l(:field_author))
-      = select_tag('issue[author_id]',
-                   tag.option(l(:label_no_change_option), value: '') + author_options)
+      = label_tag 'issue[author_id]', l(:field_author)
+      = select_tag 'issue[author_id]',
+                   tag.option(l(:label_no_change_option), value: '') + author_options

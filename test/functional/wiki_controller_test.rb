@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path '../../test_helper', __FILE__
 
 class WikiControllerTest < Additionals::ControllerTest
@@ -24,11 +26,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def setup
     prepare_tests
-    EnabledModule.create(project_id: 1, name: 'wiki')
+    EnabledModule.create project_id: 1, name: 'wiki'
     @project = projects :projects_001
     @wiki = @project.wiki
     @page_name = 'additionals_macro_test'
-    @page = @wiki.find_or_new_page(@page_name)
+    @page = @wiki.find_or_new_page @page_name
     @page.content = WikiContent.new
     @page.content.text = 'test'
     @page.save!

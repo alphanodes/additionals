@@ -1,4 +1,5 @@
-# Slideshare wiki macros
+# frozen_string_literal: true
+
 module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
@@ -17,7 +18,7 @@ module Additionals
       DESCRIPTION
 
       macro :slideshare do |_obj, args|
-        args, options = extract_macro_options(args, :width, :height, :slide)
+        args, options = extract_macro_options args, :width, :height, :slide
 
         width = options[:width].presence || 595
         height = options[:height].presence || 485
@@ -26,7 +27,7 @@ module Additionals
         raise 'The correct usage is {{slideshare(<key>[, width=x, height=y, slide=number])}}' if args.empty?
 
         v = args[0]
-        src = "//www.slideshare.net/slideshow/embed_code/#{v}"
+        src = +"//www.slideshare.net/slideshow/embed_code/#{v}"
         src += "?startSlide=#{slide}" if slide.positive?
 
         tag.iframe width: width, height: height, src: src, frameborder: 0, allowfullscreen: 'true'

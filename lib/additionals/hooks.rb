@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Additionals
   class AdditionalsHookListener < Redmine::Hook::ViewListener
     include IssuesHelper

@@ -6,7 +6,9 @@ tmp/
 Gemfile.lock
 .project
 .vscode
+.bundle
 .settings/
 docs/_build
 docs/_static
 docs/_templates
+.enable_dev

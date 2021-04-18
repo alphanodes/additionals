@@ -1,15 +1,15 @@
 em.info
-  = l(:hidden_macros_in_toolbar_info)
+  = l :hidden_macros_in_toolbar_info
 
 br
 
 p
   = tag.label l(:label_hidden_macros_in_toolbar)
-  = hidden_field_tag('settings[hidden_macros_in_toolbar][]', '')
+  = hidden_field_tag 'settings[hidden_macros_in_toolbar][]', ''
   - @available_macros = AdditionalsMacro.all(only_names: true).each do |m|
     label.block
       - value = @settings[:hidden_macros_in_toolbar].present? ? @settings[:hidden_macros_in_toolbar].include?(m) : false
-      = check_box_tag('settings[hidden_macros_in_toolbar][]', m, value, id: nil)
+      = check_box_tag 'settings[hidden_macros_in_toolbar][]', m, value, id: nil
       = m
 
   br

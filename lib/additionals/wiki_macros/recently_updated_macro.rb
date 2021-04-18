@@ -1,4 +1,5 @@
-# Recently updated wiki macros
+# frozen_string_literal: true
+
 module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
@@ -33,13 +34,13 @@ module Additionals
                         .where("#{WikiContent.table_name}.updated_on > ?", User.current.today - days)
                         .order("#{WikiContent.table_name}.updated_on desc")
 
-        pages = pages.visible(User.current, project: project) if pages.respond_to? :visible
+        pages = pages.visible User.current, project: project if pages.respond_to? :visible
 
         s = []
         date = nil
         pages.each do |page_raw|
           content = page_raw.content
-          updated_on = Date.new(content.updated_on.year, content.updated_on.month, content.updated_on.day)
+          updated_on = Date.new content.updated_on.year, content.updated_on.month, content.updated_on.day
           if date != updated_on
             date = updated_on
             s << tag.strong(format_date(date))

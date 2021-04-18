@@ -1,4 +1,5 @@
-# Issue wiki macros
+# frozen_string_literal: true
+
 module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
@@ -34,12 +35,12 @@ module Additionals
       DESCRIPTION
 
       macro :issue do |_obj, args|
-        args, options = extract_macro_options(args, :id, :note_id, :format)
+        args, options = extract_macro_options args, :id, :note_id, :format
         raise 'The correct usage is {{issue(<url>, format=FORMAT, id=INT, note_id=INT)}}' if args.empty? && options[:id].blank?
 
         comment_id = options[:note_id].to_i if options[:note_id].present?
         issue_id = options[:id].presence ||
-                   (info = parse_issue_url(args[0], comment_id)
+                   (info = parse_issue_url args[0], comment_id
                     comment_id = info[:comment_id] if comment_id.nil?
                     info[:issue_id])
 
@@ -56,7 +57,7 @@ module Additionals
                end
 
         if options[:format].blank? || options[:format] != 'text'
-          render_issue_macro_link(issue, text, comment_id)
+          render_issue_macro_link issue, text, comment_id
         else
           text
         end

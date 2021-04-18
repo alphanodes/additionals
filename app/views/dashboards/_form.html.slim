@@ -19,7 +19,7 @@
                      {},
                      disabled: !@dashboard.project_id_can_change?
           em.info
-            = l(:info_dashboard_project_select)
+            = l :info_dashboard_project_select
       - else
         = hidden_field_tag 'dashboard[project_id]', @project&.id
 
@@ -27,19 +27,19 @@
            User.current.allowed_to?(:set_system_dashboards, @project, global: true)
 
         p
-          label = l(:field_visible)
+          label = l :field_visible
           label.block
             = radio_button 'dashboard', 'visibility', Dashboard::VISIBILITY_PRIVATE
             '
-            = l(:label_visibility_private)
+            = l :label_visibility_private
           label.block
             = radio_button 'dashboard', 'visibility', Dashboard::VISIBILITY_PUBLIC
             '
-            = l(:label_visibility_public)
+            = l :label_visibility_public
           label.block
             = radio_button 'dashboard', 'visibility', Dashboard::VISIBILITY_ROLES
             '
-            = l(:label_visibility_roles)
+            = l :label_visibility_roles
             ' :
             - Role.givable.sorted.each do |role|
               label.block.role-visibility

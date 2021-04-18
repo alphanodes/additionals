@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Deface::Override.new virtual_path: 'reports/_simple',
                      name: 'report-simple-user-scope',
                      insert_before: 'erb[silent]:contains("rows.empty?")',

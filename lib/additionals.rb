@@ -28,8 +28,8 @@ module Additionals
                WelcomeController
                ReportsController
                Principal
+               Query
                QueryFilter
-               QueriesHelper
                Role
                User
                UserPreference]

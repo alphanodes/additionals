@@ -2,9 +2,10 @@
 
 module Additionals
   module Patches
-    module QueriesHelperPatch
+    module QueryPatch
       extend ActiveSupport::Concern
-      included do
+
+      class_methods do
         def additional_csv_separator
           l(:general_csv_separator) == ',' ? ';' : ','
         end

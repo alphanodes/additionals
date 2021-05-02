@@ -75,10 +75,16 @@ module AdditionalsRoutesHelper
 
   def dashboard_link_path(project, dashboard, **options)
     options[:dashboard_id] = dashboard.id
-    if dashboard.dashboard_type == DashboardContentProject::TYPE_NAME
-      project_path project, options
+
+    case dashboard.dashboard_type
+    when DashboardContentProject::TYPE_NAME
+      project_path project, **options
+    when DashboardContentWelcome::TYPE_NAME
+      home_path(**options)
     else
-      home_path options
+      dashboard_type_name = dashboard.dashboard_type[0..-10]
+      route_helper = "DashboardContent#{dashboard_type_name}::ROUTE_HELPER".constantize
+      send route_helper, **options
     end
   end
 end

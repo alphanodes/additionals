@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-if ENV['JENKINS']
+if ENV['COVERAGE']
   require 'simplecov'
   SimpleCov.start :rails do
     add_filter 'init.rb'

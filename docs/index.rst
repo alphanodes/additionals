@@ -176,7 +176,7 @@ It provides :
 * `Chart.js Plugin colorschemes 0.4.0 <https://github.com/nagix/chartjs-plugin-colorschemes>`_
 * `Chart.js Plugin datalabels 0.7.0 <https://github.com/chartjs/chartjs-plugin-datalabels>`_
 * `clipboardJS 2.0.8 <https://clipboardjs.com/>`_
-* `d3 6.6.2 <https://d3js.org/>`_
+* `d3 6.7.0 <https://d3js.org/>`_
 * `d3plus v2.0.0-alpha.30 <https://d3plus.org/>`_
 * `FontAwesome 5.15.3 <https://fontawesome.com/>`_
 * `mermaid 8.10.1 <https://github.com/knsv/mermaid/>`_

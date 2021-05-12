@@ -6,6 +6,7 @@ Changelog
 
 - Ruby 2.7 warnings fixed
 - Mermaid 8.10.1 support
+- D3 6.7.0 support
 
 3.0.2
 +++++

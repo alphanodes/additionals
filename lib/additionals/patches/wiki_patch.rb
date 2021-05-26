@@ -15,6 +15,13 @@ module Additionals
         alias_method :sidebar, :sidebar_with_additionals
       end
 
+      class_methods do
+        def join_enabled_module
+          "JOIN #{EnabledModule.table_name} ON #{EnabledModule.table_name}.project_id=#{Wiki.table_name}.project_id" \
+          " AND #{EnabledModule.table_name}.name='wiki'"
+        end
+      end
+
       module InstanceMethods
         def sidebar_with_additionals
           @sidebar ||= find_page 'Sidebar', with_redirect: false

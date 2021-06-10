@@ -95,7 +95,7 @@ module Additionals
       false
     end
 
-    def debug(message)
+    def debug(message = 'running')
       return if Rails.env.production?
 
       msg = message.is_a?(String) ? message : message.inspect

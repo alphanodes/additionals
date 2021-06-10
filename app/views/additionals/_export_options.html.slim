@@ -5,7 +5,6 @@ div id="#{export_format}-export-options" style="display: none"
     = query_as_hidden_field_tags @query
     - if defined?(selected_columns_only) && selected_columns_only
       = hidden_field_tag 'c[]', ''
-      = l :description_selected_columns
     - else
       p
         label
@@ -16,17 +15,13 @@ div id="#{export_format}-export-options" style="display: none"
           = radio_button_tag 'c[]', 'all_inline'
           = l :description_all_columns
 
-    hr
-
-    - if @query.available_filters.key? 'description'
-      p
-        label
-          = check_box_tag 'c[]', 'description', @query.has_column?(:description)
-          = l :field_description
-        - if defined?(with_last_notes) && with_last_notes
+    - if @query.available_block_columns.any?
+      fieldset#csv-export-block-columns
+        legend = toggle_checkboxes_link '#csv-export-block-columns input[type=checkbox]'
+        - @query.available_block_columns.each do |column|
           label
-            = check_box_tag 'c[]', 'last_notes', @query.has_column?(:last_notes)
-            = l :label_last_notes
+            = check_box_tag 'c[]', column.name, @query.has_column?(column), id: nil
+            = column.caption
 
     = export_csv_encoding_select_tag
 

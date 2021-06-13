@@ -57,4 +57,22 @@ class AdditionalsTest < Additionals::TestCase
     assert macros.count.positive?
     assert(macros.detect { |macro| macro.include? 'fa_macro' })
   end
+
+  def test_split_ids
+    assert_equal [1, 2, 3], Additionals.split_ids('1, 2 , 3')
+    assert_equal [3, 2], Additionals.split_ids('3, 2, 2')
+    assert_equal [1, 2], Additionals.split_ids('1, 2 3')
+    assert_equal [], Additionals.split_ids('')
+    assert_equal [0], Additionals.split_ids('non-number')
+  end
+
+  def test_split_ids_with_ranges
+    assert_equal [1, 2, 3, 4, 5], Additionals.split_ids('1, 2 , 3, 3 - 5')
+    assert_equal [1, 2, 3, 4, 5], Additionals.split_ids('1, 2 , 3, 5 - 2')
+    assert_equal [1, 2, 3], Additionals.split_ids('1, 2 , 3, 5 - 3 - 1')
+  end
+
+  def test_split_ids_with_restricted_large_range
+    assert_equal [33_333, 33_334, 33_335, 33_336, 62_519], Additionals.split_ids('62519-33333', limit: 5)
+  end
 end

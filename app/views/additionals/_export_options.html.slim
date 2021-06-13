@@ -1,4 +1,4 @@
-div id="#{export_format}-export-options" style="display: none"
+div id="#{export_format}-export-options" style="display: none;"
   h3.title = l :label_export_options, export_format: export_format.upcase
 
   = form_tag url, method: :get, id: "#{export_format}-export-form" do
@@ -24,6 +24,12 @@ div id="#{export_format}-export-options" style="display: none"
             = column.caption
 
     = export_csv_encoding_select_tag
+
+    - if @issue_count && @issue_count > Setting.issues_export_limit.to_i
+      p.icon.icon-warning
+        = l :setting_issues_export_limit
+        | :
+        = Setting.issues_export_limit.to_i
 
     p.buttons
       = submit_tag l(:button_export),

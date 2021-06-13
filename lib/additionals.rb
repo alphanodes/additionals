@@ -171,6 +171,37 @@ module Additionals
       [value, options]
     end
 
+    def split_ids(phrase, limit: nil)
+      limit ||= Setting.per_page_options_array.first || 25
+      raw_ids = phrase.split(',').map(&:strip)
+      ids = []
+      raw_ids.each do |id|
+        if id.include? '-'
+          range = id.split('-').map(&:strip)
+          if range.size == 2
+            left_id = range.first.to_i
+            right_id = range.last.to_i
+            min = [left_id, right_id].min
+            max = [left_id, right_id].max
+            # if range to large, take lowest numbers + last possible number
+            ids << if max - min > limit
+                     old_max = max
+                     max = limit + min - 2
+                     ids << (min..max).to_a
+                     old_max
+                   else
+                     (min..max).to_a
+                   end
+          end
+        else
+          ids << id.to_i
+        end
+      end
+      ids.flatten!
+      ids.uniq!
+      ids.take limit
+    end
+
     private
 
     def settings

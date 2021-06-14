@@ -25,10 +25,11 @@ div id="#{export_format}-export-options" style="display: none;"
 
     = export_csv_encoding_select_tag
 
-    - if @issue_count && @issue_count > Setting.issues_export_limit.to_i
+    - if @issue_count && @issue_count > Setting.issues_export_limit.to_i || \
+         @query_count && @query_count > Setting.issues_export_limit.to_i
       p.icon.icon-warning
-        = l :setting_issues_export_limit
-        | :
+        = @issue_count ? l(:setting_issues_export_limit) : l(:setting_export_limit)
+        ' :
         = Setting.issues_export_limit.to_i
 
     p.buttons

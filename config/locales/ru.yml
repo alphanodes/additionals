@@ -186,3 +186,4 @@ ru:
   label_live_search_hints: "Доступный поиск по полям: %{value}"
   label_stats_new_today: "Новое сегодня"
   label_stats_totals: "всего"
+  setting_export_limit: Export limit

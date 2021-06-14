@@ -186,3 +186,4 @@
   label_live_search_hints: "可用的领域搜索: %{value}"
   label_stats_new_today: "New today"
   label_stats_totals: "Total"
+  setting_export_limit: Export limit

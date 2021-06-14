@@ -186,3 +186,4 @@ pt-BR:
   label_live_search_hints: "Pesquisas de campo disponíveis: %{value}"
   label_stats_new_today: "Novo hoje"
   label_stats_totals: "Total"
+  setting_export_limit: Export limit

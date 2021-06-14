@@ -186,3 +186,4 @@ zh:
   label_live_search_hints: "可用的领域搜索: %{value}"
   label_stats_new_today: "今天的新产品"
   label_stats_totals: "总"
+  setting_export_limit: Export limit

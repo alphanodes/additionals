@@ -186,3 +186,4 @@ en:
   label_live_search_hints: "Available field searches: %{value}"
   label_stats_new_today: "New today"
   label_stats_totals: "Total"
+  setting_export_limit: Export limit

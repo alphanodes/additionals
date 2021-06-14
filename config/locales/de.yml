@@ -186,3 +186,4 @@ de:
   label_live_search_hints: "Verfügbare Feldsuche: %{value}"
   label_stats_new_today: "Heute neu"
   label_stats_totals: "Gesamt"
+  setting_export_limit: Maximale Anzahl für Export

@@ -10,7 +10,6 @@ class CreateDashboardDefaults < ActiveRecord::Migration[5.2]
                         system_default: true,
                         author_id: User.current.id,
                         visibility: 2
-      puts 'Default welcome dashboard has been created'
     end
 
     return if Dashboard.exists? dashboard_type: DashboardContentProject::TYPE_NAME
@@ -21,6 +20,5 @@ class CreateDashboardDefaults < ActiveRecord::Migration[5.2]
                       enable_sidebar: true,
                       author_id: User.current.id,
                       visibility: 2
-    puts 'Default project dashboard has been created'
   end
 end

@@ -9,8 +9,13 @@ $(function() {
   } else {
     var mermaidThemeVariables = { 'fontSize': '12px' };
   }
+
   mermaid.initialize({
     startOnLoad: true,
+    maxTextSize: 500000,
+    flowchart:{
+      useMaxWidth: false
+    },
     theme: mermaidTheme,
     themeVariables: mermaidThemeVariables });
 });

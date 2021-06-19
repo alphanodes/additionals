@@ -58,6 +58,10 @@ module AdditionalsSettingsHelper
     additionals_settings_input_field :url_field_tag, name, **options
   end
 
+  def additionals_settings_timefield(name, **options)
+    additionals_settings_input_field :time_field_tag, name, **options
+  end
+
   def additionals_settings_select(name, values, **options)
     tag_name = options.delete(:tag_name).presence || "settings[#{name}]"
 

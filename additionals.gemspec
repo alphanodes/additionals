@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
   spec.required_ruby_version = '>= 2.5'
 
-  spec.add_runtime_dependency 'deface', '1.5.3'
+  spec.add_runtime_dependency 'deface', '1.8.1'
   spec.add_runtime_dependency 'gemoji', '~> 3.0.0'
   spec.add_runtime_dependency 'render_async'
   spec.add_runtime_dependency 'rss'

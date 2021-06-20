@@ -182,8 +182,8 @@ es:
   top_wiki_help: "Aquí puede definir contenidos y configuracioens para su Wiki."
   wiki_pdf_remove_attachments_info: "Cuando está activa, los adjuntos no serán mostrados en los PDF."
   wiki_pdf_remove_title_info: "Cuando está activa, el título de la Wiki no será mostrado en los PDF."
-  button_merge: "Fusionar"
+  button_merge: "Combinar"
   label_live_search_hints: "Búsquedas de campo disponibles: %{value}"
   label_stats_new_today: "Nuevo hoy"
   label_stats_totals: "Total"
-  setting_export_limit: Export limit
+  setting_export_limit: "Límite de exportación"

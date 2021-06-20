@@ -186,4 +186,4 @@ ja:
   label_live_search_hints: "利用可能なフィールド検索: %{value}"
   label_stats_new_today: "本日の新着情報"
   label_stats_totals: "合計"
-  setting_export_limit: Export limit
+  setting_export_limit: "エクスポート制限"

@@ -185,5 +185,5 @@ pl:
   button_merge: Merge
   label_live_search_hints: "Dostępne wyszukiwania w terenie: %{value}"
   label_stats_new_today: "Dzisiaj nowość"
-  label_stats_totals: "Total"
-  setting_export_limit: Export limit
+  label_stats_totals: "Łącznie"
+  setting_export_limit: "Limit eksportu"

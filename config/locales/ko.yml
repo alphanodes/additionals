@@ -186,4 +186,4 @@ ko:
   label_live_search_hints: "사용 가능한 필드 검색 : %{value}"
   label_stats_new_today: "오늘 새로운"
   label_stats_totals: "합계"
-  setting_export_limit: Export limit
+  setting_export_limit: "Export limit"

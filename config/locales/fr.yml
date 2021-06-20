@@ -186,4 +186,4 @@ fr:
   label_live_search_hints: "Recherches par champ disponibles: %{value}"
   label_stats_new_today: "Nouveau aujourd'hui"
   label_stats_totals: "Total"
-  setting_export_limit: Export limit
+  setting_export_limit: "Limite d'exportation"

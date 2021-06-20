@@ -186,4 +186,4 @@ cs:
   label_live_search_hints: "Dostupná vyhledávání v polích: %{value}"
   label_stats_new_today: "Dnes novinka"
   label_stats_totals: "Total"
-  setting_export_limit: Export limit
+  setting_export_limit: "Vývozní limit"

@@ -99,7 +99,7 @@ module Additionals
       return if Rails.env.production?
 
       msg = message.is_a?(String) ? message : message.inspect
-      Rails.logger.debug "#{Time.current.strftime '%H:%M:%S'} DEBUG [#{caller_locations(1..1).first.label}]: #{msg}"
+      Rails.logger.debug { "#{Time.current.strftime '%H:%M:%S'} DEBUG [#{caller_locations(1..1).first.label}]: #{msg}" }
     end
 
     def class_prefix(klass)

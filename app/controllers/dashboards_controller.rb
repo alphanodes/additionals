@@ -51,7 +51,7 @@ class DashboardsController < ApplicationController
 
   def show
     respond_to do |format|
-      format.html { head 406 }
+      format.html { head :not_acceptable }
       format.js if request.xhr?
       format.api
     end
@@ -185,7 +185,7 @@ class DashboardsController < ApplicationController
   def order_blocks
     @dashboard.order_blocks params[:group], params[:blocks]
     @dashboard.save
-    head 200
+    head :ok
   end
 
   private

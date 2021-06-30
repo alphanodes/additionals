@@ -161,8 +161,8 @@ module AdditionalsQuery
 
     db_table = Watcher.table_name
     "#{queried_table_name}.id #{operator == '=' ? 'IN' : 'NOT IN'}" \
-    " (SELECT #{db_table}.watchable_id FROM #{db_table} WHERE #{db_table}.watchable_type='#{watchable_type}' AND" \
-    " #{sql_for_field field, '=', value, db_table, 'user_id'})"
+      " (SELECT #{db_table}.watchable_id FROM #{db_table} WHERE #{db_table}.watchable_type='#{watchable_type}' AND" \
+      " #{sql_for_field field, '=', value, db_table, 'user_id'})"
   end
 
   def sql_for_is_private_field(_field, operator, value)

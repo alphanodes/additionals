@@ -8,8 +8,8 @@ module Additionals
            "{{user(USER_NAME [, format=USER_FORMAT, text=BOOL], avatar=BOOL])}}\n\n" \
            "USER_NAME can be user id or user name (login name)\n" \
            "USER_FORMATS\n" \
-           "- system (use system settings) (default)\n- " +
-           User::USER_FORMATS.keys.join("\n- ") + "\n\n" \
+           "- system (use system settings) (default)\n- " \
+           "#{User::USER_FORMATS.keys.join "\n- "}\n\n" \
            "Examples:\n\n" \
            "{{user(1)}}\n" \
            "...Link to user with user id 1\n\n" \

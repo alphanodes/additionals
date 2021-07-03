@@ -121,7 +121,6 @@ Features
   * gmap
   * group_users
   * iframe
-  * issues
   * last_updated_at
   * last_updated_by
   * members

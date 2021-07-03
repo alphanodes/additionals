@@ -7,6 +7,7 @@ Changelog
 - Ruby 2.7 warnings fixed
 - Mermaid 8.10.2 support
 - D3 6.7.0 support
+- Remove issue macro, which is now supported by Redmine core
 
 3.0.2
 +++++

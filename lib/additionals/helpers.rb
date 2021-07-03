@@ -87,40 +87,6 @@ module Additionals
       end
     end
 
-    def render_issue_macro_link(issue, text, comment_id = nil)
-      only_path = controller_path.split('_').last != 'mailer'
-      content = link_to text, issue_url(issue, only_path: only_path), class: issue.css_classes
-      if comment_id.nil?
-        content
-      else
-        render_issue_with_comment issue, content, comment_id, only_path: only_path
-      end
-    end
-
-    def render_issue_with_comment(issue, content, comment_id, only_path: false)
-      journal = issue.journals.select(:notes, :private_notes, :user_id).offset(comment_id - 1).limit(1).first
-      comment = if journal
-                  user = User.current
-                  if user.allowed_to?(:view_private_notes, issue.project) ||
-                     !journal.private_notes? ||
-                     journal.user == user
-                    journal.notes
-                  end
-                end
-
-      if comment.blank?
-        comment = 'N/A'
-        comment_link = comment_id
-      else
-        comment_link = link_to comment_id, issue_url(issue, only_path: only_path, anchor: "note-#{comment_id}")
-      end
-
-      tag.div class: 'issue-macro box' do
-        tag.div(safe_join([content, '-', l(:label_comment), comment_link], ' '), class: 'issue-macro-subject') +
-          tag.div(textilizable(comment), class: 'issue-macro-comment journal has-notes')
-      end
-    end
-
     def memberships_new_issue_project_url(user, memberships, permission = :edit_issues)
       return if memberships.blank?
 
@@ -150,35 +116,6 @@ module Additionals
       else
         new_project_issue_path project_id
       end
-    end
-
-    def parse_issue_url(url, comment_id = nil)
-      rc = { issue_id: nil, comment_id: nil }
-      return rc if url == '' || url.is_a?(Integer) && url.zero?
-
-      unless url.to_i.zero?
-        rc[:issue_id] = url
-        return rc
-      end
-
-      uri = URI.parse url
-      # support issue_id plugin
-      # see https://www.redmine.org/plugins/issue_id
-      issue_id_parts = url.split '-'
-      if uri.scheme.nil? && uri.path[0] != '/' && issue_id_parts.count == 2
-        rc[:issue_id] = url
-      else
-        s_pos = uri.path.rindex '/issues/'
-        return rc unless s_pos
-
-        id_string = uri.path[s_pos + 8..-1]
-        e_pos = id_string.index '/'
-        rc[:issue_id] = e_pos.nil? ? id_string : id_string[0..e_pos - 1]
-        # check for comment_id
-        rc[:comment_id] = uri.fragment[5..-1].to_i if comment_id.nil? && uri.fragment.present? && uri.fragment[0..4] == 'note-'
-      end
-
-      rc
     end
 
     def additionals_library_load(module_names)

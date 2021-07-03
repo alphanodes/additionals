@@ -378,63 +378,6 @@ class WikiControllerTest < Additionals::ControllerTest
     assert_select 'script[src=?]', '//asciinema.org/a/113463.js'
   end
 
-  def test_show_issue
-    @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{issue(2, format=short)}}'
-    @page.content.save!
-    get :show,
-        params: { project_id: 1, id: @page_name }
-    assert_response :success
-    assert_select 'a[href=?]', '/issues/2',
-                  text: 'Add ingredients categories'
-  end
-
-  def test_show_issue_with_id
-    @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{issue(2, format=link)}}'
-    @page.content.save!
-    get :show,
-        params: { project_id: 1, id: @page_name }
-    assert_response :success
-    assert_select 'a[href=?]', '/issues/2',
-                  text: '#2 Add ingredients categories'
-  end
-
-  def test_show_issue_with_url
-    @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{issue(http://test.host/issues/2)}}'
-    @page.content.save!
-    get :show,
-        params: { project_id: 1, id: @page_name }
-    assert_response :success
-    assert_select 'a[href=?]', '/issues/2',
-                  text: '#2 Add ingredients categories'
-    assert_select 'div.issue-macro-comment', 0
-  end
-
-  def test_show_issue_and_comment_with_url
-    @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{issue(http://test.host/issues/2#note-1)}}'
-    @page.content.save!
-    get :show,
-        params: { project_id: 1, id: @page_name }
-    assert_response :success
-    assert_select 'a[href=?]', '/issues/2',
-                  text: '#2 Add ingredients categories'
-    assert_select 'div.issue-macro-comment'
-  end
-
-  def test_show_issue_with_id_default
-    @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{issue(2)}}'
-    @page.content.save!
-    get :show,
-        params: { project_id: 1, id: @page_name }
-    assert_response :success
-    assert_select 'a[href=?]', '/issues/2',
-                  text: '#2 Add ingredients categories'
-  end
-
   def test_show_user_with_current_user
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{user(current_user)}}'

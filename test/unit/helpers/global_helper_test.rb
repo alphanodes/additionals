@@ -47,34 +47,4 @@ class GlobalHelperTest < ActionView::TestCase
     html = font_awesome_icon 'fas_cloud-upload-alt', post_text: 'Testing'
     assert_include '</span> Testing', html
   end
-
-  def test_parse_issue_url
-    stubs(:request).returns(stub('original_url' => 'http://redmine.local/issues/1#note-2'))
-
-    assert_equal({ issue_id: nil, comment_id: nil },
-                 parse_issue_url(0, nil))
-    assert_equal({ issue_id: nil, comment_id: nil },
-                 parse_issue_url('', nil))
-    assert_equal({ issue_id: nil, comment_id: nil },
-                 parse_issue_url('http://localhost/issue/23', nil))
-    assert_equal({ issue_id: '23', comment_id: nil },
-                 parse_issue_url('http://redmine.local/issues/23', nil))
-    assert_equal({ issue_id: '23', comment_id: 2 },
-                 parse_issue_url('http://redmine.local/issues/23#note-2', nil))
-    assert_equal({ issue_id: '23', comment_id: 2 },
-                 parse_issue_url('http://redmine.local/issues/issues/23/edit#note-2', nil))
-  end
-
-  def test_render_issue_macro_link
-    issue = Issue.generate!
-    issue.init_journal User.first, 'Adding notes'
-    issue.save
-
-    stubs(:request).returns(stub('original_url' => 'http://redmine.local/issues/1#note-2'))
-
-    assert_match %r{/issues/#{issue.id}}, render_issue_macro_link(issue, 'Sample subject')
-    assert_no_match(/Adding notes/, render_issue_macro_link(issue, 'Sample subject'))
-    assert_match(/Adding notes/, render_issue_macro_link(issue, 'Sample subject', 1))
-    assert_match %r{N/A}, render_issue_macro_link(issue, 'Sample subject', 100)
-  end
 end

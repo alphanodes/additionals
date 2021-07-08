@@ -7,4 +7,10 @@ module AdditionalsProjectsHelper
 
     safe_join name, Additionals::LIST_SEPARATOR
   end
+
+  def render_api_includes(project, api)
+    super
+    api.enable_new_ticket_message project.enable_new_ticket_message
+    api.new_ticket_message project.new_ticket_message
+  end
 end

@@ -21,6 +21,8 @@ module Additionals
     render_on :view_users_show_contextual, partial: 'users/additionals_contextual'
     render_on :view_wiki_show_sidebar_bottom, partial: 'wiki/additionals_sidebar'
 
+    render_on :view_projects_issue_settings, partial: 'projects/additionals_settings_issues'
+
     def helper_issues_show_detail_after_setting(context = {})
       detail = context[:detail]
       return unless detail.prop_key == 'author_id'

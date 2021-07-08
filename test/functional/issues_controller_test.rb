@@ -173,4 +173,24 @@ class IssuesControllerTest < Additionals::ControllerTest
       assert_select 'ul.issue-status-change-sidebar a.status-switch.status-5'
     end
   end
+
+  def test_new_should_have_new_ticket_message
+    with_additionals_settings new_ticket_message: 'blub' do
+      @request.session[:user_id] = 2
+      get :new, params: { project_id: 1 }
+      assert_select '.new-ticket-message'
+    end
+  end
+
+  def test_new_should_not_have_new_ticket_message_if_disabled_in_project
+    project = projects :projects_001
+    project.enable_new_ticket_message = 0
+    project.save!
+
+    with_additionals_settings new_ticket_message: 'blub' do
+      @request.session[:user_id] = 2
+      get :new, params: { project_id: 1 }
+      assert_select '.new-ticket-message', count: 0
+    end
+  end
 end

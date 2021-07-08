@@ -129,8 +129,8 @@ module AdditionalsMenuHelper
     user_items = [{ title: 'Redmine Guide', url: Redmine::Info.help_url },
                   { title: "Redmine #{l :label_macro_plural}", url: additionals_macros_path }]
 
-    admin_items = [{ title: 'Additionals',
-                     url: 'https://additionals.readthedocs.io/en/latest/manual/', manual: true },
+    admin_items = [{ title: "Additionals #{l :label_help_manual}",
+                     url: 'https://additionals.readthedocs.io/en/latest/manual/' },
                    { title: 'Redmine Changelog',
                      url: "https://www.redmine.org/projects/redmine/wiki/Changelog_#{Redmine::VERSION::MAJOR}_#{Redmine::VERSION::MINOR}" },
                    { title: 'Redmine Upgrade',

@@ -10,6 +10,8 @@ module Additionals
         include InstanceMethods
 
         has_many :dashboards, dependent: :destroy
+
+        safe_attributes 'enable_new_ticket_message', 'new_ticket_message'
       end
 
       module InstanceOverwriteMethods

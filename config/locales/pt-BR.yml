@@ -187,3 +187,7 @@ pt-BR:
   label_stats_new_today: "Novo hoje"
   label_stats_totals: "Total"
   setting_export_limit: "Limite de exportação"
+  field_enable_new_ticket_message: Activate issue message
+  label_additionals_message: Message
+  label_system_setting: System
+  label_project_setting: Project

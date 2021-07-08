@@ -99,7 +99,14 @@ module Additionals
       end
 
       def new_ticket_message
-        @new_ticket_message ||= Additionals.setting(:new_ticket_message).presence || ''
+        @new_ticket_message = case project.enable_new_ticket_message
+                              when 1
+                                Additionals.setting(:new_ticket_message).presence || ''
+                              when 2
+                                project.new_ticket_message.presence || ''
+                              else
+                                ''
+                              end
       end
 
       def status_x_affected?(new_status_id)

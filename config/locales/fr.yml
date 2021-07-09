@@ -187,7 +187,7 @@ fr:
   label_stats_new_today: "Nouveau aujourd'hui"
   label_stats_totals: "Total"
   setting_export_limit: "Limite d'exportation"
-  field_enable_new_ticket_message: Activate issue message
+  field_enable_new_ticket_message: "Activer le message d'émission"
   label_additionals_message: Message
-  label_system_setting: System
-  label_project_setting: Project
+  label_system_setting: "Système"
+  label_project_setting: "Projet"

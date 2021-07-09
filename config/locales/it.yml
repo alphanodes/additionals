@@ -187,7 +187,7 @@ it:
   label_stats_new_today: "Nuovo oggi"
   label_stats_totals: "Totale"
   setting_export_limit: "Limite di esportazione"
-  field_enable_new_ticket_message: Activate issue message
-  label_additionals_message: Message
-  label_system_setting: System
-  label_project_setting: Project
+  field_enable_new_ticket_message: "Attivare il messaggio del task"
+  label_additionals_message: "Messaggio"
+  label_system_setting: "Sistema"
+  label_project_setting: "Progetto"

@@ -187,7 +187,7 @@ zh:
   label_stats_new_today: "今天的新产品"
   label_stats_totals: "总"
   setting_export_limit: "出口限额"
-  field_enable_new_ticket_message: Activate issue message
-  label_additionals_message: Message
-  label_system_setting: System
-  label_project_setting: Project
+  field_enable_new_ticket_message: "激活任务信息"
+  label_additionals_message: "讯息"
+  label_system_setting: "系统"
+  label_project_setting: "项目"

@@ -187,7 +187,7 @@ ru:
   label_stats_new_today: "Новое сегодня"
   label_stats_totals: "всего"
   setting_export_limit: "Лимит экспорта"
-  field_enable_new_ticket_message: Activate issue message
-  label_additionals_message: Message
-  label_system_setting: System
-  label_project_setting: Project
+  field_enable_new_ticket_message: "Активировать сообщение о задании"
+  label_additionals_message: "Сообщение"
+  label_system_setting: "Система"
+  label_project_setting: "Проект"

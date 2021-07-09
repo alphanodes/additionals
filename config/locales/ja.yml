@@ -187,7 +187,7 @@ ja:
   label_stats_new_today: "本日の新着情報"
   label_stats_totals: "合計"
   setting_export_limit: "エクスポート制限"
-  field_enable_new_ticket_message: Activate issue message
-  label_additionals_message: Message
-  label_system_setting: System
-  label_project_setting: Project
+  field_enable_new_ticket_message: "タスク起動メッセージ"
+  label_additionals_message: "メッセージ"
+  label_system_setting: "システム"
+  label_project_setting: "プロジェクト"

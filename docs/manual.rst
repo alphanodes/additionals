@@ -141,9 +141,13 @@ Here you can define issue rules, which are used in issues of all projects.
 
 
 Note for new issues
-  Use this section if you want to place important issue notes above every new issue (edit mode). Keep it short and use a link to a common wiki page with further information.
+  Use this section if you want to place important issue notes above every new issue (edit mode) like in the screenshot below. Keep it short and use a link to a common wiki page with further information.
 
-.. note:: You can use wiki syntax for your text, but use it wisely. And make sure the wiki page you link to is accessible for every user.
+  .. figure::  images/issuetext.png
+     :align:   center
+
+.. note::
+  You can use wiki syntax for your text (use it wisely). Make sure the wiki page you link to is accessible for every user. The default issue text can be overwritten within the project settings.
 
 New issue on user profile
   Activate this option in case you want to display the symbol link ''New issue'' on a user's profile page in the top right corner in order to add a new issue for this user directly from it's user profile page.
@@ -154,7 +158,8 @@ Show ''Assign to me'' on issue
 Issue status on sidebar
   Activate this option in case you want to display a list of available issue status options in the right sidebar of the issue view page. One click on the option changes the issue status directly without opening the *edit* mode.
 
-.. note:: All options above only work for users with appropriate issue tracking rights in the administration area "Roles and permissions" (view, create, edit).
+.. note::
+  All options above only work for users with appropriate issue tracking rights in the administration area "Roles and permissions" (view, create, edit).
 
 
 Add involved users as watcher automatically
@@ -237,10 +242,10 @@ There you find useful manual links to various Redmine related topics which will 
 
 The following menu items are currently implemented if a plugin is installed, that supports this additionals-function:
 
-* FontAwesome icons
-* Redmine macros (for more information see: Macros)
-* Redmine guide
-* Redmine changelog
+* FontAwesome Icons
+* Redmine Macros (for more information see: Macros)
+* Redmine Guide
+* Redmine Changelog
 * Redmine Security Advisories
 * Redmine Upgrade
 
@@ -248,12 +253,38 @@ Known external plugins that have a user manual and support this feature are curr
 
 * additionals
 * redmine_automation
-* redmine_privacy_terms
 * redmine_db
-* redmine_passwords
+* redmine_devops
 * redmine_hrm
+* redmine_passwords
+* redmine_privacy_terms
 * redmine_reporting
+* redmine_wiki_guide
 
+
+
+Plugin settings
+---------------
+
+The ``Issues section`` allows you to store system wide ``Note for new issues``, which will be displayed on top of new issues (or in the edit mode of an issue). This system wide information text can be changed per project within the project settings. You can change the system settings in you project **Settings** area section **Issue tracking**.
+
+.. figure::  images/issuetext-project.png
+   :align:   center
+
+Choose one of the following options:
+
+System
+  There is nothing you can do. The default system wide text will be used.
+
+disabled
+  This disables the Note for new issues completely.
+
+Project
+  This option allows you to define your own, project relevant text as ``Note for new issues``.
+
+
+.. note::
+  You can use wiki syntax for your text (use it wisely). Make sure the wiki page you link to is accessible for every user. The default issue text can be overwritten within the project settings.
 
 
 Additionals permissions
@@ -266,7 +297,8 @@ The following role permissions are provided by the plugin and must be configured
 Hide
   This option hides ``members`` of the selected role in the member box of each project overview page. Project members of other roles will still be listed. For example: You don't want others to catch a glimpse of your development team (Role: Development). So activate the role "Developer" to hide the list of your team members assigned to this role in this box. This function is also useful if your member box is too crowded.
 
-.. note:: This setting is also taken into account in all related query lists (e.g. issues, spent time etc.). So that the members with this role are also hidden there. **Important:** If the user has in one project a role, that allows him / her to view a specific "hidden role" this rule is not taken into account anymore.
+.. note::
+  This setting is also taken into account in all related query lists (e.g. issues, spent time etc.). So that the members with this role are also hidden there. **Important:** If the user has in one project a role, that allows him / her to view a specific "hidden role" this rule is not taken into account anymore.
 
 
 **According to the selected Role you can activate / deactivate the following permissions:**

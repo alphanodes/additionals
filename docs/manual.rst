@@ -266,7 +266,7 @@ Known external plugins that have a user manual and support this feature are curr
 Plugin settings
 ---------------
 
-The ``Issues section`` allows you to store system wide ``Note for new issues``, which will be displayed on top of new issues (or in the edit mode of an issue). This system wide information text can be changed per project within the project settings. You can change the system settings in you project **Settings** area section **Issue tracking**.
+The ``Issues section`` allows you to store system wide ``Note for new issues``, which will be displayed on top of new issues (or in the edit mode of an issue). This system wide information text can be changed per project within the project settings. You can change the system settings in your project **Settings** area section **Issue tracking**.
 
 .. figure::  images/issuetext-project.png
    :align:   center
@@ -277,7 +277,7 @@ System
   There is nothing you can do. The default system wide text will be used.
 
 disabled
-  This disables the Note for new issues completely.
+  This disables the ``Note for new issues`` completely.
 
 Project
   This option allows you to define your own, project relevant text as ``Note for new issues``.

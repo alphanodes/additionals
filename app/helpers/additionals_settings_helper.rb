@@ -74,7 +74,11 @@ module AdditionalsSettingsHelper
 
   def additionals_settings_textarea(name, **options)
     label_title = options.delete(:label).presence || l("label_#{name}")
-    value = options.delete(:value).presence || @settings[name]
+    value = if options.key? :value
+              options.delete :value
+            elsif @settings.present?
+              @settings[name]
+            end
 
     options[:class] = 'wiki-edit' unless options.key? :class
     options[:rows] = addtionals_textarea_cols value unless options.key? :rows
@@ -88,7 +92,7 @@ module AdditionalsSettingsHelper
   def additionals_settings_input_field(tag_field, name, **options)
     tag_name = options.delete(:tag_name).presence || "settings[#{name}]"
     value = if options.key? :value
-              options.delete(:value).presence
+              options.delete :value
             elsif @settings.present?
               @settings[name]
             end

@@ -18,7 +18,7 @@ fieldset.box.tabular
 
   p#system-ticket-message style="#{'display: none' if project.enable_new_ticket_message != 1}"
     = additionals_settings_textarea :new_ticket_message_system,
-                                    value: Additionals.setting(:new_ticket_message),
+                                    value: Additionals.setting(:new_ticket_message).to_s,
                                     label: l(:label_additionals_message),
                                     for_project: true,
                                     disabled: true

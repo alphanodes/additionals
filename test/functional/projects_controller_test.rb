@@ -83,4 +83,24 @@ class ProjectsControllerTest < Additionals::ControllerTest
 
     assert_response :forbidden
   end
+
+  def test_shared_project_dashboard_for_all_projects
+    @request.session[:user_id] = 3
+
+    get :show,
+        params: { id: 1,
+                  dashboard_id: dashboards(:public_project) }
+
+    assert_response :success
+  end
+
+  def test_shared_welcome_dashboard_for_all_projects
+    @request.session[:user_id] = 3
+
+    get :show,
+        params: { id: 1,
+                  dashboard_id: dashboards(:public_welcome) }
+
+    assert_response :missing
+  end
 end

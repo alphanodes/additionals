@@ -32,17 +32,13 @@ module DashboardsHelper
     safe_join classes, ' '
   end
 
-  def sidebar_dashboards(dashboard, project = nil, user = nil)
-    user ||= User.current
+  def sidebar_dashboards(dashboard, project = nil)
     scope = Dashboard.visible.includes [:author]
 
     scope = if project.present?
               scope = scope.project_only
               scope.where(project_id: project.id)
-                   .or(scope.where(system_default: true)
-                            .where(project_id: nil))
-                   .or(scope.where(author_id: user.id)
-                            .where(project_id: nil))
+                   .or(scope.where(project_id: nil))
             else
               scope.where dashboard_type: dashboard.dashboard_type
             end

@@ -103,4 +103,11 @@ class WelcomeControllerTest < Additionals::ControllerTest
 
     assert_response :missing
   end
+
+  def test_index_with_public_project_dashboard
+    get :index,
+        params: { dashboard_id: dashboards(:public_project) }
+
+    assert_response :missing
+  end
 end

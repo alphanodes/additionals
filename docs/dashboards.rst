@@ -1,7 +1,7 @@
 Dashboards
 ==========
 
-The additionals plugin version 3.0.0 comes with new dashboard support (Drag & Drop). The new *Dashboard* feature of the additionals plugin provides customizable areas to display and organize content from Redmine that support the functionality.
+The additionals plugin comes with dashboard support (Drag & Drop). The *Dashboard* feature of the additionals plugin provides customizable areas to display and organize content from Redmine and Redmine plugins that support the functionality.
 
 Specifically, you can customize the traditional Redmine main page, as well as the project overview pages according to your needs using the available dashboard blocks. The goal is to give the viewer an immediate overview of the issues or to display the metrics that are important to you.
 

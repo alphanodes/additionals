@@ -2,6 +2,8 @@
 
 module Additionals
   module EntityMethods
+    attr_reader :current_journal
+
     def assignable_users(prj = nil)
       prj = project if project.present?
       users = prj.assignable_users_and_groups.to_a
@@ -13,6 +15,30 @@ module Additionals
 
       users.uniq!
       users.sort
+    end
+
+    def last_notes
+      @last_notes ||= journals.where.not(notes: '').reorder(id: :desc).first.try(:notes)
+    end
+
+    def new_status
+      true if created_on == updated_on
+    end
+
+    # Returns the id of the last journal or nil
+    def last_journal_id
+      if new_record?
+        nil
+      else
+        journals.maximum :id
+      end
+    end
+
+    # Saves the changes in a Journal
+    # Called after_save
+    def create_journal
+      Additionals.debug current_journal.inspect
+      current_journal&.save
     end
   end
 end

@@ -124,6 +124,33 @@ module AdditionalsJournalsHelper
   end
   # rubocop: enable Rails/OutputSafety
 
+  def render_email_attributes(entry, html: false)
+    items = send "email_#{entry.class.name.underscore}_attributes", entry, html
+    if html
+      tag.ul class: 'details' do
+        items.map { |s| concat tag.li(s) }.join("\n")
+      end
+    else
+      items.map { |s| "* #{s}" }.join("\n")
+    end
+  end
+
+  def email_custom_field_values_attributes(entry, html)
+    items = []
+    entry.custom_field_values.each do |value|
+      cf_value = show_value value, false
+      next if cf_value.blank?
+
+      items << if html
+                 tag.strong("#{value.custom_field.name}: ") + cf_value
+               else
+                 "#{value.custom_field.name}: #{cf_value}"
+               end
+    end
+
+    items
+  end
+
   private
 
   def entity_show_detail_prop(detail, options)

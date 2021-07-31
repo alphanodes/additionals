@@ -52,17 +52,22 @@ module Additionals
       link_to name, link, options
     end
 
-    def additionals_list_title(name: nil, issue: nil, user: nil, query: nil)
+    def additionals_list_title(name:, obj: nil, obj_link: nil, query: nil)
       title = []
-      if issue
-        title << link_to(h("#{issue.subject} ##{issue.id}"),
-                         issue_path(issue),
-                         class: issue.css_classes)
-      elsif user
-        title << safe_join([avatar(user, size: 50), user.name], ' ')
+      case obj
+      when Issue
+        title << link_to(h("#{obj.subject} ##{obj.id}"),
+                         issue_path(obj),
+                         class: obj.css_classes)
+      when User
+        title << safe_join([avatar(obj, size: 50), obj.name], ' ')
+      else
+        title << obj_link if obj_link
       end
+
       title << name if name
       title << h(query.name) if query && !query.new_record?
+
       safe_join title, Additionals::LIST_SEPARATOR
     end
 

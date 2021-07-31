@@ -49,7 +49,7 @@ class AccountControllerTest < Additionals::ControllerTest
                                mail: 'register@example.com' } }
         assert_redirected_to '/my/account'
       end
-      user = User.order(id: :desc).first
+      user = User.last
       assert_equal 'register', user.login
       assert_equal 'John', user.firstname
       assert_equal 'Doe', user.lastname

@@ -37,7 +37,6 @@ module Additionals
     # Saves the changes in a Journal
     # Called after_save
     def create_journal
-      Additionals.debug current_journal.inspect
       current_journal&.save
     end
   end

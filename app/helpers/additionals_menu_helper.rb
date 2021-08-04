@@ -7,7 +7,7 @@ module AdditionalsMenuHelper
     if Additionals.setting? :remove_mypage
       Redmine::MenuManager.map(:top_menu).delete(:my_page) if Redmine::MenuManager.map(:top_menu).exists?(:my_page)
     else
-      handle_top_menu_item(:my_page, url: my_page_path, after: :home, if: proc { User.current.logged? })
+      handle_top_menu_item(:my_page, url: my_page_path, after: :home, onlyif: proc { User.current.logged? })
     end
 
     if Additionals.setting? :remove_help
@@ -24,42 +24,43 @@ module AdditionalsMenuHelper
     handle_top_menu_item menu_name, with_submenu: true, **item
   end
 
-  def handle_top_menu_item(menu_name, with_submenu: false, **item)
+  def handle_top_menu_item(menu_name, url:, with_submenu: false, onlyif: nil,
+                           name: nil, parent: nil, title: nil, symbol: nil, before: nil, after: nil, last: false)
     Redmine::MenuManager.map(:top_menu).delete(menu_name.to_sym) if Redmine::MenuManager.map(:top_menu).exists?(menu_name.to_sym)
 
     html_options = {}
 
     css_classes = []
     css_classes << 'top-submenu' if with_submenu
-    css_classes << 'external' if item[:url].include? '://'
+    css_classes << 'external' if url.include? '://'
     html_options[:class] = css_classes.join ' ' if css_classes.present?
 
-    html_options[:title] = item[:title] if item[:title].present?
+    html_options[:title] = title if title.present?
 
-    menu_options = { parent: item[:parent].present? ? item[:parent].to_sym : nil,
+    menu_options = { parent: parent.present? ? parent.to_sym : nil,
                      html: html_options }
 
-    menu_options[:if] = menu_options[:if] if menu_options[:if].present?
+    menu_options[:if] = onlyif if onlyif.present?
 
-    menu_options[:caption] = if item[:symbol].present? && item[:name].present?
-                               font_awesome_icon item[:symbol], post_text: item[:name]
-                             elsif item[:symbol].present?
-                               font_awesome_icon item[:symbol]
-                             elsif item[:name].present?
-                               item[:name].to_s
+    menu_options[:caption] = if symbol.present? && name.present?
+                               font_awesome_icon symbol, post_text: name
+                             elsif symbol.present?
+                               font_awesome_icon symbol
+                             elsif name.present?
+                               name.to_s
                              end
 
-    if item[:last].present? && item[:last]
+    if last
       menu_options[:last] = true
-    elsif item[:before].present?
-      menu_options[:before] = item[:before]
-    elsif item[:after].present?
-      menu_options[:after] = item[:after]
+    elsif before.present?
+      menu_options[:before] = before
+    elsif after.present?
+      menu_options[:after] = after
     else
       menu_options[:before] = :help
     end
 
-    Redmine::MenuManager.map(:top_menu).push menu_name, item[:url], menu_options
+    Redmine::MenuManager.map(:top_menu).push menu_name, url, **menu_options
   end
 
   def render_custom_top_menu_item

@@ -120,8 +120,8 @@ module AdditionalsMenuHelper
       break if show_entry
     end
 
+    menu_name = item.delete :menu_name
     if show_entry
-      menu_name = item.delete :menu_name
       handle_top_menu_item menu_name, item
     elsif Redmine::MenuManager.map(:top_menu).exists?(menu_name)
       Redmine::MenuManager.map(:top_menu).delete(menu_name)

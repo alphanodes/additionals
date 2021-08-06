@@ -102,7 +102,8 @@ module AdditionalsMenuHelper
 
   def additionals_custom_top_menu_item(item, user_roles)
     show_entry = false
-    item[:roles].each do |role|
+    roles = item.delete :roles
+    roles.each do |role|
       if user_roles.empty? && role.to_i == Role::BUILTIN_ANONYMOUS ||
          # if user is logged in and non_member is active in item, always show it
          User.current.logged? && role.to_i == Role::BUILTIN_NON_MEMBER
@@ -116,13 +117,14 @@ module AdditionalsMenuHelper
           break
         end
       end
-      break if show_entry == true
+      break if show_entry
     end
 
     if show_entry
-      handle_top_menu_item item[:menu_name], item
-    elsif Redmine::MenuManager.map(:top_menu).exists?(item[:menu_name])
-      Redmine::MenuManager.map(:top_menu).delete(item[:menu_name])
+      menu_name = item.delete :menu_name
+      handle_top_menu_item menu_name, item
+    elsif Redmine::MenuManager.map(:top_menu).exists?(menu_name)
+      Redmine::MenuManager.map(:top_menu).delete(menu_name)
     end
   end
 

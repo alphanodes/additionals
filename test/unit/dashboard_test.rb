@@ -280,4 +280,13 @@ class DashboardTest < Additionals::TestCase
     dashboard.project_id = 1
     assert_save dashboard
   end
+
+  def test_dashboard_name_should_strip_spaces
+    dashboard = dashboards :system_default_welcome
+    dashboard.name = ' new name '
+    assert_save dashboard
+
+    dashboard.reload
+    assert_equal 'new name', dashboard.name
+  end
 end

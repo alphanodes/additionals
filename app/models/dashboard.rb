@@ -52,6 +52,8 @@ class Dashboard < ActiveRecord::Base
                     user.allowed_to? :set_system_dashboards, dashboard.project, global: true
                   end)
 
+  before_validation :strip_whitespace
+
   before_save :dashboard_type_check, :visibility_check, :set_options_hash, :clear_unused_block_settings
 
   before_destroy :check_destroy_system_default
@@ -344,6 +346,10 @@ class Dashboard < ActiveRecord::Base
   end
 
   private
+
+  def strip_whitespace
+    name&.strip!
+  end
 
   def clear_unused_block_settings
     blocks = layout.values.flatten

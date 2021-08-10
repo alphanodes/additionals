@@ -39,5 +39,33 @@ module Additionals
     def create_journal
       current_journal&.save
     end
+
+    # Returns the journals that are visible to user with their index
+    # Used to display the issue history
+    # ! this is a replacement of Redmine method - no not change signature
+    def visible_journals_with_index(_user = User.current)
+      result = journals.preload(:details)
+                       .preload(user: :email_address)
+                       .reorder(:created_on, :id).to_a
+
+      result.each_with_index { |j, i| j.indice = i + 1 }
+      Journal.preload_journals_details_custom_fields result
+      result.select! { |journal| journal.notes? || journal.visible_details.any? }
+      result
+    end
+
+    # Callback on file attachment
+    def attachment_added(attachment)
+      init_journal User.current
+      current_journal.journalize_attachment attachment, :added
+      current_journal.save!
+    end
+
+    # Callback on attachment deletion
+    def attachment_removed(attachment)
+      init_journal User.current
+      current_journal.journalize_attachment attachment, :removed
+      current_journal.save!
+    end
   end
 end

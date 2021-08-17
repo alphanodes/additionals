@@ -5,8 +5,8 @@ Changelog
 +++++
 
 - Ruby 2.7 warnings fixed
-- Mermaid 8.11.4 support
-- D3 7.0.0 support
+- Mermaid 8.11.5 support
+- D3 7.0.1 support
 - Remove issue macro, which is now supported by Redmine core
 - new ticket message can be overwritten for projects
 - fixed scope of public project dashboards for all projects

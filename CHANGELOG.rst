@@ -10,6 +10,7 @@ Changelog
 - Remove issue macro, which is now supported by Redmine core
 - new ticket message can be overwritten for projects
 - fixed scope of public project dashboards for all projects
+- FontAwesome 5.15.4 support
 
 3.0.2
 +++++

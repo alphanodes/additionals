@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Additionals
   class AdditionalsHookListener < Redmine::Hook::ViewListener
     include IssuesHelper
@@ -18,6 +20,8 @@ module Additionals
     render_on :view_users_form_preferences, partial: 'users/autowatch_involved_issue'
     render_on :view_users_show_contextual, partial: 'users/additionals_contextual'
     render_on :view_wiki_show_sidebar_bottom, partial: 'wiki/additionals_sidebar'
+
+    render_on :view_projects_issue_settings, partial: 'projects/additionals_settings_issues'
 
     def helper_issues_show_detail_after_setting(context = {})
       detail = context[:detail]

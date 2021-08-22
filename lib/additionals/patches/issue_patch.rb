@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Additionals
   module Patches
     module IssuePatch
@@ -23,27 +25,22 @@ module Additionals
       end
 
       class_methods do
-        def join_issue_status(options = {})
-          sql = "JOIN #{IssueStatus.table_name} ON #{IssueStatus.table_name}.id = #{table_name}.status_id"
-          return sql unless options.key?(:is_closed)
+        def join_issue_status(is_closed: nil)
+          sql = +"JOIN #{IssueStatus.table_name} ON #{IssueStatus.table_name}.id = #{table_name}.status_id"
+          return sql if is_closed.nil?
 
-          sql << " AND #{IssueStatus.table_name}.is_closed ="
-          sql << if options[:is_closed]
-                   " #{connection.quoted_true}"
-                 else
-                   " #{connection.quoted_false}"
-                 end
+          sql << " AND #{IssueStatus.table_name}.is_closed = #{is_closed ? connection.quoted_true : connection.quoted_false}"
           sql
         end
       end
 
       module InstanceMethods
         def sidbar_change_status_allowed_to(user, new_status_id = nil)
-          statuses = new_statuses_allowed_to(user)
+          statuses = new_statuses_allowed_to user
           if new_status_id.present?
             statuses.detect { |s| new_status_id == s.id && !timelog_required?(s.id) }
           else
-            statuses.reject { |s| timelog_required?(s.id) }
+            statuses.reject { |s| timelog_required? s.id }
           end
         end
 
@@ -63,7 +60,7 @@ module Additionals
           return if Redmine::Plugin.installed?('redmine_automation') && author_id == RedmineAutomation.bot_user_id
 
           add_autowatcher User.current
-          add_autowatcher(author) if (new_record? || author_id != author_id_was) && author != User.current
+          add_autowatcher author if (new_record? || author_id != author_id_was) && author != User.current
 
           if !assigned_to_id.nil? && assigned_to_id != User.current.id && (new_record? || assigned_to_id != assigned_to_id_was)
             add_autowatcher assigned_to
@@ -102,7 +99,14 @@ module Additionals
       end
 
       def new_ticket_message
-        @new_ticket_message ||= Additionals.setting(:new_ticket_message).presence || ''
+        @new_ticket_message = case project.enable_new_ticket_message
+                              when 1
+                                Additionals.setting(:new_ticket_message).presence || ''
+                              when 2
+                                project.new_ticket_message.presence || ''
+                              else
+                                ''
+                              end
       end
 
       def status_x_affected?(new_status_id)
@@ -127,7 +131,7 @@ module Additionals
       end
 
       def auto_assigned_to_user
-        manager_role = Role.builtin.find_by(id: Additionals.setting(:issue_auto_assign_role))
+        manager_role = Role.builtin.find_by id: Additionals.setting(:issue_auto_assign_role)
         groups = autoassign_get_group_list
         return groups[manager_role].first.id unless groups.nil? || groups[manager_role].blank?
 
@@ -150,7 +154,7 @@ module Additionals
       end
 
       def validate_timelog_required
-        return true unless timelog_required?(status_id)
+        return true unless timelog_required? status_id
 
         errors.add :base, :issue_requires_timelog
       end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Redmine::Plugin.register :additionals do
   name 'Additionals'
   author 'AlphaNodes GmbH'
@@ -14,7 +16,7 @@ Redmine::Plugin.register :additionals do
     default_settings["custom_menu#{i}_title"] = ''
   end
 
-  settings(default: default_settings, partial: 'additionals/settings/additionals')
+  settings default: default_settings, partial: 'additionals/settings/additionals'
 
   permission :show_hidden_roles_in_memberbox, {}
   permission :set_system_dashboards,
@@ -56,7 +58,7 @@ end
 
 Rails.application.paths['app/overrides'] ||= []
 Dir.glob(Rails.root.join('plugins/*/app/overrides')).each do |dir|
-  Rails.application.paths['app/overrides'] << dir unless Rails.application.paths['app/overrides'].include?(dir)
+  Rails.application.paths['app/overrides'] << dir unless Rails.application.paths['app/overrides'].include? dir
 end
 
 Rails.configuration.to_prepare do

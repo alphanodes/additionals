@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Deface::Override.new virtual_path: 'custom_fields/formats/_text',
                      name: 'custom_fields-formats-text',
                      replace: 'erb[silent]:contains(\'if @custom_field.class.name == "IssueCustomField"\')',

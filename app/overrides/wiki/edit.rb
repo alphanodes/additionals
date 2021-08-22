@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Deface::Override.new virtual_path: 'wiki/edit',
                      name: 'wiki-edit-bottom',
                      insert_before: 'fieldset',

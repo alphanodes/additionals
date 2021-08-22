@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :redmine do
   namespace :additionals do
     desc <<-DESCRIPTION
@@ -31,7 +33,7 @@ namespace :redmine do
       name = ENV['name'] ||= 'redmine'
       setting = ENV['setting']
       value = if ENV['values'].present?
-                ENV['values'].split(',')
+                ENV['values'].split ','
               else
                 ENV['value']
               end

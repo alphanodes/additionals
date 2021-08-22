@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateDashboardRoles < ActiveRecord::Migration[5.2]
   def change
     create_table :dashboard_roles do |t|

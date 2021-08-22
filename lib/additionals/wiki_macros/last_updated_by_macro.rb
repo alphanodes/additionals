@@ -1,4 +1,5 @@
-# Last_updated_by wiki macros
+# frozen_string_literal: true
+
 module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do

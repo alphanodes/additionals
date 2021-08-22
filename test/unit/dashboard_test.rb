@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path '../../test_helper', __FILE__
 
 class DashboardTest < Additionals::TestCase
@@ -150,7 +152,7 @@ class DashboardTest < Additionals::TestCase
   end
 
   def test_system_default_welcome_should_not_be_deletable
-    assert_raise(Exception) do
+    assert_raise Exception do
       Dashboard.welcome_only
                .where(system_default: true)
                .destroy_all
@@ -158,7 +160,7 @@ class DashboardTest < Additionals::TestCase
   end
 
   def test_system_default_project_should_not_be_deletable
-    assert_raise(Exception) do
+    assert_raise Exception do
       Dashboard.project_only
                .where(system_default: true)
                .destroy_all
@@ -189,7 +191,7 @@ class DashboardTest < Additionals::TestCase
   end
 
   def test_dashboard_project_scope
-    assert_equal 2, Dashboard.visible.project_only.count
+    assert_equal 3, Dashboard.visible.project_only.count
   end
 
   def test_destroy_dashboard_without_roles
@@ -205,7 +207,7 @@ class DashboardTest < Additionals::TestCase
     dashboard = dashboards :welcome_for_roles
     assert_equal 2, dashboard.roles.count
 
-    relation = DashboardRole.new(role_id: 3, dashboard_id: dashboard.id)
+    relation = DashboardRole.new role_id: 3, dashboard_id: dashboard.id
     assert_save relation
 
     dashboard.reload
@@ -277,5 +279,14 @@ class DashboardTest < Additionals::TestCase
 
     dashboard.project_id = 1
     assert_save dashboard
+  end
+
+  def test_dashboard_name_should_strip_spaces
+    dashboard = dashboards :system_default_welcome
+    dashboard.name = ' new name '
+    assert_save dashboard
+
+    dashboard.reload
+    assert_equal 'new name', dashboard.name
   end
 end

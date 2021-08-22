@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require 'additionals/version'
 
 module Additionals
   MAX_CUSTOM_MENU_ITEMS = 5
   SELECT2_INIT_ENTRIES = 20
-  DEFAULT_MODAL_WIDTH = '350px'.freeze
-  GOTO_LIST = " \xc2\xbb".freeze
-  LIST_SEPARATOR = "#{GOTO_LIST} ".freeze
+  DEFAULT_MODAL_WIDTH = '350px'
+  GOTO_LIST = " \xc2\xbb"
+  LIST_SEPARATOR = "#{GOTO_LIST} "
 
   class << self
     def setup
@@ -26,6 +28,7 @@ module Additionals
                WelcomeController
                ReportsController
                Principal
+               Query
                QueryFilter
                Role
                User
@@ -92,10 +95,11 @@ module Additionals
       false
     end
 
-    def debug(message)
+    def debug(message = 'running')
       return if Rails.env.production?
 
-      Rails.logger.debug "#{Time.current.strftime('%H:%M:%S')} DEBUG [#{caller_locations(1..1).first.label}]: #{message}"
+      msg = message.is_a?(String) ? message : message.inspect
+      Rails.logger.debug { "#{Time.current.strftime '%H:%M:%S'} DEBUG [#{caller_locations(1..1).first.label}]: #{msg}" }
     end
 
     def class_prefix(klass)
@@ -113,19 +117,19 @@ module Additionals
 
     def incompatible_plugins(plugins = [], title = 'additionals')
       plugins.each do |plugin|
-        raise "\n\033[31m#{title} plugin cannot be used with #{plugin} plugin.\033[0m" if Redmine::Plugin.installed?(plugin)
+        raise "\n\033[31m#{title} plugin cannot be used with #{plugin} plugin.\033[0m" if Redmine::Plugin.installed? plugin
       end
     end
 
     def patch(patches = [], plugin_id = 'additionals')
       patches.each do |name|
-        patch_dir = Rails.root.join("plugins/#{plugin_id}/lib/#{plugin_id}/patches")
+        patch_dir = Rails.root.join "plugins/#{plugin_id}/lib/#{plugin_id}/patches"
         require "#{patch_dir}/#{name.underscore}_patch"
 
         target = name.constantize
         patch = "#{plugin_id.camelize}::Patches::#{name}Patch".constantize
 
-        target.include(patch) unless target.included_modules.include?(patch)
+        target.include patch unless target.included_modules.include? patch
       end
     end
 
@@ -165,6 +169,37 @@ module Additionals
         value = default
       end
       [value, options]
+    end
+
+    def split_ids(phrase, limit: nil)
+      limit ||= Setting.per_page_options_array.first || 25
+      raw_ids = phrase.split(',').map(&:strip)
+      ids = []
+      raw_ids.each do |id|
+        if id.include? '-'
+          range = id.split('-').map(&:strip)
+          if range.size == 2
+            left_id = range.first.to_i
+            right_id = range.last.to_i
+            min = [left_id, right_id].min
+            max = [left_id, right_id].max
+            # if range to large, take lowest numbers + last possible number
+            ids << if max - min > limit
+                     old_max = max
+                     max = limit + min - 2
+                     ids << (min..max).to_a
+                     old_max
+                   else
+                     (min..max).to_a
+                   end
+          end
+        else
+          ids << id.to_i
+        end
+      end
+      ids.flatten!
+      ids.uniq!
+      ids.take limit
     end
 
     private

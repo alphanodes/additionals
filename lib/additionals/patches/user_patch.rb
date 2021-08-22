@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Additionals
   module Patches
     module UserPatch
@@ -51,7 +53,7 @@ module Additionals
           scope = Principal.joins(members: :roles)
                            .where(users: { id: id },
                                   roles: { assignable: true })
-          scope = scope.where(members: { project_id: project.id }) if project
+          scope = scope.where members: { project_id: project.id } if project
           scope.exists?
         end
       end

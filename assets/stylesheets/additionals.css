@@ -377,6 +377,24 @@ select.dashboard-block-select {
 div.drdn-items a.disabled,
 div.drdn-items a.disabled:hover { color: #aaa; }
 
+table.entity-list td.block_column {
+  color: #777;
+  font-size: 90%;
+  padding: 4px 4px 4px 24px;
+  text-align: left;
+  white-space: normal;
+}
+
+table.entity-list td.block_column span {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 4px;
+}
+
+table.entity-list td.block_column pre {
+  white-space: normal;
+}
+
 @media screen and (max-width: 899px) {
   .gototop { display: none; }
 

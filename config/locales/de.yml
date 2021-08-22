@@ -182,7 +182,12 @@ de:
   top_wiki_help: Hier kannst Du Inhalte und Einstellungen bzg. der Wiki festlegen.
   wiki_pdf_remove_attachments_info: Wenn aktiv, werden die an der Wiki Seite angehängten Dateien nicht in der PDF Ansicht angezeigt.
   wiki_pdf_remove_title_info: Wenn aktiv, wird der Wiki Titel nicht in der PDF Ansicht angezeigt.
-  button_merge: Zusammenführen
+  button_merge: "Zusammenführen"
   label_live_search_hints: "Verfügbare Feldsuche: %{value}"
   label_stats_new_today: "Heute neu"
   label_stats_totals: "Gesamt"
+  setting_export_limit: "Maximale Anzahl für Export"
+  field_enable_new_ticket_message: Aktiviere Hinweistext
+  label_additionals_message: Hinweistext
+  label_system_setting: System
+  label_project_setting: Projekt

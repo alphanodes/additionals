@@ -165,7 +165,7 @@
   permission_change_new_issue_author: "設定新議題作者"
   permission_edit_closed_issues: "編輯已結束的議題"
   permission_edit_issue_author: "編輯作者"
-  permission_issue_timelog_never_required: Time logging not required
+  permission_issue_timelog_never_required: "不要求时间记录"
   permission_log_time_on_closed_issues: "在已結束的議題中登記工時"
   permission_save_dashboards: Save dashboards
   permission_set_system_dashboards: Set system dashboards
@@ -182,7 +182,12 @@
   top_wiki_help: "您可以在此自訂Wiki的內容和設定。"
   wiki_pdf_remove_attachments_info: "當啟用時，Wiki附件將不會顯示在PDF中。"
   wiki_pdf_remove_title_info: "當啟用時，Wiki標題訊息不會顯示在PDF中"
-  button_merge: Merge
+  button_merge: "合并"
   label_live_search_hints: "可用的领域搜索: %{value}"
-  label_stats_new_today: "New today"
-  label_stats_totals: "Total"
+  label_stats_new_today: "今天的新品"
+  label_stats_totals: "总数"
+  setting_export_limit: "出口限额"
+  field_enable_new_ticket_message: "激活任务信息"
+  label_additionals_message: "讯息"
+  label_system_setting: "系统"
+  label_project_setting: "项目"

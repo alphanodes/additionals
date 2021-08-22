@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   resources :issues, only: [] do
     resource 'assign_to_me', only: %i[update], controller: 'additionals_assign_to_me'

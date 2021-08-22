@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path '../../test_helper', __FILE__
 
 class JavascriptLibraryTest < Additionals::IntegrationTest
@@ -19,9 +21,9 @@ class JavascriptLibraryTest < Additionals::IntegrationTest
            :queries
 
   def test_not_loaded_chart_css_library
-    skip if Redmine::Plugin.installed?('redmine_reporting')
+    skip if Redmine::Plugin.installed? 'redmine_reporting'
 
-    log_user('admin', 'admin')
+    log_user 'admin', 'admin'
     get '/'
 
     assert_response :success
@@ -29,9 +31,9 @@ class JavascriptLibraryTest < Additionals::IntegrationTest
   end
 
   def test_not_loaded_chart_js_library
-    skip if Redmine::Plugin.installed?('redmine_reporting')
+    skip if Redmine::Plugin.installed? 'redmine_reporting'
 
-    log_user('admin', 'admin')
+    log_user 'admin', 'admin'
     get '/'
 
     assert_response :success
@@ -39,7 +41,7 @@ class JavascriptLibraryTest < Additionals::IntegrationTest
   end
 
   def test_not_loaded_javascript_libraries
-    log_user('admin', 'admin')
+    log_user 'admin', 'admin'
     get '/'
 
     assert_response :success

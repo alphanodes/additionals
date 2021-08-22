@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DashboardsController < ApplicationController
   menu_item :dashboards
 
@@ -49,7 +51,7 @@ class DashboardsController < ApplicationController
 
   def show
     respond_to do |format|
-      format.html { head 406 }
+      format.html { head :not_acceptable }
       format.js if request.xhr?
       format.api
     end
@@ -63,7 +65,7 @@ class DashboardsController < ApplicationController
   end
 
   def create
-    @dashboard = Dashboard.new(author: User.current)
+    @dashboard = Dashboard.new author: User.current
     @dashboard.safe_attributes = params[:dashboard]
     @dashboard.dashboard_type = assign_dashboard_type
     @dashboard.role_ids = params[:dashboard][:role_ids] if params[:dashboard].present?
@@ -71,7 +73,7 @@ class DashboardsController < ApplicationController
     @allowed_projects = @dashboard.allowed_target_projects
 
     if @dashboard.save
-      flash[:notice] = l(:notice_successful_create)
+      flash[:notice] = l :notice_successful_create
 
       respond_to do |format|
         format.html { redirect_to dashboard_link_path(@project, @dashboard) }
@@ -80,13 +82,13 @@ class DashboardsController < ApplicationController
     else
       respond_to do |format|
         format.html { render action: 'new' }
-        format.api  { render_validation_errors(@dashboard) }
+        format.api  { render_validation_errors @dashboard }
       end
     end
   end
 
   def edit
-    return render_403 unless @dashboard.editable_by?(User.current)
+    return render_403 unless @dashboard.editable_by? User.current
 
     @allowed_projects = @dashboard.allowed_target_projects
 
@@ -97,7 +99,7 @@ class DashboardsController < ApplicationController
   end
 
   def update
-    return render_403 unless @dashboard.editable_by?(User.current)
+    return render_403 unless @dashboard.editable_by? User.current
 
     @dashboard.safe_attributes = params[:dashboard]
     @dashboard.role_ids = params[:dashboard][:role_ids] if params[:dashboard].present?
@@ -106,9 +108,9 @@ class DashboardsController < ApplicationController
     @allowed_projects = @dashboard.allowed_target_projects
 
     if @dashboard.save
-      flash[:notice] = l(:notice_successful_update)
+      flash[:notice] = l :notice_successful_update
       respond_to do |format|
-        format.html { redirect_to dashboard_link_path @project, @dashboard }
+        format.html { redirect_to dashboard_link_path(@project, @dashboard) }
         format.api  { head :ok }
       end
     else
@@ -124,20 +126,20 @@ class DashboardsController < ApplicationController
 
     begin
       @dashboard.destroy
-      flash[:notice] = l(:notice_successful_delete)
+      flash[:notice] = l :notice_successful_delete
       respond_to do |format|
         format.html { redirect_to @project.nil? ? home_path : project_path(@project) }
         format.api  { head :ok }
       end
     rescue ActiveRecord::RecordNotDestroyed
-      flash[:error] = l(:error_remove_db_entry)
+      flash[:error] = l :error_remove_db_entry
       redirect_to dashboard_path(@dashboard)
     end
   end
 
   def query_statement_invalid(exception)
     logger&.error "Query::StatementInvalid: #{exception.message}"
-    session.delete(additionals_query_session_key('dashboard'))
+    session.delete additionals_query_session_key('dashboard')
     render_error l(:error_query_statement_invalid)
   end
 
@@ -145,7 +147,7 @@ class DashboardsController < ApplicationController
     block_settings = params[:settings] || {}
 
     block_settings.each do |block, settings|
-      @dashboard.update_block_settings(block, settings.to_unsafe_hash)
+      @dashboard.update_block_settings block, settings.to_unsafe_hash
     end
     @dashboard.save
     @updated_blocks = block_settings.keys
@@ -183,7 +185,7 @@ class DashboardsController < ApplicationController
   def order_blocks
     @dashboard.order_blocks params[:group], params[:blocks]
     @dashboard.save
-    head 200
+    head :ok
   end
 
   private
@@ -201,11 +203,15 @@ class DashboardsController < ApplicationController
   end
 
   def find_dashboard
-    @dashboard = Dashboard.find(params[:id])
+    @dashboard = Dashboard.find params[:id]
     raise ::Unauthorized unless @dashboard.visible?
 
     if @dashboard.dashboard_type == DashboardContentProject::TYPE_NAME && @dashboard.project.nil?
-      @dashboard.content_project = find_project_by_project_id
+      @dashboard.content_project = if params[:dashboard].present? && params[:dashboard][:content_project_id].present?
+                                     find_project params[:dashboard][:content_project_id]
+                                   else
+                                     find_project_by_project_id
+                                   end
     else
       @project = @dashboard.project
     end

@@ -185,4 +185,9 @@ pl:
   button_merge: Merge
   label_live_search_hints: "Dostępne wyszukiwania w terenie: %{value}"
   label_stats_new_today: "Dzisiaj nowość"
-  label_stats_totals: "Total"
+  label_stats_totals: "Łącznie"
+  setting_export_limit: "Limit eksportu"
+  field_enable_new_ticket_message: "Aktywuj komunikat o zleceniu"
+  label_additionals_message: "Komunikat"
+  label_system_setting: "System"
+  label_project_setting: "Projekt"

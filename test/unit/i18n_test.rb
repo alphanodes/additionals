@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path '../../test_helper', __FILE__
 
 class I18nTest < Additionals::TestCase
@@ -30,6 +32,6 @@ class I18nTest < Additionals::TestCase
       end
     end
 
-    set_language_if_valid('en')
+    set_language_if_valid 'en'
   end
 end

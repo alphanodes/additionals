@@ -186,3 +186,8 @@ cs:
   label_live_search_hints: "Dostupná vyhledávání v polích: %{value}"
   label_stats_new_today: "Dnes novinka"
   label_stats_totals: "Total"
+  setting_export_limit: "Vývozní limit"
+  field_enable_new_ticket_message: "Aktivace zprávy o vydání"
+  label_additionals_message: "Zpráva"
+  label_system_setting: "Systém"
+  label_project_setting: "Projekt"

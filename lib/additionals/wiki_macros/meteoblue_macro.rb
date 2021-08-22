@@ -1,4 +1,5 @@
-# meteoblue wiki macros
+# frozen_string_literal: true
+
 module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
@@ -47,9 +48,9 @@ module Additionals
         height = options[:height].presence || 368
 
         src = if User.current.language.blank? ? ::I18n.locale : User.current.language == 'de'
-                'https://www.meteoblue.com/de/wetter/widget/daily/'
+                +'https://www.meteoblue.com/de/wetter/widget/daily/'
               else
-                'https://www.meteoblue.com/en/weather/widget/daily/'
+                +'https://www.meteoblue.com/en/weather/widget/daily/'
               end
 
         src << ERB::Util.url_encode(args[0])
@@ -75,11 +76,12 @@ module Additionals
   end
 
   def self.meteoblue_flag(options, name, default = tue)
-    flag = "&#{name}="
+    flag = +"#{name}="
     flag << if Additionals.true?(options[name]) || default
               '1'
             else
               '0'
             end
+    flag
   end
 end

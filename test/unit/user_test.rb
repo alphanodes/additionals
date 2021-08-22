@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path '../../test_helper', __FILE__
 
 class UserTest < Additionals::TestCase
@@ -18,9 +20,9 @@ class UserTest < Additionals::TestCase
   end
 
   def test_with_permission
-    admin_user = User.generate!(admin: true)
+    admin_user = User.generate! admin: true
 
-    users = User.visible.active.with_permission(:save_dashboards)
+    users = User.visible.active.with_permission :save_dashboards
     assert_equal 5, users.count
     assert users.exists?(id: admin_user)
   end
@@ -38,7 +40,7 @@ class UserTest < Additionals::TestCase
   end
 
   def test_sudoer_should_can_be_admin
-    skip 'Skip redmine_sudo test, because redmine_contacts is not installed' unless Redmine::Plugin.installed?('redmine_sudo')
+    skip 'Skip redmine_sudo test, because redmine_contacts is not installed' unless Redmine::Plugin.installed? 'redmine_sudo'
 
     user = users :users_001
     user.sudoer = true
@@ -59,7 +61,7 @@ class UserTest < Additionals::TestCase
   end
 
   def test_non_sudoer_without_admin_can_not_be_admin
-    skip 'Skip redmine_sudo test, because redmine_contacts is not installed' unless Redmine::Plugin.installed?('redmine_sudo')
+    skip 'Skip redmine_sudo test, because redmine_contacts is not installed' unless Redmine::Plugin.installed? 'redmine_sudo'
 
     assert_not User.where(sudoer: false, admin: false).first.can_be_admin?
   end

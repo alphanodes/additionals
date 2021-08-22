@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency 'projects_controller'
 
 module Additionals
@@ -27,7 +29,7 @@ module Additionals
         def find_dashboard
           if params[:dashboard_id].present?
             begin
-              @dashboard = Dashboard.project_only.find(params[:dashboard_id])
+              @dashboard = Dashboard.project_only.find params[:dashboard_id]
               raise ::Unauthorized unless @dashboard.visible?
               raise ::Unauthorized unless @dashboard.project.nil? || @dashboard.project == @project
             rescue ActiveRecord::RecordNotFound

@@ -1,4 +1,5 @@
-# Google docs wiki macros
+# frozen_string_literal: true
+
 module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
@@ -16,7 +17,7 @@ module Additionals
       DESCRIPTION
 
       macro :google_docs do |_obj, args|
-        args, options = extract_macro_options(args, :width, :height, :edit_link)
+        args, options = extract_macro_options args, :width, :height, :edit_link
 
         width = options[:width].presence || '100%'
         height = options[:height].presence || 485
@@ -29,7 +30,7 @@ module Additionals
 
         src = v.dup
         unless src.include? '?'
-          src << if src.include?('edit')
+          src << if src.include? 'edit'
                    '?rm=minimal'
                  else
                    '?widget=true&headers=false'

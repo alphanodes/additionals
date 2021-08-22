@@ -1,4 +1,5 @@
-# Formater
+# frozen_string_literal: true
+
 module Additionals
   module Formatter
     SMILEYS = { 'smiley' => ':-?\)', # :)
@@ -27,16 +28,16 @@ module Additionals
     def render_inline_smileys(text)
       return text if text.blank?
 
-      inline_smileys(text)
+      inline_smileys text
       text
     end
 
     def inline_smileys(text)
       SMILEYS.each do |name, regexp|
         text.gsub!(/(\s|^|>|\))(!)?(#{regexp})(?=\W|$|<)/m) do
-          leading = Regexp.last_match(1)
-          esc = Regexp.last_match(2)
-          smiley = Regexp.last_match(3)
+          leading = Regexp.last_match 1
+          esc = Regexp.last_match 2
+          smiley = Regexp.last_match 3
           if esc.nil?
             leading + tag.span(class: "additionals smiley smiley-#{name}",
                                title: smiley)
@@ -49,8 +50,8 @@ module Additionals
 
     def inline_emojify(text)
       text.gsub!(/:([\w+-]+):/) do |match|
-        emoji_code = Regexp.last_match(1)
-        emoji = Emoji.find_by_alias(emoji_code) # rubocop:disable Rails/DynamicFindBy
+        emoji_code = Regexp.last_match 1
+        emoji = Emoji.find_by_alias emoji_code # rubocop:disable Rails/DynamicFindBy
         if emoji.present?
           tag.img src: inline_emojify_image_path(emoji.image_filename),
                   title: ":#{emoji_code}:",

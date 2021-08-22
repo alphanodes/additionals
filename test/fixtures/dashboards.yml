@@ -96,6 +96,13 @@ private_project_default:
   author_id: 1
   visibility: 0
 
+public_project:
+  name: Public project for all project, but no system default
+  dashboard_type: <%= DashboardContentProject::TYPE_NAME %>
+  project_id:
+  author_id: 1
+  visibility: 2
+
 private_project:
   name: Private project for user 1
   dashboard_type: <%= DashboardContentProject::TYPE_NAME %>

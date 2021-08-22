@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path '../../test_helper', __FILE__
 
 class WikiControllerTest < Additionals::ControllerTest
@@ -24,11 +26,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def setup
     prepare_tests
-    EnabledModule.create(project_id: 1, name: 'wiki')
+    EnabledModule.create project_id: 1, name: 'wiki'
     @project = projects :projects_001
     @wiki = @project.wiki
     @page_name = 'additionals_macro_test'
-    @page = @wiki.find_or_new_page(@page_name)
+    @page = @wiki.find_or_new_page @page_name
     @page.content = WikiContent.new
     @page.content.text = 'test'
     @page.save!
@@ -374,63 +376,6 @@ class WikiControllerTest < Additionals::ControllerTest
         params: { project_id: 1, id: @page_name }
     assert_response :success
     assert_select 'script[src=?]', '//asciinema.org/a/113463.js'
-  end
-
-  def test_show_issue
-    @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{issue(2, format=short)}}'
-    @page.content.save!
-    get :show,
-        params: { project_id: 1, id: @page_name }
-    assert_response :success
-    assert_select 'a[href=?]', '/issues/2',
-                  text: 'Add ingredients categories'
-  end
-
-  def test_show_issue_with_id
-    @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{issue(2, format=link)}}'
-    @page.content.save!
-    get :show,
-        params: { project_id: 1, id: @page_name }
-    assert_response :success
-    assert_select 'a[href=?]', '/issues/2',
-                  text: '#2 Add ingredients categories'
-  end
-
-  def test_show_issue_with_url
-    @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{issue(http://test.host/issues/2)}}'
-    @page.content.save!
-    get :show,
-        params: { project_id: 1, id: @page_name }
-    assert_response :success
-    assert_select 'a[href=?]', '/issues/2',
-                  text: '#2 Add ingredients categories'
-    assert_select 'div.issue-macro-comment', 0
-  end
-
-  def test_show_issue_and_comment_with_url
-    @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{issue(http://test.host/issues/2#note-1)}}'
-    @page.content.save!
-    get :show,
-        params: { project_id: 1, id: @page_name }
-    assert_response :success
-    assert_select 'a[href=?]', '/issues/2',
-                  text: '#2 Add ingredients categories'
-    assert_select 'div.issue-macro-comment'
-  end
-
-  def test_show_issue_with_id_default
-    @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{issue(2)}}'
-    @page.content.save!
-    get :show,
-        params: { project_id: 1, id: @page_name }
-    assert_response :success
-    assert_select 'a[href=?]', '/issues/2',
-                  text: '#2 Add ingredients categories'
   end
 
   def test_show_user_with_current_user

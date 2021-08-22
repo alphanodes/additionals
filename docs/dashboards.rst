@@ -1,7 +1,7 @@
 Dashboards
 ==========
 
-The additionals plugin version 3.0.0 comes with new dashboard support (Drag & Drop). The new *Dashboard* feature of the additionals plugin provides customizable areas to display and organize content from Redmine that support the functionality.
+The additionals plugin comes with dashboard support (Drag & Drop). The *Dashboard* feature of the additionals plugin provides customizable areas to display and organize content from Redmine and Redmine plugins that support the functionality.
 
 Specifically, you can customize the traditional Redmine main page, as well as the project overview pages according to your needs using the available dashboard blocks. The goal is to give the viewer an immediate overview of the issues or to display the metrics that are important to you.
 
@@ -422,6 +422,11 @@ How many default Dashboards can be created?
 
 Does every user sees the content of every Dashboard block?
   You do not control the content a user in your project sees via the dashboard block you add, but still by setting up the correct user permissions in the administration area "Roles and permissions". Those permissions for a user role are relevant for the content a user can view in your project and must be set correctly.
+
+I want to use different dashboards for my employees than for Anonymous users / Non members
+  For Anonymous users / Non members use the normal "default dashboard" for the Redmine start page and / or Redmine project page. Because they will usually see the default dashboard and the blocks placed there. They will not be able to switch between different dashboards.
+  And for your employees create own dashboards. You define which role has access to it in the dashboard configuration. Employees of the respective roles can then simply switch from the standard dashboard to the role-based dashboard in case it will not be displayed on the first visit.
+
 
 Developer Information
 ---------------------

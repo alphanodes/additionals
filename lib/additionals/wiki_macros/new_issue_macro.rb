@@ -1,4 +1,5 @@
-# Issue wiki macros
+# frozen_string_literal: true
+
 module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
@@ -28,20 +29,20 @@ module Additionals
       macro :new_issue do |_obj, args|
         if args.any?
           args, options = extract_macro_options(args, *additionals_titles_for_locale(:name))
-          i18n_name = additionals_i18n_title(options, :name)
+          i18n_name = additionals_i18n_title options, :name
           project_id = args[0]
         end
-        i18n_name = l(:label_issue_new) if i18n_name.blank?
+        i18n_name = l :label_issue_new if i18n_name.blank?
 
         if project_id.present?
           project_id.strip!
 
-          project = Project.visible.find_by(id: project_id)
-          project ||= Project.visible.find_by(identifier: project_id)
-          project ||= Project.visible.find_by(name: project_id)
+          project = Project.visible.find_by id: project_id
+          project ||= Project.visible.find_by identifier: project_id
+          project ||= Project.visible.find_by name: project_id
           return '' if project.nil? || !User.current.allowed_to?(:add_issues, project)
 
-          return link_to(i18n_name, new_project_issue_path(project), class: 'macro-new-issue icon icon-add')
+          return link_to i18n_name, new_project_issue_path(project), class: 'macro-new-issue icon icon-add'
         else
           @memberships = User.current
                              .memberships
@@ -49,8 +50,8 @@ module Additionals
                              .where(Project.visible_condition(User.current))
                              .to_a
           if @memberships.present?
-            project_url = memberships_new_issue_project_url(User.current, @memberships, :add_issues)
-            return link_to(i18n_name, project_url, class: 'macro-new-issue icon icon-add') if project_url.present?
+            project_url = memberships_new_issue_project_url User.current, @memberships, :add_issues
+            return link_to i18n_name, project_url, class: 'macro-new-issue icon icon-add' if project_url.present?
           end
         end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AdditionalsInfo
   include Redmine::I18n
 
@@ -43,11 +45,11 @@ class AdditionalsInfo
           days = (secs / 86_400).round
         end
         if days >= 1
-          "#{days} #{l(:days, count: days)}"
+          "#{days} #{l :days, count: days}"
         elsif hours >= 1
-          "#{hours} #{l(:hours, count: hours)}"
+          "#{hours} #{l :hours, count: hours}"
         else
-          "#{min} #{l(:minutes, count: min)}"
+          "#{min} #{l :minutes, count: min}"
         end
       else
         # this should be work on macOS
@@ -61,7 +63,7 @@ class AdditionalsInfo
           end
         else
           days = `uptime | awk '{print $3}'`.to_i.round
-          "#{days} #{l(:days, count: days)}"
+          "#{days} #{l :days, count: days}"
         end
       end
     end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DashboardsHelper
   def dashboard_async_cache(dashboard, block, async, settings, &content_block)
     cache render_async_cache_key(_dashboard_async_blocks_path(@project, dashboard.async_params(block, async, settings))),
@@ -30,17 +32,13 @@ module DashboardsHelper
     safe_join classes, ' '
   end
 
-  def sidebar_dashboards(dashboard, project = nil, user = nil)
-    user ||= User.current
-    scope = Dashboard.visible.includes([:author])
+  def sidebar_dashboards(dashboard, project = nil)
+    scope = Dashboard.visible.includes [:author]
 
     scope = if project.present?
               scope = scope.project_only
               scope.where(project_id: project.id)
-                   .or(scope.where(system_default: true)
-                            .where(project_id: nil))
-                   .or(scope.where(author_id: user.id)
-                            .where(project_id: nil))
+                   .or(scope.where(project_id: nil))
             else
               scope.where dashboard_type: dashboard.dashboard_type
             end
@@ -111,7 +109,7 @@ module DashboardsHelper
     return '' unless dashboards.any?
 
     tag.h3(title, class: 'dashboards') +
-      tag.ul(class: 'dashboards') do
+      tag.ul(class: 'dashboards') do # rubocop: disable Style/MethodCallWithArgsParentheses
         dashboards.each do |dashboard|
           selected = dashboard.id == if params[:dashboard_id].present?
                                        params[:dashboard_id].to_i
@@ -119,7 +117,7 @@ module DashboardsHelper
                                        active_dashboard.id
                                      end
 
-          css = 'dashboard'
+          css = +'dashboard'
           css << ' selected' if selected
           li_class = nil
 
@@ -143,14 +141,14 @@ module DashboardsHelper
       end
   end
 
-  def dashboard_link(dashboard, project, options = {})
+  def dashboard_link(dashboard, project, **options)
     if options[:title].blank? && dashboard.public?
       author = if dashboard.author_id == User.current.id
                  l :label_me
                else
                  dashboard.author
                end
-      options[:title] = l(:label_dashboard_author, name: author)
+      options[:title] = l :label_dashboard_author, name: author
     end
 
     name = options.delete(:name) || dashboard.name
@@ -171,10 +169,10 @@ module DashboardsHelper
     end
   end
 
-  def delete_dashboard_link(url, options = {})
+  def delete_dashboard_link(url)
     options = { method: :delete,
                 data: { confirm: l(:text_are_you_sure) },
-                class: 'icon icon-del' }.merge(options)
+                class: 'icon icon-del' }
 
     link_to l(:button_dashboard_delete), url, options
   end
@@ -252,7 +250,7 @@ module DashboardsHelper
                                  exposed_params: %i[sort],
                                  partial: 'dashboards/blocks/query_list' }
       partial_locals[:async][:unique_params] = [Redmine::Utils.random_hex(16)] if params[:refresh].present?
-      partial_locals[:async] = partial_locals[:async].merge(block_definition[:async]) if block_definition[:async]
+      partial_locals[:async] = partial_locals[:async].merge block_definition[:async] if block_definition[:async]
     elsif block_definition[:async]
       partial_locals[:async] = block_definition[:async]
     end
@@ -277,9 +275,9 @@ module DashboardsHelper
     title << query_block[:label]
 
     title << if query_block[:with_project]
-               link_to(query.name, send(query_block[:link_helper], project, query.as_params))
+               link_to query.name, send(query_block[:link_helper], project, query.as_params)
              else
-               link_to(query.name, send(query_block[:link_helper], query.as_params))
+               link_to query.name, send(query_block[:link_helper], query.as_params)
              end
 
     safe_join title, Additionals::LIST_SEPARATOR
@@ -289,9 +287,9 @@ module DashboardsHelper
     return if dashboard.visibility == Dashboard::VISIBILITY_PRIVATE
 
     title = if query.visibility == Query::VISIBILITY_PRIVATE
-              l(:alert_only_visible_by_yourself)
+              l :alert_only_visible_by_yourself
             elsif block_definition.key?(:admin_only) && block_definition[:admin_only]
-              l(:alert_only_visible_by_admins)
+              l :alert_only_visible_by_admins
             end
 
     return if title.nil?
@@ -322,7 +320,7 @@ module DashboardsHelper
     max_entries = settings[:max_entries] || DashboardContent::DEFAULT_MAX_ENTRIES
 
     scope = Document.visible
-    scope = scope.where(project: dashboard.project) if dashboard.project
+    scope = scope.where project: dashboard.project if dashboard.project
 
     documents = scope.order(created_on: :desc)
                      .limit(max_entries)
@@ -357,10 +355,10 @@ module DashboardsHelper
     days = 7 if days < 1 || days > 365
 
     scope = TimeEntry.where user_id: User.current.id
-    scope = scope.where(project_id: dashboard.content_project.id) unless dashboard.content_project.nil?
+    scope = scope.where project_id: dashboard.content_project.id unless dashboard.content_project.nil?
 
-    entries_today = scope.where(spent_on: User.current.today)
-    entries_days = scope.where(spent_on: User.current.today - (days - 1)..User.current.today)
+    entries_today = scope.where spent_on: User.current.today
+    entries_days = scope.where spent_on: User.current.today - (days - 1)..User.current.today
 
     render partial: 'dashboards/blocks/my_spent_time',
            locals: { block: block,
@@ -379,7 +377,7 @@ module DashboardsHelper
 
     Redmine::Activity::Fetcher.new(user, options)
                               .events(nil, nil, limit: max_entries)
-                              .group_by { |event| user.time_to_date(event.event_datetime) }
+                              .group_by { |event| user.time_to_date event.event_datetime }
   end
 
   def dashboard_feed_catcher(url, max_entries)
@@ -391,7 +389,7 @@ module DashboardsHelper
 
     begin
       URI.parse(url).open do |rss_feed|
-        rss = RSS::Parser.parse(rss_feed)
+        rss = RSS::Parser.parse rss_feed
         rss.items.each do |item|
           cnt += 1
           feed[:items] << { title: item.title.try(:content)&.presence || item.title,
@@ -430,7 +428,7 @@ module DashboardsHelper
   # Renders a single block content
   def render_dashboard_block_content(block, block_definition, dashboard, overwritten_settings = {})
     settings = dashboard.layout_settings block
-    settings = settings.merge(overwritten_settings) if overwritten_settings.present?
+    settings = settings.merge overwritten_settings if overwritten_settings.present?
 
     partial = block_definition[:partial]
     partial_locals = build_dashboard_partial_locals block, block_definition, settings, dashboard
@@ -441,7 +439,7 @@ module DashboardsHelper
       begin
         render partial: partial, locals: partial_locals
       rescue ActionView::MissingTemplate
-        Rails.logger.warn("Partial \"#{partial}\" missing for block \"#{block}\" found in #{dashboard.name} (id=#{dashboard.id})")
+        Rails.logger.warn "Partial \"#{partial}\" missing for block \"#{block}\" found in #{dashboard.name} (id=#{dashboard.id})"
         nil
       end
     else

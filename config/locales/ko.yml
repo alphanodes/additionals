@@ -186,3 +186,8 @@ ko:
   label_live_search_hints: "사용 가능한 필드 검색 : %{value}"
   label_stats_new_today: "오늘 새로운"
   label_stats_totals: "합계"
+  setting_export_limit: "Export limit"
+  field_enable_new_ticket_message: "작업 메시지 활성화"
+  label_additionals_message: "메시지"
+  label_system_setting: "체계"
+  label_project_setting: "계획"

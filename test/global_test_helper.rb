@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Additionals
   module GlobalTestHelper
     def assert_select_td_column(column_name)
@@ -11,7 +13,7 @@ module Additionals
     end
 
     def with_additionals_settings(settings, &_block)
-      change_additionals_settings(settings)
+      change_additionals_settings settings
       yield
     ensure
       restore_additionals_settings
@@ -34,18 +36,18 @@ module Additionals
       end
     end
 
-    def assert_query_sort_order(table_css, column, options = {})
-      options[:action] = :index if options[:action].blank?
+    def assert_query_sort_order(table_css, column, action: nil)
+      action = :index if action.blank?
       column = column.to_s
-      column_css = column.tr('_', '-')
+      column_css = column.tr '_', '-'
 
-      get options[:action],
+      get action,
           params: { sort: "#{column}:asc", c: [column] }
 
       assert_response :success
       assert_select "table.list.#{table_css}.sort-by-#{column_css}.sort-asc"
 
-      get options[:action],
+      get action,
           params: { sort: "#{column}:desc", c: [column] }
 
       assert_response :success

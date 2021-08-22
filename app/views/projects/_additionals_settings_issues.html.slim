@@ -1,0 +1,45 @@
+fieldset.box.tabular
+  legend
+    = l :label_new_ticket_message
+
+  - if User.current.admin?
+    .contextual
+      = link_to l(:label_administration), plugin_settings_path(id: 'additionals', tab: 'rules'), class: 'icon icon-settings'
+
+  p
+    = f.select :enable_new_ticket_message,
+                options_for_select({ l(:label_system_setting) => '1',
+                                     l(:label_disabled) => '0',
+                                     l(:label_project_setting) => '2' }, project.enable_new_ticket_message.to_s)
+  p#project-ticket-message style="#{'display: none' if project.enable_new_ticket_message != 2}"
+    = f.text_area :new_ticket_message,
+                  rows: addtionals_textarea_cols(project.new_ticket_message),
+                  label: l(:label_additionals_message)
+
+  p#system-ticket-message style="#{'display: none' if project.enable_new_ticket_message != 1}"
+    = additionals_settings_textarea :new_ticket_message_system,
+                                    value: Additionals.setting(:new_ticket_message).to_s,
+                                    label: l(:label_additionals_message),
+                                    for_project: true,
+                                    disabled: true
+
+javascript:
+  $(function() {
+    $("#project_enable_new_ticket_message").change(function () {
+      if ( this.value == '1')
+      {
+        $("#system-ticket-message").show();
+        $("#project-ticket-message").hide();
+      }
+      else if ( this.value == '2')
+      {
+        $("#system-ticket-message").hide();
+        $("#project-ticket-message").show();
+      }
+      else
+      {
+        $("#system-ticket-message").hide();
+        $("#project-ticket-message").hide();
+      }
+     });
+  });

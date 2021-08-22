@@ -3,7 +3,7 @@
     h3 = list_title
 
   table.list.projects
-    - project_tree(@projects, init_level: false) do |project, level|
+    - project_tree @projects, init_level: false do |project, level|
       tr id="project-#{project.id}" class="#{project_list_css_classes project, level}"
         td.name
           span[style='font-weight: bold;']
@@ -13,7 +13,7 @@
               = link_to_project project
           - if project.homepage?
             ' :
-            = link_to(project.homepage, project.homepage, @html_options)
+            = link_to project.homepage, project.homepage, @html_options
           - if with_create_issue && User.current.allowed_to?(:add_issues, project)
             = link_to '',
                       new_project_issue_path(project_id: project),

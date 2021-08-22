@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DashboardRole < ActiveRecord::Base
   include Redmine::SafeAttributes
 

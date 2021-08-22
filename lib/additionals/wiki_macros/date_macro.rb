@@ -1,4 +1,5 @@
-# Date wiki macros
+# frozen_string_literal: true
+
 module Additionals
   module WikiMacros
     Redmine::WikiFormatting::Macros.register do
@@ -42,9 +43,9 @@ module Additionals
         d = Additionals.now_with_user_time_zone
         date_result = case type
                       when 'current_date'
-                        format_date(User.current.today)
+                        format_date User.current.today
                       when 'current_date_with_time'
-                        format_time(d, true)
+                        format_time d, true
                       when 'current_year'
                         d.year
                       when 'current_month'
@@ -56,11 +57,11 @@ module Additionals
                       when 'current_minute'
                         d.min
                       when 'current_weekday'
-                        day_name(d.wday)
+                        day_name d.wday
                       when 'current_weeknumber'
                         User.current.today.cweek
                       else
-                        format_date(type.to_date)
+                        format_date type.to_date
                       end
 
         tag.span date_result, class: 'current-date'

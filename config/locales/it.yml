@@ -186,3 +186,8 @@ it:
   label_live_search_hints: "Ricerche sul campo disponibili: %{value}"
   label_stats_new_today: "Nuovo oggi"
   label_stats_totals: "Totale"
+  setting_export_limit: "Limite di esportazione"
+  field_enable_new_ticket_message: "Attivare il messaggio del task"
+  label_additionals_message: "Messaggio"
+  label_system_setting: "Sistema"
+  label_project_setting: "Progetto"

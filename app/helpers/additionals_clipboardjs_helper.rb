@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AdditionalsClipboardjsHelper
   def clipboardjs_button_for(target, clipboard_text_from_button = nil)
     render_clipboardjs_button(target, clipboard_text_from_button) + render_clipboardjs_javascript(target)
@@ -34,6 +36,6 @@ module AdditionalsClipboardjsHelper
   end
 
   def render_clipboardjs_javascript(target)
-    javascript_tag("setClipboardJS('#zc_#{target}');")
+    javascript_tag "setClipboardJS('#zc_#{target}');"
   end
 end

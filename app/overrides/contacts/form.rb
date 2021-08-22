@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 unless Redmine::Plugin.installed? 'redmine_servicedesk'
   if defined?(CONTACTS_VERSION_TYPE) && CONTACTS_VERSION_TYPE == 'PRO version'
     Deface::Override.new virtual_path: 'contacts/_form',

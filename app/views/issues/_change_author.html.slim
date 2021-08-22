@@ -1,5 +1,5 @@
 - if show_issue_change_author?(issue) && issue.safe_attribute?('author_id')
-  - author_options = author_options_for_select(issue.project, issue)
+  - author_options = author_options_for_select issue.project, issue
   - if author_options.present?
     p#change_author
       = form.label_for_field :author_id

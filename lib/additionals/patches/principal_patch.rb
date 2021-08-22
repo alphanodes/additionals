@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 module Additionals
   module Patches
     module PrincipalPatch
       extend ActiveSupport::Concern
 
       included do
-        scope :assignable, -> { active.visible.where(type: %w[User Group]) }
+        scope :assignable, -> { active.visible.where type: %w[User Group] }
 
         scope :assignable_for_issues, lambda { |*args|
           project = args.first
           users = assignable
-          users = users.where.not(type: 'Group') unless Setting.issue_group_assignment?
+          users = users.where.not type: 'Group' unless Setting.issue_group_assignment?
           users = users.joins(members: :roles)
                        .where(roles: { assignable: true })
                        .distinct
@@ -35,7 +37,7 @@ module Additionals
               active
             else
               # self and members of visible projects
-              scope = if user.allowed_to?(:show_hidden_roles_in_memberbox, nil, global: true)
+              scope = if user.allowed_to? :show_hidden_roles_in_memberbox, nil, global: true
                         active.where("#{table_name}.id = ? OR #{table_name}.id IN (SELECT user_id " \
                                      "FROM #{Member.table_name} WHERE project_id IN (?))",
                                      user.id, user.visible_project_ids)

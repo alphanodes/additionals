@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Dashboard < ActiveRecord::Base
   include Redmine::I18n
   include Redmine::SafeAttributes
@@ -22,10 +24,10 @@ class Dashboard < ActiveRecord::Base
   VISIBILITY_ROLES   = 1
   VISIBILITY_PUBLIC  = 2
 
-  scope :by_project, (->(project_id) { where(project_id: project_id) if project_id.present? })
-  scope :sorted, (-> { order("#{Dashboard.table_name}.name") })
-  scope :welcome_only, (-> { where(dashboard_type: DashboardContentWelcome::TYPE_NAME) })
-  scope :project_only, (-> { where(dashboard_type: DashboardContentProject::TYPE_NAME) })
+  scope :by_project, (->(project_id) { where project_id: project_id if project_id.present? })
+  scope :sorted, (-> { order "#{Dashboard.table_name}.name" })
+  scope :welcome_only, (-> { where dashboard_type: DashboardContentWelcome::TYPE_NAME })
+  scope :project_only, (-> { where dashboard_type: DashboardContentProject::TYPE_NAME })
 
   safe_attributes 'name', 'description', 'enable_sidebar',
                   'always_expose', 'project_id', 'author_id',
@@ -47,8 +49,10 @@ class Dashboard < ActiveRecord::Base
 
   safe_attributes 'system_default',
                   if: (lambda do |dashboard, user|
-                    user.allowed_to?(:set_system_dashboards, dashboard.project, global: true)
+                    user.allowed_to? :set_system_dashboards, dashboard.project, global: true
                   end)
+
+  before_validation :strip_whitespace
 
   before_save :dashboard_type_check, :visibility_check, :set_options_hash, :clear_unused_block_settings
 
@@ -73,10 +77,10 @@ class Dashboard < ActiveRecord::Base
     def default(dashboard_type, project = nil, user = User.current)
       recently_id = User.current.pref.recently_used_dashboard dashboard_type, project
 
-      scope = where(dashboard_type: dashboard_type)
+      scope = where dashboard_type: dashboard_type
       scope = scope.where(project_id: project.id).or(scope.where(project_id: nil)) if project.present?
 
-      dashboard = scope.visible.find_by(id: recently_id) if recently_id.present?
+      dashboard = scope.visible.find_by id: recently_id if recently_id.present?
 
       if dashboard.blank?
         scope = scope.where(system_default: true).or(scope.where(author_id: user.id))
@@ -86,7 +90,7 @@ class Dashboard < ActiveRecord::Base
           Rails.logger.debug 'default cleanup required'
           # Remove invalid recently_id
           if project.present?
-            User.current.pref.recently_used_dashboards[dashboard_type].delete(project.id)
+            User.current.pref.recently_used_dashboards[dashboard_type].delete project.id
           else
             User.current.pref.recently_used_dashboards[dashboard_type] = nil
           end
@@ -101,7 +105,7 @@ class Dashboard < ActiveRecord::Base
       ["#{table}.name"]
     end
 
-    def visible(user = User.current, options = {})
+    def visible(user = User.current, **options)
       scope = left_outer_joins :project
       scope = scope.where(projects: { id: nil }).or(scope.where(Project.allowed_to_condition(user, :view_project, options)))
 
@@ -109,14 +113,14 @@ class Dashboard < ActiveRecord::Base
         scope.where.not(visibility: VISIBILITY_PRIVATE).or(scope.where(author_id: user.id))
       elsif user.memberships.any?
         scope.where("#{table_name}.visibility = ?" \
-            " OR (#{table_name}.visibility = ? AND #{table_name}.id IN (" \
-            "SELECT DISTINCT d.id FROM #{table_name} d"  \
-            " INNER JOIN #{table_name_prefix}dashboard_roles#{table_name_suffix} dr ON dr.dashboard_id = d.id" \
-            " INNER JOIN #{MemberRole.table_name} mr ON mr.role_id = dr.role_id" \
-            " INNER JOIN #{Member.table_name} m ON m.id = mr.member_id AND m.user_id = ?" \
-            " INNER JOIN #{Project.table_name} p ON p.id = m.project_id AND p.status <> ?" \
-            ' WHERE d.project_id IS NULL OR d.project_id = m.project_id))' \
-            " OR #{table_name}.author_id = ?",
+                    " OR (#{table_name}.visibility = ? AND #{table_name}.id IN (" \
+                    "SELECT DISTINCT d.id FROM #{table_name} d"  \
+                    " INNER JOIN #{table_name_prefix}dashboard_roles#{table_name_suffix} dr ON dr.dashboard_id = d.id" \
+                    " INNER JOIN #{MemberRole.table_name} mr ON mr.role_id = dr.role_id" \
+                    " INNER JOIN #{Member.table_name} m ON m.id = mr.member_id AND m.user_id = ?" \
+                    " INNER JOIN #{Project.table_name} p ON p.id = m.project_id AND p.status <> ?" \
+                    ' WHERE d.project_id IS NULL OR d.project_id = m.project_id))' \
+                    " OR #{table_name}.author_id = ?",
                     VISIBILITY_PUBLIC,
                     VISIBILITY_ROLES,
                     user.id,
@@ -152,7 +156,7 @@ class Dashboard < ActiveRecord::Base
       super
     else
       h = (self[:options] || {}).dup
-      h.update(attr_name => value)
+      h.update attr_name => value
       self[:options] = h
       value
     end
@@ -236,7 +240,7 @@ class Dashboard < ActiveRecord::Base
     return if content.groups.exclude?(group) || blocks.blank?
 
     blocks = blocks.map(&:underscore) & layout.values.flatten
-    blocks.each { |block| remove_block(block) }
+    blocks.each { |block| remove_block block }
     layout[group] = blocks
   end
 
@@ -261,7 +265,7 @@ class Dashboard < ActiveRecord::Base
   end
 
   def editable?(usr = User.current)
-    @editable ||= editable_by?(usr)
+    @editable ||= editable_by? usr
   end
 
   def destroyable_by?(usr = User.current)
@@ -274,7 +278,7 @@ class Dashboard < ActiveRecord::Base
   end
 
   def destroyable?
-    @destroyable ||= destroyable_by?(User.current)
+    @destroyable ||= destroyable_by? User.current
   end
 
   def to_s
@@ -285,7 +289,7 @@ class Dashboard < ActiveRecord::Base
   def css_classes(user = User.current)
     s = ['dashboard']
     s << 'created-by-me' if author_id == user.id
-    s.join(' ')
+    s.join ' '
   end
 
   def allowed_target_projects(user = User.current)
@@ -293,7 +297,7 @@ class Dashboard < ActiveRecord::Base
   end
 
   # this is used to get unique cache for blocks
-  def async_params(block, options, settings = {})
+  def async_params(block, options, settings)
     if block.blank?
       msg = 'block is missing for dashboard_async'
       Rails.log.error msg
@@ -326,7 +330,7 @@ class Dashboard < ActiveRecord::Base
       unique_params += options[:unique_params].reject(&:blank?) if options[:unique_params].present?
 
       # Rails.logger.debug "debug async_params for #{block}: unique_params=#{unique_params.inspect}"
-      config[:unique_key] = Digest::SHA256.hexdigest(unique_params.join('_'))
+      config[:unique_key] = Digest::SHA256.hexdigest unique_params.join('_')
     end
 
     # Rails.logger.debug "debug async_params for #{block}: config=#{config.inspect}"
@@ -343,9 +347,13 @@ class Dashboard < ActiveRecord::Base
 
   private
 
+  def strip_whitespace
+    name&.strip!
+  end
+
   def clear_unused_block_settings
     blocks = layout.values.flatten
-    layout_settings.keep_if { |block, _settings| blocks.include?(block) }
+    layout_settings.keep_if { |block, _settings| blocks.include? block }
   end
 
   def remove_unused_role_relations
@@ -391,7 +399,7 @@ class Dashboard < ActiveRecord::Base
                 .where(dashboard_type: dashboard_type)
                 .where.not(id: id)
 
-    scope = scope.where(project: project) if dashboard_type == DashboardContentProject::TYPE_NAME
+    scope = scope.where project: project if dashboard_type == DashboardContentProject::TYPE_NAME
 
     scope.update_all system_default: false
   end
@@ -409,22 +417,22 @@ class Dashboard < ActiveRecord::Base
   end
 
   def validate_visibility
-    errors.add(:visibility, :must_be_for_everyone) if system_default? && visibility != VISIBILITY_PUBLIC
+    errors.add :visibility, :must_be_for_everyone if system_default? && visibility != VISIBILITY_PUBLIC
   end
 
   def validate_name
     return if name.blank?
 
-    scope = self.class.visible.where(name: name)
+    scope = self.class.visible.where name: name
     if dashboard_type == DashboardContentProject::TYPE_NAME
       scope = scope.project_only
       scope = scope.where project_id: project_id
-      scope = scope.or(scope.where(project_id: nil)) if project_id.present?
+      scope = scope.or scope.where(project_id: nil) if project_id.present?
     else
       scope = scope.welcome_only
     end
 
-    scope = scope.where.not(id: id) unless new_record?
-    errors.add(:name, :name_not_unique) if scope.count.positive?
+    scope = scope.where.not id: id unless new_record?
+    errors.add :name, :name_not_unique if scope.count.positive?
   end
 end

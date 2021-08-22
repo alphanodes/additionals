@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Additionals
   module Patches
     module TimeEntryPatch
@@ -17,11 +19,11 @@ module Additionals
           # NOTE: do not use user time zone here, because issue do not use it
           return if Setting.commit_logtime_enabled? && (issue.updated_on + 5.seconds) > Time.zone.now
 
-          errors.add(:issue_id, :issue_log_time_not_allowed) unless issue.log_time_allowed?
+          errors.add :issue_id, :issue_log_time_not_allowed unless issue.log_time_allowed?
         end
 
         def editable_by_with_additionals?(usr)
-          return false unless editable_by_without_additionals?(usr)
+          return false unless editable_by_without_additionals? usr
           return true unless issue_id && issue
 
           issue.log_time_allowed?

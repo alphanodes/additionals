@@ -115,6 +115,11 @@ module Additionals
       end
     end
 
+    def time_zone_correct(time, user: User.current)
+      timezone = user.time_zone || Time.zone
+      timezone.utc_offset - Time.zone.local_to_utc(time).localtime.utc_offset
+    end
+
     def incompatible_plugins(plugins = [], title = 'additionals')
       plugins.each do |plugin|
         raise "\n\033[31m#{title} plugin cannot be used with #{plugin} plugin.\033[0m" if Redmine::Plugin.installed? plugin

@@ -4,6 +4,8 @@ Changelog
 3.0.4
 +++++
 
+- Mermaid 8.12.0 support
+
 
 3.0.3
 +++++

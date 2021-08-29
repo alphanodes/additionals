@@ -19,7 +19,7 @@ module Additionals
         def principals_by_role
           # includes = Redmine::Plugin.installed?('redmine_hrm') ? [:roles, { principal: :hrm_user_type }] : %i[roles principal]
           includes = %i[principal roles]
-          memberships.includes(includes).each_with_object({}) do |m, h|
+          memberships.active.includes(includes).each_with_object({}) do |m, h|
             m.roles.each do |r|
               next if r.hide && !User.current.allowed_to?(:show_hidden_roles_in_memberbox, project)
 

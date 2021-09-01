@@ -175,6 +175,14 @@ module Additionals
       end
     end
 
+    def format_yes(value, lowercase: false)
+      if Additionals.true? value
+        lowercase ? l(:general_text_yes) : l(:general_text_Yes)
+      else
+        lowercase ? l(:general_text_no) : l(:general_text_No)
+      end
+    end
+
     private
 
     def additionals_already_loaded(scope, js_name)

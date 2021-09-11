@@ -10,7 +10,7 @@
   = call_hook :view_project_contextual_links, project: @project
 
   - if @dashboard&.editable?
-    = form_tag(_add_block_dashboard_path(@project, @dashboard), remote: true, id: 'block-form', authenticity_token: true) do
+    = form_tag _add_block_dashboard_path(@project, @dashboard), remote: true, id: 'block-form', authenticity_token: true do
       = dashboard_block_select_tag @dashboard
 
   = actions_dropdown do

@@ -65,7 +65,9 @@ module Additionals
 
       # Callback on file attachment
       def attachment_added(attachment)
-        init_journal User.current
+        return if attachment.new_record? || new_record? || id_previously_changed?
+
+        init_journal User.current if current_journal.nil?
         current_journal.journalize_attachment attachment, :added
         current_journal.save!
       end

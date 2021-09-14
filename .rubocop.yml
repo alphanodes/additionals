@@ -44,6 +44,9 @@ Metrics/PerceivedComplexity:
 Rails/ApplicationJob:
   Enabled: false
 
+Lint/AmbiguousOperatorPrecedence:
+  Enabled: false
+
 Rails/ApplicationRecord:
   Enabled: false
 

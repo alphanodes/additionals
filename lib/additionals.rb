@@ -52,6 +52,7 @@ module Additionals
 
       # Static class patches
       Redmine::AccessControl.include Additionals::Patches::AccessControlPatch
+      Redmine::AccessControl.singleton_class.prepend Additionals::Patches::AccessControlClassPatch
 
       # Global helpers
       ActionView::Base.include Additionals::Helpers

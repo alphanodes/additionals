@@ -34,7 +34,7 @@ module Additionals
 
     module AccessControlClassPatch
       def available_project_modules
-        @available_project_modules ||= super.reject { |m| disabled_project_modules.include? m }
+        super.reject { |m| disabled_project_modules.include? m }
       end
 
       # NOTE: This works for users and admin in projects

@@ -266,7 +266,7 @@ module Additionals
       return if user.nil?
 
       if user.type == 'Group'
-        if no_link || !Redmine::Plugin.installed?('redmine_hrm')
+        if no_link || !AdditionalsPlugin.active_hrm?
           user.name
         else
           link_to_hrm_group user

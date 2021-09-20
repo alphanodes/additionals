@@ -4,8 +4,8 @@ Changelog
 3.0.4
 +++++
 
-- Mermaid 8.12.0 support
-
+- Mermaid 8.12.1 support
+- D3 7.0.3 support
 
 3.0.3
 +++++

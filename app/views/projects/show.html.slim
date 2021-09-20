@@ -6,7 +6,7 @@
               edit_project_dashboard_path(@project, @dashboard),
               class: 'icon icon-edit'
 
-  = bookmark_link @project unless Redmine::Plugin.installed? 'redmine_reporting'
+  = bookmark_link @project unless AdditionalsPlugin.active_reporting?
   = call_hook :view_project_contextual_links, project: @project
 
   - if @dashboard&.editable?

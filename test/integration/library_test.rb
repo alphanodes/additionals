@@ -21,7 +21,7 @@ class JavascriptLibraryTest < Additionals::IntegrationTest
            :queries
 
   def test_not_loaded_chart_css_library
-    skip if Redmine::Plugin.installed? 'redmine_reporting'
+    skip if AdditionalsPlugin.active_reporting?
 
     log_user 'admin', 'admin'
     get '/'
@@ -31,7 +31,7 @@ class JavascriptLibraryTest < Additionals::IntegrationTest
   end
 
   def test_not_loaded_chart_js_library
-    skip if Redmine::Plugin.installed? 'redmine_reporting'
+    skip if AdditionalsPlugin.active_reporting?
 
     log_user 'admin', 'admin'
     get '/'

@@ -9,7 +9,7 @@ class AdditionalsChart
 
   class << self
     def color_schema
-      Redmine::Plugin.installed?('redmine_reporting') ? RedmineReporting.setting(:chart_color_schema) : 'tableau.Classic20'
+      AdditionalsPlugin.active_reporting? ? RedmineReporting.setting(:chart_color_schema) : 'tableau.Classic20'
     end
 
     def data

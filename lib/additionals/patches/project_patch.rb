@@ -17,7 +17,7 @@ module Additionals
       module InstanceOverwriteMethods
         # Used by Redmine >= 4.2
         def principals_by_role
-          # includes = Redmine::Plugin.installed?('redmine_hrm') ? [:roles, { principal: :hrm_user_type }] : %i[roles principal]
+          # includes = AdditionalsPlugin.active_hrm? ? [:roles, { principal: :hrm_user_type }] : %i[roles principal]
           includes = %i[principal roles]
           memberships.active.includes(includes).each_with_object({}) do |m, h|
             m.roles.each do |r|
@@ -33,7 +33,7 @@ module Additionals
         # Used by Redmine < 4.2
         # this change take care of hidden roles and performance issues (includes for hrm, if installed)
         def users_by_role
-          includes = Redmine::Plugin.installed?('redmine_hrm') ? [:roles, { user: :hrm_user_type }] : %i[roles user]
+          includes = AdditionalsPlugin.active_hrm? ? [:roles, { user: :hrm_user_type }] : %i[roles user]
           members.includes(includes).each_with_object({}) do |m, h|
             m.roles.each do |r|
               next if r.hide && !User.current.allowed_to?(:show_hidden_roles_in_memberbox, project)

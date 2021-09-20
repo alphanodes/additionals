@@ -6,18 +6,18 @@ module Additionals
       extend ActiveSupport::Concern
 
       included do
+        prepend InstanceOverwriteMethods
         include InstanceMethods
+      end
 
-        alias_method :css_classes_without_additionals, :css_classes
-        alias_method :css_classes, :css_classes_with_additionals
+      module InstanceOverwriteMethods
+        def css_classes
+          classes = [super, css_name_based_class]
+          classes.join ' '
+        end
       end
 
       module InstanceMethods
-        def css_classes_with_additionals
-          classes = [css_classes_without_additionals, css_name_based_class]
-          classes.join ' '
-        end
-
         # css class based on priority name
         def css_name_based_class
           css_name_based_classes.each do |name_class|

@@ -76,7 +76,7 @@ class WelcomeControllerTest < Additionals::ControllerTest
   end
 
   def test_show_index_with_help_menu
-    skip if Redmine::Plugin.installed? 'redmine_hrm'
+    skip if AdditionalsPlugin.active_hrm?
 
     with_additionals_settings remove_help: 0 do
       @request.session[:user_id] = 1
@@ -87,7 +87,7 @@ class WelcomeControllerTest < Additionals::ControllerTest
   end
 
   def test_show_index_without_help_menu
-    skip if Redmine::Plugin.installed? 'redmine_hrm'
+    skip if AdditionalsPlugin.active_hrm?
 
     with_additionals_settings remove_help: 1 do
       @request.session[:user_id] = 1

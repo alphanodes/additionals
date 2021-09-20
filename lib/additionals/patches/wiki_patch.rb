@@ -12,17 +12,14 @@ module Additionals
 
       included do
         include Additionals::EntityMethodsGlobal
-        include InstanceMethods
-
-        alias_method :sidebar_without_additionals, :sidebar
-        alias_method :sidebar, :sidebar_with_additionals
+        prepend InstanceOverwriteMethods
       end
 
-      module InstanceMethods
-        def sidebar_with_additionals
+      module InstanceOverwriteMethods
+        def sidebar
           @sidebar ||= find_page 'Sidebar', with_redirect: false
           if @sidebar&.content
-            sidebar_without_additionals
+            super
           else
             wiki_sidebar = Additionals.setting(:global_wiki_sidebar).to_s
             @sidebar ||= find_page project.wiki.start_page, with_redirect: false

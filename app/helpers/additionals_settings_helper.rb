@@ -8,9 +8,7 @@ module AdditionalsSettingsHelper
             { name: 'rules', partial: 'additionals/settings/issues', label: :label_issue_plural },
             { name: 'web', partial: 'additionals/settings/web_apis', label: :label_web_apis }]
 
-    unless Redmine::Plugin.installed? 'redmine_hrm'
-      tabs << { name: 'menu', partial: 'additionals/settings/menu', label: :label_settings_menu }
-    end
+    tabs << { name: 'menu', partial: 'additionals/settings/menu', label: :label_settings_menu } unless AdditionalsPlugin.active_hrm?
 
     tabs
   end

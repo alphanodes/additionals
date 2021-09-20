@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-unless Redmine::Plugin.installed? 'redmine_reporting'
+unless AdditionalsPlugin.active_reporting?
   Deface::Override.new virtual_path: 'issues/_list',
                        name: 'list-issue-back-url',
                        replace: 'erb[loud]:contains("hidden_field_tag \'back_url\'")',

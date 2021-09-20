@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-unless Redmine::Plugin.installed? 'redmine_hrm'
+unless AdditionalsPlugin.active_hrm?
   if Redmine::VERSION.to_s >= '4.2'
     Deface::Override.new virtual_path: 'users/show',
                          name: 'user-show-info-hook',

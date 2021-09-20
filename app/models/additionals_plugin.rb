@@ -17,17 +17,14 @@ class AdditionalsPlugin
     # if force: true, no access control check for disabled module
     def default_plugin_check?(method_name, force: true)
       plugin_name = method_name.to_s[7..-2]
-      Additionals.debug "plugin_check: #{method_name} - force: #{force}"
       Redmine::Plugin.installed?("redmine_#{plugin_name}") && (force || Redmine::AccessControl.active_module?(plugin_name.to_sym))
     end
 
     def active_reporting?
-      Additionals.debug 'active_reporting? is running'
       @active_reporting ||= Redmine::Plugin.installed? 'redmine_reporting'
     end
 
     def active_hrm?
-      Additionals.debug 'active_hrm? is running'
       @active_hrm ||= Redmine::Plugin.installed? 'redmine_hrm'
     end
 

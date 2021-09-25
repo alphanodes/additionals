@@ -330,7 +330,9 @@ class Dashboard < ActiveRecord::Base
       unique_params += options[:unique_params].reject(&:blank?) if options[:unique_params].present?
 
       # Rails.logger.debug "debug async_params for #{block}: unique_params=#{unique_params.inspect}"
-      config[:unique_key] = Digest::SHA256.hexdigest unique_params.join('_')
+      # For truncating hash security, see https://crypto.stackexchange.com/questions/9435/is-truncating-a-sha512-hash-to-the-first-160-bits-as-secure-as-using-sha1
+      # truncating should solve problem with long filenames on some file systems
+      config[:unique_key] = Digest::SHA256.hexdigest(unique_params.join('_'))[0..-20]
     end
 
     # Rails.logger.debug "debug async_params for #{block}: config=#{config.inspect}"

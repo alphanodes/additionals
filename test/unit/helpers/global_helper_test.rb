@@ -47,4 +47,9 @@ class GlobalHelperTest < ActionView::TestCase
     html = font_awesome_icon 'fas_cloud-upload-alt', post_text: 'Testing'
     assert_include '</span> Testing', html
   end
+
+  def test_link_to_url
+    assert_equal 'redmine.org/test', Nokogiri::HTML.parse(link_to_url('http://redmine.org/test')).xpath('//a').first.text
+    assert_equal 'redmine.org/test', Nokogiri::HTML.parse(link_to_url('https://redmine.org/test')).xpath('//a').first.text
+  end
 end

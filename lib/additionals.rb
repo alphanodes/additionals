@@ -159,7 +159,7 @@ module Additionals
       cached_settings_name = "@load_settings_#{plugin_id}"
       cached_settings = instance_variable_get cached_settings_name
       if cached_settings.nil?
-        data = YAML.safe_load(ERB.new(IO.read(File.join(plugin_dir(plugin_id), '/config/settings.yml'))).result) || {}
+        data = YAML.safe_load(ERB.new(File.read(File.join(plugin_dir(plugin_id), '/config/settings.yml'))).result) || {}
         instance_variable_set cached_settings_name, data.symbolize_keys
       else
         cached_settings

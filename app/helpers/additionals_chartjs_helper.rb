@@ -8,7 +8,7 @@ module AdditionalsChartjsHelper
   end
 
   def select_options_for_chartjs_colorscheme(selected)
-    data = YAML.safe_load(ERB.new(IO.read(File.join(Additionals.plugin_dir, 'config', 'colorschemes.yml'))).result) || {}
+    data = YAML.safe_load(ERB.new(File.read(File.join(Additionals.plugin_dir, 'config', 'colorschemes.yml'))).result) || {}
     grouped_options_for_select data, selected
   end
 end

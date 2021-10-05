@@ -427,6 +427,14 @@ I want to use different dashboards for my employees than for Anonymous users / N
   For Anonymous users / Non members use the normal "default dashboard" for the Redmine start page and / or Redmine project page. Because they will usually see the default dashboard and the blocks placed there. They will not be able to switch between different dashboards.
   And for your employees create own dashboards. You define which role has access to it in the dashboard configuration. Employees of the respective roles can then simply switch from the standard dashboard to the role-based dashboard in case it will not be displayed on the first visit.
 
+What happens with my project overview or start page after the additionals plugin has been deinstalled?
+  If the plugin was uninstalled correctly, then the Redmine start page, as well as the project overview page will correspond to the usual view again by default.
+
+  This means that you will only see the blocks that Redmine has permanently placed there, or the blocks that are placed there by installed Redmine plugins.
+
+  The pages can no longer be customized flexibly. You no longer have any influence on the content that is offered there.
+
+
 
 Developer Information
 ---------------------

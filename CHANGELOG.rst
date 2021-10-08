@@ -17,6 +17,7 @@ Changelog
 - new ticket message can be overwritten for projects
 - fixed scope of public project dashboards for all projects
 - FontAwesome 5.15.4 support
+- Adjust integration of macro button, because of changed Redmine source (https://www.redmine.org/issues/31887)
 
 3.0.2
 +++++

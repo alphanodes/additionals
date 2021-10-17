@@ -6,6 +6,7 @@ Changelog
 
 - Mermaid 8.13.3 support
 - D3 7.1.1 support
+- Ruby 2.6 is required
 
 3.0.3
 +++++

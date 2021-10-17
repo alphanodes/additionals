@@ -21,7 +21,7 @@ module Additionals
                   title: l(:label_reddit_subject)
         when 'u/'
           link_to font_awesome_icon('fab_reddit-square', post_text: name),
-                  "https://www.reddit.com/username/#{name[2..-1]}",
+                  "https://www.reddit.com/username/#{name[2..]}",
                   class: 'external reddit',
                   title: l(:label_reddit_user_account)
         else

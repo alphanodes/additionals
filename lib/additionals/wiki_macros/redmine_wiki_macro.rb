@@ -19,7 +19,7 @@ module Additionals
           start_pos = raw_link.index 'redmine.org/projects/redmine/wiki/'
           raise 'The correct usage is {{redmine_wiki(<page>)}}' if start_pos.nil? || start_pos.zero?
 
-          options[:name] = raw_link[(start_pos + 34)..-1] if options[:name].blank?
+          options[:name] = raw_link[(start_pos + 34)..] if options[:name].blank?
           link = raw_link.gsub 'http://', 'https://'
         elsif /\w/.match?(raw_link[0])
           options[:name] = raw_link if options[:name].blank?

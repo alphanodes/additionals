@@ -59,6 +59,11 @@ Rails/HelperInstanceVariable:
 Rails/SkipsModelValidations:
   Enabled: false
 
+Rails/Output:
+  Enabled: true
+  Exclude:
+    - 'db/migrate/*'
+
 Performance/ChainArrayAllocation:
   Enabled: true
 

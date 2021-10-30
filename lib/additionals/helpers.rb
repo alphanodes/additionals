@@ -287,7 +287,7 @@ module Additionals
         end
       else
         s = []
-        s << avatar(user, { size: size, class: css_class })
+        s << avatar(user, size: size, class: css_class)
         s << if no_link
                user.name
              else

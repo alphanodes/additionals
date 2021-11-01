@@ -38,7 +38,7 @@ module Additionals
         raise 'The correct usage is {{meteoblue(<location>[, days=x, color=BOOL])}}' if args.empty?
 
         options[:days] = 4 if options[:days].blank?
-        options[:coloured] = if options[:color].present? && !Additionals.true?(options[:color])
+        options[:coloured] = if Additionals.false? options[:color]
                                'monochrome'
                              else
                                'coloured'

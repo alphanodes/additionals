@@ -96,6 +96,11 @@ module Additionals
       false
     end
 
+    # false if false or nil
+    def false?(value)
+      !true?(value)
+    end
+
     def debug(message = 'running')
       return if Rails.env.production?
 

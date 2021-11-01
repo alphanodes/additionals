@@ -22,12 +22,11 @@ module Additionals
 
         width = options[:width].presence || 640
         height = options[:height].presence || 360
-        autoplay = !options[:autoplay].nil? && Additionals.true?(options[:autoplay])
 
         raise 'The correct usage is {{youtube(<video key>[, width=x, height=y])}}' if args.empty?
 
         v = args[0]
-        src = if autoplay
+        src = if Additionals.true? options[:autoplay]
                 "//www.youtube.com/embed/#{v}?autoplay=1"
               else
                 "//www.youtube-nocookie.com/embed/#{v}"

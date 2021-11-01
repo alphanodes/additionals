@@ -33,6 +33,17 @@ class AdditionalsTest < Additionals::TestCase
     assert_not Additionals.true? 'unknown'
   end
 
+  def test_false
+    assert Additionals.false? false
+    assert Additionals.false? nil
+    assert Additionals.false? 'false'
+    assert Additionals.false? 0
+
+    assert_not Additionals.false? 1
+    assert_not Additionals.false? 'true'
+    assert_not Additionals.false? 'True'
+  end
+
   def test_settings
     assert_raises NoMethodError do
       Additionals.settings[:open_external_urls]

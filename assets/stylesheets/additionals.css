@@ -277,6 +277,15 @@ div.additionals-projects li.project a.icon {
   margin-left: 3px;
 }
 
+.relation-links a.icon-del {
+  opacity: 0.4;
+  margin-left: 5px;
+}
+
+.relation-links a.icon-del:hover {
+  opacity: 1;
+}
+
 div.additionals-projects li.project.even,
 div.additionals-projects li.project.odd {
   border-bottom: 1px solid #ddd;

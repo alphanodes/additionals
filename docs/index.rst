@@ -58,7 +58,8 @@ Install ``additionals`` plugin for `Redmine`_.
 
   $ cd $REDMINE_ROOT
   $ git clone -b stable https://github.com/AlphaNodes/additionals.git plugins/additionals
-  $ bundle install --without development test
+  $ bundle config set --local without 'development test'
+  $ bundle install
   $ bundle exec rake redmine:plugins:migrate RAILS_ENV=production
   $
   $ # if you want to use smiley/emoji legacy support, you have to put emoji icons to
@@ -84,7 +85,8 @@ Update ``additionals`` plugin for `Redmine`_.
   $ cd $REDMINE_ROOT/plugins/additionals
   $ git pull
   $ cd ../..
-  $ bundle install --without development test
+  $ bundle config set --local without 'development test'
+  $ bundle install
   $ bundle exec rake redmine:plugins:migrate RAILS_ENV=production
 
 Restart your application server (apache with passenger, nginx with passenger, unicorn, puma, etc.) and ``Additionals`` is ready to use.

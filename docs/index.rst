@@ -85,7 +85,6 @@ Update ``additionals`` plugin for `Redmine`_.
   $ cd $REDMINE_ROOT/plugins/additionals
   $ git pull
   $ cd ../..
-  $ bundle config set --local without 'development test'
   $ bundle install
   $ bundle exec rake redmine:plugins:migrate RAILS_ENV=production
 

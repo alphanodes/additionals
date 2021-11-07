@@ -174,6 +174,7 @@ function buildSelect2Options(options) {
     allowClear: !!options['allow_clear'],
     minimumInputLength: options['min_input_length'] || 0,
     templateResult: window[options['format_state']],
+    templateSelection: window[options['format_selection']],
     width: options['width'] || '90%'
   };
 

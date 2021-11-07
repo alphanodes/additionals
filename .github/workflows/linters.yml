@@ -39,3 +39,16 @@ jobs:
     - name: Run Brakeman
       run: |
         bundle exec brakeman -5
+
+    - name: Setup node
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - run: yarn install
+
+    - name: Run Stylelint
+      run: node_modules/.bin/stylelint assets/stylesheets/
+
+    - name: Run ESLint
+      run: node_modules/.bin/eslint assets/javascripts/

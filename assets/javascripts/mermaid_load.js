@@ -1,13 +1,16 @@
+/* global globalThis, mermaid */
 $(function() {
+  var mermaidTheme;
+  var mermaidThemeVariables;
   if (globalThis !== undefined && globalThis.mermaidTheme !== undefined) {
-    var mermaidTheme = globalThis.mermaidTheme;
+    mermaidTheme = globalThis.mermaidTheme;
   } else {
-    var mermaidTheme = 'default';
+    mermaidTheme = 'default';
   }
   if (globalThis !== undefined && globalThis.mermaidThemeVariables !== undefined) {
-    var mermaidThemeVariables = globalThis.mermaidThemeVariables;
+    mermaidThemeVariables = globalThis.mermaidThemeVariables;
   } else {
-    var mermaidThemeVariables = { 'fontSize': '12px' };
+    mermaidThemeVariables = { 'fontSize': '12px' };
   }
 
   mermaid.initialize({

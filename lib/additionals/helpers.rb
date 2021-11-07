@@ -227,7 +227,7 @@ module Additionals
     def additionals_load_select2
       additionals_include_css('select2') +
         additionals_include_js('select2.min') +
-        additionals_include_js('select2_helper')
+        additionals_include_js('select2_helpers')
     end
 
     def additionals_load_clipboardjs

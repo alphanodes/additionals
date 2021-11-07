@@ -1,4 +1,0 @@
-# eslint ignore file
-*.js
-!additionals*.js
-!select2_helpers.js

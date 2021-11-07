@@ -1,0 +1,5 @@
+# eslint ignore file
+assets/javascripts/*.js
+!assets/javascripts/additionals*.js
+!assets/javascripts/mermaid_load.js
+!assets/javascripts/select2_helpers.js

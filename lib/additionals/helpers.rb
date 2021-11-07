@@ -146,9 +146,13 @@ module Additionals
     end
 
     def autocomplete_select_entries(name, type, option_tags, **options)
-      unless option_tags.is_a?(String) || option_tags.blank?
-        # if option_tags is not an array, it should be an object
-        option_tags = options_for_select [[option_tags.try(:name), option_tags.try(:id)]], option_tags.try(:id)
+      if option_tags.present?
+        if option_tags.is_a? ActiveRecord::Relation
+          option_tags = options_for_select option_tags.map { |u| [u.name, u.id] }, option_tags.map(&:id)
+        elsif !option_tags.is_a?(String)
+          # if option_tags is not an array, it should be an object
+          option_tags = options_for_select [[option_tags.try(:name), option_tags.try(:id)]], option_tags.try(:id)
+        end
       end
       options[:project] = @project if @project && options[:project].blank?
 

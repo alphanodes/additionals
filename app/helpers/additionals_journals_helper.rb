@@ -90,33 +90,31 @@ module AdditionalsJournalsHelper
         value = tag.i value if value
       end
 
-      html =
-        if no_detail
-          l :text_journal_changed_no_detail, label: label
-        elsif show_diff
-          s = l :text_journal_changed_no_detail, label: label
-          unless no_html
-            diff_link = link_to l(:label_diff),
-                                send(diff_url_method,
-                                     detail.journal_id,
-                                     detail_id: detail.id,
-                                     only_path: options[:only_path]),
-                                title: l(:label_view_diff)
-            s << " (#{diff_link})"
-          end
-          s.html_safe
-        elsif detail.value.present?
-          if detail.old_value.present?
-            l :text_journal_changed, label: label, old: old_value, new: value
-          elsif multiple
-            l :text_journal_added, label: label, value: value
-          else
-            l :text_journal_set_to, label: label, value: value
-          end
-        else
-          l(:text_journal_deleted, label: label, old: old_value).html_safe
+      if no_detail
+        l :text_journal_changed_no_detail, label: label
+      elsif show_diff
+        s = l :text_journal_changed_no_detail, label: label
+        unless no_html
+          diff_link = link_to l(:label_diff),
+                              send(diff_url_method,
+                                   detail.journal_id,
+                                   detail_id: detail.id,
+                                   only_path: options[:only_path]),
+                              title: l(:label_view_diff)
+          s << " (#{diff_link})"
         end
-      html.html_safe
+        s
+      elsif detail.value.present?
+        if detail.old_value.present?
+          l :text_journal_changed, label: label, old: old_value, new: value
+        elsif multiple
+          l :text_journal_added, label: label, value: value
+        else
+          l :text_journal_set_to, label: label, value: value
+        end
+      else
+        l :text_journal_deleted, label: label, old: old_value
+      end.html_safe
     else
       # default implementation for journal detail rendering
       show_detail detail, no_html, options
@@ -161,28 +159,5 @@ module AdditionalsJournalsHelper
     return unless custom_field
 
     return { show_diff: true, label: l(:field_description) } if custom_field.format.class.change_as_diff
-
-    case custom_field.format.name
-    when 'project_relation'
-      prop = { label: custom_field.name }
-      project = Project.visible.where(id: detail.value).first if detail.value.present?
-      old_project = Project.visible.where(id: detail.old_value).first if detail.old_value.present?
-      prop[:value] = link_to_project project if project.present?
-      prop[:old_value] = link_to_project old_project if old_project.present?
-    when 'db_entry'
-      prop = { label: custom_field.name }
-      db_entry = DbEntry.visible.where(id: detail.value).first if detail.value.present?
-      old_db_entry = DbEntry.visible.where(id: detail.old_value).first if detail.old_value.present?
-      prop[:value] = link_to db_entry.name, db_entry_url(db_entry) if db_entry.present?
-      prop[:old_value] = link_to old_db_entry.name, db_entry_url(old_db_entry) if old_db_entry.present?
-    when 'password'
-      prop = { label: custom_field.name }
-      password = Password.visible.where(id: detail.value).first if detail.value.present? && defined?(Password)
-      old_password = Password.visible.where(id: detail.old_value).first if detail.old_value.present? && defined?(Password)
-      prop[:value] = link_to password.name, password_url(password) if password.present?
-      prop[:old_value] = link_to old_password.name, password_url(old_password) if old_password.present?
-    end
-
-    prop
   end
 end

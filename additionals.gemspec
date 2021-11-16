@@ -9,6 +9,7 @@ Gem::Specification.new do |spec|
   spec.version       = Additionals::VERSION
   spec.authors       = ['AlphaNodes']
   spec.email         = ['alex@alphanodes.com']
+  spec.metadata      = { 'rubygems_mfa_required' => 'true' }
 
   spec.summary       = 'Redmine plugin for adding dashboard functionality, wiki macros and libraries for other Redmine plugins'
   spec.description   = 'Redmine plugin for adding dashboard functionality, wiki macros and libraries for other Redmine plugins'

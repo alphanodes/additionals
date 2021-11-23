@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'additionals/version'
-
 module Additionals
   MAX_CUSTOM_MENU_ITEMS = 5
   SELECT2_INIT_ENTRIES = 20
@@ -17,22 +15,27 @@ module Additionals
                               redmine_changeauthor
                               redmine_auto_watch]
 
-      patch %w[ApplicationController
-               AutoCompletesController
-               Issue
-               IssuePriority
-               TimeEntry
-               Project
-               Wiki
-               ProjectsController
-               WelcomeController
-               ReportsController
-               Principal
-               Query
-               QueryFilter
-               Role
-               User
-               UserPreference]
+      ApplicationController.include Additionals::Patches::ApplicationControllerPatch
+      AutoCompletesController.include Additionals::Patches::AutoCompletesControllerPatch
+      Issue.include Additionals::Patches::IssuePatch
+      IssuePriority.include Additionals::Patches::IssuePriorityPatch
+      TimeEntry.include Additionals::Patches::TimeEntryPatch
+      Project.include Additionals::Patches::ProjectPatch
+      Wiki.include Additionals::Patches::WikiPatch
+      ProjectsController.include Additionals::Patches::ProjectsControllerPatch
+      WelcomeController.include Additionals::Patches::WelcomeControllerPatch
+      ReportsController.include Additionals::Patches::ReportsControllerPatch
+      Principal.include Additionals::Patches::PrincipalPatch
+      Query.include Additionals::Patches::QueryPatch
+      QueryFilter.include Additionals::Patches::QueryFilterPatch
+      Role.include Additionals::Patches::RolePatch
+      User.include Additionals::Patches::UserPatch
+      UserPreference.include Additionals::Patches::UserPreferencePatch
+
+      IssuesController.send :helper, AdditionalsIssuesHelper
+      SettingsController.send :helper, AdditionalsSettingsHelper
+      WikiController.send :helper, AdditionalsWikiPdfHelper
+      CustomFieldsController.send :helper, AdditionalsCustomFieldsHelper
 
       Redmine::WikiFormatting.format_names.each do |format|
         case format
@@ -45,11 +48,6 @@ module Additionals
         end
       end
 
-      IssuesController.send :helper, AdditionalsIssuesHelper
-      SettingsController.send :helper, AdditionalsSettingsHelper
-      WikiController.send :helper, AdditionalsWikiPdfHelper
-      CustomFieldsController.send :helper, AdditionalsCustomFieldsHelper
-
       # Static class patches
       Redmine::AccessControl.include Additionals::Patches::AccessControlPatch
       Redmine::AccessControl.singleton_class.prepend Additionals::Patches::AccessControlClassPatch
@@ -58,13 +56,13 @@ module Additionals
       ActionView::Base.include Additionals::Helpers
       ActionView::Base.include AdditionalsFontawesomeHelper
       ActionView::Base.include AdditionalsMenuHelper
-      ActionView::Base.include Additionals::AdditionalsSelect2Helper
-
-      # Hooks
-      require_dependency 'additionals/hooks'
+      ActionView::Base.include AdditionalsSelect2Helper
 
       # Macros
       load_macros
+
+      # Hooks
+      Additionals::Hooks
     end
 
     # support with default setting as fall back
@@ -132,6 +130,7 @@ module Additionals
       end
     end
 
+    # obsolete, do not use this method (it will be removed in next major release)
     def patch(patches = [], plugin_id = 'additionals')
       patches.each do |name|
         patch_dir = Rails.root.join "plugins/#{plugin_id}/lib/#{plugin_id}/patches"
@@ -150,6 +149,16 @@ module Additionals
                     plugin_id,
                     'wiki_macros',
                     '**/*_macro.rb')].sort.each { |f| require f }
+    end
+
+    def load_custom_field_format(plugin_id, reverse: false)
+      files = Dir[File.join(plugin_dir(plugin_id),
+                            'lib',
+                            plugin_id,
+                            'custom_field_formats',
+                            '**/*_format.rb')].sort
+      files.reverse! if reverse
+      files.each { |f| require f }
     end
 
     def plugin_dir(plugin_id = 'additionals')

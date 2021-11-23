@@ -36,10 +36,10 @@ module Additionals
 
         macro :date do |_obj, args|
           type = if args.present?
-                  args[0]
-                else
-                  'current_date'
-                end
+                   args[0]
+                 else
+                   'current_date'
+                 end
 
           d = Additionals.now_with_user_time_zone
           date_result = case type

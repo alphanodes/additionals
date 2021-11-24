@@ -39,7 +39,7 @@ zh:
   field_always_expose: 总是展示
   field_autowatch_involved_issue: 自动关注参与的问题
   field_color: 颜色
-  field_enable_sidebar: 启用边栏
+  field_enable_sidebar: 启用侧边栏
   field_hide: 隐藏
   field_icon: 图标
   field_issue_relation_plural: 问题关联关系
@@ -79,10 +79,10 @@ zh:
   label_dashboard_plural: 仪表盘
   label_dashboard: 仪表盘
   label_day: 天
-  label_disable_sidebar: 禁用侧栏
+  label_disable_sidebar: 禁用侧边栏
   label_disabled_modules: "禁用模块"
   label_docs_access_token: 访问令牌
-  label_enable_sidebar: 启用侧栏
+  label_enable_sidebar: 启用侧边栏
   label_global_footer: "项目范围内的页脚设置"
   label_global_sidebar: "全局侧边栏设置"
   label_global_wiki_sidebar: "全局 Wiki 侧边栏设置"
@@ -97,7 +97,7 @@ zh:
   label_issue_assign_to_me: 在问题页显示“指派给我”
   label_issue_auto_assign: "若 \"指派给\" 的值未设置为具体用户，且新建问题的状态为 X， 那么问题将自动指派给预定义角色用户的对应组。"
   label_issue_autowatch_involved: 自动添加涉及到的用户为关注者
-  label_issue_change_status_in_sidebar: 在侧栏显示更新问题状态
+  label_issue_change_status_in_sidebar: 在侧边栏显示更新问题状态
   label_issue_change_status: 更新问题状态
   label_issue_current_user_status: "当前问题状态 X 仅在 \"指派给\" 的值设置为当前用户时生效。"
   label_issue_freezed_with_close: 禁止修改已关闭的问题 (冻结)
@@ -174,7 +174,7 @@ zh:
   remove_help_info: "从顶部菜单栏中隐藏 '帮助' 菜单项。"
   remove_mypage_info: '有时，为了引入敏捷的任务看板，隐藏【我的工作台】链接可能会更有用。任务看板的优势即是可以根据状态罗列并快速访问。'
   rule_issue_auto_assign_info: '用例：问题作者不知道将问题分配给谁时，或不知道谁应当负责解决具体任务时。在那种情况下，状态为 "To Do" 的问题将自动指派给包含预选项目经理角色用户的第一组。'
-  rule_issue_current_user_status_info_html: 如果此功能与"在侧栏显示更新问题状态"设置选项结合使用，则当前用户将在更改问题状态时自动被分配到问题。<br />用例：用户仅当是当前实际处理该问题的人员时，才允许将状态更改为"正在进行中"。
+  rule_issue_current_user_status_info_html: 如果此功能与"在侧边栏显示更新问题状态"设置选项结合使用，则当前用户将在更改问题状态时自动被分配到问题。<br />用例：用户仅当是当前实际处理该问题的人员时，才允许将状态更改为"正在进行中"。
   rule_issue_freezed_with_close_info: 如果激活此选项，则无法再编辑和评论已关闭的问题。甚至不通过邮件或 API。此限制不适用于具有"修改已关闭问题"权限的用户角色。
   rule_issue_status_change_info: "用例：若问题的状态修改为 \"Approval\"，则自动分配给问题作者。"
   rule_issue_timelog_required_info_html: '对于所选"问题跟踪"的问题，如果问题需要接受已定义状态之一，则需要"时间预期"。以下情况不需要"时间预期"<br />- 没有"创建时间预订"的权限<br />- 用户角色具有授权"无需登记工时"<br />用例：对于接受状态为"待验证"的问题，需要已花费时间。'

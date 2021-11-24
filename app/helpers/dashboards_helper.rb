@@ -258,6 +258,15 @@ module DashboardsHelper
     partial_locals
   end
 
+  def render_async_options(settings, async)
+    options = {}
+    if Additionals.true? settings[:auto_refresh]
+      options[:interval] = (async[:cache_expires_in] || DashboardContent::RENDER_ASYNC_CACHE_EXPIRES_IN) * 1000
+    end
+
+    options
+  end
+
   def dashboard_async_required_settings?(settings, async)
     return true if async[:required_settings].blank?
     return false if settings.blank?

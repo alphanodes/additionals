@@ -3,7 +3,6 @@
 module Additionals
   module Hooks
     class AdditionalsHookListener < Redmine::Hook::ViewListener
-      Additionals.debug 'additonals hooks load'
       include IssuesHelper
       include AdditionalsIssuesHelper
 

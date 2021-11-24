@@ -191,3 +191,4 @@ ja:
   label_additionals_message: "メッセージ"
   label_system_setting: "システム"
   label_project_setting: "プロジェクト"
+  label_enable_auto_refresh: Enable auto refresh

@@ -2,9 +2,9 @@
   .settings
     p
       = additionals_settings_textfield :title,
-                                      label: l(:field_title),
-                                      value: settings[:title] || l(:label_text_sync),
-                                      tag_name: "settings[#{block}][title]"
+                                       label: l(:field_title),
+                                       value: settings[:title] || l(:label_text_sync),
+                                       tag_name: "settings[#{block}][title]"
   p
       = text_area_tag "settings[#{block}][text]",
                       settings[:text],

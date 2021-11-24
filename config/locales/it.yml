@@ -191,3 +191,4 @@ it:
   label_additionals_message: "Messaggio"
   label_system_setting: "Sistema"
   label_project_setting: "Progetto"
+  label_enable_auto_refresh: Enable auto refresh

@@ -6,9 +6,9 @@ h3.icon.icon-news = l :label_news_latest
       .box.tabular.settings
         p
           = additionals_settings_numberfield :max_entries,
-                                              value: max_entries,
-                                              tag_name: "settings[#{block}][max_entries]",
-                                              min: 1, max: 1000, required: true
+                                             value: max_entries,
+                                             tag_name: "settings[#{block}][max_entries]",
+                                             min: 1, max: 1000, required: true
       p
         = submit_tag l(:button_save)
         '

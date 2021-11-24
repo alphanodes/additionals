@@ -1,9 +1,9 @@
 .box.tabular.settings
   p
     = additionals_settings_numberfield :max_entries,
-                                        value: settings[:max_entries].presence || DashboardContent::DEFAULT_MAX_ENTRIES,
-                                        tag_name: "settings[#{block}][max_entries]",
-                                        min: 1, max: 1000, required: true
+                                       value: settings[:max_entries].presence || DashboardContent::DEFAULT_MAX_ENTRIES,
+                                       tag_name: "settings[#{block}][max_entries]",
+                                       min: 1, max: 1000, required: true
   p
     = additionals_settings_checkbox :me_only,
                                     label: l(:label_only_my_activities),

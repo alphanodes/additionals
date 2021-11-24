@@ -191,3 +191,4 @@ ru:
   label_additionals_message: "Сообщение"
   label_system_setting: "Система"
   label_project_setting: "Проект"
+  label_enable_auto_refresh: Enable auto refresh

@@ -191,4 +191,4 @@ ko:
   label_additionals_message: "메시지"
   label_system_setting: "체계"
   label_project_setting: "계획"
-  label_enable_auto_refresh: Enable auto refresh
+  label_enable_auto_refresh: "자동 새로고침 활성화 "

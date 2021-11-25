@@ -191,4 +191,4 @@ cs:
   label_additionals_message: "Zpráva"
   label_system_setting: "Systém"
   label_project_setting: "Projekt"
-  label_enable_auto_refresh: Enable auto refresh
+  label_enable_auto_refresh: "Povolit automatické obnovení"

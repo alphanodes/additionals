@@ -191,7 +191,7 @@ class AdditionalsLoader
 
     patches.each do |patch|
       patch_module = if patch[:patch].is_a? String
-                       patch_dir = Rails.root.join "plugins/#{plugin_id}/lib/#{plugin_id}/patches"
+                       patch_dir = "#{plugin_dir}/lib/#{plugin_id}/patches"
                        require "#{patch_dir}/#{patch[:patch].underscore}_patch"
                        "#{plugin_id.camelize}::Patches::#{patch[:patch]}Patch".constantize
                      else

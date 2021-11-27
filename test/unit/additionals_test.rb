@@ -62,13 +62,6 @@ class AdditionalsTest < Additionals::TestCase
     assert_not Additionals.setting?(:add_go_to_top)
   end
 
-  def test_load_macros
-    macros = Additionals.load_macros
-
-    assert macros.count.positive?
-    assert(macros.detect { |macro| macro.include? 'fa_macro' })
-  end
-
   def test_split_ids
     assert_equal [1, 2, 3], Additionals.split_ids('1, 2 , 3')
     assert_equal [3, 2], Additionals.split_ids('3, 2, 2')

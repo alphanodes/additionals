@@ -11,58 +11,58 @@ module Additionals
     def setup
       RenderAsync.configuration.jquery = true
 
-      incompatible_plugins %w[redmine_editauthor
+      loader = AdditionalsLoader.new
+
+      loader.incompatible? %w[redmine_editauthor
                               redmine_changeauthor
                               redmine_auto_watch]
 
-      ApplicationController.include Additionals::Patches::ApplicationControllerPatch
-      AutoCompletesController.include Additionals::Patches::AutoCompletesControllerPatch
-      Issue.include Additionals::Patches::IssuePatch
-      IssuePriority.include Additionals::Patches::IssuePriorityPatch
-      TimeEntry.include Additionals::Patches::TimeEntryPatch
-      Project.include Additionals::Patches::ProjectPatch
-      Wiki.include Additionals::Patches::WikiPatch
-      ProjectsController.include Additionals::Patches::ProjectsControllerPatch
-      WelcomeController.include Additionals::Patches::WelcomeControllerPatch
-      ReportsController.include Additionals::Patches::ReportsControllerPatch
-      Principal.include Additionals::Patches::PrincipalPatch
-      Query.include Additionals::Patches::QueryPatch
-      QueryFilter.include Additionals::Patches::QueryFilterPatch
-      Role.include Additionals::Patches::RolePatch
-      User.include Additionals::Patches::UserPatch
-      UserPreference.include Additionals::Patches::UserPreferencePatch
+      loader.add_patch %w[ApplicationController
+                          AutoCompletesController
+                          Issue
+                          IssuePriority
+                          TimeEntry
+                          Project
+                          Wiki
+                          ProjectsController
+                          WelcomeController
+                          ReportsController
+                          Principal
+                          Query
+                          QueryFilter
+                          Role
+                          User
+                          UserPreference]
 
-      IssuesController.send :helper, AdditionalsIssuesHelper
-      SettingsController.send :helper, AdditionalsSettingsHelper
-      WikiController.send :helper, AdditionalsWikiPdfHelper
-      CustomFieldsController.send :helper, AdditionalsCustomFieldsHelper
+      loader.add_helper %w[Issues
+                           Settings
+                           Wiki
+                           CustomFields]
+
+      loader.add_global_helper [Additionals::Helpers,
+                                AdditionalsFontawesomeHelper,
+                                AdditionalsMenuHelper,
+                                AdditionalsSelect2Helper]
 
       Redmine::WikiFormatting.format_names.each do |format|
         case format
         when 'markdown'
-          Redmine::WikiFormatting::Markdown::HTML.include Patches::FormatterMarkdownPatch
-          Redmine::WikiFormatting::Markdown::Helper.include Patches::FormattingHelperPatch
+          loader.add_patch [{ target: Redmine::WikiFormatting::Markdown::HTML, patch: 'FormatterMarkdown' },
+                            { target: Redmine::WikiFormatting::Markdown::Helper, patch: 'FormattingHelper' }]
         when 'textile'
-          Redmine::WikiFormatting::Textile::Formatter.include Patches::FormatterTextilePatch
-          Redmine::WikiFormatting::Textile::Helper.include Patches::FormattingHelperPatch
+          loader.add_patch [{ target: Redmine::WikiFormatting::Textile::Formatter, patch: 'FormatterTextile' },
+                            { target: Redmine::WikiFormatting::Textile::Helper, patch: 'FormattingHelper' }]
         end
       end
 
-      # Static class patches
-      Redmine::AccessControl.include Additionals::Patches::AccessControlPatch
-      Redmine::AccessControl.singleton_class.prepend Additionals::Patches::AccessControlClassPatch
-
-      # Global helpers
-      ActionView::Base.include Additionals::Helpers
-      ActionView::Base.include AdditionalsFontawesomeHelper
-      ActionView::Base.include AdditionalsMenuHelper
-      ActionView::Base.include AdditionalsSelect2Helper
+      # Apply patches and helper
+      loader.apply!
 
       # Macros
-      load_macros
+      loader.load_macros!
 
       # Hooks
-      Additionals::Hooks
+      loader.load_hooks!
     end
 
     # support with default setting as fall back
@@ -70,21 +70,12 @@ module Additionals
       if settings.key? value
         settings[value]
       else
-        load_settings[value]
+        AdditionalsLoader.default_settings[value]
       end
     end
 
     def setting?(value)
       true? setting(value)
-    end
-
-    # required multiple times because of this bug: https://www.redmine.org/issues/33290
-    def redmine_database_ready?(with_table = nil)
-      ActiveRecord::Base.connection
-    rescue ActiveRecord::NoDatabaseError
-      false
-    else
-      with_table.nil? || ActiveRecord::Base.connection.table_exists?(with_table)
     end
 
     def true?(value)
@@ -122,62 +113,6 @@ module Additionals
     def time_zone_correct(time, user: User.current)
       timezone = user.time_zone || Time.zone
       timezone.utc_offset - Time.zone.local_to_utc(time).localtime.utc_offset
-    end
-
-    def incompatible_plugins(plugins = [], title = 'additionals')
-      plugins.each do |plugin|
-        raise "\n\033[31m#{title} plugin cannot be used with #{plugin} plugin.\033[0m" if Redmine::Plugin.installed? plugin
-      end
-    end
-
-    # obsolete, do not use this method (it will be removed in next major release)
-    def patch(patches = [], plugin_id = 'additionals')
-      patches.each do |name|
-        patch_dir = Rails.root.join "plugins/#{plugin_id}/lib/#{plugin_id}/patches"
-        require "#{patch_dir}/#{name.underscore}_patch"
-
-        target = name.constantize
-        patch = "#{plugin_id.camelize}::Patches::#{name}Patch".constantize
-
-        target.include patch unless target.included_modules.include? patch
-      end
-    end
-
-    def load_macros(plugin_id = 'additionals')
-      Dir[File.join(plugin_dir(plugin_id),
-                    'lib',
-                    plugin_id,
-                    'wiki_macros',
-                    '**/*_macro.rb')].sort.each { |f| require f }
-    end
-
-    def load_custom_field_format(plugin_id, reverse: false)
-      files = Dir[File.join(plugin_dir(plugin_id),
-                            'lib',
-                            plugin_id,
-                            'custom_field_formats',
-                            '**/*_format.rb')].sort
-      files.reverse! if reverse
-      files.each { |f| require f }
-    end
-
-    def plugin_dir(plugin_id = 'additionals')
-      if Gem.loaded_specs[plugin_id].nil?
-        File.join Redmine::Plugin.directory, plugin_id
-      else
-        Gem.loaded_specs[plugin_id].full_gem_path
-      end
-    end
-
-    def load_settings(plugin_id = 'additionals')
-      cached_settings_name = "@load_settings_#{plugin_id}"
-      cached_settings = instance_variable_get cached_settings_name
-      if cached_settings.nil?
-        data = YAML.safe_load(ERB.new(File.read(File.join(plugin_dir(plugin_id), '/config/settings.yml'))).result) || {}
-        instance_variable_set cached_settings_name, data.symbolize_keys
-      else
-        cached_settings
-      end
     end
 
     def hash_remove_with_default(field, options, default = nil)

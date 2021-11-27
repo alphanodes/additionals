@@ -8,7 +8,7 @@ class AdditionalsFontAwesome
 
   class << self
     def load_icons(type)
-      data = YAML.safe_load(ERB.new(File.read(File.join(AdditionalsLoader.plugin_dir, 'config', 'fontawesome_icons.yml'))).result) || {}
+      data = AdditionalsLoader.yaml_config_load 'fontawesome_icons.yml'
       icons = {}
       data.each do |key, values|
         icons[key] = { unicode: values['unicode'], label: values['label'] } if values['styles'].include? convert_type2style(type)

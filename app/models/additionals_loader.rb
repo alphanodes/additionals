@@ -5,19 +5,28 @@ class AdditionalsLoader
 
   attr_accessor :plugin_id, :debug
 
+  DEFAULT_PLUGIN_ID = 'additionals'
+
   class << self
-    def default_settings(plugin_id = 'additionals')
+    def default_settings(plugin_id = DEFAULT_PLUGIN_ID)
       cached_settings_name = "@default_settings_#{plugin_id}"
       cached_settings = instance_variable_get cached_settings_name
       if cached_settings.nil?
-        data = YAML.safe_load(ERB.new(File.read(File.join(plugin_dir(plugin_id), '/config/settings.yml'))).result) || {}
+        data = yaml_config_load 'settings.yml', with_erb: true, plugin_id: plugin_id
         instance_variable_set cached_settings_name, data.symbolize_keys
       else
         cached_settings
       end
     end
 
-    def plugin_dir(plugin_id = 'additionals')
+    def yaml_config_load(yaml_file, plugin_id: DEFAULT_PLUGIN_ID, with_erb: false)
+      file_to_load = File.read File.join(plugin_dir(plugin_id), 'config', yaml_file)
+      file_to_load = ERB.new(file_to_load).result if with_erb
+
+      YAML.safe_load(file_to_load) || {}
+    end
+
+    def plugin_dir(plugin_id = DEFAULT_PLUGIN_ID)
       if Gem.loaded_specs[plugin_id].nil?
         File.join Redmine::Plugin.directory, plugin_id
       else
@@ -56,7 +65,7 @@ class AdditionalsLoader
     end
   end
 
-  def initialize(plugin_id: 'additionals', debug: false)
+  def initialize(plugin_id: DEFAULT_PLUGIN_ID, debug: false)
     self.plugin_id = plugin_id
     self.debug = debug
 

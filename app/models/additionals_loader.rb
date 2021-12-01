@@ -37,6 +37,9 @@ class AdditionalsLoader
     def to_prepare(*args, &block)
       if Rails.version > '6.0'
         # TODO: This does not work
+        # ActiveSupport.on_load:active_record is used as temp solution
+        # to run block in plugin init.rb after all plugins are initialized
+        # (but this breaks migrations and some calls are required before on_load :active_record)
         # see https://www.redmine.org/issues/36245
         ActiveSupport.on_load(:active_record, &block)
       else

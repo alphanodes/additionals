@@ -59,6 +59,13 @@ class AdditionalsLoader
       target::Hooks
     end
 
+    def deface_setup!
+      Rails.application.paths['app/overrides'] ||= []
+      Dir.glob(Rails.root.join('plugins/*/app/overrides')).each do |dir|
+        Rails.application.paths['app/overrides'] << dir unless Rails.application.paths['app/overrides'].include? dir
+      end
+    end
+
     # required multiple times because of this bug: https://www.redmine.org/issues/33290
     def redmine_database_ready?(with_table = nil)
       ActiveRecord::Base.connection

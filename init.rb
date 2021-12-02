@@ -52,13 +52,11 @@ Redmine::Plugin.register :additionals do
 end
 
 AdditionalsLoader.persisting do
-  Rails.application.paths['app/overrides'] ||= []
-  Dir.glob(Rails.root.join('plugins/*/app/overrides')).each do |dir|
-    Rails.application.paths['app/overrides'] << dir unless Rails.application.paths['app/overrides'].include? dir
-  end
-
   Redmine::AccessControl.include Additionals::Patches::AccessControlPatch
   Redmine::AccessControl.singleton_class.prepend Additionals::Patches::AccessControlClassPatch
+
+  # Deface support
+  AdditionalsLoader.deface_setup!
 
   # Hooks
   AdditionalsLoader.load_hooks!

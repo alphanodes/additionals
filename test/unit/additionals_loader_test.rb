@@ -84,9 +84,7 @@ class AdditionalsLoaderTest < Additionals::TestCase
   end
 
   def test_load_hooks
-    loader = AdditionalsLoader.new
-    hooks = loader.load_hooks!
-
+    hooks = AdditionalsLoader.load_hooks!
     assert hooks.is_a? Module
   end
 

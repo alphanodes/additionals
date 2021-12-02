@@ -36,12 +36,8 @@ class AdditionalsLoader
 
     def to_prepare(*args, &block)
       if Rails.version > '6.0'
-        # TODO: This does not work
-        # ActiveSupport.on_load:active_record is used as temp solution
-        # to run block in plugin init.rb after all plugins are initialized
-        # (but this breaks migrations and some calls are required before on_load :active_record)
-        # see https://www.redmine.org/issues/36245
-        ActiveSupport.on_load(:active_record, &block)
+        # INFO: https://www.redmine.org/issues/36245
+        Rails.logger.info 'after_plugins_loaded hook should be used instead'
       else
         # ActiveSupport::Reloader.to_prepare(*args, &block)
         Rails.configuration.to_prepare(*args, &block)
@@ -56,6 +52,11 @@ class AdditionalsLoader
     def after_initialize(&block)
       Additionals.debug 'After initialize...'
       Rails.application.config.after_initialize(&block)
+    end
+
+    def load_hooks!(plugin_id = DEFAULT_PLUGIN_ID)
+      target = plugin_id.camelize.constantize
+      target::Hooks
     end
 
     # required multiple times because of this bug: https://www.redmine.org/issues/33290
@@ -107,11 +108,6 @@ class AdditionalsLoader
 
   def load_macros!
     require_files File.join('wiki_macros', '**/*_macro.rb')
-  end
-
-  def load_hooks!
-    target = plugin_id.camelize.constantize
-    target::Hooks
   end
 
   def load_custom_field_format!(reverse: false)

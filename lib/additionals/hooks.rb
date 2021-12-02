@@ -24,6 +24,10 @@ module Additionals
 
       render_on :view_projects_issue_settings, partial: 'projects/additionals_settings_issues'
 
+      def after_plugins_loaded(_context = {})
+        Additionals.setup if Rails.version > '6.0'
+      end
+
       def helper_issues_show_detail_after_setting(context = {})
         detail = context[:detail]
         return unless detail.prop_key == 'author_id'

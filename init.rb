@@ -59,6 +59,9 @@ AdditionalsLoader.persisting do
 
   Redmine::AccessControl.include Additionals::Patches::AccessControlPatch
   Redmine::AccessControl.singleton_class.prepend Additionals::Patches::AccessControlClassPatch
+
+  # Hooks
+  AdditionalsLoader.load_hooks!
 end
 
 AdditionalsLoader.after_initialize do
@@ -68,6 +71,4 @@ AdditionalsLoader.after_initialize do
                         fas: AdditionalsFontAwesome.load_icons(:fas) }.freeze
 end
 
-AdditionalsLoader.to_prepare do
-  Additionals.setup
-end
+AdditionalsLoader.to_prepare { Additionals.setup } if Rails.version < '6.0'

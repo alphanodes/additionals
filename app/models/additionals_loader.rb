@@ -94,7 +94,7 @@ class AdditionalsLoader
   end
 
   # use_app: false => :plugin_dir/lib/:plugin_id directory
-  def require_files(spec, use_app: false, reverse: false)
+  def require_files(spec, use_app: false, reverse: false, ignore_autoload: false)
     dir = if use_app
             File.join plugin_dir, 'app', spec
           else
@@ -104,7 +104,10 @@ class AdditionalsLoader
     files = Dir[dir].sort
 
     files.reverse! if reverse
-    files.each { |f| require f }
+    files.each do |f|
+      Rails.autoloaders.main.ignore << f if Rails.version > '6.0' && ignore_autoload
+      require f
+    end
   end
 
   def incompatible?(plugins = [])
@@ -119,7 +122,8 @@ class AdditionalsLoader
 
   def load_custom_field_format!(reverse: false)
     require_files File.join('custom_field_formats', '**/*_format.rb'),
-                  reverse: reverse
+                  reverse: reverse,
+                  ignore_autoload: true
   end
 
   def add_patch(patch)

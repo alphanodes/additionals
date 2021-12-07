@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'additionals/plugin_version'
+
 loader = RedminePluginKit::Loader.new plugin_id: 'additionals'
 
 Redmine::Plugin.register :additionals do

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'redmine_plugin_kit'
+
 module Additionals
   MAX_CUSTOM_MENU_ITEMS = 5
   SELECT2_INIT_ENTRIES = 20
@@ -7,7 +9,7 @@ module Additionals
   GOTO_LIST = " \xc2\xbb"
   LIST_SEPARATOR = "#{GOTO_LIST} "
 
-  include ::RedminePluginKit::PluginBase
+  include RedminePluginKit::PluginBase
 
   class << self
     def class_prefix(klass)

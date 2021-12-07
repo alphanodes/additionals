@@ -7,7 +7,7 @@ module Additionals
   GOTO_LIST = " \xc2\xbb"
   LIST_SEPARATOR = "#{GOTO_LIST} "
 
-  include RedminePluginKit::PluginBase
+  include ::RedminePluginKit::PluginBase
 
   class << self
     def class_prefix(klass)

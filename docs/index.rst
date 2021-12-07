@@ -240,6 +240,5 @@ I am glad about your feedback on the plugin, `pull requests <https://github.com/
     manual
     dashboards
     macros
-    tasks
     new_feature
     changelog

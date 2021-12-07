@@ -8,6 +8,7 @@ Changelog
 - D3 7.2.0 support
 - Ruby 2.6 is required
 - Use redmine_plugin_kit gem as loader
+- Move settings rake tasks and true?/false? to redmine_plugin_kit
 
 3.0.3
 +++++

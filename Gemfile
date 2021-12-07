@@ -2,7 +2,6 @@
 
 # Specify your gem's dependencies in additionals.gemspec
 gemspec
-gem 'redmine_plugin_kit', path: '~/dev/redmine_plugin_kit'
 
 group :development do
   # this is only used for development.

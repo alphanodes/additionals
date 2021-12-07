@@ -35,7 +35,7 @@ module Additionals
                             src: src,
                             frameborder: 0,
                             allowfullscreen: 'true')]
-            s << link_to(l(:label_open_in_new_windows), src, class: 'external') if Additionals.true? options[:with_link]
+            s << link_to(l(:label_open_in_new_windows), src, class: 'external') if RedminePluginKit.true? options[:with_link]
 
             safe_join s
           elsif Setting.protocol == 'https'

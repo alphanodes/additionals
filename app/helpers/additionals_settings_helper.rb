@@ -31,7 +31,7 @@ module AdditionalsSettingsHelper
     checked = if custom_value && !value_is_bool
                 active_value
               else
-                Additionals.true? active_value
+                RedminePluginKit.true? active_value
               end
 
     s = [label_tag(tag_name, label_title)]

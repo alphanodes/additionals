@@ -7,93 +7,9 @@ module Additionals
   GOTO_LIST = " \xc2\xbb"
   LIST_SEPARATOR = "#{GOTO_LIST} "
 
+  include RedminePluginKit::PluginBase
+
   class << self
-    def setup
-      RenderAsync.configuration.jquery = true
-
-      loader = AdditionalsLoader.new
-
-      loader.incompatible? %w[redmine_editauthor
-                              redmine_changeauthor
-                              redmine_auto_watch]
-
-      loader.add_patch %w[ApplicationController
-                          AutoCompletesController
-                          Issue
-                          IssuePriority
-                          TimeEntry
-                          Project
-                          Wiki
-                          ProjectsController
-                          WelcomeController
-                          ReportsController
-                          Principal
-                          Query
-                          QueryFilter
-                          Role
-                          User
-                          UserPreference]
-
-      loader.add_helper %w[Issues
-                           Settings
-                           Wiki
-                           CustomFields]
-
-      loader.add_global_helper [Additionals::Helpers,
-                                AdditionalsFontawesomeHelper,
-                                AdditionalsMenuHelper,
-                                AdditionalsSelect2Helper]
-
-      Redmine::WikiFormatting.format_names.each do |format|
-        case format
-        when 'markdown'
-          loader.add_patch [{ target: Redmine::WikiFormatting::Markdown::HTML, patch: 'FormatterMarkdown' },
-                            { target: Redmine::WikiFormatting::Markdown::Helper, patch: 'FormattingHelper' }]
-        when 'textile'
-          loader.add_patch [{ target: Redmine::WikiFormatting::Textile::Formatter, patch: 'FormatterTextile' },
-                            { target: Redmine::WikiFormatting::Textile::Helper, patch: 'FormattingHelper' }]
-        end
-      end
-
-      # Apply patches and helper
-      loader.apply!
-
-      # Macros
-      loader.load_macros!
-    end
-
-    # support with default setting as fall back
-    def setting(value)
-      if settings.key? value
-        settings[value]
-      else
-        AdditionalsLoader.default_settings[value]
-      end
-    end
-
-    def setting?(value)
-      true? setting(value)
-    end
-
-    def true?(value)
-      return false if value.is_a? FalseClass
-      return true if value.is_a?(TrueClass) || value.to_i == 1 || value.to_s.casecmp('true').zero?
-
-      false
-    end
-
-    # false if false or nil
-    def false?(value)
-      !true?(value)
-    end
-
-    def debug(message = 'running')
-      return if Rails.env.production?
-
-      msg = message.is_a?(String) ? message : message.inspect
-      Rails.logger.debug { "#{Time.current.strftime '%H:%M:%S'} DEBUG [#{caller_locations(1..1).first.label}]: #{msg}" }
-    end
-
     def class_prefix(klass)
       klass_name = klass.is_a?(String) ? klass : klass.name
       klass_name.underscore.tr '/', '_'
@@ -154,16 +70,70 @@ module Additionals
       ids.take limit
     end
 
+    def debug(message = 'running')
+      RedminePluginKit::Debug.log message
+    end
+
     private
 
-    def settings
-      Setting[:plugin_additionals]
+    def setup
+      RenderAsync.configuration.jquery = true
+
+      loader.incompatible? %w[redmine_editauthor
+                              redmine_changeauthor
+                              redmine_auto_watch]
+
+      loader.add_patch %w[ApplicationController
+                          AutoCompletesController
+                          Issue
+                          IssuePriority
+                          TimeEntry
+                          Project
+                          Wiki
+                          ProjectsController
+                          WelcomeController
+                          ReportsController
+                          Principal
+                          Query
+                          QueryFilter
+                          Role
+                          User
+                          UserPreference]
+
+      loader.add_helper %w[Issues
+                           Settings
+                           Wiki
+                           CustomFields]
+
+      loader.add_global_helper [Additionals::Helpers,
+                                AdditionalsFontawesomeHelper,
+                                AdditionalsMenuHelper,
+                                AdditionalsSelect2Helper]
+
+      Redmine::WikiFormatting.format_names.each do |format|
+        case format
+        when 'markdown'
+          loader.add_patch [{ target: Redmine::WikiFormatting::Markdown::HTML, patch: 'FormatterMarkdown' },
+                            { target: Redmine::WikiFormatting::Markdown::Helper, patch: 'FormattingHelper' }]
+        when 'textile'
+          loader.add_patch [{ target: Redmine::WikiFormatting::Textile::Formatter, patch: 'FormatterTextile' },
+                            { target: Redmine::WikiFormatting::Textile::Helper, patch: 'FormattingHelper' }]
+        end
+      end
+
+      # Apply patches and helper
+      loader.apply!
+
+      # Macros
+      loader.load_macros!
+
+      # Load view hooks
+      loader.load_view_hooks!
     end
   end
 
   # Run the classic redmine plugin initializer after rails boot
   class Plugin < ::Rails::Engine
-    require 'deface'
     require 'emoji'
     require 'render_async'
     require 'rss'
@@ -179,7 +149,7 @@ module Additionals
 
       # gem is used as redmine plugin
       require File.expand_path '../init', __dir__
-      Additionals.setup if Rails.version < '6.0'
+      Additionals.setup! if Rails.version < '6.0'
       Additionals::Gemify.install_assets plugin_id
       Additionals::Gemify.create_plugin_hint plugin_id
     end

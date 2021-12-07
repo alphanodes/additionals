@@ -1,7 +1,7 @@
 - dashboard_async_cache dashboard, block, async, settings do
 
   - events_by_day = activity_dashboard_data settings, dashboard
-  - title = Additionals.true?(settings[:me_only]) ? l(:label_my_activity) : l(:label_activity)
+  - title = RedminePluginKit.true?(settings[:me_only]) ? l(:label_my_activity) : l(:label_activity)
   h3 = link_to title, activity_path(user_id: User.current,
                                     from: events_by_day.keys.first)
 

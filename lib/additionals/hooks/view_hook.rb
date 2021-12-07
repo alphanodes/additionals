@@ -2,7 +2,7 @@
 
 module Additionals
   module Hooks
-    class AdditionalsHookListener < Redmine::Hook::ViewListener
+    class ViewHook < Redmine::Hook::ViewListener
       include IssuesHelper
       include AdditionalsIssuesHelper
 
@@ -23,10 +23,6 @@ module Additionals
       render_on :view_wiki_show_sidebar_bottom, partial: 'wiki/additionals_sidebar'
 
       render_on :view_projects_issue_settings, partial: 'projects/additionals_settings_issues'
-
-      def after_plugins_loaded(_context = {})
-        Additionals.setup if Rails.version > '6.0'
-      end
 
       def helper_issues_show_detail_after_setting(context = {})
         detail = context[:detail]

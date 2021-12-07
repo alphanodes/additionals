@@ -27,7 +27,7 @@ module Additionals
           raise 'The correct usage is {{youtube(<video key>[, width=x, height=y])}}' if args.empty?
 
           v = args[0]
-          src = if Additionals.true? options[:autoplay]
+          src = if RedminePluginKit.true? options[:autoplay]
                   "//www.youtube.com/embed/#{v}?autoplay=1"
                 else
                   "//www.youtube-nocookie.com/embed/#{v}"

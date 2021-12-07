@@ -307,7 +307,7 @@ class Dashboard < ActiveRecord::Base
     config = { dashboard_id: id,
                block: block }
 
-    if Additionals.false? options[:skip_user_id]
+    if RedminePluginKit.false? options[:skip_user_id]
       settings[:user_id] = User.current.id
       settings[:user_is_admin] = User.current.admin?
     end

@@ -27,7 +27,7 @@ module Additionals
           raise 'The correct usage is {{vimeo(<video key>[, width=x, height=y])}}' if args.empty?
 
           v = args[0]
-          src = if Additionals.true? options[:autoplay]
+          src = if RedminePluginKit.true? options[:autoplay]
                   "//player.vimeo.com/video/#{v}?autoplay=1"
                 else
                   "//player.vimeo.com/video/#{v}"

@@ -8,7 +8,9 @@ class AdditionalsInfo
                      value: system_info },
       system_uptime: { label: l(:label_uptime),
                        value: system_uptime,
-                       api_value: system_uptime(format: :datetime) } }
+                       api_value: system_uptime(format: :datetime) },
+      redmine_plugin_kit: { label: 'Redmine Plugin Kit',
+                            value: RedminePluginKit::VERSION } }
   end
 
   def system_info

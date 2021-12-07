@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'emoji'
 module Additionals
   module Formatter
     SMILEYS = { 'smiley' => ':-?\)', # :)

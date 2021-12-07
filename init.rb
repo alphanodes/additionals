@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'additionals/plugin_version'
+loader = RedminePluginKit::Loader.new plugin_id: 'additionals'
 
 Redmine::Plugin.register :additionals do
   name 'Additionals'
@@ -11,7 +12,7 @@ Redmine::Plugin.register :additionals do
   url 'https://github.com/alphanodes/additionals'
   directory __dir__
 
-  default_settings = AdditionalsLoader.default_settings
+  default_settings = loader.default_settings
   5.times do |i|
     default_settings["custom_menu#{i}_name"] = ''
     default_settings["custom_menu#{i}_url"] = ''
@@ -51,22 +52,19 @@ Redmine::Plugin.register :additionals do
   menu :admin_menu, :additionals, { controller: 'settings', action: 'plugin', id: 'additionals' }, caption: :label_additionals
 end
 
-AdditionalsLoader.persisting do
+RedminePluginKit::Loader.persisting do
   Redmine::AccessControl.include Additionals::Patches::AccessControlPatch
   Redmine::AccessControl.singleton_class.prepend Additionals::Patches::AccessControlClassPatch
 
-  # Deface support
-  AdditionalsLoader.deface_setup!
-
   # Hooks
-  AdditionalsLoader.load_hooks!
+  loader.load_model_hooks!
 end
 
-AdditionalsLoader.after_initialize do
+RedminePluginKit::Loader.after_initialize do
   # @TODO: this should be moved to AdditionalsFontAwesome and use an instance of it
   FONTAWESOME_ICONS = { fab: AdditionalsFontAwesome.load_icons(:fab), # rubocop: disable Lint/ConstantDefinitionInBlock
                         far: AdditionalsFontAwesome.load_icons(:far),
                         fas: AdditionalsFontAwesome.load_icons(:fas) }.freeze
 end
 
-AdditionalsLoader.to_prepare { Additionals.setup } if Rails.version < '6.0'
+RedminePluginKit::Loader.to_prepare { Additionals.setup!(loader) } if Rails.version < '6.0'

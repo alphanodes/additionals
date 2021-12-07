@@ -34,10 +34,10 @@ module Additionals
             link = "https://www.redmine.org/issues/#{raw_link}"
           end
 
-          link_options = { class: 'external redmine-link' }
+          link_options = { class: 'redmine-link' }
           link_options[:title] = options[:title].presence || l(:label_redmine_org_issue)
 
-          link_to "##{link_name}", link, link_options
+          link_to_external "##{link_name}", link, **link_options
         end
       end
     end

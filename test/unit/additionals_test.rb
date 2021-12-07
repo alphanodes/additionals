@@ -14,36 +14,6 @@ class AdditionalsTest < Additionals::TestCase
     prepare_tests
   end
 
-  def test_true
-    assert Additionals.true? 1
-    assert Additionals.true? true
-    assert Additionals.true? 'true'
-    assert Additionals.true? 'True'
-
-    assert_not Additionals.true?(-1)
-    assert_not Additionals.true? 0
-    assert_not Additionals.true? '0'
-    assert_not Additionals.true? 1000
-    assert_not Additionals.true? false
-    assert_not Additionals.true? 'false'
-    assert_not Additionals.true? 'False'
-    assert_not Additionals.true? 'yes'
-    assert_not Additionals.true? ''
-    assert_not Additionals.true? nil
-    assert_not Additionals.true? 'unknown'
-  end
-
-  def test_false
-    assert Additionals.false? false
-    assert Additionals.false? nil
-    assert Additionals.false? 'false'
-    assert Additionals.false? 0
-
-    assert_not Additionals.false? 1
-    assert_not Additionals.false? 'true'
-    assert_not Additionals.false? 'True'
-  end
-
   def test_settings
     assert_raises NoMethodError do
       Additionals.settings[:open_external_urls]

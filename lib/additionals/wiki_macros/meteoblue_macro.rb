@@ -39,7 +39,7 @@ module Additionals
           raise 'The correct usage is {{meteoblue(<location>[, days=x, color=BOOL])}}' if args.empty?
 
           options[:days] = 4 if options[:days].blank?
-          options[:coloured] = if Additionals.false? options[:color]
+          options[:coloured] = if RedminePluginKit.false? options[:color]
                                  'monochrome'
                                else
                                  'coloured'
@@ -79,7 +79,7 @@ module Additionals
 
   def self.meteoblue_flag(options, name, default = tue)
     flag = +"#{name}="
-    flag << if Additionals.true?(options[name]) || default
+    flag << if RedminePluginKit.true?(options[name]) || default
               '1'
             else
               '0'

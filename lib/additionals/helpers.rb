@@ -42,30 +42,6 @@ module Additionals
       l :label_live_search_hints, value: all_fields
     end
 
-    def link_to_external(name, link, **options)
-      options[:class] ||= 'external'
-      options[:class] = "#{options[:class]} external" if options[:class].exclude? 'external'
-
-      options[:rel] ||= 'noopener'
-      options[:target] ||= '_blank'
-
-      link_to name, link, options
-    end
-
-    def link_to_url(url, **options)
-      return if url.blank?
-
-      parts = url.split '://'
-      name = if parts.count.positive?
-               parts.shift
-               parts.join
-             else
-               url
-             end
-
-      link_to_external name, url, **options
-    end
-
     def additionals_list_title(name:, obj: nil, obj_link: nil, query: nil)
       title = []
       case obj
@@ -194,7 +170,7 @@ module Additionals
     end
 
     def format_yes(value, lowercase: false)
-      if Additionals.true? value
+      if RedminePluginKit.true? value
         lowercase ? l(:general_text_yes) : l(:general_text_Yes)
       else
         lowercase ? l(:general_text_no) : l(:general_text_No)

@@ -15,6 +15,13 @@ function setClipboardJS(element){
   });
 }
 
+/* exported openExternalUrlsInTab */
+function openExternalUrlsInTab() {
+  $('a.external').attr({
+    'target': '_blank',
+    'rel': 'noopener noreferrer'});
+}
+
 /* exported formatNameWithIcon */
 function formatNameWithIcon(opt) {
   if (opt.loading) return opt.name;

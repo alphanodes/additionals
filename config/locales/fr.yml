@@ -113,7 +113,6 @@ fr:
   label_my_activity: "Mon activité"
   label_my_dashboard_plural: "Mes tableaux de bord"
   label_my_spent_time: Ma saisie de temps d'activité
-  label_new_additional_dashboard: "Nouveau tableau de bord"
   label_new_dashboard: "Nouveau tableau de bord"
   label_new_issue_on_profile: "Nouvelle tâche sur le profil de l'utilisateur"
   label_new_ticket_message: "Note pour les nouvelles tâches"

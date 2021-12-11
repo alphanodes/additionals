@@ -5,7 +5,7 @@ Changelog
 +++++
 
 - Mermaid 8.13.5 support
-- D3 7.2.0 support
+- D3 7.2.1 support
 - Ruby 2.6 is required
 - Use redmine_plugin_kit gem as loader
 - Move settings rake tasks and true?/false? to redmine_plugin_kit

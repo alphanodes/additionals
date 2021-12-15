@@ -103,7 +103,7 @@ zh:
   label_issue_freezed_with_close: 禁止修改已关闭的问题 (冻结)
   label_issue_status_change: "若 \"指派给\" 的值未修改，且问题状态要从 X 变更为 Y，那么该问题必须指派给问题作者自己。"
   label_issue_timelog_required: 问题需要登记工时
-  label_issues_summary: "发行登记"
+  label_issues_summary: "Issue summary"
   label_last_year: 去年
   label_legacy_smiley_support: 表情符号支持
   label_macro_plural: 宏

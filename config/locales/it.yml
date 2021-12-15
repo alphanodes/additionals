@@ -103,7 +103,7 @@ it:
   label_issue_freezed_with_close: "Impedire la modifica dei problemi chiusi (Freeze)"
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
   label_issue_timelog_required: "Time log per i problemi richiesti"
-  label_issues_summary: "Issue Notification"
+  label_issues_summary: "Issue summary"
   label_last_year: l'anno scorso
   label_legacy_smiley_support: Legacy smiley support
   label_macro_plural: macros

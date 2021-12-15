@@ -103,7 +103,7 @@ es:
   label_issue_freezed_with_close: No permitir editar peticiones cerradas (Congelar)
   label_issue_status_change: "Si no se modifica el usuario \"Asignado\" y la el estado de la petición es modificado de x a y, entonces la petición es asignada al autor de la petición"
   label_issue_timelog_required: Se requiere Registro de tiempo para las peticiones
-  label_issues_summary: "Registro de temas"
+  label_issues_summary: "Issue summary"
   label_last_year: año anterior
   label_legacy_smiley_support: Soporte de smiley antiguo
   label_macro_plural: macros

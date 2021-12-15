@@ -103,7 +103,7 @@ de:
   label_issue_freezed_with_close: Bearbeitung geschlossener Tickets verbieten (Freeze)
   label_issue_status_change: "Wird \"Zugewiesen an\" nicht verändert und der Ticketstatus von x auf y geändert, dann wird das Ticket automatisch dem Ersteller zugewiesen"
   label_issue_timelog_required: Zeiterfassung für Ticket erforderlich
-  label_issues_summary: Ticket Erfassung
+  label_issues_summary: Ticket Übersicht
   label_last_year: voriges Jahr
   label_legacy_smiley_support: Legacy Smiley Support
   label_macro_plural: Makros

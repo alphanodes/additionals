@@ -103,7 +103,7 @@ pt-BR:
   label_issue_freezed_with_close: "Proibir a edição de tarefas fechadas (Congelamento)"
   label_issue_status_change: "Se \"Assignee\" é inalterado e o status da tarefa mudou de x para y, do que o autor é designado para a tarefa"
   label_issue_timelog_required: "Registro de tempo para as tarefas necessárias"
-  label_issues_summary: "Issue registration"
+  label_issues_summary: "Issue summary"
   label_last_year: "ano anterior"
   label_legacy_smiley_support: Legacy smiley support
   label_macro_plural: Macros

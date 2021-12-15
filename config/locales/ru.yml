@@ -103,7 +103,7 @@ ru:
   label_issue_freezed_with_close: "Запрет редактирования закрытых заданий (Freeze)"
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
   label_issue_timelog_required: Time log for issues required
-  label_issues_summary: "Регистрация выпуска"
+  label_issues_summary: "Issue summary"
   label_last_year: "прошедший год"
   label_legacy_smiley_support: Legacy smiley support
   label_macro_plural: Macros

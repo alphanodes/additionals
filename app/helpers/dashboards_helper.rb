@@ -460,7 +460,7 @@ module DashboardsHelper
     end
   end
 
-  def resently_used_dashboard_save(dashboard, project = nil)
+  def recently_used_dashboard_save(dashboard, project = nil)
     user = User.current
     dashboard_type = dashboard.dashboard_type
     recently_id = user.pref.recently_used_dashboard dashboard_type, project

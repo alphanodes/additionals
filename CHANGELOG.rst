@@ -10,7 +10,7 @@ Changelog
 - Use redmine_plugin_kit gem as loader
 - Move settings rake tasks and true?/false? to redmine_plugin_kit
 - fixed default dashboard order for system default for specific project
-- add rake task "redmine:additionals:reset_resently_dashboards" to reset recently used dashboards
+- add rake task "redmine:additionals:reset_recently_dashboards" to reset recently used dashboards
 
 3.0.3
 +++++

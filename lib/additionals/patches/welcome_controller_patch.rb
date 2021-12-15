@@ -37,7 +37,7 @@ module Additionals
             @dashboard = Dashboard.default DashboardContentWelcome::TYPE_NAME
           end
 
-          resently_used_dashboard_save @dashboard
+          recently_used_dashboard_save @dashboard
           @can_edit = @dashboard&.editable?
           @dashboard_sidebar = dashboard_sidebar? @dashboard, params
         end

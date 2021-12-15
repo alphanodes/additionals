@@ -36,15 +36,15 @@
   error_issues_could_not_be_assigned_to_me: Issue could not assigned to me
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   errors_no_or_invalid_arguments: "參數無效或不存在。"
-  field_always_expose: Always show dashboard name
+  field_always_expose: "始终显示仪表盘名称"
   field_autowatch_involved_issue: "自動監看參與的議題"
   field_color: 顏色
   field_enable_sidebar: Enable sidebar
   field_hide: Hide
   field_icon: 圖案
   field_issue_relation_plural: 關聯的議題
-  field_project_system_default: Project default
-  field_system_default: System default
+  field_project_system_default: 项目默认
+  field_system_default: 系统默认
   field_visibility: Visibility
   field_website: 網站
   global_footer_info: "專案中頁尾訊息。"

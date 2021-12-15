@@ -36,7 +36,7 @@ ja:
   error_issues_could_not_be_assigned_to_me: "問題を自分に割り当てることができませんでした"
   error_query_statement_invalid: "クエリの実行中にエラーが発生し、ログに記録されました。このエラーをRedmine管理者に報告してください。"
   errors_no_or_invalid_arguments: "引数がない、または無効な引数"
-  field_always_expose: Always show dashboard name
+  field_always_expose: "ダッシュボード名を常に表示する"
   field_autowatch_involved_issue: Autowatch involved issues
   field_color: Color
   field_enable_sidebar: Enable sidebar

@@ -88,7 +88,7 @@ function observeLiveSearchField(fieldId, targetId, target_url) {
       return function() {
         var context = this, args = arguments;
         clearTimeout(timer);
-        timer = setTimeout(function () {
+        timer = setTimeout(function() {
           callback.apply(context, args);
         }, 400 || 0);
       };

@@ -36,7 +36,7 @@ es:
   error_issues_could_not_be_assigned_to_me: La petición no puede ser asignada a mi mismo
   error_query_statement_invalid: Ocurrió un error ejecutando la consulta y fue registrado. Por favor informe este error al administrador de Redmine.
   errors_no_or_invalid_arguments: Parámetros inválidos
-  field_always_expose: Always show dashboard name
+  field_always_expose: "Mostrar siempre el nombre del salpicadero"
   field_autowatch_involved_issue: Automonitorear las peticiones en las que estoy involucrado
   field_color: Color
   field_enable_sidebar: Enable sidebar

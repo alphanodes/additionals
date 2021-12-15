@@ -36,7 +36,7 @@ pl:
   error_issues_could_not_be_assigned_to_me: "Issue nie mógł być mi przypisany"
   error_query_statement_invalid: "Wystąpił błąd podczas wykonywania zapytania i został zarejestrowany. Proszę zgłosić ten błąd administratorowi Redmine."
   errors_no_or_invalid_arguments: "Brak lub nieważne argumenty"
-  field_always_expose: Always show dashboard name
+  field_always_expose: "Zawsze pokazuj nazwę pulpitu"
   field_autowatch_involved_issue: Autowatch involved issues
   field_color: Kolor
   field_enable_sidebar: Enable sidebar

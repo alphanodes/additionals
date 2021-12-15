@@ -36,7 +36,7 @@ zh:
   error_issues_could_not_be_assigned_to_me: 问题无法被指派给自己
   error_query_statement_invalid: 执行查询时出错且已被记录。请向你的 Redmine 管理员报告此错误。
   errors_no_or_invalid_arguments: 参数无效或不存在。
-  field_always_expose: Always show dashboard name
+  field_always_expose: 始终显示仪表盘名称
   field_autowatch_involved_issue: 自动关注参与的问题
   field_color: 颜色
   field_enable_sidebar: 启用侧边栏

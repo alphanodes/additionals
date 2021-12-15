@@ -36,7 +36,7 @@ pt-BR:
   error_issues_could_not_be_assigned_to_me: "A tarefa não poderia ser me atribuída"
   error_query_statement_invalid: "Ocorreu um erro durante a execução da consulta e foi registrado. Favor reportar este erro ao seu administrador Redmine."
   errors_no_or_invalid_arguments: "Nenhum argumento ou argumentos inválidos"
-  field_always_expose: "Expor sempre"
+  field_always_expose: Always show dashboard name
   field_autowatch_involved_issue: "Tarefa envolvida no Autowatch"
   field_color: "Cor"
   field_enable_sidebar: "Habilitar barra lateral"

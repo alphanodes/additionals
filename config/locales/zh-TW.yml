@@ -36,7 +36,7 @@
   error_issues_could_not_be_assigned_to_me: Issue could not assigned to me
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   errors_no_or_invalid_arguments: "參數無效或不存在。"
-  field_always_expose: Always expose
+  field_always_expose: Always show dashboard name
   field_autowatch_involved_issue: "自動監看參與的議題"
   field_color: 顏色
   field_enable_sidebar: Enable sidebar

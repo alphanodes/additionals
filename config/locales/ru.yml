@@ -36,7 +36,7 @@ ru:
   error_issues_could_not_be_assigned_to_me: "Задача не могла быть поручена мне."
   error_query_statement_invalid: "Во время выполнения запроса возникла ошибка, которая была зарегистрирована в журнале. Пожалуйста, сообщите об этой ошибке своему администратору Redmine."
   errors_no_or_invalid_arguments: "Нет или недействительные аргументы"
-  field_always_expose: Always expose
+  field_always_expose: Always show dashboard name
   field_autowatch_involved_issue: "Автонаблюдение включало в себя задачу"
   field_color: Color
   field_enable_sidebar: Enable sidebar

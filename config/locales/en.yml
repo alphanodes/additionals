@@ -36,7 +36,7 @@ en:
   error_issues_could_not_be_assigned_to_me: Issue could not be assigned to me
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   errors_no_or_invalid_arguments: No or invalid arguments
-  field_always_expose: Always expose
+  field_always_expose: Always show dashboard name
   field_autowatch_involved_issue: Autowatch involved issues
   field_color: Color
   field_enable_sidebar: Enable sidebar

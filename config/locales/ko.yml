@@ -36,7 +36,7 @@ ko:
   error_issues_could_not_be_assigned_to_me: "나에게 문제를 할당 할 수 없습니다"
   error_query_statement_invalid: "쿼리를 실행하는 동안 오류가 발생하여 기록되었습니다. 이 오류를 Redmine 관리자에게보고하십시오."
   errors_no_or_invalid_arguments: "인수가 없거나 유효하지 않습니다"
-  field_always_expose: Always expose
+  field_always_expose: Always show dashboard name
   field_autowatch_involved_issue: "오토 워치 관련 문제"
   field_color: 색깔
   field_enable_sidebar: 사이드바 표시

@@ -60,6 +60,26 @@ system_default_project:
         :title: Project overview right
         :text: Some example text in right text block
 
+system_default_defined_project:
+  name: Project default dashboard only for Project 2
+  dashboard_type: <%= DashboardContentProject::TYPE_NAME %>
+  system_default: true
+  enable_sidebar: true
+  project_id: 2
+  author_id: 1
+  visibility: 2
+  options: |
+    ---
+    :layout:
+      left:
+      - projectinformation
+      right:
+      - text
+    :layout_settings:
+      text:
+        :title: Project overview left
+        :text: Some example text in left text block
+
 private_welcome:
   name: Only for user 1
   dashboard_type: <%= DashboardContentWelcome::TYPE_NAME %>

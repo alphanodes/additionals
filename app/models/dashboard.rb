@@ -84,7 +84,11 @@ class Dashboard < ActiveRecord::Base
 
       if dashboard.blank?
         scope = scope.where(system_default: true).or(scope.where(author_id: user.id))
-        dashboard = scope.order(system_default: :desc, project_id: :desc, id: :asc).first
+        scope = scope.order(system_default: :desc)
+                     .order(Arel.sql("CASE WHEN #{Dashboard.table_name}.project_id IS NOT NULL THEN 0 ELSE 1 END"))
+                     .order(id: :asc)
+
+        dashboard = scope.first
 
         if recently_id.present?
           Rails.logger.debug 'default cleanup required'

@@ -9,6 +9,7 @@ Changelog
 - Ruby 2.6 is required
 - Use redmine_plugin_kit gem as loader
 - Move settings rake tasks and true?/false? to redmine_plugin_kit
+- fixed default dashboard order for system default for specific project
 
 3.0.3
 +++++

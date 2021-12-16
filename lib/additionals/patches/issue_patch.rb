@@ -53,14 +53,15 @@ module Additionals
           end
         end
 
-        def add_autowatcher(watcher)
-          return if watcher.nil? ||
-                    !watcher.is_a?(User) ||
-                    watcher.anonymous? ||
-                    !watcher.active? ||
-                    watched_by?(watcher)
+        def add_autowatcher(user)
+          return if user.nil? ||
+                    !user.is_a?(User) ||
+                    user.anonymous? ||
+                    !user.active? ||
+                    watched_by?(user) ||
+                    watchers.detect { |watcher| watcher.user_id == user.id }
 
-          add_watcher watcher
+          add_watcher user
         end
 
         def autowatch_involved

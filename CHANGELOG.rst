@@ -4,7 +4,7 @@ Changelog
 3.0.4
 +++++
 
-- Mermaid 8.13.5 support
+- Mermaid 8.13.6 support
 - D3 7.2.1 support
 - Ruby 2.6 is required
 - Use redmine_plugin_kit gem as loader

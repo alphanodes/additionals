@@ -36,6 +36,10 @@ module Additionals
       end
     end
 
+    def assert_sorted_equal(list1, list2)
+      assert_equal list1.sort, list2.sort
+    end
+
     def assert_query_sort_order(table_css, column, action: nil)
       action = :index if action.blank?
       column = column.to_s

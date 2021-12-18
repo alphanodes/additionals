@@ -42,16 +42,6 @@ module Additionals
       l :label_live_search_hints, value: all_fields
     end
 
-    def link_to_external(name, link, **options)
-      options[:class] ||= 'external'
-      options[:class] = "#{options[:class]} external" if options[:class].exclude? 'external'
-
-      options[:rel] ||= 'noopener'
-      options[:target] ||= '_blank'
-
-      link_to name, link, options
-    end
-
     def additionals_list_title(name:, obj: nil, obj_link: nil, query: nil)
       title = []
       case obj
@@ -132,9 +122,13 @@ module Additionals
     end
 
     def autocomplete_select_entries(name, type, option_tags, **options)
-      unless option_tags.is_a?(String) || option_tags.blank?
-        # if option_tags is not an array, it should be an object
-        option_tags = options_for_select [[option_tags.try(:name), option_tags.try(:id)]], option_tags.try(:id)
+      if option_tags.present?
+        if option_tags.is_a? ActiveRecord::Relation
+          option_tags = options_for_select option_tags.map { |u| [u.name, u.id] }, option_tags.map(&:id)
+        elsif !option_tags.is_a?(String)
+          # if option_tags is not an array, it should be an object
+          option_tags = options_for_select [[option_tags.try(:name), option_tags.try(:id)]], option_tags.try(:id)
+        end
       end
       options[:project] = @project if @project && options[:project].blank?
 
@@ -175,6 +169,14 @@ module Additionals
       end
     end
 
+    def format_yes(value, lowercase: false)
+      if RedminePluginKit.true? value
+        lowercase ? l(:general_text_yes) : l(:general_text_Yes)
+      else
+        lowercase ? l(:general_text_no) : l(:general_text_No)
+      end
+    end
+
     private
 
     def additionals_already_loaded(scope, js_name)
@@ -205,7 +207,7 @@ module Additionals
     def additionals_load_select2
       additionals_include_css('select2') +
         additionals_include_js('select2.min') +
-        additionals_include_js('select2_helper')
+        additionals_include_js('select2_helpers')
     end
 
     def additionals_load_clipboardjs
@@ -258,14 +260,14 @@ module Additionals
       return if user.nil?
 
       if user.type == 'Group'
-        if no_link || !Redmine::Plugin.installed?('redmine_hrm')
+        if no_link || !AdditionalsPlugin.active_hrm?
           user.name
         else
           link_to_hrm_group user
         end
       else
         s = []
-        s << avatar(user, { size: size, class: css_class })
+        s << avatar(user, size: size, class: css_class)
         s << if no_link
                user.name
              else

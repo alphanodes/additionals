@@ -1,15 +1,19 @@
 # frozen_string_literal: true
 
+require 'additionals/plugin_version'
+
+loader = RedminePluginKit::Loader.new plugin_id: 'additionals'
+
 Redmine::Plugin.register :additionals do
   name 'Additionals'
   author 'AlphaNodes GmbH'
   description 'Customizing Redmine, providing wiki macros and act as a library/function provider for other Redmine plugins'
-  version Additionals::VERSION
+  version Additionals::PluginVersion::VERSION
   author_url 'https://alphanodes.com/'
   url 'https://github.com/alphanodes/additionals'
   directory __dir__
 
-  default_settings = Additionals.load_settings
+  default_settings = loader.default_settings
   5.times do |i|
     default_settings["custom_menu#{i}_name"] = ''
     default_settings["custom_menu#{i}_url"] = ''
@@ -49,18 +53,19 @@ Redmine::Plugin.register :additionals do
   menu :admin_menu, :additionals, { controller: 'settings', action: 'plugin', id: 'additionals' }, caption: :label_additionals
 end
 
-Rails.application.config.after_initialize do
+RedminePluginKit::Loader.persisting do
+  Redmine::AccessControl.include Additionals::Patches::AccessControlPatch
+  Redmine::AccessControl.singleton_class.prepend Additionals::Patches::AccessControlClassPatch
+
+  # Hooks
+  loader.load_model_hooks!
+end
+
+RedminePluginKit::Loader.after_initialize do
   # @TODO: this should be moved to AdditionalsFontAwesome and use an instance of it
   FONTAWESOME_ICONS = { fab: AdditionalsFontAwesome.load_icons(:fab), # rubocop: disable Lint/ConstantDefinitionInBlock
                         far: AdditionalsFontAwesome.load_icons(:far),
                         fas: AdditionalsFontAwesome.load_icons(:fas) }.freeze
 end
 
-Rails.application.paths['app/overrides'] ||= []
-Dir.glob(Rails.root.join('plugins/*/app/overrides')).each do |dir|
-  Rails.application.paths['app/overrides'] << dir unless Rails.application.paths['app/overrides'].include? dir
-end
-
-Rails.configuration.to_prepare do
-  Additionals.setup
-end
+RedminePluginKit::Loader.to_prepare { Additionals.setup!(loader) } if Rails.version < '6.0'

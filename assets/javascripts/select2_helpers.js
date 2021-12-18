@@ -10,7 +10,7 @@ function filterAdditionalsFormatState (opt) {
   return $opt;
 }
 
-/* global availableFilters additionals_field_formats additionals_filter_urls:true* */
+/* global availableFilters, additionals_filter_urls, additionals_field_formats */
 function additionals_transform_to_select2(field){
   var field_format = availableFilters[field]['field_format'];
   var initialized_select2 = $('#tr_' + field + ' .values .select2');
@@ -25,7 +25,7 @@ function additionals_transform_to_select2(field){
         data: function(params) {
           return { q: params.term };
         },
-        processResults: function(data, params) {
+        processResults: function(data) {
           return { results: data };
         },
         cache: true
@@ -34,7 +34,7 @@ function additionals_transform_to_select2(field){
       minimumInputLength: 1,
       width: '90%',
       templateResult: filterAdditionalsFormatState
-    }).on('select2:open', function (e) {
+    }).on('select2:open', function () {
       $(this).parent('span').find('.select2-search__field').val(' ').trigger($.Event('input', { which: 13 })).val('');
     });
   }
@@ -44,6 +44,9 @@ var SELECT2_DELAY = 250;
 
 var select2Filters = {};
 
+/* exported setSelect2Filter */
+/* global operatorByType */
+/* global buildFilterRow:writable */
 function setSelect2Filter(type, options) {
   if (typeof operatorByType === 'undefined') { return; }
 
@@ -127,35 +130,38 @@ function findInRowBy(field, selector) {
   return $('#tr_' + sanitizeToId(field) + ' ' + selector);
 }
 
+/* exported formatStateWithAvatar */
 function formatStateWithAvatar(opt) {
   return $('<span>' + opt.avatar + '&nbsp;' + opt.text + '</span>');
 }
 
+/* exported formatStateWithMultiaddress */
 function formatStateWithMultiaddress(opt) {
   return $('<span class="select2-contact">' + opt.avatar + '<p class="select2-contact__name">' + opt.text + '</p><p class="select2-contact__email">' + opt.email + '</p></span>');
 }
 
 function transformToSelect2(field, options) {
-  if (rowHasSelect2(field)) { return }
+  if (rowHasSelect2(field)) { return; }
 
   findInRowBy(field, '.toggle-multiselect').hide();
   var selectField = findSelectTagInRowBy(field);
   selectField.select2(buildSelect2Options(options));
 
   var select2Instance = selectField.data('select2');
-  select2Instance.on('results:message', function(params){
+  select2Instance.on('results:message', function(){
     this.dropdown._resizeDropdown();
     this.dropdown._positionDropdown();
   });
 }
 
+/* exported select2Tag */
 function select2Tag(id, options) {
   $(function () {
     var selectField = $('select#' + id);
     selectField.select2(buildSelect2Options(options));
 
     var select2Instance = selectField.data('select2');
-    select2Instance.on('results:message', function(params){
+    select2Instance.on('results:message', function(){
       this.dropdown._resizeDropdown();
       this.dropdown._positionDropdown();
     });
@@ -163,11 +169,12 @@ function select2Tag(id, options) {
 }
 
 function buildSelect2Options(options) {
-  result = {
+  var result = {
     placeholder: options['placeholder'] || '',
     allowClear: !!options['allow_clear'],
     minimumInputLength: options['min_input_length'] || 0,
     templateResult: window[options['format_state']],
+    templateSelection: window[options['format_selection']],
     width: options['width'] || '90%'
   };
 
@@ -186,7 +193,7 @@ function addDataSourceOptions(target, options) {
       data: function (params) {
         return { q: params.term };
       },
-      processResults: function (data, params) {
+      processResults: function (data) {
         return { results: data };
       },
       cache: true

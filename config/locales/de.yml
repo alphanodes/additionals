@@ -36,7 +36,7 @@ de:
   error_issues_could_not_be_assigned_to_me: Das Ticket konnte nicht mir zugeordnet werden
   error_query_statement_invalid: Beim Ausführen der Query ist ein Fehler aufgetreten und wurde protokolliert. Bitte melden Sie diesen Fehler Ihrem Redmine-Administrator.
   errors_no_or_invalid_arguments: Kein oder ungültiger Parameter
-  field_always_expose: Dashboard immer offenlegen
+  field_always_expose: Dashboard Name immer anzeigen
   field_autowatch_involved_issue: Involvierte Tickets automatisch beobachten
   field_color: Farbe
   field_enable_sidebar: Sidebar aktivieren
@@ -103,7 +103,7 @@ de:
   label_issue_freezed_with_close: Bearbeitung geschlossener Tickets verbieten (Freeze)
   label_issue_status_change: "Wird \"Zugewiesen an\" nicht verändert und der Ticketstatus von x auf y geändert, dann wird das Ticket automatisch dem Ersteller zugewiesen"
   label_issue_timelog_required: Zeiterfassung für Ticket erforderlich
-  label_issues_summary: Ticket Erfassung
+  label_issues_summary: Ticket Übersicht
   label_last_year: voriges Jahr
   label_legacy_smiley_support: Legacy Smiley Support
   label_macro_plural: Makros
@@ -113,7 +113,6 @@ de:
   label_my_activity: Meine Aktivität
   label_my_dashboard_plural: Meine Dashboards
   label_my_spent_time: Meine aufgewendete Zeit
-  label_new_additional_dashboard: Neues Dashboard
   label_new_dashboard: Neues Dashboard
   label_new_issue_on_profile: Neues Ticket auf Benutzerprofil
   label_new_ticket_message: "Hinweistext für neue Tickets"
@@ -191,3 +190,4 @@ de:
   label_additionals_message: Hinweistext
   label_system_setting: System
   label_project_setting: Projekt
+  label_enable_auto_refresh: Automatische Aktualisierung aktivieren

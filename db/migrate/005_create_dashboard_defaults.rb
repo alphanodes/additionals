@@ -5,6 +5,7 @@ class CreateDashboardDefaults < ActiveRecord::Migration[5.2]
     User.current = User.find_by(id: ENV['DEFAULT_USER_ID'].presence || User.admin.active.first.id)
 
     unless Dashboard.exists? dashboard_type: DashboardContentWelcome::TYPE_NAME
+      puts 'Creating welcome default dashboard'
       Dashboard.create! name: 'Welcome dashboard',
                         dashboard_type: DashboardContentWelcome::TYPE_NAME,
                         system_default: true,
@@ -14,6 +15,7 @@ class CreateDashboardDefaults < ActiveRecord::Migration[5.2]
 
     return if Dashboard.exists? dashboard_type: DashboardContentProject::TYPE_NAME
 
+    puts 'Creating project default dashboard'
     Dashboard.create! name: 'Project dashboard',
                       dashboard_type: DashboardContentProject::TYPE_NAME,
                       system_default: true,

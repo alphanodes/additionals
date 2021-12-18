@@ -40,7 +40,7 @@ module Additionals
           end
 
           @dashboard.content_project = @project
-          resently_used_dashboard_save @dashboard, @project
+          recently_used_dashboard_save @dashboard, @project
           @can_edit = @dashboard&.editable?
           @dashboard_sidebar = dashboard_sidebar? @dashboard, params
         end

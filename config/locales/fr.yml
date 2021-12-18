@@ -36,7 +36,7 @@ fr:
   error_issues_could_not_be_assigned_to_me: "La tâche n'a pas pu m'être affectée"
   error_query_statement_invalid: "Une erreur s'est produite lors de l'exécution de la requête et a été enregistrée. Veuillez signaler cette erreur à votre administrateur Redmine."
   errors_no_or_invalid_arguments: "Pas d'arguments ou arguments invalides"
-  field_always_expose: Toujours affiché
+  field_always_expose: "Toujours afficher le nom du tableau de bord"
   field_autowatch_involved_issue: "Problèmes liés à la surveillance automatique"
   field_color: Couleur
   field_enable_sidebar: Activer le menu latéral
@@ -52,7 +52,7 @@ fr:
   global_wiki_sidebar_info: "Entrez ici un message texte disponible pour l'ensemble du projet pour votre barre latérale wiki. Ce texte de la barre latérale sera affiché uniquement sur les pages wiki. Use this space for Macros like \"Last changed pages\" for example. Dans le cas où une barre latérale spécifique au projet est utilisée (page wiki), celle-ci sera de préférence affichée dans la barre latérale."
   google_maps_embed_api_html: "Si vous souhaitez utiliser la macro Gmap pour afficher les cartes de Goole, veuillez implémenter votre clé API Google Maps ici. Ensuite, vous pouvez utiliser la macro et divers paramètres. Pour plus d'informations sur l'utilisation des paramètres, voir <a href=\"https://developers.google.com/maps/documentation/embed/guide\">https://developers.google.com/maps/documentation/embed/guide</a>. La macro Gmap ne fonctionne qu'en combinaison avec la clé intégrée."
   hidden_macros_in_toolbar_info: "Toutes les macros disponibles que l'utilisateur connecté peut utiliser sont listées via le bouton macro de la barre d'outils wiki. Les macros marquées ici ne sont pas proposées à la sélection. Ceci vous permet de limiter la portée de la liste."
-  info_dashboard_project_select: Laisser vide, si vous souhaitez utiliser ce tableau de bord pour toutes les projets.
+  info_dashboard_project_select: Laisser vide, si vous souhaitez utiliser ce tableau de bord pour tous les projets.
   info_hidden_roles_html: "Les rôles cachés ne peuvent être utilisés qu'avec la visibilité utilisateur \"Membres de projets visibles\". Si l'utilisateur n'est pas dans un rôle visible par l'utilisateur actuel, ce rôle, y compris l'utilisateur, est masqué sur la page de synthèse du projet et dans les listes de requêtes."
   label_account_login_bottom: "Texte pour la page de connexion"
   label_active_dashboard: "Tableau de bord actif"
@@ -103,7 +103,7 @@ fr:
   label_issue_freezed_with_close: "Interdire l'édition des tâches fermées (freeze)"
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
   label_issue_timelog_required: Saisie de temps obligatoire pour une tâche
-  label_issues_summary: "Issue registration"
+  label_issues_summary: "Aperçu des tâches"
   label_last_year: année dernière
   label_legacy_smiley_support: Legacy smiley support
   label_macro_plural: macros
@@ -113,7 +113,6 @@ fr:
   label_my_activity: "Mon activité"
   label_my_dashboard_plural: "Mes tableaux de bord"
   label_my_spent_time: Ma saisie de temps d'activité
-  label_new_additional_dashboard: "Nouveau tableau de bord"
   label_new_dashboard: "Nouveau tableau de bord"
   label_new_issue_on_profile: "Nouvelle tâche sur le profil de l'utilisateur"
   label_new_ticket_message: "Note pour les nouvelles tâches"
@@ -191,3 +190,4 @@ fr:
   label_additionals_message: Message
   label_system_setting: "Système"
   label_project_setting: "Projet"
+  label_enable_auto_refresh: "Activer le rafraîchissement automatique"

@@ -15,3 +15,9 @@
     p.nodata = l :label_no_data
   - else
     p.nodata = l :label_invalid_feed_data
+
+  - if Additionals.setting? :open_external_urls
+    javascript:
+      $(function() {
+        openExternalUrlsInTab();
+      });

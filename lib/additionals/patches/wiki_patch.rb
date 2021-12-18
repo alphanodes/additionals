@@ -8,25 +8,18 @@ module Additionals
     module WikiPatch
       extend ActiveSupport::Concern
 
+      ENTITY_MODULE_NAME = 'wiki'
+
       included do
-        include InstanceMethods
-
-        alias_method :sidebar_without_additionals, :sidebar
-        alias_method :sidebar, :sidebar_with_additionals
+        include Additionals::EntityMethodsGlobal
+        prepend InstanceOverwriteMethods
       end
 
-      class_methods do
-        def join_enabled_module
-          "JOIN #{EnabledModule.table_name} ON #{EnabledModule.table_name}.project_id=#{Wiki.table_name}.project_id" \
-            " AND #{EnabledModule.table_name}.name='wiki'"
-        end
-      end
-
-      module InstanceMethods
-        def sidebar_with_additionals
+      module InstanceOverwriteMethods
+        def sidebar
           @sidebar ||= find_page 'Sidebar', with_redirect: false
           if @sidebar&.content
-            sidebar_without_additionals
+            super
           else
             wiki_sidebar = Additionals.setting(:global_wiki_sidebar).to_s
             @sidebar ||= find_page project.wiki.start_page, with_redirect: false

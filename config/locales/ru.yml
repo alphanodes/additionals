@@ -36,7 +36,7 @@ ru:
   error_issues_could_not_be_assigned_to_me: "Задача не могла быть поручена мне."
   error_query_statement_invalid: "Во время выполнения запроса возникла ошибка, которая была зарегистрирована в журнале. Пожалуйста, сообщите об этой ошибке своему администратору Redmine."
   errors_no_or_invalid_arguments: "Нет или недействительные аргументы"
-  field_always_expose: Always expose
+  field_always_expose: "Всегда показать название приборной панели"
   field_autowatch_involved_issue: "Автонаблюдение включало в себя задачу"
   field_color: Color
   field_enable_sidebar: Enable sidebar
@@ -103,7 +103,7 @@ ru:
   label_issue_freezed_with_close: "Запрет редактирования закрытых заданий (Freeze)"
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
   label_issue_timelog_required: Time log for issues required
-  label_issues_summary: "Регистрация выпуска"
+  label_issues_summary: "Обзор задач"
   label_last_year: "прошедший год"
   label_legacy_smiley_support: Legacy smiley support
   label_macro_plural: Macros
@@ -113,7 +113,6 @@ ru:
   label_my_activity: "Моя деятельность"
   label_my_dashboard_plural: "Мои приборные панели"
   label_my_spent_time: My spent time
-  label_new_additional_dashboard: "Новая приборная панель"
   label_new_dashboard: "Новая приборная панель"
   label_new_issue_on_profile: "Новая задача в профиле пользователя"
   label_new_ticket_message: "Примечание для нового задания"
@@ -191,3 +190,4 @@ ru:
   label_additionals_message: "Сообщение"
   label_system_setting: "Система"
   label_project_setting: "Проект"
+  label_enable_auto_refresh: "Включить автообновление"

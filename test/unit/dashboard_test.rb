@@ -75,7 +75,8 @@ class DashboardTest < Additionals::TestCase
   end
 
   def test_system_default_project_should_exist
-    assert_equal 1, Dashboard.project_only.where(system_default: true).count
+    assert_equal 1, Dashboard.project_only.where(system_default: true,
+                                                 project_id: nil).count
   end
 
   def test_change_system_default_welcome_without_set_system_default
@@ -122,7 +123,8 @@ class DashboardTest < Additionals::TestCase
                              author: User.current,
                              visibility: 2)
 
-    assert_equal 1, Dashboard.project_only.where(system_default: true).count
+    assert_equal 1, Dashboard.project_only.where(system_default: true,
+                                                 project_id: nil).count
   end
 
   def test_system_default_welcome_requires_public_visibility
@@ -191,7 +193,7 @@ class DashboardTest < Additionals::TestCase
   end
 
   def test_dashboard_project_scope
-    assert_equal 3, Dashboard.visible.project_only.count
+    assert_equal 4, Dashboard.visible.project_only.count
   end
 
   def test_destroy_dashboard_without_roles
@@ -288,5 +290,21 @@ class DashboardTest < Additionals::TestCase
 
     dashboard.reload
     assert_equal 'new name', dashboard.name
+  end
+
+  def test_default_dashboard_in_project
+    project = projects :projects_001
+    dashboard = Dashboard.default DashboardContentProject::TYPE_NAME, project
+
+    assert dashboard.system_default
+    assert_nil dashboard.project_id
+  end
+
+  def test_default_dashboard_in_project_with_existing_project_system_dashboard
+    project = projects :projects_002
+    dashboard = Dashboard.default DashboardContentProject::TYPE_NAME, project
+
+    assert dashboard.system_default
+    assert_equal project.id, dashboard.project_id
   end
 end

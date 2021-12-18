@@ -7,7 +7,7 @@
       tr id="project-#{project.id}" class="#{project_list_css_classes project, level}"
         td.name
           span[style='font-weight: bold;']
-            - if Redmine::Plugin.installed? 'redmine_reporting'
+            - if AdditionalsPlugin.active_reporting?
               = project_name_with_icon project
             - else
               = link_to_project project

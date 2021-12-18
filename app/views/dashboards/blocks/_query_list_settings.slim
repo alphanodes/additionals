@@ -7,9 +7,14 @@
     .tabular.settings
       p
         = additionals_settings_numberfield :max_entries,
-                                            value: settings[:max_entries].presence || DashboardContent::DEFAULT_MAX_ENTRIES,
-                                            tag_name: "settings[#{block}][max_entries]",
-                                            min: 1, max: 100, required: true
+                                           value: settings[:max_entries].presence || DashboardContent::DEFAULT_MAX_ENTRIES,
+                                           tag_name: "settings[#{block}][max_entries]",
+                                           min: 1, max: 100, required: true
+      p
+        = additionals_settings_checkbox :auto_refresh,
+                                        label: l(:label_enable_auto_refresh),
+                                        active_value: settings[:auto_refresh],
+                                        tag_name: "settings[#{block}][auto_refresh]"
 - else
   .box.tabular.settings
     p
@@ -20,6 +25,11 @@
                                     required: true
     p
       = additionals_settings_numberfield :max_entries,
-                                          value: settings[:max_entries].presence || DashboardContent::DEFAULT_MAX_ENTRIES,
-                                          tag_name: "settings[#{block}][max_entries]",
-                                          min: 1, max: 100, required: true
+                                         value: settings[:max_entries].presence || DashboardContent::DEFAULT_MAX_ENTRIES,
+                                         tag_name: "settings[#{block}][max_entries]",
+                                         min: 1, max: 100, required: true
+    p
+      = additionals_settings_checkbox :auto_refresh,
+                                      label: l(:label_enable_auto_refresh),
+                                      active_value: settings[:auto_refresh],
+                                      tag_name: "settings[#{block}][auto_refresh]"

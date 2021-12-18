@@ -4,6 +4,7 @@ require File.expand_path '../../../test_helper', __FILE__
 
 class GlobalHelperTest < ActionView::TestCase
   include Additionals::Helpers
+  include RedminePluginKit::Helpers::GlobalHelper
   include AdditionalsFontawesomeHelper
   include AdditionalsMenuHelper
   include CustomFieldsHelper
@@ -29,7 +30,7 @@ class GlobalHelperTest < ActionView::TestCase
   end
 
   def test_user_with_avatar
-    html = user_with_avatar(users(:users_001))
+    html = user_with_avatar users(:users_001)
 
     assert_include 'Redmine Admin', html
   end
@@ -46,5 +47,10 @@ class GlobalHelperTest < ActionView::TestCase
 
     html = font_awesome_icon 'fas_cloud-upload-alt', post_text: 'Testing'
     assert_include '</span> Testing', html
+  end
+
+  def test_link_to_url
+    assert_equal 'redmine.org/test', Nokogiri::HTML.parse(link_to_url('http://redmine.org/test')).xpath('//a').first.text
+    assert_equal 'redmine.org/test', Nokogiri::HTML.parse(link_to_url('https://redmine.org/test')).xpath('//a').first.text
   end
 end

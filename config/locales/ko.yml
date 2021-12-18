@@ -36,7 +36,7 @@ ko:
   error_issues_could_not_be_assigned_to_me: "나에게 문제를 할당 할 수 없습니다"
   error_query_statement_invalid: "쿼리를 실행하는 동안 오류가 발생하여 기록되었습니다. 이 오류를 Redmine 관리자에게보고하십시오."
   errors_no_or_invalid_arguments: "인수가 없거나 유효하지 않습니다"
-  field_always_expose: Always expose
+  field_always_expose: "항상 대시보드 이름 표시"
   field_autowatch_involved_issue: "오토 워치 관련 문제"
   field_color: 색깔
   field_enable_sidebar: 사이드바 표시
@@ -103,7 +103,7 @@ ko:
   label_issue_freezed_with_close: 닫힌 이슈 편집 금지 (고정)
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
   label_issue_timelog_required: 필요한 문제에 대한 시간 로그
-  label_issues_summary: "Issue registration"
+  label_issues_summary: "작업 개요 "
   label_last_year: 전년도
   label_legacy_smiley_support: Legacy smiley support
   label_macro_plural: Macros
@@ -113,7 +113,6 @@ ko:
   label_my_activity: "My activity"
   label_my_dashboard_plural: My dashboards
   label_my_spent_time: My spent time
-  label_new_additional_dashboard: New dashboard
   label_new_dashboard: New dashboard
   label_new_issue_on_profile: 사용자 프로필의 새로운 문제
   label_new_ticket_message: "새로운 문제에 대한 참고 사항"
@@ -191,3 +190,4 @@ ko:
   label_additionals_message: "메시지"
   label_system_setting: "체계"
   label_project_setting: "계획"
+  label_enable_auto_refresh: "자동 새로고침 활성화 "

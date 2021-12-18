@@ -36,7 +36,7 @@ en:
   error_issues_could_not_be_assigned_to_me: Issue could not be assigned to me
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   errors_no_or_invalid_arguments: No or invalid arguments
-  field_always_expose: Always expose
+  field_always_expose: Always show dashboard name
   field_autowatch_involved_issue: Autowatch involved issues
   field_color: Color
   field_enable_sidebar: Enable sidebar
@@ -103,7 +103,7 @@ en:
   label_issue_freezed_with_close: Disallow editing of closed issues (Freeze)
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
   label_issue_timelog_required: Time log for issues required
-  label_issues_summary: "Issue registration"
+  label_issues_summary: "Issue summary"
   label_last_year: previous year
   label_legacy_smiley_support: Legacy smiley support
   label_macro_plural: Macros
@@ -113,7 +113,6 @@ en:
   label_my_activity: "My activity"
   label_my_dashboard_plural: My dashboards
   label_my_spent_time: "My spent time"
-  label_new_additional_dashboard: New dashboard
   label_new_dashboard: New dashboard
   label_new_issue_on_profile: New issue on user profile
   label_new_ticket_message: "Note for new issues"
@@ -191,3 +190,4 @@ en:
   label_additionals_message: Message
   label_system_setting: System
   label_project_setting: Project
+  label_enable_auto_refresh: Enable auto refresh

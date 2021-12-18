@@ -37,14 +37,16 @@ Requirements
 +--------------------+-----------------------------------+
 | `Redmine`_ version | >= 4.1.0                          |
 +--------------------+-----------------------------------+
-| `Ruby`_ version    | >= 2.5.0                          |
+| `Ruby`_ version    | >= 2.6                            |
 +--------------------+-----------------------------------+
 | Database version   | MySQL >= 5.7 or PostgreSQL >= 9.6 |
 +--------------------+-----------------------------------+
 
-.. note:: If you use MySQL, make sure all database tables using the same storage engine (InnoDB is recommended) and character set (utf8mb4 is recommended).
+.. note::
+   If you use MySQL, make sure all database tables using the same storage engine (InnoDB is recommended) and character set (utf8mb4 is recommended).
 
-.. note:: For more information use the official `Redmine install documentation <https://www.redmine.org/projects/redmine/wiki/RedmineInstall>`_
+.. note::
+   For more information use the official `Redmine install documentation <https://www.redmine.org/projects/redmine/wiki/RedmineInstall>`_
 
 
 Installation
@@ -56,7 +58,8 @@ Install ``additionals`` plugin for `Redmine`_.
 
   $ cd $REDMINE_ROOT
   $ git clone -b stable https://github.com/AlphaNodes/additionals.git plugins/additionals
-  $ bundle install --without development test
+  $ bundle config set --local without 'development test'
+  $ bundle install
   $ bundle exec rake redmine:plugins:migrate RAILS_ENV=production
   $
   $ # if you want to use smiley/emoji legacy support, you have to put emoji icons to
@@ -82,7 +85,7 @@ Update ``additionals`` plugin for `Redmine`_.
   $ cd $REDMINE_ROOT/plugins/additionals
   $ git pull
   $ cd ../..
-  $ bundle install --without development test
+  $ bundle install
   $ bundle exec rake redmine:plugins:migrate RAILS_ENV=production
 
 Restart your application server (apache with passenger, nginx with passenger, unicorn, puma, etc.) and ``Additionals`` is ready to use.
@@ -175,10 +178,10 @@ It provides :
 * `Chart.js Plugin colorschemes 0.4.0 <https://github.com/nagix/chartjs-plugin-colorschemes>`_
 * `Chart.js Plugin datalabels 0.7.0 <https://github.com/chartjs/chartjs-plugin-datalabels>`_
 * `clipboardJS 2.0.8 <https://clipboardjs.com/>`_
-* `d3 7.0.1 <https://d3js.org/>`_
+* `d3 7.2.1 <https://d3js.org/>`_
 * `d3plus v2.0.0-alpha.30 <https://d3plus.org/>`_
 * `FontAwesome 5.15.4 <https://fontawesome.com/>`_
-* `mermaid 8.11.5 <https://github.com/knsv/mermaid/>`_
+* `mermaid 8.13.6 <https://github.com/mermaid-js/mermaid>`_
 * `Select2 4.0.13 <https://select2.org/>`_
 
 And a set of various Rails helper methods (see below).
@@ -237,6 +240,5 @@ I am glad about your feedback on the plugin, `pull requests <https://github.com/
     manual
     dashboards
     macros
-    tasks
     new_feature
     changelog

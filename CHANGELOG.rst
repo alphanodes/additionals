@@ -1,6 +1,17 @@
 Changelog
 =========
 
+3.0.4
++++++
+
+- Mermaid 8.13.6 support
+- D3 7.2.1 support
+- Ruby 2.6 is required
+- Use redmine_plugin_kit gem as loader
+- Move settings rake tasks and true?/false? to redmine_plugin_kit
+- fixed default dashboard order for system default for specific project
+- add rake task "redmine:additionals:reset_recently_dashboards" to reset recently used dashboards
+
 3.0.3
 +++++
 
@@ -11,6 +22,7 @@ Changelog
 - new ticket message can be overwritten for projects
 - fixed scope of public project dashboards for all projects
 - FontAwesome 5.15.4 support
+- Adjust integration of macro button, because of changed Redmine source (https://www.redmine.org/issues/31887)
 
 3.0.2
 +++++

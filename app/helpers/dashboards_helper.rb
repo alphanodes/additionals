@@ -16,7 +16,7 @@ module DashboardsHelper
         dashboard.enable_sidebar?
       end
     else
-      Additionals.true? params['enable_sidebar']
+      RedminePluginKit.true? params['enable_sidebar']
     end
   end
 
@@ -211,7 +211,7 @@ module DashboardsHelper
       return
     end
 
-    content = render_dashboard_block_content block, block_definition, dashboard, overwritten_settings
+    content = render_dashboard_block_content block, block_definition, dashboard, **overwritten_settings
     return if content.blank?
 
     if dashboard.editable?
@@ -256,6 +256,15 @@ module DashboardsHelper
     end
 
     partial_locals
+  end
+
+  def render_async_options(settings, async)
+    options = {}
+    if RedminePluginKit.true? settings[:auto_refresh]
+      options[:interval] = (async[:cache_expires_in] || DashboardContent::RENDER_ASYNC_CACHE_EXPIRES_IN) * 1000
+    end
+
+    options
   end
 
   def dashboard_async_required_settings?(settings, async)
@@ -372,7 +381,7 @@ module DashboardsHelper
     max_entries = (settings[:max_entries] || DashboardContent::DEFAULT_MAX_ENTRIES).to_i
     user = User.current
     options = {}
-    options[:author] = user if Additionals.true? settings[:me_only]
+    options[:author] = user if RedminePluginKit.true? settings[:me_only]
     options[:project] = dashboard.content_project if dashboard.content_project.present?
 
     Redmine::Activity::Fetcher.new(user, options)
@@ -426,7 +435,7 @@ module DashboardsHelper
   private
 
   # Renders a single block content
-  def render_dashboard_block_content(block, block_definition, dashboard, overwritten_settings = {})
+  def render_dashboard_block_content(block, block_definition, dashboard, **overwritten_settings)
     settings = dashboard.layout_settings block
     settings = settings.merge overwritten_settings if overwritten_settings.present?
 
@@ -451,7 +460,7 @@ module DashboardsHelper
     end
   end
 
-  def resently_used_dashboard_save(dashboard, project = nil)
+  def recently_used_dashboard_save(dashboard, project = nil)
     user = User.current
     dashboard_type = dashboard.dashboard_type
     recently_id = user.pref.recently_used_dashboard dashboard_type, project

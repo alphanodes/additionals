@@ -36,7 +36,7 @@ ja:
   error_issues_could_not_be_assigned_to_me: "問題を自分に割り当てることができませんでした"
   error_query_statement_invalid: "クエリの実行中にエラーが発生し、ログに記録されました。このエラーをRedmine管理者に報告してください。"
   errors_no_or_invalid_arguments: "引数がない、または無効な引数"
-  field_always_expose: "常に露出"
+  field_always_expose: "ダッシュボード名を常に表示する"
   field_autowatch_involved_issue: Autowatch involved issues
   field_color: Color
   field_enable_sidebar: Enable sidebar
@@ -103,7 +103,7 @@ ja:
   label_issue_freezed_with_close: Disallow editing of closed issues (Freeze)
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
   label_issue_timelog_required: Time log for issues required
-  label_issues_summary: "課題登録"
+  label_issues_summary: "タスクの概要"
   label_last_year: previous year
   label_legacy_smiley_support: Legacy smiley support
   label_macro_plural: macros
@@ -113,7 +113,6 @@ ja:
   label_my_activity: "私の活動"
   label_my_dashboard_plural: "私のダッシュボード"
   label_my_spent_time: My spent time
-  label_new_additional_dashboard: "新しいダッシュボード"
   label_new_dashboard: "新しいダッシュボード"
   label_new_issue_on_profile: "ユーザープロファイルの新しい問題"
   label_new_ticket_message: "新規チケットのメモ"
@@ -191,3 +190,4 @@ ja:
   label_additionals_message: "メッセージ"
   label_system_setting: "システム"
   label_project_setting: "プロジェクト"
+  label_enable_auto_refresh: "オートリフレシュを行う"

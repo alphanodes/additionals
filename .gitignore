@@ -12,3 +12,5 @@ docs/_build
 docs/_static
 docs/_templates
 .enable_dev
+/node_modules
+/yarn.lock

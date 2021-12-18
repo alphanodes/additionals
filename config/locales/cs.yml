@@ -36,7 +36,7 @@ cs:
   error_issues_could_not_be_assigned_to_me: "Problém se mi nepodařilo přiřadit"
   error_query_statement_invalid: "Při provádění dotazu došlo k chybě a bylo zaznamenáno. Nahlaste tuto chybu administrátorovi Redmine."
   errors_no_or_invalid_arguments: "Žádné nebo neplatné argumenty"
-  field_always_expose: Always expose
+  field_always_expose: "Vždy zobrazit název palubní desky"
   field_autowatch_involved_issue: "Problémy s automatickým sledováním"
   field_color: Barva
   field_enable_sidebar: Enable sidebar
@@ -103,7 +103,7 @@ cs:
   label_issue_freezed_with_close: "Zakázat úpravy uzavřených čísel (Freeze)"
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
   label_issue_timelog_required: "Časový záznam potřebných problémů"
-  label_issues_summary: "Issue registration"
+  label_issues_summary: "Přehled úkolů"
   label_last_year: "minulý rok"
   label_legacy_smiley_support: Legacy smiley support
   label_macro_plural: "Makra"
@@ -113,7 +113,6 @@ cs:
   label_my_activity: "Moje aktivita"
   label_my_dashboard_plural: "Můj dashboards"
   label_my_spent_time: "Strávený čas"
-  label_new_additional_dashboard: "Nový dashboard"
   label_new_dashboard: "Nový dashboard"
   label_new_issue_on_profile: "Nový úkol v uživatelském profilu"
   label_new_ticket_message: "Poznámka k nové úloze"
@@ -191,3 +190,4 @@ cs:
   label_additionals_message: "Zpráva"
   label_system_setting: "Systém"
   label_project_setting: "Projekt"
+  label_enable_auto_refresh: "Povolit automatické obnovení"

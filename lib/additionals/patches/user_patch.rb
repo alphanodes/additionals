@@ -11,7 +11,7 @@ module Additionals
 
       class_methods do
         def admin_column_field
-          Redmine::Plugin.installed?('redmine_sudo') ? 'sudoer' : 'admin'
+          AdditionalsPlugin.active_sudo? ? 'sudoer' : 'admin'
         end
 
         # NOTE: this is a better (performance related) solution as:
@@ -46,7 +46,7 @@ module Additionals
 
       module InstanceMethods
         def can_be_admin?
-          @can_be_admin ||= Redmine::Plugin.installed?('redmine_sudo') ? (admin || sudoer) : admin
+          @can_be_admin ||= AdditionalsPlugin.active_sudo? ? (admin || sudoer) : admin
         end
 
         def issues_assignable?(project = nil)

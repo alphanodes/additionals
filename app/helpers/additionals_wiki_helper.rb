@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module AdditionalsWikiPdfHelper
+module AdditionalsWikiHelper
   include Redmine::Export::PDF
 
   def wiki_page_to_pdf(page, project)

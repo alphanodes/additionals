@@ -6,10 +6,9 @@ module Additionals
       extend ActiveSupport::Concern
 
       included do
+        prepend InstanceOverwriteMethods
         include InstanceMethods
 
-        alias_method :editable_without_additionals?, :editable?
-        alias_method :editable?, :editable_with_additionals?
         validate :validate_change_on_closed
         validate :validate_timelog_required
         validate :validate_current_user_status
@@ -34,6 +33,16 @@ module Additionals
         end
       end
 
+      module InstanceOverwriteMethods
+        def editable?(user = User.current)
+          return false unless super
+          return true unless closed?
+          return true unless Additionals.setting? :issue_freezed_with_close
+
+          user.allowed_to? :edit_closed_issues, project
+        end
+      end
+
       module InstanceMethods
         def sidbar_change_status_allowed_to(user, new_status_id = nil)
           statuses = new_statuses_allowed_to user
@@ -44,20 +53,21 @@ module Additionals
           end
         end
 
-        def add_autowatcher(watcher)
-          return if watcher.nil? ||
-                    !watcher.is_a?(User) ||
-                    watcher.anonymous? ||
-                    !watcher.active? ||
-                    watched_by?(watcher)
+        def add_autowatcher(user)
+          return if user.nil? ||
+                    !user.is_a?(User) ||
+                    user.anonymous? ||
+                    !user.active? ||
+                    watched_by?(user) ||
+                    watchers.detect { |watcher| watcher.user_id == user.id }
 
-          add_watcher watcher
+          add_watcher user
         end
 
         def autowatch_involved
           return unless Additionals.setting?(:issue_autowatch_involved) &&
                         User.current.pref.autowatch_involved_issue
-          return if Redmine::Plugin.installed?('redmine_automation') && author_id == RedmineAutomation.bot_user_id
+          return if AdditionalsPlugin.active_automation? && author_id == RedmineAutomation.bot_user_id
 
           add_autowatcher User.current
           add_autowatcher author if (new_record? || author_id != author_id_was) && author != User.current
@@ -71,14 +81,6 @@ module Additionals
 
         def log_time_allowed?(user = User.current)
           !status_was.is_closed || user.allowed_to?(:log_time_on_closed_issues, project)
-        end
-
-        def editable_with_additionals?(user = User.current)
-          return false unless editable_without_additionals? user
-          return true unless closed?
-          return true unless Additionals.setting? :issue_freezed_with_close
-
-          user.allowed_to? :edit_closed_issues, project
         end
       end
 

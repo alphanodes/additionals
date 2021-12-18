@@ -6,7 +6,7 @@ Rails:
   Enabled: true
 
 AllCops:
-  TargetRubyVersion: 2.5
+  TargetRubyVersion: 2.6
   TargetRailsVersion: 5.2
   NewCops: enable
 
@@ -44,6 +44,9 @@ Metrics/PerceivedComplexity:
 Rails/ApplicationJob:
   Enabled: false
 
+Lint/AmbiguousOperatorPrecedence:
+  Enabled: false
+
 Rails/ApplicationRecord:
   Enabled: false
 
@@ -55,6 +58,11 @@ Rails/HelperInstanceVariable:
 
 Rails/SkipsModelValidations:
   Enabled: false
+
+Rails/Output:
+  Enabled: true
+  Exclude:
+    - 'db/migrate/*'
 
 Performance/ChainArrayAllocation:
   Enabled: true

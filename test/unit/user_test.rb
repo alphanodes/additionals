@@ -40,7 +40,7 @@ class UserTest < Additionals::TestCase
   end
 
   def test_sudoer_should_can_be_admin
-    skip 'Skip redmine_sudo test, because redmine_contacts is not installed' unless Redmine::Plugin.installed? 'redmine_sudo'
+    skip 'Skip redmine_sudo test, because redmine_contacts is not installed' unless AdditionalsPlugin.active_sudo?
 
     user = users :users_001
     user.sudoer = true
@@ -61,7 +61,7 @@ class UserTest < Additionals::TestCase
   end
 
   def test_non_sudoer_without_admin_can_not_be_admin
-    skip 'Skip redmine_sudo test, because redmine_contacts is not installed' unless Redmine::Plugin.installed? 'redmine_sudo'
+    skip 'Skip redmine_sudo test, because redmine_contacts is not installed' unless AdditionalsPlugin.active_sudo?
 
     assert_not User.where(sudoer: false, admin: false).first.can_be_admin?
   end

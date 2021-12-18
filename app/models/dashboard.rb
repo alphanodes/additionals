@@ -84,7 +84,11 @@ class Dashboard < ActiveRecord::Base
 
       if dashboard.blank?
         scope = scope.where(system_default: true).or(scope.where(author_id: user.id))
-        dashboard = scope.order(system_default: :desc, project_id: :desc, id: :asc).first
+        scope = scope.order(system_default: :desc)
+                     .order(Arel.sql("CASE WHEN #{Dashboard.table_name}.project_id IS NOT NULL THEN 0 ELSE 1 END"))
+                     .order(id: :asc)
+
+        dashboard = scope.first
 
         if recently_id.present?
           Rails.logger.debug 'default cleanup required'
@@ -307,7 +311,7 @@ class Dashboard < ActiveRecord::Base
     config = { dashboard_id: id,
                block: block }
 
-    if !options.key?(:skip_user_id) || !options[:skip_user_id]
+    if RedminePluginKit.false? options[:skip_user_id]
       settings[:user_id] = User.current.id
       settings[:user_is_admin] = User.current.admin?
     end
@@ -330,7 +334,9 @@ class Dashboard < ActiveRecord::Base
       unique_params += options[:unique_params].reject(&:blank?) if options[:unique_params].present?
 
       # Rails.logger.debug "debug async_params for #{block}: unique_params=#{unique_params.inspect}"
-      config[:unique_key] = Digest::SHA256.hexdigest unique_params.join('_')
+      # For truncating hash security, see https://crypto.stackexchange.com/questions/9435/is-truncating-a-sha512-hash-to-the-first-160-bits-as-secure-as-using-sha1
+      # truncating should solve problem with long filenames on some file systems
+      config[:unique_key] = Digest::SHA256.hexdigest(unique_params.join('_'))[0..-20]
     end
 
     # Rails.logger.debug "debug async_params for #{block}: config=#{config.inspect}"

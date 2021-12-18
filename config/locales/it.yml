@@ -36,7 +36,7 @@ it:
   error_issues_could_not_be_assigned_to_me: Issue could not assigned to me
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   errors_no_or_invalid_arguments: No o non valido argomenti
-  field_always_expose: Always expose
+  field_always_expose: "Mostra sempre il nome del portale"
   field_autowatch_involved_issue: Autowatch involved issues
   field_color: Colore
   field_enable_sidebar: Enable sidebar
@@ -103,7 +103,7 @@ it:
   label_issue_freezed_with_close: "Impedire la modifica dei problemi chiusi (Freeze)"
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
   label_issue_timelog_required: "Time log per i problemi richiesti"
-  label_issues_summary: "Issue Notification"
+  label_issues_summary: "Panoramica delle task"
   label_last_year: l'anno scorso
   label_legacy_smiley_support: Legacy smiley support
   label_macro_plural: macros
@@ -113,7 +113,6 @@ it:
   label_my_activity: "La mia attività"
   label_my_dashboard_plural: "Il mio dashboards"
   label_my_spent_time: My spent time
-  label_new_additional_dashboard: "Nuovo dashboard"
   label_new_dashboard: "Nuovo dashboard"
   label_new_issue_on_profile: Nuovo numero sul profilo utente
   label_new_ticket_message: "Nota per il nuovo issues"
@@ -191,3 +190,4 @@ it:
   label_additionals_message: "Messaggio"
   label_system_setting: "Sistema"
   label_project_setting: "Progetto"
+  label_enable_auto_refresh: "Abilita l'aggiornamento automatico"

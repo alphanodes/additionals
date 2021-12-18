@@ -36,7 +36,7 @@ es:
   error_issues_could_not_be_assigned_to_me: La petición no puede ser asignada a mi mismo
   error_query_statement_invalid: Ocurrió un error ejecutando la consulta y fue registrado. Por favor informe este error al administrador de Redmine.
   errors_no_or_invalid_arguments: Parámetros inválidos
-  field_always_expose: Always expose
+  field_always_expose: "Mostrar siempre el nombre del salpicadero"
   field_autowatch_involved_issue: Automonitorear las peticiones en las que estoy involucrado
   field_color: Color
   field_enable_sidebar: Enable sidebar
@@ -103,7 +103,7 @@ es:
   label_issue_freezed_with_close: No permitir editar peticiones cerradas (Congelar)
   label_issue_status_change: "Si no se modifica el usuario \"Asignado\" y la el estado de la petición es modificado de x a y, entonces la petición es asignada al autor de la petición"
   label_issue_timelog_required: Se requiere Registro de tiempo para las peticiones
-  label_issues_summary: "Registro de temas"
+  label_issues_summary: "Resumen de tareas"
   label_last_year: año anterior
   label_legacy_smiley_support: Soporte de smiley antiguo
   label_macro_plural: macros
@@ -113,7 +113,6 @@ es:
   label_my_activity: "Mi actividad"
   label_my_dashboard_plural: "Mis dashboards"
   label_my_spent_time: My spent time
-  label_new_additional_dashboard: "Nuevo dashboard"
   label_new_dashboard: "Nuevo dashboard"
   label_new_issue_on_profile: Nueva petición en el perfil de usuario
   label_new_ticket_message: "Nota para nuevas peticiones"
@@ -191,3 +190,4 @@ es:
   label_additionals_message: "Mensaje"
   label_system_setting: "Sistema"
   label_project_setting: "Proyecto"
+  label_enable_auto_refresh: "Activar la actualización automática"

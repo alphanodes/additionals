@@ -36,7 +36,7 @@ pl:
   error_issues_could_not_be_assigned_to_me: "Issue nie mógł być mi przypisany"
   error_query_statement_invalid: "Wystąpił błąd podczas wykonywania zapytania i został zarejestrowany. Proszę zgłosić ten błąd administratorowi Redmine."
   errors_no_or_invalid_arguments: "Brak lub nieważne argumenty"
-  field_always_expose: Always expose
+  field_always_expose: "Zawsze pokazuj nazwę pulpitu"
   field_autowatch_involved_issue: Autowatch involved issues
   field_color: Kolor
   field_enable_sidebar: Enable sidebar
@@ -103,7 +103,7 @@ pl:
   label_issue_freezed_with_close: "Uniemożliwienie edycji zamkniętych issues (Freeze)"
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
   label_issue_timelog_required: "Wymagany jest dziennik czasowy dla issues"
-  label_issues_summary: "Wydaj rejestrację"
+  label_issues_summary: "Przegląd zadań"
   label_last_year: "rok poprzedni"
   label_legacy_smiley_support: Legacy smiley support
   label_macro_plural: Macros
@@ -113,7 +113,6 @@ pl:
   label_my_activity: "Moja aktywność"
   label_my_dashboard_plural: "Moje tablice rozdzielcze"
   label_my_spent_time: My spent time
-  label_new_additional_dashboard: "Nowa tablica rozdzielcza"
   label_new_dashboard: "Nowa tablica rozdzielcza"
   label_new_issue_on_profile: "Nowe issue na profilu użytkownika"
   label_new_ticket_message: "Uwaga do nowego issue"
@@ -191,3 +190,4 @@ pl:
   label_additionals_message: "Komunikat"
   label_system_setting: "System"
   label_project_setting: "Projekt"
+  label_enable_auto_refresh: "Włącz autoodświeżanie"

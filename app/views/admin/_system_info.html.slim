@@ -1,6 +1,13 @@
 table.list
-  - AdditionalsInfo.system_infos.each_value do |system_info|
-    tr
+  - AdditionalsInfo.new.system_infos.each do |type, system_info|
+    tr class=type
       td.name
-        = "#{system_info[:label]}:"
-      td.name = system_info[:value]
+        = "#{system_info[:label].presence || type}:"
+      td.name
+        - case system_info[:value]
+          - when true
+            = image_tag 'true.png'
+          - when false
+            = image_tag 'exclamation.png'
+          - else
+            = system_info[:value]

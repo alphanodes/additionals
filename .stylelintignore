@@ -1,0 +1,3 @@
+# stylelint ignore file
+assets/stylesheets/*.min.css
+assets/stylesheets/select2.css

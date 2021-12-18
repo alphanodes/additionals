@@ -15,6 +15,13 @@ function setClipboardJS(element){
   });
 }
 
+/* exported openExternalUrlsInTab */
+function openExternalUrlsInTab() {
+  $('a.external').attr({
+    'target': '_blank',
+    'rel': 'noopener noreferrer'});
+}
+
 /* exported formatNameWithIcon */
 function formatNameWithIcon(opt) {
   if (opt.loading) return opt.name;
@@ -81,7 +88,7 @@ function observeLiveSearchField(fieldId, targetId, target_url) {
       return function() {
         var context = this, args = arguments;
         clearTimeout(timer);
-        timer = setTimeout(function () {
+        timer = setTimeout(function() {
           callback.apply(context, args);
         }, 400 || 0);
       };

@@ -36,15 +36,15 @@
   error_issues_could_not_be_assigned_to_me: Issue could not assigned to me
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   errors_no_or_invalid_arguments: "參數無效或不存在。"
-  field_always_expose: Always expose
+  field_always_expose: "始终显示仪表盘名称"
   field_autowatch_involved_issue: "自動監看參與的議題"
   field_color: 顏色
   field_enable_sidebar: Enable sidebar
   field_hide: Hide
   field_icon: 圖案
   field_issue_relation_plural: 關聯的議題
-  field_project_system_default: Project default
-  field_system_default: System default
+  field_project_system_default: 项目默认
+  field_system_default: 系统默认
   field_visibility: Visibility
   field_website: 網站
   global_footer_info: "專案中頁尾訊息。"
@@ -103,7 +103,7 @@
   label_issue_freezed_with_close: Disallow editing of closed issues (Freeze)
   label_issue_status_change: "若未修改 \"被分派者\" ，且議題狀態要從 X 變更為 Y ，則該議題必須被分派給議題作者。"
   label_issue_timelog_required: Time log for issues required
-  label_issues_summary: "Issue registration"
+  label_issues_summary: "任务概述"
   label_last_year: 去年
   label_legacy_smiley_support: 支援表情符號
   label_macro_plural: macros
@@ -113,7 +113,6 @@
   label_my_activity: "My activity"
   label_my_dashboard_plural: My dashboards
   label_my_spent_time: My spent time
-  label_new_additional_dashboard: New dashboard
   label_new_dashboard: New dashboard
   label_new_issue_on_profile: New issue on user profile
   label_new_ticket_message: "建立新議題時的提示訊息"
@@ -191,3 +190,4 @@
   label_additionals_message: "讯息"
   label_system_setting: "系统"
   label_project_setting: "项目"
+  label_enable_auto_refresh: "启用自动刷新"

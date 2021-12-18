@@ -14,25 +14,6 @@ class AdditionalsTest < Additionals::TestCase
     prepare_tests
   end
 
-  def test_true
-    assert Additionals.true? 1
-    assert Additionals.true? true
-    assert Additionals.true? 'true'
-    assert Additionals.true? 'True'
-
-    assert_not Additionals.true?(-1)
-    assert_not Additionals.true? 0
-    assert_not Additionals.true? '0'
-    assert_not Additionals.true? 1000
-    assert_not Additionals.true? false
-    assert_not Additionals.true? 'false'
-    assert_not Additionals.true? 'False'
-    assert_not Additionals.true? 'yes'
-    assert_not Additionals.true? ''
-    assert_not Additionals.true? nil
-    assert_not Additionals.true? 'unknown'
-  end
-
   def test_settings
     assert_raises NoMethodError do
       Additionals.settings[:open_external_urls]
@@ -49,13 +30,6 @@ class AdditionalsTest < Additionals::TestCase
   def test_setting_bool
     assert Additionals.setting?(:open_external_urls)
     assert_not Additionals.setting?(:add_go_to_top)
-  end
-
-  def test_load_macros
-    macros = Additionals.load_macros
-
-    assert macros.count.positive?
-    assert(macros.detect { |macro| macro.include? 'fa_macro' })
   end
 
   def test_split_ids

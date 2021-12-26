@@ -61,7 +61,7 @@ class AdditionalsJournal
 
       entries.each do |entry|
         journal = journals.detect { |j| j.journalized_id == entry.id }
-        entry.instance_variable_set('@last_notes', journal.try(:notes) || '')
+        entry.instance_variable_set(:@last_notes, journal.try(:notes) || '')
       end
     end
 

@@ -188,7 +188,7 @@ module AdditionalsQuery
   end
 
   def query_count
-    objects_scope.count
+    @query_count ||= search_string ? objects_scope(search: search_string).count : objects_scope.count
   rescue ::ActiveRecord::StatementInvalid => e
     raise queried_class::StatementInvalid, e.message if defined? queried_class::StatementInvalid
 

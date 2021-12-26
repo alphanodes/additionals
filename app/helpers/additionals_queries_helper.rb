@@ -5,7 +5,7 @@ module AdditionalsQueriesHelper
     "#{object_type}_query".to_sym
   end
 
-  def additionals_retrieve_query(object_type, user_filter: nil)
+  def additionals_retrieve_query(object_type, user_filter: nil, search_string: nil)
     session_key = additionals_query_session_key object_type
     query_class = Object.const_get "#{object_type.camelcase}Query"
     if params[:query_id].present?
@@ -13,7 +13,8 @@ module AdditionalsQueriesHelper
                                 session_key,
                                 params[:query_id],
                                 object_type,
-                                user_filter: user_filter
+                                user_filter: user_filter,
+                                search_string: search_string
     elsif api_request? ||
           params[:set_filter] ||
           session[session_key].nil? ||
@@ -22,6 +23,7 @@ module AdditionalsQueriesHelper
       @query = query_class.new name: '_'
       @query.project = @project
       @query.user_filter = user_filter if user_filter
+      @query.search_string = search_string if search_string
       @query.build_from_params params
       session[session_key] = { project_id: @query.project_id }
       # session has a limit to 4k, we have to use a cache for it for larger data
@@ -57,7 +59,7 @@ module AdditionalsQueriesHelper
     end
   end
 
-  def additionals_load_query_id(query_class, session_key, query_id, object_type, user_filter: nil)
+  def additionals_load_query_id(query_class, session_key, query_id, object_type, user_filter: nil, search_string: nil)
     scope = query_class.where project_id: nil
     scope = scope.or query_class.where(project_id: @project.id) if @project
     @query = scope.find query_id
@@ -65,6 +67,7 @@ module AdditionalsQueriesHelper
 
     @query.project = @project
     @query.user_filter = user_filter if user_filter
+    @query.search_string = search_string if search_string
     session[session_key] = { id: @query.id, project_id: @query.project_id }
 
     @query.sort_criteria = params[:sort] if params[:sort].present?
@@ -269,5 +272,9 @@ module AdditionalsQueriesHelper
     tags << hidden_field_tag('sort', query.sort_criteria.to_param, id: nil) if query.sort_criteria.present?
 
     tags
+  end
+
+  def build_search_query_term(params)
+    (params[:q] || params[:term]).to_s.strip
   end
 end

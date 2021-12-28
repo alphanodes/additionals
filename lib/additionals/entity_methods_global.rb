@@ -27,10 +27,6 @@ module Additionals
                                                      old_value: old_tags,
                                                      value: new_tags)
       end
-
-      def add_remove_unused_tags_job
-        AdditionalTagsRemoveUnusedTagJob.perform_later
-      end
     end
   end
 end

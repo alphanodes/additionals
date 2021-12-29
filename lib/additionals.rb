@@ -72,8 +72,12 @@ module Additionals
       ids.take limit
     end
 
-    def debug(message = 'running')
-      RedminePluginKit::Debug.log message
+    def debug(message = 'running', console: false)
+      if console
+        RedminePluginKit::Debug.msg message
+      else
+        RedminePluginKit::Debug.log message
+      end
     end
 
     private

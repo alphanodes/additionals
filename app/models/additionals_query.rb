@@ -5,8 +5,15 @@ module AdditionalsQuery
     columns.detect { |c| c.name.to_s.start_with? "#{prefix}." }.present?
   end
 
-  def available_column_names(only_sortable: false)
-    names = available_columns.dup
+  def available_column_names(only_sortable: false, type: nil)
+    method_name = ['available_']
+    if type
+      method_name << type
+      method_name << '_'
+    end
+    method_name << 'columns'
+
+    names = send(method_name.join).dup
     names.flatten!
     names.select! { |col| col.sortable.present? } if only_sortable
     names.map(&:name)

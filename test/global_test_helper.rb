@@ -2,14 +2,31 @@
 
 module Additionals
   module GlobalTestHelper
-    def assert_select_td_column(column_name)
+    def assert_select_td_column(column_name, colspan: nil)
       c = column_name.to_s
                      .gsub('issue.cf', 'issue_cf')
                      .gsub('project.cf', 'project_cf')
                      .gsub('user.cf', 'user_cf')
                      .tr('.', '-')
 
-      assert_select "td.#{c}"
+      spec = +"td.#{c}"
+      spec << "[colspan='#{colspan}']" if colspan
+      assert_select spec
+    end
+
+    def assert_select_query_tr(inline_columns:, block_columns:, inline_tr_select:, block_tr_select:)
+      assert_select inline_tr_select do
+        inline_columns.each do |column_name|
+          assert_select_td_column column_name
+        end
+      end
+
+      colspan = inline_columns.count + block_columns.count
+      assert_select block_tr_select do
+        block_columns.each do |column_name|
+          assert_select_td_column column_name, colspan: colspan
+        end
+      end
     end
 
     def with_additionals_settings(settings, &_block)

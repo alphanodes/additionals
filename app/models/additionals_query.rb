@@ -16,7 +16,13 @@ module AdditionalsQuery
     names = send(method_name.join).dup
     names.flatten!
     names.select! { |col| col.sortable.present? } if only_sortable
-    names.select!(&:groupable?) if only_groupable
+    if only_groupable
+      if Redmine::VERSION.to_s >= '4.2'
+        names.select!(&:groupable?)
+      else
+        names.select!(&:groupable)
+      end
+    end
     names.select!(&:totalable) if only_totalable
     names.map(&:name)
   end

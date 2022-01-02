@@ -14,6 +14,21 @@ module Additionals
       assert_select spec
     end
 
+    def assert_select_totalable_columns(columns)
+      assert_select 'p.query-totals' do
+        columns.each do |column_name|
+          c = column_name.to_s
+                         .tr('_', '-')
+
+          assert_select ".total-for-#{c} span.value"
+        end
+      end
+    end
+
+    def assert_select_grouped_column(column_name)
+      assert_select 'tr.group.open', {}, "grouped_by with #{column_name} is missing tr.group.open"
+    end
+
     def assert_select_query_tr(inline_columns:, block_columns:, inline_tr_select:, block_tr_select:)
       assert_select inline_tr_select do
         inline_columns.each do |column_name|
@@ -60,7 +75,7 @@ module Additionals
     def assert_query_sort_order(table_css, column, action: nil)
       action = :index if action.blank?
       column = column.to_s
-      column_css = column.tr '_', '-'
+      column_css = column.tr('_', '-').gsub('.', '\.')
 
       get action,
           params: { sort: "#{column}:asc", c: [column] }

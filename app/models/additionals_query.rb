@@ -5,7 +5,7 @@ module AdditionalsQuery
     columns.detect { |c| c.name.to_s.start_with? "#{prefix}." }.present?
   end
 
-  def available_column_names(only_sortable: false, type: nil)
+  def available_column_names(only_sortable: false, only_groupable: false, only_totalable: false, type: nil)
     method_name = ['available_']
     if type
       method_name << type
@@ -16,6 +16,8 @@ module AdditionalsQuery
     names = send(method_name.join).dup
     names.flatten!
     names.select! { |col| col.sortable.present? } if only_sortable
+    names.select!(&:groupable?) if only_groupable
+    names.select!(&:totalable) if only_totalable
     names.map(&:name)
   end
 

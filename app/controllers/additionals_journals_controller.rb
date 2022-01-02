@@ -1,11 +1,5 @@
 # frozen_string_literal: true
 
-# This file is a part of redmine_db,
-# a Redmine plugin to manage custom database entries.
-#
-# Copyright (c) 2016-2021 AlphaNodes GmbH
-# https://alphanodes.com
-
 class AdditionalsJournalsController < ApplicationController
   before_action :find_journal, only: %i[edit update diff]
   before_action :authorize, only: %i[edit update]

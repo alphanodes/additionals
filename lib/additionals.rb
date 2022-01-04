@@ -12,6 +12,10 @@ module Additionals
   include RedminePluginKit::PluginBase
 
   class << self
+    def full_url(path = nil)
+      "#{Setting.protocol}://#{Setting.host_name.chomp '/'}#{path}"
+    end
+
     def class_prefix(klass)
       klass_name = klass.is_a?(String) ? klass : klass.name
       klass_name.underscore.tr '/', '_'

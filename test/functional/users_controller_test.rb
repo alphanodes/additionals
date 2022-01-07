@@ -46,7 +46,7 @@ class UsersControllerTest < Additionals::ControllerTest
   end
 
   def test_show_new_issue_on_profile
-    with_additionals_settings new_issue_on_profile: 1 do
+    with_plugin_settings 'additionals', new_issue_on_profile: 1 do
       @request.session[:user_id] = 2
       get :show,
           params: { id: 2 }
@@ -57,7 +57,7 @@ class UsersControllerTest < Additionals::ControllerTest
   end
 
   def test_not_show_new_issue_on_profile_without_activated
-    with_additionals_settings new_issue_on_profile: 0 do
+    with_plugin_settings 'additionals', new_issue_on_profile: 0 do
       @request.session[:user_id] = 2
       get :show,
           params: { id: 2 }

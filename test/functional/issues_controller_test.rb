@@ -78,7 +78,7 @@ class IssuesControllerTest < Additionals::ControllerTest
   end
 
   test 'show assign-to-me on issue' do
-    with_additionals_settings issue_assign_to_me: 1 do
+    with_plugin_settings 'additionals', issue_assign_to_me: 1 do
       @request.session[:user_id] = 2
       get :show,
           params: { id: 2 }
@@ -88,7 +88,7 @@ class IssuesControllerTest < Additionals::ControllerTest
   end
 
   test 'don\'t show assign-to-me on issue without activation' do
-    with_additionals_settings issue_assign_to_me: 0 do
+    with_plugin_settings 'additionals', issue_assign_to_me: 0 do
       @request.session[:user_id] = 2
       get :show,
           params: { id: 2 }
@@ -97,7 +97,7 @@ class IssuesControllerTest < Additionals::ControllerTest
   end
 
   test 'don\'t show assign-to-me on issue with already assigned_to me' do
-    with_additionals_settings issue_assign_to_me: 1 do
+    with_plugin_settings 'additionals', issue_assign_to_me: 1 do
       @request.session[:user_id] = 2
       get :show,
           params: { id: 4 }
@@ -106,7 +106,7 @@ class IssuesControllerTest < Additionals::ControllerTest
   end
 
   test 'show change status in issue sidebar' do
-    with_additionals_settings issue_change_status_in_sidebar: 1 do
+    with_plugin_settings 'additionals', issue_change_status_in_sidebar: 1 do
       @request.session[:user_id] = 2
       get :show,
           params: { id: 2 }
@@ -115,7 +115,7 @@ class IssuesControllerTest < Additionals::ControllerTest
   end
 
   test 'don\'t show change status in issue sidebar without activation' do
-    with_additionals_settings issue_change_status_in_sidebar: 0 do
+    with_plugin_settings 'additionals', issue_change_status_in_sidebar: 0 do
       @request.session[:user_id] = 2
       get :show,
           params: { id: 2 }
@@ -124,10 +124,10 @@ class IssuesControllerTest < Additionals::ControllerTest
   end
 
   test 'don\'t show forbidden status in issue sidebar without timelog' do
-    with_additionals_settings(issue_change_status_in_sidebar: 1,
-                              issue_timelog_required: 1,
-                              issue_timelog_required_tracker: ['1'],
-                              issue_timelog_required_status: ['5']) do
+    with_plugin_settings 'additionals', issue_change_status_in_sidebar: 1,
+                                        issue_timelog_required: 1,
+                                        issue_timelog_required_tracker: ['1'],
+                                        issue_timelog_required_status: ['5'] do
       @request.session[:user_id] = 2
       issue = Issue.generate! tracker_id: 1, status_id: 1
       get :show,
@@ -140,10 +140,10 @@ class IssuesControllerTest < Additionals::ControllerTest
   end
 
   test 'show forbidden status in issue sidebar if disabled' do
-    with_additionals_settings(issue_change_status_in_sidebar: 1,
-                              issue_timelog_required: 0,
-                              issue_timelog_required_tracker: [1],
-                              issue_timelog_required_status: [5]) do
+    with_plugin_settings 'additionals', issue_change_status_in_sidebar: 1,
+                                        issue_timelog_required: 0,
+                                        issue_timelog_required_tracker: [1],
+                                        issue_timelog_required_status: [5] do
       @request.session[:user_id] = 2
       issue = Issue.generate! tracker_id: 1, status_id: 1
       get :show,
@@ -159,10 +159,10 @@ class IssuesControllerTest < Additionals::ControllerTest
     manager_role = roles :roles_002
     manager_role.add_permission! :issue_timelog_never_required
 
-    with_additionals_settings(issue_change_status_in_sidebar: 1,
-                              issue_timelog_required: 1,
-                              issue_timelog_required_tracker: [1],
-                              issue_timelog_required_status: [5]) do
+    with_plugin_settings 'additionals', issue_change_status_in_sidebar: 1,
+                                        issue_timelog_required: 1,
+                                        issue_timelog_required_tracker: [1],
+                                        issue_timelog_required_status: [5] do
       @request.session[:user_id] = 2
       issue = Issue.generate! tracker_id: 1, status_id: 1
       get :show,
@@ -175,7 +175,7 @@ class IssuesControllerTest < Additionals::ControllerTest
   end
 
   def test_new_should_have_new_ticket_message
-    with_additionals_settings new_ticket_message: 'blub' do
+    with_plugin_settings 'additionals', new_ticket_message: 'blub' do
       @request.session[:user_id] = 2
       get :new, params: { project_id: 1 }
       assert_select '.new-ticket-message'
@@ -187,7 +187,7 @@ class IssuesControllerTest < Additionals::ControllerTest
     project.enable_new_ticket_message = 0
     project.save!
 
-    with_additionals_settings new_ticket_message: 'blub' do
+    with_plugin_settings 'additionals', new_ticket_message: 'blub' do
       @request.session[:user_id] = 2
       get :new, params: { project_id: 1 }
       assert_select '.new-ticket-message', count: 0

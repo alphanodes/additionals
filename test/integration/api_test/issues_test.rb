@@ -43,10 +43,10 @@ module ApiTest
     end
 
     test 'POST /issues.xml should create an issue with the attributes' do
-      with_additionals_settings(issue_status_change: '0',
-                                issue_auto_assign: '0',
-                                issue_auto_assign_status: ['1'],
-                                issue_auto_assign_role: '1') do
+      with_plugin_settings 'additionals', issue_status_change: '0',
+                                          issue_auto_assign: '0',
+                                          issue_auto_assign_status: ['1'],
+                                          issue_auto_assign_role: '1' do
         payload = <<-XML
         <?xml version="1.0" encoding="UTF-8" ?>
         <issue>
@@ -74,10 +74,10 @@ module ApiTest
     end
 
     test 'POST /issues.xml should create an issue with auto assigned_to_id' do
-      with_additionals_settings(issue_status_change: '0',
-                                issue_auto_assign: '1',
-                                issue_auto_assign_status: ['1'],
-                                issue_auto_assign_role: '1') do
+      with_plugin_settings 'additionals', issue_status_change: '0',
+                                          issue_auto_assign: '1',
+                                          issue_auto_assign_status: ['1'],
+                                          issue_auto_assign_role: '1' do
         payload = <<-XML
         <?xml version="1.0" encoding="UTF-8" ?>
         <issue>

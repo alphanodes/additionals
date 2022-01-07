@@ -44,27 +44,28 @@ module Additionals
       end
     end
 
-    def with_additionals_settings(settings, &_block)
-      change_additionals_settings settings
+    def with_plugin_settings(plugin, settings, &_block)
+      change_plugin_settings plugin, settings
       yield
     ensure
-      restore_additionals_settings
+      restore_plugin_settings plugin
     end
 
-    def change_additionals_settings(settings)
-      @saved_settings = Setting.plugin_additionals.dup
-      new_settings = Setting.plugin_additionals.dup
+    def change_plugin_settings(plugin, settings)
+      instance_variable_set "@saved_#{plugin}_settings", Setting.send("plugin_#{plugin}").dup
+      new_settings = Setting.send("plugin_#{plugin}").dup
       settings.each do |key, value|
         new_settings[key] = value
       end
-      Setting.plugin_additionals = new_settings
+      Setting.send "plugin_#{plugin}=", new_settings
     end
 
-    def restore_additionals_settings
-      if @saved_settings
-        Setting.plugin_additionals = @saved_settings
+    def restore_plugin_settings(plugin)
+      settings = instance_variable_get "@saved_#{plugin}_settings"
+      if settings
+        Setting.send "plugin_#{plugin}=", settings
       else
-        Rails.logger.warn 'warning: restore_additionals_settings could not restore settings'
+        Rails.logger.warn "warning: restore_plugin_settings could not restore settings for #{plugin}"
       end
     end
 

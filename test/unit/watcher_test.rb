@@ -17,7 +17,7 @@ class WatcherTest < Additionals::TestCase
   end
 
   def test_new_issue_with_no_autowatch
-    with_additionals_settings issue_autowatch_involved: 0 do
+    with_plugin_settings 'additionals', issue_autowatch_involved: 0 do
       User.current = @author
       issue = Issue.generate author_id: @author.id
       issue.save
@@ -27,7 +27,7 @@ class WatcherTest < Additionals::TestCase
   end
 
   def test_new_issue_with_no_autowatch_by_user
-    with_additionals_settings issue_autowatch_involved: 1 do
+    with_plugin_settings 'additionals', issue_autowatch_involved: 1 do
       User.current = @author
       User.current.pref.update_attribute :autowatch_involved_issue, false
 
@@ -39,7 +39,7 @@ class WatcherTest < Additionals::TestCase
   end
 
   def test_new_issue_with_author_watch_only
-    with_additionals_settings issue_autowatch_involved: 1 do
+    with_plugin_settings 'additionals', issue_autowatch_involved: 1 do
       User.current = @author
       issue = Issue.generate author_id: @author.id
       issue.save
@@ -49,7 +49,7 @@ class WatcherTest < Additionals::TestCase
   end
 
   def test_new_issue_with_author_and_assigned_to_watchers
-    with_additionals_settings issue_autowatch_involved: 1 do
+    with_plugin_settings 'additionals', issue_autowatch_involved: 1 do
       User.current = @author
       issue = Issue.generate author_id: @author.id, assigned_to: @assigned_user
       issue.save
@@ -61,7 +61,7 @@ class WatcherTest < Additionals::TestCase
   end
 
   def test_issue_do_not_add_author_with_user_change
-    with_additionals_settings issue_autowatch_involved: 1 do
+    with_plugin_settings 'additionals', issue_autowatch_involved: 1 do
       User.current = @author
 
       issue = Issue.generate author_id: @author.id, assigned_to: @assigned_user
@@ -83,7 +83,7 @@ class WatcherTest < Additionals::TestCase
   end
 
   def test_issue_do_not_add_assigned_to_with_user_change
-    with_additionals_settings issue_autowatch_involved: 1 do
+    with_plugin_settings 'additionals', issue_autowatch_involved: 1 do
       User.current = @author
 
       issue = Issue.generate author_id: @author.id, assigned_to: @assigned_user

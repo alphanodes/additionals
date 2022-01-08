@@ -21,8 +21,7 @@ class AdditionalsInfo
     Array(Redmine::Configuration['system_infos_bool_vars']).each do |var|
       next unless ENV.key? var
 
-      value = ENV[var]
-      infos[var] = { value: RedminePluginKit.true?(value) }  if value
+      infos[var] = { value: RedminePluginKit.true?(ENV[var]) }
     end
 
     infos

@@ -11,10 +11,18 @@ class AdditionalsInfo
                                api_value: system_uptime(format: :datetime) },
               redmine_plugin_kit: { label: 'Redmine Plugin Kit',
                                     value: RedminePluginKit::VERSION } }
-    infos['ENABLE_DEBUG'] = { value: true } if ENV['ENABLE_DEBUG']
-    if ENV['ENABLE_BACKTRACE']
-      infos['ENABLE_BACKTRACE'] = { value: true }
-      infos['RUBYOPT'] = { value: ENV['RUBYOPT'] }
+
+    Array(Redmine::Configuration['system_infos_vars']).each do |var|
+      next unless ENV.key? var
+
+      infos[var] = { value: ENV[var] }
+    end
+
+    Array(Redmine::Configuration['system_infos_bool_vars']).each do |var|
+      next unless ENV.key? var
+
+      value = ENV[var]
+      infos[var] = { value: RedminePluginKit.true?(value) }  if value
     end
 
     infos

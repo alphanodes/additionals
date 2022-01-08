@@ -4,13 +4,20 @@ class AdditionalsInfo
   include Redmine::I18n
 
   def system_infos
-    { system_info: { label: l(:label_system_info),
-                     value: system_info },
-      system_uptime: { label: l(:label_uptime),
-                       value: system_uptime,
-                       api_value: system_uptime(format: :datetime) },
-      redmine_plugin_kit: { label: 'Redmine Plugin Kit',
-                            value: RedminePluginKit::VERSION } }
+    infos = { system_info: { label: l(:label_system_info),
+                             value: system_info },
+              system_uptime: { label: l(:label_uptime),
+                               value: system_uptime,
+                               api_value: system_uptime(format: :datetime) },
+              redmine_plugin_kit: { label: 'Redmine Plugin Kit',
+                                    value: RedminePluginKit::VERSION } }
+    infos['enable_debug'] = { value: true } if ENV['ENABLE_DEBUG']
+    if ENV['ENABLE_BACKTRACE']
+      infos['enable_backtrace'] = { value: true }
+      infos['RUBYOPT'] = { value: ENV['RUBYOPT'] }
+    end
+
+    infos
   end
 
   def system_info

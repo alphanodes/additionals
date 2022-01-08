@@ -11,9 +11,9 @@ class AdditionalsInfo
                                api_value: system_uptime(format: :datetime) },
               redmine_plugin_kit: { label: 'Redmine Plugin Kit',
                                     value: RedminePluginKit::VERSION } }
-    infos['enable_debug'] = { value: true } if ENV['ENABLE_DEBUG']
+    infos['ENABLE_DEBUG'] = { value: true } if ENV['ENABLE_DEBUG']
     if ENV['ENABLE_BACKTRACE']
-      infos['enable_backtrace'] = { value: true }
+      infos['ENABLE_BACKTRACE'] = { value: true }
       infos['RUBYOPT'] = { value: ENV['RUBYOPT'] }
     end
 

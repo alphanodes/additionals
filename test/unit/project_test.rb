@@ -52,11 +52,13 @@ class ProjectTest < Additionals::TestCase
     # dashboards
     assert @ecookbook.dashboards.any?
 
-    @ecookbook.destroy
-    # make sure that the project non longer exists
-    assert_raise(ActiveRecord::RecordNotFound) { Project.find @ecookbook.id }
-    # make sure related data was removed
-    assert_nil Dashboard.where(project_id: @ecookbook.id).first
+    assert_difference 'Dashboard.count', -2 do
+      @ecookbook.destroy
+      # make sure that the project non longer exists
+      assert_raise(ActiveRecord::RecordNotFound) { Project.find @ecookbook.id }
+      # make sure related data was removed
+      assert_nil Dashboard.where(project_id: @ecookbook.id).first
+    end
   end
 
   def test_users_by_role

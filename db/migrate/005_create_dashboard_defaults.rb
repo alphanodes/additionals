@@ -22,5 +22,9 @@ class CreateDashboardDefaults < ActiveRecord::Migration[5.2]
                       enable_sidebar: true,
                       author_id: User.current.id,
                       visibility: 2
+
+    raise 'Default dashboard are not created. Solve database problems and re-run migration!' unless Dashboard.count == 2
   end
+
+  def down; end
 end

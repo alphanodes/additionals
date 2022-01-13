@@ -115,7 +115,7 @@ class Dashboard < ActiveRecord::Base
 
       if user.admin?
         scope.where.not(visibility: VISIBILITY_PRIVATE).or(scope.where(author_id: user.id))
-      elsif user.memberships.any?
+      elsif user.memberships.includes([:memberships]).any?
         scope.where("#{table_name}.visibility = ?" \
                     " OR (#{table_name}.visibility = ? AND #{table_name}.id IN (" \
                     "SELECT DISTINCT d.id FROM #{table_name} d"  \

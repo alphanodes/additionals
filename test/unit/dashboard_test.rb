@@ -165,6 +165,7 @@ class DashboardTest < Additionals::TestCase
     assert_raise Exception do
       Dashboard.project_only
                .where(system_default: true)
+               .includes([:dashboard_roles])
                .destroy_all
     end
   end

@@ -18,8 +18,6 @@ class CommonViewsTest < Additionals::IntegrationTest
            :custom_values,
            :custom_fields_trackers
 
-  include Additionals::TestHelper
-
   def setup
     prepare_tests
   end

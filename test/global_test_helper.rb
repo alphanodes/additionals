@@ -2,6 +2,81 @@
 
 module Additionals
   module GlobalTestHelper
+    def after_setup
+      return super unless defined?(Bullet) && Bullet.enable?
+
+      Bullet.unused_eager_loading_enable = false
+      Bullet.raise = true
+      # @see https://github.com/flyerhzm/bullet#safe-list
+      # ignore missing n+1 problems in redmine core
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Attachment', association: :author
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Attachment', association: :container
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Board', association: :messages
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Dashboard', association: :author
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Dashboard', association: :dashboard_roles
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Dashboard', association: :project
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Issue', association: :assigned_to
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Issue', association: :category
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Issue', association: :custom_values
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Issue', association: :fixed_version
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Issue', association: :parent
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Issue', association: :tracker
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Journal', association: :details
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Journal', association: :journal_message
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Journal', association: :journalized
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Member', association: :member_roles
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Member', association: :project
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Message', association: :attachments
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Message', association: :children
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Message', association: :parent
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'News', association: :attachments
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Project', association: :attachments
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Project', association: :boards
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Project', association: :contacts
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Project', association: :dashboards
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Project', association: :db_entries
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Project', association: :documents
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Project', association: :helpdesk_setting
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Project', association: :invoice_setting
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Project', association: :invoices
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Project', association: :issues
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Project', association: :messenger_setting
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Project', association: :news
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Project', association: :parent
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Project', association: :passwords
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Project', association: :repositories
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Project', association: :tag_taggings
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Project', association: :taggings
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Project', association: :time_entries
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Project', association: :versions
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Project', association: :wiki
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'TimeEntry', association: :automation_schedule
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'TimeEntry', association: :reporting_cost
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Tracker', association: :default_status
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'User', association: :local_avatar
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'User', association: :preference
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'Version', association: :attachments
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'WikiContent', association: :page
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'WikiPage', association: :attachments
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'WikiPage', association: :content
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'WikiPage', association: :links_from
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'WikiPage', association: :tag_taggings
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'WikiPage', association: :taggings
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'WikiPage', association: :wiki
+      Bullet.add_safelist type: :n_plus_one_query, class_name: 'WikiPage', association: :wiki_page_votes
+      Bullet.start_request
+      super
+    end
+
+    def before_teardown
+      super
+      return unless defined?(Bullet) && Bullet.enable?
+
+      Bullet.perform_out_of_channel_notifications if Bullet.notification?
+      Bullet.end_request
+      Bullet.raise = false
+    end
+
     def assert_select_td_column(column_name, colspan: nil)
       c = column_name.to_s
                      .gsub('issue.cf', 'issue_cf')

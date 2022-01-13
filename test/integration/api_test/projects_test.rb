@@ -3,7 +3,7 @@
 require File.expand_path '../../../test_helper', __FILE__
 
 module ApiTest
-  class ProjectsTest < Redmine::ApiTest::Base
+  class ProjectsTest < Additionals::ApiTest
     fixtures :users, :email_addresses, :roles,
              :enumerations,
              :projects, :projects_trackers, :enabled_modules,
@@ -14,9 +14,7 @@ module ApiTest
              :attachments,
              :custom_fields, :custom_values,
              :time_entries,
-             :dashboards
-
-    include Additionals::TestHelper
+             :dashboards, :dashboard_roles
 
     test 'GET /projects.xml should return projects' do
       get '/projects.xml'

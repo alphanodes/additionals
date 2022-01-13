@@ -81,6 +81,10 @@ jobs:
           libpq-dev
           libmysqlclient-dev
 
+      - name: Setup Gemfile
+        run: |
+          touch .enable_test
+
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -92,6 +96,7 @@ jobs:
         run: |
           cp plugins/additionals/test/support/database-${{ matrix.db }}.yml config/database.yml
           cp plugins/additionals/test/support/configuration.yml config/configuration.yml
+          cp plugins/additionals/test/support/additional_environment.rb config/additional_environment.rb
 
       - name: Install Ruby dependencies
         working-directory: redmine

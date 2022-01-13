@@ -61,6 +61,7 @@ module Additionals
             users = User.visible
                         .where(type: 'User')
                         .active
+                        .includes([:email_address])
                         .sorted
           end
 

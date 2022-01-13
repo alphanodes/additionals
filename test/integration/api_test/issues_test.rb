@@ -3,7 +3,7 @@
 require File.expand_path '../../../test_helper', __FILE__
 
 module ApiTest
-  class IssuesTest < Redmine::ApiTest::Base
+  class IssuesTest < Additionals::ApiTest
     fixtures :projects,
              :users,
              :roles,
@@ -24,8 +24,6 @@ module ApiTest
              :journals,
              :journal_details,
              :queries
-
-    include Additionals::TestHelper
 
     test 'GET /issues.xml should contain metadata' do
       get '/issues.xml'

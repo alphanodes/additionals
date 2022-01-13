@@ -28,7 +28,9 @@ module Additionals
             all
           else
             view_all_active = if user.memberships.to_a.any?
-                                user.memberships.any? { |m| m.roles.any? { |r| r.users_visibility == 'all' } }
+                                user.memberships
+                                    .includes([:roles])
+                                    .any? { |m| m.roles.any? { |r| r.users_visibility == 'all' } }
                               else
                                 user.builtin_role.users_visibility == 'all'
                               end

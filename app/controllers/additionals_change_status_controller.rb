@@ -26,7 +26,7 @@ class AdditionalsChangeStatusController < ApplicationController
 
     last_journal = @issue.journals.visible.order(:created_on).last
 
-    return redirect_to(issue_path(@issue)) if last_journal.nil?
+    return redirect_to(issue_path(@issue)) unless last_journal
 
     last_journal = @issue.journals.visible.order(:created_on).last
     redirect_to "#{issue_path @issue}#change-#{last_journal.id}"

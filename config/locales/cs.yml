@@ -191,3 +191,4 @@ cs:
   label_system_setting: "Systém"
   label_project_setting: "Projekt"
   label_enable_auto_refresh: "Povolit automatické obnovení"
+  label_show_closed_issues: "Zobrazit uzavřené úkoly"

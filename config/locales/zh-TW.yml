@@ -191,3 +191,4 @@
   label_system_setting: "系统"
   label_project_setting: "项目"
   label_enable_auto_refresh: "启用自动刷新"
+  label_show_closed_issues: Show closed issues

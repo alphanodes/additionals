@@ -191,3 +191,4 @@ ja:
   label_system_setting: "システム"
   label_project_setting: "プロジェクト"
   label_enable_auto_refresh: "オートリフレシュを行う"
+  label_show_closed_issues: "解決済みの問題を表示"

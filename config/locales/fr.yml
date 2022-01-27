@@ -191,3 +191,4 @@ fr:
   label_system_setting: "Système"
   label_project_setting: "Projet"
   label_enable_auto_refresh: "Activer le rafraîchissement automatique"
+  label_show_closed_issues: Montrer les issues fermés

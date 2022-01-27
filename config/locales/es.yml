@@ -191,3 +191,4 @@ es:
   label_system_setting: "Sistema"
   label_project_setting: "Proyecto"
   label_enable_auto_refresh: "Activar la actualización automática"
+  label_show_closed_issues: Mostrar issues cerrados

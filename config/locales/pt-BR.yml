@@ -191,3 +191,4 @@ pt-BR:
   label_system_setting: "Sistema"
   label_project_setting: "Projeto"
   label_enable_auto_refresh: "Habilitar o auto refresh"
+  label_show_closed_issues: "Mostrar assuntos fechados"

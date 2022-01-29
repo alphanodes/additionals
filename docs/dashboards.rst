@@ -14,7 +14,7 @@ The dashboard configuration takes place directly in Redmine:
     * Redmine HRM Plugin: HRM overview page
 
 
-.. figure::  images/dashboard-overview.png
+.. figure::  images/dashboard-block-area.png
    :align:   center
 
    Figure shows the main areas of the dashboard function

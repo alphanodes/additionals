@@ -86,13 +86,12 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
     assert_response :success
     json = ActiveSupport::JSON.decode response.body
     assert_kind_of Array, json
-    assert_equal 3, json.count
+    assert_equal 2, json.count
 
-    assert_equal 'me', json.first['id']
-    assert_equal 'active', json.second['text']
-    assert_equal 7, json.second['children'].count
-    assert_equal 'Groups', json.third['text']
-    assert_equal 2, json.third['children'].count
+    assert_equal 'active', json.first['text']
+    assert_equal 7, json.first['children'].count
+    assert_equal 'Groups', json.second['text']
+    assert_equal 2, json.second['children'].count
   end
 
   def test_grouped_users
@@ -101,11 +100,10 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
     assert_response :success
     json = ActiveSupport::JSON.decode response.body
     assert_kind_of Array, json
-    assert_equal 2, json.count
+    assert_equal 1, json.count
 
-    assert_equal 'me', json.first['id']
-    assert_equal 'active', json.second['text']
-    assert_equal 7, json.second['children'].count
+    assert_equal 'active', json.first['text']
+    assert_equal 7, json.first['children'].count
   end
 
   def test_grouped_users_for_project
@@ -115,11 +113,10 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
     assert_response :success
     json = ActiveSupport::JSON.decode response.body
     assert_kind_of Array, json
-    assert_equal 2, json.count
+    assert_equal 1, json.count
 
-    assert_equal 'me', json.first['id']
-    assert_equal 'active', json.second['text']
-    assert_equal 2, json.second['children'].count
+    assert_equal 'active', json.first['text']
+    assert_equal 2, json.first['children'].count
   end
 
   def test_grouped_users_with_excluded_user
@@ -129,12 +126,11 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
     assert_response :success
     json = ActiveSupport::JSON.decode response.body
     assert_kind_of Array, json
-    assert_equal 2, json.count
+    assert_equal 1, json.count
 
-    assert_equal 'me', json.first['id']
-    assert_equal 'active', json.second['text']
-    assert_equal 6, json.second['children'].count
-    assert_not(json.second['children'].detect { |u| u['id'] == 2 })
+    assert_equal 'active', json.first['text']
+    assert_equal 6, json.first['children'].count
+    assert_not(json.first['children'].detect { |u| u['id'] == 2 })
   end
 
   def test_grouped_users_scope
@@ -145,10 +141,10 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
     assert_response :success
     json = ActiveSupport::JSON.decode response.body
     assert_kind_of Array, json
-    assert_equal 2, json.count
+    assert_equal 1, json.count
 
-    assert_equal 'active', json.second['text']
-    assert_equal 2, json.second['children'].count
+    assert_equal 'active', json.first['text']
+    assert_equal 2, json.first['children'].count
   end
 
   def test_authors

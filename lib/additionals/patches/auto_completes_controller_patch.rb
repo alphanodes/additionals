@@ -45,14 +45,14 @@ module Additionals
         def grouped_principals
           scope = @project ? @project.principals : Principal.assignable
 
-          render_grouped_users_with_select2 scope, search_term: @search_term
+          render_grouped_users_with_select2 scope, search_term: @search_term, with_me: false
         end
 
         def grouped_users
           scope = @project ? @project.users : User.visible
           scope = scope.where.not id: params[:user_id] if params[:user_id].present?
 
-          render_grouped_users_with_select2 scope, search_term: @search_term
+          render_grouped_users_with_select2 scope, search_term: @search_term, with_me: false
         end
 
         private

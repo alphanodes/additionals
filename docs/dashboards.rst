@@ -45,7 +45,7 @@ If you want to use the dashboard functionality you need to configure the permiss
 Dashboard: Home
 ---------------
 
-When accessing Redmine you probably get redirected to the "Home" page of the system. Users with appropriate permissions can modify the existing dashboard or add new dashboards by using the respective action links in the head section of the content area.
+When accessing Redmine you probably get redirected to the *Home* page of the system. Users with appropriate permissions can modify the existing dashboard or add new dashboards by using the respective action links in the head section of the content area.
 
 .. figure::  images/dashboard-home.png
    :align:   center
@@ -79,7 +79,7 @@ Description
   The dashboard description will be displayed in the sidebar next to the dashboard as soon as a dashboard has been been selected to be active.
 
 Visible
-  There are various visibility settings for a dashboard like "to me only", "to any users", "to these roles only". If you want to mak a dashboard publicly available to all other users you have to choose the option "to any users". For a specific role choose the respective role instead.
+  There are various visibility settings for a dashboard like *to me only*, *to any users*, *to these roles only*. If you want to mak a dashboard publicly available to all other users you have to choose the option *to any users*. For a specific role choose the respective role instead. The content visible to the user will always be the one, according to the set user permission.
 
 Enable sidebar
   The dashboard sidebar contains some useful information for the user. Since it is sometimes disturbing, it is hidden. To prevent this you can select this option.

@@ -106,6 +106,20 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
     assert_equal 7, json.first['children'].count
   end
 
+  def test_grouped_users_with_me
+    get :grouped_users,
+        params: { with_me: true }
+
+    assert_response :success
+    json = ActiveSupport::JSON.decode response.body
+    assert_kind_of Array, json
+    assert_equal 2, json.count
+
+    assert_equal 'me', json.first['id']
+    assert_equal 'active', json.second['text']
+    assert_equal 7, json.second['children'].count
+  end
+
   def test_grouped_users_for_project
     get :grouped_users,
         params: { project_id: 1 }

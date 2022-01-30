@@ -52,7 +52,9 @@ module Additionals
           scope = @project ? @project.users : User.visible
           scope = scope.where.not id: params[:user_id] if params[:user_id].present?
 
-          render_grouped_users_with_select2 scope, search_term: @search_term, with_me: false
+          render_grouped_users_with_select2 scope,
+                                            search_term: @search_term,
+                                            with_me: RedminePluginKit.true?(params[:with_me])
         end
 
         private

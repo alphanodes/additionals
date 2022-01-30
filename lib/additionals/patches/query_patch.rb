@@ -21,8 +21,9 @@ module Additionals
         operators_by_filter_type[:assignee] = operators_by_filter_type[:list_optional]
         operators_by_filter_type[:author] = operators_by_filter_type[:list_optional]
         operators_by_filter_type[:global_user] = operators_by_filter_type[:list_optional]
-        operators_by_filter_type[:user] = operators_by_filter_type[:list_optional]
         operators_by_filter_type[:principal] = operators_by_filter_type[:list_optional]
+        operators_by_filter_type[:user] = operators_by_filter_type[:list_optional]
+        operators_by_filter_type[:watcher] = operators_by_filter_type[:list_optional]
       end
 
       class_methods do
@@ -60,7 +61,7 @@ module Additionals
 
         def initialize_user_values_for_select2(field, values)
           case @available_filters[field][:type]
-          when :principal, :user, :assignee, :issue_assignee, :author, :global_user, :internal_user
+          when :principal, :user, :assignee, :issue_assignee, :author, :watcher, :global_user, :internal_user
             @available_filters[field][:values] = Principal.ids_to_names_with_ids values
           end
         end

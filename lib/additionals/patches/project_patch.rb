@@ -70,7 +70,8 @@ module Additionals
 
         # assignable_users result depends on Setting.issue_group_assignment?
         # this result is not depending on issue settings
-        def assignable_users_and_groups
+        # NOTE: user and groups
+        def assignable_principals
           Principal.assignable
                    .joins(members: :roles)
                    .where(members: { project_id: id },

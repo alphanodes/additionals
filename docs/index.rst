@@ -177,11 +177,11 @@ It provides :
 * `Chart.js 2.9.4 <https://www.chartjs.org/>`_
 * `Chart.js Plugin colorschemes 0.4.0 <https://github.com/nagix/chartjs-plugin-colorschemes>`_
 * `Chart.js Plugin datalabels 0.7.0 <https://github.com/chartjs/chartjs-plugin-datalabels>`_
-* `clipboardJS 2.0.8 <https://clipboardjs.com/>`_
+* `clipboardJS 2.0.9 <https://clipboardjs.com/>`_
 * `d3 7.3.0 <https://d3js.org/>`_
 * `d3plus v2.0.0-alpha.30 <https://d3plus.org/>`_
 * `FontAwesome 5.15.4 <https://fontawesome.com/>`_
-* `mermaid 8.13.9 <https://github.com/mermaid-js/mermaid>`_
+* `mermaid 8.13.10 <https://github.com/mermaid-js/mermaid>`_
 * `Select2 4.0.13 <https://select2.org/>`_
 
 And a set of various Rails helper methods (see below).

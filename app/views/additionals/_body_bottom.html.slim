@@ -3,6 +3,31 @@
   .additionals-footer
     = textilizable footer
 
+= additionals_transform_to_select2 'assignee',
+                                    format_state: 'formatNameWithIcon',
+                                    multiple: true,
+                                    url: assignee_auto_completes_path(project_id: @project)
+
+= additionals_transform_to_select2 'author',
+                                    format_state: 'formatNameWithIcon',
+                                    multiple: true,
+                                    url: authors_auto_completes_path(project_id: @project)
+
+= additionals_transform_to_select2 'user',
+                                    format_state: 'formatNameWithIcon',
+                                    multiple: true,
+                                    url: grouped_users_auto_completes_path(project_id: @project)
+
+= additionals_transform_to_select2 'global_user',
+                                    format_state: 'formatNameWithIcon',
+                                    multiple: true,
+                                    url: grouped_users_auto_completes_path
+
+= additionals_transform_to_select2 'principal',
+                                    format_state: 'formatNameWithIcon',
+                                    multiple: true,
+                                    url: grouped_principals_auto_completes_path(project_id: @project)
+
 - if @additionals_help_items.present?
   javascript:
     $(function() {

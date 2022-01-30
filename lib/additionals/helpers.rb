@@ -256,7 +256,7 @@ module Additionals
       additionals_include_js 'd3plus-network.full.min'
     end
 
-    def user_with_avatar(user, no_link: false, css_class: 'additionals-avatar', size: 14)
+    def user_with_avatar(user, no_link: false, css_class: 'additionals-avatar', size: 14, no_link_name: nil)
       return if user.nil?
 
       if user.type == 'Group'
@@ -269,7 +269,7 @@ module Additionals
         s = []
         s << avatar(user, size: size, class: css_class)
         s << if no_link
-               user.name
+               no_link_name || user.name
              else
                link_to_user user
              end

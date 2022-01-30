@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 module AdditionalsQuery
+  def label_me_value
+    self.class.label_me_value
+  end
+
   def column_with_prefix?(prefix)
     columns.detect { |c| c.name.to_s.start_with? "#{prefix}." }.present?
   end
@@ -99,13 +103,13 @@ module AdditionalsQuery
                          values: -> { project_statuses_values }
   end
 
-  def initialize_project_filter(always: false, position: nil)
+  def initialize_project_filter(always: false, position: nil, without_subprojects: false)
     if project.nil? || always
       add_available_filter 'project_id', order: position,
                                          type: :list,
                                          values: -> { project_values }
     end
-    return if project.nil? || project.leaf? || subproject_values.empty?
+    return if without_subprojects || project.nil? || project.leaf? || subproject_values.empty?
 
     add_available_filter 'subproject_id', order: position,
                                           type: :list_subprojects,
@@ -135,38 +139,67 @@ module AdditionalsQuery
   end
 
   def initialize_author_filter(position: nil)
-    add_available_filter 'author_id', order: position,
-                                      type: :list_optional,
-                                      values: -> { author_values }
+    if Additionals.user_with_select2?
+      add_available_filter 'author_id', order: position,
+                                        type: :author
+    else
+      add_available_filter 'author_id', order: position,
+                                        type: :list_optional,
+                                        values: -> { author_values }
+    end
   end
 
   def initialize_assignee_filter(position: nil)
-    add_available_filter 'assigned_to_id', order: position,
-                                           type: :list_optional,
-                                           values: -> { assigned_to_all_values }
+    if Additionals.user_with_select2?
+      add_available_filter 'assigned_to_id', order: position,
+                                             type: :assignee
+    else
+      add_available_filter 'assigned_to_id', order: position,
+                                             type: :list_optional,
+                                             values: -> { assigned_to_all_values }
+    end
   end
 
   def initialize_watcher_filter(position: nil)
     return unless User.current.logged?
 
-    add_available_filter 'watcher_id', order: position,
-                                       type: :list,
-                                       values: -> { watcher_values_for_manage_public_queries }
+    if Additionals.user_with_select2?
+      add_available_filter 'watcher_id', order: position,
+                                         type: :user
+    else
+      add_available_filter 'watcher_id', order: position,
+                                         type: :list,
+                                         values: -> { watcher_values_for_manage_public_queries }
+    end
   end
 
-  # issue independend values. Use  assigned_to_values from Redmine, if you want it only for issues
+  # issue independend values. Use assigned_to_values from Redmine, if you want it only for issues
   def assigned_to_all_values
     assigned_to_values = []
-    assigned_to_values << ["<< #{l :label_me} >>", 'me'] if User.current.logged?
+    assigned_to_values << label_me_value if User.current.logged?
     assigned_to_values += principals.sort_by(&:status).collect { |s| [s.name, s.id.to_s, l("status_#{User::LABEL_BY_STATUS[s.status]}")] }
 
     assigned_to_values
   end
 
+  # not required for: assigned_to_id author_id user_id watcher_id updated_by last_updated_by
+  # this fields are replaced by Query::statement
+  def values_without_me(values)
+    return values unless values.delete 'me'
+
+    values << if User.current.logged?
+                User.current.id.to_s
+              else
+                '0'
+              end
+
+    values
+  end
+
   # watcher_values of query checks view_issue_watchers, this checks manage_public_queries permission
   # and with users (not groups)
   def watcher_values_for_manage_public_queries
-    watcher_values = [["<< #{l :label_me} >>", 'me']]
+    watcher_values = [label_me_value]
     watcher_values += users.collect { |s| [s.name, s.id.to_s] } if User.current.allowed_to? :manage_public_queries, project, global: true
     watcher_values
   end

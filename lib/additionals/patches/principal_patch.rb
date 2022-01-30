@@ -24,7 +24,7 @@ module Additionals
         scope :visible, lambda { |*args|
           user = args.first || User.current
 
-          if user.admin?
+          if user.admin? || AdditionalsPlugin.active_hrm? && user.hrm_allowed_to?(:view_hrm)
             all
           else
             view_all_active = if user.memberships.to_a.any?
@@ -57,6 +57,28 @@ module Additionals
             end
           end
         }
+      end
+
+      class_methods do
+        def ids_to_names_with_ids(ids)
+          names_with_ids = []
+          return names_with_ids if ids.blank?
+
+          ids_without_me = ids.dup
+          ids_without_me.delete 'me'
+
+          names_with_ids << Query.label_me_value if ids_without_me.blank?
+          return names_with_ids if ids.blank?
+
+          names_with_ids + visible.where(id: ids_without_me).map { |c| [c.name, c.id.to_s] }
+        end
+
+        def ids_to_names_with_ids_old(ids)
+          return [] if ids.blank?
+          return [Query.label_me_value] if ids == ['me']
+
+          visible.where(id: ids).map { |c| [c.name, c.id.to_s] }
+        end
       end
     end
   end

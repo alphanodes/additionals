@@ -27,11 +27,11 @@ class ProjectTest < Additionals::TestCase
   def test_assignable_users_amount
     with_settings issue_group_assignment: '1' do
       project = Project.find 5
-      assert_equal project.assignable_users.count, project.assignable_users_and_groups.count
+      assert_equal project.assignable_users.count, project.assignable_principals.count
     end
     with_settings issue_group_assignment: '0' do
       project = Project.find 5
-      assert_not_equal project.assignable_users.count, project.assignable_users_and_groups.count
+      assert_not_equal project.assignable_users.count, project.assignable_principals.count
     end
   end
 

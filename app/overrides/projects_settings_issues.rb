@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ProjectsSettingsIssues
-  if Redmine::VERSION.to_s >= '4.3' || Redmine::VERSION.to_s >= '4.2' && Redmine::VERSION.to_s.include?('devel')
+  if Rails.version > '6.0' # Redmine 5
     Deface::Override.new virtual_path: 'projects/settings/_issues',
                          name: 'add-project-issue-settings',
                          insert_before: 'div.box.tabular',

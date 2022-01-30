@@ -4,7 +4,8 @@ require 'redmine_plugin_kit'
 
 module Additionals
   MAX_CUSTOM_MENU_ITEMS = 5
-  SELECT2_INIT_ENTRIES = 20
+  SELECT2_INIT_ENTRIES = 30
+  API_LIMIT = 100
   DEFAULT_MODAL_WIDTH = '350px'
   GOTO_LIST = " \xc2\xbb"
   LIST_SEPARATOR = "#{GOTO_LIST} "
@@ -74,6 +75,10 @@ module Additionals
       ids.flatten!
       ids.uniq!
       ids.take limit
+    end
+
+    def user_with_select2?
+      AdditionalsPlugin.active_hrm? && RedmineHrm.setting?(:user_with_select2)
     end
 
     def debug(message = 'running', console: false)

@@ -85,18 +85,49 @@ module AdditionalsQueriesHelper
     "#{object_type}_query_data_#{session.id}_#{project_id}"
   end
 
-  def additionals_select2_search_users(all_visible: false, where_filter: nil, where_params: nil)
-    q = params[:q].to_s.strip
-    exclude_id = params[:user_id].to_i
-    scope = User.active.where type: 'User'
-    scope = scope.visible unless all_visible
-    scope = scope.where.not id: exclude_id if exclude_id.positive?
-    scope = scope.where where_filter, where_params if where_filter
-    q.split.map { |search_string| scope = scope.like search_string } if q.present?
-    scope = scope.order(last_login_on: :desc)
-                 .limit(Additionals::SELECT2_INIT_ENTRIES)
-    @users = scope.to_a.sort! { |x, y| x.name <=> y.name }
-    render layout: false, partial: 'auto_completes/additionals_users'
+  def render_grouped_users_with_select2(users, search_term: nil, with_me: true, with_ano: false)
+    @users = { active: [], groups: [], registered: [], locked: [] }
+
+    search_term.split.map { |word| users = users.like word } if search_term.present?
+
+    sorted_users = users.select("users.*, #{User.table_name}.last_login_on IS NULL AS select_order")
+                        .order("select_order ASC, #{User.table_name}.last_login_on DESC")
+                        .limit(Additionals::SELECT2_INIT_ENTRIES)
+                        .to_a
+                        .sort! { |x, y| x.name <=> y.name }
+
+    with_users = false
+    sorted_users.each do |user|
+      case user.type
+      when 'User'
+        case user.status
+        when Principal::STATUS_ACTIVE
+          @users[:active] << { id: user.id, name: user.name, obj: user }
+          with_users = true
+        when Principal::STATUS_REGISTERED
+          @users[:registered] << { id: user.id, name: user.name, obj: user }
+          with_users = true
+        when Principal::STATUS_LOCKED
+          @users[:locked] << { id: user.id, name: user.name, obj: user }
+          with_users = true
+        end
+      when 'Group'
+        @users[:groups] << { id: user.id, name: user.name, obj: user }
+        with_users = true
+      end
+    end
+
+    with_me = false unless with_users
+
+    Additionals.debug "active: #{@users[:active].pluck :id}"
+    Additionals.debug "locked: #{@users[:locked].pluck :id}"
+    Additionals.debug "groups: #{@users[:groups].pluck :id}"
+
+    render layout: false,
+           partial: 'auto_completes/grouped_users',
+           locals: { with_me: with_me && (search_term.blank? || l(:label_me).include?(search_term)),
+                     with_ano: with_ano && (search_term.blank? || l(:label_user_anonymous).include?(search_term)),
+                     sep_required: false }
   end
 
   def additionals_query_to_xlsx(items, query, no_id_link: false)

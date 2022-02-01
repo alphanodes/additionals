@@ -117,16 +117,18 @@ module AdditionalsQueriesHelper
       end
     end
 
-    with_me = false unless with_users
+    # TODO: we this should be false without search results?
+    # with_me = false unless with_users
 
+    Additionals.debug "with_me: #{with_me}"
     Additionals.debug "active: #{@users[:active].pluck :id}"
     Additionals.debug "locked: #{@users[:locked].pluck :id}"
     Additionals.debug "groups: #{@users[:groups].pluck :id}"
 
     render layout: false,
            partial: 'auto_completes/grouped_users',
-           locals: { with_me: with_me && (search_term.blank? || l(:label_me).include?(search_term)),
-                     with_ano: with_ano && (search_term.blank? || l(:label_user_anonymous).include?(search_term)),
+           locals: { with_me: with_me && (search_term.blank? || l(:label_me).downcase.include?(search_term.downcase)),
+                     with_ano: with_ano && (search_term.blank? || l(:label_user_anonymous).downcase.include?(search_term.downcase)),
                      sep_required: false }
   end
 

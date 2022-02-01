@@ -78,7 +78,7 @@ module Additionals
     end
 
     def user_with_select2?
-      AdditionalsPlugin.active_hrm? && RedmineHrm.setting?(:user_with_select2)
+      AdditionalsPlugin.active_hrm?
     end
 
     def debug(message = 'running', console: false)

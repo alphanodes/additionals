@@ -49,7 +49,9 @@ module Additionals
         def grouped_principals
           scope = @project ? @project.principals : Principal.assignable
 
-          render_grouped_users_with_select2 scope, search_term: @search_term, with_me: false
+          render_grouped_users_with_select2 scope,
+                                            search_term: @search_term,
+                                            with_me: RedminePluginKit.true?(params[:with_me])
         end
 
         private

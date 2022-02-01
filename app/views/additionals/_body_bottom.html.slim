@@ -11,7 +11,7 @@
 = additionals_transform_to_select2 'author',
                                     format_state: 'formatNameWithIcon',
                                     multiple: true,
-                                    url: authors_auto_completes_path(project_id: @project, with_me: true)
+                                    url: grouped_users_auto_completes_path(project_id: @project, with_ano: true, with_me: true)
 
 = additionals_transform_to_select2 'watcher',
                                     format_state: 'formatNameWithIcon',

@@ -35,10 +35,14 @@ module Additionals
           render_grouped_users_with_select2 scope, search_term: @search_term
         end
 
-        def authors
+        def grouped_users
           scope = @project ? @project.users : User.visible
+          scope = scope.where.not id: params[:user_id] if params[:user_id].present?
 
-          render_grouped_users_with_select2 scope, search_term: @search_term, with_ano: true
+          render_grouped_users_with_select2 scope,
+                                            search_term: @search_term,
+                                            with_ano: RedminePluginKit.true?(params[:with_ano]),
+                                            with_me: RedminePluginKit.true?(params[:with_me])
         end
 
         # user and groups
@@ -46,15 +50,6 @@ module Additionals
           scope = @project ? @project.principals : Principal.assignable
 
           render_grouped_users_with_select2 scope, search_term: @search_term, with_me: false
-        end
-
-        def grouped_users
-          scope = @project ? @project.users : User.visible
-          scope = scope.where.not id: params[:user_id] if params[:user_id].present?
-
-          render_grouped_users_with_select2 scope,
-                                            search_term: @search_term,
-                                            with_me: RedminePluginKit.true?(params[:with_me])
         end
 
         private

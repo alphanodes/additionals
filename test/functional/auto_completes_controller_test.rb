@@ -120,6 +120,20 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
     assert_equal 7, json.second['children'].count
   end
 
+  def test_grouped_users_with_ano
+    get :grouped_users,
+        params: { with_ano: true }
+
+    assert_response :success
+    json = ActiveSupport::JSON.decode response.body
+    assert_kind_of Array, json
+    assert_equal 2, json.count
+
+    assert_equal 'active', json.first['text']
+    assert_equal 7, json.first['children'].count
+    assert_equal 'Anonymous', json.second['text']
+  end
+
   def test_grouped_users_for_project
     get :grouped_users,
         params: { project_id: 1 }
@@ -147,36 +161,8 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
     assert_not(json.first['children'].detect { |u| u['id'] == 2 })
   end
 
-  def test_grouped_users_scope
-    Role.anonymous.update! users_visibility: 'members_of_visible_projects'
-    @request.session[:user_id] = nil
-    get :grouped_users
-
-    assert_response :success
-    json = ActiveSupport::JSON.decode response.body
-    assert_kind_of Array, json
-    assert_equal 1, json.count
-
-    assert_equal 'active', json.first['text']
-    assert_equal 2, json.first['children'].count
-  end
-
-  def test_authors
-    get :authors
-
-    assert_response :success
-    json = ActiveSupport::JSON.decode response.body
-    assert_kind_of Array, json
-    assert_equal 3, json.count
-
-    assert_equal 'me', json.first['id']
-    assert_equal 'active', json.second['text']
-    assert_equal 7, json.second['children'].count
-    assert_equal 'Anonymous', json.third['text']
-  end
-
-  def test_authors_global
-    get :authors,
+  def test_grouped_users_with_search
+    get :grouped_users,
         params: { q: 'john' }
 
     assert_response :success
@@ -194,16 +180,17 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
     assert_equal 2, entry['value']
   end
 
-  def test_authors_for_project
-    get :authors,
-        params: { q: 'john', project_id: 1 }
+  def test_grouped_users_scope
+    Role.anonymous.update! users_visibility: 'members_of_visible_projects'
+    @request.session[:user_id] = nil
+    get :grouped_users
 
     assert_response :success
     json = ActiveSupport::JSON.decode response.body
     assert_kind_of Array, json
     assert_equal 1, json.count
 
-    children = json.first['children']
-    assert_equal 1, children.count
+    assert_equal 'active', json.first['text']
+    assert_equal 2, json.first['children'].count
   end
 end

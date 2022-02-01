@@ -165,7 +165,7 @@ module AdditionalsQuery
 
     if Additionals.user_with_select2?
       add_available_filter 'watcher_id', order: position,
-                                         type: :watcher
+                                         type: :user_with_me
     else
       add_available_filter 'watcher_id', order: position,
                                          type: :list,

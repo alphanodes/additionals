@@ -446,7 +446,7 @@ Create block template
   Create a template for your block in *app/views/dashboards/blocks/*. The name of your template should be unique, that there are no conflicts with other blocks (e.g. from other plugins)
 
   .. note::
-    Examples: Go to https://github.com/AlphaNodes/additionals/tree/master/app/views/dashboards/blocks for examples.
+    Examples: Go to https://github.com/AlphaNodes/additionals/tree/main/app/views/dashboards/blocks for examples.
 
 Add block definitions
   Add your block definition in *block_definitions*. This could be in:
@@ -456,7 +456,7 @@ Add block definitions
   * dashboard_content_welcome.rb (if your block should be available in welcome dashboards only)
 
   .. note::
-    Examples: Go to https://github.com/AlphaNodes/additionals/blob/master/app/models/dashboard_content.rb#L29 for examples for that.
+    Examples: Go to https://github.com/AlphaNodes/additionals/blob/main/app/models/dashboard_content.rb#L29 for examples for that.
 
   Overwrite it with *prepend* (not alias_method) to get no conflicts with other plugins. See *redmine_git_hosting* [#githosting]_ for an example implementation for a *block template* [#blocktemplate]_ and a *block definition* [#blockdefinition]_
 

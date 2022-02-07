@@ -5,7 +5,7 @@
 
 .. _Redmine: https://www.redmine.org
 .. _Ruby: https://www.ruby-lang.org
-.. _Gemfile: https://github.com/alphanodes/additionals/blob/master/Gemfile
+.. _Gemfile: https://github.com/alphanodes/additionals/blob/main/Gemfile
 
 Welcome to Additionals Plugin for Redmine
 =========================================

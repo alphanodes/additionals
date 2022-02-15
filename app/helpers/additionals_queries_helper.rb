@@ -117,7 +117,7 @@ module AdditionalsQueriesHelper
       end
     end
 
-    # TODO: we this should be false without search results?
+    # TODO: this should be false without search results?
     # with_me = false unless with_users
 
     Additionals.debug "with_me: #{with_me}"

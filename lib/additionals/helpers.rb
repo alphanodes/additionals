@@ -130,7 +130,13 @@ module Additionals
           option_tags = options_for_select [[option_tags.try(:name), option_tags.try(:id)]], option_tags.try(:id)
         end
       end
-      options[:project] = @project if @project && options[:project].blank?
+
+      ajax_params = options.delete(:ajax_params) || {}
+      if options[:project].present?
+        ajax_params[:project_id] = options[:project]
+      elsif @project
+        ajax_params[:project_id] = @project
+      end
 
       s = []
       s << hidden_field_tag("#{name}[]", '') if options[:multiple]
@@ -143,7 +149,7 @@ module Additionals
                   partial: 'additionals/select2_ajax_call',
                   formats: [:js],
                   locals: { field_id: sanitize_to_id(name),
-                            ajax_url: send("#{type}_path", project_id: options[:project], user_id: options[:user_id]),
+                            ajax_url: send("#{type}_path", ajax_params),
                             options: options })
       safe_join s
     end

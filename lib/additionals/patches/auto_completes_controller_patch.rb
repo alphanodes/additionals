@@ -38,6 +38,7 @@ module Additionals
         def grouped_users
           scope = @project ? @project.users : User.visible
           scope = scope.where.not id: params[:user_id] if params[:user_id].present?
+          scope = scope.active if RedminePluginKit.true? params[:active_only]
 
           render_grouped_users_with_select2 scope,
                                             search_term: @search_term,

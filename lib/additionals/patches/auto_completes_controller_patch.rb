@@ -26,7 +26,9 @@ module Additionals
         def issue_assignee
           scope = Principal.assignable_for_issues @project
 
-          render_grouped_users_with_select2 scope, search_term: @search_term
+          render_params = { search_term: @search_term }
+          render_params[:with_me] = RedminePluginKit.true?(params[:with_me]) unless params[:with_me].nil?
+          render_grouped_users_with_select2(scope, **render_params)
         end
 
         def assignee

@@ -27,7 +27,8 @@ module Additionals
           scope = Principal.assignable_for_issues @project
 
           render_params = { search_term: @search_term }
-          render_params[:with_me] = RedminePluginKit.true? params[:with_me] unless params[:with_me].nil?
+          render_params[:with_me] = RedminePluginKit.true? params[:with_me] if params.key? :with_me
+
           render_grouped_users_with_select2(scope, **render_params)
         end
 
@@ -42,19 +43,23 @@ module Additionals
           scope = scope.where.not id: params[:user_id] if params[:user_id].present?
           scope = scope.active if RedminePluginKit.true? params[:active_only]
 
-          render_grouped_users_with_select2 scope,
-                                            search_term: @search_term,
-                                            with_ano: RedminePluginKit.true?(params[:with_ano]),
-                                            with_me: RedminePluginKit.true?(params[:with_me])
+          render_params = { search_term: @search_term,
+                            with_ano: RedminePluginKit.true?(params[:with_ano]),
+                            with_me: RedminePluginKit.true?(params[:with_me]) }
+          render_params[:me_value] = params[:me_value] if params.key? :me_value
+
+          render_grouped_users_with_select2(scope, **render_params)
         end
 
         # user and groups
         def grouped_principals
           scope = @project ? @project.principals : Principal.assignable
 
-          render_grouped_users_with_select2 scope,
-                                            search_term: @search_term,
-                                            with_me: RedminePluginKit.true?(params[:with_me])
+          render_params = { search_term: @search_term,
+                            with_me: RedminePluginKit.true?(params[:with_me]) }
+          render_params[:me_value] = params[:me_value] if params.key? :me_value
+
+          render_grouped_users_with_select2(scope, **render_params)
         end
 
         private

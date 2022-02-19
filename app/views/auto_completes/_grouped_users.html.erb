@@ -1,9 +1,9 @@
 [
 <% if with_me %>
-  <%= raw({ 'id' => 'me',
+  <%= raw({ 'id' => me_value,
             'text' => l(:label_me),
             'name' => l(:label_me),
-            'value' => 'me' }.to_json) %>
+            'value' => me_value }.to_json) %>
   <% sep_required = true %>
 <% end %>
 <% @users.each do |group, users| %>

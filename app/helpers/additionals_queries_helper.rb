@@ -85,7 +85,7 @@ module AdditionalsQueriesHelper
     "#{object_type}_query_data_#{session.id}_#{project_id}"
   end
 
-  def render_grouped_users_with_select2(users, search_term: nil, with_me: true, with_ano: false)
+  def render_grouped_users_with_select2(users, search_term: nil, with_me: true, with_ano: false, me_value: 'me')
     @users = { active: [], groups: [], registered: [], locked: [] }
 
     search_term.split.map { |word| users = users.like word } if search_term.present?
@@ -129,6 +129,7 @@ module AdditionalsQueriesHelper
            partial: 'auto_completes/grouped_users',
            locals: { with_me: with_me && (search_term.blank? || l(:label_me).downcase.include?(search_term.downcase)),
                      with_ano: with_ano && (search_term.blank? || l(:label_user_anonymous).downcase.include?(search_term.downcase)),
+                     me_value: me_value,
                      sep_required: false }
   end
 

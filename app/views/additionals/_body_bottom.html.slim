@@ -23,11 +23,6 @@
                                     multiple: true,
                                     url: grouped_users_auto_completes_path(project_id: @project)
 
-= additionals_transform_to_select2 'global_user',
-                                    format_state: 'formatNameWithIcon',
-                                    multiple: true,
-                                    url: grouped_users_auto_completes_path
-
 - if @additionals_help_items.present?
   javascript:
     $(function() {

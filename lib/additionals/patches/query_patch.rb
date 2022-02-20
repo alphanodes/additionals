@@ -23,7 +23,7 @@ module Additionals
         operators_by_filter_type[:global_user] = operators_by_filter_type[:list]
         operators_by_filter_type[:principal] = operators_by_filter_type[:list_optional]
         operators_by_filter_type[:user] = operators_by_filter_type[:list_optional]
-        operators_by_filter_type[:user_with_me] = operators_by_filter_type[:list_optional]
+        operators_by_filter_type[:user_with_me] = operators_by_filter_type[:list]
       end
 
       class_methods do

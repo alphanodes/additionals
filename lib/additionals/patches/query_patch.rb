@@ -18,13 +18,12 @@ module Additionals
         alias_method :add_filter_without_additionals, :add_filter
         alias_method :add_filter, :add_filter_with_additionals
 
-        operators_by_filter_type[:assignee] = operators_by_filter_type[:list_optional]
+        # list_optional is default: author_optional, assignee and user
         operators_by_filter_type[:author] = operators_by_filter_type[:list]
         operators_by_filter_type[:global_user] = operators_by_filter_type[:list]
-        operators_by_filter_type[:principal] = operators_by_filter_type[:list]
-        operators_by_filter_type[:user] = operators_by_filter_type[:list_optional]
-        operators_by_filter_type[:user_with_me] = operators_by_filter_type[:list]
         operators_by_filter_type[:internal_user] = operators_by_filter_type[:list]
+        operators_by_filter_type[:principal] = operators_by_filter_type[:list]
+        operators_by_filter_type[:user_with_me] = operators_by_filter_type[:list]
       end
 
       class_methods do
@@ -62,7 +61,7 @@ module Additionals
 
         def initialize_user_values_for_select2(field, values)
           case @available_filters[field][:type]
-          when :principal, :user, :assignee, :issue_assignee, :author, :user_with_me, :global_user, :internal_user
+          when :principal, :user, :assignee, :issue_assignee, :author, :author_optional, :user_with_me, :global_user, :internal_user
             @available_filters[field][:values] = Principal.ids_to_names_with_ids values
           end
         end

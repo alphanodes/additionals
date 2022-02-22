@@ -151,19 +151,20 @@ module Additionals
       assert_equal list1.sort, list2.sort
     end
 
-    def assert_query_sort_order(table_css, column, action: nil)
+    def assert_query_sort_order(table_css, column, action: nil, list_columns: [])
       action = :index if action.blank?
       column = column.to_s
       column_css = column.tr('_', '-').gsub('.', '\.')
+      columns = (list_columns << column).uniq
 
       get action,
-          params: { sort: "#{column}:asc", c: [column] }
+          params: { sort: "#{column}:asc", c: columns }
 
       assert_response :success
       assert_select "table.list.#{table_css}.sort-by-#{column_css}.sort-asc"
 
       get action,
-          params: { sort: "#{column}:desc", c: [column] }
+          params: { set_filter: 1, sort: "#{column}:desc", c: columns }
 
       assert_response :success
       assert_select "table.list.#{table_css}.sort-by-#{column_css}.sort-desc"

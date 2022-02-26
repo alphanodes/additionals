@@ -139,47 +139,20 @@ module AdditionalsQuery
   end
 
   def initialize_author_filter(position: nil)
-    if Additionals.user_with_select2?
-      add_available_filter 'author_id', order: position,
-                                        type: :author
-    else
-      add_available_filter 'author_id', order: position,
-                                        type: :list_optional,
-                                        values: -> { author_values }
-    end
+    add_available_filter 'author_id', order: position,
+                                      type: :author
   end
 
   def initialize_assignee_filter(position: nil)
-    if Additionals.user_with_select2?
-      add_available_filter 'assigned_to_id', order: position,
-                                             type: :assignee
-    else
-      add_available_filter 'assigned_to_id', order: position,
-                                             type: :list_optional,
-                                             values: -> { assigned_to_all_values }
-    end
+    add_available_filter 'assigned_to_id', order: position,
+                                           type: :assignee
   end
 
   def initialize_watcher_filter(position: nil)
     return unless User.current.logged?
 
-    if Additionals.user_with_select2?
-      add_available_filter 'watcher_id', order: position,
-                                         type: :user_with_me
-    else
-      add_available_filter 'watcher_id', order: position,
-                                         type: :list,
-                                         values: -> { watcher_values_for_manage_public_queries }
-    end
-  end
-
-  # issue independend values. Use assigned_to_values from Redmine, if you want it only for issues
-  def assigned_to_all_values
-    assigned_to_values = []
-    assigned_to_values << label_me_value if User.current.logged?
-    assigned_to_values += principals.sort_by(&:status).collect { |s| [s.name, s.id.to_s, l("status_#{User::LABEL_BY_STATUS[s.status]}")] }
-
-    assigned_to_values
+    add_available_filter 'watcher_id', order: position,
+                                       type: :user_with_me
   end
 
   # not required for: assigned_to_id author_id user_id watcher_id updated_by last_updated_by
@@ -194,14 +167,6 @@ module AdditionalsQuery
               end
 
     values
-  end
-
-  # watcher_values of query checks view_issue_watchers, this checks manage_public_queries permission
-  # and with users (not groups)
-  def watcher_values_for_manage_public_queries
-    watcher_values = [label_me_value]
-    watcher_values += users.collect { |s| [s.name, s.id.to_s] } if User.current.allowed_to? :manage_public_queries, project, global: true
-    watcher_values
   end
 
   def sql_for_watcher_id_field(field, operator, value)

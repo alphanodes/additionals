@@ -77,10 +77,6 @@ module Additionals
       ids.take limit
     end
 
-    def user_with_select2?
-      AdditionalsPlugin.active_hrm?
-    end
-
     def debug(message = 'running', console: false)
       if console
         RedminePluginKit::Debug.msg message

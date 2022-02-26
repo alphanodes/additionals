@@ -60,10 +60,9 @@ module Additionals
         private
 
         def initialize_user_values_for_select2(field, values)
-          case @available_filters[field][:type]
-          when :principal, :user, :assignee, :issue_assignee, :author, :author_optional, :user_with_me, :global_user, :internal_user
-            @available_filters[field][:values] = Principal.ids_to_names_with_ids values
-          end
+          return if Principal::SELECT2_FIELDS.exclude? @available_filters[field][:type]
+
+          @available_filters[field][:values] = Principal.ids_to_names_with_ids values
         end
       end
     end

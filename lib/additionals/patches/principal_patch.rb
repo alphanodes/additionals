@@ -5,6 +5,16 @@ module Additionals
     module PrincipalPatch
       extend ActiveSupport::Concern
 
+      SELECT2_FIELDS = %i[principal
+                          user
+                          assignee
+                          issue_assignee
+                          author
+                          author_optional
+                          user_with_me
+                          global_user
+                          internal_user].freeze
+
       included do
         scope :assignable, -> { active.visible.where type: %w[User Group] }
 
@@ -71,13 +81,6 @@ module Additionals
           return names_with_ids if ids.blank?
 
           names_with_ids + visible.where(id: ids_without_me).map { |c| [c.name, c.id.to_s] }
-        end
-
-        def ids_to_names_with_ids_old(ids)
-          return [] if ids.blank?
-          return [Query.label_me_value] if ids == ['me']
-
-          visible.where(id: ids).map { |c| [c.name, c.id.to_s] }
         end
       end
     end

@@ -18,7 +18,11 @@ module Additionals
         alias_method :add_filter_without_additionals, :add_filter
         alias_method :add_filter, :add_filter_with_additionals
 
-        # list_optional is default: author_optional, assignee and user
+        # list_optional is default, but required for short filters
+        operators_by_filter_type[:author_optional] = operators_by_filter_type[:list_optional]
+        operators_by_filter_type[:assignee] = operators_by_filter_type[:list_optional]
+        operators_by_filter_type[:user] = operators_by_filter_type[:list_optional]
+
         operators_by_filter_type[:author] = operators_by_filter_type[:list]
         operators_by_filter_type[:global_user] = operators_by_filter_type[:list]
         operators_by_filter_type[:internal_user] = operators_by_filter_type[:list]

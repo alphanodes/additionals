@@ -61,7 +61,7 @@ module AdditionalsQueriesHelper
 
   def additionals_load_query_id(query_class, session_key, query_id, object_type, user_filter: nil, search_string: nil)
     scope = query_class.where project_id: nil
-    scope = scope.or query_class.where(project_id: @project.id) if @project
+    scope = scope.or query_class.where(project_id: @project) if @project
     @query = scope.find query_id
     raise ::Unauthorized unless @query.visible?
 

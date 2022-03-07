@@ -7,6 +7,7 @@ Changelog
 - Mermaid 8.14.0 support
 - D3 7.3.0 support
 - Updated clipboardJS to 2.0.10
+- d3plus 2.0.1 support
 
 3.0.4
 +++++

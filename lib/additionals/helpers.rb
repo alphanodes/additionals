@@ -247,19 +247,7 @@ module Additionals
     end
 
     def additionals_load_d3plus
-      additionals_include_js 'd3plus.full.min'
-    end
-
-    def additionals_load_d3plus_old
-      additionals_include_js 'd3plus-old.full.min'
-    end
-
-    def additionals_load_d3plus_hierarchy
-      additionals_include_js 'd3plus-hierarchy.full'
-    end
-
-    def additionals_load_d3plus_network
-      additionals_include_js 'd3plus-network.full.min'
+      additionals_include_js 'd3plus.min'
     end
 
     def user_with_avatar(user, no_link: false, css_class: 'additionals-avatar', size: 14, no_link_name: nil)

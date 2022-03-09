@@ -42,25 +42,6 @@ module Additionals
       l :label_live_search_hints, value: all_fields
     end
 
-    def additionals_list_title(name:, obj: nil, obj_link: nil, query: nil)
-      title = []
-      case obj
-      when Issue
-        title << link_to(h("#{obj.subject} ##{obj.id}"),
-                         issue_path(obj),
-                         class: obj.css_classes)
-      when User
-        title << safe_join([avatar(obj, size: 50), obj.name], ' ')
-      else
-        title << obj_link if obj_link
-      end
-
-      title << name if name
-      title << h(query.name) if query && !query.new_record?
-
-      safe_join title, Additionals::LIST_SEPARATOR
-    end
-
     def additionals_title_for_locale(title, lang)
       "#{title}_#{lang}"
     end

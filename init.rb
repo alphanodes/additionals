@@ -7,7 +7,8 @@ loader = RedminePluginKit::Loader.new plugin_id: 'additionals'
 Redmine::Plugin.register :additionals do
   name 'Additionals'
   author 'AlphaNodes GmbH'
-  description 'Customizing Redmine, providing wiki macros and act as a library/function provider for other Redmine plugins'
+  description 'Customizing Redmine, providing dashboards, wiki macros and other functions for better usability.' \
+              ' As well as acting as a library/function provider for other Redmine plugins'
   version Additionals::PluginVersion::VERSION
   author_url 'https://alphanodes.com/'
   url 'https://github.com/alphanodes/additionals'

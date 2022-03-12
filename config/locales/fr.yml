@@ -192,5 +192,5 @@ fr:
   label_project_setting: "Projet"
   label_enable_auto_refresh: "Activer le rafraîchissement automatique"
   label_show_closed_issues: Montrer les issues fermés
-  max_live_search_results_info: "Anzahl der maximalen Suchergebnisse, die mit der Verwendung der LiveSearch verwendet wird. Hinweis: diese Einstellung wirkt sich nur auf Plugins aus, welche die LiveSearch unterstützen"
-  label_max_live_search_results: Anzahl maximaler LiveSearch Ergebnisse
+  max_live_search_results_info: "Nombre maximal de résultats de recherche pour la LiveSearch. Remarque : le paramètre n'a d'effet que sur les plugins qui supportent LiveSearch."
+  label_max_live_search_results: "Nombre maximal de résultats LiveSearch"

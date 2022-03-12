@@ -77,6 +77,14 @@ module Additionals
       ids.take limit
     end
 
+    def max_live_search_results
+      if setting(:max_live_search_results).present?
+        setting(:max_live_search_results).to_i
+      else
+        50
+      end
+    end
+
     def debug(message = 'running', console: false)
       if console
         RedminePluginKit::Debug.msg message

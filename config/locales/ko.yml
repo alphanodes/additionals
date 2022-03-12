@@ -192,3 +192,5 @@ ko:
   label_project_setting: "계획"
   label_enable_auto_refresh: "자동 새로고침 활성화 "
   label_show_closed_issues: "닫힌 이슈 표시"
+  max_live_search_results_info: "Anzahl der maximalen Suchergebnisse, die mit der Verwendung der LiveSearch verwendet wird. Hinweis: diese Einstellung wirkt sich nur auf Plugins aus, welche die LiveSearch unterstützen"
+  label_max_live_search_results: Anzahl maximaler LiveSearch Ergebnisse

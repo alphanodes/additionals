@@ -192,3 +192,5 @@ zh:
   label_project_setting: "项目"
   label_enable_auto_refresh: "启用自动刷新"
   label_show_closed_issues: Show closed issues
+  max_live_search_results_info: "Anzahl der maximalen Suchergebnisse, die mit der Verwendung der LiveSearch verwendet wird. Hinweis: diese Einstellung wirkt sich nur auf Plugins aus, welche die LiveSearch unterstützen"
+  label_max_live_search_results: Anzahl maximaler LiveSearch Ergebnisse

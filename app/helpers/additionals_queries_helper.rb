@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 module AdditionalsQueriesHelper
+  def additionals_limit_for_pager
+    params[:search].present? ? Additionals.max_live_search_results : per_page_option
+  end
+
   def additionals_query_session_key(object_type)
     "#{object_type}_query".to_sym
   end

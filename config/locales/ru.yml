@@ -192,3 +192,5 @@ ru:
   label_project_setting: "Проект"
   label_enable_auto_refresh: "Включить автообновление"
   label_show_closed_issues: "Показать закрытые вопросы"
+  max_live_search_results_info: "Anzahl der maximalen Suchergebnisse, die mit der Verwendung der LiveSearch verwendet wird. Hinweis: diese Einstellung wirkt sich nur auf Plugins aus, welche die LiveSearch unterstützen"
+  label_max_live_search_results: Anzahl maximaler LiveSearch Ergebnisse

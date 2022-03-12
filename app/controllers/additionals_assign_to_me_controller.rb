@@ -16,15 +16,20 @@ class AdditionalsAssignToMeController < ApplicationController
     @issue.init_journal User.current
     @issue.assigned_to = User.current
 
+    call_hook :controller_additionals_assign_to_me_before_save,
+              params: params,
+              issue: @issue,
+              journal: @issue.current_journal
+
     if !@issue.save || old_user == @issue.assigned_to
       flash[:error] = l :error_issues_could_not_be_assigned_to_me
       return redirect_to(issue_path(@issue))
     end
 
-    call_hook :controller_issues_edit_after_save, params: params,
-                                                  issue: @issue,
-                                                  time_entry: nil,
-                                                  journal: @issue.current_journal
+    call_hook :controller_additionals_assign_to_me_after_save,
+              params: params,
+              issue: @issue,
+              journal: @issue.current_journal
 
     last_journal = @issue.journals.visible.order(:created_on).last
     return redirect_to(issue_path(@issue)) unless last_journal

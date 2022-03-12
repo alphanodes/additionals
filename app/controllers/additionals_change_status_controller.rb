@@ -19,15 +19,20 @@ class AdditionalsChangeStatusController < ApplicationController
     @issue.status_id = new_status_id
     @issue.assigned_to = User.current if @issue.status_x_affected?(new_status_id) && issue_old_user != User.current
 
+    call_hook :controller_additionals_change_status_before_save,
+              params: params,
+              issue: @issue,
+              journal: @issue.current_journal
+
     if !@issue.save || issue_old_status_id == @issue.status_id
       flash[:error] = l :error_issue_status_could_not_changed
       return redirect_to(issue_path(@issue))
     end
 
-    call_hook :controller_issues_edit_after_save, params: params,
-                                                  issue: @issue,
-                                                  time_entry: nil,
-                                                  journal: @issue.current_journal
+    call_hook :controller_additionals_change_status_after_save,
+              params: params,
+              issue: @issue,
+              journal: @issue.current_journal
 
     last_journal = @issue.journals.visible.order(:created_on).last
 

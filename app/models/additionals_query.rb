@@ -201,11 +201,13 @@ module AdditionalsQuery
   end
 
   def query_count
-    if search_string.present?
-      objects_scope(search: search_string).limit(Additionals.max_live_search_results)
-                                          .count
-    else
-      objects_scope.count
+    @query_count ||= begin # rubocop: disable Style/RedundantBegin
+      if search_string.present?
+        objects_scope(search: search_string).limit(Additionals.max_live_search_results)
+                                            .count
+      else
+        objects_scope.count
+      end
     end
   rescue ::ActiveRecord::StatementInvalid => e
     raise queried_class::StatementInvalid, e.message if defined? queried_class::StatementInvalid

@@ -6,7 +6,9 @@ module AdditionalsQueriesHelper
   end
 
   def render_live_search_info(entries:, count: nil)
-    return if count.nil? || count <= Additionals.max_live_search_results || count <= entries.count
+    return if count.nil? ||
+              count <= Additionals.max_live_search_results ||
+              entries.count < Additionals.max_live_search_results
 
     tag.p class: 'icon icon-warning' do
       tag.em class: 'info' do

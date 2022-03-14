@@ -194,4 +194,4 @@ en:
   label_show_closed_issues: Show closed issues
   max_live_search_results_info: "Number of maximum search results for LiveSearch. Note: Setting only affects plugins that support LiveSearch."
   label_max_live_search_results: "Maximum number of LiveSearch results"
-  info_live_search_result_restriction: LiveSearch Ergebnisse sind auf %{value} Treffer begrenzt. Versuche Deine Suche genauer zu beschreiben.
+  info_live_search_result_restriction: "LiveSearch results are limited to %{value} entries. Try to filter your search a better way."

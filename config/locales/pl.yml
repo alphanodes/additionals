@@ -194,4 +194,4 @@ pl:
   label_show_closed_issues: "Wyświetlenie zamkniętych kwestii"
   max_live_search_results_info: "Liczba maksymalnych wyników wyszukiwania dla LiveSearch. Uwaga: Ustawienie ma wpływ tylko na wtyczki obsługujące LiveSearch."
   label_max_live_search_results: "Maksymalna liczba wyników LiveSearch"
-  info_live_search_result_restriction: LiveSearch Ergebnisse sind auf %{value} Treffer begrenzt. Versuche Deine Suche genauer zu beschreiben.
+  info_live_search_result_restriction: "Wyniki LiveSearch są ograniczone do %{value} trafienia. Spróbuj opisać swoje poszukiwania bardziej szczegółowo."

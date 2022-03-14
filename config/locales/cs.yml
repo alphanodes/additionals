@@ -194,4 +194,4 @@ cs:
   label_show_closed_issues: "Zobrazit uzavřené úkoly"
   max_live_search_results_info: "Počet maximálních výsledků vyhledávání pro službu LiveSearch. Poznámka: Nastavení se týká pouze zásuvných modulů, které podporují službu LiveSearch."
   label_max_live_search_results: "Maximální počet výsledků vyhledávání LiveSearch"
-  info_live_search_result_restriction: LiveSearch Ergebnisse sind auf %{value} Treffer begrenzt. Versuche Deine Suche genauer zu beschreiben.
+  info_live_search_result_restriction: "Výsledky vyhledávání LiveSearch jsou omezeny na %{value} zásahy. Zkuste své hledání popsat podrobněji."

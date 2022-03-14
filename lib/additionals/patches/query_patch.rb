@@ -61,6 +61,10 @@ module Additionals
           @available_filters
         end
 
+        def export_limit
+          Setting.issues_export_limit.to_i
+        end
+
         private
 
         def initialize_user_values_for_select2(field, values)

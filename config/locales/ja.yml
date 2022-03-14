@@ -194,3 +194,4 @@ ja:
   label_show_closed_issues: "解決済みの問題を表示"
   max_live_search_results_info: "LiveSearchの最大検索結果数です。注意：この設定は、LiveSearchに対応したプラグインにのみ影響します。"
   label_max_live_search_results: "LiveSearchの最大検索結果数"
+  info_live_search_result_restriction: LiveSearch Ergebnisse sind auf %{value} Treffer begrenzt. Versuche Deine Suche genauer zu beschreiben.

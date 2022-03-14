@@ -194,3 +194,4 @@ ru:
   label_show_closed_issues: "Показать закрытые вопросы"
   max_live_search_results_info: "Количество максимальных результатов поиска для LiveSearch. Примечание: Настройка влияет только на плагины, поддерживающие LiveSearch."
   label_max_live_search_results: "Максимальное количество результатов LiveSearch"
+  info_live_search_result_restriction: LiveSearch Ergebnisse sind auf %{value} Treffer begrenzt. Versuche Deine Suche genauer zu beschreiben.

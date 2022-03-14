@@ -5,6 +5,16 @@ module AdditionalsQueriesHelper
     params[:search].present? ? Additionals.max_live_search_results : per_page_option
   end
 
+  def render_live_search_info(entries:, count: nil)
+    return if count.nil? || count <= Additionals.max_live_search_results || count <= entries.count
+
+    tag.p class: 'icon icon-warning' do
+      tag.em class: 'info' do
+        l :info_live_search_result_restriction, value: Additionals.max_live_search_results
+      end
+    end
+  end
+
   def additionals_query_session_key(object_type)
     "#{object_type}_query".to_sym
   end
@@ -137,13 +147,13 @@ module AdditionalsQueriesHelper
                      sep_required: false }
   end
 
-  def additionals_query_to_xlsx(items, query, no_id_link: false)
+  def additionals_query_to_xlsx(query, no_id_link: false)
     require 'write_xlsx'
 
     options = { no_id_link: no_id_link,
                 filename: StringIO.new(+'') }
 
-    export_to_xlsx items, query.columns, options
+    export_to_xlsx query.entries, query.columns, options
     options[:filename].string
   end
 

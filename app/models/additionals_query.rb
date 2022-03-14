@@ -200,19 +200,25 @@ module AdditionalsQuery
     [[l(:general_text_yes), '1'], [l(:general_text_no), '0']]
   end
 
+  # all results (without search_string limit)
   def query_count
-    @query_count ||= begin # rubocop: disable Style/RedundantBegin
-      if search_string.present?
-        objects_scope(search: search_string).limit(Additionals.max_live_search_results)
-                                            .count
-      else
-        objects_scope.count
-      end
-    end
+    @query_count ||= search_string.present? ? objects_scope(search: search_string).count : objects_scope.count
   rescue ::ActiveRecord::StatementInvalid => e
     raise queried_class::StatementInvalid, e.message if defined? queried_class::StatementInvalid
 
     raise ::Query::StatementInvalid, e.message
+  end
+
+  def entries_init_options(**options)
+    # set default limit to export limit, if limit is not set
+    options[:limit] = export_limit unless options.key? :limit
+    options[:search] = search_string if search_string
+    options
+  end
+
+  # query results
+  def entries(**_)
+    raise 'overwrite it'
   end
 
   def results_scope(**options)

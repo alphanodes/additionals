@@ -70,7 +70,7 @@ module Additionals
         def initialize_user_values_for_select2(field, values)
           return if Principal::SELECT2_FIELDS.exclude? @available_filters[field][:type]
 
-          @available_filters[field][:values] = Principal.ids_to_names_with_ids values
+          @available_filters[field][:values] = Principal.sorted.ids_to_names_with_ids values
         end
       end
     end

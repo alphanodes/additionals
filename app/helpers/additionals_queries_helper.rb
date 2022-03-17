@@ -136,10 +136,10 @@ module AdditionalsQueriesHelper
     # TODO: this should be false without search results?
     # with_me = false unless with_users
 
-    Additionals.debug "with_me: #{with_me}"
-    Additionals.debug "active: #{@users[:active].pluck :id}"
-    Additionals.debug "locked: #{@users[:locked].pluck :id}"
-    Additionals.debug "groups: #{@users[:groups].pluck :id}"
+    # Additionals.debug "with_me: #{with_me}"
+    # Additionals.debug "active: #{@users[:active].pluck :id}"
+    # Additionals.debug "locked: #{@users[:locked].pluck :id}"
+    # Additionals.debug "groups: #{@users[:groups].pluck :id}"
 
     render layout: false,
            partial: 'auto_completes/grouped_users',

@@ -42,25 +42,6 @@ module Additionals
       l :label_live_search_hints, value: all_fields
     end
 
-    def additionals_list_title(name:, obj: nil, obj_link: nil, query: nil)
-      title = []
-      case obj
-      when Issue
-        title << link_to(h("#{obj.subject} ##{obj.id}"),
-                         issue_path(obj),
-                         class: obj.css_classes)
-      when User
-        title << safe_join([avatar(obj, size: 50), obj.name], ' ')
-      else
-        title << obj_link if obj_link
-      end
-
-      title << name if name
-      title << h(query.name) if query && !query.new_record?
-
-      safe_join title, Additionals::LIST_SEPARATOR
-    end
-
     def additionals_title_for_locale(title, lang)
       "#{title}_#{lang}"
     end
@@ -130,7 +111,13 @@ module Additionals
           option_tags = options_for_select [[option_tags.try(:name), option_tags.try(:id)]], option_tags.try(:id)
         end
       end
-      options[:project] = @project if @project && options[:project].blank?
+
+      ajax_params = options.delete(:ajax_params) || {}
+      if options[:project].present?
+        ajax_params[:project_id] = options[:project]
+      elsif @project
+        ajax_params[:project_id] = @project
+      end
 
       s = []
       s << hidden_field_tag("#{name}[]", '') if options[:multiple]
@@ -143,7 +130,7 @@ module Additionals
                   partial: 'additionals/select2_ajax_call',
                   formats: [:js],
                   locals: { field_id: sanitize_to_id(name),
-                            ajax_url: send("#{type}_path", project_id: options[:project], user_id: options[:user_id]),
+                            ajax_url: send("#{type}_path", ajax_params),
                             options: options })
       safe_join s
     end
@@ -241,22 +228,10 @@ module Additionals
     end
 
     def additionals_load_d3plus
-      additionals_include_js 'd3plus.full.min'
+      additionals_include_js 'd3plus.min'
     end
 
-    def additionals_load_d3plus_old
-      additionals_include_js 'd3plus-old.full.min'
-    end
-
-    def additionals_load_d3plus_hierarchy
-      additionals_include_js 'd3plus-hierarchy.full'
-    end
-
-    def additionals_load_d3plus_network
-      additionals_include_js 'd3plus-network.full.min'
-    end
-
-    def user_with_avatar(user, no_link: false, css_class: 'additionals-avatar', size: 14)
+    def user_with_avatar(user, no_link: false, css_class: 'additionals-avatar', size: 14, no_link_name: nil)
       return if user.nil?
 
       if user.type == 'Group'
@@ -269,7 +244,7 @@ module Additionals
         s = []
         s << avatar(user, size: size, class: css_class)
         s << if no_link
-               user.name
+               no_link_name || user.name
              else
                link_to_user user
              end

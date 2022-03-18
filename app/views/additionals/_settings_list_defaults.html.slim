@@ -1,23 +1,24 @@
 fieldset.box
-  legend = l :additionals_query_list_defaults
+  legend = defined?(legend) ? legend : l(:additionals_query_list_defaults)
   - setting_name_columns = "#{query_type}_list_defaults"
   - query = query_class.new @settings[setting_name_columns.to_sym]
   .default-query-settings-label
     = render_query_columns_selection query, name: "settings[#{setting_name_columns}][column_names]"
 
-- columns = query_class.new.available_totalable_columns
-- if columns.count.positive?
-  fieldset.box
-    legend = l :additionals_query_list_default_totals
+- if !defined?(totalable_columns) || totalable_columns
+  - columns = query_class.new.available_totalable_columns
+  - if columns.count.positive?
+    fieldset.box
+      legend = l :additionals_query_list_default_totals
 
-    .default-query-settings-totals
-      - setting_name_totals = "#{query_type}_list_default_totals"
-      = hidden_field_tag "settings[#{setting_name_totals}][]", ''
-      - columns.each do |s|
-        label.inline
-          - value = @settings[setting_name_totals.to_sym].present? ? @settings[setting_name_totals.to_sym].include?(s.name.to_s) : false
-          = check_box_tag "settings[#{setting_name_totals}][]",
-                          s.name,
-                          value,
-                          id: nil
-          = s.caption
+      .default-query-settings-totals
+        - setting_name_totals = "#{query_type}_list_default_totals"
+        = hidden_field_tag "settings[#{setting_name_totals}][]", ''
+        - columns.each do |s|
+          label.inline
+            - value = @settings[setting_name_totals.to_sym].present? ? @settings[setting_name_totals.to_sym].include?(s.name.to_s) : false
+            = check_box_tag "settings[#{setting_name_totals}][]",
+                            s.name,
+                            value,
+                            id: nil
+            = s.caption

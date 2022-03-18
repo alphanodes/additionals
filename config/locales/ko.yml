@@ -191,3 +191,7 @@ ko:
   label_system_setting: "체계"
   label_project_setting: "계획"
   label_enable_auto_refresh: "자동 새로고침 활성화 "
+  label_show_closed_issues: "닫힌 이슈 표시"
+  max_live_search_results_info: "LiveSearch의 최대 검색 결과 수입니다. 참고: 설정은 LiveSearch를 지원하는 플러그인에만 영향을 미칩니다."
+  label_max_live_search_results: "최대 LiveSearch 결과 수 "
+  info_live_search_result_restriction: "LiveSearch results are limited to %{value} Matches. Try to describe your search in more detail."

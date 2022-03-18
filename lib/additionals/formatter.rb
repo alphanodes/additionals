@@ -66,11 +66,10 @@ module Additionals
       text
     end
 
+    # TODO: use relative path, if not for mailer
     def inline_emojify_image_path(image_filename)
-      path = "#{Setting.protocol}://#{Setting.host_name}"
-      # TODO: use relative path, if not for mailer
       # path = '/' + Rails.public_path.relative_path_from Rails.root.join('public')
-      "#{path}/images/emoji/" + image_filename
+      "#{Additionals.full_url '/images/emoji/'}#{image_filename}"
     end
   end
 end

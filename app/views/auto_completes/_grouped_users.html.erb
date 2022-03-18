@@ -1,0 +1,30 @@
+[
+<% if with_me %>
+  <%= raw({ 'id' => me_value,
+            'text' => l(:label_me),
+            'name' => l(:label_me),
+            'value' => me_value }.to_json) %>
+  <% sep_required = true %>
+<% end %>
+<% @users.each do |group, users| %>
+<% next if users.blank? %>
+<%= ',' if sep_required %>
+{
+  "text": "<%= group == :groups ? l(:label_group_plural) : l("status_#{group}")  %>",
+  "children": <%= raw users.map { |user| {
+                        'id' => user[:id],
+                        'text' => user[:name],
+                        'name' => user[:name],
+                        'value' => user[:id] } }.to_json %>
+  <% sep_required = true %>
+}
+<% end %>
+
+<% if with_ano %>
+  <%= ',' if sep_required %>
+  <%= raw({ 'id' => User.anonymous.id,
+            'text' => l(:label_user_anonymous),
+            'name' => l(:label_user_anonymous),
+            'value' => User.anonymous.id }.to_json) %>
+<% end %>
+]

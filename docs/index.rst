@@ -5,7 +5,7 @@
 
 .. _Redmine: https://www.redmine.org
 .. _Ruby: https://www.ruby-lang.org
-.. _Gemfile: https://github.com/alphanodes/additionals/blob/master/Gemfile
+.. _Gemfile: https://github.com/alphanodes/additionals/blob/main/Gemfile
 
 Welcome to Additionals Plugin for Redmine
 =========================================
@@ -34,13 +34,13 @@ Additionals is a `Redmine`_ plugin for customizing Redmine, providing wiki macro
 Requirements
 ------------
 
-+--------------------+-----------------------------------+
-| `Redmine`_ version | >= 4.1.0                          |
-+--------------------+-----------------------------------+
-| `Ruby`_ version    | >= 2.6                            |
-+--------------------+-----------------------------------+
-| Database version   | MySQL >= 5.7 or PostgreSQL >= 9.6 |
-+--------------------+-----------------------------------+
++--------------------+----------------------------------+
+| `Redmine`_ version | >= 4.1.0                         |
++--------------------+----------------------------------+
+| `Ruby`_ version    | >= 2.6                           |
++--------------------+----------------------------------+
+| Database version   | MySQL >= 5.7 or PostgreSQL >= 10 |
++--------------------+----------------------------------+
 
 .. note::
    If you use MySQL, make sure all database tables using the same storage engine (InnoDB is recommended) and character set (utf8mb4 is recommended).
@@ -177,11 +177,11 @@ It provides :
 * `Chart.js 2.9.4 <https://www.chartjs.org/>`_
 * `Chart.js Plugin colorschemes 0.4.0 <https://github.com/nagix/chartjs-plugin-colorschemes>`_
 * `Chart.js Plugin datalabels 0.7.0 <https://github.com/chartjs/chartjs-plugin-datalabels>`_
-* `clipboardJS 2.0.8 <https://clipboardjs.com/>`_
-* `d3 7.2.1 <https://d3js.org/>`_
-* `d3plus v2.0.0-alpha.30 <https://d3plus.org/>`_
+* `clipboardJS 2.0.10 <https://clipboardjs.com/>`_
+* `d3 7.3.0 <https://d3js.org/>`_
+* `d3plus 2.0.1 <https://d3plus.org/>`_
 * `FontAwesome 5.15.4 <https://fontawesome.com/>`_
-* `mermaid 8.13.6 <https://github.com/mermaid-js/mermaid>`_
+* `mermaid 8.14.0 <https://github.com/mermaid-js/mermaid>`_
 * `Select2 4.0.13 <https://select2.org/>`_
 
 And a set of various Rails helper methods (see below).

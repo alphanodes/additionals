@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module UsersShow
-  unless AdditionalsPlugin.active_hrm?
+  unless defined? RedmineHrm
     if Redmine::VERSION.to_s >= '4.2'
       Deface::Override.new virtual_path: 'users/show',
                            name: 'user-show-info-hook',

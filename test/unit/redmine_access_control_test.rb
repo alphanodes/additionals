@@ -19,7 +19,7 @@ class RedmineAccessControlTest < Additionals::TestCase
   def test_disabled_project_modules
     assert_equal [], Redmine::AccessControl.disabled_project_modules
 
-    with_additionals_settings disabled_modules: %i[news] do
+    with_plugin_settings 'additionals', disabled_modules: %i[news] do
       assert_equal [:news], Redmine::AccessControl.disabled_project_modules
     end
 
@@ -27,21 +27,21 @@ class RedmineAccessControlTest < Additionals::TestCase
   end
 
   def test_available_project_modules
-    with_additionals_settings disabled_modules: [] do
+    with_plugin_settings 'additionals', disabled_modules: [] do
       assert Redmine::AccessControl.available_project_modules.include? :news
     end
 
-    with_additionals_settings disabled_modules: %i[news] do
+    with_plugin_settings 'additionals', disabled_modules: %i[news] do
       assert_not Redmine::AccessControl.available_project_modules.include? :news
     end
   end
 
   def test_disabled_module
     assert_not Redmine::AccessControl.disabled_module?(:not_existing)
-    with_additionals_settings disabled_modules: %w[news] do
+    with_plugin_settings 'additionals', disabled_modules: %w[news] do
       assert Redmine::AccessControl.disabled_module?(:news)
     end
-    with_additionals_settings disabled_modules: %i[news] do
+    with_plugin_settings 'additionals', disabled_modules: %i[news] do
       assert Redmine::AccessControl.disabled_module?(:news)
     end
   end
@@ -50,7 +50,7 @@ class RedmineAccessControlTest < Additionals::TestCase
     assert Redmine::AccessControl.active_module?(:issue_tracking)
     assert_not Redmine::AccessControl.active_module?(:not_existing)
 
-    with_additionals_settings disabled_modules: %i[issue_tracking] do
+    with_plugin_settings 'additionals', disabled_modules: %i[issue_tracking] do
       assert_not Redmine::AccessControl.active_module?(:issue_tracking)
     end
 
@@ -60,7 +60,7 @@ class RedmineAccessControlTest < Additionals::TestCase
   def test_active_entity_module
     assert Redmine::AccessControl.active_entity_module?(Wiki)
 
-    with_additionals_settings disabled_modules: %i[wiki] do
+    with_plugin_settings 'additionals', disabled_modules: %i[wiki] do
       assert Redmine::AccessControl.disabled_project_modules.include?(:wiki)
       assert_not Redmine::AccessControl.active_entity_module?(Wiki)
     end

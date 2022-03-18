@@ -12,9 +12,13 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
+    - name: Install package dependencies
+      run: |
+        sudo apt-get install --yes --quiet pandoc
+
     - name: Setup Gemfile
       run: |
-        touch .enable_dev
+        touch .enable_linters
         sed -i "3isource 'https://rubygems.org'" Gemfile
 
     - name: Setup Ruby

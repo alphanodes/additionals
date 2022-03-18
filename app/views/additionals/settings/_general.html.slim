@@ -30,6 +30,12 @@ fieldset.settings
     em.info
       = t :legacy_smiley_support_info_html
 
+  p
+    = additionals_settings_numberfield :max_live_search_results,
+                                       min: 1, max: 2000, size: 5, required: true
+    em.info
+      = t :max_live_search_results_info
+
 fieldset.settings
   legend = l :label_disabled_modules
 

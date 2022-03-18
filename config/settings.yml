@@ -8,6 +8,7 @@ global_sidebar: ''
 global_wiki_sidebar: ''
 google_maps_api_key: ''
 hidden_macros_in_toolbar:
+max_live_search_results: 50
 issue_assign_to_me: 0
 issue_assign_to_x: ''
 issue_auto_assign_role: ''

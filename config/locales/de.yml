@@ -191,3 +191,7 @@ de:
   label_system_setting: System
   label_project_setting: Projekt
   label_enable_auto_refresh: Automatische Aktualisierung aktivieren
+  label_show_closed_issues: Geschlossene Tickets anzeigen
+  max_live_search_results_info: "Anzahl der maximalen Suchergebnisse für die LiveSearch. Hinweis: Einstellung wirkt sich nur auf Plugins aus, welche die LiveSearch unterstützen."
+  label_max_live_search_results: "Maximale Anzahl LiveSearch Ergebnisse"
+  info_live_search_result_restriction: LiveSearch Ergebnisse sind auf %{value} Treffer begrenzt. Versuche Deine Suche genauer zu beschreiben.

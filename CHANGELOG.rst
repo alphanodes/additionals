@@ -1,6 +1,17 @@
 Changelog
 =========
 
+3.0.5
++++++
+
+- Mermaid 8.14.0 support
+- D3 7.3.0 support
+- Updated clipboardJS to 2.0.10
+- d3plus 2.0.1 support
+- introduce hooks controller_additionals_assign_to_me_before_save, controller_additionals_assign_to_me_after_save (see #127)
+- introduce hooks controller_additionals_change_status_before_save, controller_additionals_change_status_after_save (see #127)
+- Fix multiple asynchronous block loads
+
 3.0.4
 +++++
 

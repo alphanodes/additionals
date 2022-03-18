@@ -1,11 +1,27 @@
 # frozen_string_literal: true
 
 module AdditionalsQueriesHelper
+  def additionals_limit_for_pager
+    params[:search].present? ? Additionals.max_live_search_results : per_page_option
+  end
+
+  def render_live_search_info(entries:, count: nil)
+    return if count.nil? ||
+              count <= Additionals.max_live_search_results ||
+              entries.count < Additionals.max_live_search_results
+
+    tag.p class: 'icon icon-warning' do
+      tag.em class: 'info' do
+        l :info_live_search_result_restriction, value: Additionals.max_live_search_results
+      end
+    end
+  end
+
   def additionals_query_session_key(object_type)
     "#{object_type}_query".to_sym
   end
 
-  def additionals_retrieve_query(object_type, user_filter: nil)
+  def additionals_retrieve_query(object_type, user_filter: nil, search_string: nil)
     session_key = additionals_query_session_key object_type
     query_class = Object.const_get "#{object_type.camelcase}Query"
     if params[:query_id].present?
@@ -13,7 +29,8 @@ module AdditionalsQueriesHelper
                                 session_key,
                                 params[:query_id],
                                 object_type,
-                                user_filter: user_filter
+                                user_filter: user_filter,
+                                search_string: search_string
     elsif api_request? ||
           params[:set_filter] ||
           session[session_key].nil? ||
@@ -22,6 +39,7 @@ module AdditionalsQueriesHelper
       @query = query_class.new name: '_'
       @query.project = @project
       @query.user_filter = user_filter if user_filter
+      @query.search_string = search_string if search_string
       @query.build_from_params params
       session[session_key] = { project_id: @query.project_id }
       # session has a limit to 4k, we have to use a cache for it for larger data
@@ -57,14 +75,15 @@ module AdditionalsQueriesHelper
     end
   end
 
-  def additionals_load_query_id(query_class, session_key, query_id, object_type, user_filter: nil)
+  def additionals_load_query_id(query_class, session_key, query_id, object_type, user_filter: nil, search_string: nil)
     scope = query_class.where project_id: nil
-    scope = scope.or query_class.where(project_id: @project.id) if @project
+    scope = scope.or query_class.where(project_id: @project) if @project
     @query = scope.find query_id
     raise ::Unauthorized unless @query.visible?
 
     @query.project = @project
     @query.user_filter = user_filter if user_filter
+    @query.search_string = search_string if search_string
     session[session_key] = { id: @query.id, project_id: @query.project_id }
 
     @query.sort_criteria = params[:sort] if params[:sort].present?
@@ -82,27 +101,61 @@ module AdditionalsQueriesHelper
     "#{object_type}_query_data_#{session.id}_#{project_id}"
   end
 
-  def additionals_select2_search_users(all_visible: false, where_filter: nil, where_params: nil)
-    q = params[:q].to_s.strip
-    exclude_id = params[:user_id].to_i
-    scope = User.active.where type: 'User'
-    scope = scope.visible unless all_visible
-    scope = scope.where.not id: exclude_id if exclude_id.positive?
-    scope = scope.where where_filter, where_params if where_filter
-    q.split.map { |search_string| scope = scope.like search_string } if q.present?
-    scope = scope.order(last_login_on: :desc)
-                 .limit(Additionals::SELECT2_INIT_ENTRIES)
-    @users = scope.to_a.sort! { |x, y| x.name <=> y.name }
-    render layout: false, partial: 'auto_completes/additionals_users'
+  def render_grouped_users_with_select2(users, search_term: nil, with_me: true, with_ano: false, me_value: 'me')
+    @users = { active: [], groups: [], registered: [], locked: [] }
+
+    search_term.split.map { |word| users = users.like word } if search_term.present?
+
+    sorted_users = users.select("users.*, #{User.table_name}.last_login_on IS NULL AS select_order")
+                        .order("select_order ASC, #{User.table_name}.last_login_on DESC")
+                        .limit(Additionals::SELECT2_INIT_ENTRIES)
+                        .to_a
+                        .sort! { |x, y| x.name <=> y.name }
+
+    with_users = false
+    sorted_users.each do |user|
+      case user.type
+      when 'User'
+        case user.status
+        when Principal::STATUS_ACTIVE
+          @users[:active] << { id: user.id, name: user.name, obj: user }
+          with_users = true
+        when Principal::STATUS_REGISTERED
+          @users[:registered] << { id: user.id, name: user.name, obj: user }
+          with_users = true
+        when Principal::STATUS_LOCKED
+          @users[:locked] << { id: user.id, name: user.name, obj: user }
+          with_users = true
+        end
+      when 'Group'
+        @users[:groups] << { id: user.id, name: user.name, obj: user }
+        with_users = true
+      end
+    end
+
+    # TODO: this should be false without search results?
+    # with_me = false unless with_users
+
+    # Additionals.debug "with_me: #{with_me}"
+    # Additionals.debug "active: #{@users[:active].pluck :id}"
+    # Additionals.debug "locked: #{@users[:locked].pluck :id}"
+    # Additionals.debug "groups: #{@users[:groups].pluck :id}"
+
+    render layout: false,
+           partial: 'auto_completes/grouped_users',
+           locals: { with_me: with_me && (search_term.blank? || l(:label_me).downcase.include?(search_term.downcase)),
+                     with_ano: with_ano && (search_term.blank? || l(:label_user_anonymous).downcase.include?(search_term.downcase)),
+                     me_value: me_value,
+                     sep_required: false }
   end
 
-  def additionals_query_to_xlsx(items, query, no_id_link: false)
+  def additionals_query_to_xlsx(query, no_id_link: false)
     require 'write_xlsx'
 
     options = { no_id_link: no_id_link,
                 filename: StringIO.new(+'') }
 
-    export_to_xlsx items, query.columns, options
+    export_to_xlsx query.entries, query.columns, options
     options[:filename].string
   end
 
@@ -225,10 +278,12 @@ module AdditionalsQueriesHelper
   end
 
   def xlsx_hyperlink_cell?(token)
+    return if token.blank? || !token.is_a?(String)
+
     # Match http, https or ftp URL
     if %r{\A[fh]tt?ps?://}.match?(token) ||
        # Match mailto:
-       token.present? && token.start_with?('mailto:') ||
+       token.start_with?('mailto:') ||
        # Match internal or external sheet link
        /\A(?:in|ex)ternal:/.match?(token)
       true
@@ -269,5 +324,9 @@ module AdditionalsQueriesHelper
     tags << hidden_field_tag('sort', query.sort_criteria.to_param, id: nil) if query.sort_criteria.present?
 
     tags
+  end
+
+  def build_search_query_term(params)
+    (params[:q] || params[:term]).to_s.strip
   end
 end

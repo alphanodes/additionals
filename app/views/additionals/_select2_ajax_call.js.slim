@@ -1,4 +1,4 @@
-- options = {} if options.nil?
+- options ||= {}
 javascript:
   $(function() {
     $("#{defined?(field_id) ? ('#' + field_id) : ('.' + field_class)}").select2({

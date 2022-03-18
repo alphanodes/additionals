@@ -4,13 +4,27 @@ class AdditionalsInfo
   include Redmine::I18n
 
   def system_infos
-    { system_info: { label: l(:label_system_info),
-                     value: system_info },
-      system_uptime: { label: l(:label_uptime),
-                       value: system_uptime,
-                       api_value: system_uptime(format: :datetime) },
-      redmine_plugin_kit: { label: 'Redmine Plugin Kit',
-                            value: RedminePluginKit::VERSION } }
+    infos = { system_info: { label: l(:label_system_info),
+                             value: system_info },
+              system_uptime: { label: l(:label_uptime),
+                               value: system_uptime,
+                               api_value: system_uptime(format: :datetime) },
+              redmine_plugin_kit: { label: 'Redmine Plugin Kit',
+                                    value: RedminePluginKit::VERSION } }
+
+    Array(Redmine::Configuration['system_infos_vars']).each do |var|
+      next unless ENV.key? var
+
+      infos[var] = { value: ENV[var] }
+    end
+
+    Array(Redmine::Configuration['system_infos_bool_vars']).each do |var|
+      next unless ENV.key? var
+
+      infos[var] = { value: RedminePluginKit.true?(ENV[var]) }
+    end
+
+    infos
   end
 
   def system_info

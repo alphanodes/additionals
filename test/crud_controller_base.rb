@@ -190,7 +190,7 @@ module CrudControllerBase
         assert_response 302
       end
 
-      @crud[:entity].reload
+      @crud[:entity]&.reload
 
       if @crud[:update_assert].present?
         @crud[:update_assert].each do |name|

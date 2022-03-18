@@ -4,7 +4,8 @@ require 'redmine_plugin_kit'
 
 module Additionals
   MAX_CUSTOM_MENU_ITEMS = 5
-  SELECT2_INIT_ENTRIES = 20
+  SELECT2_INIT_ENTRIES = 30
+  API_LIMIT = 100
   DEFAULT_MODAL_WIDTH = '350px'
   GOTO_LIST = " \xc2\xbb"
   LIST_SEPARATOR = "#{GOTO_LIST} "
@@ -12,6 +13,10 @@ module Additionals
   include RedminePluginKit::PluginBase
 
   class << self
+    def full_url(path = nil)
+      "#{Setting.protocol}://#{Setting.host_name.chomp '/'}#{path}"
+    end
+
     def class_prefix(klass)
       klass_name = klass.is_a?(String) ? klass : klass.name
       klass_name.underscore.tr '/', '_'
@@ -72,8 +77,20 @@ module Additionals
       ids.take limit
     end
 
-    def debug(message = 'running')
-      RedminePluginKit::Debug.log message
+    def max_live_search_results
+      if setting(:max_live_search_results).present?
+        setting(:max_live_search_results).to_i
+      else
+        50
+      end
+    end
+
+    def debug(message = 'running', console: false)
+      if console
+        RedminePluginKit::Debug.msg message
+      else
+        RedminePluginKit::Debug.log message
+      end
     end
 
     private

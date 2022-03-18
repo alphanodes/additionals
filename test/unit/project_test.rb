@@ -27,11 +27,11 @@ class ProjectTest < Additionals::TestCase
   def test_assignable_users_amount
     with_settings issue_group_assignment: '1' do
       project = Project.find 5
-      assert_equal project.assignable_users.count, project.assignable_users_and_groups.count
+      assert_equal project.assignable_users.count, project.assignable_principals.count
     end
     with_settings issue_group_assignment: '0' do
       project = Project.find 5
-      assert_not_equal project.assignable_users.count, project.assignable_users_and_groups.count
+      assert_not_equal project.assignable_users.count, project.assignable_principals.count
     end
   end
 
@@ -52,11 +52,13 @@ class ProjectTest < Additionals::TestCase
     # dashboards
     assert @ecookbook.dashboards.any?
 
-    @ecookbook.destroy
-    # make sure that the project non longer exists
-    assert_raise(ActiveRecord::RecordNotFound) { Project.find @ecookbook.id }
-    # make sure related data was removed
-    assert_nil Dashboard.where(project_id: @ecookbook.id).first
+    assert_difference 'Dashboard.count', -2 do
+      @ecookbook.destroy
+      # make sure that the project non longer exists
+      assert_raise(ActiveRecord::RecordNotFound) { Project.find @ecookbook.id }
+      # make sure related data was removed
+      assert_nil Dashboard.where(project_id: @ecookbook.id).first
+    end
   end
 
   def test_users_by_role

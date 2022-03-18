@@ -14,7 +14,7 @@ The dashboard configuration takes place directly in Redmine:
     * Redmine HRM Plugin: HRM overview page
 
 
-.. figure::  images/dashboard-overview.png
+.. figure::  images/dashboard-block-area.png
    :align:   center
 
    Figure shows the main areas of the dashboard function
@@ -45,7 +45,7 @@ If you want to use the dashboard functionality you need to configure the permiss
 Dashboard: Home
 ---------------
 
-When accessing Redmine you probably get redirected to the "Home" page of the system. Users with appropriate permissions can modify the existing dashboard or add new dashboards by using the respective action links in the head section of the content area.
+When accessing Redmine you probably get redirected to the *Home* page of the system. Users with appropriate permissions can modify the existing dashboard or add new dashboards by using the respective action links in the head section of the content area.
 
 .. figure::  images/dashboard-home.png
    :align:   center
@@ -59,7 +59,7 @@ What you can do here is:
 *  Enable sidebar or Disable sidebar
 *  Switch to other existing dashboards
 *  Add a dashboard block
-*  Move, Delete or configure added dashboard blocks
+*  Move, delete or configure added dashboard blocks
 
 
 Edit Dashboard
@@ -79,7 +79,7 @@ Description
   The dashboard description will be displayed in the sidebar next to the dashboard as soon as a dashboard has been been selected to be active.
 
 Visible
-  There are various visibility settings for a dashboard like "to me only", "to any users", "to these roles only". If you want to mak a dashboard publicly available to all other users you have to choose the option "to any users". For a specific role choose the respective role instead.
+  There are various visibility settings for a dashboard like *to me only*, *to any users*, *to these roles only*. If you want to make a dashboard publicly available to all other users you have to choose the option *to any users*. For a specific role choose the respective role instead. The content visible to the user will always be the one, according to the set user permission.
 
 Enable sidebar
   The dashboard sidebar contains some useful information for the user. Since it is sometimes disturbing, it is hidden. To prevent this you can select this option.
@@ -105,7 +105,7 @@ Author
 New Dashboard
 +++++++++++++
 
-Users with appropriate permission can add a new dashboard by clicking the "New dashboard" link in the "actions menu" to open the "New dashboard" window to fill out the following fields.
+Users with appropriate permission can add a new dashboard by clicking the "New dashboard" link in the "Actions menu" to open the "New dashboard" window to fill out the following fields.
 
 Name
   Assign a meaningful and unique name. The dashboard name will be displayed in the sidebar for later selection. If the sidebar has been disabled, you can select the dashboard from the "Actions" menu. The name must be unique.
@@ -114,7 +114,7 @@ Description
   The dashboard description will be displayed in the sidebar next to the dashboard as soon as a dashboard has been been selected to be active.
 
 Visible
-  There are various visibility settings for a dashboard like "to me only", "to any users", "to these roles only". If you want to mak a dashboard publicly available to all other users you have to choose the option "to any users". For a specific role choose the respective role instead.
+  There are various visibility settings for a dashboard like "to me only", "to any users", "to these roles only". If you want to make a dashboard publicly available to all other users you have to choose the option "to any users". For a specific role choose the respective role instead.
 
 Enable sidebar
   The dashboard sidebar contains some useful information for the user. Since it is sometimes disturbing, it is hidden. To prevent this you can choose this option.
@@ -201,13 +201,16 @@ Project
   Here you can select the project this dashboard should be assigned to in case you decide to make it available to special project, only. It is for all projects, if you do not select a project.
 
 Visible
-  There are various visibility settings for a dashboard like "to me only", "to any users", "to these roles only". If you want to mak a dashboard publicly available to all other users you have to choose the option "to any users". For a specific role choose the respective role instead.
+  There are various visibility settings for a dashboard like "to me only", "to any users", "to these roles only". If you want to make a dashboard publicly available to all other users you have to choose the option "to any users". For a specific role choose the respective role instead.
 
 Enable sidebar
   The dashboard sidebar contains some useful information for the user. Since it is sometimes disturbing, it is hidden. To prevent this you can select this option.
 
 System default
   If you want to make your project dashboard system default, activate this option. So every user will have to work with it for the selected project.
+
+.. note::
+  Usually the system default "Project dashboard" looks like the standard project page of Redmine. It contains the same areas as "blocks". These can be repositioned or partially hidden. It is up to you if you want to change it. If not, just leave it the way they are.
 
 Always expose
   If you want to make the system default dashboard name visible to the users in the head section of the dashboard page, you can activate this option. Then also the dashboard information in the sidebar is displayed.
@@ -221,9 +224,6 @@ Author
 
 .. note::
   The selection of the Author depends on the set permission for a role in the administration area. Only those user roles with the minimum permission **Save dashboards** or users with administration rights are selectable.
-
-.. note::
-  Usually the system default "Project dashboard" looks like the standard project page of Redmine. It contains the same areas as "blocks". These can be repositioned or partially hidden. It is up to you if you want to change it. If not, just leave it the way they are.
 
 
 New project dashboard
@@ -241,7 +241,7 @@ Project
   Select a project for which the new dashboard is planned. If no project is selected here, it will be available to all projects.
 
 Visible
-  There are various visibility settings for a dashboard like "to me only", "to any users", "to these roles only". If you want to mak a dashboard publicly available to all other users you have to choose the option "to any users". For a specific role choose the respective role instead.
+  There are various visibility settings for a dashboard like "to me only", "to any users", "to these roles only". If you want to make a dashboard publicly available to all other users you have to choose the option "to any users". For a specific role choose the respective role instead.
 
 Enable sidebar
   The dashboard sidebar contains some useful information for the user. Since it is sometimes disturbing, it is hidden. To prevent this you can choose this option.
@@ -305,7 +305,7 @@ View sidebar information
 .. figure::  images/dashboard-sidebar.png
    :align:   center
 
-Some other general dashboard actions are the selection box in order to
+Some other general dashboard actions are the selection box in order to:
 
 Add blocks
   The content which can be added to the active dashboard depends on the functions you are using on your Redmine and the developer of the function. Those need to support the dashboard *Drag & Drop* functionality with their plugin. Regardless of this, the dashboard is always filled with content via the "Add block" selection.
@@ -428,7 +428,7 @@ I want to use different dashboards for my employees than for Anonymous users / N
   And for your employees create own dashboards. You define which role has access to it in the dashboard configuration. Employees of the respective roles can then simply switch from the standard dashboard to the role-based dashboard in case it will not be displayed on the first visit.
 
 What happens with my project overview or start page after the additionals plugin has been deinstalled?
-  If the plugin was uninstalled correctly, then the Redmine start page, as well as the project overview page will correspond to the usual view again by default.
+  If the plugin was uninstalled correctly, then the Redmine start page, as well as the project overview page will correspond to the *usual view* again by default.
 
   This means that you will only see the blocks that Redmine has permanently placed there (e.g. welcome text message, latest news), or the blocks that are placed there by installed Redmine plugins.
 
@@ -446,7 +446,7 @@ Create block template
   Create a template for your block in *app/views/dashboards/blocks/*. The name of your template should be unique, that there are no conflicts with other blocks (e.g. from other plugins)
 
   .. note::
-    Examples: Go to https://github.com/AlphaNodes/additionals/tree/master/app/views/dashboards/blocks for examples.
+    Examples: Go to https://github.com/AlphaNodes/additionals/tree/main/app/views/dashboards/blocks for examples.
 
 Add block definitions
   Add your block definition in *block_definitions*. This could be in:
@@ -456,14 +456,14 @@ Add block definitions
   * dashboard_content_welcome.rb (if your block should be available in welcome dashboards only)
 
   .. note::
-    Examples: Go to https://github.com/AlphaNodes/additionals/blob/master/app/models/dashboard_content.rb#L29 for examples for that.
+    Examples: Go to https://github.com/AlphaNodes/additionals/blob/main/app/models/dashboard_content.rb#L29 for examples for that.
 
   Overwrite it with *prepend* (not alias_method) to get no conflicts with other plugins. See *redmine_git_hosting* [#githosting]_ for an example implementation for a *block template* [#blocktemplate]_ and a *block definition* [#blockdefinition]_
 
 That's it. As you can see, it's not so hard.
 In case of further questions use the issue tracking system for this project on GitHub.
 
-  .. rubric:: Footnotes
+.. rubric:: Footnotes
 
   .. [#githosting] https://github.com/jbox-web/redmine_git_hosting
 

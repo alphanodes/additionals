@@ -52,6 +52,7 @@
 
 .select2-container .select2-search--inline {
   float: left;
+  padding-left: 2px;
 }
 
 .select2-container .select2-search--inline .select2-search__field {
@@ -406,7 +407,6 @@
 .filter .select2-selection--multiple .select2-search--inline .select2-search__field {
   border: 0 !important;
   padding: 0 !important;
-  width: 2em !important;
 }
 
 .filter .select2-container--default .select2-selection--multiple .select2-selection__choice {

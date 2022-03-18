@@ -1,14 +1,33 @@
 # frozen_string_literal: true
 
 module AdditionalsQuery
+  def label_me_value
+    self.class.label_me_value
+  end
+
   def column_with_prefix?(prefix)
     columns.detect { |c| c.name.to_s.start_with? "#{prefix}." }.present?
   end
 
-  def available_column_names(only_sortable: false)
-    names = available_columns.dup
+  def available_column_names(only_sortable: false, only_groupable: false, only_totalable: false, type: nil)
+    method_name = ['available_']
+    if type
+      method_name << type
+      method_name << '_'
+    end
+    method_name << 'columns'
+
+    names = send(method_name.join).dup
     names.flatten!
     names.select! { |col| col.sortable.present? } if only_sortable
+    if only_groupable
+      if Redmine::VERSION.to_s >= '4.2'
+        names.select!(&:groupable?)
+      else
+        names.select!(&:groupable)
+      end
+    end
+    names.select!(&:totalable) if only_totalable
     names.map(&:name)
   end
 
@@ -84,13 +103,13 @@ module AdditionalsQuery
                          values: -> { project_statuses_values }
   end
 
-  def initialize_project_filter(always: false, position: nil)
+  def initialize_project_filter(always: false, position: nil, without_subprojects: false)
     if project.nil? || always
       add_available_filter 'project_id', order: position,
                                          type: :list,
                                          values: -> { project_values }
     end
-    return if project.nil? || project.leaf? || subproject_values.empty?
+    return if without_subprojects || project.nil? || project.leaf? || subproject_values.empty?
 
     add_available_filter 'subproject_id', order: position,
                                           type: :list_subprojects,
@@ -121,39 +140,33 @@ module AdditionalsQuery
 
   def initialize_author_filter(position: nil)
     add_available_filter 'author_id', order: position,
-                                      type: :list_optional,
-                                      values: -> { author_values }
+                                      type: :author
   end
 
   def initialize_assignee_filter(position: nil)
     add_available_filter 'assigned_to_id', order: position,
-                                           type: :list_optional,
-                                           values: -> { assigned_to_all_values }
+                                           type: :assignee
   end
 
   def initialize_watcher_filter(position: nil)
     return unless User.current.logged?
 
     add_available_filter 'watcher_id', order: position,
-                                       type: :list,
-                                       values: -> { watcher_values_for_manage_public_queries }
+                                       type: :user_with_me
   end
 
-  # issue independend values. Use  assigned_to_values from Redmine, if you want it only for issues
-  def assigned_to_all_values
-    assigned_to_values = []
-    assigned_to_values << ["<< #{l :label_me} >>", 'me'] if User.current.logged?
-    assigned_to_values += principals.sort_by(&:status).collect { |s| [s.name, s.id.to_s, l("status_#{User::LABEL_BY_STATUS[s.status]}")] }
+  # not required for: assigned_to_id author_id user_id watcher_id updated_by last_updated_by
+  # this fields are replaced by Query::statement
+  def values_without_me(values)
+    return values unless values.delete 'me'
 
-    assigned_to_values
-  end
+    values << if User.current.logged?
+                User.current.id.to_s
+              else
+                '0'
+              end
 
-  # watcher_values of query checks view_issue_watchers, this checks manage_public_queries permission
-  # and with users (not groups)
-  def watcher_values_for_manage_public_queries
-    watcher_values = [["<< #{l :label_me} >>", 'me']]
-    watcher_values += users.collect { |s| [s.name, s.id.to_s] } if User.current.allowed_to? :manage_public_queries, project, global: true
-    watcher_values
+    values
   end
 
   def sql_for_watcher_id_field(field, operator, value)
@@ -187,12 +200,25 @@ module AdditionalsQuery
     [[l(:general_text_yes), '1'], [l(:general_text_no), '0']]
   end
 
+  # all results (without search_string limit)
   def query_count
-    objects_scope.count
+    @query_count ||= search_string.present? ? objects_scope(search: search_string).count : objects_scope.count
   rescue ::ActiveRecord::StatementInvalid => e
     raise queried_class::StatementInvalid, e.message if defined? queried_class::StatementInvalid
 
     raise ::Query::StatementInvalid, e.message
+  end
+
+  def entries_init_options(**options)
+    # set default limit to export limit, if limit is not set
+    options[:limit] = export_limit unless options.key? :limit
+    options[:search] = search_string if search_string
+    options
+  end
+
+  # query results
+  def entries(**_)
+    raise 'overwrite it'
   end
 
   def results_scope(**options)

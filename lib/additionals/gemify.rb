@@ -48,12 +48,9 @@ module Additionals
         path = File.join plugins_dir, plugin_id
         return if File.exist? path
 
-        File.open path, 'w' do |f|
-          f.write <<PLUGIN_HINT
-  This plugin was installed as gem wrote to Gemfile.local instead of putting Redmine's plugin directory.
-  See #{plugin_id} gem installed directory.
-PLUGIN_HINT
-        end
+        File.write path,
+                   "This plugin was installed as gem wrote to Gemfile.local instead of putting Redmine's plugin directory.\n" \
+                   "See #{plugin_id} gem installed directory.\n"
       rescue Errno::EACCES => e
         Rails.logger.warn "Could not create plugin hint file: #{e.message}"
       end

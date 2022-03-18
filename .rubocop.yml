@@ -94,6 +94,12 @@ Style/OptionHash:
   Exclude:
     - lib/additionals/patches/*.rb
 
+# postgresql and mysql are supported
+# autodetect does not work without database configuration
+Rails/BulkChangeTable:
+  Enabled: true
+  Database: postgresql
+
 Style/ReturnNil:
   Enabled: true
 
@@ -120,3 +126,8 @@ Naming/VariableNumber:
 Style/StringConcatenation:
   Exclude:
     - 'app/views/additionals/_select2_ajax_call.*'
+
+# see https://github.com/rubocop/rubocop-rails/issues/578
+# redmine does not use load_defaults: https://rails.rubystyle.guide/#config-defaults
+Rails/RedundantPresenceValidationOnBelongsTo:
+  Enabled: false

@@ -18,7 +18,7 @@ module Additionals
         # Used by Redmine >= 4.2
         def principals_by_role
           # includes = AdditionalsPlugin.active_hrm? ? [:roles, { principal: :hrm_user_type }] : %i[roles principal]
-          includes = %i[principal roles]
+          includes = %i[principal member_roles roles]
           memberships.active.includes(includes).each_with_object({}) do |m, h|
             m.roles.each do |r|
               next if r.hide && !User.current.allowed_to?(:show_hidden_roles_in_memberbox, project)
@@ -70,7 +70,8 @@ module Additionals
 
         # assignable_users result depends on Setting.issue_group_assignment?
         # this result is not depending on issue settings
-        def assignable_users_and_groups
+        # NOTE: user and groups
+        def assignable_principals
           Principal.assignable
                    .joins(members: :roles)
                    .where(members: { project_id: id },

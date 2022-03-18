@@ -25,7 +25,12 @@ function openExternalUrlsInTab() {
 /* exported formatNameWithIcon */
 function formatNameWithIcon(opt) {
   if (opt.loading) return opt.name;
-  var $opt = $('<span>' + opt.name_with_icon + '</span>');
+  var $opt;
+  if (opt.name_with_icon !== undefined) {
+    $opt = $('<span>' + opt.name_with_icon + '</span>');
+  } else {
+    $opt = $('<span>' + opt.text + '</span>');
+  }
   return $opt;
 }
 

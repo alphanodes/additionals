@@ -191,3 +191,7 @@ ja:
   label_system_setting: "システム"
   label_project_setting: "プロジェクト"
   label_enable_auto_refresh: "オートリフレシュを行う"
+  label_show_closed_issues: "解決済みの問題を表示"
+  max_live_search_results_info: "LiveSearchの最大検索結果数です。注意：この設定は、LiveSearchに対応したプラグインにのみ影響します。"
+  label_max_live_search_results: "LiveSearchの最大検索結果数"
+  info_live_search_result_restriction: "LiveSearchの検索結果は %{value} に限定されます。がヒットしました。検索内容をもっと詳しく説明してみてください。"

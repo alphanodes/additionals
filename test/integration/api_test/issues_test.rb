@@ -3,7 +3,7 @@
 require File.expand_path '../../../test_helper', __FILE__
 
 module ApiTest
-  class IssuesTest < Redmine::ApiTest::Base
+  class IssuesTest < Additionals::ApiTest
     fixtures :projects,
              :users,
              :roles,
@@ -25,8 +25,6 @@ module ApiTest
              :journal_details,
              :queries
 
-    include Additionals::TestHelper
-
     test 'GET /issues.xml should contain metadata' do
       get '/issues.xml'
       assert_select 'issues[type=array][total_count][limit="25"][offset="0"]'
@@ -43,10 +41,10 @@ module ApiTest
     end
 
     test 'POST /issues.xml should create an issue with the attributes' do
-      with_additionals_settings(issue_status_change: '0',
-                                issue_auto_assign: '0',
-                                issue_auto_assign_status: ['1'],
-                                issue_auto_assign_role: '1') do
+      with_plugin_settings 'additionals', issue_status_change: '0',
+                                          issue_auto_assign: '0',
+                                          issue_auto_assign_status: ['1'],
+                                          issue_auto_assign_role: '1' do
         payload = <<-XML
         <?xml version="1.0" encoding="UTF-8" ?>
         <issue>
@@ -74,10 +72,10 @@ module ApiTest
     end
 
     test 'POST /issues.xml should create an issue with auto assigned_to_id' do
-      with_additionals_settings(issue_status_change: '0',
-                                issue_auto_assign: '1',
-                                issue_auto_assign_status: ['1'],
-                                issue_auto_assign_role: '1') do
+      with_plugin_settings 'additionals', issue_status_change: '0',
+                                          issue_auto_assign: '1',
+                                          issue_auto_assign_status: ['1'],
+                                          issue_auto_assign_role: '1' do
         payload = <<-XML
         <?xml version="1.0" encoding="UTF-8" ?>
         <issue>

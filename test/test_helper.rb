@@ -55,6 +55,12 @@ module Additionals
   end
 
   class IntegrationTest < Redmine::IntegrationTest
+    include Additionals::TestHelper
+    extend PluginFixturesLoader
+  end
+
+  class ApiTest < Redmine::ApiTest::Base
+    include Additionals::TestHelper
     extend PluginFixturesLoader
   end
 end

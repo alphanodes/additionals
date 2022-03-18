@@ -17,7 +17,7 @@ class AccountControllerTest < Additionals::ControllerTest
   end
 
   def test_get_login_with_welcome_text
-    change_additionals_settings account_login_bottom: 'Lore impsuum'
+    change_plugin_settings 'additionals', account_login_bottom: 'Lore impsuum'
 
     get :login
     assert_response :success
@@ -27,7 +27,7 @@ class AccountControllerTest < Additionals::ControllerTest
   end
 
   def test_get_login_without_welcome_text
-    change_additionals_settings account_login_bottom: ''
+    change_plugin_settings 'additionals', account_login_bottom: ''
 
     get :login
     assert_response :success

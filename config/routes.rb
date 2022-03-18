@@ -33,9 +33,12 @@ Rails.application.routes.draw do
 
   resources :auto_completes, only: [] do
     collection do
-      get :issue_assignee
-      get :global_users
       get :fontawesome
+      get :issue_assignee
+      get :assignee
+      get :authors
+      get :grouped_principals
+      get :grouped_users
     end
   end
 end

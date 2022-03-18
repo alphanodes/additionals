@@ -65,6 +65,7 @@ h2 = project_overview_name @project, @dashboard
       = l :text_project_closed
 
 = render partial: 'common/dashboard', locals: { dashboard: @dashboard }
+= content_for :render_async
 
 javascript:
   $(function() {

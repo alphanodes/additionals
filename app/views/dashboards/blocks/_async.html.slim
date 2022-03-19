@@ -29,6 +29,9 @@
       '
       = l :label_loading
 
+  - if action_name == 'update_layout_setting'
+    = content_for :render_async
+
   javascript:
     $(function() {
       $('#ajax-indicator').hide();

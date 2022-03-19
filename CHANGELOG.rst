@@ -1,6 +1,11 @@
 Changelog
 =========
 
+3.0.5.1
++++++++
+
+- Fix refresh bug for async blocks if settings change
+
 3.0.5
 +++++
 

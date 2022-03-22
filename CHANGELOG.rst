@@ -1,6 +1,11 @@
 Changelog
 =========
 
+3.0.5.2
++++++++
+
+- Fix refresh bug for async blocks for query lists
+
 3.0.5.1
 +++++++
 

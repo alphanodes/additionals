@@ -29,7 +29,8 @@
       '
       = l :label_loading
 
-  - if action_name == 'update_layout_setting'
+  - Additionals.debug action_name
+  - if action_name == 'update_layout_setting' || action_name == 'create'
     = content_for :render_async
 
   javascript:

@@ -62,11 +62,7 @@ class ProjectTest < Additionals::TestCase
   end
 
   def test_users_by_role
-    users_by_role = if Redmine::VERSION.to_s >= '4.2'
-                      Project.find(1).principals_by_role
-                    else
-                      Project.find(1).users_by_role
-                    end
+    users_by_role = Project.find(1).principals_by_role
 
     assert_kind_of Hash, users_by_role
     role = Role.find 1
@@ -85,19 +81,11 @@ class ProjectTest < Additionals::TestCase
     assert role.hide
 
     # User.current = User.find 2
-    users_by_role = if Redmine::VERSION.to_s >= '4.2'
-                      Project.find(1).principals_by_role
-                    else
-                      Project.find(1).users_by_role
-                    end
+    users_by_role = Project.find(1).principals_by_role
     assert_equal 1, users_by_role.count
 
     User.current = User.find 1
-    users_by_role = if Redmine::VERSION.to_s >= '4.2'
-                      Project.find(1).principals_by_role
-                    else
-                      Project.find(1).users_by_role
-                    end
+    users_by_role = Project.find(1).principals_by_role
     assert_equal 2, users_by_role.count
   end
 end

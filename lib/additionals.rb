@@ -168,7 +168,6 @@ module Additionals
 
       # gem is used as redmine plugin
       require File.expand_path '../init', __dir__
-      Additionals.setup! if Rails.version < '6.0'
       Additionals::Gemify.install_assets plugin_id
       Additionals::Gemify.create_plugin_hint plugin_id
     end

@@ -20,13 +20,7 @@ module AdditionalsQuery
     names = send(method_name.join).dup
     names.flatten!
     names.select! { |col| col.sortable.present? } if only_sortable
-    if only_groupable
-      if Redmine::VERSION.to_s >= '4.2'
-        names.select!(&:groupable?)
-      else
-        names.select!(&:groupable)
-      end
-    end
+    names.select!(&:groupable?) if only_groupable
     names.select!(&:totalable) if only_totalable
     names.map(&:name)
   end
@@ -222,7 +216,7 @@ module AdditionalsQuery
   end
 
   def results_scope(**options)
-    order_option = [group_by_sort_order, (options[:order] || sort_clause)].flatten!.to_a.reject(&:blank?)
+    order_option = [group_by_sort_order, (options[:order] || sort_clause)].flatten!.to_a.compact_blank
 
     objects_scope(**options.except(:order, :limit, :offset))
       .order(order_option)

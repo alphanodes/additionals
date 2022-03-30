@@ -37,7 +37,7 @@
                   data: { confirm: l(:text_are_you_sure) }, method: :post, class: 'icon icon-lock'
       = link_to l(:button_copy), copy_project_path(@project), class: 'icon icon-copy'
       = link_to l(:button_delete), project_path(@project), method: :delete, class: 'icon icon-del'
-    - elsif Redmine::VERSION.to_s >= '4.2' && @project.deletable?
+    - elsif @project.deletable?
       = link_to l(:button_delete), project_path(@project), method: :delete, class: 'icon icon-del'
 
     - if User.current.allowed_to? :save_dashboards, @project

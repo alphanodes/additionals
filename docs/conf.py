@@ -24,13 +24,13 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'additionals'
-copyright = u'2013-2021, AlphaNodes GmbH'
+copyright = u'2013-2022, AlphaNodes GmbH'
 author = u'Alexander Meindl'
 
 # The short X.Y version.
-version = u'3.0.3'
+version = u'3.0.6'
 # The full version, including alpha/beta/rc tags.
-release = u'3.0.3'
+release = u'3.0.6'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.

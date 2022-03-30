@@ -14,7 +14,7 @@ module Additionals
           @database_ready = (RedminePluginKit::Loader.redmine_database_ready? Setting.table_name) unless defined? @database_ready
           return [] unless @database_ready
 
-          mods = Additionals.setting(:disabled_modules).to_a.reject(&:blank?)
+          mods = Additionals.setting(:disabled_modules).to_a.compact_blank
           mods.map(&:to_sym)
         end
 

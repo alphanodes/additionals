@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
 
   spec.files         = Dir['**/*'] - Dir['test/**/*'] - Dir['Gemfile', 'Gemfile.lock', 'README.rst']
   spec.require_paths = ['lib']
-  spec.required_ruby_version = '>= 2.6'
+  spec.required_ruby_version = '>= 2.7'
 
   spec.add_runtime_dependency 'gemoji', '~> 3.0.0'
   spec.add_runtime_dependency 'redmine_plugin_kit'

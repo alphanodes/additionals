@@ -49,7 +49,7 @@ Redmine::Plugin.register :additionals do
   end
 
   # required redmine version
-  requires_redmine version_or_higher: '4.1'
+  requires_redmine version_or_higher: '5.0'
 
   menu :admin_menu, :additionals, { controller: 'settings', action: 'plugin', id: 'additionals' }, caption: :label_additionals
 end
@@ -68,5 +68,3 @@ RedminePluginKit::Loader.after_initialize do
                         far: AdditionalsFontAwesome.load_icons(:far),
                         fas: AdditionalsFontAwesome.load_icons(:fas) }.freeze
 end
-
-RedminePluginKit::Loader.to_prepare { Additionals.setup!(loader) } if Rails.version < '6.0'

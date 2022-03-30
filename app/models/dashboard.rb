@@ -318,7 +318,7 @@ class Dashboard < ActiveRecord::Base
 
     if settings.present?
       settings.each do |key, setting|
-        settings[key] = setting.reject(&:blank?).join(',') if setting.is_a? Array
+        settings[key] = setting.compact_blank.join ',' if setting.is_a? Array
 
         next if options[:exposed_params].blank?
 
@@ -331,7 +331,7 @@ class Dashboard < ActiveRecord::Base
       end
 
       unique_params = settings.flatten
-      unique_params += options[:unique_params].reject(&:blank?) if options[:unique_params].present?
+      unique_params += options[:unique_params].compact_blank if options[:unique_params].present?
 
       # Rails.logger.debug "debug async_params for #{block}: unique_params=#{unique_params.inspect}"
       # For truncating hash security, see https://crypto.stackexchange.com/questions/9435/is-truncating-a-sha512-hash-to-the-first-160-bits-as-secure-as-using-sha1

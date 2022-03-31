@@ -6,7 +6,7 @@ class DashboardsController < ApplicationController
   before_action :find_dashboard, except: %i[index new create]
   before_action :find_optional_project, only: %i[new create index]
 
-  respond_to?(:accept_atom_auth) ? accept_atom_auth(:index, :show) : accept_rss_auth(:index, :show)
+  accept_atom_auth :index, :show
   accept_api_auth :index, :show, :create, :update, :destroy
 
   rescue_from Query::StatementInvalid, with: :query_statement_invalid

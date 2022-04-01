@@ -161,10 +161,6 @@ Issue status on sidebar
 .. note::
   All options above only work for users with appropriate issue tracking rights in the administration area "Roles and permissions" (view, create, edit).
 
-
-Add involved users as watcher automatically
-  This means, everyone who is or has been involved in the issue (Assignee, Editor, Author etc.) will automatically be notified about further changes. At the same time the user finds an additional option in his user account edit mode called ``Autowatch involved issues`` (see figure 1). Deactivate this option if you don't want to be notified.
-
 Disallow editing of closed issues (Freeze).
   This option should be activated if already closed issues should no longer be edited and commented.
 

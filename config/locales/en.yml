@@ -37,7 +37,6 @@ en:
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   errors_no_or_invalid_arguments: No or invalid arguments
   field_always_expose: Always show dashboard name
-  field_autowatch_involved_issue: Autowatch involved issues
   field_color: Color
   field_enable_sidebar: Enable sidebar
   field_hide: Hide
@@ -96,7 +95,6 @@ en:
   label_invalid_feed_data: "Invalid feed data or URL"
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
-  label_issue_autowatch_involved: Add involved users as watcher automatically
   label_issue_change_status_in_sidebar: Issue status on sidebar
   label_issue_change_status: Change status
   label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."

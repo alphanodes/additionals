@@ -1,4 +1,0 @@
-- if Additionals.setting?(:issue_autowatch_involved) && User.current.allowed_to?(:view_issues, nil, global: true)
-  = labelled_fields_for :pref, @user.pref do |pref_fields|
-    p
-      = pref_fields.check_box :autowatch_involved_issue

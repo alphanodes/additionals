@@ -37,7 +37,6 @@ fr:
   error_query_statement_invalid: "Une erreur s'est produite lors de l'exécution de la requête et a été enregistrée. Veuillez signaler cette erreur à votre administrateur Redmine."
   errors_no_or_invalid_arguments: "Pas d'arguments ou arguments invalides"
   field_always_expose: "Toujours afficher le nom du tableau de bord"
-  field_autowatch_involved_issue: "Problèmes liés à la surveillance automatique"
   field_color: Couleur
   field_enable_sidebar: Activer le menu latéral
   field_hide: "Cacher"
@@ -96,7 +95,6 @@ fr:
   label_invalid_feed_data: "Données d'alimentation ou URL invalides"
   label_issue_assign_to_me: Voir "M'affecter" sur les tâches
   label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
-  label_issue_autowatch_involved: "Ajout automatique des utilisateurs impliqués en tant qu'observateurs"
   label_issue_change_status_in_sidebar: Statuts des tâches dans la bare latérale
   label_issue_change_status: Modifier le statut
   label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."

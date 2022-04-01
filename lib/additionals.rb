@@ -99,8 +99,7 @@ module Additionals
       RenderAsync.configuration.jquery = true
 
       loader.incompatible? %w[redmine_editauthor
-                              redmine_changeauthor
-                              redmine_auto_watch]
+                              redmine_changeauthor]
 
       loader.add_patch %w[ApplicationController
                           AutoCompletesController

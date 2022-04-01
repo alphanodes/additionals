@@ -13,8 +13,7 @@ module Additionals
         validate :validate_timelog_required
         validate :validate_current_user_status
         before_validation :auto_assigned_to
-        before_save :change_status_with_assigned_to_change,
-                    :autowatch_involved
+        before_save :change_status_with_assigned_to_change
 
         safe_attributes 'author_id',
                         if: proc { |issue, user|
@@ -62,21 +61,6 @@ module Additionals
                     watchers.detect { |watcher| watcher.user_id == user.id }
 
           add_watcher user
-        end
-
-        def autowatch_involved
-          return unless Additionals.setting?(:issue_autowatch_involved) &&
-                        User.current.pref.autowatch_involved_issue
-          return if AdditionalsPlugin.active_automation? && author_id == RedmineAutomation.bot_user_id
-
-          add_autowatcher User.current
-          add_autowatcher author if (new_record? || author_id != author_id_was) && author != User.current
-
-          if !assigned_to_id.nil? && assigned_to_id != User.current.id && (new_record? || assigned_to_id != assigned_to_id_was)
-            add_autowatcher assigned_to
-          end
-
-          true
         end
 
         def log_time_allowed?(user = User.current)

@@ -37,7 +37,6 @@
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   errors_no_or_invalid_arguments: "參數無效或不存在。"
   field_always_expose: "始终显示仪表盘名称"
-  field_autowatch_involved_issue: "自動監看參與的議題"
   field_color: 顏色
   field_enable_sidebar: Enable sidebar
   field_hide: Hide
@@ -96,7 +95,6 @@
   label_invalid_feed_data: "Invalid feed data or URL"
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_auto_assign: "若建立新議題的 \"被分派者\" 未設定，且狀態為 X 時，將被自動分派給指定角色。"
-  label_issue_autowatch_involved: "自動設定參與者為監看者"
   label_issue_change_status_in_sidebar: Issue status on sidebar
   label_issue_change_status: Change status
   label_issue_current_user_status: " \"被分派者\"為目前用戶時，議題狀態只能被設定為 X 。"

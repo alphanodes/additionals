@@ -37,7 +37,6 @@ es:
   error_query_statement_invalid: Ocurrió un error ejecutando la consulta y fue registrado. Por favor informe este error al administrador de Redmine.
   errors_no_or_invalid_arguments: Parámetros inválidos
   field_always_expose: "Mostrar siempre el nombre del salpicadero"
-  field_autowatch_involved_issue: Automonitorear las peticiones en las que estoy involucrado
   field_color: Color
   field_enable_sidebar: Enable sidebar
   field_hide: "Ocultar"
@@ -96,7 +95,6 @@ es:
   label_invalid_feed_data: "Datos o URL de alimentación inválidos"
   label_issue_assign_to_me: Mostrar "Asignar a mi mismo" en las peticiones
   label_issue_auto_assign: "Si \"Asignado a\" no es asignado a un usuario y el estado de la nueva petición es x, entonces la petición es auto asignada al primer grupo con usuarios del rol predefinido."
-  label_issue_autowatch_involved: Agregar a los usuarios involucrados como Monitorizadores automáticamente
   label_issue_change_status_in_sidebar: Estado de las peticiones en la barra lateral
   label_issue_change_status: Cambiar estado
   label_issue_current_user_status: "Estado de la petición actual x solo está permitido si la petición está asignada al usuario actual."

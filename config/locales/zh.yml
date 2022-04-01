@@ -37,7 +37,6 @@ zh:
   error_query_statement_invalid: 执行查询时出错且已被记录。请向你的 Redmine 管理员报告此错误。
   errors_no_or_invalid_arguments: 参数无效或不存在。
   field_always_expose: 始终显示仪表盘名称
-  field_autowatch_involved_issue: 自动关注参与的问题
   field_color: 颜色
   field_enable_sidebar: 启用侧边栏
   field_hide: 隐藏
@@ -96,7 +95,6 @@ zh:
   label_invalid_feed_data: "无效的 feed 数据或 URL"
   label_issue_assign_to_me: 在问题页显示“指派给我”
   label_issue_auto_assign: "若 \"指派给\" 的值未设置为具体用户，且新建问题的状态为 X， 那么问题将自动指派给预定义角色用户的对应组。"
-  label_issue_autowatch_involved: 自动添加涉及到的用户为关注者
   label_issue_change_status_in_sidebar: 在侧边栏显示更新问题状态
   label_issue_change_status: 更新问题状态
   label_issue_current_user_status: "当前问题状态 X 仅在 \"指派给\" 的值设置为当前用户时生效。"

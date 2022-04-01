@@ -7,7 +7,7 @@ module Additionals
 
       included do
         include InstanceMethods
-        safe_attributes 'autowatch_involved_issue', 'recently_used_dashboards'
+        safe_attributes 'recently_used_dashboards'
       end
 
       module InstanceMethods

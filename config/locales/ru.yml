@@ -37,7 +37,6 @@ ru:
   error_query_statement_invalid: "Во время выполнения запроса возникла ошибка, которая была зарегистрирована в журнале. Пожалуйста, сообщите об этой ошибке своему администратору Redmine."
   errors_no_or_invalid_arguments: "Нет или недействительные аргументы"
   field_always_expose: "Всегда показать название приборной панели"
-  field_autowatch_involved_issue: "Автонаблюдение включало в себя задачу"
   field_color: Color
   field_enable_sidebar: Enable sidebar
   field_hide: "Спрятать"
@@ -96,7 +95,6 @@ ru:
   label_invalid_feed_data: "Недействительные данные корма или URL-адрес"
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
-  label_issue_autowatch_involved: "Автоматическое добавление привлеченных пользователей в качестве наблюдателя"
   label_issue_change_status_in_sidebar: Issue status on sidebar
   label_issue_change_status: "Изменить статус"
   label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."

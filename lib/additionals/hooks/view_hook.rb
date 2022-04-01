@@ -17,8 +17,6 @@ module Additionals
       render_on :view_issues_new_top, partial: 'new_ticket_message'
       render_on :view_issues_sidebar_issues_bottom, partial: 'issues/additionals_sidebar_issues'
       render_on :view_issues_sidebar_queries_bottom, partial: 'issues/additionals_sidebar_queries'
-      render_on :view_my_account_preferences, partial: 'users/autowatch_involved_issue'
-      render_on :view_users_form_preferences, partial: 'users/autowatch_involved_issue'
       render_on :view_users_show_contextual, partial: 'users/additionals_contextual'
       render_on :view_wiki_show_sidebar_bottom, partial: 'wiki/additionals_sidebar'
 

@@ -150,7 +150,6 @@ Features
 * anonymize referrer for external urls
 * hide role in project memberbox
 * change issue author
-* add involved issue users as watcher automatically
 * create issue on user profile
 * "assign to me" link on issue
 * change issue state on sidebar

@@ -37,7 +37,6 @@ de:
   error_query_statement_invalid: Beim Ausführen der Query ist ein Fehler aufgetreten und wurde protokolliert. Bitte melden Sie diesen Fehler Ihrem Redmine-Administrator.
   errors_no_or_invalid_arguments: Kein oder ungültiger Parameter
   field_always_expose: Dashboard Name immer anzeigen
-  field_autowatch_involved_issue: Involvierte Tickets automatisch beobachten
   field_color: Farbe
   field_enable_sidebar: Sidebar aktivieren
   field_hide: Verstecken
@@ -96,7 +95,6 @@ de:
   label_invalid_feed_data: Ungültige Feed Daten oder URL
   label_issue_assign_to_me: Ticket "Mir zuweisen" anzeigen
   label_issue_auto_assign: "Wird \"Zugewiesen an\" nicht zugewiesen und der neue Ticketstatus ist x, dann wird die ersten Gruppe mit Benutzern der festgelegten Rolle das Ticket zugewiesen."
-  label_issue_autowatch_involved: Involvierte Benutzer automatisch als Beobachter hinzufügen
   label_issue_change_status_in_sidebar: Ticketstatus über Sidebar
   label_issue_change_status: Status ändern
   label_issue_current_user_status: "Der Ticketstatus x ist nur erlaubt, wenn \"Zugewiesen an\" der aktuelle Benutzer zugewiesen wird."

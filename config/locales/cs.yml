@@ -37,7 +37,6 @@ cs:
   error_query_statement_invalid: "Při provádění dotazu došlo k chybě a bylo zaznamenáno. Nahlaste tuto chybu administrátorovi Redmine."
   errors_no_or_invalid_arguments: "Žádné nebo neplatné argumenty"
   field_always_expose: "Vždy zobrazit název palubní desky"
-  field_autowatch_involved_issue: "Problémy s automatickým sledováním"
   field_color: Barva
   field_enable_sidebar: Enable sidebar
   field_hide: "Skrýt"
@@ -96,7 +95,6 @@ cs:
   label_invalid_feed_data: "Neplatná data zdroje nebo adresa URL"
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
-  label_issue_autowatch_involved: "Automaticky přidejte zúčastněné uživatele jako sledovatele"
   label_issue_change_status_in_sidebar: "Stav vydání na postranním panelu"
   label_issue_change_status: "Změnit stav"
   label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."

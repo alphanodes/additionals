@@ -229,6 +229,9 @@ module AdditionalsQuery
     raise ::Query::StatementInvalid, e.message
   end
 
+  # NOTE: alias can be used, if results_scope is not usable (because it was overwritten)
+  alias additionals_results_scope results_scope
+
   def grouped_name_for(group_name, replace_fields = {})
     return unless group_name
 

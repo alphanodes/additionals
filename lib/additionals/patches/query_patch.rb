@@ -65,6 +65,60 @@ module Additionals
           Setting.issues_export_limit.to_i
         end
 
+        def sql_aggr_condition(**options)
+          options[:aggr] = 'COUNT' if options[:aggr].blank?
+          options[:field] = 'id' if options[:field].blank?
+          options[:operator] = '=' if options[:operator].blank?
+          options[:sub_table] = options[:table] if options[:sub_table].blank?
+          options[:sub_query] = options[:sub_table] if options[:sub_query].blank?
+          options[:having_table] = options[:table] if options[:having_table].blank?
+          options[:join_field] = options[:field] if options[:join_field].blank?
+
+          if options[:aggr] == 'COUNT'
+            first_value = options[:values].first.to_i
+            second_value = options[:values][1].present? ? options[:values][1].to_i : nil
+          else
+            first_value = options[:values].first.to_f
+            second_value = options[:values][1].present? ? options[:values][1].to_f : nil
+          end
+
+          # special case of 0 value
+          options[:operator] = '!*' if options[:operator] == '=' && first_value.zero?
+
+          compare_sql = "#{queried_table_name}.#{options[:join_field]}" \
+                        " IN (SELECT #{options[:sub_table]}.#{options[:group_field]}" \
+                        " FROM #{options[:sub_query]} GROUP BY #{options[:sub_table]}.#{options[:group_field]}" \
+                        " HAVING #{options[:aggr]}(#{options[:having_table]}.#{options[:field]})"
+
+          null_all_sql = if options[:use_sub_query_for_all]
+                           +"#{options[:sub_query]} AND"
+                         else
+                           +"#{options[:sub_table]} WHERE"
+                         end
+
+          null_all_sql << " #{options[:sub_table]}.#{options[:group_field]} = #{queried_table_name}.#{options[:join_field]})"
+
+          sql = case options[:operator]
+                when '='
+                  "#{compare_sql} = #{first_value})"
+                when '<='
+                  "#{compare_sql} <= #{first_value})"
+                when '>='
+                  "#{compare_sql} >= #{first_value})"
+                when '><'
+                  "#{compare_sql} BETWEEN #{first_value} AND #{second_value})"
+                when '!*'
+                  "#{queried_table_name}.#{options[:join_field]} NOT IN (SELECT #{options[:sub_table]}.#{options[:group_field]}" \
+                  " FROM #{null_all_sql}"
+                when '*'
+                  "#{queried_table_name}.#{options[:join_field]} IN (SELECT #{options[:sub_table]}.#{options[:group_field]}" \
+                  " FROM #{null_all_sql}"
+                end
+
+          Additionals.debug sql if options[:debug]
+          sql
+        end
+
         private
 
         def initialize_user_values_for_select2(field, values)

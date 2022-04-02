@@ -187,5 +187,10 @@ module Additionals
         assert_select "table.list.#{block_def[:entities_class]}"
       end
     end
+
+    # Return the columns that are displayed in the list
+    def columns_in_projects_list
+      css_select('table.projects thead th').map(&:text)
+    end
   end
 end

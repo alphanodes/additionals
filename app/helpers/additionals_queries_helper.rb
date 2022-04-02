@@ -329,4 +329,8 @@ module AdditionalsQueriesHelper
   def build_search_query_term(params)
     (params[:q] || params[:term]).to_s.strip
   end
+
+  def link_to_nonzero(value, path)
+    value.zero? ? value : link_to(value, path)
+  end
 end

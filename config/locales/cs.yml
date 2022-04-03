@@ -31,6 +31,7 @@ cs:
   button_assign_to_me: "Přiřaďte mi"
   button_dashboard_delete: "Vymazat dashboard"
   button_dashboard_edit: "Upravit dashboard"
+  button_merge: "Sloučení"
   disabled_modules_info: "Moduly, které by neměly být k dispozici pro výběr v rámci projektů. Pokud jsou tyto moduly již aktivovány ve stávajících projektech, musíte nejprve změnit a znovu uložit příslušná nastavení projektu."
   error_issue_status_could_not_changed: "Stav vydání nelze změnit"
   error_issues_could_not_be_assigned_to_me: "Problém se mi nepodařilo přiřadit"
@@ -38,6 +39,7 @@ cs:
   errors_no_or_invalid_arguments: "Žádné nebo neplatné argumenty"
   field_always_expose: "Vždy zobrazit název palubní desky"
   field_color: Barva
+  field_enable_new_ticket_message: "Aktivace zprávy o vydání"
   field_enable_sidebar: Enable sidebar
   field_hide: "Skrýt"
   field_icon: Icon
@@ -53,13 +55,15 @@ cs:
   hidden_macros_in_toolbar_info: "Všechna dostupná makra, která může přihlášený uživatel použít, jsou uvedena prostřednictvím tlačítka makro na panelu nástrojů wiki. Makra zde označená nejsou nabízena k výběru. To vám umožní omezit rozsah seznamu."
   info_dashboard_project_select: Leave it blank, if you want to use this dashboard for all projects.
   info_hidden_roles_html: "Skryté role lze použít pouze spolu s viditelností uživatele \"Members of visible projects\". Pokud uživatel není v roli, která je viditelná pro aktuálního uživatele, je tato role včetně uživatele skryta na stránce s přehledem projektu a v seznamech dotazů."
+  info_live_search_result_restriction: "Výsledky vyhledávání LiveSearch jsou omezeny na %{value} zásahy. Zkuste své hledání popsat podrobněji."
   label_account_login_bottom: "Text pro přihlašovací stránku"
   label_active_dashboard: "Aktivní Dashboard"
   label_add_dashboard_block: "Přidat blok"
   label_add_go_to_top: 'Add "Go to top" link'
+  label_additionals: Additionals
   label_additionals_doc: Additionals documentation
   label_additionals_feed: Atom+RSS Feed
-  label_additionals: Additionals
+  label_additionals_message: "Zpráva"
   label_app_menu: App menu
   label_change_is_private: "Změnit soukromé / neveřejné"
   label_change_to_dashboard: "Přepnout na Dashboard"
@@ -72,15 +76,16 @@ cs:
   label_custom_fields_distribution: "Vlastní pole pro distribuci"
   label_custom_menu_items: "Vlastní položky nabídky"
   label_daily: denně
+  label_dashboard: Dashboard
   label_dashboard_author: "Autor: %{name}"
   label_dashboard_legacy_left: "Zbývá standardní obsah"
   label_dashboard_legacy_right: "Standardní obsahové právo"
   label_dashboard_plural: Dashboards
-  label_dashboard: Dashboard
   label_day: den
   label_disable_sidebar: "Zakázat sidebar"
   label_disabled_modules: "Zakázané moduly"
   label_docs_access_token: Access token
+  label_enable_auto_refresh: "Povolit automatické obnovení"
   label_enable_sidebar: "Umožnit sidebar"
   label_global_footer: "Široká zápatí projektu"
   label_global_sidebar: "Globální postranní panel"
@@ -95,8 +100,8 @@ cs:
   label_invalid_feed_data: "Neplatná data zdroje nebo adresa URL"
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
-  label_issue_change_status_in_sidebar: "Stav vydání na postranním panelu"
   label_issue_change_status: "Změnit stav"
+  label_issue_change_status_in_sidebar: "Stav vydání na postranním panelu"
   label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
   label_issue_freezed_with_close: "Zakázat úpravy uzavřených čísel (Freeze)"
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
@@ -104,8 +109,10 @@ cs:
   label_issues_summary: "Přehled úkolů"
   label_last_year: "minulý rok"
   label_legacy_smiley_support: Legacy smiley support
+  label_live_search_hints: "Dostupná vyhledávání v polích: %{value}"
   label_macro_plural: "Makra"
   label_max_entries: "Maximální počet záznamů"
+  label_max_live_search_results: "Maximální počet výsledků vyhledávání LiveSearch"
   label_menu_entry: "Menu item"
   label_monthly: "měsíční"
   label_my_activity: "Moje aktivita"
@@ -123,6 +130,7 @@ cs:
   label_pdf_wiki_settings: "PDF Wiki nastavení"
   label_project_information: "Informace o projektu"
   label_project_list: "Seznam projektů"
+  label_project_setting: "Projekt"
   label_query_delete: "Smazat dotaz"
   label_query_edit: "Upravit dotaz"
   label_query_name_search: "Hledejte jméno"
@@ -138,12 +146,16 @@ cs:
   label_settings_menu: "Menu"
   label_shared_dashboard_plural: "Sdíleno dashboards"
   label_show_all: "Ukázat vše"
+  label_show_closed_issues: "Zobrazit uzavřené úkoly"
+  label_stats_new_today: "Dnes novinka"
+  label_stats_totals: "Total"
   label_system_info: "Systémová informace"
+  label_system_setting: "Systém"
   label_text_async: Text (asynchronous)
   label_text_sync: Text
   label_top_macros_help_html: "Zde získáte seznam všech dostupných maker Redmine vaší instalace, která jsou poskytována doplňky Redmine a Redmine."
-  label_top_menu_help_html: "Zde můžete definovat nové položky horní nabídky."
   label_top_menu: Top menu
+  label_top_menu_help_html: "Zde můžete definovat nové položky horní nabídky."
   label_twitter_account: Twitter account
   label_twitter_hashtag: Twitter hashtag
   label_uptime: Uptime
@@ -156,6 +168,7 @@ cs:
   label_yearly: "roční"
   latest_entries_changes: "Poslední %{value} změny"
   legacy_smiley_support_info_html: 'Převod smajlíků v textu. Tato volba by měla být aktivována, pouze pokud je kód pro smajlíky (e.g. :) ) byl zadán ručně a měl by být zobrazen jako smajlík. In the <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> the available Emoji codes can be used. <strong>Restart the application server</strong>, in order to activate the settings.'
+  max_live_search_results_info: "Počet maximálních výsledků vyhledávání pro službu LiveSearch. Poznámka: Nastavení se týká pouze zásuvných modulů, které podporují službu LiveSearch."
   menu_roles_info: "Tuto položku nabídky uvidí pouze členové vybraných rolí."
   new_ticket_message_info: "Všem, kteří chtějí přidat nové vydání, se zobrazí poznámka. Například zde můžete zadat akceptační testy nebo vydat pravidla. Tato nastavení se používají v celém projektu."
   open_external_urls_info: "Pokud je aktivní, v novém okně / kartě se otevírají externí adresy URL."
@@ -175,21 +188,8 @@ cs:
   rule_issue_freezed_with_close_info: "Pokud je tato možnost aktivována, již uzavřené problémy již nelze upravovat a komentovat. Ani přes mail nebo API. Toto omezení se nevztahuje na uživatelské role s povolením \"Edit closed issues\"."
   rule_issue_status_change_info: "Případ použití: problémy by měly být automaticky přiřazeny autorovi, pokud se stav změní na \"Approval\"."
   rule_issue_timelog_required_info_html: 'Pro každý úkol vybraných sledovačů je nutná časová rezervace, pokud má lístek obdržet jednu z definovaných stavových vlastností. The time booking is not required if:<br />- no rights exist for the creation of time bookings<br />- the user has the authorization "Time logging not required"<br />Use case: For the acceptance of a ticket with the status "To Verify", the time spent is also required.'
+  setting_export_limit: "Vývozní limit"
   top_rules_help: "Zde můžete definovat pravidla, která se používají v úkolech všech projektů."
   top_wiki_help: "Zde můžete definovat obsah a nastavení vaší Wiki."
   wiki_pdf_remove_attachments_info: "Pokud je aktivní, připojené soubory Wiki se nebudou zobrazovat v zobrazení PDF."
   wiki_pdf_remove_title_info: "Pokud je aktivní, informace o názvu Wiki se nebudou zobrazovat v zobrazení PDF."
-  button_merge: "Sloučení"
-  label_live_search_hints: "Dostupná vyhledávání v polích: %{value}"
-  label_stats_new_today: "Dnes novinka"
-  label_stats_totals: "Total"
-  setting_export_limit: "Vývozní limit"
-  field_enable_new_ticket_message: "Aktivace zprávy o vydání"
-  label_additionals_message: "Zpráva"
-  label_system_setting: "Systém"
-  label_project_setting: "Projekt"
-  label_enable_auto_refresh: "Povolit automatické obnovení"
-  label_show_closed_issues: "Zobrazit uzavřené úkoly"
-  max_live_search_results_info: "Počet maximálních výsledků vyhledávání pro službu LiveSearch. Poznámka: Nastavení se týká pouze zásuvných modulů, které podporují službu LiveSearch."
-  label_max_live_search_results: "Maximální počet výsledků vyhledávání LiveSearch"
-  info_live_search_result_restriction: "Výsledky vyhledávání LiveSearch jsou omezeny na %{value} zásahy. Zkuste své hledání popsat podrobněji."

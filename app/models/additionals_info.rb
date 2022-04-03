@@ -28,7 +28,7 @@ class AdditionalsInfo
   end
 
   def system_info
-    if windows_platform?
+    if Redmine::Platform.mswin?
       win_info = `wmic os get Caption,CSDVersion,BuildNumber /value`
       return 'unknown' if win_info.blank?
 
@@ -50,7 +50,7 @@ class AdditionalsInfo
   end
 
   def system_uptime(format: :time_tag)
-    if windows_platform?
+    if Redmine::Platform.mswin?
       `net stats srv | find "Statist"`
     elsif File.exist? '/proc/uptime'
       secs = `cat /proc/uptime`.to_i
@@ -84,9 +84,5 @@ class AdditionalsInfo
         "#{days} #{l :days, count: days}"
       end
     end
-  end
-
-  def windows_platform?
-    /cygwin|mswin|mingw|bccwin|wince|emx/.match? RUBY_PLATFORM
   end
 end

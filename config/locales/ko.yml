@@ -31,6 +31,7 @@ ko:
   button_assign_to_me: 나에게 할당
   button_dashboard_delete: 대시보드 삭제
   button_dashboard_edit: 대시보드 수정
+  button_merge: "병합 "
   disabled_modules_info: "프로젝트 내에서 선택할 수없는 모듈. 이러한 모듈이 기존 프로젝트에서 이미 활성화 된 경우 먼저 해당 프로젝트 설정을 변경하고 다시 저장해야합니다."
   error_issue_status_could_not_changed: "문제 상태를 변경할 수 없습니다"
   error_issues_could_not_be_assigned_to_me: "나에게 문제를 할당 할 수 없습니다"
@@ -38,6 +39,7 @@ ko:
   errors_no_or_invalid_arguments: "인수가 없거나 유효하지 않습니다"
   field_always_expose: "항상 대시보드 이름 표시"
   field_color: 색깔
+  field_enable_new_ticket_message: "작업 메시지 활성화"
   field_enable_sidebar: 사이드바 표시
   field_hide: 숨는 장소
   field_icon: 상
@@ -53,13 +55,15 @@ ko:
   hidden_macros_in_toolbar_info: 로그인 한 사용자가 사용할 수있는 모든 매크로가 위키 도구 모음의 매크로 버튼을 통해 나열됩니다. 여기에 표시된 매크로는 선택할 수 없습니다. 이를 통해 목록의 범위를 제한 할 수 있습니다.
   info_dashboard_project_select: 이 대시보드가 모든 프로젝트에서 보이기 원하면 이 항목을 비워두세요.
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". 사용자가 현재 사용자에게 보이는 역할이 아닌 경우 사용자를 포함한이 역할은 프로젝트 개요 페이지와 쿼리 목록에서 숨겨집니다.
+  info_live_search_result_restriction: "LiveSearch results are limited to %{value} Matches. Try to describe your search in more detail."
   label_account_login_bottom: "로그인 페이지의 텍스트"
   label_active_dashboard: "Active Dashboard"
   label_add_dashboard_block: "Add block"
   label_add_go_to_top: 'Add "Go to top" link'
+  label_additionals: Additionals
   label_additionals_doc: "추가 문서 (EN)"
   label_additionals_feed: Atom+RSS Feed
-  label_additionals: Additionals
+  label_additionals_message: "메시지"
   label_app_menu: 앱 메뉴
   label_change_is_private: 개인 / 비 개인 변경
   label_change_to_dashboard: "Switch to Dashboard"
@@ -72,15 +76,16 @@ ko:
   label_custom_fields_distribution: "Custom fields for distribution"
   label_custom_menu_items: 맞춤 메뉴 항목
   label_daily: 매일
+  label_dashboard: Dashboard
   label_dashboard_author: "Author: %{name}"
   label_dashboard_legacy_left: "Standard content left"
   label_dashboard_legacy_right: "Standard content right"
   label_dashboard_plural: Dashboards
-  label_dashboard: Dashboard
   label_day: 일
   label_disable_sidebar: Disable sidebar
   label_disabled_modules: "비활성화 된 모듈"
   label_docs_access_token: Access token
+  label_enable_auto_refresh: "자동 새로고침 활성화 "
   label_enable_sidebar: Enable sidebar
   label_global_footer: "넓은 바닥 글 프로젝트"
   label_global_sidebar: "글로벌 사이드 바"
@@ -95,8 +100,8 @@ ko:
   label_invalid_feed_data: "Invalid feed data or URL"
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
-  label_issue_change_status_in_sidebar: 사이드 바의 발행 상태
   label_issue_change_status: 상태 변경
+  label_issue_change_status_in_sidebar: 사이드 바의 발행 상태
   label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
   label_issue_freezed_with_close: 닫힌 이슈 편집 금지 (고정)
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
@@ -104,8 +109,10 @@ ko:
   label_issues_summary: "작업 개요 "
   label_last_year: 전년도
   label_legacy_smiley_support: Legacy smiley support
+  label_live_search_hints: "사용 가능한 필드 검색 : %{value}"
   label_macro_plural: Macros
   label_max_entries: "Maximum entries"
+  label_max_live_search_results: "최대 LiveSearch 결과 수 "
   label_menu_entry: "Menu item"
   label_monthly: 월간 간행물
   label_my_activity: "My activity"
@@ -123,6 +130,7 @@ ko:
   label_pdf_wiki_settings: PDF Wiki settings
   label_project_information: "프로젝트 정보"
   label_project_list: "프로젝트 목록"
+  label_project_setting: "계획"
   label_query_delete: 검색어 삭제
   label_query_edit: 검색어 수정
   label_query_name_search: 이름 검색
@@ -138,12 +146,16 @@ ko:
   label_settings_menu: "Menu"
   label_shared_dashboard_plural: Shared dashboards
   label_show_all: 모두 표시
+  label_show_closed_issues: "닫힌 이슈 표시"
+  label_stats_new_today: "오늘 새로운"
+  label_stats_totals: "합계"
   label_system_info: 시스템 정보
+  label_system_setting: "체계"
   label_text_async: Text (asynchronous)
   label_text_sync: Text
   label_top_macros_help_html: "다음은 Redmine 및 Redmine 플러그인에서 제공하는 설치에 사용 가능한 모든 Redmine 매크로 목록입니다."
-  label_top_menu_help_html: "여기에서 새로운 최상위 메뉴 항목을 정의 할 수 있습니다."
   label_top_menu: 톱 메뉴
+  label_top_menu_help_html: "여기에서 새로운 최상위 메뉴 항목을 정의 할 수 있습니다."
   label_twitter_account: Twitter account
   label_twitter_hashtag: Twitter hashtag
   label_uptime: 가동 시간
@@ -156,6 +168,7 @@ ko:
   label_yearly: 매년
   latest_entries_changes: "최근 %{value} 개의 변경 사항"
   legacy_smiley_support_info_html: 'Convert smileys in text. This option should only be activated if the code for smileys (e.g. :) ) was entered manually and should be displayed as smiley face. In the <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> the available Emoji codes can be used. <strong>Restart the application server</strong>, in order to activate the settings.'
+  max_live_search_results_info: "LiveSearch의 최대 검색 결과 수입니다. 참고: 설정은 LiveSearch를 지원하는 플러그인에만 영향을 미칩니다."
   menu_roles_info: "선택한 역할의 멤버 만이 메뉴 항목을 볼 수 있습니다."
   new_ticket_message_info: "새로운 호를 추가하려는 모든 사람에게 메모가 표시됩니다. 예를 들어 수락 테스트를 입력하거나 규칙을 발행 할 수 있습니다. 이 설정은 프로젝트 전체에서 사용됩니다. "
   open_external_urls_info: "활성화되면 외부 URL이 새 창 / 탭에서 열립니다."
@@ -175,21 +188,8 @@ ko:
   rule_issue_freezed_with_close_info: 이 옵션을 활성화하면 이미 닫힌 이슈를 더 이상 편집하고 주석을 달 수 없습니다. 메일이나 API를 통해서도 아닙니다. This restriction does not apply to user roles with the "Edit closed issues" permission.
   rule_issue_status_change_info: "Use Case: issues should be automatically assigned to author, if the status changes to \"Approval\"."
   rule_issue_timelog_required_info_html: '선택된 트래커의 각 티켓에 대해 티켓이 정의 된 상태 속성 중 하나를 수신하려면 시간 예약이 필요합니다. 다음과 같은 경우 시간 예약이 필요하지 않습니다:<br />- no rights exist for the creation of time bookings<br />- 사용자에게 권한이 있습니다 "Time logging not required"<br />사용 사례 : 상태가  "To Verify" 인 티켓을 수락하려면 소요 시간도 필요합니다.'
+  setting_export_limit: "Export limit"
   top_rules_help: "여기에서 모든 프로젝트의 문제에 사용되는 규칙을 정의 할 수 있습니다."
   top_wiki_help: 여기에서 위키의 내용과 설정을 정의 할 수 있습니다.
   wiki_pdf_remove_attachments_info: 활성화 된 경우 첨부 된 Wiki 파일은 PDF보기에 표시되지 않습니다.
   wiki_pdf_remove_title_info: 활성화되면 위키 제목 정보가 PDF보기에 표시되지 않습니다.
-  button_merge: "병합 "
-  label_live_search_hints: "사용 가능한 필드 검색 : %{value}"
-  label_stats_new_today: "오늘 새로운"
-  label_stats_totals: "합계"
-  setting_export_limit: "Export limit"
-  field_enable_new_ticket_message: "작업 메시지 활성화"
-  label_additionals_message: "메시지"
-  label_system_setting: "체계"
-  label_project_setting: "계획"
-  label_enable_auto_refresh: "자동 새로고침 활성화 "
-  label_show_closed_issues: "닫힌 이슈 표시"
-  max_live_search_results_info: "LiveSearch의 최대 검색 결과 수입니다. 참고: 설정은 LiveSearch를 지원하는 플러그인에만 영향을 미칩니다."
-  label_max_live_search_results: "최대 LiveSearch 결과 수 "
-  info_live_search_result_restriction: "LiveSearch results are limited to %{value} Matches. Try to describe your search in more detail."

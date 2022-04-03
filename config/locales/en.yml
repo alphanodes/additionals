@@ -31,6 +31,7 @@ en:
   button_assign_to_me: Assign to me
   button_dashboard_delete: Delete dashboard
   button_dashboard_edit: Edit dashboard
+  button_merge: "Merge"
   disabled_modules_info: "Modules which should not be available for selection within the projects. If these modules already activated in existing projects, you will have to change and re-save the respective project settings first."
   error_issue_status_could_not_changed: Issue state could not be changed
   error_issues_could_not_be_assigned_to_me: Issue could not be assigned to me
@@ -38,6 +39,7 @@ en:
   errors_no_or_invalid_arguments: No or invalid arguments
   field_always_expose: Always show dashboard name
   field_color: Color
+  field_enable_new_ticket_message: Activate issue message
   field_enable_sidebar: Enable sidebar
   field_hide: Hide
   field_icon: Icon
@@ -53,13 +55,15 @@ en:
   hidden_macros_in_toolbar_info: All available macros that the logged in user can use are listed via the macro button of the wiki toolbar. Macros marked here are not offered for selection. This allows you to limit the scope of the list.
   info_dashboard_project_select: Leave it blank, if you want to use this dashboard for all projects.
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.
+  info_live_search_result_restriction: "LiveSearch results are limited to %{value} entries. Try to filter your search a better way."
   label_account_login_bottom: "Text for login page"
   label_active_dashboard: "Active Dashboard"
   label_add_dashboard_block: "Add block"
   label_add_go_to_top: 'Add "Go to top" link'
+  label_additionals: Additionals
   label_additionals_doc: Additionals documentation
   label_additionals_feed: Atom+RSS Feed
-  label_additionals: Additionals
+  label_additionals_message: Message
   label_app_menu: App menu
   label_change_is_private: Change private/non-private
   label_change_to_dashboard: "Switch to Dashboard"
@@ -72,15 +76,16 @@ en:
   label_custom_fields_distribution: "Custom fields for distribution"
   label_custom_menu_items: Custom menu items
   label_daily: daily
+  label_dashboard: Dashboard
   label_dashboard_author: "Author: %{name}"
   label_dashboard_legacy_left: "Standard content left"
   label_dashboard_legacy_right: "Standard content right"
   label_dashboard_plural: Dashboards
-  label_dashboard: Dashboard
   label_day: day
   label_disable_sidebar: Disable sidebar
   label_disabled_modules: "Disabled modules"
   label_docs_access_token: "Access token"
+  label_enable_auto_refresh: Enable auto refresh
   label_enable_sidebar: Enable sidebar
   label_global_footer: "Project wide footer"
   label_global_sidebar: "Global sidebar"
@@ -95,8 +100,8 @@ en:
   label_invalid_feed_data: "Invalid feed data or URL"
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
-  label_issue_change_status_in_sidebar: Issue status on sidebar
   label_issue_change_status: Change status
+  label_issue_change_status_in_sidebar: Issue status on sidebar
   label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
   label_issue_freezed_with_close: Disallow editing of closed issues (Freeze)
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
@@ -104,8 +109,10 @@ en:
   label_issues_summary: "Issue summary"
   label_last_year: previous year
   label_legacy_smiley_support: Legacy smiley support
+  label_live_search_hints: "Available field searches: %{value}"
   label_macro_plural: Macros
   label_max_entries: "Maximum entries"
+  label_max_live_search_results: "Maximum number of LiveSearch results"
   label_menu_entry: "Menu item"
   label_monthly: monthly
   label_my_activity: "My activity"
@@ -123,6 +130,7 @@ en:
   label_pdf_wiki_settings: PDF Wiki settings
   label_project_information: "Project information"
   label_project_list: "Project list"
+  label_project_setting: Project
   label_query_delete: Delete query
   label_query_edit: Edit query
   label_query_name_search: Search for name
@@ -138,12 +146,16 @@ en:
   label_settings_menu: "Menu"
   label_shared_dashboard_plural: Shared dashboards
   label_show_all: Show all
+  label_show_closed_issues: Show closed issues
+  label_stats_new_today: "New today"
+  label_stats_totals: "Total"
   label_system_info: System info
+  label_system_setting: System
   label_text_async: Text (asynchronous)
   label_text_sync: Text
   label_top_macros_help_html: "Here you get a list of all available Redmine macros of your installation, which are provided by Redmine and the Redmine plugins."
-  label_top_menu_help_html: "Here you can define new top menu items."
   label_top_menu: Top menu
+  label_top_menu_help_html: "Here you can define new top menu items."
   label_twitter_account: Twitter account
   label_twitter_hashtag: Twitter hashtag
   label_uptime: Uptime
@@ -156,6 +168,7 @@ en:
   label_yearly: yearly
   latest_entries_changes: "Latest %{value} changes"
   legacy_smiley_support_info_html: 'Convert smileys in text. This option should only be activated if the code for smileys (e.g. :) ) was entered manually and should be displayed as smiley face. In the <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> the available Emoji codes can be used. <strong>Restart the application server</strong>, in order to activate the settings.'
+  max_live_search_results_info: "Number of maximum search results for LiveSearch. Note: Setting only affects plugins that support LiveSearch."
   menu_roles_info: "Only members of selected roles will see this menu entry."
   new_ticket_message_info: "A note will be shown to everyone who wants to add a new issue. For example you can enter acceptance tests or issue rules here. These settings are used project wide."
   open_external_urls_info: "If active, external URLs are opened in new window/tab."
@@ -175,21 +188,8 @@ en:
   rule_issue_freezed_with_close_info: If this option is activated, already closed issues can no longer be edited and commented. Not even via mail or API. This restriction does not apply to user roles with the "Edit closed issues" permission.
   rule_issue_status_change_info: "Use Case: issues should be automatically assigned to author, if the status changes to \"Approval\"."
   rule_issue_timelog_required_info_html: 'For each issue of the selected trackers, a time booking is necessary if the issue is to receive one of the defined status properties. The time booking is not required if:<br />- no rights exist for the creation of time bookings<br />- the user has the authorization "Time logging not required"<br />Use case: For the acceptance of an issue with the status "To Verify", the time spent is also required.'
+  setting_export_limit: "Export limit"
   top_rules_help: "Here you can define rules, which are used in issues of all projects."
   top_wiki_help: "Here you can define contents and settings for your Wiki."
   wiki_pdf_remove_attachments_info: "When active the attached Wiki files will not be displayed in PDF view."
   wiki_pdf_remove_title_info: "When active the Wiki title info will not be displayed in PDF view."
-  button_merge: "Merge"
-  label_live_search_hints: "Available field searches: %{value}"
-  label_stats_new_today: "New today"
-  label_stats_totals: "Total"
-  setting_export_limit: "Export limit"
-  field_enable_new_ticket_message: Activate issue message
-  label_additionals_message: Message
-  label_system_setting: System
-  label_project_setting: Project
-  label_enable_auto_refresh: Enable auto refresh
-  label_show_closed_issues: Show closed issues
-  max_live_search_results_info: "Number of maximum search results for LiveSearch. Note: Setting only affects plugins that support LiveSearch."
-  label_max_live_search_results: "Maximum number of LiveSearch results"
-  info_live_search_result_restriction: "LiveSearch results are limited to %{value} entries. Try to filter your search a better way."

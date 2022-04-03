@@ -4,7 +4,7 @@ Changelog
 3.0.6
 +++++
 
-- D3 7.4.0 support
+- D3 7.4.1 support
 - Remove issue autowatch (this feature comes with Redmine 5)
 
 3.0.5.2

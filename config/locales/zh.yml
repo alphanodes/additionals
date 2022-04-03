@@ -31,6 +31,7 @@ zh:
   button_assign_to_me: 指派给我
   button_dashboard_delete: 删除仪表盘
   button_dashboard_edit: "编辑仪表盘"
+  button_merge: "合并"
   disabled_modules_info: "项目中无法选择模块。如果这些模块已经在现有项目中激活，则必须首先更改并重新保存响应的项目设置。"
   error_issue_status_could_not_changed: 无法改变问题状态
   error_issues_could_not_be_assigned_to_me: 问题无法被指派给自己
@@ -38,6 +39,7 @@ zh:
   errors_no_or_invalid_arguments: 参数无效或不存在。
   field_always_expose: 始终显示仪表盘名称
   field_color: 颜色
+  field_enable_new_ticket_message: "激活任务信息"
   field_enable_sidebar: 启用侧边栏
   field_hide: 隐藏
   field_icon: 图标
@@ -53,13 +55,15 @@ zh:
   hidden_macros_in_toolbar_info: 登录用户可以使用的所有可用宏都可通过 Wiki 页面工具栏 的 宏 按钮列出。请在此处选择不希望列出的宏。
   info_dashboard_project_select: 如果你想让所有项目都使用此仪表盘，请留空。
   info_hidden_roles_html: 隐藏功能只能与"用户可见度"选项一起使用。如果某用户不在对当前用户可见的角色，则此用户及其角色在项目概述页和查询列表中将对当前用户隐藏。
+  info_live_search_result_restriction: "LiveSearch的结果仅限于 %{value}。命中率。尝试更详细地描述你的搜索。"
   label_account_login_bottom: "用于登陆页的文本"
   label_active_dashboard: "活动的仪表盘"
   label_add_dashboard_block: "添加块"
   label_add_go_to_top: '添加 "回到顶部" 链接'
+  label_additionals: Additionals
   label_additionals_doc: Additionals 插件文档
   label_additionals_feed: "Atom+RSS Feed"
-  label_additionals: Additionals
+  label_additionals_message: "讯息"
   label_app_menu: 应用菜单
   label_change_is_private: 修改私有/非私有
   label_change_to_dashboard: "切换到仪表盘"
@@ -72,15 +76,16 @@ zh:
   label_custom_fields_distribution: "用于分发的自定义字段"
   label_custom_menu_items: 自定义菜单项
   label_daily: 每天
+  label_dashboard: 仪表盘
   label_dashboard_author: "作者: %{name}"
   label_dashboard_legacy_left: "标准左侧内容"
   label_dashboard_legacy_right: "标准右侧内容"
   label_dashboard_plural: 仪表盘
-  label_dashboard: 仪表盘
   label_day: 天
   label_disable_sidebar: 禁用侧边栏
   label_disabled_modules: "禁用模块"
   label_docs_access_token: 访问令牌
+  label_enable_auto_refresh: "启用自动刷新"
   label_enable_sidebar: 启用侧边栏
   label_global_footer: "项目范围内的页脚设置"
   label_global_sidebar: "全局侧边栏设置"
@@ -95,8 +100,8 @@ zh:
   label_invalid_feed_data: "无效的 feed 数据或 URL"
   label_issue_assign_to_me: 在问题页显示“指派给我”
   label_issue_auto_assign: "若 \"指派给\" 的值未设置为具体用户，且新建问题的状态为 X， 那么问题将自动指派给预定义角色用户的对应组。"
-  label_issue_change_status_in_sidebar: 在侧边栏显示更新问题状态
   label_issue_change_status: 更新问题状态
+  label_issue_change_status_in_sidebar: 在侧边栏显示更新问题状态
   label_issue_current_user_status: "当前问题状态 X 仅在 \"指派给\" 的值设置为当前用户时生效。"
   label_issue_freezed_with_close: 禁止修改已关闭的问题 (冻结)
   label_issue_status_change: "若 \"指派给\" 的值未修改，且问题状态要从 X 变更为 Y，那么该问题必须指派给问题作者自己。"
@@ -104,8 +109,10 @@ zh:
   label_issues_summary: "任务概述"
   label_last_year: 去年
   label_legacy_smiley_support: 表情符号支持
+  label_live_search_hints: "可用的字段搜索: %{value}"
   label_macro_plural: 宏
   label_max_entries: "最大条目"
+  label_max_live_search_results: "LiveSearch结果的最大数量"
   label_menu_entry: "菜单项"
   label_monthly: 每月
   label_my_activity: "我的活动"
@@ -123,6 +130,7 @@ zh:
   label_pdf_wiki_settings: Wiki PDF 导出设置
   label_project_information: "项目信息"
   label_project_list: "项目列表"
+  label_project_setting: "项目"
   label_query_delete: 删除查询
   label_query_edit: 编辑查询
   label_query_name_search: "搜索名字"
@@ -138,12 +146,16 @@ zh:
   label_settings_menu: "菜单"
   label_shared_dashboard_plural: 共享的仪表盘
   label_show_all: 显示所有
+  label_show_closed_issues: Show closed issues
+  label_stats_new_today: "今天的新产品"
+  label_stats_totals: "总"
   label_system_info: 系统信息
+  label_system_setting: "系统"
   label_text_async: "文本（异步）"
   label_text_sync: "文本"
   label_top_macros_help_html: "此处列出了来自 Redmine 及 Redmine 插件中提供的所有可用的宏命令。"
-  label_top_menu_help_html: "此处可以自定义顶部菜单项。在移除或修改菜单项后，请务必 <strong>重启 Redmine 服务</strong> 确保修改内容生效。"
   label_top_menu: 顶部菜单栏
+  label_top_menu_help_html: "此处可以自定义顶部菜单项。在移除或修改菜单项后，请务必 <strong>重启 Redmine 服务</strong> 确保修改内容生效。"
   label_twitter_account: Twitter 账号
   label_twitter_hashtag: Twitter 哈希标签
   label_uptime: 上线时间
@@ -156,6 +168,7 @@ zh:
   label_yearly: 每年
   latest_entries_changes: "最新的 %{value} 变更"
   legacy_smiley_support_info_html: '转换文字中的颜文字。此选项应当仅在希望将手动输入的颜文字代码（例如 :)）展示为表情时选中。<a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> 提供了可用的颜文字代码。为激活该配置，必须 <strong>重启 Redmine 服务</strong> 。'
+  max_live_search_results_info: "LiveSearch的最大搜索结果的数量。注意：设置只影响到支持LiveSearch的插件。"
   menu_roles_info: "只有所选角色对应的用户才能看到菜单项。"
   new_ticket_message_info: "每个新建问题的用户都会看到提示信息。例如，您可以输入可接受性测试或问题处理规则。这些配置在某个具体的项目范围内适用。"
   open_external_urls_info: "如果启用，则在新窗口/选项卡中打开外部URL。"
@@ -175,21 +188,8 @@ zh:
   rule_issue_freezed_with_close_info: 如果激活此选项，则无法再编辑和评论已关闭的问题。甚至不通过邮件或 API。此限制不适用于具有"修改已关闭问题"权限的用户角色。
   rule_issue_status_change_info: "用例：若问题的状态修改为 \"Approval\"，则自动分配给问题作者。"
   rule_issue_timelog_required_info_html: '对于所选"问题跟踪"的问题，如果问题需要接受已定义状态之一，则需要"时间预期"。以下情况不需要"时间预期"<br />- 没有"创建时间预订"的权限<br />- 用户角色具有授权"无需登记工时"<br />用例：对于接受状态为"待验证"的问题，需要已花费时间。'
+  setting_export_limit: "导出限制"
   top_rules_help: "您可以在此定义用于问题处理的相关规则。"
   top_wiki_help: 您可以在此定义 Wiki 的内容及设置。
   wiki_pdf_remove_attachments_info:  当启用时，Wiki 附件将不会显示在 PDF 视图中。
   wiki_pdf_remove_title_info: 当启用时，Wiki 标题信息将不会显示在 PDF 视图中。
-  button_merge: "合并"
-  label_live_search_hints: "可用的字段搜索: %{value}"
-  label_stats_new_today: "今天的新产品"
-  label_stats_totals: "总"
-  setting_export_limit: "导出限制"
-  field_enable_new_ticket_message: "激活任务信息"
-  label_additionals_message: "讯息"
-  label_system_setting: "系统"
-  label_project_setting: "项目"
-  label_enable_auto_refresh: "启用自动刷新"
-  label_show_closed_issues: Show closed issues
-  max_live_search_results_info: "LiveSearch的最大搜索结果的数量。注意：设置只影响到支持LiveSearch的插件。"
-  label_max_live_search_results: "LiveSearch结果的最大数量"
-  info_live_search_result_restriction: "LiveSearch的结果仅限于 %{value}。命中率。尝试更详细地描述你的搜索。"

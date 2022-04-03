@@ -31,6 +31,7 @@ ja:
   button_assign_to_me: Assign to me
   button_dashboard_delete: "ダッシュボードの削除"
   button_dashboard_edit: "ダッシュボードの編集"
+  button_merge: "マージ"
   disabled_modules_info: "プロジェクト内で選択させたくないモジュール。もしこのモジュールが既存のプロジェクトで既に有効な場合、設定変更した上で、ウェブサーバを再起動しなければなりません。"
   error_issue_status_could_not_changed: "問題の状態を変更できませんでした"
   error_issues_could_not_be_assigned_to_me: "問題を自分に割り当てることができませんでした"
@@ -38,6 +39,7 @@ ja:
   errors_no_or_invalid_arguments: "引数がない、または無効な引数"
   field_always_expose: "ダッシュボード名を常に表示する"
   field_color: Color
+  field_enable_new_ticket_message: "タスク起動メッセージ"
   field_enable_sidebar: Enable sidebar
   field_hide: Hide
   field_icon: Icon
@@ -53,13 +55,15 @@ ja:
   hidden_macros_in_toolbar_info: "ログインしているユーザーが使用できるすべての利用可能なマクロは、wikiツールバーのマクロボタンを使ってリストアップされています。ここでマークされたマクロは選択のために提供されていません。これにより、リストの範囲を制限することができます。"
   info_dashboard_project_select: "すべてのプロジェクトでこのダッシュボードを使用する場合は、空白のままにしてください。"
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.
+  info_live_search_result_restriction: "LiveSearchの検索結果は %{value} に限定されます。がヒットしました。検索内容をもっと詳しく説明してみてください。"
   label_account_login_bottom: "ログイン画面の文章"
   label_active_dashboard: "アクティブダッシュボード"
   label_add_dashboard_block: "ブロックを追加"
   label_add_go_to_top: '「トップへ」リンクを追加する'
+  label_additionals: Additionals
   label_additionals_doc: Additionals documentation
   label_additionals_feed: Atom+RSS Feed
-  label_additionals: Additionals
+  label_additionals_message: "メッセージ"
   label_app_menu: App menu
   label_change_is_private: Change private/non-private
   label_change_to_dashboard: "ダッシュボードに切り替える"
@@ -72,15 +76,16 @@ ja:
   label_custom_fields_distribution: "配布用のカスタムフィールド"
   label_custom_menu_items: Custom menu items
   label_daily: daily
+  label_dashboard: Dashboard
   label_dashboard_author: "Author: %{name}"
   label_dashboard_legacy_left: "標準インハルト左"
   label_dashboard_legacy_right: "標準コンテンツの権利"
   label_dashboard_plural: Dashboards
-  label_dashboard: Dashboard
   label_day: day
   label_disable_sidebar: "サイドバーを無効にする"
   label_disabled_modules: "無効化したいモジュール"
   label_docs_access_token: Access token
+  label_enable_auto_refresh: "オートリフレシュを行う"
   label_enable_sidebar: "サイドバーを有効にする"
   label_global_footer: "プロジェクト全体フッター"
   label_global_sidebar: "グローバルサイドバー"
@@ -95,8 +100,8 @@ ja:
   label_invalid_feed_data: "無効なフィードデータまたはURL"
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
-  label_issue_change_status_in_sidebar: Issue status on sidebar
   label_issue_change_status: Change status
+  label_issue_change_status_in_sidebar: Issue status on sidebar
   label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
   label_issue_freezed_with_close: Disallow editing of closed issues (Freeze)
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
@@ -104,8 +109,10 @@ ja:
   label_issues_summary: "タスクの概要"
   label_last_year: previous year
   label_legacy_smiley_support: Legacy smiley support
+  label_live_search_hints: "利用可能なフィールド検索: %{value}"
   label_macro_plural: macros
   label_max_entries: "最大エントリ数"
+  label_max_live_search_results: "LiveSearchの最大検索結果数"
   label_menu_entry: "メニュー項目"
   label_monthly: monthly
   label_my_activity: "私の活動"
@@ -123,6 +130,7 @@ ja:
   label_pdf_wiki_settings: PDF Wiki settings
   label_project_information: "プロジェクト情報"
   label_project_list: "プロジェクト一覧"
+  label_project_setting: "プロジェクト"
   label_query_delete: Delete query
   label_query_edit: Edit query
   label_query_name_search: "名前を検索"
@@ -138,12 +146,16 @@ ja:
   label_settings_menu: "メニュー"
   label_shared_dashboard_plural: "共有ダッシュボード"
   label_show_all: Show all
+  label_show_closed_issues: "解決済みの問題を表示"
+  label_stats_new_today: "本日の新着情報"
+  label_stats_totals: "合計"
   label_system_info: System info
+  label_system_setting: "システム"
   label_text_async: "テキスト（非同期)"
   label_text_sync: "テキスト"
   label_top_macros_help_html: "Here you get a list of all available Redmine macros of your installation, which are provided by Redmine and the Redmine plugins."
-  label_top_menu_help: "ここで新しいトップメニューの項目を定義出来ます。"
   label_top_menu: Top menu
+  label_top_menu_help: "ここで新しいトップメニューの項目を定義出来ます。"
   label_twitter_account: Twitter account
   label_twitter_hashtag: Twitter hashtag
   label_uptime: Uptime
@@ -156,6 +168,7 @@ ja:
   label_yearly: '毎年'
   latest_entries_changes: "最新の %{value} の変更点"
   legacy_smiley_support_info_html: 'Convert smileys in text. This option should only be activated if the code for smileys (e.g. :) ) was entered manually and should be displayed as smiley face. In the <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> the available Emoji codes can be used. <strong>Restart the application server</strong>, in order to activate the settings.'
+  max_live_search_results_info: "LiveSearchの最大検索結果数です。注意：この設定は、LiveSearchに対応したプラグインにのみ影響します。"
   menu_roles_info: "選択された役割のメンバーだけがこのメニュー項目を表示します。"
   new_ticket_message_info: "新規チケットを登録したいときに表示されるメモ書き。例えば、チケット入力のルールや承認規程を掲載する目的にでも使えます。これらの設定は全プロジェクトで有効です。"
   open_external_urls_info: "アクティブな場合、外部URLは新しいウィンドウ/タブで開かれます。"
@@ -175,21 +188,8 @@ ja:
   rule_issue_freezed_with_close_info: If this option is activated, already closed issues can no longer be edited and commented. Not even via mail or API. This restriction does not apply to user roles with the "Edit closed issues" permission.
   rule_issue_status_change_info: "Use Case: issues should be automatically assigned to autor, if the status changes to \"Approval\"."
   rule_issue_timelog_required_info_html: 'For each ticket of the selected trackers, a time booking is necessary if the ticket is to receive one of the defined status properties. The time booking is not required if:<br />- no rights exist for the creation of time bookings<br />- the user has the authorization "Time logging not required"<br />Use case: For the acceptance of a ticket with the status "To Verify", the time spent is also required.'
+  setting_export_limit: "エクスポート制限"
   top_rules_help: "ここでは、すべてのプロジェクトの課題で使用されるルールを定義することができます。"
   top_wiki_help: "ここでは、Wikiの内容や設定を定義することができます。"
   wiki_pdf_remove_attachments_info: "アクティブな場合、添付されたWikiファイルはPDFビューに表示されません。"
   wiki_pdf_remove_title_info: "アクティブな場合、Wikiのタイトル情報はPDFビューに表示されません。"
-  button_merge: "マージ"
-  label_live_search_hints: "利用可能なフィールド検索: %{value}"
-  label_stats_new_today: "本日の新着情報"
-  label_stats_totals: "合計"
-  setting_export_limit: "エクスポート制限"
-  field_enable_new_ticket_message: "タスク起動メッセージ"
-  label_additionals_message: "メッセージ"
-  label_system_setting: "システム"
-  label_project_setting: "プロジェクト"
-  label_enable_auto_refresh: "オートリフレシュを行う"
-  label_show_closed_issues: "解決済みの問題を表示"
-  max_live_search_results_info: "LiveSearchの最大検索結果数です。注意：この設定は、LiveSearchに対応したプラグインにのみ影響します。"
-  label_max_live_search_results: "LiveSearchの最大検索結果数"
-  info_live_search_result_restriction: "LiveSearchの検索結果は %{value} に限定されます。がヒットしました。検索内容をもっと詳しく説明してみてください。"

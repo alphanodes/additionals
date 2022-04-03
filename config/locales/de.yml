@@ -31,6 +31,7 @@ de:
   button_assign_to_me: Mir zuweisen
   button_dashboard_delete: Dashboard löschen
   button_dashboard_edit: Dashboard bearbeiten
+  button_merge: "Zusammenführen"
   disabled_modules_info: "Module, die nicht zur Auswahl innerhalb der Projekte zur Verfügung stehen sollen. Sind in bestehenden Projekten schon diese Module aktiviert worden, werden die Einstellungen für diese Projekte erst nach erneuten Abspeichern der jeweiligen Projekteinstellungen aktiv."
   error_issue_status_could_not_changed: Der Ticket-Status konnte nicht geändert werden
   error_issues_could_not_be_assigned_to_me: Das Ticket konnte nicht mir zugeordnet werden
@@ -38,6 +39,7 @@ de:
   errors_no_or_invalid_arguments: Kein oder ungültiger Parameter
   field_always_expose: Dashboard Name immer anzeigen
   field_color: Farbe
+  field_enable_new_ticket_message: Aktiviere Hinweistext
   field_enable_sidebar: Sidebar aktivieren
   field_hide: Verstecken
   field_icon: Symbol
@@ -53,13 +55,15 @@ de:
   hidden_macros_in_toolbar_info: Alle verfügbaren Makros, die der angemeldete Benutzer verwenden kann, werden über den Makro-Button der Wiki-Toolbar aufgelistet. Hier markierte Makros werden nicht zur Auswahl angeboten. Damit lässt sich der Listenumfang einschränken.
   info_dashboard_project_select: Wird hier kein Projekt angegeben, ist dieses Dashboard für alle Projekte verfügbar.
   info_hidden_roles_html: Versteckte Rollen können nur zusammen mit der Benutzersichtbarkeit "Mitglieder von sichtbaren Projekten" verwendet werden. Diese Option funktioniert nur, wenn der Benutzer in keiner Rolle ist die für den aktuellen Benutzer sichtbar ist. Passt alles wird diese Rolle inklusive Benutzer auf der Projektübersichtsseite und in Abfragelisten ausgeblendet.
+  info_live_search_result_restriction: LiveSearch Ergebnisse sind auf %{value} Treffer begrenzt. Versuche Deine Suche genauer zu beschreiben.
   label_account_login_bottom: "Text für Anmeldeseite"
   label_active_dashboard: Aktives Dashboard
   label_add_dashboard_block: Block hinzufügen
   label_add_go_to_top: '"Nach oben" Link hinzufügen'
+  label_additionals: Additionals
   label_additionals_doc: Additionals Dokumentation (englisch)
   label_additionals_feed: Atom+RSS Feed
-  label_additionals: Additionals
+  label_additionals_message: Hinweistext
   label_app_menu: App Menü
   label_change_is_private: Privat/Nicht-Privat ändern
   label_change_to_dashboard: Zu Dashboard wechseln
@@ -72,15 +76,16 @@ de:
   label_custom_fields_distribution: Benutzerdefinierte Felder für Verteilung
   label_custom_menu_items: Benutzerdefinierte Menüpunkte
   label_daily: täglich
+  label_dashboard: Dashboard
   label_dashboard_author: "Autor: %{name}"
   label_dashboard_legacy_left: Standard-Inhalt links
   label_dashboard_legacy_right: Standard-Inhalt rechts
   label_dashboard_plural: Dashboards
-  label_dashboard: Dashboard
   label_day: Tag
   label_disable_sidebar: Sidebar deaktivieren
   label_disabled_modules: "Deaktivierte Module"
   label_docs_access_token: Zugriffstoken
+  label_enable_auto_refresh: Automatische Aktualisierung aktivieren
   label_enable_sidebar: Sidebar aktivieren
   label_global_footer: "Projektübergreifender Footer"
   label_global_sidebar: "Projektübergreifender Sidebar Inhalt"
@@ -95,8 +100,8 @@ de:
   label_invalid_feed_data: Ungültige Feed Daten oder URL
   label_issue_assign_to_me: Ticket "Mir zuweisen" anzeigen
   label_issue_auto_assign: "Wird \"Zugewiesen an\" nicht zugewiesen und der neue Ticketstatus ist x, dann wird die ersten Gruppe mit Benutzern der festgelegten Rolle das Ticket zugewiesen."
-  label_issue_change_status_in_sidebar: Ticketstatus über Sidebar
   label_issue_change_status: Status ändern
+  label_issue_change_status_in_sidebar: Ticketstatus über Sidebar
   label_issue_current_user_status: "Der Ticketstatus x ist nur erlaubt, wenn \"Zugewiesen an\" der aktuelle Benutzer zugewiesen wird."
   label_issue_freezed_with_close: Bearbeitung geschlossener Tickets verbieten (Freeze)
   label_issue_status_change: "Wird \"Zugewiesen an\" nicht verändert und der Ticketstatus von x auf y geändert, dann wird das Ticket automatisch dem Ersteller zugewiesen"
@@ -104,8 +109,10 @@ de:
   label_issues_summary: Ticket Übersicht
   label_last_year: voriges Jahr
   label_legacy_smiley_support: Legacy Smiley Support
+  label_live_search_hints: "Verfügbare Feldsuche: %{value}"
   label_macro_plural: Makros
   label_max_entries: Maximale Einträge
+  label_max_live_search_results: "Maximale Anzahl LiveSearch Ergebnisse"
   label_menu_entry: Menüpunkt
   label_monthly: monatlich
   label_my_activity: Meine Aktivität
@@ -123,6 +130,7 @@ de:
   label_pdf_wiki_settings: PDF Wiki Einstellungen
   label_project_information: Projektinformation
   label_project_list: Projektliste
+  label_project_setting: Projekt
   label_query_delete: Abfrage löschen
   label_query_edit: Abfrage bearbeiten
   label_query_name_search: Nach Name suchen
@@ -138,12 +146,16 @@ de:
   label_settings_menu: "Menü"
   label_shared_dashboard_plural: Geteilte Dashboards
   label_show_all: Alle anzeigen
+  label_show_closed_issues: Geschlossene Tickets anzeigen
+  label_stats_new_today: "Heute neu"
+  label_stats_totals: "Gesamt"
   label_system_info: Systeminformation
+  label_system_setting: System
   label_text_async: Text (asynchron)
   label_text_sync: Text
   label_top_macros_help_html: "Hier sind alle Makros aufgelistet, welche über Redmine selbst oder Plugins bereitgestellt werden (nicht nur über Additionals). Diese Makros können in allen Texten innerhalb Redmines verwendet werden (sofern diese im jeweiligen Kontext Sinn machen)."
-  label_top_menu_help_html: "Hier können Menüpunkte festgelegt werden, die im Top-Menü angezeigt werden."
   label_top_menu: Top Menü
+  label_top_menu_help_html: "Hier können Menüpunkte festgelegt werden, die im Top-Menü angezeigt werden."
   label_twitter_account: Twitter Benutzer
   label_twitter_hashtag: Twitter Hashtag
   label_uptime: Betriebszeit
@@ -156,6 +168,7 @@ de:
   label_yearly: jährlich
   latest_entries_changes: "Die letzten %{value} Änderungen"
   legacy_smiley_support_info_html: 'Smileys im Text konvertieren. Diese Option sollte nur aktiviert werden, wenn der Code für Smileys (z.B. :) ) manuell eingetragen wurde und als Smiley Gesicht angezeigt werden soll. Im <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> können die zur Verfügung stehenden Emoji-Codes eingesetzt werden. Wird diese Einstellung aktiviert, <strong>muss der Anwendungsserver neu gestartet werden</strong>.'
+  max_live_search_results_info: "Anzahl der maximalen Suchergebnisse für die LiveSearch. Hinweis: Einstellung wirkt sich nur auf Plugins aus, welche die LiveSearch unterstützen."
   menu_roles_info: "Nur den ausgewählten Rollen wird der Menüpunkt angezeigt. Sobald ein Mitglied in einem Projekt die Rolle besitzt, wird der Menüpunkt angezeigt."
   new_ticket_message_info: "Ein Hinweis, der beim Erstellen neuer Tickets angezeigt wird. Es kann beispielsweise auf Akzeptanztests oder Richtlinien zum Erstellen der Tickets hingewiesen werden. Dieser Einstellung ist projektübergreifend und ist in allen Projekten aktiv."
   open_external_urls_info: "Wenn aktiviert, werden externe URLs im neuen Fenster/TAB geöffnet."
@@ -175,21 +188,8 @@ de:
   rule_issue_freezed_with_close_info: Wird diese Option aktiviert können bereits geschlossene Tickets nicht mehr bearbeitet und kommentiert werden. Auch nicht via Mail oder API. Für Benutzerrollen mit dem Recht "Geschlossene Tickets bearbeiten" gilt diese Einschränkung nicht.
   rule_issue_status_change_info: "Use Case: Zur Abnahme der Tickets sollen alle Tickets automatisch dem Ersteller des Tickets zugeordnet werden, sofern kein anderer Benutzer ausgewählt wird."
   rule_issue_timelog_required_info_html: 'Zu jedem Ticket der ausgewählten Tracker wird eine Zeitbuchung notwendig, wenn das Ticket eine der festgelegten Status-Eigenschaften erhalten soll. Nicht erforderlich ist die Zeitbuchung, wenn:<br />- keine Rechte für das Anlegen von Zeitbuchungen bestehen<br />- der Benutzer die Berechtigung "Zeitbuchungen nicht erforderlich" besitzt<br />Use case: Zur Abnahme eines Tickets mit dem Status "To Verify" werden auch die aufgewendeten Zeiten benötigt.'
+  setting_export_limit: "Maximale Anzahl für Export"
   top_rules_help: "Hier können Regeln konfiguriert werden, die den Umgang mit Tickets festlegen. Sobald eine Regel aktiviert wurde, wirkt sich diese auf alle Projekte aus."
   top_wiki_help: Hier kannst Du Inhalte und Einstellungen bzg. der Wiki festlegen.
   wiki_pdf_remove_attachments_info: Wenn aktiv, werden die an der Wiki Seite angehängten Dateien nicht in der PDF Ansicht angezeigt.
   wiki_pdf_remove_title_info: Wenn aktiv, wird der Wiki Titel nicht in der PDF Ansicht angezeigt.
-  button_merge: "Zusammenführen"
-  label_live_search_hints: "Verfügbare Feldsuche: %{value}"
-  label_stats_new_today: "Heute neu"
-  label_stats_totals: "Gesamt"
-  setting_export_limit: "Maximale Anzahl für Export"
-  field_enable_new_ticket_message: Aktiviere Hinweistext
-  label_additionals_message: Hinweistext
-  label_system_setting: System
-  label_project_setting: Projekt
-  label_enable_auto_refresh: Automatische Aktualisierung aktivieren
-  label_show_closed_issues: Geschlossene Tickets anzeigen
-  max_live_search_results_info: "Anzahl der maximalen Suchergebnisse für die LiveSearch. Hinweis: Einstellung wirkt sich nur auf Plugins aus, welche die LiveSearch unterstützen."
-  label_max_live_search_results: "Maximale Anzahl LiveSearch Ergebnisse"
-  info_live_search_result_restriction: LiveSearch Ergebnisse sind auf %{value} Treffer begrenzt. Versuche Deine Suche genauer zu beschreiben.

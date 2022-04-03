@@ -31,6 +31,7 @@ fr:
   button_assign_to_me: M'affecter
   button_dashboard_delete: "Supprimer le tableau de bord"
   button_dashboard_edit: "Modifier le tableau de bord"
+  button_merge: Fusionner
   disabled_modules_info: "Les modules qui ne devraient pas être disponibles pour la sélection dans le cadre des projets. Si ces modules sont déjà activés dans des projets existants, vous devez d'abord modifier et sauvegarder à nouveau les paramètres projet respectifs."
   error_issue_status_could_not_changed: "L'état de la tâche n'a pas pu être modifié"
   error_issues_could_not_be_assigned_to_me: "La tâche n'a pas pu m'être affectée"
@@ -38,6 +39,7 @@ fr:
   errors_no_or_invalid_arguments: "Pas d'arguments ou arguments invalides"
   field_always_expose: "Toujours afficher le nom du tableau de bord"
   field_color: Couleur
+  field_enable_new_ticket_message: "Activer le message d'émission"
   field_enable_sidebar: Activer le menu latéral
   field_hide: "Cacher"
   field_icon: Icône
@@ -53,13 +55,15 @@ fr:
   hidden_macros_in_toolbar_info: "Toutes les macros disponibles que l'utilisateur connecté peut utiliser sont listées via le bouton macro de la barre d'outils wiki. Les macros marquées ici ne sont pas proposées à la sélection. Ceci vous permet de limiter la portée de la liste."
   info_dashboard_project_select: Laisser vide, si vous souhaitez utiliser ce tableau de bord pour tous les projets.
   info_hidden_roles_html: "Les rôles cachés ne peuvent être utilisés qu'avec la visibilité utilisateur \"Membres de projets visibles\". Si l'utilisateur n'est pas dans un rôle visible par l'utilisateur actuel, ce rôle, y compris l'utilisateur, est masqué sur la page de synthèse du projet et dans les listes de requêtes."
+  info_live_search_result_restriction: "Les résultats de LiveSearch sont limités à %{value} résultats limités. Essaie de décrire ta recherche plus précisément."
   label_account_login_bottom: "Texte pour la page de connexion"
   label_active_dashboard: "Tableau de bord actif"
   label_add_dashboard_block: "Ajouter un bloc"
   label_add_go_to_top: 'Ajouter un lien "Revenir en haut"'
+  label_additionals: Additionals
   label_additionals_doc: Documentation Additionals
   label_additionals_feed: Flux Atom+RSS
-  label_additionals: Additionals
+  label_additionals_message: Message
   label_app_menu: Menu applicatif
   label_change_is_private: Changer Privé/non privé
   label_change_to_dashboard: "Passer au tableau de bord"
@@ -72,15 +76,16 @@ fr:
   label_custom_fields_distribution: "Champs personnalisés pour la distribution"
   label_custom_menu_items: Éléments de menu personnalisés
   label_daily: tous les jours
+  label_dashboard: Tableau de bord
   label_dashboard_author: "Auteur: %{name}"
   label_dashboard_legacy_left: "Contenu standard à gauche"
   label_dashboard_legacy_right: "Droit au contenu standard"
   label_dashboard_plural: Tableaux de bord
-  label_dashboard: Tableau de bord
   label_day: Jour
   label_disable_sidebar: "Désactiver la sidebar"
   label_disabled_modules: "Modules désactivés"
   label_docs_access_token: Jeton d'accès
+  label_enable_auto_refresh: "Activer le rafraîchissement automatique"
   label_enable_sidebar: "Activer la sidebar"
   label_global_footer: "Pied de page projet"
   label_global_sidebar: "Barre latéral globale"
@@ -95,8 +100,8 @@ fr:
   label_invalid_feed_data: "Données d'alimentation ou URL invalides"
   label_issue_assign_to_me: Voir "M'affecter" sur les tâches
   label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
-  label_issue_change_status_in_sidebar: Statuts des tâches dans la bare latérale
   label_issue_change_status: Modifier le statut
+  label_issue_change_status_in_sidebar: Statuts des tâches dans la bare latérale
   label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
   label_issue_freezed_with_close: "Interdire l'édition des tâches fermées (freeze)"
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
@@ -104,8 +109,10 @@ fr:
   label_issues_summary: "Aperçu des tâches"
   label_last_year: année dernière
   label_legacy_smiley_support: Legacy smiley support
+  label_live_search_hints: "Recherches par champ disponibles: %{value}"
   label_macro_plural: macros
   label_max_entries: "Entrées maximales"
+  label_max_live_search_results: "Nombre maximal de résultats LiveSearch"
   label_menu_entry: "Menu item"
   label_monthly: mensuel
   label_my_activity: "Mon activité"
@@ -123,6 +130,7 @@ fr:
   label_pdf_wiki_settings: paramètres d'édition PDF d'une page Wiki
   label_project_information: "Informations sur le projet"
   label_project_list: "liste des projets"
+  label_project_setting: "Projet"
   label_query_delete: Annuler la requête
   label_query_edit: Modifier la requête
   label_query_name_search: Rechercher un nom
@@ -138,12 +146,16 @@ fr:
   label_settings_menu: "Menu"
   label_shared_dashboard_plural: "Tableaux de bord partagés"
   label_show_all: Montrer tout
+  label_show_closed_issues: Montrer les issues fermés
+  label_stats_new_today: "Nouveau aujourd'hui"
+  label_stats_totals: "Total"
   label_system_info: Info système
+  label_system_setting: "Système"
   label_text_async: "Texte (asynchrone)"
   label_text_sync: Texte
   label_top_macros_help_html: "Vous obtenez ici une liste de toutes les macros Redmine disponibles de votre installation, qui sont fournies par Redmine et les plugins Redmine."
-  label_top_menu_help_html: "Ici, vous pouvez définir de nouveaux éléments de menu du haut."
   label_top_menu: Menu supérieur
+  label_top_menu_help_html: "Ici, vous pouvez définir de nouveaux éléments de menu du haut."
   label_twitter_account: Compte Twitter
   label_twitter_hashtag: Hashtag Twitter
   label_uptime: Uptime
@@ -156,6 +168,7 @@ fr:
   label_yearly: annuellement
   latest_entries_changes: "Derniers %{value} changements"
   legacy_smiley_support_info_html: 'Convertissez les smileys en texte. Cette option ne doit être activée que si le code des smileys (par exemple :) ) a été saisi manuellement et doit être affiché sous forme de smiley. Dans la <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">fiche Emoji</a> les codes Emoji disponibles peuvent être utilisés. <strong>Restart the application server</strong>, in order to activate the settings.'
+  max_live_search_results_info: "Nombre maximal de résultats de recherche pour la LiveSearch. Remarque : le paramètre n'a d'effet que sur les plugins qui supportent LiveSearch."
   menu_roles_info: "Seuls les membres des rôles sélectionnés verront cette entrée de menu."
   new_ticket_message_info: "Une note sera montrée à tous ceux qui veulent ajouter un nouveau numéro. Par exemple, vous pouvez saisir des tests d'acceptation ou édicter des règles ici. Ces paramètres sont utilisés à l'échelle du projet."
   open_external_urls_info: "S'ils sont actifs, les URL externes s'ouvrent dans une nouvelle fenêtre/onglet."
@@ -175,21 +188,8 @@ fr:
   rule_issue_freezed_with_close_info: "Si cette option est activée, les numéros déjà fermés ne peuvent plus être édités et commentés. Pas même par courrier ou API. Cette restriction ne s'applique pas aux rôles utilisateurs avec l'autorisation \"Modifier les problèmes fermés\"."
   rule_issue_status_change_info: "Cas d'utilisation: les problèmes doivent être automatiquement affectés à l'auteur, si l'état passe à \"Approuvé\"."
   rule_issue_timelog_required_info_html: "Pour chaque ticket des trackers sélectionnés, une réservation temporelle est nécessaire si le ticket doit recevoir l'une des propriétés de statut définies. La réservation de temps n'est pas nécessaire si:<br />- aucun droit n'existe pour créer des réservations de temps <br />- l'utilisateur a l'autorisation \"Réservations de temps non nécessaires\" <br />Use case: Pour accepter un ticket avec le statut \"Vérifier\", le temps passé est également requis."
+  setting_export_limit: "Limite d'exportation"
   top_rules_help: "Ici, vous pouvez définir des règles, qui sont utilisées dans les tâches de tous les projets."
   top_wiki_help: "Ici vous pouvez définir le contenu et les paramètres de votre Wiki."
   wiki_pdf_remove_attachments_info: "Lorsqu'ils sont actifs, les fichiers Wiki joints ne seront pas affichés en vue PDF."
   wiki_pdf_remove_title_info: "Lorsqu'elle est active, l'information sur le titre du wiki ne sera pas affichée dans la vue PDF."
-  button_merge: Fusionner
-  label_live_search_hints: "Recherches par champ disponibles: %{value}"
-  label_stats_new_today: "Nouveau aujourd'hui"
-  label_stats_totals: "Total"
-  setting_export_limit: "Limite d'exportation"
-  field_enable_new_ticket_message: "Activer le message d'émission"
-  label_additionals_message: Message
-  label_system_setting: "Système"
-  label_project_setting: "Projet"
-  label_enable_auto_refresh: "Activer le rafraîchissement automatique"
-  label_show_closed_issues: Montrer les issues fermés
-  max_live_search_results_info: "Nombre maximal de résultats de recherche pour la LiveSearch. Remarque : le paramètre n'a d'effet que sur les plugins qui supportent LiveSearch."
-  label_max_live_search_results: "Nombre maximal de résultats LiveSearch"
-  info_live_search_result_restriction: "Les résultats de LiveSearch sont limités à %{value} résultats limités. Essaie de décrire ta recherche plus précisément."

@@ -99,12 +99,12 @@ fr:
   label_icon_color: Couleur d'icône
   label_invalid_feed_data: "Données d'alimentation ou URL invalides"
   label_issue_assign_to_me: Voir "M'affecter" sur les tâches
-  label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
+  label_issue_auto_assign: "Si l'option \"Assigned to\" n'est pas attribuée à un utilisateur et que le statut de la nouvelle question est x, la question est automatiquement attribuée au premier groupe d'utilisateurs ayant le rôle prédéfini."
   label_issue_change_status: Modifier le statut
   label_issue_change_status_in_sidebar: Statuts des tâches dans la bare latérale
-  label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
+  label_issue_current_user_status: "L'état actuel du problème x n'est autorisé que si \"Assignee\" est l'utilisateur actuel."
   label_issue_freezed_with_close: "Interdire l'édition des tâches fermées (freeze)"
-  label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
+  label_issue_status_change: "Si \"Assignee\" est inchangé et que le statut de la question est passé de x à y, l'auteur est assigné à la question."
   label_issue_timelog_required: Saisie de temps obligatoire pour une tâche
   label_issues_summary: "Aperçu des tâches"
   label_last_year: année dernière

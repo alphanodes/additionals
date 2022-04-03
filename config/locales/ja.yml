@@ -125,7 +125,7 @@ ja:
   label_only_my_activities: "私の活動のみ"
   label_open_external_urls: "外部URLを開く"
   label_open_in_google_docs: "Googleドキュメントで開く"
-  label_open_in_new_windows: Open in new windows
+  label_open_in_new_windows: "新しいウィンドウで開く"
   label_optional: "任意"
   label_pdf_wiki_settings: PDF Wiki settings
   label_project_information: "プロジェクト情報"
@@ -141,7 +141,7 @@ ja:
   label_redmine_org_wiki: Redmine.org wiki page
   label_remove_help: "「ヘルプ」をトップメニューから外す"
   label_remove_mypage: "「マイ・ページ」をトップメニューから外す"
-  label_search_by_name: Search by name
+  label_search_by_name: "名前から探す"
   label_settings_macros: "マクロ"
   label_settings_menu: "メニュー"
   label_shared_dashboard_plural: "共有ダッシュボード"
@@ -153,11 +153,11 @@ ja:
   label_system_setting: "システム"
   label_text_async: "テキスト（非同期)"
   label_text_sync: "テキスト"
-  label_top_macros_help_html: "Here you get a list of all available Redmine macros of your installation, which are provided by Redmine and the Redmine plugins."
+  label_top_macros_help_html: "RedmineやRedmineプラグインで提供されている、インストールされているすべてのRedmineマクロのリストが表示されます。"
   label_top_menu: Top menu
   label_top_menu_help: "ここで新しいトップメニューの項目を定義出来ます。"
-  label_twitter_account: Twitter account
-  label_twitter_hashtag: Twitter hashtag
+  label_twitter_account: Twitter アカウント
+  label_twitter_hashtag: Twitter ハッシュタグ
   label_uptime: Uptime
   label_user_list: "ユーザ一覧"
   label_web_apis: Web APIs

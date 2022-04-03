@@ -13,7 +13,7 @@
     errors:
       models:
         dashboard:
-            must_be_for_everyone: "must be set for each user if System Default is used."
+            must_be_for_everyone: "如果使用系统默认值，必须为每个用户设置。"
       messages:
         issue_cannot_close_with_open_children: "只有關閉所有子任務以後，才能關閉對應的父議題。"
         issue_current_user_status: "所選狀態必須要將 \"被分派者\"設定給你自己。"
@@ -29,13 +29,13 @@
   alert_only_visible_by_admins: "Can only be seen by users with admin permissions"
   alert_only_visible_by_yourself: "Can only be seen by you"
   button_assign_to_me: Assign to me
-  button_dashboard_delete: Delete dashboard
-  button_dashboard_edit: Edit dashboard
+  button_dashboard_delete: 删除 dashboard
+  button_dashboard_edit: 编辑 dashboard
   button_merge: "合并"
   disabled_modules_info: "專案中無法選擇模組。如果這些模組已經在現有專案中啟用，必須先變更對應的專案設定。"
-  error_issue_status_could_not_changed: Issue state could not be changed
-  error_issues_could_not_be_assigned_to_me: Issue could not assigned to me
-  error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
+  error_issue_status_could_not_changed: 问题状态无法改变
+  error_issues_could_not_be_assigned_to_me: 问题无法分配给我
+  error_query_statement_invalid: 在执行查询时发生了一个错误，并已被记录下来。请向您的Redmine管理员报告此错误。
   errors_no_or_invalid_arguments: "參數無效或不存在。"
   field_always_expose: "始终显示仪表盘名称"
   field_color: 顏色
@@ -65,10 +65,10 @@
   label_additionals_feed: Atom+RSS Feed
   label_additionals_message: "讯息"
   label_app_menu: App 選單
-  label_change_is_private: Change private/non-private
+  label_change_is_private: 改变私人/非私人
   label_change_to_dashboard: "Switch to Dashboard"
   label_chart_color_schema: Charts color scheme
-  label_chart_with_name: "Chart: %{value}"
+  label_chart_with_name: "图表: %{value}"
   label_chartjs_colorscheme_info: "顏色清單"
   label_content_plural: 内容
   label_copied_to_clipboard: "复制!"
@@ -97,7 +97,7 @@
   label_hidden_macros_in_toolbar: Hidden macros
   label_hour: 小時
   label_icon_color: 圖示顏色
-  label_invalid_feed_data: "Invalid feed data or URL"
+  label_invalid_feed_data: "无效的饲料数据或URL"
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_auto_assign: "若建立新議題的 \"被分派者\" 未設定，且狀態為 X 時，將被自動分派給指定角色。"
   label_issue_change_status: Change status
@@ -105,7 +105,7 @@
   label_issue_current_user_status: " \"被分派者\"為目前用戶時，議題狀態只能被設定為 X 。"
   label_issue_freezed_with_close: Disallow editing of closed issues (Freeze)
   label_issue_status_change: "若未修改 \"被分派者\" ，且議題狀態要從 X 變更為 Y ，則該議題必須被分派給議題作者。"
-  label_issue_timelog_required: Time log for issues required
+  label_issue_timelog_required: "所需问题的时间记录"
   label_issues_summary: "任务概述"
   label_last_year: 去年
   label_legacy_smiley_support: 支援表情符號
@@ -115,20 +115,20 @@
   label_max_live_search_results: "LiveSearch结果的最大数量"
   label_menu_entry: "選單項"
   label_monthly: 每月
-  label_my_activity: "My activity"
+  label_my_activity: "我的活动"
   label_my_dashboard_plural: My dashboards
-  label_my_spent_time: My spent time
+  label_my_spent_time: "我花费的时间"
   label_new_dashboard: New dashboard
   label_new_issue_on_profile: New issue on user profile
   label_new_ticket_message: "建立新議題時的提示訊息"
-  label_no_permission: "No permission"
-  label_only_my_activities: "Only my activity"
+  label_no_permission: "没有许可"
+  label_only_my_activities: "只有我的活动"
   label_open_external_urls: "打開外部URL"
   label_open_in_google_docs: "在Google文档中打开"
   label_open_in_new_windows: Open in new windows
   label_optional: "選擇性"
   label_pdf_wiki_settings: "PDF Wiki 設定"
-  label_project_information: "Projekt information"
+  label_project_information: "项目信息"
   label_project_list: "專案清單"
   label_project_setting: "项目"
   label_query_delete: 刪除查詢
@@ -146,7 +146,7 @@
   label_settings_menu: "選單"
   label_shared_dashboard_plural: Shared dashboards
   label_show_all: "顯示全部"
-  label_show_closed_issues: Show closed issues
+  label_show_closed_issues: "显示已关闭的问题"
   label_stats_new_today: "今天的新品"
   label_stats_totals: "总数"
   label_system_info: "系統訊息"

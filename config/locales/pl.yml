@@ -21,7 +21,7 @@ pl:
         issue_changes_not_allowed: "Ten issue jest zamknięty, nie masz prawa go zmieniać."
         issue_requires_timelog: "Wybrany status issue wymaga rejestracji czasu."
         invalid_icon_format: "jest nieprawidłowym kodem font-awesome"
-        relation_not_unique: multiple assigned.
+        relation_not_unique: wiele przydzielonych.
   account_login_info: "Ta wiadomość tekstowa zostanie wyświetlona na stronie logowania i powinna być użyta jako informacja rejestracyjna. Ustawienia te są aktywne we wszystkich projektach."
   add_go_to_top_info: "Jeśli masz dużo długich stron, pomocne jest dodanie skoku do górnego linku."
   additionals_query_list_default_totals: "Domyślne sumy dla widoku listy"
@@ -53,11 +53,11 @@ pl:
   global_wiki_sidebar_info: 'Wprowadź ogólnodostępną wiadomość tekstową dla paska bocznego wiki, tutaj. Ten pasek boczny będzie wyświetlany tylko na stronach wiki. Użyj tego miejsca dla makr, jak na przykład "Last changed pages". W przypadku użycia paska bocznego specyficznego dla projektu (strona wiki), zostanie on wyświetlony na pasku bocznym.'
   google_maps_embed_api_html: "W przypadku, gdy chcesz użyć makra Gmapy do wyświetlania map Google, zaimplementuj tutaj swój klucz API Google Maps. Następnie możesz użyć makra i różnych parametrów. Więcej informacji na temat korzystania z paramaterów znajduje się na stronie <a href=\"https://developers.google.com/maps/documentation/embed/guide\" target=\"_blank\">https://developers.google.com/maps/documentation/embed/guide</a>. The Gmap macro works only in combination with the embedded key here."
   hidden_macros_in_toolbar_info: "Wszystkie dostępne makra, których może używać zalogowany użytkownik, są wymienione za pomocą przycisku makro na pasku narzędzi wiki. Makra zaznaczone tutaj nie są oferowane do wyboru. Pozwala to na ograniczenie zakresu listy."
-  info_dashboard_project_select: Leave it blank, if you want to use this dashboard for all projects.
+  info_dashboard_project_select: "Pozostaw to pole puste, jeśli chcesz używać tego pulpitu nawigacyjnego dla wszystkich projektów."
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects".Jeśli użytkownik nie jest w roli, która jest widoczna dla bieżącego użytkownika, rola ta wraz z użytkownikiem jest ukryta na stronie przeglądu projektu i na listach zapytań.
   info_live_search_result_restriction: "Wyniki LiveSearch są ograniczone do %{value} trafienia. Spróbuj opisać swoje poszukiwania bardziej szczegółowo."
   label_account_login_bottom: "Tekst dla strony logowania"
-  label_active_dashboard: "Active Dashboard"
+  label_active_dashboard: "Aktywny Dashboard"
   label_add_dashboard_block: "Dodaj blok"
   label_add_go_to_top: 'Dodaj "Go to top" link'
   label_additionals: Additionals
@@ -97,14 +97,14 @@ pl:
   label_hidden_macros_in_toolbar: Hidden macros
   label_hour: "godzina"
   label_icon_color: Icon color
-  label_invalid_feed_data: "Invalid feed data or URL"
-  label_issue_assign_to_me: Show "Assign to me" on issue
+  label_invalid_feed_data: "Nieprawidłowe dane lub adres URL"
+  label_issue_assign_to_me: "Pokaż opcję \"Assign to me\" w sprawie"
   label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
   label_issue_change_status: "Zmiana statusu"
   label_issue_change_status_in_sidebar: "Status Issue na pasku bocznym"
-  label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
+  label_issue_current_user_status: "Bieżący status sprawy x jest dozwolony tylko wtedy, gdy \"Assignee\" jest bieżącym użytkownikiem."
   label_issue_freezed_with_close: "Uniemożliwienie edycji zamkniętych issues (Freeze)"
-  label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
+  label_issue_status_change: "Jeśli status \"Assignee\" jest niezmieniony, a status sprawy zmienił się z x na y, to autor jest przypisany do sprawy"
   label_issue_timelog_required: "Wymagany jest dziennik czasowy dla issues"
   label_issues_summary: "Przegląd zadań"
   label_last_year: "rok poprzedni"
@@ -156,14 +156,14 @@ pl:
   label_top_macros_help_html: "Tutaj otrzymujesz listę wszystkich dostępnych makr Redmine z Twojej instalacji, które są dostarczane przez Redmine i wtyczki Redmine."
   label_top_menu: Top menu
   label_top_menu_help_html: "Tutaj możesz zdefiniować nowe pozycje menu górnego."
-  label_twitter_account: Twitter account
+  label_twitter_account: Twitter konto
   label_twitter_hashtag: Twitter hashtag
   label_uptime: Uptime
   label_user_list: "Lista użytkowników"
   label_web_apis: Web APIs
   label_weekly: tygodnik
-  label_wiki_pdf_remove_attachments: Remove attachments from PDF view
-  label_wiki_pdf_remove_title: Remove Wiki title from PDF view
+  label_wiki_pdf_remove_attachments: "Usuwanie załączników z widoku PDF"
+  label_wiki_pdf_remove_title: Usuń tytuł Wiki z widoku PDF
   label_without_value: "Nie %{value}"
   label_yearly: coroczny
   latest_entries_changes: "Ostatnie  %{value} zmian"
@@ -177,16 +177,16 @@ pl:
   permission_edit_issue_author: "Edycja autora issue"
   permission_issue_timelog_never_required: "Nie jest wymagane rejestrowanie czasu pracy."
   permission_log_time_on_closed_issues: "Czas rejestracji w zamkniętych issues"
-  permission_save_dashboards: Save dashboards
-  permission_set_system_dashboards: Set system dashboards
-  permission_share_dashboards: Share dashboards
+  permission_save_dashboards: Zapisz dashboards
+  permission_set_system_dashboards: Ustaw system dashboards
+  permission_share_dashboards: Udostępnij dashboards
   permission_show_hidden_roles_in_memberbox: "Pokaż ukryte role"
   remove_help_info: "Usuń element 'Help' z górnego menu."
   remove_mypage_info: 'Czasami bardziej użyteczne jest ukrywanie linku  "My Page" w celu wprowadzenia tablicy zadań. Zaletą forum zadań jest to, że issues mogą być wymienione zgodnie z ich statusem.'
   rule_issue_auto_assign_info: 'Przypadek użycia: Autor issue nie wie, komu przydzielić issue lub kto będzie odpowiedzialny za rozwiązanie zadania. W takim przypadku issue np. ze statusem "To Do" jest automatycznie przypisywana do pierwszej grupy, w której znajduje się użytkownik wstępnie wybranej roli kierownika projektu.'
-  rule_issue_current_user_status_info_html: "Is this function used in combination with the setting option \"Issue status on sidebar\" then the current user will automatically be assigned to the issue while changing the issue status.<br />Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."
+  rule_issue_current_user_status_info_html: "Jeśli funkcja ta zostanie użyta w połączeniu z opcją ustawienia \"Issue status on sidebar\" to podczas zmiany statusu sprawy bieżący użytkownik zostanie automatycznie przypisany do sprawy.<br />Przypadek użycia: Użytkownicy mogą zmieniać status na \"In Progress\" tylko wtedy, gdy są osobami, które aktualnie pracują nad sprawą."
   rule_issue_freezed_with_close_info: "Jeśli ta opcja jest włączona, już zamknięte issues nie mogą być już edytowane i komentowane. Nawet za pośrednictwem poczty lub API. Ograniczenie to nie dotyczy ról użytkowników z uprawnieniem \"Edit closed issues\"."
-  rule_issue_status_change_info: "Use Case: issues should be automatically assigned to autor, if the status changes to \"Approval\"."
+  rule_issue_status_change_info: "Przypadek użycia: sprawy powinny być automatycznie przypisywane do autora, jeśli ich status zmieni się na \"Approval\"."
   rule_issue_timelog_required_info_html: 'Dla każdego biletu wybranych trackerów konieczna jest rezerwacja czasu, jeśli bilet ma otrzymać jedną ze zdefiniowanych właściwości statusu. Rezerwacja czasu nie jest wymagana, jeśli:<br />- nie istnieją żadne prawa do tworzenia rezerwacji czasu.<br />- użytkownik posiada autoryzację "Time logging not required"<br />Przypadek użycia: Do przyjęcia biletu o statusie "To verify" wymagany jest również czas poświęcony na jego akceptację.'
   setting_export_limit: "Limit eksportu"
   top_rules_help: "Tutaj możesz zdefiniować reguły, które są używane w sprawach wszystkich projektów."

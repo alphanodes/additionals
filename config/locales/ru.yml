@@ -101,7 +101,7 @@ ru:
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
   label_issue_change_status: "Изменить статус"
-  label_issue_change_status_in_sidebar: Issue status on sidebar
+  label_issue_change_status_in_sidebar: "Состояние вопроса на боковой панели"
   label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
   label_issue_freezed_with_close: "Запрет редактирования закрытых заданий (Freeze)"
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
@@ -149,7 +149,7 @@ ru:
   label_show_closed_issues: "Показать закрытые вопросы"
   label_stats_new_today: "Новое сегодня"
   label_stats_totals: "всего"
-  label_system_info: System info
+  label_system_info: "Системная информация"
   label_system_setting: "Система"
   label_text_async: "Текст (асинхронный)"
   label_text_sync: "Текст"
@@ -159,7 +159,7 @@ ru:
   label_twitter_account: Twitter account
   label_twitter_hashtag: Twitter hashtag
   label_uptime: Uptime
-  label_user_list: "User list"
+  label_user_list: "Список пользователей"
   label_web_apis: Web APIs
   label_weekly: "еженедельно"
   label_wiki_pdf_remove_attachments: "Удаление вложений из PDF-формата"

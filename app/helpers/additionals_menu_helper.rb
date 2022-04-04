@@ -4,12 +4,6 @@ module AdditionalsMenuHelper
   def additionals_top_menu_setup
     return if AdditionalsPlugin.active_hrm?
 
-    if Additionals.setting? :remove_mypage
-      Redmine::MenuManager.map(:top_menu).delete(:my_page) if Redmine::MenuManager.map(:top_menu).exists?(:my_page)
-    else
-      handle_top_menu_item(:my_page, url: my_page_path, after: :home, onlyif: proc { User.current.logged? })
-    end
-
     if Additionals.setting? :remove_help
       Redmine::MenuManager.map(:top_menu).delete(:help) if Redmine::MenuManager.map(:top_menu).exists?(:help)
     elsif User.current.logged?
@@ -61,71 +55,6 @@ module AdditionalsMenuHelper
     end
 
     Redmine::MenuManager.map(:top_menu).push menu_name, url, **menu_options
-  end
-
-  def render_custom_top_menu_item
-    items = additionals_build_custom_items
-    return if items.empty?
-
-    user_roles = Role.givable
-                     .joins(members: :project)
-                     .where(members: { user_id: User.current.id },
-                            projects: { status: Project::STATUS_ACTIVE })
-                     .distinct
-                     .reorder(nil)
-                     .ids
-
-    items.each do |item|
-      additionals_custom_top_menu_item item, user_roles
-    end
-  end
-
-  def additionals_build_custom_items
-    items = []
-    Additionals::MAX_CUSTOM_MENU_ITEMS.times do |num|
-      menu_name = "custom_menu#{num}"
-      item = { menu_name: menu_name.to_sym,
-               url: Additionals.setting("#{menu_name}_url"),
-               name: Additionals.setting("#{menu_name}_name"),
-               title: Additionals.setting("#{menu_name}_title"),
-               roles: Additionals.setting("#{menu_name}_roles") }
-
-      if item[:name].present? && item[:url].present? && item[:roles].present?
-        items << item
-      elsif Redmine::MenuManager.map(:top_menu).exists?(item[:menu_name])
-        Redmine::MenuManager.map(:top_menu).delete(item[:menu_name])
-      end
-    end
-
-    items
-  end
-
-  def additionals_custom_top_menu_item(item, user_roles)
-    show_entry = false
-    roles = item.delete :roles
-    roles.each do |role|
-      if user_roles.empty? && role.to_i == Role::BUILTIN_ANONYMOUS ||
-         # if user is logged in and non_member is active in item, always show it
-         User.current.logged? && role.to_i == Role::BUILTIN_NON_MEMBER
-        show_entry = true
-        break
-      end
-
-      user_roles.each do |user_role|
-        if role.to_i == user_role
-          show_entry = true
-          break
-        end
-      end
-      break if show_entry
-    end
-
-    menu_name = item.delete :menu_name
-    if show_entry
-      handle_top_menu_item menu_name, item
-    elsif Redmine::MenuManager.map(:top_menu).exists?(menu_name)
-      Redmine::MenuManager.map(:top_menu).delete(menu_name)
-    end
   end
 
   def addtionals_help_plugin_items

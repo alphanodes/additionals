@@ -1,18 +1,6 @@
 # frozen_string_literal: true
 
 module AdditionalsSettingsHelper
-  def additionals_settings_tabs
-    tabs = [{ name: 'general', partial: 'additionals/settings/general', label: :label_general },
-            { name: 'wiki', partial: 'additionals/settings/wiki', label: :label_wiki },
-            { name: 'macros', partial: 'additionals/settings/macros', label: :label_macro_plural },
-            { name: 'rules', partial: 'additionals/settings/issues', label: :label_issue_plural },
-            { name: 'web', partial: 'additionals/settings/web_apis', label: :label_web_apis }]
-
-    tabs << { name: 'menu', partial: 'additionals/settings/menu', label: :label_settings_menu } unless AdditionalsPlugin.active_hrm?
-
-    tabs
-  end
-
   def additionals_settings_checkbox(name, **options)
     active_value = options.delete(:active_value).presence || @settings.present? && @settings[name]
     tag_name = options.delete(:tag_name).presence || "settings[#{name}]"
@@ -89,10 +77,14 @@ module AdditionalsSettingsHelper
 
   def additionals_settings_input_field(tag_field, name, **options)
     tag_name = options.delete(:tag_name).presence || "settings[#{name}]"
+    default_setting = options.delete :default_setting
+
     value = if options.key? :value
               options.delete :value
-            elsif @settings.present?
+            elsif @settings.present? && @settings.key?(name)
               @settings[name]
+            elsif default_setting
+              default_setting
             end
 
     label_title = [options.delete(:label).presence || l("label_#{name}")]

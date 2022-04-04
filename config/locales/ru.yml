@@ -140,7 +140,6 @@ ru:
   label_redmine_org_issue: Redmine.org issue
   label_redmine_org_wiki: Redmine.org wiki page
   label_remove_help: "Удалить 'Help' из верхнего меню"
-  label_remove_mypage: "Удалить 'My Page' из верхнего меню"
   label_search_by_name: "Поиск по имени"
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
@@ -182,7 +181,6 @@ ru:
   permission_share_dashboards: "Приборные панели"
   permission_show_hidden_roles_in_memberbox: "Показать скрытые роли"
   remove_help_info: "Удалить пункт 'Help' из верхнего меню."
-  remove_mypage_info: "Иногда бывает полезнее скрыть ссылку \"My Page\", чтобы представить панель задач. Преимуществом доски задач является то, что вопросы могут быть перечислены в соответствии с их статусом."
   rule_issue_auto_assign_info: "Use Case: Автор проблемы не знает, кому назначить задачу или кто будет отвечать за ее решение. В этом случае задание, например со статусом \"To Do\", автоматически присваивается первой группе, которая действительно содержит пользователя с предварительно выбранной ролью менеджера проекта."
   rule_issue_current_user_status_info_html: "Is this function used in combination with the setting option \"Issue status on sidebar\" then the current user will automatically be assigned to the issue while changing the issue status.<br />Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."
   rule_issue_freezed_with_close_info: "Если эта опция включена, то уже закрытые задания больше не могут быть отредактированы и прокомментированы. Даже по почте или API. Это ограничение не распространяется на роли пользователей с правом \"Edit closed issues\"."

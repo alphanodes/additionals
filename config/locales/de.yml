@@ -140,7 +140,6 @@ de:
   label_redmine_org_issue: Redmine.org Ticket
   label_redmine_org_wiki: Redmine.org Wikiseite
   label_remove_help: "Entferne 'Hilfe' aus dem Topmenü"
-  label_remove_mypage: "Entferne 'Meine Seite' aus dem Topmenü"
   label_search_by_name: Suche nach Namen
   label_settings_macros: "Makros"
   label_settings_menu: "Menü"
@@ -182,7 +181,6 @@ de:
   permission_share_dashboards: Dashboards teilen
   permission_show_hidden_roles_in_memberbox: Versteckte Rollen anzeigen
   remove_help_info: "Den Menüpunkt 'Hilfe' aus dem Topmenü entfernen."
-  remove_mypage_info: 'Manchmal ist es hilfreich, dass die "Meine Seite" nicht angezeigt wird, um den Einsatz eines Task Boards einzuführen. Der Vorteil eines Task Boards liegt darin, dass Tickets nach Status gelistet werden können.'
   rule_issue_auto_assign_info: 'Use Case: Der Ticketersteller weiss nicht, wem er das Ticket zurordnen soll bzw. welcher Benutzer zuständig für das Ticket ist. Das neue Ticket mit dem Status "To Do" wird in dem Fall automatisch der ersten Gruppe zugewiesen, die Benutzer mit der Rolle Managener enthält.'
   rule_issue_current_user_status_info_html: "Wird diese Funktion zusammen mit der Einstellung \"Ticketstatus über Sidebar\" verwendet, wird automatisch der aktuelle Benutzer dem neu ausgewählten Status zugewiesen.<br />Use Case: Ein Benutzer soll nur den Status auf \"In Progress\" selbst stellen können um damit anzuzeigen, dass er an dem Ticket (gerade) arbeitet."
   rule_issue_freezed_with_close_info: Wird diese Option aktiviert können bereits geschlossene Tickets nicht mehr bearbeitet und kommentiert werden. Auch nicht via Mail oder API. Für Benutzerrollen mit dem Recht "Geschlossene Tickets bearbeiten" gilt diese Einschränkung nicht.

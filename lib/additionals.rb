@@ -133,6 +133,8 @@ module Additionals
         when 'markdown'
           loader.add_patch [{ target: Redmine::WikiFormatting::Markdown::HTML, patch: 'FormatterMarkdown' },
                             { target: Redmine::WikiFormatting::Markdown::Helper, patch: 'FormattingHelper' }]
+        when 'common_mark'
+          loader.add_patch [{ target: Redmine::WikiFormatting::CommonMark::Helper, patch: 'FormattingHelper' }]
         when 'textile'
           loader.add_patch [{ target: Redmine::WikiFormatting::Textile::Formatter, patch: 'FormatterTextile' },
                             { target: Redmine::WikiFormatting::Textile::Helper, patch: 'FormattingHelper' }]

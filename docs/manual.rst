@@ -190,36 +190,6 @@ Time log for issues required.
 Please note, that a user with administration rights will always be able to do all those things a normal user is not allowed to.
 
 
-Menu section
-------------
-
-First of all: This section is only visible in case the *Redmine HRM Plugin* is not installed. If you are also using the *Redmine HRM Plugin* this section disappears because the functionality is also an important part of ''HRM''.
-Otherwise, you can define here new top menu items and change some standard settings on the menu behaviour.
-
-.. note:: Please restart the application server, if you remove a menu item or change permissions as well as changing the custom help url.
-
-This area offers you the possibility to add up to 5 additional menu items to your Redmine main menu.
-The following input fields are available for each entry:
-
-============  ========================================
-Field         Description
-============  ========================================
-Name          Enter the name of the menu item.
-URL           Enter an URL starting with ``http://``
-Title         Enter an title (optional)
-Permissions   Select one ore more existing roles to which the menu item will be displayed.
-              Only members of selected roles will be displayed in this list.
-============  ========================================
-
-Settings
-++++++++
-
-In the **Settings** area of the menu tab there are the following functions available.
-
-* Enter a ``Custom help URL`` instead of linking to the help on Redmine.org. Make sure you restart your application server after your changes.
-* Remove ``My Page`` from top menu in order you don't want your users to use this page.
-
-
 Web APIs section
 ----------------
 

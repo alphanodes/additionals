@@ -121,7 +121,7 @@ module Additionals
         groups = autoassign_get_group_list
         return groups[manager_role].first.id unless groups.nil? || groups[manager_role].blank?
 
-        users_list = project.users_by_role
+        users_list = project.principals_by_role
         return users_list[manager_role].first.id if users_list[manager_role].present?
       end
 

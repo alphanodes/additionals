@@ -140,7 +140,6 @@ ja:
   label_redmine_org_issue: Redmine.org issue
   label_redmine_org_wiki: Redmine.org wiki page
   label_remove_help: "「ヘルプ」をトップメニューから外す"
-  label_remove_mypage: "「マイ・ページ」をトップメニューから外す"
   label_search_by_name: "名前から探す"
   label_settings_macros: "マクロ"
   label_settings_menu: "メニュー"
@@ -182,7 +181,6 @@ ja:
   permission_share_dashboards: "ダッシュボードの共有"
   permission_show_hidden_roles_in_memberbox: "隠された役割を表示する"
   remove_help_info: "ヘルプ」項目をトップメニューから外す"
-  remove_mypage_info: 'タスクボードを導入するために、「マイ・ページ」のリンクを隠した方が便利な場合があります。タスクボードにより、ステータス毎の順番並び替えに出来るメリットがあります。'
   rule_issue_auto_assign_info: 'Use Case: The issue author does not know whom to assign the issue or who will be responsible for solving the task. In that case the issue for example with the status "To Do" is automatically assigned to the first group, which does contain a user of the pre-selected project manager role.'
   rule_issue_current_user_status_info_html: "Is this function used in combination with the setting option \"Issue status on sidebar\" then the current user will automatically be assigned to the issue while changing the issue status.<br />Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."
   rule_issue_freezed_with_close_info: If this option is activated, already closed issues can no longer be edited and commented. Not even via mail or API. This restriction does not apply to user roles with the "Edit closed issues" permission.

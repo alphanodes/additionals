@@ -140,7 +140,6 @@ it:
   label_redmine_org_issue: Redmine.org issue
   label_redmine_org_wiki: Redmine.org wiki page
   label_remove_help: "Remove 'Help' from top menu"
-  label_remove_mypage: "Remove 'My Page' from top menu"
   label_search_by_name: Cerca per nome
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
@@ -182,7 +181,6 @@ it:
   permission_share_dashboards: "Condividi dashboard"
   permission_show_hidden_roles_in_memberbox: "Mostra ruoli nascosti"
   remove_help_info: "Rimuove l'elemento \"Aiuto\" dal menu superiore."
-  remove_mypage_info: "A volte è più utile nascondere il collegamento \"My Page\" per introdurre la lavagna dei compiti. Il vantaggio della lavagna dei compiti è che i problemi possono essere elencati in base al loro stato."
   rule_issue_auto_assign_info: "Caso d'uso: l'autore del problema non sa a chi assegnare il problema o chi sarà responsabile della risoluzione del compito. In questo caso il problema per esempio con lo stato \"To Do\" viene automaticamente assegnato al primo gruppo, che contiene un utente del ruolo di project manager preselezionato."
   rule_issue_current_user_status_info_html: "Se questa funzione è usata in combinazione con l'opzione di impostazione \"Issue status on sidebar\" Stato della questione sulla barra laterale allora l'utente corrente sarà automaticamente assegnato alla questione mentre si cambia lo stato della questione.<br />Caso d'uso: Gli utenti possono cambiare lo stato in \"In Progress\" solo se sono la persona che sta effettivamente lavorando al problema in questo momento."
   rule_issue_freezed_with_close_info: "Se questa opzione è attivata, i numeri già chiusi non possono più essere modificati e commentati. Nemmeno via mail o API. Questa restrizione non si applica ai ruoli utente con il permesso \"Modifica problemi chiusi\"."

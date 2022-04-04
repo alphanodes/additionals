@@ -140,7 +140,6 @@ pl:
   label_redmine_org_issue: Redmine.org issue
   label_redmine_org_wiki: Redmine.org wiki page
   label_remove_help: "Remove 'Help' from top menu"
-  label_remove_mypage: "Remove 'My Page' from top menu"
   label_search_by_name: "Wyszukiwanie według nazwy"
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
@@ -182,7 +181,6 @@ pl:
   permission_share_dashboards: Udostępnij dashboards
   permission_show_hidden_roles_in_memberbox: "Pokaż ukryte role"
   remove_help_info: "Usuń element 'Help' z górnego menu."
-  remove_mypage_info: 'Czasami bardziej użyteczne jest ukrywanie linku  "My Page" w celu wprowadzenia tablicy zadań. Zaletą forum zadań jest to, że issues mogą być wymienione zgodnie z ich statusem.'
   rule_issue_auto_assign_info: 'Przypadek użycia: Autor issue nie wie, komu przydzielić issue lub kto będzie odpowiedzialny za rozwiązanie zadania. W takim przypadku issue np. ze statusem "To Do" jest automatycznie przypisywana do pierwszej grupy, w której znajduje się użytkownik wstępnie wybranej roli kierownika projektu.'
   rule_issue_current_user_status_info_html: "Jeśli funkcja ta zostanie użyta w połączeniu z opcją ustawienia \"Issue status on sidebar\" to podczas zmiany statusu sprawy bieżący użytkownik zostanie automatycznie przypisany do sprawy.<br />Przypadek użycia: Użytkownicy mogą zmieniać status na \"In Progress\" tylko wtedy, gdy są osobami, które aktualnie pracują nad sprawą."
   rule_issue_freezed_with_close_info: "Jeśli ta opcja jest włączona, już zamknięte issues nie mogą być już edytowane i komentowane. Nawet za pośrednictwem poczty lub API. Ograniczenie to nie dotyczy ról użytkowników z uprawnieniem \"Edit closed issues\"."

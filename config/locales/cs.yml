@@ -140,7 +140,6 @@ cs:
   label_redmine_org_issue: Redmine.org issue
   label_redmine_org_wiki: Redmine.org wiki page
   label_remove_help: "Remove 'Help' from top menu"
-  label_remove_mypage: "Remove 'My Page' from top menu"
   label_search_by_name: "Hledat podle jména"
   label_settings_macros: "Makra"
   label_settings_menu: "Menu"
@@ -182,7 +181,6 @@ cs:
   permission_share_dashboards: "Sdílejte řídicí panely"
   permission_show_hidden_roles_in_memberbox: "Zobrazit skryté role"
   remove_help_info: "Remove the item 'Help' from the top menu."
-  remove_mypage_info: "Někdy je užitečné skrýt odkaz \"My Page\", aby bylo možné představit základní desku. Výhodou desky úloh je, že problémy lze vypsat podle jejich stavu."
   rule_issue_auto_assign_info: "Případ použití: Autor úkolu neví, komu úkol přiřadit nebo kdo bude odpovědný za jeho vyřešení. V takovém případě je například úloha se stavem „Úkol“ automaticky přiřazena k první skupině, která obsahuje uživatele předvolené role vedoucího projektu."
   rule_issue_current_user_status_info_html: "Is this function used in combination with the setting option \"Issue status on sidebar\" then the current user will automatically be assigned to the issue while changing the issue status.<br />Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."
   rule_issue_freezed_with_close_info: "Pokud je tato možnost aktivována, již uzavřené problémy již nelze upravovat a komentovat. Ani přes mail nebo API. Toto omezení se nevztahuje na uživatelské role s povolením \"Edit closed issues\"."

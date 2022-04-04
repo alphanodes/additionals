@@ -6,6 +6,8 @@ Changelog
 
 - D3 7.4.2 support
 - Remove issue autowatch (this feature comes with Redmine 5)
+- Remove feature custom top menu items (this was unmaintained for a long time)
+- Drop feature "remove help" from top menu
 
 3.0.5.2
 +++++++

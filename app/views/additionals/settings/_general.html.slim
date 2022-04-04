@@ -30,9 +30,18 @@ fieldset.settings
     em.info
       = t :legacy_smiley_support_info_html
 
+  - unless AdditionalsPlugin.active_hrm?
+    p
+      = additionals_settings_checkbox :remove_help
+      em.info = l :remove_help_info
+
   p
     = additionals_settings_numberfield :max_live_search_results,
-                                       min: 1, max: 2000, size: 5, required: true
+                                       min: 1,
+                                       max: 2000,
+                                       size: 5,
+                                       required: true,
+                                       default_setting: Additionals.setting(:max_live_search_results)
     em.info
       = t :max_live_search_results_info
 

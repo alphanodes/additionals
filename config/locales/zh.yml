@@ -140,7 +140,6 @@ zh:
   label_redmine_org_issue: Redmine.org 问题
   label_redmine_org_wiki: Redmine.org Wiki 页面
   label_remove_help: "从顶部菜单栏中移除 '帮助' 项"
-  label_remove_mypage: "从顶部菜单栏中移除 '我的工作台' 项"
   label_search_by_name: 按名称搜索
   label_settings_macros: "宏"
   label_settings_menu: "菜单"
@@ -182,7 +181,6 @@ zh:
   permission_share_dashboards: "共享仪表盘"
   permission_show_hidden_roles_in_memberbox: "显示隐藏的角色"
   remove_help_info: "从顶部菜单栏中隐藏 '帮助' 菜单项。"
-  remove_mypage_info: '有时，为了引入敏捷的任务看板，隐藏【我的工作台】链接可能会更有用。任务看板的优势即是可以根据状态罗列并快速访问。'
   rule_issue_auto_assign_info: '用例：问题作者不知道将问题分配给谁时，或不知道谁应当负责解决具体任务时。在那种情况下，状态为 "To Do" 的问题将自动指派给包含预选项目经理角色用户的第一组。'
   rule_issue_current_user_status_info_html: 如果此功能与"在侧边栏显示更新问题状态"设置选项结合使用，则当前用户将在更改问题状态时自动被分配到问题。<br />用例：用户仅当是当前实际处理该问题的人员时，才允许将状态更改为"正在进行中"。
   rule_issue_freezed_with_close_info: 如果激活此选项，则无法再编辑和评论已关闭的问题。甚至不通过邮件或 API。此限制不适用于具有"修改已关闭问题"权限的用户角色。

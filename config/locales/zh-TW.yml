@@ -140,7 +140,6 @@
   label_redmine_org_issue: Redmine.org issue
   label_redmine_org_wiki: Redmine.org wiki page
   label_remove_help: "從頂部選單中移除 \"幫助\" 項"
-  label_remove_mypage: "從頂部選單中移除 \"帳戶首頁\" 項"
   label_search_by_name: "按名稱搜尋"
   label_settings_macros: "macros 語法"
   label_settings_menu: "選單"
@@ -182,7 +181,6 @@
   permission_share_dashboards: Share dashboards
   permission_show_hidden_roles_in_memberbox: "Show hidden roles"
   remove_help_info: "從頂部選單中隱藏 \"幫助\" 項。"
-  remove_mypage_info: "為了引入敏捷的任務看板，隱藏 \"帳戶首頁\" 可能會更有幫助。任務看板的優勢為可以依據狀態列出並快速訪問。"
   rule_issue_auto_assign_info: "範例：議題作者不知道該把議題分配給誰時，狀態為 \"進行中\" 的議題將自動被分派給專案中第一位角色為 \"管理人員\"的成員。"
   rule_issue_current_user_status_info_html: "Is this function used in combination with the setting option \"Issue status on sidebar\" then the current user will automatically be assigned to the issue while changing the issue status.<br />Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."
   rule_issue_freezed_with_close_info: If this option is activated, already closed issues can no longer be edited and commented. Not even via mail or API. This restriction does not apply to user roles with the "Edit closed issues" permission.

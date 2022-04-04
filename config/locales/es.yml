@@ -140,7 +140,6 @@ es:
   label_redmine_org_issue: Peticion de Redmine.org
   label_redmine_org_wiki: Página Wiki de Redmine.org
   label_remove_help: "Quitar 'Ayuda' del menú superior"
-  label_remove_mypage: "Quitar 'Mi página' del menú superior"
   label_search_by_name: Buscar por nombre
   label_settings_macros: "Macros"
   label_settings_menu: "Menú"
@@ -182,7 +181,6 @@ es:
   permission_share_dashboards: "Compartir los tableros"
   permission_show_hidden_roles_in_memberbox: Mostrar roles ocultos
   remove_help_info: "Quitar el elemento 'Ayuda' del menú superior."
-  remove_mypage_info: 'A veces es útil ocultar el enlace a "Mi Página" para incluir el tablero de tareas. La ventaja del tablero de tareas que que las peticiones se muestran de acuerdo a su estado.'
   rule_issue_auto_assign_info: 'Caso de Uso: El autor de la petición no sabe a quién debe asignarla o quién será el responsable de resolver la tarea. En ese caso las peticiones con el estado (por ejemplo) "Por Hacer" son automáticamente asignadas al primer grupo que contiene un usuario con el rol de Gestor de proyecto.'
   rule_issue_current_user_status_info_html: "Si esta función es utilizada en combinación con la opción \"Estado de las peticiones en la barra lateral\" entonces la petición será automáticamente asignada al usuario actual al cambiar el estado de la petición.<br />Caso de Uso: Un usuario solo puede cambiar el estado de una petición a \"En Progreso\" si es la persona que realmente está trabajando en esa petición."
   rule_issue_freezed_with_close_info: Si esta opción está actia, aquellas peticiones que ya se encuentren cerradas no podrán recibir comentarios o edicionos. Incluso por mail o API. Esta restricción no se aplica a los usuarios con el rol "Editar peticiones cerradas".

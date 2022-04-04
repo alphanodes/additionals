@@ -142,8 +142,7 @@ Features
 
 * macro list with all available macros at /help/macros
 * macro button for wiki toolbar with available macros with project and permission context support
-* option to remove "My page" and/or "Help" from top menu
-* customize top menu items
+* option to remove "Help" from top menu
 * disable (hide) modules for projects
 * open external urls in new window
 * smiley/emoji legacy support

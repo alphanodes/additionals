@@ -61,16 +61,16 @@ class ProjectTest < Additionals::TestCase
     end
   end
 
-  def test_users_by_role
-    users_by_role = Project.find(1).principals_by_role
+  def test_principals_by_role
+    principals_by_role = Project.find(1).principals_by_role
 
-    assert_kind_of Hash, users_by_role
+    assert_kind_of Hash, principals_by_role
     role = Role.find 1
-    assert_kind_of Array, users_by_role[role]
-    assert users_by_role[role].include?(User.find(2))
+    assert_kind_of Array, principals_by_role[role]
+    assert principals_by_role[role].include?(User.find(2))
   end
 
-  def test_users_by_role_with_hidden_role
+  def test_principals_by_role_with_hidden_role
     Role.update_all users_visibility: 'members_of_visible_projects'
 
     role = Role.find 2
@@ -81,11 +81,11 @@ class ProjectTest < Additionals::TestCase
     assert role.hide
 
     # User.current = User.find 2
-    users_by_role = Project.find(1).principals_by_role
-    assert_equal 1, users_by_role.count
+    principals_by_role = Project.find(1).principals_by_role
+    assert_equal 1, principals_by_role.count
 
     User.current = User.find 1
-    users_by_role = Project.find(1).principals_by_role
-    assert_equal 2, users_by_role.count
+    principals_by_role = Project.find(1).principals_by_role
+    assert_equal 2, principals_by_role.count
   end
 end

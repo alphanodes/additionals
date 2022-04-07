@@ -10,6 +10,10 @@ module AdditionalsProjectsHelper
 
   def render_api_includes(project, api)
     super
+
+    api.active_new_ticket_message project.active_new_ticket_message
+    return unless User.current.allowed_to? :edit_project, project
+
     api.enable_new_ticket_message project.enable_new_ticket_message
     api.new_ticket_message project.new_ticket_message
   end

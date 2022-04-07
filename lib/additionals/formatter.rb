@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'emoji'
+
 module Additionals
   module Formatter
     SMILEYS = { 'smiley' => ':-?\)', # :)
@@ -56,9 +57,7 @@ module Additionals
         if emoji.present?
           tag.img src: inline_emojify_image_path(emoji.image_filename),
                   title: ":#{emoji_code}:",
-                  style: 'vertical-align: middle',
-                  width: '20',
-                  height: '20'
+                  class: 'inline_emojify'
         else
           match
         end

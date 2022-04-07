@@ -63,6 +63,18 @@ module Additionals
                    .distinct
                    .sorted
         end
+
+        def active_new_ticket_message
+          @active_new_ticket_message = if enable_new_ticket_message.positive?
+                                         if enable_new_ticket_message == 1
+                                           Additionals.setting(:new_ticket_message).presence || ''
+                                         else
+                                           new_ticket_message.presence || ''
+                                         end
+                                       else
+                                         ''
+                                       end
+        end
       end
     end
   end

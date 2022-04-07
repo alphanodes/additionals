@@ -88,4 +88,31 @@ class ProjectTest < Additionals::TestCase
     principals_by_role = Project.find(1).principals_by_role
     assert_equal 2, principals_by_role.count
   end
+
+  def test_active_new_ticket_message
+    with_plugin_settings 'additionals', new_ticket_message: 'foo' do
+      project = projects :projects_001
+
+      assert_equal 'foo', project.active_new_ticket_message
+    end
+  end
+
+  def test_active_new_ticket_message_and_disabled
+    project = projects :projects_001
+    project.update_attribute :enable_new_ticket_message, '0'
+
+    with_plugin_settings 'additionals', new_ticket_message: 'foo' do
+      assert_equal '', project.active_new_ticket_message
+    end
+  end
+
+  def test_active_new_ticket_message_with_project_message
+    project = projects :projects_001
+    project.update_attribute :enable_new_ticket_message, '2'
+    project.update_attribute :new_ticket_message, 'bar'
+
+    with_plugin_settings 'additionals', new_ticket_message: 'foo' do
+      assert_equal 'bar', project.active_new_ticket_message
+    end
+  end
 end

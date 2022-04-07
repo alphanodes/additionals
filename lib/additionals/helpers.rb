@@ -9,7 +9,7 @@ module Additionals
              locals: { query: query }.merge(locals)
     end
 
-    def render_query_block_columns(query, entry, tr_classes:, with_buttons: false)
+    def render_query_block_columns(query, entry, tr_classes:, with_buttons: false, with_checkbox: true)
       td_colspan = query.inline_columns.size + 1
       td_colspan += 1 if with_buttons
 
@@ -17,13 +17,17 @@ module Additionals
       query.block_columns.each do |column|
         next unless (text = column_content column, entry) || text.blank?
 
-        content << tag.tr(class: tr_classes) do # rubocop: disable Style/MethodCallWithArgsParentheses
-          tag.td colspan: td_colspan, class: "#{column.css_classes} block_column" do
+        content << tag.tr(class: "#{tr_classes} block_row") do # rubocop: disable Style/MethodCallWithArgsParentheses
+          tds = []
+          tds << tag.td('', class: 'hide') if with_buttons && with_checkbox
+          tds << tag.td(colspan: td_colspan, class: "#{column.css_classes} block_column") do # rubocop: disable Style/MethodCallWithArgsParentheses
             td_content = []
             td_content << tag.span(column.caption) if query.block_columns.count > 1
             td_content << text
             safe_join td_content
           end
+
+          safe_join tds
         end
       end
 

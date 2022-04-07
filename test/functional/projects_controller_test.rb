@@ -103,4 +103,22 @@ class ProjectsControllerTest < Additionals::ControllerTest
 
     assert_response :missing
   end
+
+  def test_index_with_new_ticket_message
+    @request.session[:user_id] = 2
+
+    with_plugin_settings 'additionals', new_ticket_message: 'blub' do
+      get :index,
+          params: { display_type: 'list',
+                    set_filter: 1,
+                    f: %w[enable_new_ticket_message],
+                    op: { enable_new_ticket_message: '=' },
+                    v: { enable_new_ticket_message: ['1'] },
+                    c: %w[active_new_ticket_message] }
+
+      assert_response :success
+      assert_query_filters [['enable_new_ticket_message', '=', ['1']]]
+      assert_select 'table.entity-list tr.block_row td.block_column', text: 'blub'
+    end
+  end
 end

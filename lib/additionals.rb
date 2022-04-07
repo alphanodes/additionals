@@ -107,6 +107,7 @@ module Additionals
                           IssuePriority
                           TimeEntry
                           Project
+                          ProjectQuery
                           Wiki
                           ProjectsController
                           WelcomeController

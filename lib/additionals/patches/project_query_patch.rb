@@ -21,19 +21,6 @@ module Additionals
                                         [l(:label_project_setting), '2']],
                                label: :label_new_ticket_message
         end
-
-        def available_columns
-          if @available_columns.blank?
-            @available_columns = super
-
-            if User.current.allowed_to? :edit_project, nil, global: true
-              @available_columns << QueryColumn.new(:active_new_ticket_message,
-                                                    caption: :label_new_ticket_message,
-                                                    inline: false)
-            end
-          end
-          @available_columns
-        end
       end
     end
   end

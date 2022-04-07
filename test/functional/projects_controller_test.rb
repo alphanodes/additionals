@@ -113,12 +113,10 @@ class ProjectsControllerTest < Additionals::ControllerTest
                     set_filter: 1,
                     f: %w[enable_new_ticket_message],
                     op: { enable_new_ticket_message: '=' },
-                    v: { enable_new_ticket_message: ['1'] },
-                    c: %w[active_new_ticket_message] }
+                    v: { enable_new_ticket_message: ['1'] } }
 
       assert_response :success
       assert_query_filters [['enable_new_ticket_message', '=', ['1']]]
-      assert_select 'table.projects td', text: 'blub'
     end
   end
 end

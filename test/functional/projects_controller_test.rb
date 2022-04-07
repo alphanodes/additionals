@@ -118,7 +118,7 @@ class ProjectsControllerTest < Additionals::ControllerTest
 
       assert_response :success
       assert_query_filters [['enable_new_ticket_message', '=', ['1']]]
-      assert_select 'table.entity-list tr.block_row td.block_column', text: 'blub'
+      assert_select 'table.projects td.block_column', text: 'blub'
     end
   end
 end

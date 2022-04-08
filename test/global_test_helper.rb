@@ -104,7 +104,7 @@ module Additionals
       assert_select 'tr.group.open', {}, "grouped_by with #{column_name} is missing tr.group.open"
     end
 
-    def assert_select_query_tr(inline_columns:, block_columns:, inline_tr_select:, block_tr_select:)
+    def assert_select_query_tr(inline_columns:, block_columns:, inline_tr_select:, block_tr_select:, with_checkbox: true)
       assert_select inline_tr_select do
         inline_columns.each do |column_name|
           assert_select_td_column column_name
@@ -112,6 +112,7 @@ module Additionals
       end
 
       colspan = inline_columns.count + block_columns.count
+      colspan -= 1 unless with_checkbox
       assert_select block_tr_select do
         block_columns.each do |column_name|
           assert_select_td_column column_name, colspan: colspan

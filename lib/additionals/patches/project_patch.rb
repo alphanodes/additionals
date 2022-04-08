@@ -65,7 +65,7 @@ module Additionals
         end
 
         def active_new_ticket_message
-          @active_new_ticket_message = if enable_new_ticket_message.positive?
+          @active_new_ticket_message = if enable_new_ticket_message.positive? && User.current.allowed_to?(:view_issues, self)
                                          if enable_new_ticket_message == 1
                                            Additionals.setting(:new_ticket_message).presence || ''
                                          else

@@ -4,10 +4,12 @@ Changelog
 3.0.6
 +++++
 
-- D3 7.4.2 support
+- D3 7.4.3 support
 - Remove issue autowatch (this feature comes with Redmine 5)
 - Remove feature custom top menu items (this was unmaintained for a long time)
 - Drop feature "remove help" from top menu
+- Add project filter for new_issue_message type
+- Mermaid 9.0.0 support
 
 3.0.5.2
 +++++++

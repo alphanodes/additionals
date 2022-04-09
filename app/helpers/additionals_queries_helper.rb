@@ -60,6 +60,8 @@ module AdditionalsQueriesHelper
                                  totalable_names: session_data.nil? ? nil : session_data[:totalable_names],
                                  sort_criteria: params[:sort].presence || (session_data.nil? ? nil : session_data[:sort_criteria]))
       @query.project = @project
+      @query.user_filter = user_filter if user_filter
+
       if params[:sort].present?
         @query.sort_criteria = params[:sort]
         # we have to write cache for sort order

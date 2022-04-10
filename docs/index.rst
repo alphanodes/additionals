@@ -61,14 +61,6 @@ Install ``additionals`` plugin for `Redmine`_.
   $ bundle config set --local without 'development test'
   $ bundle install
   $ bundle exec rake redmine:plugins:migrate RAILS_ENV=production
-  $
-  $ # if you want to use smiley/emoji legacy support, you have to put emoji icons to
-  $ # $REDMINE_ROOT/public/images/emoji
-  $ # To obtain image files, run the gemoji extract command on macOS Sierra or later:
-  $ bundle exec gemoji extract public/images/emoji
-  $
-  $ # if you to not have macOS, you can put these files manually to $REDMINE_ROOT/public/images/emoji
-  $ # see https://github.com/github/gemoji for more infos
 
 Restart your application server (apache with passenger, nginx with passenger, unicorn, puma, etc.) and ``Additionals`` is ready to use.
 

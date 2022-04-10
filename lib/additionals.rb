@@ -9,6 +9,7 @@ module Additionals
   DEFAULT_MODAL_WIDTH = '350px'
   GOTO_LIST = " \xc2\xbb"
   LIST_SEPARATOR = "#{GOTO_LIST} "
+  EMOJI_ASSERT_PATH = 'images/emojis'
 
   include RedminePluginKit::PluginBase
 
@@ -135,12 +136,16 @@ module Additionals
           loader.add_patch [{ target: Redmine::WikiFormatting::Markdown::HTML, patch: 'FormatterMarkdown' },
                             { target: Redmine::WikiFormatting::Markdown::Helper, patch: 'FormattingHelper' }]
         when 'common_mark'
+          loader.add_patch [{ target: Redmine::WikiFormatting::CommonMark::Formatter, patch: 'FormatterCommonMark' }]
           loader.add_patch [{ target: Redmine::WikiFormatting::CommonMark::Helper, patch: 'FormattingHelper' }]
         when 'textile'
           loader.add_patch [{ target: Redmine::WikiFormatting::Textile::Formatter, patch: 'FormatterTextile' },
                             { target: Redmine::WikiFormatting::Textile::Helper, patch: 'FormattingHelper' }]
         end
       end
+
+      # Clients
+      loader.require_files File.join('wiki_formatting', 'common_mark', '**/*_filter.rb')
 
       # Apply patches and helper
       loader.apply!
@@ -155,7 +160,7 @@ module Additionals
 
   # Run the classic redmine plugin initializer after rails boot
   class Plugin < ::Rails::Engine
-    require 'emoji'
+    require 'tanuki_emoji'
     require 'render_async'
     require 'rss'
     require 'slim'
@@ -164,6 +169,8 @@ module Additionals
       # engine_name could be used (additionals_plugin), but can
       # create some side effencts
       plugin_id = 'additionals'
+
+      Additionals::Gemify.install_emoji_assets
 
       # if plugin is already in plugins directory, use this and leave here
       next if Redmine::Plugin.installed? plugin_id

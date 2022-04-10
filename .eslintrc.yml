@@ -2,6 +2,8 @@ env:
   browser: true
   jquery: true
 extends: 'eslint:recommended'
+parserOptions:
+  ecmaVersion: 2019
 rules:
   indent:
     - error

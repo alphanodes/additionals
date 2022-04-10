@@ -10,6 +10,7 @@ Changelog
 - Drop feature "remove help" from top menu
 - Add project filter for new_issue_message type
 - Mermaid 9.0.0 support
+- Switch from gemoji to tanuki_emoji
 
 3.0.5.2
 +++++++

@@ -73,6 +73,16 @@ img.inline_emojify {
   height: 20px;
 }
 
+/* stylelint-disable selector-type-no-unknown */
+additionals-emoji {
+  font-style: normal;
+  display: inline-flex;
+  vertical-align: baseline;
+  font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  font-size: 1.2em;
+  line-height: 1;
+}
+
 /* Legacy smilie classes */
 
 .smiley {
@@ -82,93 +92,28 @@ img.inline_emojify {
   height: 16px;
 }
 
-.smiley-smiley {
-  background-image: url(../images/smileys/smiley.png);
-}
-
-.smiley-smiley2 {
-  background-image: url(../images/smileys/smiley2.png);
-}
-
-.smiley-laughing {
-  background-image: url(../images/smileys/smiley-grin.png);
-}
-
-.smiley-laughing2 {
-  background-image: url(../images/smileys/smiley-laughing2.png);
-}
-
-.smiley-crying {
-  background-image: url(../images/smileys/smiley-cry.png);
-}
-
-.smiley-sad {
-  background-image: url(../images/smileys/smiley-sad.png);
-}
-
-.smiley-wink {
-  background-image: url(../images/smileys/smiley-wink.png);
-}
-
-.smiley-cheeky {
-  background-image: url(../images/smileys/smiley-razz.png);
-}
-
-.smiley-shock {
-  background-image: url(../images/smileys/smiley-eek.png);
-}
-
-.smiley-annoyed {
-  background-image: url(../images/smileys/smiley-annoyed.png);
-}
-
-.smiley-confuse {
-  background-image: url(../images/smileys/smiley-confuse.png);
-}
-
-.smiley-straight {
-  background-image: url(../images/smileys/smiley-neutral.png);
-}
-
-.smiley-embarrassed {
-  background-image: url(../images/smileys/smiley-red.png);
-}
-
-.smiley-kiss {
-  background-image: url(../images/smileys/smiley-kiss.png);
-}
-
-.smiley-angel {
-  background-image: url(../images/smileys/smiley-angel.png);
-}
-
-.smiley-evil {
-  background-image: url(../images/smileys/smiley-evil.png);
-}
-
-.smiley-rock {
-  background-image: url(../images/smileys/smiley-cool.png);
-}
-
-.smiley-check {
-  background-image: url(../images/smileys/check.png);
-}
-
-.smiley-exclamation {
-  background-image: url(../images/smileys/exclamation-red-frame.png);
-}
-
-.smiley-question {
-  background-image: url(../images/smileys/question-frame.png);
-}
-
-.smiley-success {
-  background-image: url(../images/smileys/success-frame.png);
-}
-
-.smiley-failure {
-  background-image: url(../images/smileys/failure-frame.png);
-}
+.smiley-smiley { background-image: url(../images/smileys/smiley.png); }
+.smiley-smiley2 { background-image: url(../images/smileys/smiley2.png); }
+.smiley-laughing { background-image: url(../images/smileys/smiley-grin.png); }
+.smiley-laughing2 { background-image: url(../images/smileys/smiley-laughing2.png); }
+.smiley-crying { background-image: url(../images/smileys/smiley-cry.png); }
+.smiley-sad { background-image: url(../images/smileys/smiley-sad.png); }
+.smiley-wink { background-image: url(../images/smileys/smiley-wink.png); }
+.smiley-cheeky { background-image: url(../images/smileys/smiley-razz.png); }
+.smiley-shock { background-image: url(../images/smileys/smiley-eek.png); }
+.smiley-annoyed { background-image: url(../images/smileys/smiley-annoyed.png); }
+.smiley-confuse { background-image: url(../images/smileys/smiley-confuse.png); }
+.smiley-straight { background-image: url(../images/smileys/smiley-neutral.png); }
+.smiley-embarrassed { background-image: url(../images/smileys/smiley-red.png); }
+.smiley-kiss { background-image: url(../images/smileys/smiley-kiss.png); }
+.smiley-angel { background-image: url(../images/smileys/smiley-angel.png); }
+.smiley-evil { background-image: url(../images/smileys/smiley-evil.png); }
+.smiley-rock { background-image: url(../images/smileys/smiley-cool.png); }
+.smiley-check { background-image: url(../images/smileys/check.png); }
+.smiley-exclamation { background-image: url(../images/smileys/exclamation-red-frame.png); }
+.smiley-question { background-image: url(../images/smileys/question-frame.png); }
+.smiley-success { background-image: url(../images/smileys/success-frame.png); }
+.smiley-failure { background-image: url(../images/smileys/failure-frame.png); }
 
 div.clear-both { clear: both; }
 

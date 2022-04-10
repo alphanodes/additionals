@@ -22,6 +22,12 @@ function openExternalUrlsInTab() {
     'rel': 'noopener noreferrer'});
 }
 
+/* exported nativeEmojiSupport */
+function nativeEmojiSupport(emoji_code) {
+  var noEmojis = /\p{Extended_Pictographic}/u;
+  return noEmojis.test(emoji_code);
+}
+
 /* exported formatNameWithIcon */
 function formatNameWithIcon(opt) {
   if (opt.loading) return opt.name;

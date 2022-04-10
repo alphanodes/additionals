@@ -3,6 +3,28 @@
 module Additionals
   class Gemify
     class << self
+      # install emoji fallback assets from gem (without asset pipline)
+      def install_emoji_assets
+        Additionals.debug 'install_emoji_assets'
+        return Rails.logger.error 'TanukiEmoji class for emoji not found' unless defined? TanukiEmoji
+
+        source_image_path = TanukiEmoji.images_path
+        target_image_path = File.join Dir.pwd, 'public', Additionals::EMOJI_ASSERT_PATH
+
+        begin
+          FileUtils.mkdir_p target_image_path
+        rescue StandardError => e
+          raise "Could not create directory #{target_image_path}: " + e.message
+        end
+
+        Dir["#{source_image_path}/*"].each do |file|
+          target = File.join target_image_path, file.gsub(source_image_path, '')
+          FileUtils.cp file, target unless File.exist?(target) && FileUtils.identical?(file, target)
+        rescue StandardError => e
+          raise "Could not copy #{file} to #{target}: " + e.message
+        end
+      end
+
       # install assets from gem (without asset pipline)
       def install_assets(plugin_id = 'additionals')
         return unless Gem.loaded_specs[plugin_id]

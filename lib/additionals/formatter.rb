@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'emoji'
-
 module Additionals
   module Formatter
     SMILEYS = { 'smiley' => ':-?\)', # :)
@@ -30,8 +28,9 @@ module Additionals
     def render_inline_smileys(text)
       return text if text.blank?
 
-      inline_smileys text
-      text
+      content = text.dup
+      inline_smileys content
+      content
     end
 
     def inline_smileys(text)
@@ -41,34 +40,67 @@ module Additionals
           esc = Regexp.last_match 2
           smiley = Regexp.last_match 3
           if esc.nil?
-            leading + tag.span(class: "additionals smiley smiley-#{name}",
-                               title: smiley)
+            leading.to_s + ActionController::Base.helpers.tag.span(class: "additionals smiley smiley-#{name}",
+                                                                   title: smiley)
           else
-            leading + smiley
+            leading.to_s + smiley
           end
         end
       end
     end
 
+    def emoji_tag(emoji, emoji_code)
+      if Additionals.setting? :disable_emoji_native_support
+        emoji_tag_fallback emoji, emoji_code
+      else
+        emoji_tag_native emoji, emoji_code
+      end
+    end
+
+    def emoji_tag_native(emoji, _emoji_code)
+      return unless emoji
+
+      data = {
+        name: emoji.name,
+        unicode_version: emoji.unicode_version
+      }
+      options = { title: emoji.description, data: data }
+
+      ActionController::Base.helpers.content_tag 'additionals-emoji', emoji.codepoints, options
+    end
+
+    def emoji_tag_fallback(emoji, _emoji_code)
+      ActionController::Base.helpers.image_tag emoji_image_path(emoji),
+                                               title: emoji.description,
+                                               class: 'inline_emojify'
+    end
+
+    def emoji_image_path(emoji, local: false)
+      base_url = local ? '/' : Additionals.full_url
+      File.join base_url, Additionals::EMOJI_ASSERT_PATH, emoji.image_name
+    end
+
+    def with_emoji?(text)
+      text.match? emoji_pattern
+    end
+
+    def emoji_pattern
+      @emoji_pattern ||= TanukiEmoji.index.alpha_code_pattern
+    end
+
     def inline_emojify(text)
-      text.gsub!(/:([\w+-]+):/) do |match|
+      return text unless with_emoji? text
+
+      text.gsub! emoji_pattern do |match|
         emoji_code = Regexp.last_match 1
-        emoji = Emoji.find_by_alias emoji_code # rubocop:disable Rails/DynamicFindBy
-        if emoji.present?
-          tag.img src: inline_emojify_image_path(emoji.image_filename),
-                  title: ":#{emoji_code}:",
-                  class: 'inline_emojify'
+        emoji = TanukiEmoji.find_by_alpha_code emoji_code # rubocop: disable Rails/DynamicFindBy
+        if emoji
+          emoji_tag emoji, emoji_code
         else
           match
         end
       end
       text
-    end
-
-    # TODO: use relative path, if not for mailer
-    def inline_emojify_image_path(image_filename)
-      # path = '/' + Rails.public_path.relative_path_from Rails.root.join('public')
-      "#{Additionals.full_url '/images/emoji/'}#{image_filename}"
     end
   end
 end

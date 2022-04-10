@@ -166,7 +166,9 @@
   label_without_value: "沒有 %{value}"
   label_yearly: "每年"
   latest_entries_changes: "Latest %{value} changes"
-  legacy_smiley_support_info_html: "Convert smileys in text. This option should only be activated if the code for smileys (e.g. :) ) was entered manually and should be displayed as smiley face. In the <a href=\"https://www.webpagefx.com/tools/emoji-cheat-sheet/\" target=\"_blank\">Emoji cheat sheet</a> the available Emoji codes can be used. 修改後必須重啟Redmine。"
+  label_emoji_support: Emoji support
+  emoji_support_info_html: 'Emojis im Text konvertieren. Aktivere diese Option, wenn :heart:, :+1: etc in Emojis konvertiert werden sollen. Im <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> können die zur Verfügung stehenden Emoji-Codes eingesetzt werden.'
+  legacy_smiley_support_info_html: 'Smileys im Text konvertieren. Aktiviere diese Option, wenn :), :-) etc in Smileys konvertiert werden sollen. Wird diese Einstellung verändert, <strong>muss der Anwendungsserver neu gestartet werden</strong>.'
   max_live_search_results_info: "LiveSearch的最大搜索结果的数量。注意：设置只影响到支持LiveSearch的插件。"
   menu_roles_info: "只有所選的角色權限才能看到選單。"
   new_ticket_message_info: "每個新建立議題用戶都會看到提示訊息。"

@@ -166,7 +166,9 @@ es:
   label_without_value: "No %{value}"
   label_yearly: anualmente
   latest_entries_changes: "Últimos %{value} cambios"
-  legacy_smiley_support_info_html: 'Convierte los smileys en texto. Esta opción sólo debería activarse si el código para los smileys (por ejemplo :) ) se introdujo manualmente y debería mostrarse como carita sonriente. En la <a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">hoja de trucos de Emoji </a> se pueden usar los códigos Emoji disponibles. Para activar esta configuración debe <strong>Reiniciar el servidor de aplicación</strong>.'
+  label_emoji_support: Emoji support
+  emoji_support_info_html: 'Emojis im Text konvertieren. Aktivere diese Option, wenn :heart:, :+1: etc in Emojis konvertiert werden sollen. Im <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> können die zur Verfügung stehenden Emoji-Codes eingesetzt werden.'
+  legacy_smiley_support_info_html: 'Smileys im Text konvertieren. Aktiviere diese Option, wenn :), :-) etc in Smileys konvertiert werden sollen. Wird diese Einstellung verändert, <strong>muss der Anwendungsserver neu gestartet werden</strong>.'
   max_live_search_results_info: "Número de resultados máximos de búsqueda para LiveSearch. Nota: La configuración sólo afecta a los plugins que soportan LiveSearch."
   menu_roles_info: "Solo los miembros con los roles selccionado podrán ver esta entrada de Menú."
   new_ticket_message_info: "Se mostrará una nota a todos aquellos que quieran agregar una nueva petición. Puede por ejemplo agregar las condiciones de aceptación o las plantillas. Estas configuraciones afectan a todos los proyectos."

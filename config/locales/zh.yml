@@ -166,7 +166,9 @@ zh:
   label_without_value: "没有 %{value}"
   label_yearly: 每年
   latest_entries_changes: "最新的 %{value} 变更"
-  legacy_smiley_support_info_html: '转换文字中的颜文字。此选项应当仅在希望将手动输入的颜文字代码（例如 :)）展示为表情时选中。<a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> 提供了可用的颜文字代码。为激活该配置，必须 <strong>重启 Redmine 服务</strong> 。'
+  label_emoji_support: Emoji support
+  emoji_support_info_html: 'Emojis im Text konvertieren. Aktivere diese Option, wenn :heart:, :+1: etc in Emojis konvertiert werden sollen. Im <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> können die zur Verfügung stehenden Emoji-Codes eingesetzt werden.'
+  legacy_smiley_support_info_html: 'Smileys im Text konvertieren. Aktiviere diese Option, wenn :), :-) etc in Smileys konvertiert werden sollen. Wird diese Einstellung verändert, <strong>muss der Anwendungsserver neu gestartet werden</strong>.'
   max_live_search_results_info: "LiveSearch的最大搜索结果的数量。注意：设置只影响到支持LiveSearch的插件。"
   menu_roles_info: "只有所选角色对应的用户才能看到菜单项。"
   new_ticket_message_info: "每个新建问题的用户都会看到提示信息。例如，您可以输入可接受性测试或问题处理规则。这些配置在某个具体的项目范围内适用。"

@@ -167,8 +167,8 @@ zh:
   label_yearly: 每年
   latest_entries_changes: "最新的 %{value} 变更"
   label_emoji_support: Emoji support
-  emoji_support_info_html: 'Emojis im Text konvertieren. Aktivere diese Option, wenn :heart:, :+1: etc in Emojis konvertiert werden sollen. Im <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> können die zur Verfügung stehenden Emoji-Codes eingesetzt werden.'
-  legacy_smiley_support_info_html: 'Smileys im Text konvertieren. Aktiviere diese Option, wenn :), :-) etc in Smileys konvertiert werden sollen. Wird diese Einstellung verändert, <strong>muss der Anwendungsserver neu gestartet werden</strong>.'
+  emoji_support_info_html: 'Convert emojis in text. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> the available emoji codes can be used.'
+  legacy_smiley_support_info_html: 'Convert smileys in text. Activate this option if :), :-) etc are to be converted to smileys. If this setting is changed, the application server <strong>must be restarted</strong>.'
   max_live_search_results_info: "LiveSearch的最大搜索结果的数量。注意：设置只影响到支持LiveSearch的插件。"
   menu_roles_info: "只有所选角色对应的用户才能看到菜单项。"
   new_ticket_message_info: "每个新建问题的用户都会看到提示信息。例如，您可以输入可接受性测试或问题处理规则。这些配置在某个具体的项目范围内适用。"

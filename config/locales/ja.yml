@@ -166,9 +166,9 @@ ja:
   label_without_value: "%{value} なし"
   label_yearly: '毎年'
   latest_entries_changes: "最新の %{value} の変更点"
-  label_emoji_support: Emoji support
-  emoji_support_info_html: 'Emojis im Text konvertieren. Aktivere diese Option, wenn :heart:, :+1: etc in Emojis konvertiert werden sollen. Im <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> können die zur Verfügung stehenden Emoji-Codes eingesetzt werden.'
-  legacy_smiley_support_info_html: 'Smileys im Text konvertieren. Aktiviere diese Option, wenn :), :-) etc in Smileys konvertiert werden sollen. Wird diese Einstellung verändert, <strong>muss der Anwendungsserver neu gestartet werden</strong>.'
+  label_emoji_support: Emoji 対応
+  emoji_support_info_html: '絵文字をテキストに変換する. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> the available emoji codes can be used.'
+  legacy_smiley_support_info_html: 'スマイリーをテキストに変換する. Activate this option if :), :-) etc are to be converted to smileys. If this setting is changed, the application server <strong>must be restarted</strong>.'
   max_live_search_results_info: "LiveSearchの最大検索結果数です。注意：この設定は、LiveSearchに対応したプラグインにのみ影響します。"
   menu_roles_info: "選択された役割のメンバーだけがこのメニュー項目を表示します。"
   new_ticket_message_info: "新規チケットを登録したいときに表示されるメモ書き。例えば、チケット入力のルールや承認規程を掲載する目的にでも使えます。これらの設定は全プロジェクトで有効です。"
@@ -177,7 +177,7 @@ ja:
   permission_edit_closed_issues: "Edit closed issues"
   permission_edit_issue_author: "著者を編集"
   permission_issue_timelog_never_required: '時間の予約は必要ありません'
-  permission_log_time_on_closed_issues: "Log time on closed issues"
+  permission_log_time_on_closed_issues: "クローズした課題のログ時間"
   permission_save_dashboards: "ダッシュボードの保存"
   permission_set_system_dashboards: "システムダッシュボードの設定"
   permission_share_dashboards: "ダッシュボードの共有"

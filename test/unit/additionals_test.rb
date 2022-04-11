@@ -36,7 +36,7 @@ class AdditionalsTest < Additionals::TestCase
     assert_equal [1, 2, 3], Additionals.split_ids('1, 2 , 3')
     assert_equal [3, 2], Additionals.split_ids('3, 2, 2')
     assert_equal [1, 2], Additionals.split_ids('1, 2 3')
-    assert_equal [], Additionals.split_ids('')
+    assert_empty Additionals.split_ids('')
     assert_equal [0], Additionals.split_ids('non-number')
   end
 

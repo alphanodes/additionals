@@ -32,6 +32,7 @@ if File.file? File.expand_path './.enable_linters', __dir__
     gem 'brakeman', require: false
     gem 'pandoc-ruby', require: false
     gem 'rubocop', require: false
+    gem 'rubocop-minitest', require: false
     gem 'rubocop-performance', require: false
     gem 'rubocop-rails', require: false
     gem 'slim_lint', require: false

@@ -17,18 +17,18 @@ class RedmineAccessControlTest < Additionals::TestCase
   end
 
   def test_disabled_project_modules
-    assert_equal [], Redmine::AccessControl.disabled_project_modules
+    assert_empty Redmine::AccessControl.disabled_project_modules
 
     with_plugin_settings 'additionals', disabled_modules: %i[news] do
       assert_equal [:news], Redmine::AccessControl.disabled_project_modules
     end
 
-    assert_equal [], Redmine::AccessControl.disabled_project_modules
+    assert_empty Redmine::AccessControl.disabled_project_modules
   end
 
   def test_available_project_modules
     with_plugin_settings 'additionals', disabled_modules: [] do
-      assert Redmine::AccessControl.available_project_modules.include? :news
+      assert_includes Redmine::AccessControl.available_project_modules, :news
     end
 
     with_plugin_settings 'additionals', disabled_modules: %i[news] do
@@ -61,7 +61,7 @@ class RedmineAccessControlTest < Additionals::TestCase
     assert Redmine::AccessControl.active_entity_module?(Wiki)
 
     with_plugin_settings 'additionals', disabled_modules: %i[wiki] do
-      assert Redmine::AccessControl.disabled_project_modules.include?(:wiki)
+      assert_includes Redmine::AccessControl.disabled_project_modules, :wiki
       assert_not Redmine::AccessControl.active_entity_module?(Wiki)
     end
 

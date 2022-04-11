@@ -28,7 +28,7 @@ class AdditionalsMacroTest < Additionals::TestCase
 
   def test_all_with_only_names
     available_macros = AdditionalsMacro.all only_names: true
-    assert available_macros.include?('child_pages')
+    assert_includes available_macros, 'child_pages'
   end
 
   def test_with_filter
@@ -52,6 +52,6 @@ class AdditionalsMacroTest < Additionals::TestCase
     assert available_macros.exclude?('child_pages')
 
     available_macros = AdditionalsMacro.all only_names: true, controller_only: 'wiki'
-    assert available_macros.include?('child_pages')
+    assert_includes available_macros, 'child_pages'
   end
 end

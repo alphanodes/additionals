@@ -20,7 +20,8 @@ class AdditionalsFontAwesomeTest < Additionals::TestCase
 
   def test_value_info_should_return_infos
     info = AdditionalsFontAwesome.value_info 'invalid'
-    assert_equal({}, info)
+    assert info.is_a? Hash
+    assert_empty info
 
     info = AdditionalsFontAwesome.value_info 'fas_car'
     assert info.key?(:classes)

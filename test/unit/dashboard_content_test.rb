@@ -14,7 +14,7 @@ class DashboardContentTest < Additionals::TestCase
   end
 
   def test_types
-    assert DashboardContent.types.include?(DashboardContentProject::TYPE_NAME)
-    assert DashboardContent.types.include?(DashboardContentWelcome::TYPE_NAME)
+    assert_includes DashboardContent.types, DashboardContentProject::TYPE_NAME
+    assert_includes DashboardContent.types, DashboardContentWelcome::TYPE_NAME
   end
 end

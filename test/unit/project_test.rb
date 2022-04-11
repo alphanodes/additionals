@@ -67,7 +67,7 @@ class ProjectTest < Additionals::TestCase
     assert_kind_of Hash, principals_by_role
     role = Role.find 1
     assert_kind_of Array, principals_by_role[role]
-    assert principals_by_role[role].include?(User.find(2))
+    assert_includes principals_by_role[role], User.find(2)
   end
 
   def test_principals_by_role_with_hidden_role

@@ -33,7 +33,7 @@ class AdditionalsMacroTest < Additionals::TestCase
 
   def test_with_filter
     available_macros = AdditionalsMacro.all filtered: ['child_pages'], only_names: true
-    assert available_macros.exclude?('child_pages')
+    assert_not_includes available_macros, 'child_pages'
 
     for_two_macros_selection = @all_macros - %w[child_pages collapse] + ['', 'nonexistingmacro']
     available_macros = AdditionalsMacro.all filtered: for_two_macros_selection, only_names: true
@@ -49,7 +49,7 @@ class AdditionalsMacroTest < Additionals::TestCase
 
   def test_with_controller_limit
     available_macros = AdditionalsMacro.all only_names: true, controller_only: 'issue'
-    assert available_macros.exclude?('child_pages')
+    assert_not_includes available_macros, 'child_pages'
 
     available_macros = AdditionalsMacro.all only_names: true, controller_only: 'wiki'
     assert_includes available_macros, 'child_pages'

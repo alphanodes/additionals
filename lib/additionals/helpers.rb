@@ -179,11 +179,11 @@ module Additionals
       false
     end
 
-    def additionals_include_js(js_name)
+    def additionals_include_js(js_name, core: false)
       if additionals_already_loaded 'js', js_name
         ''
       else
-        javascript_include_tag js_name, plugin: 'additionals'
+        javascript_include_tag js_name, plugin: core ? nil : 'additionals'
       end
     end
 
@@ -210,8 +210,7 @@ module Additionals
     end
 
     def additionals_load_chartjs
-      additionals_include_css('Chart.min') +
-        additionals_include_js('Chart.bundle.min')
+      additionals_include_js 'chart.min', core: true
     end
 
     def additionals_load_chartjs_datalabels

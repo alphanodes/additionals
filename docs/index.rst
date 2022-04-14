@@ -164,9 +164,8 @@ Don't worry, if you only need a subset of the provided libraries. If you do not 
 
 It provides :
 
-* `Chart.js 2.9.4 <https://www.chartjs.org/>`_
-* `Chart.js Plugin colorschemes 0.4.0 <https://github.com/nagix/chartjs-plugin-colorschemes>`_
-* `Chart.js Plugin datalabels 0.7.0 <https://github.com/chartjs/chartjs-plugin-datalabels>`_
+* `Chart.js Plugin colorschemes 0.4.0 (patched for chartjs 3) <https://github.com/nagix/chartjs-plugin-colorschemes>`_
+* `Chart.js Plugin datalabels 2.0.0 <https://github.com/chartjs/chartjs-plugin-datalabels>`_
 * `clipboardJS 2.0.10 <https://clipboardjs.com/>`_
 * `d3 7.4.4 <https://d3js.org/>`_
 * `d3plus 2.0.1 <https://d3plus.org/>`_

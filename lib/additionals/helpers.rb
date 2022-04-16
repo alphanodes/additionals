@@ -222,7 +222,9 @@ module Additionals
     end
 
     def additionals_load_chartjs_matrix
-      additionals_include_js 'chartjs-chart-matrix.min'
+      additionals_include_js('moment-with-locales.min') +
+        additionals_include_js('chartjs-adapter-moment.min') +
+        additionals_include_js('chartjs-chart-matrix.min')
     end
 
     def additionals_load_mermaid

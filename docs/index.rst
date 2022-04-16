@@ -166,6 +166,7 @@ It provides :
 
 * `Chart.js Plugin colorschemes 0.4.0 (patched for chartjs 3) <https://github.com/nagix/chartjs-plugin-colorschemes>`_
 * `Chart.js Plugin datalabels 2.0.0 <https://github.com/chartjs/chartjs-plugin-datalabels>`_
+* `Chart.js Plugin matrix 1.1.1 <https://github.com/kurkle/chartjs-chart-matrix>`_
 * `clipboardJS 2.0.10 <https://clipboardjs.com/>`_
 * `d3 7.4.4 <https://d3js.org/>`_
 * `d3plus 2.0.1 <https://d3plus.org/>`_

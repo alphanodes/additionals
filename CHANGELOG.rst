@@ -11,7 +11,8 @@ Changelog
 - Add project filter for new_issue_message type
 - Mermaid 9.0.0 support
 - Switch from gemoji to tanuki_emoji
-- Chartjs 3 support
+- Chart.js 3 support
+- Add Chart.js matrix plugin
 
 3.0.5.2
 +++++++

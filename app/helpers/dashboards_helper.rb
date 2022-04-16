@@ -420,7 +420,7 @@ module DashboardsHelper
     title.presence || block_definition[:label]
   end
 
-  def options_for_query_select(klass, project)
+  def options_for_query_select(klass, project, selected = nil)
     # sidebar_queries cannot be use because descendants classes are included
     # this changes on class loading
     # queries = klass.visible.global_or_on_project(@project).sorted.to_a
@@ -429,7 +429,7 @@ module DashboardsHelper
                    .where(type: klass.to_s)
                    .sorted.to_a
 
-    tag.option + options_from_collection_for_select(queries, :id, :name)
+    tag.option + options_from_collection_for_select(queries, :id, :name, selected)
   end
 
   private

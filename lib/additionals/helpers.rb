@@ -213,12 +213,16 @@ module Additionals
       additionals_include_js 'chart.min', core: true
     end
 
+    def additionals_load_chartjs_colorschemes
+      additionals_include_js 'chartjs-plugin-colorschemes.min'
+    end
+
     def additionals_load_chartjs_datalabels
       additionals_include_js 'chartjs-plugin-datalabels.min'
     end
 
-    def additionals_load_chartjs_colorschemes
-      additionals_include_js 'chartjs-plugin-colorschemes.min'
+    def additionals_load_chartjs_matrix
+      additionals_include_js 'chartjs-chart-matrix.min'
     end
 
     def additionals_load_mermaid

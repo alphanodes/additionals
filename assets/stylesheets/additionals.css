@@ -254,14 +254,12 @@ div.additionals-projects li.project.odd {
 
 .additionals-chart-left {
   float: left;
-  height: 320px;
   width: 360px;
 }
 
 /* has to be same width as additionals-table-of-values */
 .additionals-chart-right {
   float: left;
-  height: 320px;
   width: 450px;
 }
 

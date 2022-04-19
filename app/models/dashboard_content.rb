@@ -42,7 +42,7 @@ class DashboardContent
                           entities_var: :issues,
                           with_project: true
                         },
-                        max_occurs: DashboardContent::MAX_MULTIPLE_OCCURS },
+                        max_occurs: MAX_MULTIPLE_OCCURS },
       'text' => { label: l(:label_text_sync),
                   max_occurs: MAX_MULTIPLE_OCCURS,
                   partial: 'dashboards/blocks/text' },
@@ -72,7 +72,7 @@ class DashboardContent
     return @available_blocks if defined? @available_blocks
 
     available_blocks = block_definitions.reject do |_block_name, block_specs|
-      block_specs.key?(:permission) && !user.allowed_to?(block_specs[:permission], project, global: true) ||
+      block_specs.key?(:permission) && !block_permission_allowed?(block_specs[:permission]) ||
         block_specs.key?(:admin_only) && block_specs[:admin_only] && !user.admin? ||
         block_specs.key?(:if) && !block_specs[:if].call(project)
     end
@@ -114,5 +114,12 @@ class DashboardContent
       'left' => ['legacy_left'],
       'right' => ['legacy_right']
     }
+  end
+
+  private
+
+  # if more the one permission is specified, all permissions are required
+  def block_permission_allowed?(permission)
+    Array(permission).all? { |p| user.allowed_to?(p, project, global: true) }
   end
 end

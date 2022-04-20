@@ -32,7 +32,7 @@ module Additionals
 
           pages = WikiPage.joins(:content)
                           .where(wiki_id: page.wiki_id)
-                          .where("#{WikiContent.table_name}.updated_on > ?", User.current.today - days)
+                          .where(wiki_contents: { updated_on: (User.current.today - days)... })
                           .order("#{WikiContent.table_name}.updated_on desc")
 
           pages = pages.visible User.current, project: project if pages.respond_to? :visible

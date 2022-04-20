@@ -25,7 +25,7 @@ class Dashboard < ActiveRecord::Base
   VISIBILITY_PUBLIC  = 2
 
   scope :by_project, (->(project_id) { where project_id: project_id if project_id.present? })
-  scope :sorted, (-> { order "#{Dashboard.table_name}.name" })
+  scope :sorted, (-> { order :name })
   scope :welcome_only, (-> { where dashboard_type: DashboardContentWelcome::TYPE_NAME })
   scope :project_only, (-> { where dashboard_type: DashboardContentProject::TYPE_NAME })
 

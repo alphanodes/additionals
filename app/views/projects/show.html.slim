@@ -1,11 +1,6 @@
 / Some plugins use @news (e.g. redmine_wysiwyg_editor), to detect news
 - @news = nil
 .contextual
-  - if User.current.allowed_to?(:save_dashboards, @project) && @dashboard&.editable?
-    = link_to l(:button_dashboard_edit),
-              edit_project_dashboard_path(@project, @dashboard),
-              class: 'icon icon-edit'
-
   = bookmark_link @project unless AdditionalsPlugin.active_reporting?
   = call_hook :view_project_contextual_links, project: @project
 
@@ -44,6 +39,10 @@
       = link_to l(:label_new_dashboard),
                 new_project_dashboard_path(@project),
                 class: 'icon icon-add new-additionals-dashboard'
+      - if @dashboard&.editable?
+        = link_to l(:button_dashboard_edit),
+                  edit_project_dashboard_path(@project, @dashboard),
+                  class: 'icon icon-edit'
 
     - if @dashboard&.destroyable?
       = delete_dashboard_link project_dashboard_path(@project, @dashboard)

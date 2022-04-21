@@ -54,9 +54,9 @@ When accessing Redmine you probably get redirected to the *Home* page of the sys
 
 What you can do here is:
 
-*  use the "Edit dashboard" link for modifications
+*  "Edit dashboard" in the "Actions" menu for modifications
 *  add a "New dashboard"
-*  Enable sidebar or Disable sidebar
+*  Enable or Disable sidebar
 *  Switch to other existing dashboards
 *  Add a dashboard block
 *  Move, delete or configure added dashboard blocks
@@ -65,7 +65,7 @@ What you can do here is:
 Edit Dashboard
 ++++++++++++++
 
-Users with appropriate permission can edit an existing dashboard by clicking the "Edit dashboard" link to open the edit window.
+Users with appropriate permission can edit an existing dashboard by clicking the "Edit dashboard" link in the "Actions" menu to open the edit window.
 
 .. figure::  images/dashboard-edit.png
    :align:   center
@@ -184,7 +184,7 @@ What you can do here is:
 Edit project dashboard
 ++++++++++++++++++++++
 
-Users with appropriate permission can edit an existing dashboard by clicking the "Edit dashboard" link to open the edit window. What fields are displayed also depends on the permission the role your user has.
+Users with appropriate permission can edit an existing dashboard by clicking the "Edit dashboard" link in the "Actions" menu to open the edit window. What fields are displayed also depends on the permission the role your user has.
 
 .. figure::  images/dashboard-edit-project.png
    :align:   center

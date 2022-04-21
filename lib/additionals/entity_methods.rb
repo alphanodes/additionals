@@ -13,9 +13,10 @@ module Additionals
     end
 
     module InstanceMethods
+      # used with assignable_principal (user AND groups)
       def assignable_users(prj = nil)
         prj = project if project.present?
-        users = prj.principals.to_a
+        users = prj.assignable_principals.to_a
         users << author if author&.active?
         if assigned_to_id_was.present?
           assignee = Principal.find_by id: assigned_to_id_was

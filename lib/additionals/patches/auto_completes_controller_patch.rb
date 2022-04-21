@@ -33,7 +33,7 @@ module Additionals
         end
 
         def assignee
-          scope = @project ? @project.principals.visible : Principal.assignable
+          scope = @project ? @project.assignable_principals.visible : Principal.assignable
 
           render_grouped_users_with_select2 scope, search_term: @search_term
         end
@@ -53,7 +53,7 @@ module Additionals
 
         # user and groups
         def grouped_principals
-          scope = @project ? @project.principals.visible : Principal.assignable
+          scope = @project ? @project.assignable_principals.visible : Principal.assignable
 
           render_params = { search_term: @search_term,
                             with_me: RedminePluginKit.true?(params[:with_me]) }

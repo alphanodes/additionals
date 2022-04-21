@@ -82,7 +82,9 @@ module Additionals
 
         # assignable_users result depends on Setting.issue_group_assignment?
         # this result is not depending on issue settings
-        # NOTE: user and groups
+        #
+        # - always with groups and upsers
+        # - no tracker support -> cannot be used with issues
         def assignable_principals
           Principal.assignable
                    .joins(members: :roles)

@@ -11,7 +11,7 @@ class AdditionalsInfoTest < Additionals::TestCase
 
   def test_system_info
     text = AdditionalsInfo.new.system_info
-    assert_not_equal '', text
+    assert_not_empty text
     assert_not_equal 'unknown', text
   end
 

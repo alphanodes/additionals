@@ -100,7 +100,7 @@ class ProjectTest < Additionals::TestCase
     project.update_attribute :enable_new_ticket_message, '0'
 
     with_plugin_settings 'additionals', new_ticket_message: 'foo' do
-      assert_equal '', project.active_new_ticket_message
+      assert_empty project.active_new_ticket_message
     end
   end
 

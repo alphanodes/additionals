@@ -1,0 +1,25 @@
+<% custom_field_values = entity.custom_field_values.select(&:editable?) %>
+<% if custom_field_values.present? %>
+<% custom_field_values_full_width = custom_field_values.select { |value| value.custom_field.full_width_layout? } %>
+<% custom_field_values -= custom_field_values_full_width %>
+
+<div class="splitcontent">
+  <div class="splitcontentleft">
+  <% i = 0 %>
+  <% split_on = (custom_field_values.size / 2.0).ceil - 1 %>
+  <% custom_field_values.each do |value| %>
+    <p><%= custom_field_tag_with_label entity_name, value, required: value.custom_field.is_required? %></p>
+  <% if i == split_on -%>
+  </div><div class="splitcontentright">
+  <% end -%>
+  <% i += 1 -%>
+  <% end -%>
+  </div>
+</div>
+
+<% custom_field_values_full_width.each do |value| %>
+  <p><%= custom_field_tag_with_label entity_name, value, required: value.custom_field.is_required? %></p>
+  <%= wikitoolbar_for "#{entity_name}_custom_field_values_#{value.custom_field_id}", preview_text_path(project_id: entity.project) if value.custom_field.full_text_formatting? %>
+<% end %>
+
+<% end %>

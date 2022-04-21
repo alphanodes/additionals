@@ -74,7 +74,6 @@
   label_copied_to_clipboard: "复制!"
   label_copy_to_clipboard: "复制到剪贴板"
   label_custom_fields_distribution: "Custom fields for distribution"
-  label_custom_menu_items: "自訂選單項目"
   label_daily: 每天
   label_dashboard: Dashboard
   label_dashboard_author: "Author: %{name}"

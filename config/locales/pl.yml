@@ -74,7 +74,6 @@ pl:
   label_copied_to_clipboard: "Skopiowane!"
   label_copy_to_clipboard: "Kopia do schowka"
   label_custom_fields_distribution: "Pola niestandardowe dla dystrybucji"
-  label_custom_menu_items: "Niestandardowe pozycje menu"
   label_daily: "dobowy"
   label_dashboard: Dashboard
   label_dashboard_author: "Author: %{name}"

@@ -14,14 +14,8 @@ Redmine::Plugin.register :additionals do
   url 'https://github.com/alphanodes/additionals'
   directory __dir__
 
-  default_settings = loader.default_settings
-  5.times do |i|
-    default_settings["custom_menu#{i}_name"] = ''
-    default_settings["custom_menu#{i}_url"] = ''
-    default_settings["custom_menu#{i}_title"] = ''
-  end
-
-  settings default: default_settings, partial: 'additionals/settings/additionals'
+  settings default: loader.default_settings,
+           partial: 'additionals/settings/additionals'
 
   permission :show_hidden_roles_in_memberbox, {}
   permission :set_system_dashboards,

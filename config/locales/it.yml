@@ -74,7 +74,6 @@ it:
   label_copied_to_clipboard: "Copiato!"
   label_copy_to_clipboard: "Copia negli appunti"
   label_custom_fields_distribution: "Campi personalizzati per la distribuzione"
-  label_custom_menu_items: Custom menu items
   label_daily: giornalmente
   label_dashboard: Dashboard
   label_dashboard_author: "Autore: %{name}"

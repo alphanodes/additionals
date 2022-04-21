@@ -15,12 +15,30 @@ module Additionals
       end
 
       module InstanceOverwriteMethods
+        def assignable_users(tracker = nil)
+          super
+          return @assignable_users[tracker] if @assignable_users[tracker].blank?
+          return @assignable_users[tracker] unless consider_hidden_roles?
+
+          a_u = Arel::Table.new :users
+          a_m = Arel::Table.new :members
+
+          users = @assignable_users[tracker]
+          subquery = Member.joins(:roles)
+                           .where(members: { project_id: id },
+                                  roles: { hide: false })
+                           .where(a_u[:id].eq(a_m[:user_id]))
+
+          @assignable_users[tracker] = users.where "EXISTS(#{subquery.to_sql})"
+        end
+
         def principals_by_role
-          # includes = AdditionalsPlugin.active_hrm? ? [:roles, { principal: :hrm_user_type }] : %i[roles principal]
+          return super unless consider_hidden_roles?
+
           includes = %i[principal member_roles roles]
           memberships.active.includes(includes).each_with_object({}) do |m, h|
             m.roles.each do |r|
-              next if r.hide && !User.current.allowed_to?(:show_hidden_roles_in_memberbox, project)
+              next if r.hide
 
               h[r] ||= []
               h[r] << m.principal
@@ -31,6 +49,16 @@ module Additionals
       end
 
       module InstanceMethods
+        def consider_hidden_roles?
+          return @with_hidden_roles if defined? @with_hidden_roles
+
+          @with_hidden_roles = false
+          return @with_hidden_roles if User.current.allowed_to? :show_hidden_roles_in_memberbox, self
+
+          @with_hidden_roles = Role.exists? hide: true, users_visibility: 'members_of_visible_projects'
+          @with_hidden_roles
+        end
+
         # without hidden roles!
         def all_principals_by_role
           memberships.includes(:principal, :roles).each_with_object({}) do |m, h|

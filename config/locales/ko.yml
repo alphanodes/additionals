@@ -74,7 +74,6 @@ ko:
   label_copied_to_clipboard: "복사되었습니다!"
   label_copy_to_clipboard: "클립 보드에 복사"
   label_custom_fields_distribution: "Custom fields for distribution"
-  label_custom_menu_items: 맞춤 메뉴 항목
   label_daily: 매일
   label_dashboard: Dashboard
   label_dashboard_author: "Author: %{name}"

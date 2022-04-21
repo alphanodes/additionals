@@ -74,7 +74,6 @@ ja:
   label_copied_to_clipboard: "コピーしました"
   label_copy_to_clipboard: "クリップボードにコピー"
   label_custom_fields_distribution: "配布用のカスタムフィールド"
-  label_custom_menu_items: Custom menu items
   label_daily: daily
   label_dashboard: Dashboard
   label_dashboard_author: "Author: %{name}"

@@ -18,9 +18,11 @@ class ProjectTest < Additionals::TestCase
            :groups_users,
            :repositories,
            :workflows,
-           :attachments
+           :attachments,
+           :dashboards, :dashboard_roles
 
   def setup
+    prepare_tests
     User.current = nil
   end
 
@@ -71,14 +73,10 @@ class ProjectTest < Additionals::TestCase
   end
 
   def test_principals_by_role_with_hidden_role
-    Role.update_all users_visibility: 'members_of_visible_projects'
-
     role = Role.find 2
     role.hide = 1
+    role.users_visibility = 'members_of_visible_projects'
     role.save!
-
-    assert_equal 0, Role.where.not(users_visibility: 'members_of_visible_projects').count
-    assert role.hide
 
     # User.current = User.find 2
     principals_by_role = Project.find(1).principals_by_role
@@ -114,5 +112,33 @@ class ProjectTest < Additionals::TestCase
     with_plugin_settings 'additionals', new_ticket_message: 'foo' do
       assert_equal 'bar', project.active_new_ticket_message
     end
+  end
+
+  def test_consider_hidden_roles_without_hide_roles
+    project = projects :projects_001
+    assert_not project.consider_hidden_roles?
+  end
+
+  def test_consider_hidden_roles_with_hide_and_view_permission
+    User.current = users :users_002
+    project = projects :projects_001
+
+    role = Role.find 2
+    role.hide = 1
+    role.users_visibility = 'members_of_visible_projects'
+    role.save!
+
+    assert_not project.consider_hidden_roles?
+  end
+
+  def test_consider_hidden_roles_with_hide
+    project = projects :projects_001
+
+    role = Role.find 2
+    role.hide = 1
+    role.users_visibility = 'members_of_visible_projects'
+    role.save!
+
+    assert project.consider_hidden_roles?
   end
 end

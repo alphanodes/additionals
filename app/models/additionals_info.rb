@@ -15,13 +15,13 @@ class AdditionalsInfo
     Array(Redmine::Configuration['system_infos_vars']).each do |var|
       next unless ENV.key? var
 
-      infos[var] = { value: ENV[var] }
+      infos[var] = { value: ENV.fetch(var, nil) }
     end
 
     Array(Redmine::Configuration['system_infos_bool_vars']).each do |var|
       next unless ENV.key? var
 
-      infos[var] = { value: RedminePluginKit.true?(ENV[var]) }
+      infos[var] = { value: RedminePluginKit.true?(ENV.fetch(var, nil)) }
     end
 
     infos

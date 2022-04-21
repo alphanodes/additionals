@@ -25,6 +25,7 @@ module Additionals
       Role.where(id: [1]).each do |r|
         r.permissions << :share_dashboards
         r.permissions << :set_system_dashboards
+        r.permissions << :show_hidden_roles_in_memberbox
         r.save
       end
 

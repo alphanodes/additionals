@@ -74,7 +74,6 @@ de:
   label_copied_to_clipboard: Kopiert!
   label_copy_to_clipboard: In die Zwischenablage kopieren
   label_custom_fields_distribution: Benutzerdefinierte Felder für Verteilung
-  label_custom_menu_items: Benutzerdefinierte Menüpunkte
   label_daily: täglich
   label_dashboard: Dashboard
   label_dashboard_author: "Autor: %{name}"

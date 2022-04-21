@@ -74,7 +74,6 @@ zh:
   label_copied_to_clipboard: "已复制!"
   label_copy_to_clipboard: "复制到剪贴板"
   label_custom_fields_distribution: "用于分发的自定义字段"
-  label_custom_menu_items: 自定义菜单项
   label_daily: 每天
   label_dashboard: 仪表盘
   label_dashboard_author: "作者: %{name}"

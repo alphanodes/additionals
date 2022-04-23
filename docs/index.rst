@@ -171,7 +171,8 @@ It provides :
 * `d3 7.4.4 <https://d3js.org/>`_
 * `d3plus 2.0.1 <https://d3plus.org/>`_
 * `FontAwesome 5.15.4 <https://fontawesome.com/>`_
-* `mermaid 9.0.0 <https://github.com/mermaid-js/mermaid>`_
+* `mermaid 9.0.1 <https://github.com/mermaid-js/mermaid>`_
+* `moment 2.29.2 <https://github.com/moment/moment>`_ (used by Chart.js)
 * `Select2 4.0.13 <https://select2.org/>`_
 
 And a set of various Rails helper methods (see below).

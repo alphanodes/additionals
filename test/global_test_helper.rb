@@ -111,7 +111,7 @@ module Additionals
         end
       end
 
-      colspan = inline_columns.count + block_columns.count
+      colspan = inline_columns.count + 2
       colspan -= 1 unless with_checkbox
       assert_select block_tr_select do
         block_columns.each do |column_name|

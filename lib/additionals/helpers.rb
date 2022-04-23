@@ -15,7 +15,7 @@ module Additionals
 
       content = []
       query.block_columns.each do |column|
-        next unless (text = column_content column, entry) || text.blank?
+        next if !(text = column_content column, entry) || text.blank?
 
         content << tag.tr(class: "#{tr_classes} block_row") do # rubocop: disable Style/MethodCallWithArgsParentheses
           tds = []

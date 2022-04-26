@@ -106,7 +106,7 @@ module AdditionalsQueriesHelper
   def render_grouped_users_with_select2(users, search_term: nil, with_me: true, with_ano: false, me_value: 'me')
     @users = { active: [], groups: [], registered: [], locked: [] }
 
-    search_term.split.map { |word| users = users.like word } if search_term.present?
+    users = users.like search_term if search_term.present?
 
     sorted_users = users.select("users.*, #{User.table_name}.last_login_on IS NULL AS select_order")
                         .order("select_order ASC, #{User.table_name}.last_login_on DESC")

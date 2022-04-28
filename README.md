@@ -207,39 +207,62 @@ The additionals plugin configuration is divided into several sections, which are
 The general section tab allows you to define some special behaviours for your Redmine installation.
 It is divided into two areas called ``Contents`` and ``Settings``.
 
-### Contents
+#### Contents
 
 The following plugin options are available to be edited by users with administration rights in the area **Contents**:
 
 Text for login page
-  This section is for a short information on the login page below the login mask. For example who to contact in order to get Redmine access.
+: This section is for a short information on the login page below the login mask. For example who to contact in order to get Redmine access.
 
 Global sidebar
-  Place your global information here, if needed. Use wiki links or available macros that can be seen by every one.
+: Place your global information here, if needed. Use wiki links or available macros that can be seen by every one.
 
 Project wide footer
-  In case you want to put some information about your company or for your imprint. Here you can also use wiki syntax for structuring your text.
+: In case you want to put some information about your company or for your imprint. Here you can also use wiki syntax for structuring your text.
 
 
-### Settings
+#### Settings
 
 And the following options can be edited by users with administratios rights in the area **Settings**:
 
 Open external URLs
-  Activate the option ``Open external URLs`` in order to open those URLs in a new window or browser tab if someone wants to visit them.
+: Activate the option ``Open external URLs`` in order to open those URLs in a new window or browser tab if someone wants to visit them.
 
 Go to top Link
-  Add "Go to top" link. If you have a lot of long pages, it is enabling users to easily return to the top of a page.
+: Add "Go to top" link. If you have a lot of long pages, it is enabling users to easily return to the top of a page.
 
 Legacy smileys support
-  Activate the ``Legacy smileys support`` if you want to use the manual smiley code in your text (e.g. ``:)``). If you already use a plugin that supports Smileys this option should stay deactivated. For more info on Emoji-Browser support read [more here](http://caniemoji.com/). Have a look at the Emoji [cheat sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet) for available Emoji-Codes.
+: Activate the ``Legacy smileys support`` if you want to use the manual smiley code in your text (e.g. ``:)``). If you already use a plugin that supports Smileys this option should stay deactivated. For more info on Emoji-Browser support read [more here](http://caniemoji.com/). Have a look at the Emoji [cheat sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet) for available Emoji-Codes.
 
 Disable modules
-  This feature will hide the selected modules in the project settings. Even if the module is enabled for use in the admin area it can not be selected by the project manager within the projects. Please note, if these modules already activated in existing projects, you will have to change and re-save the respective project settings first.
+: This feature will hide the selected modules in the project settings. Even if the module is enabled for use in the admin area it can not be selected by the project manager within the projects. Please note, if these modules already activated in existing projects, you will have to change and re-save the respective project settings first.
 
 
-.. note::
-  Please restart the application server, if you make changes to the external urls settings as well as if you activate the Smileys support.
+> **_NOTE:_**  Please restart the application server, if you make changes to the external urls settings as well as if you activate the Smileys support.
 
-.. note::
-  You can use the following manual smiley codes: :), =), :D, =D, :'(, :(, ;), :P, :O, :/, :S, :|, :X, :*, O:), >:), B), (!), (?), (v), (x) and  (/)
+> **_Tip:_**  You can use the following manual smiley codes: :), =), :D, =D, :'(, :(, ;), :P, :O, :/, :S, :|, :X, :*, O:), >:), B), (!), (?), (v), (x) and  (/)
+
+
+## Wiki section
+
+If you click on this tab you get to the area, where users with administration rights can customize contents and settings for your Wiki pages in Redmine.
+
+#### Contents
+
+Global wiki sidebar        
+: Here you can implement useful macros like a display of your page hierarchy.
+: But remember - only people with the correspondent rights will get a display of the content.
+: You can also implement useful macros in this section.
+: For example to implement some date or author macros (e.g. last_updated_at, last_updated_by)
+
+
+> **_NOTE:_**  Use simple text, macros and wiki syntax for your content.
+
+#### PDF Wiki settings
+
+Remove Wiki title from PDF view   
+: When activated the general Wiki title info in the page header of the PDF view will not be displayed.
+
+Remove attachments from PDF view   
+: When activated the attachments will not be displayed in the PDF view of a Wiki page.
+

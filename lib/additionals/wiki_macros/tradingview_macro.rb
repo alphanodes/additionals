@@ -7,8 +7,29 @@ module Additionals
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
     Creates Tradingview chart
+
+    Syntax:
+
       {{tradingview(options)}}
-    see https://additionals.readthedocs.io/en/latest/macros/#tradingview
+
+    Parameters:
+
+      :param int width: default 640
+      :param int height: default 480
+      :param string symbol: default NASDAQ:AAPL
+      :param string interval: default W
+      :param string timezone: default Europe/Berlin
+      :param string theme: default White
+      :param int style: default 2
+      :param string locale: default de
+      :param string toolbar_bg: default #f1f3f6
+      :param bool enable_publishing: default false
+      :param bool allow_symbol_change: default true
+      :param bool hideideasbutton: default true
+
+    Examples:
+
+    {{tradingview(symbol=NASDAQ:AMZN, locale=en)}} - Show chart with symbol `NASDAQ:AMZN` and use English locale
         DESCRIPTION
 
         macro :tradingview do |_obj, args|

@@ -11,6 +11,13 @@ module Additionals
 
       {{google_docs(<link> [, width=100%, height=485, edit_link=LINK)}}
 
+    Parameters:
+
+      :param string link: Embedded Google docs link
+      :param int width: width (if not specified, 100% is used)
+      :param int height: height (if not specified, 485 is used)
+      :param int edit_link: Link to edit page
+
     Examples:
 
       {{google_docs(https://docs.google.com/spreadsheets/d/e/2PACX-1vQL__Vgu0Y0f-P__GJ9kpUmQ0S-HG56ni_b-x4WpWxzGIGXh3X6A587SeqvJDpH42rDmWVZoUN07VGE/pubhtml)}

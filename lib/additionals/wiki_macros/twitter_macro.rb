@@ -6,7 +6,19 @@ module Additionals
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
     Creates link to twitter account page or topic.
-      {{twitter(name)}}
+
+    Syntax:
+
+    {{twitter(name)}}
+
+    Parameters:
+
+      :param string profile: Twitter profile name with @. E.g. alphanodes
+
+    Examples:
+
+    {{twitter(alphanodes)}} - Show link to twitter profile `@alphanodes`
+    {{twitter(#redmine)}} - Show link to hashtag `#redmine`
         DESCRIPTION
 
         macro :twitter do |_obj, args|

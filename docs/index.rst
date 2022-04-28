@@ -230,6 +230,3 @@ I am glad about your feedback on the plugin, `pull requests <https://github.com/
 
     manual
     dashboards
-    macros
-    new_feature
-    changelog

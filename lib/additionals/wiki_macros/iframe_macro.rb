@@ -5,11 +5,19 @@ module Additionals
     module IframeMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-    Include iframe
+    Include an Iframe into Redmine. If your Redmine is running with HTTPS, only iframes with
+    HTTPS are accepted by this macro.
 
     Syntax:
 
       {{iframe(<url> [, width=100%, height=485)}}
+
+    Parameters:
+
+      :param string url: URL to website
+      :param int width: width (default is 100%)
+      :param int height: height (default is 485)
+      :param bool with_link: true or false (if link to url should be displayed below iframe)
 
     Examples:
 

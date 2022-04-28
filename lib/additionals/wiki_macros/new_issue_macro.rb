@@ -16,15 +16,23 @@ module Additionals
       If no PROJECT_NAME is specified, first project is used, which the current user
       has permission to create an issue.
 
+    Parameters:
+
+      :param string project_name: can be project identifier, project name or project id
+                                  If no project_name is specified, first project is used, which the current user
+                                  has permission to create an issue.
+      :param string name: name to use for link. If not specified, "New issue" is used.
+                          You can use all language as suffix, eg. name_de, name_it, button_es
+
     Examples:
 
+      Link to create new issue in first available project:
       {{new_issue}}
-      ...Link to create new issue in first available project
+      Link to create new issue in project with the identifier of 'the-identifier':
       {{new_issue(the-identifier)}}
-      ...Link to create new issue in project with the identifier of 'the-identifier'
+      Link to create new issue in project with the identifier of 'the-identifier'
+      and the name 'New issue for broken displays'
       {{new_issue(the-identifier, title=New issue for broken displays)}}
-      ...Link to create new issue in project with the identifier of 'the-identifier'
-          and the name 'New issue for broken displays'
         DESCRIPTION
 
         macro :new_issue do |_obj, args|

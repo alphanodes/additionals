@@ -5,7 +5,7 @@ module Additionals
     module ProjectMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-    Display projects.
+    List projects.
 
     Syntax:
 

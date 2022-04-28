@@ -5,11 +5,31 @@ module Additionals
     module MeteoblueMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-    Display current weather from meteoblue service.  Examples:
+    Display current weather from meteoblue service.
 
     Syntax:
 
     {{meteoblue(<location> [, days=INT, width=216, height=368, color=BOOL])}}
+
+    Params:
+
+      :param string location: Weather location,
+                    e.g. münchen_deutschland_2867714. This is the part after
+                    https://www.meteoblue.com/en/weather/forecast/week/
+      :param int width: widget width
+      :param int height: widget height
+      :param bool color: color or monochrome
+      :param bool pictoicon: pictoicon
+      :param bool maxtemperature: maxtemperature
+      :param bool mintemperature: mintemperature
+      :param bool windspeed: windspeed
+      :param bool windgust: windgust
+      :param bool winddirection: winddirection
+      :param bool uv: uv
+      :param bool humidity: humidity
+      :param bool precipitation: precipitation
+      :param bool precipitationprobability: precipitationprobability
+      :param bool spot: spot
 
     Examples:
 

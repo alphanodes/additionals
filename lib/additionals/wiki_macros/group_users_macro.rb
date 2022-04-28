@@ -5,7 +5,7 @@ module Additionals
     module GroupUsersMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-    Display users of group.
+    List users of a user group (according the respective permissions)
 
     Syntax:
 
@@ -13,8 +13,7 @@ module Additionals
 
     Examples:
 
-      {{group_users(Team)}}
-      ...List all users in user group "Team" (with the current user permission)
+      {{group_users(Team A)}} - list users of group "Team A"
         DESCRIPTION
 
         macro :group_users do |_obj, args|

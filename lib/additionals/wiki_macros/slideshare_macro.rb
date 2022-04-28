@@ -11,6 +11,13 @@ module Additionals
 
       {{slideshare(<key> [, width=595, height=485, slide=SLIDE])}}
 
+    Parameters:
+
+      :param string key: Slideshare embedded key code, e.g. 57941706. This is the part is the last number in url: http://de.slideshare.net/AnimeshSingh/caps-whats-best-for-deploying-and-managing-openstack-chef-vs-ansible-vs-puppet-vs-salt-57941706
+      :param int width: width
+      :param int height: height
+      :param int slide: Slide page
+
     Examples:
 
       {{slideshare(57941706)}} show slideshare slide with default size 595x485

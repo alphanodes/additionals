@@ -7,9 +7,46 @@ module Additionals
     module CryptocompareMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-    Create CryptoCompare information.
+    Show CryptoCompare information.
+
+    Syntax:
+
       {{cryptocompare(options)}}
-    see https://additionals.readthedocs.io/en/latest/macros/#cryptocompare
+
+    Parameters:
+
+      :param string fsym: default BTC
+      :param string tsym: default EUR
+      :param string fsyms: default BTC,ETH,LTC (if supported by widget type)
+      :param string tsyms: default EUR,USD (if supported by widget type)
+      :param string period: (if supported by widget type)
+
+                            * 1D = 1 day (default)
+                            * 1W = 1 week
+                            * 2W = 2 weeks
+                            * 1M = 1 month
+                            * 3M = 3 months
+                            * 6M = 6 months
+                            * 1Y = 1 year
+
+      :param string type: widget type has to be one of
+
+                            * advanced
+                            * chart (default)
+                            * converter
+                            * header
+                            * header_v2
+                            * header_v3
+                            * historical
+                            * list
+                            * news
+                            * summary
+                            * tabbed
+                            * titles
+
+      Examples:
+       Show `header_v3` widget type for crypto currencies `BTC` and `ETH`:
+       {{cryptocompare(fsyms=BTC;ETH, type=header_v3)}}
         DESCRIPTION
 
         macro :cryptocompare do |_obj, args|

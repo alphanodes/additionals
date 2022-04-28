@@ -5,7 +5,7 @@ module Additionals
     module DateMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-    Show date.
+    Display current date.
 
     Syntax:
 

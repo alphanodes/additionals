@@ -5,17 +5,20 @@ module Additionals
     module RecentlyUpdatedMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-    Displays a list of pages that were updated recently.
-      {{recently_updated}}
+    Displays a list of wiki pages that were updated recently.
+
+    Syntax:
+
       {{recently_updated([days])}}
+
+    Scope:
+
+      This macro only works in wiki page contexts.
 
     Examples:
 
-      {{recently_updated}}
-      ...List last updated pages (of the last 5 days)
-
-      {{recently_updated(15)}}
-      ...List last updated pages of the last 15 days
+      {{recently_updated}} - List last updated pages (of the last 5 days)
+      {{recently_updated(15)}} - List last updated pages of the last 15 days
         DESCRIPTION
 
         macro :recently_updated do |obj, args|

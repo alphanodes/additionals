@@ -11,10 +11,16 @@ module Additionals
 
     {{gmap([q=QUERY, mode=MODE, width=216, height=368])}}
 
+    Parameters:
+
+      :param string q: query, e.g. a city or location
+      :param string mode: place, directions, search, view oder streetview (default: search)
+      :param int width: widget width
+      :param int height: widget height
+
     Examples:
 
       {{gmap(Munich)}} Google maps with Munich
-
       {{gmap(mode=directions, origin=Munich+Rosenheimerstr, destination=Arco)}} Direction from Munich to Arco
         DESCRIPTION
 

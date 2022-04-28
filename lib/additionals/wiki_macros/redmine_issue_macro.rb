@@ -5,8 +5,26 @@ module Additionals
     module RedmineIssueMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-    Creates link to redmine.org issue.
-      {{redmine_issue(1448)}}
+   Link to a redmine.org issue
+
+   Syntax:
+
+   {{redmine_issue(id or url [, title=TITLE])}}
+
+   Parameters:
+
+    :param string id: issue id from redmine.org
+    :param string url: this can be an absolute path to an redmine.org issue or an issue id
+    :param string title: title of link to display
+
+   Examples:
+
+      Link to redmine.org issue with issue id:
+      {{redmine_issue(1333)}}
+      Link to redmine.org issue with issue id and anchor:
+      {{redmine_issue(1333#note-6)}}
+      Link to redmine.org issue with absolute url:
+      {{redmine_issue(http://www.redmine.org/issues/12066)}}
         DESCRIPTION
 
         macro :redmine_issue do |_obj, args|

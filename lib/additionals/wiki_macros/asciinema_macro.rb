@@ -4,7 +4,21 @@ module Additionals
   module WikiMacros
     module AsciinemaMacro
       Redmine::WikiFormatting::Macros.register do
-        desc 'asciinema embed'
+        desc <<-DESCRIPTION
+     Graphical application developers often use screencasts to demonstrate functions of their programs.
+
+     Syntax: {{asciinema(cast_id)}}
+
+     Parameters:
+      cast_id (string) – asciinema.org asciicast id
+
+     Scope:
+      This macro works in all text fields with formatting support.
+
+     Examples:
+      show asciinema.org cast_id 113463
+      {{asciinema(113463)}}
+        DESCRIPTION
 
         macro :asciinema do |_obj, args|
           raise 'The correct usage is {{asciinema(<cast_id>)}}' if args.empty?

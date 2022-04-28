@@ -5,8 +5,26 @@ module Additionals
     module RedmineWikiMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-    Creates link to redmine.org wiki page.
-      {{redmine_wiki(Installing Redmine)}}
+  Link to redmine.org wiki page
+
+  Syntax:
+
+    {{redmine_wiki(url [, name=NAME, title=TITLE])}}
+
+  Parameters:
+
+    :param string url: this can be an absolute path to an redmine.org issue or an issue id
+    :param string name: name to display for link, if not specified, wiki page name is used
+    :param string title: title of link to display
+
+  Examples:
+
+    Link to redmine.org wiki page with page name:
+    {{redmine_wiki(RedmineInstall)}}
+    Link to redmine.org wiki page with page name and anchor:
+    {{redmine_wiki(FAQ#How-do-I-create-sub-pages-parentchild-relationships-in-the-wiki)}}
+    Link to redmine.org wiki page with absolute url:
+    {{redmine_wiki(https://www.redmine.org/projects/redmine/wiki/RedmineInstall)}}
         DESCRIPTION
 
         macro :redmine_wiki do |_obj, args|

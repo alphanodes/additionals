@@ -13,6 +13,13 @@ module Additionals
 
       PROJECT_NAME can be project identifier, project name or project id
 
+    Parameters:
+
+      :param string project_name: can be project identifier, project name or project id
+      :param string title: title to use for member list
+      :param string role: only list members with this role. If you want to use multiple roles as filters, you have to use a | as separator.
+      :param bool with_sum: show amount of members.
+
     Examples:
 
       {{members}}

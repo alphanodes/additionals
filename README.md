@@ -97,7 +97,7 @@ Uninstall `additionals` plugin.
   * vimeo
   * youtube
 
-* macro list with all available macros at /help/macros
+* macro list with all available macros at /help/macros included documentation
 * macro button for wiki toolbar with available macros with project and permission context support
 * option to remove "Help" from top menu
 * disable (hide) modules for projects

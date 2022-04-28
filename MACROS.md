@@ -23,13 +23,16 @@ Youtube video with video ``wvsboPUjrGc`` (iframe) and default size 640x360
 
 ```text
   {{youtube(wvsboPUjrGc)}}
+```
 
 Youtube video with size 853x480
 
 ```text
   {{youtube(wvsboPUjrGc, width=853, height=480)}}
+```
 
 Youtube video with auto play
 
 ```text
   {{youtube(wvsboPUjrGc, autoplay=true)}}
+```

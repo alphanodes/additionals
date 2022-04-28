@@ -31,6 +31,7 @@ Install `additionals` plugin for `Redmine`.
   bundle config set --local without 'development test'
   bundle install
   bundle exec rake redmine:plugins:migrate RAILS_ENV=production
+```
 
 Restart your application server (apache with passenger, nginx with passenger, unicorn, puma, etc.) and *Additionals* is ready to use.
 
@@ -46,9 +47,9 @@ Update *additionals* plugin.
   cd ../..
   bundle install
   bundle exec rake redmine:plugins:migrate RAILS_ENV=production
+```
 
 Restart your application server (apache with passenger, nginx with passenger, unicorn, puma, etc.) and `additionals` is ready to use.
-
 
 ## Uninstall
 
@@ -58,6 +59,7 @@ Uninstall `additionals` plugin.
   cd $REDMINE_ROOT
   bundle exec rake redmine:plugins:migrate NAME=additionals VERSION=0 RAILS_ENV=production
   rm -rf plugins/additionals public/plugin_assets/additionals
+```
 
 ## Features
 
@@ -144,6 +146,7 @@ It provides the following Rails helper methods :
 
 ```ruby
    additionals_library_load(module_name)
+```
 
 This method loads all JS and CSS files needed by the required module.
 
@@ -179,22 +182,15 @@ If you know other plugins, which are using *additionals*, please let us know or 
 
 ## You need a feature
 
-.. _AlphaNodes: https://alphanodes.com
-.. _Open-source: https://opensource.org/osd
-
-`Additionals`_ is `Open-source`_ and it is available at `Github <https://github.com/alphanodes/additionals>`_
+*additionals* is [Open-source](https://opensource.org/osd) and it is available at <https://github.com/alphanodes/additionals>
 
 If you want to implement new features in it or if you want to change something, you can provide a pull request.
 
-The plugin is maintained by `AlphaNodes`_ for free as far as possible. In case you want a feature, which is not available
-and you are not capable of implementing it yourself, you can request this feature from `AlphaNodes`_.
+The plugin is maintained by [AlphaNodes](https://alphanodes.com) for free as far as possible. In case you want a feature, which is not available and you are not capable of implementing it yourself, you can request this feature from AlphaNodes.
 
 We are an `Open-source`_ company from Munich and we are usually getting payed for our time we spent on development. As we know our plugin at its best we are glad to take this job from you. In case the requested plugin changes still
 fit to the plugin purpose. Please, contact us in case you are interested in plugin development.
 
-
-
-
 ## Contact and Support
 
-I am glad about your feedback on the plugin, `pull requests <https://github.com/alphanodes/additionals/pulls>`_, `issues <https://github.com/alphanodes/additionals/issues>`_, whatever. Feel free to contact me for any questions.
+I am glad about your feedback on the plugin, [pull requests](https://github.com/alphanodes/additionals/pulls), [issues](https://github.com/alphanodes/additionals/issues), whatever. Feel free to contact me for any questions.

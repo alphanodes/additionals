@@ -162,7 +162,7 @@ The following modules are available :
 * mermaid
 * select2
 
-### Redmine Plugins, which are using *`additionals*
+### Redmine Plugins, which are using *additionals*
 
 * [additional_tags](https://github.com/AlphaNodes/additional_tags)
 * [redmine_automation](https://alphanodes.com/redmine-automation)
@@ -188,9 +188,58 @@ If you want to implement new features in it or if you want to change something, 
 
 The plugin is maintained by [AlphaNodes](https://alphanodes.com) for free as far as possible. In case you want a feature, which is not available and you are not capable of implementing it yourself, you can request this feature from AlphaNodes.
 
-We are an `Open-source`_ company from Munich and we are usually getting payed for our time we spent on development. As we know our plugin at its best we are glad to take this job from you. In case the requested plugin changes still
-fit to the plugin purpose. Please, contact us in case you are interested in plugin development.
+We are an `Open-source`_ service company from Munich. Among other things, we offer commercial plugin development (e.g. implementation function request, expansion of functionality, etc).  As we know our plugin at its best we are glad to take this job from you. In case the requested plugin changes still fit to the plugin purpose. Please, contact us in case you are interested in commercial plugin development.
 
 ## Contact and Support
 
-I am glad about your feedback on the plugin, [pull requests](https://github.com/alphanodes/additionals/pulls), [issues](https://github.com/alphanodes/additionals/issues), whatever. Feel free to contact me for any questions.
+I am glad about your feedback on the plugin, [pull requests](https://github.com/alphanodes/additionals/pulls), [issues](https://github.com/alphanodes/additionals/issues), etc. Feel free to contact me for your questions regarding existing functionality. Please use only the issue system as a communication channel regarding this plugin. Thank you.
+
+
+## Manual
+
+The plugin configuration takes place in the administration area by a user with administration permission. Go to *Plugins / Additionals* to open it.
+
+The additionals plugin configuration is divided into several sections, which are described here.
+
+
+### General section
+
+The general section tab allows you to define some special behaviours for your Redmine installation.
+It is divided into two areas called ``Contents`` and ``Settings``.
+
+### Contents
+
+The following plugin options are available to be edited by users with administration rights in the area **Contents**:
+
+Text for login page
+  This section is for a short information on the login page below the login mask. For example who to contact in order to get Redmine access.
+
+Global sidebar
+  Place your global information here, if needed. Use wiki links or available macros that can be seen by every one.
+
+Project wide footer
+  In case you want to put some information about your company or for your imprint. Here you can also use wiki syntax for structuring your text.
+
+
+### Settings
+
+And the following options can be edited by users with administratios rights in the area **Settings**:
+
+Open external URLs
+  Activate the option ``Open external URLs`` in order to open those URLs in a new window or browser tab if someone wants to visit them.
+
+Go to top Link
+  Add "Go to top" link. If you have a lot of long pages, it is enabling users to easily return to the top of a page.
+
+Legacy smileys support
+  Activate the ``Legacy smileys support`` if you want to use the manual smiley code in your text (e.g. ``:)``). If you already use a plugin that supports Smileys this option should stay deactivated. For more info on Emoji-Browser support read [more here](http://caniemoji.com/). Have a look at the Emoji [cheat sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet) for available Emoji-Codes.
+
+Disable modules
+  This feature will hide the selected modules in the project settings. Even if the module is enabled for use in the admin area it can not be selected by the project manager within the projects. Please note, if these modules already activated in existing projects, you will have to change and re-save the respective project settings first.
+
+
+.. note::
+  Please restart the application server, if you make changes to the external urls settings as well as if you activate the Smileys support.
+
+.. note::
+  You can use the following manual smiley codes: :), =), :D, =D, :'(, :(, ;), :P, :O, :/, :S, :|, :X, :*, O:), >:), B), (!), (?), (v), (x) and  (/)

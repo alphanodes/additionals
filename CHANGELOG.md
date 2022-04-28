@@ -1,8 +1,6 @@
-Changelog
-=========
+# Changelog
 
-3.0.6
-+++++
+## 3.0.6
 
 - D3 7.4.4 support
 - Remove issue autowatch (this feature comes with Redmine 5)
@@ -15,18 +13,15 @@ Changelog
 - Add Chart.js matrix plugin
 - Fix scope of users for select2 in projects
 
-3.0.5.2
-+++++++
+## 3.0.5.2
 
 - Fix refresh bug for async blocks for query lists
 
-3.0.5.1
-+++++++
+## 3.0.5.1
 
 - Fix refresh bug for async blocks if settings change
 
-3.0.5
-+++++
+## 3.0.5
 
 - Mermaid 8.14.0 support
 - D3 7.3.0 support
@@ -36,8 +31,7 @@ Changelog
 - introduce hooks controller_additionals_change_status_before_save, controller_additionals_change_status_after_save (see #127)
 - Fix multiple asynchronous block loads
 
-3.0.4
-+++++
+## 3.0.4
 
 - Mermaid 8.13.6 support
 - D3 7.2.1 support
@@ -47,8 +41,7 @@ Changelog
 - fixed default dashboard order for system default for specific project
 - add rake task "redmine:additionals:reset_recently_dashboards" to reset recently used dashboards
 
-3.0.3
-+++++
+## 3.0.3
 
 - Ruby 2.7 warnings fixed
 - Mermaid 8.11.5 support
@@ -57,10 +50,9 @@ Changelog
 - new ticket message can be overwritten for projects
 - fixed scope of public project dashboards for all projects
 - FontAwesome 5.15.4 support
-- Adjust integration of macro button, because of changed Redmine source (https://www.redmine.org/issues/31887)
+- Adjust integration of macro button, because of changed Redmine source <https://www.redmine.org/issues/31887>
 
-3.0.2
-+++++
+## 3.0.2
 
 - d3plus to v2.0.0-alpha.30 support
 - Mermaid 8.9.2 support
@@ -72,8 +64,7 @@ Changelog
 - clipboard.js updated to v2.0.8
 - Ruby 2.5 is required
 
-3.0.1
-+++++
+## 3.0.1
 
 - Do not show "Assign to me" if assigned_to is disabled for tracker
 - FontAwesome 5.15.1 support
@@ -87,8 +78,7 @@ Changelog
 - Chart.js 2.9.4 support
 - Allow overwrite mermaid theme and variables
 
-3.0.0
-+++++
+## 3.0.0
 
 - Introduce dashboards
 - Redmine 4.1 or newer is required
@@ -98,8 +88,7 @@ Changelog
 - d3plus to v2.0.0-alpha.29 support
 - drop wiki header and footer settings
 
-2.0.24
-++++++
+## 2.0.24
 
 - FontAwesome 5.13.0 support
 - Mermaid 8.4.8 support
@@ -108,8 +97,7 @@ Changelog
 - D3 5.16.0 support
 - Ruby 2.4 is required
 
-2.0.23
-++++++
+## 2.0.23
 
 - members macro now supports with_sum option
 - FontAwesome 5.12 support
@@ -130,8 +118,7 @@ Changelog
 - asciinema.org macro has been added - thanks to @kotashiratsuka
 - Select2 4.0.13 support
 
-2.0.22
-++++++
+## 2.0.22
 
 - FontAwesome 5.11.2 support
 - Mermaid 8.4.2 support
@@ -143,8 +130,7 @@ Changelog
 - Fix user visibility for issue reports
 - Drop ZeroClipboard library
 
-2.0.21
-++++++
+## 2.0.21
 
 - fix mail notification if issue author changed
 - fix permission bug for closed issues with freezed mode
@@ -155,14 +141,12 @@ Changelog
 - select2 support
 - bootstrap-datepicker 1.9.0 support
 
-2.0.20
-++++++
+## 2.0.20
 
 - support single process rake installation #40
 - FontAwesome 5.8.0 support
 
-2.0.19
-++++++
+## 2.0.19
 
 - mermaid 8.0.0 support
 - FontAwesome 5.7.1 support
@@ -170,22 +154,19 @@ Changelog
 - create correct journal entry if issue status changed from sidebar #37
 - create correct journal entry if issue has been 'assigned to me' from sidebar
 
-2.0.18
-++++++
+## 2.0.18
 
 - Performance improvement (#36)
 - FontAwesome 5.6.3 support
 - Fix problem from migrating from Redmine 3.x to Redmine 4 with lost settings
 
-2.0.17
-++++++
+## 2.0.17
 
 - Fix bug with undefined constant for tags
 - add possibility to use custom date with date macro
 - FontAwesome 5.6.0 support
 
-2.0.16
-++++++
+## 2.0.16
 
 - CSS fix for project macro
 - More compatibility for autocomplete_users with other plugins (like redmine_contacts_helpdesk)
@@ -197,8 +178,7 @@ Changelog
 - cleanup macros: if no data exists, macros is displayed instead of data
   (before some macros used error messages other hide message at all)
 
-2.0.15
-++++++
+## 2.0.15
 
 - FontAwesome 5.5.0 support
 - Usability improvement for change author in issue formular
@@ -207,8 +187,7 @@ Changelog
 - Fix problem with help menu and other redmine plugins (compatibility problem with other plugins)
 - Fix problem with disabled users and changing author for issues
 
-2.0.14
-++++++
+## 2.0.14
 
 - Change status is now compatible with redmine_agile
 - Do not show sidebar for changing status, if edit_closed_issues permission is missing
@@ -219,8 +198,7 @@ Changelog
 - Show macro list to all logged users at /help/macros
 - Help menu, with more links to Redmine help pages (which can be used with other plugins, to assign additional entries)
 
-2.0.13
-++++++
+## 2.0.13
 
 - FontAwesome 5.2.0 support
 - smiley support for markdown text_formatting
@@ -231,23 +209,20 @@ Changelog
 - Redmine 3.4 is required
 - support sidebar with non default wiki titles (thanks to @danielvijge)
 
-2.0.12
-++++++
+## 2.0.12
 
 - Provide d3 loader function
 - More robust code for dealing with finding data
 
-2.0.11
-++++++
+## 2.0.11
 
 - i18n methods
 - FontAwesome 5.0.13 support
 
-2.0.10
-++++++
+## 2.0.10
 
 - Remove bootstrap library
-- compatibility with https://www.redmine.org/plugins/issue_id
+- compatibility with <https://www.redmine.org/plugins/issue_id>
 - bug fix: issue and user macro uses absolute url in mailer notification
 - Updated marmaid library to version 8.0.0-rc8
 - Updated d3 library to 3.5.17
@@ -256,8 +231,7 @@ Changelog
 - Set default values for ui-tooltip css class
 - ZeroClipboard updated to 2.3.0
 
-2.0.9
-+++++
+## 2.0.9
 
 - Updated bootstrap library to 4.0.0
 - Drop angular_gantt library
@@ -269,29 +243,25 @@ Changelog
 - FontAwesome 5.0.8 support
 - Add marmaid library
 
-2.0.8
-+++++
+## 2.0.8
 
 - Provide XLSX helper (and drop XLS helper)
 - FontAwesome 5.0.6 support
 - add list support for rake task setting_set
 
-2.0.7
-+++++
+## 2.0.7
 
 - FontAwesome 5.0.2 support
 - Switching to SLIM template engine
 
-2.0.6
-+++++
+## 2.0.6
 
 - add rake tasks: drop_settings, setting_get and setting_set
 - Updated nvd3 library to 1.8.6
 - Updated angularjs libraries to v2.0.0-rc.1
 - Wiki iframe macro integration has been added
 
-2.0.5
-+++++
+## 2.0.5
 
 - Redmine 3.4 bug fixes
 - Helper function fa_icon renamed to font_awesome_icon because of conflicts with redmine_bootstrap_kit
@@ -302,16 +272,14 @@ Changelog
 - Wiki macro for google maps has been added
 - Wiki macro for issues now supports display a comment and detect issue id and comment id from URL
 
-2.0.4
-+++++
+## 2.0.4
 
 - Add group_users macro
 - Fix bug with REST-API and assigned_id for issues
 - Use user name setting for sort order in macros
 - Add invisible_captcha spam protection on registration form
 
-2.0.3
-+++++
+## 2.0.3
 
 - Allow remove watchers without re-adding it (only if author or assigned_user changed)
 - Fix sort order of users for change author
@@ -320,52 +288,45 @@ Changelog
 - Fixed bug with recurring_tasks plugin and autowatch issues
 - Add more unit tests
 
-2.0.2
-+++++
+## 2.0.2
 
 - Add option to add involved issue users automatically
 - Add change issue author feature
 - Fixed bug with Redmine 3.4.x and default assignee settings
 - Refactoring patch include and wiki macros
 
-2.0.1
-+++++
+## 2.0.1
 
 - Simplified Chinese support has been added (thanks to @archonwang)
 - Helper function fa_icon has been added
 - Help menu item and MyPage menu item does not require application server restart anymore
 - Redmine 3.4.x compatibility
 
-2.0.0
-+++++
+## 2.0.0
 
 - Redmine Tweaks has been renamed to additionals, because to resolve loading order problem of Redmine plugins
 - Merge common_libraries plugin into additionals plugin
 - Fontawesome support
 - Redmine 3.0.x required
 
-1.0.3
-+++++
+## 1.0.3
 
 - TradingView macro support
 - CryptoCompare macro support
 - Reddit macro support
 - Twitter macro improved with prefix image
 
-1.0.2
-+++++
+## 1.0.2
 
 - Smiley/Emoji legacy support
 
-1.0.1
-+++++
+## 1.0.1
 
 - Coding standard cleanups
 - ruby 2.1.5 required or newer
 - version bump
 
-1.0.0
-+++++
+## 1.0.0
 
 - user group support for issue auto assign
 - optimize deface overwrite path
@@ -376,8 +337,7 @@ Changelog
 - wiki pdf settings has been added
 - updated documentation
 
-0.5.8
-+++++
+## 0.5.8
 
 - Fixed top menu items permissions for anonymous and non member #29
 - Fixed bug with overwriting application handler, which cases problem with other plugins
@@ -386,7 +346,7 @@ Changelog
 - more formats for user macro and avatar support
 - rename list_users to members
 - rename list_projects to projects
-- new documentation on https://redmine-tweaks.readthedocs.io
+- new documentation on <https://redmine-tweaks.readthedocs.io>
 - updated bootstrap-datepicker and fixed zh locale problem
 - html validation error has been fixed
 - remove garfield support (because there is no image source server available)
@@ -395,16 +355,14 @@ Changelog
 - autoassign issue if no assignee is selected
 - n+1 query optimization
 
-0.5.7
-+++++
+## 0.5.7
 
 - Custom source URL for Garfield source
 - Wiki footer bug fixed with missing line break at the end of page
 - date period support for calendar macro
 - Code cleanups
 
-0.5.6
-+++++
+## 0.5.6
 
 - Redmine 3.2.x compatibility
 - user macro has been added (user#1 or user:admin)
@@ -418,8 +376,7 @@ Changelog
 - gist macro support
 - vimeo macro support
 
-0.5.5
-+++++
+## 0.5.5
 
 - dependency with deface (used to overview views)
 - fixed garfield caching macro problem
@@ -427,94 +384,79 @@ Changelog
 - some content and view optimization (removed wiki_sidebar compatibility problems with other Redmine plugins)
 - Code cleanups and refactoring
 
-0.5.4
-+++++
+## 0.5.4
 
 - issue rule added for closing issue with open sub issues
 - issue rule added for status change
 - issue rule added for assigned_to change
 
-0.5.3
-+++++
+## 0.5.3
 
 - Redmine 3.0.x and 3.1.x supported
 - "New issue" link with list_projects macro
 - Parameter syntax changed for list_users and list_projects macros (sorry for that)
 
-0.5.2
-+++++
+## 0.5.2
 
 - "Edit closed issue" permission has been added
 - Permissions supported for top menu items
 
-0.5.1
-+++++
+## 0.5.1
 
 - "Hide role in memberbox" has been added
 
-0.5.0
-+++++
+## 0.5.0
 
 - Redmine 2.6.x compatibility
 - URL fixes
 - Garfield macro has been added
 
-0.4.9
-+++++
+## 0.4.9
 
 - added overview text field
 - fix style for "goto top"
 - added macro overview help page
 - fix compatibility problems with sidebar and other plugins
 
-0.4.8
-+++++
+## 0.4.8
 
 - added youtube macro
 - project guide subject can be defined for project overview page
 
-0.4.7
-+++++
+## 0.4.7
 
 - added jump to top link
 - top menu item configuration has been added
 - footer configuration (e.g. for imprint url) has been added
 
-0.4.6
-+++++
+## 0.4.6
 
 - initialize plugins settings now works with other plugins
 
-0.4.5
-+++++
+## 0.4.5
 
 - option to remove help menu item
 - Redmine 2.4.1 required
 
-0.4.4
-+++++
+## 0.4.4
 
 - installation error fixed
 - description update for link handling
 - help url now opens in new windows
 - sidebar error has been fixed, if no wiki page already exist
 
-0.4.3
-+++++
+## 0.4.3
 
 - global gantt and calendar bug fix
 
-0.4.2
-+++++
+## 0.4.2
 
 - no requirements of Wiki extensions plugin anymore
 
-0.4.1
-+++++
+## 0.4.1
 
 - Fix problem with my page permission
 
-0.4.0
-+++++
+## 0.4.0
 
 - First public release

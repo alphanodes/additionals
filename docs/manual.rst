@@ -1,23 +1,6 @@
 Manual
 ======
 
-Macros section
---------------
-
-Redmine itself and Redmine plugins are sometimes equipped with additional macros for usage. Macros can be used in the Wiki of a project or in the text area of an issue. For more information on how to add macros use the Redmine help documentation.
-
-The *Macros section* of the additionals plugin lists all available macros that the logged in user can use with the *macro button* of the wiki toolbar. If you leave them deactivated they are all available to your users for selection.
-
-
-Macros marked here are not offered for selection. This allows you to limit the scope of the list for a better usability.
-
-
-.. figure::  images/macro-settings.png
-   :align:   center
-
-If all macros are deactivated the *Macro button* of the Wiki toolbar will disappear.
-
-.. note:: If you deactivate some macros here this does not mean the user may not implement them. All available macros of installed plugins will work even if they are not part of the macro button. The macro button is just a little helper for Redmine users with no macro experience to make it easier for them to use macros or to remember them.
 
 
 Macro button for Wiki toolbar

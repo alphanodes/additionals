@@ -15,11 +15,9 @@ Additionals is a `Redmine` plugin for customizing Redmine, providing wiki macros
 | `Ruby` version     | >= 2.7                           |
 | Database version   | MySQL >= 8.0 or PostgreSQL >= 10 |
 
-.. note::
-   If you use MySQL, make sure all database tables using the same storage engine (InnoDB is recommended) and character set (utf8mb4 is recommended).
+> **_NOTE:_** If you use MySQL, make sure all database tables using the same storage engine (InnoDB is recommended) and character set (utf8mb4 is recommended).
 
-.. note::
-   For more information use the official [Redmine install documentation](https://www.redmine.org/projects/redmine/wiki/RedmineInstall)
+> **_NOTE:_** For more information use the official [Redmine install documentation](https://www.redmine.org/projects/redmine/wiki/RedmineInstall)
 
 ## Installation
 
@@ -190,23 +188,17 @@ The plugin is maintained by [AlphaNodes](https://alphanodes.com) for free as far
 
 We are an `Open-source`_ service company from Munich. Among other things, we offer commercial plugin development (e.g. implementation function request, expansion of functionality, etc).  As we know our plugin at its best we are glad to take this job from you. In case the requested plugin changes still fit to the plugin purpose. Please, contact us in case you are interested in commercial plugin development.
 
-## Contact and Support
-
-I am glad about your feedback on the plugin, [pull requests](https://github.com/alphanodes/additionals/pulls), [issues](https://github.com/alphanodes/additionals/issues), etc. Feel free to contact me for your questions regarding existing functionality. Please use only the issue system as a communication channel regarding this plugin. Thank you.
-
-
-## Manual
+## Additionals plugin manual
 
 The plugin configuration takes place in the administration area by a user with administration permission. Go to *Plugins / Additionals* to open it.
 
-The additionals plugin configuration is divided into several sections, which are described here.
+The additionals plugin configuration is divided into several sections, described below.
 
-
-### General section
+## General section
 
 The general section tab allows you to define some special behaviours for your Redmine installation.
 
-#### Contents
+### Contents
 
 The following plugin options are available to be edited by users with administration rights in the area **Contents**:
 
@@ -220,7 +212,7 @@ The following plugin options are available to be edited by users with administra
   - In case you want to put some information about your company or for your imprint. Here you can also use wiki syntax for structuring your text.
 
 
-#### Settings
+### Settings
 
 And the following options can be edited by users with administratios rights in the area **Settings**:
 
@@ -246,7 +238,7 @@ And the following options can be edited by users with administratios rights in t
 
 If you click on this tab you get to the area, where users with administration rights can customize contents and settings for your Wiki pages in Redmine.
 
-#### Contents
+### Contents
 
 Global wiki sidebar        
 * Here you can implement useful macros like a display of your page hierarchy. But remember - only people with the correspondent rights will get a display of the content.
@@ -255,10 +247,56 @@ Global wiki sidebar
 
 > **_NOTE:_**  Use simple text, macros and wiki syntax for your content.
 
-#### PDF Wiki settings
+### PDF Wiki settings
 
 - Remove Wiki title from PDF view   
   * When activated the general Wiki title info in the page header of the PDF view will not be displayed.
 
 - Remove attachments from PDF view   
   * When activated the attachments will not be displayed in the PDF view of a Wiki page.
+
+
+## Macros section
+
+Redmine macros can be used in the Wiki of a project or in the text area of an issue. For more information on how to add macros use the Redmine help documentation.
+
+The *Macros section* of the additionals plugin lists all available macros that the logged in user can use with the *macro button* of the wiki toolbar. If you leave them deactivated they are all available to your users for selection.
+
+Macros marked here are not offered for selection. This allows you to limit the scope of the list for a better usability.
+
+![Macro settings!](contrib/images/macro-settings.png "Macro settings")
+
+If all macros are deactivated the *Macro button* of the Wiki toolbar will disappear.
+
+> **_NOTE:_**  If you deactivate some macros here this does not mean the user may not implement them. All available macros of installed plugins will work even if they are not part of the macro button. The macro button is just a little helper for Redmine users with no macro experience to make it easier for them to use macros or to remember them.
+
+
+### Macro button for Wiki toolbar
+
+Many plugins are equipped with a number of useful macros. Unfortunately it is difficult for the normal user to find out which macros are usable without a look at the plugin documentation.
+
+With the macro button for the Wiki toolbar we want to simplify the implementation of macros for users somehow and above all also promote. Because the use of macros belongs to the daily tools of the trade when dealing with the Wiki.
+
+![Macro button!](contrib/images/additionals-makro-button.png "Macro button")
+
+Figure: The Wiki toolbar macro button is a useful helper in order to select available project macros for your content.
+
+The macro button for the Wiki toolbar is acessible for every user of a project. For reasons of clarity, the list of available macros is restricted according to the following criteria.
+
+A user can see in the macro list:
+
+* the macros that can be used for the respective area. Macros that only work in the wiki are not available in the issue area and vice versa.
+* The macros, which he / she can use due to his / her role and the associated rights in the respective project.
+* only the macros of modules activated in the project. Macros for deactivated functions are hidden in the list.
+
+The function is easy to use. Just click the button with the left mouse. The dropdown list shows all your available macros. Select the one you want to use. The selected macro will be pasted to the cursor position. All you have to do is adapt missing parameters (if needed).
+
+
+
+
+
+
+
+## Contact and Support
+
+For questions or feedback on the plugin functions, [pull requests](https://github.com/alphanodes/additionals/pulls), [issues](https://github.com/alphanodes/additionals/issues) use only the issue system as a communication channel. Thank you.

@@ -395,7 +395,230 @@ Choose one of the following options:
 
 
 > **_NOTE:_** You can use wiki syntax for your text (use it wisely). Make sure the wiki page you link to is accessible for every user. The default issue text can be overwritten within the project settings.
-> 
-## Contact and Support
+
+## Additionals permissions
+
+The following role permissions are provided by the plugin and must be configured in the administration area ``Roles and permissions`` for the plugin functions to make sure it's working properly.
+
+**According to the selected Role you can activate / deactivate the following option:**
+
+* Hide
+  * This option hides ``members`` of the selected role in the member box of each project overview page. Project members of other roles will still be listed. For example: You don't want others to catch a glimpse of your development team (Role: Development). So activate the role "Developer" to hide the list of your team members assigned to this role in this box. This function is also useful if your member box is too crowded.
+
+> **_NOTE:_** This setting is also taken into account in all related query lists (e.g. issues, spent time etc.). So that the members with this role are also hidden there. 
+> **Important:** If the user has in one project a role, that allows him / her to view a specific "hidden role" this rule is not taken into account anymore.
+
+
+**According to the selected Role you can activate / deactivate the following permissions:**
+
+* Show hidden roles
+  * Section Project. In case you have hidden roles in a project that should not be displayed in the member box for example you can give to some special user roles the permission to display the members however. *Important:* If someone in a project has a role that has this right, then this user sees all users everywhere even if he or she is user of another project with different roles.
+
+* Save dashboards
+  * Section Project. Allow this user role to add, edit or delete dashboards of their own. So this users can add dashboards for every purpose they want and switch between them.
+
+* Set system dashboards
+  * Section Project. This permission requires *Save dashboards* permission. If you activate it, you allow users with this permission to change the system wide dashboard. Those user may create dashboards and make them system default. They get additional options: *Visible*, *System default* and *Always expose*.
+
+* Share dashboards
+  * Section Project. Allow user roles with this permission to share dashboards with other users. This means if someone else assigns you a dashboard via *Author* selection, you are allowed to edit those dashboards as long as you are the assigned *Author* and also have the permission to *Save dashboards*.
+
+* Edit issue author
+  * Section Issue tracking. This permission will always record any changes made to the issue author. You can change the author only in the issue edit mode. This function replaces the use of external plugins (e.g. change_author)
+
+* Edit closed issues
+  * Section Issue tracking. Set this option to those roles you do not want to edit closed issues. Normally a closed issue should not be edited anymore.
+
+* Set author of new issues
+  * Section Issue tracking. This permission should be set carefully, because in case you allow this, there is no history entry set for this. You will never know if the author has been originally someone else. Normally you don't want this.
+
+* Log time to closed issues
+  * Section Time tracking. Our plugin does not allow time logs to closed issues. In case you still want to allow your members to log time to closed issues, you need to change the permission here.
+
+## Dashboards
+
+The additionals plugin comes with dashboard support (Drag & Drop). The *Dashboard* feature of the additionals plugin provides customizable areas to display and organize content from Redmine and Redmine plugins that support the functionality.
+
+Specifically, you can customize the traditional Redmine main page, as well as the project overview pages according to your needs using the available dashboard blocks. The goal is to give the viewer an immediate overview of the issues or to display the metrics that are important to you.
+
+The dashboard configuration takes place directly in Redmine:
+
+*  On the "Home" page
+*  On the Project overview page
+*  If other plugins are installed and support the dashboard functionality there might be also other areas. For example:
+
+    * Redmine HRM Plugin: HRM overview page
+
+![Dashboard support](contrib/images/dashboard-block-area.png "Dashboard support")
+
+*Figure shows the main areas of the dashboard function*
+
+**Dashboard examples**
+
+With the *Dashboard* of the *additionals* plugin for Redmine you can for example:
+
+*  design the Redmine main page or project overview page so that the information relevant to you is displayed there at a glance.
+*  create your own (private) dashboards independent of the predefined default dashboard and switch between them as needed.
+*  create dashboards for other users or specific roles. As well as share your own dashboards publicly and make them available to your team.
+
+> **_NOTE:_** When using the dashboard function make sure you have already configured the *additionals permissions* the way you need them.
+
+
+**Dashboard permissions**
+
+If you want to use the dashboard functionality you need to configure the permissions for the respective user roles, which are:
+
+*  Save dashboards
+*  Set system dashboards
+*  Share dashboards
+
+
+### Dashboard blocks
+
+The following blocks are delivered as standard when using the additionals dashboard function.
+
+General blocks for all areas (e.g. *Home* and *Project overview*) are:
+
+* Query: Issues
+  * You can configure the block content by selecting the *Issue Query* you want to display and choosing a number for *Maximum entries* to be displayed.
+  * Maximum number of such blocks per dashboard: **8**
+
+* Text
+  * You can add individual text passages to your dashboard and use the wiki editor for structuring this text. If you want to work with macros, that include large amount of information (e.g. issue lists), use the *Text (asynchronous)* block instead, because it is cached asyncronous for 30 seconds due to performance reasons.
+  * Maximum number of such blocks per dashboard: **8**
+
+* Text (asynchronous)
+  * This block is perfect if you want to implement macros into your text area. You can add individual text passages to your dashboard and use the wiki editor for structuring this text. Please note, that some macros are only usable in Wiki pages of a project, but not in issues or dashboard blocks. In that case no content will be displayed, but only the macro code.
+  * Maximum number of such blocks per dashboard: **8**
+
+* Latest news
+  * Add the latest news block to your dashboard to show your user's what is going on in your system. The block configuration allows you to edit the number of *Maximum entries*.
+  * Maximum number of such blocks per dashboard: **1**
+
+* Documents
+  * Add the *Documents* block to your dashboard to show your user's the latest documents, uploaded in Redmine. The block configuration allows you to edit the number of *Maximum entries*.
+  * Maximum number of such blocks per dashboard: **1**
+
+* Static spent time
+  * Add the *Spent time* block to your dashboard to show the spent time activities. The block configuration allows you to edit the number of *Days* displayed in the block.
+  * Maximum number of such blocks per dashboard: **1**
+
+* Atom+RSS Feed
+  * You can configure the block content by changing the *Title*, adding an *URL* and choosing a number for *Maximum entries* to be displayed.
+  * Maximum number of such blocks per dashboard: **8**
+
+
+Special blocks for the welcome page *Home* are:
+
+* Standard content left / Standard content right
+  * There are plugin developers who do not support our dashboard function and may have implement own content on the Redmine start page (legacy_left and legacy_right). These are usually not displayed due to the lack of dashboard support. If you still want to see this, select one of the two blocks or both for displaying such content.
+
+* Activity
+  * You can configure the activity block content by choosing a number for *Maximum entries* to be displayed. And in case you are only interested in your own activities by activating the option *Only my activity*. Maximum number of such blocks per dashboard: **1**
+
+* Welcome
+  * If you have specified a welcome text in the Redmine system settings you can display this text in the dashboard as well, by choosing the *Welcome* block. Maximum number of such blocks per dashboard: **1**
+
+
+Special blocks for *Project overview* are:
+
+* Standard content left / Standard content right
+  * There are plugin developers who do not support our dashboard function and may have implement own content on the Redmine project overview page (legacy_left and legacy_right). These are usually not displayed due to the lack of dashboard support. If you still want to see this, select one of the two blocks or both for displaying such content as well.
+
+* Project information
+  * Displays the standard project information of Redmine in a block. Containing the project information from the project settings like custom fields for projects, description, URL etc. The block is not configurable, but you can remove it if not needed or reposition it.
+
+* Subprojects
+  * Displays the standard subproject information of Redmine in a block, if you have configured them in the project settings. The block is not configurable, but you can remove it if not needed or reposition it.
+
+* Issue tracking
+  * Displays the standard issue tracking information of Redmine in a block. The block is not configurable, but you can remove it if not needed or reposition it.
+
+* Time tracking
+  * Displays the standard issue tracking information of Redmine in a block including the additionals adaption to the information displayed there. The block is not configurable, but you can remove it if not needed or reposition it.
+
+* Members
+  * Displays the standard member box of Redmine in a block including the additionals permission adaption to the information displayed there. The block is not configurable, but you can remove it if not needed or reposition it.
+
+> **_NOTE:_** These are the basic blocks that come with the additionals plugin dashboard functionality. Other plugins, that also support the *Drag&Drop* dashboard function may deliver additional blocks for selection.
+
+> **_NOTE:_** Notes about caching: All blocks are cached asynchron (every 30 seconds). The RSS Feed blocks are cached asynchron (every 10 minutes). The time tracking block is chached asynchron (every 1 hour).
+
+
+### Default Dashboards
+
+When installing the Additionals plugin it comes with default dashboards for the Redmine *Home* page as well as the Redmine *Project overview* page. The typical default dashboard has the following key options:
+
+* Visible: *to any users*
+* Marked as *System default*
+
+In case you want to restore the default dashboard you can simply add a new one or arrange an existing one by using the following blocks and position them in the left or right area.
+
+* Default Dashboard blocks: Home
+  * Welcome (left), Standard content left (left), Standard content right (right)
+
+
+* Default Dashboard blocks: Project overview
+  * Project information (left), Issue tracking (left), Time tracking (left), Members (right), Sub projects (right)
+
+
+
+### Dashboard FAQ
+
+Is there a restore function?
+  No, there is no restore function for your default dashboard. If you add dashboard blocks you don't like, just remove them and add other ones.
+
+I messed up my default Dashboard
+  There is nothing bad about it. Just remove the dashboard blocks you don't like and start over. The best way to start a new default dashboard anyway is to create a new dashboard, first and add the blocks you like. If everything is the way you want it, make it "Default". Keep the old "Default" as backup.
+
+I accidently deleted a Dashboard block
+  This will always happen, if you work as user with the appropriate permission to do so (e.g. administration permissions). We recommend not do work with those permission in your regular work day. Create your dashboards one time and switch user permissions afterwards. So this will not happen again.
+
+How many default Dashboards can be created?
+  There is just one system default dashboard possible for every area. This means one default dashboard for the Redmine "Home" page. And one for the general project overview page. But you can create also one default for a specific project overview page, which will than be "Project default".
+
+Does every user sees the content of every Dashboard block?
+  You do not control the content a user in your project sees via the dashboard block you add, but still by setting up the correct user permissions in the administration area "Roles and permissions". Those permissions for a user role are relevant for the content a user can view in your project and must be set correctly.
+
+I want to use different dashboards for my employees than for Anonymous users / Non members
+  For Anonymous users / Non members use the normal "default dashboard" for the Redmine start page and / or Redmine project page. Because they will usually see the default dashboard and the blocks placed there. They will not be able to switch between different dashboards.
+  And for your employees create own dashboards. You define which role has access to it in the dashboard configuration. Employees of the respective roles can then simply switch from the standard dashboard to the role-based dashboard in case it will not be displayed on the first visit.
+
+What happens with my project overview or start page after the additionals plugin has been deinstalled?
+  If the plugin was uninstalled correctly, then the Redmine start page, as well as the project overview page will correspond to the *usual view* again by default.
+
+  This means that you will only see the blocks that Redmine has permanently placed there (e.g. welcome text message, latest news), or the blocks that are placed there by installed Redmine plugins.
+
+  The pages can no longer be customized flexibly. You no longer have any influence on the content that is offered there.
+
+### Developer Information
+
+You are a plugin developer and want to support Dashboards for your plugin as well? Great! Thank you for that.
+Learn how to implement Dashboard blocks in your plugins. There are only two things required for that:
+
+* Create block template
+  * Create a template for your block in *app/views/dashboards/blocks/*. The name of your template should be unique, that there are no conflicts with other blocks (e.g. from other plugins)
+
+> **_NOTE:_** Examples: Go to https://github.com/AlphaNodes/additionals/tree/main/app/views/dashboards/blocks for examples.
+
+* Add block definitions: 
+  * Add your block definition in *block_definitions*. This could be in:
+    * dashboard_content.rb (if your block should be available in all dashboards)
+    * dashboard_content_project.rb (if your block should be available in project dashboards only)
+    * dashboard_content_welcome.rb (if your block should be available in welcome dashboards only)
+
+**_NOTE:_** Examples: Go to https://github.com/AlphaNodes/additionals/blob/main/app/models/dashboard_content.rb#L29 for examples for that.
+
+Overwrite it with *prepend* (not alias_method) to get no conflicts with other plugins. See *redmine_git_hosting* for an example implementation for a *block template* and a *block definition*.
+
+That's it. As you can see, it's not so hard.
+In case of further questions use the issue tracking system for this project on GitHub.
+
+Footnotes:
+* Git_hosting: <https://github.com/jbox-web/redmine_git_hosting>
+* block_template: <https://github.com/jbox-web/redmine_git_hosting/blob/master/app/views/dashboards/blocks/_git_urls.html.slim>
+* block_definition: <https://github.com/jbox-web/redmine_git_hosting/blob/master/lib/redmine_git_hosting/patches/dashboard_content_project_patch.rb>
+
+### Contact and Support
 
 For questions or feedback on the plugin functions, [pull requests](https://github.com/alphanodes/additionals/pulls), [issues](https://github.com/alphanodes/additionals/issues) use only the issue system as a communication channel. Thank you.

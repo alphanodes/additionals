@@ -565,31 +565,32 @@ In case you want to restore the default dashboard you can simply add a new one o
 
 ### Dashboard FAQ
 
-Is there a restore function?
-  No, there is no restore function for your default dashboard. If you add dashboard blocks you don't like, just remove them and add other ones.
+#### Is there a restore function?
+No, there is no restore function for your default dashboard. If you add dashboard blocks you don't like, just remove them and add other ones.
 
-I messed up my default Dashboard
-  There is nothing bad about it. Just remove the dashboard blocks you don't like and start over. The best way to start a new default dashboard anyway is to create a new dashboard, first and add the blocks you like. If everything is the way you want it, make it "Default". Keep the old "Default" as backup.
+#### I messed up my default Dashboard
+There is nothing bad about it. Just remove the dashboard blocks you don't like and start over. The best way to start a new default dashboard anyway is to create a new dashboard, first and add the blocks you like. If everything is the way you want it, make it "Default". Keep the old "Default" as backup.
 
-I accidently deleted a Dashboard block
-  This will always happen, if you work as user with the appropriate permission to do so (e.g. administration permissions). We recommend not do work with those permission in your regular work day. Create your dashboards one time and switch user permissions afterwards. So this will not happen again.
+#### I accidently deleted a Dashboard block
+This will always happen, if you work as user with the appropriate permission to do so (e.g. administration permissions). We recommend not do work with those permission in your regular work day. Create your dashboards one time and switch user permissions afterwards. So this will not happen again.
 
-How many default Dashboards can be created?
-  There is just one system default dashboard possible for every area. This means one default dashboard for the Redmine "Home" page. And one for the general project overview page. But you can create also one default for a specific project overview page, which will than be "Project default".
+#### How many default Dashboards can be created?
+There is just one system default dashboard possible for every area. This means one default dashboard for the Redmine "Home" page. And one for the general project overview page. But you can create also one default for a specific project overview page, which will than be "Project default".
 
-Does every user sees the content of every Dashboard block?
-  You do not control the content a user in your project sees via the dashboard block you add, but still by setting up the correct user permissions in the administration area "Roles and permissions". Those permissions for a user role are relevant for the content a user can view in your project and must be set correctly.
+#### Does every user sees the content of every Dashboard block?
+You do not control the content a user in your project sees via the dashboard block you add, but still by setting up the correct user permissions in the administration area "Roles and permissions". Those permissions for a user role are relevant for the content a user can view in your project and must be set correctly.
 
-I want to use different dashboards for my employees than for Anonymous users / Non members
-  For Anonymous users / Non members use the normal "default dashboard" for the Redmine start page and / or Redmine project page. Because they will usually see the default dashboard and the blocks placed there. They will not be able to switch between different dashboards.
-  And for your employees create own dashboards. You define which role has access to it in the dashboard configuration. Employees of the respective roles can then simply switch from the standard dashboard to the role-based dashboard in case it will not be displayed on the first visit.
+#### I want to use different dashboards for my employees than for Anonymous users / Non members
+For Anonymous users / Non members use the normal "default dashboard" for the Redmine start page and / or Redmine project page. Because they will usually see the default dashboard and the blocks placed there. They will not be able to switch between different dashboards.
 
-What happens with my project overview or start page after the additionals plugin has been deinstalled?
-  If the plugin was uninstalled correctly, then the Redmine start page, as well as the project overview page will correspond to the *usual view* again by default.
+And for your employees create own dashboards. You define which role has access to it in the dashboard configuration. Employees of the respective roles can then simply switch from the standard dashboard to the role-based dashboard in case it will not be displayed on the first visit.
 
-  This means that you will only see the blocks that Redmine has permanently placed there (e.g. welcome text message, latest news), or the blocks that are placed there by installed Redmine plugins.
+#### What happens with my project overview or start page after the additionals plugin has been deinstalled?
+If the plugin was uninstalled correctly, then the Redmine start page, as well as the project overview page will correspond to the *usual view* again by default.
 
-  The pages can no longer be customized flexibly. You no longer have any influence on the content that is offered there.
+This means that you will only see the blocks that Redmine has permanently placed there (e.g. welcome text message, latest news), or the blocks that are placed there by installed Redmine plugins.
+
+The pages can no longer be customized flexibly. You no longer have any influence on the content that is offered there.
 
 ### Developer Information
 

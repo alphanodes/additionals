@@ -266,7 +266,7 @@ Macros marked here are not offered for selection. This allows you to limit the s
 
 ![Macro settings!](contrib/images/macro-settings.png "Macro settings")
 
-If all macros are deactivated the *Macro button* of the Wiki toolbar will disappear.
+*Figure: If all macros are deactivated the *Macro button* of the Wiki toolbar will disappear.*
 
 > **_NOTE:_**  If you deactivate some macros here this does not mean the user may not implement them. All available macros of installed plugins will work even if they are not part of the macro button. The macro button is just a little helper for Redmine users with no macro experience to make it easier for them to use macros or to remember them.
 
@@ -279,24 +279,123 @@ With the macro button for the Wiki toolbar we want to simplify the implementatio
 
 ![Macro button!](contrib/images/additionals-makro-button.png "Macro button")
 
-Figure: The Wiki toolbar macro button is a useful helper in order to select available project macros for your content.
+*Figure: The Wiki toolbar macro button is a useful helper in order to select available project macros for your content.*
 
 The macro button for the Wiki toolbar is acessible for every user of a project. For reasons of clarity, the list of available macros is restricted according to the following criteria.
 
 A user can see in the macro list:
 
-* the macros that can be used for the respective area. Macros that only work in the wiki are not available in the issue area and vice versa.
+* the macros that can be used for the respective area.
+  Macros that only work in the wiki are not available in the issue area and vice versa.
 * The macros, which he / she can use due to his / her role and the associated rights in the respective project.
-* only the macros of modules activated in the project. Macros for deactivated functions are hidden in the list.
+* only the macros of modules activated in the project. 
+  Macros for deactivated functions are hidden in the list.
 
 The function is easy to use. Just click the button with the left mouse. The dropdown list shows all your available macros. Select the one you want to use. The selected macro will be pasted to the cursor position. All you have to do is adapt missing parameters (if needed).
 
+## Issues section
+
+Here you can define issue rules, which are used in issues of all projects.
+
+* Note for new issues
+  * Use this section if you want to place important issue notes above every new issue (edit mode) like in the screenshot below. Keep it short and use a link to a common wiki page with further information.
+
+  ![Issue notes!](contrib/images/issuetext.png "Issue notes")
+
+> **_NOTE:_** You can use wiki syntax for your text (use it wisely). Make sure the wiki page you link to is accessible for every user. The default issue text can be overwritten within the project settings.
+
+* New issue on user profile
+  * Activate this option in case you want to display the symbol link *New issue* on a user's profile page in the top right corner in order to add a new issue for this user directly from it's user profile page.
+
+* Show *Assign to me* on issue
+  * Activate this option if you want to display the symbol link *Assign to me* in the issue overview page of an issue that you are able to assign it directly to yourself without *editing* the issue. The link is only shown to users who are also members in the correspondent project.
+
+* Issue status on sidebar
+  * Activate this option in case you want to display a list of available issue status options in the right sidebar of the issue view page. One click on the option changes the issue status directly without opening the *edit* mode.
+
+> **_NOTE:_** All options above only work for users with appropriate issue tracking rights in the administration area "Roles and permissions" (view, create, edit).
+
+* Disallow editing of closed issues (Freeze).
+  * This option should be activated if already closed issues should no longer be edited and commented.
+
+If *Assignee* is unchanged and the issue status changed from x to y, than the author is assigned to the issue.
+Issues should be automatically assigned to the author, if the status changes to *Approval*.
+
+![Preferences](contrib/images/account-preferences.jpg "Preferences")
+
+*Figure: Deactivate this option in your account in case you don't want to be notified even if the admin activated it.*
+
+> **_NOTE:_** Use Case for this option is that issues should be automatically assigned to author, if the status changes to *Approval*.
+
+Current issue status x is only allowed if *Assignee* is the current user.
+
+> **_NOTE:_** Is this function used in combination with the setting option *Issue status on sidebar* then the current user will automatically be assigned to the issue while changing the issue status. Use Case here: Users are only allowed to change the status to *In Progress* if they are the person who is actually working on the issue right now.
 
 
+If *Assigned to* is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role.
+
+> **_NOTE:_** Use Case: The issue author does not know whom the issue should be assigned to. Or he is unsure who will be responsible for solving the task. In that case the issue for example with the status "To Do" is automatically assigned to the first group, which does contain a user of the pre-selected project manager role. Imagine you have a group called "Support", and there are users assigend to the "Manager" role, this support group will be automatically adressed to solve the issue when the issue author saves it.
+
+Time log for issues required.
+
+> **_NOTE:_** For each issue of the selected trackers, a time logging is necessary if the issue is to receive one of the defined status properties. The time logging is not required if there does no rights exist for the creation of time logging or if the user has the authorization *Time logging not required*.
+
+Please note, that a user with administration rights will always be able to do all those things a normal user is not allowed to.
+
+## Web APIs section
+
+In case you want to use the Gmap Macro you have to implement your Google API Key into the field ``Google Maps Embed API Key`` first. After this you can use the Macro everywhere inside Redmine (Wiki, Issues - everywhere you use wiki syntax).
+
+## Help menu
+
+We have implemented a help symbol in the global top menu of the header section that opens the new *help menu*.
+
+There you find useful manual links to various Redmine related topics which will automatically be implemented, when the plugin has been installed. The menu is divided into two parts.
+
+* There is a menu only for Redmine users without administration rights.
+* There is a menu extension for Redmine users with administration rights.
+
+The following menu items are currently implemented if a plugin is installed, that supports this additionals-function:
+
+* FontAwesome Icons
+* Redmine Macros (for more information see: Macros)
+* Redmine Guide
+* Redmine Changelog
+* Redmine Security Advisories
+* Redmine Upgrade
+
+Known external plugins that have a user manual and support this feature are currently:
+
+* additionals
+* redmine_automation
+* redmine_db
+* redmine_devops
+* redmine_hrm
+* redmine_passwords
+* redmine_privacy_terms
+* redmine_reporting
+* redmine_service_desk
+* redmine_wiki_guide
 
 
+## Plugin project settings
+
+In the project configuration the ``Issues tracking``section allows you to store system wide ``Note for new issues``, which will be displayed on top of new issues (or in the edit mode of an issue). This system wide information text can be changed per project within the project settings. You can change the system settings in your project **Settings** area section **Issue tracking**.
+
+![Issue notes](contrib/images/issuetext-project.png "Issue notes")
+
+Choose one of the following options:
 
 
+| Name       | Description                                                                                  |
+| -----------|----------------------------------------------------------------------------------------------|
+| System     | There is nothing you can do. The default system wide text will be used.                      |
+| disabled   | This disables the ``Note for new issues`` completely.                                        |
+| Project    | This option allows you to define your own, project relevant text as ``Note for new issues``. |
+
+
+> **_NOTE:_** You can use wiki syntax for your text (use it wisely). Make sure the wiki page you link to is accessible for every user. The default issue text can be overwritten within the project settings.
+> 
 ## Contact and Support
 
 For questions or feedback on the plugin functions, [pull requests](https://github.com/alphanodes/additionals/pulls), [issues](https://github.com/alphanodes/additionals/issues) use only the issue system as a communication channel. Thank you.

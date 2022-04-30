@@ -61,7 +61,6 @@ fr:
   label_add_dashboard_block: "Ajouter un bloc"
   label_add_go_to_top: 'Ajouter un lien "Revenir en haut"'
   label_additionals: Additionals
-  label_additionals_doc: Documentation Additionals
   label_additionals_feed: Flux Atom+RSS
   label_additionals_message: Message
   label_app_menu: Menu applicatif

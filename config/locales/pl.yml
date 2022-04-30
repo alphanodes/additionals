@@ -61,7 +61,6 @@ pl:
   label_add_dashboard_block: "Dodaj blok"
   label_add_go_to_top: 'Dodaj "Go to top" link'
   label_additionals: Additionals
-  label_additionals_doc: "Additionals dokumentowanie"
   label_additionals_feed: "Atom+RSS Feed"
   label_additionals_message: "Komunikat"
   label_app_menu: App menu

@@ -192,3 +192,4 @@ ko:
   wiki_pdf_remove_attachments_info: 활성화 된 경우 첨부 된 Wiki 파일은 PDF보기에 표시되지 않습니다.
   wiki_pdf_remove_title_info: 활성화되면 위키 제목 정보가 PDF보기에 표시되지 않습니다.
   label_custom_field_editable_info: If disabled changes are only possible with API calls.
+  label_help_doc: Documentation

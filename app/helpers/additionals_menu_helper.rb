@@ -58,13 +58,19 @@ module AdditionalsMenuHelper
   end
 
   def addtionals_help_plugin_items
-    user_items = [{ title: 'Redmine Guide', url: Redmine::Info.help_url },
-                  { title: "Redmine #{l :label_macro_plural}", url: additionals_macros_path }]
+    user_items = [{ title: 'Redmine Guide',
+                    url: Redmine::Info.help_url,
+                    id: :redmine_guide },
+                  { title: "Redmine #{l :label_macro_plural}",
+                    url: additionals_macros_path,
+                    id: :macros }]
 
     admin_items = [{ title: 'Redmine Changelog',
-                     url: "https://www.redmine.org/projects/redmine/wiki/Changelog_#{Redmine::VERSION::MAJOR}_#{Redmine::VERSION::MINOR}" },
+                     url: "https://www.redmine.org/projects/redmine/wiki/Changelog_#{Redmine::VERSION::MAJOR}_#{Redmine::VERSION::MINOR}",
+                     id: :changelog },
                    { title: 'Redmine Upgrade',
-                     url: 'https://www.redmine.org/projects/redmine/wiki/RedmineUpgrade' },
+                     url: 'https://www.redmine.org/projects/redmine/wiki/RedmineUpgrade',
+                     id: :security_advisories },
                    { title: 'Redmine Security Advisories',
                      url: 'https://www.redmine.org/projects/redmine/wiki/Security_Advisories' }]
 
@@ -87,11 +93,11 @@ module AdditionalsMenuHelper
       next if plugin_item.nil?
 
       plugin_item.each do |temp_item|
-        u_items = if !temp_item[:manual].nil? && temp_item[:manual]
-                    { title: "#{temp_item[:title]} #{l :label_help_manual}", url: temp_item[:url] }
-                  else
-                    { title: temp_item[:title], url: temp_item[:url] }
-                  end
+        title = Array temp_item[:title]
+        title << l("label_help_#{temp_item[:type]}") if temp_item.key? :type
+        u_items = { title: safe_join(title, ' '),
+                    url: temp_item[:url],
+                    id: temp_item[:id] }
 
         if !temp_item[:admin].nil? && temp_item[:admin]
           admin_items << u_items
@@ -109,16 +115,23 @@ module AdditionalsMenuHelper
     pages = plugin_items[:user].sort_by { |k| k[:title] }
 
     if User.current.admin?
-      pages << { title: '-' }
+      pages << { title: '-', id: :sep }
       pages += plugin_items[:admin].sort_by { |k| k[:title] }
     end
 
     s = []
-    pages.each_with_index do |item, idx|
+    ids = []
+    pages.each do |item|
+      next unless item.key? :id
+
+      id = item[:id]
+      next if ids.include? id
+
+      ids << id
       s << if item[:title] == '-'
              tag.li tag.hr
            else
-             html_options = { class: +"help_item_#{idx}" }
+             html_options = { class: +"help_item_#{id}" }
              if item[:url].include? '://'
                html_options[:class] << ' external'
                html_options[:target] = '_blank'
@@ -133,19 +146,16 @@ module AdditionalsMenuHelper
   # which do not have additionals_help_menu_items integration
   def additionals_help_items_fallbacks(plugin_id)
     plugins = { redmine_drawio: [{ title: 'draw.io usage',
+                                   id: :drawio,
                                    url: 'https://github.com/mikitex70/redmine_drawio#usage' }],
                 redmine_contacts: [{ title: 'Redmine CRM',
+                                     id: :crm,
                                      url: 'https://www.redmineup.com/pages/help/crm',
                                      admin: true }],
                 redmine_contacts_helpdesk: [{ title: 'Redmine Helpdesk',
+                                              id: :helpdesk,
                                               url: 'https://www.redmineup.com/pages/help/helpdesk',
-                                              admin: true }],
-                redmine_ldap_sync: [{ title: 'Redmine LDAP',
-                                      url: 'https://www.redmine.org/projects/redmine/wiki/RedmineLDAP',
-                                      admin: true },
-                                    { title: 'Redmine LDAP Sync',
-                                      url: 'https://github.com/thorin/redmine_ldap_sync/blob/master/README.md',
-                                      admin: true }] }
+                                              admin: true }] }
     plugins[plugin_id]
   end
 end

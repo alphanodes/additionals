@@ -111,7 +111,7 @@ class DashboardsController < ApplicationController
       flash[:notice] = l :notice_successful_update
       respond_to do |format|
         format.html { redirect_to dashboard_link_path(@project, @dashboard) }
-        format.api  { head :ok }
+        format.api  { render_api_ok }
       end
     else
       respond_to do |format|
@@ -129,7 +129,7 @@ class DashboardsController < ApplicationController
       flash[:notice] = l :notice_successful_delete
       respond_to do |format|
         format.html { redirect_to @project.nil? ? home_path : project_path(@project) }
-        format.api  { head :ok }
+        format.api  { render_api_ok }
       end
     rescue ActiveRecord::RecordNotDestroyed
       flash[:error] = l :error_remove_db_entry

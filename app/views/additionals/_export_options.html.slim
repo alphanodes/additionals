@@ -1,4 +1,4 @@
-div id="#{export_format}-export-options" style="display: none;"
+.hidden id="#{export_format}-export-options"
   h3.title = l :label_export_options, export_format: export_format.upcase
 
   = form_tag url, method: :get, id: "#{export_format}-export-form" do

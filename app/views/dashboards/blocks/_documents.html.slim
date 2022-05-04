@@ -1,7 +1,7 @@
 h3.icon.icon-document = l :label_document_plural
 
 - if @can_edit
-  div id="#{block}-settings" style='display: none;'
+  .hidden id="#{block}-settings"
     = form_tag _update_layout_setting_dashboard_path(@project, @dashboard), remote: true do
       .box.tabular.settings
         p

@@ -89,7 +89,7 @@ function setSelect2FilterValues(field, options, values) {
 function addSelectTag(field) {
   var fieldId = sanitizeToId(field);
   $('#tr_' + fieldId).find('td.values').append(
-    '<span style="display:none;"><select class="value" id="values_'+fieldId+'_1" name="v['+field+'][]"></select></span>'
+    '<span style="display: none;"><select class="value" id="values_'+fieldId+'_1" name="v['+field+'][]"></select></span>'
   );
 }
 

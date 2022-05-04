@@ -4,6 +4,6 @@
     p#change_author
       = form.label_for_field :author_id
       = link_to_function tag.span(l(:button_edit), class: 'icon icon-edit'), '$(this).hide(); $("#issue_author_id").show()'
-      = form.select :author_id, author_options, { required: true, no_label: true }, style: 'display: none'
+      = form.select :author_id, author_options, { required: true, no_label: true }, class: 'hidden'
     javascript:
       $('#change_author').insertBefore($('#issue_tracker_id').parent());

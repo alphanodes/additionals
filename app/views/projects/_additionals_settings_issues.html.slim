@@ -11,12 +11,12 @@ fieldset.box.tabular
                 options_for_select({ l(:label_system_setting) => '1',
                                      l(:label_disabled) => '0',
                                      l(:label_project_setting) => '2' }, project.enable_new_ticket_message.to_s)
-  p#project-ticket-message style="#{'display: none' if project.enable_new_ticket_message != 2}"
+  p#project-ticket-message class="#{'hidden' if project.enable_new_ticket_message != 2}"
     = f.text_area :new_ticket_message,
                   rows: addtionals_textarea_cols(project.new_ticket_message),
                   label: l(:label_additionals_message)
 
-  p#system-ticket-message style="#{'display: none' if project.enable_new_ticket_message != 1}"
+  p#system-ticket-message class="#{'hidden' if project.enable_new_ticket_message != 1}"
     = additionals_settings_textarea :new_ticket_message_system,
                                     value: Additionals.setting(:new_ticket_message).to_s,
                                     label: l(:label_additionals_message),

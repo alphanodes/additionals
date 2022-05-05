@@ -128,7 +128,7 @@ It provides :
 * [Chart.js Plugin colorschemes 0.4.0 (patched for chartjs 3)](https://github.com/nagix/chartjs-plugin-colorschemes)
 * [Chart.js Plugin datalabels 2.0.0](https://github.com/chartjs/chartjs-plugin-datalabels)
 * [Chart.js Plugin matrix 1.1.1](https://github.com/kurkle/chartjs-chart-matrix)
-* [clipboardJS 2.0.10](https://clipboardjs.com/)
+* [clipboardJS 2.0.11](https://clipboardjs.com/)
 * [d3 7.4.4](https://d3js.org/)
 * [d3plus 2.0.1](https://d3plus.org/)
 * [FontAwesome 5.15.4](https://fontawesome.com/)
@@ -240,7 +240,7 @@ If you click on this tab you get to the area, where users with administration ri
 
 ### Contents
 
-Global wiki sidebar        
+Global wiki sidebar
 * Here you can implement useful macros like a display of your page hierarchy. But remember - only people with the correspondent rights will get a display of the content.
 * You can also implement useful macros in this section. For example to implement some date or author macros (e.g. last_updated_at, last_updated_by)
 
@@ -249,10 +249,10 @@ Global wiki sidebar
 
 ### PDF Wiki settings
 
-- Remove Wiki title from PDF view   
+- Remove Wiki title from PDF view
   * When activated the general Wiki title info in the page header of the PDF view will not be displayed.
 
-- Remove attachments from PDF view   
+- Remove attachments from PDF view
   * When activated the attachments will not be displayed in the PDF view of a Wiki page.
 
 
@@ -288,7 +288,7 @@ A user can see in the macro list:
 * the macros that can be used for the respective area.
   Macros that only work in the wiki are not available in the issue area and vice versa.
 * The macros, which he / she can use due to his / her role and the associated rights in the respective project.
-* only the macros of modules activated in the project. 
+* only the macros of modules activated in the project.
   Macros for deactivated functions are hidden in the list.
 
 The function is easy to use. Just click the button with the left mouse. The dropdown list shows all your available macros. Select the one you want to use. The selected macro will be pasted to the cursor position. All you have to do is adapt missing parameters (if needed).
@@ -405,7 +405,7 @@ The following role permissions are provided by the plugin and must be configured
 * Hide
   * This option hides ``members`` of the selected role in the member box of each project overview page. Project members of other roles will still be listed. For example: You don't want others to catch a glimpse of your development team (Role: Development). So activate the role "Developer" to hide the list of your team members assigned to this role in this box. This function is also useful if your member box is too crowded.
 
-> **_NOTE:_** This setting is also taken into account in all related query lists (e.g. issues, spent time etc.). So that the members with this role are also hidden there. 
+> **_NOTE:_** This setting is also taken into account in all related query lists (e.g. issues, spent time etc.). So that the members with this role are also hidden there.
 > **Important:** If the user has in one project a role, that allows him / her to view a specific "hidden role" this rule is not taken into account anymore.
 
 
@@ -602,7 +602,7 @@ Learn how to implement Dashboard blocks in your plugins. There are only two thin
 
 > **_NOTE:_** Examples: Go to https://github.com/AlphaNodes/additionals/tree/main/app/views/dashboards/blocks for examples.
 
-* Add block definitions: 
+* Add block definitions:
   * Add your block definition in *block_definitions*. This could be in:
     * dashboard_content.rb (if your block should be available in all dashboards)
     * dashboard_content_project.rb (if your block should be available in project dashboards only)

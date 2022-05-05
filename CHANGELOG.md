@@ -12,6 +12,7 @@
 - Chart.js 3 support
 - Add Chart.js matrix plugin
 - Fix scope of users for select2 in projects
+- Updated clipboardJS to 2.0.11
 
 ## 3.0.5.2
 

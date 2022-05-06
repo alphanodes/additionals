@@ -8,8 +8,14 @@ module IssuesShow
                        partial: 'issues/additionals_action_menu_log_time'
 
   Deface::Override.new virtual_path: 'issues/_action_menu',
-                       name: 'add-issue-assign-to-me',
+                       name: 'show-issue-action-menu',
                        insert_after: 'erb[loud]:contains("watcher_link")',
                        original: 'a519feb931e157589bc506b2673abeef994aa96b',
-                       partial: 'issues/additionals_action_menu'
+                       partial: 'hooks/view_issue_action_menu'
+
+  Deface::Override.new virtual_path: 'issues/_action_menu',
+                       name: 'show-issue-action-dropdown',
+                       insert_before: 'erb[loud]:contains("copy_object_url_link")',
+                       original: 'cf959d0baa105476b364f7fe33b05516e27dda65',
+                       partial: 'hooks/view_issue_action_dropdown'
 end

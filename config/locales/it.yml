@@ -192,4 +192,4 @@ it:
   wiki_pdf_remove_attachments_info: "Quando è attivo, il Wiki file allegati non verranno visualizzati nella vista PDF."
   wiki_pdf_remove_title_info: "Quando è attivo, le informazioni sul titolo del Wiki non verranno visualizzate nella vista PDF."
   label_custom_field_editable_info: Se le modifiche disabilitate sono possibili solo con chiamate API.
-  label_help_doc: Documentation
+  label_help_doc: Documentazione

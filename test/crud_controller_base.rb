@@ -59,8 +59,8 @@ module CrudControllerBase
 
       get :index, params: @crud[:index_params]
 
-      if @crud[:index_forbitten_status].present?
-        assert_response @crud[:index_forbitten_status]
+      if @crud[:index_forbidden_status].present?
+        assert_response @crud[:index_forbidden_status]
       else
         assert_response :forbidden
       end

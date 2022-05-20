@@ -10,19 +10,21 @@
   .splitcontent
     .splitcontentleft
       = hidden_field_tag 'dashboard[dashboard_type]', @dashboard.dashboard_type if @dashboard.new_record?
-      - if @project && @allowed_projects.present? && @allowed_projects.count > 1
-        p
-          = hidden_field_tag 'dashboard[content_project_id]', @project&.id
-          = f.select :project_id,
-                     project_tree_options_for_select(@allowed_projects,
-                                                     selected: @dashboard.project,
-                                                     include_blank: true),
-                     {},
-                     disabled: !@dashboard.project_id_can_change?
-          em.info
-            = l :info_dashboard_project_select
-      - else
-        = hidden_field_tag 'dashboard[project_id]', @project&.id
+      - if @project
+        = hidden_field_tag 'dashboard[content_project_id]', @project.id
+        - if @allowed_projects.present? && @allowed_projects.count > 1
+          p
+            = hidden_field_tag 'dashboard[content_project_id]', @project&.id
+            = f.select :project_id,
+                      project_tree_options_for_select(@allowed_projects,
+                                                      selected: @dashboard.project,
+                                                      include_blank: true),
+                      {},
+                      disabled: !@dashboard.project_id_can_change?
+            em.info
+              = l :info_dashboard_project_select
+        - else
+          = hidden_field_tag 'dashboard[project_id]', @project.id
 
       - if User.current.allowed_to?(:share_dashboards, @project, global: true) || \
            User.current.allowed_to?(:set_system_dashboards, @project, global: true)

@@ -3,7 +3,8 @@
 module WikiShow
   Deface::Override.new virtual_path: 'wiki/show',
                        name: 'wiki-show',
+                       sequence: 1,
                        insert_before: 'p.wiki-update-info',
-                       original: '20f7afc86f7b80234f9f5a53b1ceb6414f76d822',
+                       original: 'd9f52aa98f1cb335314570d3f5403690f1b29145',
                        partial: 'hooks/view_wiki_show_bottom'
 end

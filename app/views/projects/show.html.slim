@@ -44,7 +44,7 @@
                   edit_project_dashboard_path(@project, @dashboard),
                   class: 'icon icon-edit'
 
-    - if @dashboard&.destroyable?
+    - if @dashboard&.deletable?
       = delete_dashboard_link project_dashboard_path(@project, @dashboard)
 
     = sidebar_action_toggle @dashboard_sidebar, @dashboard, @project

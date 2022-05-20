@@ -88,7 +88,7 @@ class DashboardsController < ApplicationController
   end
 
   def edit
-    return render_403 unless @dashboard.editable_by? User.current
+    return render_403 unless @dashboard.editable?
 
     @allowed_projects = @dashboard.allowed_target_projects
 
@@ -99,7 +99,7 @@ class DashboardsController < ApplicationController
   end
 
   def update
-    return render_403 unless @dashboard.editable_by? User.current
+    return render_403 unless @dashboard.editable?
 
     @dashboard.safe_attributes = params[:dashboard]
     @dashboard.role_ids = params[:dashboard][:role_ids] if params[:dashboard].present?
@@ -122,7 +122,7 @@ class DashboardsController < ApplicationController
   end
 
   def destroy
-    return render_403 unless @dashboard.destroyable_by? User.current
+    return render_403 unless @dashboard.deletable?
 
     begin
       @dashboard.destroy

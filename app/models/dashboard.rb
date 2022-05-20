@@ -262,27 +262,19 @@ class Dashboard < ActiveRecord::Base
     visibility != VISIBILITY_PRIVATE
   end
 
-  def editable_by?(usr = User.current, prj = nil)
-    prj ||= project
-    usr && (usr.admin? ||
-           (author == usr && usr.allowed_to?(:save_dashboards, prj, global: true)))
+  def editable?(user = User.current)
+    return false unless user
+
+    (user.admin? || (author == user && user.allowed_to?(:save_dashboards, project, global: true)))
   end
 
-  def editable?(usr = User.current)
-    @editable ||= editable_by? usr
-  end
-
-  def destroyable_by?(usr = User.current)
-    return unless editable_by? usr, project
+  def deletable?(user = User.current)
+    return unless editable? user
 
     return !system_default_was if dashboard_type != DashboardContentProject::TYPE_NAME
 
     # project dashboards needs special care
     project.present? || !system_default_was
-  end
-
-  def destroyable?
-    @destroyable ||= destroyable_by? User.current
   end
 
   def to_s
@@ -391,7 +383,7 @@ class Dashboard < ActiveRecord::Base
   end
 
   def check_destroy_system_default
-    raise 'It is not allowed to delete dashboard, which is system default' unless destroyable?
+    raise 'It is not allowed to delete dashboard, which is system default' unless deletable?
   end
 
   def dashboard_type_check

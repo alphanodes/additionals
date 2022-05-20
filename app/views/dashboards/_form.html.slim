@@ -56,7 +56,7 @@
         = f.check_box :enable_sidebar
 
       - if User.current.allowed_to? :set_system_dashboards, @project, global: true
-        p = f.check_box :system_default, disabled: !@dashboard.destroyable?
+        p = f.check_box :system_default, disabled: !@dashboard.deletable?
         p#always-expose = f.check_box :always_expose
       - elsif @dashboard.system_default?
         p = f.check_box :system_default, disabled: true

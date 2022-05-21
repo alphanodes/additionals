@@ -200,7 +200,7 @@ class DashboardTest < Additionals::TestCase
   def test_destroy_dashboard_without_roles
     dashboard = dashboards :private_welcome2
     assert dashboard.roles.none?
-    assert dashboard.deletable? users(:users_002)
+    assert dashboard.deletable?(users(:users_002))
     assert_difference 'Dashboard.count', -1 do
       assert dashboard.destroy
     end

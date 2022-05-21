@@ -8,7 +8,7 @@
       .user.line[style="font-weight: bold;"]
         = link_to_user user
 
-      - if !user_roles.nil? && user_roles[user.id]
+      - if user_roles && user_roles[user.id]
         .user.line
           = l :field_role
           ' :

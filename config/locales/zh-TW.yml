@@ -193,3 +193,5 @@
   wiki_pdf_remove_title_info: "當啟用時，Wiki標題訊息不會顯示在PDF中"
   label_custom_field_editable_info: "如果禁用的变化只能通过API调用来实现"
   label_help_doc: 文件
+  label_activate_quickstart: Activate quickstart
+  label_quickstart: Quickstart

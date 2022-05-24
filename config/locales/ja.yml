@@ -193,3 +193,5 @@ ja:
   wiki_pdf_remove_title_info: "アクティブな場合、Wikiのタイトル情報はPDFビューに表示されません。"
   label_custom_field_editable_info: 無効化された変更がAPIコールでのみ可能な場合
   label_help_doc: ドキュメンテーション
+  label_activate_quickstart: "アクティブ化 quickstart"
+  label_quickstart: Quickstart

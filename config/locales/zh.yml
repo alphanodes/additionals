@@ -193,3 +193,5 @@ zh:
   wiki_pdf_remove_title_info: 当启用时，Wiki 标题信息将不会显示在 PDF 视图中。
   label_custom_field_editable_info: 如果禁用的变化只能通过API调用来实现
   label_help_doc: 文件
+  label_activate_quickstart: Activate quickstart
+  label_quickstart: Quickstart

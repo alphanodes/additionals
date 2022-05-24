@@ -193,3 +193,5 @@ es:
   wiki_pdf_remove_title_info: "Cuando está activa, el título de la Wiki no será mostrado en los PDF."
   label_custom_field_editable_info: "Si los cambios desactivados sólo son posibles con llamadas a la API."
   label_help_doc: "Documentación"
+  label_activate_quickstart: Activar quickstart
+  label_quickstart: Quickstart

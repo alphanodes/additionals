@@ -107,6 +107,7 @@ module Additionals
                           Issue
                           IssuePriority
                           TimeEntry
+                          Mailer
                           Project
                           ProjectQuery
                           Wiki

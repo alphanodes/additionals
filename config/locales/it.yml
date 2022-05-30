@@ -53,7 +53,6 @@ it:
   global_wiki_sidebar_info: 'Enter a project wide available text message for your wiki sidebar, here. This sidebar text will be displayed at the wiki pages only. Use this space for Macros like "Last changed pages" for example. In case a project specific sidebar is used (wiki page), this will be preferably displayed in the sidebar instead.'
   google_maps_embed_api_html: Se si desidera utilizzare la macro Gmap per visualizzare Google Maps, è necessario immettere qui la chiave API incorporata di Google Maps. Potete trovare maggiori informazioni sotto <a href="https://developers.google.com/maps/documentation/embed/guide">https://developers.google.com/maps/documentation/embed/guide</a>
   hidden_macros_in_toolbar_info: "Tutte le macro disponibili che l'utente registrato può utilizzare sono elencate tramite il pulsante macro della barra degli strumenti del wiki. Le macro contrassegnate qui non vengono offerte per la selezione. In questo modo è possibile limitare la portata dell'elenco."
-  info_dashboard_project_select: "Lascialo vuoto, se vuoi usare questo cruscotto per tutti i progetti."
   info_hidden_roles_html: "I ruoli nascosti possono essere utilizzati solo insieme alla visibilità dell'utente \"Membri di progetti visibili\". Se l'utente non è in un ruolo visibile all'utente corrente, questo ruolo, incluso l'utente, è nascosto nella pagina di panoramica del progetto e nelle liste di ricerca."
   info_live_search_result_restriction: "I risultati di LiveSearch sono limitati a %{value} colpi. Prova a descrivere la tua ricerca in modo più dettagliato."
   label_account_login_bottom: "Testo per la pagina di accesso"
@@ -195,3 +194,4 @@ it:
   label_help_doc: Documentazione
   label_activate_quickstart: Attivare quickstart
   label_quickstart: Quickstart
+  label_all_projects: All projects

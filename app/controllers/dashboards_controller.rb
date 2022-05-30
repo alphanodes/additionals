@@ -58,8 +58,8 @@ class DashboardsController < ApplicationController
   end
 
   def new
-    @dashboard = Dashboard.new(project: @project,
-                               author: User.current)
+    @dashboard = Dashboard.new project: @project,
+                               author: User.current
     @dashboard.dashboard_type = assign_dashboard_type
     @allowed_projects = @dashboard.allowed_target_projects
   end
@@ -101,11 +101,13 @@ class DashboardsController < ApplicationController
   def update
     return render_403 unless @dashboard.editable?
 
+    # should be set before dashboar object has modified
+    @allowed_projects = @dashboard.allowed_target_projects
+
     @dashboard.safe_attributes = params[:dashboard]
     @dashboard.role_ids = params[:dashboard][:role_ids] if params[:dashboard].present?
 
     @project = @dashboard.project if @project && @dashboard.project_id.present? && @dashboard.project != @project
-    @allowed_projects = @dashboard.allowed_target_projects
 
     if @dashboard.save
       flash[:notice] = l :notice_successful_update

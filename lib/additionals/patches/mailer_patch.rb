@@ -5,6 +5,10 @@ module Additionals
     module MailerPatch
       extend ActiveSupport::Concern
 
+      included do
+        include InstanceMethods
+      end
+
       class_methods do
         def deliver_entity_added(entity)
           deliver_method = "#{entity.class.to_s.underscore}_added"
@@ -26,6 +30,35 @@ module Additionals
           users.each do |user|
             send(deliver_method, user, journal).deliver_later
           end
+        end
+      end
+
+      module InstanceMethods
+        def entity_added(user, entity, entity_url:, headers:, subject:)
+          redmine_headers headers
+          message_id entity
+
+          @author = entity.author
+          @entity = entity
+          @entity_url = entity_url
+
+          mail to: user, subject: subject
+        end
+
+        def entity_updated(user, journal, entity_url:, headers:, subject:)
+          entity = journal.journalized
+
+          redmine_headers headers
+          message_id journal
+
+          @author = journal.user
+          @entity = entity
+          @entity_url = entity_url
+
+          @journal = journal
+          @journal_details = journal.visible_details
+
+          mail to: user, subject: subject
         end
       end
     end

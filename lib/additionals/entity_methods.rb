@@ -12,6 +12,16 @@ module Additionals
       attr_reader :current_journal
     end
 
+    class_methods do
+      # if project is available, it is always included
+      def allowed_entity_target_projects(permission:, user: User.current, exclude: nil, project: nil)
+        scope = Project.where Project.allowed_to_condition(user, permission)
+        scope = scope.or Project.where id: project if project
+        scope = scope.where.not id: exclude if exclude
+        scope
+      end
+    end
+
     module InstanceMethods
       # used with assignable_principal (user AND groups)
       def assignable_users(prj = nil)

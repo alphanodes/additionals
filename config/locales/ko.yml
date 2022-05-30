@@ -53,7 +53,6 @@ ko:
   global_wiki_sidebar_info: '위키 사이드 바에 사용할 수있는 프로젝트 전체 문자 메시지를 여기에 입력하십시오. 이 사이드 바 텍스트는 위키 페이지에만 표시됩니다. 예를 들어 "마지막으로 변경된 페이지"와 같은 매크로에이 공간을 사용하십시오. 프로젝트 특정 사이드 바가 사용되는 경우 (위키 페이지), 대신 사이드 바에 표시되는 것이 좋습니다.'
   google_maps_embed_api_html: 'Goole지도를 표시하기 위해 Gmap 매크로를 사용하려는 경우 여기에 Google Maps API 키를 구현하십시오. 그 후 매크로 및 다양한 매개 변수를 사용할 수 있습니다. 매개 변수를 사용하는 방법에 대한 자세한 내용은 <a href="https://developers.google.com/maps/documentation/embed/guide" target="_blank">https://developers.google.com/maps/documentation/embed/guide</a>. Gmap 매크로는 여기에 포함 된 키와 조합해서 만 작동합니다.'
   hidden_macros_in_toolbar_info: 로그인 한 사용자가 사용할 수있는 모든 매크로가 위키 도구 모음의 매크로 버튼을 통해 나열됩니다. 여기에 표시된 매크로는 선택할 수 없습니다. 이를 통해 목록의 범위를 제한 할 수 있습니다.
-  info_dashboard_project_select: 이 대시보드가 모든 프로젝트에서 보이기 원하면 이 항목을 비워두세요.
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". 사용자가 현재 사용자에게 보이는 역할이 아닌 경우 사용자를 포함한이 역할은 프로젝트 개요 페이지와 쿼리 목록에서 숨겨집니다.
   info_live_search_result_restriction: "LiveSearch results are limited to %{value} Matches. Try to describe your search in more detail."
   label_account_login_bottom: "로그인 페이지의 텍스트"
@@ -195,3 +194,4 @@ ko:
   label_help_doc: Documentation
   label_activate_quickstart: "활성화 quickstart"
   label_quickstart: Quickstart
+  label_all_projects: All projects

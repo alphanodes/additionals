@@ -289,7 +289,9 @@ class Dashboard < ActiveRecord::Base
   end
 
   def allowed_target_projects(user = User.current)
-    Project.where Project.allowed_to_condition(user, :save_dashboards)
+    self.class.allowed_entity_target_projects user: user,
+                                              permission: :save_dashboards,
+                                              project: project
   end
 
   # this is used to get unique cache for blocks

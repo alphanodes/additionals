@@ -53,7 +53,6 @@ fr:
   global_wiki_sidebar_info: "Entrez ici un message texte disponible pour l'ensemble du projet pour votre barre latérale wiki. Ce texte de la barre latérale sera affiché uniquement sur les pages wiki. Use this space for Macros like \"Last changed pages\" for example. Dans le cas où une barre latérale spécifique au projet est utilisée (page wiki), celle-ci sera de préférence affichée dans la barre latérale."
   google_maps_embed_api_html: "Si vous souhaitez utiliser la macro Gmap pour afficher les cartes de Goole, veuillez implémenter votre clé API Google Maps ici. Ensuite, vous pouvez utiliser la macro et divers paramètres. Pour plus d'informations sur l'utilisation des paramètres, voir <a href=\"https://developers.google.com/maps/documentation/embed/guide\">https://developers.google.com/maps/documentation/embed/guide</a>. La macro Gmap ne fonctionne qu'en combinaison avec la clé intégrée."
   hidden_macros_in_toolbar_info: "Toutes les macros disponibles que l'utilisateur connecté peut utiliser sont listées via le bouton macro de la barre d'outils wiki. Les macros marquées ici ne sont pas proposées à la sélection. Ceci vous permet de limiter la portée de la liste."
-  info_dashboard_project_select: Laisser vide, si vous souhaitez utiliser ce tableau de bord pour tous les projets.
   info_hidden_roles_html: "Les rôles cachés ne peuvent être utilisés qu'avec la visibilité utilisateur \"Membres de projets visibles\". Si l'utilisateur n'est pas dans un rôle visible par l'utilisateur actuel, ce rôle, y compris l'utilisateur, est masqué sur la page de synthèse du projet et dans les listes de requêtes."
   info_live_search_result_restriction: "Les résultats de LiveSearch sont limités à %{value} résultats limités. Essaie de décrire ta recherche plus précisément."
   label_account_login_bottom: "Texte pour la page de connexion"
@@ -195,3 +194,4 @@ fr:
   label_help_doc: Documentation
   label_activate_quickstart: "Activer quickstart"
   label_quickstart: Quickstart
+  label_all_projects: All projects

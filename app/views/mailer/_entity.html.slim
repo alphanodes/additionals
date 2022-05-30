@@ -1,0 +1,17 @@
+hr
+
+h1 = link_to h(title), entity_url
+
+= render_email_attributes entity, html: true
+
+= textilizable entity, content_field, only_path: false
+
+- if with_attachments && entity.attachments.any?
+  fieldset.attachments
+    legend = l :label_attachment_plural
+    - entity.attachments.each do |attachment|
+      = link_to_attachment attachment, download: true, only_path: false
+      |  (
+      = number_to_human_size attachment.filesize
+      | )
+      br

@@ -1,0 +1,15 @@
+
+----------------------------------------
+<%= title %>
+<%= entity_url %>
+
+<%= render_email_attributes entity %>
+----------------------------------------
+<%= entity.send content_field %>
+
+<% if with_attachments && entity.attachments.any? -%>
+---<%= l(:label_attachment_plural).ljust(37, '-') %>
+<% entity.attachments.each do |attachment| -%>
+<%= attachment.filename %> (<%= number_to_human_size attachment.filesize %>)
+<% end -%>
+<% end -%>

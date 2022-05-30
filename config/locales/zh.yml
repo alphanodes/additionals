@@ -53,7 +53,6 @@ zh:
   global_wiki_sidebar_info: '请在此处输入项目范围内的 Wiki 侧边栏信息。该侧边栏信息将只显示在 Wiki 页内。在此空间内输入诸如 "Last changed pages" 的宏命令。若项目内使用指定的侧边栏（Wiki 页），则该信息将优先显示在侧边栏内。'
   google_maps_embed_api_html: 如果你想使用 Gmap 宏以现实 Google 地图，请在此处使用你的 Google 地图 API Key。之后你就可以使用宏和多种参数。关于如何使用参数的更多信息请查看 <a href="https://developers.google.com/maps/documentation/embed/guide" target="_blank">https://developers.google.com/maps/documentation/embed/guide</a>. Gmap 宏只有在此处提供 Key 的情况下才可用。
   hidden_macros_in_toolbar_info: 登录用户可以使用的所有可用宏都可通过 Wiki 页面工具栏 的 宏 按钮列出。请在此处选择不希望列出的宏。
-  info_dashboard_project_select: 如果你想让所有项目都使用此仪表盘，请留空。
   info_hidden_roles_html: 隐藏功能只能与"用户可见度"选项一起使用。如果某用户不在对当前用户可见的角色，则此用户及其角色在项目概述页和查询列表中将对当前用户隐藏。
   info_live_search_result_restriction: "LiveSearch的结果仅限于 %{value}。命中率。尝试更详细地描述你的搜索。"
   label_account_login_bottom: "用于登陆页的文本"
@@ -195,3 +194,4 @@ zh:
   label_help_doc: 文件
   label_activate_quickstart: Activate quickstart
   label_quickstart: Quickstart
+  label_all_projects: All projects

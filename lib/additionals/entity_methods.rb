@@ -23,6 +23,23 @@ module Additionals
     end
 
     module InstanceMethods
+      def notified_users
+        notified = []
+        # Author and assignee are always notified unless they have been
+        # locked or don't want to be notified
+        notified << author if author
+        notified += (assigned_to.is_a?(Group) ? assigned_to.users : [assigned_to]) if assigned_to
+        notified += project.notified_users
+        Redmine::Hook.call_hook :model_notified_users, entity: self, notified: notified
+
+        notified = notified.select(&:active?)
+        notified.uniq!
+
+        # Remove users that can not view the entity
+        notified.select! { |user| visible? user }
+        notified
+      end
+
       # used with assignable_principal (user AND groups)
       def assignable_users(prj = nil)
         prj = project if project.present?

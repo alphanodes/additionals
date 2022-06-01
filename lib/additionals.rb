@@ -9,7 +9,7 @@ module Additionals
   DEFAULT_MODAL_WIDTH = '350px'
   GOTO_LIST = " \xc2\xbb"
   LIST_SEPARATOR = "#{GOTO_LIST} "
-  EMOJI_ASSERT_PATH = 'images/emojis'
+  EMOJI_ASSERT_PATH = 'plugin_assets/additionals/images/emojis'
 
   include RedminePluginKit::PluginBase
 

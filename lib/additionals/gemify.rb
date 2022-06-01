@@ -3,7 +3,7 @@
 module Additionals
   class Gemify
     class << self
-      # install emoji fallback assets from gem (without asset pipline)
+      # install emoji fallback assets from gem (without asset pipeline)
       def install_emoji_assets
         Additionals.debug 'install_emoji_assets'
         return Rails.logger.error 'TanukiEmoji class for emoji not found' unless defined? TanukiEmoji

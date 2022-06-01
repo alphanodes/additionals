@@ -39,6 +39,7 @@ module Additionals
           message_id entity
 
           @author = entity.author
+          @user = user
           @entity = entity
           @entity_url = entity_url
 
@@ -52,6 +53,7 @@ module Additionals
           message_id journal
 
           @author = journal.user
+          @user = user
           @entity = entity
           @entity_url = entity_url
 

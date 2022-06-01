@@ -34,7 +34,7 @@ module WikiFormatting
 
         str = 'A test with a :heart: emoji and a :) smiley'
         @to_test[str] = 'A test with a <img title="heavy black heart" class="inline_emojify"' \
-                        ' src="http://localhost:3000/images/emojis/emoji_u2764.png" /> emoji and a :) smiley'
+                        " src=\"http://localhost:3000/#{Additionals::EMOJI_ASSERT_PATH}/emoji_u2764.png\" /> emoji and a :) smiley"
         assert_html_output @to_test
       end
     end
@@ -47,11 +47,11 @@ module WikiFormatting
         @formatter::RULES << :inline_smileys
 
         @to_test[':heart: and :)'] = '<img title="heavy black heart" class="inline_emojify"' \
-                                     ' src="http://localhost:3000/images/emojis/emoji_u2764.png" />' \
+                                     " src=\"http://localhost:3000/#{Additionals::EMOJI_ASSERT_PATH}/emoji_u2764.png\" />" \
                                      ' and <span class="additionals smiley smiley-smiley" title=":)"></span>'
         @to_test[':) and :heart:'] = '<span class="additionals smiley smiley-smiley" title=":)"></span> and' \
                                      ' <img title="heavy black heart" class="inline_emojify"' \
-                                     ' src="http://localhost:3000/images/emojis/emoji_u2764.png" />'
+                                     " src=\"http://localhost:3000/#{Additionals::EMOJI_ASSERT_PATH}/emoji_u2764.png\" />"
         assert_html_output @to_test
       end
     end

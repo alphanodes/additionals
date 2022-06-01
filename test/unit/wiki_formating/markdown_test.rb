@@ -27,7 +27,7 @@ module WikiFormatting
                                           disable_emoji_native_support: 1 do
         text = 'A test with a :heart: emoji'
         assert_equal '<p>A test with a <img title="heavy black heart" class="inline_emojify"' \
-                     ' src="http://localhost:3000/images/emojis/emoji_u2764.png" /> emoji</p>',
+                     " src=\"http://localhost:3000/#{Additionals::EMOJI_ASSERT_PATH}/emoji_u2764.png\" /> emoji</p>",
                      @formatter.new(text).to_html.strip
       end
     end
@@ -38,14 +38,14 @@ module WikiFormatting
                                           disable_emoji_native_support: 1 do
         text = ':heart: and :)'
         assert_equal '<p><img title="heavy black heart" class="inline_emojify"' \
-                     ' src="http://localhost:3000/images/emojis/emoji_u2764.png" />' \
+                     " src=\"http://localhost:3000/#{Additionals::EMOJI_ASSERT_PATH}/emoji_u2764.png\" />" \
                      ' and <span class="additionals smiley smiley-smiley" title=":)"></span></p>',
                      @formatter.new(text).to_html.strip
 
         text = ' :) and :heart:'
         assert_equal '<p><span class="additionals smiley smiley-smiley" title=":)"></span> and' \
                      ' <img title="heavy black heart" class="inline_emojify"' \
-                     ' src="http://localhost:3000/images/emojis/emoji_u2764.png" /></p>',
+                     " src=\"http://localhost:3000/#{Additionals::EMOJI_ASSERT_PATH}/emoji_u2764.png\" /></p>",
                      @formatter.new(text).to_html.strip
       end
     end

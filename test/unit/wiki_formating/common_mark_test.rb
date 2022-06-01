@@ -33,7 +33,7 @@ module WikiFormatting
         </code></pre>
       HTML
       expected = <<~HTML
-        <img title="heavy black heart" class="inline_emojify" src="http://localhost:3000/images/emojis/emoji_u2764.png">
+        <img title="heavy black heart" class="inline_emojify" src="http://localhost:3000/#{Additionals::EMOJI_ASSERT_PATH}/emoji_u2764.png">
         <pre><code>
         def foo
           :heart:

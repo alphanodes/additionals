@@ -3,14 +3,18 @@
 require File.expand_path '../../test_helper', __FILE__
 
 class ReportsControllerTest < Additionals::ControllerTest
-  fixtures :projects, :trackers, :issue_statuses, :issues,
-           :enumerations, :users, :issue_categories,
+  fixtures :users, :groups_users, :email_addresses, :user_preferences,
+           :roles, :members, :member_roles,
+           :projects, :trackers, :issue_statuses, :issues,
+           :enumerations, :issue_categories,
            :projects_trackers,
-           :roles,
-           :member_roles,
-           :members,
+           :roles, :member_roles, :members,
            :enabled_modules,
            :versions
+
+  def setup
+    prepare_tests
+  end
 
   def test_get_issue_report_details_by_assignee_should_show_non_assigned_issue_count
     Issue.delete_all

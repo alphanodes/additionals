@@ -15,9 +15,11 @@ module Additionals
           return if @rows.nil?
 
           if Setting.issue_group_assignment? && params[:detail] == 'assigned_to'
-            @rows = @project.visible_principals + [User.new(:firstname => "[#{l(:label_none)}]")]
-          elsif %w[assigned_to author].include? params[:detail]
-            @rows = @project.visible_users + [User.new(:firstname => "[#{l(:label_none)}]")]
+            @rows = @project.visible_principals + [User.new(firstname: "[#{l :label_none}]")]
+          elsif params[:detail] == 'assigned_to'
+            @rows = @project.visible_users + [User.new(firstname: "[#{l :label_none}]")]
+          elsif params[:detail] == 'author'
+            @rows = @project.visible_users
           end
         end
       end

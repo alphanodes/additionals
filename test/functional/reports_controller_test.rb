@@ -9,7 +9,7 @@ class ReportsControllerTest < Additionals::ControllerTest
            :enumerations, :issue_categories,
            :projects_trackers,
            :roles, :member_roles, :members,
-           :enabled_modules,
+           :enabled_modules, :workflows,
            :versions
 
   def setup

@@ -156,7 +156,7 @@ module DashboardsHelper
   end
 
   def sidebar_action_toggle(enabled, dashboard, project = nil)
-    return if dashboard.nil?
+    return unless dashboard
 
     if enabled
       link_to l(:label_disable_sidebar),
@@ -301,7 +301,7 @@ module DashboardsHelper
               l :alert_only_visible_by_admins
             end
 
-    return if title.nil?
+    return unless title
 
     font_awesome_icon('fas_info-circle',
                       title: title,

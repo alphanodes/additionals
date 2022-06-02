@@ -36,7 +36,7 @@ module Additionals
                      User.find_by login: user_id
                    end
 
-          return if user.nil?
+          return unless user
 
           name = if options[:format].blank?
                    user.name

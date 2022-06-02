@@ -33,7 +33,7 @@ module Additionals
 
       def view_layouts_base_content(context = {})
         controller = context[:controller]
-        return if controller.nil?
+        return unless controller
 
         controller_name = context[:controller].params[:controller]
         action_name = context[:controller].params[:action]

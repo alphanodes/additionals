@@ -82,7 +82,7 @@ module Additionals
         project_id = project.identifier
       end
 
-      return if project_id.nil?
+      return unless project_id
 
       # if more than one projects available, we do not use project url for a new issue
       if project_count > 1
@@ -245,7 +245,7 @@ module Additionals
     end
 
     def user_with_avatar(user, no_link: false, css_class: 'additionals-avatar', size: 14, no_link_name: nil)
-      return if user.nil?
+      return unless user
 
       if user.type == 'Group'
         if no_link || !AdditionalsPlugin.active_hrm?

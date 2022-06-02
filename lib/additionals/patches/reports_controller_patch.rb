@@ -12,7 +12,7 @@ module Additionals
       module InstanceOverwriteMethods
         def issue_report_details
           super
-          return if @rows.nil?
+          return unless @rows
 
           if Setting.issue_group_assignment? && params[:detail] == 'assigned_to'
             @rows = @project.visible_principals + [User.new(firstname: "[#{l :label_none}]")]

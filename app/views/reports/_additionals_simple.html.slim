@@ -1,7 +1,7 @@
 ruby:
   case field_name
   when 'assigned_to_id'
-    rows = Setting.issue_group_assignment? ? @project.visible_principals : @project.visible_users # rubocop:disable Lint/UselessAssignment
+    rows = Setting.issue_group_assignment? ? @project.visible_principals : @project.visible_users + [User.new(:firstname => "[#{l(:label_none)}]")] # rubocop:disable Lint/UselessAssignment
   when 'author_id'
     rows = @project.visible_users # rubocop:disable Lint/UselessAssignment
   end

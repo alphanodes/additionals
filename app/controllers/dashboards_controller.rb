@@ -4,7 +4,7 @@ class DashboardsController < ApplicationController
   menu_item :dashboards
 
   before_action :find_dashboard, except: %i[index new create]
-  before_action :find_optional_project, only: %i[new create index]
+  before_action :find_optional_project, only: %i[index new create]
 
   accept_atom_auth :index, :show
   accept_api_auth :index, :show, :create, :update, :destroy

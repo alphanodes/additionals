@@ -181,7 +181,7 @@ ko:
   permission_show_hidden_roles_in_memberbox: "숨겨진 역할 표시"
   remove_help_info: "상단 메뉴에서 'Help' 항목을 제거"
   rule_issue_auto_assign_info: 'Use Case: The issue author does not know whom to assign the issue or who will be responsible for solving the task. In that case the issue for example with the status "To Do" is automatically assigned to the first group, which does contain a user of the pre-selected project manager role.'
-  rule_issue_current_user_status_info_html: "Is this function used in combination with the setting option \"Issue status on sidebar\" then the current user will automatically be assigned to the issue while changing the issue status.<br />Use Case: Users are only allowed to change the status to \"In Progress\" if they are the person who is actually working on the issue right now."
+  rule_issue_current_user_status_info_html: "This function together with the setting \"Issue status on sidebar\" automatically assigns the current user to the newly selected status.<br />Use Case: A user should only be able to set the status to \"In Progress\" for oneself when working on the ticket by oneself."
   rule_issue_freezed_with_close_info: 이 옵션을 활성화하면 이미 닫힌 이슈를 더 이상 편집하고 주석을 달 수 없습니다. 메일이나 API를 통해서도 아닙니다. This restriction does not apply to user roles with the "Edit closed issues" permission.
   rule_issue_status_change_info: "Use Case: issues should be automatically assigned to author, if the status changes to \"Approval\"."
   rule_issue_timelog_required_info_html: '선택된 트래커의 각 티켓에 대해 티켓이 정의 된 상태 속성 중 하나를 수신하려면 시간 예약이 필요합니다. 다음과 같은 경우 시간 예약이 필요하지 않습니다:<br />- no rights exist for the creation of time bookings<br />- 사용자에게 권한이 있습니다 "Time logging not required"<br />사용 사례 : 상태가  "To Verify" 인 티켓을 수락하려면 소요 시간도 필요합니다.'

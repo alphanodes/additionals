@@ -72,7 +72,7 @@ module AdditionalsQuery
 
   def sql_for_project_identifier_field(field, operator, values)
     value = values.first
-    values = value.split(',').map(&:strip) if ['=', '!'].include?(operator) && value.include?(',')
+    values = value.strip_split if ['=', '!'].include?(operator) && value.include?(',')
     sql_for_field field, operator, values, Project.table_name, 'identifier'
   end
 

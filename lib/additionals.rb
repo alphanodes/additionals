@@ -49,7 +49,7 @@ module Additionals
 
     def split_ids(phrase, limit: nil)
       limit ||= Setting.per_page_options_array.first || 25
-      raw_ids = phrase.split(',').map(&:strip)
+      raw_ids = phrase.strip_split
       ids = []
       raw_ids.each do |id|
         if id.include? '-'
@@ -181,5 +181,18 @@ module Additionals
       Additionals::Gemify.install_assets plugin_id
       Additionals::Gemify.create_plugin_hint plugin_id
     end
+  end
+end
+
+class String
+  def strip_split(sep = ',')
+    split(sep).map(&:strip).compact_blank
+  end
+end
+
+class Array
+  # alias for join with ', ' as seperator
+  def to_list
+    join ', '
   end
 end

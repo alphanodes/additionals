@@ -42,7 +42,7 @@ module Additionals
 
     def live_search_title_info(entity)
       fields = "LiveSearch::#{entity.to_s.classify}".constantize.info_fields
-      all_fields = fields.map { |f| "#{f}:term" }.join ', '
+      all_fields = fields.map { |f| "#{f}:term" }.to_list
       l :label_live_search_hints, value: all_fields
     end
 

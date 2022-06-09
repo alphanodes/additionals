@@ -68,22 +68,6 @@ module Additionals
         end
       end
 
-      def autoassign_get_group_list
-        return unless Setting.issue_group_assignment?
-
-        project.memberships
-               .active
-               .where("#{Principal.table_name}.type='Group'")
-               .includes(:user, :roles)
-               .each_with_object({}) do |m, h|
-          m.roles.each do |r|
-            h[r] ||= []
-            h[r] << m.principal
-          end
-          h
-        end
-      end
-
       def new_ticket_message
         project.active_new_ticket_message
       end
@@ -105,17 +89,38 @@ module Additionals
 
         return unless Additionals.setting(:issue_auto_assign_status).include?(status_id.to_s)
 
-        self.assigned_to_id = auto_assigned_to_user
-        true
+        user_id = auto_assigned_user_id
+        self.assigned_to_id = user_id if user_id.present?
       end
 
-      def auto_assigned_to_user
+      def auto_assigned_user_id
         manager_role = Role.builtin.find_by id: Additionals.setting(:issue_auto_assign_role)
         groups = autoassign_get_group_list
         return groups[manager_role].first.id unless groups.nil? || groups[manager_role].blank?
 
-        users_list = project.principals_by_role
-        return users_list[manager_role].first.id if users_list[manager_role].present?
+        principals_by_role = project.principals_by_role
+        return if principals_by_role[manager_role].blank?
+
+        users_list = principals_by_role[manager_role].select { |u| u.is_a? User }
+        return if users_list.blank?
+
+        users_list.first.id
+      end
+
+      def autoassign_get_group_list
+        return unless Setting.issue_group_assignment?
+
+        project.memberships
+               .active
+               .where(users: { type: 'Group' })
+               .includes(:user, :roles)
+               .each_with_object({}) do |m, h|
+          m.roles.each do |r|
+            h[r] ||= []
+            h[r] << m.principal
+          end
+          h
+        end
       end
 
       def timelog_required?(check_status_id)

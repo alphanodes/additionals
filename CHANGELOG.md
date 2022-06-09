@@ -13,6 +13,7 @@
 - Add Chart.js matrix plugin
 - Fix scope of users for select2 in projects
 - Updated clipboardJS to 2.0.11
+- Fixed auto assign issue to group member, if issue can be assigned to a group
 
 ## 3.0.5.2
 

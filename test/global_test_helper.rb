@@ -148,8 +148,8 @@ module Additionals
       end
     end
 
-    def assert_sorted_equal(list1, list2)
-      assert_equal list1.sort, list2.sort
+    def assert_sorted_equal(list1, list2, comment = nil)
+      assert_equal list1.sort, list2.sort, comment
     end
 
     def assert_query_sort_order(table_css, column, action: nil, list_columns: [], params: {})

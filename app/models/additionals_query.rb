@@ -163,6 +163,20 @@ module AdditionalsQuery
     values
   end
 
+  def initialize_notes_filter(position: nil)
+    add_available_filter 'notes', type: :text, order: position
+  end
+
+  def sql_for_notes_field(field, operator, value)
+    subquery = "SELECT 1 FROM #{Journal.table_name}" \
+               " WHERE #{Journal.table_name}.journalized_type='#{queried_class}'" \
+               " AND #{Journal.table_name}.journalized_id=#{queried_table_name}.id" \
+               " AND (#{sql_for_field field, operator.sub(/^!/, ''), value, Journal.table_name, 'notes'})" \
+               " AND (#{Journal.visible_notes_condition User.current, skip_pre_condition: true})"
+
+    "#{/^!/.match?(operator) ? 'NOT EXISTS' : 'EXISTS'} (#{subquery})"
+  end
+
   def sql_for_watcher_id_field(field, operator, value)
     watchable_type = queried_class == User ? 'Principal' : queried_class.to_s
 

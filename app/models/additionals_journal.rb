@@ -43,19 +43,19 @@ class AdditionalsJournal
     # Preloads visible last notes for a collection of entity
     # this is a copy of Issue.load_visible_last_notes, but usable for all entities
     # @see https://www.redmine.org/projects/redmine/repository/entry/trunk/app/models/issue.rb#L1214
-    def load_visible_last_notes(entries, entity, user = User.current)
-      return unless entries.any?
+    def load_visible_last_notes(entries, entity, user = User.current, scope = nil)
+      return if entries.none?
 
       ids = entries.map(&:id)
 
       journal_class = (entity == Issue ? Journal : "#{entity}Journal").constantize
-      journal_ids = journal_class.joins(entity.name.underscore.to_sym => :project)
-                                 .where(journalized_type: entity.to_s, journalized_id: ids)
-                                 .where(journal_class.visible_notes_condition(user, skip_pre_condition: true))
-                                 .where.not(notes: '')
-                                 .group(:journalized_id)
-                                 .maximum(:id)
-                                 .values
+      scope ||= journal_class.joins entity.name.underscore.to_sym => :project
+      journal_ids = scope.where(journalized_type: entity.to_s, journalized_id: ids)
+                         .where(journal_class.visible_notes_condition(user, skip_pre_condition: true))
+                         .where.not(notes: '')
+                         .group(:journalized_id)
+                         .maximum(:id)
+                         .values
 
       journals = Journal.where(id: journal_ids).to_a
 

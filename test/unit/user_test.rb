@@ -65,4 +65,51 @@ class UserTest < Additionals::TestCase
 
     assert_not User.where(sudoer: false, admin: false).first.can_be_admin?
   end
+
+  def test_allowed_project_ids_for
+    user = users :users_002
+
+    assert_sorted_equal Project.where(Project.allowed_to_condition(user, :view_issues)).ids,
+                        user.allowed_project_ids_for(:view_issues)
+
+    # test cache
+    assert_sorted_equal Project.where(Project.allowed_to_condition(user, :view_issues)).ids,
+                        user.allowed_project_ids_for(:view_issues)
+  end
+
+  def test_allowed_project_ids_for_with_options
+    user = users :users_002
+
+    options = { skip_pre_condition: true, project: nil }
+    assert_sorted_equal Project.where(Project.allowed_to_condition(user, :view_issues, **options)).ids,
+                        user.allowed_project_ids_for(:view_issues, **options)
+
+    # test cache
+    assert_sorted_equal Project.where(Project.allowed_to_condition(user, :view_issues, **options)).ids,
+                        user.allowed_project_ids_for(:view_issues, **options)
+  end
+
+  def test_visible_condition_for
+    user = users :users_002
+
+    assert_equal Issue.visible_condition(user),
+                 user.visible_condition_for(Issue)
+
+    # test cache
+    assert_equal Issue.visible_condition(user),
+                 user.visible_condition_for(Issue)
+  end
+
+  def test_visible_condition_for_with_skip_pre_condition
+    user = users :users_002
+
+    options = { skip_pre_condition: true, project: projects(:projects_001) }
+
+    assert_equal Issue.visible_condition(user, **options),
+                 user.visible_condition_for(Issue, **options)
+
+    # test cache
+    assert_equal Issue.visible_condition(user, **options),
+                 user.visible_condition_for(Issue, **options)
+  end
 end

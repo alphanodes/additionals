@@ -45,6 +45,21 @@ module Additionals
       end
 
       module InstanceMethods
+        def visible_condition_for(entity, **options)
+          @visible_condition_for ||= Hash.new do |memo, (inner_entity, inner_options)|
+            memo[[inner_entity, inner_options]] = inner_entity.visible_condition self, **inner_options
+          end
+          @visible_condition_for[[entity, options]]
+        end
+
+        def allowed_project_ids_for(permission, **options)
+          @allowed_project_ids_for ||= Hash.new do |memo, (inner_perm, inner_options)|
+            ids = Project.where(Project.allowed_to_condition(self, inner_perm, **inner_options)).ids
+            memo[[inner_perm, inner_options]] = ids
+          end
+          @allowed_project_ids_for[[permission, options]]
+        end
+
         def can_be_admin?
           @can_be_admin ||= AdditionalsPlugin.active_sudo? ? (admin || sudoer) : admin
         end

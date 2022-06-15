@@ -7,7 +7,7 @@
 - Remove feature custom top menu items (this was unmaintained for a long time)
 - Drop feature "remove help" from top menu
 - Add project filter for new_issue_message type
-- Mermaid 9.1.1 support
+- Mermaid 9.1.2 support
 - Switch from gemoji to tanuki_emoji
 - Chart.js 3 support
 - Add Chart.js matrix plugin

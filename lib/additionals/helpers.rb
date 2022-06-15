@@ -291,5 +291,20 @@ module Additionals
 
       hidden_field_tag 'back_url', url, id: nil
     end
+
+    def render_author_line(entry, created_field: :created_on, updated_field: :updated_on)
+      created = entry.send created_field
+      updated = entry.send updated_field
+      tag.p class: 'author' do
+        str = [authoring(created, entry.author)]
+        str << '.'
+        if created != updated
+          str << ' '
+          str << l(:label_updated_time, time_tag(updated)).html_safe # rubocop: disable Rails/OutputSafety
+          str << '.'
+        end
+        safe_join str
+      end
+    end
   end
 end

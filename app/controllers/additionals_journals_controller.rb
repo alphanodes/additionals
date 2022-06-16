@@ -2,11 +2,14 @@
 
 class AdditionalsJournalsController < ApplicationController
   before_action :find_journal, only: %i[edit update diff]
-  before_action :authorize, only: %i[edit update]
+  before_action :find_entry, only: %i[create]
+  before_action :authorize, only: %i[create edit update]
 
   helper :custom_fields
   helper :journals
   helper :additionals_journals
+
+  def create; end
 
   def diff
     @entry = @journal.journalized

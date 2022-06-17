@@ -29,7 +29,7 @@ module Additionals
         # locked or don't want to be notified
         notified << author if author
         notified += (assigned_to.is_a?(Group) ? assigned_to.users : [assigned_to]) if assigned_to
-        notified += project.notified_users
+        notified += project&.notified_users
         Redmine::Hook.call_hook :model_notified_users, entity: self, notified: notified
 
         notified = notified.select(&:active?)

@@ -166,7 +166,6 @@ class Dashboard < ActiveRecord::Base
     end
   end
 
-  # Returns true if the dashboard is visible to +user+ or the current user.
   def visible?(user = User.current)
     return true if user.admin?
     return false unless project.nil? || user.allowed_to?(:view_project, project)

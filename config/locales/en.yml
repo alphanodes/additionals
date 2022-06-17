@@ -195,3 +195,4 @@ en:
   label_activate_quickstart: Activate quickstart
   label_quickstart: Quickstart
   label_all_projects: All projects
+  notice_failed_to_save_entries: "%{count} of %{total} selected %{name_plural} could not be saved : %{ids}."

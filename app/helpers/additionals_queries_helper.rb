@@ -292,6 +292,18 @@ module AdditionalsQueriesHelper
     end
   end
 
+  def set_flash_from_bulk_save(entries, unsaved_ids, name_plural:)
+    if unsaved_ids.empty?
+      flash[:notice] = l :notice_successful_update unless entries.empty?
+    else
+      flash[:error] = l :notice_failed_to_save_entity,
+                        name_plural: name_plural,
+                        count: unsaved_ids.size,
+                        total: entries.size,
+                        ids: "##{unsaved_ids.join ', #'}"
+    end
+  end
+
   # Returns the query definition as hidden field tags
   # columns in ignored_column_names are skipped (names as symbols)
   # TODO: this is a temporary fix and should be removed

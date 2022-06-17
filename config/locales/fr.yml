@@ -194,5 +194,5 @@ fr:
   label_help_doc: Documentation
   label_activate_quickstart: "Activer quickstart"
   label_quickstart: Quickstart
-  label_all_projects: All projects
-  notice_failed_to_save_entries: "%{count} of %{total} selected %{name_plural} could not be saved : %{ids}."
+  label_all_projects: Tous les projets
+  notice_failed_to_save_entries: "%{count} des %{total} %{name_plural} sélectionnés n'ont pu être sauvegardés: %{ids}."

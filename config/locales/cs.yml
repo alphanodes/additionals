@@ -195,4 +195,4 @@ cs:
   label_activate_quickstart: Aktivovat quickstart
   label_quickstart: Quickstart
   label_all_projects: All projects
-  notice_failed_to_save_entries: "%{count} of %{total} selected %{name_plural} could not be saved : %{ids}."
+  notice_failed_to_save_entries: "%{count} z %{total} vybrané %{name_plural} nelze uložit: %{ids}."

@@ -119,7 +119,7 @@ class Dashboard < ActiveRecord::Base
         scope.where("#{table_name}.visibility = ?" \
                     " OR (#{table_name}.visibility = ? AND #{table_name}.id IN (" \
                     "SELECT DISTINCT d.id FROM #{table_name} d"  \
-                    " INNER JOIN #{table_name_prefix}dashboard_roles#{table_name_suffix} dr ON dr.dashboard_id = d.id" \
+                    " INNER JOIN #{DashboardRole.table_name} dr ON dr.dashboard_id = d.id" \
                     " INNER JOIN #{MemberRole.table_name} mr ON mr.role_id = dr.role_id" \
                     " INNER JOIN #{Member.table_name} m ON m.id = mr.member_id AND m.user_id = ?" \
                     " INNER JOIN #{Project.table_name} p ON p.id = m.project_id AND p.status <> ?" \

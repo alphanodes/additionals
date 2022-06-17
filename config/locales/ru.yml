@@ -194,5 +194,5 @@ ru:
   label_help_doc: "Документация"
   label_activate_quickstart: "Активировать быстрый старт"
   label_quickstart: Quickstart
-  label_all_projects: All projects
-  notice_failed_to_save_entries: "%{count} of %{total} selected %{name_plural} could not be saved : %{ids}."
+  label_all_projects: Все проекты
+  notice_failed_to_save_entries: "%{count} из %{total} выбранных %{name_plural} не удалось сохранить: %{ids}."

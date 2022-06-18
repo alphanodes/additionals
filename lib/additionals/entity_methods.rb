@@ -42,8 +42,13 @@ module Additionals
 
       # used with assignable_principal (user AND groups)
       def assignable_users(prj = nil)
-        prj = project if project.present?
-        users = prj.assignable_principals.to_a
+        prj = project if project
+        users = if prj
+                  prj.assignable_principals.to_a
+                else
+                  Principal.assignable.to_a
+                end
+
         users << author if author&.active?
         if assigned_to_id_was.present?
           assignee = Principal.find_by id: assigned_to_id_was

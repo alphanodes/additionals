@@ -1,5 +1,13 @@
 # frozen_string_literal: true
 
+# required for user type scope
+# User.where(id: 2).to_sql should be:
+# "SELECT `users`.* FROM `users` WHERE `users`.`type` IN ('User', 'AnonymousUser') AND `users`.`id` = 2
+# without require_dependency this is:
+# "SELECT `users`.* FROM `users` WHERE `users`.`type` = 'User' AND `users`.`id` = 2"
+require_dependency 'principal'
+require_dependency 'anonymous_user'
+
 module Additionals
   module Patches
     module UserPatch

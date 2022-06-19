@@ -112,4 +112,8 @@ class UserTest < Additionals::TestCase
     assert_equal Issue.visible_condition(user, **options),
                  user.visible_condition_for(Issue, **options)
   end
+
+  def test_user_scope_for_anonymous_user
+    assert_not_empty User.where(id: 6)
+  end
 end

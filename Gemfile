@@ -10,9 +10,9 @@ gemspec
 #   (this is used to not create conflicts with other plugins)
 if File.file? File.expand_path './.enable_dev', __dir__
   group :development, :test do
-    gem 'awesome_print', require: 'ap'
-    gem 'better_errors'
-    gem 'binding_of_caller'
+    # gem 'awesome_print', require: 'ap'
+    # gem 'better_errors'
+    # gem 'binding_of_caller'
     gem 'debug'
     gem 'marginalia'
     gem 'memory_profiler'

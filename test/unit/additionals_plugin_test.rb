@@ -4,6 +4,8 @@ require File.expand_path '../../test_helper', __FILE__
 
 class AdditionalsPluginTest < Additionals::TestCase
   def test_known_plugin
+    skip 'Skip test, because redmine_sudo should not be installed for this test.' if Redmine::Plugin.installed? :redmine_sudo
+
     assert_not AdditionalsPlugin.active_sudo?
   end
 

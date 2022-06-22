@@ -22,6 +22,8 @@ module Additionals
       end
 
       module InstanceMethods
+        private
+
         def validate_issue_allowed
           return unless issue_id && issue
           # NOTE: do not use user time zone here, because issue do not use it

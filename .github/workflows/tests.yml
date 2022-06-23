@@ -75,6 +75,7 @@ jobs:
           libmysqlclient-dev
 
       - name: Setup Gemfile
+        working-directory: redmine
         run: |
           touch plugins/additionals/.enable_test
 

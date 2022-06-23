@@ -76,7 +76,7 @@ jobs:
 
       - name: Setup Gemfile
         run: |
-          touch .enable_test
+          touch plugins/additionals/.enable_test
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1

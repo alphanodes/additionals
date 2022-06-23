@@ -8,6 +8,9 @@ if ENV['COVERAGE']
   end
 end
 
+require 'minitest/reporters'
+Minitest::Reporters.use!
+
 require File.expand_path "#{File.dirname __FILE__}/../../../test/test_helper"
 require File.expand_path "#{File.dirname __FILE__}/global_test_helper"
 require File.expand_path "#{File.dirname __FILE__}/crud_controller_base"

@@ -48,7 +48,7 @@ if File.file? File.expand_path './.enable_test', __dir__
     gem 'bullet'
   end
   group :test do
-    gem 'ci_reporter_minitest'
+    gem 'minitest-reporters'
     gem 'simplecov-cobertura' if ENV['COVERAGE_COBERTURA']
     gem 'timecop'
   end

@@ -2,7 +2,7 @@
 
 ## 3.0.6
 
-- D3 7.4.4 support
+- D3 7.4.5 support
 - Remove issue autowatch (this feature comes with Redmine 5)
 - Remove feature custom top menu items (this was unmaintained for a long time)
 - Drop feature "remove help" from top menu

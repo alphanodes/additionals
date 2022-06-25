@@ -171,7 +171,9 @@ module Additionals
       # create some side effencts
       plugin_id = 'additionals'
 
-      Additionals::Gemify.install_emoji_assets
+      # TODO: enable again, if fallback for emoji support
+      #       has been implemented for mail delivery and pdf
+      # Additionals::Gemify.install_emoji_assets
 
       # if plugin is already in plugins directory, use this and leave here
       next if Redmine::Plugin.installed? plugin_id

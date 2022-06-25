@@ -13,7 +13,9 @@ module Additionals
       module InstanceOverwriteMethods
         def to_html(*_rules)
           if Additionals.setting? :emoji_support
-            Redmine::WikiFormatting::Textile::Formatter::RULES << :inline_emojify
+            if Redmine::WikiFormatting::Textile::Formatter::RULES.exclude? :inline_emojify
+              Redmine::WikiFormatting::Textile::Formatter::RULES << :inline_emojify
+            end
           else
             Redmine::WikiFormatting::Textile::Formatter::RULES.delete :inline_emojify
           end

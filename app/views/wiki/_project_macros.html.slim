@@ -8,7 +8,7 @@
         td.name
           span[style='font-weight: bold;']
             - if AdditionalsPlugin.active_reporting?
-              = project_name_with_icon project
+              = project_name_with_icon project, permission: true
             - else
               = link_to_project project
           - if project.homepage?

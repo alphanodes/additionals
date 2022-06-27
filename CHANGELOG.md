@@ -1,5 +1,7 @@
 # Changelog
 
+## 3.0.7
+
 ## 3.0.6
 
 - D3 7.4.5 support

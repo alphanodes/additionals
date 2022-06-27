@@ -123,9 +123,6 @@ Style/MethodCallWithArgsParentheses:
 Style/Documentation:
   Enabled: false
 
-Style/HashTransformValues:
-  Enabled: false
-
 Naming/VariableNumber:
   Enabled: true
   Exclude:
@@ -134,6 +131,9 @@ Naming/VariableNumber:
 Style/StringConcatenation:
   Exclude:
     - 'app/views/additionals/_select2_ajax_call.*'
+
+Layout/LineContinuationLeadingSpace:
+  Enabled: false
 
 # see https://github.com/rubocop/rubocop-rails/issues/578
 # redmine does not use load_defaults: https://rails.rubystyle.guide/#config-defaults

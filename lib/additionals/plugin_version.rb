@@ -2,6 +2,6 @@
 
 module Additionals
   module PluginVersion
-    VERSION = '3.0.6' unless defined? VERSION
+    VERSION = '3.0.7-main' unless defined? VERSION
   end
 end

@@ -118,7 +118,7 @@ class Dashboard < ActiveRecord::Base
       elsif user.memberships.includes([:memberships]).any?
         scope.where("#{table_name}.visibility = ?" \
                     " OR (#{table_name}.visibility = ? AND #{table_name}.id IN (" \
-                    "SELECT DISTINCT d.id FROM #{table_name} d"  \
+                    "SELECT DISTINCT d.id FROM #{table_name} d" \
                     " INNER JOIN #{DashboardRole.table_name} dr ON dr.dashboard_id = d.id" \
                     " INNER JOIN #{MemberRole.table_name} mr ON mr.role_id = dr.role_id" \
                     " INNER JOIN #{Member.table_name} m ON m.id = mr.member_id AND m.user_id = ?" \

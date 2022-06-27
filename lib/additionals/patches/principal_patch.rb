@@ -56,9 +56,9 @@ module Additionals
                       else
                         active.where("#{table_name}.id = ? OR #{table_name}.id IN (SELECT user_id " \
                                      "FROM #{Member.table_name} JOIN #{MemberRole.table_name} " \
-                                     " ON #{Member.table_name}.id = #{MemberRole.table_name}.member_id"  \
+                                     " ON #{Member.table_name}.id = #{MemberRole.table_name}.member_id" \
                                      " JOIN #{Role.table_name} " \
-                                     " ON #{Role.table_name}.id = #{MemberRole.table_name}.role_id"  \
+                                     " ON #{Role.table_name}.id = #{MemberRole.table_name}.role_id" \
                                      " WHERE project_id IN (?) AND #{Role.table_name}.hide = ?)",
                                      user.id, user.visible_project_ids, false)
                       end

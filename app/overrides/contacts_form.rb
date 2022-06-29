@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ContactsForm
-  if defined?(CONTACTS_VERSION_TYPE) && !defined?(RedmineServicedesk)
+  if defined?(RedmineContacts) && !defined?(RedmineServicedesk)
     if CONTACTS_VERSION_TYPE.include? 'PRO'
       Deface::Override.new virtual_path: 'contacts/_form',
                            name: 'contacts-pro-form-hook',

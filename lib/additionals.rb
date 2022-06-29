@@ -25,7 +25,7 @@ module Additionals
 
     def now_with_user_time_zone(user = User.current)
       if user.time_zone.nil?
-        Time.zone.now
+        Time.current
       else
         user.time_zone.now
       end

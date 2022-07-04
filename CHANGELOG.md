@@ -2,6 +2,10 @@
 
 ## 3.0.7
 
+- D3 7.6.1 support
+- Mermaid 9.1.3 support
+- moment 2.29.3 support
+
 ## 3.0.6
 
 - D3 7.4.5 support

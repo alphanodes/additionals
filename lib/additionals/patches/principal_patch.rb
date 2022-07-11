@@ -75,9 +75,9 @@ module Additionals
           return names_with_ids if ids.blank?
 
           ids_without_me = ids.dup
-          ids_without_me.delete 'me'
+          with_me = ids_without_me.delete 'me'
 
-          names_with_ids << Query.label_me_value if ids_without_me.blank?
+          names_with_ids << Query.label_me_value if ids_without_me.blank? || with_me
           return names_with_ids if ids.blank?
 
           names_with_ids + visible.where(id: ids_without_me).map { |c| [c.name, c.id.to_s] }

@@ -1,20 +1,14 @@
 # frozen_string_literal: true
 
 class AdditionalsImport < Import
+  attr_accessor :project
+
   class_attribute :import_class
 
   # Returns the objects that were imported
   def saved_objects
     object_ids = saved_items.pluck :obj_id
     import_class.where(id: object_ids).order(:id)
-  end
-
-  def project=(project)
-    settings['project'] = project
-  end
-
-  def project
-    settings['project']
   end
 
   def mappable_custom_fields

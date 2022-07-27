@@ -49,15 +49,15 @@ module Additionals
       end
     end
 
-    def emoji_tag(emoji, emoji_code)
+    def emoji_tag(emoji, _emoji_code)
       if Additionals.setting? :disable_emoji_native_support
-        emoji_tag_fallback emoji, emoji_code
+        emoji_tag_fallback emoji
       else
-        emoji_tag_native emoji, emoji_code
+        emoji_tag_native emoji
       end
     end
 
-    def emoji_tag_native(emoji, _emoji_code)
+    def emoji_tag_native(emoji)
       return unless emoji
 
       data = {
@@ -69,7 +69,7 @@ module Additionals
       ActionController::Base.helpers.content_tag 'additionals-emoji', emoji.codepoints, options
     end
 
-    def emoji_tag_fallback(emoji, _emoji_code)
+    def emoji_tag_fallback(emoji)
       ActionController::Base.helpers.image_tag emoji_image_path(emoji),
                                                title: emoji.description,
                                                class: 'inline_emojify'

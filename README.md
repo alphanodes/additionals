@@ -202,15 +202,14 @@ The general section tab allows you to define some special behaviours for your Re
 
 The following plugin options are available to be edited by users with administration rights in the area **Contents**:
 
-- Text for login page
-  - This section is for a short information on the login page below the login mask. For example who to contact in order to get Redmine access.
+* Text for login page
+  * This section is for a short information on the login page below the login mask. For example who to contact in order to get Redmine access.
 
-- Global sidebar
-  - Place your global information here, if needed. Use wiki links or available macros that can be seen by every one.
+* Global sidebar
+  * Place your global information here, if needed. Use wiki links or available macros that can be seen by every one.
 
-- Project wide footer
-  - In case you want to put some information about your company or for your imprint. Here you can also use wiki syntax for structuring your text.
-
+* Project wide footer
+  * In case you want to put some information about your company or for your imprint. Here you can also use wiki syntax for structuring your text.
 
 ### Settings
 
@@ -228,11 +227,9 @@ And the following options can be edited by users with administratios rights in t
 - Disable modules
   - This feature will hide the selected modules in the project settings. Even if the module is enabled for use in the admin area it can not be selected by the project manager within the projects. Please note, if these modules already activated in existing projects, you will have to change and re-save the respective project settings first.
 
-
 > **_NOTE:_**  Please restart the application server, if you make changes to the external urls settings as well as if you activate the Smileys support.
 
 > **_Tip:_**  You can use the following manual smiley codes: :), =), :D, =D, :'(, :(, ;), :P, :O, :/, :S, :|, :X, :*, O:), >:), B), (!), (?), (v), (x) and  (/)
-
 
 ## Wiki section
 
@@ -241,20 +238,19 @@ If you click on this tab you get to the area, where users with administration ri
 ### Contents
 
 Global wiki sidebar
+
 * Here you can implement useful macros like a display of your page hierarchy. But remember - only people with the correspondent rights will get a display of the content.
 * You can also implement useful macros in this section. For example to implement some date or author macros (e.g. last_updated_at, last_updated_by)
-
 
 > **_NOTE:_**  Use simple text, macros and wiki syntax for your content.
 
 ### PDF Wiki settings
 
-- Remove Wiki title from PDF view
+* Remove Wiki title from PDF view
   * When activated the general Wiki title info in the page header of the PDF view will not be displayed.
 
-- Remove attachments from PDF view
+* Remove attachments from PDF view
   * When activated the attachments will not be displayed in the PDF view of a Wiki page.
-
 
 ## Macros section
 
@@ -269,7 +265,6 @@ Macros marked here are not offered for selection. This allows you to limit the s
 *Figure: If all macros are deactivated the *Macro button* of the Wiki toolbar will disappear.*
 
 > **_NOTE:_**  If you deactivate some macros here this does not mean the user may not implement them. All available macros of installed plugins will work even if they are not part of the macro button. The macro button is just a little helper for Redmine users with no macro experience to make it easier for them to use macros or to remember them.
-
 
 ### Macro button for Wiki toolbar
 
@@ -331,7 +326,6 @@ Current issue status x is only allowed if *Assignee* is the current user.
 
 > **_NOTE:_** Is this function used in combination with the setting option *Issue status on sidebar* then the current user will automatically be assigned to the issue while changing the issue status. Use Case here: Users are only allowed to change the status to *In Progress* if they are the person who is actually working on the issue right now.
 
-
 If *Assigned to* is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role.
 
 > **_NOTE:_** Use Case: The issue author does not know whom the issue should be assigned to. Or he is unsure who will be responsible for solving the task. In that case the issue for example with the status "To Do" is automatically assigned to the first group, which does contain a user of the pre-selected project manager role. Imagine you have a group called "Support", and there are users assigend to the "Manager" role, this support group will be automatically adressed to solve the issue when the issue author saves it.
@@ -377,7 +371,6 @@ Known external plugins that have a user manual and support this feature are curr
 * redmine_service_desk
 * redmine_wiki_guide
 
-
 ## Plugin project settings
 
 In the project configuration the ``Issues tracking``section allows you to store system wide ``Note for new issues``, which will be displayed on top of new issues (or in the edit mode of an issue). This system wide information text can be changed per project within the project settings. You can change the system settings in your project **Settings** area section **Issue tracking**.
@@ -386,13 +379,11 @@ In the project configuration the ``Issues tracking``section allows you to store 
 
 Choose one of the following options:
 
-
 | Name       | Description                                                                                  |
 | -----------|----------------------------------------------------------------------------------------------|
 | System     | There is nothing you can do. The default system wide text will be used.                      |
 | disabled   | This disables the ``Note for new issues`` completely.                                        |
 | Project    | This option allows you to define your own, project relevant text as ``Note for new issues``. |
-
 
 > **_NOTE:_** You can use wiki syntax for your text (use it wisely). Make sure the wiki page you link to is accessible for every user. The default issue text can be overwritten within the project settings.
 
@@ -407,7 +398,6 @@ The following role permissions are provided by the plugin and must be configured
 
 > **_NOTE:_** This setting is also taken into account in all related query lists (e.g. issues, spent time etc.). So that the members with this role are also hidden there.
 > **Important:** If the user has in one project a role, that allows him / her to view a specific "hidden role" this rule is not taken into account anymore.
-
 
 **According to the selected Role you can activate / deactivate the following permissions:**
 
@@ -443,9 +433,9 @@ Specifically, you can customize the traditional Redmine main page, as well as th
 
 The dashboard configuration takes place directly in Redmine:
 
-*  On the "Home" page
-*  On the Project overview page
-*  If other plugins are installed and support the dashboard functionality there might be also other areas. For example:
+* On the "Home" page
+* On the Project overview page
+* If other plugins are installed and support the dashboard functionality there might be also other areas. For example:
 
     * Redmine HRM Plugin: HRM overview page
 
@@ -457,21 +447,19 @@ The dashboard configuration takes place directly in Redmine:
 
 With the *Dashboard* of the *additionals* plugin for Redmine you can for example:
 
-*  design the Redmine main page or project overview page so that the information relevant to you is displayed there at a glance.
-*  create your own (private) dashboards independent of the predefined default dashboard and switch between them as needed.
-*  create dashboards for other users or specific roles. As well as share your own dashboards publicly and make them available to your team.
+* design the Redmine main page or project overview page so that the information relevant to you is displayed there at a glance.
+* create your own (private) dashboards independent of the predefined default dashboard and switch between them as needed.
+* create dashboards for other users or specific roles. As well as share your own dashboards publicly and make them available to your team.
 
 > **_NOTE:_** When using the dashboard function make sure you have already configured the *additionals permissions* the way you need them.
-
 
 **Dashboard permissions**
 
 If you want to use the dashboard functionality you need to configure the permissions for the respective user roles, which are:
 
-*  Save dashboards
-*  Set system dashboards
-*  Share dashboards
-
+* Save dashboards
+* Set system dashboards
+* Share dashboards
 
 ### Dashboard blocks
 
@@ -507,7 +495,6 @@ General blocks for all areas (e.g. *Home* and *Project overview*) are:
   * You can configure the block content by changing the *Title*, adding an *URL* and choosing a number for *Maximum entries* to be displayed.
   * Maximum number of such blocks per dashboard: **8**
 
-
 Special blocks for the welcome page *Home* are:
 
 * Standard content left / Standard content right
@@ -518,7 +505,6 @@ Special blocks for the welcome page *Home* are:
 
 * Welcome
   * If you have specified a welcome text in the Redmine system settings you can display this text in the dashboard as well, by choosing the *Welcome* block. Maximum number of such blocks per dashboard: **1**
-
 
 Special blocks for *Project overview* are:
 
@@ -544,7 +530,6 @@ Special blocks for *Project overview* are:
 
 > **_NOTE:_** Notes about caching: All blocks are cached asynchron (every 30 seconds). The RSS Feed blocks are cached asynchron (every 10 minutes). The time tracking block is chached asynchron (every 1 hour).
 
-
 ### Default Dashboards
 
 When installing the Additionals plugin it comes with default dashboards for the Redmine *Home* page as well as the Redmine *Project overview* page. The typical default dashboard has the following key options:
@@ -557,35 +542,39 @@ In case you want to restore the default dashboard you can simply add a new one o
 * Default Dashboard blocks: Home
   * Welcome (left), Standard content left (left), Standard content right (right)
 
-
 * Default Dashboard blocks: Project overview
   * Project information (left), Issue tracking (left), Time tracking (left), Members (right), Sub projects (right)
-
-
 
 ### Dashboard FAQ
 
 #### Is there a restore function?
+
 No, there is no restore function for your default dashboard. If you add dashboard blocks you don't like, just remove them and add other ones.
 
 #### I messed up my default Dashboard
+
 There is nothing bad about it. Just remove the dashboard blocks you don't like and start over. The best way to start a new default dashboard anyway is to create a new dashboard, first and add the blocks you like. If everything is the way you want it, make it "Default". Keep the old "Default" as backup.
 
 #### I accidently deleted a Dashboard block
+
 This will always happen, if you work as user with the appropriate permission to do so (e.g. administration permissions). We recommend not do work with those permission in your regular work day. Create your dashboards one time and switch user permissions afterwards. So this will not happen again.
 
 #### How many default Dashboards can be created?
+
 There is just one system default dashboard possible for every area. This means one default dashboard for the Redmine "Home" page. And one for the general project overview page. But you can create also one default for a specific project overview page, which will than be "Project default".
 
 #### Does every user sees the content of every Dashboard block?
+
 You do not control the content a user in your project sees via the dashboard block you add, but still by setting up the correct user permissions in the administration area "Roles and permissions". Those permissions for a user role are relevant for the content a user can view in your project and must be set correctly.
 
 #### I want to use different dashboards for my employees than for Anonymous users / Non members
+
 For Anonymous users / Non members use the normal "default dashboard" for the Redmine start page and / or Redmine project page. Because they will usually see the default dashboard and the blocks placed there. They will not be able to switch between different dashboards.
 
 And for your employees create own dashboards. You define which role has access to it in the dashboard configuration. Employees of the respective roles can then simply switch from the standard dashboard to the role-based dashboard in case it will not be displayed on the first visit.
 
 #### What happens with my project overview or start page after the additionals plugin has been deinstalled?
+
 If the plugin was uninstalled correctly, then the Redmine start page, as well as the project overview page will correspond to the *usual view* again by default.
 
 This means that you will only see the blocks that Redmine has permanently placed there (e.g. welcome text message, latest news), or the blocks that are placed there by installed Redmine plugins.
@@ -600,7 +589,7 @@ Learn how to implement Dashboard blocks in your plugins. There are only two thin
 * Create block template
   * Create a template for your block in *app/views/dashboards/blocks/*. The name of your template should be unique, that there are no conflicts with other blocks (e.g. from other plugins)
 
-> **_NOTE:_** Examples: Go to https://github.com/AlphaNodes/additionals/tree/main/app/views/dashboards/blocks for examples.
+> **_NOTE:_** Examples: Go to <https://github.com/AlphaNodes/additionals/tree/main/app/views/dashboards/blocks> for examples.
 
 * Add block definitions:
   * Add your block definition in *block_definitions*. This could be in:
@@ -608,7 +597,7 @@ Learn how to implement Dashboard blocks in your plugins. There are only two thin
     * dashboard_content_project.rb (if your block should be available in project dashboards only)
     * dashboard_content_welcome.rb (if your block should be available in welcome dashboards only)
 
-**_NOTE:_** Examples: Go to https://github.com/AlphaNodes/additionals/blob/main/app/models/dashboard_content.rb#L29 for examples for that.
+**_NOTE:_** Examples: Go to <https://github.com/AlphaNodes/additionals/blob/main/app/models/dashboard_content.rb#L29> for examples for that.
 
 Overwrite it with *prepend* (not alias_method) to get no conflicts with other plugins. See *redmine_git_hosting* for an example implementation for a *block template* and a *block definition*.
 
@@ -616,6 +605,7 @@ That's it. As you can see, it's not so hard.
 In case of further questions use the issue tracking system for this project on GitHub.
 
 Footnotes:
+
 * Git_hosting: <https://github.com/jbox-web/redmine_git_hosting>
 * block_template: <https://github.com/jbox-web/redmine_git_hosting/blob/master/app/views/dashboards/blocks/_git_urls.html.slim>
 * block_definition: <https://github.com/jbox-web/redmine_git_hosting/blob/master/lib/redmine_git_hosting/patches/dashboard_content_project_patch.rb>

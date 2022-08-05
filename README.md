@@ -132,7 +132,7 @@ It provides :
 * [d3 7.6.1](https://d3js.org/)
 * [d3plus 2.0.1](https://d3plus.org/)
 * [FontAwesome 5.15.4](https://fontawesome.com/)
-* [mermaid 9.1.3](https://github.com/mermaid-js/mermaid)
+* [mermaid 9.1.4](https://github.com/mermaid-js/mermaid)
 * [moment 2.29.3](https://github.com/moment/moment) (used by Chart.js)
 * [Select2 4.0.13](https://select2.org/)
 

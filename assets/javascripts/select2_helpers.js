@@ -5,12 +5,7 @@ window.toggleFilter = function(field) {
   return additionals_transform_to_select2(field);
 };
 
-function filterAdditionalsFormatState (opt) {
-  var $opt = $('<span>' + opt.name_with_icon + '</span>');
-  return $opt;
-}
-
-/* global availableFilters, additionals_filter_urls, additionals_field_formats */
+/* global availableFilters, additionals_filter_urls, additionals_field_formats, formatNameWithIcon */
 function additionals_transform_to_select2(field){
   var field_format = availableFilters[field]['field_format'];
   var initialized_select2 = $('#tr_' + field + ' .values .select2');
@@ -33,7 +28,7 @@ function additionals_transform_to_select2(field){
       placeholder: ' ',
       minimumInputLength: 1,
       width: '90%',
-      templateResult: filterAdditionalsFormatState
+      templateResult: formatNameWithIcon
     }).on('select2:open', function () {
       $(this).parent('span').find('.select2-search__field').val(' ').trigger($.Event('input', { which: 13 })).val('');
     });

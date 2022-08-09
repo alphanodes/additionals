@@ -6,7 +6,7 @@ window.toggleFilter = function(field) {
 };
 
 /* global availableFilters, additionals_filter_urls, additionals_field_formats, formatNameWithIcon */
-function additionals_transform_to_select2(field){
+function additionals_transform_to_select2(field) {
   var field_format = availableFilters[field]['field_format'];
   var initialized_select2 = $('#tr_' + field + ' .values .select2');
   if (initialized_select2.length == 0 && (typeof additionals_field_formats !== 'undefined') && $.inArray(field_format, additionals_field_formats) >= 0) {
@@ -127,11 +127,13 @@ function findInRowBy(field, selector) {
 
 /* exported formatStateWithAvatar */
 function formatStateWithAvatar(opt) {
+  if (opt.loading) return opt.text;
   return $('<span>' + opt.avatar + '&nbsp;' + opt.text + '</span>');
 }
 
 /* exported formatStateWithMultiaddress */
 function formatStateWithMultiaddress(opt) {
+  if (opt.loading) return opt.text;
   return $('<span class="select2-contact">' + opt.avatar + '<p class="select2-contact__name">' + opt.text + '</p><p class="select2-contact__email">' + opt.email + '</p></span>');
 }
 

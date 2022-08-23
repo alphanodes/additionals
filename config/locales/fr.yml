@@ -196,3 +196,4 @@ fr:
   label_quickstart: Quickstart
   label_all_projects: Tous les projets
   notice_failed_to_save_entries: "%{count} des %{total} %{name_plural} sélectionnés n'ont pu être sauvegardés: %{ids}."
+  field_notes_count: Notes amount

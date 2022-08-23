@@ -196,3 +196,4 @@ de:
   label_quickstart: Schnellstart
   label_all_projects: Alle Projekte
   notice_failed_to_save_entries: "%{count} von %{total} ausgewählten %{name_plural} konnte(n) nicht gespeichert werden: %{ids}."
+  field_notes_count: Anzahl Kommentare

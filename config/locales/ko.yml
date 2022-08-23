@@ -196,4 +196,4 @@ ko:
   label_quickstart: Quickstart
   label_all_projects: 모든 프로젝트
   notice_failed_to_save_entries: "%{count} of %{total} selected %{name_plural} could not be saved: %{ids}."
-  field_notes_count: Notes amount
+  field_notes_count: 메모의 수

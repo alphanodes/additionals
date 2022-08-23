@@ -194,6 +194,6 @@ zh:
   label_help_doc: 文件
   label_activate_quickstart: Activate quickstart
   label_quickstart: Quickstart
-  label_all_projects: All projects
+  label_all_projects: 所有项目
   notice_failed_to_save_entries: "%{count} of %{total} selected %{name_plural} could not be saved : %{ids}."
-  field_notes_count: Notes amount
+  field_notes_count: 评论的数量

@@ -196,4 +196,4 @@ pl:
   label_quickstart: Quickstart
   label_all_projects: Wszystkie projekty
   notice_failed_to_save_entries: "%{count} z %{total} wybranych %{name_plural} nie mogły zostać zapisane: %{ids}."
-  field_notes_count: Notes amount
+  field_notes_count: Liczba uwag

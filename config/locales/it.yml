@@ -196,4 +196,4 @@ it:
   label_quickstart: Quickstart
   label_all_projects: Tutti i progetti
   notice_failed_to_save_entries: "Non è stato possibile salvare %{count} dei %{total} %{name_plural} selezionati: %{ids}."
-  field_notes_count: Notes amount
+  field_notes_count: Totale dei commenti

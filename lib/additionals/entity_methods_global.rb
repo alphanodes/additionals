@@ -19,13 +19,13 @@ module Additionals
         ids = entries.map(&:id)
 
         journal_class = self == Issue ? Journal : "#{self}Journal".constantize
-        scope ||= journal_class.joins self.name.underscore.to_sym => :project
-        journal_ids = scope.where(journalized_type: self.to_s, journalized_id: ids)
-                          .where(journal_class.visible_notes_condition(user, skip_pre_condition: true))
-                          .where.not(notes: '')
-                          .group(:journalized_id)
-                          .maximum(:id)
-                          .values
+        scope ||= journal_class.joins name.underscore.to_sym => :project
+        journal_ids = scope.where(journalized_type: to_s, journalized_id: ids)
+                           .where(journal_class.visible_notes_condition(user, skip_pre_condition: true))
+                           .where.not(notes: '')
+                           .group(:journalized_id)
+                           .maximum(:id)
+                           .values
 
         journals = Journal.where(id: journal_ids).to_a
 
@@ -41,12 +41,12 @@ module Additionals
         ids = entries.map(&:id)
         journal_class = self == Issue ? Journal : "#{self}Journal".constantize
 
-        scope ||= journal_class.joins self.name.underscore.to_sym => :project
-        journals = scope.where(journalized_type: self.to_s, journalized_id: ids)
-                          .where(journal_class.visible_notes_condition(user, skip_pre_condition: true))
-                          .where.not(notes: '')
-                          .group(:journalized_id)
-                          .count
+        scope ||= journal_class.joins name.underscore.to_sym => :project
+        journals = scope.where(journalized_type: to_s, journalized_id: ids)
+                        .where(journal_class.visible_notes_condition(user, skip_pre_condition: true))
+                        .where.not(notes: '')
+                        .group(:journalized_id)
+                        .count
 
         entries.each do |entry|
           cnt = journals.detect { |j| j.first == entry.id }&.second

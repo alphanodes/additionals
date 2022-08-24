@@ -347,4 +347,13 @@ module AdditionalsQueriesHelper
   def link_to_nonzero(value, path)
     value.zero? ? value : link_to(value, path)
   end
+
+  # NOTE: copy of Redmine 5.1
+  # TODO: this method can be removed, if Redmine 5.0 is not supported anymore
+  def filename_for_export(query, default_name)
+    query_name = params[:query_name].presence || query.name
+    query_name = default_name if query_name == '_' || query_name.blank?
+    # Convert file names using the same rules as Wiki titles
+    filename_for_content_disposition(Wiki.titleize(query_name).downcase)
+  end
 end

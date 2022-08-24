@@ -84,12 +84,16 @@ module Additionals
 
       # Returns the journals that are visible to user with their index
       # Used to display the issue history
-      # ! this is a replacement of Redmine method - no not change signature
-      def visible_journals_with_index(_user = User.current)
-        result = journals.preload(:details)
-                         .preload(user: :email_address)
-                         .reorder(:created_on, :id).to_a
-
+      # ! this is a replacement of Redmine method for all entities
+      def visible_journals_with_index(_user = User.current, scope: nil)
+        scope ||= journals
+        result = scope.includes(:details)
+                      .includes(user: :email_address)
+        result = if User.current.wants_comments_in_reverse_order?
+                   result.reorder created_on: :desc, id: :desc
+                 else
+                   result.reorder :created_on, :id
+                 end.to_a
         result.each_with_index { |j, i| j.indice = i + 1 }
         Journal.preload_journals_details_custom_fields result
         result.select! { |journal| journal.notes? || journal.visible_details.any? }

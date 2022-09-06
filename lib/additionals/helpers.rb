@@ -168,6 +168,69 @@ module Additionals
       end
     end
 
+    def user_with_avatar(user, no_link: false, css_class: 'additionals-avatar', size: 14, no_link_name: nil)
+      return unless user
+
+      if user.type == 'Group'
+        if no_link || !AdditionalsPlugin.active_hrm?
+          user.name
+        else
+          link_to_hrm_group user
+        end
+      else
+        s = []
+        s << avatar(user, size: size, class: css_class)
+        s << if no_link
+               no_link_name || user.name
+             else
+               link_to_user user
+             end
+        safe_join s
+      end
+    end
+
+    def options_for_menu_select(active)
+      options_for_select({ l(:button_hide) => '',
+                           l(:label_top_menu) => 'top',
+                           l(:label_app_menu) => 'app' }, active)
+    end
+
+    def human_float_number(value, precision: 2, separator: '.')
+      ActionController::Base.helpers.number_with_precision(value,
+                                                           precision: precision,
+                                                           separator: separator,
+                                                           strip_insignificant_zeros: true)
+    end
+
+    def query_list_back_url_tag(project = nil, params = nil)
+      url = if controller_name == 'dashboard_async_blocks' && request.query_parameters.key?('dashboard_id')
+              dashboard_link_path project,
+                                  Dashboard.find_by(id: request.query_parameters['dashboard_id']),
+                                  refresh: 1
+            elsif params.nil?
+              url_for params: request.query_parameters
+            else
+              url_for params: params
+            end
+
+      hidden_field_tag 'back_url', url, id: nil
+    end
+
+    def render_author_line(entry, created_field: :created_on, updated_field: :updated_on)
+      created = entry.send created_field
+      updated = entry.send updated_field
+      tag.p class: 'author' do
+        str = [authoring(created, entry.author)]
+        str << '.'
+        if created != updated
+          str << ' '
+          str << l(:label_updated_time, time_tag(updated)).html_safe # rubocop: disable Rails/OutputSafety
+          str << '.'
+        end
+        safe_join str
+      end
+    end
+
     private
 
     def additionals_already_loaded(scope, js_name)
@@ -242,69 +305,6 @@ module Additionals
 
     def additionals_load_d3plus
       additionals_include_js 'd3plus.min'
-    end
-
-    def user_with_avatar(user, no_link: false, css_class: 'additionals-avatar', size: 14, no_link_name: nil)
-      return unless user
-
-      if user.type == 'Group'
-        if no_link || !AdditionalsPlugin.active_hrm?
-          user.name
-        else
-          link_to_hrm_group user
-        end
-      else
-        s = []
-        s << avatar(user, size: size, class: css_class)
-        s << if no_link
-               no_link_name || user.name
-             else
-               link_to_user user
-             end
-        safe_join s
-      end
-    end
-
-    def options_for_menu_select(active)
-      options_for_select({ l(:button_hide) => '',
-                           l(:label_top_menu) => 'top',
-                           l(:label_app_menu) => 'app' }, active)
-    end
-
-    def human_float_number(value, precision: 2, separator: '.')
-      ActionController::Base.helpers.number_with_precision(value,
-                                                           precision: precision,
-                                                           separator: separator,
-                                                           strip_insignificant_zeros: true)
-    end
-
-    def query_list_back_url_tag(project = nil, params = nil)
-      url = if controller_name == 'dashboard_async_blocks' && request.query_parameters.key?('dashboard_id')
-              dashboard_link_path project,
-                                  Dashboard.find_by(id: request.query_parameters['dashboard_id']),
-                                  refresh: 1
-            elsif params.nil?
-              url_for params: request.query_parameters
-            else
-              url_for params: params
-            end
-
-      hidden_field_tag 'back_url', url, id: nil
-    end
-
-    def render_author_line(entry, created_field: :created_on, updated_field: :updated_on)
-      created = entry.send created_field
-      updated = entry.send updated_field
-      tag.p class: 'author' do
-        str = [authoring(created, entry.author)]
-        str << '.'
-        if created != updated
-          str << ' '
-          str << l(:label_updated_time, time_tag(updated)).html_safe # rubocop: disable Rails/OutputSafety
-          str << '.'
-        end
-        safe_join str
-      end
     end
   end
 end

@@ -73,10 +73,11 @@ class DashboardsController < ApplicationController
     @allowed_projects = @dashboard.allowed_target_projects
 
     if @dashboard.save
-      flash[:notice] = l :notice_successful_create
-
       respond_to do |format|
-        format.html { redirect_to dashboard_link_path(@project, @dashboard) }
+        format.html do
+          flash[:notice] = l :notice_successful_create
+          redirect_to dashboard_link_path(@project, @dashboard)
+        end
         format.api  { render action: 'show', status: :created, location: dashboard_url(@dashboard, project_id: @project) }
       end
     else

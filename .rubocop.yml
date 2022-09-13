@@ -5,7 +5,7 @@ require:
 
 AllCops:
   TargetRubyVersion: 2.7
-  TargetRailsVersion: 6.1.6
+  TargetRailsVersion: 6.1
   NewCops: enable
   ActiveSupportExtensionsEnabled: true
 

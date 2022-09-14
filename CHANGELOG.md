@@ -3,7 +3,7 @@
 ## 3.0.7
 
 - D3 7.6.1 support
-- Mermaid 9.1.6 support
+- Mermaid 9.1.7 support
 - moment 2.29.4 support
 - d3plus 2.0.2 support
 

@@ -30,6 +30,7 @@ class AdditionalsChangeStatusController < ApplicationController
         flash[:error] = l :error_issue_status_could_not_changed
       else
         flash[:error] = messages.join(', ')
+      end
       return redirect_to(issue_path(@issue))
     end
 

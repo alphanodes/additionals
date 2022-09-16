@@ -25,7 +25,12 @@ class AdditionalsChangeStatusController < ApplicationController
               journal: @issue.current_journal
 
     if !@issue.save || issue_old_status_id == @issue.status_id
-      flash[:error] = l :error_issue_status_could_not_changed
+      messages = Array.wrap(@issue).map {|object| object.errors.full_messages}.flatten
+      if messages.empty?
+        flash[:error] = l :error_issue_status_could_not_changed
+      else
+        flash[:error] = messages.join(', ')
+      end
       return redirect_to(issue_path(@issue))
     end
 

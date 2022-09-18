@@ -335,9 +335,7 @@ module DashboardsHelper
                      .limit(max_entries)
                      .to_a
 
-    render partial: 'dashboards/blocks/documents', locals: { block: block,
-                                                             max_entries: max_entries,
-                                                             documents: documents }
+    render 'dashboards/blocks/documents', block: block, max_entries: max_entries, documents: documents
   end
 
   def render_news_block(block, _block_definition, settings, dashboard)
@@ -354,9 +352,7 @@ module DashboardsHelper
                       .to_a
            end
 
-    render partial: 'dashboards/blocks/news', locals: { block: block,
-                                                        max_entries: max_entries,
-                                                        news: news }
+    render 'dashboards/blocks/news', block: block, max_entries: max_entries, news: news
   end
 
   def render_my_spent_time_block(block, block_definition, settings, dashboard)
@@ -369,12 +365,12 @@ module DashboardsHelper
     entries_today = scope.where spent_on: User.current.today
     entries_days = scope.where spent_on: User.current.today - (days - 1)..User.current.today
 
-    render partial: 'dashboards/blocks/my_spent_time',
-           locals: { block: block,
-                     block_definition: block_definition,
-                     entries_today: entries_today,
-                     entries_days: entries_days,
-                     days: days }
+    render 'dashboards/blocks/my_spent_time',
+           block: block,
+           block_definition: block_definition,
+           entries_today: entries_today,
+           entries_days: entries_days,
+           days: days
   end
 
   def activity_dashboard_data(settings, dashboard)
@@ -443,10 +439,10 @@ module DashboardsHelper
     partial_locals = build_dashboard_partial_locals block, block_definition, settings, dashboard
 
     if block_definition[:query_block] || block_definition[:async]
-      render partial: 'dashboards/blocks/async', locals: partial_locals
+      render 'dashboards/blocks/async', partial_locals
     elsif partial
       begin
-        render partial: partial, locals: partial_locals
+        render partial, partial_locals
       rescue ActionView::MissingTemplate
         Rails.logger.warn "Partial \"#{partial}\" missing for block \"#{block}\" found in #{dashboard.name} (id=#{dashboard.id})"
         nil

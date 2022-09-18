@@ -3,5 +3,5 @@ h2 = l :label_new_dashboard
                     @dashboard,
                     url: { action: 'create', project_id: @project },
                     html: { multipart: true, id: 'dashboard-form' } do |f|
-  = render partial: 'form', locals: { f: f }
+  = render 'form', f: f
   = submit_tag l(:button_create)

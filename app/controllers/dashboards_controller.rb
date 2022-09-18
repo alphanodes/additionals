@@ -78,11 +78,11 @@ class DashboardsController < ApplicationController
           flash[:notice] = l :notice_successful_create
           redirect_to dashboard_link_path(@project, @dashboard)
         end
-        format.api  { render action: 'show', status: :created, location: dashboard_url(@dashboard, project_id: @project) }
+        format.api  { render action: :show, status: :created, location: dashboard_url(@dashboard, project_id: @project) }
       end
     else
       respond_to do |format|
-        format.html { render action: 'new' }
+        format.html { render :new }
         format.api  { render_validation_errors @dashboard }
       end
     end
@@ -118,7 +118,7 @@ class DashboardsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { render action: 'edit' }
+        format.html { render :edit }
         format.api  { render_validation_errors @dashboard }
       end
     end

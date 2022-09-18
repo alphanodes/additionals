@@ -20,12 +20,12 @@
       / required by some helpers of other plugins
       - @query = query
 
-      = render partial: query_block[:list_partial],
-               locals: { query_block[:entities_var] => query.send(query_block[:entries_method] || 'entries',
+      = render query_block[:list_partial],
+               query_block[:entities_var] => query.send(query_block[:entries_method] || 'entries',
                                                                   limit: settings[:max_entries] || DashboardContent::DEFAULT_MAX_ENTRIES),
-                         query: query,
-                         query_options: { sort_param: 'sort',
-                                          sort_link_options: { method: :post, remote: true } } }
+               query: query,
+               query_options: { sort_param: 'sort',
+                               sort_link_options: { method: :post, remote: true } }
     - else
       p.nodata = l :label_no_data
   - else

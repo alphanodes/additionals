@@ -27,14 +27,14 @@ h2 = welcome_overview_name @dashboard
 
 = call_hook :view_welcome_index_top
 
-= render partial: 'common/dashboard', locals: { dashboard: @dashboard }
+= render 'common/dashboard', dashboard: @dashboard
 = content_for :render_async
 
 = call_hook :view_welcome_index_bottom
 
 - if @dashboard_sidebar
   - content_for :sidebar do
-    = render partial: 'sidebar'
+    = render 'sidebar'
     = call_hook :view_welcome_show_sidebar_bottom
 
 - content_for :header_tags do

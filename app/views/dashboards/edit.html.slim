@@ -2,5 +2,5 @@ h2 = l :button_dashboard_edit
 = labelled_form_for :dashboard,
                     @dashboard,
                     html: { multipart: true, id: 'dashboard-form' } do |f|
-  = render partial: 'form', locals: { f: f }
+  = render 'form', f: f
   = submit_tag l(:button_save)

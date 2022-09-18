@@ -14,3 +14,4 @@ docs/_templates
 .enable_*
 /node_modules
 /yarn.lock
+rails_best_practices_output.html

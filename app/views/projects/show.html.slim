@@ -63,7 +63,7 @@ h2 = project_overview_name @project, @dashboard
     span.icon.icon-lock
       = l :text_project_closed
 
-= render partial: 'common/dashboard', locals: { dashboard: @dashboard }
+= render 'common/dashboard', dashboard: @dashboard
 = content_for :render_async
 
 javascript:

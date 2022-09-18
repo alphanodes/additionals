@@ -79,9 +79,9 @@ module Additionals
                          options[:title]
                        end
 
-          render partial: 'wiki/user_macros', locals: { users: users,
-                                                        user_roles: user_roles,
-                                                        list_title: list_title }
+          render 'wiki/user_macros', users: users,
+                                     user_roles: user_roles,
+                                     list_title: list_title
         end
       end
     end

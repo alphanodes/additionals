@@ -60,7 +60,8 @@ class Dashboard < ActiveRecord::Base
   after_save :update_system_defaults
   after_save :remove_unused_role_relations
 
-  validates :name, :dashboard_type, :author, :visibility, presence: true
+  validates :name, presence: true, length: { maximum: 255 }
+  validates :dashboard_type, :author, :visibility, presence: true
   validates :visibility, inclusion: { in: [VISIBILITY_PUBLIC, VISIBILITY_ROLES, VISIBILITY_PRIVATE] }
   validate :validate_roles
   validate :validate_visibility

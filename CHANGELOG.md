@@ -6,6 +6,8 @@
 - Mermaid 9.1.7 support
 - moment 2.29.4 support
 - d3plus 2.0.2 support
+- Chart.js Plugin matrix 1.2.0 support
+- Chart.js Plugin datalabels 2.1.0 support
 
 ## 3.0.6
 

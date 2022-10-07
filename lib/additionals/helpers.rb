@@ -231,6 +231,11 @@ module Additionals
       end
     end
 
+    def render_label_sum(label, sum)
+      name = label.is_a?(Symbol) ? l(label) : label
+      "#{name} (#{sum})"
+    end
+
     private
 
     def additionals_already_loaded(scope, js_name)

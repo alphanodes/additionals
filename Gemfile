@@ -45,6 +45,7 @@ end
 if File.file? File.expand_path './.enable_test', __dir__
   group :development, :test do
     gem 'active_record_doctor', require: false
+    gem 'rails_best_practices', require: false
     gem 'bullet'
   end
   group :test do

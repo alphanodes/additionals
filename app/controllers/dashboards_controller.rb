@@ -64,6 +64,17 @@ class DashboardsController < ApplicationController
     @allowed_projects = @dashboard.allowed_target_projects
   end
 
+  def edit
+    return render_403 unless @dashboard.editable?
+
+    @allowed_projects = @dashboard.allowed_target_projects
+
+    respond_to do |format|
+      format.html
+      format.api
+    end
+  end
+
   def create
     @dashboard = Dashboard.new author: User.current
     @dashboard.safe_attributes = params[:dashboard]
@@ -85,17 +96,6 @@ class DashboardsController < ApplicationController
         format.html { render :new }
         format.api  { render_validation_errors @dashboard }
       end
-    end
-  end
-
-  def edit
-    return render_403 unless @dashboard.editable?
-
-    @allowed_projects = @dashboard.allowed_target_projects
-
-    respond_to do |format|
-      format.html
-      format.api
     end
   end
 

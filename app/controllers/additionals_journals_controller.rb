@@ -9,7 +9,28 @@ class AdditionalsJournalsController < ApplicationController
   helper :journals
   helper :additionals_journals
 
+  def edit
+    return render_403 unless @journal.editable_by? User.current
+
+    respond_to do |format|
+      # TODO: implement non-JS journal update
+      format.js
+    end
+  end
+
   def create; end
+
+  def update
+    return render_403 unless @journal.editable_by? User.current
+
+    @journal.safe_attributes = params[:journal]
+    @journal.save
+    @journal.destroy if @journal.details.empty? && @journal.notes.blank?
+    respond_to do |format|
+      format.html { redirect_after_update }
+      format.js
+    end
+  end
 
   def diff
     @entry = @journal.journalized
@@ -27,27 +48,6 @@ class AdditionalsJournalsController < ApplicationController
     raise ::Unauthorized if @detail.property == 'cf' && !@detail.custom_field&.visible_by?(@entry.project, User.current)
 
     @diff = Redmine::Helpers::Diff.new @detail.value, @detail.old_value
-  end
-
-  def edit
-    return render_403 unless @journal.editable_by? User.current
-
-    respond_to do |format|
-      # TODO: implement non-JS journal update
-      format.js
-    end
-  end
-
-  def update
-    return render_403 unless @journal.editable_by? User.current
-
-    @journal.safe_attributes = params[:journal]
-    @journal.save
-    @journal.destroy if @journal.details.empty? && @journal.notes.blank?
-    respond_to do |format|
-      format.html { redirect_after_update }
-      format.js
-    end
   end
 
   private

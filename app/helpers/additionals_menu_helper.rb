@@ -70,9 +70,10 @@ module AdditionalsMenuHelper
                      id: :changelog },
                    { title: 'Redmine Upgrade',
                      url: 'https://www.redmine.org/projects/redmine/wiki/RedmineUpgrade',
-                     id: :security_advisories },
+                     id: :redmine_upgrade },
                    { title: 'Redmine Security Advisories',
-                     url: 'https://www.redmine.org/projects/redmine/wiki/Security_Advisories' }]
+                     url: 'https://www.redmine.org/projects/redmine/wiki/Security_Advisories',
+                     id: :security_advisories }]
 
     Redmine::Plugin.all.each do |plugin|
       next if plugin.id == :additionals

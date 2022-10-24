@@ -53,7 +53,7 @@ class AdditionalsJournalsController < ApplicationController
   private
 
   def redirect_after_update
-    raise 'overwrite it'
+    redirect_to @journal.journalized
   end
 
   def find_journal

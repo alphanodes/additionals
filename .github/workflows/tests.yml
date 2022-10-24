@@ -50,14 +50,14 @@ jobs:
         if: matrix.db == 'mysql'
 
       - name: Checkout Redmine
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: redmine/redmine
           ref: ${{ matrix.redmine }}
           path: redmine
 
       - name: Checkout additionals
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: AlphaNodes/additionals
           path: redmine/plugins/additionals

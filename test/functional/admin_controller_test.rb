@@ -12,6 +12,7 @@ class AdminControllerTest < Additionals::ControllerTest
 
   def test_info
     get :info
+
     assert_response :success
     assert_select 'table.list tr.system_info'
   end

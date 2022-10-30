@@ -86,6 +86,7 @@ module Additionals
 
       spec = +"td.#{c}"
       spec << "[colspan='#{colspan}']" if colspan
+
       assert_select spec
     end
 

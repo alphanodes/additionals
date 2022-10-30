@@ -27,6 +27,7 @@ module ApiTest
 
     test 'GET /issues.xml should contain metadata' do
       get '/issues.xml'
+
       assert_select 'issues[type=array][total_count][limit="25"][offset="0"]'
     end
 
@@ -61,6 +62,7 @@ module ApiTest
                headers: { 'CONTENT_TYPE' => 'application/xml' }.merge(credentials('jsmith'))
         end
         issue = Issue.last
+
         assert_equal 1, issue.project_id
         assert_nil issue.assigned_to_id
         assert_equal 'API test', issue.subject
@@ -91,6 +93,7 @@ module ApiTest
         end
 
         issue = Issue.last
+
         assert_equal 1, issue.project_id
         assert_equal 2, issue.assigned_to_id
         assert_equal 'API test', issue.subject
@@ -108,6 +111,7 @@ module ApiTest
         assert_response :success
         assert_empty response.body
       end
+
       assert_nil Issue.find_by(id: 6)
     end
   end

@@ -92,6 +92,7 @@ class IssuesControllerTest < Additionals::ControllerTest
       @request.session[:user_id] = 2
       get :show,
           params: { id: 2 }
+
       assert_select 'a.assign-to-me', count: 0
     end
   end
@@ -101,6 +102,7 @@ class IssuesControllerTest < Additionals::ControllerTest
       @request.session[:user_id] = 2
       get :show,
           params: { id: 4 }
+
       assert_select 'a.assign-to-me', count: 0
     end
   end
@@ -110,6 +112,7 @@ class IssuesControllerTest < Additionals::ControllerTest
       @request.session[:user_id] = 2
       get :show,
           params: { id: 2 }
+
       assert_select 'ul.issue-status-change-sidebar'
     end
   end
@@ -119,6 +122,7 @@ class IssuesControllerTest < Additionals::ControllerTest
       @request.session[:user_id] = 2
       get :show,
           params: { id: 2 }
+
       assert_select 'ul.issue-status-change-sidebar', count: 0
     end
   end
@@ -178,6 +182,7 @@ class IssuesControllerTest < Additionals::ControllerTest
     with_plugin_settings 'additionals', new_ticket_message: 'blub' do
       @request.session[:user_id] = 2
       get :new, params: { project_id: 1 }
+
       assert_select '.new-ticket-message'
     end
   end
@@ -190,6 +195,7 @@ class IssuesControllerTest < Additionals::ControllerTest
     with_plugin_settings 'additionals', new_ticket_message: 'blub' do
       @request.session[:user_id] = 2
       get :new, params: { project_id: 1 }
+
       assert_select '.new-ticket-message', count: 0
     end
   end

@@ -19,6 +19,7 @@ module ApiTest
     test 'GET /projects.xml should return projects' do
       get '/projects.xml',
           headers: credentials('jsmith')
+
       assert_response :success
       assert_equal 'application/xml', @response.media_type
 

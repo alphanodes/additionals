@@ -25,6 +25,7 @@ class CommonViewsTest < Additionals::IntegrationTest
   test 'View user' do
     log_user 'admin', 'admin'
     get '/users/2'
+
     assert_response :success
   end
 
@@ -35,6 +36,7 @@ class CommonViewsTest < Additionals::IntegrationTest
     issue.description = 'new value'
     issue.save
     get '/issues/1'
+
     assert_response :success
   end
 end

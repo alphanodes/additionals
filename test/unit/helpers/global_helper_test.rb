@@ -37,15 +37,19 @@ class GlobalHelperTest < Redmine::HelperTest
 
   def test_font_awesome_icon
     html = font_awesome_icon 'fas_cloud-upload-alt', class: 'test'
+
     assert_include 'class="fas fa-cloud-upload-alt test"', html
 
     html = font_awesome_icon 'fab_xing', class: 'test'
+
     assert_include 'class="fab fa-xing test"', html
 
     html = font_awesome_icon 'fas_cloud-upload-alt', pre_text: 'Testing'
+
     assert_include 'Testing <span', html
 
     html = font_awesome_icon 'fas_cloud-upload-alt', post_text: 'Testing'
+
     assert_include '</span> Testing', html
   end
 

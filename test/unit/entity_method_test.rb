@@ -21,6 +21,7 @@ class EntityMethodTest < Additionals::TestCase
   def test_allowed_entity_target_projects
     projects = Dashboard.allowed_entity_target_projects permission: :save_dashboards,
                                                         user: users(:users_002)
+
     assert_sorted_equal [1, 2, 5], projects.ids
   end
 
@@ -36,6 +37,7 @@ class EntityMethodTest < Additionals::TestCase
     projects = Dashboard.allowed_entity_target_projects permission: :save_dashboards,
                                                         user: users(:users_002),
                                                         exclude: projects(:projects_005)
+
     assert_sorted_equal [1, 2], projects.ids
   end
 
@@ -44,6 +46,7 @@ class EntityMethodTest < Additionals::TestCase
                                                         user: users(:users_002),
                                                         project: projects(:projects_003),
                                                         exclude: projects(:projects_005)
+
     assert_sorted_equal [1, 2, 3], projects.ids
   end
 end

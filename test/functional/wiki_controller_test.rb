@@ -42,6 +42,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
     assert_select 'iframe[src=?]', '//www.youtube-nocookie.com/embed/KMU0tzLwhbE'
   end
@@ -52,6 +53,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
     assert_select 'iframe', src: %r{^https://www\.meteoblue\.com/en/weather/widget/daily/(.*)}
   end
@@ -62,6 +64,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
     assert_select 'iframe[src=?]', '//player.vimeo.com/video/142849533'
   end
@@ -72,6 +75,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
     assert_select 'iframe[src=?]', '//www.slideshare.net/slideshow/embed_code/57941706'
   end
@@ -82,6 +86,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
     assert_select 'iframe[src=?]', 'https://docs.google.com/spreadsheets/d/e/RANDOMCODE/pubhtml?widget=true&headers=false'
   end
@@ -92,6 +97,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
     assert_select 'iframe[src=?]', 'https://www.redmine.org/'
   end
@@ -102,6 +108,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
     assert_select 'a.twitter'
     assert_select 'a[href=?]', 'https://twitter.com/alphanodes',
@@ -111,6 +118,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_select 'a.twitter'
     assert_select 'a[href=?]', 'https://twitter.com/alphanodes',
                   text: '@alphanodes'
@@ -119,6 +127,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_select 'a.twitter'
     assert_select 'a[href=?]', 'https://twitter.com/hashtag/alphanodes',
                   text: '#alphanodes'
@@ -130,6 +139,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
     assert_select 'a.reddit'
     assert_select 'a[href=?]', 'https://www.reddit.com/r/redmine',
@@ -139,6 +149,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_select 'a.reddit'
     assert_select 'a[href=?]', 'https://www.reddit.com/username/redmine',
                   text: 'u/redmine'
@@ -147,6 +158,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_select 'a.reddit'
     assert_select 'a[href=?]', 'https://www.reddit.com/r/redmine',
                   text: 'r/redmine'
@@ -158,6 +170,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
     assert_select 'span.last-updated-by'
     assert_select 'a[href=?]', '/users/2',
@@ -170,6 +183,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
     assert_select 'span.last-updated-at'
     assert_select 'a[href=?]', '/projects/ecookbook/activity'
@@ -181,6 +195,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
     assert_select 'div.recently-updated'
   end
@@ -191,6 +206,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
     assert_select 'div.wiki div.user'
   end
@@ -201,6 +217,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
     assert_select 'div.wiki a.macro-new-issue'
   end
@@ -211,6 +228,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
     assert_select 'div.wiki div.user'
   end
@@ -221,6 +239,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
     assert_select 'div.wiki div.additionals-projects tr.project'
   end
@@ -231,6 +250,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
     assert_select 'i.fas.fa-adjust'
   end
@@ -241,6 +261,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
     assert_select 'a[href=?]', 'https://www.redmine.org/issues/12066'
   end
@@ -251,6 +272,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
     assert_select 'a[href=?]', 'https://www.redmine.org/issues/12066'
   end
@@ -261,6 +283,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
     assert_select 'a[href=?]', 'https://www.redmine.org/projects/redmine/wiki/RedmineInstall'
   end
@@ -271,6 +294,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
     assert_select 'a[href=?]', 'https://www.redmine.org/projects/redmine/wiki/RedmineInstall'
   end
@@ -281,6 +305,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
     assert_select 'script[src=?]', 'https://gist.github.com/plentz/6737338.js'
   end
@@ -291,6 +316,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
     assert_select 'script[src=?]', 'https://s3.tradingview.com/tv.js'
   end
@@ -301,6 +327,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
     assert_select 'div.wiki div.cryptocompare',
                   text: %r{https://widgets\.cryptocompare\.com/serve/v3/coin/header\?fsyms=BTC,ETH&tsyms=EUR}
@@ -374,6 +401,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
     assert_select 'script[src=?]', '//asciinema.org/a/113463.js'
   end
@@ -384,6 +412,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
     assert_select '#content a.user.active[href=?]', '/users/2',
                   text: 'John Smith'
@@ -395,6 +424,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
     assert_select '#content span.user.active', text: 'John Smith'
   end
@@ -405,6 +435,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
     assert_select '#content a[href=?]', '/users/1',
                   text: 'Redmine Admin'
@@ -416,6 +447,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
     assert_select '#content a.user', text: 'Redmine Admin'
     assert_select '#content a[href=?]', '/users/1',
@@ -428,6 +460,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
     assert_select '#content a[href=?]', '/users/2',
                   text: 'John Smith'
@@ -439,6 +472,7 @@ class WikiControllerTest < Additionals::ControllerTest
     @page.content.save!
     get :show,
         params: { project_id: 1, id: @page_name }
+
     assert_response :success
     assert_select '#content a.user', text: 'John Smith'
     assert_select '#content a[href=?]', '/users/2',

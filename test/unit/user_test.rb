@@ -23,6 +23,7 @@ class UserTest < Additionals::TestCase
     admin_user = User.generate! admin: true
 
     users = User.visible.active.with_permission :save_dashboards
+
     assert_equal 5, users.count
     assert users.exists?(id: admin_user)
   end
@@ -81,6 +82,7 @@ class UserTest < Additionals::TestCase
     user = users :users_002
 
     options = { skip_pre_condition: true, project: nil }
+
     assert_sorted_equal Project.where(Project.allowed_to_condition(user, :view_issues, **options)).ids,
                         user.allowed_project_ids_for(:view_issues, **options)
 

@@ -19,8 +19,10 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
 
     assert_response :success
     json = ActiveSupport::JSON.decode response.body
+
     assert_kind_of Array, json
     icon = json.first
+
     assert_kind_of Hash, icon
     assert_equal 'far_address-book', icon['id']
     assert_equal 'Address Book', icon['text']
@@ -32,9 +34,11 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
 
     assert_response :success
     json = ActiveSupport::JSON.decode response.body
+
     assert_kind_of Array, json
     assert_equal 5, json.count
     icon = json.first
+
     assert_kind_of Hash, icon
     assert_equal 'fas_cloud-sun', icon['id']
     assert_equal 'Cloud with Sun', icon['text']
@@ -46,6 +50,7 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
 
     assert_response :success
     json = ActiveSupport::JSON.decode response.body
+
     assert_kind_of Array, json
     assert_equal 0, json.count
   end
@@ -56,6 +61,7 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
 
       assert_response :success
       json = ActiveSupport::JSON.decode response.body
+
       assert_kind_of Array, json
       assert_equal 2, json.count
 
@@ -70,6 +76,7 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
 
     assert_response :success
     json = ActiveSupport::JSON.decode response.body
+
     assert_kind_of Array, json
     assert_equal 3, json.count
 
@@ -85,6 +92,7 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
 
     assert_response :success
     json = ActiveSupport::JSON.decode response.body
+
     assert_kind_of Array, json
     assert_equal 2, json.count
 
@@ -100,6 +108,7 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
 
     assert_response :success
     json = ActiveSupport::JSON.decode response.body
+
     assert_kind_of Array, json
 
     assert_equal 3, json.count
@@ -115,6 +124,7 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
 
     assert_response :success
     json = ActiveSupport::JSON.decode response.body
+
     assert_kind_of Array, json
     assert_equal 1, json.count
 
@@ -128,6 +138,7 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
 
     assert_response :success
     json = ActiveSupport::JSON.decode response.body
+
     assert_kind_of Array, json
     assert_equal 2, json.count
 
@@ -142,6 +153,7 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
 
     assert_response :success
     json = ActiveSupport::JSON.decode response.body
+
     assert_kind_of Array, json
     assert_equal 2, json.count
 
@@ -156,6 +168,7 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
 
     assert_response :success
     json = ActiveSupport::JSON.decode response.body
+
     assert_kind_of Array, json
     assert_equal 1, json.count
 
@@ -169,6 +182,7 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
 
     assert_response :success
     json = ActiveSupport::JSON.decode response.body
+
     assert_kind_of Array, json
     assert_equal 1, json.count
 
@@ -183,13 +197,16 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
 
     assert_response :success
     json = ActiveSupport::JSON.decode response.body
+
     assert_kind_of Array, json
     assert_equal 1, json.count
 
     children = json.first['children']
+
     assert_equal 1, children.count
 
     entry = children.first
+
     assert_equal 2, entry['id']
     assert_equal 'John Smith', entry['text']
     assert_equal 'John Smith', entry['name']
@@ -203,6 +220,7 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
 
     assert_response :success
     json = ActiveSupport::JSON.decode response.body
+
     assert_kind_of Array, json
     assert_equal 1, json.count
 

@@ -101,6 +101,7 @@ class RedminePluginKitLoaderTest < Additionals::TestCase
 
   def test_apply_without_data
     loader = RedminePluginKit::Loader.new plugin_id: @plugin_id
+
     assert loader.apply!
   end
 
@@ -109,6 +110,7 @@ class RedminePluginKitLoaderTest < Additionals::TestCase
     loader.add_helper 'Settings'
     loader.add_patch 'Issue'
     loader.add_global_helper Additionals::Helpers
+
     assert loader.apply!
   end
 
@@ -134,11 +136,13 @@ class RedminePluginKitLoaderTest < Additionals::TestCase
 
   def test_load_model_hooks
     hooks = RedminePluginKit::Loader.new(plugin_id: @plugin_id).load_model_hooks!
+
     assert hooks.is_a? Module
   end
 
   def test_load_hooks
     hooks = RedminePluginKit::Loader.new(plugin_id: @plugin_id).load_view_hooks!
+
     assert hooks.is_a? Module
   end
 

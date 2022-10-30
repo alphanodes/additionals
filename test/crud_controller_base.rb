@@ -30,6 +30,7 @@ module CrudControllerBase
       return unless prepare_crud_test :show, no_permission: true
 
       get :show, params: @crud[:show_params].presence || { id: @crud[:entity].id }
+
       assert_response :forbidden
     end
 
@@ -78,6 +79,7 @@ module CrudControllerBase
       end
 
       get :new, params: @crud[:new_params].presence || {}
+
       assert_response :success
     end
 
@@ -85,6 +87,7 @@ module CrudControllerBase
       return unless prepare_crud_test :new, no_permission: true
 
       get :new, params: @crud[:new_params].presence || {}
+
       assert_response :forbidden
     end
 

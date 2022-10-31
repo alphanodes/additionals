@@ -218,3 +218,51 @@ function createTag(params) {
 
   return { id: term, text: term };
 }
+
+/* exported fixScopedTags */
+function fixScopedTags(e, eventSelect) {
+  var values = eventSelect.val();
+  var data = eventSelect.select2('data');
+
+  // console.log('fixScopeTags');
+
+  // new added tag
+  if (e.params.originalSelect2Event == undefined || data == undefined) { return; }
+  var new_tag = e.params.originalSelect2Event.data.id;
+  if (! new_tag.includes('::')) { return; }
+
+  // console.log('fixScopeTags - new_tag=' + new_tag);
+
+  // build labels
+  var labels = new_tag.split('::');
+  labels = labels.map(function (el) { return el.trim(); });
+
+  // first label is group name
+  // remove group value
+  labels.pop();
+  var group_name = labels.join('::');
+  var idToRemove = '';
+
+  // search for existing tags with same group name
+  var arrayLength = data.length;
+  var current_tag;
+  for (var i = 0; i < arrayLength; i++) {
+    current_tag = data[i].id;
+    if (current_tag.startsWith(group_name + '::') && new_tag != current_tag) {
+      idToRemove = current_tag;
+      break;
+    }
+  }
+
+  // leave if no remove id has been found
+  if (idToRemove == '') { return; }
+
+  // remove id from existing data
+  if (values) {
+    var j = values.indexOf(idToRemove);
+    if (j >= 0) {
+      values.splice(j, 1);
+      eventSelect.val(values).trigger('change');
+    }
+  }
+}

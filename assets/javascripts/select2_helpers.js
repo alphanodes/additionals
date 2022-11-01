@@ -233,14 +233,7 @@ function fixScopedTags(e, eventSelect) {
 
   // console.log('fixScopeTags - new_tag=' + new_tag);
 
-  // build labels
-  var labels = new_tag.split('::');
-  labels = labels.map(function (el) { return el.trim(); });
-
-  // first label is group name
-  // remove group value
-  labels.pop();
-  var group_name = labels.join('::');
+  var group_name = buildTagGroupName(new_tag);
   var idToRemove = '';
 
   // search for existing tags with same group name
@@ -248,7 +241,7 @@ function fixScopedTags(e, eventSelect) {
   var current_tag;
   for (var i = 0; i < arrayLength; i++) {
     current_tag = data[i].id;
-    if (current_tag.startsWith(group_name + '::') && new_tag != current_tag) {
+    if (new_tag != current_tag && current_tag.indexOf('::') >= 0 && buildTagGroupName(current_tag) == group_name) {
       idToRemove = current_tag;
       break;
     }
@@ -265,4 +258,16 @@ function fixScopedTags(e, eventSelect) {
       eventSelect.val(values).trigger('change');
     }
   }
+}
+
+/* exported fixScopedTags */
+function buildTagGroupName(tag_name) {
+  // build labels
+  var labels = tag_name.split('::');
+  labels = labels.map(function (el) { return el.trim(); });
+
+  // first label is group name
+  // remove group value
+  labels.pop();
+  return labels.join('::');
 }

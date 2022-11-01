@@ -2,6 +2,8 @@
 
 ## 3.0.8
 
+- Mermaid 9.2.0 support
+
 ## 3.0.7
 
 - D3 7.6.1 support

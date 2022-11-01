@@ -6,7 +6,7 @@
 - if @additionals_help_items.present?
   javascript:
     $(function() {
-      $('a.help').parent().append("<ul class=\"menu-children\">#{escape_javascript @additionals_help_items}</ul>");
+      $('a.help').parent().append("<ul class=\"menu-children\">#{escape_javascript @additionals_help_items}<\/ul>");
     });
 
 - if Additionals.setting? :open_external_urls

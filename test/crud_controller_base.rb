@@ -224,6 +224,7 @@ module CrudControllerBase
       return if @crud[:update_equals].blank?
 
       @crud[:entity].reload
+
       @crud[:update_equals].each do |name, value|
         assert_not_equal value, @crud[:entity].send(name)
       end

@@ -2,7 +2,7 @@
 
 ## 3.0.8
 
-- Mermaid 9.2.0 support
+- Mermaid 9.2.1 support
 
 ## 3.0.7
 

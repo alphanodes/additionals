@@ -61,6 +61,7 @@ module AdditionalsQueriesHelper
                                  sort_criteria: params[:sort].presence || (session_data.nil? ? nil : session_data[:sort_criteria]))
       @query.project = @project
       @query.user_filter = user_filter if user_filter
+      @query.display_type = params[:display_type] if params[:display_type]
 
       if params[:sort].present?
         @query.sort_criteria = params[:sort]

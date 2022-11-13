@@ -56,9 +56,9 @@ module DashboardsHelper
       css_class = base_css
       dashboard_name = "#{l :label_dashboard}: #{dashboard.name}"
       out << if dashboard.id == active_dashboard.id
-               link_to dashboard_name, '#',
-                       onclick: 'return false;',
-                       class: "#{base_css} disabled"
+               link_to_function dashboard_name,
+                                'return false;',
+                                class: "#{base_css} disabled"
              else
                dashboard_link dashboard, project,
                               class: css_class,

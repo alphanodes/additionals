@@ -43,9 +43,10 @@ module AdditionalsFontawesomeHelper
     options[:include_blank] ||= true unless options[:required]
     html_options = {}
 
+    icon_field = options.delete(:icon_field) || :icon
     additionals_fontawesome_add_selected selected
 
-    name, options = Additionals.hash_remove_with_default :name, options, :icon
+    name, options = Additionals.hash_remove_with_default :name, options, icon_field
     loader, options = Additionals.hash_remove_with_default :loader, options, true
     html_options[:class], options = Additionals.hash_remove_with_default :class, options, 'select2-fontawesome-field'
     html_options[:style], options = Additionals.hash_remove_with_default :style, options

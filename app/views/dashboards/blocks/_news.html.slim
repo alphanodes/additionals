@@ -12,7 +12,7 @@ h3.icon.icon-news = l :label_news_latest
       p
         = submit_tag l(:button_save)
         '
-        = link_to_function l(:button_cancel), "$('##{block}-settings').toggle();"
+        = link_to_function l(:button_cancel), "$('##{block}-settings').toggle()"
 
 - if news.any?
   = render partial: 'news/news', collection: news

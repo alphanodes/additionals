@@ -41,8 +41,8 @@
     p.buttons
       = submit_tag l(:button_export),
                    name: nil,
-                   onclick: 'hideModal(this);',
+                   onclick: 'hideModal(this)',
                    data: { disable_with: false }
 
       '
-      = link_to_function l(:button_cancel), 'hideModal(this);'
+      = link_to_function l(:button_cancel), 'hideModal(this)'

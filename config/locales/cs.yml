@@ -190,7 +190,7 @@ cs:
   top_wiki_help: "Zde můžete definovat obsah a nastavení vaší Wiki."
   wiki_pdf_remove_attachments_info: "Pokud je aktivní, připojené soubory Wiki se nebudou zobrazovat v zobrazení PDF."
   wiki_pdf_remove_title_info: "Pokud je aktivní, informace o názvu Wiki se nebudou zobrazovat v zobrazení PDF."
-  label_custom_field_editable_info: "Pokud jsou zakázané změny možné pouze pomocí volání API."
+  label_custom_field_editable_info: If disabled changes are only possible with API calls or via bulk edit.
   label_help_doc: Dokumentace
   label_activate_quickstart: Aktivovat quickstart
   label_quickstart: Quickstart

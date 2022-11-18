@@ -190,7 +190,7 @@ es:
   top_wiki_help: "Aquí puede definir contenidos y configuracioens para su Wiki."
   wiki_pdf_remove_attachments_info: "Cuando está activa, los adjuntos no serán mostrados en los PDF."
   wiki_pdf_remove_title_info: "Cuando está activa, el título de la Wiki no será mostrado en los PDF."
-  label_custom_field_editable_info: "Si los cambios desactivados sólo son posibles con llamadas a la API."
+  label_custom_field_editable_info: If disabled changes are only possible with API calls or via bulk edit.
   label_help_doc: "Documentación"
   label_activate_quickstart: Activar quickstart
   label_quickstart: Quickstart

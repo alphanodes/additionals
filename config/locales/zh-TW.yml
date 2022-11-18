@@ -190,7 +190,7 @@
   top_wiki_help: "您可以在此自訂Wiki的內容和設定。"
   wiki_pdf_remove_attachments_info: "當啟用時，Wiki附件將不會顯示在PDF中。"
   wiki_pdf_remove_title_info: "當啟用時，Wiki標題訊息不會顯示在PDF中"
-  label_custom_field_editable_info: "如果禁用的变化只能通过API调用来实现"
+  label_custom_field_editable_info: If disabled changes are only possible with API calls or via bulk edit.
   label_help_doc: 文件
   label_activate_quickstart: Activate quickstart
   label_quickstart: Quickstart

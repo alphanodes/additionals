@@ -190,7 +190,7 @@ ja:
   top_wiki_help: "ここでは、Wikiの内容や設定を定義することができます。"
   wiki_pdf_remove_attachments_info: "アクティブな場合、添付されたWikiファイルはPDFビューに表示されません。"
   wiki_pdf_remove_title_info: "アクティブな場合、Wikiのタイトル情報はPDFビューに表示されません。"
-  label_custom_field_editable_info: 無効化された変更がAPIコールでのみ可能な場合
+  label_custom_field_editable_info: If disabled changes are only possible with API calls or via bulk edit.
   label_help_doc: ドキュメンテーション
   label_activate_quickstart: "アクティブ化 quickstart"
   label_quickstart: Quickstart

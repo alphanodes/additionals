@@ -189,26 +189,16 @@ module AdditionalsQuery
     journal_table = Journal.table_name
 
     case operator
-    when '!*'
-      "#{queried_table_name}.id IN (" \
-      " SELECT #{queried_table_name}.id FROM #{queried_table_name} LEFT JOIN #{journal_table}" \
-      " ON #{journal_table}.journalized_id = #{queried_table_name}.id AND #{journal_table}.journalized_type = '#{journalized_type}'" \
-      " WHERE (#{journal_table}.notes IS NULL OR #{journal_table}.notes = '')" \
-      " GROUP BY #{queried_table_name}.id" \
-      " HAVING COUNT(#{queried_table_name}.id) > 0)"
-    when '*'
-      "#{queried_table_name}.id IN (" \
-      " SELECT #{queried_table_name}.id FROM #{queried_table_name} INNER JOIN #{journal_table}" \
-      " ON #{journal_table}.journalized_id = #{queried_table_name}.id AND #{journal_table}.journalized_type = '#{journalized_type}'" \
-      " WHERE #{journal_table}.notes IS NOT NULL AND #{journal_table}.notes != ''" \
-      " GROUP BY #{queried_table_name}.id" \
-      " HAVING COUNT(#{journal_table}.id) > 0)"
+    when '*', '!*'
+      op = operator == '*' ? 'EXISTS' : 'NOT EXISTS'
+      "#{op}(SELECT 1 FROM #{queried_table_name} AS ii INNER JOIN #{journal_table}" \
+        " ON #{journal_table}.journalized_id = ii.id AND #{journal_table}.journalized_type = '#{journalized_type}'" \
+        " WHERE #{queried_table_name}.id = ii.id AND #{journal_table}.notes IS NOT NULL AND #{journal_table}.notes != '')"
     else
       "#{queried_table_name}.id IN (" \
       " SELECT #{journal_table}.journalized_id" \
       " FROM #{journal_table}" \
-      " WHERE #{journal_table}.journalized_type='#{journalized_type}'" \
-      " AND #{journal_table}.id IN" \
+      " WHERE #{journal_table}.journalized_type='#{journalized_type}' AND #{journal_table}.id IN" \
       " (SELECT MAX(#{journal_table}.id)" \
       " FROM #{journal_table}" \
       " WHERE #{journal_table}.journalized_type='#{journalized_type}'" \

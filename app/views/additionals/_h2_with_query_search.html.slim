@@ -8,6 +8,9 @@ h2#page-title class="#{classes}"
                     class: 'no-tooltip',
                     autocomplete: 'off',
                     title: defined?(title_info) ? title_info : nil
+  - if defined?(after_title) && after_title.present?
+    '
+    = after_title
 
   javascript:
     observeLiveSearchField('search', 'query-result-list');

@@ -149,6 +149,13 @@ module AdditionalsQuery
                                        type: :user_with_me
   end
 
+  def initialize_last_notes_filter(order: nil)
+    options = { type: :date_past,
+                label: :label_last_notes }
+    options[:order] = order if order
+    add_available_filter 'last_notes', **options
+  end
+
   # not required for: assigned_to_id author_id user_id watcher_id updated_by last_updated_by
   # this fields are replaced by Query::statement
   def values_without_me(values)
@@ -175,6 +182,37 @@ module AdditionalsQuery
                " AND (#{Journal.visible_notes_condition User.current, skip_pre_condition: true})"
 
     "#{/^!/.match?(operator) ? 'NOT EXISTS' : 'EXISTS'} (#{subquery})"
+  end
+
+  def sql_for_last_notes_field(field, operator, value)
+    journalized_type = queried_class.name
+    journal_table = Journal.table_name
+
+    case operator
+    when '!*'
+      "#{queried_table_name}.id IN (" \
+      " SELECT #{queried_table_name}.id FROM #{queried_table_name} LEFT JOIN #{journal_table}" \
+      " ON #{journal_table}.journalized_id = #{queried_table_name}.id AND #{journal_table}.journalized_type = '#{journalized_type}'" \
+      " GROUP BY #{queried_table_name}.id" \
+      " HAVING COUNT(#{journal_table}.id) = 0)"
+    when '*'
+      "#{queried_table_name}.id IN (" \
+      " SELECT #{queried_table_name}.id FROM #{queried_table_name} INNER JOIN #{journal_table}" \
+      " ON #{journal_table}.journalized_id = #{queried_table_name}.id AND #{journal_table}.journalized_type = '#{journalized_type}'" \
+      " GROUP BY #{queried_table_name}.id" \
+      " HAVING COUNT(#{journal_table}.id) > 0)"
+    else
+      "#{queried_table_name}.id IN (" \
+      " SELECT #{journal_table}.journalized_id" \
+      " FROM #{journal_table}" \
+      " WHERE #{journal_table}.journalized_type='#{journalized_type}'" \
+      " AND #{journal_table}.id IN" \
+      " (SELECT MAX(#{journal_table}.id)" \
+      " FROM #{journal_table}" \
+      " WHERE #{journal_table}.journalized_type='#{journalized_type}'" \
+      " GROUP BY #{journal_table}.journalized_id)" \
+      " AND #{sql_for_field field, operator, value, journal_table, 'created_on'})"
+    end
   end
 
   def sql_for_watcher_id_field(field, operator, value)

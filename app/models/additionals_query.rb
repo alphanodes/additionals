@@ -193,12 +193,14 @@ module AdditionalsQuery
       "#{queried_table_name}.id IN (" \
       " SELECT #{queried_table_name}.id FROM #{queried_table_name} LEFT JOIN #{journal_table}" \
       " ON #{journal_table}.journalized_id = #{queried_table_name}.id AND #{journal_table}.journalized_type = '#{journalized_type}'" \
+      " WHERE (#{journal_table}.notes IS NULL OR #{journal_table}.notes = '')" \
       " GROUP BY #{queried_table_name}.id" \
-      " HAVING COUNT(#{journal_table}.id) = 0)"
+      " HAVING COUNT(#{queried_table_name}.id) > 0)"
     when '*'
       "#{queried_table_name}.id IN (" \
       " SELECT #{queried_table_name}.id FROM #{queried_table_name} INNER JOIN #{journal_table}" \
       " ON #{journal_table}.journalized_id = #{queried_table_name}.id AND #{journal_table}.journalized_type = '#{journalized_type}'" \
+      " WHERE #{journal_table}.notes IS NOT NULL AND #{journal_table}.notes != ''" \
       " GROUP BY #{queried_table_name}.id" \
       " HAVING COUNT(#{journal_table}.id) > 0)"
     else

@@ -10,7 +10,7 @@ class WikiPageTest < Additionals::TestCase
            :projects_trackers,
            :enabled_modules,
            :issue_statuses, :issues,
-           :enumerations,
+           :enumerations, :watchers,
            :custom_fields, :custom_values, :custom_fields_trackers,
            :wikis, :wiki_pages, :wiki_contents, :wiki_content_versions
 

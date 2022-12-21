@@ -3,8 +3,8 @@
 ## 3.0.8
 
 - Mermaid 9.3.0 support
-- Chart.js Plugin matrix 1.2.1 support
-- D3 7.7.0 support
+- Chart.js Plugin matrix 1.3.0 support
+- D3 7.8.0 support
 
 ## 3.0.7
 

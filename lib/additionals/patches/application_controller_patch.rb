@@ -12,8 +12,8 @@ module Additionals
 
       module InstanceMethods
         def enable_smileys
-          return if Redmine::WikiFormatting::Textile::Formatter::RULES.include?(:inline_smileys) ||
-                    !Additionals.setting?(:legacy_smiley_support)
+          return if !Additionals.setting?(:legacy_smiley_support) ||
+                    Redmine::WikiFormatting::Textile::Formatter::RULES.include?(:inline_smileys)
 
           Redmine::WikiFormatting::Textile::Formatter::RULES << :inline_smileys
         end

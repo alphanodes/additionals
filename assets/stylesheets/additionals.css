@@ -1,10 +1,8 @@
-/* stylelint-disable font-family-no-missing-generic-family-keyword */
-
 #admin-menu a.additionals::before {
-  font-family: Font Awesome\ 5 Free;
+  font-family: 'Font Awesome 5 Free';
   font-size: 1.1em;
   font-weight: 900;
-  content: "\f085"; /* fas fa-cogs */
+  content: '\f085'; /* fas fa-cogs */
   padding-right: 4px;
 }
 
@@ -23,9 +21,9 @@
   font-size: 95%;
 }
 
-#my-page.dashboard .settings input[type=text],
-#my-page.dashboard .settings input[type=password],
-#my-page.dashboard .settings input[type=url] {
+#my-page.dashboard .settings input[type='text'],
+#my-page.dashboard .settings input[type='password'],
+#my-page.dashboard .settings input[type='url'] {
   width: 90%;
 }
 
@@ -48,9 +46,9 @@
 }
 
 .gototop::before {
-  font-family: Font Awesome\ 5 Free;
+  font-family: 'Font Awesome 5 Free';
   font-weight: 900;
-  content: "\f139"; /* fas fa-chevron-circle-up */
+  content: '\f139'; /* fas fa-chevron-circle-up */
   padding-right: 4px;
   opacity: 0.8;
 }
@@ -68,10 +66,12 @@
   font-size: 95%;
 }
 
+/* stylelint-disable selector-class-pattern */
 img.inline_emojify {
   width: 20px;
   height: 20px;
 }
+/* stylelint-enable selector-class-pattern */
 
 /* stylelint-disable selector-type-no-unknown */
 additionals-emoji {
@@ -82,6 +82,7 @@ additionals-emoji {
   font-size: 1.2em;
   line-height: 1;
 }
+/* stylelint-enable selector-type-no-unknown */
 
 /* Legacy smilie classes */
 
@@ -92,28 +93,28 @@ additionals-emoji {
   height: 16px;
 }
 
-.smiley-smiley { background-image: url(../images/smileys/smiley.png); }
-.smiley-smiley2 { background-image: url(../images/smileys/smiley2.png); }
-.smiley-laughing { background-image: url(../images/smileys/smiley-grin.png); }
-.smiley-laughing2 { background-image: url(../images/smileys/smiley-laughing2.png); }
-.smiley-crying { background-image: url(../images/smileys/smiley-cry.png); }
-.smiley-sad { background-image: url(../images/smileys/smiley-sad.png); }
-.smiley-wink { background-image: url(../images/smileys/smiley-wink.png); }
-.smiley-cheeky { background-image: url(../images/smileys/smiley-razz.png); }
-.smiley-shock { background-image: url(../images/smileys/smiley-eek.png); }
-.smiley-annoyed { background-image: url(../images/smileys/smiley-annoyed.png); }
-.smiley-confuse { background-image: url(../images/smileys/smiley-confuse.png); }
-.smiley-straight { background-image: url(../images/smileys/smiley-neutral.png); }
-.smiley-embarrassed { background-image: url(../images/smileys/smiley-red.png); }
-.smiley-kiss { background-image: url(../images/smileys/smiley-kiss.png); }
-.smiley-angel { background-image: url(../images/smileys/smiley-angel.png); }
-.smiley-evil { background-image: url(../images/smileys/smiley-evil.png); }
-.smiley-rock { background-image: url(../images/smileys/smiley-cool.png); }
-.smiley-check { background-image: url(../images/smileys/check.png); }
-.smiley-exclamation { background-image: url(../images/smileys/exclamation-red-frame.png); }
-.smiley-question { background-image: url(../images/smileys/question-frame.png); }
-.smiley-success { background-image: url(../images/smileys/success-frame.png); }
-.smiley-failure { background-image: url(../images/smileys/failure-frame.png); }
+.smiley-smiley { background-image: url('../images/smileys/smiley.png'); }
+.smiley-smiley2 { background-image: url('../images/smileys/smiley2.png'); }
+.smiley-laughing { background-image: url('../images/smileys/smiley-grin.png'); }
+.smiley-laughing2 { background-image: url('../images/smileys/smiley-laughing2.png'); }
+.smiley-crying { background-image: url('../images/smileys/smiley-cry.png'); }
+.smiley-sad { background-image: url('../images/smileys/smiley-sad.png'); }
+.smiley-wink { background-image: url('../images/smileys/smiley-wink.png'); }
+.smiley-cheeky { background-image: url('../images/smileys/smiley-razz.png'); }
+.smiley-shock { background-image: url('../images/smileys/smiley-eek.png'); }
+.smiley-annoyed { background-image: url('../images/smileys/smiley-annoyed.png'); }
+.smiley-confuse { background-image: url('../images/smileys/smiley-confuse.png'); }
+.smiley-straight { background-image: url('../images/smileys/smiley-neutral.png'); }
+.smiley-embarrassed { background-image: url('../images/smileys/smiley-red.png'); }
+.smiley-kiss { background-image: url('../images/smileys/smiley-kiss.png'); }
+.smiley-angel { background-image: url('../images/smileys/smiley-angel.png'); }
+.smiley-evil { background-image: url('../images/smileys/smiley-evil.png'); }
+.smiley-rock { background-image: url('../images/smileys/smiley-cool.png'); }
+.smiley-check { background-image: url('../images/smileys/check.png'); }
+.smiley-exclamation { background-image: url('../images/smileys/exclamation-red-frame.png'); }
+.smiley-question { background-image: url('../images/smileys/question-frame.png'); }
+.smiley-success { background-image: url('../images/smileys/success-frame.png'); }
+.smiley-failure { background-image: url('../images/smileys/failure-frame.png'); }
 
 div.clear-both { clear: both; }
 
@@ -142,7 +143,7 @@ h2#page-title input {
 }
 
 h2#page-title::before {
-  font-family: Font Awesome\ 5 Free;
+  font-family: 'Font Awesome 5 Free';
   padding-right: 5px;
   text-shadow: 0 2px 0 #efefef;
   font-size: 90%;
@@ -166,11 +167,11 @@ h2#page-title.live-search input {
 
 h2#page-title.import::before {
   font-weight: 900;
-  content: "\f093"; /* fas fa-upload */
+  content: '\f093'; /* fas fa-upload */
 }
 
 a.external.redmine-link {
-  background-image: url(../images/redmine-link.png);
+  background-image: url('../images/redmine-link.png');
   background-position: 0% 40%;
   padding-left: 13px;
   background-repeat: no-repeat;
@@ -287,9 +288,11 @@ table.table-of-values caption {
 .additionals-number-positive { color: green; }
 .additionals-number-negative { color: #cb2525; }
 
+/* stylelint-disable selector-class-pattern */
 .jstb_macros {
-  background-image: url(../images/jstoolbar/bt_macros.png);
+  background-image: url('../images/jstoolbar/bt_macros.png');
 }
+/* stylelint-enable selector-class-pattern */
 
 div.relation-list-header {
   background: #eee;
@@ -342,15 +345,15 @@ table.entity-list td.block_column {
   white-space: normal;
 }
 
-tr.block_row.idnt-1 td.block_column { padding-left: 24px; }
-tr.block_row.idnt-2 td.block_column { padding-left: 40px; }
-tr.block_row.idnt-3 td.block_column { padding-left: 56px; }
-tr.block_row.idnt-4 td.block_column { padding-left: 72px; }
-tr.block_row.idnt-5 td.block_column { padding-left: 88px; }
-tr.block_row.idnt-6 td.block_column { padding-left: 104px; }
-tr.block_row.idnt-7 td.block_column { padding-left: 120px; }
-tr.block_row.idnt-8 td.block_column { padding-left: 136px; }
-tr.block_row.idnt-9 td.block_column { padding-left: 152px; }
+tr.block-row.idnt-1 td.block_column { padding-left: 24px; }
+tr.block-row.idnt-2 td.block_column { padding-left: 40px; }
+tr.block-row.idnt-3 td.block_column { padding-left: 56px; }
+tr.block-row.idnt-4 td.block_column { padding-left: 72px; }
+tr.block-row.idnt-5 td.block_column { padding-left: 88px; }
+tr.block-row.idnt-6 td.block_column { padding-left: 104px; }
+tr.block-row.idnt-7 td.block_column { padding-left: 120px; }
+tr.block-row.idnt-8 td.block_column { padding-left: 136px; }
+tr.block-row.idnt-9 td.block_column { padding-left: 152px; }
 
 table.entity-list td.block_column span {
   font-weight: bold;

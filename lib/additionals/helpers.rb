@@ -17,7 +17,7 @@ module Additionals
       query.block_columns.each do |column|
         next if !(text = column_content column, entry) || text.blank?
 
-        content << tag.tr(class: "#{tr_classes} block_row") do # rubocop: disable Style/MethodCallWithArgsParentheses
+        content << tag.tr(class: "#{tr_classes} block-row") do # rubocop: disable Style/MethodCallWithArgsParentheses
           tds = []
           tds << tag.td('', class: 'hide') if with_buttons && with_checkbox
           tds << tag.td(colspan: td_colspan, class: "#{column.css_classes} block_column") do # rubocop: disable Style/MethodCallWithArgsParentheses

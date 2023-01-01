@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require File.expand_path '../../test_helper', __FILE__
+require_relative '../test_helper'
 
 class ViewWelcomeIndexTopRenderOn < Redmine::Hook::ViewListener
   render_on :view_welcome_index_top, inline: '<div class="test">Example text</div>'

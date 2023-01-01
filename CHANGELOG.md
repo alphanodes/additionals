@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.9
+
+- Chart.js Plugin annotation 2.1.1 support
+
 ## 3.0.8
 
 - Mermaid 9.3.0 support

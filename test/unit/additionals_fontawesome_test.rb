@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require File.expand_path '../../test_helper', __FILE__
+require_relative '../test_helper'
 
 class AdditionalsFontAwesomeTest < Additionals::TestCase
   fixtures :projects, :users, :members, :member_roles, :roles,

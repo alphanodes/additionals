@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require File.expand_path '../../test_helper', __FILE__
+require_relative '../test_helper'
 
 class DashboardAsyncBlocksControllerTest < Additionals::ControllerTest
   fixtures :users, :email_addresses, :roles,

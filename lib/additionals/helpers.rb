@@ -289,6 +289,10 @@ module Additionals
       additionals_include_js 'chartjs-plugin-datalabels.min'
     end
 
+    def additionals_load_chartjs_annotation
+      additionals_include_js 'chartjs-plugin-annotation.min'
+    end
+
     def additionals_load_chartjs_moment
       additionals_include_js('moment-with-locales.min') +
         additionals_include_js('chartjs-adapter-moment.min')

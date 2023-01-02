@@ -258,7 +258,7 @@ module AdditionalsQueriesHelper
     # 1.1: margin
     width = (value_str.length + value_str.chars.count { |e| !e.ascii_only? }) * 1.1 + 1
     # 30: max width
-    width > 30 ? 30 : width
+    [width, 30].min
   end
 
   def xlsx_cell_format(type, value = 0, index = 0)

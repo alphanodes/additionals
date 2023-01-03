@@ -6,6 +6,6 @@
                                        min: 1, max: 1000, required: true
   p
     = additionals_settings_checkbox :me_only,
-                                    label: l(:label_only_my_activities),
+                                    label: :label_only_my_activities,
                                     active_value: settings[:me_only],
                                     tag_name: "settings[#{block}][me_only]"

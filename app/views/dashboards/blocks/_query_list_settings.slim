@@ -12,7 +12,7 @@
                                            min: 1, max: 100, required: true
       p
         = additionals_settings_checkbox :auto_refresh,
-                                        label: l(:label_enable_auto_refresh),
+                                        label: :label_enable_auto_refresh,
                                         active_value: settings[:auto_refresh],
                                         tag_name: "settings[#{block}][auto_refresh]"
 - else
@@ -30,6 +30,6 @@
                                          min: 1, max: 100, required: true
     p
       = additionals_settings_checkbox :auto_refresh,
-                                      label: l(:label_enable_auto_refresh),
+                                      label: :label_enable_auto_refresh,
                                       active_value: settings[:auto_refresh],
                                       tag_name: "settings[#{block}][auto_refresh]"

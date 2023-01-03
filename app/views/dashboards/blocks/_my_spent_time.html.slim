@@ -7,7 +7,7 @@ h3 = block_definition[:label]
         p
           = additionals_settings_numberfield :day,
                                               value: days,
-                                              label: l(:button_show),
+                                              label: :button_show,
                                               tag_name: "settings[#{block}][days]",
                                               min: 1, max: 1000, required: true
           '

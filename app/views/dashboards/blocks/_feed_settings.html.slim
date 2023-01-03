@@ -3,13 +3,13 @@
 .box.tabular.settings
   p
     = additionals_settings_textfield :title,
-                                     label: l(:field_title),
+                                     label: :field_title,
                                      value: dashboard_feed_title(settings[:title], block_definition),
                                      tag_name: "settings[#{block}][title]"
   p
     = additionals_settings_urlfield :url,
                                     value: settings[:url],
-                                    label: l(:field_url),
+                                    label: :field_url,
                                     tag_name: "settings[#{block}][url]",
                                     required: true
   p

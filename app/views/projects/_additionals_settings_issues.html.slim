@@ -14,12 +14,12 @@ fieldset.box.tabular
   p#project-ticket-message class="#{'hidden' if project.enable_new_ticket_message != 2}"
     = f.text_area :new_ticket_message,
                   rows: addtionals_textarea_cols(project.new_ticket_message),
-                  label: l(:label_additionals_message)
+                  label: :label_additionals_message
 
   p#system-ticket-message class="#{'hidden' if project.enable_new_ticket_message != 1}"
     = additionals_settings_textarea :new_ticket_message_system,
                                     value: Additionals.setting(:new_ticket_message).to_s,
-                                    label: l(:label_additionals_message),
+                                    label: :label_additionals_message,
                                     for_project: true,
                                     disabled: true
 

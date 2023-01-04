@@ -119,18 +119,23 @@ class DashboardContent
   private
 
   def issues_cache_expires_in
-    issue_count = Rails.cache.fetch project.issues.visible.count, expires_in: 1.hour do
-      if project
-        project.issues.visible.count
-      else
-        Issue.visible.count
-      end
+    open_issue_count = Rails.cache.fetch issues_cache_key, expires_in: 1.hour do
+      query = if project
+                IssueQuery.new project: project, name: '_'
+              else
+                IssueQuery.new name: '_'
+              end
+      query.issue_count
     end
 
-    if issue_count > 10_000
+    if open_issue_count > 1_000
       86_400 # 1 day
-    elsif issue_count > 1_000
+    elsif open_issue_count > 500
+      14_400 # 4 hour
+    elsif open_issue_count > 200
       3_600 # 1 hour
+    elsif open_issue_count > 100
+      1_800 # 30 minutes
     else
       60
     end

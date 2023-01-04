@@ -197,3 +197,4 @@ es:
   label_all_projects: Todos los proyectos
   notice_failed_to_save_entries: "%{count} de %{total} %{name_plural} seleccionados no pudieron ser salvados: %{ids}."
   field_notes_count: "Número de comentarios"
+  dashboard_block_info_async: This block is loaded asynchronous and cached for %{seconds} seconds.

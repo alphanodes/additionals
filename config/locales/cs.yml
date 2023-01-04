@@ -197,3 +197,4 @@ cs:
   label_all_projects: "Všechny projekty"
   notice_failed_to_save_entries: "%{count} z %{total} vybrané %{name_plural} nelze uložit: %{ids}."
   field_notes_count: "Počet komentářů"
+  dashboard_block_info_async: This block is loaded asynchronous and cached for %{seconds} seconds.

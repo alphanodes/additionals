@@ -197,3 +197,4 @@ ru:
   label_all_projects: Все проекты
   notice_failed_to_save_entries: "%{count} из %{total} выбранных %{name_plural} не удалось сохранить: %{ids}."
   field_notes_count: Количество комментариев
+  dashboard_block_info_async: This block is loaded asynchronous and cached for %{seconds} seconds.

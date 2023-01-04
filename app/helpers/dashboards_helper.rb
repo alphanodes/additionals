@@ -223,6 +223,9 @@ module DashboardsHelper
                                   class: 'icon-only icon-settings',
                                   title: l(:label_options))
       end
+      if block_definition.key? :async
+        icons << tag.span('', class: 'icon-only icon-warning', title: dashboard_block_sync_info(block_definition))
+      end
       icons << tag.span('', class: 'icon-only icon-sort-handle sort-handle', title: l(:button_move))
       icons << delete_link(_remove_block_dashboard_path(@project, dashboard, block: block),
                            method: :post,
@@ -429,6 +432,11 @@ module DashboardsHelper
   end
 
   private
+
+  def dashboard_block_sync_info(block_definition)
+    sec = block_definition[:async][:cache_expires_in].presence || DashboardContent::RENDER_ASYNC_CACHE_EXPIRES_IN
+    l :dashboard_block_info_async, seconds: sec
+  end
 
   # Renders a single block content
   def render_dashboard_block_content(block, block_definition, dashboard, **overwritten_settings)

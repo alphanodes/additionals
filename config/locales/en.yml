@@ -197,3 +197,4 @@ en:
   label_all_projects: All projects
   notice_failed_to_save_entries: "%{count} of %{total} selected %{name_plural} could not be saved : %{ids}."
   field_notes_count: Notes amount
+  dashboard_block_info_async: This block is loaded asynchronous and cached for %{seconds} seconds.

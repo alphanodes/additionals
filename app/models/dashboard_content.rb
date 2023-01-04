@@ -118,6 +118,28 @@ class DashboardContent
 
   private
 
+  def issues_cache_expires_in
+    issue_count = Rails.cache.fetch project.issues.visible.count, expires_in: 1.hour do
+      if project
+        project.issues.visible.count
+      else
+        Issue.visible.count
+      end
+    end
+
+    if issue_count > 10_000
+      86_400 # 1 day
+    elsif issue_count > 1_000
+      3_600 # 1 hour
+    else
+      60
+    end
+  end
+
+  def issues_cache_key
+    Digest::SHA256.hexdigest [project&.id, User.current.id].compact.join('-')
+  end
+
   # if more the one permission is specified, all permissions are required
   def block_permission_allowed?(permission)
     Array(permission).all? { |p| user.allowed_to?(p, project, global: true) }

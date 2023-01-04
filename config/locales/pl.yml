@@ -197,3 +197,4 @@ pl:
   label_all_projects: Wszystkie projekty
   notice_failed_to_save_entries: "%{count} z %{total} wybranych %{name_plural} nie mogły zostać zapisane: %{ids}."
   field_notes_count: Liczba uwag
+  dashboard_block_info_async: This block is loaded asynchronous and cached for %{seconds} seconds.

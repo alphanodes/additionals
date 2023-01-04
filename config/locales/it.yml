@@ -197,4 +197,4 @@ it:
   label_all_projects: Tutti i progetti
   notice_failed_to_save_entries: "Non è stato possibile salvare %{count} dei %{total} %{name_plural} selezionati: %{ids}."
   field_notes_count: Totale dei commenti
-  dashboard_block_info_async: This block is loaded asynchronous and cached for %{seconds} seconds.
+  dashboard_block_info_async: "Questo blocco viene caricato in modo asincrono e memorizzato nella cache per %{seconds} secondi."

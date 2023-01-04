@@ -197,4 +197,4 @@ zh:
   label_all_projects: 所有项目
   notice_failed_to_save_entries: "%{count} of %{total} selected %{name_plural} could not be saved : %{ids}."
   field_notes_count: 评论的数量
-  dashboard_block_info_async: This block is loaded asynchronous and cached for %{seconds} seconds.
+  dashboard_block_info_async: "该块是异步加载的，缓存时间为 %{seconds} 秒。"

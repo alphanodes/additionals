@@ -1,8 +1,8 @@
 # Spanish strings
 es:
   seconds:
-    one: second
-    other: "%{count} seconds"
+    one: segundo
+    other: "%{count} segundos"
   minutes:
     one: minuto
     other: minutos
@@ -24,7 +24,7 @@ es:
         issue_changes_not_allowed: "Esta es una petición cerrada, Usted no dispone de permisos para cambiarla."
         issue_requires_timelog: "El estado actual de la petición requiere que le asigne el tiempo dedicado."
         invalid_icon_format: es un código inválido de font-awesome
-        relation_not_unique: multiple assigned.
+        relation_not_unique: "Asignación múltiple."
   account_login_info: "Este texto será mostrado en la pantalla de inicio de sesión y debe ser utilizado para información sobre el registro. Esta configuración está activa en todos los proyectos."
   add_go_to_top_info: 'Si tiene muchas páginas largas, es útil agregar el enlace para volver al inicio.'
   additionals_query_list_default_totals: Sumas predeterminadas para la vista de lista
@@ -44,7 +44,7 @@ es:
   field_always_expose: "Mostrar siempre el nombre del salpicadero"
   field_color: Color
   field_enable_new_ticket_message: "Activar el mensaje de la empresa"
-  field_enable_sidebar: Enable sidebar
+  field_enable_sidebar: "Activar la barra lateral"
   field_hide: "Ocultar"
   field_icon: Ícono
   field_issue_relation_plural: Relaciones de peticiones

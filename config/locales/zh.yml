@@ -1,8 +1,8 @@
 # Simplified Chinese strings
 zh:
   seconds:
-    one: second
-    other: "%{count} seconds"
+    one: 第二次
+    other: "%{count} 秒钟"
   minutes:
     one: 分钟
     other: 分钟

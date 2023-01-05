@@ -1,8 +1,8 @@
 # Czech strings
 cs:
   seconds:
-    one: second
-    other: "%{count} seconds"
+    one: "Druhý"
+    other: "%{count} sekundy"
   minutes:
     one: minuta
     other: minut
@@ -44,10 +44,10 @@ cs:
   field_always_expose: "Vždy zobrazit název palubní desky"
   field_color: Barva
   field_enable_new_ticket_message: "Aktivace zprávy o vydání"
-  field_enable_sidebar: Enable sidebar
+  field_enable_sidebar: "Aktivace postranního panelu"
   field_hide: "Skrýt"
   field_icon: Icon
-  field_issue_relation_plural: Issue relations
+  field_issue_relation_plural: "Vztahy k letenkám"
   field_notes_count: "Počet komentářů"
   field_project_system_default: "Výchozí nastavení projektu"
   field_system_default: "Výchozí systém"

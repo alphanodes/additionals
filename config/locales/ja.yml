@@ -1,17 +1,17 @@
 # Japanese strings
 ja:
   seconds:
-    one: second
-    other: "%{count} seconds"
+    one: 第2回
+    other: "%{count} 秒"
   minutes:
-    one: minute
-    other: minutes
+    one: 分
+    other: 議事録
   hours:
-    one: hour
-    other: hours
+    one: 時間
+    other: 時間
   days:
-    one: day
-    other: days
+    one: 日
+    other: 日数
   activerecord:
     errors:
       models:
@@ -22,13 +22,13 @@ ja:
         issue_current_user_status: "The selected status requires that the \"Assignee\" is yourself."
         issue_log_time_not_allowed: "is a closed issue. You are not allowed to log time at it."
         issue_changes_not_allowed: "This issue is closed, you do not have any right to change it."
-        issue_requires_timelog: "The selected issue status requires a time logging."
+        issue_requires_timelog: "選択されたステータスには、タイムブッキングが必要です."
         invalid_icon_format: is an invalid font-awesome code
-        relation_not_unique: multiple assigned.
+        relation_not_unique: 複数指定.
   account_login_info: "この文章は、ログイン画面で表示され、登録情報の掲載を目的にしています。これらの設定は全プロジェクトで有効です。"
   add_go_to_top_info: '長いページが多い場合、「トップへ」のリンクは役立ちます。'
-  additionals_query_list_default_totals: Default sums for list view
-  additionals_query_list_defaults: Default columns for list view
+  additionals_query_list_default_totals: "リストビューのデフォルトの合計"
+  additionals_query_list_defaults: "リストビューのデフォルトカラム"
   alert_only_visible_by_admins: "管理者権限を持つユーザーのみが見ることができます"
   alert_only_visible_by_yourself: "あなただけが見ることができます"
   button_assign_to_me: Assign to me
@@ -42,12 +42,12 @@ ja:
   error_query_statement_invalid: "クエリの実行中にエラーが発生し、ログに記録されました。このエラーをRedmine管理者に報告してください。"
   errors_no_or_invalid_arguments: "引数がない、または無効な引数"
   field_always_expose: "ダッシュボード名を常に表示する"
-  field_color: Color
+  field_color: "カラー"
   field_enable_new_ticket_message: "タスク起動メッセージ"
-  field_enable_sidebar: Enable sidebar
+  field_enable_sidebar: "サイドバーを有効にする"
   field_hide: Hide
   field_icon: Icon
-  field_issue_relation_plural: Issue relations
+  field_issue_relation_plural: "チケット関係"
   field_notes_count: コメント数
   field_project_system_default: "プロジェクトのデフォルト"
   field_system_default: "システムのデフォルト"
@@ -70,7 +70,7 @@ ja:
   label_additionals_message: "メッセージ"
   label_all_projects: すべてのプロジェクト
   label_app_menu: App menu
-  label_change_is_private: Change private/non-private
+  label_change_is_private: "プライベート／非プライベート変更"
   label_change_to_dashboard: "ダッシュボードに切り替える"
   label_chart_color_schema: Charts color scheme
   label_chart_with_name: "チャート: %{value}"
@@ -80,14 +80,14 @@ ja:
   label_copy_to_clipboard: "クリップボードにコピー"
   label_custom_field_editable_info: If disabled changes are only possible with API calls or via bulk edit.
   label_custom_fields_distribution: "配布用のカスタムフィールド"
-  label_daily: daily
+  label_daily: ひごとに
   label_dashboard: Dashboard
-  label_dashboard_author: "Author: %{name}"
-  label_dashboard_block_info_async: This block is loaded asynchronous and cached for %{time}.
+  label_dashboard_author: "著者名: %{name}"
+  label_dashboard_block_info_async: のために非同期でブロックがロードされ、キャッシュされます %{time}.
   label_dashboard_legacy_left: "標準インハルト左"
   label_dashboard_legacy_right: "標準コンテンツの権利"
   label_dashboard_plural: Dashboards
-  label_day: day
+  label_day: "日"
   label_disable_sidebar: "サイドバーを無効にする"
   label_disabled_modules: "無効化したいモジュール"
   label_docs_access_token: Access token
@@ -103,7 +103,7 @@ ja:
   label_help_integration: Online help integration
   label_help_manual: manual
   label_hidden_macros_in_toolbar: Hidden macros
-  label_hour: hour
+  label_hour: "時間"
   label_icon_color: Icon color
   label_invalid_feed_data: "無効なフィードデータまたはURL"
   label_issue_assign_to_me: Show "Assign to me" on issue
@@ -113,16 +113,16 @@ ja:
   label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
   label_issue_freezed_with_close: Disallow editing of closed issues (Freeze)
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
-  label_issue_timelog_required: Time log for issues required
+  label_issue_timelog_required: "タスクに必要な時間予約"
   label_issues_summary: "タスクの概要"
-  label_last_year: previous year
+  label_last_year: "ぜんねん"
   label_legacy_smiley_support: Legacy smiley support
   label_live_search_hints: "利用可能なフィールド検索: %{value}"
   label_macro_plural: macros
   label_max_entries: "最大エントリ数"
   label_max_live_search_results: "LiveSearchの最大検索結果数"
   label_menu_entry: "メニュー項目"
-  label_monthly: monthly
+  label_monthly: "毎月"
   label_my_activity: "私の活動"
   label_my_dashboard_plural: "私のダッシュボード"
   label_my_spent_time: My spent time
@@ -153,11 +153,11 @@ ja:
   label_settings_macros: "マクロ"
   label_settings_menu: "メニュー"
   label_shared_dashboard_plural: "共有ダッシュボード"
-  label_show_all: Show all
+  label_show_all: "見せ付ける"
   label_show_closed_issues: "解決済みの問題を表示"
   label_stats_new_today: "本日の新着情報"
   label_stats_totals: "合計"
-  label_system_info: System info
+  label_system_info: "システム情報"
   label_system_setting: "システム"
   label_text_async: "テキスト（非同期)"
   label_text_sync: "テキスト"

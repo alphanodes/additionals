@@ -1,8 +1,8 @@
 # Brasilian strings
 pt-BR:
   seconds:
-    one: second
-    other: "%{count} seconds"
+    one: segundo
+    other: "%{count} segundos"
   minutes:
     one: minuto
     other: minutas

@@ -1,8 +1,8 @@
 # Polish strings
 pl:
   seconds:
-    one: second
-    other: "%{count} seconds"
+    one: druga
+    other: "%{count} sekundy"
   minutes:
     one: "minutę"
     other: minuty
@@ -44,7 +44,7 @@ pl:
   field_always_expose: "Zawsze pokazuj nazwę pulpitu"
   field_color: Kolor
   field_enable_new_ticket_message: "Aktywuj komunikat o zleceniu"
-  field_enable_sidebar: Enable sidebar
+  field_enable_sidebar: "Aktywuj pasek boczny"
   field_hide: "Ukryć się"
   field_icon: Icon
   field_issue_relation_plural: Issue stosunki

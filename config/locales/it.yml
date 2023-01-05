@@ -1,8 +1,8 @@
 # Italian strings
 it:
   seconds:
-    one: second
-    other: "%{count} seconds"
+    one: secondo
+    other: "%{count} secondi"
   minutes:
     one: minuto
     other: minuti
@@ -24,7 +24,7 @@ it:
         issue_changes_not_allowed: "Questo issue è chiuso, non ha alcun diritto di modificarlo."
         issue_requires_timelog: "Lo stato del problema selezionato richiede una registrazione temporale."
         invalid_icon_format: 'è un font-awesome codice non valido'
-        relation_not_unique: multiple assigned.
+        relation_not_unique: Assegnazione multipla.
   account_login_info: "Questo messaggio di testo sarà mostrato nella pagina di login e deve essere utilizzato per le informazioni di registrazione. Queste impostazioni sono attive in tutti i progetti."
   add_go_to_top_info: 'Se hai un sacco di pagine lunghe, è utile aggiungere un To top link principale.'
   additionals_query_list_default_totals: "Importi predefiniti per la vista elenco"

@@ -1,8 +1,8 @@
 # Korean strings
 ko:
   seconds:
-    one: second
-    other: "%{count} seconds"
+    one: "두번째"
+    other: "%{count} 초"
   minutes:
     one: 분
     other: 분
@@ -16,7 +16,7 @@ ko:
     errors:
       models:
         dashboard:
-            must_be_for_everyone: "must be set for each user if System Default is used."
+            must_be_for_everyone: "시스템 기본값을 사용하는 경우 각 사용자에 대해 설정해야 합니다."
       messages:
         issue_cannot_close_with_open_children: "이 문제는 모든 하위 이슈가 종료 된 경우에만 종료 할 수 있습니다."
         issue_current_user_status: "The selected status requires that the \"Assignee\" is yourself."
@@ -24,13 +24,13 @@ ko:
         issue_changes_not_allowed: "이 문제는 종료되었습니다. 변경할 권한이 없습니다."
         issue_requires_timelog: "선택한 문제 상태에는 시간 로깅이 필요합니다."
         invalid_icon_format: "잘못된 글꼴 멋진 코드입니다"
-        relation_not_unique: multiple assigned.
+        relation_not_unique: "여러 할당."
   account_login_info: "이 문자 메시지는 로그인 페이지에 표시되며 등록 정보에 사용해야합니다. 이 설정은 모든 프로젝트에서 활성화됩니다."
   add_go_to_top_info: '긴 페이지가 많은 경우 맨 위로 이동 링크를 추가하면 도움이됩니다.'
   additionals_query_list_default_totals: 목록보기의 기본 합계
   additionals_query_list_defaults: 목록보기의 기본 열
-  alert_only_visible_by_admins: "Can only be seen by users with admin permissions"
-  alert_only_visible_by_yourself: "Can only be seen by you"
+  alert_only_visible_by_admins: "관리자 권한이 있는 사용자만 볼 수 있음"
+  alert_only_visible_by_yourself: "너만 볼 수 있어"
   button_assign_to_me: 나에게 할당
   button_dashboard_delete: 대시보드 삭제
   button_dashboard_edit: 대시보드 수정
@@ -71,29 +71,29 @@ ko:
   label_all_projects: 모든 프로젝트
   label_app_menu: 앱 메뉴
   label_change_is_private: 개인 / 비 개인 변경
-  label_change_to_dashboard: "Switch to Dashboard"
+  label_change_to_dashboard: "대시보드로 전환"
   label_chart_color_schema: 차트 색 구성표
-  label_chart_with_name: "Chart: %{value}"
+  label_chart_with_name: "차트: %{value}"
   label_chartjs_colorscheme_info: 컬러리스트
   label_content_plural: 내용
   label_copied_to_clipboard: "복사되었습니다!"
   label_copy_to_clipboard: "클립 보드에 복사"
-  label_custom_field_editable_info: If disabled changes are only possible with API calls or via bulk edit.
-  label_custom_fields_distribution: "Custom fields for distribution"
+  label_custom_field_editable_info: "비활성화된 경우 변경은 API 호출 또는 대량 편집을 통해서만 가능합니다."
+  label_custom_fields_distribution: "배포용 사용자 정의 필드"
   label_daily: 매일
   label_dashboard: Dashboard
-  label_dashboard_author: "Author: %{name}"
-  label_dashboard_block_info_async: This block is loaded asynchronous and cached for %{time}.
-  label_dashboard_legacy_left: "Standard content left"
-  label_dashboard_legacy_right: "Standard content right"
+  label_dashboard_author: "작가: %{name}"
+  label_dashboard_block_info_async: "이 블록은 비동기식으로 로드되며 %{time}에 대해 캐시됩니다."
+  label_dashboard_legacy_left: "표준 콘텐츠 왼쪽"
+  label_dashboard_legacy_right: "표준 콘텐츠 권리"
   label_dashboard_plural: Dashboards
   label_day: 일
-  label_disable_sidebar: Disable sidebar
+  label_disable_sidebar: "사이드바 비활성화"
   label_disabled_modules: "비활성화 된 모듈"
   label_docs_access_token: Access token
   label_emoji_support: Emoji support
   label_enable_auto_refresh: "자동 새로고침 활성화 "
-  label_enable_sidebar: Enable sidebar
+  label_enable_sidebar: "사이드바 활성화"
   label_global_footer: "넓은 바닥 글 프로젝트"
   label_global_sidebar: "글로벌 사이드 바"
   label_global_wiki_sidebar: "글로벌 위키 사이드 바"
@@ -105,7 +105,7 @@ ko:
   label_hidden_macros_in_toolbar: Hidden macros
   label_hour: 시간
   label_icon_color: 시간
-  label_invalid_feed_data: "Invalid feed data or URL"
+  label_invalid_feed_data: "잘못된 피드 데이터 또는 URL"
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
   label_issue_change_status: 상태 변경
@@ -119,18 +119,18 @@ ko:
   label_legacy_smiley_support: Legacy smiley support
   label_live_search_hints: "사용 가능한 필드 검색 : %{value}"
   label_macro_plural: Macros
-  label_max_entries: "Maximum entries"
+  label_max_entries: "최대 항목"
   label_max_live_search_results: "최대 LiveSearch 결과 수 "
   label_menu_entry: "Menu item"
   label_monthly: 월간 간행물
-  label_my_activity: "My activity"
-  label_my_dashboard_plural: My dashboards
+  label_my_activity: "내 활동"
+  label_my_dashboard_plural: "내 대시 보드"
   label_my_spent_time: My spent time
   label_new_dashboard: New dashboard
   label_new_issue_on_profile: 사용자 프로필의 새로운 문제
   label_new_ticket_message: "새로운 문제에 대한 참고 사항"
-  label_no_permission: "No permission"
-  label_only_my_activities: "Only my activity"
+  label_no_permission: "비허가"
+  label_only_my_activities: "내 활동만"
   label_open_external_urls: 외부 URL 열기
   label_open_in_google_docs: "Google 문서에서 열기"
   label_open_in_new_windows: 새 창에서 열기
@@ -159,8 +159,8 @@ ko:
   label_stats_totals: "합계"
   label_system_info: 시스템 정보
   label_system_setting: "체계"
-  label_text_async: Text (asynchronous)
-  label_text_sync: Text
+  label_text_async: "텍스트(비동기)"
+  label_text_sync: "텍스트"
   label_top_macros_help_html: "다음은 Redmine 및 Redmine 플러그인에서 제공하는 설치에 사용 가능한 모든 Redmine 매크로 목록입니다."
   label_top_menu: 톱 메뉴
   label_top_menu_help_html: "여기에서 새로운 최상위 메뉴 항목을 정의 할 수 있습니다."

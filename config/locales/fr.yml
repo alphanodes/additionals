@@ -1,8 +1,8 @@
 # French strings
 fr:
   seconds:
-    one: second
-    other: "%{count} seconds"
+    one: seconde
+    other: "%{count} secondes"
   minutes:
     one: minute
     other: minutes

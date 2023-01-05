@@ -435,7 +435,11 @@ module DashboardsHelper
 
   def dashboard_block_sync_info(block_definition)
     sec = block_definition[:async][:cache_expires_in].presence || DashboardContent::RENDER_ASYNC_CACHE_EXPIRES_IN
-    l :dashboard_block_info_async, seconds: sec
+    if sec < 60
+      l :label_dashboard_block_info_async, time: l(:seconds, sec)
+    else
+      l :label_dashboard_block_info_async, time: distance_of_time_in_words(sec)
+    end
   end
 
   # Renders a single block content

@@ -1,5 +1,8 @@
 # Simplified Chinese strings
 zh:
+  seconds:
+    one: second
+    other: "%{count} seconds"
   minutes:
     one: 分钟
     other: 分钟
@@ -33,6 +36,7 @@ zh:
   button_dashboard_edit: "编辑仪表盘"
   button_merge: "合并"
   disabled_modules_info: "项目中无法选择模块。如果这些模块已经在现有项目中激活，则必须首先更改并重新保存响应的项目设置。"
+  emoji_support_info_html: 'Convert emojis in text. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> the available emoji codes can be used.'
   error_issue_status_could_not_changed: 无法改变问题状态
   error_issues_could_not_be_assigned_to_me: 问题无法被指派给自己
   error_query_statement_invalid: 执行查询时出错且已被记录。请向你的 Redmine 管理员报告此错误。
@@ -44,6 +48,7 @@ zh:
   field_hide: 隐藏
   field_icon: 图标
   field_issue_relation_plural: 问题关联关系
+  field_notes_count: 评论的数量
   field_project_system_default: "项目默认值"
   field_system_default: "系统默认值"
   field_visibility: 可见性
@@ -56,12 +61,14 @@ zh:
   info_hidden_roles_html: 隐藏功能只能与"用户可见度"选项一起使用。如果某用户不在对当前用户可见的角色，则此用户及其角色在项目概述页和查询列表中将对当前用户隐藏。
   info_live_search_result_restriction: "LiveSearch的结果仅限于 %{value}。命中率。尝试更详细地描述你的搜索。"
   label_account_login_bottom: "用于登陆页的文本"
+  label_activate_quickstart: Activate quickstart
   label_active_dashboard: "活动的仪表盘"
   label_add_dashboard_block: "添加块"
   label_add_go_to_top: '添加 "回到顶部" 链接'
   label_additionals: Additionals
   label_additionals_feed: "Atom+RSS Feed"
   label_additionals_message: "讯息"
+  label_all_projects: 所有项目
   label_app_menu: 应用菜单
   label_change_is_private: 修改私有/非私有
   label_change_to_dashboard: "切换到仪表盘"
@@ -71,10 +78,12 @@ zh:
   label_content_plural: 内容
   label_copied_to_clipboard: "已复制!"
   label_copy_to_clipboard: "复制到剪贴板"
+  label_custom_field_editable_info: If disabled changes are only possible with API calls or via bulk edit.
   label_custom_fields_distribution: "用于分发的自定义字段"
   label_daily: 每天
   label_dashboard: 仪表盘
   label_dashboard_author: "作者: %{name}"
+  label_dashboard_block_info_async: This block is loaded asynchronous and cached for %{time}.
   label_dashboard_legacy_left: "标准左侧内容"
   label_dashboard_legacy_right: "标准右侧内容"
   label_dashboard_plural: 仪表盘
@@ -82,6 +91,7 @@ zh:
   label_disable_sidebar: 禁用侧边栏
   label_disabled_modules: "禁用模块"
   label_docs_access_token: 访问令牌
+  label_emoji_support: Emoji support
   label_enable_auto_refresh: "启用自动刷新"
   label_enable_sidebar: 启用侧边栏
   label_global_footer: "项目范围内的页脚设置"
@@ -89,6 +99,7 @@ zh:
   label_global_wiki_sidebar: "全局 Wiki 侧边栏设置"
   label_go_to_top: "回到顶部"
   label_google_maps_api_key: Google Maps 集成 API Key
+  label_help_doc: 文件
   label_help_integration: 集成在线帮助
   label_help_manual: 手册
   label_hidden_macros_in_toolbar: 隐藏的宏
@@ -132,6 +143,7 @@ zh:
   label_query_edit: 编辑查询
   label_query_name_search: "搜索名字"
   label_query_with_name: "查询: %{value}"
+  label_quickstart: Quickstart
   label_reddit_subject: Reddit 主题
   label_reddit_user_account: Reddit 账号
   label_redmine_org_issue: Redmine.org 问题
@@ -163,12 +175,11 @@ zh:
   label_without_value: "没有 %{value}"
   label_yearly: 每年
   latest_entries_changes: "最新的 %{value} 变更"
-  label_emoji_support: Emoji support
-  emoji_support_info_html: 'Convert emojis in text. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> the available emoji codes can be used.'
   legacy_smiley_support_info_html: 'Convert smileys in text. Activate this option if :), :-) etc are to be converted to smileys. If this setting is changed, the application server <strong>must be restarted</strong>.'
   max_live_search_results_info: "LiveSearch的最大搜索结果的数量。注意：设置只影响到支持LiveSearch的插件。"
   menu_roles_info: "只有所选角色对应的用户才能看到菜单项。"
   new_ticket_message_info: "每个新建问题的用户都会看到提示信息。例如，您可以输入可接受性测试或问题处理规则。这些配置在某个具体的项目范围内适用。"
+  notice_failed_to_save_entries: "%{count} of %{total} selected %{name_plural} could not be saved : %{ids}."
   open_external_urls_info: "如果启用，则在新窗口/选项卡中打开外部URL。"
   permission_change_new_issue_author: 设置新建问题时的问题作者
   permission_edit_closed_issues: "修改已关闭的问题"
@@ -190,11 +201,3 @@ zh:
   top_wiki_help: 您可以在此定义 Wiki 的内容及设置。
   wiki_pdf_remove_attachments_info:  当启用时，Wiki 附件将不会显示在 PDF 视图中。
   wiki_pdf_remove_title_info: 当启用时，Wiki 标题信息将不会显示在 PDF 视图中。
-  label_custom_field_editable_info: If disabled changes are only possible with API calls or via bulk edit.
-  label_help_doc: 文件
-  label_activate_quickstart: Activate quickstart
-  label_quickstart: Quickstart
-  label_all_projects: 所有项目
-  notice_failed_to_save_entries: "%{count} of %{total} selected %{name_plural} could not be saved : %{ids}."
-  field_notes_count: 评论的数量
-  dashboard_block_info_async: "该块是异步加载的，缓存时间为 %{seconds} 秒。"

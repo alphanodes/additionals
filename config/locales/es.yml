@@ -1,5 +1,8 @@
 # Spanish strings
 es:
+  seconds:
+    one: second
+    other: "%{count} seconds"
   minutes:
     one: minuto
     other: minutos
@@ -33,6 +36,7 @@ es:
   button_dashboard_edit: "Editar el dashboard"
   button_merge: "Combinar"
   disabled_modules_info: "Módulos que no estarán disponibles para ser utilizados en los proyectos. Si estos módulos están actualmente activos en proyectos existentes, deberá modificar y guardar esos proyectos primero."
+  emoji_support_info_html: 'Convertir emojis en texto. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> the available emoji codes can be used.'
   error_issue_status_could_not_changed: El estado de la petición no puede ser modificado
   error_issues_could_not_be_assigned_to_me: La petición no puede ser asignada a mi mismo
   error_query_statement_invalid: Ocurrió un error ejecutando la consulta y fue registrado. Por favor informe este error al administrador de Redmine.
@@ -44,6 +48,7 @@ es:
   field_hide: "Ocultar"
   field_icon: Ícono
   field_issue_relation_plural: Relaciones de peticiones
+  field_notes_count: "Número de comentarios"
   field_project_system_default: "Proyecto por defecto"
   field_system_default: "System default"
   field_visibility: "Visibilidad"
@@ -56,12 +61,14 @@ es:
   info_hidden_roles_html: Los roles ocultos sólo se pueden utilizar junto con la visibilidad del usuario "Miembros de proyectos visibles". Si el usuario no está en una función que sea visible para el usuario actual, esta función, que incluye al usuario, se oculta en la página de resumen del proyecto y en las listas de consulta.
   info_live_search_result_restriction: "Los resultados de LiveSearch se limitan a %{value} golpes. Intente describir su búsqueda con más detalle."
   label_account_login_bottom: "Texto para la página de inicio de sesión"
+  label_activate_quickstart: Activar quickstart
   label_active_dashboard: "Dashboard activo"
   label_add_dashboard_block: "Añadir bloque"
   label_add_go_to_top: 'Agregar "Volver al inicio"'
   label_additionals: Additionals
   label_additionals_feed: "Atom+RSS Feed"
   label_additionals_message: "Mensaje"
+  label_all_projects: Todos los proyectos
   label_app_menu: Menú de aplicación
   label_change_is_private: Cambiar privado/no-privado
   label_change_to_dashboard: "Cambiar a Dashboard"
@@ -71,10 +78,12 @@ es:
   label_content_plural: Contenido
   label_copied_to_clipboard: "¡Copiado!"
   label_copy_to_clipboard: "Copia al portapapeles"
+  label_custom_field_editable_info: If disabled changes are only possible with API calls or via bulk edit.
   label_custom_fields_distribution: "Campos customizados para la distribución"
   label_daily: diario
   label_dashboard: Dashboard
   label_dashboard_author: "Author: %{name}"
+  label_dashboard_block_info_async: "Este bloque se carga de forma asíncrona y se almacena en caché durante %{time}."
   label_dashboard_legacy_left: "Contenido estándar a la izquierda"
   label_dashboard_legacy_right: "Contenido estándar correcto"
   label_dashboard_plural: Dashboards
@@ -82,6 +91,7 @@ es:
   label_disable_sidebar: "Deshabilitar la barra lateral"
   label_disabled_modules: "Módulos desactivados"
   label_docs_access_token: Token de acceso
+  label_emoji_support: Emoji Soporta
   label_enable_auto_refresh: "Activar la actualización automática"
   label_enable_sidebar: "Activar la barra lateral"
   label_global_footer: "Footer para todo el proyecto"
@@ -89,6 +99,7 @@ es:
   label_global_wiki_sidebar: "Barra lateral de wiki global"
   label_go_to_top: "Volver al inicio"
   label_google_maps_api_key: Google Maps Embed API Key
+  label_help_doc: "Documentación"
   label_help_integration: Integración con la ayuda en línea
   label_help_manual: manual
   label_hidden_macros_in_toolbar: Hidden macros
@@ -132,6 +143,7 @@ es:
   label_query_edit: Editar Consulta
   label_query_name_search: Buscar por nombre
   label_query_with_name: "Query: %{value}"
+  label_quickstart: Quickstart
   label_reddit_subject: Tema de Reddit
   label_reddit_user_account: Cuenta de usuario de Reddit
   label_redmine_org_issue: Peticion de Redmine.org
@@ -163,12 +175,11 @@ es:
   label_without_value: "No %{value}"
   label_yearly: anualmente
   latest_entries_changes: "Últimos %{value} cambios"
-  label_emoji_support: Emoji Soporta
-  emoji_support_info_html: 'Convertir emojis en texto. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> the available emoji codes can be used.'
   legacy_smiley_support_info_html: 'Convertir smiley en texto. Activate this option if :), :-) etc are to be converted to smileys. If this setting is changed, the application server <strong>must be restarted</strong>.'
   max_live_search_results_info: "Número de resultados máximos de búsqueda para LiveSearch. Nota: La configuración sólo afecta a los plugins que soportan LiveSearch."
   menu_roles_info: "Solo los miembros con los roles selccionado podrán ver esta entrada de Menú."
   new_ticket_message_info: "Se mostrará una nota a todos aquellos que quieran agregar una nueva petición. Puede por ejemplo agregar las condiciones de aceptación o las plantillas. Estas configuraciones afectan a todos los proyectos."
+  notice_failed_to_save_entries: "%{count} de %{total} %{name_plural} seleccionados no pudieron ser salvados: %{ids}."
   open_external_urls_info: "Si está activo, las URL externas se abren en una nueva ventana/pestaña."
   permission_change_new_issue_author: Asignar autor en las peticiones nuevas
   permission_edit_closed_issues: "Editar peticiones cerradas"
@@ -190,11 +201,3 @@ es:
   top_wiki_help: "Aquí puede definir contenidos y configuracioens para su Wiki."
   wiki_pdf_remove_attachments_info: "Cuando está activa, los adjuntos no serán mostrados en los PDF."
   wiki_pdf_remove_title_info: "Cuando está activa, el título de la Wiki no será mostrado en los PDF."
-  label_custom_field_editable_info: If disabled changes are only possible with API calls or via bulk edit.
-  label_help_doc: "Documentación"
-  label_activate_quickstart: Activar quickstart
-  label_quickstart: Quickstart
-  label_all_projects: Todos los proyectos
-  notice_failed_to_save_entries: "%{count} de %{total} %{name_plural} seleccionados no pudieron ser salvados: %{ids}."
-  field_notes_count: "Número de comentarios"
-  dashboard_block_info_async: "Este bloque se carga de forma asíncrona y se almacena en caché durante %{seconds} segundos."

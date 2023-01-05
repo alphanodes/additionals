@@ -1,5 +1,8 @@
 # English strings
 en:
+  seconds:
+    one: second
+    other: "%{count} seconds"
   minutes:
     one: minute
     other: minutes
@@ -33,6 +36,7 @@ en:
   button_dashboard_edit: Edit dashboard
   button_merge: "Merge"
   disabled_modules_info: "Modules which should not be available for selection within the projects. If these modules already activated in existing projects, you will have to change and re-save the respective project settings first."
+  emoji_support_info_html: 'Convert emojis in text. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> the available emoji codes can be used.'
   error_issue_status_could_not_changed: Issue state could not be changed
   error_issues_could_not_be_assigned_to_me: Issue could not be assigned to me
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
@@ -44,6 +48,7 @@ en:
   field_hide: Hide
   field_icon: Icon
   field_issue_relation_plural: Issue relations
+  field_notes_count: Notes amount
   field_project_system_default: Project default
   field_system_default: System default
   field_visibility: Visibility
@@ -56,12 +61,14 @@ en:
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.
   info_live_search_result_restriction: "LiveSearch results are limited to %{value} entries. Try to filter your search a better way."
   label_account_login_bottom: "Text for login page"
+  label_activate_quickstart: Activate quickstart
   label_active_dashboard: "Active Dashboard"
   label_add_dashboard_block: "Add block"
   label_add_go_to_top: 'Add "Go to top" link'
   label_additionals: Additionals
   label_additionals_feed: Atom+RSS Feed
   label_additionals_message: Message
+  label_all_projects: All projects
   label_app_menu: App menu
   label_change_is_private: Change private/non-private
   label_change_to_dashboard: "Switch to Dashboard"
@@ -71,10 +78,12 @@ en:
   label_content_plural: Contents
   label_copied_to_clipboard: Copied!
   label_copy_to_clipboard: Copy to clipboard
+  label_custom_field_editable_info: If disabled changes are only possible with API calls or via bulk edit.
   label_custom_fields_distribution: "Custom fields for distribution"
   label_daily: daily
   label_dashboard: Dashboard
   label_dashboard_author: "Author: %{name}"
+  label_dashboard_block_info_async: This block is loaded asynchronous and cached for %{time}.
   label_dashboard_legacy_left: "Standard content left"
   label_dashboard_legacy_right: "Standard content right"
   label_dashboard_plural: Dashboards
@@ -82,6 +91,7 @@ en:
   label_disable_sidebar: Disable sidebar
   label_disabled_modules: "Disabled modules"
   label_docs_access_token: "Access token"
+  label_emoji_support: Emoji support
   label_enable_auto_refresh: Enable auto refresh
   label_enable_sidebar: Enable sidebar
   label_global_footer: "Project wide footer"
@@ -89,6 +99,7 @@ en:
   label_global_wiki_sidebar: "Global wiki sidebar"
   label_go_to_top: "Go to top"
   label_google_maps_api_key: Google Maps Embed API Key
+  label_help_doc: Documentation
   label_help_integration: Online help integration
   label_help_manual: manual
   label_hidden_macros_in_toolbar: Hidden macros
@@ -132,6 +143,7 @@ en:
   label_query_edit: Edit query
   label_query_name_search: Search for name
   label_query_with_name: "Query: %{value}"
+  label_quickstart: Quickstart
   label_reddit_subject: Reddit subject
   label_reddit_user_account: Reddit user account
   label_redmine_org_issue: Redmine.org issue
@@ -163,12 +175,11 @@ en:
   label_without_value: "No %{value}"
   label_yearly: yearly
   latest_entries_changes: "Latest %{value} changes"
-  label_emoji_support: Emoji support
-  emoji_support_info_html: 'Convert emojis in text. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> the available emoji codes can be used.'
   legacy_smiley_support_info_html: 'Convert smileys in text. Activate this option if :), :-) etc are to be converted to smileys. If this setting is changed, the application server <strong>must be restarted</strong>.'
   max_live_search_results_info: "Number of maximum search results for LiveSearch. Note: Setting only affects plugins that support LiveSearch."
   menu_roles_info: "Only members of selected roles will see this menu entry."
   new_ticket_message_info: "A note will be shown to everyone who wants to add a new issue. For example you can enter acceptance tests or issue rules here. These settings are used project wide."
+  notice_failed_to_save_entries: "%{count} of %{total} selected %{name_plural} could not be saved : %{ids}."
   open_external_urls_info: "If active, external URLs are opened in new window/tab."
   permission_change_new_issue_author: Set author of new issues
   permission_edit_closed_issues: "Edit closed issues"
@@ -190,11 +201,3 @@ en:
   top_wiki_help: "Here you can define contents and settings for your Wiki."
   wiki_pdf_remove_attachments_info: "When active the attached Wiki files will not be displayed in PDF view."
   wiki_pdf_remove_title_info: "When active the Wiki title info will not be displayed in PDF view."
-  label_custom_field_editable_info: If disabled changes are only possible with API calls or via bulk edit.
-  label_help_doc: Documentation
-  label_activate_quickstart: Activate quickstart
-  label_quickstart: Quickstart
-  label_all_projects: All projects
-  notice_failed_to_save_entries: "%{count} of %{total} selected %{name_plural} could not be saved : %{ids}."
-  field_notes_count: Notes amount
-  dashboard_block_info_async: This block is loaded asynchronous and cached for %{seconds} seconds.

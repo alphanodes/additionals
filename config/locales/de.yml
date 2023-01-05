@@ -1,5 +1,8 @@
 # German strings
 de:
+  seconds:
+    one: Sekunde
+    other: "%{count} Sekunden"
   minutes:
     one: Minute
     other: Minuten
@@ -33,6 +36,7 @@ de:
   button_dashboard_edit: Dashboard bearbeiten
   button_merge: "Zusammenführen"
   disabled_modules_info: "Module, die nicht zur Auswahl innerhalb der Projekte zur Verfügung stehen sollen. Sind in bestehenden Projekten schon diese Module aktiviert worden, werden die Einstellungen für diese Projekte erst nach erneuten Abspeichern der jeweiligen Projekteinstellungen aktiv."
+  emoji_support_info_html: 'Emojis im Text konvertieren. Aktivere diese Option, wenn :heart:, :+1: etc in Emojis konvertiert werden sollen. Im <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> können die zur Verfügung stehenden Emoji-Codes eingesetzt werden.'
   error_issue_status_could_not_changed: Der Ticket-Status konnte nicht geändert werden
   error_issues_could_not_be_assigned_to_me: Das Ticket konnte nicht mir zugeordnet werden
   error_query_statement_invalid: Beim Ausführen der Query ist ein Fehler aufgetreten und wurde protokolliert. Bitte melden Sie diesen Fehler Ihrem Redmine-Administrator.
@@ -44,6 +48,7 @@ de:
   field_hide: Verstecken
   field_icon: Symbol
   field_issue_relation_plural: Ticket Beziehungen
+  field_notes_count: Anzahl Kommentare
   field_project_system_default: Projektstandard
   field_system_default: System Standard
   field_visibility: Sichtbarkeit
@@ -56,12 +61,14 @@ de:
   info_hidden_roles_html: Versteckte Rollen können nur zusammen mit der Benutzersichtbarkeit "Mitglieder von sichtbaren Projekten" verwendet werden. Diese Option funktioniert nur, wenn der Benutzer in keiner Rolle ist die für den aktuellen Benutzer sichtbar ist. Passt alles wird diese Rolle inklusive Benutzer auf der Projektübersichtsseite und in Abfragelisten ausgeblendet.
   info_live_search_result_restriction: LiveSearch Ergebnisse sind auf %{value} Treffer begrenzt. Versuche Deine Suche genauer zu beschreiben.
   label_account_login_bottom: "Text für Anmeldeseite"
+  label_activate_quickstart: Schnellstart aktivieren
   label_active_dashboard: Aktives Dashboard
   label_add_dashboard_block: Block hinzufügen
   label_add_go_to_top: '"Nach oben" Link hinzufügen'
   label_additionals: Additionals
   label_additionals_feed: Atom+RSS Feed
   label_additionals_message: Hinweistext
+  label_all_projects: Alle Projekte
   label_app_menu: App Menü
   label_change_is_private: Privat/Nicht-Privat ändern
   label_change_to_dashboard: Zu Dashboard wechseln
@@ -71,10 +78,12 @@ de:
   label_content_plural: Inhalte
   label_copied_to_clipboard: Kopiert!
   label_copy_to_clipboard: In die Zwischenablage kopieren
+  label_custom_field_editable_info: Wenn deaktiviert, können Daten nur über die API oder über die Massenbearbeitung angegeben werden.
   label_custom_fields_distribution: Benutzerdefinierte Felder für Verteilung
   label_daily: täglich
   label_dashboard: Dashboard
   label_dashboard_author: "Autor: %{name}"
+  label_dashboard_block_info_async: Dieser Block wird asynchron geladen und %{time} gecached.
   label_dashboard_legacy_left: Standard-Inhalt links
   label_dashboard_legacy_right: Standard-Inhalt rechts
   label_dashboard_plural: Dashboards
@@ -82,6 +91,7 @@ de:
   label_disable_sidebar: Sidebar deaktivieren
   label_disabled_modules: "Deaktivierte Module"
   label_docs_access_token: Zugriffstoken
+  label_emoji_support: Emoji Support
   label_enable_auto_refresh: Automatische Aktualisierung aktivieren
   label_enable_sidebar: Sidebar aktivieren
   label_global_footer: "Projektübergreifender Footer"
@@ -89,6 +99,7 @@ de:
   label_global_wiki_sidebar: "Projektübergreifender Wiki-Sidebar Inhalt"
   label_go_to_top: "Nach oben"
   label_google_maps_api_key: Google Maps Embed API Key
+  label_help_doc: Dokumentation
   label_help_integration: Online Hilfe Integration
   label_help_manual: Handbuch
   label_hidden_macros_in_toolbar: Versteckte Makros
@@ -132,6 +143,7 @@ de:
   label_query_edit: Abfrage bearbeiten
   label_query_name_search: Nach Name suchen
   label_query_with_name: "Abfrage: %{value}"
+  label_quickstart: Schnellstart
   label_reddit_subject: Reddit Thema
   label_reddit_user_account: Reddit Benutzer
   label_redmine_org_issue: Redmine.org Ticket
@@ -163,12 +175,11 @@ de:
   label_without_value: "Ohne %{value}"
   label_yearly: jährlich
   latest_entries_changes: "Die letzten %{value} Änderungen"
-  label_emoji_support: Emoji Support
-  emoji_support_info_html: 'Emojis im Text konvertieren. Aktivere diese Option, wenn :heart:, :+1: etc in Emojis konvertiert werden sollen. Im <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> können die zur Verfügung stehenden Emoji-Codes eingesetzt werden.'
   legacy_smiley_support_info_html: 'Smileys im Text konvertieren. Aktiviere diese Option, wenn :), :-) etc in Smileys konvertiert werden sollen. Wird diese Einstellung verändert, <strong>muss der Anwendungsserver neu gestartet werden</strong>.'
   max_live_search_results_info: "Anzahl der maximalen Suchergebnisse für die LiveSearch. Hinweis: Einstellung wirkt sich nur auf Plugins aus, welche die LiveSearch unterstützen."
   menu_roles_info: "Nur den ausgewählten Rollen wird der Menüpunkt angezeigt. Sobald ein Mitglied in einem Projekt die Rolle besitzt, wird der Menüpunkt angezeigt."
   new_ticket_message_info: "Ein Hinweis, der beim Erstellen neuer Tickets angezeigt wird. Es kann beispielsweise auf Akzeptanztests oder Richtlinien zum Erstellen der Tickets hingewiesen werden. Dieser Einstellung ist projektübergreifend und ist in allen Projekten aktiv."
+  notice_failed_to_save_entries: "%{count} von %{total} ausgewählten %{name_plural} konnte(n) nicht gespeichert werden: %{ids}."
   open_external_urls_info: "Wenn aktiviert, werden externe URLs im neuen Fenster/TAB geöffnet."
   permission_change_new_issue_author: Autor bei Ticketerstellung festlegen
   permission_edit_closed_issues: "Geschlossene Tickets bearbeiten"
@@ -190,11 +201,3 @@ de:
   top_wiki_help: Hier kannst Du Inhalte und Einstellungen bzg. der Wiki festlegen.
   wiki_pdf_remove_attachments_info: Wenn aktiv, werden die an der Wiki Seite angehängten Dateien nicht in der PDF Ansicht angezeigt.
   wiki_pdf_remove_title_info: Wenn aktiv, wird der Wiki Titel nicht in der PDF Ansicht angezeigt.
-  label_custom_field_editable_info: Wenn deaktiviert, können Daten nur über die API oder über die Massenbearbeitung angegeben werden.
-  label_help_doc: Dokumentation
-  label_activate_quickstart: Schnellstart aktivieren
-  label_quickstart: Schnellstart
-  label_all_projects: Alle Projekte
-  notice_failed_to_save_entries: "%{count} von %{total} ausgewählten %{name_plural} konnte(n) nicht gespeichert werden: %{ids}."
-  field_notes_count: Anzahl Kommentare
-  dashboard_block_info_async: Dieser Block wird asynchron geladen und %{seconds} Sekunden gecached.

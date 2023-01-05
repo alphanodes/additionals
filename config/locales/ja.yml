@@ -1,5 +1,8 @@
 # Japanese strings
 ja:
+  seconds:
+    one: second
+    other: "%{count} seconds"
   minutes:
     one: minute
     other: minutes
@@ -33,6 +36,7 @@ ja:
   button_dashboard_edit: "ダッシュボードの編集"
   button_merge: "マージ"
   disabled_modules_info: "プロジェクト内で選択させたくないモジュール。もしこのモジュールが既存のプロジェクトで既に有効な場合、設定変更した上で、ウェブサーバを再起動しなければなりません。"
+  emoji_support_info_html: '絵文字をテキストに変換する. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> the available emoji codes can be used.'
   error_issue_status_could_not_changed: "問題の状態を変更できませんでした"
   error_issues_could_not_be_assigned_to_me: "問題を自分に割り当てることができませんでした"
   error_query_statement_invalid: "クエリの実行中にエラーが発生し、ログに記録されました。このエラーをRedmine管理者に報告してください。"
@@ -44,6 +48,7 @@ ja:
   field_hide: Hide
   field_icon: Icon
   field_issue_relation_plural: Issue relations
+  field_notes_count: コメント数
   field_project_system_default: "プロジェクトのデフォルト"
   field_system_default: "システムのデフォルト"
   field_visibility: "可視性"
@@ -56,12 +61,14 @@ ja:
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.
   info_live_search_result_restriction: "LiveSearchの検索結果は %{value} に限定されます。がヒットしました。検索内容をもっと詳しく説明してみてください。"
   label_account_login_bottom: "ログイン画面の文章"
+  label_activate_quickstart: "アクティブ化 quickstart"
   label_active_dashboard: "アクティブダッシュボード"
   label_add_dashboard_block: "ブロックを追加"
   label_add_go_to_top: '「トップへ」リンクを追加する'
   label_additionals: Additionals
   label_additionals_feed: Atom+RSS Feed
   label_additionals_message: "メッセージ"
+  label_all_projects: すべてのプロジェクト
   label_app_menu: App menu
   label_change_is_private: Change private/non-private
   label_change_to_dashboard: "ダッシュボードに切り替える"
@@ -71,10 +78,12 @@ ja:
   label_content_plural: "内容"
   label_copied_to_clipboard: "コピーしました"
   label_copy_to_clipboard: "クリップボードにコピー"
+  label_custom_field_editable_info: If disabled changes are only possible with API calls or via bulk edit.
   label_custom_fields_distribution: "配布用のカスタムフィールド"
   label_daily: daily
   label_dashboard: Dashboard
   label_dashboard_author: "Author: %{name}"
+  label_dashboard_block_info_async: This block is loaded asynchronous and cached for %{time}.
   label_dashboard_legacy_left: "標準インハルト左"
   label_dashboard_legacy_right: "標準コンテンツの権利"
   label_dashboard_plural: Dashboards
@@ -82,6 +91,7 @@ ja:
   label_disable_sidebar: "サイドバーを無効にする"
   label_disabled_modules: "無効化したいモジュール"
   label_docs_access_token: Access token
+  label_emoji_support: Emoji 対応
   label_enable_auto_refresh: "オートリフレシュを行う"
   label_enable_sidebar: "サイドバーを有効にする"
   label_global_footer: "プロジェクト全体フッター"
@@ -89,6 +99,7 @@ ja:
   label_global_wiki_sidebar: "グローバルWikiサイドバー"
   label_go_to_top: "トップへ"
   label_google_maps_api_key: Google Maps Embed API Key
+  label_help_doc: ドキュメンテーション
   label_help_integration: Online help integration
   label_help_manual: manual
   label_hidden_macros_in_toolbar: Hidden macros
@@ -132,6 +143,7 @@ ja:
   label_query_edit: Edit query
   label_query_name_search: "名前を検索"
   label_query_with_name: "Query: %{value}"
+  label_quickstart: Quickstart
   label_reddit_subject: Reddit subject
   label_reddit_user_account: Reddit user account
   label_redmine_org_issue: Redmine.org issue
@@ -163,12 +175,11 @@ ja:
   label_without_value: "%{value} なし"
   label_yearly: '毎年'
   latest_entries_changes: "最新の %{value} の変更点"
-  label_emoji_support: Emoji 対応
-  emoji_support_info_html: '絵文字をテキストに変換する. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> the available emoji codes can be used.'
   legacy_smiley_support_info_html: 'スマイリーをテキストに変換する. Activate this option if :), :-) etc are to be converted to smileys. If this setting is changed, the application server <strong>must be restarted</strong>.'
   max_live_search_results_info: "LiveSearchの最大検索結果数です。注意：この設定は、LiveSearchに対応したプラグインにのみ影響します。"
   menu_roles_info: "選択された役割のメンバーだけがこのメニュー項目を表示します。"
   new_ticket_message_info: "新規チケットを登録したいときに表示されるメモ書き。例えば、チケット入力のルールや承認規程を掲載する目的にでも使えます。これらの設定は全プロジェクトで有効です。"
+  notice_failed_to_save_entries: "%{count} of %{total} selected %{name_plural} could not be saved: %{ids}."
   open_external_urls_info: "アクティブな場合、外部URLは新しいウィンドウ/タブで開かれます。"
   permission_change_new_issue_author: "新しい問題の著者を設定する"
   permission_edit_closed_issues: "Edit closed issues"
@@ -190,11 +201,3 @@ ja:
   top_wiki_help: "ここでは、Wikiの内容や設定を定義することができます。"
   wiki_pdf_remove_attachments_info: "アクティブな場合、添付されたWikiファイルはPDFビューに表示されません。"
   wiki_pdf_remove_title_info: "アクティブな場合、Wikiのタイトル情報はPDFビューに表示されません。"
-  label_custom_field_editable_info: If disabled changes are only possible with API calls or via bulk edit.
-  label_help_doc: ドキュメンテーション
-  label_activate_quickstart: "アクティブ化 quickstart"
-  label_quickstart: Quickstart
-  label_all_projects: すべてのプロジェクト
-  notice_failed_to_save_entries: "%{count} of %{total} selected %{name_plural} could not be saved: %{ids}."
-  field_notes_count: コメント数
-  dashboard_block_info_async: "このブロックは非同期に読み込まれ、%{seconds} 秒間キャッシュされます。"

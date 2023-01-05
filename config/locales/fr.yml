@@ -1,5 +1,8 @@
 # French strings
 fr:
+  seconds:
+    one: second
+    other: "%{count} seconds"
   minutes:
     one: minute
     other: minutes
@@ -33,6 +36,7 @@ fr:
   button_dashboard_edit: "Modifier le tableau de bord"
   button_merge: Fusionner
   disabled_modules_info: "Les modules qui ne devraient pas être disponibles pour la sélection dans le cadre des projets. Si ces modules sont déjà activés dans des projets existants, vous devez d'abord modifier et sauvegarder à nouveau les paramètres projet respectifs."
+  emoji_support_info_html: 'Convertir les emojis en texte. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> the available emoji codes can be used.'
   error_issue_status_could_not_changed: "L'état de la tâche n'a pas pu être modifié"
   error_issues_could_not_be_assigned_to_me: "La tâche n'a pas pu m'être affectée"
   error_query_statement_invalid: "Une erreur s'est produite lors de l'exécution de la requête et a été enregistrée. Veuillez signaler cette erreur à votre administrateur Redmine."
@@ -44,6 +48,7 @@ fr:
   field_hide: "Cacher"
   field_icon: Icône
   field_issue_relation_plural: Relations entre tâches
+  field_notes_count: Total des commentaires
   field_project_system_default: "Projet par défaut"
   field_system_default: "Défaut du système"
   field_visibility: "Visibilité"
@@ -56,12 +61,14 @@ fr:
   info_hidden_roles_html: "Les rôles cachés ne peuvent être utilisés qu'avec la visibilité utilisateur \"Membres de projets visibles\". Si l'utilisateur n'est pas dans un rôle visible par l'utilisateur actuel, ce rôle, y compris l'utilisateur, est masqué sur la page de synthèse du projet et dans les listes de requêtes."
   info_live_search_result_restriction: "Les résultats de LiveSearch sont limités à %{value} résultats limités. Essaie de décrire ta recherche plus précisément."
   label_account_login_bottom: "Texte pour la page de connexion"
+  label_activate_quickstart: "Activer quickstart"
   label_active_dashboard: "Tableau de bord actif"
   label_add_dashboard_block: "Ajouter un bloc"
   label_add_go_to_top: 'Ajouter un lien "Revenir en haut"'
   label_additionals: Additionals
   label_additionals_feed: Flux Atom+RSS
   label_additionals_message: Message
+  label_all_projects: Tous les projets
   label_app_menu: Menu applicatif
   label_change_is_private: Changer Privé/non privé
   label_change_to_dashboard: "Passer au tableau de bord"
@@ -71,10 +78,12 @@ fr:
   label_content_plural: Contenus
   label_copied_to_clipboard: "Copié !"
   label_copy_to_clipboard: "Copie dans le presse-papiers"
+  label_custom_field_editable_info: If disabled changes are only possible with API calls or via bulk edit.
   label_custom_fields_distribution: "Champs personnalisés pour la distribution"
   label_daily: tous les jours
   label_dashboard: Tableau de bord
   label_dashboard_author: "Auteur: %{name}"
+  label_dashboard_block_info_async: "Ce bloc est chargé de manière asynchrone et mis en cache pendant %{time}."
   label_dashboard_legacy_left: "Contenu standard à gauche"
   label_dashboard_legacy_right: "Droit au contenu standard"
   label_dashboard_plural: Tableaux de bord
@@ -82,6 +91,7 @@ fr:
   label_disable_sidebar: "Désactiver la sidebar"
   label_disabled_modules: "Modules désactivés"
   label_docs_access_token: Jeton d'accès
+  label_emoji_support: Emoji Support
   label_enable_auto_refresh: "Activer le rafraîchissement automatique"
   label_enable_sidebar: "Activer la sidebar"
   label_global_footer: "Pied de page projet"
@@ -89,6 +99,7 @@ fr:
   label_global_wiki_sidebar: "Barre latéral global du wiki"
   label_go_to_top: "Revenir en haut"
   label_google_maps_api_key: Clé API de Google Maps
+  label_help_doc: Documentation
   label_help_integration: "Intégration de notre aide en ligne"
   label_help_manual: manuel
   label_hidden_macros_in_toolbar: Cacher les macros
@@ -132,6 +143,7 @@ fr:
   label_query_edit: Modifier la requête
   label_query_name_search: Rechercher un nom
   label_query_with_name: "Requête: %{value}"
+  label_quickstart: Quickstart
   label_reddit_subject: Sujet Reddit
   label_reddit_user_account: Compte utilisateur Reddit
   label_redmine_org_issue: Redmine.org issue
@@ -163,12 +175,11 @@ fr:
   label_without_value: "Aucune %{value}"
   label_yearly: annuellement
   latest_entries_changes: "Derniers %{value} changements"
-  label_emoji_support: Emoji Support
-  emoji_support_info_html: 'Convertir les emojis en texte. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> the available emoji codes can be used.'
   legacy_smiley_support_info_html: Convertir les smiley en texte. Activate this option if :), :-) etc are to be converted to smileys. If this setting is changed, the application server <strong>must be restarted</strong>.'
   max_live_search_results_info: "Nombre maximal de résultats de recherche pour la LiveSearch. Remarque : le paramètre n'a d'effet que sur les plugins qui supportent LiveSearch."
   menu_roles_info: "Seuls les membres des rôles sélectionnés verront cette entrée de menu."
   new_ticket_message_info: "Une note sera montrée à tous ceux qui veulent ajouter un nouveau numéro. Par exemple, vous pouvez saisir des tests d'acceptation ou édicter des règles ici. Ces paramètres sont utilisés à l'échelle du projet."
+  notice_failed_to_save_entries: "%{count} des %{total} %{name_plural} sélectionnés n'ont pu être sauvegardés: %{ids}."
   open_external_urls_info: "S'ils sont actifs, les URL externes s'ouvrent dans une nouvelle fenêtre/onglet."
   permission_change_new_issue_author: "Définir l'auteur des nouveaux numéros"
   permission_edit_closed_issues: "Éditer les dossiers fermés"
@@ -190,11 +201,3 @@ fr:
   top_wiki_help: "Ici vous pouvez définir le contenu et les paramètres de votre Wiki."
   wiki_pdf_remove_attachments_info: "Lorsqu'ils sont actifs, les fichiers Wiki joints ne seront pas affichés en vue PDF."
   wiki_pdf_remove_title_info: "Lorsqu'elle est active, l'information sur le titre du wiki ne sera pas affichée dans la vue PDF."
-  label_custom_field_editable_info: If disabled changes are only possible with API calls or via bulk edit.
-  label_help_doc: Documentation
-  label_activate_quickstart: "Activer quickstart"
-  label_quickstart: Quickstart
-  label_all_projects: Tous les projets
-  notice_failed_to_save_entries: "%{count} des %{total} %{name_plural} sélectionnés n'ont pu être sauvegardés: %{ids}."
-  field_notes_count: Total des commentaires
-  dashboard_block_info_async: "Ce bloc est chargé de manière asynchrone et mis en cache pendant %{seconds} secondes."

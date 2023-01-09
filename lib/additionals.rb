@@ -115,6 +115,7 @@ module Additionals
                           ProjectsController
                           WelcomeController
                           ReportsController
+                          SettingsController
                           Principal
                           Query
                           QueryFilter
@@ -123,7 +124,6 @@ module Additionals
                           UserPreference]
 
       loader.add_helper %w[Issues
-                           Settings
                            Wiki
                            CustomFields]
 

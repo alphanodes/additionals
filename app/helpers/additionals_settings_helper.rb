@@ -67,6 +67,17 @@ module AdditionalsSettingsHelper
                text_area_tag("settings[#{name}]", value, **options)]
   end
 
+  # NOTE: overwrite redmine to use showSettingsTab instead of showTab to support tabs for plugins
+  def get_tab_action(tab)
+    return super if action_name != 'plugin'
+
+    if tab[:onclick]
+      tab[:onclick]
+    elsif tab[:partial]
+      "showPluginSettingsTab('#{tab[:name]}', this.href)"
+    end
+  end
+
   private
 
   def additionals_settings_label(name, options)

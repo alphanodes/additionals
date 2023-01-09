@@ -108,3 +108,36 @@ function observeLiveSearchField(fieldId, targetId, target_url) {
     $this.keyup(search_delay(check));
   });
 }
+
+/* Use this instead of showTab from Redmine, because on tabs are supported for plugin settings */
+/* exported showPluginSettingsTab */
+/* global replaceInHistory */
+function showPluginSettingsTab(name, url) {
+  $('#tab-content-' + name).parent().find('.tab-content').hide();
+  $('#tab-content-' + name).show();
+  $('#tab-' + name).closest('.tabs').find('a').removeClass('selected');
+  $('#tab-' + name).addClass('selected');
+
+  replaceInHistory(url);
+
+  /* only changes to this function */
+  var form = $('#tab-' + name).closest('form');
+  addTabToFromAction(form, name);
+  /* change end */
+
+  return false;
+}
+
+function addTabToFromAction(form, name) {
+  form.attr('action', function(i, action) {
+    if (action.includes('tab=')) {
+      return action.replace(/([?&])(tab=)[^&#]*/, '$1$2' + name);
+    } else if (!action.includes('?')) {
+      return action + '?tab=' + name;
+    } else if (!action.includes(name)) {
+      return action + '&tab=' + name;
+    }
+  });
+
+  /* console.log('hack it for: ' + name + ' with action ' + form.attr('action')); */
+}

@@ -25,7 +25,7 @@ jsToolBar.prototype.macroMenu = function(fn){
   menu.menu().width(170).position({
     my: 'left top',
     at: 'left bottom',
-    of: this.toolNodes['precode']
+    of: this.toolNodes['macros']
   });
   $(document).on('mousedown', function() {
     menu.remove();

@@ -137,6 +137,12 @@ function formatStateWithMultiaddress(opt) {
   return $('<span class="select2-contact">' + opt.avatar + '<p class="select2-contact__name">' + opt.text + '</p><p class="select2-contact__email">' + opt.email + '</p></span>');
 }
 
+/* exported formatSelectionWithEmails */
+function formatSelectionWithEmails(opt) {
+  var email = $.trim(opt.email).length ? ' <' + opt.email + '>' : '';
+  return (opt.text || opt.name || '') + email;
+}
+
 function transformToSelect2(field, options) {
   if (rowHasSelect2(field)) { return; }
 

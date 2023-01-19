@@ -3,7 +3,7 @@
 ## 3.0.9
 
 - Chart.js Plugin annotation 2.1.1 support
-- D3 7.8.1 support
+- D3 7.8.2 support
 
 ## 3.0.8
 

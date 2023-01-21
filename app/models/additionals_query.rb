@@ -59,7 +59,7 @@ module AdditionalsQuery
   def sql_for_ids_field(_field, operator, value)
     if operator == '='
       # accepts a comma separated list of ids
-      ids = Additionals.ids_from_string value.first
+      ids = ids_from_string value.first
       if ids.any?
         "#{queried_table_name}.id IN (#{ids.join ','})"
       else

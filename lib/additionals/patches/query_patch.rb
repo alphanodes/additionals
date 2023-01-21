@@ -61,6 +61,10 @@ module Additionals
           @available_filters
         end
 
+        def ids_from_string(string)
+          string.to_s.scan(/\d+/).map(&:to_i)
+        end
+
         def export_limit
           Setting.issues_export_limit.to_i
         end

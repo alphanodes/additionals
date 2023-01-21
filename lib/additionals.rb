@@ -47,6 +47,10 @@ module Additionals
       [value, options]
     end
 
+    def ids_from_string(string)
+      string.to_s.scan(/\d+/).map(&:to_i)
+    end
+
     def split_ids(phrase, limit: nil)
       limit ||= Setting.per_page_options_array.first || 25
       raw_ids = phrase.strip_split

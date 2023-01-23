@@ -182,7 +182,7 @@ ja:
   notice_failed_to_save_entries: "%{count} of %{total} selected %{name_plural} could not be saved: %{ids}."
   open_external_urls_info: "アクティブな場合、外部URLは新しいウィンドウ/タブで開かれます。"
   permission_change_new_issue_author: "新しい問題の著者を設定する"
-  permission_edit_closed_issues: "Edit closed issues"
+  permission_edit_closed_issues: "クローズした課題の編集"
   permission_edit_issue_author: "著者を編集"
   permission_issue_timelog_never_required: '時間の予約は必要ありません'
   permission_log_time_on_closed_issues: "クローズした課題のログ時間"
@@ -194,13 +194,13 @@ ja:
   rule_issue_auto_assign_info: 'Use Case: The issue author does not know whom to assign the issue or who will be responsible for solving the task. In that case the issue for example with the status "To Do" is automatically assigned to the first group, which does contain a user of the pre-selected project manager role.'
   rule_issue_current_user_status_info_html: "This function together with the setting \"Issue status on sidebar\" automatically assigns the current user to the newly selected status.<br />Use Case: A user should only be able to set the status to \"In Progress\" for oneself when working on the ticket by oneself."
   rule_issue_freezed_with_close_info: If this option is activated, already closed issues can no longer be edited and commented. Not even via mail or API. This restriction does not apply to user roles with the "Edit closed issues" permission.
-  rule_issue_status_change_info: "Use Case: issues should be automatically assigned to autor, if the status changes to \"Approval\"."
+  rule_issue_status_change_info: "ユースケース: ステータスが次のように変更された場合、課題は自動的に著者に割り当てられる必要があります。 \"Approval\"."
   rule_issue_timelog_required_info_html: 'For each ticket of the selected trackers, a time booking is necessary if the ticket is to receive one of the defined status properties. The time booking is not required if:<br />- no rights exist for the creation of time bookings<br />- the user has the authorization "Time logging not required"<br />Use case: For the acceptance of a ticket with the status "To Verify", the time spent is also required.'
   setting_export_limit: "エクスポート制限"
   top_rules_help: "ここでは、すべてのプロジェクトの課題で使用されるルールを定義することができます。"
   top_wiki_help: "ここでは、Wikiの内容や設定を定義することができます。"
   wiki_pdf_remove_attachments_info: "アクティブな場合、添付されたWikiファイルはPDFビューに表示されません。"
   wiki_pdf_remove_title_info: "アクティブな場合、Wikiのタイトル情報はPDFビューに表示されません。"
-  label_user_is_author_of: This user is the author of this %{entity}.
-  label_issue_genitive: issue
-  label_issue_note_with_author: Show issue author with note
+  label_user_is_author_of: "このユーザーは、この %{entity}."
+  label_issue_genitive: "タスク"
+  label_issue_note_with_author: "タスクの作者とメモを表示する"

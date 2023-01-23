@@ -82,7 +82,7 @@ pl:
   label_custom_fields_distribution: "Pola niestandardowe dla dystrybucji"
   label_daily: "dobowy"
   label_dashboard: Dashboard
-  label_dashboard_author: "Author: %{name}"
+  label_dashboard_author: "Autor: %{name}"
   label_dashboard_block_info_async: "Ten blok jest ładowany asynchronicznie i buforowany przez %{time}."
   label_dashboard_legacy_left: "Zawartość standardowa lewy"
   label_dashboard_legacy_right: "Zawartość standardowa prawa"
@@ -201,6 +201,6 @@ pl:
   top_wiki_help: "Tutaj możesz zdefiniować zawartość i ustawienia dla swojej Wiki."
   wiki_pdf_remove_attachments_info: "Gdy jest aktywny, załączone pliki Wiki nie będą wyświetlane w widoku PDF."
   wiki_pdf_remove_title_info: "Gdy jest aktywny, informacja o tytule Wiki nie będzie wyświetlana w widoku PDF."
-  label_user_is_author_of: This user is the author of this %{entity}.
+  label_user_is_author_of: "Ten użytkownik jest autorem tego %{entity}."
   label_issue_genitive: issue
-  label_issue_note_with_author: Show issue author with note
+  label_issue_note_with_author: "Pokaż autora zadania z notatką"

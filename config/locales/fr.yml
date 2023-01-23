@@ -201,6 +201,6 @@ fr:
   top_wiki_help: "Ici vous pouvez définir le contenu et les paramètres de votre Wiki."
   wiki_pdf_remove_attachments_info: "Lorsqu'ils sont actifs, les fichiers Wiki joints ne seront pas affichés en vue PDF."
   wiki_pdf_remove_title_info: "Lorsqu'elle est active, l'information sur le titre du wiki ne sera pas affichée dans la vue PDF."
-  label_user_is_author_of: This user is the author of this %{entity}.
-  label_issue_genitive: issue
-  label_issue_note_with_author: Show issue author with note
+  label_user_is_author_of: "Cet utilisateur est l'auteur de cette %{entity}."
+  label_issue_genitive: "problème"
+  label_issue_note_with_author: "Afficher l'auteur de la tâche avec une note"

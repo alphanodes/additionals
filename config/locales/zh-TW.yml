@@ -201,6 +201,6 @@
   top_wiki_help: "您可以在此自訂Wiki的內容和設定。"
   wiki_pdf_remove_attachments_info: "當啟用時，Wiki附件將不會顯示在PDF中。"
   wiki_pdf_remove_title_info: "當啟用時，Wiki標題訊息不會顯示在PDF中"
-  label_user_is_author_of: This user is the author of this %{entity}.
-  label_issue_genitive: issue
-  label_issue_note_with_author: Show issue author with note
+  label_user_is_author_of: "这个用户是这个的作者 %{entity}."
+  label_issue_genitive: "问题"
+  label_issue_note_with_author: "显示任务的作者与注释"

@@ -201,6 +201,6 @@ es:
   top_wiki_help: "Aquí puede definir contenidos y configuracioens para su Wiki."
   wiki_pdf_remove_attachments_info: "Cuando está activa, los adjuntos no serán mostrados en los PDF."
   wiki_pdf_remove_title_info: "Cuando está activa, el título de la Wiki no será mostrado en los PDF."
-  label_user_is_author_of: This user is the author of this %{entity}.
-  label_issue_genitive: issue
-  label_issue_note_with_author: Show issue author with note
+  label_user_is_author_of: "Este usuario es el autor de esta %{entity}."
+  label_issue_genitive: "problema"
+  label_issue_note_with_author: "Mostrar autor de tarea con nota"

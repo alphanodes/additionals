@@ -22,6 +22,6 @@ module IssuesShow
   Deface::Override.new virtual_path: 'issues/tabs/_history',
                        name: 'show-issue-author-on-note',
                        insert_before: 'erb[loud]:contains("render_private_notes_indicator")',
-                       # original: 'cf959d0baa105476b364f7fe33b05516e27dda65',
+                       original: '38ddc174974d0a0ee482dd73070ee80baebe9e4d',
                        partial: 'issues/additionals_note_history'
 end

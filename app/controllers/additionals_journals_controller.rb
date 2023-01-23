@@ -23,7 +23,9 @@ class AdditionalsJournalsController < ApplicationController
   def update
     return render_403 unless @journal.editable_by? User.current
 
-    @journal.safe_attributes = params[:journal]
+    journal_attributes = params[:journal]
+    journal_attributes[:updated_by] = User.current
+    @journal.safe_attributes = journal_attributes
     @journal.save
     @journal.destroy if @journal.details.empty? && @journal.notes.blank?
     respond_to do |format|

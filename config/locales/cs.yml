@@ -82,7 +82,7 @@ cs:
   label_custom_fields_distribution: "Vlastní pole pro distribuci"
   label_daily: denně
   label_dashboard: Dashboard
-  label_dashboard_author: "Autor: %{name}"
+  label_dashboard_author: "Autoři: %{name}"
   label_dashboard_block_info_async: "Tento blok se načítá asynchronně a ukládá se do mezipaměti po dobu %{time}."
   label_dashboard_legacy_left: "Zbývá standardní obsah"
   label_dashboard_legacy_right: "Standardní obsahové právo"
@@ -201,6 +201,6 @@ cs:
   top_wiki_help: "Zde můžete definovat obsah a nastavení vaší Wiki."
   wiki_pdf_remove_attachments_info: "Pokud je aktivní, připojené soubory Wiki se nebudou zobrazovat v zobrazení PDF."
   wiki_pdf_remove_title_info: "Pokud je aktivní, informace o názvu Wiki se nebudou zobrazovat v zobrazení PDF."
-  label_user_is_author_of: This user is the author of this %{entity}.
-  label_issue_genitive: issue
-  label_issue_note_with_author: Show issue author with note
+  label_user_is_author_of: "Tento uživatel je autorem tohoto %{entity}."
+  label_issue_genitive: "Úkol"
+  label_issue_note_with_author: "Zobrazit autora úlohy s poznámkou"

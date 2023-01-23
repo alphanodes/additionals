@@ -127,6 +127,8 @@ module Additionals
                            Wiki
                            CustomFields]
 
+      loader.add_helper({ controller: 'Issues', helper: 'AdditionalsCommonJournals' })
+
       loader.add_global_helper [Additionals::Helpers,
                                 AdditionalsFontawesomeHelper,
                                 AdditionalsMenuHelper,

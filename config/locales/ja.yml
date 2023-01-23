@@ -201,3 +201,6 @@ ja:
   top_wiki_help: "ここでは、Wikiの内容や設定を定義することができます。"
   wiki_pdf_remove_attachments_info: "アクティブな場合、添付されたWikiファイルはPDFビューに表示されません。"
   wiki_pdf_remove_title_info: "アクティブな場合、Wikiのタイトル情報はPDFビューに表示されません。"
+  label_user_is_author_of: This user is the author of this %{entity}.
+  label_issue_genitive: issue
+  label_issue_note_with_author: Show issue author with note

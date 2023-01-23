@@ -201,3 +201,6 @@ it:
   top_wiki_help: "Qui puoi definire contenuti e impostazioni per il tuo Wiki."
   wiki_pdf_remove_attachments_info: "Quando è attivo, il Wiki file allegati non verranno visualizzati nella vista PDF."
   wiki_pdf_remove_title_info: "Quando è attivo, le informazioni sul titolo del Wiki non verranno visualizzate nella vista PDF."
+  label_user_is_author_of: This user is the author of this %{entity}.
+  label_issue_genitive: issue
+  label_issue_note_with_author: Show issue author with note

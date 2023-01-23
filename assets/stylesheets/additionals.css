@@ -365,6 +365,15 @@ table.entity-list td.block_column pre {
   white-space: normal;
 }
 
+.badge-author {
+  color: #696969;
+  border: 1px solid #696969;
+}
+
+#history.entity .note-header span {
+  margin-left: 4px;
+}
+
 @media screen and (max-width: 899px) {
   .gototop { display: none; }
 

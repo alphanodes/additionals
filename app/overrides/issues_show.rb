@@ -18,4 +18,10 @@ module IssuesShow
                        insert_before: 'erb[loud]:contains("copy_object_url_link")',
                        original: 'cf959d0baa105476b364f7fe33b05516e27dda65',
                        partial: 'hooks/view_issue_action_dropdown'
+
+  Deface::Override.new virtual_path: 'issues/tabs/_history',
+                       name: 'show-issue-author-on-note',
+                       insert_before: 'erb[loud]:contains("render_private_notes_indicator")',
+                       # original: 'cf959d0baa105476b364f7fe33b05516e27dda65',
+                       partial: 'issues/additionals_note_history'
 end

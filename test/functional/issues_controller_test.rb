@@ -199,4 +199,23 @@ class IssuesControllerTest < Additionals::ControllerTest
       assert_select '.new-ticket-message', count: 0
     end
   end
+
+  def test_show_author_badge
+    with_plugin_settings 'additionals', issue_note_with_author: 1 do
+      get :show, params: { id: 1 }
+
+      assert_response :success
+      assert_select '#tab-content-history #note-1 .badge-author', count: 0
+      assert_select '#tab-content-history #note-2 .badge-author'
+    end
+  end
+
+  def test_do_not_show_author_badge_if_disabled
+    with_plugin_settings 'additionals', issue_note_with_author: 0 do
+      get :show, params: { id: 1 }
+
+      assert_response :success
+      assert_select 'h4.note-header .badge-author', count: 0
+    end
+  end
 end

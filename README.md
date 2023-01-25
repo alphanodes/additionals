@@ -125,9 +125,10 @@ Don't worry, if you only need a subset of the provided libraries. If you do not 
 
 It provides :
 
+* [Chart.js Plugin annotation 2.1.2](https://github.com/chartjs/chartjs-plugin-annotation)
 * [Chart.js Plugin colorschemes 0.4.0 (patched for chartjs 3)](https://github.com/nagix/chartjs-plugin-colorschemes)
 * [Chart.js Plugin datalabels 2.1.0](https://github.com/chartjs/chartjs-plugin-datalabels)
-* [Chart.js Plugin matrix 1.3.0](https://github.com/kurkle/chartjs-chart-matrix)
+* [Chart.js Plugin matrix 2.0.1](https://github.com/kurkle/chartjs-chart-matrix)
 * [clipboardJS 2.0.11](https://clipboardjs.com/)
 * [d3 7.8.2](https://d3js.org/)
 * [d3plus 2.0.2](https://d3plus.org/)

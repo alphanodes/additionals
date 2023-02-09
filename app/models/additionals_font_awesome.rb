@@ -133,7 +133,7 @@ class AdditionalsFontAwesome
                             end
 
       FONTAWESOME_ICONS[type].each do |fa_symbol, values|
-        break if SEARCH_LIMIT == cnt
+        break if cnt == SEARCH_LIMIT
 
         id = key2value(fa_symbol, type[-1])
         next if selected_store.exclude?(id) &&

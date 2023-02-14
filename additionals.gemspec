@@ -16,7 +16,9 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/alphanodes/alphanodes'
   spec.license       = 'GPL-2.0'
 
-  spec.files         = Dir['**/*'] - Dir['test/**/*'] - Dir['Gemfile', 'Gemfile.lock', 'README.rst']
+  spec.files         = Dir['**/*'].reject do |f|
+    f.match %r{^((contrib|test)/|Gemfile|Gemfile\.lock|additionals\.gemspec|package\.json)}
+  end
   spec.require_paths = ['lib']
   spec.required_ruby_version = '>= 2.7'
 

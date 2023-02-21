@@ -15,7 +15,7 @@ module CrudControllerBase
         return
       end
 
-      get :show, params: @crud[:show_params].presence || { id: @crud[:entity].id }
+      get :show, params: @crud[:show_params].presence || { id: id_value }
 
       if @crud[:show_assert_response].present?
         assert_response @crud[:show_assert_response]
@@ -29,7 +29,7 @@ module CrudControllerBase
     def test_show_without_permission
       return unless prepare_crud_test :show, no_permission: true
 
-      get :show, params: @crud[:show_params].presence || { id: @crud[:entity].id }
+      get :show, params: @crud[:show_params].presence || { id: id_value }
 
       assert_response :forbidden
     end
@@ -156,7 +156,7 @@ module CrudControllerBase
         return
       end
 
-      get :edit, params: { id: @crud[:entity].id }
+      get :edit, params: { id: id_value }
 
       assert_response :success
       if @crud[:edit_assert_select].present?
@@ -169,7 +169,7 @@ module CrudControllerBase
     def test_edit_without_permission
       return unless prepare_crud_test :edit, no_permission: true
 
-      get :edit, params: { id: @crud[:entity].id }
+      get :edit, params: { id: id_value }
 
       assert_response :forbidden
     end
@@ -242,7 +242,7 @@ module CrudControllerBase
       end
 
       assert_difference("#{@crud[:entity].class.name}.count", -1) do
-        delete :destroy, params: { id: @crud[:entity].id }
+        delete :destroy, params: { id: id_value }
       end
 
       return if @crud[:delete_redirect_to].blank?
@@ -254,7 +254,7 @@ module CrudControllerBase
       return unless prepare_crud_test :delete, no_permission: true
 
       assert_no_difference "#{@crud[:entity].class.name}.count" do
-        delete :destroy, params: { id: @crud[:entity].id }
+        delete :destroy, params: { id: id_value }
       end
 
       assert_response :forbidden
@@ -262,10 +262,15 @@ module CrudControllerBase
 
     private
 
+    def id_value
+      primary_field = @crud[:primary_field] ||= :id
+      @crud[:entity].send primary_field
+    end
+
     def form_params(action)
       crud_params = @crud["#{action}_params".to_sym]
       if @crud[:form]
-        { id:  @crud[:entity].id, @crud[:form] => crud_params }
+        { id: id_value, @crud[:form] => crud_params }
       else
         crud_params
       end

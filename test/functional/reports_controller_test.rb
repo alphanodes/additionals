@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../test_helper'
+require File.expand_path '../../test_helper', __FILE__
 
 class ReportsControllerTest < Additionals::ControllerTest
   fixtures :users, :groups_users, :email_addresses, :user_preferences,

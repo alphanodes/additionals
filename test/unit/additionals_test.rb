@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../test_helper'
+require File.expand_path '../../test_helper', __FILE__
 
 class AdditionalsTest < Additionals::TestCase
   fixtures :projects, :users, :members, :member_roles, :roles,

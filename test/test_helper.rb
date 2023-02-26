@@ -11,9 +11,9 @@ end
 require 'minitest/reporters'
 Minitest::Reporters.use!
 
-require_relative '../../../test/test_helper'
-require_relative 'global_test_helper'
-require_relative 'crud_controller_base'
+require File.expand_path "#{File.dirname __FILE__}/../../../test/test_helper"
+require File.expand_path "#{File.dirname __FILE__}/global_test_helper"
+require File.expand_path "#{File.dirname __FILE__}/crud_controller_base"
 
 module Additionals
   module TestHelper

@@ -1,0 +1,13 @@
+- if @issue.editable? && Additionals.setting?(:issue_fast_description_edit)
+  javascript:
+    $(function() {
+      $('.issue .description .contextual')
+        .prepend("#{escape_javascript link_to(l(:button_edit), edit_issue_path(@issue), class: 'icon icon-edit', id: 'fast-desc-link')} ");
+
+      $("#fast-desc-link").click(function(){
+        showAndScrollTo("update", "issue_notes");
+        $("#issue_description_and_toolbar").show();
+        $("#issue_description").focus();
+        return false;
+      });
+    });

@@ -204,3 +204,4 @@ pt-BR:
   label_user_is_author_of: "Este usuário é o autor deste %{entity}."
   label_issue_genitive: "Tarefa"
   label_issue_note_with_author: "Mostrar autor da tarefa com nota"
+  label_issue_fast_description_edit: Fast edit for description

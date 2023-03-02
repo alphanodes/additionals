@@ -204,3 +204,4 @@ de:
   label_user_is_author_of: Dieser Benutzer ist der Autor dieses %{entity}.
   label_issue_genitive: Tickets
   label_issue_note_with_author: Ticket-Autor zu Kommentar anzeigen
+  label_issue_fast_description_edit: Schnellbearbeitung Beschreibung

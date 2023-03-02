@@ -204,3 +204,4 @@ ja:
   label_user_is_author_of: "このユーザーは、この %{entity}."
   label_issue_genitive: "タスク"
   label_issue_note_with_author: "タスクの作者とメモを表示する"
+  label_issue_fast_description_edit: Fast edit for description

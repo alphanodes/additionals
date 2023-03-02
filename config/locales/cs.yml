@@ -204,3 +204,4 @@ cs:
   label_user_is_author_of: "Tento uživatel je autorem tohoto %{entity}."
   label_issue_genitive: "Úkol"
   label_issue_note_with_author: "Zobrazit autora úlohy s poznámkou"
+  label_issue_fast_description_edit: Fast edit for description

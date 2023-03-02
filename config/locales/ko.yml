@@ -204,4 +204,4 @@ ko:
   label_user_is_author_of: "이 사용자는 이 글의 작성자입니다 %{entity}."
   label_issue_genitive: "일"
   label_issue_note_with_author: "메모와 함께 작업 작성자 표시"
-  label_issue_fast_description_edit: Fast edit for description
+  label_issue_fast_description_edit: "빠른 설명 편집"

@@ -204,4 +204,4 @@ ru:
   label_user_is_author_of: "Этот пользователь является автором этого %{entity}."
   label_issue_genitive: "Задание"
   label_issue_note_with_author: "Показать автора задачи с примечанием"
-  label_issue_fast_description_edit: Fast edit for description
+  label_issue_fast_description_edit: "Быстрая правка для описания"

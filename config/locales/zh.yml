@@ -204,4 +204,4 @@ zh:
   label_user_is_author_of: "这个用户是这个的作者 %{entity}."
   label_issue_genitive: "问题"
   label_issue_note_with_author: "显示任务的作者与注释"
-  label_issue_fast_description_edit: Fast edit for description
+  label_issue_fast_description_edit: "快速编辑描述"

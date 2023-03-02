@@ -204,4 +204,4 @@ pl:
   label_user_is_author_of: "Ten użytkownik jest autorem tego %{entity}."
   label_issue_genitive: issue
   label_issue_note_with_author: "Pokaż autora zadania z notatką"
-  label_issue_fast_description_edit: Fast edit for description
+  label_issue_fast_description_edit: "Szybka edycja do opisu"

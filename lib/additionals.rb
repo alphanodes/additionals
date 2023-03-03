@@ -47,8 +47,12 @@ module Additionals
       [value, options]
     end
 
+    def per_page_first_limit
+      Setting.per_page_options_array.first || 25
+    end
+
     def split_ids(phrase, limit: nil)
-      limit ||= Setting.per_page_options_array.first || 25
+      limit ||= per_page_first_limit
       raw_ids = phrase.strip_split
       ids = []
       raw_ids.each do |id|

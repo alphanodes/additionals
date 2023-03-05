@@ -2,6 +2,7 @@ system_default_welcome:
   name: Global default dashboard
   dashboard_type: <%= DashboardContentWelcome::TYPE_NAME %>
   system_default: true
+  locked: true
   enable_sidebar: false
   author_id: 1
   visibility: 2
@@ -35,6 +36,7 @@ system_default_project:
   name: Project default dashboard
   dashboard_type: <%= DashboardContentProject::TYPE_NAME %>
   system_default: true
+  locked: true
   enable_sidebar: true
   project_id:
   author_id: 1
@@ -64,6 +66,7 @@ system_default_defined_project:
   name: Project default dashboard only for Project 2
   dashboard_type: <%= DashboardContentProject::TYPE_NAME %>
   system_default: true
+  locked: false
   enable_sidebar: true
   project_id: 2
   author_id: 1
@@ -83,6 +86,7 @@ system_default_defined_project:
 private_welcome:
   name: Only for user 1
   dashboard_type: <%= DashboardContentWelcome::TYPE_NAME %>
+  locked: false
   enable_sidebar: true
   author_id: 1
   visibility: 0
@@ -98,6 +102,7 @@ private_welcome:
 private_welcome2:
   name: Only for user 2
   dashboard_type: <%= DashboardContentWelcome::TYPE_NAME %>
+  locked: false
   author_id: 2
   visibility: 0
   options: |
@@ -112,6 +117,7 @@ private_welcome2:
 private_project_default:
   name: Private project default
   dashboard_type: <%= DashboardContentProject::TYPE_NAME %>
+  locked: false
   project_id:
   author_id: 1
   visibility: 0
@@ -119,6 +125,7 @@ private_project_default:
 public_project:
   name: Public project for all project, but no system default
   dashboard_type: <%= DashboardContentProject::TYPE_NAME %>
+  locked: false
   project_id:
   author_id: 1
   visibility: 2
@@ -126,6 +133,7 @@ public_project:
 private_project:
   name: Private project for user 1
   dashboard_type: <%= DashboardContentProject::TYPE_NAME %>
+  locked: false
   project_id: 1
   author_id: 1
   visibility: 0
@@ -133,6 +141,7 @@ private_project:
 private_project2:
   name: Private project for user 2
   dashboard_type: <%= DashboardContentProject::TYPE_NAME %>
+  locked: false
   project_id: 1
   author_id: 2
   visibility: 0
@@ -140,11 +149,13 @@ private_project2:
 public_welcome:
   name: Public welcome
   dashboard_type: <%= DashboardContentWelcome::TYPE_NAME %>
+  locked: false
   author_id: 1
   visibility: 2
 
 welcome_for_roles:
   name: Welcome for roles
   dashboard_type: <%= DashboardContentWelcome::TYPE_NAME %>
+  locked: false
   author_id: 1
   visibility: 1

@@ -43,6 +43,7 @@ pl:
   errors_no_or_invalid_arguments: "Brak lub nieważne argumenty"
   field_always_expose: "Zawsze pokazuj nazwę pulpitu"
   field_color: Kolor
+  field_dashboard_locked: Locked
   field_enable_new_ticket_message: "Aktywuj komunikat o zleceniu"
   field_enable_sidebar: "Aktywuj pasek boczny"
   field_hide: "Ukryć się"
@@ -86,6 +87,7 @@ pl:
   label_dashboard_block_info_async: "Ten blok jest ładowany asynchronicznie i buforowany przez %{time}."
   label_dashboard_legacy_left: "Zawartość standardowa lewy"
   label_dashboard_legacy_right: "Zawartość standardowa prawa"
+  label_dashboard_lock_is_active: Dashboard lock is active
   label_dashboard_plural: Dashboards
   label_day: "dzień"
   label_disable_sidebar: "Wyłączyć pasek boczny"
@@ -111,7 +113,10 @@ pl:
   label_issue_change_status: "Zmiana statusu"
   label_issue_change_status_in_sidebar: "Status Issue na pasku bocznym"
   label_issue_current_user_status: "Bieżący status sprawy x jest dozwolony tylko wtedy, gdy \"Assignee\" jest bieżącym użytkownikiem."
+  label_issue_fast_description_edit: "Szybka edycja do opisu"
   label_issue_freezed_with_close: "Uniemożliwienie edycji zamkniętych issues (Freeze)"
+  label_issue_genitive: issue
+  label_issue_note_with_author: "Pokaż autora zadania z notatką"
   label_issue_status_change: "Jeśli status \"Assignee\" jest niezmieniony, a status sprawy zmienił się z x na y, to autor jest przypisany do sprawy"
   label_issue_timelog_required: "Wymagany jest dziennik czasowy dla issues"
   label_issues_summary: "Przegląd zadań"
@@ -167,6 +172,7 @@ pl:
   label_twitter_account: Twitter konto
   label_twitter_hashtag: Twitter hashtag
   label_uptime: Uptime
+  label_user_is_author_of: "Ten użytkownik jest autorem tego %{entity}."
   label_user_list: "Lista użytkowników"
   label_web_apis: Web APIs
   label_weekly: tygodnik
@@ -201,7 +207,3 @@ pl:
   top_wiki_help: "Tutaj możesz zdefiniować zawartość i ustawienia dla swojej Wiki."
   wiki_pdf_remove_attachments_info: "Gdy jest aktywny, załączone pliki Wiki nie będą wyświetlane w widoku PDF."
   wiki_pdf_remove_title_info: "Gdy jest aktywny, informacja o tytule Wiki nie będzie wyświetlana w widoku PDF."
-  label_user_is_author_of: "Ten użytkownik jest autorem tego %{entity}."
-  label_issue_genitive: issue
-  label_issue_note_with_author: "Pokaż autora zadania z notatką"
-  label_issue_fast_description_edit: "Szybka edycja do opisu"

@@ -43,6 +43,7 @@ it:
   errors_no_or_invalid_arguments: No o non valido argomenti
   field_always_expose: "Mostra sempre il nome del portale"
   field_color: Colore
+  field_dashboard_locked: Locked
   field_enable_new_ticket_message: "Attivare il messaggio del task"
   field_enable_sidebar: Enable sidebar
   field_hide: "Nascondi"
@@ -86,6 +87,7 @@ it:
   label_dashboard_block_info_async: "Questo blocco viene caricato in modo asincrono e memorizzato nella cache per %{time}."
   label_dashboard_legacy_left: "Contenuto standard a sinistra"
   label_dashboard_legacy_right: "Contenuto standard a destra"
+  label_dashboard_lock_is_active: Dashboard lock is active
   label_dashboard_plural: Dashboards
   label_day: giorno
   label_disable_sidebar: "Disattivare la barra laterale"
@@ -111,7 +113,10 @@ it:
   label_issue_change_status: Modifica issue stato
   label_issue_change_status_in_sidebar: Stato della questione sulla barra laterale
   label_issue_current_user_status: "Lo stato attuale della questione x è permesso solo se \"Assignee\" è l'utente corrente."
+  label_issue_fast_description_edit: "Modifica rapida della descrizione"
   label_issue_freezed_with_close: "Impedire la modifica dei problemi chiusi (Freeze)"
+  label_issue_genitive: tema
+  label_issue_note_with_author: "Mostra l'autore dell'attività con una nota"
   label_issue_status_change: "Se \"Assignee\" è invariato e lo stato della questione è cambiato da x a y, allora l'autore è assegnato alla questione"
   label_issue_timelog_required: "Time log per i problemi richiesti"
   label_issues_summary: "Panoramica delle task"
@@ -167,6 +172,7 @@ it:
   label_twitter_account: Twitter account
   label_twitter_hashtag: Twitter hashtag
   label_uptime: Uptime
+  label_user_is_author_of: "Questo utente è l'autore di questo %{entity}."
   label_user_list: "Lista utenti"
   label_web_apis: Web APIs
   label_weekly: settimanalmente
@@ -201,7 +207,3 @@ it:
   top_wiki_help: "Qui puoi definire contenuti e impostazioni per il tuo Wiki."
   wiki_pdf_remove_attachments_info: "Quando è attivo, il Wiki file allegati non verranno visualizzati nella vista PDF."
   wiki_pdf_remove_title_info: "Quando è attivo, le informazioni sul titolo del Wiki non verranno visualizzate nella vista PDF."
-  label_user_is_author_of: "Questo utente è l'autore di questo %{entity}."
-  label_issue_genitive: tema
-  label_issue_note_with_author: "Mostra l'autore dell'attività con una nota"
-  label_issue_fast_description_edit: "Modifica rapida della descrizione"

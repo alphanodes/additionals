@@ -43,6 +43,7 @@ ko:
   errors_no_or_invalid_arguments: "인수가 없거나 유효하지 않습니다"
   field_always_expose: "항상 대시보드 이름 표시"
   field_color: 색깔
+  field_dashboard_locked: Locked
   field_enable_new_ticket_message: "작업 메시지 활성화"
   field_enable_sidebar: 사이드바 표시
   field_hide: 숨는 장소
@@ -86,6 +87,7 @@ ko:
   label_dashboard_block_info_async: "이 블록은 비동기식으로 로드되며 %{time}에 대해 캐시됩니다."
   label_dashboard_legacy_left: "표준 콘텐츠 왼쪽"
   label_dashboard_legacy_right: "표준 콘텐츠 권리"
+  label_dashboard_lock_is_active: Dashboard lock is active
   label_dashboard_plural: Dashboards
   label_day: 일
   label_disable_sidebar: "사이드바 비활성화"
@@ -111,7 +113,10 @@ ko:
   label_issue_change_status: 상태 변경
   label_issue_change_status_in_sidebar: 사이드 바의 발행 상태
   label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
+  label_issue_fast_description_edit: "빠른 설명 편집"
   label_issue_freezed_with_close: 닫힌 이슈 편집 금지 (고정)
+  label_issue_genitive: "일"
+  label_issue_note_with_author: "메모와 함께 작업 작성자 표시"
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
   label_issue_timelog_required: 필요한 문제에 대한 시간 로그
   label_issues_summary: "작업 개요 "
@@ -167,6 +172,7 @@ ko:
   label_twitter_account: Twitter account
   label_twitter_hashtag: Twitter hashtag
   label_uptime: 가동 시간
+  label_user_is_author_of: "이 사용자는 이 글의 작성자입니다 %{entity}."
   label_user_list: "사용자 목록"
   label_web_apis: Web APIs
   label_weekly: 주간
@@ -201,7 +207,3 @@ ko:
   top_wiki_help: 여기에서 위키의 내용과 설정을 정의 할 수 있습니다.
   wiki_pdf_remove_attachments_info: 활성화 된 경우 첨부 된 Wiki 파일은 PDF보기에 표시되지 않습니다.
   wiki_pdf_remove_title_info: 활성화되면 위키 제목 정보가 PDF보기에 표시되지 않습니다.
-  label_user_is_author_of: "이 사용자는 이 글의 작성자입니다 %{entity}."
-  label_issue_genitive: "일"
-  label_issue_note_with_author: "메모와 함께 작업 작성자 표시"
-  label_issue_fast_description_edit: "빠른 설명 편집"

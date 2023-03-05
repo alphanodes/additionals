@@ -50,6 +50,8 @@
 
     .splitcontentright
       p
+        = f.check_box :locked, label: :field_dashboard_locked
+      p
         = f.check_box :enable_sidebar
 
       - if User.current.allowed_to? :set_system_dashboards, @project, global: true

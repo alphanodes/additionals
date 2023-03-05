@@ -21,6 +21,10 @@
   font-size: 95%;
 }
 
+span.dashboard-locked {
+  color: #666;
+}
+
 #my-page.dashboard .settings input[type='text'],
 #my-page.dashboard .settings input[type='password'],
 #my-page.dashboard .settings input[type='url'] {

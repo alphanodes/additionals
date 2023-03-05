@@ -30,7 +30,7 @@ class Dashboard < ActiveRecord::Base
   scope :project_only, (-> { where dashboard_type: DashboardContentProject::TYPE_NAME })
 
   safe_attributes 'name', 'description', 'enable_sidebar',
-                  'always_expose', 'project_id', 'author_id',
+                  'locked', 'always_expose', 'project_id', 'author_id',
                   if: (lambda do |dashboard, user|
                     dashboard.new_record? ||
                       user.allowed_to?(:save_dashboards, dashboard.project, global: true)
@@ -56,6 +56,7 @@ class Dashboard < ActiveRecord::Base
 
   before_save :dashboard_type_check, :visibility_check, :set_options_hash, :clear_unused_block_settings
 
+  before_destroy :check_locked
   before_destroy :check_destroy_system_default
   after_save :update_system_defaults
   after_save :remove_unused_role_relations
@@ -382,6 +383,10 @@ class Dashboard < ActiveRecord::Base
     return if project_id_can_change?
 
     raise ProjectSystemDefaultChangeException if project_id.present?
+  end
+
+  def check_locked
+    raise 'It is not allowed to delete dashboard, because it is locked' if locked?
   end
 
   def check_destroy_system_default

@@ -5,8 +5,11 @@
   = call_hook :view_project_contextual_links, project: @project
 
   - if @dashboard&.editable?
-    = form_tag _add_block_dashboard_path(@project, @dashboard), remote: true, id: 'block-form', authenticity_token: true do
-      = dashboard_block_select_tag @dashboard
+    - if @dashboard.locked?
+      = font_awesome_icon 'dashboard-locked fas_lock', title: l(:label_dashboard_lock_is_active)
+    - else
+      = form_tag _add_block_dashboard_path(@project, @dashboard), remote: true, id: 'block-form', authenticity_token: true do
+        = dashboard_block_select_tag @dashboard
 
   = actions_dropdown do
     - if User.current.allowed_to? :add_subprojects, @project
@@ -45,7 +48,7 @@
                   class: 'icon icon-edit'
 
     - if @dashboard&.deletable?
-      = delete_dashboard_link project_dashboard_path(@project, @dashboard)
+      = delete_dashboard_link project_dashboard_path(@project, @dashboard), @dashboard
 
     = sidebar_action_toggle @dashboard_sidebar, @dashboard, @project
     = render_dashboard_actionlist @dashboard, @project unless @dashboard_sidebar

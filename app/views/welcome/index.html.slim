@@ -4,8 +4,11 @@
   = call_hook :view_welcome_contextual_links
 
   - if @dashboard&.editable?
-    = form_tag add_block_dashboard_path(@dashboard), remote: true, id: 'block-form', authenticity_token: true do
-      = dashboard_block_select_tag @dashboard
+    - if @dashboard.locked?
+      = font_awesome_icon 'dashboard-locked fas_lock', title: l(:label_dashboard_lock_is_active)
+    - else
+      = form_tag add_block_dashboard_path(@dashboard), remote: true, id: 'block-form', authenticity_token: true do
+        = dashboard_block_select_tag @dashboard
 
   = actions_dropdown do
     - if User.current.allowed_to? :save_dashboards, nil, global: true
@@ -17,7 +20,7 @@
                   edit_dashboard_path(@dashboard),
                   class: 'icon icon-edit'
     - if @dashboard&.deletable?
-      = delete_dashboard_link dashboard_path(@dashboard)
+      = delete_dashboard_link dashboard_path(@dashboard), @dashboard
     = sidebar_action_toggle @dashboard_sidebar, @dashboard
     = render_dashboard_actionlist @dashboard unless @dashboard_sidebar
 

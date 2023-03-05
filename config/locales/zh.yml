@@ -43,6 +43,7 @@ zh:
   errors_no_or_invalid_arguments: 参数无效或不存在。
   field_always_expose: 始终显示仪表盘名称
   field_color: 颜色
+  field_dashboard_locked: Locked
   field_enable_new_ticket_message: "激活任务信息"
   field_enable_sidebar: 启用侧边栏
   field_hide: 隐藏
@@ -86,6 +87,7 @@ zh:
   label_dashboard_block_info_async: This block is loaded asynchronous and cached for %{time}.
   label_dashboard_legacy_left: "标准左侧内容"
   label_dashboard_legacy_right: "标准右侧内容"
+  label_dashboard_lock_is_active: Dashboard lock is active
   label_dashboard_plural: 仪表盘
   label_day: 天
   label_disable_sidebar: 禁用侧边栏
@@ -111,7 +113,10 @@ zh:
   label_issue_change_status: 更新问题状态
   label_issue_change_status_in_sidebar: 在侧边栏显示更新问题状态
   label_issue_current_user_status: "当前问题状态 X 仅在 \"指派给\" 的值设置为当前用户时生效。"
+  label_issue_fast_description_edit: "快速编辑描述"
   label_issue_freezed_with_close: 禁止修改已关闭的问题 (冻结)
+  label_issue_genitive: "问题"
+  label_issue_note_with_author: "显示任务的作者与注释"
   label_issue_status_change: "若 \"指派给\" 的值未修改，且问题状态要从 X 变更为 Y，那么该问题必须指派给问题作者自己。"
   label_issue_timelog_required: 问题需要登记工时
   label_issues_summary: "任务概述"
@@ -167,6 +172,7 @@ zh:
   label_twitter_account: Twitter 账号
   label_twitter_hashtag: Twitter 哈希标签
   label_uptime: 上线时间
+  label_user_is_author_of: "这个用户是这个的作者 %{entity}."
   label_user_list: "用户列表"
   label_web_apis: Web APIs
   label_weekly: 每周
@@ -201,7 +207,3 @@ zh:
   top_wiki_help: 您可以在此定义 Wiki 的内容及设置。
   wiki_pdf_remove_attachments_info:  当启用时，Wiki 附件将不会显示在 PDF 视图中。
   wiki_pdf_remove_title_info: 当启用时，Wiki 标题信息将不会显示在 PDF 视图中。
-  label_user_is_author_of: "这个用户是这个的作者 %{entity}."
-  label_issue_genitive: "问题"
-  label_issue_note_with_author: "显示任务的作者与注释"
-  label_issue_fast_description_edit: "快速编辑描述"

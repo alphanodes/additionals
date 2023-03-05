@@ -43,6 +43,7 @@
   errors_no_or_invalid_arguments: "參數無效或不存在。"
   field_always_expose: "始终显示仪表盘名称"
   field_color: 顏色
+  field_dashboard_locked: Locked
   field_enable_new_ticket_message: "激活任务信息"
   field_enable_sidebar: "激活侧边栏"
   field_hide: Hide
@@ -86,6 +87,7 @@
   label_dashboard_block_info_async: This block is loaded asynchronous and cached for %{time}.
   label_dashboard_legacy_left: "Standard-Inhalt left"
   label_dashboard_legacy_right: "Standard content right"
+  label_dashboard_lock_is_active: Dashboard lock is active
   label_dashboard_plural: Dashboards
   label_day: 天
   label_disable_sidebar: Disable sidebar
@@ -111,7 +113,10 @@
   label_issue_change_status: Change status
   label_issue_change_status_in_sidebar: Issue status on sidebar
   label_issue_current_user_status: " \"被分派者\"為目前用戶時，議題狀態只能被設定為 X 。"
+  label_issue_fast_description_edit: "快速编辑描述"
   label_issue_freezed_with_close: Disallow editing of closed issues (Freeze)
+  label_issue_genitive: "问题"
+  label_issue_note_with_author: "显示任务的作者与注释"
   label_issue_status_change: "若未修改 \"被分派者\" ，且議題狀態要從 X 變更為 Y ，則該議題必須被分派給議題作者。"
   label_issue_timelog_required: "所需问题的时间记录"
   label_issues_summary: "任务概述"
@@ -167,6 +172,7 @@
   label_twitter_account: "Twitter 帳號"
   label_twitter_hashtag: "Twitter #標籤"
   label_uptime: "上線時間"
+  label_user_is_author_of: "这个用户是这个的作者 %{entity}."
   label_user_list: "用戶列表"
   label_web_apis: Web APIs
   label_weekly: "每周"
@@ -201,7 +207,3 @@
   top_wiki_help: "您可以在此自訂Wiki的內容和設定。"
   wiki_pdf_remove_attachments_info: "當啟用時，Wiki附件將不會顯示在PDF中。"
   wiki_pdf_remove_title_info: "當啟用時，Wiki標題訊息不會顯示在PDF中"
-  label_user_is_author_of: "这个用户是这个的作者 %{entity}."
-  label_issue_genitive: "问题"
-  label_issue_note_with_author: "显示任务的作者与注释"
-  label_issue_fast_description_edit: "快速编辑描述"

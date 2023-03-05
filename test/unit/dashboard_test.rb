@@ -176,6 +176,14 @@ class DashboardTest < Additionals::TestCase
     end
   end
 
+  def test_locked_dashboard_should_not_be_deletable
+    dashboard = dashboards :system_default_defined_project
+
+    assert_raise Exception do
+      dashboard.destroy
+    end
+  end
+
   def test_dashboard_with_unique_name_scope
     dashboard = Dashboard.new(dashboard_type: DashboardContentProject::TYPE_NAME,
                               author_id: 2,

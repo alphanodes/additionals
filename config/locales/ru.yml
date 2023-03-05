@@ -43,6 +43,7 @@ ru:
   errors_no_or_invalid_arguments: "Нет или недействительные аргументы"
   field_always_expose: "Всегда показать название приборной панели"
   field_color: Color
+  field_dashboard_locked: Locked
   field_enable_new_ticket_message: "Активировать сообщение о задании"
   field_enable_sidebar: "Активировать боковую панель"
   field_hide: "Спрятать"
@@ -86,6 +87,7 @@ ru:
   label_dashboard_block_info_async: "Этот блок загружается асинхронно и кэшируется на %{time}."
   label_dashboard_legacy_left: "Стандарт-Инхальт налево"
   label_dashboard_legacy_right: "Стандартное право на контент"
+  label_dashboard_lock_is_active: Dashboard lock is active
   label_dashboard_plural: Dashboards
   label_day: "день"
   label_disable_sidebar: "отключить боковую панель"
@@ -111,7 +113,10 @@ ru:
   label_issue_change_status: "Изменить статус"
   label_issue_change_status_in_sidebar: "Состояние вопроса на боковой панели"
   label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
+  label_issue_fast_description_edit: "Быстрая правка для описания"
   label_issue_freezed_with_close: "Запрет редактирования закрытых заданий (Freeze)"
+  label_issue_genitive: "Задание"
+  label_issue_note_with_author: "Показать автора задачи с примечанием"
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
   label_issue_timelog_required: "Бронирование времени, необходимого для выполнения задания"
   label_issues_summary: "Обзор задач"
@@ -167,6 +172,7 @@ ru:
   label_twitter_account: Twitter account
   label_twitter_hashtag: Twitter hashtag
   label_uptime: Uptime
+  label_user_is_author_of: "Этот пользователь является автором этого %{entity}."
   label_user_list: "Список пользователей"
   label_web_apis: Web APIs
   label_weekly: "еженедельно"
@@ -201,7 +207,3 @@ ru:
   top_wiki_help: "Здесь вы можете определить содержимое и настройки для вашей Вики."
   wiki_pdf_remove_attachments_info: "Если флажок установлен, вложенные Вики-файлы не будут отображаться в PDF-формате."
   wiki_pdf_remove_title_info: "При активации этого параметра информация о названии Вики не будет отображаться в PDF-формате."
-  label_user_is_author_of: "Этот пользователь является автором этого %{entity}."
-  label_issue_genitive: "Задание"
-  label_issue_note_with_author: "Показать автора задачи с примечанием"
-  label_issue_fast_description_edit: "Быстрая правка для описания"

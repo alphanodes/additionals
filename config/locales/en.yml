@@ -43,6 +43,7 @@ en:
   errors_no_or_invalid_arguments: No or invalid arguments
   field_always_expose: Always show dashboard name
   field_color: Color
+  field_dashboard_locked: Locked
   field_enable_new_ticket_message: Activate issue message
   field_enable_sidebar: Enable sidebar
   field_hide: Hide
@@ -86,6 +87,7 @@ en:
   label_dashboard_block_info_async: This block is loaded asynchronous and cached for %{time}.
   label_dashboard_legacy_left: "Standard content left"
   label_dashboard_legacy_right: "Standard content right"
+  label_dashboard_lock_is_active: Dashboard lock is active
   label_dashboard_plural: Dashboards
   label_day: day
   label_disable_sidebar: Disable sidebar
@@ -111,7 +113,10 @@ en:
   label_issue_change_status: Change status
   label_issue_change_status_in_sidebar: Issue status on sidebar
   label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
+  label_issue_fast_description_edit: Fast edit for description
   label_issue_freezed_with_close: Disallow editing of closed issues (Freeze)
+  label_issue_genitive: issue
+  label_issue_note_with_author: Show issue author with note
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
   label_issue_timelog_required: Time log for issues required
   label_issues_summary: "Issue summary"
@@ -167,6 +172,7 @@ en:
   label_twitter_account: Twitter account
   label_twitter_hashtag: Twitter hashtag
   label_uptime: Uptime
+  label_user_is_author_of: This user is the author of this %{entity}.
   label_user_list: "User list"
   label_web_apis: Web APIs
   label_weekly: weekly
@@ -201,7 +207,3 @@ en:
   top_wiki_help: "Here you can define contents and settings for your Wiki."
   wiki_pdf_remove_attachments_info: "When active the attached Wiki files will not be displayed in PDF view."
   wiki_pdf_remove_title_info: "When active the Wiki title info will not be displayed in PDF view."
-  label_user_is_author_of: This user is the author of this %{entity}.
-  label_issue_genitive: issue
-  label_issue_note_with_author: Show issue author with note
-  label_issue_fast_description_edit: Fast edit for description

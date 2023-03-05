@@ -43,6 +43,7 @@ fr:
   errors_no_or_invalid_arguments: "Pas d'arguments ou arguments invalides"
   field_always_expose: "Toujours afficher le nom du tableau de bord"
   field_color: Couleur
+  field_dashboard_locked: Locked
   field_enable_new_ticket_message: "Activer le message d'émission"
   field_enable_sidebar: Activer le menu latéral
   field_hide: "Cacher"
@@ -86,6 +87,7 @@ fr:
   label_dashboard_block_info_async: "Ce bloc est chargé de manière asynchrone et mis en cache pendant %{time}."
   label_dashboard_legacy_left: "Contenu standard à gauche"
   label_dashboard_legacy_right: "Droit au contenu standard"
+  label_dashboard_lock_is_active: Dashboard lock is active
   label_dashboard_plural: Tableaux de bord
   label_day: Jour
   label_disable_sidebar: "Désactiver la sidebar"
@@ -111,7 +113,10 @@ fr:
   label_issue_change_status: Modifier le statut
   label_issue_change_status_in_sidebar: Statuts des tâches dans la bare latérale
   label_issue_current_user_status: "L'état actuel du problème x n'est autorisé que si \"Assignee\" est l'utilisateur actuel."
+  label_issue_fast_description_edit: "Édition rapide pour la description"
   label_issue_freezed_with_close: "Interdire l'édition des tâches fermées (freeze)"
+  label_issue_genitive: "problème"
+  label_issue_note_with_author: "Afficher l'auteur de la tâche avec une note"
   label_issue_status_change: "Si \"Assignee\" est inchangé et que le statut de la question est passé de x à y, l'auteur est assigné à la question."
   label_issue_timelog_required: Saisie de temps obligatoire pour une tâche
   label_issues_summary: "Aperçu des tâches"
@@ -167,6 +172,7 @@ fr:
   label_twitter_account: Compte Twitter
   label_twitter_hashtag: Hashtag Twitter
   label_uptime: Uptime
+  label_user_is_author_of: "Cet utilisateur est l'auteur de cette %{entity}."
   label_user_list: "Liste des utilisateurs"
   label_web_apis: APIs Web
   label_weekly: hebdomadaire
@@ -201,7 +207,3 @@ fr:
   top_wiki_help: "Ici vous pouvez définir le contenu et les paramètres de votre Wiki."
   wiki_pdf_remove_attachments_info: "Lorsqu'ils sont actifs, les fichiers Wiki joints ne seront pas affichés en vue PDF."
   wiki_pdf_remove_title_info: "Lorsqu'elle est active, l'information sur le titre du wiki ne sera pas affichée dans la vue PDF."
-  label_user_is_author_of: "Cet utilisateur est l'auteur de cette %{entity}."
-  label_issue_genitive: "problème"
-  label_issue_note_with_author: "Afficher l'auteur de la tâche avec une note"
-  label_issue_fast_description_edit: "Édition rapide pour la description"

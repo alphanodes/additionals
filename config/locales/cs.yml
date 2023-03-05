@@ -43,6 +43,7 @@ cs:
   errors_no_or_invalid_arguments: "Žádné nebo neplatné argumenty"
   field_always_expose: "Vždy zobrazit název palubní desky"
   field_color: Barva
+  field_dashboard_locked: Locked
   field_enable_new_ticket_message: "Aktivace zprávy o vydání"
   field_enable_sidebar: "Aktivace postranního panelu"
   field_hide: "Skrýt"
@@ -86,6 +87,7 @@ cs:
   label_dashboard_block_info_async: "Tento blok se načítá asynchronně a ukládá se do mezipaměti po dobu %{time}."
   label_dashboard_legacy_left: "Zbývá standardní obsah"
   label_dashboard_legacy_right: "Standardní obsahové právo"
+  label_dashboard_lock_is_active: Dashboard lock is active
   label_dashboard_plural: Dashboards
   label_day: den
   label_disable_sidebar: "Zakázat sidebar"
@@ -111,7 +113,10 @@ cs:
   label_issue_change_status: "Změnit stav"
   label_issue_change_status_in_sidebar: "Stav vydání na postranním panelu"
   label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
+  label_issue_fast_description_edit: "Rychlá úprava popisu"
   label_issue_freezed_with_close: "Zakázat úpravy uzavřených čísel (Freeze)"
+  label_issue_genitive: "Úkol"
+  label_issue_note_with_author: "Zobrazit autora úlohy s poznámkou"
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
   label_issue_timelog_required: "Časový záznam potřebných problémů"
   label_issues_summary: "Přehled úkolů"
@@ -167,6 +172,7 @@ cs:
   label_twitter_account: Twitter account
   label_twitter_hashtag: Twitter hashtag
   label_uptime: Uptime
+  label_user_is_author_of: "Tento uživatel je autorem tohoto %{entity}."
   label_user_list: "Seznam uživatelů"
   label_web_apis: Web APIs
   label_weekly: "týdně"
@@ -201,7 +207,3 @@ cs:
   top_wiki_help: "Zde můžete definovat obsah a nastavení vaší Wiki."
   wiki_pdf_remove_attachments_info: "Pokud je aktivní, připojené soubory Wiki se nebudou zobrazovat v zobrazení PDF."
   wiki_pdf_remove_title_info: "Pokud je aktivní, informace o názvu Wiki se nebudou zobrazovat v zobrazení PDF."
-  label_user_is_author_of: "Tento uživatel je autorem tohoto %{entity}."
-  label_issue_genitive: "Úkol"
-  label_issue_note_with_author: "Zobrazit autora úlohy s poznámkou"
-  label_issue_fast_description_edit: "Rychlá úprava popisu"

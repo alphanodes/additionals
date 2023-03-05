@@ -169,10 +169,16 @@ module DashboardsHelper
     end
   end
 
-  def delete_dashboard_link(url)
-    options = { method: :delete,
-                data: { confirm: l(:text_are_you_sure) },
-                class: 'icon icon-del' }
+  def delete_dashboard_link(url, dashboard)
+    options = { class: +'icon icon-del' }
+    if dashboard.locked?
+      options[:title] = l :label_dashboard_lock_is_active
+      options[:class] << ' disabled'
+      url = '#'
+    else
+      options[:method] = :delete
+      options[:data] = { confirm: l(:text_are_you_sure) }
+    end
 
     link_to l(:button_dashboard_delete), url, options
   end
@@ -214,7 +220,7 @@ module DashboardsHelper
     content = render_dashboard_block_content block, block_definition, dashboard, **overwritten_settings
     return if content.blank?
 
-    if dashboard.editable?
+    if dashboard.editable? && !dashboard.locked?
       icons = []
       if block_definition[:no_settings].blank? &&
          (!block_definition.key?(:with_settings_if) || block_definition[:with_settings_if].call(@project))

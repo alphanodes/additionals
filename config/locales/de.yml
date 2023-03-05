@@ -43,6 +43,7 @@ de:
   errors_no_or_invalid_arguments: Kein oder ungültiger Parameter
   field_always_expose: Dashboard Name immer anzeigen
   field_color: Farbe
+  field_dashboard_locked: Schutz aktivieren
   field_enable_new_ticket_message: Aktiviere Hinweistext
   field_enable_sidebar: Sidebar aktivieren
   field_hide: Verstecken
@@ -86,6 +87,7 @@ de:
   label_dashboard_block_info_async: Dieser Block wird asynchron geladen und %{time} gecached.
   label_dashboard_legacy_left: Standard-Inhalt links
   label_dashboard_legacy_right: Standard-Inhalt rechts
+  label_dashboard_lock_is_active: Dashboard Schutz ist aktiv
   label_dashboard_plural: Dashboards
   label_day: Tag
   label_disable_sidebar: Sidebar deaktivieren
@@ -111,7 +113,10 @@ de:
   label_issue_change_status: Status ändern
   label_issue_change_status_in_sidebar: Ticketstatus über Sidebar
   label_issue_current_user_status: "Der Ticketstatus x ist nur erlaubt, wenn \"Zugewiesen an\" der aktuelle Benutzer zugewiesen wird."
+  label_issue_fast_description_edit: Schnellbearbeitung Beschreibung
   label_issue_freezed_with_close: Bearbeitung geschlossener Tickets verbieten (Freeze)
+  label_issue_genitive: Tickets
+  label_issue_note_with_author: Ticket-Autor zu Kommentar anzeigen
   label_issue_status_change: "Wird \"Zugewiesen an\" nicht verändert und der Ticketstatus von x auf y geändert, dann wird das Ticket automatisch dem Ersteller zugewiesen"
   label_issue_timelog_required: Zeiterfassung für Ticket erforderlich
   label_issues_summary: Ticket Übersicht
@@ -167,6 +172,7 @@ de:
   label_twitter_account: Twitter Benutzer
   label_twitter_hashtag: Twitter Hashtag
   label_uptime: Betriebszeit
+  label_user_is_author_of: Dieser Benutzer ist der Autor dieses %{entity}.
   label_user_list: Benutzerliste
   label_web_apis: Web APIs
   label_weekly: wöchentlich
@@ -201,7 +207,3 @@ de:
   top_wiki_help: Hier kannst Du Inhalte und Einstellungen bzg. der Wiki festlegen.
   wiki_pdf_remove_attachments_info: Wenn aktiv, werden die an der Wiki Seite angehängten Dateien nicht in der PDF Ansicht angezeigt.
   wiki_pdf_remove_title_info: Wenn aktiv, wird der Wiki Titel nicht in der PDF Ansicht angezeigt.
-  label_user_is_author_of: Dieser Benutzer ist der Autor dieses %{entity}.
-  label_issue_genitive: Tickets
-  label_issue_note_with_author: Ticket-Autor zu Kommentar anzeigen
-  label_issue_fast_description_edit: Schnellbearbeitung Beschreibung

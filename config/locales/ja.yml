@@ -43,6 +43,7 @@ ja:
   errors_no_or_invalid_arguments: "引数がない、または無効な引数"
   field_always_expose: "ダッシュボード名を常に表示する"
   field_color: "カラー"
+  field_dashboard_locked: Locked
   field_enable_new_ticket_message: "タスク起動メッセージ"
   field_enable_sidebar: "サイドバーを有効にする"
   field_hide: Hide
@@ -86,6 +87,7 @@ ja:
   label_dashboard_block_info_async: のために非同期でブロックがロードされ、キャッシュされます %{time}.
   label_dashboard_legacy_left: "標準インハルト左"
   label_dashboard_legacy_right: "標準コンテンツの権利"
+  label_dashboard_lock_is_active: Dashboard lock is active
   label_dashboard_plural: Dashboards
   label_day: "日"
   label_disable_sidebar: "サイドバーを無効にする"
@@ -111,7 +113,10 @@ ja:
   label_issue_change_status: Change status
   label_issue_change_status_in_sidebar: Issue status on sidebar
   label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
+  label_issue_fast_description_edit: "描写のための高速編集"
   label_issue_freezed_with_close: Disallow editing of closed issues (Freeze)
+  label_issue_genitive: "タスク"
+  label_issue_note_with_author: "タスクの作者とメモを表示する"
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
   label_issue_timelog_required: "タスクに必要な時間予約"
   label_issues_summary: "タスクの概要"
@@ -167,6 +172,7 @@ ja:
   label_twitter_account: Twitter アカウント
   label_twitter_hashtag: Twitter ハッシュタグ
   label_uptime: Uptime
+  label_user_is_author_of: "このユーザーは、この %{entity}."
   label_user_list: "ユーザ一覧"
   label_web_apis: Web APIs
   label_weekly: "毎週"
@@ -201,7 +207,3 @@ ja:
   top_wiki_help: "ここでは、Wikiの内容や設定を定義することができます。"
   wiki_pdf_remove_attachments_info: "アクティブな場合、添付されたWikiファイルはPDFビューに表示されません。"
   wiki_pdf_remove_title_info: "アクティブな場合、Wikiのタイトル情報はPDFビューに表示されません。"
-  label_user_is_author_of: "このユーザーは、この %{entity}."
-  label_issue_genitive: "タスク"
-  label_issue_note_with_author: "タスクの作者とメモを表示する"
-  label_issue_fast_description_edit: "描写のための高速編集"

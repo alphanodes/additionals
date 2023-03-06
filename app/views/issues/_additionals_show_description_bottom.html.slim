@@ -5,6 +5,7 @@
         .prepend("#{escape_javascript link_to(l(:button_edit), edit_issue_path(@issue), class: 'icon icon-edit', id: 'fast-desc-link')} ");
 
       $("#fast-desc-link").click(function(){
+        $("#issue_description_and_toolbar").parent().find('a').first().hide();
         showAndScrollTo("update", "issue_notes");
         $("#issue_description_and_toolbar").show();
         $("#issue_description").focus();

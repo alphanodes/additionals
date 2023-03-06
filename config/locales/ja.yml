@@ -87,7 +87,7 @@ ja:
   label_dashboard_block_info_async: のために非同期でブロックがロードされ、キャッシュされます %{time}.
   label_dashboard_legacy_left: "標準インハルト左"
   label_dashboard_legacy_right: "標準コンテンツの権利"
-  label_dashboard_lock_is_active: Dashboard lock is active
+  label_dashboard_lock_is_active: "Dashboard ロックが有効"
   label_dashboard_plural: Dashboards
   label_day: "日"
   label_disable_sidebar: "サイドバーを無効にする"

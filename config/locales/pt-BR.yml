@@ -87,7 +87,7 @@ pt-BR:
   label_dashboard_block_info_async: "Este bloco é carregado assíncrono e colocado em cache por %{time}."
   label_dashboard_legacy_left: "Conteúdo padrão restante"
   label_dashboard_legacy_right: "Direito de conteúdo padrão"
-  label_dashboard_lock_is_active: Dashboard lock is active
+  label_dashboard_lock_is_active: "Dashboard Lock está ativo"
   label_dashboard_plural: Dashboards
   label_day: dia
   label_disable_sidebar: "Desativar sidebar"

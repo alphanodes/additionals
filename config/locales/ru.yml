@@ -87,7 +87,7 @@ ru:
   label_dashboard_block_info_async: "Этот блок загружается асинхронно и кэшируется на %{time}."
   label_dashboard_legacy_left: "Стандарт-Инхальт налево"
   label_dashboard_legacy_right: "Стандартное право на контент"
-  label_dashboard_lock_is_active: Dashboard lock is active
+  label_dashboard_lock_is_active: "Dashboard Блокировка активна"
   label_dashboard_plural: Dashboards
   label_day: "день"
   label_disable_sidebar: "отключить боковую панель"

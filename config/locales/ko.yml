@@ -87,7 +87,7 @@ ko:
   label_dashboard_block_info_async: "이 블록은 비동기식으로 로드되며 %{time}에 대해 캐시됩니다."
   label_dashboard_legacy_left: "표준 콘텐츠 왼쪽"
   label_dashboard_legacy_right: "표준 콘텐츠 권리"
-  label_dashboard_lock_is_active: Dashboard lock is active
+  label_dashboard_lock_is_active: "Dashboard 잠금이 활성화됨"
   label_dashboard_plural: Dashboards
   label_day: 일
   label_disable_sidebar: "사이드바 비활성화"

@@ -84,10 +84,10 @@
   label_daily: 每天
   label_dashboard: Dashboard
   label_dashboard_author: "作者: %{name}"
-  label_dashboard_block_info_async: This block is loaded asynchronous and cached for %{time}.
+  label_dashboard_block_info_async: "这个区块是异步加载的，并缓存到 %{time}."
   label_dashboard_legacy_left: "Standard-Inhalt left"
   label_dashboard_legacy_right: "Standard content right"
-  label_dashboard_lock_is_active: Dashboard lock is active
+  label_dashboard_lock_is_active: "Dashboard 锁定已激活"
   label_dashboard_plural: Dashboards
   label_day: 天
   label_disable_sidebar: Disable sidebar

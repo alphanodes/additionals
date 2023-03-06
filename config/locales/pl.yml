@@ -87,7 +87,7 @@ pl:
   label_dashboard_block_info_async: "Ten blok jest ładowany asynchronicznie i buforowany przez %{time}."
   label_dashboard_legacy_left: "Zawartość standardowa lewy"
   label_dashboard_legacy_right: "Zawartość standardowa prawa"
-  label_dashboard_lock_is_active: Dashboard lock is active
+  label_dashboard_lock_is_active: "Dashboard Blokada jest aktywna"
   label_dashboard_plural: Dashboards
   label_day: "dzień"
   label_disable_sidebar: "Wyłączyć pasek boczny"

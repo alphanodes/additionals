@@ -87,7 +87,7 @@ cs:
   label_dashboard_block_info_async: "Tento blok se načítá asynchronně a ukládá se do mezipaměti po dobu %{time}."
   label_dashboard_legacy_left: "Zbývá standardní obsah"
   label_dashboard_legacy_right: "Standardní obsahové právo"
-  label_dashboard_lock_is_active: Dashboard lock is active
+  label_dashboard_lock_is_active: "Dashboard Zámek je aktivní"
   label_dashboard_plural: Dashboards
   label_day: den
   label_disable_sidebar: "Zakázat sidebar"

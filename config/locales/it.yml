@@ -87,7 +87,7 @@ it:
   label_dashboard_block_info_async: "Questo blocco viene caricato in modo asincrono e memorizzato nella cache per %{time}."
   label_dashboard_legacy_left: "Contenuto standard a sinistra"
   label_dashboard_legacy_right: "Contenuto standard a destra"
-  label_dashboard_lock_is_active: Dashboard lock is active
+  label_dashboard_lock_is_active: "Dashboard Blocco attivo"
   label_dashboard_plural: Dashboards
   label_day: giorno
   label_disable_sidebar: "Disattivare la barra laterale"

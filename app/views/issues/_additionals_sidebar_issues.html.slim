@@ -1,6 +1,5 @@
 - if Additionals.setting?(:issue_change_status_in_sidebar) && \
-     @issue && \
-     User.current.allowed_to?(:edit_issues, @project) && \
+     @issue&.attributes_editable? && \
      (!@issue.closed? || User.current.allowed_to?(:edit_closed_issues, @project))
   - statuses = @issue.sidbar_change_status_allowed_to User.current
   - if statuses.present?

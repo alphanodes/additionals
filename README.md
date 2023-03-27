@@ -130,7 +130,7 @@ It provides :
 * [Chart.js Plugin datalabels 2.1.0](https://github.com/chartjs/chartjs-plugin-datalabels)
 * [Chart.js Plugin matrix 2.0.1](https://github.com/kurkle/chartjs-chart-matrix)
 * [clipboardJS 2.0.11](https://clipboardjs.com/)
-* [d3 7.8.2](https://d3js.org/)
+* [d3 7.8.3](https://d3js.org/)
 * [d3plus 2.0.2](https://d3plus.org/)
 * [FontAwesome 5.15.4](https://fontawesome.com/)
 * [mermaid 9.3.0](https://github.com/mermaid-js/mermaid)
@@ -556,7 +556,7 @@ No, there is no restore function for your default dashboard. If you add dashboar
 
 There is nothing bad about it. Just remove the dashboard blocks you don't like and start over. The best way to start a new default dashboard anyway is to create a new dashboard, first and add the blocks you like. If everything is the way you want it, make it "Default". Keep the old "Default" as backup.
 
-#### I want to protect the Dashboard from accidental changes 
+#### I want to protect the Dashboard from accidental changes
 
 A protection against accidental deletion / editing is the option "Locked". Anyone with dashboard edit permission can enable/disable it. If enabled a little locked symbol is displayed at the top right corner so you can see, the dashboard is protected. You can unlock it any time to do your changes.
 

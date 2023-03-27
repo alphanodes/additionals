@@ -111,7 +111,7 @@ module AdditionalsQueriesHelper
 
     sorted_users = users.select("users.*, #{User.table_name}.last_login_on IS NULL AS select_order")
                         .order("select_order ASC, #{User.table_name}.last_login_on DESC")
-                        .limit(Additionals::SELECT2_INIT_ENTRIES)
+                        .limit(AdditionalsConf.select2_init_entries)
                         .to_a
                         .sort! { |x, y| x.name <=> y.name }
 

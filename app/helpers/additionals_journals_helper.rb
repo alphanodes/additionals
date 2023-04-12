@@ -65,7 +65,6 @@ module AdditionalsJournalsHelper
   end
 
   # Returns the textual representation of a single journal detail
-  # rubocop: disable Rails/OutputSafety
   def entity_show_detail(entity, detail, no_html = false, **options) # rubocop:disable Style/OptionalBooleanParameter:
     multiple = false
     no_detail = false
@@ -120,7 +119,6 @@ module AdditionalsJournalsHelper
       show_detail detail, no_html, options
     end
   end
-  # rubocop: enable Rails/OutputSafety
 
   def render_email_attributes(entry, html: false)
     items = send "email_#{entry.class.name.underscore}_attributes", entry, html

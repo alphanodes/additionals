@@ -5,8 +5,6 @@ linters:
     ignored_cops:
       - Layout/ArgumentAlignment
       - Layout/ArrayAlignment
-      - Layout/BlockEndNewline
-      - Layout/EmptyLineAfterGuardClause
       - Layout/HashAlignment
       - Layout/IndentationWidth
       - Layout/MultilineArrayBraceLayout
@@ -17,7 +15,6 @@ linters:
       - Layout/MultilineMethodCallIndentation
       - Layout/MultilineMethodDefinitionBraceLayout
       - Layout/MultilineOperationIndentation
-      - Layout/SpaceBeforeBrackets
       - Layout/TrailingEmptyLines
       - Lint/Void
       - Metrics/BlockNesting
@@ -26,4 +23,5 @@ linters:
       - Style/IdenticalConditionalBranches
       - Style/IfUnlessModifier
       - Style/Next
+      - Style/RedundantLineContinuation
       - Style/WhileUntilModifier

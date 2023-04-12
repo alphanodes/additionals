@@ -85,7 +85,7 @@ module AdditionalsMenuHelper
       rescue LoadError
         Rails.logger.debug { "Ignore plugin #{plugin.id} for help integration" }
       rescue StandardError => e
-        raise e unless e.class.to_s == 'NameError'
+        raise e unless e.instance_of? ::NameError
       end
 
       plugin_item = plugin_item_base.try :additionals_help_items unless plugin_item_base.nil?

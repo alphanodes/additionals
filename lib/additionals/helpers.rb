@@ -224,7 +224,7 @@ module Additionals
         str << '.'
         if created != updated
           str << ' '
-          str << l(:label_updated_time, time_tag(updated)).html_safe # rubocop: disable Rails/OutputSafety
+          str << l(:label_updated_time, time_tag(updated)).html_safe
           str << '.'
         end
         safe_join str

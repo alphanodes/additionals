@@ -114,6 +114,10 @@ module Additionals
           # if option_tags is not an array, it should be an object
           option_tags = options_for_select [[option_tags.try(:name), option_tags.try(:id)]], option_tags.try(:id)
         end
+      else
+        # NOTE: without data select_tag raise error if include_blank is used,
+        # e.g. ActionView::Template::Error (no implicit conversion of DbEntry::ActiveRecord_Relation into String)
+        option_tags = ''
       end
 
       ajax_params = options.delete(:ajax_params) || {}

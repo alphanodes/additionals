@@ -13,9 +13,17 @@ class AdditionalsConf
       @select2_init_entries ||= with_system_default 'SELECT2_INIT_ENTRIES'
     end
 
-    def with_system_default(const_var, bool: false, default: nil)
+    def with_system_default(const_var, type: 'string', default: nil)
       if ENV[const_var].present?
-        bool ? RedminePluginKit.true?(ENV.fetch(const_var)) : ENV.fetch(const_var)
+        env_var = ENV.fetch const_var
+        case type
+        when 'bool'
+          RedminePluginKit.true? env_var
+        when 'array'
+          env_var.strip_split ' '
+        else
+          env_var
+        end
       elsif Redmine::Configuration[const_var.downcase].present?
         Redmine::Configuration[const_var.downcase]
       elsif !default.nil?

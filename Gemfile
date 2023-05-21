@@ -44,7 +44,7 @@ end
 #   (this is used to not create conflicts with other plugins)
 if File.file? File.expand_path './.enable_test', __dir__
   group :development, :test do
-    gem 'active_record_doctor', require: false
+    gem 'active_record_doctor'
     gem 'bullet'
     gem 'rails_best_practices', require: false
   end

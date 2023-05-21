@@ -15,7 +15,7 @@ module Additionals
       module InstanceMethods
         def fontawesome
           icons = AdditionalsFontAwesome.search_for_select @search_term, params[:selected].to_s.strip
-          icons.sort! { |x, y| x[:text] <=> y[:text] }
+          icons.sort_by! { |a| a[:text] }
 
           respond_to do |format|
             format.js { render json: icons }

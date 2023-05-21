@@ -113,7 +113,7 @@ module AdditionalsQueriesHelper
                         .order("select_order ASC, #{User.table_name}.last_login_on DESC")
                         .limit(AdditionalsConf.select2_init_entries)
                         .to_a
-                        .sort! { |x, y| x.name <=> y.name }
+                        .sort_by(&:name)
 
     with_users = false
     sorted_users.each do |user|

@@ -406,8 +406,8 @@ module DashboardsHelper
         rss = RSS::Parser.parse rss_feed
         rss.items.each do |item|
           cnt += 1
-          feed[:items] << { title: item.title.try(:content)&.presence || item.title,
-                            link: item.link.try(:href)&.presence || item.link }
+          feed[:items] << { title: item.title.try(:content).presence || item.title,
+                            link: item.link.try(:href).presence || item.link }
           break if cnt >= max_entries
         end
       end

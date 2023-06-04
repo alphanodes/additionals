@@ -147,6 +147,6 @@ class DashboardContent
 
   # if more the one permission is specified, all permissions are required
   def block_permission_allowed?(permission)
-    Array(permission).all? { |p| user.allowed_to?(p, project, global: true) }
+    Array(permission).all? { |p| user.allowed_to? p, project, global: true }
   end
 end

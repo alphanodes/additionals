@@ -45,7 +45,7 @@ class AdditionalsInfo
         line_info = line.split '='
         if line_info[0] == 'Caption'
           windows_version = line_info[1]
-        elsif build_names.include?(line_info[0]) && line_info[1]&.present?
+        elsif build_names.include?(line_info[0]) && line_info[1].present?
           windows_build = line_info[1]
         end
       end

@@ -29,9 +29,7 @@ module AdditionalsIssuesHelper
   end
 
   def show_issue_change_author?(issue)
-    if issue.new_record? && User.current.allowed_to?(:change_new_issue_author, issue.project) ||
-       issue.persisted? && User.current.allowed_to?(:edit_issue_author, issue.project)
-      true
-    end
+    issue.new_record? && User.current.allowed_to?(:change_new_issue_author, issue.project) ||
+      issue.persisted? && User.current.allowed_to?(:edit_issue_author, issue.project)
   end
 end

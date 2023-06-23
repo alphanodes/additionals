@@ -291,6 +291,8 @@ module AdditionalsQueriesHelper
        /\A(?:in|ex)ternal:/.match?(token)
       true
     end
+
+    false
   end
 
   def set_flash_from_bulk_save(entries, unsaved_ids, name_plural:)

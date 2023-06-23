@@ -183,6 +183,8 @@ class Dashboard < ActiveRecord::Base
         user.memberships.joins(:member_roles).where(member_roles: { role_id: roles.map(&:id) }).any?
       end
     end
+
+    false
   end
 
   def content
@@ -340,10 +342,10 @@ class Dashboard < ActiveRecord::Base
   end
 
   def project_id_can_change?
-    return true if new_record? ||
-                   dashboard_type != DashboardContentProject::TYPE_NAME ||
-                   !system_default_was ||
-                   project_id_was.present?
+    new_record? ||
+      dashboard_type != DashboardContentProject::TYPE_NAME ||
+      !system_default_was ||
+      project_id_was.present?
   end
 
   private

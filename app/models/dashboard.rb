@@ -182,9 +182,9 @@ class Dashboard < ActiveRecord::Base
       else
         user.memberships.joins(:member_roles).where(member_roles: { role_id: roles.map(&:id) }).any?
       end
+    else
+      false
     end
-
-    false
   end
 
   def content

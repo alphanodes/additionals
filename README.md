@@ -131,7 +131,7 @@ It provides :
 * [Chart.js Plugin matrix 2.0.1](https://github.com/kurkle/chartjs-chart-matrix)
 * [clipboardJS 2.0.11](https://clipboardjs.com/)
 * [d3 7.8.5](https://d3js.org/)
-* [d3plus 2.0.2](https://d3plus.org/)
+* [d3plus 2.0.3](https://d3plus.org/)
 * [FontAwesome 5.15.4](https://fontawesome.com/)
 * [mermaid 9.3.0](https://github.com/mermaid-js/mermaid)
 * [moment 2.29.4](https://github.com/moment/moment) (used by Chart.js)

@@ -5,6 +5,7 @@
 - Chart.js Plugin annotation 2.1.2 support
 - Chart.js Plugin matrix 2.0.1 support
 - D3 7.8.5 support
+- d3plus 2.0.3 support
 - Show author badge with notes
 - Allow fast edit of description for a issue
 

@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 module AdditionalsQuery
+  NO_RESULT_CONDITION = '1=0'
+  WITH_TRUE_CONDITION = '1=1'
+
   def label_me_value
     self.class.label_me_value
   end
@@ -63,7 +66,7 @@ module AdditionalsQuery
       if ids.any?
         "#{queried_table_name}.id IN (#{ids.join ','})"
       else
-        '1=0'
+        NO_RESULT_CONDITION
       end
     else
       sql_for_field 'id', operator, value, queried_table_name, 'id'
@@ -222,7 +225,7 @@ module AdditionalsQuery
 
       "#{queried_table_name}.is_private = #{self.class.connection.quoted_true}"
     else
-      return '1=0' if value.count > 1
+      return NO_RESULT_CONDITION if value.count > 1
 
       "#{queried_table_name}.is_private = #{self.class.connection.quoted_false}"
     end

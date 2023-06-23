@@ -281,7 +281,7 @@ module AdditionalsQueriesHelper
   end
 
   def xlsx_hyperlink_cell?(token)
-    return if token.blank? || !token.is_a?(String)
+    return false if token.blank? || !token.is_a?(String)
 
     # Match http, https or ftp URL
     if %r{\A[fh]tt?ps?://}.match?(token) ||

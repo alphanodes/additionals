@@ -270,7 +270,7 @@ class Dashboard < ActiveRecord::Base
   end
 
   def deletable?(user = User.current)
-    return unless editable? user
+    return false unless editable? user
 
     return !system_default_was if dashboard_type != DashboardContentProject::TYPE_NAME
 

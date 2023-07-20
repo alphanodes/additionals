@@ -39,6 +39,14 @@ javascript:
               let percentage = (value*100 / sum).toFixed(0)+"%";
               return percentage;
           },
+          display: function(ctx) {
+            if (ctx.dataset.data[ctx.dataIndex] > 1){
+              return "auto";
+            }
+            else{
+              return ctx.dataset.data[ctx.dataIndex] > 1;
+            }
+          },
           color: '#000',
         }
       }

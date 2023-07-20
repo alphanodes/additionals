@@ -16,7 +16,6 @@ if File.file? File.expand_path './.enable_dev', __dir__
     gem 'debug'
     gem 'marginalia'
     gem 'memory_profiler'
-    gem 'solargraph'
   end
 end
 

@@ -317,9 +317,6 @@ Here you can define issue rules, which are used in issues of all projects.
 If *Assignee* is unchanged and the issue status changed from x to y, than the author is assigned to the issue.
 Issues should be automatically assigned to the author, if the status changes to *Approval*.
 
-![Preferences](contrib/images/account-preferences.jpg "Preferences")
-
-*Figure: Deactivate this option in your account in case you don't want to be notified even if the admin activated it.*
 
 > **_NOTE:_** Use Case for this option is that issues should be automatically assigned to author, if the status changes to *Approval*.
 
@@ -558,7 +555,7 @@ There is nothing bad about it. Just remove the dashboard blocks you don't like a
 
 #### I want to protect the Dashboard from accidental changes
 
-A protection against accidental deletion / editing is the option "Locked". Anyone with dashboard edit permission can enable/disable it. If enabled a little locked symbol is displayed at the top right corner so you can see, the dashboard is protected. You can unlock it any time to do your changes.
+A protection against accidental deletion / editing is the option "Locked". Anyone with dashboard edit permission can enable/disable it. If enabled a little locked symbol is displayed at the top right corner so you can see, the dashboard is protected. You can unlock it any time to do your changes. It is not possible to change locked dashboards.
 
 #### I accidently deleted a Dashboard block
 
@@ -570,7 +567,7 @@ There is just one system default dashboard possible for every area. This means o
 
 #### Does every user sees the content of every Dashboard block?
 
-You do not control the content a user in your project sees via the dashboard block you add, but still by setting up the correct user permissions in the administration area "Roles and permissions". Those permissions for a user role are relevant for the content a user can view in your project and must be set correctly.
+You do not control the content a user in your project can view via the dashboard block you add. You need to take care of content view permissions by setting up the correct user permissions in the administration area "Roles and permissions". Those permissions are relevant for the content a user can view in your project and must be set correctly. If you want a dashboard for your own, all you need to do is, create a new dashboard and set *Visible* to the option *to me only*.
 
 #### I want to use different dashboards for my employees than for Anonymous users / Non members
 

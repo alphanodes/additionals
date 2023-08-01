@@ -12,7 +12,8 @@ javascript:
     data: {
       label_ids: #{raw json_escape(@chart[:label_ids])},
       labels: #{raw json_escape(@chart[:labels])},
-      datasets: #{raw json_escape(@chart[:datasets])}
+      datasets: #{raw json_escape(@chart[:datasets])},
+      data_sum: #{raw @chart[:data_sum]},
     },
     options: {
       responsive: true,
@@ -29,27 +30,20 @@ javascript:
           scheme: "#{@chart[:color_schema]}",
           fillAlpha: 0.8,
         },
-        datalabels: {
-          formatter: (value, ctx) => {
-              let sum = 0;
-              let dataArr = ctx.chart.data.datasets[0].data;
-              dataArr.map(data => {
-                  sum += data;
-              });
-              let percentage = (value*100 / sum).toFixed(0)+"%";
-              return percentage;
-          },
-          display: function(ctx) {
-            if (ctx.dataset.data[ctx.dataIndex] > 1){
-              return "auto";
+        tooltip: {
+          displayColors: false,
+          callbacks: {
+            title(context) {
+              return context[0].label;
+            },
+            label(context) {
+              const v = context.dataset.data[context.dataIndex];
+              const sum = context.chart.data.data_sum;
+              const percentage = (v*100 / sum).toFixed(0)+"%";
+              return ['#{l :label_quantity}: ' + v, '#{l :label_percentage}: ' + percentage];
             }
-            else{
-              return ctx.dataset.data[ctx.dataIndex] > 1;
-            }
-          },
-          color: '#000',
+          }
         }
       }
-    },
-    plugins: [ChartDataLabels]
+    }
   });

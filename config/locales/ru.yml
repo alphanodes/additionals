@@ -141,9 +141,11 @@ ru:
   label_open_in_new_windows: "Открыть в новом окне"
   label_optional: "необязательный"
   label_pdf_wiki_settings: PDF Wiki settings
+  label_percentage: "Процент"
   label_project_information: "Информация о проекте"
   label_project_list: "Список проектов"
   label_project_setting: "Проект"
+  label_quantity: "Количество"
   label_query_delete: "Удалить query"
   label_query_edit: "Редактировать query"
   label_query_name_search: "Поиск имени"

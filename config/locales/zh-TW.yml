@@ -141,9 +141,11 @@
   label_open_in_new_windows: Open in new windows
   label_optional: "選擇性"
   label_pdf_wiki_settings: "PDF Wiki 設定"
+  label_percentage: Percentage
   label_project_information: "项目信息"
   label_project_list: "專案清單"
   label_project_setting: "项目"
+  label_quantity: "Quantity"
   label_query_delete: 刪除查詢
   label_query_edit: 編輯查詢
   label_query_name_search: "搜索名字"

@@ -141,9 +141,11 @@ pl:
   label_open_in_new_windows: "Otwieranie w nowych oknach"
   label_optional: "fakultatywny"
   label_pdf_wiki_settings: "PDF Wiki nastawy"
+  label_percentage: Procent
   label_project_information: "Informacja o projekcie"
   label_project_list: "Lista projektów"
   label_project_setting: "Projekt"
+  label_quantity: "Ilość"
   label_query_delete: "Usuń query"
   label_query_edit: "Edycja query"
   label_query_name_search: "Wyszukaj nazwę"

@@ -141,9 +141,11 @@ de:
   label_open_in_new_windows: In neuen Fenster öffnen
   label_optional: optional
   label_pdf_wiki_settings: PDF Wiki Einstellungen
+  label_percentage: Anteil
   label_project_information: Projektinformation
   label_project_list: Projektliste
   label_project_setting: Projekt
+  label_quantity: Anzahl
   label_query_delete: Abfrage löschen
   label_query_edit: Abfrage bearbeiten
   label_query_name_search: Nach Name suchen

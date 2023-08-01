@@ -22,7 +22,12 @@ module DashboardsHelper
 
   def welcome_overview_name(dashboard = nil)
     name = [l(:label_home)]
-    name << dashboard.name if dashboard&.always_expose? || dashboard.present? && !dashboard.system_default?
+
+    if dashboard&.always_expose? || dashboard.present? && !dashboard.system_default?
+      default_dashboard = Dashboard.default DashboardContentWelcome::TYPE_NAME, nil, User.current, ''
+      name = [dashboard_link(default_dashboard, nil, name: l(:label_home))] if default_dashboard&.id != dashboard.id
+      name << dashboard.name
+    end
 
     safe_join name, Additionals::LIST_SEPARATOR
   end

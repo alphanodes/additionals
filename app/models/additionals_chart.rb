@@ -19,6 +19,7 @@ class AdditionalsChart
     # build return value
     def build_chart_data(datasets, **options)
       cached_labels = labels
+
       data = { datasets: datasets.to_json,
                labels: cached_labels.keys,
                label_ids: cached_labels.values }
@@ -30,6 +31,9 @@ class AdditionalsChart
       data[:height] = self::CHART_DEFAULT_HEIGHT unless options.key? :height
       data[:value_link_method] = '_project_issues_path' unless options.key? :value_link_method
       data[:color_schema] = color_schema
+
+      data_values = Array(datasets).first[:data]
+      data[:data_sum] = data_values.present? ? data_values.sum : 0
 
       data.merge options
     end

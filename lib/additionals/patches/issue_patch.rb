@@ -52,17 +52,6 @@ module Additionals
           end
         end
 
-        def add_autowatcher(user)
-          return if user.nil? ||
-                    !user.is_a?(User) ||
-                    user.anonymous? ||
-                    !user.active? ||
-                    watched_by?(user) ||
-                    watchers.detect { |watcher| watcher.user_id == user.id }
-
-          add_watcher user
-        end
-
         def log_time_allowed?(user = User.current)
           !status_was.is_closed || user.allowed_to?(:log_time_on_closed_issues, project)
         end

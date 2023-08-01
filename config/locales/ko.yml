@@ -141,9 +141,11 @@ ko:
   label_open_in_new_windows: 새 창에서 열기
   label_optional: "선택"
   label_pdf_wiki_settings: PDF Wiki settings
+  label_percentage: "백분율"
   label_project_information: "프로젝트 정보"
   label_project_list: "프로젝트 목록"
   label_project_setting: "계획"
+  label_quantity: "수량"
   label_query_delete: 검색어 삭제
   label_query_edit: 검색어 수정
   label_query_name_search: 이름 검색

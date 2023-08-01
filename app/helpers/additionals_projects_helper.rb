@@ -1,9 +1,14 @@
 # frozen_string_literal: true
 
 module AdditionalsProjectsHelper
-  def project_overview_name(_project, dashboard = nil)
+  def project_overview_name(project, dashboard = nil)
     name = [l(:label_overview)]
-    name << dashboard.name if dashboard.present? && (dashboard.always_expose? || !dashboard.system_default)
+
+    if dashboard.present? && (dashboard.always_expose? || !dashboard.system_default)
+      default_dashboard = Dashboard.default DashboardContentProject::TYPE_NAME, project, User.current, ''
+      name = [dashboard_link(default_dashboard, project, name: l(:label_overview))] if default_dashboard&.id != dashboard.id
+      name << dashboard.name if dashboard.present? && (dashboard.always_expose? || !dashboard.system_default)
+    end
 
     safe_join name, Additionals::LIST_SEPARATOR
   end

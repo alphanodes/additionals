@@ -141,9 +141,11 @@ zh:
   label_open_in_new_windows: 在新窗口打开
   label_optional: "可选项"
   label_pdf_wiki_settings: Wiki PDF 导出设置
+  label_percentage: Percentage
   label_project_information: "项目信息"
   label_project_list: "项目列表"
   label_project_setting: "项目"
+  label_quantity: "Quantity"
   label_query_delete: 删除查询
   label_query_edit: 编辑查询
   label_query_name_search: "搜索名字"

@@ -141,9 +141,11 @@ ja:
   label_open_in_new_windows: "新しいウィンドウで開く"
   label_optional: "任意"
   label_pdf_wiki_settings: PDF Wiki settings
+  label_percentage: "割合"
   label_project_information: "プロジェクト情報"
   label_project_list: "プロジェクト一覧"
   label_project_setting: "プロジェクト"
+  label_quantity: "数量"
   label_query_delete: Delete query
   label_query_edit: Edit query
   label_query_name_search: "名前を検索"

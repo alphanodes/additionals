@@ -3,7 +3,7 @@ table.list.issue-report.table-of-values
   thead
     tr
       th = @chart[:label]
-      th = l :label_total
+      th = l :label_quantity
   tbody
     - options = { set_filter: 1 }
     - @chart[:filters].each do |line|

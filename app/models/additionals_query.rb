@@ -205,6 +205,7 @@ module AdditionalsQuery
       " (SELECT MAX(#{journal_table}.id)" \
       " FROM #{journal_table}" \
       " WHERE #{journal_table}.journalized_type='#{journalized_type}'" \
+      " AND #{journal_table}.notes IS NOT NULL AND #{journal_table}.notes != ''" \
       " GROUP BY #{journal_table}.journalized_id)" \
       " AND #{sql_for_field field, operator, value, journal_table, 'created_on'})"
     end

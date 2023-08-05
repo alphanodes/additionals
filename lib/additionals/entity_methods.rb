@@ -28,7 +28,7 @@ module Additionals
         # Author and assignee are always notified unless they have been
         # locked or don't want to be notified
         notified << author if author
-        notified += (assigned_to.is_a?(Group) ? assigned_to.users : [assigned_to]) if assigned_to
+        notified += assigned_to_notified_users if assigned_to
         notified += project.notified_users if project
         Redmine::Hook.call_hook :model_notified_users, entity: self, notified: notified
 

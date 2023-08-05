@@ -63,6 +63,12 @@ module Additionals
     end
 
     module InstanceMethods
+      def assigned_to_notified_users
+        return [] unless assigned_to
+
+        assigned_to.is_a?(Group) ? assigned_to.users : [assigned_to]
+      end
+
       def notes_count
         @notes_count ||= journals.where.not(notes: '').count
       end

@@ -140,3 +140,6 @@ Layout/LineContinuationLeadingSpace:
 # redmine does not use load_defaults: https://rails.rubystyle.guide/#config-defaults
 Rails/RedundantPresenceValidationOnBelongsTo:
   Enabled: false
+
+Bundler/DuplicatedGroup:
+  Enabled: false

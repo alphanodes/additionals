@@ -156,6 +156,6 @@ module AdditionalsJournalsHelper
     custom_field = detail.custom_field
     return unless custom_field
 
-    return { show_diff: true, label: detail.custom_field.name } if custom_field.format.class.change_as_diff
+    { show_diff: true, label: detail.custom_field.name } if custom_field.format.class.change_as_diff
   end
 end

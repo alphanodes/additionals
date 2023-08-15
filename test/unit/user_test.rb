@@ -45,7 +45,8 @@ class UserTest < Additionals::TestCase
 
     user = users :users_001
     user.sudoer = true
-    user.save!
+
+    assert_save user
     user.reload
 
     assert user.sudoer
@@ -53,7 +54,8 @@ class UserTest < Additionals::TestCase
     assert User.where(sudoer: true).first.can_be_admin?
 
     user.admin = false
-    user.save!
+
+    assert_save user
     user.reload
 
     assert user.sudoer

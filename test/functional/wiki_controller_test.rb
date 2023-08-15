@@ -39,7 +39,8 @@ class WikiControllerTest < Additionals::ControllerTest
   def test_show_with_youtube_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{youtube(KMU0tzLwhbE)}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -50,7 +51,8 @@ class WikiControllerTest < Additionals::ControllerTest
   def test_show_with_meteoblue_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{meteoblue(münchen_deutschland_2867714)}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -61,7 +63,8 @@ class WikiControllerTest < Additionals::ControllerTest
   def test_show_with_vimeo_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{vimeo(142849533)}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -72,7 +75,8 @@ class WikiControllerTest < Additionals::ControllerTest
   def test_show_with_slideshare_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{slideshare(57941706)}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -83,7 +87,8 @@ class WikiControllerTest < Additionals::ControllerTest
   def test_show_with_google_docs_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{google_docs(https://docs.google.com/spreadsheets/d/e/RANDOMCODE/pubhtml)}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -94,7 +99,8 @@ class WikiControllerTest < Additionals::ControllerTest
   def test_show_with_iframe_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{iframe(https://www.redmine.org/)}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -105,7 +111,8 @@ class WikiControllerTest < Additionals::ControllerTest
   def test_show_with_twitter_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{twitter(alphanodes)}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -115,7 +122,8 @@ class WikiControllerTest < Additionals::ControllerTest
                   text: '@alphanodes'
 
     @page.content.text = '{{twitter(@alphanodes)}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -124,7 +132,8 @@ class WikiControllerTest < Additionals::ControllerTest
                   text: '@alphanodes'
 
     @page.content.text = '{{twitter(#alphanodes)}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -136,7 +145,8 @@ class WikiControllerTest < Additionals::ControllerTest
   def test_show_with_reddit_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{reddit(redmine)}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -146,7 +156,8 @@ class WikiControllerTest < Additionals::ControllerTest
                   text: 'r/redmine'
 
     @page.content.text = '{{reddit(u/redmine)}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -155,7 +166,8 @@ class WikiControllerTest < Additionals::ControllerTest
                   text: 'u/redmine'
 
     @page.content.text = '{{reddit(r/redmine)}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -167,7 +179,8 @@ class WikiControllerTest < Additionals::ControllerTest
   def test_show_last_updated_by_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{last_updated_by}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -180,7 +193,8 @@ class WikiControllerTest < Additionals::ControllerTest
   def test_show_last_updated_at_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{last_updated_at}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -192,7 +206,8 @@ class WikiControllerTest < Additionals::ControllerTest
   def test_show_recently_updated_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{recently_updated}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -203,7 +218,8 @@ class WikiControllerTest < Additionals::ControllerTest
   def test_show_with_members_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{members}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -214,7 +230,8 @@ class WikiControllerTest < Additionals::ControllerTest
   def test_show_with_new_issue_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{new_issue}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -225,7 +242,8 @@ class WikiControllerTest < Additionals::ControllerTest
   def test_show_with_group_users_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{group_users(A Team)}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -236,7 +254,8 @@ class WikiControllerTest < Additionals::ControllerTest
   def test_show_with_projects_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{projects}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -247,7 +266,8 @@ class WikiControllerTest < Additionals::ControllerTest
   def test_show_with_fa_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{fa(adjust)}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -258,7 +278,8 @@ class WikiControllerTest < Additionals::ControllerTest
   def test_show_with_redmine_issue_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{redmine_issue(12066)}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -269,7 +290,8 @@ class WikiControllerTest < Additionals::ControllerTest
   def test_show_with_redmine_issue_with_absolute_url_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{redmine_issue(http://www.redmine.org/issues/12066)}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -280,7 +302,8 @@ class WikiControllerTest < Additionals::ControllerTest
   def test_show_with_redmine_wiki_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{redmine_wiki(RedmineInstall)}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -291,7 +314,8 @@ class WikiControllerTest < Additionals::ControllerTest
   def test_show_with_redmine_wiki_with_absolute_url_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{redmine_wiki(http://www.redmine.org/projects/redmine/wiki/RedmineInstall)}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -302,7 +326,8 @@ class WikiControllerTest < Additionals::ControllerTest
   def test_show_with_gist_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{gist(plentz/6737338)}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -313,7 +338,8 @@ class WikiControllerTest < Additionals::ControllerTest
   def test_show_with_tradeview_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{tradingview(symbol=NASDAQ:AMZN, locale=en)}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -324,7 +350,8 @@ class WikiControllerTest < Additionals::ControllerTest
   def test_show_with_cryptocompare_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{cryptocompare(fsyms=BTC;ETH, type=header_v3)}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -344,8 +371,8 @@ class WikiControllerTest < Additionals::ControllerTest
     valid_types.each do |type|
       @page.content.text << "{{date(#{type})}}"
     end
-    @page.content.save!
 
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -358,10 +385,9 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_with_date_macro_and_invalid_type
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-
     @page.content.text = '{{date(invalid_type_name)}}'
-    @page.content.save!
 
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -371,10 +397,9 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_with_date_macro_custom_date
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-
     @page.content.text = '{{date(2017-02-25)}}'
-    @page.content.save!
 
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -384,10 +409,9 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_with_date_macro_invalid_custom_date
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-
     @page.content.text = '{{date(2017-02-30)}}'
-    @page.content.save!
 
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -398,7 +422,8 @@ class WikiControllerTest < Additionals::ControllerTest
   def test_show_with_asciinema_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{asciinema(113463)}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -409,7 +434,8 @@ class WikiControllerTest < Additionals::ControllerTest
   def test_show_user_with_current_user
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{user(current_user)}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -421,7 +447,8 @@ class WikiControllerTest < Additionals::ControllerTest
   def test_show_user_with_current_user_as_text
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{user(current_user, text=true)}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -432,7 +459,8 @@ class WikiControllerTest < Additionals::ControllerTest
   def test_show_user_with_id
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{user(1)}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -444,7 +472,8 @@ class WikiControllerTest < Additionals::ControllerTest
   def test_show_user_with_id_fullname
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{user(1, format=firstname_lastname)}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -457,7 +486,8 @@ class WikiControllerTest < Additionals::ControllerTest
   def test_show_user_with_name
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{user(jsmith)}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 
@@ -469,7 +499,8 @@ class WikiControllerTest < Additionals::ControllerTest
   def test_show_user_with_name_fullname
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     @page.content.text = '{{user(jsmith, format=firstname_lastname, avatar=true)}}'
-    @page.content.save!
+
+    assert_save @page.content
     get :show,
         params: { project_id: 1, id: @page_name }
 

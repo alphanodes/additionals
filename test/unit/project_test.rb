@@ -81,7 +81,8 @@ class ProjectTest < Additionals::TestCase
     role = Role.find 2
     role.hide = 1
     role.users_visibility = 'members_of_visible_projects'
-    role.save!
+
+    assert_save role
 
     # User.current = User.find 2
     principals_by_role = Project.find(1).principals_by_role
@@ -134,8 +135,8 @@ class ProjectTest < Additionals::TestCase
     role = Role.find 2
     role.hide = 1
     role.users_visibility = 'members_of_visible_projects'
-    role.save!
 
+    assert_save role
     assert_not project.consider_hidden_roles?
   end
 
@@ -145,8 +146,8 @@ class ProjectTest < Additionals::TestCase
     role = Role.find 2
     role.hide = 1
     role.users_visibility = 'members_of_visible_projects'
-    role.save!
 
+    assert_save role
     assert project.consider_hidden_roles?
   end
 end

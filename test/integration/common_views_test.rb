@@ -34,7 +34,9 @@ class CommonViewsTest < Additionals::IntegrationTest
     EnabledModule.create project_id: 1, name: 'issue_tracking'
     issue = issues :issues_001
     issue.description = 'new value'
-    issue.save
+
+    assert_save issue
+
     get '/issues/1'
 
     assert_response :success

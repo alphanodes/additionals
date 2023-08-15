@@ -190,7 +190,8 @@ class IssuesControllerTest < Additionals::ControllerTest
   def test_new_should_not_have_new_ticket_message_if_disabled_in_project
     project = projects :projects_001
     project.enable_new_ticket_message = 0
-    project.save!
+
+    assert_save project
 
     with_plugin_settings 'additionals', new_ticket_message: 'blub' do
       @request.session[:user_id] = 2

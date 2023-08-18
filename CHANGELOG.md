@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.0
+
+- Fix missing label for view all documents
+
 ## 3.0.9
 
 - Chart.js Plugin annotation 2.1.2 support

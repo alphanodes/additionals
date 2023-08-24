@@ -36,7 +36,7 @@ zh:
   button_dashboard_edit: "编辑仪表盘"
   button_merge: "合并"
   disabled_modules_info: "项目中无法选择模块。如果这些模块已经在现有项目中激活，则必须首先更改并重新保存响应的项目设置。"
-  emoji_support_info_html: 'Convert emojis in text. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> the available emoji codes can be used.'
+  emoji_support_info_html: 'Convert emojis in text. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" class="external">Emoji cheat sheet</a> the available emoji codes can be used.'
   error_issue_status_could_not_changed: 无法改变问题状态
   error_issues_could_not_be_assigned_to_me: 问题无法被指派给自己
   error_query_statement_invalid: 执行查询时出错且已被记录。请向你的 Redmine 管理员报告此错误。
@@ -57,7 +57,7 @@ zh:
   global_footer_info: '请在此处输入项目范围内 Wiki 页尾信息。'
   global_sidebar_info: "请在此处输入项目范围内侧边栏信息。自定义侧边栏信息将在项目概述页、问题列表页及 Wiki 页显示。"
   global_wiki_sidebar_info: '请在此处输入项目范围内的 Wiki 侧边栏信息。该侧边栏信息将只显示在 Wiki 页内。在此空间内输入诸如 "Last changed pages" 的宏命令。若项目内使用指定的侧边栏（Wiki 页），则该信息将优先显示在侧边栏内。'
-  google_maps_embed_api_html: 如果你想使用 Gmap 宏以现实 Google 地图，请在此处使用你的 Google 地图 API Key。之后你就可以使用宏和多种参数。关于如何使用参数的更多信息请查看 <a href="https://developers.google.com/maps/documentation/embed/guide" target="_blank">https://developers.google.com/maps/documentation/embed/guide</a>. Gmap 宏只有在此处提供 Key 的情况下才可用。
+  google_maps_embed_api_html: 如果你想使用 Gmap 宏以现实 Google 地图，请在此处使用你的 Google 地图 API Key。之后你就可以使用宏和多种参数。关于如何使用参数的更多信息请查看 <a href="https://developers.google.com/maps/documentation/embed/guide" class="external">https://developers.google.com/maps/documentation/embed/guide</a>. Gmap 宏只有在此处提供 Key 的情况下才可用。
   hidden_macros_in_toolbar_info: 登录用户可以使用的所有可用宏都可通过 Wiki 页面工具栏 的 宏 按钮列出。请在此处选择不希望列出的宏。
   info_hidden_roles_html: 隐藏功能只能与"用户可见度"选项一起使用。如果某用户不在对当前用户可见的角色，则此用户及其角色在项目概述页和查询列表中将对当前用户隐藏。
   info_live_search_result_restriction: "LiveSearch的结果仅限于 %{value}。命中率。尝试更详细地描述你的搜索。"

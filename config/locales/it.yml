@@ -36,7 +36,7 @@ it:
   button_dashboard_edit: "Modifica dashboard"
   button_merge: "Unire"
   disabled_modules_info: "Moduli che non dovrebbero essere disponibili per la selezione all'interno dei progetti. Se questi moduli sono già stati attivati in progetti esistenti, dovrete prima cambiare e salvare nuovamente le rispettive impostazioni del progetto."
-  emoji_support_info_html: 'Convertire emoji in testo. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" target="_blank">Emoji cheat sheet</a> the available emoji codes can be used.'
+  emoji_support_info_html: 'Convertire emoji in testo. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" class="external">Emoji cheat sheet</a> the available emoji codes can be used.'
   error_issue_status_could_not_changed: Issue state could not be changed
   error_issues_could_not_be_assigned_to_me: Issue could not assigned to me
   error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.

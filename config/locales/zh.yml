@@ -207,6 +207,6 @@ zh:
   setting_export_limit: "导出限制"
   top_rules_help: "您可以在此定义用于问题处理的相关规则。"
   top_wiki_help: 您可以在此定义 Wiki 的内容及设置。
-  wiki_pdf_remove_attachments_info:  当启用时，Wiki 附件将不会显示在 PDF 视图中。
+  wiki_pdf_remove_attachments_info: 当启用时，Wiki 附件将不会显示在 PDF 视图中。
   wiki_pdf_remove_title_info: 当启用时，Wiki 标题信息将不会显示在 PDF 视图中。
-  label_document_view_all: View all documents
+  label_document_view_all: "查看所有文件"

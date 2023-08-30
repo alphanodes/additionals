@@ -113,6 +113,8 @@ Uninstall `additionals` plugin.
   * change assigned_to automatically, if issue status changes
   * assigned_to has changed, but status change is required, too
 
+> **_NOTE:_**  We reserve the right to remove certain functions again. This is the case, for example, if a function has been included in Redmine Core or conflict with it.
+
 ## Developer features
 
 As Redmine does not support asset pipeline, we need to install Javascript plugins as Redmine plugins to load them globally.
@@ -166,6 +168,7 @@ The following modules are available :
 * [additional_tags](https://github.com/AlphaNodes/additional_tags)
 * [redmine_automation](https://alphanodes.com/redmine-automation)
 * [redmine_db](https://alphanodes.com/redmine-db)
+* [redmine_devops](https://alphanodes.com/redmine-devops)
 * [redmine_git_hosting](http://redmine-git-hosting.io/)
 * [redmine_hedgedoc](https://github.com/AlphaNodes/redmine_hedgedoc)
 * [redmine_hrm](https://alphanodes.com/redmine-hrm>)
@@ -176,6 +179,7 @@ The following modules are available :
 * [redmine_reporting](https://alphanodes.com/redmine-reporting)
 * [redmine_servicedesk](https://alphanodes.com/redmine-servicedesk)
 * [redmine_sudo](https://github.com/AlphaNodes/redmine_sudo)
+* [redmine_wki_guide](https://alphanodes.com/redmine-wiki-guide)
 
 If you know other plugins, which are using *additionals*, please let us know or create a [PR](https://github.com/alphanodes/additionals/pulls).
 

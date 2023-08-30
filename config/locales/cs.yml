@@ -79,7 +79,7 @@ cs:
   label_content_plural: Obsah
   label_copied_to_clipboard: "Zkopírováno!"
   label_copy_to_clipboard: "Zkopírovat do schránky"
-  label_custom_field_editable_info: If disabled changes are only possible with API calls or via bulk edit.
+  label_custom_field_editable_info: "Pokud jsou změny zakázány, jsou možné pouze pomocí volání API nebo prostřednictvím hromadných úprav."
   label_custom_fields_distribution: "Vlastní pole pro distribuci"
   label_daily: denně
   label_dashboard: Dashboard

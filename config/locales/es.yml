@@ -43,7 +43,7 @@ es:
   errors_no_or_invalid_arguments: Parámetros inválidos
   field_always_expose: "Mostrar siempre el nombre del salpicadero"
   field_color: Color
-  field_dashboard_locked: Locked
+  field_dashboard_locked: "Bloqueada"
   field_enable_new_ticket_message: "Activar el mensaje de la empresa"
   field_enable_sidebar: "Activar la barra lateral"
   field_hide: "Ocultar"

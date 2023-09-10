@@ -20,19 +20,19 @@ module Additionals
     include Additionals::GlobalTestHelper
 
     def prepare_tests
-      Role.where(id: [1, 2]).each do |r|
+      Role.where(id: [1, 2]).find_each do |r|
         r.permissions << :save_dashboards
         r.save
       end
 
-      Role.where(id: [1]).each do |r|
+      Role.where(id: [1]).find_each do |r|
         r.permissions << :share_dashboards
         r.permissions << :set_system_dashboards
         r.permissions << :show_hidden_roles_in_memberbox
         r.save
       end
 
-      Project.where(id: [1, 2]).each do |project|
+      Project.where(id: [1, 2]).find_each do |project|
         EnabledModule.create project: project, name: 'issue_tracking'
       end
     end

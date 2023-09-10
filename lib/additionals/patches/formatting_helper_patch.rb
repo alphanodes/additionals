@@ -14,9 +14,9 @@ module Additionals
           super
           return if @additionals_macro_list
 
-          @additionals_macro_list = AdditionalsMacro.all(filtered: Additionals.setting(:hidden_macros_in_toolbar).to_a,
-                                                         only_names: true,
-                                                         controller_only: controller_name)
+          @additionals_macro_list = AdditionalsMacro.macros filtered: Additionals.setting(:hidden_macros_in_toolbar).to_a,
+                                                            only_names: true,
+                                                            controller_only: controller_name
 
           return if @additionals_macro_list.count.zero?
 

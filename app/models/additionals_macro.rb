@@ -2,7 +2,7 @@
 
 class AdditionalsMacro
   class << self
-    def all(only_names: false, filtered: [], controller_only: nil)
+    def macros(only_names: false, filtered: [], controller_only: nil)
       all = Redmine::WikiFormatting::Macros.available_macros
       macros = {}
       macro_list = []

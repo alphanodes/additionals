@@ -154,7 +154,7 @@ class AdditionalsFontAwesome
       values = FONTAWESOME_ICONS[type][name]
       return {} if values.blank?
 
-      { unicode: "&#x#{values[:unicode]};".html_safe, label: values[:label] } # rubocop:disable Rails/OutputSafety
+      { unicode: "&#x#{values[:unicode]};".html_safe, label: values[:label] } # rubocop: disable Rails/OutputSafety
     end
   end
 end

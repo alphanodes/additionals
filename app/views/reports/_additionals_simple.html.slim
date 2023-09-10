@@ -1,11 +1,11 @@
 ruby:
   case field_name
   when 'assigned_to_id'
-    rows = if Setting.issue_group_assignment?  # rubocop:disable Lint/UselessAssignment
+    rows = if Setting.issue_group_assignment?  # rubocop: disable Lint/UselessAssignment
              @project.visible_principals
            else
              @project.visible_users
            end + [User.new(firstname: "[#{l :label_none}]")]
   when 'author_id'
-    rows = @project.visible_users # rubocop:disable Lint/UselessAssignment
+    rows = @project.visible_users # rubocop: disable Lint/UselessAssignment
   end

@@ -10,7 +10,7 @@ namespace :redmine do
     DESCRIPTION
     task reset_recently_dashboards: :environment do
       cnt = 0
-      UserPreference.all.each do |pref|
+      UserPreference.find_each do |pref|
         next if pref.others.blank? || pref.others[:recently_used_dashboards].blank?
 
         pref.others.delete :recently_used_dashboards

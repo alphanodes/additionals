@@ -75,7 +75,7 @@ module AdditionalsMenuHelper
                      url: 'https://www.redmine.org/projects/redmine/wiki/Security_Advisories',
                      id: :security_advisories }]
 
-    Redmine::Plugin.all.each do |plugin|
+    Redmine::Plugin.all.each do |plugin| # rubocop: disable Rails/FindEach
       next if plugin.id == :additionals
 
       plugin_item_base = nil

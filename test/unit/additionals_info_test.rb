@@ -7,7 +7,7 @@ class AdditionalsInfoTest < Additionals::TestCase
     infos = AdditionalsInfo.new.system_infos
 
     assert infos.is_a? Hash
-    assert infos.count >= 3
+    assert_operator infos.count, :>=, 3
   end
 
   def test_system_info

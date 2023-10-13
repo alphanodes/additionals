@@ -101,9 +101,6 @@ module Additionals
     def setup
       RenderAsync.configuration.jquery = true
 
-      loader.incompatible? %w[redmine_editauthor
-                              redmine_changeauthor]
-
       loader.add_patch %w[ApplicationController
                           AutoCompletesController
                           Issue
@@ -130,6 +127,8 @@ module Additionals
                            CustomFields]
 
       loader.add_helper({ controller: 'Issues', helper: 'AdditionalsCommonJournals' })
+
+      loader.add_patch [{ target: Redmine::Views::LabelledFormBuilder, patch: 'LabelledFormBuilder' }]
 
       loader.add_global_helper [Additionals::Helpers,
                                 AdditionalsFontawesomeHelper,

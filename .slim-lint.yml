@@ -5,6 +5,7 @@ linters:
     ignored_cops:
       - Layout/ArgumentAlignment
       - Layout/ArrayAlignment
+      - Layout/EmptyLineAfterGuardClause
       - Layout/HashAlignment
       - Layout/IndentationWidth
       - Layout/MultilineArrayBraceLayout

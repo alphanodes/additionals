@@ -29,14 +29,10 @@ javascript:
       update: function(event, ui){
         // trigger the call on the list that receives the block only
         if ($(this).find(ui.item).length > 0) {
-          $.ajax({
-            url: "#{escape_javascript _order_blocks_dashboard_path(@project, dashboard)}",
-            type: 'post',
-            data: {
-              'group': $(this).attr('id').replace(/^list-/, ''),
-              'blocks': $.map($(this).children(), function(el){return $(el).attr('id').replace(/^block-/, '');})
-            }
-          });
+          $.post("#{escape_javascript _order_blocks_dashboard_path(@project, dashboard)}",
+                 { 'group': $(this).attr('id').replace(/^list-/, ''),
+                   'blocks': $.map($(this).children(), function(el){return $(el).attr('id').replace(/^block-/, '');})
+                 });
         }
       }
     });

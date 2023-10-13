@@ -84,11 +84,10 @@ function observeLiveSearchField(fieldId, targetId, target_url) {
 
         $.ajax({
           url: url,
-          type: 'get',
           data: formData,
-          success: function(data){ if(targetId) $('#'+targetId).html(data); },
-          beforeSend: function(){ $this.addClass('ajax-loading'); },
-          complete: function(){ $this.removeClass('ajax-loading'); }
+          success: function(data) { if(targetId) $('#'+targetId).html(data); },
+          beforeSend: function() { $this.addClass('ajax-loading'); },
+          complete: function() { $this.removeClass('ajax-loading'); }
         });
       }
     };

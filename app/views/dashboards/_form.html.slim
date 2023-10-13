@@ -71,13 +71,13 @@
 
 javascript:
   $(function() {
-    $("input[name='dashboard[visibility]']").change(function(){
+    $("input[name='dashboard[visibility]']").change(function() {
       var roles_checked = $('#dashboard_visibility_1').is(':checked');
       var private_checked = $('#dashboard_visibility_0').is(':checked');
       $("input[name='dashboard[role_ids][]'][type=checkbox]").attr('disabled', !roles_checked);
     }).trigger('change');
 
-    $("input[name='dashboard[system_default]']").change(function(){
+    $("input[name='dashboard[system_default]']").change(function() {
       var selection = $('#dashboard_system_default').is(':checked');
       if (selection) {
         $('#always-expose').show();

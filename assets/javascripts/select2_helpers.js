@@ -29,7 +29,7 @@ function additionals_transform_to_select2(field) {
       minimumInputLength: 1,
       width: '90%',
       templateResult: formatNameWithIcon
-    }).on('select2:open', function () {
+    }).on('select2:open', function() {
       $(this).parent('span').find('.select2-search__field').val(' ').trigger($.Event('input', { which: 13 })).val('');
     });
   }
@@ -151,7 +151,7 @@ function transformToSelect2(field, options) {
   selectField.select2(buildSelect2Options(options));
 
   var select2Instance = selectField.data('select2');
-  select2Instance.on('results:message', function(){
+  select2Instance.on('results:message', function() {
     this.dropdown._resizeDropdown();
     this.dropdown._positionDropdown();
   });
@@ -164,7 +164,7 @@ function select2Tag(id, options) {
     selectField.select2(buildSelect2Options(options));
 
     var select2Instance = selectField.data('select2');
-    select2Instance.on('results:message', function(){
+    select2Instance.on('results:message', function() {
       this.dropdown._resizeDropdown();
       this.dropdown._positionDropdown();
     });

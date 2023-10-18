@@ -5,7 +5,7 @@ Additionals is a `Redmine` plugin for customizing Redmine, providing wiki macros
 * Redmine.org plugin page: <https://www.redmine.org/plugins/additionals>
 * Github: <https://github.com/alphanodes/additionals>
 
-[![Rate at redmine.org](https://img.shields.io/badge/rate%20at-redmine.org-blue.svg?style=flat)](https://www.redmine.org/plugins/additionals) [![Run Linters](https://github.com/AlphaNodes/additionals/workflows/Run%20Linters/badge.svg)](https://github.com/AlphaNodes/additionals/actions?query=workflow%3A%22Run+Linters%22) [![Run Tests](https://github.com/AlphaNodes/additionals/workflows/Tests/badge.svg)](https://github.com/AlphaNodes/additionals/actions?query=workflow%3ATests)
+[![Rate at redmine.org](https://img.shields.io/badge/rate%20at-redmine.org-blue.svg?style=flat)](https://www.redmine.org/plugins/additionals) [![Run Linters](https://github.com/alphanodes/additionals/workflows/Run%20Linters/badge.svg)](https://github.com/alphanodes/additionals/actions?query=workflow%3A%22Run+Linters%22) [![Run Tests](https://github.com/alphanodes/additionals/workflows/Tests/badge.svg)](https://github.com/alphanodes/additionals/actions?query=workflow%3ATests)
 
 ## Requirements
 
@@ -25,7 +25,7 @@ Install `additionals` plugin for `Redmine`.
 
 ```shell
   cd $REDMINE_ROOT
-  git clone -b stable https://github.com/AlphaNodes/additionals.git plugins/additionals
+  git clone -b stable https://github.com/alphanodes/additionals.git plugins/additionals
   bundle config set --local without 'development test'
   bundle install
   bundle exec rake redmine:plugins:migrate RAILS_ENV=production
@@ -165,20 +165,20 @@ The following modules are available :
 
 ### Redmine Plugins, which are using *additionals*
 
-* [additional_tags](https://github.com/AlphaNodes/additional_tags)
+* [additional_tags](https://github.com/alphanodes/additional_tags)
 * [redmine_automation](https://alphanodes.com/redmine-automation)
 * [redmine_db](https://alphanodes.com/redmine-db)
 * [redmine_devops](https://alphanodes.com/redmine-devops)
 * [redmine_git_hosting](http://redmine-git-hosting.io/)
-* [redmine_hedgedoc](https://github.com/AlphaNodes/redmine_hedgedoc)
+* [redmine_hedgedoc](https://github.com/alphanodes/redmine_hedgedoc)
 * [redmine_hrm](https://alphanodes.com/redmine-hrm>)
-* [redmine_omniauth_saml](https://github.com/AlphaNodes/redmine_saml)
+* [redmine_omniauth_saml](https://github.com/alphanodes/redmine_saml)
 * [redmine_passwords](https://alphanodes.com/redmine-passwords)
-* [redmine_issue_view_columns](https://github.com/AlphaNodes/redmine_issue_view_columns)
-* [redmine_privacy_terms](https://github.com/AlphaNodes/redmine_privacy_terms)
+* [redmine_issue_view_columns](https://github.com/alphanodes/redmine_issue_view_columns)
+* [redmine_privacy_terms](https://github.com/alphanodes/redmine_privacy_terms)
 * [redmine_reporting](https://alphanodes.com/redmine-reporting)
 * [redmine_servicedesk](https://alphanodes.com/redmine-servicedesk)
-* [redmine_sudo](https://github.com/AlphaNodes/redmine_sudo)
+* [redmine_sudo](https://github.com/alphanodes/redmine_sudo)
 * [redmine_wki_guide](https://alphanodes.com/redmine-wiki-guide)
 
 If you know other plugins, which are using *additionals*, please let us know or create a [PR](https://github.com/alphanodes/additionals/pulls).
@@ -595,7 +595,7 @@ Learn how to implement Dashboard blocks in your plugins. There are only two thin
 * Create block template
   * Create a template for your block in *app/views/dashboards/blocks/*. The name of your template should be unique, that there are no conflicts with other blocks (e.g. from other plugins)
 
-> **_NOTE:_** Examples: Go to <https://github.com/AlphaNodes/additionals/tree/main/app/views/dashboards/blocks> for examples.
+> **_NOTE:_** Examples: Go to <https://github.com/alphanodes/additionals/tree/main/app/views/dashboards/blocks> for examples.
 
 * Add block definitions:
   * Add your block definition in *block_definitions*. This could be in:
@@ -603,7 +603,7 @@ Learn how to implement Dashboard blocks in your plugins. There are only two thin
     * dashboard_content_project.rb (if your block should be available in project dashboards only)
     * dashboard_content_welcome.rb (if your block should be available in welcome dashboards only)
 
-**_NOTE:_** Examples: Go to <https://github.com/AlphaNodes/additionals/blob/main/app/models/dashboard_content.rb#L29> for examples for that.
+**_NOTE:_** Examples: Go to <https://github.com/alphanodes/additionals/blob/main/app/models/dashboard_content.rb#L29> for examples for that.
 
 Overwrite it with *prepend* (not alias_method) to get no conflicts with other plugins. See *redmine_git_hosting* for an example implementation for a *block template* and a *block definition*.
 

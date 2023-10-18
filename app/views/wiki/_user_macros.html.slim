@@ -12,7 +12,7 @@
         .user.line
           = l :field_role
           ' :
-          = user_roles[user.id].to_list.html_safe
+          = user_roles[user.id].to_comma_list.html_safe
       .user.line
         = l :field_login
         ' :

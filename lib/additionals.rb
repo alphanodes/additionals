@@ -198,7 +198,7 @@ end
 
 class Array
   # alias for join with ', ' as seperator
-  def to_list
+  def to_comma_list
     join ', '
   end
 end

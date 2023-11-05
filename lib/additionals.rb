@@ -6,7 +6,7 @@ module Additionals
   MAX_CUSTOM_MENU_ITEMS = 5
   DEFAULT_MODAL_WIDTH = '350px'
   GOTO_LIST = " \xc2\xbb"
-  LIST_SEPARATOR = "#{GOTO_LIST} "
+  LIST_SEPARATOR = "#{GOTO_LIST} ".freeze
   EMOJI_ASSERT_PATH = 'plugin_assets/additionals/images/emojis'
 
   include RedminePluginKit::PluginBase

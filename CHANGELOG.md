@@ -3,6 +3,7 @@
 ## 3.1.0
 
 - Fix missing label for view all documents
+- Ruby 3 required
 
 ## 3.0.9
 

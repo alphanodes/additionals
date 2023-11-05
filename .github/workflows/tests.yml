@@ -10,8 +10,8 @@ jobs:
 
     strategy:
       matrix:
-        ruby: ['2.7', '3.0', '3.1', '3.2']
-        redmine: ['5.0-stable', 'master']
+        ruby: ['3.0', '3.1', '3.2']
+        redmine: ['5.0-stable', '5.1-stable', 'master']
         db: ['postgres', 'mysql']
         exclude:
           - ruby: '3.2'
@@ -53,14 +53,14 @@ jobs:
         if: matrix.db == 'mysql'
 
       - name: Checkout Redmine
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: redmine/redmine
           ref: ${{ matrix.redmine }}
           path: redmine
 
       - name: Checkout additionals
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: AlphaNodes/additionals
           path: redmine/plugins/additionals

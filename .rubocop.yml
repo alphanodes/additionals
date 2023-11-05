@@ -4,7 +4,7 @@ require:
   - rubocop-minitest
 
 AllCops:
-  TargetRubyVersion: 2.7
+  TargetRubyVersion: 3.0
   TargetRailsVersion: 6.1
   NewCops: enable
   ActiveSupportExtensionsEnabled: true

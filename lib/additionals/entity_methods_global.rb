@@ -80,7 +80,7 @@ module Additionals
       def like_with_wildcard(columns:, value:, wildcard: :none)
         sql = []
         Array(columns).each do |column|
-          sql << "LOWER(#{column}) LIKE LOWER(:p) ESCAPE :s"
+          sql << "LOWER(#{connection.quote_column_name column}) LIKE LOWER(:p) ESCAPE :s"
         end
 
         sql_string = sql.join ' OR '

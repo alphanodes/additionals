@@ -1,0 +1,17 @@
+<% if @journal.frozen? %>
+  $("#change-<%= @journal.id %>").remove();
+<% else %>
+  $("#change-<%= @journal.id %>").attr('class', '<%= @journal.css_classes %>');
+  $("#journal-<%= @journal.id %>-notes").replaceWith('<%= escape_javascript(render_notes(nil, @journal)) %>');
+  $("#journal-<%= @journal.id %>-notes").show();
+  $("#journal-<%= @journal.id %>-form").remove();
+  <% if Redmine::VERSION.to_s >= '5.1' %>
+  var journal_header = $("#change-<%= @journal.id %> h4");
+  var journal_updated_info = journal_header.find("span.update-info");
+  if (journal_updated_info.length > 0) {
+    journal_updated_info.replaceWith('<%= escape_javascript(render_journal_update_info(@journal)) %>');
+  } else {
+    journal_header.append('<%= escape_javascript(render_journal_update_info(@journal)) %>');
+  }
+  <% end %>
+<% end %>

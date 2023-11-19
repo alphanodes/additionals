@@ -14,7 +14,7 @@ class AdditionalsJournalsController < ApplicationController
 
     respond_to do |format|
       # TODO: implement non-JS journal update
-      format.js
+      format.js { render 'additionals_journals/edit' }
     end
   end
 
@@ -30,7 +30,7 @@ class AdditionalsJournalsController < ApplicationController
     @journal.destroy if @journal.details.empty? && @journal.notes.blank?
     respond_to do |format|
       format.html { redirect_after_update }
-      format.js
+      format.js { render 'additionals_journals/update' }
     end
   end
 

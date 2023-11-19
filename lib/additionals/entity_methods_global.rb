@@ -80,7 +80,7 @@ module Additionals
       def like_with_wildcard(columns:, value:, wildcard: :none)
         sql = []
         Array(columns).each do |column|
-          col = if column.include? '.'
+          col = if column.to_s.include? '.'
                   col_t, col_c = column.split '.'
                   "#{connection.quote_table_name col_t}.#{connection.quote_column_name col_c}"
                 else

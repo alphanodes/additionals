@@ -60,6 +60,32 @@ module Additionals
         "JOIN #{::EnabledModule.table_name} ON #{::EnabledModule.table_name}.project_id=#{table_name}.project_id" \
           " AND #{::EnabledModule.table_name}.name='#{module_name}'"
       end
+
+      def like_pattern(value, wildcard = nil)
+        cleaned_value = sanitize_sql_like value.to_s.strip
+        return cleaned_value if wildcard.nil? || wildcard == :none
+
+        case wildcard
+        when :both
+          "%#{cleaned_value}%"
+        when :left
+          "%#{cleaned_value}"
+        when :right
+          "#{cleaned_value}%"
+        else
+          raise 'unsupported wildcard rule'
+        end
+      end
+
+      def like_with_wildcard(columns:, value:, wildcard: :none)
+        sql = []
+        Array(columns).each do |column|
+          sql << "LOWER(#{column}) LIKE LOWER(:p) ESCAPE :s"
+        end
+
+        sql_string = sql.join ' OR '
+        where sql_string, p: like_pattern(value, wildcard), s: '\\'
+      end
     end
 
     module InstanceMethods

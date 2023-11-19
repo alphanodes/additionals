@@ -49,4 +49,20 @@ class EntityMethodTest < Additionals::TestCase
 
     assert_sorted_equal [1, 2, 3], projects.ids
   end
+
+  def test_like_pattern
+    assert_equal 'ss', Wiki.like_pattern(' ss ')
+    assert_equal 'ss%', Wiki.like_pattern('ss', :right)
+    assert_equal '%ss', Wiki.like_pattern('ss', :left)
+    assert_equal '%ss%', Wiki.like_pattern('ss', :both)
+    assert_equal 'ss', Wiki.like_pattern('ss', :none)
+  end
+
+  def test_like_with_wildcard
+    assert_empty Wiki.like_with_wildcard(columns: :start_page, value: 'nothing')
+  end
+
+  def test_like_with_wildcard_with_empty_value
+    assert_empty Wiki.like_with_wildcard(columns: :start_page, value: '')
+  end
 end

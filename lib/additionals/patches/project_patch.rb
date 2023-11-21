@@ -5,6 +5,9 @@ module Additionals
     module ProjectPatch
       extend ActiveSupport::Concern
 
+      USABLE_STATUSES = { Project::STATUS_ACTIVE => :active,
+                          Project::STATUS_CLOSED => :closed }.freeze
+
       included do
         prepend InstanceOverwriteMethods
         include InstanceMethods
@@ -12,6 +15,30 @@ module Additionals
         has_many :dashboards, dependent: :destroy
 
         safe_attributes 'enable_new_ticket_message', 'new_ticket_message'
+      end
+
+      class_methods do
+        def usable_status_ids
+          USABLE_STATUSES.keys
+        end
+
+        def sql_for_usable_status(table = nil)
+          table ||= Project.table_name
+
+          "#{table}.status IN(#{usable_status_ids.join ', '})"
+        end
+
+        def available_status_ids
+          available_statuses.keys
+        end
+
+        def available_statuses
+          statuses = USABLE_STATUSES.dup
+          statuses[Project::STATUS_ARCHIVED] = :archived
+          statuses[Project::STATUS_SCHEDULED_FOR_DELETION] = :scheduled_for_deletion if Redmine::VERSION.to_s >= '5.1'
+
+          statuses
+        end
       end
 
       module InstanceOverwriteMethods

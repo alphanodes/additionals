@@ -150,4 +150,29 @@ class ProjectTest < Additionals::TestCase
     assert_save role
     assert project.consider_hidden_roles?
   end
+
+  def test_usable_status_ids
+    ids = Project.usable_status_ids
+
+    assert_sorted_equal ids, [Project::STATUS_ACTIVE, Project::STATUS_CLOSED]
+  end
+
+  def test_sql_for_usable_status
+    assert_equal "projects.status IN(#{Project::STATUS_ACTIVE}, #{Project::STATUS_CLOSED})",
+                 Project.sql_for_usable_status
+    assert_equal "projects.status IN(#{Project::STATUS_ACTIVE}, #{Project::STATUS_CLOSED})",
+                 Project.sql_for_usable_status(:projects)
+    assert_equal "subprojects.status IN(#{Project::STATUS_ACTIVE}, #{Project::STATUS_CLOSED})",
+                 Project.sql_for_usable_status('subprojects')
+  end
+
+  def test_available_status_ids
+    ids = Project.available_status_ids
+
+    if Redmine::VERSION.to_s < '5.1'
+      assert_equal 3, ids.count
+    else
+      assert_operator ids.count, :>, 3
+    end
+  end
 end

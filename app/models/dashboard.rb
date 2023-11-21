@@ -118,20 +118,19 @@ class Dashboard < ActiveRecord::Base
       if user.admin?
         scope.where.not(visibility: VISIBILITY_PRIVATE).or(scope.where(author_id: user.id))
       elsif user.memberships.includes([:memberships]).any?
-        scope.where("#{table_name}.visibility = ?" \
-                    " OR (#{table_name}.visibility = ? AND #{table_name}.id IN (" \
+        scope.where "#{table_name}.visibility = :public" \
+                    " OR (#{table_name}.visibility = :roles AND #{table_name}.id IN (" \
                     "SELECT DISTINCT d.id FROM #{table_name} d" \
                     " INNER JOIN #{DashboardRole.table_name} dr ON dr.dashboard_id = d.id" \
                     " INNER JOIN #{MemberRole.table_name} mr ON mr.role_id = dr.role_id" \
-                    " INNER JOIN #{Member.table_name} m ON m.id = mr.member_id AND m.user_id = ?" \
-                    " INNER JOIN #{Project.table_name} p ON p.id = m.project_id AND p.status <> ?" \
+                    " INNER JOIN #{Member.table_name} m ON m.id = mr.member_id AND m.user_id = :user_id" \
+                    " INNER JOIN #{Project.table_name} p ON p.id = m.project_id AND p.status IN(:statuses)" \
                     ' WHERE d.project_id IS NULL OR d.project_id = m.project_id))' \
-                    " OR #{table_name}.author_id = ?",
-                    VISIBILITY_PUBLIC,
-                    VISIBILITY_ROLES,
-                    user.id,
-                    Project::STATUS_ARCHIVED,
-                    user.id)
+                    " OR #{table_name}.author_id = :user_id",
+                    public: VISIBILITY_PUBLIC,
+                    roles: VISIBILITY_ROLES,
+                    user_id: user.id,
+                    statuses: Project.usable_status_ids
       elsif user.logged?
         scope.where(visibility: VISIBILITY_PUBLIC).or(scope.where(author_id: user.id))
       else

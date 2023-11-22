@@ -194,6 +194,11 @@ function addDataSourceOptions(target, options) {
       dataType: 'json',
       delay: SELECT2_DELAY,
       data: function (params) {
+        if (params === undefined) {
+          console.log('missing params for ajax call');
+          console.log(target);
+          console.log(options);
+        }
         return { q: params.term };
       },
       processResults: function (data) {

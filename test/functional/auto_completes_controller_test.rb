@@ -57,7 +57,7 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
 
   def test_issue_assignee
     with_settings issue_group_assignment: '0' do
-      get :issue_assignee
+      get :issue_assignee, xhr: true
 
       assert_response :success
       json = ActiveSupport::JSON.decode response.body
@@ -72,7 +72,7 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
   end
 
   def test_assignee
-    get :assignee
+    get :assignee, xhr: true
 
     assert_response :success
     json = ActiveSupport::JSON.decode response.body
@@ -88,7 +88,7 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
   end
 
   def test_grouped_principals
-    get :grouped_principals
+    get :grouped_principals, xhr: true
 
     assert_response :success
     json = ActiveSupport::JSON.decode response.body
@@ -104,7 +104,8 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
 
   def test_grouped_principals_with_me
     get :grouped_principals,
-        params: { with_me: true }
+        params: { with_me: true },
+        xhr: true
 
     assert_response :success
     json = ActiveSupport::JSON.decode response.body
@@ -120,7 +121,7 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
   end
 
   def test_grouped_users
-    get :grouped_users
+    get :grouped_users, xhr: true
 
     assert_response :success
     json = ActiveSupport::JSON.decode response.body
@@ -134,7 +135,8 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
 
   def test_grouped_users_with_me
     get :grouped_users,
-        params: { with_me: true }
+        params: { with_me: true },
+        xhr: true
 
     assert_response :success
     json = ActiveSupport::JSON.decode response.body
@@ -149,7 +151,8 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
 
   def test_grouped_users_with_ano
     get :grouped_users,
-        params: { with_ano: true }
+        params: { with_ano: true },
+        xhr: true
 
     assert_response :success
     json = ActiveSupport::JSON.decode response.body
@@ -164,7 +167,8 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
 
   def test_grouped_users_for_project
     get :grouped_users,
-        params: { project_id: 1 }
+        params: { project_id: 1 },
+        xhr: true
 
     assert_response :success
     json = ActiveSupport::JSON.decode response.body
@@ -178,7 +182,8 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
 
   def test_grouped_users_with_excluded_user
     get :grouped_users,
-        params: { user_id: 2 }
+        params: { user_id: 2 },
+        xhr: true
 
     assert_response :success
     json = ActiveSupport::JSON.decode response.body
@@ -193,7 +198,8 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
 
   def test_grouped_users_with_search
     get :grouped_users,
-        params: { q: 'john' }
+        params: { q: 'john' },
+        xhr: true
 
     assert_response :success
     json = ActiveSupport::JSON.decode response.body
@@ -216,7 +222,7 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
   def test_grouped_users_scope
     Role.anonymous.update! users_visibility: 'members_of_visible_projects'
     @request.session[:user_id] = nil
-    get :grouped_users
+    get :grouped_users, xhr: true
 
     assert_response :success
     json = ActiveSupport::JSON.decode response.body

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-if Redmine::VERSION.to_s >= '5.1'
+if Redmine::VERSION.to_s >= '5.1' && Redmine::VERSION::BRANCH == 'devel'
   class AdditionalsJob < ApplicationJob
   end
 else

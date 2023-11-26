@@ -16,6 +16,7 @@ if File.file? File.expand_path './.enable_dev', __dir__
     gem 'debug'
     gem 'marginalia'
     gem 'memory_profiler'
+    gem 'ruby-lsp'
   end
 end
 
@@ -43,7 +44,7 @@ end
 #   (this is used to not create conflicts with other plugins)
 if File.file? File.expand_path './.enable_test', __dir__
   group :development, :test do
-    gem 'active_record_doctor'
+    # gem 'active_record_doctor'
     gem 'bullet'
     gem 'rails_best_practices', require: false
   end

@@ -21,7 +21,7 @@ class JavascriptLibraryTest < Additionals::IntegrationTest
            :queries
 
   def test_not_loaded_chart_css_library
-    skip if AdditionalsPlugin.active_reporting?
+    skip 'not tested if reporting is active' if AdditionalsPlugin.active_reporting?
 
     log_user 'admin', 'admin'
     get '/'
@@ -31,7 +31,7 @@ class JavascriptLibraryTest < Additionals::IntegrationTest
   end
 
   def test_not_loaded_chart_js_library
-    skip if AdditionalsPlugin.active_reporting?
+    skip 'not tested if reporting is active' if AdditionalsPlugin.active_reporting?
 
     log_user 'admin', 'admin'
     get '/'

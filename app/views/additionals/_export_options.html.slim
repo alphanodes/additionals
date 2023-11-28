@@ -25,6 +25,7 @@
             = column.caption
 
     = export_csv_encoding_select_tag
+    = export_csv_separator_select_tag if Redmine::VERSION.to_s >= '5.1'
 
     - if @issue_count && @issue_count > Setting.issues_export_limit.to_i || \
          @query_count && query.export_limit && @query_count > query.export_limit

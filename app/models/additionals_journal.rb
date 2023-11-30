@@ -27,8 +27,8 @@ class AdditionalsJournal
     end
 
     def validate_relation(entries, entry_id)
-      old_entries = entries.select { |entry| entry.id.present? }
-      new_entries = entries.select { |entry| entry.id.blank? }
+      old_entries = entries.select(&:persisted?)
+      new_entries = entries.select(&:new_record?)
       return true if new_entries.blank?
 
       new_entries.map! { |entry| entry.send entry_id }

@@ -210,5 +210,5 @@ ko:
   wiki_pdf_remove_attachments_info: 활성화 된 경우 첨부 된 Wiki 파일은 PDF보기에 표시되지 않습니다.
   wiki_pdf_remove_title_info: 활성화되면 위키 제목 정보가 PDF보기에 표시되지 않습니다.
   label_document_view_all: "모든 문서 보기"
-  label_issue_hide_max_attachments: Show max. files
-  info_issue_hide_max_attachments: If the number of files entered here is exceeding all file attachments of an issue are displayed hidden.
+  label_issue_hide_max_attachments: "최대 파일 수 표시"
+  info_issue_hide_max_attachments: "여기에 입력한 파일 수를 초과하는 경우 이슈의 모든 첨부 파일이 숨겨져 표시됩니다."

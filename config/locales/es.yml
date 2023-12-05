@@ -210,5 +210,5 @@ es:
   wiki_pdf_remove_attachments_info: "Cuando está activa, los adjuntos no serán mostrados en los PDF."
   wiki_pdf_remove_title_info: "Cuando está activa, el título de la Wiki no será mostrado en los PDF."
   label_document_view_all: "Todos los documentos"
-  label_issue_hide_max_attachments: Show max. files
-  info_issue_hide_max_attachments: If the number of files entered here is exceeding all file attachments of an issue are displayed hidden.
+  label_issue_hide_max_attachments: "Mostrar archivos máx."
+  info_issue_hide_max_attachments: "Si se sobrepasa el número de archivos introducidos aquí, todos los archivos adjuntos de una incidencia se muestran ocultos."

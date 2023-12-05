@@ -210,5 +210,5 @@ ja:
   wiki_pdf_remove_attachments_info: "アクティブな場合、添付されたWikiファイルはPDFビューに表示されません。"
   wiki_pdf_remove_title_info: "アクティブな場合、Wikiのタイトル情報はPDFビューに表示されません。"
   label_document_view_all: "すべての資料を見る"
-  label_issue_hide_max_attachments: Show max. files
-  info_issue_hide_max_attachments: If the number of files entered here is exceeding all file attachments of an issue are displayed hidden.
+  label_issue_hide_max_attachments: "最大ファイル数を表示"
+  info_issue_hide_max_attachments: "ここに入力したファイル数を超えると、issueの添付ファイルはすべて非表示になります。"

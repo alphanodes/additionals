@@ -210,5 +210,5 @@
   wiki_pdf_remove_attachments_info: "當啟用時，Wiki附件將不會顯示在PDF中。"
   wiki_pdf_remove_title_info: "當啟用時，Wiki標題訊息不會顯示在PDF中"
   label_document_view_all: "查看所有文件"
-  label_issue_hide_max_attachments: Show max. files
-  info_issue_hide_max_attachments: If the number of files entered here is exceeding all file attachments of an issue are displayed hidden.
+  label_issue_hide_max_attachments: "显示最大文件数"
+  info_issue_hide_max_attachments: "如果超过此处输入的文件数量，则会隐藏显示问题的所有文件附件。"

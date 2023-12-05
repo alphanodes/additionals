@@ -42,7 +42,7 @@ class AdditionalsChart
 
     def build_values_without_gaps(data, gap_value = 0)
       values = []
-      labels.each do |label, _label_id|
+      labels.each_key do |label|
         values << if data.key? label
                     data[label]
                   else

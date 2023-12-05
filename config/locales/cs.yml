@@ -210,3 +210,5 @@ cs:
   wiki_pdf_remove_attachments_info: "Pokud je aktivní, připojené soubory Wiki se nebudou zobrazovat v zobrazení PDF."
   wiki_pdf_remove_title_info: "Pokud je aktivní, informace o názvu Wiki se nebudou zobrazovat v zobrazení PDF."
   label_document_view_all: "Zobrazit všechny dokumenty"
+  label_issue_hide_max_attachments: Show max. files
+  info_issue_hide_max_attachments: If the number of files entered here is exceeding all file attachments of an issue are displayed hidden.

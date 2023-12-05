@@ -268,7 +268,7 @@ module CrudControllerBase
     end
 
     def form_params(action)
-      crud_params = @crud["#{action}_params".to_sym]
+      crud_params = @crud[:"#{action}_params"]
       if @crud[:form]
         { id: id_value, @crud[:form] => crud_params }
       else

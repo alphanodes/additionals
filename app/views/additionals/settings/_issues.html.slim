@@ -6,7 +6,12 @@ p
   = additionals_settings_textarea :new_ticket_message
   em.info = l :new_ticket_message_info
 
-br
+p
+  = additionals_settings_numberfield :issue_hide_max_attachments,
+                                     min: 0, max: 1000, size: 5
+  em.info
+    = l :info_issue_hide_max_attachments
+
 p = additionals_settings_checkbox :new_issue_on_profile
 p = additionals_settings_checkbox :issue_assign_to_me
 p = additionals_settings_checkbox :issue_note_with_author

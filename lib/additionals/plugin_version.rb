@@ -2,6 +2,6 @@
 
 module Additionals
   module PluginVersion
-    VERSION = '3.1.0' unless defined? Additionals::PluginVersion::VERSION
+    VERSION = '3.2.0-main' unless defined? Additionals::PluginVersion::VERSION
   end
 end

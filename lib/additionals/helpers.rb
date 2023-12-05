@@ -59,7 +59,7 @@ module Additionals
     end
 
     def additionals_i18n_title(options, title)
-      i18n_title = "#{title}_#{::I18n.locale}".to_sym
+      i18n_title = :"#{title}_#{::I18n.locale}"
       if options.key? i18n_title
         options[i18n_title]
       elsif options.key? title

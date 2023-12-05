@@ -18,7 +18,7 @@ module AdditionalsQueriesHelper
   end
 
   def additionals_query_session_key(object_type)
-    "#{object_type}_query".to_sym
+    :"#{object_type}_query"
   end
 
   def additionals_retrieve_query(object_type, user_filter: nil, search_string: nil)

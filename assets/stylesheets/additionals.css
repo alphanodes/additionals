@@ -25,6 +25,11 @@ span.dashboard-locked {
   color: #666;
 }
 
+fieldset.hide-attachments {
+  padding-left: 0;
+  margin-top: 8px;
+}
+
 #my-page.dashboard .settings input[type='text'],
 #my-page.dashboard .settings input[type='password'],
 #my-page.dashboard .settings input[type='url'] {

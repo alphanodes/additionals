@@ -264,7 +264,7 @@ module AdditionalsQuery
   end
 
   def results_scope(**options)
-    order_option = [group_by_sort_order, (options[:order] || sort_clause)].flatten!.to_a.compact_blank
+    order_option = [group_by_sort_order, options[:order] || sort_clause].flatten!.to_a.compact_blank
 
     objects_scope(**options.except(:order, :limit, :offset))
       .order(order_option)

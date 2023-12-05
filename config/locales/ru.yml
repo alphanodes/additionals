@@ -210,3 +210,5 @@ ru:
   wiki_pdf_remove_attachments_info: "Если флажок установлен, вложенные Вики-файлы не будут отображаться в PDF-формате."
   wiki_pdf_remove_title_info: "При активации этого параметра информация о названии Вики не будет отображаться в PDF-формате."
   label_document_view_all: "Посмотреть все документы"
+  label_issue_hide_max_attachments: Show max. files
+  info_issue_hide_max_attachments: If the number of files entered here is exceeding all file attachments of an issue are displayed hidden.

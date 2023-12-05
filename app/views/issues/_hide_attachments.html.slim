@@ -1,0 +1,15 @@
+- if @issue.attachments.any?
+  - file_count = @issue.attachments.length
+  - if file_count > Additionals.setting(:issue_hide_max_attachments).to_i
+    fieldset.collapsible.collapsed.hide-attachments
+      legend onclick="toggleFieldset(this);" class="icon icon-collapsed"
+        strong
+          = l :label_attachment_plural
+          = " (#{file_count})"
+      .hidden
+        = link_to_attachments @issue, thumbnails: true
+  - else
+    hr
+    p
+      strong = l :label_attachment_plural
+    = link_to_attachments @issue, thumbnails: true

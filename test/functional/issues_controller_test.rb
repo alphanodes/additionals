@@ -13,7 +13,7 @@ class IssuesControllerTest < Additionals::ControllerTest
            :workflows,
            :custom_fields, :custom_values, :custom_fields_projects, :custom_fields_trackers,
            :time_entries,
-           :watchers,
+           :watchers, :attachments,
            :journals, :journal_details,
            :repositories, :changesets,
            :queries
@@ -217,6 +217,24 @@ class IssuesControllerTest < Additionals::ControllerTest
 
       assert_response :success
       assert_select 'h4.note-header .badge-author', count: 0
+    end
+  end
+
+  def test_show_attachments
+    with_plugin_settings 'additionals', issue_hide_max_attachments: 10 do
+      get :show, params: { id: 3 }
+
+      assert_response :success
+      assert_select 'fieldset.hide-attachments', count: 0
+    end
+  end
+
+  def test_show_attachments_as_hidden
+    with_plugin_settings 'additionals', issue_hide_max_attachments: 0 do
+      get :show, params: { id: 3 }
+
+      assert_response :success
+      assert_select 'fieldset.hide-attachments', count: 1
     end
   end
 end

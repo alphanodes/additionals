@@ -24,10 +24,10 @@ class Dashboard < ActiveRecord::Base
   VISIBILITY_ROLES   = 1
   VISIBILITY_PUBLIC  = 2
 
-  scope :by_project, (->(project_id) { where project_id: project_id if project_id.present? })
-  scope :sorted, (-> { order :name })
-  scope :welcome_only, (-> { where dashboard_type: DashboardContentWelcome::TYPE_NAME })
-  scope :project_only, (-> { where dashboard_type: DashboardContentProject::TYPE_NAME })
+  scope :by_project, ->(project_id) { where project_id: project_id if project_id.present? }
+  scope :sorted, -> { order :name }
+  scope :welcome_only, -> { where dashboard_type: DashboardContentWelcome::TYPE_NAME }
+  scope :project_only, -> { where dashboard_type: DashboardContentProject::TYPE_NAME }
 
   safe_attributes 'name', 'description', 'enable_sidebar',
                   'locked', 'always_expose', 'project_id', 'author_id',
@@ -267,7 +267,7 @@ class Dashboard < ActiveRecord::Base
   def editable?(user = User.current)
     return false unless user
 
-    (user.admin? || (author == user && user.allowed_to?(:save_dashboards, project, global: true)))
+    user.admin? || (author == user && user.allowed_to?(:save_dashboards, project, global: true))
   end
 
   def deletable?(user = User.current)

@@ -210,3 +210,5 @@ de:
   wiki_pdf_remove_attachments_info: Wenn aktiv, werden die an der Wiki Seite angehängten Dateien nicht in der PDF Ansicht angezeigt.
   wiki_pdf_remove_title_info: Wenn aktiv, wird der Wiki Titel nicht in der PDF Ansicht angezeigt.
   label_document_view_all: Alle Dokumente anzeigen
+  label_issue_hide_max_attachments: Max. angezeigte Dateien
+  info_issue_hide_max_attachments: Wird die hier angegene Anzahl überschritten, werden alle Dateianhänge im Ticket eingeklappt/versteckt dargestellt.

@@ -24,4 +24,11 @@ module IssuesShow
                        insert_before: 'erb[loud]:contains("render_private_notes_indicator")',
                        original: '38ddc174974d0a0ee482dd73070ee80baebe9e4d',
                        partial: 'issues/additionals_note_history'
+
+  Deface::Override.new virtual_path: 'issues/show',
+                       name: 'show-issue-attachments',
+                       replace: 'erb[silent]:contains("if @issue.attachments.any?")',
+                       closing_selector: 'erb[silent]:contains("end")',
+                       original: 'e2a825486b3b1ba51c0e2fa1f72bdd5e98e1b964',
+                       partial: 'issues/hide_attachments'
 end

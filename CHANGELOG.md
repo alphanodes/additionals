@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.2.0
+
+- add option to hide issue attachments, if number of file is too high
+- rubocop offenses has been fixed
+
 ## 3.1.0
 
 - Fix missing label for view all documents

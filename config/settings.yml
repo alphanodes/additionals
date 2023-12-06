@@ -17,7 +17,7 @@ issue_auto_assign_status: ''
 issue_change_status_in_sidebar: 0
 issue_current_user_status: 0
 issue_freezed_with_close: 0
-issue_hide_max_attachments: 10
+issue_hide_max_attachments: ''
 issue_note_with_author: 0
 issue_fast_description_edit: 0
 issue_status_change: 0

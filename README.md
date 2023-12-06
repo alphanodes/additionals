@@ -208,7 +208,7 @@ The general section tab allows you to define some special behaviours for your Re
 The following plugin options are available to be edited by users with administration rights in the area **Contents**:
 
 * Text for login page
-  * This section is for a short information on the login page below the login mask. For example who to contact in order to get Redmine access.
+  * This section is for a short information on the login page below the Redmine login mask. For example who to contact in order to get Redmine access.
 
 * Global sidebar
   * Place your global information here, if needed. Use wiki links or available macros that can be seen by every one.
@@ -228,6 +228,9 @@ And the following options can be edited by users with administratios rights in t
 
 - Legacy smileys support
   - Activate the ``Legacy smileys support`` if you want to use the manual smiley code in your text (e.g. ``:)``). If you already use a plugin that supports Smileys this option should stay deactivated. For more info on Emoji-Browser support read [more here](http://caniemoji.com/). Have a look at the Emoji [cheat sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet) for available Emoji-Codes.
+
+- Maximum number of LiveSearch results
+  - This option only affects plugins, that support LiveSearch. If you enter a value here, the LiveSearch results will be limited by the entered value.
 
 - Disable modules
   - This feature will hide the selected modules in the project settings. Even if the module is enabled for use in the admin area it can not be selected by the project manager within the projects. Please note, if these modules already activated in existing projects, you will have to change and re-save the respective project settings first.
@@ -304,11 +307,20 @@ Here you can define issue rules, which are used in issues of all projects.
 
 > **_NOTE:_** You can use wiki syntax for your text (use it wisely). Make sure the wiki page you link to is accessible for every user. The default issue text can be overwritten within the project settings.
 
+* Show max. files 
+  * Activate this option if you want to compress the display in the issue view for many file attachments. If no value is entered, the user will be shown the standard view for Redmine files. If a value is stored, the "Files" section in the issue view will be collapsed if the value is exceeded.* 
+
 * New issue on user profile
   * Activate this option in case you want to display the symbol link *New issue* on a user's profile page in the top right corner in order to add a new issue for this user directly from it's user profile page.
 
 * Show *Assign to me* on issue
   * Activate this option if you want to display the symbol link *Assign to me* in the issue overview page of an issue that you are able to assign it directly to yourself without *editing* the issue. The link is only shown to users who are also members in the correspondent project.
+
+* Show issue author with note
+  * Activate this option in order to see the *Author* label in notes of the issue author.
+
+* Fast edit for description 
+  * Activate this option and an *Edit* link will be displayed in the issue view in the "Description" area so that only the description can be edited quickly.
 
 * Issue status on sidebar
   * Activate this option in case you want to display a list of available issue status options in the right sidebar of the issue view page. One click on the option changes the issue status directly without opening the *edit* mode.

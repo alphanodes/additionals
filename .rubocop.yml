@@ -121,6 +121,9 @@ Style/MethodCallWithArgsParentheses:
   AllowParenthesesInChaining: true
   EnforcedStyle: omit_parentheses
 
+Style/SuperWithArgsParentheses:
+  Enabled: false
+
 Style/Documentation:
   Enabled: false
 

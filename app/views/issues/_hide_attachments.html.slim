@@ -4,9 +4,7 @@
   - if max_files.present? && file_count > max_files.to_i
     fieldset.collapsible.collapsed.hide-attachments
       legend.icon.icon-collapsed onclick='toggleFieldset(this);'
-        strong
-          = l :label_attachment_plural
-          = " (#{file_count})"
+        strong = label_with_count :label_attachment_plural, file_count
       .hidden
         = link_to_attachments @issue, thumbnails: true
   - else

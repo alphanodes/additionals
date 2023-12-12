@@ -8,8 +8,7 @@
       query.sort_criteria = params[:sort] if params[:sort].present?
 
     h3.query-list-block
-      = dashboard_query_list_block_title query, query_block, @project
-      = " (#{count})"
+      = label_with_count dashboard_query_list_block_title(query, query_block, @project), count
       = dashboard_query_list_block_alerts dashboard, query, block_definition
 
     - if query.respond_to?(:description) && query.description.present?

@@ -1,7 +1,7 @@
 - options ||= {}
 javascript:
   $(function() {
-    $("#{defined?(field_id) ? ('#' + field_id) : ('.' + field_class)}").select2({
+    $("#{defined?(field_name_id) ? ('#' + field_name_id) : ('.' + field_class)}").select2({
       ajax: {
         url: "#{ajax_url}",
         dataType: 'json',

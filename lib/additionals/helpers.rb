@@ -2,6 +2,15 @@
 
 module Additionals
   module Helpers
+    def label_with_count(label, info, only_positive: false)
+      text = label.is_a?(Symbol) ? l(label) : label
+      if info.blank? || only_positive && !info.positive?
+        text
+      else
+        safe_join [text, ' (', info, ')']
+      end
+    end
+
     def render_query_group_view(query, locals = {})
       return if locals[:group_name].blank?
 
@@ -137,7 +146,7 @@ module Additionals
       s << render(layout: false,
                   partial: 'additionals/select2_ajax_call',
                   formats: [:js],
-                  locals: { field_id: sanitize_to_id(name),
+                  locals: { field_name_id: sanitize_to_id(name),
                             ajax_url: send("#{type}_path", ajax_params),
                             options: options })
       safe_join s

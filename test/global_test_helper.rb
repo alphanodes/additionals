@@ -194,5 +194,10 @@ module Additionals
     def columns_in_projects_list
       css_select('table.projects thead th').map(&:text)
     end
+
+    # should be dropped after dropping Rails 6.x support / Redmine 5.1 support
+    def self.fixture_date_format(date)
+      date.try(:to_fs, :db) || date.to_s(:db)
+    end
   end
 end

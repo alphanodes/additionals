@@ -49,4 +49,22 @@ class AdditionalsTest < Additionals::TestCase
   def test_split_ids_with_restricted_large_range
     assert_equal [33_333, 33_334, 33_335, 33_336, 62_519], Additionals.split_ids('62519-33333', limit: 5)
   end
+
+  def test_single_page_limit
+    with_settings per_page_options: '10, 35, 50' do
+      assert_equal 35, Additionals.single_page_limit
+    end
+  end
+
+  def test_single_page_limit_with_single_setting
+    with_settings per_page_options: '10' do
+      assert_equal 10, Additionals.single_page_limit
+    end
+  end
+
+  def test_single_page_limit_without_settings
+    with_settings per_page_options: nil do
+      assert_equal 25, Additionals.single_page_limit
+    end
+  end
 end

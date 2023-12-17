@@ -23,7 +23,7 @@ module AdditionalsQueriesHelper
 
   def additionals_retrieve_query(object_type, user_filter: nil, search_string: nil)
     session_key = additionals_query_session_key object_type
-    query_class = Object.const_get "#{object_type.camelcase}Query"
+    query_class = Object.const_get :"#{object_type.camelcase}Query"
     if params[:query_id].present?
       additionals_load_query_id query_class,
                                 session_key,

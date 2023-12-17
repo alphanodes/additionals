@@ -471,7 +471,7 @@ module DashboardsHelper
         nil
       end
     else
-      send "render_#{block_definition[:name]}_block",
+      send :"render_#{block_definition[:name]}_block",
            block,
            block_definition,
            settings,

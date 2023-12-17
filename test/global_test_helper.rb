@@ -129,20 +129,18 @@ module Additionals
     end
 
     def change_plugin_settings(plugin, settings)
-      instance_variable_set "@saved_#{plugin}_settings", Setting.send("plugin_#{plugin}").dup
-      new_settings = Setting.send("plugin_#{plugin}").dup
+      instance_variable_set :"@saved_#{plugin}_settings", Setting.send(:"plugin_#{plugin}").dup
+      new_settings = Setting.send(:"plugin_#{plugin}").dup
       settings.each do |key, value|
         new_settings[key] = value
       end
 
-      Setting.send "plugin_#{plugin}=", new_settings
       Setting.send :"plugin_#{plugin}=", new_settings
     end
 
     def restore_plugin_settings(plugin)
-      settings = instance_variable_get "@saved_#{plugin}_settings"
+      settings = instance_variable_get :"@saved_#{plugin}_settings"
       if settings
-        Setting.send "plugin_#{plugin}=", settings
         Setting.send :"plugin_#{plugin}=", settings
       else
         Rails.logger.warn "warning: restore_plugin_settings could not restore settings for #{plugin}"

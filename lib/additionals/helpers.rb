@@ -110,7 +110,7 @@ module Additionals
     def additionals_library_load(module_names)
       s = []
       Array(module_names).each do |module_name|
-        s << send("additionals_load_#{module_name}")
+        s << send(:"additionals_load_#{module_name}")
       end
       safe_join s
     end
@@ -147,7 +147,7 @@ module Additionals
                   partial: 'additionals/select2_ajax_call',
                   formats: [:js],
                   locals: { field_name_id: sanitize_to_id(name),
-                            ajax_url: send("#{type}_path", ajax_params),
+                            ajax_url: send(:"#{type}_path", ajax_params),
                             options: options })
       safe_join s
     end

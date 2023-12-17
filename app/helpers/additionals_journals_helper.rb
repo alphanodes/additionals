@@ -51,13 +51,13 @@ module AdditionalsJournalsHelper
     entity_type = entity.model_name.param_key
 
     safe_join [link_to(l(:button_edit),
-                       send("edit_#{entity_type}_journal_path", journal),
+                       send(:"edit_#{entity_type}_journal_path", journal),
                        remote: true,
                        method: 'get',
                        title: l(:button_edit),
                        class: 'icon-only icon-edit'),
                link_to(l(:button_delete),
-                       send("#{entity_type}_journal_path", journal, journal: { notes: '' }),
+                       send(:"#{entity_type}_journal_path", journal, journal: { notes: '' }),
                        remote: true,
                        method: 'put', data: { confirm: l(:text_are_you_sure) },
                        title: l(:button_delete),
@@ -123,7 +123,7 @@ module AdditionalsJournalsHelper
   # rubocop: enable Style/OptionalBooleanParameter
 
   def render_email_attributes(entry, html: false)
-    items = send "email_#{entry.class.name.underscore}_attributes", entry, html
+    items = send :"email_#{entry.class.name.underscore}_attributes", entry, html
     if html
       tag.ul class: 'details' do
         items.map { |s| concat tag.li(s) }.join("\n")

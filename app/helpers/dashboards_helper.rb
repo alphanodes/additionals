@@ -114,7 +114,7 @@ module DashboardsHelper
     return '' unless dashboards.any?
 
     tag.h3(title, class: 'dashboards') +
-      tag.ul(class: 'dashboards') do # rubocop: disable Style/MethodCallWithArgsParentheses
+      tag.ul(class: 'dashboards') do
         dashboards.each do |dashboard|
           selected = dashboard.id == if params[:dashboard_id].present?
                                        params[:dashboard_id].to_i

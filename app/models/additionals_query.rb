@@ -159,6 +159,24 @@ module AdditionalsQuery
     add_available_filter 'last_notes', **options
   end
 
+  def initialize_notes_count_filter(position: nil)
+    add_available_filter 'notes_count',
+                         order: position,
+                         type: :integer
+  end
+
+  def sql_for_notes_count_field(_field, operator, value)
+    sql_aggr_condition table: Journal.table_name,
+                       values: value,
+                       group_field: 'journalized_id',
+                       operator: operator,
+                       use_sub_query_for_all: true,
+                       sub_query: "#{Journal.table_name} WHERE #{Journal.table_name}.journalized_id = #{queried_table_name}.id" \
+                                  " AND #{Journal.table_name}.journalized_type = '#{queried_class.name}'" \
+                                  " AND #{Journal.table_name}.notes IS NOT NULL" \
+                                  " AND #{Journal.table_name}.notes !=''"
+  end
+
   # not required for: assigned_to_id author_id user_id watcher_id updated_by last_updated_by
   # this fields are replaced by Query::statement
   def values_without_me(values)

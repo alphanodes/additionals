@@ -70,6 +70,9 @@ module Additionals
         end
 
         def sql_aggr_condition(**options)
+          raise 'missing table' unless options[:table]
+          raise 'missing group_field' unless options[:group_field]
+
           options[:aggr] = 'COUNT' if options[:aggr].blank?
           options[:field] = 'id' if options[:field].blank?
           options[:operator] = '=' if options[:operator].blank?

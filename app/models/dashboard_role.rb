@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class DashboardRole < ActiveRecord::Base
+class DashboardRole < Rails.version < '7.1' ? ActiveRecord::Base : ApplicationRecord
   include Redmine::SafeAttributes
 
   belongs_to :dashboard

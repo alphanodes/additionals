@@ -46,14 +46,14 @@ module ApiTest
                                           issue_auto_assign: '0',
                                           issue_auto_assign_status: ['1'],
                                           issue_auto_assign_role: '1' do
-        payload = <<-XML
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <issue>
-          <project_id>1</project_id>
-          <tracker_id>2</tracker_id>
-          <status_id>3</status_id>
-          <subject>API test</subject>
-        </issue>
+        payload = <<~XML
+          <?xml version="1.0" encoding="UTF-8" ?>
+          <issue>
+            <project_id>1</project_id>
+            <tracker_id>2</tracker_id>
+            <status_id>3</status_id>
+            <subject>API test</subject>
+          </issue>
         XML
 
         assert_difference 'Issue.count' do
@@ -78,12 +78,12 @@ module ApiTest
                                           issue_auto_assign: '1',
                                           issue_auto_assign_status: ['1'],
                                           issue_auto_assign_role: '1' do
-        payload = <<-XML
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <issue>
-          <project_id>1</project_id>
-          <subject>API test</subject>
-        </issue>
+        payload = <<~XML
+          <?xml version="1.0" encoding="UTF-8" ?>
+          <issue>
+            <project_id>1</project_id>
+            <subject>API test</subject>
+          </issue>
         XML
 
         assert_difference 'Issue.count' do

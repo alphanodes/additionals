@@ -36,14 +36,14 @@ fr:
   button_dashboard_edit: "Modifier le tableau de bord"
   button_merge: Fusionner
   disabled_modules_info: "Les modules qui ne devraient pas être disponibles pour la sélection dans le cadre des projets. Si ces modules sont déjà activés dans des projets existants, vous devez d'abord modifier et sauvegarder à nouveau les paramètres projet respectifs."
-  emoji_support_info_html: 'Convertir les emojis en texte. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" class="external">Emoji cheat sheet</a> the available emoji codes can be used.'
+  emoji_support_info_html: 'Convertir les emojis en texte. Activer cette option si :heart:, :+1: etc doivent être convertis en emojis. Les codes disponibles dans <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" class="external">l''aide-mémoire des emojis</a> sont utilisables.'
   error_issue_status_could_not_changed: "L'état de la tâche n'a pas pu être modifié"
   error_issues_could_not_be_assigned_to_me: "La tâche n'a pas pu m'être affectée"
   error_query_statement_invalid: "Une erreur s'est produite lors de l'exécution de la requête et a été enregistrée. Veuillez signaler cette erreur à votre administrateur Redmine."
   errors_no_or_invalid_arguments: "Pas d'arguments ou arguments invalides"
   field_always_expose: "Toujours afficher le nom du tableau de bord"
   field_color: Couleur
-  field_dashboard_locked: Locked
+  field_dashboard_locked: Verrouillé
   field_enable_new_ticket_message: "Activer le message d'émission"
   field_enable_sidebar: Activer le menu latéral
   field_hide: "Cacher"
@@ -56,7 +56,7 @@ fr:
   field_website: Site Web
   global_footer_info: 'Entrez un projet en bas de page wiki ici.'
   global_sidebar_info: "Saisissez ici un message texte disponible pour l'ensemble du projet. Ce texte latéral sera affiché dans la vue d'ensemble du projet, les pages d'édition et les pages wiki."
-  global_wiki_sidebar_info: "Entrez ici un message texte disponible pour l'ensemble du projet pour votre barre latérale wiki. Ce texte de la barre latérale sera affiché uniquement sur les pages wiki. Use this space for Macros like \"Last changed pages\" for example. Dans le cas où une barre latérale spécifique au projet est utilisée (page wiki), celle-ci sera de préférence affichée dans la barre latérale."
+  global_wiki_sidebar_info: "Entrez ici un message texte disponible pour l'ensemble du projet pour votre barre latérale wiki. Ce texte de la barre latérale sera affiché uniquement sur les pages wiki. Utilisez cet espace pour les macros comme  \"Pages récemment modifiées\" par exemple. Dans le cas où une barre latérale spécifique au projet est utilisée (page wiki), celle-ci sera de préférence affichée dans la barre latérale."
   google_maps_embed_api_html: "Si vous souhaitez utiliser la macro Gmap pour afficher les cartes de Goole, veuillez implémenter votre clé API Google Maps ici. Ensuite, vous pouvez utiliser la macro et divers paramètres. Pour plus d'informations sur l'utilisation des paramètres, voir <a href=\"https://developers.google.com/maps/documentation/embed/guide\">https://developers.google.com/maps/documentation/embed/guide</a>. La macro Gmap ne fonctionne qu'en combinaison avec la clé intégrée."
   hidden_macros_in_toolbar_info: "Toutes les macros disponibles que l'utilisateur connecté peut utiliser sont listées via le bouton macro de la barre d'outils wiki. Les macros marquées ici ne sont pas proposées à la sélection. Ceci vous permet de limiter la portée de la liste."
   info_hidden_roles_html: "Les rôles cachés ne peuvent être utilisés qu'avec la visibilité utilisateur \"Membres de projets visibles\". Si l'utilisateur n'est pas dans un rôle visible par l'utilisateur actuel, ce rôle, y compris l'utilisateur, est masqué sur la page de synthèse du projet et dans les listes de requêtes."
@@ -79,7 +79,7 @@ fr:
   label_content_plural: Contenus
   label_copied_to_clipboard: "Copié !"
   label_copy_to_clipboard: "Copie dans le presse-papiers"
-  label_custom_field_editable_info: If disabled changes are only possible with API calls or via bulk edit.
+  label_custom_field_editable_info: Si désactivé les modifications ne peuvent se faire qu'avec les appels API ou l'édition en masse (Bulk edit).
   label_custom_fields_distribution: "Champs personnalisés pour la distribution"
   label_daily: tous les jours
   label_dashboard: Tableau de bord
@@ -121,7 +121,7 @@ fr:
   label_issue_timelog_required: Saisie de temps obligatoire pour une tâche
   label_issues_summary: "Aperçu des tâches"
   label_last_year: année dernière
-  label_legacy_smiley_support: Legacy smiley support
+  label_legacy_smiley_support: Prise en charge des smileys
   label_live_search_hints: "Recherches par champ disponibles: %{value}"
   label_macro_plural: macros
   label_max_entries: "Entrées maximales"
@@ -140,7 +140,7 @@ fr:
   label_open_in_google_docs: "Ouvrir dans Google Docs"
   label_open_in_new_windows: Ouvrir dans une nouvelle fenêtre
   label_optional: "optionnel"
-  label_pdf_wiki_settings: paramètres d'édition PDF d'une page Wiki
+  label_pdf_wiki_settings: Paramètres d'édition PDF d'une page Wiki
   label_percentage: Percentage
   label_project_information: "Informations sur le projet"
   label_project_list: "liste des projets"
@@ -161,7 +161,7 @@ fr:
   label_settings_menu: "Menu"
   label_shared_dashboard_plural: "Tableaux de bord partagés"
   label_show_all: Montrer tout
-  label_show_closed_issues: Montrer les issues fermés
+  label_show_closed_issues: Montrer les demandes fermées
   label_stats_new_today: "Nouveau aujourd'hui"
   label_stats_totals: "Total"
   label_system_info: Info système
@@ -183,7 +183,7 @@ fr:
   label_without_value: "Aucune %{value}"
   label_yearly: annuellement
   latest_entries_changes: "Derniers %{value} changements"
-  legacy_smiley_support_info_html: Convertir les smiley en texte. Activate this option if :), :-) etc are to be converted to smileys. If this setting is changed, the application server <strong>must be restarted</strong>.'
+  legacy_smiley_support_info_html: Convertir les smiley en texte. Activer cette option si :), :-) etc doivent être convertis en smileys. Si ce paramètre est modifié, le serveur d'application <strong>doit être redémarré</strong>.
   max_live_search_results_info: "Nombre maximal de résultats de recherche pour la LiveSearch. Remarque : le paramètre n'a d'effet que sur les plugins qui supportent LiveSearch."
   menu_roles_info: "Seuls les membres des rôles sélectionnés verront cette entrée de menu."
   new_ticket_message_info: "Une note sera montrée à tous ceux qui veulent ajouter un nouveau numéro. Par exemple, vous pouvez saisir des tests d'acceptation ou édicter des règles ici. Ces paramètres sont utilisés à l'échelle du projet."

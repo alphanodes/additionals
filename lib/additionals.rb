@@ -104,7 +104,6 @@ module Additionals
       loader.add_patch %w[ApplicationController
                           AutoCompletesController
                           Issue
-                          IssuePriority
                           TimeEntry
                           Mailer
                           Project

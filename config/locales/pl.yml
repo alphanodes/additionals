@@ -60,6 +60,7 @@ pl:
   google_maps_embed_api_html: "W przypadku, gdy chcesz użyć makra Gmapy do wyświetlania map Google, zaimplementuj tutaj swój klucz API Google Maps. Następnie możesz użyć makra i różnych parametrów. Więcej informacji na temat korzystania z parameterów znajduje się na stronie <a href=\"https://developers.google.com/maps/documentation/embed/guide\" class=\"external\">https://developers.google.com/maps/documentation/embed/guide</a>. The Gmap macro works only in combination with the embedded key here."
   hidden_macros_in_toolbar_info: "Wszystkie dostępne makra, których może używać zalogowany użytkownik, są wymienione za pomocą przycisku makro na pasku narzędzi wiki. Makra zaznaczone tutaj nie są oferowane do wyboru. Pozwala to na ograniczenie zakresu listy."
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". Jeśli użytkownik nie jest w roli, która jest widoczna dla bieżącego użytkownika, rola ta wraz z użytkownikiem jest ukryta na stronie przeglądu projektu i na listach zapytań.
+  info_issue_hide_max_attachments: "Jeśli liczba plików wprowadzonych w tym miejscu zostanie przekroczona, wszystkie załączniki do sprawy zostaną wyświetlone jako ukryte."
   info_live_search_result_restriction: "Wyniki LiveSearch są ograniczone do %{value} trafienia. Spróbuj opisać swoje poszukiwania bardziej szczegółowo."
   label_account_login_bottom: "Tekst dla strony logowania"
   label_activate_quickstart: "Aktywuj quickstart"
@@ -71,6 +72,7 @@ pl:
   label_additionals_message: "Komunikat"
   label_all_projects: Wszystkie projekty
   label_app_menu: App menu
+  label_auto_watch_on_issue_assigned: Issues assigned to me
   label_change_is_private: "Zmień prywatny / prywatny / nieprywatny"
   label_change_to_dashboard: "Przełącz się na tablicę rozdzielczą"
   label_chart_color_schema: Charts color scheme
@@ -93,6 +95,7 @@ pl:
   label_disable_sidebar: "Wyłączyć pasek boczny"
   label_disabled_modules: "Moduły wyłączone"
   label_docs_access_token: Access token
+  label_document_view_all: "Zobacz wszystkie dokumenty"
   label_emoji_support: Emoji Obsługa
   label_enable_auto_refresh: "Włącz autoodświeżanie"
   label_enable_sidebar: "Włącz pasek boczny"
@@ -116,6 +119,7 @@ pl:
   label_issue_fast_description_edit: "Szybka edycja do opisu"
   label_issue_freezed_with_close: "Uniemożliwienie edycji zamkniętych issues (Freeze)"
   label_issue_genitive: issue
+  label_issue_hide_max_attachments: "Pokaż maksymalną liczbę plików"
   label_issue_note_with_author: "Pokaż autora zadania z notatką"
   label_issue_status_change: "Jeśli status \"Assignee\" jest niezmieniony, a status sprawy zmienił się z x na y, to autor jest przypisany do sprawy"
   label_issue_timelog_required: "Wymagany jest dziennik czasowy dla issues"
@@ -209,6 +213,3 @@ pl:
   top_wiki_help: "Tutaj możesz zdefiniować zawartość i ustawienia dla swojej Wiki."
   wiki_pdf_remove_attachments_info: "Gdy jest aktywny, załączone pliki Wiki nie będą wyświetlane w widoku PDF."
   wiki_pdf_remove_title_info: "Gdy jest aktywny, informacja o tytule Wiki nie będzie wyświetlana w widoku PDF."
-  label_document_view_all: "Zobacz wszystkie dokumenty"
-  label_issue_hide_max_attachments: "Pokaż maksymalną liczbę plików"
-  info_issue_hide_max_attachments: "Jeśli liczba plików wprowadzonych w tym miejscu zostanie przekroczona, wszystkie załączniki do sprawy zostaną wyświetlone jako ukryte."

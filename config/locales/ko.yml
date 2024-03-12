@@ -60,6 +60,7 @@ ko:
   google_maps_embed_api_html: 'Goole지도를 표시하기 위해 Gmap 매크로를 사용하려는 경우 여기에 Google Maps API 키를 구현하십시오. 그 후 매크로 및 다양한 매개 변수를 사용할 수 있습니다. 매개 변수를 사용하는 방법에 대한 자세한 내용은 <a href="https://developers.google.com/maps/documentation/embed/guide" class="external">https://developers.google.com/maps/documentation/embed/guide</a>. Gmap 매크로는 여기에 포함 된 키와 조합해서 만 작동합니다.'
   hidden_macros_in_toolbar_info: 로그인 한 사용자가 사용할 수있는 모든 매크로가 위키 도구 모음의 매크로 버튼을 통해 나열됩니다. 여기에 표시된 매크로는 선택할 수 없습니다. 이를 통해 목록의 범위를 제한 할 수 있습니다.
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". 사용자가 현재 사용자에게 보이는 역할이 아닌 경우 사용자를 포함한이 역할은 프로젝트 개요 페이지와 쿼리 목록에서 숨겨집니다.
+  info_issue_hide_max_attachments: "여기에 입력한 파일 수를 초과하는 경우 이슈의 모든 첨부 파일이 숨겨져 표시됩니다."
   info_live_search_result_restriction: "LiveSearch results are limited to %{value} Matches. Try to describe your search in more detail."
   label_account_login_bottom: "로그인 페이지의 텍스트"
   label_activate_quickstart: "활성화 quickstart"
@@ -71,6 +72,7 @@ ko:
   label_additionals_message: "메시지"
   label_all_projects: 모든 프로젝트
   label_app_menu: 앱 메뉴
+  label_auto_watch_on_issue_assigned: Issues assigned to me
   label_change_is_private: 개인 / 비 개인 변경
   label_change_to_dashboard: "대시보드로 전환"
   label_chart_color_schema: 차트 색 구성표
@@ -93,6 +95,7 @@ ko:
   label_disable_sidebar: "사이드바 비활성화"
   label_disabled_modules: "비활성화 된 모듈"
   label_docs_access_token: Access token
+  label_document_view_all: "모든 문서 보기"
   label_emoji_support: Emoji support
   label_enable_auto_refresh: "자동 새로고침 활성화 "
   label_enable_sidebar: "사이드바 활성화"
@@ -116,6 +119,7 @@ ko:
   label_issue_fast_description_edit: "빠른 설명 편집"
   label_issue_freezed_with_close: 닫힌 이슈 편집 금지 (고정)
   label_issue_genitive: "일"
+  label_issue_hide_max_attachments: "최대 파일 수 표시"
   label_issue_note_with_author: "메모와 함께 작업 작성자 표시"
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
   label_issue_timelog_required: 필요한 문제에 대한 시간 로그
@@ -209,6 +213,3 @@ ko:
   top_wiki_help: 여기에서 위키의 내용과 설정을 정의 할 수 있습니다.
   wiki_pdf_remove_attachments_info: 활성화 된 경우 첨부 된 Wiki 파일은 PDF보기에 표시되지 않습니다.
   wiki_pdf_remove_title_info: 활성화되면 위키 제목 정보가 PDF보기에 표시되지 않습니다.
-  label_document_view_all: "모든 문서 보기"
-  label_issue_hide_max_attachments: "최대 파일 수 표시"
-  info_issue_hide_max_attachments: "여기에 입력한 파일 수를 초과하는 경우 이슈의 모든 첨부 파일이 숨겨져 표시됩니다."

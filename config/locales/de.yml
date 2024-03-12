@@ -60,6 +60,7 @@ de:
   google_maps_embed_api_html: Wenn Du das Gmap Makro verwenden willst um Google Karten darzustellen, musst Du hier Deinen Google Maps Embed API Schlüssel eintragen. Mehr Informationen dazu findest Du unter <a href="https://developers.google.com/maps/documentation/embed/guide" class="external">https://developers.google.com/maps/documentation/embed/guide</a>. Wird hier kein Schlüssel eingetragen, kann das gmap Makro nicht verwendet werden.
   hidden_macros_in_toolbar_info: Alle verfügbaren Makros, die der angemeldete Benutzer verwenden kann, werden über den Makro-Button der Wiki-Toolbar aufgelistet. Hier markierte Makros werden nicht zur Auswahl angeboten. Damit lässt sich der Listenumfang einschränken.
   info_hidden_roles_html: Versteckte Rollen können nur zusammen mit der Benutzersichtbarkeit "Mitglieder von sichtbaren Projekten" verwendet werden. Diese Option funktioniert nur, wenn der Benutzer in keiner Rolle ist die für den aktuellen Benutzer sichtbar ist. Passt alles wird diese Rolle inklusive Benutzer auf der Projektübersichtsseite und in Abfragelisten ausgeblendet.
+  info_issue_hide_max_attachments: Wird die hier angegebene Anzahl überschritten, werden alle Dateianhänge im Ticket eingeklappt/versteckt dargestellt.
   info_live_search_result_restriction: LiveSearch Ergebnisse sind auf %{value} Treffer begrenzt. Versuche Deine Suche genauer zu beschreiben.
   label_account_login_bottom: "Text für Anmeldeseite"
   label_activate_quickstart: Schnellstart aktivieren
@@ -71,6 +72,7 @@ de:
   label_additionals_message: Hinweistext
   label_all_projects: Alle Projekte
   label_app_menu: App Menü
+  label_auto_watch_on_issue_assigned: Tickets, die mir zugewiesen werden
   label_change_is_private: Privat/Nicht-Privat ändern
   label_change_to_dashboard: Zu Dashboard wechseln
   label_chart_color_schema: Charts Farbschema
@@ -93,6 +95,7 @@ de:
   label_disable_sidebar: Sidebar deaktivieren
   label_disabled_modules: "Deaktivierte Module"
   label_docs_access_token: Zugriffstoken
+  label_document_view_all: Alle Dokumente anzeigen
   label_emoji_support: Emoji Support
   label_enable_auto_refresh: Automatische Aktualisierung aktivieren
   label_enable_sidebar: Sidebar aktivieren
@@ -116,6 +119,7 @@ de:
   label_issue_fast_description_edit: Schnellbearbeitung Beschreibung
   label_issue_freezed_with_close: Bearbeitung geschlossener Tickets verbieten (Freeze)
   label_issue_genitive: Tickets
+  label_issue_hide_max_attachments: Max. angezeigte Dateien
   label_issue_note_with_author: Ticket-Autor zu Kommentar anzeigen
   label_issue_status_change: "Wird \"Zugewiesen an\" nicht verändert und der Ticketstatus von x auf y geändert, dann wird das Ticket automatisch dem Ersteller zugewiesen"
   label_issue_timelog_required: Zeiterfassung für Ticket erforderlich
@@ -209,6 +213,3 @@ de:
   top_wiki_help: Hier kannst Du Inhalte und Einstellungen bzg. der Wiki festlegen.
   wiki_pdf_remove_attachments_info: Wenn aktiv, werden die an der Wiki Seite angehängten Dateien nicht in der PDF Ansicht angezeigt.
   wiki_pdf_remove_title_info: Wenn aktiv, wird der Wiki Titel nicht in der PDF Ansicht angezeigt.
-  label_document_view_all: Alle Dokumente anzeigen
-  label_issue_hide_max_attachments: Max. angezeigte Dateien
-  info_issue_hide_max_attachments: Wird die hier angegebene Anzahl überschritten, werden alle Dateianhänge im Ticket eingeklappt/versteckt dargestellt.

@@ -60,6 +60,7 @@ es:
   google_maps_embed_api_html: En caso de querer utilizar el macro Gmap para mostrar mapas de Google necesita ingresar su Clave de API de Google Maps aquí. Luego podrá utilizar el macro y varios parámetros. Mas información acerca de como utilizar estos parametros está disponible en <a href="https://developers.google.com/maps/documentation/embed/guide" class="external">https://developers.google.com/maps/documentation/embed/guide</a>. El macro Gmap funciona solamente si se ingresa esta clave.
   hidden_macros_in_toolbar_info: Todas las macros disponibles que el usuario conectado puede utilizar se enumeran mediante el botón de macros de la barra de herramientas wiki. Las macros marcadas aquí no se ofrecen para la selección. Esto permite restringir el alcance de la lista.
   info_hidden_roles_html: Los roles ocultos sólo se pueden utilizar junto con la visibilidad del usuario "Miembros de proyectos visibles". Si el usuario no está en una función que sea visible para el usuario actual, esta función, que incluye al usuario, se oculta en la página de resumen del proyecto y en las listas de consulta.
+  info_issue_hide_max_attachments: "Si se sobrepasa el número de archivos introducidos aquí, todos los archivos adjuntos de una incidencia se muestran ocultos."
   info_live_search_result_restriction: "Los resultados de LiveSearch se limitan a %{value} golpes. Intente describir su búsqueda con más detalle."
   label_account_login_bottom: "Texto para la página de inicio de sesión"
   label_activate_quickstart: Activar quickstart
@@ -71,6 +72,7 @@ es:
   label_additionals_message: "Mensaje"
   label_all_projects: Todos los proyectos
   label_app_menu: Menú de aplicación
+  label_auto_watch_on_issue_assigned: Issues assigned to me
   label_change_is_private: Cambiar privado/no-privado
   label_change_to_dashboard: "Cambiar a Dashboard"
   label_chart_color_schema: Charts color scheme
@@ -93,6 +95,7 @@ es:
   label_disable_sidebar: "Deshabilitar la barra lateral"
   label_disabled_modules: "Módulos desactivados"
   label_docs_access_token: Token de acceso
+  label_document_view_all: "Todos los documentos"
   label_emoji_support: Emoji Soporta
   label_enable_auto_refresh: "Activar la actualización automática"
   label_enable_sidebar: "Activar la barra lateral"
@@ -116,6 +119,7 @@ es:
   label_issue_fast_description_edit: "Edición rápida para la descripción"
   label_issue_freezed_with_close: No permitir editar peticiones cerradas (Congelar)
   label_issue_genitive: "problema"
+  label_issue_hide_max_attachments: "Mostrar archivos máx."
   label_issue_note_with_author: "Mostrar autor de tarea con nota"
   label_issue_status_change: "Si no se modifica el usuario \"Asignado\" y la el estado de la petición es modificado de x a y, entonces la petición es asignada al autor de la petición"
   label_issue_timelog_required: Se requiere Registro de tiempo para las peticiones
@@ -209,6 +213,3 @@ es:
   top_wiki_help: "Aquí puede definir contenidos y configuracioens para su Wiki."
   wiki_pdf_remove_attachments_info: "Cuando está activa, los adjuntos no serán mostrados en los PDF."
   wiki_pdf_remove_title_info: "Cuando está activa, el título de la Wiki no será mostrado en los PDF."
-  label_document_view_all: "Todos los documentos"
-  label_issue_hide_max_attachments: "Mostrar archivos máx."
-  info_issue_hide_max_attachments: "Si se sobrepasa el número de archivos introducidos aquí, todos los archivos adjuntos de una incidencia se muestran ocultos."

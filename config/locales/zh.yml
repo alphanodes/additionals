@@ -60,6 +60,7 @@ zh:
   google_maps_embed_api_html: 如果你想使用 Gmap 宏以现实 Google 地图，请在此处使用你的 Google 地图 API Key。之后你就可以使用宏和多种参数。关于如何使用参数的更多信息请查看 <a href="https://developers.google.com/maps/documentation/embed/guide" class="external">https://developers.google.com/maps/documentation/embed/guide</a>. Gmap 宏只有在此处提供 Key 的情况下才可用。
   hidden_macros_in_toolbar_info: 登录用户可以使用的所有可用宏都可通过 Wiki 页面工具栏 的 宏 按钮列出。请在此处选择不希望列出的宏。
   info_hidden_roles_html: 隐藏功能只能与"用户可见度"选项一起使用。如果某用户不在对当前用户可见的角色，则此用户及其角色在项目概述页和查询列表中将对当前用户隐藏。
+  info_issue_hide_max_attachments: "如果超过此处输入的文件数量，则会隐藏显示问题的所有文件附件。"
   info_live_search_result_restriction: "LiveSearch的结果仅限于 %{value}。命中率。尝试更详细地描述你的搜索。"
   label_account_login_bottom: "用于登陆页的文本"
   label_activate_quickstart: Activate quickstart
@@ -71,6 +72,7 @@ zh:
   label_additionals_message: "讯息"
   label_all_projects: 所有项目
   label_app_menu: 应用菜单
+  label_auto_watch_on_issue_assigned: Issues assigned to me
   label_change_is_private: 修改私有/非私有
   label_change_to_dashboard: "切换到仪表盘"
   label_chart_color_schema: 图表配色主题
@@ -93,6 +95,7 @@ zh:
   label_disable_sidebar: 禁用侧边栏
   label_disabled_modules: "禁用模块"
   label_docs_access_token: 访问令牌
+  label_document_view_all: "查看所有文件"
   label_emoji_support: Emoji support
   label_enable_auto_refresh: "启用自动刷新"
   label_enable_sidebar: 启用侧边栏
@@ -116,6 +119,7 @@ zh:
   label_issue_fast_description_edit: "快速编辑描述"
   label_issue_freezed_with_close: 禁止修改已关闭的问题 (冻结)
   label_issue_genitive: "问题"
+  label_issue_hide_max_attachments: "显示最大文件数"
   label_issue_note_with_author: "显示任务的作者与注释"
   label_issue_status_change: "若 \"指派给\" 的值未修改，且问题状态要从 X 变更为 Y，那么该问题必须指派给问题作者自己。"
   label_issue_timelog_required: 问题需要登记工时
@@ -209,6 +213,3 @@ zh:
   top_wiki_help: 您可以在此定义 Wiki 的内容及设置。
   wiki_pdf_remove_attachments_info: 当启用时，Wiki 附件将不会显示在 PDF 视图中。
   wiki_pdf_remove_title_info: 当启用时，Wiki 标题信息将不会显示在 PDF 视图中。
-  label_document_view_all: "查看所有文件"
-  label_issue_hide_max_attachments: "显示最大文件数"
-  info_issue_hide_max_attachments: "如果超过此处输入的文件数量，则会隐藏显示问题的所有文件附件。"

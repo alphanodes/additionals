@@ -60,6 +60,7 @@ ru:
   google_maps_embed_api_html: In case you want to use the Gmap macro in order to display Goole maps please implement your Google Maps API key here. Afterwards you can use the macro and various parameters. More information on how to use the parameters are provided at <a href="https://developers.google.com/maps/documentation/embed/guide" class="external">https://developers.google.com/maps/documentation/embed/guide</a>. The Gmap macro works only in combination with the embedded key here.
   hidden_macros_in_toolbar_info: "Все доступные макросы, которые может использовать вошедший в систему пользователь, перечислены с помощью кнопки макроса на панели инструментов вики. Макросы, отмеченные здесь, не предлагаются для выбора. Это позволяет вам ограничить область действия списка."
   info_hidden_roles_html: "Скрытые роли могут использоваться только вместе с видимостью пользователя \"Members of visible projects\". Если пользователь не находится в роли, видимой для текущего пользователя, эта роль, включая пользователя, скрыта на странице обзора проекта и в списках запросов."
+  info_issue_hide_max_attachments: "При превышении введенного здесь количества файлов все прикрепленные к заданию файлы отображаются скрытыми."
   info_live_search_result_restriction: "Результаты LiveSearch ограничены %{value} удары. Попробуйте описать свой поиск более подробно."
   label_account_login_bottom: "Текст страницы входа в систему"
   label_activate_quickstart: "Активировать быстрый старт"
@@ -71,6 +72,7 @@ ru:
   label_additionals_message: "Сообщение"
   label_all_projects: Все проекты
   label_app_menu: App menu
+  label_auto_watch_on_issue_assigned: Issues assigned to me
   label_change_is_private: "Изменение частного / не-частного"
   label_change_to_dashboard: "Переключиться на приборную панель"
   label_chart_color_schema: Charts color scheme
@@ -93,6 +95,7 @@ ru:
   label_disable_sidebar: "отключить боковую панель"
   label_disabled_modules: "Отключенные модули"
   label_docs_access_token: "Токен доступа"
+  label_document_view_all: "Посмотреть все документы"
   label_emoji_support: Emoji Поддержка
   label_enable_auto_refresh: "Включить автообновление"
   label_enable_sidebar: "Включить боковую панель"
@@ -116,6 +119,7 @@ ru:
   label_issue_fast_description_edit: "Быстрая правка для описания"
   label_issue_freezed_with_close: "Запрет редактирования закрытых заданий (Freeze)"
   label_issue_genitive: "Задание"
+  label_issue_hide_max_attachments: "Показать максимальное количество файлов"
   label_issue_note_with_author: "Показать автора задачи с примечанием"
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
   label_issue_timelog_required: "Бронирование времени, необходимого для выполнения задания"
@@ -209,6 +213,3 @@ ru:
   top_wiki_help: "Здесь вы можете определить содержимое и настройки для вашей Вики."
   wiki_pdf_remove_attachments_info: "Если флажок установлен, вложенные Вики-файлы не будут отображаться в PDF-формате."
   wiki_pdf_remove_title_info: "При активации этого параметра информация о названии Вики не будет отображаться в PDF-формате."
-  label_document_view_all: "Посмотреть все документы"
-  label_issue_hide_max_attachments: "Показать максимальное количество файлов"
-  info_issue_hide_max_attachments: "При превышении введенного здесь количества файлов все прикрепленные к заданию файлы отображаются скрытыми."

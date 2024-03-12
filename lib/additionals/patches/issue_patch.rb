@@ -15,6 +15,8 @@ module Additionals
         before_validation :auto_assigned_to
         before_save :change_status_with_assigned_to_change
 
+        after_commit :add_assigned_watcher
+
         safe_attributes 'author_id',
                         if: proc { |issue, user|
                           issue.new_record? && user.allowed_to?(:change_new_issue_author, issue.project) ||
@@ -43,6 +45,15 @@ module Additionals
       end
 
       module InstanceMethods
+        def add_assigned_watcher
+          return unless assigned_to_id
+          return unless author.pref.auto_watch_on? 'issue_assigned'
+          return if watcher_user_ids.include? assigned_to_id
+          return unless assigned_to.active?
+
+          set_watcher assigned_to, true
+        end
+
         def sidbar_change_status_allowed_to(user, new_status_id = nil)
           statuses = new_statuses_allowed_to user
           if new_status_id.present?

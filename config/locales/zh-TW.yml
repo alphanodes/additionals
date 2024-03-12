@@ -60,6 +60,7 @@
   google_maps_embed_api_html: In case you want to use the Gmap macro in order to display Goole maps please implement your Google Maps API key here. Afterwards you can use the macro and various parameters. More information on how to use the parameters are provided at <a href="https://developers.google.com/maps/documentation/embed/guide" class="external">https://developers.google.com/maps/documentation/embed/guide</a>. The Gmap macro works only in combination with the embedded key here.
   hidden_macros_in_toolbar_info: All available macros that the logged in user can use are listed via the macro button of the wiki toolbar. Macros marked here are not offered for selection. This allows you to limit the scope of the list.
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.
+  info_issue_hide_max_attachments: "如果超过此处输入的文件数量，则会隐藏显示问题的所有文件附件。"
   info_live_search_result_restriction: "LiveSearch的结果仅限于 %{value}。命中率。尝试更详细地描述你的搜索。"
   label_account_login_bottom: "登入頁文字"
   label_activate_quickstart: Activate quickstart
@@ -71,6 +72,7 @@
   label_additionals_message: "讯息"
   label_all_projects: 所有项目
   label_app_menu: App 選單
+  label_auto_watch_on_issue_assigned: Issues assigned to me
   label_change_is_private: 改变私人/非私人
   label_change_to_dashboard: "Switch to Dashboard"
   label_chart_color_schema: Charts color scheme
@@ -93,6 +95,7 @@
   label_disable_sidebar: Disable sidebar
   label_disabled_modules: "禁用模組"
   label_docs_access_token: Access token
+  label_document_view_all: "查看所有文件"
   label_emoji_support: Emoji support
   label_enable_auto_refresh: "启用自动刷新"
   label_enable_sidebar: Enable sidebar
@@ -116,6 +119,7 @@
   label_issue_fast_description_edit: "快速编辑描述"
   label_issue_freezed_with_close: Disallow editing of closed issues (Freeze)
   label_issue_genitive: "问题"
+  label_issue_hide_max_attachments: "显示最大文件数"
   label_issue_note_with_author: "显示任务的作者与注释"
   label_issue_status_change: "若未修改 \"被分派者\" ，且議題狀態要從 X 變更為 Y ，則該議題必須被分派給議題作者。"
   label_issue_timelog_required: "所需问题的时间记录"
@@ -209,6 +213,3 @@
   top_wiki_help: "您可以在此自訂Wiki的內容和設定。"
   wiki_pdf_remove_attachments_info: "當啟用時，Wiki附件將不會顯示在PDF中。"
   wiki_pdf_remove_title_info: "當啟用時，Wiki標題訊息不會顯示在PDF中"
-  label_document_view_all: "查看所有文件"
-  label_issue_hide_max_attachments: "显示最大文件数"
-  info_issue_hide_max_attachments: "如果超过此处输入的文件数量，则会隐藏显示问题的所有文件附件。"

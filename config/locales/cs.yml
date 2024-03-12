@@ -60,6 +60,7 @@ cs:
   google_maps_embed_api_html: "V případě, že chcete k zobrazení map Goole použít makro Gmap, implementujte zde klíč API Google Maps API. Poté můžete použít makro a různé parametry. Více informací o tom, jak používat parametry, naleznete na <a href=\"https://developers.google.com/maps/documentation/embed/guide\" class=\"external\">https://developers.google.com/maps/documentation/embed/guide</a>. Makro Gmap zde funguje pouze v kombinaci s vloženým klíčem."
   hidden_macros_in_toolbar_info: "Všechna dostupná makra, která může přihlášený uživatel použít, jsou uvedena prostřednictvím tlačítka makro na panelu nástrojů wiki. Makra zde označená nejsou nabízena k výběru. To vám umožní omezit rozsah seznamu."
   info_hidden_roles_html: "Skryté role lze použít pouze spolu s viditelností uživatele \"Members of visible projects\". Pokud uživatel není v roli, která je viditelná pro aktuálního uživatele, je tato role včetně uživatele skryta na stránce s přehledem projektu a v seznamech dotazů."
+  info_issue_hide_max_attachments: "Pokud je zde zadán vyšší počet souborů, zobrazí se všechny přílohy k danému vydání skrytě."
   info_live_search_result_restriction: "Výsledky vyhledávání LiveSearch jsou omezeny na %{value} zásahy. Zkuste své hledání popsat podrobněji."
   label_account_login_bottom: "Text pro přihlašovací stránku"
   label_activate_quickstart: Aktivovat quickstart
@@ -71,6 +72,7 @@ cs:
   label_additionals_message: "Zpráva"
   label_all_projects: "Všechny projekty"
   label_app_menu: App menu
+  label_auto_watch_on_issue_assigned: Issues assigned to me
   label_change_is_private: "Změnit soukromé / neveřejné"
   label_change_to_dashboard: "Přepnout na Dashboard"
   label_chart_color_schema: "Barevné schéma grafů"
@@ -93,6 +95,7 @@ cs:
   label_disable_sidebar: "Zakázat sidebar"
   label_disabled_modules: "Zakázané moduly"
   label_docs_access_token: Access token
+  label_document_view_all: "Zobrazit všechny dokumenty"
   label_emoji_support: Emoji Podpora
   label_enable_auto_refresh: "Povolit automatické obnovení"
   label_enable_sidebar: "Umožnit sidebar"
@@ -116,6 +119,7 @@ cs:
   label_issue_fast_description_edit: "Rychlá úprava popisu"
   label_issue_freezed_with_close: "Zakázat úpravy uzavřených čísel (Freeze)"
   label_issue_genitive: "Úkol"
+  label_issue_hide_max_attachments: "Zobrazit max. soubory"
   label_issue_note_with_author: "Zobrazit autora úlohy s poznámkou"
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
   label_issue_timelog_required: "Časový záznam potřebných problémů"
@@ -209,6 +213,3 @@ cs:
   top_wiki_help: "Zde můžete definovat obsah a nastavení vaší Wiki."
   wiki_pdf_remove_attachments_info: "Pokud je aktivní, připojené soubory Wiki se nebudou zobrazovat v zobrazení PDF."
   wiki_pdf_remove_title_info: "Pokud je aktivní, informace o názvu Wiki se nebudou zobrazovat v zobrazení PDF."
-  label_document_view_all: "Zobrazit všechny dokumenty"
-  label_issue_hide_max_attachments: "Zobrazit max. soubory"
-  info_issue_hide_max_attachments: "Pokud je zde zadán vyšší počet souborů, zobrazí se všechny přílohy k danému vydání skrytě."

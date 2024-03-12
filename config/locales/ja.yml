@@ -60,6 +60,7 @@ ja:
   google_maps_embed_api_html: In case you want to use the Gmap macro in order to display Goole maps please implement your Google Maps API key here. Afterwards you can use the macro and various parameters. More information on how to use the parameters are provided at <a href="https://developers.google.com/maps/documentation/embed/guide" class="external">https://developers.google.com/maps/documentation/embed/guide</a>. The Gmap macro works only in combination with the embedded key here.
   hidden_macros_in_toolbar_info: "ログインしているユーザーが使用できるすべての利用可能なマクロは、wikiツールバーのマクロボタンを使ってリストアップされています。ここでマークされたマクロは選択のために提供されていません。これにより、リストの範囲を制限することができます。"
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.
+  info_issue_hide_max_attachments: "ここに入力したファイル数を超えると、issueの添付ファイルはすべて非表示になります。"
   info_live_search_result_restriction: "LiveSearchの検索結果は %{value} に限定されます。がヒットしました。検索内容をもっと詳しく説明してみてください。"
   label_account_login_bottom: "ログイン画面の文章"
   label_activate_quickstart: "アクティブ化 quickstart"
@@ -71,6 +72,7 @@ ja:
   label_additionals_message: "メッセージ"
   label_all_projects: すべてのプロジェクト
   label_app_menu: App menu
+  label_auto_watch_on_issue_assigned: Issues assigned to me
   label_change_is_private: "プライベート／非プライベート変更"
   label_change_to_dashboard: "ダッシュボードに切り替える"
   label_chart_color_schema: Charts color scheme
@@ -93,6 +95,7 @@ ja:
   label_disable_sidebar: "サイドバーを無効にする"
   label_disabled_modules: "無効化したいモジュール"
   label_docs_access_token: Access token
+  label_document_view_all: "すべての資料を見る"
   label_emoji_support: Emoji 対応
   label_enable_auto_refresh: "オートリフレシュを行う"
   label_enable_sidebar: "サイドバーを有効にする"
@@ -116,6 +119,7 @@ ja:
   label_issue_fast_description_edit: "描写のための高速編集"
   label_issue_freezed_with_close: Disallow editing of closed issues (Freeze)
   label_issue_genitive: "タスク"
+  label_issue_hide_max_attachments: "最大ファイル数を表示"
   label_issue_note_with_author: "タスクの作者とメモを表示する"
   label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
   label_issue_timelog_required: "タスクに必要な時間予約"
@@ -209,6 +213,3 @@ ja:
   top_wiki_help: "ここでは、Wikiの内容や設定を定義することができます。"
   wiki_pdf_remove_attachments_info: "アクティブな場合、添付されたWikiファイルはPDFビューに表示されません。"
   wiki_pdf_remove_title_info: "アクティブな場合、Wikiのタイトル情報はPDFビューに表示されません。"
-  label_document_view_all: "すべての資料を見る"
-  label_issue_hide_max_attachments: "最大ファイル数を表示"
-  info_issue_hide_max_attachments: "ここに入力したファイル数を超えると、issueの添付ファイルはすべて非表示になります。"

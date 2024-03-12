@@ -60,6 +60,7 @@ it:
   google_maps_embed_api_html: Se si desidera utilizzare la macro Gmap per visualizzare Google Maps, è necessario immettere qui la chiave API incorporata di Google Maps. Potete trovare maggiori informazioni sotto <a href="https://developers.google.com/maps/documentation/embed/guide">https://developers.google.com/maps/documentation/embed/guide</a>
   hidden_macros_in_toolbar_info: "Tutte le macro disponibili che l'utente registrato può utilizzare sono elencate tramite il pulsante macro della barra degli strumenti del wiki. Le macro contrassegnate qui non vengono offerte per la selezione. In questo modo è possibile limitare la portata dell'elenco."
   info_hidden_roles_html: "I ruoli nascosti possono essere utilizzati solo insieme alla visibilità dell'utente \"Membri di progetti visibili\". Se l'utente non è in un ruolo visibile all'utente corrente, questo ruolo, incluso l'utente, è nascosto nella pagina di panoramica del progetto e nelle liste di ricerca."
+  info_issue_hide_max_attachments: "Se il numero di file inseriti in questa sezione è superiore a quello massimo, tutti gli allegati di un problema vengono visualizzati nascosti."
   info_live_search_result_restriction: "I risultati di LiveSearch sono limitati a %{value} colpi. Prova a descrivere la tua ricerca in modo più dettagliato."
   label_account_login_bottom: "Testo per la pagina di accesso"
   label_activate_quickstart: Attivare quickstart
@@ -71,6 +72,7 @@ it:
   label_additionals_message: "Messaggio"
   label_all_projects: Tutti i progetti
   label_app_menu: App menu
+  label_auto_watch_on_issue_assigned: Issues assigned to me
   label_change_is_private: Change private/non-private
   label_change_to_dashboard: "Passa a Dashboard"
   label_chart_color_schema: "Schema di colori delle tabelle"
@@ -93,6 +95,7 @@ it:
   label_disable_sidebar: "Disattivare la barra laterale"
   label_disabled_modules: "Disattivare modules"
   label_docs_access_token: Access token
+  label_document_view_all: "Vedi tutti i documenti"
   label_emoji_support: Emoji Supporto
   label_enable_auto_refresh: "Abilita l'aggiornamento automatico"
   label_enable_sidebar: "Attivare la barra laterale"
@@ -116,6 +119,7 @@ it:
   label_issue_fast_description_edit: "Modifica rapida della descrizione"
   label_issue_freezed_with_close: "Impedire la modifica dei problemi chiusi (Freeze)"
   label_issue_genitive: tema
+  label_issue_hide_max_attachments: "Mostra file massimi"
   label_issue_note_with_author: "Mostra l'autore dell'attività con una nota"
   label_issue_status_change: "Se \"Assignee\" è invariato e lo stato della questione è cambiato da x a y, allora l'autore è assegnato alla questione"
   label_issue_timelog_required: "Time log per i problemi richiesti"
@@ -209,6 +213,3 @@ it:
   top_wiki_help: "Qui puoi definire contenuti e impostazioni per il tuo Wiki."
   wiki_pdf_remove_attachments_info: "Quando è attivo, il Wiki file allegati non verranno visualizzati nella vista PDF."
   wiki_pdf_remove_title_info: "Quando è attivo, le informazioni sul titolo del Wiki non verranno visualizzate nella vista PDF."
-  label_document_view_all: "Vedi tutti i documenti"
-  label_issue_hide_max_attachments: "Mostra file massimi"
-  info_issue_hide_max_attachments: "Se il numero di file inseriti in questa sezione è superiore a quello massimo, tutti gli allegati di un problema vengono visualizzati nascosti."

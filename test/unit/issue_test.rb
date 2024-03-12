@@ -166,4 +166,15 @@ class IssueTest < Additionals::TestCase
       assert_nil issue.assigned_to_id
     end
   end
+
+  def test_assigned_to_should_add_watcher
+    user = User.first
+    user.pref.auto_watch_on = ['issue_assigned']
+    user.pref.save
+    issue = Issue.new author_id: user.id, project_id: 1, tracker_id: 1, assigned_to_id: user.id, subject: 'test_assigned_should_add_watcher'
+
+    assert_difference 'Watcher.count', 1 do
+      assert_save issue
+    end
+  end
 end

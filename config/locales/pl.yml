@@ -72,7 +72,7 @@ pl:
   label_additionals_message: "Komunikat"
   label_all_projects: Wszystkie projekty
   label_app_menu: App menu
-  label_auto_watch_on_issue_assigned: Issues assigned to me
+  label_auto_watch_on_issue_assigned: "Bilety przypisane do mnie"
   label_change_is_private: "Zmień prywatny / prywatny / nieprywatny"
   label_change_to_dashboard: "Przełącz się na tablicę rozdzielczą"
   label_chart_color_schema: Charts color scheme

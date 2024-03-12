@@ -72,7 +72,7 @@ es:
   label_additionals_message: "Mensaje"
   label_all_projects: Todos los proyectos
   label_app_menu: Menú de aplicación
-  label_auto_watch_on_issue_assigned: Issues assigned to me
+  label_auto_watch_on_issue_assigned: "Temas que me han sido asignados"
   label_change_is_private: Cambiar privado/no-privado
   label_change_to_dashboard: "Cambiar a Dashboard"
   label_chart_color_schema: Charts color scheme

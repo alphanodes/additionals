@@ -72,7 +72,7 @@ ko:
   label_additionals_message: "메시지"
   label_all_projects: 모든 프로젝트
   label_app_menu: 앱 메뉴
-  label_auto_watch_on_issue_assigned: Issues assigned to me
+  label_auto_watch_on_issue_assigned: "나에게 배정된 티켓"
   label_change_is_private: 개인 / 비 개인 변경
   label_change_to_dashboard: "대시보드로 전환"
   label_chart_color_schema: 차트 색 구성표

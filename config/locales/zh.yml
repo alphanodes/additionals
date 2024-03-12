@@ -72,7 +72,7 @@ zh:
   label_additionals_message: "讯息"
   label_all_projects: 所有项目
   label_app_menu: 应用菜单
-  label_auto_watch_on_issue_assigned: Issues assigned to me
+  label_auto_watch_on_issue_assigned: "分配给我的机票"
   label_change_is_private: 修改私有/非私有
   label_change_to_dashboard: "切换到仪表盘"
   label_chart_color_schema: 图表配色主题

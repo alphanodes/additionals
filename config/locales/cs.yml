@@ -72,7 +72,7 @@ cs:
   label_additionals_message: "Zpráva"
   label_all_projects: "Všechny projekty"
   label_app_menu: App menu
-  label_auto_watch_on_issue_assigned: Issues assigned to me
+  label_auto_watch_on_issue_assigned: "Lístky, které mi byly přiděleny"
   label_change_is_private: "Změnit soukromé / neveřejné"
   label_change_to_dashboard: "Přepnout na Dashboard"
   label_chart_color_schema: "Barevné schéma grafů"

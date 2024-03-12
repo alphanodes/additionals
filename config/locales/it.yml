@@ -72,8 +72,8 @@ it:
   label_additionals_message: "Messaggio"
   label_all_projects: Tutti i progetti
   label_app_menu: App menu
-  label_auto_watch_on_issue_assigned: Issues assigned to me
-  label_change_is_private: Change private/non-private
+  label_auto_watch_on_issue_assigned: Issues assegnati a me
+  label_change_is_private: "Cambia privato/non privato"
   label_change_to_dashboard: "Passa a Dashboard"
   label_chart_color_schema: "Schema di colori delle tabelle"
   label_chart_with_name: "Chart: %{value}"

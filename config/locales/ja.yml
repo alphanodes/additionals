@@ -72,7 +72,7 @@ ja:
   label_additionals_message: "メッセージ"
   label_all_projects: すべてのプロジェクト
   label_app_menu: App menu
-  label_auto_watch_on_issue_assigned: Issues assigned to me
+  label_auto_watch_on_issue_assigned: "私に割り当てられたチケット"
   label_change_is_private: "プライベート／非プライベート変更"
   label_change_to_dashboard: "ダッシュボードに切り替える"
   label_chart_color_schema: Charts color scheme

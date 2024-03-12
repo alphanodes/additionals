@@ -72,7 +72,7 @@ ru:
   label_additionals_message: "Сообщение"
   label_all_projects: Все проекты
   label_app_menu: App menu
-  label_auto_watch_on_issue_assigned: Issues assigned to me
+  label_auto_watch_on_issue_assigned: "Билеты, закрепленные за мной"
   label_change_is_private: "Изменение частного / не-частного"
   label_change_to_dashboard: "Переключиться на приборную панель"
   label_chart_color_schema: Charts color scheme

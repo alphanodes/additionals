@@ -72,7 +72,7 @@
   label_additionals_message: "讯息"
   label_all_projects: 所有项目
   label_app_menu: App 選單
-  label_auto_watch_on_issue_assigned: Issues assigned to me
+  label_auto_watch_on_issue_assigned: "分配给我的机票"
   label_change_is_private: 改变私人/非私人
   label_change_to_dashboard: "Switch to Dashboard"
   label_chart_color_schema: Charts color scheme

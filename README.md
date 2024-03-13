@@ -132,7 +132,7 @@ It provides :
 * [Chart.js Plugin datalabels 2.1.0](https://github.com/chartjs/chartjs-plugin-datalabels)
 * [Chart.js Plugin matrix 2.0.1](https://github.com/kurkle/chartjs-chart-matrix)
 * [clipboardJS 2.0.11](https://clipboardjs.com/)
-* [d3 7.8.5](https://d3js.org/)
+* [d3 7.9.0](https://d3js.org/)
 * [d3plus 2.0.3](https://d3plus.org/)
 * [FontAwesome 5.15.4](https://fontawesome.com/)
 * [mermaid 9.3.0](https://github.com/mermaid-js/mermaid)
@@ -307,8 +307,8 @@ Here you can define issue rules, which are used in issues of all projects.
 
 > **_NOTE:_** You can use wiki syntax for your text (use it wisely). Make sure the wiki page you link to is accessible for every user. The default issue text can be overwritten within the project settings.
 
-* Show max. files 
-  * Activate this option if you want to compress the display in the issue view for many file attachments. If no value is entered, the user will be shown the standard view for Redmine files. If a value is stored, the "Files" section in the issue view will be collapsed if the value is exceeded.* 
+* Show max. files
+  * Activate this option if you want to compress the display in the issue view for many file attachments. If no value is entered, the user will be shown the standard view for Redmine files. If a value is stored, the "Files" section in the issue view will be collapsed if the value is exceeded.*
 
 * New issue on user profile
   * Activate this option in case you want to display the symbol link *New issue* on a user's profile page in the top right corner in order to add a new issue for this user directly from it's user profile page.
@@ -319,7 +319,7 @@ Here you can define issue rules, which are used in issues of all projects.
 * Show issue author with note
   * Activate this option in order to see the *Author* label in notes of the issue author.
 
-* Fast edit for description 
+* Fast edit for description
   * Activate this option and an *Edit* link will be displayed in the issue view in the "Description" area so that only the description can be edited quickly.
 
 * Issue status on sidebar

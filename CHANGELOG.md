@@ -3,7 +3,9 @@
 ## 3.2.0
 
 - add option to hide issue attachments, if number of file is too high
+- add option to auto watch issues, which assigned to me
 - rubocop offenses has been fixed
+- D3 7.9.0 support
 
 ## 3.1.0
 

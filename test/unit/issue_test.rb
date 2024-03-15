@@ -3,7 +3,7 @@
 require File.expand_path '../../test_helper', __FILE__
 
 class IssueTest < Additionals::TestCase
-  fixtures :projects, :users, :members, :member_roles, :roles,
+  fixtures :projects, :users, :groups_users, :members, :member_roles, :roles,
            :trackers, :projects_trackers,
            :enabled_modules,
            :issue_statuses, :issue_categories, :workflows,
@@ -168,13 +168,26 @@ class IssueTest < Additionals::TestCase
   end
 
   def test_assigned_to_should_add_watcher
-    user = User.first
+    user = users :users_001
     user.pref.auto_watch_on = ['issue_assigned']
     user.pref.save
     issue = Issue.new author_id: user.id, project_id: 1, tracker_id: 1, assigned_to_id: user.id, subject: 'test_assigned_should_add_watcher'
 
     assert_difference 'Watcher.count', 1 do
       assert_save issue
+    end
+  end
+
+  def test_assigned_to_with_group_should_not_add_watcher
+    group = Group.find 10
+    Member.create! project_id: 1, principal: group, role_ids: [1]
+
+    with_settings issue_group_assignment: '1' do
+      issue = Issue.new author_id: 1, project_id: 1, tracker_id: 1, assigned_to_id: group.id, subject: 'test_assigned_should_add_watcher'
+
+      assert_no_difference 'Watcher.count' do
+        assert_save issue
+      end
     end
   end
 end

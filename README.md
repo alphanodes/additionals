@@ -103,6 +103,8 @@ Uninstall `additionals` plugin.
 * smiley/emoji legacy support
 * anonymize referrer for external urls
 * hide role in project memberbox
+* limitation of the number of attachments that are displayed as a preview in the issue
+* Auto watch option *Issues assigned to me*
 * change issue author
 * create issue on user profile
 * "assign to me" link on issue
@@ -226,14 +228,18 @@ And the following options can be edited by users with administratios rights in t
 - Go to top Link
   - Add "Go to top" link. If you have a lot of long pages, it is enabling users to easily return to the top of a page.
 
+- Emoji support
+  - Activate this option if you want to convert emojis in text. For more info on Emoji-Browser support read [more here](http://caniemoji.com/). Have a look at the Emoji [cheat sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet) for available Emoji-Codes.
+  
 - Legacy smileys support
-  - Activate the ``Legacy smileys support`` if you want to use the manual smiley code in your text (e.g. ``:)``). If you already use a plugin that supports Smileys this option should stay deactivated. For more info on Emoji-Browser support read [more here](http://caniemoji.com/). Have a look at the Emoji [cheat sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet) for available Emoji-Codes.
+  - Activate the ``Legacy smileys support`` if you want to use the manual smiley code in your text (e.g. ``:)``). If you already use a plugin that supports Smileys this option should stay deactivated. 
 
 - Maximum number of LiveSearch results
   - This option only affects plugins, that support LiveSearch. If you enter a value here, the LiveSearch results will be limited by the entered value.
 
-- Disable modules
-  - This feature will hide the selected modules in the project settings. Even if the module is enabled for use in the admin area it can not be selected by the project manager within the projects. Please note, if these modules already activated in existing projects, you will have to change and re-save the respective project settings first.
+### Disable modules
+
+This feature will hide the selected modules in the project settings. Even if the module is enabled for usage in the admin area it can not be selected by the project manager within the projects. Please note, if these modules already activated in existing projects, you will have to change and re-save the respective project settings first.
 
 > **_NOTE:_**  Please restart the application server, if you make changes to the external urls settings as well as if you activate the Smileys support.
 
@@ -308,7 +314,7 @@ Here you can define issue rules, which are used in issues of all projects.
 > **_NOTE:_** You can use wiki syntax for your text (use it wisely). Make sure the wiki page you link to is accessible for every user. The default issue text can be overwritten within the project settings.
 
 * Show max. files
-  * Activate this option if you want to compress the display in the issue view for many file attachments. If no value is entered, the user will be shown the standard view for Redmine files. If a value is stored, the "Files" section in the issue view will be collapsed if the value is exceeded.*
+  * Activate this option if you want to compress the display in the issue view for too many file attachments. If no value is entered, the user will be shown the standard view for Redmine files. If a value is stored, the "Files" section in the issue view will be collapsed if the value is exceeded.*
 
 * New issue on user profile
   * Activate this option in case you want to display the symbol link *New issue* on a user's profile page in the top right corner in order to add a new issue for this user directly from it's user profile page.
@@ -384,6 +390,16 @@ Known external plugins that have a user manual and support this feature are curr
 * redmine_reporting
 * redmine_service_desk
 * redmine_wiki_guide
+
+## User account 
+
+The following option has been added to the *Auto-watch* section in the user account:
+
+* Issues assigned to me
+
+If this option is activated, you will be set as a watcher based on the assignment. The aim is to be notified of changes even without prior interaction with the issue. For example, if the issue is assigned to another user in the meantime. 
+
+![Auto watch](contrib/images/auto-watch-assignee.png "Auto watch option")
 
 ## Plugin project settings
 

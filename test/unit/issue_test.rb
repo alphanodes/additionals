@@ -168,7 +168,7 @@ class IssueTest < Additionals::TestCase
   end
 
   def test_assigned_to_should_add_watcher
-    user = users :users_001
+    user = users :users_003
     user.pref.auto_watch_on = ['issue_assigned']
     user.pref.save
     issue = Issue.new author_id: user.id, project_id: 1, tracker_id: 1, assigned_to_id: user.id, subject: 'test_assigned_should_add_watcher'
@@ -183,7 +183,7 @@ class IssueTest < Additionals::TestCase
     Member.create! project_id: 1, principal: group, role_ids: [1]
 
     with_settings issue_group_assignment: '1' do
-      issue = Issue.new author_id: 1, project_id: 1, tracker_id: 1, assigned_to_id: group.id, subject: 'test_assigned_should_add_watcher'
+      issue = Issue.new author_id: 3, project_id: 1, tracker_id: 1, assigned_to_id: group.id, subject: 'test_assigned_should_add_watcher'
 
       assert_no_difference 'Watcher.count' do
         assert_save issue

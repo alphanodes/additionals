@@ -73,6 +73,12 @@ module AdditionalsQuery
     end
   end
 
+  def sql_for_project_name_field(field, operator, values)
+    value = values.first
+    values = value.strip_split if ['=', '!'].include?(operator) && value.include?(',')
+    sql_for_field field, operator, values, Project.table_name, 'name'
+  end
+
   def sql_for_project_identifier_field(field, operator, values)
     value = values.first
     values = value.strip_split if ['=', '!'].include?(operator) && value.include?(',')
@@ -89,6 +95,14 @@ module AdditionalsQuery
     add_available_filter 'project.identifier',
                          type: :string,
                          name: l(:label_attribute_of_project, name: l(:field_identifier))
+  end
+
+  def initialize_project_name_filter
+    return if project
+
+    add_available_filter 'project.name',
+                         type: :string,
+                         name: l(:label_attribute_of_project, name: l(:field_name))
   end
 
   def initialize_project_status_filter

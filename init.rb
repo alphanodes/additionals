@@ -12,7 +12,7 @@ Redmine::Plugin.register :additionals do
   version Additionals::PluginVersion::VERSION
   author_url 'https://alphanodes.com/'
   url 'https://github.com/alphanodes/additionals'
-  directory __dir__
+  directory File.dirname(__FILE__)
 
   settings default: loader.default_settings,
            partial: 'additionals/settings/additionals'

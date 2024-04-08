@@ -108,11 +108,7 @@ module Additionals
     end
 
     def additionals_library_load(module_names)
-      s = []
-      Array(module_names).each do |module_name|
-        s << send(:"additionals_load_#{module_name}")
-      end
-      safe_join s
+      safe_join(Array(module_names).map { |module_name| send(:"additionals_load_#{module_name}") })
     end
 
     def autocomplete_select_entries(name, type, option_tags, **options)

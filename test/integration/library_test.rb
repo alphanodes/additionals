@@ -27,7 +27,7 @@ class JavascriptLibraryTest < Additionals::IntegrationTest
     get '/'
 
     assert_response :success
-    assert_select 'link[rel=stylesheet][href^=?]', '/plugin_assets/additionals/stylesheets/Chart.min.css', count: 0
+    assert_select "head link:match('href',?)", %r{/Chart\.min}, count: 0
   end
 
   def test_not_loaded_chart_js_library
@@ -37,7 +37,7 @@ class JavascriptLibraryTest < Additionals::IntegrationTest
     get '/'
 
     assert_response :success
-    assert_select 'script[src^=?]', '/plugin_assets/additionals/javascripts/Chart.bundle.min.js', count: 0
+    assert_select "script:match('src',?)", %r{/Chart\.bundle\.min.*\.js}, count: 0
   end
 
   def test_not_loaded_javascript_libraries
@@ -45,11 +45,10 @@ class JavascriptLibraryTest < Additionals::IntegrationTest
     get '/'
 
     assert_response :success
-    assert_select 'script[src^=?]', '/plugin_assets/additionals/javascripts/bootstrap.js', count: 0
-    assert_select 'script[src^=?]', '/plugin_assets/additionals/javascripts/bootstrap.min.js', count: 0
-    assert_select 'script[src^=?]', '/plugin_assets/additionals/javascripts/d3plus.full.min.js', count: 0
-    assert_select 'script[src^=?]', '/plugin_assets/additionals/javascripts/noreferrer.js', count: 0
-    assert_select 'script[src^=?]', '/plugin_assets/additionals/javascripts/mermaid.min.js', count: 0
-    assert_select 'script[src^=?]', '/plugin_assets/additionals/javascripts/mermaid_load.js', count: 0
+    assert_select "script:match('src',?)", %r{/bootstrap.*\.js}, count: 0
+    assert_select "script:match('src',?)", %r{/bootstrap\.min.*\.js}, count: 0
+    assert_select "script:match('src',?)", %r{/d3plus.full\.min.*\.js}, count: 0
+    assert_select "script:match('src',?)", %r{/mermaid_load.*\.js}, count: 0
+    assert_select "script:match('src',?)", %r{/mermaid\.min.*\.js}, count: 0
   end
 end

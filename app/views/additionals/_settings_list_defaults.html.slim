@@ -2,8 +2,9 @@ fieldset.box
   legend = defined?(legend) ? legend : l(:additionals_query_list_defaults)
   - setting_name_columns = "#{query_type}_list_defaults"
   - query = query_class.new @settings[setting_name_columns.to_sym]
-  .default-query-settings-label
-    = render_query_columns_selection query, name: "settings[#{setting_name_columns}][column_names]"
+  #list-definition
+    .default-query-settings-label
+      = render_query_columns_selection query, name: "settings[#{setting_name_columns}][column_names]"
 
 - if !defined?(totalable_columns) || totalable_columns
   = render 'additionals/settings_list_totals', query_class: query_class, query_type: query_type

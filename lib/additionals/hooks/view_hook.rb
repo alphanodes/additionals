@@ -26,7 +26,7 @@ module Additionals
 
       def helper_issues_show_detail_after_setting(context = {})
         detail = context[:detail]
-        return unless detail.prop_key == 'author_id'
+        return if detail.prop_key != 'author_id'
 
         detail[:value] = find_name_by_reflection('author', detail.value) || detail.value
         detail[:old_value] = find_name_by_reflection('author', detail.old_value) || detail.old_value

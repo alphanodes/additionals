@@ -1,5 +1,7 @@
 # Changelog
 
+## 3.3.0
+
 ## 3.2.0
 
 - add option to hide issue attachments, if number of file is too high

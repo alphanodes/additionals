@@ -402,6 +402,7 @@
 
 .filter .select2 {
   margin: 1px;
+  min-width: 200px;
 }
 
 .filter .select2-selection--multiple .select2-search--inline .select2-search__field {

@@ -595,7 +595,15 @@ This will always happen, if you work as user with the appropriate permission to 
 
 #### How many default Dashboards can be created?
 
-There is just one system default dashboard possible for every area. This means one default dashboard for the Redmine "Home" page. And one for the general project overview page. But you can create also one default for a specific project overview page, which will than be "Project default".
+There is just one system default dashboard possible for every area. This means one default dashboard for the Redmine "Home" page. And one for the general project overview page. But you can create also one default for a specific project overview page, which will than be "Project default". 
+
+All you need to do is:
+* go to the project of your choice and set one of the existing dashboards as "System default". 
+* If not yet any other dashboard exist, create a new one for the project and set it as "System default".
+
+![Dashboard support](contrib/images/project-default.png "Default project Dashboard")
+
+*Figure shows how to set a project default dashboard by selecting a specific project from the dropdown list.*
 
 #### Does every user sees the content of every Dashboard block?
 

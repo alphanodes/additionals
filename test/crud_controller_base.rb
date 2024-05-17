@@ -111,7 +111,7 @@ module CrudControllerBase
       if @crud[:create_redirect_to]
         assert_redirected_to @crud[:create_redirect_to]
       else
-        assert_response 302
+        assert_response :found
       end
 
       entity = @crud[:entity].class.last
@@ -190,7 +190,7 @@ module CrudControllerBase
       if @crud[:update_redirect_to]
         assert_redirected_to @crud[:update_redirect_to]
       else
-        assert_response 302
+        assert_response :found
       end
 
       @crud[:entity]&.reload

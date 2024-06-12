@@ -2,6 +2,25 @@
 
 module Additionals
   module Helpers
+    def entry_page_title(name:, obj: nil, obj_link: nil, query: nil)
+      title = []
+      case obj
+      when Issue
+        title << link_to(h("#{obj.subject} ##{obj.id}"),
+                         issue_path(obj),
+                         class: obj.css_classes)
+      when User
+        title << user_with_avatar(obj, no_link: true, size: 50)
+      else
+        title << obj_link if obj_link
+      end
+
+      title << name if name
+      title << h(query.name) if query && !query.new_record?
+
+      safe_join title, Additionals::LIST_SEPARATOR
+    end
+
     def label_with_count(label, info, only_positive: false)
       text = label.is_a?(Symbol) ? l(label) : label
       if info.blank? || only_positive && !info.positive?

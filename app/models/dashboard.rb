@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Dashboard < Rails.version < '7.1' ? ActiveRecord::Base : ApplicationRecord
+class Dashboard < AdditionalsApplicationRecord
   include Redmine::I18n
   include Redmine::SafeAttributes
   include Additionals::EntityMethods

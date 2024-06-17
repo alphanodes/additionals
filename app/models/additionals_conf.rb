@@ -4,6 +4,15 @@ class AdditionalsConf
   SELECT2_INIT_ENTRIES = 30
   API_LIMIT = 100
 
+  # NOTE: :unprocessable_content requires rack 3 or newer. This is only the case with Redmine 6
+  # SEE https://www.redmine.org/projects/redmine/repository/svn/diff/trunk?utf8=%E2%9C%93&rev=22876&rev_to=22875
+  # SEE https://github.com/rails/rails/pull/52097
+  UNPROCESSABLE_CONTENT = if Rack::Utils::SYMBOL_TO_STATUS_CODE[:unprocessable_content]
+                            :unprocessable_content
+                          else
+                            :unprocessable_entity
+                          end
+
   class << self
     def api_limit
       @api_limit ||= with_system_default 'API_LIMIT'

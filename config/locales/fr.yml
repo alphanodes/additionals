@@ -25,6 +25,9 @@ fr:
         issue_requires_timelog: "Le statut de sortie sélectionné nécessite un enregistrement temporel."
         invalid_icon_format: est un code font-awesome invalide
         relation_not_unique: affectation multiple.
+  additionals:
+    enabled: enabled
+    disabled: disabled
   account_login_info: "Ce message texte sera affiché à la page de connexion et devrait être utilisé pour les informations d'inscription. Ces options sont actives dans tous les projets."
   add_go_to_top_info: "Si vous avez beaucoup de pages longues, il est utile d'ajouter un lien pour revenir en haut de la page."
   additionals_query_list_default_totals: "Montants par défaut pour la vue en liste"
@@ -213,3 +216,4 @@ fr:
   top_wiki_help: "Ici vous pouvez définir le contenu et les paramètres de votre Wiki."
   wiki_pdf_remove_attachments_info: "Lorsqu'ils sont actifs, les fichiers Wiki joints ne seront pas affichés en vue PDF."
   wiki_pdf_remove_title_info: "Lorsqu'elle est active, l'information sur le titre du wiki ne sera pas affichée dans la vue PDF."
+  label_default_sort_by: Default sort by

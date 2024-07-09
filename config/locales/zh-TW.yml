@@ -25,6 +25,9 @@
         issue_requires_timelog: "选定的状态需要进行时间预订"
         invalid_icon_format: "無效的 font-awesome 代碼。"
         relation_not_unique: multiple assigned.
+  additionals:
+    enabled: enabled
+    disabled: disabled
   account_login_info: "在登入頁面顯示的註冊訊息。該選項是通用選項。"
   add_go_to_top_info: "如果你有很長的頁面，建議增加 \"回到頁首\" 的按鈕。"
   additionals_query_list_default_totals: Default sums for list view
@@ -213,3 +216,4 @@
   top_wiki_help: "您可以在此自訂Wiki的內容和設定。"
   wiki_pdf_remove_attachments_info: "當啟用時，Wiki附件將不會顯示在PDF中。"
   wiki_pdf_remove_title_info: "當啟用時，Wiki標題訊息不會顯示在PDF中"
+  label_default_sort_by: Default sort by

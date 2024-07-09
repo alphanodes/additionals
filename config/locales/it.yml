@@ -25,6 +25,9 @@ it:
         issue_requires_timelog: "Lo stato del problema selezionato richiede una registrazione temporale."
         invalid_icon_format: 'è un font-awesome codice non valido'
         relation_not_unique: Assegnazione multipla.
+  additionals:
+    enabled: enabled
+    disabled: disabled
   account_login_info: "Questo messaggio di testo sarà mostrato nella pagina di login e deve essere utilizzato per le informazioni di registrazione. Queste impostazioni sono attive in tutti i progetti."
   add_go_to_top_info: 'Se hai un sacco di pagine lunghe, è utile aggiungere un To top link principale.'
   additionals_query_list_default_totals: "Importi predefiniti per la vista elenco"
@@ -213,3 +216,4 @@ it:
   top_wiki_help: "Qui puoi definire contenuti e impostazioni per il tuo Wiki."
   wiki_pdf_remove_attachments_info: "Quando è attivo, il Wiki file allegati non verranno visualizzati nella vista PDF."
   wiki_pdf_remove_title_info: "Quando è attivo, le informazioni sul titolo del Wiki non verranno visualizzate nella vista PDF."
+  label_default_sort_by: Default sort by

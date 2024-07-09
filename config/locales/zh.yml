@@ -25,6 +25,9 @@ zh:
         issue_requires_timelog: "所选择的问题状态需要登记工时。"
         invalid_icon_format: 无效的 Font-awesome 代码。
         relation_not_unique: multiple assigned.
+  additionals:
+    enabled: enabled
+    disabled: disabled
   account_login_info: "该文本信息将在登录页作为注册信息展现。该选项是全局选项。"
   add_go_to_top_info: '如果您有很长的页面，添加"回到顶部"的功能将非常有用。'
   additionals_query_list_default_totals: 列表视图的默认总计
@@ -213,3 +216,4 @@ zh:
   top_wiki_help: 您可以在此定义 Wiki 的内容及设置。
   wiki_pdf_remove_attachments_info: 当启用时，Wiki 附件将不会显示在 PDF 视图中。
   wiki_pdf_remove_title_info: 当启用时，Wiki 标题信息将不会显示在 PDF 视图中。
+  label_default_sort_by: Default sort by

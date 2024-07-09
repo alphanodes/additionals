@@ -25,6 +25,9 @@ pt-BR:
         issue_requires_timelog: "O status da tarefa selecionada requer um registro de tempo."
         invalid_icon_format: "é um código de font-awesome"
         relation_not_unique: "múltiplos atribuídos."
+  additionals:
+    enabled: enabled
+    disabled: disabled
   account_login_info: "Esta mensagem de texto será mostrada na página de login e deve ser usada para informações de registro. Estas configurações estão ativas em todos os projetos."
   add_go_to_top_info: "Se você tem muitas páginas longas, é útil adicionar um salto ao link superior."
   additionals_query_list_default_totals: "Valores padrão para visualização de lista"
@@ -213,3 +216,4 @@ pt-BR:
   top_wiki_help: "Aqui você pode definir conteúdos e configurações para seu Wiki."
   wiki_pdf_remove_attachments_info: "Quando ativo, os arquivos Wiki anexos não serão exibidos na visualização em PDF."
   wiki_pdf_remove_title_info: "Quando ativo, o título do Wiki não será exibido na visualização em PDF."
+  label_default_sort_by: Default sort by

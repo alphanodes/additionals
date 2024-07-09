@@ -25,6 +25,9 @@ es:
         issue_requires_timelog: "El estado actual de la petición requiere que le asigne el tiempo dedicado."
         invalid_icon_format: es un código inválido de font-awesome
         relation_not_unique: "Asignación múltiple."
+  additionals:
+    enabled: enabled
+    disabled: disabled
   account_login_info: "Este texto será mostrado en la pantalla de inicio de sesión y debe ser utilizado para información sobre el registro. Esta configuración está activa en todos los proyectos."
   add_go_to_top_info: 'Si tiene muchas páginas largas, es útil agregar el enlace para volver al inicio.'
   additionals_query_list_default_totals: Sumas predeterminadas para la vista de lista
@@ -213,3 +216,4 @@ es:
   top_wiki_help: "Aquí puede definir contenidos y configuracioens para su Wiki."
   wiki_pdf_remove_attachments_info: "Cuando está activa, los adjuntos no serán mostrados en los PDF."
   wiki_pdf_remove_title_info: "Cuando está activa, el título de la Wiki no será mostrado en los PDF."
+  label_default_sort_by: Default sort by

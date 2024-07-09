@@ -25,6 +25,9 @@ en:
         issue_requires_timelog: "The selected issue status requires a time logging."
         invalid_icon_format: is an invalid font-awesome code
         relation_not_unique: multiple assigned.
+  additionals:
+    enabled: enabled
+    disabled: disabled
   account_login_info: "This text message will be shown at the login page and should be used for registration information. These settings are active in all projects."
   add_go_to_top_info: 'If you have a lot of long pages, it is helpful to add a jump to top link.'
   additionals_query_list_default_totals: Default sums for list view
@@ -213,3 +216,4 @@ en:
   top_wiki_help: "Here you can define contents and settings for your Wiki."
   wiki_pdf_remove_attachments_info: "When active the attached Wiki files will not be displayed in PDF view."
   wiki_pdf_remove_title_info: "When active the Wiki title info will not be displayed in PDF view."
+  label_default_sort_by: Default sort by

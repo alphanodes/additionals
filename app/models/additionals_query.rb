@@ -39,6 +39,10 @@ module AdditionalsQuery
     sql.join ' AND '
   end
 
+  def available_sortable_columns
+    available_columns.select(&:sortable?)
+  end
+
   def fix_sql_for_text_field(field, operator, value, table_name = nil, target_field = nil)
     table_name = queried_table_name if table_name.blank?
     target_field = field if target_field.blank?

@@ -25,6 +25,9 @@ ja:
         issue_requires_timelog: "選択されたステータスには、タイムブッキングが必要です."
         invalid_icon_format: is an invalid font-awesome code
         relation_not_unique: 複数指定.
+  additionals:
+    enabled: enabled
+    disabled: disabled
   account_login_info: "この文章は、ログイン画面で表示され、登録情報の掲載を目的にしています。これらの設定は全プロジェクトで有効です。"
   add_go_to_top_info: '長いページが多い場合、「トップへ」のリンクは役立ちます。'
   additionals_query_list_default_totals: "リストビューのデフォルトの合計"
@@ -213,3 +216,4 @@ ja:
   top_wiki_help: "ここでは、Wikiの内容や設定を定義することができます。"
   wiki_pdf_remove_attachments_info: "アクティブな場合、添付されたWikiファイルはPDFビューに表示されません。"
   wiki_pdf_remove_title_info: "アクティブな場合、Wikiのタイトル情報はPDFビューに表示されません。"
+  label_default_sort_by: Default sort by

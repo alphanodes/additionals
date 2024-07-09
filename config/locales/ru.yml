@@ -25,6 +25,9 @@ ru:
         issue_requires_timelog: "Выбранное состояние задачи требует регистрации времени."
         invalid_icon_format: "это неправильный код font-awesome"
         relation_not_unique: multiple assigned.
+  additionals:
+    enabled: enabled
+    disabled: disabled
   account_login_info: "Это текстовое сообщение будет отображаться на странице входа в систему и должно использоваться для регистрационной информации. Эти настройки активны во всех проектах."
   add_go_to_top_info: "Если у вас много длинных страниц, полезно добавить переход на главную страницу."
   additionals_query_list_default_totals: "Суммы по умолчанию для просмотра списка"
@@ -213,3 +216,4 @@ ru:
   top_wiki_help: "Здесь вы можете определить содержимое и настройки для вашей Вики."
   wiki_pdf_remove_attachments_info: "Если флажок установлен, вложенные Вики-файлы не будут отображаться в PDF-формате."
   wiki_pdf_remove_title_info: "При активации этого параметра информация о названии Вики не будет отображаться в PDF-формате."
+  label_default_sort_by: Default sort by

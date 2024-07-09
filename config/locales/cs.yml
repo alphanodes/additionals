@@ -25,6 +25,9 @@ cs:
         issue_requires_timelog: "Vybraný stav vydání vyžaduje časové protokolování."
         invalid_icon_format: "je neplatný font-awesome kód"
         relation_not_unique: "více přiřazeno."
+  additionals:
+    enabled: enabled
+    disabled: disabled
   account_login_info: "Tato textová zpráva se zobrazí na přihlašovací stránce a měla by být použita pro registrační informace. Tato nastavení jsou aktivní ve všech projektech."
   add_go_to_top_info: "Pokud máte mnoho dlouhých stránek, je užitečné přidat odkaz na odkaz na začátek."
   additionals_query_list_default_totals: "Výchozí částky pro zobrazení seznamu"
@@ -213,3 +216,4 @@ cs:
   top_wiki_help: "Zde můžete definovat obsah a nastavení vaší Wiki."
   wiki_pdf_remove_attachments_info: "Pokud je aktivní, připojené soubory Wiki se nebudou zobrazovat v zobrazení PDF."
   wiki_pdf_remove_title_info: "Pokud je aktivní, informace o názvu Wiki se nebudou zobrazovat v zobrazení PDF."
+  label_default_sort_by: Default sort by

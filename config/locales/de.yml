@@ -25,6 +25,9 @@ de:
         issue_requires_timelog: "Der ausgewählte Status erfordert, dass eine Zeitbuchung zum Ticket vorhanden ist."
         invalid_icon_format: ist ein ungültiger Font-Awesome Code
         relation_not_unique: wurde mehrfach zugeordnet.
+  additionals:
+    enabled: aktiviert
+    disabled: deaktiviert
   account_login_info: "Dieser Text wir auf der Anmeldeseite angezeigt, um z.B. Informationen für die Anmeldung oder Registrierung zu hinterlegen. Diese Einstellung ist projektübergreifend und ist in allen Projekten aktiv."
   add_go_to_top_info: 'Bei langen Seiten ist es hilfreich, wenn ein Link zur Verfügung steht, mit dem man zum Seitenanfang springen kann.'
   additionals_query_list_default_totals: Standard-Summen in der Listenansicht
@@ -213,3 +216,4 @@ de:
   top_wiki_help: Hier kannst Du Inhalte und Einstellungen bzg. der Wiki festlegen.
   wiki_pdf_remove_attachments_info: Wenn aktiv, werden die an der Wiki Seite angehängten Dateien nicht in der PDF Ansicht angezeigt.
   wiki_pdf_remove_title_info: Wenn aktiv, wird der Wiki Titel nicht in der PDF Ansicht angezeigt.
+  label_default_sort_by: Standard-Sortierreihenfolge

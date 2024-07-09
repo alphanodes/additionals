@@ -78,6 +78,12 @@ module AdditionalsSettingsHelper
     end
   end
 
+  def values_for_sort_columns(klass)
+    klass.new
+         .available_sortable_columns
+         .collect { |column| [column.caption, column.name.to_s] }
+  end
+
   private
 
   def additionals_settings_label(name, options)

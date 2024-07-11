@@ -22,9 +22,9 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
   spec.required_ruby_version = '>= 3.0'
 
-  spec.add_runtime_dependency 'redmine_plugin_kit'
-  spec.add_runtime_dependency 'render_async'
-  spec.add_runtime_dependency 'rss'
-  spec.add_runtime_dependency 'slim-rails'
-  spec.add_runtime_dependency 'tanuki_emoji', '~> 0.6'
+  spec.add_dependency 'redmine_plugin_kit'
+  spec.add_dependency 'render_async'
+  spec.add_dependency 'rss'
+  spec.add_dependency 'slim-rails'
+  spec.add_dependency 'tanuki_emoji', '~> 0.6'
 end

@@ -110,7 +110,7 @@ module Additionals
         # assignable_users result depends on Setting.issue_group_assignment?
         # this result is not depending on issue settings
         #
-        # - always with groups and upsers
+        # - always with groups and users
         # - no tracker support -> cannot be used with issues
         def assignable_principals
           Principal.assignable

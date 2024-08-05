@@ -36,6 +36,10 @@ module Additionals
         EnabledModule.create project: project, name: 'issue_tracking'
       end
     end
+
+    def emoji_heart_tag
+      '<additionals-emoji title="heavy black heart" data-name="heart" data-unicode-version="1.1">❤</additionals-emoji>'
+    end
   end
 
   module PluginFixturesLoader

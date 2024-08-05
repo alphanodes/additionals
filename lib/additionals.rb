@@ -7,15 +7,10 @@ module Additionals
   DEFAULT_MODAL_WIDTH = '350px'
   GOTO_LIST = " \xc2\xbb"
   LIST_SEPARATOR = "#{GOTO_LIST} ".freeze
-  EMOJI_ASSERT_PATH = 'plugin_assets/additionals/images/emojis'
 
   include RedminePluginKit::PluginBase
 
   class << self
-    def full_url(path = nil)
-      "#{Setting.protocol}://#{Setting.host_name.chomp '/'}#{path}"
-    end
-
     def class_prefix(klass)
       klass_name = klass.is_a?(String) ? klass : klass.name
       klass_name.underscore.tr '/', '_'
@@ -173,10 +168,6 @@ module Additionals
       # engine_name could be used (additionals_plugin), but can
       # create some side effencts
       plugin_id = 'additionals'
-
-      # TODO: enable again, if fallback for emoji support
-      #       has been implemented for mail delivery and pdf
-      # Additionals::Gemify.install_emoji_assets
 
       # if plugin is already in plugins directory, use this and leave here
       next if Redmine::Plugin.installed? plugin_id

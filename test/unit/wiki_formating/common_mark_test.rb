@@ -33,7 +33,7 @@ module WikiFormatting
         </code></pre>
       HTML
       expected = <<~HTML
-        <img title="heavy black heart" class="inline_emojify" src="http://localhost:3000/#{Additionals::EMOJI_ASSERT_PATH}/emoji_u2764.png">
+        #{emoji_heart_tag}
         <pre><code>
         def foo
           :heart:
@@ -42,8 +42,7 @@ module WikiFormatting
       HTML
 
       with_plugin_settings 'additionals', legacy_smiley_support: 0,
-                                          emoji_support: 1,
-                                          disable_emoji_native_support: 1 do
+                                          emoji_support: 1 do
         assert_equal expected, emoji_filter(input)
       end
     end

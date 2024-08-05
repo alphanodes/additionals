@@ -50,14 +50,6 @@ module Additionals
     end
 
     def emoji_tag(emoji, _emoji_code)
-      if Additionals.setting? :disable_emoji_native_support
-        emoji_tag_fallback emoji
-      else
-        emoji_tag_native emoji
-      end
-    end
-
-    def emoji_tag_native(emoji)
       return unless emoji
 
       data = {
@@ -67,17 +59,6 @@ module Additionals
       options = { title: emoji.description, data: data }
 
       ActionController::Base.helpers.content_tag 'additionals-emoji', emoji.codepoints, options
-    end
-
-    def emoji_tag_fallback(emoji)
-      ActionController::Base.helpers.image_tag emoji_image_path(emoji),
-                                               title: emoji.description,
-                                               class: 'inline_emojify'
-    end
-
-    def emoji_image_path(emoji, local: false)
-      base_url = local ? '/' : Additionals.full_url
-      File.join base_url, Additionals::EMOJI_ASSERT_PATH, emoji.image_name
     end
 
     def with_emoji?(text)

@@ -28,13 +28,11 @@ module WikiFormatting
 
     def test_emojies
       with_plugin_settings 'additionals', legacy_smiley_support: 0,
-                                          emoji_support: 1,
-                                          disable_emoji_native_support: 1 do
+                                          emoji_support: 1 do
         @formatter::RULES.delete :inline_smileys
 
         str = 'A test with a :heart: emoji and a :) smiley'
-        @to_test[str] = 'A test with a <img title="heavy black heart" class="inline_emojify"' \
-                        " src=\"http://localhost:3000/#{Additionals::EMOJI_ASSERT_PATH}/emoji_u2764.png\" /> emoji and a :) smiley"
+        @to_test[str] = "A test with a #{emoji_heart_tag} emoji and a :) smiley"
 
         assert_html_output @to_test
       end
@@ -42,17 +40,14 @@ module WikiFormatting
 
     def test_smilies_and_emojies
       with_plugin_settings 'additionals', legacy_smiley_support: 1,
-                                          emoji_support: 1,
-                                          disable_emoji_native_support: 1 do
+                                          emoji_support: 1 do
         # this is required, because inline_smileys are activated with controller action
         @formatter::RULES << :inline_smileys
 
-        @to_test[':heart: and :)'] = '<img title="heavy black heart" class="inline_emojify"' \
-                                     " src=\"http://localhost:3000/#{Additionals::EMOJI_ASSERT_PATH}/emoji_u2764.png\" />" \
+        @to_test[':heart: and :)'] = "#{emoji_heart_tag}" \
                                      ' and <span class="additionals smiley smiley-smiley" title=":)"></span>'
         @to_test[':) and :heart:'] = '<span class="additionals smiley smiley-smiley" title=":)"></span> and' \
-                                     ' <img title="heavy black heart" class="inline_emojify"' \
-                                     " src=\"http://localhost:3000/#{Additionals::EMOJI_ASSERT_PATH}/emoji_u2764.png\" />"
+                                     " #{emoji_heart_tag}"
 
         assert_html_output @to_test
       end

@@ -45,7 +45,7 @@ module Additionals
         def emoji_unicode_element_unicode_filter(text)
           text.gsub emoji_unicode_pattern do |moji|
             emoji = TanukiEmoji.find_by_codepoints moji # rubocop: disable Rails/DynamicFindBy
-            emoji_tag_native emoji
+            emoji_tag emoji
           end
         end
 

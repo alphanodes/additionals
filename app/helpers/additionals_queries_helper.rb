@@ -222,15 +222,15 @@ module AdditionalsQueriesHelper
       columns.each_with_index do |c, column_index|
         value = csv_content(c, line).dup
         if c.name == :id # ID
-          if options[:no_id_link].blank?
-            link = url_for controller: line.class.name.underscore.pluralize, action: 'show', id: line.id
-            worksheet.write line_index + 1, column_index, link, hyperlink_format, value
-          else
+          if options[:no_id_link]
             # id without link
             worksheet.write(line_index + 1,
                             column_index,
                             value,
                             workbook.add_format(xlsx_cell_format(:cell, value, line_index)))
+          else
+            link = url_for controller: line.class.name.underscore.pluralize, action: 'show', id: line.id
+            worksheet.write line_index + 1, column_index, link, hyperlink_format, value
           end
         elsif xlsx_hyperlink_cell? value
           worksheet.write line_index + 1, column_index, value[0..254], hyperlink_format, value

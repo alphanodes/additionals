@@ -49,7 +49,7 @@ module Additionals
       end
     end
 
-    def emoji_tag(emoji, _emoji_code)
+    def emoji_tag(emoji, _emoji_code = nil)
       return unless emoji
 
       data = {

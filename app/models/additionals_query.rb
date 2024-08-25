@@ -153,8 +153,19 @@ module AdditionalsQuery
   end
 
   def initialize_author_filter(position: nil)
-    add_available_filter 'author_id', order: position,
-                                      type: :author
+    add_available_filter 'author_id',
+                         type: :author,
+                         order: position
+
+    add_available_filter 'author.group',
+                         type: :list,
+                         name: l(:label_attribute_of_author, name: l(:label_group)),
+                         values: -> { groups_values }
+
+    add_available_filter 'author.role',
+                         type: :list,
+                         name: l(:label_attribute_of_author, name: l(:field_role)),
+                         values: -> { Role.givable.pluck(:name, :id).map { |name, id| [name, id.to_s] } }
   end
 
   def initialize_assignee_filter(position: nil)
@@ -210,6 +221,49 @@ module AdditionalsQuery
 
   def initialize_notes_filter(position: nil)
     add_available_filter 'notes', type: :text, order: position
+  end
+
+  def groups_values
+    # NOTE: with Redmine 6 we can switch to: (but it seems this generates more load)
+    # Group.givable.visible.pluck(:name, :id).map { |name, id| [name, id.to_s] }
+    Group.givable.visible.sorted.map { |group| [group.name, group.id.to_s] }
+  end
+
+  # NOTE: - group_id is not used, if groups is specified
+  #       - if groups not specified, all givable groups are used
+  def members_of_groups(with_group_id: false, group_id: nil, groups: nil)
+    groups ||= group_id.empty? ? Group.givable : Group.where(id: group_id)
+
+    groupies = groups.inject [] do |user_ids, group|
+      user_ids + group.user_ids + (with_group_id ? [group.id] : [])
+    end
+
+    groupies.uniq!
+    groupies.compact!
+    groupies.sort!
+    groupies.map(&:to_s)
+  end
+
+  def sql_for_author_group_field(_field, operator, value)
+    sql_for_field 'author_id', operator, members_of_groups(group_id: value), queried_table_name, 'author_id'
+  end
+
+  def sql_for_author_role_field(_field, operator, value)
+    role_cond = if value.any?
+                  values = value.collect { |val| "'#{self.class.connection.quote_string val}'" }.to_comma_list
+                  "#{MemberRole.table_name}.role_id IN (#{values})"
+                else
+                  NO_RESULT_CONDITION
+                end
+
+    sw = operator == '!' ? 'NOT' : ''
+    nl = operator == '!' ? "#{queried_table_name}.author_id IS NULL OR" : ''
+
+    subquery = "SELECT 1 FROM #{Member.table_name}" \
+               " INNER JOIN #{MemberRole.table_name} on #{Member.table_name}.id = #{MemberRole.table_name}.member_id" \
+               " WHERE #{queried_table_name}.project_id = #{Member.table_name}.project_id" \
+               " AND #{Member.table_name}.user_id = #{queried_table_name}.author_id AND #{role_cond}"
+    "(#{nl} #{sw} EXISTS (#{subquery}))"
   end
 
   def sql_for_notes_field(field, operator, value)

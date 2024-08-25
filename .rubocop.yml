@@ -144,5 +144,11 @@ Layout/LineContinuationLeadingSpace:
 Rails/RedundantPresenceValidationOnBelongsTo:
   Enabled: false
 
+# this linter does not work with redirect_to
+Rails/ActionControllerFlashBeforeRender:
+  Enabled: true
+  Exclude:
+    - app/controllers/dashboards_controller.rb
+
 Bundler/DuplicatedGroup:
   Enabled: false

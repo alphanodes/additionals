@@ -91,6 +91,10 @@ module Additionals
       end
     end
 
+    def redmine6?
+      Redmine::VERSION.to_s >= '5.1' && Redmine::VERSION::BRANCH == 'devel'
+    end
+
     private
 
     def setup

@@ -8,6 +8,9 @@ module Additionals
   GOTO_LIST = " \xc2\xbb"
   LIST_SEPARATOR = "#{GOTO_LIST} ".freeze
 
+  SQL_NO_RESULT_CONDITION = '1=0'
+  SQL_WITH_TRUE_CONDITION = '1=1'
+
   include RedminePluginKit::PluginBase
 
   class << self

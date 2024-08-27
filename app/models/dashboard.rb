@@ -291,9 +291,9 @@ class Dashboard < AdditionalsApplicationRecord
   end
 
   def allowed_target_projects(user = User.current)
-    self.class.allowed_entity_target_projects user:,
+    self.class.allowed_entity_target_projects(user:,
                                               permission: :save_dashboards,
-                                              project:
+                                              project:)
   end
 
   # this is used to get unique cache for blocks

@@ -110,7 +110,7 @@ module AdditionalsJournalsHelper
         elsif multiple
           l(:text_journal_added, label:, value:)
         else
-          l :text_journal_set_to, label:, value:
+          l(:text_journal_set_to, label:, value:)
         end
       else
         l :text_journal_deleted, label:, old: old_value

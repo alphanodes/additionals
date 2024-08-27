@@ -379,12 +379,12 @@ module DashboardsHelper
     entries_today = scope.where spent_on: User.current.today
     entries_days = scope.where spent_on: User.current.today - (days - 1)..User.current.today
 
-    render 'dashboards/blocks/my_spent_time',
+    render('dashboards/blocks/my_spent_time',
            block:,
            block_definition:,
            entries_today:,
            entries_days:,
-           days:
+           days:)
   end
 
   def activity_dashboard_data(settings, dashboard)

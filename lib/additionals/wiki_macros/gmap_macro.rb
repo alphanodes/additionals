@@ -90,7 +90,7 @@ module Additionals
           end
           src << "&#{mode}=" + ERB::Util.url_encode(options[:way_mode]) if options[:way_mode].present?
 
-          tag.iframe width: width, height: height, src: src, frameborder: 0, allowfullscreen: 'true'
+          tag.iframe width:, height:, src:, frameborder: 0, allowfullscreen: 'true'
         end
       end
     end

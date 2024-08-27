@@ -26,7 +26,7 @@ module Additionals
           users = Principal.visible.where(id: group.users).order(User.name_formatter[:order])
           render partial: 'wiki/user_macros',
                  formats: [:html],
-                 locals: { users: users,
+                 locals: { users:,
                            user_roles: nil,
                            list_title: group_name }
         end

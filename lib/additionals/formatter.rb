@@ -56,7 +56,7 @@ module Additionals
         name: emoji.name,
         unicode_version: emoji.unicode_version
       }
-      options = { title: emoji.description, data: data }
+      options = { title: emoji.description, data: }
 
       ActionController::Base.helpers.content_tag 'additionals-emoji', emoji.codepoints, options
     end

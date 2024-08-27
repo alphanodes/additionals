@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 module DashboardsHelper
-  def dashboard_async_cache(dashboard, block, async, settings, &content_block)
-    cache render_async_cache_key(_dashboard_async_blocks_path(@project, dashboard.async_params(block, async, settings))),
+  def dashboard_async_cache(dashboard, block, async, settings, &)
+    cache(render_async_cache_key(_dashboard_async_blocks_path(@project, dashboard.async_params(block, async, settings))),
           expires_in: async[:cache_expires_in] || DashboardContent::RENDER_ASYNC_CACHE_EXPIRES_IN,
-          skip_digest: true, &content_block
+          skip_digest: true, &)
   end
 
   def dashboard_sidebar?(dashboard, params)
@@ -238,7 +238,7 @@ module DashboardsHelper
         icons << tag.span('', class: 'icon-only icon-warning', title: dashboard_block_sync_info(block_definition))
       end
       icons << tag.span('', class: 'icon-only icon-sort-handle sort-handle', title: l(:button_move))
-      icons << delete_link(_remove_block_dashboard_path(@project, dashboard, block: block),
+      icons << delete_link(_remove_block_dashboard_path(@project, dashboard, block:),
                            method: :post,
                            remote: true,
                            class: 'icon-only icon-close',
@@ -251,10 +251,10 @@ module DashboardsHelper
   end
 
   def build_dashboard_partial_locals(block, block_definition, settings, dashboard)
-    partial_locals = { dashboard: dashboard,
-                       settings: settings,
-                       block: block,
-                       block_definition: block_definition,
+    partial_locals = { dashboard:,
+                       settings:,
+                       block:,
+                       block_definition:,
                        user: User.current }
 
     if block_definition[:query_block]
@@ -318,7 +318,7 @@ module DashboardsHelper
     return unless title
 
     font_awesome_icon('fas_info-circle',
-                      title: title,
+                      title:,
                       class: 'dashboard-block-alert')
   end
 
@@ -349,7 +349,7 @@ module DashboardsHelper
                      .limit(max_entries)
                      .to_a
 
-    render 'dashboards/blocks/documents', block: block, max_entries: max_entries, documents: documents
+    render 'dashboards/blocks/documents', block:, max_entries:, documents:
   end
 
   def render_news_block(block, _block_definition, settings, dashboard)
@@ -366,7 +366,7 @@ module DashboardsHelper
                       .to_a
            end
 
-    render 'dashboards/blocks/news', block: block, max_entries: max_entries, news: news
+    render 'dashboards/blocks/news', block:, max_entries:, news:
   end
 
   def render_my_spent_time_block(block, block_definition, settings, dashboard)
@@ -380,11 +380,11 @@ module DashboardsHelper
     entries_days = scope.where spent_on: User.current.today - (days - 1)..User.current.today
 
     render 'dashboards/blocks/my_spent_time',
-           block: block,
-           block_definition: block_definition,
-           entries_today: entries_today,
-           entries_days: entries_days,
-           days: days
+           block:,
+           block_definition:,
+           entries_today:,
+           entries_days:,
+           days:
   end
 
   def activity_dashboard_data(settings, dashboard)

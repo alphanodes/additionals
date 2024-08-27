@@ -17,9 +17,9 @@ class AdditionalsJournal
         end
 
         journal.details << JournalDetail.new(property: 'attr',
-                                             prop_key: prop_key,
-                                             old_value: old_value,
-                                             value: value)
+                                             prop_key:,
+                                             old_value:,
+                                             value:)
         journal.save
       end
 

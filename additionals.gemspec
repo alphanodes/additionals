@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
     f.match %r{^((contrib|test|node_modules)/|Gemfile|Gemfile\.lock|additionals\.gemspec|package\.json|yarn\.lock)}
   end
   spec.require_paths = ['lib']
-  spec.required_ruby_version = '>= 3.0'
+  spec.required_ruby_version = '>= 3.1'
 
   spec.add_dependency 'redmine_plugin_kit'
   spec.add_dependency 'render_async'

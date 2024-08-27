@@ -72,14 +72,14 @@ class Dashboard < AdditionalsApplicationRecord
 
   class << self
     def system_default(dashboard_type)
-      select(:id).find_by(dashboard_type: dashboard_type, system_default: true)
+      select(:id).find_by(dashboard_type:, system_default: true)
                  .try(:id)
     end
 
     def default(dashboard_type, project = nil, user = User.current, recently_id = nil)
       recently_id ||= User.current.pref.recently_used_dashboard dashboard_type, project
 
-      scope = where dashboard_type: dashboard_type
+      scope = where(dashboard_type:)
       scope = scope.where(project_id: project.id).or(scope.where(project_id: nil)) if project.present?
 
       dashboard = scope.visible.find_by id: recently_id if recently_id.present?
@@ -177,7 +177,7 @@ class Dashboard < AdditionalsApplicationRecord
       true
     when VISIBILITY_ROLES
       if project
-        (user.roles_for_project(project) & roles).any?
+        user.roles_for_project(project).intersect?(roles)
       else
         user.memberships.joins(:member_roles).where(member_roles: { role_id: roles.map(&:id) }).any?
       end
@@ -291,9 +291,9 @@ class Dashboard < AdditionalsApplicationRecord
   end
 
   def allowed_target_projects(user = User.current)
-    self.class.allowed_entity_target_projects user: user,
+    self.class.allowed_entity_target_projects user:,
                                               permission: :save_dashboards,
-                                              project: project
+                                              project:
   end
 
   # this is used to get unique cache for blocks
@@ -305,7 +305,7 @@ class Dashboard < AdditionalsApplicationRecord
     end
 
     config = { dashboard_id: id,
-               block: block }
+               block: }
 
     if RedminePluginKit.false? options[:skip_user_id]
       settings[:user_id] = User.current.id
@@ -402,8 +402,8 @@ class Dashboard < AdditionalsApplicationRecord
     return unless system_default? && User.current.allowed_to?(:set_system_dashboards, project, global: true)
 
     scope = self.class
-                .where(dashboard_type: dashboard_type)
-                .where.not(id: id)
+                .where(dashboard_type:)
+                .where.not(id:)
 
     scope = scope.where project: project if dashboard_type == DashboardContentProject::TYPE_NAME
 
@@ -429,10 +429,10 @@ class Dashboard < AdditionalsApplicationRecord
   def validate_name
     return if name.blank?
 
-    scope = self.class.visible.where name: name
+    scope = self.class.visible.where(name:)
     if dashboard_type == DashboardContentProject::TYPE_NAME
       scope = scope.project_only
-      scope = scope.where project_id: project_id
+      scope = scope.where(project_id:)
       scope = scope.or scope.where(project_id: nil) if project_id.present?
     else
       scope = scope.welcome_only

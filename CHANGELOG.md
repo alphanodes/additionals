@@ -2,6 +2,9 @@
 
 ## 3.3.0
 
+- Maintenance release
+- Ruby 3.1 required
+
 ## 3.2.0
 
 - add option to hide issue attachments, if number of file is too high

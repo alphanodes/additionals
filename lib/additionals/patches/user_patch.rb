@@ -74,7 +74,7 @@ module Additionals
 
         def issues_assignable?(project = nil)
           scope = Principal.joins(members: :roles)
-                           .where(users: { id: id },
+                           .where(users: { id: },
                                   roles: { assignable: true })
           scope = scope.where members: { project_id: project.id } if project
           scope.exists?

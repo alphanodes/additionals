@@ -85,8 +85,8 @@ module AdditionalsFontawesomeHelper
     render layout: false,
            partial: 'additionals/select2_ajax_call',
            formats: [:js],
-           locals: { field_class: field_class,
+           locals: { field_class:,
                      ajax_url: fontawesome_auto_completes_path(selected: @selected_store.join(',')),
-                     options: options }
+                     options: }
   end
 end

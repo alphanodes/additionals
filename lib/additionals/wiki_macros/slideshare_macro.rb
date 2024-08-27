@@ -38,7 +38,7 @@ module Additionals
           src = +"//www.slideshare.net/slideshow/embed_code/#{v}"
           src += "?startSlide=#{slide}" if slide.positive?
 
-          tag.iframe width: width, height: height, src: src, frameborder: 0, allowfullscreen: 'true'
+          tag.iframe width:, height:, src:, frameborder: 0, allowfullscreen: 'true'
         end
       end
     end

@@ -54,7 +54,7 @@ module Additionals
 
           render partial: 'wiki/tradingview',
                  formats: [:html],
-                 locals: { options: options }
+                 locals: { options: }
         end
       end
     end

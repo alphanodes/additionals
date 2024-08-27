@@ -46,7 +46,7 @@ module Additionals
           end
 
           s = []
-          s << tag.iframe(width: width, height: height, src: src, frameborder: 0, allowfullscreen: 'true')
+          s << tag.iframe(width:, height:, src:, frameborder: 0, allowfullscreen: 'true')
           if options[:edit_link].present?
             raise '<edit_link> is not a Google document.' unless options[:edit_link].start_with? 'https://docs.google.com/'
 

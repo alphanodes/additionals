@@ -105,7 +105,7 @@ class DashboardContent
   def find_block(block)
     block.to_s =~  /\A(.*?)(__\d+)?\z/
     name = Regexp.last_match 1
-    available_blocks.key?(name) ? available_blocks[name].merge(name: name) : nil
+    available_blocks.key?(name) ? available_blocks[name].merge(name:) : nil
   end
 
   # Returns the default layout for a new dashboard
@@ -121,7 +121,7 @@ class DashboardContent
   def issues_cache_expires_in
     open_issue_count = Rails.cache.fetch issues_cache_key, expires_in: 1.hour do
       query = if project
-                IssueQuery.new project: project, name: '_'
+                IssueQuery.new project:, name: '_'
               else
                 IssueQuery.new name: '_'
               end

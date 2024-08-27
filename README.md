@@ -12,11 +12,10 @@ Additionals is a `Redmine` plugin for customizing Redmine, providing wiki macros
 | Name               | requirement                      |
 | -------------------|----------------------------------|
 | `Redmine` version  | >= 5.0                           |
-| `Ruby` version     | >= 3.0                           |
+| `Ruby` version     | >= 3.1                           |
 | Database version   | MySQL >= 8.0 or PostgreSQL >= 10 |
 
 > **_NOTE:_** If you use MySQL, make sure all database tables using the same storage engine (InnoDB is recommended) and character set (utf8mb4 is recommended).
-
 > **_NOTE:_** For more information use the official [Redmine install documentation](https://www.redmine.org/projects/redmine/wiki/RedmineInstall)
 
 ## Installation
@@ -222,27 +221,26 @@ The following plugin options are available to be edited by users with administra
 
 And the following options can be edited by users with administratios rights in the area **Settings**:
 
-- Open external URLs
-  - Activate the option ``Open external URLs`` in order to open those URLs in a new window or browser tab if someone wants to visit them.
+* Open external URLs
+  * Activate the option ``Open external URLs`` in order to open those URLs in a new window or browser tab if someone wants to visit them.
 
-- Go to top Link
-  - Add "Go to top" link. If you have a lot of long pages, it is enabling users to easily return to the top of a page.
+* Go to top Link
+  * Add "Go to top" link. If you have a lot of long pages, it is enabling users to easily return to the top of a page.
 
-- Emoji support
-  - Activate this option if you want to convert emojis in text. For more info on Emoji-Browser support read [more here](http://caniemoji.com/). Have a look at the Emoji [cheat sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet) for available Emoji-Codes.
-  
-- Legacy smileys support
-  - Activate the ``Legacy smileys support`` if you want to use the manual smiley code in your text (e.g. ``:)``). If you already use a plugin that supports Smileys this option should stay deactivated. 
+* Emoji support
+  * Activate this option if you want to convert emojis in text. For more info on Emoji-Browser support read [more here](http://caniemoji.com/). Have a look at the Emoji [cheat sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet) for available Emoji-Codes.
 
-- Maximum number of LiveSearch results
-  - This option only affects plugins, that support LiveSearch. If you enter a value here, the LiveSearch results will be limited by the entered value.
+* Legacy smileys support
+  * Activate the ``Legacy smileys support`` if you want to use the manual smiley code in your text (e.g. ``:)``). If you already use a plugin that supports Smileys this option should stay deactivated.
+
+* Maximum number of LiveSearch results
+  * This option only affects plugins, that support LiveSearch. If you enter a value here, the LiveSearch results will be limited by the entered value.
 
 ### Disable modules
 
 This feature will hide the selected modules in the project settings. Even if the module is enabled for usage in the admin area it can not be selected by the project manager within the projects. Please note, if these modules already activated in existing projects, you will have to change and re-save the respective project settings first.
 
 > **_NOTE:_**  Please restart the application server, if you make changes to the external urls settings as well as if you activate the Smileys support.
-
 > **_Tip:_**  You can use the following manual smiley codes: :), =), :D, =D, :'(, :(, ;), :P, :O, :/, :S, :|, :X, :*, O:), >:), B), (!), (?), (v), (x) and  (/)
 
 ## Wiki section
@@ -339,7 +337,6 @@ Here you can define issue rules, which are used in issues of all projects.
 If *Assignee* is unchanged and the issue status changed from x to y, than the author is assigned to the issue.
 Issues should be automatically assigned to the author, if the status changes to *Approval*.
 
-
 > **_NOTE:_** Use Case for this option is that issues should be automatically assigned to author, if the status changes to *Approval*.
 
 Current issue status x is only allowed if *Assignee* is the current user.
@@ -391,13 +388,13 @@ Known external plugins that have a user manual and support this feature are curr
 * redmine_service_desk
 * redmine_wiki_guide
 
-## User account 
+## User account
 
 The following option has been added to the *Auto-watch* section in the user account:
 
 * Issues assigned to me
 
-If this option is activated, you will be set as a watcher based on the assignment. The aim is to be notified of changes even without prior interaction with the issue. For example, if the issue is assigned to another user in the meantime. 
+If this option is activated, you will be set as a watcher based on the assignment. The aim is to be notified of changes even without prior interaction with the issue. For example, if the issue is assigned to another user in the meantime.
 
 ![Auto watch](contrib/images/auto-watch-assignee.png "Auto watch option")
 
@@ -595,10 +592,11 @@ This will always happen, if you work as user with the appropriate permission to 
 
 #### How many default Dashboards can be created?
 
-There is just one system default dashboard possible for every area. This means one default dashboard for the Redmine "Home" page. And one for the general project overview page. But you can create also one default for a specific project overview page, which will than be "Project default". 
+There is just one system default dashboard possible for every area. This means one default dashboard for the Redmine "Home" page. And one for the general project overview page. But you can create also one default for a specific project overview page, which will than be "Project default".
 
 All you need to do is:
-* go to the project of your choice and set one of the existing dashboards as "System default". 
+
+* go to the project of your choice and set one of the existing dashboards as "System default".
 * If not yet any other dashboard exist, create a new one for the project and set it as "System default".
 
 ![Dashboard support](contrib/images/project-default.png "Default project Dashboard")

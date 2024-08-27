@@ -91,9 +91,9 @@ module AdditionalsJournalsHelper
       end
 
       if no_detail
-        l :text_journal_changed_no_detail, label: label
+        l(:text_journal_changed_no_detail, label:)
       elsif show_diff
-        s = l :text_journal_changed_no_detail, label: label
+        s = l(:text_journal_changed_no_detail, label:)
         unless no_html
           diff_link = link_to l(:label_diff),
                               send(diff_url_method,
@@ -106,14 +106,14 @@ module AdditionalsJournalsHelper
         s
       elsif detail.value.present?
         if detail.old_value.present?
-          l :text_journal_changed, label: label, old: old_value, new: value
+          l :text_journal_changed, label:, old: old_value, new: value
         elsif multiple
-          l :text_journal_added, label: label, value: value
+          l(:text_journal_added, label:, value:)
         else
-          l :text_journal_set_to, label: label, value: value
+          l :text_journal_set_to, label:, value:
         end
       else
-        l :text_journal_deleted, label: label, old: old_value
+        l :text_journal_deleted, label:, old: old_value
       end.html_safe
     else
       # default implementation for journal detail rendering

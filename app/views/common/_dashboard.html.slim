@@ -1,11 +1,11 @@
-= call_hook :view_dashboard_top, dashboard: dashboard, project: @project
+= call_hook :view_dashboard_top, dashboard:, project: @project
 
 #my-page.splitcontent class="#{dashboard_css_classes dashboard}"
   - dashboard.available_groups.each do |group|
     .block-receiver id="list-#{group}" class="splitcontent#{group}"
       = render_dashboard_blocks dashboard.layout[group], dashboard
 
-= call_hook :view_dashboard_bottom, dashboard: dashboard, project: @project
+= call_hook :view_dashboard_bottom, dashboard:, project: @project
 
 = context_menu
 

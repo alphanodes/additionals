@@ -38,9 +38,9 @@ module Additionals
 
           src = args[0]
           if Additionals.valid_iframe_url? src
-            s = [tag.iframe(width: width,
-                            height: height,
-                            src: src,
+            s = [tag.iframe(width:,
+                            height:,
+                            src:,
                             frameborder: 0,
                             allowfullscreen: 'true')]
             s << link_to(l(:label_open_in_new_windows), src, class: 'external') if RedminePluginKit.true? options[:with_link]

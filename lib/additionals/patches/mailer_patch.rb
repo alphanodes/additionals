@@ -43,7 +43,7 @@ module Additionals
           @entity = entity
           @entity_url = entity_url
 
-          mail to: user, subject: subject
+          mail to: user, subject:
         end
 
         def entity_updated(user, journal, entity_url:, headers:, subject:)
@@ -60,7 +60,7 @@ module Additionals
           @journal = journal
           @journal_details = journal.visible_details
 
-          mail to: user, subject: subject
+          mail to: user, subject:
         end
       end
     end

@@ -20,7 +20,7 @@ class AdditionalsChangeStatusController < ApplicationController
     @issue.assigned_to = User.current if @issue.status_x_affected?(new_status_id) && issue_old_user != User.current
 
     call_hook :controller_additionals_change_status_before_save,
-              params: params,
+              params:,
               issue: @issue,
               journal: @issue.current_journal
 
@@ -31,7 +31,7 @@ class AdditionalsChangeStatusController < ApplicationController
     end
 
     call_hook :controller_additionals_change_status_after_save,
-              params: params,
+              params:,
               issue: @issue,
               journal: @issue.current_journal
 

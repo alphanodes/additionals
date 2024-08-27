@@ -8,7 +8,7 @@ class AdditionalsMacro
       macro_list = []
 
       # needs to run every request (for each user once)
-      permissions = build_permissions controller_only: controller_only
+      permissions = build_permissions(controller_only:)
 
       if filtered.present?
         filtered << 'hello_world'

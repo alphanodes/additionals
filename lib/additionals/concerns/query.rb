@@ -62,7 +62,7 @@ module Additionals
 
         def initialize_ids_filter(label: nil)
           if label
-            add_available_filter 'ids', type: :integer, label: label
+            add_available_filter 'ids', type: :integer, label:
           else
             add_available_filter 'ids', type: :integer, name: '#'
           end
@@ -123,10 +123,9 @@ module Additionals
                                values: -> { project_statuses_values }
         end
 
-        def initialize_project_filter(always: false, position: nil, without_subprojects: false)
+        def initialize_project_filter(always: false, without_subprojects: false)
           if project.nil? || always
-            add_available_filter 'project_id', order: position,
-                                               type: :list,
+            add_available_filter 'project_id', type: :list,
                                                values: -> { project_values }
           end
           return if without_subprojects || project.nil? || project.leaf? || subproject_values.empty?
@@ -136,22 +135,19 @@ module Additionals
                                                 values: -> { subproject_values }
         end
 
-        def initialize_created_filter(position: nil, label: nil)
-          add_available_filter 'created_on', order: position,
-                                             type: :date_past,
-                                             label: label
+        def initialize_created_filter(label: nil)
+          add_available_filter 'created_on', type: :date_past,
+                                             label:
         end
 
-        def initialize_updated_filter(position: nil, label: nil)
-          add_available_filter 'updated_on', order: position,
-                                             type: :date_past,
-                                             label: label
+        def initialize_updated_filter(label: nil)
+          add_available_filter 'updated_on', type: :date_past,
+                                             label:
         end
 
-        def initialize_author_filter(with_role: true, position: nil)
+        def initialize_author_filter(with_role: true)
           add_available_filter 'author_id',
-                               type: :author,
-                               order: position
+                               type: :author
 
           add_available_filter 'author.group',
                                type: :list,
@@ -173,9 +169,8 @@ module Additionals
                                name: l(:label_attribute_of_author, name: l(:field_hrm_user_type))
         end
 
-        def initialize_assignee_filter(with_role: true, position: nil)
-          add_available_filter 'assigned_to_id', order: position,
-                                                 type: :assignee
+        def initialize_assignee_filter(with_role: true)
+          add_available_filter 'assigned_to_id', type: :assignee
 
           add_available_filter 'assigned_to.group',
                                type: :list,
@@ -197,11 +192,10 @@ module Additionals
                                name: l(:label_attribute_of_assigned_to, name: l(:field_hrm_user_type))
         end
 
-        def initialize_watcher_filter(position: nil)
+        def initialize_watcher_filter
           return unless User.current.logged?
 
-          add_available_filter 'watcher_id', order: position,
-                                             type: :user_with_me
+          add_available_filter 'watcher_id', type: :user_with_me
         end
 
         def initialize_last_notes_filter(order: nil)
@@ -211,9 +205,8 @@ module Additionals
           add_available_filter 'last_notes', **options
         end
 
-        def initialize_notes_count_filter(position: nil)
+        def initialize_notes_count_filter
           add_available_filter 'notes_count',
-                               order: position,
                                type: :integer
         end
 
@@ -221,7 +214,7 @@ module Additionals
           sql_aggr_condition table: Journal.table_name,
                              values: value,
                              group_field: 'journalized_id',
-                             operator: operator,
+                             operator:,
                              use_sub_query_for_all: true,
                              sub_query: "#{Journal.table_name} WHERE #{Journal.table_name}.journalized_id = #{queried_table_name}.id" \
                                         " AND #{Journal.table_name}.journalized_type = '#{queried_class.name}'" \
@@ -243,8 +236,8 @@ module Additionals
           values
         end
 
-        def initialize_notes_filter(position: nil)
-          add_available_filter 'notes', type: :text, order: position
+        def initialize_notes_filter
+          add_available_filter 'notes', type: :text
         end
 
         def roles_values

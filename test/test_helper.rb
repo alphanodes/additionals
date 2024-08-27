@@ -33,7 +33,7 @@ module Additionals
       end
 
       Project.where(id: [1, 2]).find_each do |project|
-        EnabledModule.create project: project, name: 'issue_tracking'
+        EnabledModule.create project:, name: 'issue_tracking'
       end
     end
 

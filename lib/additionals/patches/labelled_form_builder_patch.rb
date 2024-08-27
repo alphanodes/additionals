@@ -25,7 +25,7 @@ module Additionals
                       info.is_a?(Symbol) ? l(info) : info
                     end
 
-            options[:label] = @template.tag.span text, title: title, class: 'field-description'
+            options[:label] = @template.tag.span text, title:, class: 'field-description'
           end
 
           super

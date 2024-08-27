@@ -141,7 +141,7 @@ class AdditionalsFontAwesome
                 (first_letter_search.present? && !values[:label].downcase.start_with?(first_letter_search) ||
                  first_letter_search.blank? && values[:label] !~ /#{search}/i)
 
-        icons << { id: id, text: values[:label] }
+        icons << { id:, text: values[:label] }
         cnt += 1
       end
 

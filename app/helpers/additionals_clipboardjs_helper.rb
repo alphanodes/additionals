@@ -11,7 +11,7 @@ module AdditionalsClipboardjsHelper
     tag.acronym text,
                 class: 'clipboard-text',
                 title: l(:label_copy_to_clipboard),
-                data: clipboardjs_data(text: text)
+                data: clipboardjs_data(text:)
   end
 
   def clipboardjs_data(clipboard_data)

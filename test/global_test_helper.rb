@@ -116,12 +116,12 @@ module Additionals
       colspan -= 1 unless with_checkbox
       assert_select block_tr_select do
         block_columns.each do |column_name|
-          assert_select_td_column column_name, colspan: colspan
+          assert_select_td_column column_name, colspan:
         end
       end
     end
 
-    def with_plugin_settings(plugin, settings, &_block)
+    def with_plugin_settings(plugin, settings, &)
       change_plugin_settings plugin, settings
       yield
     ensure
@@ -160,14 +160,14 @@ module Additionals
       params[:sort] = "#{column}:asc"
       params[:c] = columns
 
-      get action, params: params
+      get(action, params:)
 
       assert_response :success
       assert_select "table.list.#{table_css}.sort-by-#{column_css}.sort-asc"
 
       params[:sort] = "#{column}:desc"
 
-      get action, params: params
+      get(action, params:)
 
       assert_response :success
       assert_select "table.list.#{table_css}.sort-by-#{column_css}.sort-desc"

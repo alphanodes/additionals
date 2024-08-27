@@ -25,12 +25,12 @@ module AdditionalsQueriesHelper
     session_key = additionals_query_session_key object_type
     query_class = Object.const_get :"#{object_type.camelcase}Query"
     if params[:query_id].present?
-      additionals_load_query_id query_class,
+      additionals_load_query_id(query_class,
                                 session_key,
                                 params[:query_id],
                                 object_type,
-                                user_filter: user_filter,
-                                search_string: search_string
+                                user_filter:,
+                                search_string:)
     elsif api_request? ||
           params[:set_filter] ||
           session[session_key].nil? ||
@@ -149,14 +149,14 @@ module AdditionalsQueriesHelper
            partial: 'auto_completes/grouped_users',
            locals: { with_me: with_me && (search_term.blank? || l(:label_me).downcase.include?(search_term.downcase)),
                      with_ano: with_ano && (search_term.blank? || l(:label_user_anonymous).downcase.include?(search_term.downcase)),
-                     me_value: me_value,
+                     me_value:,
                      sep_required: false }
   end
 
   def additionals_query_to_xlsx(query, no_id_link: false)
     require 'write_xlsx'
 
-    options = { no_id_link: no_id_link,
+    options = { no_id_link:,
                 filename: StringIO.new(+'') }
 
     export_to_xlsx query.entries, query.columns, options
@@ -297,7 +297,7 @@ module AdditionalsQueriesHelper
       flash[:notice] = l :notice_successful_update unless entries.empty?
     else
       flash[:error] = l :notice_failed_to_save_entity,
-                        name_plural: name_plural,
+                        name_plural:,
                         count: unsaved_ids.size,
                         total: entries.size,
                         ids: "##{unsaved_ids.join ', #'}"

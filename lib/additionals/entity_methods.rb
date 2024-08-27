@@ -30,7 +30,7 @@ module Additionals
         notified << author if author
         notified += assigned_to_notified_users if assigned_to
         notified += project.notified_users if project
-        Redmine::Hook.call_hook :model_notified_users, entity: self, notified: notified
+        Redmine::Hook.call_hook(:model_notified_users, entity: self, notified:)
 
         notified = notified.select(&:active?)
         notified.uniq!

@@ -17,7 +17,7 @@ class AdditionalsAssignToMeController < ApplicationController
     @issue.assigned_to = User.current
 
     call_hook :controller_additionals_assign_to_me_before_save,
-              params: params,
+              params:,
               issue: @issue,
               journal: @issue.current_journal
 
@@ -27,7 +27,7 @@ class AdditionalsAssignToMeController < ApplicationController
     end
 
     call_hook :controller_additionals_assign_to_me_after_save,
-              params: params,
+              params:,
               issue: @issue,
               journal: @issue.current_journal
 

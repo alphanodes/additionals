@@ -8,7 +8,7 @@ class AdditionalsPlugin
 
     def method_missing(method_name, force: false)
       if validate_default_plugin_name method_name
-        default_plugin_check? method_name, force: force
+        default_plugin_check?(method_name, force:)
       else
         super
       end

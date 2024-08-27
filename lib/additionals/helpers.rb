@@ -34,7 +34,7 @@ module Additionals
       return if locals[:group_name].blank?
 
       render partial: 'queries/additionals_group_view',
-             locals: { query: query }.merge(locals)
+             locals: { query: }.merge(locals)
     end
 
     def render_query_block_columns(query, entry, tr_classes:, with_buttons: false, with_checkbox: true)
@@ -163,7 +163,7 @@ module Additionals
                   formats: [:js],
                   locals: { field_name_id: sanitize_to_id(name),
                             ajax_url: send(:"#{type}_path", ajax_params),
-                            options: options })
+                            options: })
       safe_join s
     end
 
@@ -178,7 +178,7 @@ module Additionals
     end
 
     def addtionals_textarea_cols(text, min: 8, max: 20)
-      RedminePluginKit.textarea_cols text, min: min, max: max
+      RedminePluginKit.textarea_cols text, min:, max:
     end
 
     def title_with_fontawesome(title, symbole, wrapper = 'span')
@@ -207,7 +207,7 @@ module Additionals
         end
       else
         s = []
-        s << avatar(user, size: size, class: css_class)
+        s << avatar(user, size:, class: css_class)
         s << if no_link
                no_link_name || user.name
              else
@@ -225,8 +225,8 @@ module Additionals
 
     def human_float_number(value, precision: 2, separator: '.')
       ActionController::Base.helpers.number_with_precision(value,
-                                                           precision: precision,
-                                                           separator: separator,
+                                                           precision:,
+                                                           separator:,
                                                            strip_insignificant_zeros: true)
     end
 
@@ -238,7 +238,7 @@ module Additionals
             elsif params.nil?
               url_for params: request.query_parameters
             else
-              url_for params: params
+              url_for(params:)
             end
 
       hidden_field_tag 'back_url', url, id: nil

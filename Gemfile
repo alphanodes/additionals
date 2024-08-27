@@ -13,7 +13,6 @@ if File.file? File.expand_path './.enable_dev', __dir__
     # gem 'awesome_print', require: 'ap'
     # gem 'better_errors'
     # gem 'binding_of_caller'
-    gem 'debug'
     gem 'marginalia'
     gem 'memory_profiler'
     gem 'ruby-lsp'

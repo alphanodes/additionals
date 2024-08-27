@@ -68,7 +68,6 @@ Uninstall `additionals` plugin.
 * Note for new issues above issue content (e.g. for guidelines)
 * PDF for wiki pages
 * Wiki macros for:
-
   * asciinema
   * cryptocompare
   * date
@@ -93,7 +92,6 @@ Uninstall `additionals` plugin.
   * user
   * vimeo
   * youtube
-
 * macro list with all available macros at /help/macros included documentation
 * macro button for wiki toolbar with available macros with project and permission context support
 * option to remove "Help" from top menu
@@ -109,7 +107,6 @@ Uninstall `additionals` plugin.
 * "assign to me" link on issue
 * change issue state on sidebar
 * configurable issue rules
-
   * freeze closed issue
   * change assigned_to automatically, if issue status changes
   * assigned_to has changed, but status change is required, too

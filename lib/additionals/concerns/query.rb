@@ -130,8 +130,7 @@ module Additionals
           end
           return if without_subprojects || project.nil? || project.leaf? || subproject_values.empty?
 
-          add_available_filter 'subproject_id', order: position,
-                                                type: :list_subprojects,
+          add_available_filter 'subproject_id', type: :list_subprojects,
                                                 values: -> { subproject_values }
         end
 

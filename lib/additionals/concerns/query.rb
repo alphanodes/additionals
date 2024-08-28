@@ -75,7 +75,7 @@ module Additionals
             if ids.any?
               "#{queried_table_name}.id IN (#{ids.join ','})"
             else
-              Additionals::NO_RESULT_CONDITION
+              Additionals::SQL_NO_RESULT_CONDITION
             end
           else
             sql_for_field 'id', operator, value, queried_table_name, 'id'
@@ -285,7 +285,7 @@ module Additionals
                         values = value.collect { |val| "'#{self.class.connection.quote_string val}'" }.to_comma_list
                         "#{MemberRole.table_name}.role_id IN (#{values})"
                       else
-                        Additionals::NO_RESULT_CONDITION
+                        Additionals::SQL_NO_RESULT_CONDITION
                       end
 
           sw = operator == '!' ? 'NOT' : ''
@@ -362,7 +362,7 @@ module Additionals
 
             "#{queried_table_name}.is_private = #{self.class.connection.quoted_true}"
           else
-            return Additionals::NO_RESULT_CONDITION if value.count > 1
+            return Additionals::SQL_NO_RESULT_CONDITION if value.count > 1
 
             "#{queried_table_name}.is_private = #{self.class.connection.quoted_false}"
           end

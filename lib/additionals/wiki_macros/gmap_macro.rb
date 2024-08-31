@@ -78,7 +78,7 @@ module Additionals
             raise 'The correct usage is {{gmap([q=QUERY, mode=MODE, widths=x, height=y])}}'
           end
 
-          src = +"https://www.google.com/maps/embed/v1/#{mode}?key=" + Additionals.setting(:google_maps_api_key)
+          src = "https://www.google.com/maps/embed/v1/#{mode}?key=" + Additionals.setting(:google_maps_api_key)
           if options[:q].present?
             src << "&q=#{ERB::Util.url_encode options[:q]}"
           elsif mode == 'search'

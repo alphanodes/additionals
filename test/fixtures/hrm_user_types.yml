@@ -1,0 +1,18 @@
+internal_everybody:
+  is_default: true
+  name: Internal
+  is_internal: true
+  view_hrm: false
+  view_superiors: false
+  view_user_type_icon: false
+  view_attendance: false
+  view_groups: false
+  manage_users: false
+  manage_groups: false
+  manage_holidays: false
+  manage_working_calendars: false
+  with_help_menu: true
+  with_mypage_menu: true
+  with_watched_projects: true
+  icon: fas_car
+  custom_menu_items:

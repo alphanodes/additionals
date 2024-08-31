@@ -132,7 +132,7 @@ module AdditionalsMenuHelper
       s << if item[:title] == '-'
              tag.li tag.hr
            else
-             html_options = { class: +"help_item_#{id}" }
+             html_options = { class: "help_item_#{id}" }
              if item[:url].include? '://'
                html_options[:class] << ' external'
                html_options[:target] = '_blank'

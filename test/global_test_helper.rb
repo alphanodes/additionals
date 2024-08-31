@@ -84,7 +84,7 @@ module Additionals
                      .gsub('user.cf', 'user_cf')
                      .tr('.', '-')
 
-      spec = +"td.#{c}"
+      spec = "td.#{c}"
       spec << "[colspan='#{colspan}']" if colspan
 
       assert_select spec
@@ -112,8 +112,8 @@ module Additionals
         end
       end
 
-      colspan = inline_columns.count + 2
-      colspan -= 1 unless with_checkbox
+      colspan = inline_columns.count
+      colspan += 1 if with_checkbox
       assert_select block_tr_select do
         block_columns.each do |column_name|
           assert_select_td_column column_name, colspan:

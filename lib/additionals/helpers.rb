@@ -38,7 +38,7 @@ module Additionals
     end
 
     def render_query_block_columns(query, entry, tr_classes:, with_buttons: false, with_checkbox: true)
-      td_colspan = query.inline_columns.size + 1
+      td_colspan = query.inline_columns.size
       td_colspan += 1 if with_buttons
 
       content = []

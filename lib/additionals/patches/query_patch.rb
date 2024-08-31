@@ -98,9 +98,9 @@ module Additionals
                         " HAVING #{options[:aggr]}(#{options[:having_table]}.#{options[:field]})"
 
           null_all_sql = if options[:use_sub_query_for_all]
-                           +"#{options[:sub_query]} AND"
+                           "#{options[:sub_query]} AND"
                          else
-                           +"#{options[:sub_table]} WHERE"
+                           "#{options[:sub_table]} WHERE"
                          end
 
           null_all_sql << " #{options[:sub_table]}.#{options[:group_field]} = #{queried_table_name}.#{options[:join_field]})"

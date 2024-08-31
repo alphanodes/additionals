@@ -37,7 +37,7 @@ module Additionals
           if user.admin? || AdditionalsPlugin.active_hrm? && user.hrm_allowed_to?(:view_hrm)
             all
           else
-            view_all_active = if user.memberships.to_a.any?
+            view_all_active = if user.memberships.any?
                                 user.memberships
                                     .includes([:roles])
                                     .any? { |m| m.roles.any? { |r| r.users_visibility == 'all' } }

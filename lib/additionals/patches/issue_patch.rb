@@ -26,7 +26,7 @@ module Additionals
 
       class_methods do
         def join_issue_status(is_closed: nil)
-          sql = +"JOIN #{IssueStatus.table_name} ON #{IssueStatus.table_name}.id = #{table_name}.status_id"
+          sql = "JOIN #{IssueStatus.table_name} ON #{IssueStatus.table_name}.id = #{table_name}.status_id"
           return sql if is_closed.nil?
 
           sql << " AND #{IssueStatus.table_name}.is_closed = #{is_closed ? connection.quoted_true : connection.quoted_false}"

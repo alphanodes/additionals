@@ -98,7 +98,7 @@ module Additionals
   end
 
   def self.meteoblue_flag(options, name, default = tue)
-    flag = +"#{name}="
+    flag = "#{name}="
     flag << if RedminePluginKit.true?(options[name]) || default
               '1'
             else

@@ -240,7 +240,7 @@ module Additionals
         end
 
         def roles_values
-          Role.givable.sorted.pluck(:name, :id).map { |name, id| [name, id.to_s] }
+          Role.givable.visible.sorted.pluck(:name, :id).map { |name, id| [name, id.to_s] }
         end
 
         def groups_values
@@ -269,7 +269,7 @@ module Additionals
         end
 
         def sql_for_assigned_to_group_field(_field, operator, value)
-          sql_for_field 'assigned_to_id', operator, members_of_groups(group_id: value), queried_table_name, 'author_id'
+          sql_for_field 'assigned_to_id', operator, members_of_groups(group_id: value, with_group_id: true), queried_table_name, 'author_id'
         end
 
         def sql_for_author_role_field(field, operator, value)

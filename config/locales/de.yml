@@ -172,7 +172,6 @@ de:
   label_stats_new_today: "Heute neu"
   label_stats_totals: "Gesamt"
   label_system_info: Systeminformation
-  label_system_setting: System
   label_text_async: Text (asynchron)
   label_text_sync: Text
   label_top_macros_help_html: "Hier sind alle Makros aufgelistet, welche über Redmine selbst oder Plugins bereitgestellt werden (nicht nur über Additionals). Diese Makros können in allen Texten innerhalb Redmines verwendet werden (sofern diese im jeweiligen Kontext Sinn machen)."

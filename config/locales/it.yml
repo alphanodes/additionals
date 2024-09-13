@@ -172,7 +172,6 @@ it:
   label_stats_new_today: "Nuovo oggi"
   label_stats_totals: "Totale"
   label_system_info: System info
-  label_system_setting: "Sistema"
   label_text_async: "Testo (asincrono)"
   label_text_sync: Testo
   label_top_macros_help_html: "Qui trovate un elenco di tutte le macro Redmine disponibili della vostra installazione, fornite da Redmine e dai plugin Redmine."

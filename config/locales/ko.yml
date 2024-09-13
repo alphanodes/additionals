@@ -172,7 +172,6 @@ ko:
   label_stats_new_today: "오늘 새로운"
   label_stats_totals: "합계"
   label_system_info: 시스템 정보
-  label_system_setting: "체계"
   label_text_async: "텍스트(비동기)"
   label_text_sync: "텍스트"
   label_top_macros_help_html: "다음은 Redmine 및 Redmine 플러그인에서 제공하는 설치에 사용 가능한 모든 Redmine 매크로 목록입니다."

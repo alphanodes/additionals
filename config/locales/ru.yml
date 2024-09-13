@@ -172,7 +172,6 @@ ru:
   label_stats_new_today: "Новое сегодня"
   label_stats_totals: "всего"
   label_system_info: "Системная информация"
-  label_system_setting: "Система"
   label_text_async: "Текст (асинхронный)"
   label_text_sync: "Текст"
   label_top_macros_help_html: "Здесь вы получите список всех доступных макросов Redmine вашей установки, которые предоставляются плагинами Redmine и Redmine."

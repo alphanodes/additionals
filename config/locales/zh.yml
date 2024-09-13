@@ -172,7 +172,6 @@ zh:
   label_stats_new_today: "今天的新产品"
   label_stats_totals: "总"
   label_system_info: 系统信息
-  label_system_setting: "系统"
   label_text_async: "文本（异步）"
   label_text_sync: "文本"
   label_top_macros_help_html: "此处列出了来自 Redmine 及 Redmine 插件中提供的所有可用的宏命令。"

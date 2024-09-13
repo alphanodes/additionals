@@ -172,7 +172,6 @@
   label_stats_new_today: "今天的新品"
   label_stats_totals: "总数"
   label_system_info: "系統訊息"
-  label_system_setting: "系统"
   label_text_async: "文本（异步）"
   label_text_sync: "文本"
   label_top_macros_help_html: "此處列出Redmine與Redmine外掛支援的macros指令。"

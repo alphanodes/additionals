@@ -172,7 +172,6 @@ cs:
   label_stats_new_today: "Dnes novinka"
   label_stats_totals: "Total"
   label_system_info: "Systémová informace"
-  label_system_setting: "Systém"
   label_text_async: Text (asynchronous)
   label_text_sync: Text
   label_top_macros_help_html: "Zde získáte seznam všech dostupných maker Redmine vaší instalace, která jsou poskytována doplňky Redmine a Redmine."

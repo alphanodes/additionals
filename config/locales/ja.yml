@@ -172,7 +172,6 @@ ja:
   label_stats_new_today: "本日の新着情報"
   label_stats_totals: "合計"
   label_system_info: "システム情報"
-  label_system_setting: "システム"
   label_text_async: "テキスト（非同期)"
   label_text_sync: "テキスト"
   label_top_macros_help_html: "RedmineやRedmineプラグインで提供されている、インストールされているすべてのRedmineマクロのリストが表示されます。"

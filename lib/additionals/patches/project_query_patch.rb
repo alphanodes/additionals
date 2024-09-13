@@ -16,7 +16,7 @@ module Additionals
 
           add_available_filter 'enable_new_ticket_message',
                                type: :list,
-                               values: [[l(:label_system_setting), '1'],
+                               values: [[l(:field_is_default), '1'],
                                         [l(:label_disabled), '0'],
                                         [l(:label_project_setting), '2']],
                                label: :label_new_ticket_message

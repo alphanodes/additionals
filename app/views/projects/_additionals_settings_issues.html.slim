@@ -8,7 +8,7 @@ fieldset.box.tabular
 
   p
     = f.select :enable_new_ticket_message,
-                options_for_select({ l(:label_system_setting) => '1',
+                options_for_select({ l(:field_is_default) => '1',
                                      l(:label_disabled) => '0',
                                      l(:label_project_setting) => '2' }, project.enable_new_ticket_message.to_s)
   p#project-ticket-message class="#{'hidden' if project.enable_new_ticket_message != 2}"

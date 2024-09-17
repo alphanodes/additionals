@@ -173,7 +173,7 @@ class IssueTest < Additionals::TestCase
     user.pref.save
     issue = Issue.new author_id: user.id, project_id: 1, tracker_id: 1, assigned_to_id: user.id, subject: 'test_assigned_should_add_watcher'
 
-    assert_difference 'Watcher.count', 1 do
+    assert_difference 'Watcher.count' do
       assert_save issue
     end
   end

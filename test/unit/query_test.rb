@@ -10,7 +10,7 @@ class QueryTest < Additionals::TestCase
            :roles,
            :repositories
 
-  fixtures :hrm_user_types if AdditionalsPlugin.active_hrm?
+  fixtures :hrm_user_types, :hrm_working_calendars if AdditionalsPlugin.active_hrm?
 
   def setup
     User.current = nil

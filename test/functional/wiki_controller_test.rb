@@ -18,31 +18,22 @@ class WikiControllerTest < Additionals::ControllerTest
            :custom_fields,
            :custom_values,
            :custom_fields_trackers,
-           :wikis,
-           :wiki_pages,
-           :wiki_contents
+           :wikis
 
   WIKI_MACRO_USER_ID = 2
 
   def setup
     prepare_tests
     EnabledModule.create project_id: 1, name: 'wiki'
-    @project = projects :projects_001
-    @wiki = @project.wiki
-    @page_name = 'additionals_macro_test'
-    @page = @wiki.find_or_new_page @page_name
-    @page.content = WikiContent.new
-    @page.content.text = 'test'
-    @page.save!
   end
 
   def test_show_with_youtube_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{youtube(KMU0tzLwhbE)}}'
+    page = WikiPage.generate! content: '{{youtube(KMU0tzLwhbE)}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select 'iframe[src=?]', '//www.youtube-nocookie.com/embed/KMU0tzLwhbE'
@@ -50,11 +41,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_with_meteoblue_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{meteoblue(münchen_deutschland_2867714)}}'
+    page = WikiPage.generate! content: '{{meteoblue(münchen_deutschland_2867714)}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select 'iframe', src: %r{^https://www\.meteoblue\.com/en/weather/widget/daily/(.*)}
@@ -62,11 +53,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_with_vimeo_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{vimeo(142849533)}}'
+    page = WikiPage.generate! content: '{{vimeo(142849533)}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select 'iframe[src=?]', '//player.vimeo.com/video/142849533'
@@ -74,11 +65,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_with_slideshare_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{slideshare(57941706)}}'
+    page = WikiPage.generate! content: '{{slideshare(57941706)}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select 'iframe[src=?]', '//www.slideshare.net/slideshow/embed_code/57941706'
@@ -86,11 +77,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_with_google_docs_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{google_docs(https://docs.google.com/spreadsheets/d/e/RANDOMCODE/pubhtml)}}'
+    page = WikiPage.generate! content: '{{google_docs(https://docs.google.com/spreadsheets/d/e/RANDOMCODE/pubhtml)}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select 'iframe[src=?]', 'https://docs.google.com/spreadsheets/d/e/RANDOMCODE/pubhtml?widget=true&headers=false'
@@ -98,11 +89,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_with_iframe_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{iframe(https://www.redmine.org/)}}'
+    page = WikiPage.generate! content: '{{iframe(https://www.redmine.org/)}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select 'iframe[src=?]', 'https://www.redmine.org/'
@@ -110,32 +101,32 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_with_twitter_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{twitter(alphanodes)}}'
+    page = WikiPage.generate! content: '{{twitter(alphanodes)}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select 'a.twitter'
     assert_select 'a[href=?]', 'https://twitter.com/alphanodes',
                   text: '@alphanodes'
 
-    @page.content.text = '{{twitter(@alphanodes)}}'
+    page.content.text = '{{twitter(@alphanodes)}}'
 
-    assert_save @page.content
+    assert_save page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_select 'a.twitter'
     assert_select 'a[href=?]', 'https://twitter.com/alphanodes',
                   text: '@alphanodes'
 
-    @page.content.text = '{{twitter(#alphanodes)}}'
+    page.content.text = '{{twitter(#alphanodes)}}'
 
-    assert_save @page.content
+    assert_save page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_select 'a.twitter'
     assert_select 'a[href=?]', 'https://twitter.com/hashtag/alphanodes',
@@ -144,32 +135,32 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_with_reddit_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{reddit(redmine)}}'
+    page = WikiPage.generate! content: '{{reddit(redmine)}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select 'a.reddit'
     assert_select 'a[href=?]', 'https://www.reddit.com/r/redmine',
                   text: 'r/redmine'
 
-    @page.content.text = '{{reddit(u/redmine)}}'
+    page.content.text = '{{reddit(u/redmine)}}'
 
-    assert_save @page.content
+    assert_save page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_select 'a.reddit'
     assert_select 'a[href=?]', 'https://www.reddit.com/username/redmine',
                   text: 'u/redmine'
 
-    @page.content.text = '{{reddit(r/redmine)}}'
+    page.content.text = '{{reddit(r/redmine)}}'
 
-    assert_save @page.content
+    assert_save page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_select 'a.reddit'
     assert_select 'a[href=?]', 'https://www.reddit.com/r/redmine',
@@ -178,11 +169,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_last_updated_by_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{last_updated_by}}'
+    page = WikiPage.generate! content: '{{last_updated_by}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select 'span.last-updated-by'
@@ -192,11 +183,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_last_updated_at_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{last_updated_at}}'
+    page = WikiPage.generate! content: '{{last_updated_at}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select 'span.last-updated-at'
@@ -205,11 +196,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_recently_updated_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{recently_updated}}'
+    page = WikiPage.generate! content: '{{recently_updated}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select 'div.recently-updated'
@@ -217,11 +208,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_with_members_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{members}}'
+    page = WikiPage.generate! content: '{{members}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select 'div.wiki div.user'
@@ -229,11 +220,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_with_new_issue_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{new_issue}}'
+    page = WikiPage.generate! content: '{{new_issue}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select 'div.wiki a.macro-new-issue'
@@ -241,11 +232,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_with_group_users_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{group_users(A Team)}}'
+    page = WikiPage.generate! content: '{{group_users(A Team)}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select 'div.wiki div.user'
@@ -253,11 +244,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_with_projects_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{projects}}'
+    page = WikiPage.generate! content: '{{projects}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select 'div.wiki div.additionals-projects tr.project'
@@ -265,11 +256,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_with_fa_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{fa(adjust)}}'
+    page = WikiPage.generate! content: '{{fa(adjust)}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select 'i.fas.fa-adjust'
@@ -277,11 +268,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_with_redmine_issue_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{redmine_issue(12066)}}'
+    page = WikiPage.generate! content: '{{redmine_issue(12066)}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select 'a[href=?]', 'https://www.redmine.org/issues/12066'
@@ -289,11 +280,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_with_redmine_issue_with_absolute_url_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{redmine_issue(http://www.redmine.org/issues/12066)}}'
+    page = WikiPage.generate! content: '{{redmine_issue(http://www.redmine.org/issues/12066)}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select 'a[href=?]', 'https://www.redmine.org/issues/12066'
@@ -301,11 +292,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_with_redmine_wiki_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{redmine_wiki(RedmineInstall)}}'
+    page = WikiPage.generate! content: '{{redmine_wiki(RedmineInstall)}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select 'a[href=?]', 'https://www.redmine.org/projects/redmine/wiki/RedmineInstall'
@@ -313,11 +304,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_with_redmine_wiki_with_absolute_url_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{redmine_wiki(http://www.redmine.org/projects/redmine/wiki/RedmineInstall)}}'
+    page = WikiPage.generate! content: '{{redmine_wiki(http://www.redmine.org/projects/redmine/wiki/RedmineInstall)}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select 'a[href=?]', 'https://www.redmine.org/projects/redmine/wiki/RedmineInstall'
@@ -325,11 +316,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_with_gist_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{gist(plentz/6737338)}}'
+    page = WikiPage.generate! content: '{{gist(plentz/6737338)}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select 'script[src=?]', 'https://gist.github.com/plentz/6737338.js'
@@ -337,11 +328,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_with_tradeview_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{tradingview(symbol=NASDAQ:AMZN, locale=en)}}'
+    page = WikiPage.generate! content: '{{tradingview(symbol=NASDAQ:AMZN, locale=en)}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select 'script[src=?]', 'https://s3.tradingview.com/tv.js'
@@ -349,11 +340,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_with_cryptocompare_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{cryptocompare(fsyms=BTC;ETH, type=header_v3)}}'
+    page = WikiPage.generate! content: '{{cryptocompare(fsyms=BTC;ETH, type=header_v3)}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select 'div.wiki div.cryptocompare',
@@ -367,14 +358,16 @@ class WikiControllerTest < Additionals::ControllerTest
                      current_month current_day current_hour current_minute
                      current_weekday current_weeknumber]
 
-    @page.content.text = ''
+    content = +''
     valid_types.each do |type|
-      @page.content.text << "{{date(#{type})}}"
+      content << "{{date(#{type})}}"
     end
 
-    assert_save @page.content
+    page = WikiPage.generate! content:,
+                              title: __method__.to_s
+
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select 'div.wiki', html: /{{date/, count: 0
@@ -385,11 +378,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_with_date_macro_and_invalid_type
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{date(invalid_type_name)}}'
+    page = WikiPage.generate! content: '{{date(invalid_type_name)}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select 'div.flash.error', html: /Error executing/
@@ -397,11 +390,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_with_date_macro_custom_date
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{date(2017-02-25)}}'
+    page = WikiPage.generate! content: '{{date(2017-02-25)}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select 'div.flash.error', html: /Error executing/, count: 0
@@ -409,11 +402,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_with_date_macro_invalid_custom_date
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{date(2017-02-30)}}'
+    page = WikiPage.generate! content: '{{date(2017-02-30)}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select 'div.flash.error', html: /Error executing/
@@ -421,11 +414,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_with_asciinema_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{asciinema(113463)}}'
+    page = WikiPage.generate! content: '{{asciinema(113463)}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select 'script[src=?]', '//asciinema.org/a/113463.js'
@@ -433,11 +426,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_user_with_current_user
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{user(current_user)}}'
+    page = WikiPage.generate! content: '{{user(current_user)}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select '#content a.user.active[href=?]', '/users/2',
@@ -446,11 +439,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_user_with_current_user_as_text
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{user(current_user, text=true)}}'
+    page = WikiPage.generate! content: '{{user(current_user, text=true)}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select '#content span.user.active', text: 'John Smith'
@@ -458,11 +451,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_user_with_id
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{user(1)}}'
+    page = WikiPage.generate! content: '{{user(1)}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select '#content a[href=?]', '/users/1',
@@ -471,11 +464,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_user_with_id_fullname
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{user(1, format=firstname_lastname)}}'
+    page = WikiPage.generate! content: '{{user(1, format=firstname_lastname)}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select '#content a.user', text: 'Redmine Admin'
@@ -485,11 +478,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_user_with_name
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{user(jsmith)}}'
+    page = WikiPage.generate! content: '{{user(jsmith)}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select '#content a[href=?]', '/users/2',
@@ -498,11 +491,11 @@ class WikiControllerTest < Additionals::ControllerTest
 
   def test_show_user_with_name_fullname
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    @page.content.text = '{{user(jsmith, format=firstname_lastname, avatar=true)}}'
+    page = WikiPage.generate! content: '{{user(jsmith, format=firstname_lastname, avatar=true)}}',
+                              title: __method__.to_s
 
-    assert_save @page.content
     get :show,
-        params: { project_id: 1, id: @page_name }
+        params: { project_id: 1, id: page.title }
 
     assert_response :success
     assert_select '#content a.user', text: 'John Smith'

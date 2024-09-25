@@ -197,5 +197,21 @@ module Additionals
     def self.fixture_date_format(date)
       date.try(:to_fs, :db) || date.to_s(:db)
     end
+
+    def WikiPage.generate(**options)
+      content = options.delete(:content) || 'Example text'
+
+      WikiPage.new(**options).tap do |page|
+        page.title ||= 'Wiki test page'
+        page.wiki ||= Project.find(1).wiki
+        page.author ||= User.find 2 if defined?(page.author)
+        page.content = WikiContent.new text: content
+      end
+    end
+
+    def WikiPage.generate!(**options)
+      WikiPage.find_by(title: options[:title])&.delete if options[:title]
+      WikiPage.generate(**options).tap(&:save!)
+    end
   end
 end

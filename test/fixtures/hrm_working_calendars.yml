@@ -1,0 +1,15 @@
+default:
+  id: 1
+  is_default: true
+  name: Calendar 1
+  hours_amount: 8
+  velocity: 8
+  day_monday: true
+  day_tuesday: true
+  day_wednesday: true
+  day_thursday: true
+  day_friday: true
+  day_saturday: true
+  day_sunday: true
+  hours_beginning: '10:00'
+  hours_ending: '19:00'

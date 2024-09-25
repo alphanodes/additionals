@@ -19,6 +19,8 @@ class UsersControllerTest < Additionals::ControllerTest
            :projects, :projects_trackers, :enabled_modules,
            :enumerations
 
+  fixtures :hrm_user_types, :hrm_working_calendars if AdditionalsPlugin.active_hrm?
+
   include Redmine::I18n
 
   def setup

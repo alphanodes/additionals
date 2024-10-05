@@ -5,6 +5,7 @@ module Additionals
     class ViewHook < Redmine::Hook::ViewListener
       include IssuesHelper
       include AdditionalsIssuesHelper
+      include AdditionalsIconsHelper
 
       render_on :view_layouts_base_html_head, partial: 'additionals/html_head'
       render_on :view_layouts_base_body_top, partial: 'additionals/body_top'
@@ -44,7 +45,8 @@ module Additionals
                   controller_name == 'account' && action_name == 'lost_password' ||
                   !Additionals.setting?(:add_go_to_top)
 
-        link_to l(:label_go_to_top), '#gototop', class: 'gototop'
+        tag.div link_to(svg_icon_tag('page-up', label: :label_go_to_top), '#gototop', class: 'a-icon icon-page-up'),
+                class: 'gototop'
       end
     end
   end

@@ -4,7 +4,7 @@ h3 = block_definition[:label]
   .wiki.project-description
     = textilizable @project.description
 - if @project.homepage.present? || @project.visible_custom_field_values.any? { |o| o.value.present? }
-  ul.reporting-list
+  ul.dashboard-list
     - if @project.homepage.present?
       li
         span.label

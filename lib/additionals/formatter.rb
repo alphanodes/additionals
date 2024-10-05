@@ -25,6 +25,8 @@ module Additionals
                 'success' => '[\[(]v[\])]', # (v)
                 'failure' => '[\[(]x[\])]' }.freeze # (x)
 
+    NON_SMILEY_COLOR = %w[exclamation question check success failure].freeze
+
     def render_inline_smileys(text)
       return text if text.blank?
 
@@ -40,7 +42,13 @@ module Additionals
           esc = Regexp.last_match 2
           smiley = Regexp.last_match 3
           if esc.nil?
-            leading.to_s + ActionController::Base.helpers.tag.span(class: "additionals smiley smiley-#{name}",
+            css_class = NON_SMILEY_COLOR.exclude?(name) ? 'smiley' : 'info-smiley'
+            svg_code = ActionController::Base.helpers.svg_sprite_icon "smiley-#{name}",
+                                                                      css_class:,
+                                                                      title: smiley
+
+            leading.to_s + ActionController::Base.helpers.tag.span(svg_code,
+                                                                   class: "additionals smiley a-icon smiley-#{name}",
                                                                    title: smiley)
           else
             leading.to_s + smiley

@@ -6,7 +6,7 @@
 
   - if feed[:valid]
     - if feed[:items].count.positive?
-      ul.reporting-list.feed
+      ul.dashboard-list.feed
         - feed[:items].each do |item|
           li = link_to_external item[:title], item[:link]
     - else

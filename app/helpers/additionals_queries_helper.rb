@@ -295,7 +295,7 @@ module AdditionalsQueriesHelper
 
   def set_flash_from_bulk_save(entries, unsaved_ids, name_plural:)
     if unsaved_ids.empty?
-      flash[:notice] = l :notice_successful_update unless entries.empty?
+      flash[:notice] = flash_msg :update unless entries.empty?
     else
       flash[:error] = l :notice_failed_to_save_entity,
                         name_plural:,

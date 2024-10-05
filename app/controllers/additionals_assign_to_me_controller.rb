@@ -22,7 +22,7 @@ class AdditionalsAssignToMeController < ApplicationController
               journal: @issue.current_journal
 
     if !@issue.save || old_user == @issue.assigned_to
-      flash[:error] = l :error_issues_could_not_be_assigned_to_me
+      flash[:error] = flash_msg :error_issues_could_not_be_assigned_to_me
       return redirect_to(issue_path(@issue))
     end
 

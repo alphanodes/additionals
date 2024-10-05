@@ -12,15 +12,15 @@ module WikiFormatting
       @to_test = {}
     end
 
-    def test_smilies
+    def test_smileys
       with_plugin_settings 'additionals', legacy_smiley_support: 1,
                                           emoji_support: 0 do
         # this is required, because inline_smileys are activated with controller action
         @formatter::RULES << :inline_smileys
 
-        @to_test['A test with a :) smiley'] = 'A test with a <span class="additionals smiley smiley-smiley" title=":)"></span> smiley'
-        @to_test[':) :)'] = '<span class="additionals smiley smiley-smiley" title=":)"></span>' \
-                            ' <span class="additionals smiley smiley-smiley" title=":)"></span>'
+        @to_test['A test with a :) smiley'] =
+          "A test with a #{smiley_test_span svg_test_icon} smiley"
+        @to_test[':) :)'] = "#{smiley_test_span svg_test_icon} #{smiley_test_span svg_test_icon}"
 
         assert_html_output @to_test
       end
@@ -38,16 +38,14 @@ module WikiFormatting
       end
     end
 
-    def test_smilies_and_emojies
+    def test_smileys_and_emojies
       with_plugin_settings 'additionals', legacy_smiley_support: 1,
                                           emoji_support: 1 do
         # this is required, because inline_smileys are activated with controller action
         @formatter::RULES << :inline_smileys
 
-        @to_test[':heart: and :)'] = "#{emoji_heart_tag}" \
-                                     ' and <span class="additionals smiley smiley-smiley" title=":)"></span>'
-        @to_test[':) and :heart:'] = '<span class="additionals smiley smiley-smiley" title=":)"></span> and' \
-                                     " #{emoji_heart_tag}"
+        @to_test[':heart: and :)'] = "#{emoji_heart_tag} and #{smiley_test_span svg_test_icon}"
+        @to_test[':) and :heart:'] = "#{smiley_test_span svg_test_icon} and #{emoji_heart_tag}"
 
         assert_html_output @to_test
       end

@@ -85,7 +85,7 @@ class DashboardsController < ApplicationController
     if @dashboard.save
       respond_to do |format|
         format.html do
-          flash[:notice] = l :notice_successful_create
+          flash[:notice] = flash_msg :create
           redirect_to dashboard_link_path(@project, @dashboard)
         end
         format.api  { render action: :show, status: :created, location: dashboard_url(@dashboard, project_id: @project) }
@@ -110,7 +110,7 @@ class DashboardsController < ApplicationController
     @project = @dashboard.project if @project && @dashboard.project_id.present? && @dashboard.project != @project
 
     if @dashboard.save
-      flash[:notice] = l :notice_successful_update
+      flash[:notice] = flash_msg :update
       respond_to do |format|
         format.html { redirect_to dashboard_link_path(@project, @dashboard) }
         format.api  { render_api_ok }
@@ -128,13 +128,13 @@ class DashboardsController < ApplicationController
 
     begin
       @dashboard.destroy
-      flash[:notice] = l :notice_successful_delete
+      flash[:notice] = flash_msg :delete
       respond_to do |format|
         format.html { redirect_to @project.nil? ? home_path : project_path(@project) }
         format.api  { render_api_ok }
       end
     rescue ActiveRecord::RecordNotDestroyed
-      flash[:error] = l :error_remove_db_entry
+      flash[:error] = flash_msg :delete_error, obj: @dashboard
       redirect_to dashboard_path(@dashboard)
     end
   end

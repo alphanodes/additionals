@@ -2,23 +2,39 @@
 
 module Additionals
   module Helpers
-    def entry_page_title(name:, obj: nil, obj_link: nil, query: nil)
-      title = []
+    def render_breadcrumb(items)
+      cnt = items.length
+      titles = items.each_with_index.map do |item, index|
+        css_classes = +'breadcrumb-item'
+        css_classes << ' with-list-seperator' if index < cnt - 1
+
+        tag.span item, class: css_classes
+      end
+
+      safe_join titles
+    end
+
+    def entry_page_title(name, obj: nil, obj_link: nil, query: nil, icon_name: nil)
+      items = []
       case obj
       when Issue
-        title << link_to(h("#{obj.subject} ##{obj.id}"),
+        items << link_to(h("#{obj.subject} ##{obj.id}"),
                          issue_path(obj),
                          class: obj.css_classes)
       when User
-        title << user_with_avatar(obj, no_link: true, size: 50)
+        items << user_with_avatar(obj, no_link: true, size: 50)
       else
-        title << obj_link if obj_link
+        items << obj_link if obj_link
       end
 
-      title << name if name
-      title << h(query.name) if query && !query.new_record?
+      items << (name.is_a?(Symbol) ? l(name) : name)
+      items << h(query.name) if query && !query.new_record?
 
-      safe_join title, Additionals::LIST_SEPARATOR
+      page_title = []
+      page_title << svg_icon_tag(icon_name, css_class: 'icon-padding', size: 24) if icon_name
+      page_title << render_breadcrumb(items)
+
+      safe_join page_title
     end
 
     def label_with_count(label, info, only_positive: false)

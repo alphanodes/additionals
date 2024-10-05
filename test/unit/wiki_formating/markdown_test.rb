@@ -12,12 +12,12 @@ module WikiFormatting
       @formatter = Redmine::WikiFormatting::Markdown::Formatter
     end
 
-    def test_smilies
+    def test_smileys
       with_plugin_settings 'additionals', legacy_smiley_support: 1,
                                           emoji_support: 0 do
         text = 'A small test :) with an smilie'
 
-        assert_equal '<p>A small test <span class="additionals smiley smiley-smiley" title=":)"></span> with an smilie</p>',
+        assert_equal "<p>A small test #{smiley_test_span svg_test_icon} with an smilie</p>",
                      @formatter.new(text).to_html.strip
       end
     end
@@ -32,19 +32,17 @@ module WikiFormatting
       end
     end
 
-    def test_smilies_and_emojies
+    def test_smileys_and_emojies
       with_plugin_settings 'additionals', legacy_smiley_support: 1,
                                           emoji_support: 1 do
         text = ':heart: and :)'
 
-        assert_equal "<p>#{emoji_heart_tag}" \
-                     ' and <span class="additionals smiley smiley-smiley" title=":)"></span></p>',
+        assert_equal "<p>#{emoji_heart_tag} and #{smiley_test_span svg_test_icon}</p>",
                      @formatter.new(text).to_html.strip
 
         text = ' :) and :heart:'
 
-        assert_equal '<p><span class="additionals smiley smiley-smiley" title=":)"></span> and' \
-                     " #{emoji_heart_tag}</p>",
+        assert_equal "<p>#{smiley_test_span svg_test_icon} and #{emoji_heart_tag}</p>",
                      @formatter.new(text).to_html.strip
       end
     end

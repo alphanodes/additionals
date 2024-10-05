@@ -216,3 +216,7 @@ en:
   wiki_pdf_remove_attachments_info: "When active the attached Wiki files will not be displayed in PDF view."
   wiki_pdf_remove_title_info: "When active the Wiki title info will not be displayed in PDF view."
   label_default_sort_by: Default sort by
+  notice_unsuccessful_save: Save problems
+  notice_save_error_with_messages: "Save problems with following errors: %{errors}"
+  notice_unsuccessful_delete: Delete problems
+  notice_delete_error_with_messages: "Delete problems with following errors: %{errors}"

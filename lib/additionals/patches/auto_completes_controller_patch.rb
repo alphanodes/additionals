@@ -7,6 +7,7 @@ module Additionals
 
       included do
         include AdditionalsQueriesHelper
+        include AdditionalsIconsHelper
         include InstanceMethods
 
         before_action :find_search_term

@@ -10,14 +10,14 @@ module WikiFormatting
       @options = {}
     end
 
-    def test_smilies
+    def test_smileys
       with_plugin_settings 'additionals', legacy_smiley_support: 1,
                                           emoji_support: 0 do
         input = <<~HTML
           A small test :) with an smiley
         HTML
         expected = <<~HTML
-          A small test <span class="additionals smiley smiley-smiley" title=":)"></span> with an smiley
+          A small test #{smiley_test_span svg_test_icon} with an smiley
         HTML
         assert_equal expected, smiley_filter(input)
       end

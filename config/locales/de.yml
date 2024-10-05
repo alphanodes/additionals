@@ -216,3 +216,7 @@ de:
   wiki_pdf_remove_attachments_info: Wenn aktiv, werden die an der Wiki Seite angehängten Dateien nicht in der PDF Ansicht angezeigt.
   wiki_pdf_remove_title_info: Wenn aktiv, wird der Wiki Titel nicht in der PDF Ansicht angezeigt.
   label_default_sort_by: Standard-Sortierreihenfolge
+  notice_unsuccessful_save: Konnte nicht gespeichert werden
+  notice_save_error_with_messages: "Speichern nicht erfolgreich. Folgende Fehler sind aufgetreten: %{errors}"
+  notice_unsuccessful_delete: Konnte nicht gelöscht werden
+  notice_delete_error_with_messages: "Löschen nicht erfolgreich. Folgende Fehler sind aufgetreten: %{errors}"

@@ -650,3 +650,32 @@ Footnotes:
 ### Contact and Support
 
 For questions or feedback on the plugin functions, [pull requests](https://github.com/alphanodes/additionals/pulls), [issues](https://github.com/alphanodes/additionals/issues) use only the issue system as a communication channel. Thank you.
+
+## License
+
+This plugin is licensed under the terms of GNU/GPL v2.
+See LICENSE for details.
+
+## Redmine Copyright
+
+The additionals is a plugin extension for Redmine Project Management Software, whose Copyright follows.
+Copyright (C) 2006-  Jean-Philippe Lang
+
+Redmine is a flexible project management web application written using Ruby on Rails framework.
+More details can be found in the doc directory or on the official website <http://www.redmine.org>
+
+This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+## Credits
+
+Thanks to:
+
+* Font Awesome Free Icons (<https://fontawesome.com/license/free>) licenced under - Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License.
+  Copyright (c) 2018- Fonticons, Inc.
+* Tabler Icons - Free and open source icons (<https://tabler.io/icons>) licensed under MIT License.
+  Copyright (c) 2020- Paweł Kuna

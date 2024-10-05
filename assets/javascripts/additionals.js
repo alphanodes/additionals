@@ -67,7 +67,7 @@ function observeLiveSearchField(fieldId, targetId, target_url) {
         var url;
 
         form.find('[name="c[]"] option').each(function(i, elem) {
-          $(elem).attr('selected', true);
+          $(elem).prop('selected', true);
         });
 
         if (typeof target_url === 'undefined') {
@@ -79,7 +79,7 @@ function observeLiveSearchField(fieldId, targetId, target_url) {
         }
 
         form.find('[name="c[]"] option').each(function(i, elem) {
-          $(elem).attr('selected', false);
+          $(elem).prop('selected', false);
         });
 
         $.ajax({

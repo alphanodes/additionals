@@ -97,10 +97,10 @@ function addOptionTags($select, field, values) {
 
     if ($.isArray(filterValue)) {
       option.val(filterValue[1]).text(filterValue[0]);
-      if ($.inArray(filterValue[1], values) > -1) { option.attr('selected', true); }
+      if ($.inArray(filterValue[1], values) > -1) { option.prop('selected', true); }
     } else {
       option.val(filterValue).text(filterValue);
-      if ($.inArray(filterValue, values) > -1) { option.attr('selected', true); }
+      if ($.inArray(filterValue, values) > -1) { option.prop('selected', true); }
     }
 
     $select.append(option);

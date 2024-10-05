@@ -4,6 +4,7 @@
 
 - Maintenance release
 - Ruby 3.1 required
+- Working on Tabler icons integration
 
 ## 3.2.0
 

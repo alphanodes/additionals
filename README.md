@@ -654,7 +654,7 @@ For questions or feedback on the plugin functions, [pull requests](https://githu
 ## License
 
 This plugin is licensed under the terms of GNU/GPL v2.
-See LICENSE for details.
+See [LICENSE](LICENSE) for details.
 
 ## Redmine Copyright
 

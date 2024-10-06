@@ -1,5 +1,7 @@
 # Changelog
 
+## 3.4.0
+
 ## 3.3.2
 
 - Maintenance release

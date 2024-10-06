@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.3.0
+## 3.3.2
 
 - Maintenance release
 - Ruby 3.1 required

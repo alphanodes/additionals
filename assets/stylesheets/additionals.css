@@ -46,6 +46,11 @@ em.info a.external {
   background-repeat: no-repeat;
 }
 
+.flex-buttons {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
 .flex-center {
   display: flex;
   align-items: center;
@@ -220,11 +225,6 @@ h2#page-title input {
 
 h2#page-title.live-search input {
   margin-left: 5px;
-}
-
-h2#page-title.import::before {
-  font-weight: 900;
-  content: '\f093'; /* fas fa-upload */
 }
 
 /* Tooltips  */

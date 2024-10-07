@@ -26,5 +26,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'render_async'
   spec.add_dependency 'rss'
   spec.add_dependency 'slim-rails'
-  spec.add_dependency 'tanuki_emoji', '~> 0.6'
+  spec.add_dependency 'tanuki_emoji', '~> 0.11.0'
 end

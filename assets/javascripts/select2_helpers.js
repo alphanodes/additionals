@@ -95,7 +95,7 @@ function addOptionTags($select, field, values) {
     var filterValue = filterValues[i];
     var option = $('<option>');
 
-    if ($.isArray(filterValue)) {
+    if (Array.isArray(filterValue)) {
       option.val(filterValue[1]).text(filterValue[0]);
       if ($.inArray(filterValue[1], values) > -1) { option.prop('selected', true); }
     } else {
@@ -139,7 +139,7 @@ function formatStateWithMultiaddress(opt) {
 
 /* exported formatSelectionWithEmails */
 function formatSelectionWithEmails(opt) {
-  var email = $.trim(opt.email).length ? ' <' + opt.email + '>' : '';
+  var email = opt.email.trim().length ? ' <' + opt.email + '>' : '';
   return (opt.text || opt.name || '') + email;
 }
 
@@ -222,7 +222,7 @@ function addTagsOptions(target, options) {
 }
 
 function createTag(params) {
-  var term = $.trim(params.term);
+  var term = params.term.trim();
   if (term === '' || term.indexOf(',') > -1) {
     return null; // Return null to disable tag creation
   }

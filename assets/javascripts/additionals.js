@@ -104,7 +104,7 @@ function observeLiveSearchField(fieldId, targetId, target_url) {
       };
     };
 
-    $this.keyup(search_delay(check));
+    $this.on('keyup', search_delay(check));
   });
 }
 

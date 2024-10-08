@@ -1,6 +1,8 @@
 {
   "dependencies": {},
+  "license": "GPL-2.0",
   "devDependencies": {
+    "eslint-plugin-no-jquery": "^3.0.2",
     "eslint": "^8.0.0",
     "stylelint": "^14.0.0",
     "stylelint-config-standard": "^29.0.0"

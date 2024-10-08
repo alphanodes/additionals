@@ -46,8 +46,15 @@ module Additionals
         '<use href="/plugin_assets/additionals/images/icons.svg#icon--smiley-smiley"></use></svg>'
     end
 
-    def emoji_heart_tag
+    # for tanuki_emoji 0.11.0 or newer
+    # NOTE: tanuki_emoji 0.11.0 can only be used, if Redmine 5.0 suppord dropped
+    # (depenceny for i18n version)
+    def emoji_heart_tag_new
       '<additionals-emoji title="red heart" data-name="red_heart" data-unicode-version="6.0">❤️</additionals-emoji>'
+    end
+
+    def emoji_heart_tag
+      '<additionals-emoji title="heavy black heart" data-name="heart" data-unicode-version="1.1">❤</additionals-emoji>'
     end
   end
 

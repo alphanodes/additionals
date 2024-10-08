@@ -26,5 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'render_async'
   spec.add_dependency 'rss'
   spec.add_dependency 'slim-rails'
-  spec.add_dependency 'tanuki_emoji', '~> 0.11.0'
+  # TODO: tanuki_emoji 0.11.0 is not compatible with Redmine 5.0
+  # we should switch to latest version after dropping Redmine 5.0 support
+  spec.add_dependency 'tanuki_emoji', '~> 0.10.0'
 end

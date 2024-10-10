@@ -12,3 +12,8 @@
         return false;
       });
     });
+
+- if show_render_assign_to_me_button @issue
+  javascript:
+    $('.issue .assigned-to.attribute>.value')
+      .append("#{escape_javascript render_assign_to_me_button(@issue)} ");

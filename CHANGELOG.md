@@ -1,5 +1,8 @@
 # Changelog
 
+- Move assign to me button to assign to block
+- svg icons support for Redmine 6
+
 ## 3.4.0
 
 ## 3.3.2

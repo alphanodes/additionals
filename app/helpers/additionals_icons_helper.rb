@@ -50,18 +50,28 @@ module AdditionalsIconsHelper
       :svg,
       content_tag(:use,
                   '',
-                  { 'href' => "#{additionals_image_path}/#{sprite_path}#icon--#{icon_name}" }),
+                  { 'href' => additionals_asset_path("#{sprite_path}#icon--#{icon_name}") }),
       class: css_classes,
       title: title.presence,
       aria: { hidden: true }
     )
   end
 
-  def additionals_image_path
+  def additionals_asset_path(file)
+    plugin_id = 'additionals'
+
+    if Additionals.redmine6?
+      asset_path "plugin_assets/#{plugin_id}/#{file}"
+    else
+      "#{additionals_image_path plugin_id}/#{file}"
+    end
+  end
+
+  def additionals_image_path(plugin_id)
+    return asset_path if Additionals.redmine6?
     return @additionals_image_path if defined? @additionals_image_path
 
     relative_url = Redmine::Utils.relative_url_root
-    plugin_id = 'additionals'
     @additionals_image_path = "#{relative_url}/plugin_assets/#{plugin_id}/images"
   end
 

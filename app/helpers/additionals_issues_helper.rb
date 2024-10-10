@@ -32,4 +32,21 @@ module AdditionalsIssuesHelper
     issue.new_record? && User.current.allowed_to?(:change_new_issue_author, issue.project) ||
       issue.persisted? && User.current.allowed_to?(:edit_issue_author, issue.project)
   end
+
+  def render_assign_to_me_button(issue)
+    link_to svg_icon_tag('assign'),
+            issue_assign_to_me_path(issue),
+            method: :put,
+            class: 'a-icon assign-to-me',
+            title: l(:button_assign_to_me)
+  end
+
+  def show_render_assign_to_me_button(issue)
+    User.current.logged? &&
+      Additionals.setting?(:issue_assign_to_me) &&
+      issue.editable? &&
+      issue.safe_attribute?('assigned_to_id') &&
+      issue.assigned_to_id != User.current.id &&
+      issue.project.assignable_users.detect { |u| u.id == User.current.id }
+  end
 end

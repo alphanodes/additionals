@@ -14,6 +14,10 @@
   padding-bottom: 10px;
 }
 
+.assigned-to.attribute a.a-icon.assign-to-me {
+  margin-left: 5px;
+}
+
 .query-description,
 .dashboard-description {
   color: #666;

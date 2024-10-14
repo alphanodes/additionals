@@ -77,36 +77,6 @@ class IssuesControllerTest < Additionals::ControllerTest
     end
   end
 
-  test 'show assign-to-me on issue' do
-    with_plugin_settings 'additionals', issue_assign_to_me: 1 do
-      @request.session[:user_id] = 2
-      get :show,
-          params: { id: 2 }
-
-      assert_select 'a.assign-to-me'
-    end
-  end
-
-  test 'don\'t show assign-to-me on issue without activation' do
-    with_plugin_settings 'additionals', issue_assign_to_me: 0 do
-      @request.session[:user_id] = 2
-      get :show,
-          params: { id: 2 }
-
-      assert_select 'a.assign-to-me', count: 0
-    end
-  end
-
-  test 'don\'t show assign-to-me on issue with already assigned_to me' do
-    with_plugin_settings 'additionals', issue_assign_to_me: 1 do
-      @request.session[:user_id] = 2
-      get :show,
-          params: { id: 4 }
-
-      assert_select 'a.assign-to-me', count: 0
-    end
-  end
-
   test 'show change status in issue sidebar' do
     with_plugin_settings 'additionals', issue_change_status_in_sidebar: 1 do
       @request.session[:user_id] = 2

@@ -84,7 +84,7 @@
   label_content_plural: 内容
   label_copied_to_clipboard: "复制!"
   label_copy_to_clipboard: "复制到剪贴板"
-  label_custom_field_editable_info: If disabled changes are only possible with API calls or via bulk edit.
+  label_custom_field_editable_info: "如果停用，則只能透過 API 呼叫或批量編輯進行變更。"
   label_custom_fields_distribution: "Custom fields for distribution"
   label_daily: 每天
   label_dashboard: Dashboard
@@ -95,7 +95,7 @@
   label_dashboard_lock_is_active: "Dashboard 锁定已激活"
   label_dashboard_plural: Dashboards
   label_day: 天
-  label_default_sort_by: Default sort by
+  label_default_sort_by: "預設排序方式"
   label_disable_sidebar: Disable sidebar
   label_disabled_modules: "禁用模組"
   label_docs_access_token: Access token
@@ -194,11 +194,11 @@
   max_live_search_results_info: "LiveSearch的最大搜索结果的数量。注意：设置只影响到支持LiveSearch的插件。"
   menu_roles_info: "只有所選的角色權限才能看到選單。"
   new_ticket_message_info: "每個新建立議題用戶都會看到提示訊息。"
-  notice_delete_error_with_messages: "Delete problems with following errors: %{errors}"
+  notice_delete_error_with_messages: "刪除有下列錯誤的問題： %{errors}"
   notice_failed_to_save_entries: "%{count} of %{total} selected %{name_plural} could not be saved : %{ids}."
-  notice_save_error_with_messages: "Save problems with following errors: %{errors}"
-  notice_unsuccessful_delete: Delete problems
-  notice_unsuccessful_save: Save problems
+  notice_save_error_with_messages: "儲存有下列錯誤的問題： %{errors}"
+  notice_unsuccessful_delete: "刪除問題"
+  notice_unsuccessful_save: "儲存問題"
   open_external_urls_info: "如果啟用，則在新窗口/選項卡中打開外部URL。"
   permission_change_new_issue_author: "設定新議題作者"
   permission_edit_closed_issues: "編輯已結束的議題"

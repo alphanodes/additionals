@@ -84,7 +84,7 @@ zh:
   label_content_plural: 内容
   label_copied_to_clipboard: "已复制!"
   label_copy_to_clipboard: "复制到剪贴板"
-  label_custom_field_editable_info: If disabled changes are only possible with API calls or via bulk edit.
+  label_custom_field_editable_info: "如果禁用，则只能通过调用 API 或批量编辑进行更改。"
   label_custom_fields_distribution: "用于分发的自定义字段"
   label_daily: 每天
   label_dashboard: 仪表盘
@@ -95,7 +95,7 @@ zh:
   label_dashboard_lock_is_active: "Dashboard 锁定已激活"
   label_dashboard_plural: 仪表盘
   label_day: 天
-  label_default_sort_by: Default sort by
+  label_default_sort_by: "默认排序方式"
   label_disable_sidebar: 禁用侧边栏
   label_disabled_modules: "禁用模块"
   label_docs_access_token: 访问令牌
@@ -194,11 +194,11 @@ zh:
   max_live_search_results_info: "LiveSearch的最大搜索结果的数量。注意：设置只影响到支持LiveSearch的插件。"
   menu_roles_info: "只有所选角色对应的用户才能看到菜单项。"
   new_ticket_message_info: "每个新建问题的用户都会看到提示信息。例如，您可以输入可接受性测试或问题处理规则。这些配置在某个具体的项目范围内适用。"
-  notice_delete_error_with_messages: "Delete problems with following errors: %{errors}"
+  notice_delete_error_with_messages: "删除有以下错误的问题： %{errors}"
   notice_failed_to_save_entries: "%{count} of %{total} selected %{name_plural} could not be saved : %{ids}."
-  notice_save_error_with_messages: "Save problems with following errors: %{errors}"
-  notice_unsuccessful_delete: Delete problems
-  notice_unsuccessful_save: Save problems
+  notice_save_error_with_messages: "保存有以下错误的问题： %{errors}"
+  notice_unsuccessful_delete: "删除问题"
+  notice_unsuccessful_save: "保存问题"
   open_external_urls_info: "如果启用，则在新窗口/选项卡中打开外部URL。"
   permission_change_new_issue_author: 设置新建问题时的问题作者
   permission_edit_closed_issues: "修改已关闭的问题"

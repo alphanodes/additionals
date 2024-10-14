@@ -95,7 +95,7 @@ pl:
   label_dashboard_lock_is_active: "Dashboard Blokada jest aktywna"
   label_dashboard_plural: Dashboards
   label_day: "dzień"
-  label_default_sort_by: Default sort by
+  label_default_sort_by: "Domyślne sortowanie według"
   label_disable_sidebar: "Wyłączyć pasek boczny"
   label_disabled_modules: "Moduły wyłączone"
   label_docs_access_token: Access token
@@ -194,11 +194,11 @@ pl:
   max_live_search_results_info: "Liczba maksymalnych wyników wyszukiwania dla LiveSearch. Uwaga: Ustawienie ma wpływ tylko na wtyczki obsługujące LiveSearch."
   menu_roles_info: "Tylko członkowie wybranych ról będą widzieć ten wpis w menu."
   new_ticket_message_info: "Notatka zostanie wyświetlona każdemu, kto chce dodać nową issue. Na przykład, tutaj możesz wprowadzić testy akceptacyjne lub zasady issue. Ustawienia te są używane w całym projekcie."
-  notice_delete_error_with_messages: "Delete problems with following errors: %{errors}"
+  notice_delete_error_with_messages: "Usuń problemy z następującymi błędami: %{errors}"
   notice_failed_to_save_entries: "%{count} z %{total} wybranych %{name_plural} nie mogły zostać zapisane: %{ids}."
-  notice_save_error_with_messages: "Save problems with following errors: %{errors}"
-  notice_unsuccessful_delete: Delete problems
-  notice_unsuccessful_save: Save problems
+  notice_save_error_with_messages: "Zapisz problemy z następującymi błędami: %{errors}"
+  notice_unsuccessful_delete: "Usuń problemy"
+  notice_unsuccessful_save: "Zapisz problemy"
   open_external_urls_info: "Jeśli jest aktywny, zewnętrzne adresy URL są otwierane w nowym oknie/tabeli."
   permission_change_new_issue_author: "Zbiórka autora nowych issues"
   permission_edit_closed_issues: "Edycja zamkniętych issues"

@@ -84,7 +84,7 @@ it:
   label_content_plural: Il contentuto
   label_copied_to_clipboard: "Copiato!"
   label_copy_to_clipboard: "Copia negli appunti"
-  label_custom_field_editable_info: If disabled changes are only possible with API calls or via bulk edit.
+  label_custom_field_editable_info: "Se disattivato, le modifiche sono possibili solo con le chiamate API o tramite la modifica in blocco."
   label_custom_fields_distribution: "Campi personalizzati per la distribuzione"
   label_daily: giornalmente
   label_dashboard: Dashboard
@@ -95,7 +95,7 @@ it:
   label_dashboard_lock_is_active: "Dashboard Blocco attivo"
   label_dashboard_plural: Dashboards
   label_day: giorno
-  label_default_sort_by: Default sort by
+  label_default_sort_by: "Ordinamento predefinito per"
   label_disable_sidebar: "Disattivare la barra laterale"
   label_disabled_modules: "Disattivare modules"
   label_docs_access_token: Access token
@@ -194,11 +194,11 @@ it:
   max_live_search_results_info: "Numero di risultati massimi di ricerca per LiveSearch. Nota: l'impostazione riguarda solo i plugin che supportano LiveSearch."
   menu_roles_info: "Only members of selected roles will see this menu entry."
   new_ticket_message_info: "Una nota verrà mostrata a tutti coloro che vogliono aggiungere un nuovo numero. Per esempio puoi inserire qui i test di accettazione o le regole di emissione. Queste impostazioni vengono utilizzate in tutto il progetto."
-  notice_delete_error_with_messages: "Delete problems with following errors: %{errors}"
+  notice_delete_error_with_messages: "Eliminare i problemi con i seguenti errori: %{errors}"
   notice_failed_to_save_entries: "Non è stato possibile salvare %{count} dei %{total} %{name_plural} selezionati: %{ids}."
-  notice_save_error_with_messages: "Save problems with following errors: %{errors}"
-  notice_unsuccessful_delete: Delete problems
-  notice_unsuccessful_save: Save problems
+  notice_save_error_with_messages: "Salva i problemi con i seguenti errori: %{errors}"
+  notice_unsuccessful_delete: "Elimina i problemi"
+  notice_unsuccessful_save: "Salva i problemi"
   open_external_urls_info: "Se attivo, gli URL esterni vengono aperti in una nuova finestra/tab."
   permission_change_new_issue_author: "Impostare l'autore di nuovi numeri"
   permission_edit_closed_issues: "Modifica i issues chiusi"

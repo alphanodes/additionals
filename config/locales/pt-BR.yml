@@ -84,7 +84,7 @@ pt-BR:
   label_content_plural: "Conteúdo"
   label_copied_to_clipboard: "Copiado!"
   label_copy_to_clipboard: "Copiar para prancheta"
-  label_custom_field_editable_info: If disabled changes are only possible with API calls or via bulk edit.
+  label_custom_field_editable_info: "Se estiver desativado, as alterações só serão possíveis com chamadas de API ou por meio de edição em massa."
   label_custom_fields_distribution: "Campos personalizados para distribuição"
   label_daily: "diariamente"
   label_dashboard: Dashboard
@@ -95,7 +95,7 @@ pt-BR:
   label_dashboard_lock_is_active: "Dashboard Lock está ativo"
   label_dashboard_plural: Dashboards
   label_day: dia
-  label_default_sort_by: Default sort by
+  label_default_sort_by: "Classificação padrão por"
   label_disable_sidebar: "Desativar sidebar"
   label_disabled_modules: "Desativar módulos"
   label_docs_access_token: Access token
@@ -194,11 +194,11 @@ pt-BR:
   max_live_search_results_info: "Número máximo de resultados de busca para LiveSearch. Nota: A configuração só afeta os plugins que suportam o LiveSearch."
   menu_roles_info: "Somente membros de funções selecionadas verão esta entrada de menu."
   new_ticket_message_info: "Uma nota será mostrada a todos que quiserem acrescentar uma nova tarefa. Por exemplo, você pode inserir aqui testes de aceitação ou regras de tarefa. Estas configurações são usadas em todo o projeto."
-  notice_delete_error_with_messages: "Delete problems with following errors: %{errors}"
+  notice_delete_error_with_messages: "Excluir problemas com os seguintes erros: %{errors}"
   notice_failed_to_save_entries: "%{count} de %{total} %{name_plural} selecionados não puderam ser salvos: %{ids}."
-  notice_save_error_with_messages: "Save problems with following errors: %{errors}"
-  notice_unsuccessful_delete: Delete problems
-  notice_unsuccessful_save: Save problems
+  notice_save_error_with_messages: "Salvar problemas com os seguintes erros: %{errors}"
+  notice_unsuccessful_delete: "Excluir problemas"
+  notice_unsuccessful_save: "Salvar problemas"
   open_external_urls_info: "Se ativo, as URLs externas são abertas em uma nova janela/tab."
   permission_change_new_issue_author: "Definir o autor de novas tarefas"
   permission_edit_closed_issues: "Editar tarefas fechadas"

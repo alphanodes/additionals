@@ -95,7 +95,7 @@ ko:
   label_dashboard_lock_is_active: "Dashboard 잠금이 활성화됨"
   label_dashboard_plural: Dashboards
   label_day: 일
-  label_default_sort_by: Default sort by
+  label_default_sort_by: "기본 정렬 기준"
   label_disable_sidebar: "사이드바 비활성화"
   label_disabled_modules: "비활성화 된 모듈"
   label_docs_access_token: Access token
@@ -194,11 +194,11 @@ ko:
   max_live_search_results_info: "LiveSearch의 최대 검색 결과 수입니다. 참고: 설정은 LiveSearch를 지원하는 플러그인에만 영향을 미칩니다."
   menu_roles_info: "선택한 역할의 멤버 만이 메뉴 항목을 볼 수 있습니다."
   new_ticket_message_info: "새로운 호를 추가하려는 모든 사람에게 메모가 표시됩니다. 예를 들어 수락 테스트를 입력하거나 규칙을 발행 할 수 있습니다. 이 설정은 프로젝트 전체에서 사용됩니다. "
-  notice_delete_error_with_messages: "Delete problems with following errors: %{errors}"
+  notice_delete_error_with_messages: "다음 오류가 있는 문제를 삭제합니다: %{errors}"
   notice_failed_to_save_entries: "%{count} of %{total} selected %{name_plural} could not be saved: %{ids}."
-  notice_save_error_with_messages: "Save problems with following errors: %{errors}"
-  notice_unsuccessful_delete: Delete problems
-  notice_unsuccessful_save: Save problems
+  notice_save_error_with_messages: "다음 오류와 함께 문제를 저장합니다: %{errors}"
+  notice_unsuccessful_delete: "문제 삭제"
+  notice_unsuccessful_save: "문제 저장"
   open_external_urls_info: "활성화되면 외부 URL이 새 창 / 탭에서 열립니다."
   permission_change_new_issue_author: 새로운 이슈의 저자 설정
   permission_edit_closed_issues: "닫힌 이슈 편집"

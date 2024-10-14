@@ -95,6 +95,7 @@ cs:
   label_dashboard_lock_is_active: "Dashboard Zámek je aktivní"
   label_dashboard_plural: Dashboards
   label_day: den
+  label_default_sort_by: Default sort by
   label_disable_sidebar: "Zakázat sidebar"
   label_disabled_modules: "Zakázané moduly"
   label_docs_access_token: Access token
@@ -193,7 +194,11 @@ cs:
   max_live_search_results_info: "Počet maximálních výsledků vyhledávání pro službu LiveSearch. Poznámka: Nastavení se týká pouze zásuvných modulů, které podporují službu LiveSearch."
   menu_roles_info: "Tuto položku nabídky uvidí pouze členové vybraných rolí."
   new_ticket_message_info: "Všem, kteří chtějí přidat nové vydání, se zobrazí poznámka. Například zde můžete zadat akceptační testy nebo vydat pravidla. Tato nastavení se používají v celém projektu."
+  notice_delete_error_with_messages: "Delete problems with following errors: %{errors}"
   notice_failed_to_save_entries: "%{count} z %{total} vybrané %{name_plural} nelze uložit: %{ids}."
+  notice_save_error_with_messages: "Save problems with following errors: %{errors}"
+  notice_unsuccessful_delete: Delete problems
+  notice_unsuccessful_save: Save problems
   open_external_urls_info: "Pokud je aktivní, v novém okně / kartě se otevírají externí adresy URL."
   permission_change_new_issue_author: "Nastavit autora nového úkolu"
   permission_edit_closed_issues: "Upravit uzavřené úkoly"
@@ -215,4 +220,3 @@ cs:
   top_wiki_help: "Zde můžete definovat obsah a nastavení vaší Wiki."
   wiki_pdf_remove_attachments_info: "Pokud je aktivní, připojené soubory Wiki se nebudou zobrazovat v zobrazení PDF."
   wiki_pdf_remove_title_info: "Pokud je aktivní, informace o názvu Wiki se nebudou zobrazovat v zobrazení PDF."
-  label_default_sort_by: Default sort by

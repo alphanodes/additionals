@@ -95,6 +95,7 @@ it:
   label_dashboard_lock_is_active: "Dashboard Blocco attivo"
   label_dashboard_plural: Dashboards
   label_day: giorno
+  label_default_sort_by: Default sort by
   label_disable_sidebar: "Disattivare la barra laterale"
   label_disabled_modules: "Disattivare modules"
   label_docs_access_token: Access token
@@ -193,7 +194,11 @@ it:
   max_live_search_results_info: "Numero di risultati massimi di ricerca per LiveSearch. Nota: l'impostazione riguarda solo i plugin che supportano LiveSearch."
   menu_roles_info: "Only members of selected roles will see this menu entry."
   new_ticket_message_info: "Una nota verrà mostrata a tutti coloro che vogliono aggiungere un nuovo numero. Per esempio puoi inserire qui i test di accettazione o le regole di emissione. Queste impostazioni vengono utilizzate in tutto il progetto."
+  notice_delete_error_with_messages: "Delete problems with following errors: %{errors}"
   notice_failed_to_save_entries: "Non è stato possibile salvare %{count} dei %{total} %{name_plural} selezionati: %{ids}."
+  notice_save_error_with_messages: "Save problems with following errors: %{errors}"
+  notice_unsuccessful_delete: Delete problems
+  notice_unsuccessful_save: Save problems
   open_external_urls_info: "Se attivo, gli URL esterni vengono aperti in una nuova finestra/tab."
   permission_change_new_issue_author: "Impostare l'autore di nuovi numeri"
   permission_edit_closed_issues: "Modifica i issues chiusi"
@@ -215,4 +220,3 @@ it:
   top_wiki_help: "Qui puoi definire contenuti e impostazioni per il tuo Wiki."
   wiki_pdf_remove_attachments_info: "Quando è attivo, il Wiki file allegati non verranno visualizzati nella vista PDF."
   wiki_pdf_remove_title_info: "Quando è attivo, le informazioni sul titolo del Wiki non verranno visualizzate nella vista PDF."
-  label_default_sort_by: Default sort by

@@ -95,6 +95,7 @@ de:
   label_dashboard_lock_is_active: Dashboard Schutz ist aktiv
   label_dashboard_plural: Dashboards
   label_day: Tag
+  label_default_sort_by: Standard-Sortierreihenfolge
   label_disable_sidebar: Sidebar deaktivieren
   label_disabled_modules: "Deaktivierte Module"
   label_docs_access_token: Zugriffstoken
@@ -193,7 +194,11 @@ de:
   max_live_search_results_info: "Anzahl der maximalen Suchergebnisse für die LiveSearch. Hinweis: Einstellung wirkt sich nur auf Plugins aus, welche die LiveSearch unterstützen."
   menu_roles_info: "Nur den ausgewählten Rollen wird der Menüpunkt angezeigt. Sobald ein Mitglied in einem Projekt die Rolle besitzt, wird der Menüpunkt angezeigt."
   new_ticket_message_info: "Ein Hinweis, der beim Erstellen neuer Tickets angezeigt wird. Es kann beispielsweise auf Akzeptanztests oder Richtlinien zum Erstellen der Tickets hingewiesen werden. Dieser Einstellung ist projektübergreifend und ist in allen Projekten aktiv."
+  notice_delete_error_with_messages: "Löschen nicht erfolgreich. Folgende Fehler sind aufgetreten: %{errors}"
   notice_failed_to_save_entries: "%{count} von %{total} ausgewählten %{name_plural} konnte(n) nicht gespeichert werden: %{ids}."
+  notice_save_error_with_messages: "Speichern nicht erfolgreich. Folgende Fehler sind aufgetreten: %{errors}"
+  notice_unsuccessful_delete: Konnte nicht gelöscht werden
+  notice_unsuccessful_save: Konnte nicht gespeichert werden
   open_external_urls_info: "Wenn aktiviert, werden externe URLs im neuen Fenster/TAB geöffnet."
   permission_change_new_issue_author: Autor bei Ticketerstellung festlegen
   permission_edit_closed_issues: "Geschlossene Tickets bearbeiten"
@@ -215,8 +220,3 @@ de:
   top_wiki_help: Hier kannst Du Inhalte und Einstellungen bzg. der Wiki festlegen.
   wiki_pdf_remove_attachments_info: Wenn aktiv, werden die an der Wiki Seite angehängten Dateien nicht in der PDF Ansicht angezeigt.
   wiki_pdf_remove_title_info: Wenn aktiv, wird der Wiki Titel nicht in der PDF Ansicht angezeigt.
-  label_default_sort_by: Standard-Sortierreihenfolge
-  notice_unsuccessful_save: Konnte nicht gespeichert werden
-  notice_save_error_with_messages: "Speichern nicht erfolgreich. Folgende Fehler sind aufgetreten: %{errors}"
-  notice_unsuccessful_delete: Konnte nicht gelöscht werden
-  notice_delete_error_with_messages: "Löschen nicht erfolgreich. Folgende Fehler sind aufgetreten: %{errors}"

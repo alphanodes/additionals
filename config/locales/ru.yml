@@ -95,6 +95,7 @@ ru:
   label_dashboard_lock_is_active: "Dashboard Блокировка активна"
   label_dashboard_plural: Dashboards
   label_day: "день"
+  label_default_sort_by: Default sort by
   label_disable_sidebar: "отключить боковую панель"
   label_disabled_modules: "Отключенные модули"
   label_docs_access_token: "Токен доступа"
@@ -193,7 +194,11 @@ ru:
   max_live_search_results_info: "Количество максимальных результатов поиска для LiveSearch. Примечание: Настройка влияет только на плагины, поддерживающие LiveSearch."
   menu_roles_info: "Этот пункт меню будет доступен только пользователям с выбранными ролями."
   new_ticket_message_info: "Всем, кто хочет добавить новое задание, будет показана заметка. Например, здесь вы можете ввести правила приемочных испытаний или заданий. Эти настройки используются для всего проекта."
+  notice_delete_error_with_messages: "Delete problems with following errors: %{errors}"
   notice_failed_to_save_entries: "%{count} из %{total} выбранных %{name_plural} не удалось сохранить: %{ids}."
+  notice_save_error_with_messages: "Save problems with following errors: %{errors}"
+  notice_unsuccessful_delete: Delete problems
+  notice_unsuccessful_save: Save problems
   open_external_urls_info: "Если активен, в новом окне/закладке открываются внешние URL-адреса."
   permission_change_new_issue_author: " Поставить перед автором новые задачи"
   permission_edit_closed_issues: "Редактирование закрытых заданий"
@@ -215,4 +220,3 @@ ru:
   top_wiki_help: "Здесь вы можете определить содержимое и настройки для вашей Вики."
   wiki_pdf_remove_attachments_info: "Если флажок установлен, вложенные Вики-файлы не будут отображаться в PDF-формате."
   wiki_pdf_remove_title_info: "При активации этого параметра информация о названии Вики не будет отображаться в PDF-формате."
-  label_default_sort_by: Default sort by

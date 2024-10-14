@@ -95,6 +95,7 @@
   label_dashboard_lock_is_active: "Dashboard 锁定已激活"
   label_dashboard_plural: Dashboards
   label_day: 天
+  label_default_sort_by: Default sort by
   label_disable_sidebar: Disable sidebar
   label_disabled_modules: "禁用模組"
   label_docs_access_token: Access token
@@ -193,7 +194,11 @@
   max_live_search_results_info: "LiveSearch的最大搜索结果的数量。注意：设置只影响到支持LiveSearch的插件。"
   menu_roles_info: "只有所選的角色權限才能看到選單。"
   new_ticket_message_info: "每個新建立議題用戶都會看到提示訊息。"
+  notice_delete_error_with_messages: "Delete problems with following errors: %{errors}"
   notice_failed_to_save_entries: "%{count} of %{total} selected %{name_plural} could not be saved : %{ids}."
+  notice_save_error_with_messages: "Save problems with following errors: %{errors}"
+  notice_unsuccessful_delete: Delete problems
+  notice_unsuccessful_save: Save problems
   open_external_urls_info: "如果啟用，則在新窗口/選項卡中打開外部URL。"
   permission_change_new_issue_author: "設定新議題作者"
   permission_edit_closed_issues: "編輯已結束的議題"
@@ -215,4 +220,3 @@
   top_wiki_help: "您可以在此自訂Wiki的內容和設定。"
   wiki_pdf_remove_attachments_info: "當啟用時，Wiki附件將不會顯示在PDF中。"
   wiki_pdf_remove_title_info: "當啟用時，Wiki標題訊息不會顯示在PDF中"
-  label_default_sort_by: Default sort by

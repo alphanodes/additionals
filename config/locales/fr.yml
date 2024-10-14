@@ -95,6 +95,7 @@ fr:
   label_dashboard_lock_is_active: "Dashboard blocage est activé"
   label_dashboard_plural: Tableaux de bord
   label_day: Jour
+  label_default_sort_by: Default sort by
   label_disable_sidebar: "Désactiver la sidebar"
   label_disabled_modules: "Modules désactivés"
   label_docs_access_token: Jeton d'accès
@@ -193,7 +194,11 @@ fr:
   max_live_search_results_info: "Nombre maximal de résultats de recherche pour la LiveSearch. Remarque : le paramètre n'a d'effet que sur les plugins qui supportent LiveSearch."
   menu_roles_info: "Seuls les membres des rôles sélectionnés verront cette entrée de menu."
   new_ticket_message_info: "Une note sera montrée à tous ceux qui veulent ajouter un nouveau numéro. Par exemple, vous pouvez saisir des tests d'acceptation ou édicter des règles ici. Ces paramètres sont utilisés à l'échelle du projet."
+  notice_delete_error_with_messages: "Delete problems with following errors: %{errors}"
   notice_failed_to_save_entries: "%{count} des %{total} %{name_plural} sélectionnés n'ont pu être sauvegardés: %{ids}."
+  notice_save_error_with_messages: "Save problems with following errors: %{errors}"
+  notice_unsuccessful_delete: Delete problems
+  notice_unsuccessful_save: Save problems
   open_external_urls_info: "S'ils sont actifs, les URL externes s'ouvrent dans une nouvelle fenêtre/onglet."
   permission_change_new_issue_author: "Définir l'auteur des nouveaux numéros"
   permission_edit_closed_issues: "Éditer les dossiers fermés"
@@ -215,4 +220,3 @@ fr:
   top_wiki_help: "Ici vous pouvez définir le contenu et les paramètres de votre Wiki."
   wiki_pdf_remove_attachments_info: "Lorsqu'ils sont actifs, les fichiers Wiki joints ne seront pas affichés en vue PDF."
   wiki_pdf_remove_title_info: "Lorsqu'elle est active, l'information sur le titre du wiki ne sera pas affichée dans la vue PDF."
-  label_default_sort_by: Default sort by

@@ -95,6 +95,7 @@ ja:
   label_dashboard_lock_is_active: "Dashboard ロックが有効"
   label_dashboard_plural: Dashboards
   label_day: "日"
+  label_default_sort_by: Default sort by
   label_disable_sidebar: "サイドバーを無効にする"
   label_disabled_modules: "無効化したいモジュール"
   label_docs_access_token: Access token
@@ -193,7 +194,11 @@ ja:
   max_live_search_results_info: "LiveSearchの最大検索結果数です。注意：この設定は、LiveSearchに対応したプラグインにのみ影響します。"
   menu_roles_info: "選択された役割のメンバーだけがこのメニュー項目を表示します。"
   new_ticket_message_info: "新規チケットを登録したいときに表示されるメモ書き。例えば、チケット入力のルールや承認規程を掲載する目的にでも使えます。これらの設定は全プロジェクトで有効です。"
+  notice_delete_error_with_messages: "Delete problems with following errors: %{errors}"
   notice_failed_to_save_entries: "%{count} of %{total} selected %{name_plural} could not be saved: %{ids}."
+  notice_save_error_with_messages: "Save problems with following errors: %{errors}"
+  notice_unsuccessful_delete: Delete problems
+  notice_unsuccessful_save: Save problems
   open_external_urls_info: "アクティブな場合、外部URLは新しいウィンドウ/タブで開かれます。"
   permission_change_new_issue_author: "新しい問題の著者を設定する"
   permission_edit_closed_issues: "クローズした課題の編集"
@@ -215,4 +220,3 @@ ja:
   top_wiki_help: "ここでは、Wikiの内容や設定を定義することができます。"
   wiki_pdf_remove_attachments_info: "アクティブな場合、添付されたWikiファイルはPDFビューに表示されません。"
   wiki_pdf_remove_title_info: "アクティブな場合、Wikiのタイトル情報はPDFビューに表示されません。"
-  label_default_sort_by: Default sort by

@@ -3,7 +3,9 @@
     canvas id="#{@chart[:id]}" style="width: #{@chart[:width]}px; height: #{@chart[:height]}px;"
   .additionals-table-of-values
     = render 'additionals/chart_table_values'
-
+    - if defined?(table_infos) && table_infos.present?
+      .table-infos.values
+        = table_infos
 .clear-both
 
 javascript:

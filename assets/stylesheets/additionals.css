@@ -330,7 +330,7 @@ div.additionals-projects li.project.odd {
   width: 450px;
 }
 
-.additionals-table-of-values {
+.additionals-table-of-values > .values {
   float: left;
   width: 450px;
 }

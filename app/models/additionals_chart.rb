@@ -4,68 +4,75 @@ class AdditionalsChart
   include ActiveRecord::Sanitization
   include Redmine::I18n
 
+  attr_accessor :project, :query
+
   CHART_DEFAULT_HEIGHT = 350
   CHART_DEFAULT_WIDTH = 400
 
-  class << self
-    def color_schema
-      AdditionalsPlugin.active_reporting? ? RedmineReporting.setting(:chart_color_schema) : 'tableau.Classic20'
+  def initialize(project: nil, query: nil)
+    self.project = project
+    self.query = query
+
+    query.project = project if query && project
+  end
+
+  def color_schema
+    AdditionalsPlugin.active_reporting? ? RedmineReporting.setting(:chart_color_schema) : 'tableau.Classic20'
+  end
+
+  def data
+    raise 'overwrite it!'
+  end
+
+  # build return value
+  def build_chart_data(datasets, **options)
+    cached_labels = labels
+
+    data = { datasets: datasets.to_json,
+             labels: cached_labels.keys,
+             label_ids: cached_labels.values }
+
+    required_labels = options.key?(:required_labels) ? options.delete(:required_labels) : 2
+
+    data[:valid] = cached_labels.any? && cached_labels.count >= required_labels unless options.key? :valid
+    data[:width] = CHART_DEFAULT_WIDTH unless options.key? :width
+    data[:height] = CHART_DEFAULT_HEIGHT unless options.key? :height
+    data[:value_link_method] = '_project_issues_path' unless options.key? :value_link_method
+    data[:color_schema] = color_schema
+
+    data_values = Array(datasets).first[:data]
+    data[:data_sum] = data_values.present? ? data_values.sum : 0
+
+    data.merge options
+  end
+
+  private
+
+  def build_values_without_gaps(data, gap_value = 0)
+    values = []
+    labels.each_key do |label|
+      values << if data.key? label
+                  data[label]
+                else
+                  gap_value
+                end
     end
 
-    def data
-      raise 'overwrite it!'
-    end
+    values
+  end
 
-    # build return value
-    def build_chart_data(datasets, **options)
-      cached_labels = labels
+  def init_labels
+    @labels = {}
+  end
 
-      data = { datasets: datasets.to_json,
-               labels: cached_labels.keys,
-               label_ids: cached_labels.values }
+  def labels
+    # NOTE: do not sort it, because color changes if user switch language
+    @labels.to_h
+  end
 
-      required_labels = options.key?(:required_labels) ? options.delete(:required_labels) : 2
+  def add_label(label, id)
+    return if @labels.key? label
 
-      data[:valid] = cached_labels.any? && cached_labels.count >= required_labels unless options.key? :valid
-      data[:width] = self::CHART_DEFAULT_WIDTH unless options.key? :width
-      data[:height] = self::CHART_DEFAULT_HEIGHT unless options.key? :height
-      data[:value_link_method] = '_project_issues_path' unless options.key? :value_link_method
-      data[:color_schema] = color_schema
-
-      data_values = Array(datasets).first[:data]
-      data[:data_sum] = data_values.present? ? data_values.sum : 0
-
-      data.merge options
-    end
-
-    private
-
-    def build_values_without_gaps(data, gap_value = 0)
-      values = []
-      labels.each_key do |label|
-        values << if data.key? label
-                    data[label]
-                  else
-                    gap_value
-                  end
-      end
-
-      values
-    end
-
-    def init_labels
-      @labels = {}
-    end
-
-    def labels
-      # NOTE: do not sort it, because color changes if user switch language
-      @labels.to_h
-    end
-
-    def add_label(label, id)
-      return if @labels.key? label
-
-      @labels[label] = id
-    end
+    @labels[label] = id
   end
 end

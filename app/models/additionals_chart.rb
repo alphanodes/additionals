@@ -4,7 +4,7 @@ class AdditionalsChart
   include ActiveRecord::Sanitization
   include Redmine::I18n
 
-  attr_accessor :project, :query
+  attr_accessor :project, :query, :data_values
 
   CHART_DEFAULT_HEIGHT = 350
   CHART_DEFAULT_WIDTH = 400
@@ -12,6 +12,7 @@ class AdditionalsChart
   def initialize(project: nil, query: nil)
     self.project = project
     self.query = query
+    self.data_values = {}
 
     query.project = project if query && project
   end
@@ -40,8 +41,8 @@ class AdditionalsChart
     data[:value_link_method] = '_project_issues_path' unless options.key? :value_link_method
     data[:color_schema] = color_schema
 
-    data_values = Array(datasets).first[:data]
-    data[:data_sum] = data_values.present? ? data_values.sum : 0
+    values = Array(datasets).first[:data]
+    data[:data_sum] = values.present? ? values.sum : 0
 
     data.merge options
   end

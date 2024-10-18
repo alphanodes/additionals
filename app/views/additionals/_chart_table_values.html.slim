@@ -1,5 +1,6 @@
 table.list.issue-report.values
-  = title_with_fontawesome l(:label_table_of_values), 'far fa-list-alt', 'caption'
+  caption
+    = svg_icon_tag 'list-details', label: :label_table_of_values, size: 16
   thead
     tr
       th = @chart[:label]

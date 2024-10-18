@@ -197,13 +197,6 @@ module Additionals
       RedminePluginKit.textarea_cols text, min:, max:
     end
 
-    def title_with_fontawesome(title, symbole, wrapper = 'span')
-      tag.send wrapper do
-        concat tag.i class: "#{symbole} for-fa-title", 'aria-hidden': 'true'
-        concat title
-      end
-    end
-
     def format_yes(value, lowercase: false)
       if RedminePluginKit.true? value
         lowercase ? l(:general_text_yes) : l(:general_text_Yes)

@@ -19,7 +19,7 @@ module AdditionalsIconsHelper
                    wrapper_class: 'a-icon',
                    wrapper_css: nil)
 
-    svg_code = svg_sprite_icon(icon_name, size:, title:, css_class:)
+    svg_code = additionals_svg_sprite_icon(icon_name, size:, title:, css_class:)
 
     content = svg_code.dup
 
@@ -38,23 +38,6 @@ module AdditionalsIconsHelper
     wrapper_classes = "#{wrapper_class} a-icon-#{icon_name}"
     wrapper_classes += " #{wrapper_css}" if wrapper_css
     content_tag wrapper, content, class: wrapper_classes
-  end
-
-  def svg_sprite_icon(icon_name, size: DEFAULT_ICON_SIZE, sprite: 'icons', css_class: nil, title: nil)
-    sprite_path = "#{sprite}.svg"
-    title = l title if title.is_a? Symbol
-    css_classes = "a-s#{size} a-svg-icon"
-    css_classes += " #{css_class}" if css_class
-
-    content_tag(
-      :svg,
-      content_tag(:use,
-                  '',
-                  { 'href' => additionals_asset_path("#{sprite_path}#icon--#{icon_name}") }),
-      class: css_classes,
-      title: title.presence,
-      aria: { hidden: true }
-    )
   end
 
   def additionals_asset_path(file)
@@ -76,6 +59,23 @@ module AdditionalsIconsHelper
   end
 
   private
+
+  def additionals_svg_sprite_icon(icon_name, size: DEFAULT_ICON_SIZE, sprite: 'icons', css_class: nil, title: nil)
+    sprite_path = "#{sprite}.svg"
+    title = l title if title.is_a? Symbol
+    css_classes = "a-s#{size} a-svg-icon"
+    css_classes += " #{css_class}" if css_class
+
+    content_tag(
+      :svg,
+      content_tag(:use,
+                  '',
+                  { 'href' => additionals_asset_path("#{sprite_path}#icon--#{icon_name}") }),
+      class: css_classes,
+      title: title.presence,
+      aria: { hidden: true }
+    )
+  end
 
   def svg_icon_for_mime_type(mime)
     if %w[text-plain text-x-c text-x-csharp text-x-java text-x-php

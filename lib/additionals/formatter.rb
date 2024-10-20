@@ -43,9 +43,9 @@ module Additionals
           smiley = Regexp.last_match 3
           if esc.nil?
             css_class = NON_SMILEY_COLOR.exclude?(name) ? 'smiley' : 'info-smiley'
-            svg_code = ActionController::Base.helpers.svg_sprite_icon "smiley-#{name}",
-                                                                      css_class:,
-                                                                      title: smiley
+            svg_code = ActionController::Base.helpers.svg_icon_tag "smiley-#{name}",
+                                                                   css_class:,
+                                                                   title: smiley
 
             leading.to_s + ActionController::Base.helpers.tag.span(svg_code,
                                                                    class: "additionals smiley a-icon smiley-#{name}",

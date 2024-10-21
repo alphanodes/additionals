@@ -18,7 +18,7 @@ module Additionals
           "#{name} #{content}"
         end
 
-        def flash_msg(msg, value: nil, code: nil, mail: nil, errors: nil, obj: nil, field: :id)
+        def flash_msg(msg, value: nil, code: nil, mail: nil, obj: nil, field: :id)
           return msg unless msg.is_a? Symbol
 
           skip_field_info = false
@@ -27,14 +27,14 @@ module Additionals
                     when :save_error
                       if obj.present? && obj.errors.full_messages.present?
                         skip_field_info = true
-                        l :notice_save_error_with_messages, errors: errors.full_messages.to_comma_list
+                        l :notice_save_error_with_messages, errors: obj.errors.full_messages.to_comma_list
                       else
                         l :notice_unsuccessful_save
                       end
                     when :delete_error
                       if obj.present? && obj.errors.full_messages.present?
                         skip_field_info = true
-                        l :notice_delete_error_with_messages, errors: errors.full_messages.to_comma_list
+                        l :notice_delete_error_with_messages, errors: obj.errors.full_messages.to_comma_list
                       else
                         l :notice_unsuccessful_delete
                       end

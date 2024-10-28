@@ -145,13 +145,18 @@ module AdditionalsQueriesHelper
     # Additionals.debug "locked: #{@users[:locked].pluck :id}"
     # Additionals.debug "groups: #{@users[:groups].pluck :id}"
 
-    render layout: false,
-           format: :json,
-           partial: 'auto_completes/grouped_users',
-           locals: { with_me: with_me && (search_term.blank? || l(:label_me).downcase.include?(search_term.downcase)),
-                     with_ano: with_ano && (search_term.blank? || l(:label_user_anonymous).downcase.include?(search_term.downcase)),
-                     me_value:,
-                     sep_required: false }
+    respond_to do |format|
+      format.html { head :not_acceptable }
+      format.js do
+        render layout: false,
+               format: :json,
+               partial: 'auto_completes/grouped_users',
+               locals: { with_me: with_me && (search_term.blank? || l(:label_me).downcase.include?(search_term.downcase)),
+                         with_ano: with_ano && (search_term.blank? || l(:label_user_anonymous).downcase.include?(search_term.downcase)),
+                         me_value:,
+                         sep_required: false }
+      end
+    end
   end
 
   def additionals_query_to_xlsx(query, no_id_link: false)

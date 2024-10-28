@@ -139,7 +139,7 @@ function formatStateWithMultiaddress(opt) {
 
 /* exported formatSelectionWithEmails */
 function formatSelectionWithEmails(opt) {
-  var email = opt.email.trim().length ? ' <' + opt.email + '>' : '';
+  var email = opt.email !== undefined && opt.email.trim().length ? ' <' + opt.email + '>' : '';
   return (opt.text || opt.name || '') + email;
 }
 

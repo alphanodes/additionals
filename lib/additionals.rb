@@ -111,7 +111,6 @@ module Additionals
                           Project
                           ProjectQuery
                           Wiki
-                          WikiPage
                           ProjectsController
                           WelcomeController
                           ReportsController

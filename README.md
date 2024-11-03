@@ -177,7 +177,7 @@ The following modules are available :
 * [redmine_reporting](https://alphanodes.com/redmine-reporting)
 * [redmine_servicedesk](https://alphanodes.com/redmine-servicedesk)
 * [redmine_sudo](https://github.com/alphanodes/redmine_sudo)
-* [redmine_wki_guide](https://alphanodes.com/redmine-wiki-guide)
+* [redmine_wiki_guide](https://alphanodes.com/redmine-wiki-guide)
 
 If you know other plugins, which are using *additionals*, please let us know or create a [PR](https://github.com/alphanodes/additionals/pulls).
 

@@ -232,17 +232,6 @@ h2#page-title.live-search input {
   margin-left: 5px;
 }
 
-/* Tooltips  */
-.ui-tooltip {
-  background: #000;
-  color: #fff;
-  font-size: 12px;
-  opacity: 0.85;
-  padding: 8px;
-  max-width: inherit;
-  box-shadow: 0 0 6px #888;
-}
-
 div.macro-box {
   margin-bottom: 15px;
 }

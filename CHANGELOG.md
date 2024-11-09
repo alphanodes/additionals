@@ -1,10 +1,14 @@
 # Changelog
 
+## 4.0.0
+
+- Support for Redmine 6
+
+## 3.4.0
+
 - Move assign to me button to assign to block
 - svg icons support for Redmine 6
 - remove tooltip css style, which overwrote default redmine style
-
-## 3.4.0
 
 ## 3.3.2
 

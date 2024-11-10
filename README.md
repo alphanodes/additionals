@@ -11,9 +11,9 @@ Additionals is a `Redmine` plugin for customizing Redmine, providing wiki macros
 
 | Name               | requirement                      |
 | -------------------|----------------------------------|
-| `Redmine` version  | >= 5.0                           |
+| `Redmine` version  | >= 6.0                           |
 | `Ruby` version     | >= 3.1                           |
-| Database version   | MySQL >= 8.0 or PostgreSQL >= 10 |
+| Database version   | MySQL >= 8.0 or PostgreSQL >= 14 |
 
 > **_NOTE:_** If you use MySQL, make sure all database tables using the same storage engine (InnoDB is recommended) and character set (utf8mb4 is recommended).
 > **_NOTE:_** For more information use the official [Redmine install documentation](https://www.redmine.org/projects/redmine/wiki/RedmineInstall)
@@ -30,7 +30,7 @@ Install `additionals` plugin for `Redmine`.
   bundle exec rake redmine:plugins:migrate RAILS_ENV=production
 ```
 
-Restart your application server (apache with passenger, nginx with passenger, unicorn, puma, etc.) and *Additionals* is ready to use.
+Restart your application server (apache with passenger, nginx with passenger, unicorn, puma, etc.) and `additionals` is ready to use.
 
 More information about installation of Redmine plugins, you can find in the official [Redmine plugin documentation](https://www.redmine.org/projects/redmine/wiki/Plugins>).
 
@@ -55,7 +55,6 @@ Uninstall `additionals` plugin.
 ```shell
   cd $REDMINE_ROOT
   bundle exec rake redmine:plugins:migrate NAME=additionals VERSION=0 RAILS_ENV=production
-  rm -rf plugins/additionals public/plugin_assets/additionals
 ```
 
 ## Features
@@ -101,7 +100,7 @@ Uninstall `additionals` plugin.
 * anonymize referrer for external urls
 * hide role in project memberbox
 * limitation of the number of attachments that are displayed as a preview in the issue
-* Auto watch option *Issues assigned to me*
+* Auto watch option _Issues assigned to me_
 * change issue author
 * create issue on user profile
 * "assign to me" link on issue
@@ -161,7 +160,7 @@ The following modules are available :
 * mermaid
 * select2
 
-### Redmine Plugins, which are using *additionals*
+### Redmine Plugins, which are using _additionals_
 
 * [additional_tags](https://github.com/alphanodes/additional_tags)
 * [redmine_automation](https://alphanodes.com/redmine-automation)
@@ -179,11 +178,11 @@ The following modules are available :
 * [redmine_sudo](https://github.com/alphanodes/redmine_sudo)
 * [redmine_wiki_guide](https://alphanodes.com/redmine-wiki-guide)
 
-If you know other plugins, which are using *additionals*, please let us know or create a [PR](https://github.com/alphanodes/additionals/pulls).
+If you know other plugins, which are using `additionals`, please let us know or create a [PR](https://github.com/alphanodes/additionals/pulls).
 
 ## You need a feature
 
-*additionals* is [Open-source](https://opensource.org/osd) and it is available at <https://github.com/alphanodes/additionals>
+`additionals` is [Open-source](https://opensource.org/osd) and it is available at <https://github.com/alphanodes/additionals>
 
 If you want to implement new features in it or if you want to change something, you can provide a pull request.
 
@@ -193,7 +192,7 @@ We are an `Open-source`_ service company from Munich. Among other things, we off
 
 ## Additionals plugin manual
 
-The plugin configuration takes place in the administration area by a user with administration permission. Go to *Plugins / Additionals* to open it.
+The plugin configuration takes place in the administration area by a user with administration permission. Go to _Plugins / Additionals_ to open it.
 
 The additionals plugin configuration is divided into several sections, described below.
 
@@ -265,7 +264,7 @@ Global wiki sidebar
 
 Redmine macros can be used in the Wiki of a project or in the text area of an issue. For more information on how to add macros use the Redmine help documentation.
 
-The *Macros section* of the additionals plugin lists all available macros that the logged in user can use with the *macro button* of the wiki toolbar. If you leave them deactivated they are all available to your users for selection.
+The _Macros section_ of the additionals plugin lists all available macros that the logged in user can use with the _macro button_ of the wiki toolbar. If you leave them deactivated they are all available to your users for selection.
 
 Macros marked here are not offered for selection. This allows you to limit the scope of the list for a better usability.
 

@@ -35,7 +35,7 @@ module Additionals
         def available_statuses
           statuses = USABLE_STATUSES.dup
           statuses[Project::STATUS_ARCHIVED] = :archived
-          statuses[Project::STATUS_SCHEDULED_FOR_DELETION] = :scheduled_for_deletion if Redmine::VERSION.to_s >= '5.1'
+          statuses[Project::STATUS_SCHEDULED_FOR_DELETION] = :scheduled_for_deletion
 
           statuses
         end

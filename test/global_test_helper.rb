@@ -209,11 +209,6 @@ module Additionals
       css_select('table.projects thead th').map(&:text)
     end
 
-    # should be dropped after dropping Rails 6.x support / Redmine 5.1 support
-    def self.fixture_date_format(date)
-      date.try(:to_fs, :db) || date.to_s(:db)
-    end
-
     def WikiPage.generate(**options)
       content = options.delete(:content) || 'Example text'
 

@@ -3,6 +3,8 @@
 ## 4.0.0
 
 - Support for Redmine 6
+- Redmine 5 support dropped
+- Gemify support dropped
 
 ## 3.4.0
 

@@ -3,6 +3,8 @@
 require 'redmine_plugin_kit'
 
 module Additionals
+  VERSION = '4.0.0-main'
+
   MAX_CUSTOM_MENU_ITEMS = 5
   DEFAULT_MODAL_WIDTH = '350px'
   GOTO_LIST = " \xc2\xbb"
@@ -17,6 +19,10 @@ module Additionals
     def class_prefix(klass)
       klass_name = klass.is_a?(String) ? klass : klass.name
       klass_name.underscore.tr '/', '_'
+    end
+
+    def uri_parser
+      defined?(::URI::RFC2396_PARSER) ? ::URI::RFC2396_PARSER : ::URI::DEFAULT_PARSE
     end
 
     def now_with_user_time_zone(user = User.current)
@@ -94,10 +100,6 @@ module Additionals
       end
     end
 
-    def redmine6?
-      Redmine::VERSION.to_s >= '5.1' && Redmine::VERSION::BRANCH == 'devel'
-    end
-
     private
 
     def setup
@@ -161,28 +163,6 @@ module Additionals
 
       # Load view hooks
       loader.load_view_hooks!
-    end
-  end
-
-  # Run the classic redmine plugin initializer after rails boot
-  class Plugin < ::Rails::Engine
-    require 'tanuki_emoji'
-    require 'render_async'
-    require 'rss'
-    require 'slim'
-
-    config.after_initialize do
-      # engine_name could be used (additionals_plugin), but can
-      # create some side effencts
-      plugin_id = 'additionals'
-
-      # if plugin is already in plugins directory, use this and leave here
-      next if Redmine::Plugin.installed? plugin_id
-
-      # gem is used as redmine plugin
-      require File.expand_path '../init', __dir__
-      Additionals::Gemify.install_assets plugin_id
-      Additionals::Gemify.create_plugin_hint plugin_id
     end
   end
 end

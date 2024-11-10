@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
-# Specify your gem's dependencies in additionals.gemspec
-gemspec
+gem 'redmine_plugin_kit'
+gem 'render_async'
+gem 'rss'
+gem 'slim-rails'
+gem 'tanuki_emoji', '~> 0.13.0'
 
 # this is only used for local development.
 # if you want to use it, do:

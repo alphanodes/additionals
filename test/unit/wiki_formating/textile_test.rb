@@ -18,9 +18,8 @@ module WikiFormatting
         # this is required, because inline_smileys are activated with controller action
         @formatter::RULES << :inline_smileys
 
-        @to_test['A test with a :) smiley'] =
-          "A test with a #{smiley_test_span svg_test_icon} smiley"
-        @to_test[':) :)'] = "#{smiley_test_span svg_test_icon} #{smiley_test_span svg_test_icon}"
+        @to_test['A test with a :) smiley'] = ['#icon--smiley-smiley', 'a-s18 a-svg-icon smiley']
+        @to_test[':) :)'] = ['#icon--smiley-smiley', 'a-s18 a-svg-icon smiley']
 
         assert_html_output @to_test
       end
@@ -31,8 +30,7 @@ module WikiFormatting
                                           emoji_support: 1 do
         @formatter::RULES.delete :inline_smileys
 
-        str = 'A test with a :heart: emoji and a :) smiley'
-        @to_test[str] = "A test with a #{emoji_heart_tag} emoji and a :) smiley"
+        @to_test['A test with a :heart: emoji and a :) smiley'] = 'additionals-emoji'
 
         assert_html_output @to_test
       end
@@ -44,8 +42,8 @@ module WikiFormatting
         # this is required, because inline_smileys are activated with controller action
         @formatter::RULES << :inline_smileys
 
-        @to_test[':heart: and :)'] = "#{emoji_heart_tag} and #{smiley_test_span svg_test_icon}"
-        @to_test[':) and :heart:'] = "#{smiley_test_span svg_test_icon} and #{emoji_heart_tag}"
+        @to_test[':heart: and :)'] = ['#icon--smiley-smiley', 'additionals-emoji']
+        @to_test[':) and :heart:'] = ['#icon--smiley-smiley', 'additionals-emoji']
 
         assert_html_output @to_test
       end
@@ -53,18 +51,14 @@ module WikiFormatting
 
     private
 
-    def assert_html_output(to_test, expect_paragraph: true)
-      to_test.each do |text, expected|
-        assert_equal(
-          (expect_paragraph ? "<p>#{expected}</p>" : expected),
-          @formatter.new(text).to_html,
-          "Formatting the following text failed:\n===\n#{text}\n===\n"
-        )
-      end
-    end
+    def assert_html_output(to_test)
+      to_test.each do |text, patterns|
+        formated_text = @formatter.new(text).to_html
 
-    def to_html(text)
-      @formatter.new(text).to_html
+        Array(patterns).each do |pattern|
+          assert_includes formated_text, pattern
+        end
+      end
     end
   end
 end

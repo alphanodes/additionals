@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Dashboard < AdditionalsApplicationRecord
+class Dashboard < ApplicationRecord
   include Redmine::I18n
   include Redmine::SafeAttributes
   include Additionals::EntityMethods

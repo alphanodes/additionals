@@ -16,12 +16,12 @@
       = link_to l(:label_subproject_new), new_project_path(parent_id: @project), class: 'icon icon-add'
     - if User.current.allowed_to? :close_project, @project
       - if @project.active?
-        - confirm_msg = Redmine::VERSION.to_s >= '5.1' ? l(:text_project_close_confirmation, @project.to_s) : l(:text_are_you_sure)
+        - confirm_msg = l :text_project_close_confirmation, @project.to_s
         = link_to l(:button_close),
                   close_project_path(@project),
                   data: { confirm: - confirm_msg }, method: :post, class: 'icon icon-lock'
       - else
-        - confirm_msg = Redmine::VERSION.to_s >= '5.1' ? l(:text_project_reopen_confirmation, @project.to_s) : l(:text_are_you_sure)
+        - confirm_msg = l :text_project_reopen_confirmation, @project.to_s
         = link_to l(:button_reopen),
                   reopen_project_path(@project),
                   data: { confirm: confirm_msg }, method: :post, class: 'icon icon-unlock'
@@ -32,7 +32,7 @@
                   unarchive_project_path(@project, status: params[:status]),
                   method: :post, class: 'icon icon-unlock'
       - else
-        - confirm_msg = Redmine::VERSION.to_s >= '5.1' ? l(:text_project_archive_confirmation, @project.to_s) : l(:text_are_you_sure)
+        - confirm_msg = l :text_project_archive_confirmation, @project.to_s
         = link_to l(:button_archive),
                   archive_project_path(@project, status: params[:status]),
                   data: { confirm: confirm_msg }, method: :post, class: 'icon icon-lock'

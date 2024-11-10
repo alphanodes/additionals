@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'additionals/plugin_version'
-
 loader = RedminePluginKit::Loader.new plugin_id: 'additionals'
 
 Redmine::Plugin.register :additionals do
@@ -9,10 +7,9 @@ Redmine::Plugin.register :additionals do
   author 'AlphaNodes GmbH'
   description 'Customizing Redmine, providing dashboards, wiki macros and other functions for better usability.' \
               ' As well as acting as a library/function provider for other Redmine plugins'
-  version Additionals::PluginVersion::VERSION
+  version Additionals::VERSION
   author_url 'https://alphanodes.com/'
   url 'https://github.com/alphanodes/additionals'
-  directory File.dirname(__FILE__)
 
   settings default: loader.default_settings,
            partial: 'additionals/settings/additionals'
@@ -42,8 +39,7 @@ Redmine::Plugin.register :additionals do
     permission :log_time_on_closed_issues, {}
   end
 
-  # required redmine version
-  requires_redmine version_or_higher: '5.0'
+  requires_redmine version_or_higher: '5.1' # redmine 6.0 is required, but version is not set in redmine source yet
 
   menu :admin_menu, :additionals, { controller: 'settings', action: 'plugin', id: 'additionals' }, caption: :label_additionals
 end

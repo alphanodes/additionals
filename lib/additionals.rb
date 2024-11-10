@@ -22,7 +22,7 @@ module Additionals
     end
 
     def uri_parser
-      defined?(::URI::RFC2396_PARSER) ? ::URI::RFC2396_PARSER : ::URI::DEFAULT_PARSE
+      defined?(::URI::RFC2396_PARSER) ? ::URI::RFC2396_PARSER : ::URI::DEFAULT_PARSER
     end
 
     def now_with_user_time_zone(user = User.current)

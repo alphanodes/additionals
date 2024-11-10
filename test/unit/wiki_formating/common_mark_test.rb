@@ -13,9 +13,8 @@ module WikiFormatting
     def test_smileys
       with_plugin_settings 'additionals', legacy_smiley_support: 1,
                                           emoji_support: 0 do
-
-        assert smiley_filter('A small test :) with an smiley').include?('#icon--smiley-smiley')
-        assert smiley_filter('A small test :) with an smiley').include?('a-s18 a-svg-icon smiley')
+        assert_includes smiley_filter('A small test :) with an smiley'), '#icon--smiley-smiley'
+        assert_includes smiley_filter('A small test :) with an smiley'), 'a-s18 a-svg-icon smiley'
       end
     end
 

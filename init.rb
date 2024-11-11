@@ -39,7 +39,7 @@ Redmine::Plugin.register :additionals do
     permission :log_time_on_closed_issues, {}
   end
 
-  requires_redmine version_or_higher: '5.1' # redmine 6.0 is required, but version is not set in redmine source yet
+  requires_redmine version_or_higher: '6.0'
 
   menu :admin_menu, :additionals, { controller: 'settings', action: 'plugin', id: 'additionals' }, caption: :label_additionals
 end

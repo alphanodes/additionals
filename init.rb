@@ -41,7 +41,12 @@ Redmine::Plugin.register :additionals do
 
   requires_redmine version_or_higher: '6.0'
 
-  menu :admin_menu, :additionals, { controller: 'settings', action: 'plugin', id: 'additionals' }, caption: :label_additionals
+  menu :admin_menu,
+       :additionals,
+       { controller: 'settings', action: 'plugin', id: 'additionals' },
+       caption: :label_additionals,
+       plugin: 'additionals',
+       icon: 'additionals'
 end
 
 RedminePluginKit::Loader.persisting do

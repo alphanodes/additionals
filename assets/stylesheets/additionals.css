@@ -1,15 +1,3 @@
-#admin-menu a.additionals::before {
-  font-family: 'Font Awesome 5 Free';
-  font-size: 1.1em;
-  font-weight: 900;
-  content: '\f085'; /* fas fa-cogs */
-  padding-right: 4px;
-}
-
-#admin-menu a.additionals {
-  padding-left: 0;
-}
-
 #top-menu a.top-submenu {
   padding-bottom: 10px;
 }
@@ -141,11 +129,6 @@ svg.a-s14 {
 svg.a-s12 {
   width: 0.75rem;
   height: 0.75rem;
-}
-
-/* Mobile menu style FontAwesome icon */
-.flyout-is-active #admin-menu li a.additionals {
-  padding-left: 8px !important;
 }
 
 .sudo-admin { color: #d80000; }

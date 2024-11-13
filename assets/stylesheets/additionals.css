@@ -55,7 +55,7 @@ em.info a.external {
 }
 
 .a-icon.icon-padding,
-.a-svg-icon.icon-padding {
+.svg-icon.icon-padding {
   padding-right: 2px;
 }
 
@@ -79,56 +79,31 @@ h3.a-icon-label {
   margin-left: 4px;
 }
 
-svg.a-icon-svg {
-  stroke: #169;
-  fill: none;
-  stroke-width: 1.5;
-  vertical-align: middle;
-}
-
-svg.a-svg-icon.smiley {
+svg.svg-icon.smiley {
   fill: #edae40;
   stroke-width: 2;
 }
 
-svg.a-s64 {
-  width: 64px;
-  height: 64px;
-}
+svg {
+  &.s64 {
+    width: 64px;
+    height: 64px;
+  }
 
-svg.a-s32 {
-  width: 32px;
-  height: 32px;
-}
+  &.s32 {
+    width: 32px;
+    height: 32px;
+  }
 
-svg.a-s24 {
-  width: 1.5rem;
-  height: 1.5rem;
-}
+  &.s24 {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
 
-svg.a-s20 {
-  width: 1.25rem;
-  height: 1.25rem;
-}
-
-svg.a-s18 {
-  width: 1.125rem;
-  height: 1.125rem;
-}
-
-svg.a-s16 {
-  width: 1rem;
-  height: 1rem;
-}
-
-svg.a-s14 {
-  width: 0.875rem;
-  height: 0.875rem;
-}
-
-svg.a-s12 {
-  width: 0.75rem;
-  height: 0.75rem;
+  &.s16 {
+    width: 1rem;
+    height: 1rem;
+  }
 }
 
 .sudo-admin { color: #d80000; }

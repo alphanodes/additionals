@@ -18,8 +18,8 @@ module WikiFormatting
         # this is required, because inline_smileys are activated with controller action
         @formatter::RULES << :inline_smileys
 
-        @to_test['A test with a :) smiley'] = ['#icon--smiley-smiley', 'a-s18 a-svg-icon smiley']
-        @to_test[':) :)'] = ['#icon--smiley-smiley', 'a-s18 a-svg-icon smiley']
+        @to_test['A test with a :) smiley'] = ['#icon--smiley-smiley', 's18 svg-icon smiley']
+        @to_test[':) :)'] = ['#icon--smiley-smiley', 's18 svg-icon smiley']
 
         assert_html_output @to_test
       end

@@ -49,7 +49,7 @@ module AdditionalsIconsHelper
   def additionals_svg_sprite_icon(icon_name, size: DEFAULT_ICON_SIZE, sprite: 'icons', css_class: nil, title: nil)
     sprite_path = "#{sprite}.svg"
     title = l title if title.is_a? Symbol
-    css_classes = "a-s#{size} a-svg-icon"
+    css_classes = "s#{size} svg-icon"
     css_classes += " #{css_class}" if css_class
 
     content_tag(

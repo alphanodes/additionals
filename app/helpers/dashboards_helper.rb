@@ -130,14 +130,16 @@ module DashboardsHelper
           if dashboard.system_default?
             link << if dashboard.project_id.nil?
                       li_class = 'global'
-                      font_awesome_icon 'fas_cube',
-                                        title: l(:field_system_default),
-                                        class: "dashboard-system-default #{li_class}"
+                      svg_icon_tag 'cube',
+                                   title: l(:field_system_default),
+                                   size: 14,
+                                   css_class: "suffixed dashboard-system-default #{li_class}"
                     else
                       li_class = 'project'
-                      font_awesome_icon 'fas_cube',
-                                        title: l(:field_project_system_default),
-                                        class: "dashboard-system-default #{li_class}"
+                      svg_icon_tag 'cube',
+                                   title: l(:field_project_system_default),
+                                   size: 14,
+                                   css_class: "suffixed dashboard-system-default #{li_class}"
                     end
           end
 
@@ -317,9 +319,9 @@ module DashboardsHelper
 
     return unless title
 
-    font_awesome_icon('fas_info-circle',
-                      title:,
-                      class: 'dashboard-block-alert')
+    svg_icon_tag('details',
+                 title:,
+                 css_class: 'suffixed')
   end
 
   def render_legacy_left_block(_block, _block_definition, _settings, _dashboard)

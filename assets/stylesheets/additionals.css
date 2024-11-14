@@ -2,7 +2,7 @@
   padding-bottom: 10px;
 }
 
-.assigned-to.attribute a.a-icon.assign-to-me {
+.assigned-to.attribute a.icon.assign-to-me {
   margin-left: 5px;
 }
 
@@ -14,7 +14,7 @@
 }
 
 span.dashboard-locked {
-  color: #666;
+  stroke: #666;
 }
 
 fieldset.hide-attachments {
@@ -48,15 +48,14 @@ em.info a.external {
   align-items: center;
 }
 
-.a-icon,
-.a-icon-only {
-  display: inline-flex;
-  vertical-align: middle;
+.icon.icon-padding,
+.icon-svg.icon-padding {
+  padding-right: 2px;
 }
 
-.a-icon.icon-padding,
-.svg-icon.icon-padding {
-  padding-right: 2px;
+svg.icon-svg.smiley {
+  fill: #edae40;
+  stroke-width: 2;
 }
 
 ul.dashboard-list {
@@ -64,24 +63,18 @@ ul.dashboard-list {
   margin-top: 0;
 }
 
-#context-menu .a-icon {
+#context-menu .icon {
   padding: 0;
   display: inline-flex;
 }
 
-.drdn-items a.a-icon {
+.drdn-items a.icon {
   padding: 2px;
   display: flex;
 }
 
-span.a-icon-label,
-h3.a-icon-label {
+h3.icon-label {
   margin-left: 4px;
-}
-
-svg.svg-icon.smiley {
-  fill: #edae40;
-  stroke-width: 2;
 }
 
 svg {
@@ -104,6 +97,23 @@ svg {
     width: 1rem;
     height: 1rem;
   }
+
+  &.suffixed {
+    margin-left: 3px;
+  }
+
+  &.dashboard-system-default.global {
+    stroke: #d80000;
+  }
+}
+
+.icon-flipped-color svg {
+  stroke: none;
+  fill: #169;
+}
+
+.icon-flipped-color.a.selected:hover {
+  text-decoration: none;
 }
 
 .sudo-admin { color: #d80000; }
@@ -315,15 +325,6 @@ div.relation-list-header {
 
 div.splitcontent.dashboard {
   margin-bottom: 20px;
-}
-
-span.dashboard-block-alert,
-span.dashboard-system-default {
-  padding-left: 4px;
-}
-
-span.dashboard-system-default.global {
-  color: #d80000;
 }
 
 .splitcontentbottom {

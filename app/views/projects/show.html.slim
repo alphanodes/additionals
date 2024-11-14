@@ -6,23 +6,26 @@
 
   - if @dashboard&.editable?
     - if @dashboard.locked?
-      = font_awesome_icon 'dashboard-locked fas_lock', title: l(:label_dashboard_lock_is_active)
+      = svg_icon_tag 'lock', title: l(:label_dashboard_lock_is_active),
+                             wrapper: :span,
+                             wrapper_css: 'dashboard-locked',
+                             plugin: ''
     - else
       = form_tag _add_block_dashboard_path(@project, @dashboard), remote: true, id: 'block-form', authenticity_token: true do
         = dashboard_block_select_tag @dashboard
 
   = actions_dropdown do
     - if User.current.allowed_to? :add_subprojects, @project
-      = link_to l(:label_subproject_new), new_project_path(parent_id: @project), class: 'icon icon-add'
+      = link_to sprite_icon('add', l(:label_subproject_new)), new_project_path(parent_id: @project), class: 'icon icon-add'
     - if User.current.allowed_to? :close_project, @project
       - if @project.active?
         - confirm_msg = l :text_project_close_confirmation, @project.to_s
-        = link_to l(:button_close),
+        = link_to sprite_icon('lock', l(:button_close)),
                   close_project_path(@project),
                   data: { confirm: - confirm_msg }, method: :post, class: 'icon icon-lock'
       - else
         - confirm_msg = l :text_project_reopen_confirmation, @project.to_s
-        = link_to l(:button_reopen),
+        = link_to sprite_icon('unlock', l(:button_reopen)),
                   reopen_project_path(@project),
                   data: { confirm: confirm_msg }, method: :post, class: 'icon icon-unlock'
 
@@ -36,17 +39,17 @@
         = link_to l(:button_archive),
                   archive_project_path(@project, status: params[:status]),
                   data: { confirm: confirm_msg }, method: :post, class: 'icon icon-lock'
-      = link_to l(:button_copy), copy_project_path(@project), class: 'icon icon-copy'
-      = link_to l(:button_delete), project_path(@project), method: :delete, class: 'icon icon-del'
+      = link_to sprite_icon('copy', l(:button_copy)), copy_project_path(@project), class: 'icon icon-copy'
+      = link_to sprite_icon('del', l(:button_delete)), project_path(@project), method: :delete, class: 'icon icon-del'
     - elsif @project.deletable?
-      = link_to l(:button_delete), project_path(@project), method: :delete, class: 'icon icon-del'
+      = link_to sprite_icon('del', l(:button_delete)), project_path(@project), method: :delete, class: 'icon icon-del'
 
     - if User.current.allowed_to? :save_dashboards, @project
-      = link_to l(:label_new_dashboard),
+      = link_to sprite_icon('add', l(:label_new_dashboard)),
                 new_project_dashboard_path(@project),
                 class: 'icon icon-add new-additionals-dashboard'
       - if @dashboard&.editable?
-        = link_to l(:button_dashboard_edit),
+        = link_to sprite_icon('edit', l(:button_dashboard_edit)),
                   edit_project_dashboard_path(@project, @dashboard),
                   class: 'icon icon-edit'
 
@@ -58,7 +61,7 @@
     = call_hook :view_project_actions_dropdown, project: @project
 
     - if User.current.allowed_to? :edit_project, @project
-      = link_to_if_authorized l(:label_settings),
+      = link_to_if_authorized sprite_icon('settings', l(:label_settings)),
                               { controller: 'projects', action: 'settings', id: @project },
                               class: 'icon icon-settings'
 

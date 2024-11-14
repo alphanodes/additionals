@@ -51,7 +51,7 @@ module Additionals
             raise '<edit_link> is not a Google document.' unless options[:edit_link].start_with? 'https://docs.google.com/'
 
             s << tag.br
-            s << link_to_external(font_awesome_icon('fab_google-drive', post_text: :label_open_in_google_docs),
+            s << link_to_external(svg_icon_tag('google-drive', label: :label_open_in_google_docs),
                                   options[:edit_link])
           end
 

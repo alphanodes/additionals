@@ -110,21 +110,17 @@
         <path d="M12 7v5" />
       </g>
     </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--versionlist">
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--versionlist">
       <!-- layout-list -->
-      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
-        <path d="M4 14m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
-      </g>
+      <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
+      <path d="M4 14m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
     </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--project">
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--cube">
       <!-- cube -->
-      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M21 16.008v-8.018a1.98 1.98 0 0 0 -1 -1.717l-7 -4.008a2.016 2.016 0 0 0 -2 0l-7 4.008c-.619 .355 -1 1.01 -1 1.718v8.018c0 .709 .381 1.363 1 1.717l7 4.008a2.016 2.016 0 0 0 2 0l7 -4.008c.619 -.355 1 -1.01 1 -1.718z" />
-        <path d="M12 22v-10" />
-        <path d="M12 12l8.73 -5.04" />
-        <path d="M3.27 6.96l8.73 5.04" />
-      </g>
+      <path d="M21 16.008v-8.018a1.98 1.98 0 0 0 -1 -1.717l-7 -4.008a2.016 2.016 0 0 0 -2 0l-7 4.008c-.619 .355 -1 1.01 -1 1.718v8.018c0 .709 .381 1.363 1 1.717l7 4.008a2.016 2.016 0 0 0 2 0l7 -4.008c.619 -.355 1 -1.01 1 -1.718z" />
+      <path d="M12 22v-10" />
+      <path d="M12 12l8.73 -5.04" />
+      <path d="M3.27 6.96l8.73 5.04" />
     </symbol>
     <symbol viewBox="0 0 24 24" id="icon--issues">
       <!-- list-check -->
@@ -249,16 +245,6 @@
         <path d="M4.6 17l14.8 0" />
       </g>
     </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--import-data">
-      <!-- database-import -->
-      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M4 6c0 1.657 3.582 3 8 3s8 -1.343 8 -3s-3.582 -3 -8 -3s-8 1.343 -8 3" />
-        <path d="M4 6v6c0 1.657 3.582 3 8 3c.856 0 1.68 -.05 2.454 -.144m5.546 -2.856v-6" />
-        <path d="M4 12v6c0 1.657 3.582 3 8 3c.171 0 .341 -.002 .51 -.006" />
-        <path d="M19 22v-6" />
-        <path d="M22 19l-3 -3l-3 3" />
-      </g>
-    </symbol>
     <symbol viewBox="0 0 24 24" id="icon--merge">
       <!-- arrow-merge -->
       <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
@@ -267,14 +253,12 @@
         <path d="M12 3v5.394a6.737 6.737 0 0 0 3 5.606a6.737 6.737 0 0 1 3 5.606v1.394" />
       </g>
     </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--workflow">
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--workflow">
       <!-- switch-3 -->
-      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M3 17h2.397a5 5 0 0 0 4.096 -2.133l.177 -.253m3.66 -5.227l.177 -.254a5 5 0 0 1 4.096 -2.133h3.397" />
-        <path d="M18 4l3 3l-3 3" />
-        <path d="M3 7h2.397a5 5 0 0 1 4.096 2.133l4.014 5.734a5 5 0 0 0 4.096 2.133h3.397" />
-        <path d="M18 20l3 -3l-3 -3" />
-      </g>
+      <path d="M3 17h2.397a5 5 0 0 0 4.096 -2.133l.177 -.253m3.66 -5.227l.177 -.254a5 5 0 0 1 4.096 -2.133h3.397" />
+      <path d="M18 4l3 3l-3 3" />
+      <path d="M3 7h2.397a5 5 0 0 1 4.096 2.133l4.014 5.734a5 5 0 0 0 4.096 2.133h3.397" />
+      <path d="M18 20l3 -3l-3 -3" />
     </symbol>
     <symbol viewBox="0 0 24 24" id="icon--show-source">
       <!-- zoom-code -->
@@ -293,27 +277,6 @@
         <path d="M4 12v6a8 3 0 0 0 16 0v-6" />
       </g>
     </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--password">
-      <!-- shield-half -->
-      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M11.998 2l.032 .002l.086 .005a1 1 0 0 1 .342 .104l.105 .062l.097 .076l.016 .015l.247 .21a11 11 0 0 0 7.189 2.537l.342 -.01a1 1 0 0 1 1.005 .717a13 13 0 0 1 -9.208 16.25a1 1 0 0 1 -.502 0a13 13 0 0 1 -9.209 -16.25a1 1 0 0 1 1.005 -.717a11 11 0 0 0 7.791 -2.75l.046 -.036l.053 -.041a1 1 0 0 1 .217 -.112l.075 -.023l.036 -.01a1 1 0 0 1 .12 -.022l.086 -.005zm.002 2.296l-.176 .135a13 13 0 0 1 -7.288 2.572l-.264 .006l-.064 .31a11 11 0 0 0 1.064 7.175l.17 .314a11 11 0 0 0 6.49 5.136l.068 .019z" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--confidential">
-      <!-- shield-lock -->
-      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-          <path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3" />
-          <path d="M12 11m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-          <path d="M12 12l0 2.5" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--confidential-filled">
-      <!-- shield-lock -->
-      <g fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-         <path d="M11.998 2l.118 .007l.059 .008l.061 .013l.111 .034a.993 .993 0 0 1 .217 .112l.104 .082l.255 .218a11 11 0 0 0 7.189 2.537l.342 -.01a1 1 0 0 1 1.005 .717a13 13 0 0 1 -9.208 16.25a1 1 0 0 1 -.502 0a13 13 0 0 1 -9.209 -16.25a1 1 0 0 1 1.005 -.717a11 11 0 0 0 7.531 -2.527l.263 -.225l.096 -.075a.993 .993 0 0 1 .217 -.112l.112 -.034a.97 .97 0 0 1 .119 -.021l.115 -.007zm.002 7a2 2 0 0 0 -1.995 1.85l-.005 .15l.005 .15a2 2 0 0 0 .995 1.581v1.769l.007 .117a1 1 0 0 0 1.993 -.117l.001 -1.768a2 2 0 0 0 -1.001 -3.732z" />
-      </g>
-    </symbol>
     <symbol viewBox="0 0 24 24" id="icon--fullscreen">
       <!-- arrows-maximize -->
       <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
@@ -327,23 +290,24 @@
         <path d="M4 4l6 6" />
       </g>
     </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--twitter">
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--twitter">
       <!-- brand-twitter -->
-      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c0 -.249 1.51 -2.772 1.818 -4.013z" />
-      </g>
+      <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c0 -.249 1.51 -2.772 1.818 -4.013z" />
     </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--github">
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--github">
       <!-- brand-github -->
-      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
-      </g>
+      <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
     </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--gitlab">
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--gitlab">
       <!-- brand-gitlab -->
-      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M21 14l-9 7l-9 -7l3 -11l3 7h6l3 -7z" />
-      </g>
+      <path d="M21 14l-9 7l-9 -7l3 -11l3 7h6l3 -7z" />
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--google-drive">
+      <!-- brand-google-drive -->
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 10l-6 10l-3 -5l6 -10z" />
+      <path d="M9 15h12l-3 5h-12" />
+      <path d="M15 15l-6 -10h6l6 10z" />
     </symbol>
     <symbol viewBox="0 0 24 24" id="icon--redmine">
       <g fill="none" stroke="#a21408" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
@@ -647,20 +611,10 @@
         <path d="M12 12h-.01" />
       </g>
     </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--checks">
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--checks">
       <!-- checks -->
-      <g fill="none" stroke="#b5b1b1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M7 12l5 5l10 -10" />
-        <path d="M2 12l5 5m5 -5l5 -5" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--lock">
-      <!-- lock -->
-      <g fill="none" stroke="#b5b1b1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6z" />
-        <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
-        <path d="M8 11v-4a4 4 0 1 1 8 0v4" />
-      </g>
+      <path d="M7 12l5 5l10 -10" />
+      <path d="M2 12l5 5m5 -5l5 -5" />
     </symbol>
     <symbol viewBox="0 0 24 24" id="icon--lock-filled">
       <!-- lock -->
@@ -676,17 +630,28 @@
         <path d="M15 9h.01" />
       </g>
     </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--shield">
-      <!-- shield -->
-      <g fill="none" stroke="#b5b1b1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3" />
+    <symbol viewBox="0 0 24 24" id="icon--password">
+      <!-- shield-half -->
+      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+        <path d="M11.998 2l.032 .002l.086 .005a1 1 0 0 1 .342 .104l.105 .062l.097 .076l.016 .015l.247 .21a11 11 0 0 0 7.189 2.537l.342 -.01a1 1 0 0 1 1.005 .717a13 13 0 0 1 -9.208 16.25a1 1 0 0 1 -.502 0a13 13 0 0 1 -9.209 -16.25a1 1 0 0 1 1.005 -.717a11 11 0 0 0 7.791 -2.75l.046 -.036l.053 -.041a1 1 0 0 1 .217 -.112l.075 -.023l.036 -.01a1 1 0 0 1 .12 -.022l.086 -.005zm.002 2.296l-.176 .135a13 13 0 0 1 -7.288 2.572l-.264 .006l-.064 .31a11 11 0 0 0 1.064 7.175l.17 .314a11 11 0 0 0 6.49 5.136l.068 .019z" />
       </g>
     </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--shield-filled">
-      <!-- shield filled -->
-      <g fill="none" stroke="#b5b1b1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M11.884 2.007l.114 -.007l.118 .007l.059 .008l.061 .013l.111 .034a.993 .993 0 0 1 .217 .112l.104 .082l.255 .218a11 11 0 0 0 7.189 2.537l.342 -.01a1 1 0 0 1 1.005 .717a13 13 0 0 1 -9.208 16.25a1 1 0 0 1 -.502 0a13 13 0 0 1 -9.209 -16.25a1 1 0 0 1 1.005 -.717a11 11 0 0 0 7.531 -2.527l.263 -.225l.096 -.075a.993 .993 0 0 1 .217 -.112l.112 -.034a.97 .97 0 0 1 .119 -.021z" />
+    <symbol viewBox="0 0 24 24" id="icon--shield-lock">
+      <!-- shield-lock -->
+      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+          <path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3" />
+          <path d="M12 11m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+          <path d="M12 12l0 2.5" />
       </g>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--shield-lock-filled">
+      <!-- shield-lock -->
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M11.998 2l.118 .007l.059 .008l.061 .013l.111 .034a.993 .993 0 0 1 .217 .112l.104 .082l.255 .218a11 11 0 0 0 7.189 2.537l.342 -.01a1 1 0 0 1 1.005 .717a13 13 0 0 1 -9.208 16.25a1 1 0 0 1 -.502 0a13 13 0 0 1 -9.209 -16.25a1 1 0 0 1 1.005 -.717a11 11 0 0 0 7.531 -2.527l.263 -.225l.096 -.075a.993 .993 0 0 1 .217 -.112l.112 -.034a.97 .97 0 0 1 .119 -.021l.115 -.007zm.002 7a2 2 0 0 0 -1.995 1.85l-.005 .15l.005 .15a2 2 0 0 0 .995 1.581v1.769l.007 .117a1 1 0 0 0 1.993 -.117l.001 -1.768a2 2 0 0 0 -1.001 -3.732z" />
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--shield">
+      <!-- shield -->
+      <path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3" />
     </symbol>
     <symbol viewBox="0 0 24 24" id="icon--shield-check">
       <!-- shield-check -->
@@ -804,12 +769,10 @@
         <path d="M9 8h6" />
       </g>
     </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--details">
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--details">
       <!-- info-circle -->
-      <g fill="currentColor">
-        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-        <path d="M12 2c5.523 0 10 4.477 10 10a10 10 0 0 1 -19.995 .324l-.005 -.324l.004 -.28c.148 -5.393 4.566 -9.72 9.996 -9.72zm0 9h-1l-.117 .007a1 1 0 0 0 0 1.986l.117 .007v3l.007 .117a1 1 0 0 0 .876 .876l.117 .007h1l.117 -.007a1 1 0 0 0 .876 -.876l.007 -.117l-.007 -.117a1 1 0 0 0 -.764 -.857l-.112 -.02l-.117 -.006v-3l-.007 -.117a1 1 0 0 0 -.876 -.876l-.117 -.007zm.01 -3l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007z" />
-      </g>
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 2c5.523 0 10 4.477 10 10a10 10 0 0 1 -19.995 .324l-.005 -.324l.004 -.28c.148 -5.393 4.566 -9.72 9.996 -9.72zm0 9h-1l-.117 .007a1 1 0 0 0 0 1.986l.117 .007v3l.007 .117a1 1 0 0 0 .876 .876l.117 .007h1l.117 -.007a1 1 0 0 0 .876 -.876l.007 -.117l-.007 -.117a1 1 0 0 0 -.764 -.857l-.112 -.02l-.117 -.006v-3l-.007 -.117a1 1 0 0 0 -.876 -.876l-.117 -.007zm.01 -3l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007z" />
     </symbol>
     <symbol viewBox="0 0 24 24" id="icon--meeting">
       <!-- brand-ubuntu -->
@@ -859,59 +822,66 @@
         <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
       </g>
     </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--robot">
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--robot">
       <!-- robot -->
-      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M6 4m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z" />
-        <path d="M12 2v2" />
-        <path d="M9 12v9" />
-        <path d="M15 12v9" />
-        <path d="M5 16l4 -2" />
-        <path d="M15 14l4 2" />
-        <path d="M9 18h6" />
-        <path d="M10 8v.01" />
-        <path d="M14 8v.01" />
-      </g>
+      <path d="M6 4m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z" />
+      <path d="M12 2v2" />
+      <path d="M9 12v9" />
+      <path d="M15 12v9" />
+      <path d="M5 16l4 -2" />
+      <path d="M15 14l4 2" />
+      <path d="M9 18h6" />
+      <path d="M10 8v.01" />
+      <path d="M14 8v.01" />
     </symbol>
     <symbol viewBox="0 0 24 24" id="icon--tags">
       <!-- tags -->
-      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-        <path d="M3 8v4.172a2 2 0 0 0 .586 1.414l5.71 5.71a2.41 2.41 0 0 0 3.408 0l3.592 -3.592a2.41 2.41 0 0 0 0 -3.408l-5.71 -5.71a2 2 0 0 0 -1.414 -.586h-4.172a2 2 0 0 0 -2 2z" />
-        <path d="M18 19l1.592 -1.592a4.82 4.82 0 0 0 0 -6.816l-4.592 -4.592" />
-        <path d="M7 10h-.01" />
-      </g>
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M3 8v4.172a2 2 0 0 0 .586 1.414l5.71 5.71a2.41 2.41 0 0 0 3.408 0l3.592 -3.592a2.41 2.41 0 0 0 0 -3.408l-5.71 -5.71a2 2 0 0 0 -1.414 -.586h-4.172a2 2 0 0 0 -2 2z" />
+      <path d="M18 19l1.592 -1.592a4.82 4.82 0 0 0 0 -6.816l-4.592 -4.592" />
+      <path d="M7 10h-.01" />
     </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--additionals">
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--additionals">
       <!-- settings-plus -->
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12.483 20.935c-.862 .239 -1.898 -.178 -2.158 -1.252a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.08 .262 1.496 1.308 1.247 2.173" />
+      <path d="M16 19h6" />
+      <path d="M19 16v6" />
+      <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--servicedesk">
+      <!-- lifebuoy -->
+      <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+      <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+      <path d="M15 15l3.35 3.35" />
+      <path d="M9 15l-3.35 3.35" />
+      <path d="M5.65 5.65l3.35 3.35" />
+      <path d="M18.35 5.65l-3.35 3.35" />
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--encryption">
+      <!-- lock-access -->
+      <path d="M4 8v-2a2 2 0 0 1 2 -2h2" />
+      <path d="M4 16v2a2 2 0 0 0 2 2h2" />
+      <path d="M16 4h2a2 2 0 0 1 2 2v2" />
+      <path d="M16 20h2a2 2 0 0 0 2 -2v-2" />
+      <path d="M8 11m0 1a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1v3a1 1 0 0 1 -1 1h-6a1 1 0 0 1 -1 -1z" />
+      <path d="M10 11v-2a2 2 0 1 1 4 0v2" />
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--filter">
+      <!-- filter -->
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M4 4h16v2.172a2 2 0 0 1 -.586 1.414l-4.414 4.414v7l-6 2v-8.5l-4.48 -4.928a2 2 0 0 1 -.52 -1.345v-2.227z" />
+    </symbol>
+    <symbol viewBox="0 0 24 24" id="icon--reddit">
+      <!-- brand-reddit -->
       <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-        <path d="M12.483 20.935c-.862 .239 -1.898 -.178 -2.158 -1.252a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.08 .262 1.496 1.308 1.247 2.173" />
-        <path d="M16 19h6" />
-        <path d="M19 16v6" />
-        <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--servicedesk">
-      <!-- lifebuoy -->
-      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
-        <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-        <path d="M15 15l3.35 3.35" />
-        <path d="M9 15l-3.35 3.35" />
-        <path d="M5.65 5.65l3.35 3.35" />
-        <path d="M18.35 5.65l-3.35 3.35" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--encryption">
-      <!-- lock-access -->
-      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M4 8v-2a2 2 0 0 1 2 -2h2" />
-        <path d="M4 16v2a2 2 0 0 0 2 2h2" />
-        <path d="M16 4h2a2 2 0 0 1 2 2v2" />
-        <path d="M16 20h2a2 2 0 0 0 2 -2v-2" />
-        <path d="M8 11m0 1a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1v3a1 1 0 0 1 -1 1h-6a1 1 0 0 1 -1 -1z" />
-        <path d="M10 11v-2a2 2 0 1 1 4 0v2" />
+        <path d="M12 8c2.648 0 5.028 .826 6.675 2.14a2.5 2.5 0 0 1 2.326 4.36c0 3.59 -4.03 6.5 -9 6.5c-4.875 0 -8.845 -2.8 -9 -6.294l-1 -.206a2.5 2.5 0 0 1 2.326 -4.36c1.646 -1.313 4.026 -2.14 6.674 -2.14z" />
+        <path d="M12 8l1 -5l6 1" />
+        <path d="M19 4m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+        <circle cx="9" cy="13" r=".5" fill="currentColor" />
+        <circle cx="15" cy="13" r=".5" fill="currentColor" />
+        <path d="M10 17c.667 .333 1.333 .5 2 .5s1.333 -.167 2 -.5" />
       </g>
     </symbol>
   </defs>

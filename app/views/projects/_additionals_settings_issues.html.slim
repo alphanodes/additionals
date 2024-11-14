@@ -4,7 +4,9 @@ fieldset.box.tabular
 
   - if User.current.admin?
     .contextual
-      = link_to l(:label_administration), plugin_settings_path(id: 'additionals', tab: 'rules'), class: 'icon icon-settings'
+      = link_to sprite_icon('settings', l(:label_administration)),
+                plugin_settings_path(id: 'additionals', tab: 'rules'),
+                class: 'icon icon-settings'
 
   p
     = f.select :enable_new_ticket_message,

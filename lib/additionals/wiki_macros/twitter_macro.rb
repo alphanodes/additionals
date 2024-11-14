@@ -27,17 +27,17 @@ module Additionals
           name = args[0].strip
           case name[0]
           when '@'
-            link_to_external font_awesome_icon('fab_twitter', post_text: name),
+            link_to_external svg_icon_tag('twitter', label: name),
                              "https://twitter.com/#{name[1..]}",
                              class: 'twitter',
                              title: l(:label_twitter_account)
           when '#'
-            link_to_external font_awesome_icon('fab_twitter-square', post_text: name),
+            link_to_external svg_icon_tag('twitter', label: name),
                              "https://twitter.com/hashtag/#{name[1..]}",
                              class: 'twitter',
                              title: l(:label_twitter_hashtag)
           else
-            link_to_external font_awesome_icon('fab_twitter', post_text: " @#{name}"),
+            link_to_external svg_icon_tag('twitter', label: "@#{name}"),
                              "https://twitter.com/#{name}",
                              class: 'twitter',
                              title: l(:label_twitter_account)

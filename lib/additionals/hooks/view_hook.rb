@@ -44,7 +44,7 @@ module Additionals
                   controller_name == 'account' && action_name == 'lost_password' ||
                   !Additionals.setting?(:add_go_to_top)
 
-        tag.div link_to(svg_icon_tag('page-up', label: :label_go_to_top), '#gototop', class: 'a-icon icon-page-up'),
+        tag.div link_to(svg_icon_tag('page-up', label: :label_go_to_top), '#gototop', class: 'icon icon-page-up'),
                 class: 'gototop'
       end
     end

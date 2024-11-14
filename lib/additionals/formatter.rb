@@ -48,7 +48,7 @@ module Additionals
                                                                    title: smiley
 
             leading.to_s + ActionController::Base.helpers.tag.span(svg_code,
-                                                                   class: "additionals smiley a-icon smiley-#{name}",
+                                                                   class: "additionals smiley icon smiley-#{name}",
                                                                    title: smiley)
           else
             leading.to_s + smiley

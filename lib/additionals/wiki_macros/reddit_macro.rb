@@ -21,20 +21,20 @@ module Additionals
 
           case name[0..1]
           when 'r/'
-            link_to_external font_awesome_icon('fab_reddit', post_text: name),
+            link_to_external svg_icon_tag('reddit', label: name),
                              "https://www.reddit.com/#{name}",
-                             class: 'reddit',
+                             class: 'icon reddit',
                              title: l(:label_reddit_subject)
           when 'u/'
-            link_to_external font_awesome_icon('fab_reddit-square', post_text: name),
+            link_to_external svg_icon_tag('reddit', label: name),
                              "https://www.reddit.com/username/#{name[2..]}",
-                             class: 'reddit',
+                             class: 'icon reddit',
                              title: l(:label_reddit_user_account)
           else
             name = "r/#{name}"
-            link_to_external font_awesome_icon('fab_reddit', post_text: name),
+            link_to_external svg_icon_tag('reddit', label: name),
                              "https://www.reddit.com/#{name}",
-                             class: 'reddit',
+                             class: 'icon reddit',
                              title: l(:label_reddit_subject)
           end
         end

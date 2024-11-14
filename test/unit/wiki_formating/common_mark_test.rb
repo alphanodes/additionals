@@ -14,7 +14,7 @@ module WikiFormatting
       with_plugin_settings 'additionals', legacy_smiley_support: 1,
                                           emoji_support: 0 do
         assert_includes smiley_filter('A small test :) with an smiley'), '#icon--smiley-smiley'
-        assert_includes smiley_filter('A small test :) with an smiley'), 's18 svg-icon smiley'
+        assert_includes smiley_filter('A small test :) with an smiley'), 's18 icon-svg smiley'
       end
     end
 

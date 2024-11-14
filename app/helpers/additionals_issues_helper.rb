@@ -37,7 +37,7 @@ module AdditionalsIssuesHelper
     link_to svg_icon_tag('assign'),
             issue_assign_to_me_path(issue),
             method: :put,
-            class: 'a-icon assign-to-me',
+            class: 'icon assign-to-me',
             title: l(:button_assign_to_me)
   end
 

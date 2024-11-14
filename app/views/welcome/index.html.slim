@@ -5,18 +5,21 @@
 
   - if @dashboard&.editable?
     - if @dashboard.locked?
-      = font_awesome_icon 'dashboard-locked fas_lock', title: l(:label_dashboard_lock_is_active)
+      = svg_icon_tag 'lock', title: l(:label_dashboard_lock_is_active),
+                             wrapper: :span,
+                             wrapper_css: 'dashboard-locked',
+                             plugin: ''
     - else
       = form_tag add_block_dashboard_path(@dashboard), remote: true, id: 'block-form', authenticity_token: true do
         = dashboard_block_select_tag @dashboard
 
   = actions_dropdown do
     - if User.current.allowed_to? :save_dashboards, nil, global: true
-      = link_to l(:label_new_dashboard),
+      = link_to sprite_icon('add', l(:label_new_dashboard)),
                 new_dashboard_path,
                 class: 'icon icon-add new-additionals-dashboard'
       - if @dashboard&.editable?
-        = link_to l(:button_dashboard_edit),
+        = link_to sprite_icon('edit', l(:button_dashboard_edit)),
                   edit_dashboard_path(@dashboard),
                   class: 'icon icon-edit'
     - if @dashboard&.deletable?

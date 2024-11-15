@@ -50,13 +50,13 @@ module AdditionalsJournalsHelper
 
     entity_type = entity.model_name.param_key
 
-    safe_join [link_to(l(:button_edit),
+    safe_join [link_to(sprite_icon('edit', l(:button_edit)),
                        send(:"edit_#{entity_type}_journal_path", journal),
                        remote: true,
                        method: 'get',
                        title: l(:button_edit),
                        class: 'icon-only icon-edit'),
-               link_to(l(:button_delete),
+               link_to(sprite_icon('del', l(:button_delete)),
                        send(:"#{entity_type}_journal_path", journal, journal: { notes: '' }),
                        remote: true,
                        method: 'put', data: { confirm: l(:text_are_you_sure) },

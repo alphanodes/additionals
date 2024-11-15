@@ -31,14 +31,14 @@
 
     - if User.current.admin?
       - if @project.archived?
-        = link_to l(:button_unarchive),
+        = link_to svg_icon_tag('archive-off', label: :button_unarchive),
                   unarchive_project_path(@project, status: params[:status]),
-                  method: :post, class: 'icon icon-unlock'
+                  method: :post, class: 'icon icon-archive-off'
       - else
         - confirm_msg = l :text_project_archive_confirmation, @project.to_s
-        = link_to l(:button_archive),
+        = link_to svg_icon_tag('archive', label: :button_archive),
                   archive_project_path(@project, status: params[:status]),
-                  data: { confirm: confirm_msg }, method: :post, class: 'icon icon-lock'
+                  data: { confirm: confirm_msg }, method: :post, class: 'icon icon-archive'
       = link_to sprite_icon('copy', l(:button_copy)), copy_project_path(@project), class: 'icon icon-copy'
       = link_to sprite_icon('del', l(:button_delete)), project_path(@project), method: :delete, class: 'icon icon-del'
     - elsif @project.deletable?
@@ -69,8 +69,9 @@ h2 = project_overview_name @project, @dashboard
 
 - unless @project.active?
   p.warning
+    =
     span.icon.icon-lock
-      = l :text_project_closed
+      = sprite_icon 'lock', l(:text_project_closed)
 
 = render 'common/dashboard', dashboard: @dashboard
 = content_for :render_async

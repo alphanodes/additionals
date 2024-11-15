@@ -61,14 +61,14 @@ module DashboardsHelper
       css_class = base_css
       dashboard_name = "#{l :label_dashboard}: #{dashboard.name}"
       out << if dashboard.id == active_dashboard.id
-               link_to_function dashboard_name,
+               link_to_function svg_icon_tag('dashboard', label: dashboard_name, css_class: 'disabled'),
                                 '',
                                 class: "#{base_css} disabled"
              else
                dashboard_link dashboard, project,
                               class: css_class,
                               title: l(:label_change_to_dashboard),
-                              name: dashboard_name
+                              name: svg_icon_tag('dashboard', label: dashboard_name)
              end
     end
 
@@ -166,11 +166,11 @@ module DashboardsHelper
     return unless dashboard
 
     if enabled
-      link_to l(:label_disable_sidebar),
+      link_to sprite_icon('chevrons-right', l(:label_disable_sidebar)),
               dashboard_link_path(project, dashboard, enable_sidebar: 0),
               class: 'icon icon-sidebar'
     else
-      link_to l(:label_enable_sidebar),
+      link_to sprite_icon('chevrons-left', l(:label_enable_sidebar)),
               dashboard_link_path(project, dashboard, enable_sidebar: 1),
               class: 'icon icon-sidebar'
     end
@@ -187,7 +187,7 @@ module DashboardsHelper
       options[:data] = { confirm: l(:text_are_you_sure) }
     end
 
-    link_to l(:button_dashboard_delete), url, options
+    link_to sprite_icon('del', l(:button_dashboard_delete)), url, options
   end
 
   # Returns the select tag used to add or remove a block
@@ -231,15 +231,19 @@ module DashboardsHelper
       icons = []
       if block_definition[:no_settings].blank? &&
          (!block_definition.key?(:with_settings_if) || block_definition[:with_settings_if].call(@project))
-        icons << link_to_function(l(:label_options),
+        icons << link_to_function(sprite_icon('settings', l(:label_options)),
                                   "$('##{block}-settings').toggle()",
                                   class: 'icon-only icon-settings',
                                   title: l(:label_options))
       end
       if block_definition.key? :async
-        icons << tag.span('', class: 'icon-only icon-warning', title: dashboard_block_sync_info(block_definition))
+        icons << svg_icon_tag('warning',
+                              plugin: '',
+                              wrapper: :span,
+                              wrapper_class: 'icon-only',
+                              title: dashboard_block_sync_info(block_definition))
       end
-      icons << tag.span('', class: 'icon-only icon-sort-handle sort-handle', title: l(:button_move))
+      icons << tag.span(sprite_icon('reorder', ''), class: 'icon-only icon-sort-handle sort-handle', title: l(:button_move))
       icons << delete_link(_remove_block_dashboard_path(@project, dashboard, block:),
                            method: :post,
                            remote: true,

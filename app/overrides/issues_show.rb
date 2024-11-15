@@ -4,7 +4,7 @@ module IssuesShow
   Deface::Override.new virtual_path: 'issues/_action_menu',
                        name: 'show-issue-log-time',
                        replace: 'erb[loud]:contains("User.current.allowed_to?(:log_time, @project)")',
-                       original: '4bbf065b9f960687e07f76e7232eb21bf183a981',
+                       original: 'b6e18c6fee9b49bcbdeb6a51cdfa43896a75c99e',
                        partial: 'issues/additionals_action_menu_log_time'
 
   Deface::Override.new virtual_path: 'issues/_action_menu',

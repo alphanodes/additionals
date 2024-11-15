@@ -32,7 +32,7 @@ fieldset.hide-attachments {
 
 .external-links a.external,
 em.info a.external {
-  background-image: url('../../../images/external.png');
+  background-image: url('/external.png');
   padding-left: 14px;
   background-position: 0% 60%;
   background-repeat: no-repeat;
@@ -52,6 +52,8 @@ em.info a.external {
 .icon-svg.icon-padding {
   padding-right: 2px;
 }
+
+.icon-svg.disabled { stroke: #aaa; }
 
 svg.icon-svg.smiley {
   fill: #edae40;
@@ -73,7 +75,7 @@ ul.dashboard-list {
   display: flex;
 }
 
-h3.icon-label {
+.icon-label {
   margin-left: 4px;
 }
 
@@ -179,6 +181,10 @@ div.clear-both { clear: both; }
 .clipboard-text { cursor: pointer; }
 
 img.additionals-avatar { margin-right: 0.25em; }
+
+#page-title svg {
+  stroke: #555;
+}
 
 h2#page-title {
   display: inline-flex;

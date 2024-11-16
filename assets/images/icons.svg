@@ -246,18 +246,16 @@
       <path d="M4 6v6a8 3 0 0 0 16 0v-6" />
       <path d="M4 12v6a8 3 0 0 0 16 0v-6" />
     </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--fullscreen">
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--fullscreen">
       <!-- arrows-maximize -->
-      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M16 4l4 0l0 4" />
-        <path d="M14 10l6 -6" />
-        <path d="M8 20l-4 0l0 -4" />
-        <path d="M4 20l6 -6" />
-        <path d="M16 20l4 0l0 -4" />
-        <path d="M14 14l6 6" />
-        <path d="M8 4l-4 0l0 4" />
-        <path d="M4 4l6 6" />
-      </g>
+      <path d="M16 4l4 0l0 4" />
+      <path d="M14 10l6 -6" />
+      <path d="M8 20l-4 0l0 -4" />
+      <path d="M4 20l6 -6" />
+      <path d="M16 20l4 0l0 -4" />
+      <path d="M14 14l6 6" />
+      <path d="M8 4l-4 0l0 4" />
+      <path d="M4 4l6 6" />
     </symbol>
     <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--twitter">
       <!-- brand-twitter -->

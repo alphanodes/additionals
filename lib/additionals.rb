@@ -140,9 +140,6 @@ module Additionals
 
       Redmine::WikiFormatting.format_names.each do |format|
         case format
-        when 'markdown'
-          loader.add_patch [{ target: Redmine::WikiFormatting::Markdown::HTML, patch: 'FormatterMarkdown' },
-                            { target: Redmine::WikiFormatting::Markdown::Helper, patch: 'FormattingHelper' }]
         when 'common_mark'
           loader.add_patch [{ target: Redmine::WikiFormatting::CommonMark::Formatter, patch: 'FormatterCommonMark' }]
           loader.add_patch [{ target: Redmine::WikiFormatting::CommonMark::Helper, patch: 'FormattingHelper' }]

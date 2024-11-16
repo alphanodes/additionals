@@ -1,9 +1,9 @@
 h3.icon.icon-issue
-  = l :label_issue_tracking
-  '
-  = link_to l(:label_details),
+  = svg_icon_tag 'issue', label: :label_issue_tracking, plugin: ''
+
+  = link_to sprite_icon('zoom-in', l(:label_details)),
              project_issues_report_details_path(@project, detail: 'tracker'),
-             class: 'icon-only icon-zoom-in',
+             class: 'icon-label icon-only icon-zoom-in',
              title: l(:label_details)
 
 - if @trackers.present?

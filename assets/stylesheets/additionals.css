@@ -171,6 +171,9 @@ div.clear-both { clear: both; }
   text-align: left;
 }
 
+/* droped with redmine 6, why? */
+#sidebar h3 { margin-top: 14px; }
+
 .clipboard-button {
   padding-bottom: 2px;
   padding-top: 2px;
@@ -182,8 +185,10 @@ div.clear-both { clear: both; }
 
 img.additionals-avatar { margin-right: 0.25em; }
 
+.dashboard-block h3 svg,
 #page-title svg {
   stroke: #555;
+  stroke-width: 2;
 }
 
 h2#page-title {

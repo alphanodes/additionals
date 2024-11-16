@@ -5,6 +5,7 @@
 - Support for Redmine 6
 - Redmine 5 support dropped
 - Gemify support dropped
+- switch icons from fontawesome to tabler
 
 ## 3.4.0
 

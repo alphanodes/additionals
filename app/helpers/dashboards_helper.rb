@@ -253,7 +253,7 @@ module DashboardsHelper
       content = tag.div(safe_join(icons), class: 'contextual') + content
     end
 
-    tag.div content, class: "mypage-box block-#{block_definition[:name]}", id: "block-#{block}"
+    tag.div content, class: "mypage-box dashboard-block block-#{block_definition[:name]}", id: "block-#{block}"
   end
 
   def build_dashboard_partial_locals(block, block_definition, settings, dashboard)

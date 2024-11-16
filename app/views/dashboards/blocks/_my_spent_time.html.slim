@@ -30,7 +30,7 @@ ul.dashboard-list
 
 = link_to l(:label_spent_time), _time_entries_path(@project, nil, user_id: 'me')
 '
-= link_to l(:button_log_time),
+= link_to sprite_icon('time-add'),
           _new_time_entry_path(@project, nil),
-          class: 'icon-only icon-add',
+          class: 'icon-only icon-time-add',
           title: l(:button_log_time)

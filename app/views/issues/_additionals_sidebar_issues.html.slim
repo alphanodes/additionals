@@ -9,10 +9,10 @@
         - unless s == @issue.status
           li
             - if s.is_closed?
-              = link_to font_awesome_icon('fas_caret-square-left', post_text: s.name),
+              = link_to svg_icon_tag('square-chevron-left-filled', label: s.name),
                         issue_change_status_path(@issue, new_status_id: s.id),
-                        method: :put, class: "status-switch status-#{s.id}"
+                        method: :put, class: "icon icon-flipped-color status-switch status-#{s.id}"
             - else
-              = link_to font_awesome_icon('far_caret-square-left', post_text: s.name),
+              = link_to svg_icon_tag('square-chevron-left', label: s.name),
                         issue_change_status_path(@issue, new_status_id: s.id),
-                        method: :put, class: "status-switch status-#{s.id}"
+                        method: :put, class: "icon status-switch status-#{s.id}"

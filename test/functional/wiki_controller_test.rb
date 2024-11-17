@@ -326,18 +326,6 @@ class WikiControllerTest < Additionals::ControllerTest
     assert_select 'script[src=?]', 'https://gist.github.com/plentz/6737338.js'
   end
 
-  def test_show_with_tradeview_macro
-    @request.session[:user_id] = WIKI_MACRO_USER_ID
-    page = WikiPage.generate! content: '{{tradingview(symbol=NASDAQ:AMZN, locale=en)}}',
-                              title: __method__.to_s
-
-    get :show,
-        params: { project_id: 1, id: page.title }
-
-    assert_response :success
-    assert_select 'script[src=?]', 'https://s3.tradingview.com/tv.js'
-  end
-
   def test_show_with_cryptocompare_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     page = WikiPage.generate! content: '{{cryptocompare(fsyms=BTC;ETH, type=header_v3)}}',

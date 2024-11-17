@@ -6,6 +6,7 @@
 - Redmine 5 support dropped
 - Gemify support dropped
 - switch icons from fontawesome to tabler
+- broken tradingview macro removed
 
 ## 3.4.0
 

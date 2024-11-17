@@ -12,7 +12,7 @@ module Additionals
 
       module InstanceMethods
         def render_flash_mail(mail, name = nil)
-          content = "#{name} <span class=\"icon icon-email\">#{mail}</span>"
+          content = "#{name} (#{mail})"
           return content if name.blank?
 
           "#{name} #{content}"

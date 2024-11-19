@@ -3,6 +3,11 @@
   "rules": {
     "string-quotes": "single",
     "selector-class-pattern": "^([a-z][a-z0-9]*)(-[a-z0-9]+)*$|block_column",
+    "declaration-property-unit-disallowed-list": {
+      "font-size": [
+        "px"
+      ]
+    },
     "font-family-no-missing-generic-family-keyword": [
       true,
       {

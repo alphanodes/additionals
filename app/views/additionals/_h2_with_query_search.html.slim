@@ -1,5 +1,4 @@
-- classes = 'live-search'
-h2#page-title class="#{classes}"
+h2#page-title.live-search
   - if defined? css_class
     = svg_icon_tag css_class, css_class: 'icon-padding', size: 24
   = @query.new_record? ? l(title) : h(@query.name)

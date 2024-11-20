@@ -9,11 +9,11 @@
     - else
       p
         label
-          = radio_button_tag 'c[]', '', true
+          = radio_button_tag 'c[]', '', true, id: nil
           = l :description_selected_columns
         br
         label
-          = radio_button_tag 'c[]', 'all_inline'
+          = radio_button_tag 'c[]', 'all_inline', id: nil
           = l :description_all_columns
 
     - if query.available_block_columns.any?

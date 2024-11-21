@@ -111,7 +111,7 @@ svg {
 
 .icon-flipped-color svg {
   stroke: none;
-  fill: #169;
+  fill: var(--a-color-default);
 }
 
 .icon-flipped-color.a.selected:hover {
@@ -228,8 +228,8 @@ div.macro-desc {
   position: absolute;
   width: inherit;
   z-index: 45;
-  background-color: #fff;
-  box-shadow: 2px 2px 14px #000;
+  background-color: var(--a-color-white);
+  box-shadow: 2px 2px 14px var(--a-color-black);
   top: 17px;
   font-size: 110%;
 }
@@ -244,13 +244,13 @@ div.macro-desc {
   display: block;
   color: var(--a-color-dark);
   padding: 5px 10px;
-  background-color: #fff;
+  background-color: var(--a-color-white);
   font-weight: normal;
   margin-right: 0;
 }
 
 #top-menu .menu-children li a:hover {
-  color: #fff;
+  color: var(--a-color-white);
   background-color: #759fcf;
 }
 

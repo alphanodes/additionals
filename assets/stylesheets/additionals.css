@@ -8,13 +8,13 @@
 
 .query-description,
 .dashboard-description {
-  color: var(--darkfontcolor);
+  color: var(--a-color-dark);
   margin-bottom: 15px;
   font-size: 95%;
 }
 
 span.dashboard-locked {
-  stroke: var(--darkfontcolor);
+  stroke: var(--a-color-dark);
 }
 
 fieldset.hide-attachments {
@@ -105,7 +105,7 @@ svg {
   }
 
   &.dashboard-system-default.global {
-    stroke: var(--alertfontcolor);
+    stroke: var(--a-color-alert);
   }
 }
 
@@ -118,7 +118,7 @@ svg {
   text-decoration: none;
 }
 
-.sudo-admin { color: var(--alertfontcolor); }
+.sudo-admin { color: var(--a-color-alert); }
 
 .nodata.nodata-left { text-align: left; }
 
@@ -184,7 +184,7 @@ img.additionals-avatar { margin-right: 0.25em; }
 
 .dashboard-block h3 svg,
 #page-title svg {
-  stroke: var(--darkfontcolor);
+  stroke: var(--a-color-dark);
   stroke-width: 2;
 }
 
@@ -242,7 +242,7 @@ div.macro-desc {
 
 #top-menu .menu-children li a {
   display: block;
-  color: var(--darkfontcolor);
+  color: var(--a-color-dark);
   padding: 5px 10px;
   background-color: #fff;
   font-weight: normal;
@@ -360,7 +360,7 @@ div.drdn-items a.disabled,
 div.drdn-items a.disabled:hover { color: #aaa; }
 
 table.entity-list td.block_column {
-  color: #777;
+  color: var(--a-color-info);
   font-size: 90%;
   padding: 4px 4px 4px 2px;
   text-align: left;

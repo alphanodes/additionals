@@ -7,7 +7,7 @@
 .clear-both
 
 javascript:
-  const pie_chart_#{{@chart[:id]}} = new Chart(document.getElementById("#{@chart[:id]}"), {
+  var pie_chart_#{{@chart[:id]}} = new Chart(document.getElementById("#{@chart[:id]}"), {
     type: 'pie',
     data: {
       label_ids: #{raw json_escape(@chart[:label_ids])},

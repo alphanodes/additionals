@@ -41,8 +41,10 @@ class AdditionalsChart
     data[:value_link_method] = '_project_issues_path' unless options.key? :value_link_method
     data[:color_schema] = color_schema
 
-    values = Array(datasets).first[:data]
-    data[:data_sum] = values.present? ? values.sum : 0
+    unless options[:skip_data_sum]
+      values = Array(datasets).first[:data]
+      data[:data_sum] = values.present? ? values.sum : 0
+    end
 
     data.merge options
   end

@@ -21,7 +21,6 @@ module AdditionalsIconsHelper
                    wrapper_content: nil,
                    wrapper_class: 'icon',
                    wrapper_css: nil)
-
     sprite = plugin.present? ? "plugin_assets/#{plugin}/#{sprite}.svg" : "#{sprite}.svg"
     content = additionals_svg_sprite_icon(icon_name, size:, sprite:, title:, css_class:)
 

@@ -183,11 +183,18 @@ If you know other plugins, which are using `additionals`, please let us know or 
 
 `additionals` is [Open-source](https://opensource.org/osd) and it is available at <https://github.com/alphanodes/additionals>
 
-If you want to implement new features in it or if you want to change something, you can provide a pull request.
+### Contributing
+
+You can help to improve the plugin by providing pull requests of changes or features you want. Thank you for your interest and help.
+
+All contributions to this project are licensed under the terms of GNU/GPL v2.
+See [LICENSE](LICENSE) for details.
+
+### Comercial feature development
 
 The plugin is maintained by [AlphaNodes](https://alphanodes.com) for free as far as possible. In case you want a feature, which is not available and you are not capable of implementing it yourself, you can request this feature from AlphaNodes.
 
-We are an `Open-source`_ service company from Munich. Among other things, we offer commercial plugin development (e.g. implementation function request, expansion of functionality, etc).  As we know our plugin at its best we are glad to take this job from you. In case the requested plugin changes still fit to the plugin purpose. Please, contact us in case you are interested in commercial plugin development.
+We are an `Open-source`_ service company from Munich. Among other things, we offer commercial plugin development (e.g. implementation function request, expansion of functionality, etc). In case the requested plugin changes still fit to the plugin purpose. Please, contact us in case you are interested in commercial plugin development.
 
 ## Additionals plugin manual
 

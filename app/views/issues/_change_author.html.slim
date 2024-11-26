@@ -3,7 +3,8 @@
   - if author_options.present?
     p#change_author
       = form.label_for_field :author_id
-      = link_to_function tag.span(l(:button_edit), class: 'icon icon-edit'), '$(this).hide(); $("#issue_author_id").show()'
+      = link_to_function svg_icon_tag('edit', label: :button_edit, wrapper: :span, plugin: ''),
+                         '$(this).hide(); $("#issue_author_id").show()'
       = form.select :author_id, author_options, { required: true, no_label: true }, style: 'display: none;'
     javascript:
       $('#change_author').insertBefore($('#issue_tracker_id').parent());

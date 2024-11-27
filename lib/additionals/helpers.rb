@@ -315,6 +315,10 @@ module Additionals
     end
 
     def additionals_load_chartjs
+      additionals_include_js 'chart.umd'
+    end
+
+    def additionals_load_chartjs_core
       additionals_include_js 'chart.min', core: true
     end
 

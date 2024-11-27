@@ -51,7 +51,7 @@ module Additionals
             project ||= Project.visible.find_by name: project_id
             return '' if project.nil? || !User.current.allowed_to?(:add_issues, project)
 
-            return link_to i18n_name, new_project_issue_path(project), class: 'macro-new-issue icon icon-add'
+            return link_to sprite_icon('add', i18n_name), new_project_issue_path(project), class: 'macro-new-issue icon icon-add'
           else
             @memberships = User.current
                                .memberships
@@ -60,7 +60,7 @@ module Additionals
                                .to_a
             if @memberships.present?
               project_url = memberships_new_issue_project_url User.current, @memberships, :add_issues
-              return link_to i18n_name, project_url, class: 'macro-new-issue icon icon-add' if project_url.present?
+              return link_to sprite_icon('add', i18n_name), project_url, class: 'macro-new-issue icon icon-add' if project_url.present?
             end
           end
 

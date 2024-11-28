@@ -168,7 +168,7 @@ The following modules are available :
 * [redmine_devops](https://alphanodes.com/redmine-devops)
 * [redmine_git_hosting](http://redmine-git-hosting.io/)
 * [redmine_hedgedoc](https://github.com/alphanodes/redmine_hedgedoc)
-* [redmine_hrm](https://alphanodes.com/redmine-hrm>)
+* [redmine_hrm](https://alphanodes.com/redmine-hrm)
 * [redmine_omniauth_saml](https://github.com/alphanodes/redmine_saml)
 * [redmine_passwords](https://alphanodes.com/redmine-passwords)
 * [redmine_issue_view_columns](https://github.com/alphanodes/redmine_issue_view_columns)

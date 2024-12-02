@@ -7,7 +7,7 @@
 - Gemify support dropped
 - switch icons from fontawesome to tabler
 - broken tradingview macro removed
-- latest Chart.js support (version 4.4.6)
+- latest Chart.js support (version 4.4.7)
 - Chart.js Plugin datalabels 2.2.0
 - Chart.js Plugin annotation 3.0.1
 - moment 2.30.1 support

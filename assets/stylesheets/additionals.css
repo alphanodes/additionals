@@ -6,6 +6,21 @@
   margin-left: 5px;
 }
 
+.fixed-form input[type='text'],
+.fixed-form input[type='password'],
+.fixed-form input[type='url'],
+.fixed-form input[type='email'],
+.fixed-form input[type='search'],
+.fixed-form textarea {
+  width: var(--a-fixed-width);
+}
+
+input[type='search']:focus#search,
+input[type='search']:active#search {
+  border: 1px solid #5ad;
+  outline: none;
+}
+
 .query-description,
 .dashboard-description {
   color: var(--a-color-dark);
@@ -25,7 +40,7 @@ fieldset.hide-attachments {
 #my-page.dashboard .settings input[type='text'],
 #my-page.dashboard .settings input[type='password'],
 #my-page.dashboard .settings input[type='url'] {
-  width: 90%;
+  width: var(--a-fixed-width);
 }
 
 /* Icons */
@@ -63,16 +78,6 @@ svg.icon-svg.smiley {
 ul.dashboard-list {
   padding-left: 20px;
   margin-top: 0;
-}
-
-#context-menu .icon {
-  padding: 0;
-  display: inline-flex;
-}
-
-.drdn-items a.icon {
-  padding: 2px;
-  display: flex;
 }
 
 .icon-label {

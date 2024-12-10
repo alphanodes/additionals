@@ -2,7 +2,7 @@
 
 require File.expand_path '../../../test_helper', __FILE__
 
-class GlobalHelperTest < Redmine::HelperTest
+class GlobalHelperTest < Additionals::HelperTest
   include Additionals::Helpers
   include RedminePluginKit::Helpers::GlobalHelper
   include AdditionalsFontawesomeHelper
@@ -11,17 +11,6 @@ class GlobalHelperTest < Redmine::HelperTest
   include AvatarsHelper
   include Redmine::I18n
   include ERB::Util
-
-  fixtures :projects, :trackers, :issue_statuses, :issues,
-           :enumerations, :users, :issue_categories,
-           :projects_trackers,
-           :roles,
-           :member_roles,
-           :members,
-           :enabled_modules,
-           :custom_fields,
-           :attachments,
-           :versions
 
   def setup
     super

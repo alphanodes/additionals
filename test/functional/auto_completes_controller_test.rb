@@ -3,12 +3,6 @@
 require File.expand_path '../../test_helper', __FILE__
 
 class AutoCompletesControllerTest < Additionals::ControllerTest
-  fixtures :projects, :email_addresses,
-           :enumerations, :users, :groups_users,
-           :roles,
-           :members, :member_roles,
-           :enabled_modules
-
   def setup
     prepare_tests
     Setting.default_language = 'en'

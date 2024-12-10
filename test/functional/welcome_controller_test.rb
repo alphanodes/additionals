@@ -19,9 +19,6 @@ class ViewDashboardBottomRenderOn < Redmine::Hook::ViewListener
 end
 
 class WelcomeControllerTest < Additionals::ControllerTest
-  fixtures :projects, :news, :users, :members,
-           :dashboards, :dashboard_roles
-
   def setup
     Setting.default_language = 'en'
     User.current = nil

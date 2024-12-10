@@ -4,27 +4,6 @@ require File.expand_path '../../../test_helper', __FILE__
 
 module ApiTest
   class IssuesTest < Additionals::ApiTest
-    fixtures :projects,
-             :users,
-             :roles,
-             :members,
-             :member_roles,
-             :issues,
-             :issue_statuses,
-             :issue_relations,
-             :versions,
-             :trackers,
-             :projects_trackers,
-             :issue_categories,
-             :enabled_modules,
-             :enumerations,
-             :attachments,
-             :workflows,
-             :time_entries,
-             :journals,
-             :journal_details,
-             :queries
-
     test 'GET /issues.xml should contain metadata' do
       get '/issues.xml'
 

@@ -3,16 +3,6 @@
 require File.expand_path '../../test_helper', __FILE__
 
 class TimeEntryTest < Additionals::TestCase
-  fixtures :users, :email_addresses,
-           :issues, :projects, :time_entries,
-           :members, :roles, :member_roles,
-           :trackers, :issue_statuses,
-           :projects_trackers,
-           :journals, :journal_details,
-           :issue_categories, :enumerations,
-           :groups_users,
-           :enabled_modules
-
   def setup
     prepare_tests
   end

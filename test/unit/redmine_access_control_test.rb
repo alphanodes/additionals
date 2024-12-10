@@ -3,11 +3,6 @@
 require File.expand_path '../../test_helper', __FILE__
 
 class RedmineAccessControlTest < Additionals::TestCase
-  fixtures :projects, :users, :members, :member_roles, :roles,
-           :trackers, :projects_trackers,
-           :enabled_modules,
-           :roles
-
   def setup
     prepare_tests
   end

@@ -3,16 +3,6 @@
 require File.expand_path '../../test_helper', __FILE__
 
 class AccountControllerTest < Additionals::ControllerTest
-  fixtures :users, :groups_users, :email_addresses, :user_preferences,
-           :roles, :members, :member_roles,
-           :issues, :issue_statuses, :issue_relations,
-           :issues, :issue_statuses, :issue_categories,
-           :versions, :trackers,
-           :projects, :projects_trackers, :enabled_modules,
-           :enumerations
-
-  fixtures :hrm_user_types, :hrm_working_calendars if AdditionalsPlugin.active_hrm?
-
   def setup
     Setting.default_language = 'en'
     User.current = nil

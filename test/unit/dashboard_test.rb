@@ -3,15 +3,6 @@
 require File.expand_path '../../test_helper', __FILE__
 
 class DashboardTest < Additionals::TestCase
-  fixtures :projects, :users, :members, :member_roles, :roles,
-           :trackers, :projects_trackers,
-           :enabled_modules,
-           :issue_statuses, :issue_categories, :workflows,
-           :enumerations,
-           :issues, :journals, :journal_details,
-           :custom_fields, :custom_fields_projects, :custom_fields_trackers, :custom_values,
-           :dashboards, :dashboard_roles
-
   def setup
     prepare_tests
     User.current = users :users_002

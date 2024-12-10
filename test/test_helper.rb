@@ -12,6 +12,7 @@ require 'minitest/reporters'
 Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new, Minitest::Reporters::JUnitReporter.new]
 
 require File.expand_path "#{File.dirname __FILE__}/../../../test/test_helper"
+require File.expand_path "#{File.dirname __FILE__}/global_fixtures_helper"
 require File.expand_path "#{File.dirname __FILE__}/global_test_helper"
 require File.expand_path "#{File.dirname __FILE__}/crud_controller_base"
 
@@ -43,32 +44,42 @@ module Additionals
   end
 
   module PluginFixturesLoader
-    def fixtures(*table_names)
-      dir = "#{File.dirname __FILE__}/fixtures/"
-      table_names.each do |x|
-        ActiveRecord::FixtureSet.create_fixtures dir, x if File.exist? "#{dir}/#{x}.yml"
-      end
-      super table_names
+    include Additionals::GlobalFixturesHelper
+
+    def plugin_fixtures_list
+      custom = %i[dashboards dashboard_roles]
+      custom += %i[hrm_user_types hrm_working_calendars] if AdditionalsPlugin.active_hrm?
+      custom
     end
+  end
+
+  class HelperTest < Redmine::HelperTest
+    include Additionals::TestHelper
+    extend PluginFixturesLoader
+    fixtures(*fixtures_list)
   end
 
   class ControllerTest < Redmine::ControllerTest
     include Additionals::TestHelper
     extend PluginFixturesLoader
+    fixtures(*fixtures_list)
   end
 
   class TestCase < ActiveSupport::TestCase
     include Additionals::TestHelper
     extend PluginFixturesLoader
+    fixtures(*fixtures_list)
   end
 
   class IntegrationTest < Redmine::IntegrationTest
     include Additionals::TestHelper
     extend PluginFixturesLoader
+    fixtures(*fixtures_list)
   end
 
   class ApiTest < Redmine::ApiTest::Base
     include Additionals::TestHelper
     extend PluginFixturesLoader
+    fixtures(*fixtures_list)
   end
 end

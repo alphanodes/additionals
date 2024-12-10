@@ -3,15 +3,6 @@
 require File.expand_path '../../test_helper', __FILE__
 
 class ReportsControllerTest < Additionals::ControllerTest
-  fixtures :users, :groups_users, :email_addresses, :user_preferences,
-           :roles, :members, :member_roles,
-           :projects, :trackers, :issue_statuses, :issues,
-           :enumerations, :issue_categories,
-           :projects_trackers,
-           :roles, :member_roles, :members,
-           :enabled_modules, :workflows,
-           :versions
-
   def setup
     prepare_tests
   end

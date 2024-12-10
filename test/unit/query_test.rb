@@ -3,15 +3,6 @@
 require File.expand_path '../../test_helper', __FILE__
 
 class QueryTest < Additionals::TestCase
-  fixtures :projects, :users, :members, :member_roles, :roles,
-           :groups_users,
-           :trackers, :projects_trackers,
-           :enabled_modules,
-           :roles,
-           :repositories
-
-  fixtures :hrm_user_types, :hrm_working_calendars if AdditionalsPlugin.active_hrm?
-
   def setup
     User.current = nil
   end

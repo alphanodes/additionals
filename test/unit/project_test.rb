@@ -3,24 +3,6 @@
 require File.expand_path '../../test_helper', __FILE__
 
 class ProjectTest < Additionals::TestCase
-  fixtures :projects, :trackers, :issue_statuses, :issues,
-           :journals, :journal_details,
-           :enumerations, :users, :issue_categories,
-           :projects_trackers,
-           :custom_fields,
-           :custom_fields_projects,
-           :custom_fields_trackers,
-           :custom_values,
-           :roles,
-           :member_roles,
-           :members,
-           :enabled_modules,
-           :groups_users,
-           :repositories,
-           :workflows,
-           :attachments,
-           :dashboards, :dashboard_roles
-
   def setup
     prepare_tests
     User.current = nil

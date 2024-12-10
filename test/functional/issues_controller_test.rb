@@ -3,21 +3,6 @@
 require File.expand_path '../../test_helper', __FILE__
 
 class IssuesControllerTest < Additionals::ControllerTest
-  fixtures :users, :email_addresses, :roles,
-           :enumerations,
-           :projects, :projects_trackers, :enabled_modules,
-           :members, :member_roles,
-           :issues, :issue_statuses, :issue_categories, :issue_relations,
-           :versions,
-           :trackers,
-           :workflows,
-           :custom_fields, :custom_values, :custom_fields_projects, :custom_fields_trackers,
-           :time_entries,
-           :watchers, :attachments,
-           :journals, :journal_details,
-           :repositories, :changesets,
-           :queries
-
   def setup
     manager_role = roles :roles_001
     manager_role.add_permission! :edit_issue_author

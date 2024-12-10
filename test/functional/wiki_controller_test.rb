@@ -3,23 +3,6 @@
 require File.expand_path '../../test_helper', __FILE__
 
 class WikiControllerTest < Additionals::ControllerTest
-  fixtures :projects,
-           :users,
-           :roles,
-           :members,
-           :member_roles,
-           :trackers,
-           :groups_users,
-           :projects_trackers,
-           :enabled_modules,
-           :issue_statuses,
-           :issues,
-           :enumerations,
-           :custom_fields,
-           :custom_values,
-           :custom_fields_trackers,
-           :wikis
-
   WIKI_MACRO_USER_ID = 2
 
   def setup

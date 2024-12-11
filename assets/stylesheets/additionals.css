@@ -84,34 +84,32 @@ ul.dashboard-list {
   margin-left: 4px;
 }
 
-svg {
-  &.s64 {
-    width: 64px;
-    height: 64px;
-  }
+svg.s64 {
+  width: 64px;
+  height: 64px;
+}
 
-  &.s32 {
-    width: 32px;
-    height: 32px;
-  }
+svg.s32 {
+  width: 32px;
+  height: 32px;
+}
 
-  &.s24 {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
+svg.s24 {
+  width: 1.5rem;
+  height: 1.5rem;
+}
 
-  &.s16 {
-    width: 1rem;
-    height: 1rem;
-  }
+svg.s16 {
+  width: 1rem;
+  height: 1rem;
+}
 
-  &.suffixed {
-    margin-left: 3px;
-  }
+svg.suffixed {
+  margin-left: 3px;
+}
 
-  &.dashboard-system-default.global {
-    stroke: var(--a-color-alert);
-  }
+svg.dashboard-system-default.global {
+  stroke: var(--a-color-alert);
 }
 
 .icon-flipped-color svg {

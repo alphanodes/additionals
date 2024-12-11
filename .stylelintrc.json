@@ -2,6 +2,7 @@
   "extends": "stylelint-config-standard",
   "rules": {
     "string-quotes": "single",
+    "selector-nested-pattern": "false",
     "selector-class-pattern": "^([a-z][a-z0-9]*)(-[a-z0-9]+)*$|block_column",
     "declaration-property-unit-disallowed-list": {
       "font-size": [

@@ -3,6 +3,33 @@
 module AdditionalsJournalsHelper
   MultipleValuesDetail = Struct.new :property, :prop_key, :custom_field, :old_value, :value
 
+  def entity_history_tabs(entity, journals, template_dir: nil)
+    tabs = []
+    has_notes = false
+
+    template_dir ||= entity.class.name.underscore.pluralize
+
+    if journals.present?
+      tabs << { name: 'history',
+                partial: "#{template_dir}/tabs/history",
+                onclick: 'showIssueHistory("history", this.href)',
+                locals: { tab_name: 'history' },
+                label: :label_history }
+
+      has_notes = journals.any? { |value| value.notes.present? }
+    end
+
+    return tabs unless has_notes
+
+    tabs << { name: 'notes',
+              partial: "#{template_dir}/tabs/history",
+              onclick: 'showIssueHistory("notes", this.href)',
+              locals: { tab_name: 'notes' },
+              label: :label_issue_history_notes }
+
+    tabs
+  end
+
   # Returns the textual representation of a journal details
   # as an array of strings
   def entity_details_to_strings(entity, details, **options)

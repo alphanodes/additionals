@@ -1,0 +1,33 @@
+- edit_mode = false
+- journals.each do |journal|
+  - next if tab[:name] == 'notes' && journal.notes.blank?
+  - edit_mode = true if !edit_mode && journal.editable_by?(User.current)
+
+  div id="change-#{journal.id}" class="#{journal.css_classes}"
+    div id="note-#{journal.indice}"
+      .contextual
+        span.journal-actions
+          = render_entity_journal_actions entry, journal
+        a.journal-link href="#note-#{journal.indice}"
+          |#
+          = journal.indice
+      h4.note-header
+        = avatar journal.user, size: 24
+        = authoring journal.created_on, journal.user, label: :label_updated_time_by
+        = render_author_indicator entry, journal
+        '
+        = render_journal_update_info journal
+
+      - if journal.details.any?
+        ul.details
+          - entity_details_to_strings(entry, journal.visible_details).each do |string|
+            li = string
+      - if Setting.thumbnails_enabled? && (thumbnail_attachments = journal_thumbnail_attachments journal).any?
+        .thumbnails
+          - thumbnail_attachments.each do |attachment|
+            div = thumbnail_tag attachment
+
+      = render_notes nil, journal if journal.notes.present?
+
+- if edit_mode
+  - heads_for_wiki_formatter

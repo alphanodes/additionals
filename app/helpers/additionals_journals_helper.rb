@@ -3,13 +3,13 @@
 module AdditionalsJournalsHelper
   MultipleValuesDetail = Struct.new :property, :prop_key, :custom_field, :old_value, :value
 
-  def entity_history_tabs(entity, journals, template_dir: nil)
+  def entity_history_tabs(entity, journals, template_dir: nil, force_history: false)
     tabs = []
     has_notes = false
 
     template_dir ||= entity.class.name.underscore.pluralize
 
-    if journals.present?
+    if force_history || journals.present?
       tabs << { name: 'history',
                 partial: "#{template_dir}/tabs/history",
                 onclick: 'showIssueHistory("history", this.href)',

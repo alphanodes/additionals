@@ -78,18 +78,18 @@ module Additionals
           src << "?geoloc=fixed&days=#{options[:days]}&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR"
           src << "&precipunit=MILLIMETER&coloured=#{options[:coloured]}"
 
-          src << Additionals.meteoblue_flag(options, :pictoicon, true)
-          src << Additionals.meteoblue_flag(options, :maxtemperature, true)
-          src << Additionals.meteoblue_flag(options, :mintemperature, true)
-          src << Additionals.meteoblue_flag(options, :windspeed, false)
-          src << Additionals.meteoblue_flag(options, :windgust, false)
-          src << Additionals.meteoblue_flag(options, :winddirection, false)
-          src << Additionals.meteoblue_flag(options, :uv, false)
-          src << Additionals.meteoblue_flag(options, :humidity, false)
-          src << Additionals.meteoblue_flag(options, :precipitation, true)
-          src << Additionals.meteoblue_flag(options, :precipitationprobability, true)
-          src << Additionals.meteoblue_flag(options, :spot, true)
-          src << Additionals.meteoblue_flag(options, :pressure, false)
+          src << Additionals.meteoblue_flag(options, :pictoicon, default: true)
+          src << Additionals.meteoblue_flag(options, :maxtemperature, default: true)
+          src << Additionals.meteoblue_flag(options, :mintemperature, default: true)
+          src << Additionals.meteoblue_flag(options, :windspeed)
+          src << Additionals.meteoblue_flag(options, :windgust)
+          src << Additionals.meteoblue_flag(options, :winddirection)
+          src << Additionals.meteoblue_flag(options, :uv)
+          src << Additionals.meteoblue_flag(options, :humidity)
+          src << Additionals.meteoblue_flag(options, :precipitation, default: true)
+          src << Additionals.meteoblue_flag(options, :precipitationprobability, default: true)
+          src << Additionals.meteoblue_flag(options, :spot, default: true)
+          src << Additionals.meteoblue_flag(options, :pressure)
 
           tag.iframe width:, height:, src:, frameborder: 0
         end
@@ -97,9 +97,9 @@ module Additionals
     end
   end
 
-  def self.meteoblue_flag(options, name, default = true)
+  def self.meteoblue_flag(options, name, default: false)
     flag = "&#{name}="
-    flag << if RedminePluginKit.true? options[name] || default
+    flag << if RedminePluginKit.true?(options[name]) || default
               '1'
             else
               '0'

@@ -5,7 +5,7 @@ module Additionals
     module GmapMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-    Display a google map.  Examples:
+    Display a google map.
 
     Syntax:
 

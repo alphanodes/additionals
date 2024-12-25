@@ -220,3 +220,4 @@ it:
   top_wiki_help: "Qui puoi definire contenuti e impostazioni per il tuo Wiki."
   wiki_pdf_remove_attachments_info: "Quando è attivo, il Wiki file allegati non verranno visualizzati nella vista PDF."
   wiki_pdf_remove_title_info: "Quando è attivo, le informazioni sul titolo del Wiki non verranno visualizzate nella vista PDF."
+  label_route: Route

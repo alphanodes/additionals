@@ -15,8 +15,9 @@ module Additionals
 
       :param string lat: latitude of location
       :param string log: longitude of location
-      :param string service: google (default) or osm
-      :param int zoom: zoom level (only use for osm)
+      :param string service: osm, gmap, route, bayern or all (default)
+      :param int zoom: zoom level (only use for osm and bayern)
+      :param string layer: layer to use
       :param string name: if specified, name is used as link name
 
     Examples:
@@ -31,19 +32,30 @@ module Additionals
                                                 :lon,
                                                 :service,
                                                 :name,
+                                                :layers,
                                                 :zoom)
 
           lat = options[:lat].presence || args&.first
           lon = options[:lon].presence || args&.second
-          service = options[:service].presence || 'both'
+          service = options[:service].presence || 'all'
           zoom = options[:zoom].presence || 17
+          layers = options[:layers].presence || 'vt_standard'
 
-          raise 'The correct usage is {{gmap([q=QUERY, mode=MODE, widths=x, height=y])}}' if lat.empty? || lon.empty?
+          if lat.empty? || lon.empty?
+            raise 'The correct usage is {{gps([lat=Latitude, lon=Longitude, service=SERVICE, name=NAME, zoom=ZOOM, layer: LAYER])}}'
+          end
 
+          # bayern_link = "https://atlas.bayern.de/?e=#{lat}&n=#{lon}&z=#{zoom}&r=0&l=luftbild_labels&t=bvv"
+          bayern_link = "https://geoportal.bayern.de/bayernatlas/?E=#{lat}&N=#{lon}&zoom=13&bgLayer=#{layers}&crosshair=marker"
+          gmap_link = "https://maps.google.com/?q=#{lat},#{lon}&data=!3m1!1e3"
           google_link = "https://www.google.com/maps/dir/?api=1&destination=#{lat},#{lon}"
           osm_link = "https://www.openstreetmap.org/?mlat=#{lat}&mlon=#{lon}#map=#{zoom}/#{lat}/#{lon}"
 
           case service
+          when 'gmap'
+            return link_to_external options[:name], src if options[:name].present?
+
+            return tag.span safe_join(['GPS:', link_to_external("#{lat},#{lon}", gmap_link)], ' '), class: 'gps'
           when 'google'
             return link_to_external options[:name], src if options[:name].present?
 
@@ -57,7 +69,9 @@ module Additionals
 
             return tag.span safe_join(["#{prefix}:",
                                        link_to_external('OSM', osm_link),
-                                       link_to_external('Gmap', google_link)], ' '), class: 'gps'
+                                       link_to_external('Gmap', gmap_link),
+                                       link_to_external('Bayern', bayern_link),
+                                       link_to_external(l(:label_route), google_link)], ' '), class: 'gps'
           end
         end
       end

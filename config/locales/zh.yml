@@ -220,3 +220,4 @@ zh:
   top_wiki_help: 您可以在此定义 Wiki 的内容及设置。
   wiki_pdf_remove_attachments_info: 当启用时，Wiki 附件将不会显示在 PDF 视图中。
   wiki_pdf_remove_title_info: 当启用时，Wiki 标题信息将不会显示在 PDF 视图中。
+  label_route: Route

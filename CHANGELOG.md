@@ -11,6 +11,7 @@
 - Chart.js Plugin datalabels 2.2.0
 - Chart.js Plugin annotation 3.0.1
 - moment 2.30.1 support
+- gps macro has been added
 
 ## 3.4.0
 

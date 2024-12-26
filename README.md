@@ -74,6 +74,7 @@ Uninstall `additionals` plugin.
   * gihub gist
   * google_docs
   * gmap
+  * gps
   * group_users
   * iframe
   * last_updated_at

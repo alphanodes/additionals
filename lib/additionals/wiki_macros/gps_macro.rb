@@ -9,20 +9,26 @@ module Additionals
 
     Syntax:
 
-    {{gps([q=QUERY, mode=MODE, width=216, height=368])}}
+    {{gps([lat=LAT, lon=LON, zoom=ZOOM, service=SERVICE, layer=LAYER, name=NAME])}}
+
+    or
+
+    {{gps(LAT, LON, zoom=ZOOM, service=SERVICE, layer=LAYER, name=NAME])}}
 
     Parameters:
 
       :param string lat: latitude of location
       :param string log: longitude of location
-      :param string service: osm, gmap, route, bayern or all (default)
-      :param int zoom: zoom level (only use for osm and bayern)
-      :param string layer: layer to use
+      :param int zoom: zoom level (if service supports it)
+      :param string service: show only this service. osm, gmap, route, hike or bayern
+      :param string layer: layer to use (if service supports it)
       :param string name: if specified, name is used as link name
 
     Examples:
 
       {{gps(49.56083,11.56018)}}
+      {{gps(49.56083,11.56018,zoom=12)}}
+      {{gps(49.56083,11.56018,layer=gmap)}}
       {{gps(lat=49.56083,lon=11.56018)}}
         DESCRIPTION
 
@@ -32,46 +38,48 @@ module Additionals
                                                 :lon,
                                                 :service,
                                                 :name,
-                                                :layers,
+                                                :layer,
                                                 :zoom)
 
           lat = options[:lat].presence || args&.first
           lon = options[:lon].presence || args&.second
-          service = options[:service].presence || 'all'
           zoom = options[:zoom].presence || 17
-          layers = options[:layers].presence || 'vt_standard'
+          layer = options[:layer].presence || 'vt_standard'
 
           if lat.empty? || lon.empty?
             raise 'The correct usage is {{gps([lat=Latitude, lon=Longitude, service=SERVICE, name=NAME, zoom=ZOOM, layer: LAYER])}}'
           end
 
-          # bayern_link = "https://atlas.bayern.de/?e=#{lat}&n=#{lon}&z=#{zoom}&r=0&l=luftbild_labels&t=bvv"
-          bayern_link = "https://geoportal.bayern.de/bayernatlas/?E=#{lat}&N=#{lon}&zoom=13&bgLayer=#{layers}&crosshair=marker"
-          gmap_link = "https://maps.google.com/?q=#{lat},#{lon}&data=!3m1!1e3"
-          google_link = "https://www.google.com/maps/dir/?api=1&destination=#{lat},#{lon}"
-          osm_link = "https://www.openstreetmap.org/?mlat=#{lat}&mlon=#{lon}#map=#{zoom}/#{lat}/#{lon}"
+          links = {}
+          links[:gmap] = ['Gmap',
+                          "https://maps.google.com/?q=#{lat},#{lon}&data=!3m1!1e3"]
+          links[:osm] = ['OSM',
+                         "https://www.openstreetmap.org/?mlat=#{lat}&mlon=#{lon}#map=#{zoom}/#{lat}/#{lon}"]
+          if AdditionalsConf.with_system_default 'GPS_MACRO_WITH_BAVARIA_ONLY', type: 'bool', default: false
+            bavaria_zoom = options[:zoom].presence || 12
 
-          case service
-          when 'gmap'
-            return link_to_external options[:name], src if options[:name].present?
+            links[:bayern] = ['Bayern',
+                              "https://geoportal.bayern.de/bayernatlas/?E=#{lat}&N=#{lon}&zoom=#{bavaria_zoom}&bgLayer=#{layer}&crosshair=marker"]
+            links[:hike] = ['Wandern',
+                            "https://geoportal.bayern.de/bayernatlas/?E=#{lat}&N=#{lon}&zoom=#{bavaria_zoom}&bgLayer=vt_wandern&crosshair=marker"]
+          end
+          links[:route] = [l(:label_route),
+                           "https://www.google.com/maps/dir/?api=1&destination=#{lat},#{lon}"]
 
-            return tag.span safe_join(['GPS:', link_to_external("#{lat},#{lon}", gmap_link)], ' '), class: 'gps'
-          when 'google'
-            return link_to_external options[:name], src if options[:name].present?
+          if options[:service].present?
+            raise 'unknown service used' unless links.key? options[:service].to_sym
 
-            return tag.span safe_join(['GPS:', link_to_external("#{lat},#{lon}", google_link)], ' '), class: 'gps'
-          when 'osm'
-            return link_to_external options[:name], src if options[:name].present?
+            link = links[options[:service].to_sym]
+            return link_to_external options[:name], link.second if options[:name].present?
 
-            return tag.span safe_join(['GPS:', link_to_external("#{lat},#{lon}", osm_link)], ' '), class: 'gps'
+            tag.span safe_join(['GPS:', link_to_external("#{lat},#{lon}", link.second)], ' '), class: 'gps'
           else
             prefix = options[:name].presence || 'GPS'
-
-            return tag.span safe_join(["#{prefix}:",
-                                       link_to_external('OSM', osm_link),
-                                       link_to_external('Gmap', gmap_link),
-                                       link_to_external('Bayern', bayern_link),
-                                       link_to_external(l(:label_route), google_link)], ' '), class: 'gps'
+            parts = ["#{prefix}:"]
+            links.each_value do |link|
+              parts << link_to_external(link.first, link.second)
+            end
+            tag.span safe_join(parts, ' '), class: 'gps'
           end
         end
       end

@@ -395,6 +395,30 @@ class WikiControllerTest < Additionals::ControllerTest
     assert_select 'script[src=?]', '//asciinema.org/a/113463.js'
   end
 
+  def test_show_with_gps_macro
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{gps(48.22346,11.43907)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select 'span.gps a[href=?]', 'https://maps.google.com/?q=48.22346,11.43907&data=!3m1!1e3'
+    assert_select 'span.gps a[href=?]', 'https://www.openstreetmap.org/?mlat=48.22346&mlon=11.43907#map=17/48.22346/11.43907'
+    assert_select 'span.gps a[href=?]', 'https://www.google.com/maps/dir/?api=1&destination=48.22346,11.43907'
+
+    page.content.text = '{{gps(48.22346,11.43907, service=osm)}}'
+
+    assert_save page.content
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select 'span.gps a[href=?]', 'https://www.openstreetmap.org/?mlat=48.22346&mlon=11.43907#map=17/48.22346/11.43907'
+  end
+
   def test_show_user_with_current_user
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     page = WikiPage.generate! content: '{{user(current_user)}}',

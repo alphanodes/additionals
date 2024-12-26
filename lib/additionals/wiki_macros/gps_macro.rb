@@ -51,10 +51,10 @@ module Additionals
           end
 
           links = {}
-          links[:gmap] = ['Gmap',
-                          "https://maps.google.com/?q=#{lat},#{lon}&data=!3m1!1e3"]
           links[:osm] = ['OSM',
                          "https://www.openstreetmap.org/?mlat=#{lat}&mlon=#{lon}#map=#{zoom}/#{lat}/#{lon}"]
+          links[:gmap] = ['Gmap',
+                          "https://maps.google.com/?q=#{lat},#{lon}&data=!3m1!1e3"]
           if AdditionalsConf.with_system_default 'GPS_MACRO_WITH_BAVARIA_ONLY', type: 'bool', default: false
             bavaria_zoom = options[:zoom].presence || 12
 

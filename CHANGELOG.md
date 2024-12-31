@@ -12,6 +12,8 @@
 - Chart.js Plugin annotation 3.0.1
 - moment 2.30.1 support
 - gps macro has been added
+- add options for link to video with youtube macro
+- add options for link to video with vimeo macro
 
 ## 3.4.0
 

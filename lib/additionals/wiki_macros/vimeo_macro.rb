@@ -18,6 +18,7 @@ module Additionals
       :param int height: height
       :param bool autoplay: autoplay video
       :param string mode: iframe or link
+      :param string group: link video to group (only used with param mode = link)
       :param string name: name of link (only used with param mode = link)
       :param string title: title/mouseover of link (only used with param mode = link)
 
@@ -32,7 +33,7 @@ module Additionals
         DESCRIPTION
 
         macro :vimeo do |_obj, args|
-          args, options = extract_macro_options args, :width, :height, :autoplay, :mode, :name, :title
+          args, options = extract_macro_options args, :width, :height, :autoplay, :mode, :name, :title, :group
 
           width = options[:width].presence || 640
           height = options[:height].presence || 360
@@ -41,8 +42,14 @@ module Additionals
 
           v = args[0]
           if options[:mode] == 'link'
+            link = if options[:group].present?
+                     "https://vimeo.com/groups/#{options[:group]}/videos/#{v}"
+                   else
+                     "https://vimeo.com/#{v}"
+                   end
+
             link_to_external svg_icon_tag('youtube', label: options[:name] || 'Vimeo'),
-                             "https://vimeo.com/#{v}",
+                             link,
                              title: options[:title].presence,
                              class: 'video vimeo'
           else

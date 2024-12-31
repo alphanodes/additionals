@@ -41,7 +41,7 @@ module Additionals
 
           v = args[0]
           if options[:mode] == 'link'
-            link_to_external options[:name] || 'Vimeo',
+            link_to_external svg_icon_tag('youtube', label: options[:name] || 'Vimeo'),
                              "https://vimeo.com/#{v}",
                              title: options[:title].presence,
                              class: 'video vimeo'

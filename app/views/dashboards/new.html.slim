@@ -1,7 +1,5 @@
 h2 = l :label_new_dashboard
-= labelled_form_for :dashboard,
-                    @dashboard,
-                    url: { action: 'create', project_id: @project },
+= labelled_form_for [@project, @dashboard],
                     html: { multipart: true, id: 'dashboard-form' } do |f|
   = render('form', f:)
   = submit_tag l(:button_create)

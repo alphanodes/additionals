@@ -1,6 +1,5 @@
 h2 = l :button_dashboard_edit
-= labelled_form_for :dashboard,
-                    @dashboard,
+= labelled_form_for @dashboard,
                     html: { multipart: true, id: 'dashboard-form' } do |f|
   = render('form', f:)
   = submit_tag l(:button_save)

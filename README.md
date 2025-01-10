@@ -133,7 +133,7 @@ It provides :
 * [d3 7.9.0](https://d3js.org/)
 * [d3plus 2.0.3](https://d3plus.org/)
 * [FontAwesome 5.15.4](https://fontawesome.com/)
-* [mermaid 9.3.0](https://github.com/mermaid-js/mermaid)
+* [mermaid 11.4.1](https://github.com/mermaid-js/mermaid)
 * [moment 2.30.1](https://github.com/moment/moment) (used by Chart.js)
 * [Select2 4.0.13](https://select2.org/)
 
@@ -686,3 +686,6 @@ Thanks to:
   Copyright (c) 2018- Fonticons, Inc.
 * Tabler Icons - Free and open source icons (<https://tabler.io/icons>) licensed under MIT License.
   Copyright (c) 2020- Paweł Kuna
+* mermaid.js
+  * LICENSE: <https://github.com/mermaid-js/mermaid/blob/master/LICENSE>
+  * mermaid.js includes code from DOMPurify, which is licensed under the Mozilla

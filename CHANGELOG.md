@@ -11,6 +11,7 @@
 - Chart.js Plugin datalabels 2.2.0
 - Chart.js Plugin annotation 3.0.1
 - moment 2.30.1 support
+- mermaid 11.4.1 support
 - gps macro has been added
 - add options for link to video with youtube macro
 - add options for link to video with vimeo macro

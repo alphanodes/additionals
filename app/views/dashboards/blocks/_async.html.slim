@@ -29,7 +29,7 @@
       '
       = l :label_loading
 
-  - if action_name == 'update_layout_setting' || action_name == 'create'
+  - if %w[update_layout_setting create].include? action_name
     = content_for :render_async
 
   javascript:

@@ -235,7 +235,7 @@ module AdditionalsQueriesHelper
                             value,
                             workbook.add_format(xlsx_cell_format(:cell, value, line_index)))
           else
-            link = send "#{line.class.name.underscore}_url", id: line.id
+            link = send :"#{line.class.name.underscore}_url", id: line.id
             worksheet.write line_index + 1, column_index, link, hyperlink_format, value
           end
         elsif xlsx_hyperlink_cell? value

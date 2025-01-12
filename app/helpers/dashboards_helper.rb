@@ -232,7 +232,7 @@ module DashboardsHelper
       if block_definition[:no_settings].blank? &&
          (!block_definition.key?(:with_settings_if) || block_definition[:with_settings_if].call(@project))
         icons << link_to_function(sprite_icon('settings', l(:label_options)),
-                                  "$('##{block}-settings').toggle()",
+                                  "$('##{block}-settings').toggle();",
                                   class: 'icon-only icon-settings',
                                   title: l(:label_options))
       end

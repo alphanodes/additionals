@@ -17,7 +17,7 @@
       p
         = submit_tag l(:button_save)
         '
-        = link_to_function l(:button_cancel), "$('##{block}-settings').toggle();"
+        = link_to_function l(:button_cancel), "$('##{block}-settings').toggle()"
 
 - if with_async
   = render_async_cache(_dashboard_async_blocks_path(@project,

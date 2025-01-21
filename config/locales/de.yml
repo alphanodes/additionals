@@ -42,7 +42,6 @@ de:
   emoji_support_info_html: 'Emojis im Text konvertieren. Aktivere diese Option, wenn :heart:, :+1: etc in Emojis konvertiert werden sollen. Im <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" class="external">Emoji cheat sheet</a> können die zur Verfügung stehenden Emoji-Codes eingesetzt werden.'
   error_issue_status_could_not_changed: Der Ticket-Status konnte nicht geändert werden
   error_issues_could_not_be_assigned_to_me: Das Ticket konnte nicht mir zugeordnet werden
-  error_query_statement_invalid: Beim Ausführen der Abfrage ist ein Fehler aufgetreten und wurde protokolliert. Bitte melden Sie diesen Fehler Ihrem Redmine-Administrator.
   errors_no_or_invalid_arguments: Kein oder ungültiger Parameter
   field_always_expose: Dashboard Name immer anzeigen
   field_color: Farbe

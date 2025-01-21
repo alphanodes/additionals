@@ -42,7 +42,6 @@ ru:
   emoji_support_info_html: 'Преобразование эмодзи в текст Поддержка. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" class="external">Emoji cheat sheet</a> the available emoji codes can be used.'
   error_issue_status_could_not_changed: "Состояние задач не может быть изменено"
   error_issues_could_not_be_assigned_to_me: "Задача не могла быть поручена мне."
-  error_query_statement_invalid: "Во время выполнения запроса возникла ошибка, которая была зарегистрирована в журнале. Пожалуйста, сообщите об этой ошибке своему администратору Redmine."
   errors_no_or_invalid_arguments: "Нет или недействительные аргументы"
   field_always_expose: "Всегда показать название приборной панели"
   field_color: Color

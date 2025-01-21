@@ -42,7 +42,6 @@ en:
   emoji_support_info_html: 'Convert emojis in text. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" class="external">Emoji cheat sheet</a> the available emoji codes can be used.'
   error_issue_status_could_not_changed: Issue state could not be changed
   error_issues_could_not_be_assigned_to_me: Issue could not be assigned to me
-  error_query_statement_invalid: An error occurred while executing the query and has been logged. Please report this error to your Redmine administrator.
   errors_no_or_invalid_arguments: No or invalid arguments
   field_always_expose: Always show dashboard name
   field_color: Color

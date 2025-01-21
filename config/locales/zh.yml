@@ -42,7 +42,6 @@ zh:
   emoji_support_info_html: 'Convert emojis in text. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" class="external">Emoji cheat sheet</a> the available emoji codes can be used.'
   error_issue_status_could_not_changed: 无法改变问题状态
   error_issues_could_not_be_assigned_to_me: 问题无法被指派给自己
-  error_query_statement_invalid: 执行查询时出错且已被记录。请向你的 Redmine 管理员报告此错误。
   errors_no_or_invalid_arguments: 参数无效或不存在。
   field_always_expose: 始终显示仪表盘名称
   field_color: 颜色

@@ -17,94 +17,6 @@ module AdditionalsQueriesHelper
     end
   end
 
-  def additionals_query_session_key(object_type)
-    :"#{object_type}_query"
-  end
-
-  def additionals_retrieve_query(object_type, user_filter: nil, search_string: nil)
-    session_key = additionals_query_session_key object_type
-    query_class = Object.const_get :"#{object_type.camelcase}Query"
-    if params[:query_id].present?
-      additionals_load_query_id(query_class,
-                                session_key,
-                                params[:query_id],
-                                object_type,
-                                user_filter:,
-                                search_string:)
-    elsif api_request? ||
-          params[:set_filter] ||
-          session[session_key].nil? ||
-          session[session_key][:project_id] != (@project ? @project.id : nil)
-      # Give it a name, required to be valid
-      @query = query_class.new name: '_', project: @project
-      @query.project = @project
-      @query.user_filter = user_filter if user_filter
-      @query.search_string = search_string if search_string
-      @query.build_from_params params
-      session[session_key] = { project_id: @query.project_id }
-      # session has a limit to 4k, we have to use a cache for it for larger data
-      Rails.cache.write(additionals_query_cache_key(object_type),
-                        filters: @query.filters,
-                        group_by: @query.group_by,
-                        column_names: @query.column_names,
-                        totalable_names: @query.totalable_names,
-                        sort_criteria: params[:sort].presence || @query.sort_criteria.to_a)
-    else
-      # retrieve from session
-      @query = query_class.find_by id: session[session_key][:id] if session[session_key][:id]
-      session_data = Rails.cache.read additionals_query_cache_key(object_type)
-      @query ||= query_class.new(name: '_',
-                                 project: @project,
-                                 filters: session_data.nil? ? nil : session_data[:filters],
-                                 group_by: session_data.nil? ? nil : session_data[:group_by],
-                                 column_names: session_data.nil? ? nil : session_data[:column_names],
-                                 totalable_names: session_data.nil? ? nil : session_data[:totalable_names],
-                                 sort_criteria: params[:sort].presence || (session_data.nil? ? nil : session_data[:sort_criteria]))
-      @query.project = @project
-      @query.user_filter = user_filter if user_filter
-      @query.display_type = params[:display_type] if params[:display_type]
-
-      if params[:sort].present?
-        @query.sort_criteria = params[:sort]
-        # we have to write cache for sort order
-        Rails.cache.write(additionals_query_cache_key(object_type),
-                          filters: @query.filters,
-                          group_by: @query.group_by,
-                          column_names: @query.column_names,
-                          totalable_names: @query.totalable_names,
-                          sort_criteria: params[:sort])
-      elsif session_data.present?
-        @query.sort_criteria = session_data[:sort_criteria]
-      end
-    end
-  end
-
-  def additionals_load_query_id(query_class, session_key, query_id, object_type, user_filter: nil, search_string: nil)
-    scope = query_class.where project_id: nil
-    scope = scope.or query_class.where(project_id: @project) if @project
-    @query = scope.find query_id
-    raise ::Unauthorized unless @query.visible?
-
-    @query.project = @project
-    @query.user_filter = user_filter if user_filter
-    @query.search_string = search_string if search_string
-    session[session_key] = { id: @query.id, project_id: @query.project_id }
-
-    @query.sort_criteria = params[:sort] if params[:sort].present?
-    # we have to write cache for sort order
-    Rails.cache.write(additionals_query_cache_key(object_type),
-                      filters: @query.filters,
-                      group_by: @query.group_by,
-                      column_names: @query.column_names,
-                      totalable_names: @query.totalable_names,
-                      sort_criteria: @query.sort_criteria)
-  end
-
-  def additionals_query_cache_key(object_type)
-    project_id = @project ? @project.id : 0
-    "#{object_type}_query_data_#{session.id}_#{project_id}"
-  end
-
   def render_grouped_users_with_select2(users, search_term: nil, with_me: true, with_ano: false, me_value: 'me')
     @users = { active: [], groups: [], registered: [], locked: [] }
 
@@ -352,14 +264,5 @@ module AdditionalsQueriesHelper
 
   def link_to_nonzero(value, path)
     value.zero? ? value : link_to(value, path)
-  end
-
-  # NOTE: copy of Redmine 5.1
-  # TODO: this method can be removed, if Redmine 5.0 is not supported anymore
-  def filename_for_export(query, default_name)
-    query_name = params[:query_name].presence || query.name
-    query_name = default_name if query_name == '_' || query_name.blank?
-    # Convert file names using the same rules as Wiki titles
-    filename_for_content_disposition(Wiki.titleize(query_name).downcase)
   end
 end

@@ -42,7 +42,6 @@ cs:
   emoji_support_info_html: 'Převod emoji do textu. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" class="external">Emoji cheat sheet</a> the available emoji codes can be used.'
   error_issue_status_could_not_changed: "Stav vydání nelze změnit"
   error_issues_could_not_be_assigned_to_me: "Problém se mi nepodařilo přiřadit"
-  error_query_statement_invalid: "Při provádění dotazu došlo k chybě a bylo zaznamenáno. Nahlaste tuto chybu administrátorovi Redmine."
   errors_no_or_invalid_arguments: "Žádné nebo neplatné argumenty"
   field_always_expose: "Vždy zobrazit název palubní desky"
   field_color: Barva

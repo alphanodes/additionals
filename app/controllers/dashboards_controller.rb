@@ -8,8 +8,6 @@ class DashboardsController < ApplicationController
 
   accept_api_auth :index, :show, :create, :update, :destroy
 
-  rescue_from Query::StatementInvalid, with: :query_statement_invalid
-
   helper :queries
   helper :issues
   helper :activities
@@ -137,12 +135,6 @@ class DashboardsController < ApplicationController
       flash[:error] = flash_msg :delete_error, obj: @dashboard
       redirect_to dashboard_path(@dashboard)
     end
-  end
-
-  def query_statement_invalid(exception)
-    Rails.logger.error "Query::StatementInvalid: #{exception.message}"
-    session.delete additionals_query_session_key('dashboard')
-    render_error l(:error_query_statement_invalid)
   end
 
   def update_layout_setting

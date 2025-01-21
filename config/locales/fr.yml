@@ -42,7 +42,6 @@ fr:
   emoji_support_info_html: 'Convertir les emojis en texte. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" class="external">Emoji cheat sheet</a> the available emoji codes can be used.'
   error_issue_status_could_not_changed: "L'état de la tâche n'a pas pu être modifié"
   error_issues_could_not_be_assigned_to_me: "La tâche n'a pas pu m'être affectée"
-  error_query_statement_invalid: "Une erreur s'est produite lors de l'exécution de la requête et a été enregistrée. Veuillez signaler cette erreur à votre administrateur Redmine."
   errors_no_or_invalid_arguments: "Pas d'arguments ou arguments invalides"
   field_always_expose: "Toujours afficher le nom du tableau de bord"
   field_color: Couleur

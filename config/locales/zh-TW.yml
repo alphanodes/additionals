@@ -42,7 +42,6 @@
   emoji_support_info_html: 'Convert emojis in text. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" class="external">Emoji cheat sheet</a> the available emoji codes can be used.'
   error_issue_status_could_not_changed: 问题状态无法改变
   error_issues_could_not_be_assigned_to_me: 问题无法分配给我
-  error_query_statement_invalid: 在执行查询时发生了一个错误，并已被记录下来。请向您的Redmine管理员报告此错误。
   errors_no_or_invalid_arguments: "參數無效或不存在。"
   field_always_expose: "始终显示仪表盘名称"
   field_color: 顏色

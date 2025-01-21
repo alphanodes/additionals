@@ -42,7 +42,6 @@ es:
   emoji_support_info_html: 'Convertir emojis en texto. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" class="external">Emoji cheat sheet</a> the available emoji codes can be used.'
   error_issue_status_could_not_changed: El estado de la petición no puede ser modificado
   error_issues_could_not_be_assigned_to_me: La petición no puede ser asignada a mi mismo
-  error_query_statement_invalid: Ocurrió un error ejecutando la consulta y fue registrado. Por favor informe este error al administrador de Redmine.
   errors_no_or_invalid_arguments: Parámetros inválidos
   field_always_expose: "Mostrar siempre el nombre del salpicadero"
   field_color: Color

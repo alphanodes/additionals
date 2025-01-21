@@ -4,14 +4,13 @@ module Additionals
   module WikiFormatting
     module CommonMark
       class EmojiFilter < HTML::Pipeline::Filter
-        IGNORED_ANCESTOR_TAGS = %w[pre code].to_set
-
         include Additionals::Formatter
 
         def call
+          ignore_ancestor_tags = %w[pre code].to_set
           doc.xpath('descendant-or-self::text()').each do |node|
             content = node.to_html
-            next if has_ancestor? node, IGNORED_ANCESTOR_TAGS
+            next if has_ancestor? node, ignore_ancestor_tags
             next unless with_emoji?(content) || node.text.match(emoji_unicode_pattern)
 
             html = emoji_unicode_element_unicode_filter content

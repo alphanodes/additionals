@@ -140,7 +140,7 @@ class DashboardsController < ApplicationController
   end
 
   def query_statement_invalid(exception)
-    logger&.error "Query::StatementInvalid: #{exception.message}"
+    Rails.logger.error "Query::StatementInvalid: #{exception.message}"
     session.delete additionals_query_session_key('dashboard')
     render_error l(:error_query_statement_invalid)
   end

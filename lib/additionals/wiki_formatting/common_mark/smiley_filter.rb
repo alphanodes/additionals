@@ -4,14 +4,13 @@ module Additionals
   module WikiFormatting
     module CommonMark
       class SmileyFilter < HTML::Pipeline::Filter
-        IGNORED_ANCESTOR_TAGS = %w[pre code].to_set
-
         include Additionals::Formatter
 
         def call
+          ignore_ancestor_tags = %w[pre code].to_set
           doc.xpath('descendant-or-self::text()').each do |node|
             content = node.to_html
-            next if has_ancestor? node, IGNORED_ANCESTOR_TAGS
+            next if has_ancestor? node, ignore_ancestor_tags
 
             html = render_inline_smileys content
             next if html == content

@@ -164,10 +164,12 @@ function select2Tag(id, options) {
     selectField.select2(buildSelect2Options(options));
 
     var select2Instance = selectField.data('select2');
-    select2Instance.on('results:message', function() {
-      this.dropdown._resizeDropdown();
-      this.dropdown._positionDropdown();
-    });
+    if (select2Instance !== undefined) {
+      select2Instance.on('results:message', function() {
+        this.dropdown._resizeDropdown();
+        this.dropdown._positionDropdown();
+      });
+    }
   });
 }
 

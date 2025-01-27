@@ -1,6 +1,6 @@
 /* exported setClipboardJS */
 /* global ClipboardJS */
-function setClipboardJS(element){
+function setClipboardJS(element) {
   var clipboard = new ClipboardJS(element);
   clipboard.on('success', function(e) {
     $(element).tooltip({
@@ -59,7 +59,7 @@ function observeLiveSearchField(fieldId, targetId, target_url) {
     $this.attr('data-search-was', $this.val());
     var check = function() {
       var val = $this.val();
-      if ($this.attr('data-search-was') != val){
+      if ($this.attr('data-search-was') != val) {
         $this.attr('data-search-was', val);
 
         var form = $('#query_form'); // grab the form wrapping the search bar.

@@ -68,6 +68,7 @@ Uninstall `additionals` plugin.
 * PDF for wiki pages
 * Wiki macros for:
   * asciinema
+  * attachment_link
   * cryptocompare
   * date
   * fa

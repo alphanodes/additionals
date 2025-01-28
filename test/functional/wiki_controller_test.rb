@@ -497,4 +497,28 @@ class WikiControllerTest < Additionals::ControllerTest
     assert_select '#content a[href=?]', '/users/2',
                   text: 'John Smith'
   end
+
+  def test_show_with_attachment_link_macro
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{attachment_link(15)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select '#content a[href=?]', '/attachments/15', text: 'private.diff'
+  end
+
+  def test_show_with_attachment_link_macro_without_permission
+    @request.session[:user_id] = 6
+    page = WikiPage.generate! content: '{{attachment_link(15)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select '#content a[href=?]', '/attachments/15', text: 'private.diff', count: 0
+  end
 end

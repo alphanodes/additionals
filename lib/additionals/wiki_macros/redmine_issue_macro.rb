@@ -5,7 +5,7 @@ module Additionals
     module RedmineIssueMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-   Link to a redmine.org issue
+   Link to a redmine.org issue.
 
    Syntax:
 

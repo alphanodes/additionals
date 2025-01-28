@@ -15,6 +15,7 @@
 - gps macro has been added
 - add options for link to video with youtube macro
 - add options for link to video with vimeo macro
+- attachment_link macro has been added
 
 ## 3.4.0
 

@@ -5,7 +5,7 @@ module Additionals
     module RedmineWikiMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-  Link to redmine.org wiki page
+  Link to redmine.org wiki page.
 
   Syntax:
 

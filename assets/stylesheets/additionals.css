@@ -80,6 +80,27 @@ ul.dashboard-list {
   margin-top: 0;
 }
 
+.labeled-list {
+  display: table;
+  padding-top: 5px;
+}
+
+.labeled-list > .line {
+  display: table-row;
+}
+
+.labeled-list > .line > .label {
+  display: table-cell;
+  vertical-align: top;
+  white-space: nowrap;
+  width: 50%;
+}
+
+.labeled-list > .line > .value {
+  display: table-cell;
+  vertical-align: top;
+}
+
 .icon-label {
   margin-left: 4px;
 }

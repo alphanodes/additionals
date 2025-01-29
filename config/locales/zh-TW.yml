@@ -220,3 +220,4 @@
   wiki_pdf_remove_attachments_info: "當啟用時，Wiki附件將不會顯示在PDF中。"
   wiki_pdf_remove_title_info: "當啟用時，Wiki標題訊息不會顯示在PDF中"
   label_route: Route
+  field_watched_by_me: Watched by me

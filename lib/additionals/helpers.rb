@@ -273,6 +273,22 @@ module Additionals
       "#{name} (#{sum})"
     end
 
+    def labeled_line(label, value: nil, line_class: nil, label_class: nil, value_class: nil, icon: nil)
+      label_text = label.is_a?(Symbol) ? l(label) : label
+      label_text = "#{label_text}:"
+      label_text = svg_icon_tag(icon, label: label_text) if icon.present?
+
+      line_classes = 'line'
+      line_classes = [line_classes, line_class].join(' ') if line_class.present?
+      label_classes = 'label'
+      label_classes = [label_classes, label_class].join(' ') if label_class.present?
+      value_classes = 'value'
+      value_classes = [value_classes, value_class].join(' ') if value_class.present?
+      tag.div class: line_classes do
+        tag.div(label_text, class: label_classes) + tag.div(value, class: value_classes)
+      end
+    end
+
     private
 
     def additionals_already_loaded(scope, js_name)

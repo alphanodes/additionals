@@ -220,3 +220,4 @@ ja:
   wiki_pdf_remove_attachments_info: "アクティブな場合、添付されたWikiファイルはPDFビューに表示されません。"
   wiki_pdf_remove_title_info: "アクティブな場合、Wikiのタイトル情報はPDFビューに表示されません。"
   label_route: Route
+  field_watched_by_me: Watched by me

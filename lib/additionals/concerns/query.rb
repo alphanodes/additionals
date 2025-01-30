@@ -134,12 +134,6 @@ module Additionals
                                                 values: -> { subproject_values }
         end
 
-        def initialize_watched_by_me_filter(label: nil)
-          add_available_filter 'watched_by_me', type: :list,
-                                                values: bool_values,
-                                                label:
-        end
-
         def initialize_created_filter(label: nil)
           add_available_filter 'created_on', type: :date_past,
                                              label:
@@ -199,8 +193,6 @@ module Additionals
 
         def initialize_watcher_filter
           return unless User.current.logged?
-
-          initialize_watched_by_me_filter
 
           add_available_filter 'watcher_id', type: :user_with_me
         end
@@ -270,18 +262,6 @@ module Additionals
           groupies.compact!
           groupies.sort!
           groupies.map(&:to_s)
-        end
-
-        def sql_for_watched_by_me_field(_field, operator, value)
-          op = bool_operator(operator, value) ? 'EXISTS' : 'NOT EXISTS'
-          watchable_type = queried_class == User ? 'Principal' : queried_class.to_s
-
-          subquery = "SELECT 1 FROM #{Watcher.table_name}" \
-                     " WHERE #{Watcher.table_name}.watchable_type='#{self.class.connection.quote_string watchable_type}'" \
-                     " AND #{Watcher.table_name}.watchable_id=#{queried_table_name}.id" \
-                     " AND #{Watcher.table_name}.user_id=#{User.current.id}"
-
-          "#{op}(#{subquery})"
         end
 
         def sql_for_author_group_field(_field, operator, value)

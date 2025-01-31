@@ -3,7 +3,9 @@
 
 - if query
   .box
-    = render_query_columns_selection query, name: "settings[#{block}][columns]"
+    #list-definition
+      .
+        = render_query_columns_selection query, name: "settings[#{block}][columns]"
     .tabular.settings
       p
         = additionals_settings_numberfield :max_entries,

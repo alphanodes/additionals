@@ -221,3 +221,5 @@ ja:
   wiki_pdf_remove_title_info: "アクティブな場合、Wikiのタイトル情報はPDFビューに表示されません。"
   label_route: Route
   field_watched_by_me: "私が見る"
+  label_with_amount: "Amount %{value}"
+  label_list_all_entries: "List all %{value}"

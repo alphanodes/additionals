@@ -221,3 +221,5 @@ ru:
   wiki_pdf_remove_title_info: "При активации этого параметра информация о названии Вики не будет отображаться в PDF-формате."
   label_route: Route
   field_watched_by_me: "Под моим наблюдением"
+  label_with_amount: "Amount %{value}"
+  label_list_all_entries: "List all %{value}"

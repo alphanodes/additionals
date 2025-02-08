@@ -221,3 +221,5 @@ en:
   wiki_pdf_remove_title_info: "When active the Wiki title info will not be displayed in PDF view."
   label_route: Route
   field_watched_by_me: Watched by me
+  label_with_amount: "Amount %{value}"
+  label_list_all_entries: "List all %{value}"

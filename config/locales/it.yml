@@ -221,3 +221,5 @@ it:
   wiki_pdf_remove_title_info: "Quando è attivo, le informazioni sul titolo del Wiki non verranno visualizzate nella vista PDF."
   label_route: Route
   field_watched_by_me: "Osservato da me"
+  label_with_amount: "Amount %{value}"
+  label_list_all_entries: "List all %{value}"

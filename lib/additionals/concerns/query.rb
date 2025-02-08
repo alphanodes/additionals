@@ -394,6 +394,29 @@ module Additionals
           options
         end
 
+        def sql_for_entity_relation(_field, operator, values, rel_klass:, rel_field_id:, queried_field_id:)
+          subquery = "SELECT 1 FROM #{rel_klass.table_name} WHERE #{rel_klass.table_name}.#{queried_field_id} = #{queried_table_name}.id"
+          case operator
+          when '='
+            int_values = values.first.to_s.scan(/[+-]?\d+/).map(&:to_i).join(',')
+            if int_values.present?
+              "EXISTS(#{subquery} AND #{rel_klass.table_name}.#{rel_field_id} IN(#{int_values}))"
+            else
+              Additionals::SQL_NO_RESULT_CONDITION
+            end
+          when '<='
+            "EXISTS(#{subquery} AND #{rel_klass.table_name}.#{rel_field_id} <= #{values.first.to_f})"
+          when '>='
+            "EXISTS(#{subquery} AND #{rel_klass.table_name}.#{rel_field_id} >= #{values.first.to_f})"
+          when '><'
+            "EXISTS(#{subquery} AND #{rel_klass.table_name}.#{rel_field_id} BETWEEN #{values.first.to_f} AND #{values.second.to_f})"
+          when '!*'
+            "NOT EXISTS(#{subquery})"
+          when '*'
+            "EXISTS(#{subquery})"
+          end
+        end
+
         # query results
         def entries(**_)
           raise 'overwrite it'

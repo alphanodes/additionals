@@ -5,4 +5,8 @@ class QueryRelationsColumn < QueryColumn
   def value_object(object)
     (object.send name).map(&:name).join "#{Query.additional_csv_separator} "
   end
+
+  def css_classes
+    "entity-relation #{super}"
+  end
 end

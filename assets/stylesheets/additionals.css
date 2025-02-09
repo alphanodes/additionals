@@ -6,6 +6,10 @@
   margin-left: 5px;
 }
 
+table.list td.entity-relation {
+  text-align: left;
+}
+
 .fixed-form input[type='text'],
 .fixed-form input[type='password'],
 .fixed-form input[type='url'],

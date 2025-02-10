@@ -222,5 +222,5 @@ es:
   wiki_pdf_remove_title_info: "Cuando está activa, el título de la Wiki no será mostrado en los PDF."
   label_route: Route
   field_watched_by_me: "Vigilado por mí"
-  label_with_amount: "Amount %{value}"
-  label_list_all_entries: "List all %{value}"
+  label_with_amount: "Importe %{value}"
+  label_list_all_entries: "Lista completa %{value}"

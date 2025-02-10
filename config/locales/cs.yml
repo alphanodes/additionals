@@ -222,5 +222,5 @@ cs:
   wiki_pdf_remove_title_info: "Pokud je aktivní, informace o názvu Wiki se nebudou zobrazovat v zobrazení PDF."
   label_route: Route
   field_watched_by_me: "Sledováno mnou"
-  label_with_amount: "Amount %{value}"
-  label_list_all_entries: "List all %{value}"
+  label_with_amount: "Částka %{value}"
+  label_list_all_entries: "Seznam všech %{value}"

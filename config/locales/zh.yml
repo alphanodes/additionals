@@ -222,5 +222,5 @@ zh:
   wiki_pdf_remove_title_info: 当启用时，Wiki 标题信息将不会显示在 PDF 视图中。
   label_route: Route
   field_watched_by_me: "由我观看"
-  label_with_amount: "Amount %{value}"
-  label_list_all_entries: "List all %{value}"
+  label_with_amount: "金额 %{value}"
+  label_list_all_entries: "列出所有 %{value}"

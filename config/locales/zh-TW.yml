@@ -222,5 +222,5 @@
   wiki_pdf_remove_title_info: "當啟用時，Wiki標題訊息不會顯示在PDF中"
   label_route: Route
   field_watched_by_me: "由我观看"
-  label_with_amount: "Amount %{value}"
-  label_list_all_entries: "List all %{value}"
+  label_with_amount: "金額 %{value}"
+  label_list_all_entries: "列出所有 %{value}"

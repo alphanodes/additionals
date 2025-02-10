@@ -50,6 +50,7 @@ en:
   field_enable_sidebar: Enable sidebar
   field_hide: Hide
   field_icon: Icon
+  field_issue_relation: Issue relation
   field_issue_relation_plural: Issue relations
   field_notes_count: Notes amount
   field_project_system_default: Project default

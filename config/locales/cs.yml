@@ -50,6 +50,7 @@ cs:
   field_enable_sidebar: "Aktivace postranního panelu"
   field_hide: "Skrýt"
   field_icon: Icon
+  field_issue_relation: Issue relation
   field_issue_relation_plural: "Vztahy k letenkám"
   field_notes_count: "Počet komentářů"
   field_project_system_default: "Výchozí nastavení projektu"

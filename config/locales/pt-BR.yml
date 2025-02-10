@@ -50,6 +50,7 @@ pt-BR:
   field_enable_sidebar: "Habilitar barra lateral"
   field_hide: "Esconder"
   field_icon: "Ícone"
+  field_issue_relation: Issue relation
   field_issue_relation_plural: "Relações de tarefas"
   field_notes_count: "Volume de comentários"
   field_project_system_default: "Projeto padrão"

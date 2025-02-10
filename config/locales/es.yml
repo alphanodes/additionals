@@ -50,6 +50,7 @@ es:
   field_enable_sidebar: "Activar la barra lateral"
   field_hide: "Ocultar"
   field_icon: Ícono
+  field_issue_relation: Issue relation
   field_issue_relation_plural: Relaciones de peticiones
   field_notes_count: "Número de comentarios"
   field_project_system_default: "Proyecto por defecto"

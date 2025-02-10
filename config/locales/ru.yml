@@ -50,6 +50,7 @@ ru:
   field_enable_sidebar: "Активировать боковую панель"
   field_hide: "Спрятать"
   field_icon: Icon
+  field_issue_relation: Issue relation
   field_issue_relation_plural: "Отношения задач"
   field_notes_count: Количество комментариев
   field_project_system_default: "Значение по умолчанию проекта"

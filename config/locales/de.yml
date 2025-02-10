@@ -50,6 +50,7 @@ de:
   field_enable_sidebar: Sidebar aktivieren
   field_hide: Verstecken
   field_icon: Symbol
+  field_issue_relation: Ticket Beziehung
   field_issue_relation_plural: Ticket Beziehungen
   field_notes_count: Anzahl Kommentare
   field_project_system_default: Projektstandard

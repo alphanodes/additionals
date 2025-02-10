@@ -50,6 +50,7 @@ ko:
   field_enable_sidebar: 사이드바 표시
   field_hide: 숨는 장소
   field_icon: 상
+  field_issue_relation: Issue relation
   field_issue_relation_plural: 이슈 관계
   field_notes_count: 메모의 수
   field_project_system_default: 프로젝트 디폴트

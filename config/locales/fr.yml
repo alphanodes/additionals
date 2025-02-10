@@ -50,6 +50,7 @@ fr:
   field_enable_sidebar: Activer le menu latéral
   field_hide: "Cacher"
   field_icon: Icône
+  field_issue_relation: Issue relation
   field_issue_relation_plural: Relations entre tâches
   field_notes_count: Total des commentaires
   field_project_system_default: "Projet par défaut"

@@ -50,6 +50,7 @@ zh:
   field_enable_sidebar: 启用侧边栏
   field_hide: 隐藏
   field_icon: 图标
+  field_issue_relation: Issue relation
   field_issue_relation_plural: 问题关联关系
   field_notes_count: 评论的数量
   field_project_system_default: "项目默认值"

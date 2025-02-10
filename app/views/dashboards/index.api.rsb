@@ -14,7 +14,7 @@ api.array :dashboards, api_meta(total_count: @query_count, offset: @offset, limi
       api.created_on dashboard.created_at
       api.updated_on dashboard.updated_at
 
-      call_hook :api_dashboard_show, dashboard: dashboard
+      call_hook :api_dashboard_show, dashboard: dashboard, api:
     end
   end
 end

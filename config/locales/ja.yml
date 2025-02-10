@@ -50,6 +50,7 @@ ja:
   field_enable_sidebar: "サイドバーを有効にする"
   field_hide: Hide
   field_icon: Icon
+  field_issue_relation: Issue relation
   field_issue_relation_plural: "チケット関係"
   field_notes_count: コメント数
   field_project_system_default: "プロジェクトのデフォルト"

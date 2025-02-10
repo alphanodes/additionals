@@ -50,6 +50,7 @@ it:
   field_enable_sidebar: Enable sidebar
   field_hide: "Nascondi"
   field_icon: Icon
+  field_issue_relation: Issue relation
   field_issue_relation_plural: Relazione di issues
   field_notes_count: Totale dei commenti
   field_project_system_default: "Progetto predefinito"

@@ -13,5 +13,5 @@ api.dashboard do
   api.created_on @dashboard.created_at
   api.updated_on @dashboard.updated_at
 
-  call_hook :api_dashboard_show, dashboard: @dashboard
+  call_hook :api_dashboard_show, dashboard: @dashboard, api:
 end

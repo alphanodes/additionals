@@ -50,6 +50,7 @@ pl:
   field_enable_sidebar: "Aktywuj pasek boczny"
   field_hide: "Ukryć się"
   field_icon: Icon
+  field_issue_relation: Issue relation
   field_issue_relation_plural: Issue stosunki
   field_notes_count: Liczba uwag
   field_project_system_default: "Domyślny projekt"

@@ -2,6 +2,13 @@
 
 module Additionals
   module Helpers
+    def link_to_query_filter(url, title:)
+      link_to svg_icon_tag('filter', label: :button_filter),
+              url,
+              title: title.is_a?(Symbol) ? l(title) : title,
+              class: 'icon-only icon-list'
+    end
+
     def render_breadcrumb(items)
       cnt = items.length
       titles = items.each_with_index.map do |item, index|

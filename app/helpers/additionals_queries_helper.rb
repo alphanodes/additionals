@@ -267,14 +267,6 @@ module AdditionalsQueriesHelper
   end
 
   def link_to_issues(issues)
-    issues = Array(issues).flatten
     safe_join(issues.map { |issue| link_to_issue(issue, subject: false, tracker: false) }, ', ')
-  end
-
-  def link_to_query_filter(url, title:)
-    link_to svg_icon_tag('filter', label: :button_filter),
-            url,
-            title: title.is_a?(Symbol) ? l(title) : title,
-            class: 'icon-only icon-list'
   end
 end

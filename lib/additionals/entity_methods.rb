@@ -88,6 +88,7 @@ module Additionals
       def visible_journals_with_index(_user = User.current, scope: nil)
         scope ||= journals
         result = scope.includes(:details)
+                      .includes(:updated_by)
                       .includes(user: :email_address)
         result = if User.current.wants_comments_in_reverse_order?
                    result.reorder created_on: :desc, id: :desc

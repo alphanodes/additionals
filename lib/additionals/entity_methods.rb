@@ -87,8 +87,7 @@ module Additionals
       # ! this is a replacement of Redmine method for all entities
       def visible_journals_with_index(_user = User.current, scope: nil)
         scope ||= journals
-        result = scope.includes(:details)
-                      .includes(:updated_by)
+        result = scope.includes(%i[details updated_by])
                       .includes(user: :email_address)
         result = if User.current.wants_comments_in_reverse_order?
                    result.reorder created_on: :desc, id: :desc

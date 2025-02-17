@@ -7,13 +7,11 @@ module Additionals
 
       included do
         include InstanceMethods
+
+        delegate :label_me_value, to: :class
       end
 
       module InstanceMethods
-        def label_me_value
-          self.class.label_me_value
-        end
-
         def column_with_prefix?(prefix)
           columns.detect { |c| c.name.to_s.start_with? "#{prefix}." }.present?
         end

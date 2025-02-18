@@ -9,7 +9,7 @@
         .prepend("#{escape_javascript desc_link}");
 
       $("#fast-desc-link").click(function() {
-        $("#issue_description_and_toolbar").parent().find('a').first().hide();
+        $("#issue_description_and_toolbar").parent().find('a').eq(2).hide();
         showAndScrollTo("update", "issue_notes");
         $("#issue_description_and_toolbar").show();
         $("#issue_description").focus();

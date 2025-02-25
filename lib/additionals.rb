@@ -3,7 +3,7 @@
 require 'redmine_plugin_kit'
 
 module Additionals
-  VERSION = '4.0.0-main'
+  VERSION = '4.0.0'
 
   MAX_CUSTOM_MENU_ITEMS = 5
   DEFAULT_MODAL_WIDTH = '350px'

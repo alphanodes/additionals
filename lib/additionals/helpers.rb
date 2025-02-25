@@ -186,7 +186,7 @@ module Additionals
                   formats: [:js],
                   locals: { field_name_id: sanitize_to_id(name),
                             ajax_url: send(:"#{type}_path", ajax_params),
-                            options: })
+                            options: options })
       safe_join s
     end
 

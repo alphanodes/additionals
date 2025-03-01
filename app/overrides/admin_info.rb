@@ -4,6 +4,6 @@ module AdminInfo
   Deface::Override.new virtual_path: 'admin/info',
                        name: 'add-system_info',
                        insert_after: 'table.list',
-                       original: '73b55ca692bcf4db9ecb7a16ec6d6f9e46f08a90',
+                       original: '3fa222a7a7d371fd24314cd0c3fc29b490139cf9',
                        partial: 'admin/system_info'
 end

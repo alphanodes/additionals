@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.1.0
+
+- fix deface checksum for admin/info
+
 ## 4.0.0
 
 - Support for Redmine 6

@@ -126,6 +126,16 @@
         <path d="M3 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
       </g>
     </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--list">
+      <!-- list -->
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M9 6l11 0" />
+      <path d="M9 12l11 0" />
+      <path d="M9 18l11 0" />
+      <path d="M5 6l0 .01" />
+      <path d="M5 12l0 .01" />
+      <path d="M5 18l0 .01" />
+    </symbol>
     <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--issue-add">
       <!-- code-plus -->
       <path d="M9 12h6" />
@@ -971,6 +981,30 @@
       <path d="M6 12v-7a2 2 0 0 1 2 -2h3v2.25" />
       <path d="M4 21l1 -1.5" />
       <path d="M20 21l-1 -1.5" />
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--stopwatch">
+      <!-- stopwatch -->
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M5 13a7 7 0 1 0 14 0a7 7 0 0 0 -14 0z" />
+      <path d="M14.5 10.5l-2.5 2.5" />
+      <path d="M17 8l1 -1" />
+      <path d="M14 3h-4" />
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--player-play">
+      <!-- player-play -->
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" />
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--player-stop">
+      <!-- player-stop -->
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" />
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--player-pause">
+      <!-- player-pause -->
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M9 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z" />
+      <path d="M17 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z" />
     </symbol>
   </defs>
 </svg>

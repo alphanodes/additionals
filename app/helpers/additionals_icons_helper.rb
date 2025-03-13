@@ -20,6 +20,7 @@ module AdditionalsIconsHelper
                    wrapper: nil,
                    wrapper_content: nil,
                    wrapper_class: 'icon',
+                   wrapper_title: nil,
                    wrapper_css: nil)
     sprite = plugin.present? ? "plugin_assets/#{plugin}/#{sprite}.svg" : "#{sprite}.svg"
     content = additionals_svg_sprite_icon(icon_name, size:, sprite:, title:, css_class:)
@@ -38,7 +39,7 @@ module AdditionalsIconsHelper
     content << wrapper_content if wrapper_content
     wrapper_classes = "#{wrapper_class} icon-#{icon_name}"
     wrapper_classes += " #{wrapper_css}" if wrapper_css
-    content_tag wrapper, content, class: wrapper_classes
+    content_tag wrapper, content, class: wrapper_classes, title: wrapper_title
   end
 
   private

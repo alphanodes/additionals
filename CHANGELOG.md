@@ -3,6 +3,7 @@
 ## 4.1.0
 
 - fix deface checksum for admin/info
+- mermaid 11.5.0 support
 
 ## 4.0.0
 

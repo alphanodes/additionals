@@ -50,6 +50,9 @@ module Additionals
           return unless available_filters[field]
 
           initialize_user_values_for_select2 field, values
+
+          # NOTE: true is required for short filter support!
+          true
         end
 
         def add_available_filter_with_additionals(field, options)

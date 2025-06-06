@@ -25,7 +25,7 @@ module AdditionalsIconsHelper
     sprite ||= IconsHelper::DEFAULT_SPRITE
     sprite = plugin.present? ? "plugin_assets/#{plugin}/#{sprite}.svg" : "#{sprite}.svg"
 
-    icon_options = { sprite: sprite }
+    icon_options = { sprite: }
     icon_options[:size] = size if size
     icon_options[:css_class] = css_class if css_class
 

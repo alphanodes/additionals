@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 module AdditionalsIconsHelper
-  DEFAULT_ICON_SIZE = '18'
-  DEFAULT_SPRITE = 'icons'
+  include IconsHelper
 
   def h2_page_icon(icon_name, **options)
     svg_icon_tag(icon_name, size: 24, css_class: 'icon-padding', **options)
@@ -10,21 +9,30 @@ module AdditionalsIconsHelper
 
   def svg_icon_tag(icon_name,
                    label: nil,
-                   size: DEFAULT_ICON_SIZE,
+                   size: nil,
                    css_class: nil,
                    label_type: :span,
-                   title: nil,
+                   rtl: nil,
+                   style: nil,
                    icon_only: false,
                    plugin: 'additionals',
-                   sprite: DEFAULT_SPRITE,
+                   sprite: nil,
                    wrapper: nil,
                    wrapper_content: nil,
                    wrapper_class: 'icon',
                    wrapper_title: nil,
                    wrapper_css: nil)
+    sprite ||= IconsHelper::DEFAULT_SPRITE
     sprite = plugin.present? ? "plugin_assets/#{plugin}/#{sprite}.svg" : "#{sprite}.svg"
-    content = additionals_svg_sprite_icon(icon_name, size:, sprite:, title:, css_class:)
 
+    icon_options = { sprite: sprite }
+    icon_options[:size] = size if size
+    icon_options[:css_class] = css_class if css_class
+
+    icon_options[:rtl] = rtl if rtl && Redmine::VERSION.to_s >= '6.0.5'
+    icon_options[:style] = style if style && (Redmine::VERSION.to_s >= '6.1.0' || Redmine::VERSION::BRANCH == 'devel')
+
+    content = svg_sprite_icon icon_name, **icon_options
     if label
       label_classes = ['icon-label']
       label_classes << 'hidden' if icon_only
@@ -36,28 +44,22 @@ module AdditionalsIconsHelper
 
     return content unless wrapper
 
-    content << wrapper_content if wrapper_content
-    wrapper_classes = "#{wrapper_class} icon-#{icon_name}"
-    wrapper_classes += " #{wrapper_css}" if wrapper_css
-    content_tag wrapper, content, class: wrapper_classes, title: wrapper_title
+    svg_icon_wrapper content, icon_name:,
+                              wrapper:,
+                              wrapper_content:,
+                              wrapper_class:,
+                              wrapper_title:,
+                              wrapper_css:
   end
 
   private
 
-  # @NOTE: same as svg_sprite_icon, but title support
-  def additionals_svg_sprite_icon(icon_name, size: DEFAULT_ICON_SIZE, sprite: DEFAULT_SPRITE, css_class: nil, title: nil)
-    title = l title if title.is_a? Symbol
-    css_classes = "s#{size} icon-svg"
-    css_classes += " #{css_class}" if css_class
+  def svg_icon_wrapper(content, icon_name:, wrapper:, wrapper_content:, wrapper_class:, wrapper_title:, wrapper_css:)
+    wrapper_title = l wrapper_title if wrapper_title.is_a? Symbol
 
-    content_tag(
-      :svg,
-      content_tag(:use,
-                  '',
-                  { 'href' => "#{asset_path sprite}#icon--#{icon_name}" }),
-      class: css_classes,
-      title: title.presence,
-      aria: { hidden: true }
-    )
+    content << wrapper_content if wrapper_content
+    wrapper_classes = "#{wrapper_class} icon-#{icon_name}"
+    wrapper_classes += " #{wrapper_css}" if wrapper_css
+    content_tag wrapper, content, class: wrapper_classes, title: wrapper_title
   end
 end

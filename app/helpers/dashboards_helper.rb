@@ -131,13 +131,15 @@ module DashboardsHelper
             link << if dashboard.project_id.nil?
                       li_class = 'global'
                       svg_icon_tag 'cube',
-                                   title: l(:field_system_default),
+                                   wrapper: :span,
+                                   wrapper_title: :field_system_default,
                                    size: 14,
                                    css_class: "suffixed dashboard-system-default #{li_class}"
                     else
                       li_class = 'project'
                       svg_icon_tag 'cube',
-                                   title: l(:field_project_system_default),
+                                   wrapper: :span,
+                                   wrapper_title: :field_project_system_default,
                                    size: 14,
                                    css_class: "suffixed dashboard-system-default #{li_class}"
                     end
@@ -241,7 +243,7 @@ module DashboardsHelper
                               plugin: '',
                               wrapper: :span,
                               wrapper_class: 'icon-only',
-                              title: dashboard_block_sync_info(block_definition))
+                              wrapper_title: dashboard_block_sync_info(block_definition))
       end
       icons << tag.span(sprite_icon('reorder', ''), class: 'icon-only icon-sort-handle sort-handle', title: l(:button_move))
       icons << delete_link(_remove_block_dashboard_path(@project, dashboard, block:),
@@ -324,7 +326,8 @@ module DashboardsHelper
     return unless title
 
     svg_icon_tag('details',
-                 title:,
+                 wrapper: :span,
+                 wrapper_title: title,
                  css_class: 'suffixed')
   end
 

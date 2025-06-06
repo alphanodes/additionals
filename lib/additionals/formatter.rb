@@ -45,11 +45,13 @@ module Additionals
             css_class = NON_SMILEY_COLOR.exclude?(name) ? 'smiley' : 'info-smiley'
             svg_code = ActionController::Base.helpers.svg_icon_tag "smiley-#{name}",
                                                                    css_class:,
-                                                                   title: smiley
+                                                                   wrapper: :span,
+                                                                   wrapper_title: smiley
 
             leading.to_s + ActionController::Base.helpers.tag.span(svg_code,
                                                                    class: "additionals smiley icon smiley-#{name}",
-                                                                   title: smiley)
+                                                                   wrapper: :span,
+                                                                   wrapper_title: smiley)
           else
             leading.to_s + smiley
           end

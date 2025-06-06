@@ -5,8 +5,8 @@
 
   - if @dashboard&.editable?
     - if @dashboard.locked?
-      = svg_icon_tag 'lock', title: l(:label_dashboard_lock_is_active),
-                             wrapper: :span,
+      = svg_icon_tag 'lock', wrapper: :span,
+                             wrapper_title: :label_dashboard_lock_is_active,
                              wrapper_css: 'dashboard-locked',
                              plugin: ''
     - else

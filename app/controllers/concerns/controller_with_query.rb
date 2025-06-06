@@ -55,11 +55,11 @@ module ControllerWithQuery
       session_data = Rails.cache.read additionals_query_cache_key
       @query ||= query_class.new(name: '_',
                                  project: @project,
-                                 filters: session_data.nil? ? nil : session_data[:filters],
-                                 group_by: session_data.nil? ? nil : session_data[:group_by],
-                                 column_names: session_data.nil? ? nil : session_data[:column_names],
-                                 totalable_names: session_data.nil? ? nil : session_data[:totalable_names],
-                                 sort_criteria: params[:sort].presence || (session_data.nil? ? nil : session_data[:sort_criteria]))
+                                 filters: session_data&.dig(:filters),
+                                 group_by: session_data&.dig(:group_by),
+                                 column_names: session_data&.dig(:column_names),
+                                 totalable_names: session_data&.dig(:totalable_names),
+                                 sort_criteria: params[:sort].presence || session_data&.dig(:sort_criteria))
       @query.project = @project
       @query.user_filter = user_filter if user_filter
       @query.display_type = params[:display_type] if params[:display_type]

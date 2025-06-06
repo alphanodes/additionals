@@ -99,7 +99,7 @@ class DashboardsController < ApplicationController
   def update
     return render_403 unless @dashboard.editable?
 
-    # should be set before dashboar object has modified
+    # should be set before dashboard object has modified
     @allowed_projects = @dashboard.allowed_target_projects
 
     @dashboard.safe_attributes = params[:dashboard]

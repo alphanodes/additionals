@@ -152,7 +152,7 @@ class Dashboard < ApplicationRecord
     if has_attribute? attr_name
       super
     else
-      options ? options[attr_name] : nil
+      options&.dig attr_name
     end
   end
 

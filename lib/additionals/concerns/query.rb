@@ -355,7 +355,7 @@ module Additionals
         end
 
         def sql_for_is_private_field(_field, operator, value)
-          if bool_operator operator, value
+          if bool_operator? operator, value
             return '' if value.count > 1
 
             "#{queried_table_name}.is_private = #{self.class.connection.quoted_true}"
@@ -367,7 +367,7 @@ module Additionals
         end
 
         # use for list fields with to values 1 (true) and 0 (false)
-        def bool_operator(operator, values)
+        def bool_operator?(operator, values)
           operator == '=' && values.first == '1' || operator != '=' && values.first != '1'
         end
 

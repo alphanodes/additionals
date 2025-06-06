@@ -18,7 +18,7 @@ class AdditionalsMacro
 
       all.each do |macro, macro_options|
         next if filtered.include? macro.to_s
-        next unless macro_allowed macro, permissions
+        next unless macro_allowed? macro, permissions
 
         macro_list << macro.to_s
         macros[macro] = macro_options
@@ -33,7 +33,7 @@ class AdditionalsMacro
 
     private
 
-    def macro_allowed(macro, permissions)
+    def macro_allowed?(macro, permissions)
       permissions.each do |permission|
         next if permission[:list].exclude? macro
         return false unless permission[:access]

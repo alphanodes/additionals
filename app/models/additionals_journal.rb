@@ -23,10 +23,10 @@ class AdditionalsJournal
         journal.save
       end
 
-      true
+      journal
     end
 
-    def validate_relation(entries, entry_id)
+    def validate_relation?(entries, entry_id)
       old_entries = entries.select(&:persisted?)
       new_entries = entries.select(&:new_record?)
       return true if new_entries.blank?

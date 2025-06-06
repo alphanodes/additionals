@@ -276,7 +276,7 @@ module CrudControllerBase
       end
     end
 
-    def prepare_crud_test(action, no_permission: false)
+    def prepare_crud_test(action, no_permission: false) # rubocop: disable Naming/PredicateMethod
       return false if @crud[:without_actions].present? && @crud[:without_actions].include?(action)
 
       @request.session[:user_id] = if no_permission

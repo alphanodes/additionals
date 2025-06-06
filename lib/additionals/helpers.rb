@@ -298,7 +298,7 @@ module Additionals
 
     private
 
-    def additionals_already_loaded(scope, js_name)
+    def additionals_already_loaded?(scope, js_name)
       locked = "#{js_name}.#{scope}"
       @alreaded_loaded = [] if @alreaded_loaded.nil?
       return true if @alreaded_loaded.include? locked
@@ -308,7 +308,7 @@ module Additionals
     end
 
     def additionals_include_js(js_name, core: false)
-      if additionals_already_loaded 'js', js_name
+      if additionals_already_loaded? 'js', js_name
         ''
       else
         javascript_include_tag js_name, plugin: core ? nil : 'additionals'
@@ -316,7 +316,7 @@ module Additionals
     end
 
     def additionals_include_css(css)
-      if additionals_already_loaded 'css', css
+      if additionals_already_loaded? 'css', css
         ''
       else
         stylesheet_link_tag css, plugin: 'additionals'

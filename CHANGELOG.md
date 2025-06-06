@@ -4,6 +4,7 @@
 
 - fix deface checksum for admin/info
 - mermaid 11.6.0 support
+- fix bug with project dashboard, if only one single project exists
 
 ## 4.0.0
 

@@ -62,7 +62,7 @@ module Additionals
               next unless principal.type == 'User'
 
               user_roles[principal.id] = principal.roles_for_project project
-              users << principal if options[:role].blank? || Additionals.check_role_matches(user_roles[principal.id], options[:role])
+              users << principal if options[:role].blank? || Additionals.check_role_matches?(user_roles[principal.id], options[:role])
             end
           else
             users = User.visible
@@ -87,7 +87,7 @@ module Additionals
     end
   end
 
-  def self.check_role_matches(roles, filters)
+  def self.check_role_matches?(roles, filters)
     filters.tr('|', ',').split(',').each do |filter|
       roles.each { |role| return true if filter.to_s == role.to_s }
     end

@@ -46,6 +46,7 @@ Redmine::Plugin.register :additionals do
        { controller: 'settings', action: 'plugin', id: 'additionals' },
        caption: :label_additionals,
        plugin: 'additionals',
+       html: { class: 'icon' },
        icon: 'additionals'
 end
 

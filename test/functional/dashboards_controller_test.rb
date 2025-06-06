@@ -29,4 +29,51 @@ class DashboardsControllerTest < Additionals::ControllerTest
               entity: dashboards(:private_welcome2),
               delete_redirect_to: home_url }
   end
+
+  def test_unlock_welcome_system_dashboard
+    @request.session[:user_id] = 1
+
+    dashboard = dashboards :system_default_welcome
+
+    put :update,
+        params: { id: dashboard.id,
+                  dashboard: { locked: false } }
+
+    assert_response :redirect
+
+    dashboard.reload
+
+    assert_not dashboard.locked
+  end
+
+  def test_unlock_project_system_dashboard
+    @request.session[:user_id] = 1
+
+    dashboard = dashboards :system_default_project
+
+    put :update,
+        params: { id: dashboard.id,
+                  dashboard: { locked: false,
+                               content_project_id: 1 } }
+
+    assert_response :redirect
+
+    dashboard.reload
+
+    assert_not dashboard.locked
+  end
+
+  def test_update_project_system_dashboard_with_project_should_not_possible
+    @request.session[:user_id] = 1
+
+    dashboard = dashboards :system_default_project
+
+    assert_raises Dashboard::ProjectSystemDefaultChangeException do
+      put :update,
+          params: { id: dashboard.id,
+                    dashboard: { locked: false,
+                                 project_id: 1,
+                                 content_project_id: 1 } }
+    end
+  end
 end

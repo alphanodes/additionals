@@ -63,10 +63,6 @@ module Additionals
         @last_notes ||= journals.where.not(notes: '').reorder(id: :desc).first.try(:notes)
       end
 
-      def new_status
-        true if created_on == updated_on
-      end
-
       # Returns the id of the last journal or nil
       def last_journal_id
         if new_record?

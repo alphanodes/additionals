@@ -1,5 +1,7 @@
 # Changelog
 
+## 4.2.0
+
 ## 4.1.0
 
 - fix deface checksum for admin/info

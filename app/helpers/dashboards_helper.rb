@@ -386,7 +386,7 @@ module DashboardsHelper
     scope = scope.where project_id: dashboard.content_project.id unless dashboard.content_project.nil?
 
     entries_today = scope.where spent_on: User.current.today
-    entries_days = scope.where spent_on: User.current.today - (days - 1)..User.current.today
+    entries_days = scope.where spent_on: (User.current.today - (days - 1))..User.current.today
 
     render('dashboards/blocks/my_spent_time',
            block:,

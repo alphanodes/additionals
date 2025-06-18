@@ -42,7 +42,6 @@ module Additionals
 
       # used with assignable_principal (user AND groups)
       def assignable_users(prj = nil)
-        binding.break
         prj = project if project
         users = if prj
                   prj.assignable_principals.to_a

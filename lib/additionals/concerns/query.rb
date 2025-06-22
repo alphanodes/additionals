@@ -356,11 +356,11 @@ module Additionals
 
         def sql_for_is_private_field(_field, operator, value)
           if bool_operator? operator, value
-            return '' if value.count > 1
+            return '' if value.many?
 
             "#{queried_table_name}.is_private = #{self.class.connection.quoted_true}"
           else
-            return Additionals::SQL_NO_RESULT_CONDITION if value.count > 1
+            return Additionals::SQL_NO_RESULT_CONDITION if value.many?
 
             "#{queried_table_name}.is_private = #{self.class.connection.quoted_false}"
           end

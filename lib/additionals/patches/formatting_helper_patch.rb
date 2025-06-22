@@ -18,7 +18,7 @@ module Additionals
                                                             only_names: true,
                                                             controller_only: controller_name
 
-          return if @additionals_macro_list.count.zero?
+          return if @additionals_macro_list.none?
 
           content_for :header_tags do
             javascript_include_tag('additionals_macro_button', plugin: 'additionals') +

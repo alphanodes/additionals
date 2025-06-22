@@ -128,7 +128,7 @@ class AdditionalsFontAwesome
                             elsif search_length.zero? && selected_store.any?
                               selected = selected_store.first
                               fa = selected.split '_'
-                              search = fa[1][0] if fa.count > 1
+                              search = fa[1][0] if fa.many?
                               search
                             end
 

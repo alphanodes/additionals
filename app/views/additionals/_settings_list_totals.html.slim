@@ -1,5 +1,5 @@
 - columns = query_class.new.available_totalable_columns
-- if columns.count.positive?
+- if columns.any?
   fieldset.box
     legend = l :additionals_query_list_default_totals
 

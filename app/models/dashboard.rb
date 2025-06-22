@@ -439,6 +439,6 @@ class Dashboard < ApplicationRecord
     end
 
     scope = scope.where.not id: id unless new_record?
-    errors.add :name, :name_not_unique if scope.count.positive?
+    errors.add :name, :name_not_unique if scope.any?
   end
 end

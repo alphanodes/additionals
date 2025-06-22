@@ -85,7 +85,7 @@ class RedminePluginKitLoaderTest < Additionals::TestCase
     spec = File.join 'wiki_macros', '**/*_macro.rb'
     files = loader.require_files spec
 
-    assert files.count.positive?
+    assert files.any?
     assert(files.detect { |file| file.include? 'fa_macro' })
   end
 
@@ -95,7 +95,7 @@ class RedminePluginKitLoaderTest < Additionals::TestCase
     spec = File.join 'helpers', '**/additionals_*.rb'
     files = loader.require_files spec, use_app: true
 
-    assert files.count.positive?
+    assert files.any?
     assert(files.detect { |file| file.include? 'additionals_clipboardjs_helper' })
   end
 
@@ -150,7 +150,7 @@ class RedminePluginKitLoaderTest < Additionals::TestCase
     loader = RedminePluginKit::Loader.new plugin_id: @plugin_id
     macros = loader.load_macros!
 
-    assert macros.count.positive?
+    assert macros.any?
     assert(macros.detect { |macro| macro.include? 'fa_macro' })
   end
 end

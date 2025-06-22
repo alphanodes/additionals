@@ -35,9 +35,7 @@ class AdditionalsJournal
       return false if new_entries.count != new_entries.uniq.count
 
       old_entries.map! { |entry| entry.send entry_id }
-      return false unless (old_entries & new_entries).count.zero?
-
-      true
+      !old_entries.intersect? new_entries
     end
 
     def set_relation_detail(entity, detail, value_key)

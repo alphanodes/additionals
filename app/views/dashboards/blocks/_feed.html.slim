@@ -5,7 +5,7 @@
     = dashboard_feed_title settings[:title], block_definition
 
   - if feed[:valid]
-    - if feed[:items].count.positive?
+    - if feed[:items].any?
       ul.dashboard-list.feed
         - feed[:items].each do |item|
           li = link_to_external item[:title], item[:link]

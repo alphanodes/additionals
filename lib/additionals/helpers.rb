@@ -73,7 +73,7 @@ module Additionals
           tds << tag.td('', class: 'hide') if with_buttons && with_checkbox
           tds << tag.td(colspan: td_colspan, class: "#{column.css_classes} block_column") do
             td_content = []
-            td_content << tag.span(column.caption) if query.block_columns.count > 1
+            td_content << tag.span(column.caption) if query.block_columns.many?
             td_content << text
             safe_join td_content
           end

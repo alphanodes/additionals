@@ -3,11 +3,11 @@
 class AdditionalsPlugin
   class << self
     def respond_to_missing?(method_name, include_private = false)
-      validate_default_plugin_name(method_name) || super
+      validate_default_plugin_name?(method_name) || super
     end
 
     def method_missing(method_name, force: false)
-      if validate_default_plugin_name method_name
+      if validate_default_plugin_name? method_name
         default_plugin_check?(method_name, force:)
       else
         super
@@ -59,7 +59,7 @@ class AdditionalsPlugin
 
     private
 
-    def validate_default_plugin_name(method_name)
+    def validate_default_plugin_name?(method_name)
       method_name.to_s.start_with?('active_') && method_name.to_s.end_with?('?')
     end
   end

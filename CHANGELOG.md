@@ -2,6 +2,9 @@
 
 ## 4.2.0
 
+- mermaid 11.7.0 support
+- improve compatibility with other plugins #182
+
 ## 4.1.0
 
 - fix deface checksum for admin/info

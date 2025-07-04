@@ -21,6 +21,14 @@ module Additionals
       safe_join titles
     end
 
+    def entity_headline(object_name:, type:, capitalize: true, obj: nil) # rubocop: disable Lint/UnusedMethodArgument
+      object_name = l object_name if object_name.is_a? Symbol
+
+      headline = l("button_#{type}_object", object_name:)
+      headline.capitalize! if capitalize
+      headline
+    end
+
     def entry_page_title(name, obj: nil, obj_link: nil, query: nil, icon_name: nil)
       items = []
       case obj

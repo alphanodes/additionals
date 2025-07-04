@@ -35,8 +35,6 @@ pl:
   alert_only_visible_by_admins: "Może być widziany tylko przez użytkowników z uprawnieniami administratora"
   alert_only_visible_by_yourself: "Może być widziany tylko przez ciebie"
   button_assign_to_me: Przypisz do mnie
-  button_dashboard_delete: "Usuń tablicę rozdzielczą"
-  button_dashboard_edit: Edit dashboard
   button_merge: Merge
   disabled_modules_info: "Moduły, które nie powinny być dostępne do wyboru w ramach projektów. Jeśli moduły te są już aktywowane w istniejących projektach, należy najpierw zmienić i zapisać odpowiednie ustawienia projektu."
   emoji_support_info_html: 'Konwertuj emojis na tekst. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" class="external">Emoji cheat sheet</a> the available emoji codes can be used.'

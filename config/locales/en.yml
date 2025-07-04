@@ -35,8 +35,6 @@ en:
   alert_only_visible_by_admins: "Can only be seen by users with admin permissions"
   alert_only_visible_by_yourself: "Can only be seen by you"
   button_assign_to_me: Assign to me
-  button_dashboard_delete: Delete dashboard
-  button_dashboard_edit: Edit dashboard
   button_merge: "Merge"
   disabled_modules_info: "Modules which should not be available for selection within the projects. If these modules already activated in existing projects, you will have to change and re-save the respective project settings first."
   emoji_support_info_html: 'Convert emojis in text. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" class="external">Emoji cheat sheet</a> the available emoji codes can be used.'

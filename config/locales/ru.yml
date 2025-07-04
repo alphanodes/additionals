@@ -35,8 +35,6 @@ ru:
   alert_only_visible_by_admins: "Можно увидеть только пользователям с правами администратора"
   alert_only_visible_by_yourself: "Можно видеть только тебя"
   button_assign_to_me: "Назначить мне"
-  button_dashboard_delete: "Удалить приборную панель"
-  button_dashboard_edit: "Редактировать панель инструментов"
   button_merge: "Слияние"
   disabled_modules_info: "Модули, которые не должны быть доступны для отбора в рамках проектов. Если эти модули уже активированы в существующих проектах, сначала необходимо изменить и сохранить соответствующие настройки проекта."
   emoji_support_info_html: 'Преобразование эмодзи в текст Поддержка. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" class="external">Emoji cheat sheet</a> the available emoji codes can be used.'

@@ -35,8 +35,6 @@ ko:
   alert_only_visible_by_admins: "관리자 권한이 있는 사용자만 볼 수 있음"
   alert_only_visible_by_yourself: "너만 볼 수 있어"
   button_assign_to_me: 나에게 할당
-  button_dashboard_delete: 대시보드 삭제
-  button_dashboard_edit: 대시보드 수정
   button_merge: "병합 "
   disabled_modules_info: "프로젝트 내에서 선택할 수없는 모듈. 이러한 모듈이 기존 프로젝트에서 이미 활성화 된 경우 먼저 해당 프로젝트 설정을 변경하고 다시 저장해야합니다."
   emoji_support_info_html: 'Convert emojis in text. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" class="external">Emoji cheat sheet</a> the available emoji codes can be used.'

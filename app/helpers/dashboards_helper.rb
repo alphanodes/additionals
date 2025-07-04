@@ -189,7 +189,7 @@ module DashboardsHelper
       options[:data] = { confirm: l(:text_are_you_sure) }
     end
 
-    link_to sprite_icon('del', l(:button_dashboard_delete)), url, options
+    link_to sprite_icon('del', entity_headline(object_name: :label_dashboard, type: :delete)), url, options
   end
 
   # Returns the select tag used to add or remove a block

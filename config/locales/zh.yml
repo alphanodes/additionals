@@ -35,8 +35,6 @@ zh:
   alert_only_visible_by_admins: "只有拥有管理员权限的用户才能看到"
   alert_only_visible_by_yourself: "只能被你看到"
   button_assign_to_me: 指派给我
-  button_dashboard_delete: 删除仪表盘
-  button_dashboard_edit: "编辑仪表盘"
   button_merge: "合并"
   disabled_modules_info: "项目中无法选择模块。如果这些模块已经在现有项目中激活，则必须首先更改并重新保存响应的项目设置。"
   emoji_support_info_html: 'Convert emojis in text. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" class="external">Emoji cheat sheet</a> the available emoji codes can be used.'

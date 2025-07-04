@@ -35,8 +35,6 @@ cs:
   alert_only_visible_by_admins: "Vidí je pouze uživatelé s oprávněními správce"
   alert_only_visible_by_yourself: "Vidíte jen vy"
   button_assign_to_me: "Přiřaďte mi"
-  button_dashboard_delete: "Vymazat dashboard"
-  button_dashboard_edit: "Upravit dashboard"
   button_merge: "Sloučení"
   disabled_modules_info: "Moduly, které by neměly být k dispozici pro výběr v rámci projektů. Pokud jsou tyto moduly již aktivovány ve stávajících projektech, musíte nejprve změnit a znovu uložit příslušná nastavení projektu."
   emoji_support_info_html: 'Převod emoji do textu. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" class="external">Emoji cheat sheet</a> the available emoji codes can be used.'

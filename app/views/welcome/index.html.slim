@@ -19,7 +19,7 @@
                 new_dashboard_path,
                 class: 'icon icon-add new-additionals-dashboard'
       - if @dashboard&.editable?
-        = link_to sprite_icon('edit', l(:button_dashboard_edit)),
+        = link_to sprite_icon('edit', entity_headline(object_name: :label_dashboard, type: :edit)),
                   edit_dashboard_path(@dashboard),
                   class: 'icon icon-edit'
     - if @dashboard&.deletable?

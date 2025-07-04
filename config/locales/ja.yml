@@ -35,8 +35,6 @@ ja:
   alert_only_visible_by_admins: "管理者権限を持つユーザーのみが見ることができます"
   alert_only_visible_by_yourself: "あなただけが見ることができます"
   button_assign_to_me: Assign to me
-  button_dashboard_delete: "ダッシュボードの削除"
-  button_dashboard_edit: "ダッシュボードの編集"
   button_merge: "マージ"
   disabled_modules_info: "プロジェクト内で選択させたくないモジュール。もしこのモジュールが既存のプロジェクトで既に有効な場合、設定変更した上で、ウェブサーバを再起動しなければなりません。"
   emoji_support_info_html: '絵文字をテキストに変換する. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" class="external">Emoji cheat sheet</a> the available emoji codes can be used.'

@@ -1,4 +1,5 @@
-h2 = l :button_dashboard_edit
+h2#page-title = entity_headline object_name: :label_dashboard, type: :edit
+
 = labelled_form_for @dashboard,
                     html: { multipart: true, id: 'dashboard-form' } do |f|
   = render('form', f:)

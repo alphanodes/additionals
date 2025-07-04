@@ -35,8 +35,6 @@ fr:
   alert_only_visible_by_admins: "Ne peut être vu que par les utilisateurs ayant les droits d'administrateur"
   alert_only_visible_by_yourself: "Ne peut être vu que par vous"
   button_assign_to_me: M'affecter
-  button_dashboard_delete: "Supprimer le tableau de bord"
-  button_dashboard_edit: "Modifier le tableau de bord"
   button_merge: Fusionner
   disabled_modules_info: "Les modules qui ne devraient pas être disponibles pour la sélection dans le cadre des projets. Si ces modules sont déjà activés dans des projets existants, vous devez d'abord modifier et sauvegarder à nouveau les paramètres projet respectifs."
   emoji_support_info_html: 'Convertir les emojis en texte. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" class="external">Emoji cheat sheet</a> the available emoji codes can be used.'

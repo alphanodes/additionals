@@ -6,8 +6,8 @@ table.list
       td.name
         - case system_info[:value]
           - when true
-            = image_tag 'true.png'
+            = sprite_icon 'checked'
           - when false
-            = image_tag 'exclamation.png'
+            = sprite_icon 'warning'
           - else
             = system_info[:value]

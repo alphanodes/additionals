@@ -19,6 +19,7 @@ class DashboardAsyncBlocksController < ApplicationController
   # support for redmine_contacts_helpdesk plugin
   if AdditionalsPlugin.active_contacts_helpdesk?
     include HelpdeskHelper
+
     helper :helpdesk
   end
 

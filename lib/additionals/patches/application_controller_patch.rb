@@ -7,6 +7,7 @@ module Additionals
 
       included do
         include InstanceMethods
+
         before_action :enable_smileys
         helper :additionals_js_heads
       end

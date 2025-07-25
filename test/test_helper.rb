@@ -56,30 +56,35 @@ module Additionals
   class HelperTest < Redmine::HelperTest
     include Additionals::TestHelper
     extend PluginFixturesLoader
+
     fixtures(*fixtures_list)
   end
 
   class ControllerTest < Redmine::ControllerTest
     include Additionals::TestHelper
     extend PluginFixturesLoader
+
     fixtures(*fixtures_list)
   end
 
   class TestCase < ActiveSupport::TestCase
     include Additionals::TestHelper
     extend PluginFixturesLoader
+
     fixtures(*fixtures_list)
   end
 
   class IntegrationTest < Redmine::IntegrationTest
     include Additionals::TestHelper
     extend PluginFixturesLoader
+
     fixtures(*fixtures_list)
   end
 
   class ApiTest < Redmine::ApiTest::Base
     include Additionals::TestHelper
     extend PluginFixturesLoader
+
     fixtures(*fixtures_list)
   end
 end

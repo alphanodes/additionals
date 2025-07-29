@@ -55,7 +55,7 @@ module Additionals
           set_watcher assigned_to, true
         end
 
-        def sidbar_change_status_allowed_to(user, new_status_id = nil)
+        def sidebar_change_status_allowed_to(user, new_status_id = nil)
           statuses = new_statuses_allowed_to user
           if new_status_id.present?
             statuses.detect { |s| new_status_id == s.id && !timelog_required?(s.id) }

@@ -8,7 +8,7 @@ class AdditionalsChangeStatusController < ApplicationController
     issue_old_status_id = @issue.status.id
     issue_old_user = @issue.assigned_to
     new_status_id = params[:new_status_id].to_i
-    allowed_status = @issue.sidbar_change_status_allowed_to User.current, new_status_id
+    allowed_status = @issue.sidebar_change_status_allowed_to User.current, new_status_id
 
     if new_status_id < 1 || @issue.status_id == new_status_id || allowed_status.nil?
       redirect_to(issue_path(@issue))

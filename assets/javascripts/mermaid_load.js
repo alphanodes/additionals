@@ -20,10 +20,15 @@ function initAllMermaidMacro(startOnLoad = false) {
     startOnLoad: startOnLoad,
     maxTextSize: 500000,
     flowchart: {
-      useMaxWidth: false
+      useMaxWidth: false,
+    },
+    gantt: {
+      topAxis: true,
+      weekday: 'monday',
     },
     theme: mermaidTheme,
-    themeVariables: mermaidThemeVariables });
+    themeVariables: mermaidThemeVariables,
+  });
 }
 
 // Render a specific Mermaid macro by selector

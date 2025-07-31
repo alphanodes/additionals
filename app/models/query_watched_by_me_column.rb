@@ -6,11 +6,9 @@ class QueryWatchedByMeColumn < QueryColumn
   end
 
   # NOTE: we overwrite value_object, because we cannot change method name
-  # rubocop: disable Naming/PredicateMethod
   def value_object(object)
     object.watched_by? User.current
   end
-  # rubocop: enable Naming/PredicateMethod
 
   def order_sql(queried_class)
     watchable_type = queried_class == User ? 'Principal' : queried_class.to_s

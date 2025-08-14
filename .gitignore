@@ -4,6 +4,8 @@
 coverage/
 tmp/
 Gemfile.lock
+CLAUDE.md
+.claude/
 .project
 .vscode
 .bundle

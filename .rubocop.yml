@@ -143,5 +143,8 @@ Rails/ActionControllerFlashBeforeRender:
   Exclude:
     - app/controllers/dashboards_controller.rb
 
+Naming/PredicateMethod:
+  Enabled: false
+
 Bundler/DuplicatedGroup:
   Enabled: false

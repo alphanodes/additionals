@@ -164,6 +164,9 @@ module Additionals
   end
 end
 
+# Load optimization modules
+require_relative 'additionals/assignable_users_optimizer'
+
 class String
   def strip_split(sep = ',')
     split(sep).map(&:strip).compact_blank

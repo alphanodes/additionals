@@ -41,18 +41,26 @@ module Additionals
       end
 
       # used with assignable_principal (user AND groups)
+      # OPTIMIZED: Uses AssignableUsersOptimizer to prevent N+1 queries and respect hidden roles
       def assignable_users(prj = nil)
         prj = project if project
+
+        # Use optimized implementation that respects hidden roles and prevents N+1 queries
         users = if prj
-                  prj.assignable_principals.to_a
+                  Additionals::AssignableUsersOptimizer.project_assignable_users prj
                 else
-                  Principal.assignable.to_a
+                  # For entities without project context, use global assignable users
+                  # This is a fallback and should be used carefully
+                  Additionals::AssignableUsersOptimizer.global_assignable_users
                 end
 
-        users << author if author&.active?
+        # Add author if active (authors should always be assignable to their own entities)
+        users << author if author&.active? && users.exclude?(author)
+
+        # Add previous assignee if it was changed (to allow reassigning back)
         if assigned_to_id_was.present?
           assignee = Principal.find_by id: assigned_to_id_was
-          users << assignee if assignee
+          users << assignee if assignee && users.exclude?(assignee)
         end
 
         users.uniq!

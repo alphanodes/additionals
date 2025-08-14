@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+vendor/bundle/
+
+# Generated files
+log/
+tmp/
+coverage/
+public/assets/
+public/packs/
+
+# Database
+db/*.sqlite3
+*.sql
+
+# Environment
+.env*
+config/master.key
+config/credentials/
+
+# IDE/Editor
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing artifacts
+test/reports/
+spec/reports/
+
+# Documentation builds
+doc/
+.yardoc/
+
+# Large binary files
+*.jpg
+*.png
+*.gif
+*.pdf
+*.zip

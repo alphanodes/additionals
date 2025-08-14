@@ -43,20 +43,35 @@ module Additionals
 
       module InstanceOverwriteMethods
         def assignable_users(tracker = nil)
+          # Cache users per project, tracker AND user context to avoid repeated queries
+          # CRITICAL: Cache must be user-specific because hidden roles visibility depends on User.current
+          @assignable_users ||= {}
+
+          # Create cache key that includes user context for hidden roles security
+          user_cache_key = if User.current.admin? || User.current.allowed_to?(:show_hidden_roles_in_memberbox, self)
+                             "admin_#{tracker}"
+                           else
+                             "user_#{tracker}"
+                           end
+
+          return @assignable_users[user_cache_key] if @assignable_users.key? user_cache_key
+
+          # Use Issue-specific implementation if tracker is provided (Issues only!)
+          # Otherwise use general project assignable users (for other entities)
+          users = if tracker
+                    ::Additionals::AssignableUsersOptimizer.issue_assignable_users self, tracker: tracker
+                  else
+                    ::Additionals::AssignableUsersOptimizer.project_assignable_users self
+                  end
+
+          @assignable_users[user_cache_key] = users
+        end
+
+        # Clear assignable users cache when members change
+        # This is critical for consistency when users/roles are added/removed
+        def reload(*args)
+          @assignable_users = nil
           super
-          return @assignable_users[tracker] if @assignable_users[tracker].blank?
-          return @assignable_users[tracker] unless consider_hidden_roles?
-
-          a_u = Arel::Table.new :users
-          a_m = Arel::Table.new :members
-
-          users = @assignable_users[tracker]
-          subquery = Member.joins(:roles)
-                           .where(members: { project_id: id },
-                                  roles: { hide: false })
-                           .where(a_u[:id].eq(a_m[:user_id]))
-
-          @assignable_users[tracker] = users.where "EXISTS(#{subquery.to_sql})"
         end
 
         def principals_by_role

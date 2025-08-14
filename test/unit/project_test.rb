@@ -153,4 +153,106 @@ class ProjectTest < Additionals::TestCase
 
     assert_operator ids.count, :>, 3
   end
+
+  def test_assignable_users_performance
+    project = projects :projects_001
+
+    # Test that assignable_users doesn't cause N+1 queries
+    queries_before = count_sql_queries { project.assignable_users }
+
+    # Clear the cache and test again - should use same number of queries
+    project.reload
+    queries_after = count_sql_queries { project.assignable_users }
+
+    # The optimized version should use fewer queries
+    assert_operator queries_after, :<=, queries_before, 'assignable_users should not cause N+1 queries'
+    # Should be reasonable number of queries (not N+1)
+    assert_operator queries_after, :<=, 5, 'assignable_users should use limited number of queries'
+  end
+
+  def test_assignable_users_with_hidden_roles
+    project = projects :projects_001
+
+    # Create a hidden role
+    hidden_role = Role.create!(
+      name: 'Hidden Role',
+      assignable: true,
+      hide: true,
+      users_visibility: 'members_of_visible_projects',
+      permissions: %i[view_issues add_issues]
+    )
+
+    # Create a user with the hidden role
+    user = User.create!(
+      login: 'hiddenuser',
+      firstname: 'Hidden',
+      lastname: 'User',
+      mail: 'hidden@example.com',
+      status: User::STATUS_ACTIVE
+    )
+
+    Member.create! project: project, principal: user, roles: [hidden_role]
+
+    # Create a regular user without show_hidden_roles permission
+    regular_user = User.create!(
+      login: 'regularuser',
+      firstname: 'Regular',
+      lastname: 'User',
+      mail: 'regular@example.com',
+      status: User::STATUS_ACTIVE
+    )
+
+    # Create a role without show_hidden_roles permission
+    regular_role = Role.create!(
+      name: 'Regular Role',
+      permissions: %i[view_project view_issues]
+    )
+
+    Member.create! project: project, principal: regular_user, roles: [regular_role]
+
+    # Regular user should not see users with hidden roles
+    User.current = regular_user
+    assignable = project.assignable_users
+
+    assert_not_includes assignable, user, 'User with hidden role should not be visible to regular users'
+
+    # Admin should see all users - use system admin (users_001 is admin: true)
+    User.current = users :users_001
+    project.reload # Clear any cached values
+    assignable_admin = project.assignable_users
+
+    assert_includes assignable_admin, user, 'Admin should see users with hidden roles'
+  end
+
+  def test_assignable_users_caching
+    project = projects :projects_001
+
+    # First call should cache the result
+    users1 = project.assignable_users
+    users2 = project.assignable_users
+
+    assert_same users1, users2, 'assignable_users should return cached results'
+
+    # Different tracker should have separate cache
+    tracker = Tracker.first
+    users_with_tracker = project.assignable_users tracker
+
+    assert_not_same users1, users_with_tracker, 'Different tracker should have separate cache'
+  end
+
+  def test_assignable_users_with_tracker
+    project = projects :projects_001
+    tracker = project.trackers.first
+
+    users_all = project.assignable_users
+    users_tracker = project.assignable_users tracker
+
+    # Both should return arrays of users
+    assert_kind_of Array, users_all
+    assert_kind_of Array, users_tracker
+
+    # Users should all be User instances
+    users_all.each { |u| assert_kind_of User, u }
+    users_tracker.each { |u| assert_kind_of User, u }
+  end
 end

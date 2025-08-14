@@ -19,6 +19,13 @@ module Additionals
 
           issue.log_time_allowed?
         end
+
+        def assignable_users
+          return super unless project
+
+          # Use optimized implementation from AssignableUsersOptimizer for log_time users
+          Additionals::AssignableUsersOptimizer.log_time_assignable_users project
+        end
       end
 
       module InstanceMethods

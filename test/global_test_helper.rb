@@ -209,6 +209,18 @@ module Additionals
       css_select('table.projects thead th').map(&:text)
     end
 
+    def count_sql_queries
+      queries = []
+      subscriber = ActiveSupport::Notifications.subscribe 'sql.active_record' do |_name, _started, _finished, _unique_id, data|
+        queries << data[:sql] unless data[:name] == 'SCHEMA'
+      end
+
+      yield
+      queries.size
+    ensure
+      ActiveSupport::Notifications.unsubscribe subscriber if subscriber
+    end
+
     def WikiPage.generate(**options)
       content = options.delete(:content) || 'Example text'
 

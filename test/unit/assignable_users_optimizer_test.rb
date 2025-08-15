@@ -15,13 +15,41 @@ class AssignableUsersOptimizerTest < Additionals::TestCase
   def test_project_assignable_users_performance
     project = projects :projects_001
 
+    # Create sufficient test data to detect N+1 problems (minimum 10 assignable users)
+    assignable_role = Role.create!(
+      name: 'Performance Test Role',
+      assignable: true,
+      permissions: %i[view_issues add_issues]
+    )
+
+    # Create 10 additional users to have enough data for N+1 detection
+    created_users = []
+    10.times do |i|
+      user = User.create!(
+        login: "perftest#{i}",
+        firstname: "PerfTest#{i}",
+        lastname: 'User',
+        mail: "perftest#{i}@example.com",
+        status: User::STATUS_ACTIVE
+      )
+      created_users << user
+      Member.create! project: project, principal: user, roles: [assignable_role]
+    end
+
     # Test that project_assignable_users doesn't cause N+1 queries
+    # With 10+ assignable users, N+1 problem would show significantly more queries
     queries_before = count_sql_queries do
       Additionals::AssignableUsersOptimizer.project_assignable_users project
     end
 
     # Should use limited number of queries (not N+1)
+    # With N+1 problem, this would be 20+ queries (2 per user)
     assert_operator queries_before, :<=, 10, 'project_assignable_users should use limited number of queries'
+
+    # Verify we actually have enough test data
+    assignable_users = Additionals::AssignableUsersOptimizer.project_assignable_users project
+
+    assert_operator assignable_users.size, :>=, 10, 'Should have at least 10 assignable users for valid N+1 test'
   end
 
   def test_project_assignable_users_with_hidden_roles
@@ -72,13 +100,41 @@ class AssignableUsersOptimizerTest < Additionals::TestCase
   def test_log_time_assignable_users_performance
     project = projects :projects_001
 
+    # Create sufficient test data to detect N+1 problems (minimum 10 users with log_time permission)
+    log_time_role = Role.create!(
+      name: 'Log Time Performance Role',
+      assignable: true,
+      permissions: %i[view_issues log_time]
+    )
+
+    # Create 10 additional users with log_time permission
+    created_users = []
+    10.times do |i|
+      user = User.create!(
+        login: "logtimeperf#{i}",
+        firstname: "LogTimePerf#{i}",
+        lastname: 'User',
+        mail: "logtimeperf#{i}@example.com",
+        status: User::STATUS_ACTIVE
+      )
+      created_users << user
+      Member.create! project: project, principal: user, roles: [log_time_role]
+    end
+
     # Test that log_time_assignable_users doesn't cause N+1 queries
+    # With 10+ users with log_time permission, N+1 problem would show significantly more queries
     queries_before = count_sql_queries do
       Additionals::AssignableUsersOptimizer.log_time_assignable_users project
     end
 
     # Should use limited number of queries (not N+1)
+    # With N+1 problem, this would be 20+ queries (2 per user)
     assert_operator queries_before, :<=, 10, 'log_time_assignable_users should use limited number of queries'
+
+    # Verify we actually have enough test data
+    log_time_users = Additionals::AssignableUsersOptimizer.log_time_assignable_users project
+
+    assert_operator log_time_users.size, :>=, 10, 'Should have at least 10 users with log_time permission for valid N+1 test'
   end
 
   def test_log_time_assignable_users_with_permissions

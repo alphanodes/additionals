@@ -51,17 +51,47 @@ class TimeEntryTest < Additionals::TestCase
   end
 
   def test_assignable_users_performance
-    entry = TimeEntry.generate project: projects(:projects_001)
+    project = projects :projects_001
+
+    # Create sufficient test data to detect N+1 problems (minimum 8 users with log_time permission)
+    time_entry_role = Role.create!(
+      name: 'TimeEntry Performance Role',
+      assignable: true,
+      permissions: %i[view_issues log_time]
+    )
+
+    # Create 8 additional users with log_time permission
+    created_users = []
+    8.times do |i|
+      user = User.create!(
+        login: "timeentryperf#{i}",
+        firstname: "TimeEntryPerf#{i}",
+        lastname: 'User',
+        mail: "timeentryperf#{i}@example.com",
+        status: User::STATUS_ACTIVE
+      )
+      created_users << user
+      Member.create! project: project, principal: user, roles: [time_entry_role]
+    end
+
+    entry = TimeEntry.generate project: project
 
     # Test that assignable_users doesn't cause N+1 queries
+    # With 8+ users with log_time permission, N+1 problem would show significantly more queries
     queries_before = count_sql_queries { entry.assignable_users }
 
-    # Create a new time entry for same project - should use optimized query
-    entry2 = TimeEntry.generate project: projects(:projects_001)
+    # Create a new time entry for same project - should use cached/optimized query
+    entry2 = TimeEntry.generate project: project
     queries_after = count_sql_queries { entry2.assignable_users }
 
     # Should use consistent number of queries (not N+1)
+    # With N+1 problem, queries would scale with user count
     assert_operator queries_after, :<=, queries_before + 2, 'assignable_users should not cause N+1 queries'
+
+    # Verify we actually have enough test data
+    assignable_users = entry.assignable_users
+
+    assert_operator assignable_users.size, :>=, 8, 'Should have at least 8 users with log_time permission for valid N+1 test'
   end
 
   def test_assignable_users_with_log_time_permission

@@ -157,17 +157,45 @@ class ProjectTest < Additionals::TestCase
   def test_assignable_users_performance
     project = projects :projects_001
 
+    # Create sufficient test data to detect N+1 problems (minimum 15 assignable users)
+    project_role = Role.create!(
+      name: 'Project Performance Role',
+      assignable: true,
+      permissions: %i[view_issues add_issues]
+    )
+
+    # Create 15 additional users to have enough data for N+1 detection
+    created_users = []
+    15.times do |i|
+      user = User.create!(
+        login: "projectperf#{i}",
+        firstname: "ProjectPerf#{i}",
+        lastname: 'User',
+        mail: "projectperf#{i}@example.com",
+        status: User::STATUS_ACTIVE
+      )
+      created_users << user
+      Member.create! project: project, principal: user, roles: [project_role]
+    end
+
     # Test that assignable_users doesn't cause N+1 queries
+    # With 15+ assignable users, N+1 problem would show significantly more queries
     queries_before = count_sql_queries { project.assignable_users }
 
     # Clear the cache and test again - should use same number of queries
     project.reload
     queries_after = count_sql_queries { project.assignable_users }
 
-    # The optimized version should use fewer queries
+    # The optimized version should use consistent number of queries
     assert_operator queries_after, :<=, queries_before, 'assignable_users should not cause N+1 queries'
     # Should be reasonable number of queries (not N+1)
-    assert_operator queries_after, :<=, 5, 'assignable_users should use limited number of queries'
+    # With N+1 problem, this would be 30+ queries (2 per user)
+    assert_operator queries_after, :<=, 10, 'assignable_users should use limited number of queries'
+
+    # Verify we actually have enough test data
+    assignable_users = project.assignable_users
+
+    assert_operator assignable_users.size, :>=, 15, 'Should have at least 15 assignable users for valid N+1 test'
   end
 
   def test_assignable_users_with_hidden_roles

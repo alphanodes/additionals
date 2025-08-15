@@ -81,13 +81,42 @@ class EntityMethodsAssignableUsersTest < Additionals::TestCase
 
   def test_assignable_users_with_project_performance
     project = projects :projects_001
+
+    # Create sufficient test data to detect N+1 problems (minimum 12 assignable users)
+    entity_role = Role.create!(
+      name: 'Entity Performance Role',
+      assignable: true,
+      permissions: %i[view_issues add_issues]
+    )
+
+    # Create 12 additional users to have enough data for N+1 detection
+    created_users = []
+    12.times do |i|
+      user = User.create!(
+        login: "entityperf#{i}",
+        firstname: "EntityPerf#{i}",
+        lastname: 'User',
+        mail: "entityperf#{i}@example.com",
+        status: User::STATUS_ACTIVE
+      )
+      created_users << user
+      Member.create! project: project, principal: user, roles: [entity_role]
+    end
+
     entity = TestEntity.new project: project
 
     # Test that assignable_users doesn't cause N+1 queries
+    # With 12+ assignable users, N+1 problem would show significantly more queries
     queries_before = count_sql_queries { entity.assignable_users }
 
     # Should use limited number of queries (not N+1)
+    # With N+1 problem, this would be 24+ queries (2 per user)
     assert_operator queries_before, :<=, 10, 'EntityMethods#assignable_users should use limited number of queries'
+
+    # Verify we actually have enough test data
+    assignable_users = entity.assignable_users
+
+    assert_operator assignable_users.size, :>=, 12, 'Should have at least 12 assignable users for valid N+1 test'
   end
 
   def test_assignable_users_with_project_and_hidden_roles

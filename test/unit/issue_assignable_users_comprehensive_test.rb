@@ -493,14 +493,14 @@ class IssueAssignableUsersComprehensiveTest < Additionals::TestCase
     assignable_other = project.assignable_users other_tracker
 
     # Different trackers might have different results
-    assert_kind_of Array, assignable_other
+    assert_kind_of ActiveRecord::Relation, assignable_other
 
     # Cache should be invalidated after reload
     project.reload
     assignable_after_reload = project.assignable_users tracker
 
-    # Should still be correct array
-    assert_kind_of Array, assignable_after_reload
+    # Should still be correct relation
+    assert_kind_of ActiveRecord::Relation, assignable_after_reload
     assignable_after_reload.each { |u| assert_kind_of Principal, u }
   end
 end

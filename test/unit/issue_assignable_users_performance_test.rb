@@ -50,8 +50,8 @@ class IssueAssignableUsersPerformanceTest < Additionals::TestCase
     users_with_tracker = project.assignable_users tracker
     users_without_tracker = project.assignable_users # No tracker
 
-    assert_kind_of Array, users_with_tracker
-    assert_kind_of Array, users_without_tracker
+    assert_kind_of ActiveRecord::Relation, users_with_tracker
+    assert_kind_of ActiveRecord::Relation, users_without_tracker
 
     # Both should return users
     assert users_with_tracker.any?, 'Should have some assignable users with tracker'

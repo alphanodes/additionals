@@ -43,36 +43,20 @@ module Additionals
 
       module InstanceOverwriteMethods
         def assignable_users(tracker = nil)
-          # Cache users per project, tracker AND user context to avoid repeated queries
-          # CRITICAL: Cache must be user-specific because hidden roles visibility depends on User.current
-          @assignable_users ||= {}
+          # NOTE: For backward compatibility with dependent plugins, we CANNOT cache ActiveRecord::Relations
+          # because they need to be fresh for chaining with .where(), .order(), etc.
+          # We sacrifice some performance for full compatibility.
 
-          # Create cache key that includes user context for hidden roles security
-          user_cache_key = if User.current.admin? || User.current.allowed_to?(:show_hidden_roles_in_memberbox, self)
-                             "admin_#{tracker}"
-                           else
-                             "user_#{tracker}"
-                           end
-
-          return @assignable_users[user_cache_key] if @assignable_users.key? user_cache_key
-
-          # Use Issue-specific implementation if tracker is provided (Issues only!)
-          # Otherwise use general project assignable users (for other entities)
-          users = if tracker
-                    ::Additionals::AssignableUsersOptimizer.issue_assignable_users self, tracker: tracker
-                  else
-                    ::Additionals::AssignableUsersOptimizer.project_assignable_users self
-                  end
-
-          @assignable_users[user_cache_key] = users
+          # Use optimized implementation that returns ActiveRecord::Relation (not Array!)
+          # This ensures backward compatibility with dependent plugins using .where() etc.
+          if tracker
+            ::Additionals::AssignableUsersOptimizer.issue_assignable_users_relation self, tracker: tracker
+          else
+            ::Additionals::AssignableUsersOptimizer.project_assignable_users_relation self
+          end
         end
 
-        # Clear assignable users cache when members change
-        # This is critical for consistency when users/roles are added/removed
-        def reload(*args)
-          @assignable_users = nil
-          super
-        end
+        # NOTE: Caching removed for ActiveRecord::Relation compatibility
 
         def principals_by_role
           return super unless consider_hidden_roles?

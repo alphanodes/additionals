@@ -41,8 +41,8 @@ class AssignableUsersComprehensiveTest < Additionals::TestCase
     # Issue-specific assignable users with tracker
     issue_users = project.assignable_users tracker # With tracker = Issue-specific
 
-    assert_kind_of Array, general_users
-    assert_kind_of Array, issue_users
+    assert_kind_of ActiveRecord::Relation, general_users
+    assert_kind_of ActiveRecord::Relation, issue_users
 
     # Both should return valid users
     general_users.each { |u| assert_kind_of Principal, u }

@@ -8,7 +8,43 @@ module Additionals
 
     module_function
 
-    # Optimized implementation for project-based assignable users
+    # NEW: Optimized implementation that returns ActiveRecord::Relation for backward compatibility
+    # @param project [Project] The project to get assignable users for
+    # @return [ActiveRecord::Relation] Relation of assignable users
+    def project_assignable_users_relation(project)
+      return Principal.where Additionals::SQL_NO_RESULT_CONDITION unless project
+
+      # Find roles that are assignable and have the required permission
+      assignable_role_ids = Role.where(assignable: true).pluck(:id)
+      return Principal.where Additionals::SQL_NO_RESULT_CONDITION if assignable_role_ids.empty?
+
+      # Apply hidden roles filter if needed
+      # CRITICAL SECURITY: Only admin users and users with show_hidden_roles_in_memberbox permission
+      # should see users with hidden roles
+      unless User.current.admin? || User.current.allowed_to?(:show_hidden_roles_in_memberbox, project)
+        # Regular users should not see users with hidden roles
+        visible_role_ids = Role.where(id: assignable_role_ids, hide: false).pluck(:id)
+        assignable_role_ids &= visible_role_ids
+        return Principal.where Additionals::SQL_NO_RESULT_CONDITION if assignable_role_ids.empty?
+      end
+
+      # Get users/principals with these roles in this project
+      # NOTE: For general assignable users, we include both users and groups if group assignment is enabled
+      types = ['User']
+      types << 'Group' if Setting.issue_group_assignment?
+
+      Principal.active
+               .joins(members: :roles)
+               .where(type: types,
+                      members: { project_id: project.id },
+                      roles: { id: assignable_role_ids })
+               .distinct
+               .order(:lastname, :firstname)
+
+      # TODO: Adding current user to a relation is complex, needs special handling if required
+    end
+
+    # LEGACY: Array-based implementation for internal use where performance is critical
     # @param project [Project] The project to get assignable users for
     # @return [Array<User>] Array of assignable users
     def project_assignable_users(project)
@@ -54,7 +90,35 @@ module Additionals
       users
     end
 
-    # Special implementation for Issue assignable users (with tracker support)
+    # NEW: Issue assignable users returning ActiveRecord::Relation for backward compatibility
+    # @param project [Project] The project to get assignable users for
+    # @param tracker [Tracker, nil] Optional tracker for workflow filtering
+    # @return [ActiveRecord::Relation] Relation of assignable users
+    def issue_assignable_users_relation(project, tracker: nil)
+      return Principal.where Additionals::SQL_NO_RESULT_CONDITION unless project
+
+      # Start with basic project assignable users relation
+      relation = project_assignable_users_relation project
+      return relation unless tracker
+
+      # Apply tracker-specific workflow filtering if tracker is provided
+      return relation unless defined?(WorkflowTransition)
+
+      # Get all workflow role IDs for this tracker in a single query (instead of N+1)
+      workflow_role_ids = WorkflowTransition
+                          .where(tracker_id: tracker.id)
+                          .distinct
+                          .pluck(:role_id)
+
+      return relation if workflow_role_ids.empty?
+
+      # Filter the relation to only include users/groups with workflow roles for this tracker
+      # Note: We need to add an additional join condition for workflow roles
+      # The base relation already has the basic joins, so we filter on role IDs
+      relation.where roles: { id: workflow_role_ids }
+    end
+
+    # LEGACY: Array-based implementation for Issue assignable users (with tracker support)
     # This is the ONLY entity that needs tracker-specific logic
     # @param project [Project] The project to get assignable users for
     # @param tracker [Tracker, nil] Optional tracker for workflow filtering

@@ -252,20 +252,22 @@ class ProjectTest < Additionals::TestCase
     assert_includes assignable_admin, user, 'Admin should see users with hidden roles'
   end
 
-  def test_assignable_users_caching
+  def test_assignable_users_no_caching
     project = projects :projects_001
 
-    # First call should cache the result
+    # No longer caching due to ActiveRecord::Relation compatibility
     users1 = project.assignable_users
     users2 = project.assignable_users
 
-    assert_same users1, users2, 'assignable_users should return cached results'
+    # Relations are not cached, but they should return equivalent results
+    assert_equal users1.to_a, users2.to_a, 'assignable_users should return equivalent results'
 
-    # Different tracker should have separate cache
+    # Different tracker should return different results
     tracker = Tracker.first
     users_with_tracker = project.assignable_users tracker
 
-    assert_not_same users1, users_with_tracker, 'Different tracker should have separate cache'
+    # Should return different relation objects
+    assert_not_same users1, users_with_tracker, 'Different tracker should return separate relations'
   end
 
   def test_assignable_users_with_tracker
@@ -275,9 +277,9 @@ class ProjectTest < Additionals::TestCase
     users_all = project.assignable_users
     users_tracker = project.assignable_users tracker
 
-    # Both should return arrays of users
-    assert_kind_of Array, users_all
-    assert_kind_of Array, users_tracker
+    # Both should return relations of users
+    assert_kind_of ActiveRecord::Relation, users_all
+    assert_kind_of ActiveRecord::Relation, users_tracker
 
     # Users should all be User instances
     users_all.each { |u| assert_kind_of User, u }

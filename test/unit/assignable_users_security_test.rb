@@ -21,7 +21,7 @@ class AssignableUsersSecurityTest < Additionals::TestCase
     # This should not raise any errors
     users = project.assignable_users tracker
 
-    assert_kind_of Array, users
+    assert_kind_of ActiveRecord::Relation, users
   end
 
   # SECURITY: Test privilege escalation through role manipulation
@@ -154,8 +154,8 @@ class AssignableUsersSecurityTest < Additionals::TestCase
   def test_assignable_users_cache_invalidation_scenarios
     project = projects :projects_001
 
-    # Get initial users
-    initial_users = project.assignable_users
+    # Get initial user IDs for comparison
+    initial_user_ids = project.assignable_users.pluck(:id).sort
 
     # Add new user to project
     new_user = User.create!(
@@ -166,21 +166,18 @@ class AssignableUsersSecurityTest < Additionals::TestCase
       status: User::STATUS_ACTIVE
     )
 
-    assignable_role = roles :roles_002
+    # Need to use a role that has assignable: true
+    assignable_role = roles :roles_001 # Manager role should be assignable
     Member.create! project: project, principal: new_user, roles: [assignable_role]
 
-    # PROBLEM: Cache is not invalidated! New user won't appear in assignable_users
-    # This is a common bug in cached implementations
-    project.assignable_users
+    # NOTE: No longer using cache due to ActiveRecord::Relation compatibility
+    # New users should immediately appear in assignable_users
+    fresh_user_ids = project.assignable_users.pluck(:id).sort
 
-    # Force cache clearing
-    project.instance_variable_set :@assignable_users, {}
-    fresh_users = project.assignable_users
-
-    assert_not_equal initial_users.size, fresh_users.size,
-                     'Cache invalidation problem - new users not appearing in assignable_users!'
-    assert_includes fresh_users, new_user,
-                    'New assignable user should appear after cache invalidation'
+    assert_not_equal initial_user_ids, fresh_user_ids,
+                     'New users should immediately appear in assignable_users!'
+    assert_includes fresh_user_ids, new_user.id,
+                    'New assignable user ID should appear immediately'
   end
 
   # EDGE CASE: Test with inactive projects

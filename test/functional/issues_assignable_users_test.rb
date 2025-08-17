@@ -68,7 +68,6 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
 
     # Should use reasonable number of queries (much less than original N+1 problem)
     assert_operator queries_count, :<=, 100, 'Issues#new should not cause N+1 queries with assignable_users'
-    puts "Issues#new with tracker used #{queries_count} queries"
   end
 
   # CRITICAL: Test issues#new respects hidden roles
@@ -276,7 +275,6 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
 
     # Should not cause N+1 queries
     assert_operator queries_count, :<=, 110, 'Issues#edit should not cause N+1 queries'
-    puts "Issues#edit used #{queries_count} queries"
   end
 
   # CRITICAL: Test bulk edit with optimized assignable_users
@@ -328,7 +326,6 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
 
     # Should not cause N+1 queries even with multiple issues
     assert_operator queries_count, :<=, 120, 'Bulk edit should not cause N+1 queries'
-    puts "Issues bulk_edit with #{issues.size} issues used #{queries_count} queries"
   end
 
   # CRITICAL: Test that tracker changes update assignable users correctly

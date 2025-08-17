@@ -464,8 +464,6 @@ class IssueAssignableUsersComprehensiveTest < Additionals::TestCase
       assert_operator queries, :<=, 15, "Tracker #{tracker.name} should use limited queries"
     end
 
-    puts "Performance test: #{trackers.size} trackers, #{rusers.size} users = #{total_queries} total queries"
-
     assert_operator total_queries, :<=, 45, 'Total queries should remain reasonable even with multiple trackers'
   end
 

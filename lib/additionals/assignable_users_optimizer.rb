@@ -33,12 +33,19 @@ module Additionals
       types = ['User']
       types << 'Group' if Setting.issue_group_assignment?
 
+      # SOLUTION: Use SQL subquery to avoid DISTINCT + ORDER BY problems completely
+      # This is robust against future .order() chaining and database-agnostic
+      subquery = Principal.active
+                          .joins(members: :roles)
+                          .where(type: types,
+                                 members: { project_id: project.id },
+                                 roles: { id: assignable_role_ids })
+                          .distinct
+                          .select(:id)
+
+      # Return principals from subquery with proper ordering
       Principal.active
-               .joins(members: :roles)
-               .where(type: types,
-                      members: { project_id: project.id },
-                      roles: { id: assignable_role_ids })
-               .distinct
+               .where(id: subquery)
                .order(:lastname, :firstname)
 
       # TODO: Adding current user to a relation is complex, needs special handling if required
@@ -97,25 +104,55 @@ module Additionals
     def issue_assignable_users_relation(project, tracker: nil)
       return Principal.where Additionals::SQL_NO_RESULT_CONDITION unless project
 
-      # Start with basic project assignable users relation
-      relation = project_assignable_users_relation project
-      return relation unless tracker
+      # For issue assignable users, we need to handle tracker workflow filtering differently
+      # because the base relation no longer has the joins
+      unless tracker && defined?(WorkflowTransition)
+        # No tracker filtering needed, use basic project assignable users
+        return project_assignable_users_relation project
+      end
 
-      # Apply tracker-specific workflow filtering if tracker is provided
-      return relation unless defined?(WorkflowTransition)
+      # With tracker: Need to do the workflow filtering in the initial subquery
+      # Find roles that are assignable and have the required permission
+      assignable_role_ids = Role.where(assignable: true).pluck(:id)
+      return Principal.where Additionals::SQL_NO_RESULT_CONDITION if assignable_role_ids.empty?
 
-      # Get all workflow role IDs for this tracker in a single query (instead of N+1)
+      # Apply hidden roles filter if needed
+      unless User.current.admin? || User.current.allowed_to?(:show_hidden_roles_in_memberbox, project)
+        visible_role_ids = Role.where(id: assignable_role_ids, hide: false).pluck(:id)
+        assignable_role_ids &= visible_role_ids
+        return Principal.where Additionals::SQL_NO_RESULT_CONDITION if assignable_role_ids.empty?
+      end
+
+      # Get workflow role IDs for this tracker
       workflow_role_ids = WorkflowTransition
                           .where(tracker_id: tracker.id)
                           .distinct
                           .pluck(:role_id)
 
-      return relation if workflow_role_ids.empty?
+      # If no workflow rules exist for this tracker, return all assignable users
+      return project_assignable_users_relation project if workflow_role_ids.empty?
 
-      # Filter the relation to only include users/groups with workflow roles for this tracker
-      # Note: We need to add an additional join condition for workflow roles
-      # The base relation already has the basic joins, so we filter on role IDs
-      relation.where roles: { id: workflow_role_ids }
+      # Intersect assignable roles with workflow roles
+      final_role_ids = assignable_role_ids & workflow_role_ids
+      return Principal.where Additionals::SQL_NO_RESULT_CONDITION if final_role_ids.empty?
+
+      # Get users/principals with these roles in this project
+      types = ['User']
+      types << 'Group' if Setting.issue_group_assignment?
+
+      # Use SQL subquery to avoid DISTINCT + ORDER BY problems completely
+      subquery = Principal.active
+                          .joins(members: :roles)
+                          .where(type: types,
+                                 members: { project_id: project.id },
+                                 roles: { id: final_role_ids })
+                          .distinct
+                          .select(:id)
+
+      # Return principals from subquery with proper ordering
+      Principal.active
+               .where(id: subquery)
+               .order(:lastname, :firstname)
     end
 
     # LEGACY: Array-based implementation for Issue assignable users (with tracker support)

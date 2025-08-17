@@ -29,10 +29,6 @@ class AssignableUsersPerformanceComparisonTest < Additionals::TestCase
     # Both calls should use similar number of queries (no caching benefit)
     assert_operator query_count_before, :<=, 10, 'First call should be efficient'
     assert_operator query_count_after, :<=, 10, 'Second call should be efficient'
-
-    puts "First call: #{query_count_before} queries"
-    puts "Second call: #{query_count_after} queries"
-    puts 'No caching, but still efficient due to optimized queries!'
   end
 
   def test_chaining_performance_benefit
@@ -51,7 +47,6 @@ class AssignableUsersPerformanceComparisonTest < Additionals::TestCase
     end
 
     assert_operator query_count, :<=, 10, 'Chained operations should be efficient'
-    puts "Chained operations used #{query_count} queries - this is the real benefit!"
   end
 
   def test_backward_compatibility_performance
@@ -64,7 +59,6 @@ class AssignableUsersPerformanceComparisonTest < Additionals::TestCase
     end
 
     assert_operator query_count, :<=, 10, 'Backward compatibility should be efficient'
-    puts "redmine_servicedesk pattern used #{query_count} queries"
   end
 
   private

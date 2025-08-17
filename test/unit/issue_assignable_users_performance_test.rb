@@ -36,8 +36,6 @@ class IssueAssignableUsersPerformanceTest < Additionals::TestCase
     # Optimized version: should be ≤15 total queries regardless of user count
     assert_operator queries_count, :<=, 15,
                     'Issue assignable_users with tracker should not cause N+1 queries'
-
-    puts "Issue assignable_users with tracker used #{queries_count} queries (should be ≤15)"
   end
 
   def test_issue_assignable_users_workflow_filtering_works
@@ -117,7 +115,5 @@ class IssueAssignableUsersPerformanceTest < Additionals::TestCase
       assert_operator queries_for_tracker, :<=, 15,
                       "Tracker #{tracker.name} should use limited queries"
     end
-
-    puts "Multiple tracker calls used #{total_queries} total queries"
   end
 end

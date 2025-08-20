@@ -2,7 +2,7 @@
 
 ## 4.2.0
 
-- mermaid 11.9.0 support
+- mermaid 11.10.0 support
 - improve compatibility with other plugins #182
 
 ## 4.1.0

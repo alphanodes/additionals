@@ -626,6 +626,9 @@ This means that you will only see the blocks that Redmine has permanently placed
 
 The pages can no longer be customized flexibly. You no longer have any influence on the content that is offered there.
 
+> **_NOTE:_**  For german dashboard manual go to: <https://alphanodes.com/de/redmine-dashboards>
+>
+>
 ### Developer Information
 
 You are a plugin developer and want to support Dashboards for your plugin as well? Great! Thank you for that.

@@ -4,6 +4,7 @@
 
 - mermaid 11.10.1 support
 - improve compatibility with other plugins #182
+- Ukrainian translation provided, thanks to Victor Вовк!
 
 ## 4.1.0
 

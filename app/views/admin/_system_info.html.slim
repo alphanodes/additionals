@@ -1,6 +1,6 @@
 table.list
   - AdditionalsInfo.new.system_infos.each do |type, system_info|
-    tr class=type
+    tr class="#{type}"
       td.name
         = "#{system_info[:label].presence || type}:"
       td.name

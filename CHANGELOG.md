@@ -5,6 +5,7 @@
 - mermaid 11.12.0 support
 - improve compatibility with other plugins #182
 - Ukrainian translation provided, thanks to Victor Вовк!
+- sortable.js added
 
 ## 4.1.0
 

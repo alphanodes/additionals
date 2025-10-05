@@ -380,6 +380,10 @@ module Additionals
         additionals_include_js('mermaid_load')
     end
 
+    def additionals_load_sortable
+      additionals_include_js 'sortable.min'
+    end
+
     def additionals_load_d3
       additionals_include_js 'd3.min'
     end

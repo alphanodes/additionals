@@ -137,6 +137,7 @@ It provides :
 * [mermaid 11.12.0](https://github.com/mermaid-js/mermaid)
 * [moment 2.30.1](https://github.com/moment/moment) (used by Chart.js)
 * [Select2 4.0.13](https://select2.org/)
+* [Sortable 1.15.6](https://github.com/SortableJS/Sortable)
 
 And a set of various Rails helper methods (see below).
 

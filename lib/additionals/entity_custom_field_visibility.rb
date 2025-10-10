@@ -36,17 +36,16 @@ module Additionals
     end
 
     # Returns custom field values that are both visible and editable by the user.
-    # For entities without locked/closed status (unlike Issue), all visible fields are editable.
+    # Filters by role-based visibility AND the custom field's editable? flag.
+    #
+    # For entities without locked/closed status (unlike Issue), all visible fields
+    # are editable unless the custom field itself is marked as non-editable.
     #
     # @param user [User, nil] The user to check editability for (defaults to User.current)
     # @return [Array<CustomFieldValue>] Custom field values editable by the user
     # @see Issue#editable_custom_field_values
     def editable_custom_field_values(user = nil)
-      visible_custom_field_values(user).reject do |_value|
-        # Entities like DbEntry, Password, Invoice don't have locked status
-        # so all visible fields are editable. Override this method if needed.
-        false
-      end
+      visible_custom_field_values(user).select(&:editable?)
     end
   end
 end

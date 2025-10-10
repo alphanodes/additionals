@@ -1,4 +1,4 @@
-<% custom_field_values = entity.custom_field_values.select(&:editable?) %>
+<% custom_field_values = entity.editable_custom_field_values %>
 <% if custom_field_values.present? %>
 <% custom_field_values_full_width = custom_field_values.select { |value| value.custom_field.full_width_layout? } %>
 <% custom_field_values -= custom_field_values_full_width %>

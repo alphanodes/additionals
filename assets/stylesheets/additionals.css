@@ -370,13 +370,23 @@ div.relation-list-header {
   padding-bottom: 2px;
 }
 
-div.splitcontent.dashboard {
+.splitcontent.dashboard {
   margin-bottom: 20px;
 }
 
-.splitcontentbottom {
+.dashboard .splitcontentbottom {
   flex: 1;
   flex-basis: 100%;
+}
+
+.dashboard .splitcontenttop,
+.dashboard .splitcontentbottom {
+  width: 100%;
+}
+
+.dashboard .splitcontentright,
+.dashboard .splitcontentleft {
+  width: 50%;
 }
 
 select.dashboard-block-select {
@@ -438,7 +448,7 @@ table.entity-list td.block_column pre {
 @media screen and (max-width: 899px) {
   .gototop { display: none; }
 
-  .splitcontentbottom {
+  .dashboard .splitcontentbottom {
     width: 100%;
     flex: auto;
     margin-right: 0;

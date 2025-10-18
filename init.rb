@@ -39,7 +39,7 @@ Redmine::Plugin.register :additionals do
     permission :log_time_on_closed_issues, {}
   end
 
-  requires_redmine version_or_higher: '6.0'
+  requires_redmine version_or_higher: '6.1'
 
   menu :admin_menu,
        :additionals,

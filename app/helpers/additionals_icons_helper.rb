@@ -3,8 +3,8 @@
 module AdditionalsIconsHelper
   include IconsHelper
 
-  def h2_page_icon(icon_name, **options)
-    svg_icon_tag(icon_name, size: 24, css_class: 'icon-padding', **options)
+  def h2_page_icon(icon_name, **)
+    svg_icon_tag(icon_name, size: 24, css_class: 'icon-padding', **)
   end
 
   def svg_icon_tag(icon_name,

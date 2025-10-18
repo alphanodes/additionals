@@ -27,24 +27,24 @@ module AdditionalsSettingsHelper
     safe_join s
   end
 
-  def additionals_settings_numberfield(name, **options)
-    additionals_settings_input_field :number_field_tag, name, **options
+  def additionals_settings_numberfield(name, **)
+    additionals_settings_input_field(:number_field_tag, name, **)
   end
 
-  def additionals_settings_textfield(name, **options)
-    additionals_settings_input_field :text_field_tag, name, **options
+  def additionals_settings_textfield(name, **)
+    additionals_settings_input_field(:text_field_tag, name, **)
   end
 
-  def additionals_settings_passwordfield(name, **options)
-    additionals_settings_input_field :password_field_tag, name, **options
+  def additionals_settings_passwordfield(name, **)
+    additionals_settings_input_field(:password_field_tag, name, **)
   end
 
-  def additionals_settings_urlfield(name, **options)
-    additionals_settings_input_field :url_field_tag, name, **options
+  def additionals_settings_urlfield(name, **)
+    additionals_settings_input_field(:url_field_tag, name, **)
   end
 
-  def additionals_settings_timefield(name, **options)
-    additionals_settings_input_field :time_field_tag, name, **options
+  def additionals_settings_timefield(name, **)
+    additionals_settings_input_field(:time_field_tag, name, **)
   end
 
   def additionals_settings_select(name, values, **options)

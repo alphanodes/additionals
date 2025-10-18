@@ -1,75 +1,75 @@
 # frozen_string_literal: true
 
 module AdditionalsRoutesHelper
-  def _dashboards_path(project, *args)
+  def _dashboards_path(project, *)
     if project
-      project_dashboards_path(project, *args)
+      project_dashboards_path(project, *)
     else
-      dashboards_path(*args)
+      dashboards_path(*)
     end
   end
 
-  def _dashboard_path(project, *args)
+  def _dashboard_path(project, *)
     if project
-      project_dashboard_path(project, *args)
+      project_dashboard_path(project, *)
     else
-      dashboard_path(*args)
+      dashboard_path(*)
     end
   end
 
-  def _dashboard_async_blocks_path(project, *args)
+  def _dashboard_async_blocks_path(project, *)
     if project
-      project_dashboard_async_blocks_path(project, *args)
+      project_dashboard_async_blocks_path(project, *)
     else
-      dashboard_async_blocks_path(*args)
+      dashboard_async_blocks_path(*)
     end
   end
 
-  def _edit_dashboard_path(project, *args)
+  def _edit_dashboard_path(project, *)
     if project
-      edit_project_dashboard_path(project, *args)
+      edit_project_dashboard_path(project, *)
     else
-      edit_dashboard_path(*args)
+      edit_dashboard_path(*)
     end
   end
 
-  def _new_dashboard_path(project, *args)
+  def _new_dashboard_path(project, *)
     if project
-      new_project_dashboard_path(project, *args)
+      new_project_dashboard_path(project, *)
     else
-      new_dashboard_path(*args)
+      new_dashboard_path(*)
     end
   end
 
-  def _update_layout_setting_dashboard_path(project, *args)
+  def _update_layout_setting_dashboard_path(project, *)
     if project
-      update_layout_setting_project_dashboard_path(project, *args)
+      update_layout_setting_project_dashboard_path(project, *)
     else
-      update_layout_setting_dashboard_path(*args)
+      update_layout_setting_dashboard_path(*)
     end
   end
 
-  def _add_block_dashboard_path(project, *args)
+  def _add_block_dashboard_path(project, *)
     if project
-      add_block_project_dashboard_path(project, *args)
+      add_block_project_dashboard_path(project, *)
     else
-      add_block_dashboard_path(*args)
+      add_block_dashboard_path(*)
     end
   end
 
-  def _remove_block_dashboard_path(project, *args)
+  def _remove_block_dashboard_path(project, *)
     if project
-      remove_block_project_dashboard_path(project, *args)
+      remove_block_project_dashboard_path(project, *)
     else
-      remove_block_dashboard_path(*args)
+      remove_block_dashboard_path(*)
     end
   end
 
-  def _order_blocks_dashboard_path(project, *args)
+  def _order_blocks_dashboard_path(project, *)
     if project
-      order_blocks_project_dashboard_path(project, *args)
+      order_blocks_project_dashboard_path(project, *)
     else
-      order_blocks_dashboard_path(*args)
+      order_blocks_dashboard_path(*)
     end
   end
 

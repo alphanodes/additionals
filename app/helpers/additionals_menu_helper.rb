@@ -68,9 +68,6 @@ module AdditionalsMenuHelper
     admin_items = [{ title: 'Redmine Changelog',
                      url: "https://www.redmine.org/projects/redmine/wiki/Changelog_#{Redmine::VERSION::MAJOR}_#{Redmine::VERSION::MINOR}",
                      id: :changelog },
-                   { title: 'Redmine Upgrade',
-                     url: 'https://www.redmine.org/projects/redmine/wiki/RedmineUpgrade',
-                     id: :redmine_upgrade },
                    { title: 'Redmine Security Advisories',
                      url: 'https://www.redmine.org/projects/redmine/wiki/Security_Advisories',
                      id: :security_advisories }]

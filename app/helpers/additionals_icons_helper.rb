@@ -29,8 +29,8 @@ module AdditionalsIconsHelper
     icon_options[:size] = size if size
     icon_options[:css_class] = css_class if css_class
 
-    icon_options[:rtl] = rtl if rtl && Redmine::VERSION.to_s >= '6.0.5'
-    icon_options[:style] = style if style && (Redmine::VERSION.to_s >= '6.1.0' || Redmine::VERSION::BRANCH == 'devel')
+    icon_options[:rtl] = rtl if rtl
+    icon_options[:style] = style if style
 
     content = svg_sprite_icon icon_name, **icon_options
     if label

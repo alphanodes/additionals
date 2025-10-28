@@ -5,6 +5,7 @@
 - Redmine 6.0 support dropped
 - Redmine 6.1 required
 - Ruby 3.2 required
+- mermaid 11.12.1 support
 
 ## 4.2.0
 

@@ -202,7 +202,6 @@ es:
   permission_edit_closed_issues: "Editar peticiones cerradas"
   permission_edit_issue_author: Editar autor de las peticiones
   permission_issue_timelog_never_required: Registro de tiempo no requerido
-  permission_log_time_on_closed_issues: Registrar tiempo en peticiones cerradas
   permission_save_dashboards: "Guardar los tableros"
   permission_set_system_dashboards: "Establecer los tableros del sistema"
   permission_share_dashboards: "Compartir los tableros"

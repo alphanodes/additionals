@@ -202,7 +202,6 @@ pl:
   permission_edit_closed_issues: "Edycja zamkniętych issues"
   permission_edit_issue_author: "Edycja autora issue"
   permission_issue_timelog_never_required: "Nie jest wymagane rejestrowanie czasu pracy."
-  permission_log_time_on_closed_issues: "Czas rejestracji w zamkniętych issues"
   permission_save_dashboards: Zapisz dashboards
   permission_set_system_dashboards: Ustaw system dashboards
   permission_share_dashboards: Udostępnij dashboards

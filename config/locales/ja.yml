@@ -202,7 +202,6 @@ ja:
   permission_edit_closed_issues: "クローズした課題の編集"
   permission_edit_issue_author: "著者を編集"
   permission_issue_timelog_never_required: '時間の予約は必要ありません'
-  permission_log_time_on_closed_issues: "クローズした課題のログ時間"
   permission_save_dashboards: "ダッシュボードの保存"
   permission_set_system_dashboards: "システムダッシュボードの設定"
   permission_share_dashboards: "ダッシュボードの共有"

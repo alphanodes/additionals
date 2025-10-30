@@ -202,7 +202,6 @@ zh:
   permission_edit_closed_issues: "修改已关闭的问题"
   permission_edit_issue_author: 修改已创建问题的问题作者
   permission_issue_timelog_never_required: 无需登记工时
-  permission_log_time_on_closed_issues: "在已关闭的问题中登记工时"
   permission_save_dashboards: "保存仪表盘"
   permission_set_system_dashboards: "设置系统仪表盘"
   permission_share_dashboards: "共享仪表盘"

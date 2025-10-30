@@ -202,7 +202,6 @@ uk:
   permission_edit_closed_issues: "Редагування  закритих завданнь"
   permission_edit_issue_author: "Редагування завданнь автора"
   permission_issue_timelog_never_required: "Реєстрація часу не потрібна"
-  permission_log_time_on_closed_issues: "Час  реєстрації на закритих завданнях"
   permission_save_dashboards: "Зберегти  приборні панелі"
   permission_set_system_dashboards: "Установчі системні панелі"
   permission_share_dashboards: "Приборні панелі"

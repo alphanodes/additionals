@@ -202,7 +202,6 @@ cs:
   permission_edit_closed_issues: "Upravit uzavřené úkoly"
   permission_edit_issue_author: "Upravit autora úkolu"
   permission_issue_timelog_never_required: "Časování není nutné"
-  permission_log_time_on_closed_issues: "Zapisovat čas na uzavřené úkoly"
   permission_save_dashboards: "Uložte řídicí panely"
   permission_set_system_dashboards: "Nastavit systémové panely"
   permission_share_dashboards: "Sdílejte řídicí panely"

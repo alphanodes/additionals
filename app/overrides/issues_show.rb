@@ -2,12 +2,6 @@
 
 module IssuesShow
   Deface::Override.new virtual_path: 'issues/_action_menu',
-                       name: 'show-issue-log-time',
-                       replace: 'erb[loud]:contains("User.current.allowed_to?(:log_time, @project)")',
-                       original: 'b6e18c6fee9b49bcbdeb6a51cdfa43896a75c99e',
-                       partial: 'issues/additionals_action_menu_log_time'
-
-  Deface::Override.new virtual_path: 'issues/_action_menu',
                        name: 'show-issue-action-menu',
                        insert_after: 'erb[loud]:contains("watcher_link")',
                        original: 'a519feb931e157589bc506b2673abeef994aa96b',

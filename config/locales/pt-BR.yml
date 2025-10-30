@@ -202,7 +202,6 @@ pt-BR:
   permission_edit_closed_issues: "Editar tarefas fechadas"
   permission_edit_issue_author: "Editar autor da tarefa"
   permission_issue_timelog_never_required: "Não é necessário registro de tempo"
-  permission_log_time_on_closed_issues: "Tempo de registro em tarefas fechadas"
   permission_save_dashboards: "Salvar dashboards"
   permission_set_system_dashboards: "Sistema de configuração dashboards"
   permission_share_dashboards: "Compartilhe dashboards"

@@ -202,7 +202,6 @@ de:
   permission_edit_closed_issues: "Geschlossene Tickets bearbeiten"
   permission_edit_issue_author: Ticket Autor bearbeiten
   permission_issue_timelog_never_required: Zeitbuchungen nicht erforderlich
-  permission_log_time_on_closed_issues: Aufwände buchen auf geschlossene Tickets
   permission_save_dashboards: Dashboards anlegen
   permission_set_system_dashboards: System Dashboards festlegen
   permission_share_dashboards: Dashboards teilen

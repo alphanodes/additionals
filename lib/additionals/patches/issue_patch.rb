@@ -63,10 +63,6 @@ module Additionals
             statuses.reject { |s| timelog_required? s.id }
           end
         end
-
-        def log_time_allowed?(user = User.current)
-          !status_was.is_closed || user.allowed_to?(:log_time_on_closed_issues, project)
-        end
       end
 
       def new_ticket_message

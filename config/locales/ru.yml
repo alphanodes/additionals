@@ -202,7 +202,6 @@ ru:
   permission_edit_closed_issues: "Редактирование закрытых заданий"
   permission_edit_issue_author: "Редактирование заданий автора"
   permission_issue_timelog_never_required: "Регистрация времени не требуется"
-  permission_log_time_on_closed_issues: "Время регистрации на закрытых заданиях"
   permission_save_dashboards: "Сохранить приборные панели"
   permission_set_system_dashboards: "Установочные системные панели"
   permission_share_dashboards: "Приборные панели"

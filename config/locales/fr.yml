@@ -202,7 +202,6 @@ fr:
   permission_edit_closed_issues: "Éditer les dossiers fermés"
   permission_edit_issue_author: "Modifier l'auteur"
   permission_issue_timelog_never_required: Enregistrements de temps non requis
-  permission_log_time_on_closed_issues: "Enregistrer le temps passé sur les tâches fermées"
   permission_save_dashboards: "Sauvegarder les tableaux de bord"
   permission_set_system_dashboards: "Définir les tableaux de bord du système"
   permission_share_dashboards: "Partager les tableaux de bord"

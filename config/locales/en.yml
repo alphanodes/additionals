@@ -202,7 +202,6 @@ en:
   permission_edit_closed_issues: "Edit closed issues"
   permission_edit_issue_author: "Edit issue author"
   permission_issue_timelog_never_required: "Time logging not required"
-  permission_log_time_on_closed_issues: "Log time on closed issues"
   permission_save_dashboards: "Save dashboards"
   permission_set_system_dashboards: "Set system dashboards"
   permission_share_dashboards: "Share dashboards"

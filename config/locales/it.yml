@@ -202,7 +202,6 @@ it:
   permission_edit_closed_issues: "Modifica i issues chiusi"
   permission_edit_issue_author: "Modifica l'autore"
   permission_issue_timelog_never_required: Registrazioni di tempo non richieste
-  permission_log_time_on_closed_issues: "Il tempo di registrazione su problemi chiusi"
   permission_save_dashboards: "Salvare i dashboard"
   permission_set_system_dashboards: "Set di dashboard di sistema"
   permission_share_dashboards: "Condividi dashboard"

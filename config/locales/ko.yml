@@ -202,7 +202,6 @@ ko:
   permission_edit_closed_issues: "닫힌 이슈 편집"
   permission_edit_issue_author: 이슈 작성자 편집
   permission_issue_timelog_never_required: 시간 기록 불필요
-  permission_log_time_on_closed_issues: "닫힌 문제에 대한 시간 기록"
   permission_save_dashboards: Save dashboards
   permission_set_system_dashboards: Set system dashboards
   permission_share_dashboards: Share dashboards

@@ -149,8 +149,14 @@ module Additionals
         end
       end
 
-      # Clients
-      loader.require_files File.join('wiki_formatting', 'common_mark', '**/*_filter.rb')
+      # Clients - load filters for Redmine 6.1 stable, scrubbers for Redmine Master
+      if Redmine::VERSION::BRANCH == 'devel'
+        # Redmine Master (7.0+) - Load Scrubbers
+        loader.require_files File.join('wiki_formatting', 'common_mark', '**/*_scrubber.rb')
+      else
+        # Redmine 6.1 stable - Load Filters
+        loader.require_files File.join('wiki_formatting', 'common_mark', '**/*_filter.rb')
+      end
 
       # Apply patches and helper
       loader.apply!

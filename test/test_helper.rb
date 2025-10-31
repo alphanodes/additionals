@@ -8,7 +8,7 @@ if ENV['COVERAGE']
   end
 end
 
-$VERBOSE = nil
+$VERBOSE = nil if ENV['SUPPRESS_WARNINGS']
 
 require 'minitest/reporters'
 Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new, Minitest::Reporters::JUnitReporter.new]

@@ -455,9 +455,6 @@ The following role permissions are provided by the plugin and must be configured
 * Set author of new issues
   * Section Issue tracking. This permission should be set carefully, because in case you allow this, there is no history entry set for this. You will never know if the author has been originally someone else. Normally you don't want this.
 
-* Log time to closed issues
-  * Section Time tracking. Our plugin does not allow time logs to closed issues. In case you still want to allow your members to log time to closed issues, you need to change the permission here.
-
 ## Dashboards
 
 The additionals plugin comes with dashboard support (Drag & Drop). The _Dashboard_ feature of the additionals plugin provides customizable areas to display and organize content from Redmine and Redmine plugins that support the functionality.
@@ -654,6 +651,7 @@ In case of further questions use the issue tracking system for this project on G
 
 Footnotes:
 
+* Dashboard Development Guide: <https://github.com/alphanodes/additionals/blob/main/docs/dashboards.md>
 * Git_hosting: <https://github.com/jbox-web/redmine_git_hosting>
 * block_template: <https://github.com/jbox-web/redmine_git_hosting/blob/master/app/views/dashboards/blocks/_git_urls.html.slim>
 * block_definition: <https://github.com/jbox-web/redmine_git_hosting/blob/master/lib/redmine_git_hosting/patches/dashboard_content_project_patch.rb>

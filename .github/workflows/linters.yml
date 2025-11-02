@@ -12,10 +12,6 @@ jobs:
     steps:
     - uses: actions/checkout@v5
 
-    - name: Install package dependencies
-      run: |
-        sudo apt-get install --yes --quiet pandoc
-
     - name: Setup Gemfile
       run: |
         touch .enable_linters

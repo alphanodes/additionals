@@ -2,3 +2,5 @@
 = additionals_library_load :font_awesome
 = stylesheet_link_tag 'additionals', plugin: 'additionals'
 = javascript_include_tag 'additionals', plugin: 'additionals'
+- if Additionals.setting? :add_go_to_top
+  = javascript_include_tag 'sticky_header_goto_top', plugin: 'additionals'

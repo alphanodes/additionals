@@ -3,4 +3,7 @@
 = stylesheet_link_tag 'additionals', plugin: 'additionals'
 = javascript_include_tag 'additionals', plugin: 'additionals'
 - if Additionals.setting? :add_go_to_top
+  javascript:
+    window.ADDITIONALS_I18N = window.ADDITIONALS_I18N || {};
+    window.ADDITIONALS_I18N.goToTop = '#{escape_javascript l(:label_go_to_top)}';
   = javascript_include_tag 'sticky_header_goto_top', plugin: 'additionals'

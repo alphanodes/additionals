@@ -12,8 +12,11 @@
     // Add visual styling - just cursor to indicate clickability
     stickyHeader.style.cursor = 'pointer';
 
-    // Add tooltip
-    stickyHeader.setAttribute('title', 'Click to scroll to top');
+    // Add tooltip with translated text
+    const tooltipText = window.ADDITIONALS_I18N && window.ADDITIONALS_I18N.goToTop
+      ? window.ADDITIONALS_I18N.goToTop
+      : 'Go to top';
+    stickyHeader.setAttribute('title', tooltipText);
 
     // Add click handler - scroll to top of page
     stickyHeader.addEventListener('click', function(event) {

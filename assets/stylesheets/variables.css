@@ -12,4 +12,8 @@
   --a-color-warning: #c45736;
   --a-color-alert: #cb2525;
   --a-fixed-width: 95%;
+
+  /* Sticky header scroll margins (for anchor links to not hide behind sticky header) */
+  --sticky-header-scroll-margin: 50px;
+  --sticky-header-scroll-margin-mobile: 114px;
 }

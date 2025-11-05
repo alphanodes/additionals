@@ -441,7 +441,7 @@ table.entity-list td.block_column pre {
   border: 1px solid #696969;
 }
 
-#history.entity .note-header span {
+#history.entity .journal-header .journal-info span {
   margin-left: 4px;
 }
 

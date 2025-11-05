@@ -171,7 +171,7 @@ class IssuesControllerTest < Additionals::ControllerTest
       get :show, params: { id: 1 }
 
       assert_response :success
-      assert_select 'h4.note-header .badge-author', count: 0
+      assert_select 'h4.journal-header .journal-info .badge-author', count: 0
     end
   end
 

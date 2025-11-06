@@ -8,7 +8,9 @@
       h4.journal-header
         span.journal-info
           = avatar journal.user, size: 24
+          '
           = authoring journal.created_on, journal.user, label: :label_updated_time_by
+          '
           = render_author_indicator entry, journal
           '
           = render_journal_update_info journal

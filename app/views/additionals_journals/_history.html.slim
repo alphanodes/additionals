@@ -3,7 +3,34 @@
   - next if tab[:name] == 'notes' && journal.notes.blank?
   - edit_mode = true if !edit_mode && journal.editable_by?(User.current)
 
-  = render partial: 'additionals_journals/journal_item', locals: { journal: journal, entity: entry }
+  div id="change-#{journal.id}" class="#{journal.css_classes}"
+    div id="note-#{journal.indice}" class="note"
+      h4.journal-header
+        span.journal-info
+          = avatar journal.user, size: 24
+          '
+          = authoring journal.created_on, journal.user, label: :label_updated_time_by
+          '
+          = render_author_indicator entry, journal
+          '
+          = render_journal_update_info journal
+        span.journal-meta
+          span.journal-actions
+            = render_entity_journal_actions entry, journal
+          a.journal-link href="#note-#{journal.indice}"
+            |#
+            = journal.indice
+      .journal-content
+        - if journal.details.any?
+          ul.journal-details
+            - entity_details_to_strings(entry, journal.visible_details).each do |string|
+              li = string
+        - if Setting.thumbnails_enabled? && (thumbnail_attachments = journal_thumbnail_attachments journal).any?
+          .thumbnails
+            - thumbnail_attachments.each do |attachment|
+              = thumbnail_tag attachment
+
+        = render_notes nil, journal if journal.notes.present?
 
 - if edit_mode
   - heads_for_wiki_formatter

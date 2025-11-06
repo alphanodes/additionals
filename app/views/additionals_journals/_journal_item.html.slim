@@ -1,0 +1,51 @@
+/ Journal item partial for entities with journal support
+/ Required locals:
+/   - journal: The journal object
+/   - entity: The entity object (db_entry, ai_prompt, password, etc.)
+/ Optional locals:
+/   - show_type_icon: Show journal type icon (default: false)
+/   - show_journalized_link: Show link to journalized entity if different (default: false)
+/   - show_link: Show #note-X link (default: true)
+
+ruby:
+  show_type_icon = local_assigns.fetch :show_type_icon, false
+  show_journalized_link = local_assigns.fetch :show_journalized_link, false
+  show_link = local_assigns.fetch :show_link, true
+
+div id="change-#{journal.id}" class="#{journal.css_classes}"
+  div id="note-#{journal.indice}" class="note"
+    h4.journal-header
+      span.journal-info
+        = avatar journal.user, size: 24
+        '
+        - if show_type_icon
+          = journal_note_type_icon journal
+          '
+        = authoring journal.created_on, journal.user, label: :label_updated_time_by
+        - if show_journalized_link && entity.respond_to?(:is_company?) && entity.is_company? && entity.id != journal.journalized.id
+          '  -
+          = l :label_contact
+          ' :
+          = link_to_contact journal.journalized
+        '
+        = render_author_indicator entity, journal
+        '
+        = render_journal_update_info journal
+      span.journal-meta
+        span.journal-actions
+          = render_entity_journal_actions entity, journal
+        - if show_link
+          a.journal-link href="#note-#{journal.indice}"
+            |#
+            = journal.indice
+    .journal-content
+      - if journal.details.any?
+        ul.journal-details
+          - entity_details_to_strings(entity, journal.visible_details).each do |string|
+            li = string
+      - if Setting.thumbnails_enabled? && (thumbnail_attachments = journal_thumbnail_attachments journal).any?
+        .thumbnails
+          - thumbnail_attachments.each do |attachment|
+            = thumbnail_tag attachment
+
+      = render_notes nil, journal if journal.notes.present?

@@ -445,6 +445,17 @@ table.entity-list td.block_column pre {
   margin-left: 4px;
 }
 
+#sidebar div.wiki ul.wiki-flat {
+  margin: 0;
+  padding: 0;
+}
+
+#sidebar div.wiki ul.wiki-flat li {
+  list-style-type: none;
+  margin: 0 2px 0 0;
+  padding: 0;
+}
+
 @media screen and (max-width: 899px) {
   .gototop { display: none; }
 

@@ -186,7 +186,65 @@ class WikiControllerTest < Additionals::ControllerTest
         params: { project_id: 1, id: page.title }
 
     assert_response :success
-    assert_select 'div.recently-updated'
+    assert_select 'div.recently-updated' do
+      assert_select 'h3', /Updated pages/
+    end
+  end
+
+  def test_show_recently_updated_macro_with_custom_title
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{recently_updated(7, title=Recent Changes)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select 'div.recently-updated' do
+      assert_select 'h3', /Recent Changes/
+    end
+  end
+
+  def test_show_recently_updated_macro_without_title_false
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{recently_updated(7, title=false)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select 'div.recently-updated' do
+      assert_select 'h3', count: 0
+    end
+  end
+
+  def test_show_recently_updated_macro_without_title_none
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{recently_updated(7, title=none)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select 'div.recently-updated' do
+      assert_select 'h3', count: 0
+    end
+  end
+
+  def test_show_recently_updated_macro_without_title_off
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{recently_updated(7, title=off)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select 'div.recently-updated' do
+      assert_select 'h3', count: 0
+    end
   end
 
   def test_show_with_members_macro

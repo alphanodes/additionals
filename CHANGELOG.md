@@ -6,7 +6,7 @@
 - Redmine 6.1 required
 - Ruby 3.2 required
 - mermaid 11.12.1 support
-- rectrecently_updated uses (i18n) title as default
+- recently_updated macro uses (i18n) title as default
 
 ## 4.2.0
 

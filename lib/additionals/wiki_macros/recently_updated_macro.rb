@@ -40,6 +40,7 @@ module Additionals
           pages = pages.visible(User.current, project: page.project) if pages.respond_to? :visible
 
           grouped_pages = pages.group_by { |p| p.content.updated_on.to_date }
+          return if grouped_pages.empty?
 
           s = []
           # title handling: not specified = i18n default, title=false/none/off = no title, title=text = custom text

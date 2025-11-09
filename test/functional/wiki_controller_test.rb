@@ -247,6 +247,22 @@ class WikiControllerTest < Additionals::ControllerTest
     end
   end
 
+  def test_show_recently_updated_macro_with_no_pages
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{recently_updated(1)}}',
+                              title: __method__.to_s
+
+    # Travel far into the future so no pages are in the "recently updated" range
+    travel_to 100.years.from_now do
+      get :show,
+          params: { project_id: 1, id: page.title }
+
+      assert_response :success
+      # When no pages are found, the macro should not render anything (no div.recently-updated)
+      assert_select 'div.recently-updated', count: 0
+    end
+  end
+
   def test_show_with_members_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     page = WikiPage.generate! content: '{{members}}',

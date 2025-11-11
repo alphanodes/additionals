@@ -20,8 +20,16 @@ module Additionals
 
         private
 
+        # Optimized ancestor check with early exit pattern
+        # See Redmine Core Issue #43446 for performance rationale
         def ancestor?(node, tags)
-          node.ancestors.any? { |ancestor| tags.include? ancestor.name }
+          parent = node.parent
+          while parent
+            return true if tags.include? parent.name
+
+            parent = parent.parent
+          end
+          false
         end
       end
     end

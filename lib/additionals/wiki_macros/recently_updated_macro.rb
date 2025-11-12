@@ -25,11 +25,11 @@ module Additionals
 
         macro :recently_updated do |obj, args|
           page = obj.page
-          return unless page&.project
+          return '' unless page&.project
 
           args, options = extract_macro_options args, :title
           days = args.first&.strip&.to_i || 7
-          return if days < 1
+          return '' if days < 1
 
           pages = WikiPage.joins(:content)
                           .includes(:content)
@@ -40,7 +40,7 @@ module Additionals
           pages = pages.visible(User.current, project: page.project) if pages.respond_to? :visible
 
           grouped_pages = pages.group_by { |p| p.content.updated_on.to_date }
-          return if grouped_pages.empty?
+          return '' if grouped_pages.empty?
 
           s = []
           # title handling: not specified = i18n default, title=false/none/off = no title, title=text = custom text

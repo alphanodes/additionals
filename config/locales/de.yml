@@ -81,7 +81,6 @@ de:
   label_chartjs_colorscheme_info: Farbschema Auflistung
   label_content_plural: Inhalte
   label_copied_to_clipboard: Kopiert!
-  label_copy_to_clipboard: In die Zwischenablage kopieren
   label_custom_field_editable_info: Wenn deaktiviert, können Daten nur über die API oder über die Massenbearbeitung angegeben werden.
   label_custom_fields_distribution: Benutzerdefinierte Felder für Verteilung
   label_daily: täglich

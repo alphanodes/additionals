@@ -96,7 +96,7 @@ class RedminePluginKitLoaderTest < Additionals::TestCase
     files = loader.require_files spec, use_app: true
 
     assert files.any?
-    assert(files.detect { |file| file.include? 'additionals_clipboardjs_helper' })
+    assert(files.detect { |file| file.include? 'additionals_clipboard_helper' })
   end
 
   def test_apply_without_data

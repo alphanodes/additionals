@@ -1,20 +1,3 @@
-/* exported setClipboardJS */
-/* global ClipboardJS */
-function setClipboardJS(element) {
-  var clipboard = new ClipboardJS(element);
-  clipboard.on('success', function(e) {
-    $(element).tooltip({
-      content: $(element).data('label-copied')
-    });
-    setTimeout(function() {
-      e.clearSelection();
-      $(element).tooltip({
-        content: $(element).data('label-to-copy')
-      });
-    }, 1000);
-  });
-}
-
 /* exported openExternalUrlsInTab */
 function openExternalUrlsInTab() {
   $('a.external').attr({

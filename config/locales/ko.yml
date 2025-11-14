@@ -81,7 +81,6 @@ ko:
   label_chartjs_colorscheme_info: 컬러리스트
   label_content_plural: 내용
   label_copied_to_clipboard: "복사되었습니다!"
-  label_copy_to_clipboard: "클립 보드에 복사"
   label_custom_field_editable_info: "비활성화된 경우 변경은 API 호출 또는 대량 편집을 통해서만 가능합니다."
   label_custom_fields_distribution: "배포용 사용자 정의 필드"
   label_daily: 매일

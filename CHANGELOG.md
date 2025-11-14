@@ -7,6 +7,12 @@
 - Ruby 3.2 required
 - mermaid 11.12.1 support
 - recently_updated macro uses (i18n) title as default
+- **BREAKING**: Removed clipboard.js library in favor of Redmine Core's native clipboard functionality
+  - Removed `AdditionalsClipboardjsHelper`, `clipboard.min.js`, and `setClipboardJS()` function
+  - Added `AdditionalsClipboardHelper` with `clipboard_copy_button()` and `render_text_with_clipboard()` methods
+  - Uses Redmine Core's `copyToClipboard()` with visual feedback (available since Redmine 6.1)
+  - Uses Redmine Core's i18n string `button_copy` instead of custom `label_copy_to_clipboard`
+  - Plugins using clipboard functionality need to migrate (see README for migration guide)
 
 ## 4.2.0
 

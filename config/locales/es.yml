@@ -81,7 +81,6 @@ es:
   label_chartjs_colorscheme_info: "Lista de colores"
   label_content_plural: Contenido
   label_copied_to_clipboard: "¡Copiado!"
-  label_copy_to_clipboard: "Copia al portapapeles"
   label_custom_field_editable_info: If disabled changes are only possible with API calls or via bulk edit.
   label_custom_fields_distribution: "Campos customizados para la distribución"
   label_daily: diario

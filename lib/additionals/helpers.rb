@@ -337,8 +337,8 @@ module Additionals
         additionals_include_js('select2_helpers')
     end
 
-    def additionals_load_clipboardjs
-      additionals_include_js 'clipboard.min'
+    def additionals_load_clipboard_feedback
+      additionals_include_js 'clipboard_feedback'
     end
 
     def additionals_load_font_awesome

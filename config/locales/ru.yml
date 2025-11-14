@@ -81,7 +81,6 @@ ru:
   label_chartjs_colorscheme_info: "Список цветов"
   label_content_plural: Contents
   label_copied_to_clipboard: "Принято!"
-  label_copy_to_clipboard: "Скопировано в буфер обмена"
   label_custom_field_editable_info: "Если отключено, изменения возможны только с помощью вызовов API или через массовое редактирование."
   label_custom_fields_distribution: "Пользовательские поля для распределения"
   label_daily: "ежедневный"

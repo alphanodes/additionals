@@ -81,7 +81,6 @@ uk:
   label_chartjs_colorscheme_info: "Список кольрів"
   label_content_plural: Contents
   label_copied_to_clipboard: "Прийнято!"
-  label_copy_to_clipboard: "Скопійовано  в буфер обміну"
   label_custom_field_editable_info: "Якщо вимкнено, зміни можливі  тільки за допомогою викликів API або  через масовое редагування ."
   label_custom_fields_distribution: "Користувацькі поля для розподіленню"
   label_daily: "щоденний"

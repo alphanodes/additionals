@@ -81,7 +81,6 @@ ja:
   label_chartjs_colorscheme_info: "カラーリスト"
   label_content_plural: "内容"
   label_copied_to_clipboard: "コピーしました"
-  label_copy_to_clipboard: "クリップボードにコピー"
   label_custom_field_editable_info: "無効の場合、変更はAPIコールまたは一括編集でのみ可能です。"
   label_custom_fields_distribution: "配布用のカスタムフィールド"
   label_daily: ひごとに

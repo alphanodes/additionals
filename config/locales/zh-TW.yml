@@ -81,7 +81,6 @@
   label_chartjs_colorscheme_info: "顏色清單"
   label_content_plural: 内容
   label_copied_to_clipboard: "复制!"
-  label_copy_to_clipboard: "复制到剪贴板"
   label_custom_field_editable_info: "如果停用，則只能透過 API 呼叫或批量編輯進行變更。"
   label_custom_fields_distribution: "Custom fields for distribution"
   label_daily: 每天

@@ -25,44 +25,36 @@ module AdditionalsClipboardHelper
                      title:
   end
 
-  # Renders text with an inline clipboard copy button
+  # Renders text with clipboard functionality
   #
   # @param text [String] The text to display and make copyable
-  # @param icon [String] Custom icon name (default: 'copy')
-  # @param css_class [String] Additional CSS classes
-  # @param title [String] Tooltip text
-  # @return [String] HTML span element with text and copy button
-  #
-  # @example
-  #   render_text_with_clipboard('username@example.com')
-  #   render_text_with_clipboard('API Key', icon: 'copy-link')
-  def render_text_with_clipboard(text, icon: 'copy', css_class: nil, title: nil)
-    return if text.blank?
-
-    safe_join [tag.span(text, class: 'clipboard-text'),
-               clipboard_copy_button(text, icon:, css_class:, title:)], ' '
-  end
-
-  # Renders clickable email address that copies to clipboard when clicked (no button)
-  # Uses acronym tag with dotted underline style, specifically for email addresses
-  #
-  # @param email [String] The email address to display and make copyable
+  # @param with_button [Boolean] If true, shows text + button. If false, text is clickable (default: true)
+  # @param icon [String] Custom icon name for button (default: 'copy')
   # @param css_class [String] Additional CSS classes
   # @param title [String] Tooltip text (default: l(:button_copy))
-  # @return [String] HTML acronym element with clickable email address
+  # @return [String] HTML element with clipboard functionality
   #
-  # @example
-  #   render_email_address_with_clipboard('user@example.com')
-  def render_email_address_with_clipboard(email, css_class: nil, title: nil)
-    return if email.blank?
+  # @example With button (default)
+  #   render_text_with_clipboard('username@example.com')
+  #   render_text_with_clipboard('API Key', icon: 'copy-link')
+  #
+  # @example Without button (clickable text for emails)
+  #   render_text_with_clipboard('user@example.com', with_button: false)
+  def render_text_with_clipboard(text, with_button: true, icon: 'copy', css_class: nil, title: nil)
+    return if text.blank?
 
-    css_classes = ['clipboard-text', css_class].compact.join ' '
     title ||= l :button_copy
 
-    tag.acronym email,
-                class: css_classes,
-                onclick: 'copyToClipboardWithFeedback(this); return false;',
-                data: { 'clipboard-text' => email },
-                title:
+    if with_button
+      safe_join [tag.span(text, class: 'clipboard-text'),
+                 clipboard_copy_button(text, icon:, css_class:, title:)], ' '
+    else
+      css_classes = ['clipboard-text', css_class].compact.join ' '
+      tag.acronym text,
+                  class: css_classes,
+                  onclick: 'copyToClipboardWithFeedback(this); return false;',
+                  data: { 'clipboard-text' => text },
+                  title:
+    end
   end
 end

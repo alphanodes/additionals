@@ -133,6 +133,7 @@ module Additionals
       loader.add_patch [{ target: Redmine::Views::LabelledFormBuilder, patch: 'LabelledFormBuilder' }]
 
       loader.add_global_helper [Additionals::Helpers,
+                                AdditionalsClipboardHelper,
                                 AdditionalsIconsHelper,
                                 AdditionalsFontawesomeHelper,
                                 AdditionalsMenuHelper,

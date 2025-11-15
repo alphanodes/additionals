@@ -53,7 +53,7 @@ module AdditionalsClipboardHelper
       tag.acronym text,
                   class: css_classes,
                   onclick: 'copyToClipboardWithFeedback(this); return false;',
-                  data: { 'clipboard-text' => text },
+                  data: { 'clipboard-text' => text, 'label-copied' => l(:label_copied_to_clipboard), 'original-title' => title },
                   title:
     end
   end

@@ -54,6 +54,8 @@ class ClipboardHelperTest < Additionals::HelperTest
     assert_include 'class="clipboard-text"', html
     assert_include 'onclick="copyToClipboardWithFeedback(this); return false;"', html
     assert_include 'data-clipboard-text="test@example.com"', html
+    assert_include 'data-label-copied="Copied!"', html
+    assert_include 'data-original-title="Copy"', html
     assert_not_include 'clipboard-copy-button', html
   end
 
@@ -88,6 +90,8 @@ class ClipboardHelperTest < Additionals::HelperTest
     assert_include 'class="clipboard-text"', html
     assert_include 'onclick="copyToClipboardWithFeedback(this); return false;"', html
     assert_include 'data-clipboard-text="user@example.com"', html
+    assert_include 'data-label-copied="Copied!"', html
+    assert_include 'data-original-title="Copy"', html
     assert_include 'user@example.com</acronym>', html
   end
 

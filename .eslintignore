@@ -1,5 +1,7 @@
 # eslint ignore file
 assets/javascripts/*.js
 !assets/javascripts/additionals*.js
+!assets/javascripts/clipboard_feedback.js
 !assets/javascripts/mermaid_load.js
 !assets/javascripts/select2_helpers.js
+!assets/javascripts/sticky_header_goto_top.js

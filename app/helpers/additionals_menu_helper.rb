@@ -31,7 +31,7 @@ module AdditionalsMenuHelper
 
     html_options[:title] = title if title.present?
 
-    menu_options = { parent: parent.present? ? parent.to_sym : nil,
+    menu_options = { parent: parent.presence&.to_sym,
                      html: html_options }
 
     menu_options[:if] = onlyif if onlyif.present?

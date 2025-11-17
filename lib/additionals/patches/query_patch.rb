@@ -85,10 +85,10 @@ module Additionals
 
           if options[:aggr] == 'COUNT'
             first_value = options[:values].first.to_i
-            second_value = options[:values][1].present? ? options[:values][1].to_i : nil
+            second_value = options[:values][1].presence&.to_i
           else
             first_value = options[:values].first.to_f
-            second_value = options[:values][1].present? ? options[:values][1].to_f : nil
+            second_value = options[:values][1].presence&.to_f
           end
 
           # special case of 0 value

@@ -5,7 +5,7 @@
 - Redmine 6.0 support dropped
 - Redmine 6.1 required
 - Ruby 3.2 required
-- mermaid 11.12.1 support
+- mermaid 11.12.2 support
 - recently_updated macro uses (i18n) title as default
 - **BREAKING**: Removed clipboard.js library in favor of Redmine Core's native clipboard functionality
   - Removed `AdditionalsClipboardjsHelper`, `clipboard.min.js`, and `setClipboardJS()` function

@@ -71,43 +71,69 @@ module Additionals
           Setting.issues_export_limit.to_i
         end
 
-        def sql_aggr_condition(**options)
-          raise 'missing table' unless options[:table]
-          raise 'missing group_field' unless options[:group_field]
+        # Simple aggregation for counting all items in a table (no filtering)
+        # Use sql_aggr_filtered when you need to filter items with a sub_query
+        def sql_aggr(table:, group_field:, operator:, values:, **options)
+          build_sql_aggr group_field:,
+                         operator:,
+                         values:,
+                         sub_table: options[:sub_table] || table,
+                         sub_query: options[:sub_table] || table,
+                         having_table: options[:having_table] || table,
+                         aggr: options[:aggr] || 'COUNT',
+                         field: options[:field] || 'id',
+                         join_field: options[:join_field] || options[:field] || 'id',
+                         filtered: false,
+                         debug: options[:debug]
+        end
 
-          options[:aggr] = 'COUNT' if options[:aggr].blank?
-          options[:field] = 'id' if options[:field].blank?
-          options[:operator] = '=' if options[:operator].blank?
-          options[:sub_table] = options[:table] if options[:sub_table].blank?
-          options[:sub_query] = options[:sub_table] if options[:sub_query].blank?
-          options[:having_table] = options[:table] if options[:having_table].blank?
-          options[:join_field] = options[:field] if options[:join_field].blank?
+        # Filtered aggregation for counting items matching a sub_query filter
+        # sub_query is REQUIRED and must contain a WHERE clause
+        def sql_aggr_filtered(table:, sub_query:, group_field:, operator:, values:, **options)
+          sub_table = options[:sub_table] || table
 
-          if options[:aggr] == 'COUNT'
-            first_value = options[:values].first.to_i
-            second_value = options[:values][1].presence&.to_i
+          build_sql_aggr group_field:,
+                         operator:,
+                         values:,
+                         sub_table:,
+                         sub_query:,
+                         having_table: options[:having_table] || table,
+                         aggr: options[:aggr] || 'COUNT',
+                         field: options[:field] || 'id',
+                         join_field: options[:join_field] || options[:field] || 'id',
+                         filtered: true,
+                         debug: options[:debug]
+        end
+
+        private
+
+        def build_sql_aggr(group_field:, operator:, values:, sub_table:, sub_query:,
+                           having_table:, aggr:, field:, join_field:, filtered:, debug:)
+          if aggr == 'COUNT'
+            first_value = values.first.to_i
+            second_value = values[1].presence&.to_i
           else
-            first_value = options[:values].first.to_f
-            second_value = options[:values][1].presence&.to_f
+            first_value = values.first.to_f
+            second_value = values[1].presence&.to_f
           end
 
           # special case of 0 value
-          options[:operator] = '!*' if options[:operator] == '=' && first_value.zero?
+          operator = '!*' if operator == '=' && first_value.zero?
 
-          compare_sql = "#{queried_table_name}.#{options[:join_field]}" \
-                        " IN (SELECT #{options[:sub_table]}.#{options[:group_field]}" \
-                        " FROM #{options[:sub_query]} GROUP BY #{options[:sub_table]}.#{options[:group_field]}" \
-                        " HAVING #{options[:aggr]}(#{options[:having_table]}.#{options[:field]})"
+          compare_sql = "#{queried_table_name}.#{join_field}" \
+                        " IN (SELECT #{sub_table}.#{group_field}" \
+                        " FROM #{sub_query} GROUP BY #{sub_table}.#{group_field}" \
+                        " HAVING #{aggr}(#{having_table}.#{field})"
 
-          null_all_sql = if options[:use_sub_query_for_all]
-                           "#{options[:sub_query]} AND"
+          null_all_sql = if filtered
+                           "#{sub_query} AND"
                          else
-                           "#{options[:sub_table]} WHERE"
+                           "#{sub_table} WHERE"
                          end
 
-          null_all_sql << " #{options[:sub_table]}.#{options[:group_field]} = #{queried_table_name}.#{options[:join_field]})"
+          null_all_sql << " #{sub_table}.#{group_field} = #{queried_table_name}.#{join_field})"
 
-          sql = case options[:operator]
+          sql = case operator
                 when '='
                   "#{compare_sql} = #{first_value})"
                 when '<='
@@ -117,18 +143,16 @@ module Additionals
                 when '><'
                   "#{compare_sql} BETWEEN #{first_value} AND #{second_value})"
                 when '!*'
-                  "#{queried_table_name}.#{options[:join_field]} NOT IN (SELECT #{options[:sub_table]}.#{options[:group_field]}" \
+                  "#{queried_table_name}.#{join_field} NOT IN (SELECT #{sub_table}.#{group_field}" \
                   " FROM #{null_all_sql}"
                 when '*'
-                  "#{queried_table_name}.#{options[:join_field]} IN (SELECT #{options[:sub_table]}.#{options[:group_field]}" \
+                  "#{queried_table_name}.#{join_field} IN (SELECT #{sub_table}.#{group_field}" \
                   " FROM #{null_all_sql}"
                 end
 
-          Additionals.debug sql if options[:debug]
+          Additionals.debug sql if debug
           sql
         end
-
-        private
 
         def initialize_user_values_for_select2(field, values)
           return if Principal::SELECT2_FIELDS.exclude? @available_filters[field][:type]

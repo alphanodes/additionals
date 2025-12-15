@@ -208,15 +208,14 @@ module Additionals
         end
 
         def sql_for_notes_count_field(_field, operator, value)
-          sql_aggr_condition table: Journal.table_name,
-                             values: value,
-                             group_field: 'journalized_id',
-                             operator:,
-                             use_sub_query_for_all: true,
-                             sub_query: "#{Journal.table_name} WHERE #{Journal.table_name}.journalized_id = #{queried_table_name}.id" \
-                                        " AND #{Journal.table_name}.journalized_type = '#{queried_class.name}'" \
-                                        " AND #{Journal.table_name}.notes IS NOT NULL" \
-                                        " AND #{Journal.table_name}.notes !=''"
+          sql_aggr_filtered table: Journal.table_name,
+                            values: value,
+                            group_field: 'journalized_id',
+                            operator:,
+                            sub_query: "#{Journal.table_name} WHERE #{Journal.table_name}.journalized_id = #{queried_table_name}.id" \
+                                       " AND #{Journal.table_name}.journalized_type = '#{queried_class.name}'" \
+                                       " AND #{Journal.table_name}.notes IS NOT NULL" \
+                                       " AND #{Journal.table_name}.notes !=''"
         end
 
         # not required for: assigned_to_id author_id user_id watcher_id updated_by last_updated_by

@@ -51,6 +51,10 @@ if File.file? File.expand_path './.enable_test', __dir__
     gem 'rails_best_practices', require: false
   end
   group :test do
+    # Lock minitest to 5.x until a Rails release includes support for minitest 6.0
+    # See: https://www.redmine.org/issues/43609
+    # Can be removed once Redmine 6.x includes the fix (already in Redmine master)
+    gem 'minitest', '~> 5.27'
     gem 'minitest-reporters'
     gem 'simplecov-cobertura' if ENV['COVERAGE_COBERTURA']
     gem 'timecop'

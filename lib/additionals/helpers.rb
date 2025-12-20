@@ -337,6 +337,10 @@ module Additionals
         additionals_include_js('select2_helpers')
     end
 
+    def additionals_load_actioncable
+      additionals_include_js 'actioncable', core: true
+    end
+
     def additionals_load_clipboard_feedback
       additionals_include_js 'clipboard_feedback'
     end

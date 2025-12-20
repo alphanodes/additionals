@@ -42,5 +42,14 @@ class AdditionalsJournal
       value = detail.send value_key
       detail[value_key] = (entity.find_by(id: value) || value) if value.present?
     end
+
+    # Add a system note to a journalized entity (Issue, Contact, DbEntry, etc.)
+    # Returns true if note was added successfully, false otherwise
+    def add_system_note(entity, note, user: User.current)
+      return false unless entity.respond_to? :init_journal
+
+      entity.init_journal user, note
+      entity.save
+    end
   end
 end

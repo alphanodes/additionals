@@ -112,11 +112,11 @@ module Additionals
                .where(users: { type: 'Group' })
                .includes(:user, :roles)
                .each_with_object({}) do |m, h|
-          m.roles.each do |r|
-            h[r] ||= []
-            h[r] << m.principal
-          end
-          h
+                 m.roles.each do |r|
+                   h[r] ||= []
+                   h[r] << m.principal
+                 end
+                 h
         end
       end
 

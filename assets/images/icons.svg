@@ -1073,5 +1073,11 @@
       <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
       <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
     </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--x">
+      <!-- x -->
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M18 6l-12 12" />
+      <path d="M6 6l12 12" />
+    </symbol>
   </defs>
 </svg>

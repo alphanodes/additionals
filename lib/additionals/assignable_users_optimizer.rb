@@ -8,120 +8,123 @@ module Additionals
 
     module_function
 
-    # NEW: Optimized implementation that returns ActiveRecord::Relation for backward compatibility
+    # ==========================================
+    # CORE SECURITY: Hidden Roles Filter Logic
+    # ==========================================
+    # All methods MUST use these helper methods to ensure consistent hidden roles handling.
+    # CRITICAL SECURITY: Only admin users and users with show_hidden_roles_in_memberbox permission
+    # should see users with hidden roles.
+
+    # Check if current user can see users with hidden roles
+    # @param project [Project, nil] The project context (nil for global check)
+    # @return [Boolean] true if current user can see hidden roles
+    def can_see_hidden_roles?(project = nil)
+      return true if User.current.admin?
+
+      if project
+        User.current.allowed_to? :show_hidden_roles_in_memberbox, project
+      else
+        User.current.allowed_to? :show_hidden_roles_in_memberbox, nil, global: true
+      end
+    end
+
+    # Filter role IDs to only include visible ones for current user
+    # @param role_ids [Array<Integer>] Role IDs to filter
+    # @param project [Project, nil] The project context (nil for global check)
+    # @return [Array<Integer>] Filtered role IDs (only visible ones for current user)
+    def filter_visible_role_ids(role_ids, project: nil)
+      return role_ids if role_ids.empty?
+      return role_ids if can_see_hidden_roles? project
+
+      # Regular users should not see users with hidden roles
+      visible_role_ids = Role.where(id: role_ids, hide: false).pluck(:id)
+      role_ids & visible_role_ids
+    end
+
+    # Get visible assignable role IDs for current user
+    # @param project [Project, nil] The project context
+    # @return [Array<Integer>] Visible assignable role IDs
+    def visible_assignable_role_ids(project: nil)
+      assignable_role_ids = Role.where(assignable: true).pluck(:id)
+      filter_visible_role_ids assignable_role_ids, project: project
+    end
+
+    # Get principal types based on group assignment setting
+    # @return [Array<String>] Principal types to include
+    def assignable_principal_types
+      types = ['User']
+      types << 'Group' if Setting.issue_group_assignment?
+      types
+    end
+
+    # ==========================================
+    # Public API Methods
+    # ==========================================
+
+    # Optimized implementation that returns ActiveRecord::Relation for backward compatibility
     # @param project [Project] The project to get assignable users for
     # @return [ActiveRecord::Relation] Relation of assignable users
     def project_assignable_users_relation(project)
       return Principal.where Additionals::SQL_NO_RESULT_CONDITION unless project
 
-      # Find roles that are assignable and have the required permission
-      assignable_role_ids = Role.where(assignable: true).pluck(:id)
-      return Principal.where Additionals::SQL_NO_RESULT_CONDITION if assignable_role_ids.empty?
+      role_ids = visible_assignable_role_ids project: project
+      return Principal.where Additionals::SQL_NO_RESULT_CONDITION if role_ids.empty?
 
-      # Apply hidden roles filter if needed
-      # CRITICAL SECURITY: Only admin users and users with show_hidden_roles_in_memberbox permission
-      # should see users with hidden roles
-      unless User.current.admin? || User.current.allowed_to?(:show_hidden_roles_in_memberbox, project)
-        # Regular users should not see users with hidden roles
-        visible_role_ids = Role.where(id: assignable_role_ids, hide: false).pluck(:id)
-        assignable_role_ids &= visible_role_ids
-        return Principal.where Additionals::SQL_NO_RESULT_CONDITION if assignable_role_ids.empty?
-      end
-
-      # Get users/principals with these roles in this project
-      # NOTE: For general assignable users, we include both users and groups if group assignment is enabled
-      types = ['User']
-      types << 'Group' if Setting.issue_group_assignment?
-
-      # SOLUTION: Use SQL subquery to avoid DISTINCT + ORDER BY problems completely
-      # This is robust against future .order() chaining and database-agnostic
+      # Use SQL subquery to avoid DISTINCT + ORDER BY problems
       subquery = Principal.active
                           .joins(members: :roles)
-                          .where(type: types,
+                          .where(type: assignable_principal_types,
                                  members: { project_id: project.id },
-                                 roles: { id: assignable_role_ids })
+                                 roles: { id: role_ids })
                           .distinct
                           .select(:id)
 
-      # Return principals from subquery with proper ordering
       Principal.active
                .where(id: subquery)
                .order(:lastname, :firstname)
-
-      # TODO: Adding current user to a relation is complex, needs special handling if required
     end
 
-    # LEGACY: Array-based implementation for internal use where performance is critical
+    # Array-based implementation for internal use where performance is critical
     # @param project [Project] The project to get assignable users for
     # @return [Array<User>] Array of assignable users
     def project_assignable_users(project)
       return [] unless project
 
-      # Find roles that are assignable and have the required permission
-      assignable_role_ids = Role.where(assignable: true).pluck(:id)
-      return [] if assignable_role_ids.empty?
-
-      # Apply hidden roles filter if needed
-      # CRITICAL SECURITY: Only admin users and users with show_hidden_roles_in_memberbox permission
-      # should see users with hidden roles
-      unless User.current.admin? || User.current.allowed_to?(:show_hidden_roles_in_memberbox, project)
-        # Regular users should not see users with hidden roles
-        visible_role_ids = Role.where(id: assignable_role_ids, hide: false).pluck(:id)
-        assignable_role_ids &= visible_role_ids
-        return [] if assignable_role_ids.empty?
-      end
-
-      # Get users/principals with these roles in this project
-      # NOTE: For general assignable users, we include both users and groups if group assignment is enabled
-      types = ['User']
-      types << 'Group' if Setting.issue_group_assignment?
+      role_ids = visible_assignable_role_ids project: project
+      return [] if role_ids.empty?
 
       users = Principal.active
                        .joins(members: :roles)
-                       .where(type: types,
+                       .where(type: assignable_principal_types,
                               members: { project_id: project.id },
-                              roles: { id: assignable_role_ids })
+                              roles: { id: role_ids })
                        .distinct
                        .sorted
                        .to_a
 
       # Add current user if they have assignable roles but aren't in the list
       if User.current.logged? && users.exclude?(User.current)
-        # Quick check if current user has assignable roles in this project
         current_user_assignable = User.current.members
                                       .joins(:roles)
-                                      .exists?(project_id: project.id, roles: { id: assignable_role_ids })
+                                      .exists?(project_id: project.id, roles: { id: role_ids })
         users << User.current if current_user_assignable
       end
 
       users
     end
 
-    # NEW: Issue assignable users returning ActiveRecord::Relation for backward compatibility
+    # Issue assignable users returning ActiveRecord::Relation for backward compatibility
     # @param project [Project] The project to get assignable users for
     # @param tracker [Tracker, nil] Optional tracker for workflow filtering
     # @return [ActiveRecord::Relation] Relation of assignable users
     def issue_assignable_users_relation(project, tracker: nil)
       return Principal.where Additionals::SQL_NO_RESULT_CONDITION unless project
 
-      # For issue assignable users, we need to handle tracker workflow filtering differently
-      # because the base relation no longer has the joins
-      unless tracker && defined?(WorkflowTransition)
-        # No tracker filtering needed, use basic project assignable users
-        return project_assignable_users_relation project
-      end
+      # No tracker filtering needed, use basic project assignable users
+      return project_assignable_users_relation project unless tracker && defined?(WorkflowTransition)
 
-      # With tracker: Need to do the workflow filtering in the initial subquery
-      # Find roles that are assignable and have the required permission
-      assignable_role_ids = Role.where(assignable: true).pluck(:id)
-      return Principal.where Additionals::SQL_NO_RESULT_CONDITION if assignable_role_ids.empty?
-
-      # Apply hidden roles filter if needed
-      unless User.current.admin? || User.current.allowed_to?(:show_hidden_roles_in_memberbox, project)
-        visible_role_ids = Role.where(id: assignable_role_ids, hide: false).pluck(:id)
-        assignable_role_ids &= visible_role_ids
-        return Principal.where Additionals::SQL_NO_RESULT_CONDITION if assignable_role_ids.empty?
-      end
+      role_ids = visible_assignable_role_ids project: project
+      return Principal.where Additionals::SQL_NO_RESULT_CONDITION if role_ids.empty?
 
       # Get workflow role IDs for this tracker
       workflow_role_ids = WorkflowTransition
@@ -133,30 +136,24 @@ module Additionals
       return project_assignable_users_relation project if workflow_role_ids.empty?
 
       # Intersect assignable roles with workflow roles
-      final_role_ids = assignable_role_ids & workflow_role_ids
+      final_role_ids = role_ids & workflow_role_ids
       return Principal.where Additionals::SQL_NO_RESULT_CONDITION if final_role_ids.empty?
 
-      # Get users/principals with these roles in this project
-      types = ['User']
-      types << 'Group' if Setting.issue_group_assignment?
-
-      # Use SQL subquery to avoid DISTINCT + ORDER BY problems completely
+      # Use SQL subquery to avoid DISTINCT + ORDER BY problems
       subquery = Principal.active
                           .joins(members: :roles)
-                          .where(type: types,
+                          .where(type: assignable_principal_types,
                                  members: { project_id: project.id },
                                  roles: { id: final_role_ids })
                           .distinct
                           .select(:id)
 
-      # Return principals from subquery with proper ordering
       Principal.active
                .where(id: subquery)
                .order(:lastname, :firstname)
     end
 
-    # LEGACY: Array-based implementation for Issue assignable users (with tracker support)
-    # This is the ONLY entity that needs tracker-specific logic
+    # Array-based implementation for Issue assignable users (with tracker support)
     # @param project [Project] The project to get assignable users for
     # @param tracker [Tracker, nil] Optional tracker for workflow filtering
     # @return [Array<User>] Array of assignable users
@@ -164,12 +161,8 @@ module Additionals
       return [] unless project
 
       # Start with basic project assignable users for issues
-      # NOTE: We call the method directly to ensure fresh results for tracker-specific calls
       users = project_assignable_users project
-      return users unless tracker
-
-      # Apply tracker-specific workflow filtering - OPTIMIZED to avoid N+1
-      return users unless defined?(WorkflowTransition)
+      return users unless tracker && defined?(WorkflowTransition)
 
       # Get all workflow role IDs for this tracker in a single query (instead of N+1)
       workflow_role_ids = WorkflowTransition
@@ -180,7 +173,6 @@ module Additionals
       return users if workflow_role_ids.empty?
 
       # Get principal-role mappings for all users/groups in a single query (instead of N+1)
-      # Note: Members table uses user_id column for both Users and Groups (all Principals)
       principal_ids = users.map(&:id)
       principals_with_workflow_roles = Member
                                        .joins(:roles)
@@ -191,7 +183,6 @@ module Additionals
                                        .pluck(:user_id)
                                        .to_set
 
-      # Filter users/groups based on workflow role availability
       users.select { |principal| principals_with_workflow_roles.include? principal.id }
     end
 
@@ -207,18 +198,14 @@ module Additionals
 
       return [] if log_time_role_ids.empty?
 
-      # Apply hidden roles filter if needed
-      # Only admin users and users with show_hidden_roles_in_memberbox permission should see users with hidden roles
-      unless User.current.admin? || User.current.allowed_to?(:show_hidden_roles_in_memberbox, project)
-        visible_role_ids = Role.where(id: log_time_role_ids, hide: false).pluck(:id)
-        log_time_role_ids &= visible_role_ids
-        return [] if log_time_role_ids.empty?
-      end
+      # Use centralized hidden roles filter
+      role_ids = filter_visible_role_ids log_time_role_ids, project: project
+      return [] if role_ids.empty?
 
       # Single optimized query to get all users with log_time permission
       users = User.joins(members: :roles)
                   .where(members: { project_id: project.id },
-                         roles: { id: log_time_role_ids },
+                         roles: { id: role_ids },
                          status: User::STATUS_ACTIVE)
                   .distinct
                   .to_a
@@ -236,39 +223,65 @@ module Additionals
     # Optimized implementation for global assignable users (when no project context)
     # @return [Array<Principal>] Array of globally assignable principals
     def global_assignable_users
-      # Find roles that are assignable - use SQL to avoid N+1
-      # Note: This is a simplified approach since checking permissions globally is complex
-      # For now, we get assignable roles and assume view_issues permission
-      assignable_role_ids = Role.where(assignable: true).pluck(:id)
-      return [] if assignable_role_ids.empty?
-
-      # Apply hidden roles filter if needed - only admins should see users with hidden roles
-      unless User.current.admin?
-        visible_role_ids = Role.where(id: assignable_role_ids, hide: false).pluck(:id)
-        assignable_role_ids &= visible_role_ids
-        return [] if assignable_role_ids.empty?
-      end
-
-      # This is still not ideal as it gets all users globally, but better than the original
-      # In practice, this should rarely be used - most entities should have project context
-      types = ['User']
-      types << 'Group' if Setting.issue_group_assignment?
+      # Use centralized helper for visible assignable role IDs (global context)
+      role_ids = visible_assignable_role_ids project: nil
+      return [] if role_ids.empty?
 
       users = Principal.active
                        .joins(members: :roles)
-                       .where(type: types, roles: { id: assignable_role_ids })
+                       .where(type: assignable_principal_types, roles: { id: role_ids })
                        .distinct
                        .to_a
 
       # Add current user if logged and has assignable roles globally
       if User.current.logged? && users.exclude?(User.current)
-        # Check if user has any assignable roles globally
-        user_has_assignable_roles = User.current.members.joins(:roles).exists?(roles: { id: assignable_role_ids })
+        user_has_assignable_roles = User.current.members.joins(:roles).exists?(roles: { id: role_ids })
         users << User.current if user_has_assignable_roles
       end
 
       users.uniq!
       users.sort
+    end
+
+    # Multi-project assignable users returning ActiveRecord::Relation
+    # Used by plugins that need assignable users across multiple projects (e.g., cross-project queries)
+    #
+    # @param project_ids [Array<Integer>] The project IDs to get assignable users for
+    # @param search [String, nil] Optional search term for filtering by name
+    # @param limit [Integer, nil] Optional limit for results
+    # @return [ActiveRecord::Relation] Relation of assignable users
+    def multi_project_assignable_users_relation(project_ids, search: nil, limit: nil)
+      return Principal.where Additionals::SQL_NO_RESULT_CONDITION if project_ids.blank?
+
+      # Use centralized helper for visible assignable role IDs (global context for multi-project)
+      role_ids = visible_assignable_role_ids project: nil
+      return Principal.where Additionals::SQL_NO_RESULT_CONDITION if role_ids.empty?
+
+      # Use SQL subquery to avoid DISTINCT + ORDER BY problems
+      subquery = Principal.active
+                          .joins(members: :roles)
+                          .where(type: assignable_principal_types,
+                                 members: { project_id: project_ids },
+                                 roles: { id: role_ids })
+                          .distinct
+                          .select(:id)
+
+      scope = Principal.active
+                       .where(id: subquery)
+                       .order(:lastname, :firstname)
+
+      scope = scope.like(search) if search.present?
+      scope = scope.limit(limit) if limit.present?
+      scope
+    end
+
+    # Returns IDs of users who are assignable and visible to current user
+    # Used to filter user IDs against visible roles (e.g., for recently assigned users from journals)
+    #
+    # @param project_ids [Array<Integer>] The project IDs to check
+    # @return [Array<Integer>] IDs of assignable and visible users
+    def visible_assignable_user_ids(project_ids)
+      multi_project_assignable_users_relation(project_ids).pluck(:id)
     end
   end
 end

@@ -17,12 +17,12 @@ class IssueAssignableUsersComprehensiveTest < Additionals::TestCase
   # CRITICAL: Test basic tracker-specific workflow functionality
   def test_issue_assignable_users_respects_workflow_permissions
     project = projects :projects_001
-    tracker = project.trackers.first
+    tracker = project.trackers.order(:id).first
 
     # Create specific workflow transition for tracker
     role = roles :roles_002
-    status_from = IssueStatus.first
-    status_to = IssueStatus.last
+    status_from = IssueStatus.order(:id).first
+    status_to = IssueStatus.order(:id).last
 
     # Create workflow transition that requires specific role
     WorkflowTransition.create!(
@@ -77,7 +77,7 @@ class IssueAssignableUsersComprehensiveTest < Additionals::TestCase
   # CRITICAL: Test that issues can only be assigned to users with proper roles
   def test_issue_assignable_users_only_assignable_roles
     project = projects :projects_001
-    tracker = project.trackers.first
+    tracker = project.trackers.order(:id).first
 
     # Create non-assignable role
     non_assignable_role = Role.create!(
@@ -117,8 +117,8 @@ class IssueAssignableUsersComprehensiveTest < Additionals::TestCase
     WorkflowTransition.create!(
       tracker_id: tracker.id,
       role_id: assignable_role.id,
-      old_status_id: IssueStatus.first.id,
-      new_status_id: IssueStatus.last.id
+      old_status_id: IssueStatus.order(:id).first.id,
+      new_status_id: IssueStatus.order(:id).last.id
     )
 
     User.current = users :users_001
@@ -135,7 +135,7 @@ class IssueAssignableUsersComprehensiveTest < Additionals::TestCase
   # CRITICAL: Test hidden roles security for issue assignment
   def test_issue_assignable_users_hidden_roles_security
     project = projects :projects_001
-    tracker = project.trackers.first
+    tracker = project.trackers.order(:id).first
 
     # Create hidden assignable role
     hidden_role = Role.create!(
@@ -147,8 +147,8 @@ class IssueAssignableUsersComprehensiveTest < Additionals::TestCase
     )
 
     # Create workflow for hidden role
-    status_from = IssueStatus.first
-    status_to = IssueStatus.last
+    status_from = IssueStatus.order(:id).first
+    status_to = IssueStatus.order(:id).last
     WorkflowTransition.create!(
       tracker_id: tracker.id,
       role_id: hidden_role.id,
@@ -198,7 +198,7 @@ class IssueAssignableUsersComprehensiveTest < Additionals::TestCase
   # CRITICAL: Test that issue assignment works with group assignment setting
   def test_issue_assignable_users_with_groups
     project = projects :projects_001
-    tracker = project.trackers.first
+    tracker = project.trackers.order(:id).first
 
     # Create assignable role
     assignable_role = Role.create!(
@@ -217,8 +217,8 @@ class IssueAssignableUsersComprehensiveTest < Additionals::TestCase
     WorkflowTransition.create!(
       tracker_id: tracker.id,
       role_id: assignable_role.id,
-      old_status_id: IssueStatus.first.id,
-      new_status_id: IssueStatus.last.id
+      old_status_id: IssueStatus.order(:id).first.id,
+      new_status_id: IssueStatus.order(:id).last.id
     )
 
     User.current = users :users_001
@@ -249,7 +249,7 @@ class IssueAssignableUsersComprehensiveTest < Additionals::TestCase
     # Create new tracker without any workflow transitions
     tracker_no_workflow = Tracker.create!(
       name: 'No Workflow Tracker',
-      default_status: IssueStatus.first,
+      default_status: IssueStatus.order(:id).first,
       is_in_roadmap: true
     )
     project.trackers << tracker_no_workflow
@@ -285,7 +285,7 @@ class IssueAssignableUsersComprehensiveTest < Additionals::TestCase
   # CRITICAL: Test issue assignment after user role changes
   def test_issue_assignable_users_after_role_changes
     project = projects :projects_001
-    tracker = project.trackers.first
+    tracker = project.trackers.order(:id).first
 
     # Create role and user
     role = Role.create!(
@@ -308,8 +308,8 @@ class IssueAssignableUsersComprehensiveTest < Additionals::TestCase
     WorkflowTransition.create!(
       tracker_id: tracker.id,
       role_id: role.id,
-      old_status_id: IssueStatus.first.id,
-      new_status_id: IssueStatus.last.id
+      old_status_id: IssueStatus.order(:id).first.id,
+      new_status_id: IssueStatus.order(:id).last.id
     )
 
     User.current = users :users_001
@@ -333,7 +333,7 @@ class IssueAssignableUsersComprehensiveTest < Additionals::TestCase
   # CRITICAL: Test current user inclusion in issue assignment
   def test_issue_assignable_users_includes_current_user
     project = projects :projects_001
-    tracker = project.trackers.first
+    tracker = project.trackers.order(:id).first
 
     # Create assignable role for current user
     current_user_role = Role.create!(
@@ -356,8 +356,8 @@ class IssueAssignableUsersComprehensiveTest < Additionals::TestCase
     WorkflowTransition.create!(
       tracker_id: tracker.id,
       role_id: current_user_role.id,
-      old_status_id: IssueStatus.first.id,
-      new_status_id: IssueStatus.last.id
+      old_status_id: IssueStatus.order(:id).first.id,
+      new_status_id: IssueStatus.order(:id).last.id
     )
 
     # Set as current user
@@ -372,7 +372,7 @@ class IssueAssignableUsersComprehensiveTest < Additionals::TestCase
   # CRITICAL: Test issue assignment with inactive/locked users
   def test_issue_assignable_users_excludes_inactive_users
     project = projects :projects_001
-    tracker = project.trackers.first
+    tracker = project.trackers.order(:id).first
 
     # Create inactive user with assignable role
     assignable_role = Role.create!(
@@ -408,7 +408,7 @@ class IssueAssignableUsersComprehensiveTest < Additionals::TestCase
     3.times do |i|
       tracker = Tracker.create!(
         name: "Performance Tracker #{i}",
-        default_status: IssueStatus.first,
+        default_status: IssueStatus.order(:id).first,
         is_in_roadmap: true
       )
       project.trackers << tracker
@@ -442,8 +442,8 @@ class IssueAssignableUsersComprehensiveTest < Additionals::TestCase
         WorkflowTransition.create!(
           tracker_id: tracker.id,
           role_id: role.id,
-          old_status_id: IssueStatus.first.id,
-          new_status_id: IssueStatus.last.id
+          old_status_id: IssueStatus.order(:id).first.id,
+          new_status_id: IssueStatus.order(:id).last.id
         )
       end
     end
@@ -470,7 +470,7 @@ class IssueAssignableUsersComprehensiveTest < Additionals::TestCase
   # CRITICAL: Test caching behavior is correct
   def test_issue_assignable_users_caching_correctness
     project = projects :projects_001
-    tracker = project.trackers.first
+    tracker = project.trackers.order(:id).first
 
     User.current = users :users_001
 
@@ -484,7 +484,7 @@ class IssueAssignableUsersComprehensiveTest < Additionals::TestCase
     # Get different tracker
     other_tracker = project.trackers.second || project.trackers.create!(
       name: 'Cache Test Tracker',
-      default_status: IssueStatus.first,
+      default_status: IssueStatus.order(:id).first,
       is_in_roadmap: true
     )
 

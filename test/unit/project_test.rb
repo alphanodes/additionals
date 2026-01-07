@@ -263,7 +263,7 @@ class ProjectTest < Additionals::TestCase
     assert_equal users1.to_a, users2.to_a, 'assignable_users should return equivalent results'
 
     # Different tracker should return different results
-    tracker = Tracker.first
+    tracker = Tracker.order(:id).first
     users_with_tracker = project.assignable_users tracker
 
     # Should return different relation objects
@@ -272,7 +272,7 @@ class ProjectTest < Additionals::TestCase
 
   def test_assignable_users_with_tracker
     project = projects :projects_001
-    tracker = project.trackers.first
+    tracker = project.trackers.order(:id).first
 
     users_all = project.assignable_users
     users_tracker = project.assignable_users tracker

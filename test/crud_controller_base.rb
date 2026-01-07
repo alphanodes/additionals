@@ -114,7 +114,7 @@ module CrudControllerBase
         assert_response :found
       end
 
-      entity = @crud[:entity].class.last
+      entity = @crud[:entity].class.order(:id).last
 
       if @crud[:created_assert].present?
         @crud[:created_assert].each do |name|

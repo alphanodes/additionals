@@ -22,11 +22,11 @@ class UserTest < Additionals::TestCase
   end
 
   def test_admin_should_can_be_admin
-    assert User.where(admin: true).first.can_be_admin?
+    assert User.where(admin: true).order(:id).first.can_be_admin?
   end
 
   def test_non_admin_should_can_not_be_admin
-    assert_not User.where(admin: false).first.can_be_admin?
+    assert_not User.where(admin: false).order(:id).first.can_be_admin?
   end
 
   def test_sudoer_should_can_be_admin
@@ -40,7 +40,7 @@ class UserTest < Additionals::TestCase
 
     assert user.sudoer
     assert user.admin
-    assert User.where(sudoer: true).first.can_be_admin?
+    assert User.where(sudoer: true).order(:id).first.can_be_admin?
 
     user.admin = false
 
@@ -49,13 +49,13 @@ class UserTest < Additionals::TestCase
 
     assert user.sudoer
     assert_not user.admin
-    assert User.where(sudoer: true).first.can_be_admin?
+    assert User.where(sudoer: true).order(:id).first.can_be_admin?
   end
 
   def test_non_sudoer_without_admin_can_not_be_admin
     skip 'Skip redmine_sudo test, because redmine_contacts is not installed' unless AdditionalsPlugin.active_sudo?
 
-    assert_not User.where(sudoer: false, admin: false).first.can_be_admin?
+    assert_not User.where(sudoer: false, admin: false).order(:id).first.can_be_admin?
   end
 
   def test_allowed_project_ids_for

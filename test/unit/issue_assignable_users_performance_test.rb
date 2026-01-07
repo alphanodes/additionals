@@ -15,7 +15,7 @@ class IssueAssignableUsersPerformanceTest < Additionals::TestCase
 
   def test_issue_assignable_users_with_tracker_no_n_plus_one
     project = projects :projects_001
-    tracker = project.trackers.first
+    tracker = project.trackers.order(:id).first
 
     User.current = users :users_001
 
@@ -40,7 +40,7 @@ class IssueAssignableUsersPerformanceTest < Additionals::TestCase
 
   def test_issue_assignable_users_workflow_filtering_works
     project = projects :projects_001
-    tracker = project.trackers.first
+    tracker = project.trackers.order(:id).first
 
     User.current = users :users_001
 
@@ -66,7 +66,7 @@ class IssueAssignableUsersPerformanceTest < Additionals::TestCase
 
   def test_issue_assignable_users_performance_focus
     project = projects :projects_001
-    tracker = project.trackers.first
+    tracker = project.trackers.order(:id).first
 
     User.current = users :users_001
 

@@ -40,7 +40,7 @@ module ApiTest
                params: payload,
                headers: { 'CONTENT_TYPE' => 'application/xml' }.merge(credentials('jsmith'))
         end
-        issue = Issue.last
+        issue = Issue.order(:id).last
 
         assert_equal 1, issue.project_id
         assert_nil issue.assigned_to_id
@@ -71,7 +71,7 @@ module ApiTest
                headers: { 'CONTENT_TYPE' => 'application/xml' }.merge(credentials('jsmith'))
         end
 
-        issue = Issue.last
+        issue = Issue.order(:id).last
 
         assert_equal 1, issue.project_id
         assert_equal 2, issue.assigned_to_id

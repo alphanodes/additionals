@@ -16,7 +16,7 @@ class AssignableUsersSecurityTest < Additionals::TestCase
   # CRITICAL: Test for the tracker permission logic error
   def test_project_assignable_users_with_invalid_tracker_permissions
     project = projects :projects_001
-    tracker = project.trackers.first
+    tracker = project.trackers.order(:id).first
 
     # This should not raise any errors
     users = project.assignable_users tracker

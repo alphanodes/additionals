@@ -18,7 +18,7 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
   # CRITICAL: Test issues#new uses optimized assignable_users without N+1
   def test_issues_new_uses_optimized_assignable_users
     project = projects :projects_001
-    tracker = project.trackers.first
+    tracker = project.trackers.order(:id).first
 
     # Create users with different workflow permissions
     workflow_role = Role.create!(
@@ -41,8 +41,8 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
     WorkflowTransition.create!(
       tracker_id: tracker.id,
       role_id: workflow_role.id,
-      old_status_id: IssueStatus.first.id,
-      new_status_id: IssueStatus.last.id
+      old_status_id: IssueStatus.order(:id).first.id,
+      new_status_id: IssueStatus.order(:id).last.id
     )
 
     # Also ensure existing users have workflow transitions to appear in dropdown
@@ -50,8 +50,8 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
     WorkflowTransition.find_or_create_by!(
       tracker_id: tracker.id,
       role_id: existing_role.id,
-      old_status_id: IssueStatus.first.id,
-      new_status_id: IssueStatus.last.id
+      old_status_id: IssueStatus.order(:id).first.id,
+      new_status_id: IssueStatus.order(:id).last.id
     )
 
     @request.session[:user_id] = users(:users_001).id
@@ -73,7 +73,7 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
   # CRITICAL: Test issues#new respects hidden roles
   def test_issues_new_respects_hidden_roles
     project = projects :projects_001
-    tracker = project.trackers.first
+    tracker = project.trackers.order(:id).first
 
     # Create hidden role
     hidden_role = Role.create!(
@@ -99,8 +99,8 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
     WorkflowTransition.create!(
       tracker_id: tracker.id,
       role_id: hidden_role.id,
-      old_status_id: IssueStatus.first.id,
-      new_status_id: IssueStatus.last.id
+      old_status_id: IssueStatus.order(:id).first.id,
+      new_status_id: IssueStatus.order(:id).last.id
     )
 
     # Test with regular user (should not see hidden role user)
@@ -143,7 +143,7 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
   # CRITICAL: Test issues#create with optimized assignable_users validation
   def test_issues_create_validates_assignable_users
     project = projects :projects_001
-    tracker = project.trackers.first
+    tracker = project.trackers.order(:id).first
 
     # Create assignable user
     assignable_role = Role.create!(
@@ -183,8 +183,8 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
     WorkflowTransition.create!(
       tracker_id: tracker.id,
       role_id: assignable_role.id,
-      old_status_id: IssueStatus.first.id,
-      new_status_id: IssueStatus.last.id
+      old_status_id: IssueStatus.order(:id).first.id,
+      new_status_id: IssueStatus.order(:id).last.id
     )
 
     @request.session[:user_id] = users(:users_001).id
@@ -202,8 +202,8 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
       }
     end
 
-    assert_redirected_to controller: 'issues', action: 'show', id: Issue.last.id
-    assert_equal assignable_user, Issue.last.assigned_to
+    assert_redirected_to controller: 'issues', action: 'show', id: Issue.order(:id).last.id
+    assert_equal assignable_user, Issue.order(:id).last.assigned_to
 
     # Should not be able to create issue with non-assignable user
     assert_no_difference 'Issue.count' do
@@ -225,7 +225,7 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
   # CRITICAL: Test issues#edit uses optimized assignable_users
   def test_issues_edit_uses_optimized_assignable_users
     project = projects :projects_001
-    tracker = project.trackers.first
+    tracker = project.trackers.order(:id).first
 
     issue = Issue.create!(
       project: project,
@@ -233,7 +233,7 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
       subject: 'Test edit assignable users',
       description: 'Test description',
       author: users(:users_001),
-      status: IssueStatus.first
+      status: IssueStatus.order(:id).first
     )
 
     # Create user for assignment
@@ -257,8 +257,8 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
     WorkflowTransition.create!(
       tracker_id: tracker.id,
       role_id: edit_role.id,
-      old_status_id: IssueStatus.first.id,
-      new_status_id: IssueStatus.last.id
+      old_status_id: IssueStatus.order(:id).first.id,
+      new_status_id: IssueStatus.order(:id).last.id
     )
 
     @request.session[:user_id] = users(:users_001).id
@@ -280,7 +280,7 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
   # CRITICAL: Test bulk edit with optimized assignable_users
   def test_issues_bulk_edit_uses_optimized_assignable_users
     project = projects :projects_001
-    tracker = project.trackers.first
+    tracker = project.trackers.order(:id).first
 
     # Create multiple issues
     issues = []
@@ -291,7 +291,7 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
         subject: "Bulk test issue #{i}",
         description: 'Bulk test description',
         author: users(:users_001),
-        status: IssueStatus.first
+        status: IssueStatus.order(:id).first
       )
     end
 
@@ -331,10 +331,10 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
   # CRITICAL: Test that tracker changes update assignable users correctly
   def test_issues_tracker_change_updates_assignable_users
     project = projects :projects_001
-    tracker1 = project.trackers.first
+    tracker1 = project.trackers.order(:id).first
     project.trackers.second || project.trackers.create!(
       name: 'Second Tracker',
-      default_status: IssueStatus.first,
+      default_status: IssueStatus.order(:id).first,
       is_in_roadmap: true
     )
 
@@ -359,8 +359,8 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
     WorkflowTransition.create!(
       tracker_id: tracker1.id,
       role_id: tracker_specific_role.id,
-      old_status_id: IssueStatus.first.id,
-      new_status_id: IssueStatus.last.id
+      old_status_id: IssueStatus.order(:id).first.id,
+      new_status_id: IssueStatus.order(:id).last.id
     )
 
     @request.session[:user_id] = users(:users_001).id

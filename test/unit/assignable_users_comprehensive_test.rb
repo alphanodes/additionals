@@ -31,7 +31,7 @@ class AssignableUsersComprehensiveTest < Additionals::TestCase
 
   def test_project_assignable_users_vs_issue_assignable_users
     project = projects :projects_001
-    tracker = project.trackers.first
+    tracker = project.trackers.order(:id).first
 
     User.current = users :users_001
 
@@ -138,7 +138,7 @@ class AssignableUsersComprehensiveTest < Additionals::TestCase
                     'TimeEntry assignable_users should use limited queries'
 
     # Test Issue assignable_users with tracker performance
-    tracker = project.trackers.first
+    tracker = project.trackers.order(:id).first
     queries_issue = count_sql_queries { project.assignable_users tracker }
 
     assert_operator queries_issue, :<=, 15,

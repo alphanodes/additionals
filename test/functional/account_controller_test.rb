@@ -44,7 +44,7 @@ class AccountControllerTest < Additionals::ControllerTest
 
         assert_redirected_to '/my/account'
       end
-      user = User.last
+      user = User.order(:id).last
 
       assert_equal 'register', user.login
       assert_equal 'John', user.firstname

@@ -20,7 +20,7 @@ module Additionals
           raise 'The correct usage is {{group_users(<group_name>)}}' if args.empty?
 
           group_name = args[0].strip
-          group = Group.named(group_name).first
+          group = Group.named(group_name).order(:id).first
           raise unless group
 
           users = Principal.visible.where(id: group.users).order(User.name_formatter[:order])

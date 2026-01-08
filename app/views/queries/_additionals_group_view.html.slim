@@ -6,8 +6,7 @@ ruby:
 tr.group.open data=group_data
   td colspan="#{query.inline_columns.size + 2}"
     span.expander.icon.icon-expanded[onclick="toggleRowGroup(this);"]
-      - if Redmine::VERSION::BRANCH != 'stable'
-        = sprite_icon 'angle-down'
+      = sprite_icon 'angle-down'
     span.name = group_name
     - if group_count.present?
       '

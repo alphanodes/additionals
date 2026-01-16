@@ -15,7 +15,8 @@ module Additionals
         before_validation :auto_assigned_to
         before_save :change_status_with_assigned_to_change
 
-        after_commit :add_assigned_watcher
+        # TODO: Remove when Redmine 6.x support is dropped (Redmine 7 has issue_assigned_to_me in core)
+        after_commit :add_assigned_watcher unless Redmine::VERSION::BRANCH == 'devel'
 
         safe_attributes 'author_id',
                         if: proc { |issue, user|

@@ -158,7 +158,10 @@ class IssueTest < Additionals::TestCase
     end
   end
 
+  # TODO: Remove when Redmine 6.x support is dropped (Redmine 7 has issue_assigned_to_me in core)
   def test_assigned_to_should_add_watcher
+    skip 'Redmine 7+ uses core issue_assigned_to_me' if Redmine::VERSION::BRANCH == 'devel'
+
     user = users :users_003
     user.pref.auto_watch_on = ['issue_assigned']
     user.pref.save
@@ -169,7 +172,10 @@ class IssueTest < Additionals::TestCase
     end
   end
 
+  # TODO: Remove when Redmine 6.x support is dropped (Redmine 7 has issue_assigned_to_me in core)
   def test_assigned_to_with_group_should_not_add_watcher
+    skip 'Redmine 7+ uses core issue_assigned_to_me' if Redmine::VERSION::BRANCH == 'devel'
+
     group = Group.find 10
     Member.create! project_id: 1, principal: group, role_ids: [1]
 

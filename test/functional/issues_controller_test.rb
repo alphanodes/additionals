@@ -2,6 +2,14 @@
 
 require File.expand_path '../../test_helper', __FILE__
 
+class ViewIssueActionDropdownRenderOn < Redmine::Hook::ViewListener
+  render_on :view_issue_action_dropdown, inline: '<span class="test-issue-action-dropdown">Hook content</span>'
+end
+
+class ViewIssueActionMenuRenderOn < Redmine::Hook::ViewListener
+  render_on :view_issue_action_menu, inline: '<span class="test-issue-action-menu">Hook content</span>'
+end
+
 class IssuesControllerTest < Additionals::ControllerTest
   def setup
     manager_role = roles :roles_001
@@ -191,5 +199,27 @@ class IssuesControllerTest < Additionals::ControllerTest
       assert_response :success
       assert_select 'fieldset.hide-attachments', count: 1
     end
+  end
+
+  def test_show_with_hook_view_issue_action_dropdown
+    Redmine::Hook.add_listener ViewIssueActionDropdownRenderOn
+    @request.session[:user_id] = 2
+
+    get :show,
+        params: { id: 1 }
+
+    assert_response :success
+    assert_select 'span.test-issue-action-dropdown', text: 'Hook content'
+  end
+
+  def test_show_with_hook_view_issue_action_menu
+    Redmine::Hook.add_listener ViewIssueActionMenuRenderOn
+    @request.session[:user_id] = 2
+
+    get :show,
+        params: { id: 1 }
+
+    assert_response :success
+    assert_select 'span.test-issue-action-menu', text: 'Hook content'
   end
 end

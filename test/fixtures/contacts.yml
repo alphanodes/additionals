@@ -1,0 +1,94 @@
+adam:
+  id: 1
+  first_name: Adam
+  last_name: Ondra
+  middle_name: Superstar
+  company: Ocun
+  email: adam@mail.com
+  website: https://www.adamondra.com/
+  primary_city: Brno
+  primary_country_code: CZ
+  primary_postcode: 602 00
+  other_city: Arco
+  other_country_code: IT
+  author_id: 1
+  assigned_to_id: 3
+  created_on: <%= 2.days.ago.to_fs(:db) %>
+
+kurt:
+  id: 2
+  first_name: Kurt
+  last_name: Albert
+  middle_name: Superstar
+  job_title: CEO
+  company: Ocun
+  birthday: 1954-01-28
+  email: kurt@mail.de,kurt@mail.com
+  description: Kurt was the infentor of redpoint
+  primary_city: Ebermannstadt
+  primary_country_code: DE
+  primary_street1: Gasseldorf
+  primary_state: Bayern
+  primary_postcode: 91320
+  other_city: Oberschellenbach
+  other_country_code: DE
+  other_street1: Unbekannt 2
+  other_state: Bayern
+  other_postcode: 90321
+  created_on: <%= 3.days.ago.to_fs(:db) %>
+  author_id: 1
+
+ocun:
+  id: 3
+  first_name: Ocun
+  job_title: web project
+  is_company: true
+  company_contact_id: 1
+  email: info@global.ocun.com
+  invoice_email: billing@ocun.com
+  description: Realy cool project
+  website: https://www.ocun.com
+  author_id: 3
+
+john:
+  id: 4
+  first_name: John
+  last_name: Smith
+  job_title: CEO
+  is_company: false
+  email: jsmith@somenet.foo
+  description: "Contact with user realation\nUser id = 2"
+  author_id: 2
+
+blackdiamond:
+  id: 5
+  first_name: 'Black Diamond'
+  job_title: web project
+  is_company: true
+  visibility: <%= Contact::VISIBILITY_PRIVATE %>
+  email: company@8a.nu
+  description: "Here at Black Diamond it's all about climbing and skiing. We share the same experiences that you do on rock, ice and snow and these experiences push us to make the best gear possible for our worldwide family of climbers and skiers."
+  website: "https://www.blackdiamondequipment.com"
+  phone: "1-800-775-5552"
+  author_id: 2
+
+spammer:
+  id: 6
+  first_name: Spammer
+  email: spam@junk.com
+  created_on: <%= 2.days.ago.to_fs(:db) %>
+  spam: true
+  author_id: 1
+
+without_mail:
+  id: 7
+  first_name: Seppi
+  created_on: <%= 2.days.ago.to_fs(:db) %>
+  email: ''
+  author_id: 1
+
+noone:
+  id: 8
+  first_name: Project2 Only
+  created_on: <%= 2.days.ago.to_fs(:db) %>
+  author_id: 1

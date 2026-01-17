@@ -2,12 +2,90 @@
 
 require File.expand_path '../../test_helper', __FILE__
 
+class ViewWikiShowActionDropdownRenderOn < Redmine::Hook::ViewListener
+  render_on :view_wiki_show_action_dropdown, inline: '<span class="test-action-dropdown">Hook content</span>'
+end
+
+class ViewWikiShowBottomRenderOn < Redmine::Hook::ViewListener
+  render_on :view_wiki_show_bottom, inline: '<div class="test-wiki-bottom">Hook content</div>'
+end
+
+class ViewWikiFormBottomRenderOn < Redmine::Hook::ViewListener
+  render_on :view_wiki_form_bottom, inline: '<div class="test-wiki-form-bottom">Hook content</div>'
+end
+
+class ViewWikiIndexBottomRenderOn < Redmine::Hook::ViewListener
+  render_on :view_wiki_index_bottom, inline: '<div class="test-wiki-index-bottom">Hook content</div>'
+end
+
+class ViewWikiDateIndexBottomRenderOn < Redmine::Hook::ViewListener
+  render_on :view_wiki_date_index_bottom, inline: '<div class="test-wiki-date-index-bottom">Hook content</div>'
+end
+
 class WikiControllerTest < Additionals::ControllerTest
   WIKI_MACRO_USER_ID = 2
 
   def setup
     prepare_tests
     EnabledModule.create project_id: 1, name: 'wiki'
+  end
+
+  def test_show_with_hook_view_wiki_show_action_dropdown
+    Redmine::Hook.add_listener ViewWikiShowActionDropdownRenderOn
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select 'span.test-action-dropdown', text: 'Hook content'
+  end
+
+  def test_show_with_hook_view_wiki_show_bottom
+    Redmine::Hook.add_listener ViewWikiShowBottomRenderOn
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select 'div.test-wiki-bottom', text: 'Hook content'
+  end
+
+  def test_edit_with_hook_view_wiki_form_bottom
+    Redmine::Hook.add_listener ViewWikiFormBottomRenderOn
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! title: __method__.to_s
+
+    get :edit,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select 'div.test-wiki-form-bottom', text: 'Hook content'
+  end
+
+  def test_index_with_hook_view_wiki_index_bottom
+    Redmine::Hook.add_listener ViewWikiIndexBottomRenderOn
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+
+    get :index,
+        params: { project_id: 1 }
+
+    assert_response :success
+    assert_select 'div.test-wiki-index-bottom', text: 'Hook content'
+  end
+
+  def test_date_index_with_hook_view_wiki_date_index_bottom
+    Redmine::Hook.add_listener ViewWikiDateIndexBottomRenderOn
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+
+    get :date_index,
+        params: { project_id: 1 }
+
+    assert_response :success
+    assert_select 'div.test-wiki-date-index-bottom', text: 'Hook content'
   end
 
   def test_show_with_youtube_macro

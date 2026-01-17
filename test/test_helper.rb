@@ -51,6 +51,7 @@ module Additionals
     def plugin_fixtures_list
       custom = %i[dashboards dashboard_roles]
       custom += %i[hrm_user_types hrm_working_calendars] if AdditionalsPlugin.active_hrm?
+      custom += %i[contacts contacts_projects] if AdditionalsPlugin.active_servicedesk?
       custom
     end
   end

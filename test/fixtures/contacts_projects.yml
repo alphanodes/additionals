@@ -1,0 +1,23 @@
+contact_project_one:
+  project_id: 1
+  contact_id: 1
+
+contact_project_two:
+  project_id: 1
+  contact_id: 2
+
+contact_project_three:
+  project_id: 1
+  contact_id: 3
+
+contact_project_004:
+  project_id: 2
+  contact_id: 1
+
+contact_project_005:
+  project_id: 1
+  contact_id: 4
+
+contact_project_006:
+  project_id: 1
+  contact_id: 5

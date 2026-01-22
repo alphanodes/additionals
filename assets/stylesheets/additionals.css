@@ -248,6 +248,11 @@ div.macro-desc {
   border-bottom: 1px solid #eee;
 }
 
+/* Dropdown menu - li needs position:relative so .menu-children positions correctly */
+#top-menu > ul > li {
+  position: relative;
+}
+
 #top-menu li:hover ul.menu-children,
 #top-menu li ul.menu-children.visible { display: block; }
 

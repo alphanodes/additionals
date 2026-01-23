@@ -809,6 +809,340 @@ class AssignableUsersOptimizerTest < Additionals::TestCase
                     'Admin: visible_assignable_user_ids should include hidden user ID'
   end
 
+  # ==========================================
+  # Tests for Entity Methods (non-Issue models)
+  # These methods ALWAYS include groups regardless of Setting.issue_group_assignment?
+  # ==========================================
+
+  def test_assignable_principal_types_respects_issue_group_assignment_setting
+    with_settings issue_group_assignment: '1' do
+      types = Additionals::AssignableUsersOptimizer.assignable_principal_types
+
+      assert_includes types, 'User'
+      assert_includes types, 'Group'
+    end
+
+    with_settings issue_group_assignment: '0' do
+      types = Additionals::AssignableUsersOptimizer.assignable_principal_types
+
+      assert_includes types, 'User'
+      assert_not_includes types, 'Group', 'Groups should NOT be included when issue_group_assignment is disabled'
+    end
+  end
+
+  def test_assignable_principal_types_all_always_includes_groups
+    # This method should ALWAYS return both User and Group, regardless of settings
+    with_settings issue_group_assignment: '1' do
+      types = Additionals::AssignableUsersOptimizer.assignable_principal_types_all
+
+      assert_includes types, 'User'
+      assert_includes types, 'Group'
+    end
+
+    with_settings issue_group_assignment: '0' do
+      types = Additionals::AssignableUsersOptimizer.assignable_principal_types_all
+
+      assert_includes types, 'User'
+      assert_includes types, 'Group', 'Groups should ALWAYS be included in assignable_principal_types_all'
+    end
+  end
+
+  def test_project_assignable_principals_always_includes_groups
+    project = projects :projects_001
+
+    # Create a group with assignable role
+    group = Group.create! lastname: 'Test Assignable Group'
+    assignable_role = Role.find_by(assignable: true) || Role.create!(
+      name: 'Entity Assignable Role',
+      assignable: true,
+      permissions: %i[view_issues]
+    )
+    Member.create! project: project, principal: group, roles: [assignable_role]
+
+    # Even when issue_group_assignment is disabled, entities should include groups
+    with_settings issue_group_assignment: '0' do
+      principals = Additionals::AssignableUsersOptimizer.project_assignable_principals project
+
+      users = principals.select { |p| p.is_a? User }
+      groups = principals.select { |p| p.is_a? Group }
+
+      assert users.any?, 'Should include users'
+      assert groups.any?, 'Should include groups even when issue_group_assignment is disabled'
+      assert_includes groups, group, 'Created group should be in assignable principals'
+    end
+  end
+
+  def test_project_assignable_users_excludes_groups_when_setting_disabled
+    project = projects :projects_001
+
+    # Create a group with assignable role
+    group = Group.create! lastname: 'Test Issue Group'
+    assignable_role = Role.find_by(assignable: true) || Role.create!(
+      name: 'Issue Assignable Role',
+      assignable: true,
+      permissions: %i[view_issues]
+    )
+    Member.create! project: project, principal: group, roles: [assignable_role]
+
+    # When issue_group_assignment is disabled, issue methods should NOT include groups
+    with_settings issue_group_assignment: '0' do
+      users = Additionals::AssignableUsersOptimizer.project_assignable_users project
+
+      users.each { |p| assert_kind_of User, p, 'Should only include users when issue_group_assignment is disabled' }
+      assert_not_includes users, group, 'Group should NOT be in assignable users for issues'
+    end
+  end
+
+  def test_project_assignable_principals_vs_users_difference_with_setting_disabled
+    project = projects :projects_001
+
+    # Create a group with assignable role
+    group = Group.create! lastname: 'Comparison Test Group'
+    assignable_role = Role.find_by(assignable: true) || Role.create!(
+      name: 'Comparison Role',
+      assignable: true,
+      permissions: %i[view_issues]
+    )
+    Member.create! project: project, principal: group, roles: [assignable_role]
+
+    with_settings issue_group_assignment: '0' do
+      # For Issues: should NOT include groups
+      issue_assignables = Additionals::AssignableUsersOptimizer.project_assignable_users project
+      issue_groups = issue_assignables.select { |p| p.is_a? Group }
+
+      # For Entities: should ALWAYS include groups
+      entity_assignables = Additionals::AssignableUsersOptimizer.project_assignable_principals project
+      entity_groups = entity_assignables.select { |p| p.is_a? Group }
+
+      assert_empty issue_groups, 'Issue assignables should have NO groups when setting disabled'
+      assert entity_groups.any?, 'Entity assignables should ALWAYS have groups'
+      assert_includes entity_groups, group
+    end
+  end
+
+  def test_project_assignable_principals_with_hidden_roles
+    project = projects :projects_001
+
+    hidden_role = Role.create!(
+      name: 'Entity Hidden Role',
+      assignable: true,
+      hide: true,
+      users_visibility: 'members_of_visible_projects',
+      permissions: %i[view_issues]
+    )
+
+    hidden_user = User.create!(
+      login: 'entityhiddenuser',
+      firstname: 'EntityHidden',
+      lastname: 'User',
+      mail: 'entityhidden@example.com',
+      status: User::STATUS_ACTIVE
+    )
+
+    Member.create! project: project, principal: hidden_user, roles: [hidden_role]
+
+    regular_user = User.create!(
+      login: 'entityregularuser',
+      firstname: 'EntityRegular',
+      lastname: 'User',
+      mail: 'entityregular@example.com',
+      status: User::STATUS_ACTIVE
+    )
+
+    # Regular user should not see users with hidden roles
+    User.current = regular_user
+    result = Additionals::AssignableUsersOptimizer.project_assignable_principals project
+
+    assert_not_includes result, hidden_user, 'User with hidden role should not be visible in entity principals to regular users'
+
+    # Admin should see all users
+    User.current = users :users_001
+    result_admin = Additionals::AssignableUsersOptimizer.project_assignable_principals project
+
+    assert_includes result_admin, hidden_user, 'Admin should see users with hidden roles in entity principals'
+  end
+
+  def test_global_assignable_principals_always_includes_groups
+    # Create a group with assignable role in some project
+    project = projects :projects_001
+    group = Group.create! lastname: 'Global Test Group'
+    assignable_role = Role.find_by(assignable: true) || Role.create!(
+      name: 'Global Assignable Role',
+      assignable: true,
+      permissions: %i[view_issues]
+    )
+    Member.create! project: project, principal: group, roles: [assignable_role]
+
+    with_settings issue_group_assignment: '0' do
+      principals = Additionals::AssignableUsersOptimizer.global_assignable_principals
+
+      groups = principals.select { |p| p.is_a? Group }
+
+      assert groups.any?, 'Global assignable principals should include groups even when issue_group_assignment is disabled'
+    end
+  end
+
+  def test_global_assignable_principals_with_hidden_roles
+    project = projects :projects_001
+
+    hidden_role = Role.create!(
+      name: 'Global Entity Hidden Role',
+      assignable: true,
+      hide: true,
+      users_visibility: 'members_of_visible_projects',
+      permissions: %i[view_issues]
+    )
+
+    hidden_user = User.create!(
+      login: 'globalentityhiddenuser',
+      firstname: 'GlobalEntityHidden',
+      lastname: 'User',
+      mail: 'globalentityhidden@example.com',
+      status: User::STATUS_ACTIVE
+    )
+
+    Member.create! project: project, principal: hidden_user, roles: [hidden_role]
+
+    regular_user = User.create!(
+      login: 'globalentityregularuser',
+      firstname: 'GlobalEntityRegular',
+      lastname: 'User',
+      mail: 'globalentityregular@example.com',
+      status: User::STATUS_ACTIVE
+    )
+
+    # Regular user should not see users with hidden roles
+    User.current = regular_user
+    result = Additionals::AssignableUsersOptimizer.global_assignable_principals
+
+    assert_not_includes result, hidden_user, 'User with hidden role should not be visible in global entity principals'
+
+    # Admin should see all users
+    User.current = users :users_001
+    result_admin = Additionals::AssignableUsersOptimizer.global_assignable_principals
+
+    assert_includes result_admin, hidden_user, 'Admin should see users with hidden roles in global entity principals'
+  end
+
+  def test_project_assignable_principals_returns_principals_only
+    project = projects :projects_001
+    principals = Additionals::AssignableUsersOptimizer.project_assignable_principals project
+
+    assert_kind_of Array, principals
+    principals.each do |principal|
+      assert_kind_of Principal, principal, 'project_assignable_principals should return only Principal objects'
+      assert_equal Principal::STATUS_ACTIVE, principal.status, 'Should return only active principals'
+    end
+  end
+
+  def test_project_assignable_principals_empty_for_nil_project
+    principals = Additionals::AssignableUsersOptimizer.project_assignable_principals nil
+
+    assert_empty principals, 'Should return empty array for nil project'
+  end
+
+  def test_global_assignable_principals_returns_principals_only
+    principals = Additionals::AssignableUsersOptimizer.global_assignable_principals
+
+    assert_kind_of Array, principals
+    principals.each do |principal|
+      assert_kind_of Principal, principal, 'global_assignable_principals should return only Principal objects'
+    end
+  end
+
+  def test_project_assignable_principals_includes_current_user
+    project = projects :projects_001
+    User.current = users :users_002
+
+    # Ensure current user has view_issues permission
+    assert User.current.allowed_to?(:view_issues, project), 'Current user should have view_issues permission'
+
+    principals = Additionals::AssignableUsersOptimizer.project_assignable_principals project
+
+    assert_includes principals, User.current, 'Current user should be in assignable principals'
+  end
+
+  def test_entity_methods_consistency_with_hidden_roles
+    # This test ensures all entity methods consistently handle hidden roles
+    project = projects :projects_001
+
+    hidden_role = Role.create!(
+      name: 'Entity Consistency Hidden Role',
+      assignable: true,
+      hide: true,
+      users_visibility: 'members_of_visible_projects',
+      permissions: %i[view_issues]
+    )
+
+    hidden_user = User.create!(
+      login: 'entityconsistencyhiddenuser',
+      firstname: 'EntityConsistencyHidden',
+      lastname: 'User',
+      mail: 'entityconsistencyhidden@example.com',
+      status: User::STATUS_ACTIVE
+    )
+
+    Member.create! project: project, principal: hidden_user, roles: [hidden_role]
+
+    regular_user = User.create!(
+      login: 'entityconsistencyregularuser',
+      firstname: 'EntityConsistencyRegular',
+      lastname: 'User',
+      mail: 'entityconsistencyregular@example.com',
+      status: User::STATUS_ACTIVE
+    )
+
+    # Regular user - hidden user should be excluded
+    User.current = regular_user
+
+    assert_not_includes Additionals::AssignableUsersOptimizer.project_assignable_principals(project),
+                        hidden_user,
+                        'Regular user: project_assignable_principals should exclude hidden user'
+
+    assert_not_includes Additionals::AssignableUsersOptimizer.global_assignable_principals,
+                        hidden_user,
+                        'Regular user: global_assignable_principals should exclude hidden user'
+
+    # Admin - hidden user should be included
+    User.current = users :users_001
+
+    assert_includes Additionals::AssignableUsersOptimizer.project_assignable_principals(project),
+                    hidden_user,
+                    'Admin: project_assignable_principals should include hidden user'
+
+    assert_includes Additionals::AssignableUsersOptimizer.global_assignable_principals,
+                    hidden_user,
+                    'Admin: global_assignable_principals should include hidden user'
+  end
+
+  def test_project_assignable_principals_performance
+    project = projects :projects_001
+
+    # Create sufficient test data
+    assignable_role = Role.create!(
+      name: 'Entity Performance Test Role',
+      assignable: true,
+      permissions: %i[view_issues]
+    )
+
+    10.times do |i|
+      user = User.create!(
+        login: "entityperftest#{i}",
+        firstname: "EntityPerfTest#{i}",
+        lastname: 'User',
+        mail: "entityperftest#{i}@example.com",
+        status: User::STATUS_ACTIVE
+      )
+      Member.create! project: project, principal: user, roles: [assignable_role]
+    end
+
+    queries_count = count_sql_queries do
+      Additionals::AssignableUsersOptimizer.project_assignable_principals project
+    end
+
+    assert_operator queries_count, :<=, 10, 'project_assignable_principals should use limited number of queries'
+  end
+
   private
 
   def create_hidden_roles_consistency_test_data

@@ -40,31 +40,44 @@ module Additionals
         notified
       end
 
-      # used with assignable_principal (user AND groups)
-      # OPTIMIZED: Uses AssignableUsersOptimizer to prevent N+1 queries and respect hidden roles
+      # Assignable principals for custom entities (Users AND Groups).
+      #
+      # IMPORTANT: This method ALWAYS includes groups, regardless of Setting.issue_group_assignment?
+      # That setting is for Issues only! Custom entities like Password need group assignment
+      # independently - a user may disable group assignment for issues but still want to
+      # assign passwords to groups for access control.
+      #
+      # Uses project_assignable_principals (NOT project_assignable_users!) to ensure
+      # groups are always available. See AssignableUsersOptimizer for details.
+      #
+      # @param prj [Project, nil] Optional project context
+      # @return [Array<Principal>] Assignable users and groups
       def assignable_users(prj = nil)
         prj = project if project
 
-        # Use optimized implementation that respects hidden roles and prevents N+1 queries
-        users = if prj
-                  Additionals::AssignableUsersOptimizer.project_assignable_users prj
-                else
-                  # For entities without project context, use global assignable users
-                  # This is a fallback and should be used carefully
-                  Additionals::AssignableUsersOptimizer.global_assignable_users
-                end
+        # Use optimized implementation that:
+        # - ALWAYS includes Users AND Groups (not depending on issue settings!)
+        # - Respects hidden roles security
+        # - Prevents N+1 queries
+        principals = if prj
+                       Additionals::AssignableUsersOptimizer.project_assignable_principals prj
+                     else
+                       # For entities without project context, use global assignable principals
+                       # This is a fallback and should be used carefully
+                       Additionals::AssignableUsersOptimizer.global_assignable_principals
+                     end
 
         # Add author if active (authors should always be assignable to their own entities)
-        users << author if author&.active? && users.exclude?(author)
+        principals << author if author&.active? && principals.exclude?(author)
 
         # Add previous assignee if it was changed (to allow reassigning back)
         if assigned_to_id_was.present?
           assignee = Principal.find_by id: assigned_to_id_was
-          users << assignee if assignee && users.exclude?(assignee)
+          principals << assignee if assignee && principals.exclude?(assignee)
         end
 
-        users.uniq!
-        users.sort
+        principals.uniq!
+        principals.sort
       end
 
       def last_notes

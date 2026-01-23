@@ -322,4 +322,174 @@ class EntityMethodsAssignableUsersTest < Additionals::TestCase
     assert_kind_of Array, assignable
     assignable.each { |u| assert_kind_of Principal, u }
   end
+
+  # ==========================================
+  # CRITICAL: Entity Group Assignment Tests
+  # ==========================================
+  # These tests verify that EntityMethods.assignable_users ALWAYS includes groups,
+  # regardless of Setting.issue_group_assignment?
+  #
+  # This is intentional and different from Issue behavior!
+  # Custom entities (Password, etc.) need group assignment independently of the
+  # Redmine issue setting. A user may disable group assignment for issues but
+  # still want to assign entities to groups for access control.
+
+  def test_assignable_users_always_includes_groups_regardless_of_setting
+    project = projects :projects_001
+
+    # Create a group with assignable role
+    group = Group.create! lastname: 'Entity Test Group'
+    assignable_role = Role.find_by(assignable: true) || Role.create!(
+      name: 'Entity Group Test Role',
+      assignable: true,
+      permissions: %i[view_issues]
+    )
+    Member.create! project: project, principal: group, roles: [assignable_role]
+
+    entity = TestEntity.new project: project
+    User.current = users :users_001
+
+    # CRITICAL TEST: Even when issue_group_assignment is DISABLED,
+    # entity assignable_users should STILL include groups
+    with_settings issue_group_assignment: '0' do
+      assignable = entity.assignable_users
+
+      groups = assignable.select { |p| p.is_a? Group }
+      users = assignable.select { |p| p.is_a? User }
+
+      assert users.any?, 'Should include users'
+      assert groups.any?, 'CRITICAL: Entity assignable_users should include groups even when issue_group_assignment is disabled'
+      assert_includes groups, group, 'Created group should be in entity assignable users'
+    end
+
+    # Also verify it works when setting is enabled
+    with_settings issue_group_assignment: '1' do
+      assignable = entity.assignable_users
+
+      groups = assignable.select { |p| p.is_a? Group }
+
+      assert groups.any?, 'Should include groups when issue_group_assignment is enabled'
+      assert_includes groups, group
+    end
+  end
+
+  def test_entity_vs_issue_group_assignment_difference
+    project = projects :projects_001
+
+    # Create a group with assignable role
+    group = Group.create! lastname: 'Comparison Group'
+    assignable_role = Role.find_by(assignable: true) || Role.create!(
+      name: 'Comparison Test Role',
+      assignable: true,
+      permissions: %i[view_issues]
+    )
+    Member.create! project: project, principal: group, roles: [assignable_role]
+
+    entity = TestEntity.new project: project
+    User.current = users :users_001
+
+    with_settings issue_group_assignment: '0' do
+      # Entity should include groups
+      entity_assignable = entity.assignable_users
+      entity_groups = entity_assignable.select { |p| p.is_a? Group }
+
+      # Issue method should NOT include groups
+      issue_assignable = Additionals::AssignableUsersOptimizer.project_assignable_users project
+      issue_groups = issue_assignable.select { |p| p.is_a? Group }
+
+      assert entity_groups.any?, 'Entity should include groups when setting is disabled'
+      assert_empty issue_groups, 'Issue method should NOT include groups when setting is disabled'
+
+      # This demonstrates the intentional difference
+      assert_includes entity_groups, group, 'Group should be in entity assignables'
+      assert_not_includes issue_groups, group, 'Group should NOT be in issue assignables'
+    end
+  end
+
+  def test_sensitive_entity_always_includes_groups
+    # Test with a "sensitive" entity type (like Password)
+    project = projects :projects_001
+
+    group = Group.create! lastname: 'Sensitive Entity Group'
+    assignable_role = Role.find_by(assignable: true) || Role.create!(
+      name: 'Sensitive Entity Role',
+      assignable: true,
+      permissions: %i[view_issues]
+    )
+    Member.create! project: project, principal: group, roles: [assignable_role]
+
+    entity = TestSensitiveEntity.new project: project
+    User.current = users :users_001
+
+    with_settings issue_group_assignment: '0' do
+      assignable = entity.assignable_users
+
+      groups = assignable.select { |p| p.is_a? Group }
+
+      assert groups.any?, 'Sensitive entity should include groups for access control'
+      assert_includes groups, group
+    end
+  end
+
+  def test_assignable_users_groups_with_hidden_roles
+    project = projects :projects_001
+
+    # Create a hidden role with a group
+    hidden_role = Role.create!(
+      name: 'Entity Group Hidden Role',
+      assignable: true,
+      hide: true,
+      users_visibility: 'members_of_visible_projects',
+      permissions: %i[view_issues]
+    )
+
+    hidden_group = Group.create! lastname: 'Hidden Entity Group'
+    Member.create! project: project, principal: hidden_group, roles: [hidden_role]
+
+    entity = TestEntity.new project: project
+
+    # Regular user should not see groups with hidden roles
+    regular_user = User.create!(
+      login: 'grouphiddenregular',
+      firstname: 'GroupHiddenRegular',
+      lastname: 'User',
+      mail: 'grouphiddenregular@example.com',
+      status: User::STATUS_ACTIVE
+    )
+
+    User.current = regular_user
+    assignable = entity.assignable_users
+
+    assert_not_includes assignable, hidden_group, 'Group with hidden role should not be visible to regular users'
+
+    # Admin should see the group
+    User.current = users :users_001
+    assignable_admin = entity.assignable_users
+
+    assert_includes assignable_admin, hidden_group, 'Admin should see groups with hidden roles'
+  end
+
+  def test_global_assignable_users_includes_groups
+    entity = TestEntity.new # No project - uses global
+
+    # Create a group with assignable role in some project
+    project = projects :projects_001
+    group = Group.create! lastname: 'Global Entity Group'
+    assignable_role = Role.find_by(assignable: true) || Role.create!(
+      name: 'Global Entity Role',
+      assignable: true,
+      permissions: %i[view_issues]
+    )
+    Member.create! project: project, principal: group, roles: [assignable_role]
+
+    User.current = users :users_001
+
+    with_settings issue_group_assignment: '0' do
+      assignable = entity.assignable_users
+
+      groups = assignable.select { |p| p.is_a? Group }
+
+      assert groups.any?, 'Global entity assignable should include groups even when issue_group_assignment is disabled'
+    end
+  end
 end

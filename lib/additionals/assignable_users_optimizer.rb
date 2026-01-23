@@ -49,12 +49,47 @@ module Additionals
       filter_visible_role_ids assignable_role_ids, project: project
     end
 
-    # Get principal types based on group assignment setting
+    # ==========================================
+    # CRITICAL: Principal Types - READ CAREFULLY!
+    # ==========================================
+    # There are TWO different methods for principal types:
+    #
+    # 1. assignable_principal_types (for ISSUES only)
+    #    - Respects Setting.issue_group_assignment?
+    #    - Groups only included when admin enables "Allow issue assignment to groups"
+    #    - Used by: Project.assignable_users, Taskboard, Issue queries
+    #
+    # 2. assignable_principal_types_all (for ENTITIES/non-Issue models)
+    #    - ALWAYS includes Users AND Groups
+    #    - NOT depending on issue settings - this is intentional!
+    #    - Used by: Password, and other custom entity models via EntityMethods
+    #
+    # DO NOT use assignable_principal_types for non-Issue entities!
+    # DO NOT remove assignable_principal_types_all thinking it's redundant!
+    # These serve different purposes and MUST remain separate.
+    # ==========================================
+
+    # Get principal types for ISSUES based on group assignment setting.
+    # WARNING: Only use this for Issue-related functionality!
+    # For custom entities (Password, etc.), use assignable_principal_types_all instead.
+    #
     # @return [Array<String>] Principal types to include
     def assignable_principal_types
       types = ['User']
       types << 'Group' if Setting.issue_group_assignment?
       types
+    end
+
+    # Get principal types for NON-ISSUE entities (Password, etc.)
+    # ALWAYS includes Users AND Groups, regardless of Setting.issue_group_assignment?
+    #
+    # This method exists because custom entities like Password need group assignment
+    # independently of the Redmine issue setting. A user may disable group assignment
+    # for issues but still want to assign passwords to groups.
+    #
+    # @return [Array<String>] Principal types (always User + Group)
+    def assignable_principal_types_all
+      %w[User Group]
     end
 
     # ==========================================
@@ -84,7 +119,23 @@ module Additionals
                .order(:lastname, :firstname)
     end
 
-    # Array-based implementation for internal use where performance is critical
+    # ==========================================
+    # Issue Methods: project_assignable_users
+    # ==========================================
+    # Based on Redmine Core: Project#assignable_users (app/models/project.rb)
+    # Reference: https://github.com/redmine/redmine/blob/master/app/models/project.rb
+    #
+    # Differences to Redmine Core:
+    # - Added: Hidden roles filter (visible_assignable_role_ids)
+    # - Added: Current user inclusion logic
+    # - Removed: Caching (@assignable_users) - handled at higher level
+    # - Removed: Tracker filtering - handled in issue_assignable_users
+    #
+    # When Redmine Core changes Project#assignable_users, review this method!
+
+    # Array-based implementation for Issues.
+    # Respects Setting.issue_group_assignment? (Groups only when enabled).
+    #
     # @param project [Project] The project to get assignable users for
     # @return [Array<User>] Array of assignable users
     def project_assignable_users(project)
@@ -95,6 +146,11 @@ module Additionals
 
       users = Principal.active
                        .joins(members: :roles)
+                       # ┌─────────────────────────────────────────────────────────────┐
+                       # │ ISSUE vs ENTITY DIFFERENCE: This line uses                  │
+                       # │ assignable_principal_types which respects                   │
+                       # │ Setting.issue_group_assignment? (Groups only when enabled)  │
+                       # └─────────────────────────────────────────────────────────────┘
                        .where(type: assignable_principal_types,
                               members: { project_id: project.id },
                               roles: { id: role_ids })
@@ -112,6 +168,89 @@ module Additionals
 
       users
     end
+
+    # ==========================================
+    # Entity Methods: project_assignable_principals
+    # ==========================================
+    # For non-Issue models (Password, etc.) that need group assignment
+    # independently of Setting.issue_group_assignment?
+    #
+    # This is intentionally separate from project_assignable_users!
+    # DO NOT merge these methods - they serve different purposes.
+    #
+    # Structure mirrors project_assignable_users for easy comparison,
+    # but uses assignable_principal_types_all instead.
+
+    # Array-based implementation for Entities (Password, etc.)
+    # ALWAYS includes Users AND Groups - not depending on issue settings.
+    #
+    # @param project [Project] The project to get assignable principals for
+    # @return [Array<Principal>] Array of assignable principals (Users + Groups)
+    def project_assignable_principals(project)
+      return [] unless project
+
+      role_ids = visible_assignable_role_ids project: project
+      return [] if role_ids.empty?
+
+      principals = Principal.active
+                            .joins(members: :roles)
+                            # ┌─────────────────────────────────────────────────────────────┐
+                            # │ ISSUE vs ENTITY DIFFERENCE: This line uses                  │
+                            # │ assignable_principal_types_all which ALWAYS includes        │
+                            # │ Groups, regardless of Setting.issue_group_assignment?       │
+                            # └─────────────────────────────────────────────────────────────┘
+                            .where(type: assignable_principal_types_all,
+                                   members: { project_id: project.id },
+                                   roles: { id: role_ids })
+                            .distinct
+                            .sorted
+                            .to_a
+
+      # Add current user if they have assignable roles but aren't in the list
+      if User.current.logged? && principals.exclude?(User.current)
+        current_user_assignable = User.current.members
+                                      .joins(:roles)
+                                      .exists?(project_id: project.id, roles: { id: role_ids })
+        principals << User.current if current_user_assignable
+      end
+
+      principals
+    end
+
+    # ==========================================
+    # Entity Methods: global_assignable_principals
+    # ==========================================
+    # Global version of project_assignable_principals for entities without project context.
+    # ALWAYS includes Users AND Groups.
+
+    # @return [Array<Principal>] Array of globally assignable principals
+    def global_assignable_principals
+      role_ids = visible_assignable_role_ids project: nil
+      return [] if role_ids.empty?
+
+      principals = Principal.active
+                            .joins(members: :roles)
+                            # ┌─────────────────────────────────────────────────────────────┐
+                            # │ ENTITY METHOD: Uses assignable_principal_types_all          │
+                            # │ (ALWAYS includes Groups)                                    │
+                            # └─────────────────────────────────────────────────────────────┘
+                            .where(type: assignable_principal_types_all, roles: { id: role_ids })
+                            .distinct
+                            .to_a
+
+      # Add current user if logged and has assignable roles globally
+      if User.current.logged? && principals.exclude?(User.current)
+        user_has_assignable_roles = User.current.members.joins(:roles).exists?(roles: { id: role_ids })
+        principals << User.current if user_has_assignable_roles
+      end
+
+      principals.uniq!
+      principals.sort
+    end
+
+    # ==========================================
+    # Issue Methods (respects Setting.issue_group_assignment?)
+    # ==========================================
 
     # Issue assignable users returning ActiveRecord::Relation for backward compatibility
     # @param project [Project] The project to get assignable users for
@@ -220,15 +359,23 @@ module Additionals
       users
     end
 
-    # Optimized implementation for global assignable users (when no project context)
+    # ==========================================
+    # Issue Methods: global_assignable_users
+    # ==========================================
+    # Global version of project_assignable_users for issues without project context.
+    # Respects Setting.issue_group_assignment? (Groups only when enabled).
+
     # @return [Array<Principal>] Array of globally assignable principals
     def global_assignable_users
-      # Use centralized helper for visible assignable role IDs (global context)
       role_ids = visible_assignable_role_ids project: nil
       return [] if role_ids.empty?
 
       users = Principal.active
                        .joins(members: :roles)
+                       # ┌─────────────────────────────────────────────────────────────┐
+                       # │ ISSUE METHOD: Uses assignable_principal_types               │
+                       # │ (Groups only when Setting.issue_group_assignment? enabled)  │
+                       # └─────────────────────────────────────────────────────────────┘
                        .where(type: assignable_principal_types, roles: { id: role_ids })
                        .distinct
                        .to_a

@@ -12,16 +12,15 @@ module Additionals
 
       module InstanceOverwriteMethods
         def to_html(*_rules)
+          rules_class = Additionals.textile_rules_class
           if Additionals.setting? :emoji_support
-            if Redmine::WikiFormatting::Textile::Formatter::RULES.exclude? :inline_emojify
-              Redmine::WikiFormatting::Textile::Formatter::RULES << :inline_emojify
-            end
+            rules_class::RULES << :inline_emojify unless rules_class::RULES.include? :inline_emojify
           else
-            Redmine::WikiFormatting::Textile::Formatter::RULES.delete :inline_emojify
+            rules_class::RULES.delete :inline_emojify
           end
 
           @toc = []
-          super(*Redmine::WikiFormatting::Textile::Formatter::RULES).to_s
+          super(*rules_class::RULES).to_s
         end
       end
     end

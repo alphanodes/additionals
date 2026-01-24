@@ -8,7 +8,7 @@ module WikiFormatting
     include Additionals::TestHelper
 
     def setup
-      @formatter = Redmine::WikiFormatting::Textile::Formatter
+      @formatter = Additionals.textile_rules_class
       @to_test = {}
     end
 
@@ -16,7 +16,7 @@ module WikiFormatting
       with_plugin_settings 'additionals', legacy_smiley_support: 1,
                                           emoji_support: 0 do
         # this is required, because inline_smileys are activated with controller action
-        @formatter::RULES << :inline_smileys
+        @formatter::RULES << :inline_smileys unless @formatter::RULES.include? :inline_smileys
 
         @to_test['A test with a :) smiley'] = ['#icon--smiley-smiley', 's18 icon-svg smiley']
         @to_test[':) :)'] = ['#icon--smiley-smiley', 's18 icon-svg smiley']
@@ -40,7 +40,7 @@ module WikiFormatting
       with_plugin_settings 'additionals', legacy_smiley_support: 1,
                                           emoji_support: 1 do
         # this is required, because inline_smileys are activated with controller action
-        @formatter::RULES << :inline_smileys
+        @formatter::RULES << :inline_smileys unless @formatter::RULES.include? :inline_smileys
 
         @to_test[':heart: and :)'] = ['#icon--smiley-smiley', 'additionals-emoji']
         @to_test[':) and :heart:'] = ['#icon--smiley-smiley', 'additionals-emoji']

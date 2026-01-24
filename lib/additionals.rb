@@ -3,7 +3,7 @@
 require 'redmine_plugin_kit'
 
 module Additionals
-  VERSION = '4.3.0'
+  VERSION = '4.4.0-main'
 
   MAX_CUSTOM_MENU_ITEMS = 5
   DEFAULT_MODAL_WIDTH = '350px'
@@ -100,6 +100,17 @@ module Additionals
       end
     end
 
+    # Returns the class containing RULES constant for Textile formatting
+    # Redmine 6.1: Formatter class inherits from RedCloth3 and has RULES
+    # Redmine Master (7.0+): Filter class inherits from RedCloth3 and has RULES
+    def textile_rules_class
+      if defined?(Redmine::WikiFormatting::Textile::Filter)
+        Redmine::WikiFormatting::Textile::Filter
+      else
+        Redmine::WikiFormatting::Textile::Formatter
+      end
+    end
+
     private
 
     def setup
@@ -145,7 +156,9 @@ module Additionals
           loader.add_patch [{ target: Redmine::WikiFormatting::CommonMark::Formatter, patch: 'FormatterCommonMark' }]
           loader.add_patch [{ target: Redmine::WikiFormatting::CommonMark::Helper, patch: 'FormattingHelper' }]
         when 'textile'
-          loader.add_patch [{ target: Redmine::WikiFormatting::Textile::Formatter, patch: 'FormatterTextile' },
+          # Redmine 6.1: Formatter inherits from RedCloth3 and has RULES
+          # Redmine Master (7.0+): Filter inherits from RedCloth3 and has RULES
+          loader.add_patch [{ target: textile_rules_class, patch: 'FormatterTextile' },
                             { target: Redmine::WikiFormatting::Textile::Helper, patch: 'FormattingHelper' }]
         end
       end

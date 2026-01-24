@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.4.0
+
+- Fix Textile RULES compatibility for Redmine Master where Filter class replaces Formatter
+
 ## 4.3.0
 
 - Redmine 6.0 support dropped

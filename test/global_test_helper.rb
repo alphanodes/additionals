@@ -265,7 +265,8 @@ module Additionals
           elements = doc.css override.selector
 
           # If this is one of our overrides, validate it
-          if relevant_overrides.value? override
+          # Skip validation for closing_selector overrides - they use different hash calculation
+          if relevant_overrides.value?(override) && override.args[:closing_selector].blank?
             if elements.empty?
               invalid_overrides << "#{override.name}: selector '#{override.selector}' finds no elements"
             else

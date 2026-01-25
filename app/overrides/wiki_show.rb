@@ -10,7 +10,7 @@ module WikiShow
 
   Deface::Override.new virtual_path: 'wiki/show',
                        name: 'wiki-show-action-dropdown',
-                       insert_after: 'erb[loud]:contains("label_history")',
-                       original: '83d97f2d91c682d3329bc2df00856cc6f6cc4b09',
+                       insert_after: 'erb[loud]:contains("icon-history")',
+                       original: 'fc27fab81025c90f072d63af36b0cc1ee32833ee',
                        partial: 'hooks/view_wiki_show_action_dropdown'
 end

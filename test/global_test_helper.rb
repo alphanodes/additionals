@@ -221,6 +221,54 @@ module Additionals
       ActiveSupport::Notifications.unsubscribe subscriber if subscriber
     end
 
+    # Validates that all Deface overrides matching the given pattern have correct hashes.
+    # This ensures the overrides still match their target elements in Redmine templates.
+    #
+    # @param partial_patterns [Array<String>, String] patterns to match against partial paths
+    #   e.g. 'wiki_guide' matches partials like 'wiki/wiki_guide_edit_link'
+    #
+    # Example usage in plugin test:
+    #   def test_deface_overrides_have_valid_hashes
+    #     assert_deface_overrides_valid partial_patterns: ['wiki_guide', 'wiki/show_update_info']
+    #   end
+    #
+    def assert_deface_overrides_valid(partial_patterns:)
+      patterns = Array partial_patterns
+      invalid_overrides = []
+
+      # rubocop:disable Rails/FindEach -- Deface::Override.all returns a Hash, not ActiveRecord::Relation
+      Deface::Override.all.each do |virtual_path, overrides_hash|
+        overrides_hash.each do |name, override|
+          next unless override.respond_to? :args
+          next if override.args[:original].blank?
+
+          partial = override.args[:partial].to_s
+          next unless patterns.any? { |pattern| partial.include? pattern }
+
+          template_path = deface_resolve_template_path virtual_path
+          next unless template_path && File.exist?(template_path)
+
+          source = File.read template_path
+          doc = Deface::Parser.convert source
+          elements = doc.css override.selector
+
+          if elements.empty?
+            invalid_overrides << "#{name}: selector '#{override.selector}' finds no elements"
+            next
+          end
+
+          actual_hash = Digest::SHA1.hexdigest(elements.first.to_s.gsub(/\s/, ''))
+          expected_hash = override.args[:original]
+
+          invalid_overrides << "#{name}: expected hash '#{expected_hash}', got '#{actual_hash}'" unless actual_hash == expected_hash
+        end
+      end
+      # rubocop:enable Rails/FindEach
+
+      assert_empty invalid_overrides,
+                   "Deface overrides with invalid hashes:\n#{invalid_overrides.join "\n"}"
+    end
+
     def WikiPage.generate(**options)
       content = options.delete(:content) || 'Example text'
 
@@ -235,6 +283,17 @@ module Additionals
     def WikiPage.generate!(**options)
       WikiPage.find_by(title: options[:title])&.delete if options[:title]
       WikiPage.generate(**options).tap(&:save!)
+    end
+
+    private
+
+    def deface_resolve_template_path(virtual_path)
+      possible_paths = [
+        Rails.root.join('app', 'views', "#{virtual_path}.html.erb"),
+        Rails.root.join('app', 'views', "#{virtual_path}.html.slim")
+      ]
+
+      possible_paths.find { |path| File.exist? path }
     end
   end
 end

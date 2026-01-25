@@ -222,7 +222,8 @@ module Additionals
     end
 
     # Validates that all Deface overrides matching the given pattern have correct hashes.
-    # This ensures the overrides still match their target elements in Redmine templates.
+    # This simulates Deface's runtime behavior by applying overrides in sequence order,
+    # so it can detect hash conflicts caused by earlier overrides modifying the template.
     #
     # @param partial_patterns [Array<String>, String] patterns to match against partial paths
     #   e.g. 'wiki_guide' matches partials like 'wiki/wiki_guide_edit_link'
@@ -238,29 +239,47 @@ module Additionals
 
       # rubocop:disable Rails/FindEach -- Deface::Override.all returns a Hash, not ActiveRecord::Relation
       Deface::Override.all.each do |virtual_path, overrides_hash|
-        overrides_hash.each do |name, override|
-          next unless override.respond_to? :args
-          next if override.args[:original].blank?
+        # Collect overrides we care about for this template
+        relevant_overrides = overrides_hash.select do |_name, override|
+          next false unless override.respond_to? :args
+          next false if override.args[:original].blank?
 
           partial = override.args[:partial].to_s
-          next unless patterns.any? { |pattern| partial.include? pattern }
+          patterns.any? { |pattern| partial.include? pattern }
+        end
 
-          template_path = deface_resolve_template_path virtual_path
-          next unless template_path && File.exist?(template_path)
+        next if relevant_overrides.empty?
 
-          source = File.read template_path
-          doc = Deface::Parser.convert source
+        template_path = deface_resolve_template_path virtual_path
+        next unless template_path && File.exist?(template_path)
+
+        # Get ALL overrides for this template, sorted by sequence (like Deface does at runtime)
+        all_overrides_sorted = overrides_hash.values.sort_by(&:sequence)
+
+        # Parse template once and reuse the doc object to avoid re-parsing artifacts
+        source = File.read template_path
+        doc = Deface::Parser.convert source
+
+        # Apply overrides in sequence order, validating our overrides as we go
+        all_overrides_sorted.each do |override|
           elements = doc.css override.selector
 
-          if elements.empty?
-            invalid_overrides << "#{name}: selector '#{override.selector}' finds no elements"
-            next
+          # If this is one of our overrides, validate it
+          if relevant_overrides.value? override
+            if elements.empty?
+              invalid_overrides << "#{override.name}: selector '#{override.selector}' finds no elements"
+            else
+              actual_hash = Digest::SHA1.hexdigest(elements.first.to_s.gsub(/\s/, ''))
+              expected_hash = override.args[:original]
+
+              if actual_hash != expected_hash
+                invalid_overrides << "#{override.name}: expected hash '#{expected_hash}', got '#{actual_hash}'"
+              end
+            end
           end
 
-          actual_hash = Digest::SHA1.hexdigest(elements.first.to_s.gsub(/\s/, ''))
-          expected_hash = override.args[:original]
-
-          invalid_overrides << "#{name}: expected hash '#{expected_hash}', got '#{actual_hash}'" unless actual_hash == expected_hash
+          # Simulate applying this override by modifying the doc in place
+          deface_simulate_override_in_place doc, override if elements.any?
         end
       end
       # rubocop:enable Rails/FindEach
@@ -286,6 +305,33 @@ module Additionals
     end
 
     private
+
+    # Simulates applying a Deface override by modifying the doc in place.
+    # Uses actual source_element content to match runtime hash calculations.
+    def deface_simulate_override_in_place(doc, override)
+      target = doc.css(override.selector).first
+      return unless target
+
+      action = override.action.to_sym
+
+      case action
+      when :insert_bottom
+        target.add_child override.source_element.to_s
+      when :insert_top
+        target.prepend_child override.source_element.to_s
+      when :insert_after
+        target.after override.source_element.to_s
+      when :insert_before
+        target.before override.source_element.to_s
+      when :replace, :replace_contents
+        target.inner_html = override.source_element.to_s
+      when :remove
+        target.remove
+      when :set_attributes, :add_to_attributes, :remove_from_attributes
+        # Attribute actions don't affect element content/hash, skip
+        nil
+      end
+    end
 
     def deface_resolve_template_path(virtual_path)
       possible_paths = [

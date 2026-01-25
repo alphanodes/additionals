@@ -323,7 +323,9 @@ module Additionals
         target.after override.source_element.to_s
       when :insert_before
         target.before override.source_element.to_s
-      when :replace, :replace_contents
+      when :replace
+        target.replace override.source_element.to_s
+      when :replace_contents
         target.inner_html = override.source_element.to_s
       when :remove
         target.remove

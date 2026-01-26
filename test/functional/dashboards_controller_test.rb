@@ -76,4 +76,178 @@ class DashboardsControllerTest < Additionals::ControllerTest
                                  content_project_id: 1 } }
     end
   end
+
+  def test_new_with_copy_param_should_copy_dashboard
+    @request.session[:user_id] = @user.id
+
+    source = dashboards :private_welcome2
+    source.update! description: 'Source description',
+                   enable_sidebar: true
+
+    get :new, params: { copy: source.id }
+
+    assert_response :success
+    assert_select 'form#dashboard-form' do
+      # Name input should exist but we don't check for empty value (no value attribute when empty)
+      assert_select 'input[name="dashboard[name]"]'
+      # Description should be copied
+      assert_select 'textarea[name="dashboard[description]"]', text: source.description
+      # enable_sidebar should be copied (checked)
+      assert_select 'input[name="dashboard[enable_sidebar]"][type="checkbox"][checked="checked"]'
+      # dashboard_type should be set
+      assert_select "input[name='dashboard[dashboard_type]'][value='#{source.dashboard_type}']"
+    end
+  end
+
+  def test_new_with_copy_param_for_project_dashboard_should_copy
+    @request.session[:user_id] = @user.id
+
+    source = dashboards :private_project2
+    source.update! description: 'Project dashboard description'
+
+    get :new, params: { project_id: source.project_id, copy: source.id }
+
+    assert_response :success
+    assert_select 'form#dashboard-form' do
+      # Description should be copied
+      assert_select 'textarea[name="dashboard[description]"]', text: source.description
+    end
+  end
+
+  def test_new_with_invalid_copy_param_should_render_empty_form
+    @request.session[:user_id] = @user.id
+
+    get :new, params: { copy: 99_999 }
+
+    assert_response :success
+    assert_select 'form#dashboard-form' do
+      # Description should be empty
+      assert_select 'textarea[name="dashboard[description]"]', text: ''
+    end
+  end
+
+  def test_new_with_copy_param_should_not_copy_invisible_dashboard
+    # SECURITY TEST: User must not be able to copy dashboards they cannot see
+    # Dashboard blocks may contain sensitive data (credentials, API keys)
+    other_user = users :users_003
+    @request.session[:user_id] = other_user.id
+
+    # private_welcome is a private dashboard owned by user 1, invisible to user 3
+    source = dashboards :private_welcome
+    source.update! description: 'Contains sensitive block settings'
+
+    get :new, params: { copy: source.id }
+
+    assert_response :success
+    assert_select 'form#dashboard-form' do
+      # Dashboard should NOT have copied the private dashboard's description
+      assert_select 'textarea[name="dashboard[description]"]', text: ''
+    end
+  end
+
+  def test_create_from_copy_should_create_new_dashboard
+    @request.session[:user_id] = @user.id
+
+    source = dashboards :private_welcome2
+    source.update! description: 'Original description',
+                   enable_sidebar: true,
+                   layout: { left: %w[welcome], right: %w[news] }
+
+    assert_difference 'Dashboard.count', 1 do
+      post :create, params: {
+        dashboard: {
+          name: 'Copied Dashboard',
+          dashboard_type: source.dashboard_type,
+          description: source.description,
+          enable_sidebar: source.enable_sidebar
+        }
+      }
+    end
+
+    assert_response :redirect
+
+    new_dashboard = Dashboard.last
+
+    assert_equal 'Copied Dashboard', new_dashboard.name
+    assert_equal source.description, new_dashboard.description
+    assert_equal source.enable_sidebar, new_dashboard.enable_sidebar
+    assert_equal @user.id, new_dashboard.author_id
+  end
+
+  def test_create_from_copy_should_copy_layout_blocks
+    @request.session[:user_id] = @user.id
+
+    source = dashboards :private_welcome2
+    source.update! layout: { 'left' => %w[welcome], 'right' => %w[news], 'top' => %w[activity] },
+                   layout_settings: { 'activity' => { max_entries: '15' } }
+
+    assert_difference 'Dashboard.count', 1 do
+      post :create, params: {
+        copy: source.id,
+        dashboard: {
+          name: 'Dashboard with copied blocks',
+          dashboard_type: source.dashboard_type
+        }
+      }
+    end
+
+    assert_response :redirect
+
+    new_dashboard = Dashboard.last
+
+    assert_equal source.layout, new_dashboard.layout
+    assert_equal source.layout_settings, new_dashboard.layout_settings
+    assert_includes new_dashboard.layout['top'], 'activity'
+    assert_equal '15', new_dashboard.layout_settings['activity'][:max_entries]
+  end
+
+  def test_new_with_copy_param_should_not_copy_non_editable_dashboard
+    # SECURITY TEST: User must have EDIT permission to copy a dashboard
+    # visible? is not enough - editable? is required because block settings may contain credentials
+    @request.session[:user_id] = @user.id
+
+    # system_default_welcome is PUBLIC (visibility: 2) and owned by user 1
+    # @user (user 2) can SEE it but cannot EDIT it (not author, not admin)
+    source = dashboards :system_default_welcome
+    source.update! description: 'Contains sensitive API keys in block settings'
+
+    assert source.visible?(@user), 'Dashboard should be visible to user'
+    assert_not source.editable?(@user), 'Dashboard should NOT be editable by user'
+
+    get :new, params: { copy: source.id }
+
+    assert_response :success
+    assert_select 'form#dashboard-form' do
+      # Dashboard should NOT have copied the non-editable dashboard's data
+      assert_select 'textarea[name="dashboard[description]"]', text: ''
+    end
+  end
+
+  def test_create_from_copy_should_not_copy_layout_from_non_editable_dashboard
+    # SECURITY TEST: Blocks should not be copied from non-editable dashboards
+    @request.session[:user_id] = @user.id
+
+    # system_default_welcome is PUBLIC but owned by user 1, not editable by @user
+    source = dashboards :system_default_welcome
+
+    assert source.visible?(@user), 'Dashboard should be visible'
+    assert_not source.editable?(@user), 'Dashboard should NOT be editable'
+
+    original_layout = source.layout.deep_dup
+
+    assert_difference 'Dashboard.count', 1 do
+      post :create, params: {
+        copy: source.id,
+        dashboard: {
+          name: 'Attempted copy of non-editable dashboard',
+          dashboard_type: DashboardContentWelcome::TYPE_NAME
+        }
+      }
+    end
+
+    new_dashboard = Dashboard.last
+
+    # Layout should NOT be copied from the non-editable source
+    assert_not_equal original_layout, new_dashboard.layout
+  end
 end

@@ -35,6 +35,7 @@ uk:
   alert_only_visible_by_admins: "Дозволено переглядати лише з правами адміністратора"
   alert_only_visible_by_yourself: "Дозволено бачити тільки тебе"
   button_assign_to_me: "Призначити мені"
+  button_copy_object: "Копіювати %{object_name}"
   button_merge: "Обєджнання"
   disabled_modules_info: "Модулі, котрі не повинні бути доступні для відбору в рамках проектів. Якщо ці модулі вже активовані в існуючих проектах, спочатку необхідно змінитита зберегти відповідні налаштування проекту."
   emoji_support_info_html: 'Перетворення  емодзі в текст Підтримка. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" class="external">Emoji cheat sheet</a> the available emoji codes can be used.'

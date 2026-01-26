@@ -52,6 +52,9 @@
         = link_to sprite_icon('edit', entity_headline(object_name: :label_dashboard, type: :edit)),
                   edit_project_dashboard_path(@project, @dashboard),
                   class: 'icon icon-edit'
+        = link_to sprite_icon('copy', entity_headline(object_name: :label_dashboard, type: :copy)),
+                  new_project_dashboard_path(@project, copy: @dashboard.id),
+                  class: 'icon icon-copy'
 
     - if @dashboard&.deletable?
       = delete_dashboard_link project_dashboard_path(@project, @dashboard), @dashboard

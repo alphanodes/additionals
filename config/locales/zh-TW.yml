@@ -35,6 +35,7 @@
   alert_only_visible_by_admins: "Can only be seen by users with admin permissions"
   alert_only_visible_by_yourself: "Can only be seen by you"
   button_assign_to_me: Assign to me
+  button_copy_object: "複製%{object_name}"
   button_merge: "合并"
   disabled_modules_info: "專案中無法選擇模組。如果這些模組已經在現有專案中啟用，必須先變更對應的專案設定。"
   emoji_support_info_html: 'Convert emojis in text. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" class="external">Emoji cheat sheet</a> the available emoji codes can be used.'

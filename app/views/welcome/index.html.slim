@@ -22,6 +22,9 @@
         = link_to sprite_icon('edit', entity_headline(object_name: :label_dashboard, type: :edit)),
                   edit_dashboard_path(@dashboard),
                   class: 'icon icon-edit'
+        = link_to sprite_icon('copy', entity_headline(object_name: :label_dashboard, type: :copy)),
+                  new_dashboard_path(copy: @dashboard.id),
+                  class: 'icon icon-copy'
     - if @dashboard&.deletable?
       = delete_dashboard_link dashboard_path(@dashboard), @dashboard
     = sidebar_action_toggle @dashboard_sidebar, @dashboard

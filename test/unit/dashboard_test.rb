@@ -329,4 +329,78 @@ class DashboardTest < Additionals::TestCase
     assert dashboard.system_default
     assert_equal project.id, dashboard.project_id
   end
+
+  def test_copy_from_should_copy_attributes
+    source = dashboards :private_welcome2
+    source.update! layout: { left: %w[welcome text], right: %w[news] },
+                   enable_sidebar: true,
+                   description: 'Test description'
+    source.update_block_settings 'text', title: 'My Text Block'
+
+    dashboard = Dashboard.new
+    dashboard.copy_from source
+
+    assert_equal source.dashboard_type, dashboard.dashboard_type
+    assert_equal source.description, dashboard.description
+    assert_equal source.enable_sidebar, dashboard.enable_sidebar
+    assert_equal source.visibility, dashboard.visibility
+    assert_equal source.project_id, dashboard.project_id
+    assert_equal source.layout, dashboard.layout
+    assert_equal source.layout_settings, dashboard.layout_settings
+
+    # Should NOT copy these
+    assert_nil dashboard.id
+    assert_nil dashboard.name
+    assert_nil dashboard.author_id
+    assert_not dashboard.system_default
+    assert_not dashboard.locked
+  end
+
+  def test_copy_from_with_id_should_find_dashboard
+    source = dashboards :private_welcome2
+
+    dashboard = Dashboard.new
+    dashboard.copy_from source.id
+
+    assert_equal source.dashboard_type, dashboard.dashboard_type
+  end
+
+  def test_copy_from_with_nil_should_do_nothing
+    dashboard = Dashboard.new
+    original_type = dashboard.dashboard_type
+    dashboard.copy_from nil
+
+    # Should remain unchanged (nil or empty string depending on DB default)
+    assert_equal original_type, dashboard.dashboard_type
+  end
+
+  def test_copy_from_should_copy_role_ids_when_visibility_roles
+    source = dashboards :private_welcome2
+    source.update! visibility: Dashboard::VISIBILITY_ROLES,
+                   role_ids: [1, 2]
+
+    dashboard = Dashboard.new
+    dashboard.copy_from source
+
+    assert_equal Dashboard::VISIBILITY_ROLES, dashboard.visibility
+    assert_equal [1, 2], dashboard.role_ids.sort
+  end
+
+  def test_copy_from_with_invalid_id_should_do_nothing
+    dashboard = Dashboard.new
+    original_type = dashboard.dashboard_type
+    dashboard.copy_from 999_999
+
+    # Should remain unchanged
+    assert_equal original_type, dashboard.dashboard_type
+  end
+
+  def test_copy_from_should_return_self
+    source = dashboards :private_welcome2
+    dashboard = Dashboard.new
+
+    result = dashboard.copy_from source
+
+    assert_same dashboard, result
+  end
 end

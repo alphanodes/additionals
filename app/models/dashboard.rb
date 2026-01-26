@@ -139,6 +139,21 @@ class Dashboard < ApplicationRecord
     end
   end
 
+  def copy_from(source)
+    return if source.blank?
+
+    dashboard = source.is_a?(Dashboard) ? source : Dashboard.find_by(id: source)
+    return if dashboard.nil?
+
+    excluded_attrs = %w[id name author_id system_default locked created_at updated_at options]
+    self.attributes = dashboard.attributes.dup.except(*excluded_attrs)
+    # Deep copy layout and layout_settings from options
+    self.layout = dashboard.layout.deep_dup if dashboard.layout.present?
+    self.layout_settings = dashboard.layout_settings.deep_dup if dashboard.layout_settings.present?
+    self.role_ids = dashboard.role_ids.dup if dashboard.visibility == VISIBILITY_ROLES
+    self
+  end
+
   def initialize(attributes = nil, *args)
     super
     set_options_hash

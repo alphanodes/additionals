@@ -58,6 +58,13 @@ class DashboardsController < ApplicationController
     @dashboard = Dashboard.new project: @project,
                                author: User.current
     @dashboard.dashboard_type = assign_dashboard_type
+    if params[:copy].present?
+      @copy_from = Dashboard.visible.find_by id: params[:copy]
+      # Security: Only allow copying from dashboards the user can edit
+      # because block settings may contain sensitive data (credentials, API keys)
+      @copy_from = nil unless @copy_from&.editable?
+      @dashboard.copy_from @copy_from
+    end
     @allowed_projects = @dashboard.allowed_target_projects
   end
 
@@ -77,6 +84,17 @@ class DashboardsController < ApplicationController
     @dashboard.safe_attributes = params[:dashboard]
     @dashboard.dashboard_type = assign_dashboard_type
     @dashboard.role_ids = params[:dashboard][:role_ids] if params[:dashboard].present?
+
+    # Copy layout and settings from source dashboard if copying
+    # Security: Only allow copying from dashboards the user can edit
+    # because block settings may contain sensitive data (credentials, API keys)
+    if params[:copy].present?
+      copy_from = Dashboard.visible.find_by id: params[:copy]
+      if copy_from&.editable?
+        @dashboard.layout = copy_from.layout.deep_dup
+        @dashboard.layout_settings = copy_from.layout_settings.deep_dup
+      end
+    end
 
     @allowed_projects = @dashboard.allowed_target_projects
 

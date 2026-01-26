@@ -2,6 +2,8 @@
 
 ## 4.4.0
 
+- Add dashboard copy feature with security check for editable permission #123
+- Add dashboard lock/unlock actions to action menu
 - Fix Textile RULES compatibility for Redmine Master where Filter class replaces Formatter
 
 ## 4.3.0

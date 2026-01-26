@@ -90,8 +90,10 @@ zh:
   label_dashboard_block_info_async: "这个区块是异步加载的，并缓存到 %{time}."
   label_dashboard_legacy_left: "标准左侧内容"
   label_dashboard_legacy_right: "标准右侧内容"
+  label_dashboard_lock: 激活仪表盘锁定
   label_dashboard_lock_is_active: "Dashboard 锁定已激活"
   label_dashboard_plural: 仪表盘
+  label_dashboard_unlock: 移除仪表盘锁定
   label_day: 天
   label_default_sort_by: "默认排序方式"
   label_disable_sidebar: 禁用侧边栏
@@ -222,3 +224,5 @@ zh:
   field_watched_by_me: "由我观看"
   label_with_amount: "金额 %{value}"
   label_list_all_entries: "列出所有 %{value}"
+  text_dashboard_lock_confirmation: 您确定要锁定此仪表盘吗？
+  text_dashboard_unlock_confirmation: 您确定要解锁此仪表盘吗？

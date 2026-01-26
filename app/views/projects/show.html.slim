@@ -55,6 +55,18 @@
         = link_to sprite_icon('copy', entity_headline(object_name: :label_dashboard, type: :copy)),
                   new_project_dashboard_path(@project, copy: @dashboard.id),
                   class: 'icon icon-copy'
+        - if @dashboard.locked?
+          = link_to svg_icon_tag('unlock', label: :label_dashboard_unlock, plugin: ''),
+                    unlock_project_dashboard_path(@project, @dashboard),
+                    data: { confirm: l(:text_dashboard_unlock_confirmation) },
+                    method: :put,
+                    class: 'icon icon-unlock'
+        - else
+          = link_to svg_icon_tag('lock', label: :label_dashboard_lock, plugin: ''),
+                    lock_project_dashboard_path(@project, @dashboard),
+                    data: { confirm: l(:text_dashboard_lock_confirmation) },
+                    method: :put,
+                    class: 'icon icon-lock'
 
     - if @dashboard&.deletable?
       = delete_dashboard_link project_dashboard_path(@project, @dashboard), @dashboard

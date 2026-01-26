@@ -155,6 +155,22 @@ class DashboardsController < ApplicationController
     end
   end
 
+  def lock
+    return render_403 unless @dashboard.editable?
+
+    @dashboard.update! locked: true
+    flash[:notice] = l :notice_successful_update
+    redirect_to dashboard_link_path(@project, @dashboard)
+  end
+
+  def unlock
+    return render_403 unless @dashboard.editable?
+
+    @dashboard.update! locked: false
+    flash[:notice] = l :notice_successful_update
+    redirect_to dashboard_link_path(@project, @dashboard)
+  end
+
   def update_layout_setting
     block_settings = params[:settings] || {}
 

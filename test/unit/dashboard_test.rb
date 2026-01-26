@@ -344,7 +344,8 @@ class DashboardTest < Additionals::TestCase
     assert_equal source.description, dashboard.description
     assert_equal source.enable_sidebar, dashboard.enable_sidebar
     assert_equal source.visibility, dashboard.visibility
-    assert_equal source.project_id, dashboard.project_id
+    # source is a welcome dashboard without project, so project_id is nil
+    assert_nil dashboard.project_id
     assert_equal source.layout, dashboard.layout
     assert_equal source.layout_settings, dashboard.layout_settings
 

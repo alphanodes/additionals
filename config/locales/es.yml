@@ -90,8 +90,10 @@ es:
   label_dashboard_block_info_async: "Este bloque se carga de forma asíncrona y se almacena en caché durante %{time}."
   label_dashboard_legacy_left: "Contenido estándar a la izquierda"
   label_dashboard_legacy_right: "Contenido estándar correcto"
+  label_dashboard_lock: Activar bloqueo del dashboard
   label_dashboard_lock_is_active: "Dashboard bloqueo activo"
   label_dashboard_plural: Dashboards
+  label_dashboard_unlock: Eliminar bloqueo del dashboard
   label_day: día
   label_default_sort_by: "Ordenar por defecto por"
   label_disable_sidebar: "Deshabilitar la barra lateral"
@@ -222,3 +224,5 @@ es:
   field_watched_by_me: "Vigilado por mí"
   label_with_amount: "Importe %{value}"
   label_list_all_entries: "Lista completa %{value}"
+  text_dashboard_lock_confirmation: ¿Está seguro de que desea bloquear este dashboard?
+  text_dashboard_unlock_confirmation: ¿Está seguro de que desea desbloquear este dashboard?

@@ -90,8 +90,10 @@ ko:
   label_dashboard_block_info_async: "이 블록은 비동기식으로 로드되며 %{time}에 대해 캐시됩니다."
   label_dashboard_legacy_left: "표준 콘텐츠 왼쪽"
   label_dashboard_legacy_right: "표준 콘텐츠 권리"
+  label_dashboard_lock: 대시보드 잠금 활성화
   label_dashboard_lock_is_active: "Dashboard 잠금이 활성화됨"
   label_dashboard_plural: Dashboards
+  label_dashboard_unlock: 대시보드 잠금 해제
   label_day: 일
   label_default_sort_by: "기본 정렬 기준"
   label_disable_sidebar: "사이드바 비활성화"
@@ -222,3 +224,5 @@ ko:
   field_watched_by_me: "내가 시청"
   label_with_amount: "금액 %{value}"
   label_list_all_entries: "모두 나열 %{value}"
+  text_dashboard_lock_confirmation: 이 대시보드를 잠그시겠습니까?
+  text_dashboard_unlock_confirmation: 이 대시보드의 잠금을 해제하시겠습니까?

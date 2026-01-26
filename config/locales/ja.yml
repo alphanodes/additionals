@@ -90,8 +90,10 @@ ja:
   label_dashboard_block_info_async: のために非同期でブロックがロードされ、キャッシュされます %{time}.
   label_dashboard_legacy_left: "標準インハルト左"
   label_dashboard_legacy_right: "標準コンテンツの権利"
+  label_dashboard_lock: ダッシュボードをロック
   label_dashboard_lock_is_active: "Dashboard ロックが有効"
   label_dashboard_plural: Dashboards
+  label_dashboard_unlock: ダッシュボードのロックを解除
   label_day: "日"
   label_default_sort_by: "デフォルトの並べ替え"
   label_disable_sidebar: "サイドバーを無効にする"
@@ -222,3 +224,5 @@ ja:
   field_watched_by_me: "私が見る"
   label_with_amount: "金額 %{value}"
   label_list_all_entries: "すべて表示 %{value}"
+  text_dashboard_lock_confirmation: このダッシュボードをロックしてもよろしいですか？
+  text_dashboard_unlock_confirmation: このダッシュボードのロックを解除してもよろしいですか？

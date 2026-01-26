@@ -250,4 +250,91 @@ class DashboardsControllerTest < Additionals::ControllerTest
     # Layout should NOT be copied from the non-editable source
     assert_not_equal original_layout, new_dashboard.layout
   end
+
+  def test_lock_dashboard_with_permission
+    @request.session[:user_id] = @user.id
+
+    dashboard = dashboards :private_welcome2
+
+    assert_not dashboard.locked?, 'Dashboard should not be locked initially'
+
+    put :lock, params: { id: dashboard.id }
+
+    assert_response :redirect
+    dashboard.reload
+
+    assert dashboard.locked?, 'Dashboard should be locked after lock action'
+  end
+
+  def test_lock_dashboard_without_permission
+    @request.session[:user_id] = @user_without_permission.id
+
+    dashboard = dashboards :private_welcome2
+
+    put :lock, params: { id: dashboard.id }
+
+    assert_response :forbidden
+    dashboard.reload
+
+    assert_not dashboard.locked?, 'Dashboard should remain unlocked'
+  end
+
+  def test_unlock_dashboard_with_permission
+    @request.session[:user_id] = @user.id
+
+    dashboard = dashboards :private_welcome2
+    dashboard.update! locked: true
+
+    assert dashboard.locked?, 'Dashboard should be locked initially'
+
+    put :unlock, params: { id: dashboard.id }
+
+    assert_response :redirect
+    dashboard.reload
+
+    assert_not dashboard.locked?, 'Dashboard should be unlocked after unlock action'
+  end
+
+  def test_unlock_dashboard_without_permission
+    @request.session[:user_id] = @user_without_permission.id
+
+    dashboard = dashboards :private_welcome2
+    dashboard.update! locked: true
+
+    put :unlock, params: { id: dashboard.id }
+
+    assert_response :forbidden
+    dashboard.reload
+
+    assert dashboard.locked?, 'Dashboard should remain locked'
+  end
+
+  def test_lock_project_dashboard_with_permission
+    @request.session[:user_id] = @user.id
+
+    dashboard = dashboards :private_project2
+
+    assert_not dashboard.locked?, 'Dashboard should not be locked initially'
+
+    put :lock, params: { project_id: dashboard.project_id, id: dashboard.id }
+
+    assert_response :redirect
+    dashboard.reload
+
+    assert dashboard.locked?, 'Dashboard should be locked after lock action'
+  end
+
+  def test_unlock_project_dashboard_with_permission
+    @request.session[:user_id] = @user.id
+
+    dashboard = dashboards :private_project2
+    dashboard.update! locked: true
+
+    put :unlock, params: { project_id: dashboard.project_id, id: dashboard.id }
+
+    assert_response :redirect
+    dashboard.reload
+
+    assert_not dashboard.locked?, 'Dashboard should be unlocked after unlock action'
+  end
 end

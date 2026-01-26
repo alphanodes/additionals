@@ -90,8 +90,10 @@ uk:
   label_dashboard_block_info_async: "Цей блок завантажується асинхронно і кешується на %{time}."
   label_dashboard_legacy_left: "Стандарт-Інхальт наліво"
   label_dashboard_legacy_right: "Стандартне право на контент"
+  label_dashboard_lock: Активувати блокування панелі
   label_dashboard_lock_is_active: "Dashboard Блокування  активне"
   label_dashboard_plural: Dashboards
+  label_dashboard_unlock: Зняти блокування панелі
   label_day: "день"
   label_default_sort_by: "Сортування  по замовчуванню"
   label_disable_sidebar: "Відключити бокову панель"
@@ -222,3 +224,5 @@ uk:
   field_watched_by_me: "Під моїм наглядом"
   label_with_amount: "Сумма %{value}"
   label_list_all_entries: "Перерахувати все %{value}"
+  text_dashboard_lock_confirmation: Ви впевнені, що хочете заблокувати цю панель?
+  text_dashboard_unlock_confirmation: Ви впевнені, що хочете розблокувати цю панель?

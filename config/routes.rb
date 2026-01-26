@@ -14,6 +14,8 @@ Rails.application.routes.draw do
       post :add_block
       post :remove_block
       post :order_blocks
+      put :lock
+      put :unlock
     end
   end
 
@@ -24,6 +26,8 @@ Rails.application.routes.draw do
         post :add_block
         post :remove_block
         post :order_blocks
+        put :lock
+        put :unlock
       end
     end
     resource :dashboard_async_blocks, only: %i[show create]

@@ -90,8 +90,10 @@ ru:
   label_dashboard_block_info_async: "Этот блок загружается асинхронно и кэшируется на %{time}."
   label_dashboard_legacy_left: "Стандарт-Инхальт налево"
   label_dashboard_legacy_right: "Стандартное право на контент"
+  label_dashboard_lock: Активировать блокировку панели
   label_dashboard_lock_is_active: "Dashboard Блокировка активна"
   label_dashboard_plural: Dashboards
+  label_dashboard_unlock: Снять блокировку панели
   label_day: "день"
   label_default_sort_by: "Сортировка по умолчанию"
   label_disable_sidebar: "отключить боковую панель"
@@ -222,3 +224,5 @@ ru:
   field_watched_by_me: "Под моим наблюдением"
   label_with_amount: "Сумма %{value}"
   label_list_all_entries: "Перечислить все %{value}"
+  text_dashboard_lock_confirmation: Вы уверены, что хотите заблокировать эту панель?
+  text_dashboard_unlock_confirmation: Вы уверены, что хотите разблокировать эту панель?

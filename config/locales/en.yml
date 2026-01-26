@@ -90,8 +90,10 @@ en:
   label_dashboard_block_info_async: This block is loaded asynchronous and cached for %{time}.
   label_dashboard_legacy_left: "Standard content left"
   label_dashboard_legacy_right: "Standard content right"
+  label_dashboard_lock: Activate dashboard lock
   label_dashboard_lock_is_active: Dashboard lock is active
   label_dashboard_plural: Dashboards
+  label_dashboard_unlock: Remove dashboard lock
   label_day: day
   label_default_sort_by: Default sort by
   label_disable_sidebar: Disable sidebar
@@ -222,3 +224,5 @@ en:
   field_watched_by_me: Watched by me
   label_with_amount: "Amount %{value}"
   label_list_all_entries: "List all %{value}"
+  text_dashboard_lock_confirmation: Are you sure you want to lock this dashboard?
+  text_dashboard_unlock_confirmation: Are you sure you want to unlock this dashboard?

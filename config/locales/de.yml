@@ -90,8 +90,10 @@ de:
   label_dashboard_block_info_async: Dieser Block wird asynchron geladen und %{time} gecached.
   label_dashboard_legacy_left: Standard-Inhalt links
   label_dashboard_legacy_right: Standard-Inhalt rechts
+  label_dashboard_lock: Dashboard Schutz aktivieren
   label_dashboard_lock_is_active: Dashboard Schutz ist aktiv
   label_dashboard_plural: Dashboards
+  label_dashboard_unlock: Dashboard Schutz entfernen
   label_day: Tag
   label_default_sort_by: Standard-Sortierreihenfolge
   label_disable_sidebar: Sidebar deaktivieren
@@ -222,3 +224,5 @@ de:
   field_watched_by_me: Von mir beobachtet
   label_with_amount: "Anzahl %{value}"
   label_list_all_entries: "Alle %{value} auflisten"
+  text_dashboard_lock_confirmation: Möchtest du dieses Dashboard wirklich sperren?
+  text_dashboard_unlock_confirmation: Möchtest du die Sperre für dieses Dashboard wirklich aufheben?

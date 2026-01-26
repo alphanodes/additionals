@@ -90,8 +90,10 @@ fr:
   label_dashboard_block_info_async: "Ce bloc est chargé de manière asynchrone et mis en cache pendant %{time}."
   label_dashboard_legacy_left: "Contenu standard à gauche"
   label_dashboard_legacy_right: "Droit au contenu standard"
+  label_dashboard_lock: Activer le verrouillage du tableau de bord
   label_dashboard_lock_is_active: "Dashboard blocage est activé"
   label_dashboard_plural: Tableaux de bord
+  label_dashboard_unlock: Supprimer le verrouillage du tableau de bord
   label_day: Jour
   label_default_sort_by: "Tri par défaut"
   label_disable_sidebar: "Désactiver la sidebar"
@@ -222,3 +224,5 @@ fr:
   field_watched_by_me: "Surveillé par moi"
   label_with_amount: "Montant %{value}"
   label_list_all_entries: "Liste complète %{value}"
+  text_dashboard_lock_confirmation: Êtes-vous sûr de vouloir verrouiller ce tableau de bord?
+  text_dashboard_unlock_confirmation: Êtes-vous sûr de vouloir déverrouiller ce tableau de bord?

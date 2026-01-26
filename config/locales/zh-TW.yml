@@ -90,8 +90,10 @@
   label_dashboard_block_info_async: "这个区块是异步加载的，并缓存到 %{time}."
   label_dashboard_legacy_left: "Standard-Inhalt left"
   label_dashboard_legacy_right: "Standard content right"
+  label_dashboard_lock: 啟用儀表板鎖定
   label_dashboard_lock_is_active: "Dashboard 锁定已激活"
   label_dashboard_plural: Dashboards
+  label_dashboard_unlock: 移除儀表板鎖定
   label_day: 天
   label_default_sort_by: "預設排序方式"
   label_disable_sidebar: Disable sidebar
@@ -222,3 +224,5 @@
   field_watched_by_me: "由我观看"
   label_with_amount: "金額 %{value}"
   label_list_all_entries: "列出所有 %{value}"
+  text_dashboard_lock_confirmation: 您確定要鎖定此儀表板嗎？
+  text_dashboard_unlock_confirmation: 您確定要解鎖此儀表板嗎？

@@ -251,11 +251,51 @@ class DashboardsControllerTest < Additionals::ControllerTest
     assert_not_equal original_layout, new_dashboard.layout
   end
 
-  def test_lock_dashboard_with_permission
+  def test_lock_action_registered_in_save_dashboards_permission
+    # IMPORTANT: lock action must be registered in save_dashboards permission
+    # Without this, the action is not properly documented in Redmine's permission system
+    permission = Redmine::AccessControl.permission :save_dashboards
+
+    assert_not_nil permission, 'save_dashboards permission should exist'
+    assert_includes permission.actions, 'dashboards/lock',
+                    'lock action must be registered in save_dashboards permission'
+  end
+
+  def test_unlock_action_registered_in_save_dashboards_permission
+    # IMPORTANT: unlock action must be registered in save_dashboards permission
+    permission = Redmine::AccessControl.permission :save_dashboards
+
+    assert_not_nil permission, 'save_dashboards permission should exist'
+    assert_includes permission.actions, 'dashboards/unlock',
+                    'unlock action must be registered in save_dashboards permission'
+  end
+
+  def test_lock_action_registered_in_share_dashboards_permission
+    # IMPORTANT: lock action must be registered in share_dashboards permission
+    permission = Redmine::AccessControl.permission :share_dashboards
+
+    assert_not_nil permission, 'share_dashboards permission should exist'
+    assert_includes permission.actions, 'dashboards/lock',
+                    'lock action must be registered in share_dashboards permission'
+  end
+
+  def test_unlock_action_registered_in_share_dashboards_permission
+    # IMPORTANT: unlock action must be registered in share_dashboards permission
+    permission = Redmine::AccessControl.permission :share_dashboards
+
+    assert_not_nil permission, 'share_dashboards permission should exist'
+    assert_includes permission.actions, 'dashboards/unlock',
+                    'unlock action must be registered in share_dashboards permission'
+  end
+
+  def test_lock_dashboard_as_author
+    # User 2 is author of private_welcome2 and has save_dashboards permission
     @request.session[:user_id] = @user.id
 
     dashboard = dashboards :private_welcome2
 
+    assert_equal @user.id, dashboard.author_id, 'Test user should be the dashboard author'
+    assert_not @user.admin?, 'Test user should not be admin'
     assert_not dashboard.locked?, 'Dashboard should not be locked initially'
 
     put :lock, params: { id: dashboard.id }
@@ -266,10 +306,14 @@ class DashboardsControllerTest < Additionals::ControllerTest
     assert dashboard.locked?, 'Dashboard should be locked after lock action'
   end
 
-  def test_lock_dashboard_without_permission
+  def test_lock_dashboard_as_non_author
+    # User 4 is not author and not admin - should be forbidden
     @request.session[:user_id] = @user_without_permission.id
 
     dashboard = dashboards :private_welcome2
+
+    assert_not_equal @user_without_permission.id, dashboard.author_id, 'Test user should not be the author'
+    assert_not @user_without_permission.admin?, 'Test user should not be admin'
 
     put :lock, params: { id: dashboard.id }
 
@@ -279,12 +323,14 @@ class DashboardsControllerTest < Additionals::ControllerTest
     assert_not dashboard.locked?, 'Dashboard should remain unlocked'
   end
 
-  def test_unlock_dashboard_with_permission
+  def test_unlock_dashboard_as_author
     @request.session[:user_id] = @user.id
 
     dashboard = dashboards :private_welcome2
     dashboard.update! locked: true
 
+    assert_equal @user.id, dashboard.author_id, 'Test user should be the dashboard author'
+    assert_not @user.admin?, 'Test user should not be admin'
     assert dashboard.locked?, 'Dashboard should be locked initially'
 
     put :unlock, params: { id: dashboard.id }
@@ -295,11 +341,14 @@ class DashboardsControllerTest < Additionals::ControllerTest
     assert_not dashboard.locked?, 'Dashboard should be unlocked after unlock action'
   end
 
-  def test_unlock_dashboard_without_permission
+  def test_unlock_dashboard_as_non_author
     @request.session[:user_id] = @user_without_permission.id
 
     dashboard = dashboards :private_welcome2
     dashboard.update! locked: true
+
+    assert_not_equal @user_without_permission.id, dashboard.author_id, 'Test user should not be the author'
+    assert_not @user_without_permission.admin?, 'Test user should not be admin'
 
     put :unlock, params: { id: dashboard.id }
 
@@ -309,11 +358,13 @@ class DashboardsControllerTest < Additionals::ControllerTest
     assert dashboard.locked?, 'Dashboard should remain locked'
   end
 
-  def test_lock_project_dashboard_with_permission
+  def test_lock_project_dashboard_as_author
     @request.session[:user_id] = @user.id
 
     dashboard = dashboards :private_project2
 
+    assert_equal @user.id, dashboard.author_id, 'Test user should be the dashboard author'
+    assert_not @user.admin?, 'Test user should not be admin'
     assert_not dashboard.locked?, 'Dashboard should not be locked initially'
 
     put :lock, params: { project_id: dashboard.project_id, id: dashboard.id }
@@ -324,11 +375,14 @@ class DashboardsControllerTest < Additionals::ControllerTest
     assert dashboard.locked?, 'Dashboard should be locked after lock action'
   end
 
-  def test_unlock_project_dashboard_with_permission
+  def test_unlock_project_dashboard_as_author
     @request.session[:user_id] = @user.id
 
     dashboard = dashboards :private_project2
     dashboard.update! locked: true
+
+    assert_equal @user.id, dashboard.author_id, 'Test user should be the dashboard author'
+    assert_not @user.admin?, 'Test user should not be admin'
 
     put :unlock, params: { project_id: dashboard.project_id, id: dashboard.id }
 

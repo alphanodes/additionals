@@ -20,11 +20,11 @@ Redmine::Plugin.register :additionals do
              require: :loggedin,
              read: true
   permission :share_dashboards,
-             { dashboards: %i[index new create edit update destroy] },
+             { dashboards: %i[index new create edit update destroy lock unlock] },
              require: :member,
              read: true
   permission :save_dashboards,
-             { dashboards: %i[index new create edit update destroy] },
+             { dashboards: %i[index new create edit update destroy lock unlock] },
              require: :loggedin,
              read: true
 

@@ -13,8 +13,8 @@ class DashboardsControllerTest < Additionals::ControllerTest
     @user_without_permission = users :users_004
 
     @crud = { form: :dashboard,
-              show_assert_response: 406,
-              index_assert_response: 406,
+              show_assert_response: :redirect,
+              index_assert_response: :redirect,
               create_params: { name: 'tester board',
                                enable_sidebar: true,
                                dashboard_type: DashboardContentWelcome::TYPE_NAME,

@@ -41,14 +41,14 @@ class DashboardsController < ApplicationController
                        .to_a
 
     respond_to do |format|
-      format.html { render_error status: 406 }
+      format.html { redirect_to home_path }
       format.api
     end
   end
 
   def show
     respond_to do |format|
-      format.html { head :not_acceptable }
+      format.html { redirect_to dashboard_link_path(@dashboard.project, @dashboard) }
       format.js if request.xhr?
       format.api
     end

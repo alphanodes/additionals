@@ -265,15 +265,21 @@ module Additionals
           elements = doc.css override.selector
 
           # If this is one of our overrides, validate it
-          # Skip validation for closing_selector overrides - they use different hash calculation
-          if relevant_overrides.value?(override) && override.args[:closing_selector].blank?
+          if relevant_overrides.value? override
             if elements.empty?
               invalid_overrides << "#{override.name}: selector '#{override.selector}' finds no elements"
             else
-              actual_hash = Digest::SHA1.hexdigest(elements.first.to_s.gsub(/\s/, ''))
+              actual_hash = if override.args[:closing_selector].present?
+                              # Range-based hash: Deface joins all nodes in the range before hashing
+                              # (see Deface::OriginalValidator#validate_original line 11)
+                              range = deface_find_range doc, override
+                              Digest::SHA1.hexdigest(range.map(&:to_s).join.gsub(/\s/, '')) if range
+                            else
+                              Digest::SHA1.hexdigest(elements.first.to_s.gsub(/\s/, ''))
+                            end
               expected_hash = override.args[:original]
 
-              if actual_hash != expected_hash
+              if actual_hash && actual_hash != expected_hash
                 invalid_overrides << "#{override.name}: expected hash '#{expected_hash}', got '#{actual_hash}'"
               end
             end
@@ -315,6 +321,27 @@ module Additionals
 
       action = override.action.to_sym
 
+      # Range-based actions with closing_selector (see Deface::Actions::Replace/ReplaceContents)
+      if override.args[:closing_selector].present? && %i[replace replace_contents].include?(action)
+        range = deface_find_range doc, override
+        return unless range
+
+        case action
+        when :replace
+          range.first.before override.source_element.to_s
+          range.each(&:remove)
+        when :replace_contents
+          if range.length == 1
+            range.first.children.remove
+            range.first.add_child override.source_element.to_s
+          else
+            range[1..-2].each(&:remove)
+            range.first.after override.source_element.to_s
+          end
+        end
+        return
+      end
+
       case action
       when :insert_bottom
         target.add_child override.source_element.to_s
@@ -334,6 +361,27 @@ module Additionals
         # Attribute actions don't affect element content/hash, skip
         nil
       end
+    end
+
+    # Finds all nodes in a range from start selector to closing_selector,
+    # replicating Deface::Matchers::Range#select_endpoints and #select_range
+    def deface_find_range(doc, override)
+      start_el = doc.css(override.selector).first
+      return unless start_el
+
+      end_css = "#{override.selector} ~ #{override.args[:closing_selector]}"
+      end_el = start_el.parent ? start_el.parent.css(end_css).first : doc.css(end_css).first
+      return unless end_el
+
+      range = []
+      node = start_el
+      while node
+        range << node
+        break if node == end_el
+
+        node = node.next
+      end
+      range
     end
 
     def deface_resolve_template_path(virtual_path)

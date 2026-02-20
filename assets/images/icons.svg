@@ -1106,5 +1106,15 @@
       <path d="M8.7 10.7l6.6 -3.4" />
       <path d="M8.7 13.3l6.6 3.4" />
     </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--caret-up">
+      <!-- caret-up -->
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M18 14l-6 -6l-6 6h12" />
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--caret-down">
+      <!-- caret-down -->
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M6 10l6 6l6 -6h-12" />
+    </symbol>
   </defs>
 </svg>

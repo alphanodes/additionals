@@ -17,7 +17,7 @@ class AdditionalsFontAwesomeTest < Additionals::TestCase
 
     info = AdditionalsFontAwesome.value_info 'fas_car'
 
-    assert info.key?(:classes)
+    assert_includes info, :classes
     assert_equal :fas, info[:type]
     assert_equal 'fas fa-car', info[:classes]
     assert_not info.key?(:unicode)
@@ -26,7 +26,7 @@ class AdditionalsFontAwesomeTest < Additionals::TestCase
   def test_value_info_regular_icons
     info = AdditionalsFontAwesome.value_info 'far_address-book'
 
-    assert info.key?(:classes)
+    assert_includes info, :classes
     assert_equal 'normal', info[:font_weight]
     assert_equal 'Font Awesome\ 5 Free', info[:font_family]
   end
@@ -34,7 +34,7 @@ class AdditionalsFontAwesomeTest < Additionals::TestCase
   def test_value_info_solid_icons
     info = AdditionalsFontAwesome.value_info 'fas_address-book'
 
-    assert info.key?(:classes)
+    assert_includes info, :classes
     assert_equal 900, info[:font_weight]
     assert_equal 'Font Awesome\ 5 Free', info[:font_family]
   end
@@ -42,7 +42,7 @@ class AdditionalsFontAwesomeTest < Additionals::TestCase
   def test_value_info_brands_icons
     info = AdditionalsFontAwesome.value_info 'fab_xing'
 
-    assert info.key?(:classes)
+    assert_includes info, :classes
     assert_equal 'normal', info[:font_weight]
     assert_equal 'Font Awesome\ 5 Brands', info[:font_family]
   end
@@ -50,8 +50,8 @@ class AdditionalsFontAwesomeTest < Additionals::TestCase
   def test_brands_icon_with_details
     info = AdditionalsFontAwesome.value_info 'fab_amazon', with_details: true
 
-    assert info.key?(:unicode)
-    assert info.key?(:label)
+    assert_includes info, :unicode
+    assert_includes info, :label
     assert_equal '&#xf270;', info[:unicode]
     assert_equal 'Amazon', info[:label]
   end
@@ -59,8 +59,8 @@ class AdditionalsFontAwesomeTest < Additionals::TestCase
   def test_regular_icon_with_details
     info = AdditionalsFontAwesome.value_info 'far_calendar', with_details: true
 
-    assert info.key?(:unicode)
-    assert info.key?(:label)
+    assert_includes info, :unicode
+    assert_includes info, :label
     assert_equal '&#xf133;', info[:unicode]
     assert_equal 'Calendar', info[:label]
   end
@@ -68,8 +68,8 @@ class AdditionalsFontAwesomeTest < Additionals::TestCase
   def test_solid_icon_with_details
     info = AdditionalsFontAwesome.value_info 'fas_archive', with_details: true
 
-    assert info.key?(:unicode)
-    assert info.key?(:label)
+    assert_includes info, :unicode
+    assert_includes info, :label
     assert_equal '&#xf187;', info[:unicode]
     assert_equal 'Archive', info[:label]
   end

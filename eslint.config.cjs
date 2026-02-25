@@ -1,6 +1,6 @@
-import js from '@eslint/js';
-import globals from 'globals';
-import noJquery from 'eslint-plugin-no-jquery';
+const js = require('@eslint/js');
+const globals = require('globals');
+const noJquery = require('eslint-plugin-no-jquery');
 
 // Resolve the chained deprecated config from eslint-plugin-no-jquery
 // since it uses legacy "extends" which is not supported in flat config.
@@ -14,7 +14,7 @@ function resolvePluginConfig(plugin, configName) {
   return { ...rules, ...(config.rules || {}) };
 }
 
-export default [
+module.exports = [
   {
     // Ignore vendor/minified files (migrated from .eslintignore)
     ignores: [

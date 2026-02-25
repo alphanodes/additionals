@@ -11,6 +11,9 @@
   --a-color-success: #008000;
   --a-color-warning: #c45736;
   --a-color-alert: #cb2525;
+  --a-color-border-light: #ddd;
+  --a-color-bg-light: #eee;
+  --a-color-muted: #999;
   --a-fixed-width: 95%;
 
   /* Sticky header scroll margins (for anchor links to not hide behind sticky header) */

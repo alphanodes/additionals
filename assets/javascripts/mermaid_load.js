@@ -1,23 +1,23 @@
 /* global globalThis, mermaid */
-var mermaidTheme;
-var mermaidThemeVariables;
+var mermaidTheme; // eslint-disable-line no-var
+var mermaidThemeVariables; // eslint-disable-line no-var
 if (globalThis !== undefined && globalThis.mermaidTheme !== undefined) {
-  mermaidTheme = globalThis.mermaidTheme;
+  mermaidTheme = globalThis.mermaidTheme; // eslint-disable-line prefer-destructuring
 } else {
   mermaidTheme = 'default';
 }
 if (globalThis !== undefined && globalThis.mermaidThemeVariables !== undefined) {
-  mermaidThemeVariables = globalThis.mermaidThemeVariables;
+  mermaidThemeVariables = globalThis.mermaidThemeVariables; // eslint-disable-line prefer-destructuring
 } else {
   mermaidThemeVariables = { 'fontSize': '12px' };
 }
 
 // Initialize Mermaid globally
 function initAllMermaidMacro(startOnLoad = false) {
-  if (typeof mermaid === 'undefined') return;
+  if (typeof mermaid === 'undefined') {return;}
 
   mermaid.initialize({
-    startOnLoad: startOnLoad,
+    startOnLoad,
     maxTextSize: 500000,
     flowchart: {
       useMaxWidth: false,
@@ -36,7 +36,7 @@ function initAllMermaidMacro(startOnLoad = false) {
 //       However, if `document.readyState` is not 'complete', it means the element was added dynamically (e.g., via AJAX), so it should be converted separately.
 /* exported renderMermaidMacro */
 async function renderMermaidMacro(selector) {
-  if (typeof mermaid === 'undefined' || document.readyState !== 'complete') return;
+  if (typeof mermaid === 'undefined' || document.readyState !== 'complete') {return;}
 
   /* Workaround for duplicate IDs when multiple mermaid macros are in one comment */
   /* https://github.com/redmica/redmica_ui_extension/pull/63#discussion_r1905198612 */

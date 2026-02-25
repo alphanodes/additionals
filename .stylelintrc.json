@@ -1,9 +1,24 @@
 {
-  "extends": "stylelint-config-standard",
+  "extends": [
+    "stylelint-config-standard",
+    "@stylistic/stylelint-config"
+  ],
   "rules": {
-    "string-quotes": "single",
+    "@stylistic/string-quotes": "single",
     "selector-nested-pattern": "false",
     "selector-class-pattern": "^([a-z][a-z0-9]*)(-[a-z0-9]+)*$|block_column",
+    "property-no-deprecated": null,
+    "media-feature-range-notation": null,
+    "declaration-block-no-redundant-longhand-properties": null,
+    "color-named": "never",
+    "no-unknown-animations": true,
+    "selector-max-id": 1,
+    "max-nesting-depth": 3,
+    "selector-max-compound-selectors": 4,
+    "selector-max-combinators": 3,
+    "selector-max-type": 3,
+    "selector-max-universal": 0,
+    "comment-word-disallowed-list": ["TODO", "FIXME", "HACK", "XXX"],
     "declaration-property-unit-disallowed-list": {
       "font-size": [
         "px"

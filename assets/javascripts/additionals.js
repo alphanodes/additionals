@@ -7,28 +7,28 @@ function openExternalUrlsInTab() {
 
 /* exported nativeEmojiSupport */
 function nativeEmojiSupport(emoji_code) {
-  var noEmojis = /\p{Extended_Pictographic}/u;
+  const noEmojis = /\p{Extended_Pictographic}/u;
   return noEmojis.test(emoji_code);
 }
 
 /* exported formatNameWithIcon */
 function formatNameWithIcon(opt) {
-  if (opt.loading) return opt.name;
-  var $opt;
+  if (opt.loading) {return opt.name;}
+  let $opt;
   if (opt.name_with_icon !== undefined) {
-    $opt = $('<span>' + opt.name_with_icon + '</span>');
+    $opt = $(`<span>${  opt.name_with_icon  }</span>`);
   } else {
-    $opt = $('<span>' + opt.text + '</span>');
+    $opt = $(`<span>${  opt.text  }</span>`);
   }
   return $opt;
 }
 
 /* exported formatFontawesomeText */
 function formatFontawesomeText(icon) {
-  var icon_id = icon.id;
+  const icon_id = icon.id;
   if (icon_id !== undefined) {
-    var fa = icon.id.split('_');
-    return $('<span><i class="' + fa[0] + ' fa-' + fa[1] + '"></i> ' + icon.text + '</span>');
+    const fa = icon.id.split('_');
+    return $(`<span><i class="${  fa[0]  } fa-${  fa[1]  }"></i> ${  icon.text  }</span>`);
   } else {
     return icon.text;
   }
@@ -36,20 +36,20 @@ function formatFontawesomeText(icon) {
 
 /* exported observeLiveSearchField */
 function observeLiveSearchField(fieldId, targetId, target_url) {
-  $('#'+fieldId).each(function() {
-    var $this = $(this);
+  $(`#${fieldId}`).each(function() {
+    const $this = $(this);
     $this.addClass('livesearch');
     $this.attr('data-search-was', $this.val());
-    var check = function() {
-      var val = $this.val();
-      if ($this.attr('data-search-was') != val) {
+    const check = function() {
+      const val = $this.val();
+      if ($this.attr('data-search-was') !== val) {
         $this.attr('data-search-was', val);
 
-        var form = $('#query_form'); // grab the form wrapping the search bar.
-        var formData;
-        var url;
+        const form = $('#query_form'); // grab the form wrapping the search bar.
+        let formData;
+        let url;
 
-        form.find('[name="c[]"] option').each(function(i, elem) {
+        form.find('[name="c[]"] option').each((i, elem) => {
           $(elem).prop('selected', true);
         });
 
@@ -61,29 +61,29 @@ function observeLiveSearchField(fieldId, targetId, target_url) {
           formData = { q: val };
         }
 
-        form.find('[name="c[]"] option').each(function(i, elem) {
+        form.find('[name="c[]"] option').each((i, elem) => {
           $(elem).prop('selected', false);
         });
 
         $.ajax({
-          url: url,
+          url,
           data: formData,
-          success: function(data) { if(targetId) $('#'+targetId).html(data); },
-          beforeSend: function() { $this.addClass('ajax-loading'); },
-          complete: function() { $this.removeClass('ajax-loading'); }
+          success(data) { if(targetId) {$(`#${targetId}`).html(data);} },
+          beforeSend() { $this.addClass('ajax-loading'); },
+          complete() { $this.removeClass('ajax-loading'); }
         });
       }
     };
 
     /* see https://stackoverflow.com/questions/1909441/how-to-delay-the-keyup-handler-until-the-user-stops-typing */
-    var search_delay = function(callback) {
-      var timer = 0;
+    const search_delay = function(callback) {
+      let timer = 0;
       return function() {
-        var context = this, args = arguments;
+        const context = this, args = arguments;
         clearTimeout(timer);
-        timer = setTimeout(function() {
+        timer = setTimeout(() => {
           callback.apply(context, args);
-        }, 400 || 0);
+        }, 400);
       };
     };
 
@@ -95,15 +95,15 @@ function observeLiveSearchField(fieldId, targetId, target_url) {
 /* exported showPluginSettingsTab */
 /* global replaceInHistory */
 function showPluginSettingsTab(name, url) {
-  $('#tab-content-' + name).parent().find('.tab-content').hide();
-  $('#tab-content-' + name).show();
-  $('#tab-' + name).closest('.tabs').find('a').removeClass('selected');
-  $('#tab-' + name).addClass('selected');
+  $(`#tab-content-${  name}`).parent().find('.tab-content').hide();
+  $(`#tab-content-${  name}`).show();
+  $(`#tab-${  name}`).closest('.tabs').find('a').removeClass('selected');
+  $(`#tab-${  name}`).addClass('selected');
 
   replaceInHistory(url);
 
   /* only changes to this function */
-  var form = $('#tab-' + name).closest('form');
+  const form = $(`#tab-${  name}`).closest('form');
   addTabToFromAction(form, name);
   /* change end */
 
@@ -111,13 +111,13 @@ function showPluginSettingsTab(name, url) {
 }
 
 function addTabToFromAction(form, name) {
-  form.attr('action', function(i, action) {
+  form.attr('action', (i, action) => {
     if (action.includes('tab=')) {
-      return action.replace(/([?&])(tab=)[^&#]*/, '$1$2' + name);
+      return action.replace(/([?&])(tab=)[^&#]*/, `$1$2${  name}`);
     } else if (!action.includes('?')) {
-      return action + '?tab=' + name;
+      return `${action  }?tab=${  name}`;
     } else if (!action.includes(name)) {
-      return action + '&tab=' + name;
+      return `${action  }&tab=${  name}`;
     }
   });
 

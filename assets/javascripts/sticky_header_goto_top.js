@@ -7,7 +7,7 @@
 
   function initStickyHeaderGotoTop() {
     const stickyHeader = document.querySelector('#sticky-issue-header');
-    if (!stickyHeader) return;
+    if (!stickyHeader) {return;}
 
     // Add visual styling - just cursor to indicate clickability
     stickyHeader.style.cursor = 'pointer';
@@ -19,7 +19,7 @@
     stickyHeader.setAttribute('title', tooltipText);
 
     // Add click handler - scroll to top of page
-    stickyHeader.addEventListener('click', function(event) {
+    stickyHeader.addEventListener('click', (event) => {
       event.preventDefault();
       window.scrollTo({
         top: 0,

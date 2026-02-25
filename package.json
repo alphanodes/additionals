@@ -2,10 +2,14 @@
   "dependencies": {},
   "license": "GPL-2.0",
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@stylistic/stylelint-config": "^4.0.0",
+    "@stylistic/stylelint-plugin": "^5.0.1",
+    "eslint": "^10.0.0",
     "eslint-plugin-no-jquery": "^3.0.2",
-    "eslint": "^8.0.0",
-    "markdownlint-cli": "^0.45.0",
-    "stylelint": "^14.0.0",
-    "stylelint-config-standard": "^29.0.0"
+    "globals": "^17.3.0",
+    "markdownlint-cli": "^0.47.0",
+    "stylelint": "^17.0.0",
+    "stylelint-config-standard": "^40.0.0"
   }
 }

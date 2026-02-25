@@ -33,7 +33,7 @@ function copyToClipboardWithFeedback(target) {
   const text = target.getAttribute('data-clipboard-text');
   const iconElement = target.querySelector('svg.icon-svg');
 
-  if (!text) return false;
+  if (!text) {return false;}
 
   copyToClipboard(text).then(() => {
     if (iconElement) {

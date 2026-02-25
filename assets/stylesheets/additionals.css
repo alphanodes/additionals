@@ -355,7 +355,7 @@ table.table-of-values caption {
   padding-left: 0;
 }
 
-.additionals-number-positive { color: green; }
+.additionals-number-positive { color: var(--a-color-success); }
 .additionals-number-negative { color: #cb2525; }
 
 /* stylelint-disable selector-class-pattern */
@@ -393,6 +393,7 @@ select.dashboard-block-select {
   min-width: 200px;
 }
 
+/* stylelint-disable selector-max-id */
 #my-page.dashboard #list-left .tabular.settings p,
 #my-page.dashboard #list-right .tabular.settings p {
   padding-left: 0;
@@ -404,6 +405,7 @@ select.dashboard-block-select {
   width: 100%;
   text-align: left;
 }
+/* stylelint-enable selector-max-id */
 
 div.drdn-items a.disabled,
 div.drdn-items a.disabled:hover { color: #aaa; }

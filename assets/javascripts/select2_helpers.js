@@ -1,4 +1,4 @@
-var oldAdditionalsToggleFilter = window.toggleFilter;
+var oldAdditionalsToggleFilter = window.toggleFilter; // eslint-disable-line no-var
 
 window.toggleFilter = function(field) {
   oldAdditionalsToggleFilter(field);
@@ -7,20 +7,20 @@ window.toggleFilter = function(field) {
 
 /* global availableFilters, additionals_filter_urls, additionals_field_formats, formatNameWithIcon */
 function additionals_transform_to_select2(field) {
-  var field_format = availableFilters[field]['field_format'];
-  var initialized_select2 = $('#tr_' + field + ' .values .select2');
-  if (initialized_select2.length == 0 && (typeof additionals_field_formats !== 'undefined') && $.inArray(field_format, additionals_field_formats) >= 0) {
-    $('#tr_' + field + ' .toggle-multiselect').hide();
-    $('#tr_' + field + ' .values .value').attr('multiple', 'multiple');
-    $('#tr_' + field + ' .values .value').select2({
+  const {field_format} = availableFilters[field];
+  const initialized_select2 = $(`#tr_${  field  } .values .select2`);
+  if (initialized_select2.length === 0 && (typeof additionals_field_formats !== 'undefined') && $.inArray(field_format, additionals_field_formats) >= 0) {
+    $(`#tr_${  field  } .toggle-multiselect`).hide();
+    $(`#tr_${  field  } .values .value`).attr('multiple', 'multiple');
+    $(`#tr_${  field  } .values .value`).select2({
       ajax: {
         url: additionals_filter_urls[field_format],
         dataType: 'json',
         delay: 250,
-        data: function(params) {
+        data(params) {
           return { q: params.term };
         },
-        processResults: function(data) {
+        processResults(data) {
           return { results: data };
         },
         cache: true
@@ -35,9 +35,9 @@ function additionals_transform_to_select2(field) {
   }
 }
 
-var SELECT2_DELAY = 250;
+var SELECT2_DELAY = 250; // eslint-disable-line no-var
 
-var select2Filters = {};
+var select2Filters = {}; // eslint-disable-line no-var
 
 /* exported setSelect2Filter */
 /* global operatorByType */
@@ -45,15 +45,15 @@ var select2Filters = {};
 function setSelect2Filter(type, options) {
   if (typeof operatorByType === 'undefined') { return; }
 
-  operatorByType[type] = operatorByType[type] || operatorByType['list_optional'];
+  operatorByType[type] = operatorByType[type] || operatorByType.list_optional;
   select2Filters[type] = options;
 }
 
-var oldBuildFilterRow = buildFilterRow;
+var oldBuildFilterRow = buildFilterRow; // eslint-disable-line no-var
 buildFilterRow = function (field, operator, values) {
   oldBuildFilterRow(field, operator, values);
 
-  var options = select2Options(field);
+  const options = select2Options(field);
   if (options) {
     setSelect2FilterValues(field, options, values);
     transformToSelect2(field, options);
@@ -61,10 +61,10 @@ buildFilterRow = function (field, operator, values) {
 };
 
 function select2Options(field) {
-  var filter = availableFilters[field];
-  var options = select2Filters[filter['type']];
+  const filter = availableFilters[field];
+  let options = select2Filters[filter.type];
 
-  if (!options && filter['field_format']) {
+  if (!options && filter.field_format) {
     options = select2Filters[field];
   }
 
@@ -72,28 +72,28 @@ function select2Options(field) {
 }
 
 function setSelect2FilterValues(field, options, values) {
-  var needAddValues = !rowHasSelectTag(field);
+  const needAddValues = !rowHasSelectTag(field);
   if (needAddValues) { addSelectTag(field); }
 
-  var $select = findSelectTagInRowBy(field);
-  if (options['multiple'] !== false) { $select.attr('multiple', true); }
+  const $select = findSelectTagInRowBy(field);
+  if (options.multiple !== false) { $select.attr('multiple', true); }
 
   if (needAddValues) { addOptionTags($select, field, values); }
 }
 
 function addSelectTag(field) {
-  var fieldId = sanitizeToId(field);
-  $('#tr_' + fieldId).find('.values').append(
-    '<span style="display: none;"><select class="value" id="values_'+fieldId+'_1" name="v['+field+'][]"></select></span>'
+  const fieldId = sanitizeToId(field);
+  $(`#tr_${  fieldId}`).find('.values').append(
+    `<span style="display: none;"><select class="value" id="values_${fieldId}_1" name="v[${field}][]"></select></span>`
   );
 }
 
 function addOptionTags($select, field, values) {
-  var filterValues = availableFilters[field]['values'];
+  const filterValues = availableFilters[field].values;
 
-  for (var i = 0; i < filterValues.length; i++) {
-    var filterValue = filterValues[i];
-    var option = $('<option>');
+  for (let i = 0; i < filterValues.length; i++) {
+    const filterValue = filterValues[i];
+    const option = $('<option>');
 
     if (Array.isArray(filterValue)) {
       option.val(filterValue[1]).text(filterValue[0]);
@@ -122,24 +122,24 @@ function rowHasSelect2(field) {
 }
 
 function findInRowBy(field, selector) {
-  return $('#tr_' + sanitizeToId(field) + ' ' + selector);
+  return $(`#tr_${  sanitizeToId(field)  } ${  selector}`);
 }
 
 /* exported formatStateWithAvatar */
 function formatStateWithAvatar(opt) {
-  if (opt.loading) return opt.text;
-  return $('<span>' + opt.avatar + '&nbsp;' + opt.text + '</span>');
+  if (opt.loading) {return opt.text;}
+  return $(`<span>${  opt.avatar  }&nbsp;${  opt.text  }</span>`);
 }
 
 /* exported formatStateWithMultiaddress */
 function formatStateWithMultiaddress(opt) {
-  if (opt.loading) return opt.text;
-  return $('<span class="select2-contact">' + opt.avatar + '<p class="select2-contact__name">' + opt.text + '</p><p class="select2-contact__email">' + opt.email + '</p></span>');
+  if (opt.loading) {return opt.text;}
+  return $(`<span class="select2-contact">${  opt.avatar  }<p class="select2-contact__name">${  opt.text  }</p><p class="select2-contact__email">${  opt.email  }</p></span>`);
 }
 
 /* exported formatSelectionWithEmails */
 function formatSelectionWithEmails(opt) {
-  var email = opt.email !== undefined && opt.email.trim().length ? ' <' + opt.email + '>' : '';
+  const email = opt.email !== undefined && opt.email.trim().length ? ` <${  opt.email  }>` : '';
   return (opt.text || opt.name || '') + email;
 }
 
@@ -147,10 +147,10 @@ function transformToSelect2(field, options) {
   if (rowHasSelect2(field)) { return; }
 
   findInRowBy(field, '.toggle-multiselect').hide();
-  var selectField = findSelectTagInRowBy(field);
+  const selectField = findSelectTagInRowBy(field);
   selectField.select2(buildSelect2Options(options));
 
-  var select2Instance = selectField.data('select2');
+  const select2Instance = selectField.data('select2');
   select2Instance.on('results:message', function() {
     this.dropdown._resizeDropdown();
     this.dropdown._positionDropdown();
@@ -159,11 +159,11 @@ function transformToSelect2(field, options) {
 
 /* exported select2Tag */
 function select2Tag(id, options) {
-  $(function () {
-    var selectField = $('select#' + id);
+  $(() => {
+    const selectField = $(`select#${  id}`);
     selectField.select2(buildSelect2Options(options));
 
-    var select2Instance = selectField.data('select2');
+    const select2Instance = selectField.data('select2');
     if (select2Instance !== undefined) {
       select2Instance.on('results:message', function() {
         this.dropdown._resizeDropdown();
@@ -174,13 +174,13 @@ function select2Tag(id, options) {
 }
 
 function buildSelect2Options(options) {
-  var result = {
-    placeholder: options['placeholder'] || '',
-    allowClear: !!options['allow_clear'],
-    minimumInputLength: options['min_input_length'] || 0,
-    templateResult: window[options['format_state']],
-    templateSelection: window[options['format_selection']],
-    width: options['width'] || '90%'
+  const result = {
+    placeholder: options.placeholder || '',
+    allowClear: !!options.allow_clear,
+    minimumInputLength: options.min_input_length || 0,
+    templateResult: window[options.format_state],
+    templateSelection: window[options.format_selection],
+    width: options.width || '90%'
   };
 
   addDataSourceOptions(result, options);
@@ -190,12 +190,12 @@ function buildSelect2Options(options) {
 }
 
 function addDataSourceOptions(target, options) {
-  if (options['url']) {
-    target['ajax'] = {
-      url: options['url'],
+  if (options.url) {
+    target.ajax = {
+      url: options.url,
       dataType: 'json',
       delay: SELECT2_DELAY,
-      data: function (params) {
+      data (params) {
         if (params === undefined) {
           console.log('missing params for ajax call');
           console.log(target);
@@ -203,28 +203,28 @@ function addDataSourceOptions(target, options) {
         }
         return { q: params.term };
       },
-      processResults: function (data) {
+      processResults (data) {
         return { results: data };
       },
       cache: true
     };
   } else {
-    target['data'] = options['data'] || [];
+    target.data = options.data || [];
   }
 }
 
 function addTagsOptions(target, options) {
-  if (options['tags']) {
-    target['tags'] = true;
-    target['tokenSeparators'] = [','];
-    target['createTag'] = createTag;
+  if (options.tags) {
+    target.tags = true;
+    target.tokenSeparators = [','];
+    target.createTag = createTag;
   } else {
-    target['tags'] = false;
+    target.tags = false;
   }
 }
 
 function createTag(params) {
-  var term = params.term.trim();
+  const term = params.term.trim();
   if (term === '' || term.indexOf(',') > -1) {
     return null; // Return null to disable tag creation
   }
@@ -234,38 +234,38 @@ function createTag(params) {
 
 /* exported fixScopedTags */
 function fixScopedTags(e, eventSelect) {
-  var values = eventSelect.val();
-  var data = eventSelect.select2('data');
+  const values = eventSelect.val();
+  const data = eventSelect.select2('data');
 
   // console.log('fixScopeTags');
 
   // new added tag
-  if (e.params.originalSelect2Event == undefined || data == undefined) { return; }
-  var new_tag = e.params.originalSelect2Event.data.id;
+  if (e.params.originalSelect2Event === undefined || data === undefined) { return; }
+  const new_tag = e.params.originalSelect2Event.data.id;
   if (! new_tag.includes('::')) { return; }
 
   // console.log('fixScopeTags - new_tag=' + new_tag);
 
-  var group_name = buildTagGroupName(new_tag);
-  var idToRemove = '';
+  const group_name = buildTagGroupName(new_tag);
+  let idToRemove = '';
 
   // search for existing tags with same group name
-  var arrayLength = data.length;
-  var current_tag;
-  for (var i = 0; i < arrayLength; i++) {
+  const arrayLength = data.length;
+  let current_tag;
+  for (let i = 0; i < arrayLength; i++) {
     current_tag = data[i].id;
-    if (new_tag != current_tag && current_tag.indexOf('::') >= 0 && buildTagGroupName(current_tag) == group_name) {
+    if (new_tag !== current_tag && current_tag.indexOf('::') >= 0 && buildTagGroupName(current_tag) === group_name) {
       idToRemove = current_tag;
       break;
     }
   }
 
   // leave if no remove id has been found
-  if (idToRemove == '') { return; }
+  if (idToRemove === '') { return; }
 
   // remove id from existing data
   if (values) {
-    var j = values.indexOf(idToRemove);
+    const j = values.indexOf(idToRemove);
     if (j >= 0) {
       values.splice(j, 1);
       eventSelect.val(values).trigger('change');
@@ -276,8 +276,8 @@ function fixScopedTags(e, eventSelect) {
 /* exported fixScopedTags */
 function buildTagGroupName(tag_name) {
   // build labels
-  var labels = tag_name.split('::');
-  labels = labels.map(function (el) { return el.trim(); });
+  let labels = tag_name.split('::');
+  labels = labels.map((el) => { return el.trim(); });
 
   // first label is group name
   // remove group value

@@ -273,7 +273,8 @@ module Additionals
                               # Range-based hash: Deface joins all nodes in the range before hashing
                               # (see Deface::OriginalValidator#validate_original line 11)
                               range = deface_find_range doc, override
-                              Digest::SHA1.hexdigest(range.join.gsub(/\s/, '')) if range
+                              # map(&:to_s) is required: range is a Nokogiri NodeSet, not a plain Array
+                              Digest::SHA1.hexdigest(range.map(&:to_s).join.gsub(/\s/, '')) if range # rubocop:disable Style/MapJoin
                             else
                               Digest::SHA1.hexdigest(elements.first.to_s.gsub(/\s/, ''))
                             end

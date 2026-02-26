@@ -117,6 +117,14 @@ module Additionals
       def add_remove_unused_tags_job
         AdditionalTagsRemoveUnusedTagJob.perform_later
       end
+
+      # Returns a human-readable text representation for AI context.
+      # Override in plugins for richer entity-specific context.
+      def to_ai_context
+        parts = ["#{self.class.name.underscore.humanize} ##{id}"]
+        parts << "Project: #{project.name}" if respond_to?(:project) && project
+        parts.join "\n"
+      end
     end
   end
 end

@@ -271,8 +271,8 @@ class AssignableUsersOptimizerTest < Additionals::TestCase
       assignable = Additionals::AssignableUsersOptimizer.project_assignable_users project
 
       # Should include both users and groups when group assignment is enabled
-      users = assignable.select { |p| p.is_a? User }
-      groups = assignable.select { |p| p.is_a? Group }
+      users = assignable.grep User
+      groups = assignable.grep Group
 
       assert users.any?, 'Should include users'
       # Groups might or might not be present depending on project setup
@@ -863,8 +863,8 @@ class AssignableUsersOptimizerTest < Additionals::TestCase
     with_settings issue_group_assignment: '0' do
       principals = Additionals::AssignableUsersOptimizer.project_assignable_principals project
 
-      users = principals.select { |p| p.is_a? User }
-      groups = principals.select { |p| p.is_a? Group }
+      users = principals.grep User
+      groups = principals.grep Group
 
       assert users.any?, 'Should include users'
       assert groups.any?, 'Should include groups even when issue_group_assignment is disabled'
@@ -908,11 +908,11 @@ class AssignableUsersOptimizerTest < Additionals::TestCase
     with_settings issue_group_assignment: '0' do
       # For Issues: should NOT include groups
       issue_assignables = Additionals::AssignableUsersOptimizer.project_assignable_users project
-      issue_groups = issue_assignables.select { |p| p.is_a? Group }
+      issue_groups = issue_assignables.grep Group
 
       # For Entities: should ALWAYS include groups
       entity_assignables = Additionals::AssignableUsersOptimizer.project_assignable_principals project
-      entity_groups = entity_assignables.select { |p| p.is_a? Group }
+      entity_groups = entity_assignables.grep Group
 
       assert_empty issue_groups, 'Issue assignables should have NO groups when setting disabled'
       assert entity_groups.any?, 'Entity assignables should ALWAYS have groups'
@@ -976,7 +976,7 @@ class AssignableUsersOptimizerTest < Additionals::TestCase
     with_settings issue_group_assignment: '0' do
       principals = Additionals::AssignableUsersOptimizer.global_assignable_principals
 
-      groups = principals.select { |p| p.is_a? Group }
+      groups = principals.grep Group
 
       assert groups.any?, 'Global assignable principals should include groups even when issue_group_assignment is disabled'
     end

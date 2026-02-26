@@ -121,6 +121,10 @@ Style/SuperWithArgsParentheses:
 Style/Documentation:
   Enabled: false
 
+Style/OneClassPerFile:
+  Exclude:
+    - 'test/**/*'
+
 Naming/VariableNumber:
   Enabled: true
   Exclude:

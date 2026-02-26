@@ -354,8 +354,8 @@ class EntityMethodsAssignableUsersTest < Additionals::TestCase
     with_settings issue_group_assignment: '0' do
       assignable = entity.assignable_users
 
-      groups = assignable.select { |p| p.is_a? Group }
-      users = assignable.select { |p| p.is_a? User }
+      groups = assignable.grep Group
+      users = assignable.grep User
 
       assert users.any?, 'Should include users'
       assert groups.any?, 'CRITICAL: Entity assignable_users should include groups even when issue_group_assignment is disabled'
@@ -366,7 +366,7 @@ class EntityMethodsAssignableUsersTest < Additionals::TestCase
     with_settings issue_group_assignment: '1' do
       assignable = entity.assignable_users
 
-      groups = assignable.select { |p| p.is_a? Group }
+      groups = assignable.grep Group
 
       assert groups.any?, 'Should include groups when issue_group_assignment is enabled'
       assert_includes groups, group
@@ -391,11 +391,11 @@ class EntityMethodsAssignableUsersTest < Additionals::TestCase
     with_settings issue_group_assignment: '0' do
       # Entity should include groups
       entity_assignable = entity.assignable_users
-      entity_groups = entity_assignable.select { |p| p.is_a? Group }
+      entity_groups = entity_assignable.grep Group
 
       # Issue method should NOT include groups
       issue_assignable = Additionals::AssignableUsersOptimizer.project_assignable_users project
-      issue_groups = issue_assignable.select { |p| p.is_a? Group }
+      issue_groups = issue_assignable.grep Group
 
       assert entity_groups.any?, 'Entity should include groups when setting is disabled'
       assert_empty issue_groups, 'Issue method should NOT include groups when setting is disabled'
@@ -424,7 +424,7 @@ class EntityMethodsAssignableUsersTest < Additionals::TestCase
     with_settings issue_group_assignment: '0' do
       assignable = entity.assignable_users
 
-      groups = assignable.select { |p| p.is_a? Group }
+      groups = assignable.grep Group
 
       assert groups.any?, 'Sensitive entity should include groups for access control'
       assert_includes groups, group
@@ -487,7 +487,7 @@ class EntityMethodsAssignableUsersTest < Additionals::TestCase
     with_settings issue_group_assignment: '0' do
       assignable = entity.assignable_users
 
-      groups = assignable.select { |p| p.is_a? Group }
+      groups = assignable.grep Group
 
       assert groups.any?, 'Global entity assignable should include groups even when issue_group_assignment is disabled'
     end

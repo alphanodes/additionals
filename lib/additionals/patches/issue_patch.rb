@@ -99,7 +99,7 @@ module Additionals
         principals_by_role = project.principals_by_role
         return if principals_by_role[manager_role].blank?
 
-        users_list = principals_by_role[manager_role].select { |u| u.is_a? User }
+        users_list = principals_by_role[manager_role].grep User
         return if users_list.blank?
 
         users_list.first.id
@@ -113,11 +113,11 @@ module Additionals
                .where(users: { type: 'Group' })
                .includes(:user, :roles)
                .each_with_object({}) do |m, h|
-                 m.roles.each do |r|
-                   h[r] ||= []
-                   h[r] << m.principal
-                 end
-                 h
+          m.roles.each do |r|
+            h[r] ||= []
+            h[r] << m.principal
+          end
+          h
         end
       end
 

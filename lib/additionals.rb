@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'redmine_plugin_kit'
-require_relative 'additionals/core_ext/string'
-require_relative 'additionals/core_ext/array'
 
 module Additionals
   VERSION = '4.4.0-main'
@@ -183,5 +181,18 @@ module Additionals
       # Load view hooks
       loader.load_view_hooks!
     end
+  end
+end
+
+class String # rubocop:disable Style/OneClassPerFile
+  def strip_split(sep = ',')
+    split(sep).map(&:strip).compact_blank
+  end
+end
+
+class Array # rubocop:disable Style/OneClassPerFile
+  # alias for join with ', ' as seperator
+  def to_comma_list
+    join ', '
   end
 end

@@ -177,7 +177,7 @@
   padding-left: 8px !important;
   padding-top: 2px;
   line-height: 18px;
-  font-size: 0.8rem;
+  font-size: var(--a-font-size-md);
   height: 23px;
   position: relative;
 }

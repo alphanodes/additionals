@@ -16,6 +16,46 @@
   --a-color-muted: #999;
   --a-fixed-width: 95%;
 
+  /* Typography scale — aligned with Redmine Core (application.css)
+   * All values use rem for consistent sizing without em cascading issues.
+   * Redmine body base: 0.875rem (14px on default browser 16px root). */
+
+  /* ~11px — Badges, private markers, tags, tiny labels
+   * Core: span.private (60% context), icon badge calc values
+   * Plugins: additional_tags tag size, servicedesk tiny labels */
+  --a-font-size-xs: 0.6875rem;
+
+  /* ~12px — Small labels, query buttons, secondary navigation
+   * Core: #query_form_with_buttons p.contextual (0.75rem)
+   * Plugins: taskboard meta, reporting PDF text */
+  --a-font-size-sm: 0.75rem;
+
+  /* ~13px — Meta information, sidebar content, timestamps, breadcrumbs
+   * Core: #sidebar (0.8125rem), p.breadcrumb, p.subtitle, activity dd/dt,
+   *        93% contexts (div.issue p.author, tabular.settings, tr.group totals)
+   * Plugins: conversation meta, automation rule details, HRM calendar */
+  --a-font-size-md: 0.8125rem;
+
+  /* ~14px — Body base, standard text, sidebar headings
+   * Core: body (0.875rem), #sidebar h3, h4
+   * Plugins: default text in all plugin views */
+  --a-font-size-base: 0.875rem;
+
+  /* ~16px — Emphasized text, form inputs, standalone elements
+   * Core: input/select/textarea (1rem), 2FA codes, wiki h5/h6
+   * Plugins: servicedesk live search, wiki guide content */
+  --a-font-size-lg: 1rem;
+
+  /* ~20px — Section headings, h2 level
+   * Core: h2 (1.25rem)
+   * Plugins: servicedesk contact header, reporting taskboard headings */
+  --a-font-size-xl: 1.25rem;
+
+  /* ~23px — Page headings, h1 level
+   * Core: #header h1 (1.4375rem)
+   * Plugins: large dashboard headings */
+  --a-font-size-xxl: 1.4375rem;
+
   /* Sticky header scroll margins (for anchor links to not hide behind sticky header) */
   --sticky-header-scroll-margin: 50px;
   --sticky-header-scroll-margin-mobile: 114px;

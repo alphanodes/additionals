@@ -458,6 +458,8 @@ table.entity-list td.block_column pre {
   padding: 0;
 }
 
+.nowrap { white-space: nowrap; }
+
 @media screen and (max-width: 899px) {
   .gototop { display: none; }
 

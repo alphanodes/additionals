@@ -298,14 +298,19 @@ div.additionals-projects li.project a.icon {
   margin-left: 3px;
 }
 
-:not(#sidebar) .relation-links a.icon-del,
-:not(#sidebar) .relation-links a.icon-link-break {
+.relation-links a.icon-del,
+.relation-links a.icon-link-break {
   opacity: 0.4;
 }
 
-:not(#sidebar) .relation-links a.icon-del:hover,
-:not(#sidebar) .relation-links a.icon-link-break:hover {
+.relation-links a.icon-del:hover,
+.relation-links a.icon-link-break:hover {
   opacity: 1;
+}
+
+#sidebar .relation-links a.icon-del,
+#sidebar .relation-links a.icon-link-break {
+  opacity: unset;
 }
 
 a.link-remove { margin-left: 5px; }

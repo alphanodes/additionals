@@ -304,6 +304,26 @@ module Additionals
       end
     end
 
+    def remove_relation_link_function
+      link_to_function sprite_icon('link-break', l(:label_relation_remove), icon_only: true),
+                       "$(this).prev('input[type=hidden]').val('1');$(this).parent().hide()",
+                       class: 'icon-only icon-link-break link-remove',
+                       title: l(:label_relation_remove)
+    end
+
+    # Compatibility shim for Redmine 6.1 (remove_link is available in Redmine master core)
+    unless ApplicationHelper.method_defined? :remove_link
+      def remove_link(url, options = {}) # rubocop:disable Style/OptionHash
+        options = {
+          method: :delete,
+          data: { confirm: l(:text_are_you_sure) },
+          class: 'icon icon-link-break'
+        }.merge(options)
+
+        link_to sprite_icon('link-break', l(:label_relation_remove)), url, options
+      end
+    end
+
     private
 
     def additionals_already_loaded?(scope, js_name)

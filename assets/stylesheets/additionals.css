@@ -298,13 +298,13 @@ div.additionals-projects li.project a.icon {
   margin-left: 3px;
 }
 
-.relation-links a.icon-del,
-.relation-links a.icon-link-break {
+:not(#sidebar) .relation-links a.icon-del,
+:not(#sidebar) .relation-links a.icon-link-break {
   opacity: 0.4;
 }
 
-.relation-links a.icon-del:hover,
-.relation-links a.icon-link-break:hover {
+:not(#sidebar) .relation-links a.icon-del:hover,
+:not(#sidebar) .relation-links a.icon-link-break:hover {
   opacity: 1;
 }
 

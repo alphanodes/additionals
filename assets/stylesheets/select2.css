@@ -394,7 +394,7 @@
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
-  background-color: var(--a-color-even);
+  background-color: var(--a-color-highlight);
 }
 
 .select2-container--default .select2-results__group {

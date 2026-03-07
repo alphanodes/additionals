@@ -14,6 +14,7 @@
   --a-color-border-light: #ddd;
   --a-color-bg-light: #eee;
   --a-color-muted: #999;
+  --a-color-highlight: #dbe4ff;
   --a-fixed-width: 95%;
 
   /* Typography scale — aligned with Redmine Core (application.css)

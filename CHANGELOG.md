@@ -5,7 +5,7 @@
 - Add dashboard copy feature with security check for editable permission #123
 - Add dashboard lock/unlock actions to action menu
 - Fix Textile RULES compatibility for Redmine Master where Filter class replaces Formatter
-- mermaid 11.12.3 support
+- mermaid 11.13.0 support
 
 ## 4.3.0
 

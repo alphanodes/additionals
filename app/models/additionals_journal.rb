@@ -1,6 +1,18 @@
 # frozen_string_literal: true
 
-class AdditionalsJournal
+class AdditionalsJournal < Journal
+  # Safe defaults for non-Issue journal subclasses.
+  # Prevents errors from third-party plugins (e.g. redmine_contacts_helpdesk)
+  # that patch Journal#css_classes or #send_note and access associations
+  # not available on subclasses due to Rails _reflections fork.
+  def journal_message
+    nil
+  end
+
+  def send_note
+    nil
+  end
+
   class << self
     def save_journal_history(journal, prop_key, ids_old, ids)
       ids_all = (ids_old + ids).uniq

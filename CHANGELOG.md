@@ -6,6 +6,7 @@
 - Add dashboard lock/unlock actions to action menu
 - Fix Textile RULES compatibility for Redmine Master where Filter class replaces Formatter
 - mermaid 11.13.0 support
+- add dhtmlxgantt
 
 ## 4.3.0
 

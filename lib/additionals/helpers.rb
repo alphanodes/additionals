@@ -415,5 +415,10 @@ module Additionals
     def additionals_load_d3plus
       additionals_include_js 'd3plus.min'
     end
+
+    def additionals_load_dhtmlxgantt
+      additionals_include_css('dhtmlxgantt') +
+        additionals_include_js('dhtmlxgantt')
+    end
   end
 end

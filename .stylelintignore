@@ -1,2 +1,3 @@
 # stylelint ignore file
 assets/stylesheets/*.min.css
+assets/stylesheets/dhtmlxgantt.css

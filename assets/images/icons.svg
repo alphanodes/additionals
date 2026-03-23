@@ -1116,5 +1116,19 @@
       <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
       <path d="M6 10l6 6l6 -6h-12" />
     </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--expand-all">
+      <!-- layout-navbar-expand -->
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M4 18v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2" />
+      <path d="M4 9h16" />
+      <path d="M10 14l2 2l2 -2" />
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--collapse-all">
+      <!-- layout-navbar-collapse -->
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M4 18v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2" />
+      <path d="M4 9h16" />
+      <path d="M10 16l2 -2l2 2" />
+    </symbol>
   </defs>
 </svg>

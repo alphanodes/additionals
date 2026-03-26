@@ -11,6 +11,12 @@
   --a-color-success: #008000;
   --a-color-warning: #c45736;
   --a-color-alert: #cb2525;
+  --a-color-success-bg: #e6f7e6;
+  --a-color-warning-bg: #fffbe6;
+  --a-color-warning-border: #ffe58f;
+  --a-color-warning-dark: #8a6d3b;
+  --a-color-alert-bg: #fff2f0;
+  --a-color-alert-strong: #ffe3e3;
   --a-color-border-light: #ddd;
   --a-color-bg-light: #eee;
   --a-color-muted: #999;
@@ -19,6 +25,17 @@
   --a-color-smiley: #edae40;
   --a-color-menu-hover: #759fcf;
   --a-color-author: #696969;
+  --a-color-selection: #507aaa;
+  --a-color-bg-subtle: #ecf0f3;
+  --a-color-info-bg: #e5f2ff;
+  --a-color-hover-highlight: #ffd;
+  --a-color-success-border: #9fcf9f;
+  --a-color-alert-border: #fcc;
+  --a-color-orange: #ffa500;
+  --a-color-weekend-bg: #ffdfe6;
+  --a-color-stats-week: #de9e40;
+  --a-color-stats-month: #6bbce9;
+  --a-color-stats-year: #72a563;
   --a-fixed-width: 95%;
 
   /* Typography scale — aligned with Redmine Core (application.css)

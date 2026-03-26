@@ -46,7 +46,7 @@
         "font-size"
       ],
       {
-        "ignoreValues": ["inherit", "initial", "transparent", "currentColor", "none", "0", "100%"],
+        "ignoreValues": ["inherit", "initial", "transparent", "currentColor", "currentcolor", "none", "0", "100%"],
         "disableFix": true,
         "message": "Use CSS variables instead of hardcoded values for '${types}'"
       }

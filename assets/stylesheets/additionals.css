@@ -72,10 +72,10 @@ em.info a.external {
   padding-right: 2px;
 }
 
-.icon-svg.disabled { stroke: #aaa; }
+.icon-svg.disabled { stroke: var(--a-color-disabled); }
 
 svg.icon-svg.smiley {
-  fill: #edae40;
+  fill: var(--a-color-smiley);
   stroke-width: 2;
 }
 
@@ -183,7 +183,7 @@ additionals-emoji {
   display: inline-flex;
   vertical-align: baseline;
   font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  font-size: 1.2em;
+  font-size: var(--a-font-size-emoji);
   line-height: 1;
 }
 /* stylelint-enable selector-type-no-unknown */
@@ -279,7 +279,7 @@ div.macro-desc {
 
 #top-menu .menu-children li a:hover {
   color: var(--a-color-white);
-  background-color: #759fcf;
+  background-color: var(--a-color-menu-hover);
 }
 
 input.livesearch {
@@ -364,7 +364,7 @@ table.table-of-values caption {
 }
 
 .additionals-number-positive { color: var(--a-color-success); }
-.additionals-number-negative { color: #cb2525; }
+.additionals-number-negative { color: var(--a-color-alert); }
 
 /* stylelint-disable selector-class-pattern */
 .jstb_macros {
@@ -416,7 +416,7 @@ select.dashboard-block-select {
 /* stylelint-enable selector-max-id */
 
 div.drdn-items a.disabled,
-div.drdn-items a.disabled:hover { color: #aaa; }
+div.drdn-items a.disabled:hover { color: var(--a-color-disabled); }
 
 table.entity-list td.block_column {
   color: var(--a-color-info);
@@ -447,8 +447,8 @@ table.entity-list td.block_column pre {
 }
 
 .badge-author {
-  color: #696969;
-  border: 1px solid #696969;
+  color: var(--a-color-author);
+  border: 1px solid var(--a-color-author);
 }
 
 #history.entity .journal-header .journal-info span {

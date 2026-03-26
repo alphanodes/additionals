@@ -15,6 +15,10 @@
   --a-color-bg-light: #eee;
   --a-color-muted: #999;
   --a-color-highlight: #dbe4ff;
+  --a-color-disabled: #aaa;
+  --a-color-smiley: #edae40;
+  --a-color-menu-hover: #759fcf;
+  --a-color-author: #696969;
   --a-fixed-width: 95%;
 
   /* Typography scale — aligned with Redmine Core (application.css)
@@ -56,6 +60,9 @@
    * Core: #header h1 (1.4375rem)
    * Plugins: large dashboard headings */
   --a-font-size-xxl: 1.4375rem;
+
+  /* Emoji inline size — uses em to scale with surrounding text */
+  --a-font-size-emoji: 1.2em;
 
   /* Sticky header scroll margins (for anchor links to not hide behind sticky header) */
   --sticky-header-scroll-margin: 50px;

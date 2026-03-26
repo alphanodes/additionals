@@ -17,6 +17,7 @@
     "markdownlint-cli": "^0.48.0",
     "stylelint": "^17.6.0",
     "stylelint-config-standard": "^40.0.0",
+    "stylelint-declaration-strict-value": "^1.11.1",
     "vitest": "^4.1.1"
   }
 }

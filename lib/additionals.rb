@@ -141,7 +141,8 @@ module Additionals
 
       loader.add_helper({ controller: 'Issues', helper: 'AdditionalsCommonJournals' })
 
-      loader.add_patch [{ target: Redmine::Views::LabelledFormBuilder, patch: 'LabelledFormBuilder' }]
+      loader.add_patch [{ target: Redmine::Views::LabelledFormBuilder, patch: 'LabelledFormBuilder' },
+                        { target: WatchersHelper, patch: 'WatchersHelper' }]
 
       loader.add_global_helper [Additionals::Helpers,
                                 AdditionalsClipboardHelper,

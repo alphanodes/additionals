@@ -41,6 +41,27 @@ module Additionals
       role_ids & visible_role_ids
     end
 
+    # Exclude members whose only roles in the project are hidden from a scope.
+    # Returns the scope unchanged for admins or users with show_hidden_roles_in_memberbox.
+    # Uses SQL subqueries to avoid N+1 issues with large result sets.
+    #
+    # @param scope [ActiveRecord::Relation] The scope to filter (e.g. watcher_users)
+    # @param project [Project] The project context
+    # @return [ActiveRecord::Relation] Filtered scope
+    def exclude_hidden_role_members(scope, project)
+      return scope if can_see_hidden_roles? project
+
+      # Members who have at least one non-hidden role
+      visible_member_ids = Member.joins(member_roles: :role)
+                                 .where(project_id: project.id, roles: { hide: false })
+                                 .select(:user_id)
+
+      # Exclude members with ONLY hidden roles
+      scope.where.not(id: Member.where(project_id: project.id)
+                          .where.not(user_id: visible_member_ids)
+                                .select(:user_id))
+    end
+
     # Get visible assignable role IDs for current user
     # @param project [Project, nil] The project context
     # @return [Array<Integer>] Visible assignable role IDs

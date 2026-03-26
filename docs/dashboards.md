@@ -443,7 +443,7 @@ From `additional_tags/app/views/dashboards/blocks/_issue_tags_settings.html.slim
 When rendering a block, these variables are available:
 
 | Variable | Type | Description |
-|----------|------|-------------|
+| ---------- | ------ | ----------- |
 | `@dashboard` | Dashboard | Current dashboard instance |
 | `@project` | Project | Current project (nil for WelcomeDashboard) |
 | `block` | String | Block name (e.g., 'my_block') |
@@ -498,7 +498,7 @@ Each block is defined by a hash with these options:
 ### Basic Options
 
 | Option | Type | Description | Example |
-|--------|------|-------------|---------|
+| -------- | ------ | ----------- | ------- |
 | `label` | String/Symbol | Display name (shown in block selector) | `l(:label_my_block)` |
 | `permission` | Symbol/Array | Required permission(s) | `:view_issues` or `[:view_issues, :edit_issues]` |
 | `if` | Proc | Conditional visibility | `proc { User.current.admin? }` |
@@ -508,7 +508,7 @@ Each block is defined by a hash with these options:
 ### Advanced Options
 
 | Option | Type | Description |
-|--------|------|-------------|
+| -------- | ------ | ----------- |
 | `async` | Hash | Asynchronous loading configuration (see below) |
 | `settings_partial` | String | Custom settings form partial |
 | `with_settings_if` | Proc | Conditional settings availability |

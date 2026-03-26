@@ -1143,7 +1143,184 @@ class AssignableUsersOptimizerTest < Additionals::TestCase
     assert_operator queries_count, :<=, 10, 'project_assignable_principals should use limited number of queries'
   end
 
+  # ==========================================
+  # Tests for exclude_hidden_role_members
+  # ==========================================
+
+  def test_exclude_hidden_role_members_hides_watcher_with_only_hidden_role
+    project = projects :projects_001
+    issue = issues :issues_001
+    hidden_user, regular_user = create_watcher_hidden_role_test_data project, issue
+
+    User.current = regular_user
+    result = Additionals::AssignableUsersOptimizer.exclude_hidden_role_members(issue.watcher_users, project).to_a
+
+    assert_not_includes result, hidden_user, 'Watcher with only hidden role should not be visible'
+    assert_includes result, regular_user, 'Watcher with non-hidden role should be visible'
+  end
+
+  def test_exclude_hidden_role_members_visible_to_admin
+    project = projects :projects_001
+    issue = issues :issues_001
+    hidden_user, _regular_user = create_watcher_hidden_role_test_data project, issue
+
+    User.current = users :users_001
+    result = Additionals::AssignableUsersOptimizer.exclude_hidden_role_members(issue.watcher_users, project).to_a
+
+    assert_includes result, hidden_user, 'Admin should see watcher with hidden role'
+  end
+
+  def test_exclude_hidden_role_members_visible_with_permission
+    project = projects :projects_001
+    issue = issues :issues_001
+    hidden_user, _regular_user = create_watcher_hidden_role_test_data project, issue
+
+    viewer_role = Role.create!(
+      name: 'Watcher Viewer Role',
+      permissions: %i[view_issues view_project show_hidden_roles_in_memberbox]
+    )
+    viewer = User.create!(
+      login: 'watcherviewer',
+      firstname: 'Watcher',
+      lastname: 'Viewer',
+      mail: 'watcherviewer@example.com',
+      status: User::STATUS_ACTIVE
+    )
+    Member.create! project: project, principal: viewer, roles: [viewer_role]
+
+    User.current = viewer
+    result = Additionals::AssignableUsersOptimizer.exclude_hidden_role_members(issue.watcher_users, project).to_a
+
+    assert_includes result, hidden_user,
+                    'User with show_hidden_roles_in_memberbox should see watcher with hidden role'
+  end
+
+  def test_exclude_hidden_role_members_keeps_non_member_watchers
+    project = projects :projects_001
+    issue = issues :issues_001
+
+    # User who is a watcher but not a project member
+    non_member = User.create!(
+      login: 'watchernonmember',
+      firstname: 'NonMember',
+      lastname: 'Watcher',
+      mail: 'watchernonmember@example.com',
+      status: User::STATUS_ACTIVE
+    )
+    Watcher.create! watchable: issue, user: non_member
+
+    regular_user = User.create!(
+      login: 'watcherregviewer',
+      firstname: 'Regular',
+      lastname: 'Viewer',
+      mail: 'watcherregviewer@example.com',
+      status: User::STATUS_ACTIVE
+    )
+
+    User.current = regular_user
+    result = Additionals::AssignableUsersOptimizer.exclude_hidden_role_members(issue.watcher_users, project).to_a
+
+    assert_includes result, non_member, 'Non-member watcher should remain visible'
+  end
+
+  def test_exclude_hidden_role_members_keeps_user_with_mixed_roles
+    project = projects :projects_001
+    issue = issues :issues_001
+
+    hidden_role = Role.create!(
+      name: 'Mixed Hidden Role',
+      hide: true,
+      permissions: %i[view_issues view_project]
+    )
+    visible_role = Role.create!(
+      name: 'Mixed Visible Role',
+      hide: false,
+      permissions: %i[view_issues view_project]
+    )
+
+    # User with BOTH hidden and non-hidden role
+    mixed_user = User.create!(
+      login: 'watchermixedrole',
+      firstname: 'Mixed',
+      lastname: 'RoleUser',
+      mail: 'watchermixedrole@example.com',
+      status: User::STATUS_ACTIVE
+    )
+    Member.create! project: project, principal: mixed_user, roles: [hidden_role, visible_role]
+    Watcher.create! watchable: issue, user: mixed_user
+
+    regular_user = User.create!(
+      login: 'watchermixedviewer',
+      firstname: 'Mixed',
+      lastname: 'Viewer',
+      mail: 'watchermixedviewer@example.com',
+      status: User::STATUS_ACTIVE
+    )
+
+    User.current = regular_user
+    result = Additionals::AssignableUsersOptimizer.exclude_hidden_role_members(issue.watcher_users, project).to_a
+
+    assert_includes result, mixed_user, 'User with at least one non-hidden role should remain visible'
+  end
+
+  def test_exclude_hidden_role_members_returns_scope_unchanged_when_no_hidden_roles
+    project = projects :projects_001
+    issue = issues :issues_001
+
+    user1 = users :users_002
+    user2 = users :users_003
+    Watcher.create! watchable: issue, user: user1
+    Watcher.create! watchable: issue, user: user2
+
+    regular_user = User.create!(
+      login: 'watchernohidden',
+      firstname: 'NoHidden',
+      lastname: 'Viewer',
+      mail: 'watchernohidden@example.com',
+      status: User::STATUS_ACTIVE
+    )
+
+    User.current = regular_user
+    result = Additionals::AssignableUsersOptimizer.exclude_hidden_role_members(issue.watcher_users, project).to_a
+
+    assert_equal 2, result.size, 'All watchers should be visible when no hidden roles exist'
+  end
+
   private
+
+  def create_watcher_hidden_role_test_data(project, issue)
+    hidden_role = Role.create!(
+      name: 'Watcher Test Hidden Role',
+      hide: true,
+      permissions: %i[view_issues view_project]
+    )
+
+    hidden_user = User.create!(
+      login: 'watchertesthidden',
+      firstname: 'WatcherTestHidden',
+      lastname: 'User',
+      mail: 'watchertesthidden@example.com',
+      status: User::STATUS_ACTIVE
+    )
+    Member.create! project: project, principal: hidden_user, roles: [hidden_role]
+    Watcher.create! watchable: issue, user: hidden_user
+
+    regular_role = Role.create!(
+      name: 'Watcher Test Regular Role',
+      permissions: %i[view_issues view_project]
+    )
+    regular_user = User.create!(
+      login: 'watchertestregular',
+      firstname: 'WatcherTestRegular',
+      lastname: 'User',
+      mail: 'watchertestregular@example.com',
+      status: User::STATUS_ACTIVE
+    )
+    Member.create! project: project, principal: regular_user, roles: [regular_role]
+    Watcher.create! watchable: issue, user: regular_user
+
+    [hidden_user, regular_user]
+  end
 
   def create_hidden_roles_consistency_test_data
     project = projects :projects_001

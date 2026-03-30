@@ -468,6 +468,34 @@ table.entity-list td.block_column pre {
 
 .nowrap { white-space: nowrap; }
 
+/* Dashboard block: summary stats */
+
+.dashboard-block li.summary-stat {
+  display: flex;
+  align-items: baseline;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--a-color-border-light);
+}
+
+.dashboard-block .summary-stat-label {
+  flex: 1;
+  color: var(--a-color-text-muted);
+}
+
+.dashboard-block .summary-stat-value {
+  font-weight: 600;
+}
+
+.dashboard-block .summary-section-label {
+  display: block;
+  font-size: var(--a-font-size-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 8px 0 4px;
+  color: var(--a-color-text-muted);
+}
+
 @media screen and (max-width: 899px) {
   .gototop { display: none; }
 

@@ -57,6 +57,7 @@ ko:
   field_visibility: Visibility
   field_website: 웹 사이트
   global_footer_info: '여기에 프로젝트 전체 위키 바닥 글을 입력하십시오.'
+  global_search_info: "활성화하면 모든 페이지에서 글로벌 검색 대화상자(Cmd+K)를 사용할 수 있습니다."
   global_sidebar_info: "여기에 프로젝트 전체 문자 메시지를 입력하십시오. 이 사이드 바 텍스트는 프로젝트 개요, 이슈 페이지 및 위키 페이지에 표시됩니다."
   global_wiki_sidebar_info: '위키 사이드 바에 사용할 수있는 프로젝트 전체 문자 메시지를 여기에 입력하십시오. 이 사이드 바 텍스트는 위키 페이지에만 표시됩니다. 예를 들어 "마지막으로 변경된 페이지"와 같은 매크로에이 공간을 사용하십시오. 프로젝트 특정 사이드 바가 사용되는 경우 (위키 페이지), 대신 사이드 바에 표시되는 것이 좋습니다.'
   google_maps_embed_api_html: 'Goole지도를 표시하기 위해 Gmap 매크로를 사용하려는 경우 여기에 Google Maps API 키를 구현하십시오. 그 후 매크로 및 다양한 매개 변수를 사용할 수 있습니다. 매개 변수를 사용하는 방법에 대한 자세한 내용은 <a href="https://developers.google.com/maps/documentation/embed/guide" class="external">https://developers.google.com/maps/documentation/embed/guide</a>. Gmap 매크로는 여기에 포함 된 키와 조합해서 만 작동합니다.'
@@ -104,6 +105,10 @@ ko:
   label_enable_auto_refresh: "자동 새로고침 활성화 "
   label_enable_sidebar: "사이드바 활성화"
   label_global_footer: "넓은 바닥 글 프로젝트"
+  label_global_search: "글로벌 검색"
+  label_global_search_always_global: "모든 프로젝트 (항상)"
+  label_global_search_apply_filter: "필터로 적용"
+  label_global_search_placeholder: "입력하여 검색..."
   label_global_sidebar: "글로벌 사이드 바"
   label_global_wiki_sidebar: "글로벌 위키 사이드 바"
   label_go_to_top: "맨 위로"
@@ -167,6 +172,7 @@ ko:
   label_relation_remove: 관계 제거
   label_remove_help: "톱 메뉴에서 'Help' 항목 제거"
   label_search_by_name: 이름으로 검색
+  label_search_scope: "검색 범위"
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
   label_shared_dashboard_plural: Shared dashboards

@@ -57,6 +57,7 @@ zh:
   field_visibility: 可见性
   field_website: 网站
   global_footer_info: '请在此处输入项目范围内 Wiki 页尾信息。'
+  global_search_info: "启用后，全局搜索对话框(Cmd+K)在所有页面上可用。"
   global_sidebar_info: "请在此处输入项目范围内侧边栏信息。自定义侧边栏信息将在项目概述页、问题列表页及 Wiki 页显示。"
   global_wiki_sidebar_info: '请在此处输入项目范围内的 Wiki 侧边栏信息。该侧边栏信息将只显示在 Wiki 页内。在此空间内输入诸如 "Last changed pages" 的宏命令。若项目内使用指定的侧边栏（Wiki 页），则该信息将优先显示在侧边栏内。'
   google_maps_embed_api_html: 如果你想使用 Gmap 宏以现实 Google 地图，请在此处使用你的 Google 地图 API Key。之后你就可以使用宏和多种参数。关于如何使用参数的更多信息请查看 <a href="https://developers.google.com/maps/documentation/embed/guide" class="external">https://developers.google.com/maps/documentation/embed/guide</a>. Gmap 宏只有在此处提供 Key 的情况下才可用。
@@ -104,6 +105,10 @@ zh:
   label_enable_auto_refresh: "启用自动刷新"
   label_enable_sidebar: 启用侧边栏
   label_global_footer: "项目范围内的页脚设置"
+  label_global_search: "全局搜索"
+  label_global_search_always_global: "所有项目 (始终)"
+  label_global_search_apply_filter: "作为筛选条件应用"
+  label_global_search_placeholder: "输入以搜索..."
   label_global_sidebar: "全局侧边栏设置"
   label_global_wiki_sidebar: "全局 Wiki 侧边栏设置"
   label_go_to_top: "回到顶部"
@@ -167,6 +172,7 @@ zh:
   label_relation_remove: 移除关联
   label_remove_help: "从顶部菜单栏中移除 '帮助' 项"
   label_search_by_name: 按名称搜索
+  label_search_scope: "搜索范围"
   label_settings_macros: "宏"
   label_settings_menu: "菜单"
   label_shared_dashboard_plural: 共享的仪表盘

@@ -9,6 +9,7 @@ CLAUDE.md
 .project
 .vscode
 .bundle
+test-results/
 .settings/
 docs/_build
 docs/_static

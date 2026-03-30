@@ -4,6 +4,7 @@ add_go_to_top: 0
 disabled_modules:
 emoji_support: 0
 global_footer: ''
+global_search: 0
 global_sidebar: ''
 global_wiki_sidebar: ''
 google_maps_api_key: ''

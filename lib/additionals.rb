@@ -146,6 +146,7 @@ module Additionals
 
       loader.add_global_helper [Additionals::Helpers,
                                 AdditionalsClipboardHelper,
+                                AdditionalsGlobalSearchHelper,
                                 AdditionalsIconsHelper,
                                 AdditionalsFontawesomeHelper,
                                 AdditionalsMenuHelper,
@@ -181,6 +182,9 @@ module Additionals
 
       # Load view hooks
       loader.load_view_hooks!
+
+      # Discover and load global search providers from all plugins
+      GlobalSearch.load_providers
     end
   end
 end

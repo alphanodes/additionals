@@ -1,0 +1,31 @@
+#global-search-overlay.global-search-overlay data=global_search_data
+  .global-search-modal role="dialog" aria-modal="true"
+    .global-search-header
+      input.global-search-input(type="search"
+        placeholder=(l :label_global_search_placeholder)
+        autocomplete="off"
+        spellcheck="false"
+        data-global-search-target="input"
+        data-action="input->global-search#onInput")
+      .global-search-header-actions
+        span.global-search-scope-badge(data-global-search-target="scopeBadge" style="display:none") Global
+        button.global-search-scope-toggle(type="button"
+          data-action="click->global-search#toggleScopePanel"
+          title=(l :label_search_scope))
+          == (svg_icon_tag 'settings', size: 16, plugin: 'additionals')
+    .global-search-scope-panel(data-global-search-target="scopePanel" style="display:none")
+      - if @project
+        label.global-search-scope-option
+          input(type="radio" name="global-search-scope" value="project"
+            data-action="change->global-search#onScopeChange")
+          = @project.name
+      label.global-search-scope-option
+        input(type="radio" name="global-search-scope" value="global"
+          data-action="change->global-search#onScopeChange")
+        = l :label_project_all
+      label.global-search-scope-option
+        input(type="radio" name="global-search-scope" value="always_global"
+          data-action="change->global-search#onScopeChange")
+        = l :label_global_search_always_global
+    .global-search-results#global-search-results(data-global-search-target="results")
+      p.global-search-hint = l :label_search

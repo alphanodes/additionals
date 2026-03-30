@@ -1,3 +1,6 @@
+- if User.current.logged? && Additionals.setting?(:global_search)
+  = render partial: 'global_search/modal'
+
 - footer = Additionals.setting :global_footer
 - if footer.present?
   .additionals-footer

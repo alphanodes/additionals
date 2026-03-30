@@ -57,6 +57,7 @@ it:
   field_visibility: "Visibilità"
   field_website: Website
   global_footer_info: 'Enter a project wide wiki footer here.'
+  global_search_info: "Se attivo, una finestra di ricerca globale (Cmd+K) e disponibile su tutte le pagine."
   global_sidebar_info: "Enter a project wide available text message here. This sidebar text will be displayed at the project overview, the issue pages and the wiki pages."
   global_wiki_sidebar_info: 'Enter a project wide available text message for your wiki sidebar, here. This sidebar text will be displayed at the wiki pages only. Use this space for Macros like "Last changed pages" for example. In case a project specific sidebar is used (wiki page), this will be preferably displayed in the sidebar instead.'
   google_maps_embed_api_html: Se si desidera utilizzare la macro Gmap per visualizzare Google Maps, è necessario immettere qui la chiave API incorporata di Google Maps. Potete trovare maggiori informazioni sotto <a href="https://developers.google.com/maps/documentation/embed/guide">https://developers.google.com/maps/documentation/embed/guide</a>
@@ -104,6 +105,10 @@ it:
   label_enable_auto_refresh: "Abilita l'aggiornamento automatico"
   label_enable_sidebar: "Attivare la barra laterale"
   label_global_footer: "Project wide footer"
+  label_global_search: "Ricerca globale"
+  label_global_search_always_global: "Tutti i progetti (sempre)"
+  label_global_search_apply_filter: "Applica come filtro"
+  label_global_search_placeholder: "Digita per cercare..."
   label_global_sidebar: "Globale sidebar"
   label_global_wiki_sidebar: "Global wiki sidebar"
   label_go_to_top: "Vai in cima"
@@ -167,6 +172,7 @@ it:
   label_relation_remove: Rimuovi relazione
   label_remove_help: "Remove 'Help' from top menu"
   label_search_by_name: Cerca per nome
+  label_search_scope: "Ambito di ricerca"
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
   label_shared_dashboard_plural: "Dashboards condivisi"

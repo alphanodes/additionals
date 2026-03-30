@@ -57,6 +57,7 @@ es:
   field_visibility: "Visibilidad"
   field_website: Sitio Web
   global_footer_info: 'Ingrese un pie de página para la wiki de todo el proyecto.'
+  global_search_info: "Si esta activo, un dialogo de busqueda global (Cmd+K) esta disponible en todas las paginas."
   global_sidebar_info: "Ingrese aquí el texto de Barra lateral de wiki. Esta Barra lateral será mostrada en el vistazo del proyecto, las peticiones y las páginas de la Wiki."
   global_wiki_sidebar_info: 'Ingrese aquí un el texto a ser mostrado en la barra lateral de la Wiki. Esta barra lateral solo será mostrada en las Wiki. Puede utilizar este espacio para macros como "Últimas páginas modificadas". En caso de que se utilice una barra lateral de proyecto esté en uso, este texto será mostrado en su lugar.'
   google_maps_embed_api_html: En caso de querer utilizar el macro Gmap para mostrar mapas de Google necesita ingresar su Clave de API de Google Maps aquí. Luego podrá utilizar el macro y varios parámetros. Mas información acerca de como utilizar estos parametros está disponible en <a href="https://developers.google.com/maps/documentation/embed/guide" class="external">https://developers.google.com/maps/documentation/embed/guide</a>. El macro Gmap funciona solamente si se ingresa esta clave.
@@ -104,6 +105,10 @@ es:
   label_enable_auto_refresh: "Activar la actualización automática"
   label_enable_sidebar: "Activar la barra lateral"
   label_global_footer: "Footer para todo el proyecto"
+  label_global_search: "Busqueda global"
+  label_global_search_always_global: "Todos los proyectos (siempre)"
+  label_global_search_apply_filter: "Aplicar como filtro"
+  label_global_search_placeholder: "Escribe para buscar..."
   label_global_sidebar: "Barra lateral global"
   label_global_wiki_sidebar: "Barra lateral de wiki global"
   label_go_to_top: "Volver al inicio"
@@ -167,6 +172,7 @@ es:
   label_relation_remove: Eliminar relación
   label_remove_help: "Quitar 'Ayuda' del menú superior"
   label_search_by_name: Buscar por nombre
+  label_search_scope: "Ambito de busqueda"
   label_settings_macros: "Macros"
   label_settings_menu: "Menú"
   label_shared_dashboard_plural: "Tableros compartidos"

@@ -33,6 +33,10 @@ Rails.application.routes.draw do
     resource :dashboard_async_blocks, only: %i[show create]
   end
 
+  resource :global_search, only: [], controller: 'global_search' do
+    get :search, on: :collection
+  end
+
   resource :additionals_macros, only: :show, path: '/help/macros'
 
   resources :auto_completes, only: [] do

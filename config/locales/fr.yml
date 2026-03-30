@@ -57,6 +57,7 @@ fr:
   field_visibility: "Visibilité"
   field_website: Site Web
   global_footer_info: 'Entrez un projet en bas de page wiki ici.'
+  global_search_info: "Si actif, une boite de dialogue de recherche globale (Cmd+K) est disponible sur toutes les pages."
   global_sidebar_info: "Saisissez ici un message texte disponible pour l'ensemble du projet. Ce texte latéral sera affiché dans la vue d'ensemble du projet, les pages d'édition et les pages wiki."
   global_wiki_sidebar_info: "Entrez ici un message texte disponible pour l'ensemble du projet pour votre barre latérale wiki. Ce texte de la barre latérale sera affiché uniquement sur les pages wiki. Use this space for Macros like \"Last changed pages\" for example. Dans le cas où une barre latérale spécifique au projet est utilisée (page wiki), celle-ci sera de préférence affichée dans la barre latérale."
   google_maps_embed_api_html: "Si vous souhaitez utiliser la macro Gmap pour afficher les cartes de Goole, veuillez implémenter votre clé API Google Maps ici. Ensuite, vous pouvez utiliser la macro et divers paramètres. Pour plus d'informations sur l'utilisation des paramètres, voir <a href=\"https://developers.google.com/maps/documentation/embed/guide\">https://developers.google.com/maps/documentation/embed/guide</a>. La macro Gmap ne fonctionne qu'en combinaison avec la clé intégrée."
@@ -104,6 +105,10 @@ fr:
   label_enable_auto_refresh: "Activer le rafraîchissement automatique"
   label_enable_sidebar: "Activer la sidebar"
   label_global_footer: "Pied de page projet"
+  label_global_search: "Recherche globale"
+  label_global_search_always_global: "Tous les projets (toujours)"
+  label_global_search_apply_filter: "Appliquer comme filtre"
+  label_global_search_placeholder: "Saisissez pour rechercher..."
   label_global_sidebar: "Barre latéral globale"
   label_global_wiki_sidebar: "Barre latéral global du wiki"
   label_go_to_top: "Revenir en haut"
@@ -167,6 +172,7 @@ fr:
   label_relation_remove: Supprimer la relation
   label_remove_help: "Retirer 'Aide' du menu"
   label_search_by_name: Recherche par nom
+  label_search_scope: "Portee de la recherche"
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
   label_shared_dashboard_plural: "Tableaux de bord partagés"

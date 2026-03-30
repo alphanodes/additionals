@@ -107,7 +107,6 @@ ru:
   label_global_footer: "Project wide footer"
   label_global_search: "Глобальный поиск"
   label_global_search_always_global: "Все проекты (всегда)"
-  label_global_search_apply_filter: "Применить как фильтр"
   label_global_search_placeholder: "Введите для поиска..."
   label_global_sidebar: "Глобальная боковая панель"
   label_global_wiki_sidebar: "Глобальная боковая панель вики-проекта"

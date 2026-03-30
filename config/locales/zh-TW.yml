@@ -107,7 +107,6 @@
   label_global_footer: "專案中頁尾設定"
   label_global_search: "全域搜尋"
   label_global_search_always_global: "所有專案 (始終)"
-  label_global_search_apply_filter: "套用為篩選條件"
   label_global_search_placeholder: "輸入以搜尋..."
   label_global_sidebar: "專案中側邊設定"
   label_global_wiki_sidebar: "專案中Wiki側邊設定"

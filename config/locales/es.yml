@@ -107,7 +107,6 @@ es:
   label_global_footer: "Footer para todo el proyecto"
   label_global_search: "Busqueda global"
   label_global_search_always_global: "Todos los proyectos (siempre)"
-  label_global_search_apply_filter: "Aplicar como filtro"
   label_global_search_placeholder: "Escribe para buscar..."
   label_global_sidebar: "Barra lateral global"
   label_global_wiki_sidebar: "Barra lateral de wiki global"

@@ -107,7 +107,6 @@ de:
   label_global_footer: "Projektübergreifender Footer"
   label_global_search: "Globale Suche"
   label_global_search_always_global: "Alle Projekte (immer)"
-  label_global_search_apply_filter: "Als Filter anwenden"
   label_global_search_placeholder: "Tippen zum Suchen..."
   label_global_sidebar: "Projektübergreifender Sidebar Inhalt"
   label_global_wiki_sidebar: "Projektübergreifender Wiki-Sidebar Inhalt"

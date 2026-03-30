@@ -107,7 +107,6 @@ pl:
   label_global_footer: "Szeroka podstawa projektu"
   label_global_search: "Wyszukiwanie globalne"
   label_global_search_always_global: "Wszystkie projekty (zawsze)"
-  label_global_search_apply_filter: "Zastosuj jako filtr"
   label_global_search_placeholder: "Wpisz aby wyszukac..."
   label_global_sidebar: "Globalny pasek boczny"
   label_global_wiki_sidebar: "Globalny pasek boczny Wiki"

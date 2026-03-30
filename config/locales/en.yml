@@ -107,7 +107,6 @@ en:
   label_global_footer: "Project wide footer"
   label_global_search: "Global search"
   label_global_search_always_global: "All projects (always)"
-  label_global_search_apply_filter: "Apply as filter"
   label_global_search_placeholder: "Type to search..."
   label_global_sidebar: "Global sidebar"
   label_global_wiki_sidebar: "Global wiki sidebar"

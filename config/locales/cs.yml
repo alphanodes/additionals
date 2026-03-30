@@ -107,7 +107,6 @@ cs:
   label_global_footer: "Široká zápatí projektu"
   label_global_search: "Globalni vyhledavani"
   label_global_search_always_global: "Vsechny projekty (vzdy)"
-  label_global_search_apply_filter: "Použít jako filtr"
   label_global_search_placeholder: "Zadejte pro vyhledavani..."
   label_global_sidebar: "Globální postranní panel"
   label_global_wiki_sidebar: "Globální postranní panel wiki"

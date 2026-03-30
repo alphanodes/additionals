@@ -2,6 +2,15 @@
 
 ## 4.4.0
 
+- Add global search modal (Cmd+K) with Redmine Core Fetcher and scope toggle #15206
+- Add GlobalSearch provider API with auto-discovery for plugins
+- Add plugin setting to enable/disable global search
+- Convert clipboard_feedback to Stimulus controller (jQuery removed)
+- Convert sticky_header_goto_top to Stimulus controller (jQuery removed)
+- Convert observeLiveSearchField to Stimulus controller (jQuery removed)
+- Remove jQuery dependency from additionals.js (all functions now vanilla JS)
+- Remove dead code: nativeEmojiSupport function
+- Add Vitest test suite with 107 tests and GitHub Actions workflow
 - Add dashboard copy feature with security check for editable permission #123
 - Add dashboard lock/unlock actions to action menu
 - Fix Textile RULES compatibility for Redmine Master where Filter class replaces Formatter

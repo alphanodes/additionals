@@ -2,12 +2,11 @@
 = additionals_library_load :font_awesome
 = stylesheet_link_tag 'additionals', plugin: 'additionals'
 = javascript_include_tag 'additionals', plugin: 'additionals'
+= javascript_include_tag 'additionals_stimulus', plugin: 'additionals'
+= javascript_include_tag 'controllers/clipboard_feedback_controller', plugin: 'additionals', type: 'module'
+= javascript_include_tag 'controllers/live_search_controller', plugin: 'additionals', type: 'module'
 - if User.current.logged? && Additionals.setting?(:global_search)
   = stylesheet_link_tag 'global_search', plugin: 'additionals'
-  = javascript_include_tag 'additionals_stimulus', plugin: 'additionals'
   = javascript_include_tag 'controllers/global_search_controller', plugin: 'additionals', type: 'module'
 - if Additionals.setting? :add_go_to_top
-  javascript:
-    window.ADDITIONALS_I18N = window.ADDITIONALS_I18N || {};
-    window.ADDITIONALS_I18N.goToTop = '#{escape_javascript l(:label_go_to_top)}';
-  = javascript_include_tag 'sticky_header_goto_top', plugin: 'additionals'
+  = javascript_include_tag 'controllers/goto_top_controller', plugin: 'additionals', type: 'module'

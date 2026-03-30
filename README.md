@@ -5,7 +5,7 @@ Additionals is a `Redmine` plugin for customizing Redmine, providing wiki macros
 * Redmine.org plugin page: <https://www.redmine.org/plugins/additionals>
 * Github: <https://github.com/alphanodes/additionals>
 
-[![Rate at redmine.org](https://img.shields.io/badge/rate%20at-redmine.org-blue.svg?style=flat)](https://www.redmine.org/plugins/additionals) [![Run Linters](https://github.com/alphanodes/additionals/workflows/Run%20Linters/badge.svg)](https://github.com/alphanodes/additionals/actions?query=workflow%3A%22Run+Linters%22) [![Run Tests](https://github.com/alphanodes/additionals/workflows/Tests/badge.svg)](https://github.com/alphanodes/additionals/actions?query=workflow%3ATests)
+[![Rate at redmine.org](https://img.shields.io/badge/rate%20at-redmine.org-blue.svg?style=flat)](https://www.redmine.org/plugins/additionals) [![Run Linters](https://github.com/alphanodes/additionals/workflows/Run%20Linters/badge.svg)](https://github.com/alphanodes/additionals/actions?query=workflow%3A%22Run+Linters%22) [![Run Tests](https://github.com/alphanodes/additionals/workflows/Tests/badge.svg)](https://github.com/alphanodes/additionals/actions?query=workflow%3ATests) [![Vitest](https://github.com/alphanodes/additionals/workflows/Vitest/badge.svg)](https://github.com/alphanodes/additionals/actions?query=workflow%3AVitest)
 
 ## Requirements
 

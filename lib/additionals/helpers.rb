@@ -361,10 +361,6 @@ module Additionals
       additionals_include_js 'actioncable', core: true
     end
 
-    def additionals_load_clipboard_feedback
-      additionals_include_js 'clipboard_feedback'
-    end
-
     def additionals_load_font_awesome
       additionals_include_css 'fontawesome-all.min'
     end

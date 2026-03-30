@@ -50,14 +50,13 @@ const sharedRules = {
 
 module.exports = [
   {
-    // Ignore vendor/minified files (migrated from .eslintignore)
+    // Ignore vendor/minified files in root (controllers/ subdirectory is always linted)
     ignores: [
       'assets/javascripts/*.js',
-      '!assets/javascripts/additionals*.js',
-      '!assets/javascripts/clipboard_feedback.js',
+      '!assets/javascripts/additionals.js',
+      '!assets/javascripts/additionals_stimulus.js',
       '!assets/javascripts/mermaid_load.js',
       '!assets/javascripts/select2_helpers.js',
-      '!assets/javascripts/sticky_header_goto_top.js',
     ],
   },
   js.configs.recommended,

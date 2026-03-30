@@ -6,13 +6,11 @@ h2#page-title.live-search
                      q,
                      incremental: 'incremental',
                      class: 'no-tooltip',
-                     title: defined?(title_info) ? title_info : nil
+                     title: defined?(title_info) ? title_info : nil,
+                     data: { controller: 'live-search',
+                             'live-search-target-value': 'query-result-list',
+                             action: 'input->live-search#onInput' },
+                     autofocus: true
   - if defined?(after_title) && after_title.present?
     '
     = after_title
-
-  javascript:
-    observeLiveSearchField('search', 'query-result-list');
-    $(function() {
-      $("#search").focus();
-    });

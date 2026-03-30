@@ -1,28 +1,26 @@
 # frozen_string_literal: true
 
 module AdditionalsClipboardHelper
-  # Creates a button that copies text to clipboard using Redmine Core's native clipboard functionality
+  # Creates a button that copies text to clipboard
   #
   # @param text [String] The text to copy to clipboard
   # @param icon [String] Custom icon name (default: 'copy')
   # @param css_class [String] Additional CSS classes
   # @param title [String] Tooltip text (default: l(:button_copy))
   # @return [String] HTML button element
-  #
-  # @example
-  #   clipboard_copy_button('secret_password')
-  #   clipboard_copy_button('text', icon: 'copy-link', css_class: 'custom-class')
   def clipboard_copy_button(text, icon: 'copy', css_class: nil, title: nil)
     return if text.blank?
 
     css_classes = ['clipboard-copy-button', css_class].compact.join ' '
     title ||= l :button_copy
 
-    link_to_function sprite_icon(icon),
-                     'copyToClipboardWithFeedback(this);',
-                     class: css_classes,
-                     data: { 'clipboard-text' => text },
-                     title:
+    tag.a sprite_icon(icon),
+          href: '#',
+          class: css_classes,
+          title:,
+          data: { controller: 'clipboard-feedback',
+                  action: 'click->clipboard-feedback#copy',
+                  'clipboard-feedback-text-value': text }
   end
 
   # Renders text with clipboard functionality
@@ -33,13 +31,6 @@ module AdditionalsClipboardHelper
   # @param css_class [String] Additional CSS classes
   # @param title [String] Tooltip text (default: l(:button_copy))
   # @return [String] HTML element with clipboard functionality
-  #
-  # @example With button (default)
-  #   render_text_with_clipboard('username@example.com')
-  #   render_text_with_clipboard('API Key', icon: 'copy-link')
-  #
-  # @example Without button (clickable text for emails)
-  #   render_text_with_clipboard('user@example.com', with_button: false)
   def render_text_with_clipboard(text, with_button: true, icon: 'copy', css_class: nil, title: nil)
     return if text.blank?
 
@@ -52,9 +43,12 @@ module AdditionalsClipboardHelper
       css_classes = ['clipboard-text', css_class].compact.join ' '
       tag.acronym text,
                   class: css_classes,
-                  onclick: 'copyToClipboardWithFeedback(this); return false;',
-                  data: { 'clipboard-text' => text, 'label-copied' => l(:label_copied_to_clipboard), 'original-title' => title },
-                  title:
+                  title:,
+                  data: { controller: 'clipboard-feedback',
+                          action: 'click->clipboard-feedback#copy',
+                          'clipboard-feedback-text-value': text,
+                          'clipboard-feedback-copied-label-value': l(:label_copied_to_clipboard),
+                          'clipboard-feedback-original-title-value': title }
     end
   end
 end

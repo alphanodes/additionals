@@ -17,8 +17,9 @@ class ClipboardHelperTest < Additionals::HelperTest
     html = clipboard_copy_button 'test_text'
 
     assert_include 'clipboard-copy-button', html
-    assert_include 'data-clipboard-text="test_text"', html
-    assert_include 'copyToClipboardWithFeedback', html
+    assert_include 'data-clipboard-feedback-text-value="test_text"', html
+    assert_include 'data-controller="clipboard-feedback"', html
+    assert_include 'data-action="click-&gt;clipboard-feedback#copy"', html
     assert_include 'icon--copy', html
   end
 
@@ -44,7 +45,7 @@ class ClipboardHelperTest < Additionals::HelperTest
 
     assert_include '<span class="clipboard-text">test@example.com</span>', html
     assert_include 'clipboard-copy-button', html
-    assert_include 'copyToClipboardWithFeedback', html
+    assert_include 'data-controller="clipboard-feedback"', html
   end
 
   def test_render_text_with_clipboard_without_button
@@ -52,11 +53,12 @@ class ClipboardHelperTest < Additionals::HelperTest
 
     assert_include '<acronym', html
     assert_include 'class="clipboard-text"', html
-    assert_include 'onclick="copyToClipboardWithFeedback(this); return false;"', html
-    assert_include 'data-clipboard-text="test@example.com"', html
-    assert_include 'data-label-copied="Copied!"', html
-    assert_include 'data-original-title="Copy"', html
+    assert_include 'data-controller="clipboard-feedback"', html
+    assert_include 'data-action="click-&gt;clipboard-feedback#copy"', html
+    assert_include 'data-clipboard-feedback-text-value="test@example.com"', html
+    assert_include 'data-clipboard-feedback-copied-label-value="Copied!"', html
     assert_not_include 'clipboard-copy-button', html
+    assert_not_include 'onclick', html
   end
 
   def test_render_text_with_clipboard_returns_nil_for_blank_text
@@ -88,10 +90,9 @@ class ClipboardHelperTest < Additionals::HelperTest
 
     assert_include '<acronym', html
     assert_include 'class="clipboard-text"', html
-    assert_include 'onclick="copyToClipboardWithFeedback(this); return false;"', html
-    assert_include 'data-clipboard-text="user@example.com"', html
-    assert_include 'data-label-copied="Copied!"', html
-    assert_include 'data-original-title="Copy"', html
+    assert_include 'data-controller="clipboard-feedback"', html
+    assert_include 'data-clipboard-feedback-text-value="user@example.com"', html
+    assert_include 'data-clipboard-feedback-copied-label-value="Copied!"', html
     assert_include 'user@example.com</acronym>', html
   end
 

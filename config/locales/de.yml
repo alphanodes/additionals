@@ -109,6 +109,8 @@ de:
   label_global_search_always_bookmarks: "Meine Lesezeichen (immer)"
   label_global_search_always_global: "Alle Projekte (immer)"
   label_global_search_clear_all: "Alle löschen"
+  label_global_search_in_all_projects: "in allen Projekten"
+  label_global_search_in_my_bookmarks: "in meinen Lesezeichen-Projekten"
   label_global_search_placeholder: "Tippen zum Suchen..."
   label_global_search_recent_projects: "Kürzlich verwendete Projekte"
   label_global_search_recent_searches: "Zuletzt gesucht"

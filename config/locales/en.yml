@@ -109,6 +109,8 @@ en:
   label_global_search_always_bookmarks: "My bookmarks (always)"
   label_global_search_always_global: "All projects (always)"
   label_global_search_clear_all: "Clear all"
+  label_global_search_in_all_projects: "in all projects"
+  label_global_search_in_my_bookmarks: "in my bookmarked projects"
   label_global_search_placeholder: "Type to search..."
   label_global_search_recent_projects: "Recently used projects"
   label_global_search_recent_searches: "Recently searched"

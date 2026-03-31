@@ -13,7 +13,8 @@ module AdditionalsGlobalSearchHelper
       'recent-searches': l(:label_global_search_recent_searches),
       'recent-projects': l(:label_global_search_recent_projects),
       'clear-all': l(:label_global_search_clear_all),
-      'bookmarks-label': l(:label_optgroup_bookmarks),
+      'scope-all': l(:label_global_search_in_all_projects),
+      'scope-bookmarks': l(:label_global_search_in_my_bookmarks),
       'semantic-icon': svg_icon_tag('robot', size: 16, icon_only: true).to_str,
       'core-search-url': search_path,
       action: 'click->global-search#closeOnOverlay' }

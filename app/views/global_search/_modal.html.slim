@@ -1,14 +1,18 @@
 #global-search-overlay.global-search-overlay data=global_search_data
   .global-search-modal role="dialog" aria-modal="true"
     .global-search-header
-      input.global-search-input(type="search"
+      input.global-search-input(type="text"
         placeholder=(l :label_global_search_placeholder)
         autocomplete="off"
         spellcheck="false"
         data-global-search-target="input"
         data-action="input->global-search#onInput")
+      button.global-search-clear(type="button"
+        data-global-search-target="clearButton"
+        data-action="click->global-search#clearInput"
+        style="display:none")
+        == (svg_icon_tag 'x', size: 16, icon_only: true)
       .global-search-header-actions
-        span.global-search-scope-badge(data-global-search-target="scopeBadge" style="display:none") Global
         button.global-search-scope-toggle(type="button"
           data-action="click->global-search#toggleScopePanel"
           title=(l :label_search_scope))

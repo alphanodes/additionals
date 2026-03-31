@@ -14,7 +14,7 @@ describe('GlobalSearchController', () => {
       expect(GlobalSearchController.targets).toContain('results');
       expect(GlobalSearchController.targets).toContain('hint');
       expect(GlobalSearchController.targets).toContain('scopePanel');
-      expect(GlobalSearchController.targets).toContain('scopeBadge');
+      expect(GlobalSearchController.targets).toContain('clearButton');
     });
   });
 
@@ -44,7 +44,8 @@ describe('GlobalSearchController', () => {
         i18n: { hint: 'Type to search...' },
         cancelPending: vi.fn(),
         loadInitialContent: vi.fn(),
-        saveCurrentQuery: vi.fn()
+        saveCurrentQuery: vi.fn(),
+        toggleClearButton: vi.fn()
       };
     });
 
@@ -280,11 +281,13 @@ describe('GlobalSearchController', () => {
         hintTarget: document.getElementById('hint'),
         selectedIndex: 2,
         i18n: { noResults: 'No results' },
+        currentScope: 'project',
         escapeHtml: GlobalSearchController.prototype.escapeHtml,
         highlightMatch: GlobalSearchController.prototype.highlightMatch,
         renderGroup: GlobalSearchController.prototype.renderGroup,
         renderItem: GlobalSearchController.prototype.renderItem,
         renderCoreSearchLink: GlobalSearchController.prototype.renderCoreSearchLink,
+        scopeSuffix: GlobalSearchController.prototype.scopeSuffix,
         showHint: GlobalSearchController.prototype.showHint,
         hideHint: GlobalSearchController.prototype.hideHint
       };
@@ -587,15 +590,14 @@ describe('GlobalSearchController', () => {
         element: document.getElementById('overlay'),
         projectIdValue: 'test-project',
         projectNameValue: 'Test Project',
+        hasInputTarget: false,
         hasScopePanelTarget: true,
         scopePanelTarget: document.getElementById('panel'),
-        hasScopeBadgeTarget: true,
-        scopeBadgeTarget: document.getElementById('badge'),
         currentScope: null,
         initialData: null,
         persistentScopes: ['always_global', 'always_bookmarks'],
         updateScopeRadios: GlobalSearchController.prototype.updateScopeRadios,
-        updateScopeBadge: GlobalSearchController.prototype.updateScopeBadge,
+        updatePlaceholder: vi.fn(),
         loadInitialContent: vi.fn()
       };
     });
@@ -640,17 +642,31 @@ describe('GlobalSearchController', () => {
       expect(GlobalSearchController.prototype.effectiveProjectId.call(ctx)).toBe('test-project');
     });
 
-    it('updateScopeBadge shows Global badge when global', () => {
-      ctx.currentScope = 'global';
-      GlobalSearchController.prototype.updateScopeBadge.call(ctx);
-      expect(ctx.scopeBadgeTarget.style.display).toBe('');
-      expect(ctx.scopeBadgeTarget.textContent).toBe('Global');
+    it('updatePlaceholder shows scope in placeholder for global', () => {
+      document.body.innerHTML = '<div id="el" data-scope-all="in all projects" data-search-label="Search"><input id="inp" /></div>';
+      const pCtx = {
+        element: document.getElementById('el'),
+        hasInputTarget: true,
+        inputTarget: document.getElementById('inp'),
+        currentScope: 'global',
+        scopeSuffix: GlobalSearchController.prototype.scopeSuffix
+      };
+      GlobalSearchController.prototype.updatePlaceholder.call(pCtx);
+      expect(pCtx.inputTarget.placeholder).toBe('Search in all projects...');
     });
 
-    it('updateScopeBadge hides badge when project scope', () => {
-      ctx.currentScope = 'project';
-      GlobalSearchController.prototype.updateScopeBadge.call(ctx);
-      expect(ctx.scopeBadgeTarget.style.display).toBe('none');
+    it('updatePlaceholder restores default placeholder for project scope', () => {
+      document.body.innerHTML = '<div id="el" data-search-label="Search"><input id="inp" placeholder="Type to search..." /></div>';
+      const pCtx = {
+        element: document.getElementById('el'),
+        hasInputTarget: true,
+        inputTarget: document.getElementById('inp'),
+        currentScope: 'project',
+        defaultPlaceholder: 'Type to search...',
+        scopeSuffix: GlobalSearchController.prototype.scopeSuffix
+      };
+      GlobalSearchController.prototype.updatePlaceholder.call(pCtx);
+      expect(pCtx.inputTarget.placeholder).toBe('Type to search...');
     });
 
     it('onScopeChange stores always_global in localStorage', () => {
@@ -903,7 +919,8 @@ describe('GlobalSearchController', () => {
       const ctx = {
         hasInputTarget: true,
         inputTarget: { value: '' },
-        performSearch: vi.fn()
+        performSearch: vi.fn(),
+        toggleClearButton: vi.fn()
       };
 
       const item = document.querySelector('[data-search-term]');
@@ -938,7 +955,8 @@ describe('GlobalSearchController', () => {
         lastQuery: 'old',
         hasResults: false,
         loadInitialContent: vi.fn(),
-        performSearch: vi.fn()
+        performSearch: vi.fn(),
+        toggleClearButton: vi.fn()
       };
     });
 

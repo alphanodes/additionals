@@ -109,6 +109,8 @@ it:
   label_global_search_always_bookmarks: "I miei segnalibri (sempre)"
   label_global_search_always_global: "Tutti i progetti (sempre)"
   label_global_search_clear_all: "Cancella tutto"
+  label_global_search_in_all_projects: "in tutti i progetti"
+  label_global_search_in_my_bookmarks: "nei miei progetti preferiti"
   label_global_search_placeholder: "Digita per cercare..."
   label_global_search_recent_projects: "Progetti utilizzati di recente"
   label_global_search_recent_searches: "Ricerche recenti"

@@ -109,6 +109,8 @@ uk:
   label_global_search_always_bookmarks: "Мої закладки (завжди)"
   label_global_search_always_global: "Всі проекти (завжди)"
   label_global_search_clear_all: "Очистити все"
+  label_global_search_in_all_projects: "у всіх проєктах"
+  label_global_search_in_my_bookmarks: "у моїх проєктах із закладок"
   label_global_search_placeholder: "Введіть для пошуку..."
   label_global_search_recent_projects: "Нещодавно використані проєкти"
   label_global_search_recent_searches: "Нещодавні пошуки"

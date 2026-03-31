@@ -46,23 +46,50 @@
   background-size: 18px;
   font-size: var(--a-font-size-lg);
   color: var(--a-color-dark);
-  padding: 12px 40px 12px 44px;
+  padding: 12px 76px 12px 44px;
   box-sizing: border-box;
 }
 
 .global-search-input.ajax-loading {
   background-image: url('../images/search.svg'), url('/loading.gif');
-  background-position: 16px 50%, right 12px center;
+  background-position: 16px 50%, right 76px center;
   background-repeat: no-repeat, no-repeat;
   background-size: 18px, 16px;
-  padding-right: 36px;
 }
 
 .global-search-input::placeholder {
   color: var(--a-color-muted);
 }
 
-/* Header actions (badge + icon) */
+.global-search-clear {
+  position: absolute;
+  right: 44px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--a-color-bg-light);
+  cursor: pointer;
+  color: var(--a-color-muted);
+}
+
+.global-search-clear:hover {
+  background: var(--a-color-border-light);
+  color: var(--a-color-dark);
+}
+
+.global-search-clear svg {
+  stroke: currentcolor;
+}
+
+/* Header actions */
 
 .global-search-header-actions {
   position: absolute;
@@ -72,16 +99,6 @@
   display: flex;
   align-items: center;
   gap: 4px;
-}
-
-.global-search-scope-badge {
-  padding: 2px 8px;
-  border: 1px solid var(--a-color-default);
-  border-radius: 10px;
-  background: var(--a-color-default);
-  color: var(--a-color-white);
-  font-size: var(--a-font-size-sm);
-  white-space: nowrap;
 }
 
 .global-search-scope-toggle {
@@ -184,6 +201,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.global-search-core-link .global-search-item-title {
+  color: var(--a-color-muted);
 }
 
 .global-search-item mark {

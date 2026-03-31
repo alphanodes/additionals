@@ -109,6 +109,8 @@ ru:
   label_global_search_always_bookmarks: "Мои закладки (всегда)"
   label_global_search_always_global: "Все проекты (всегда)"
   label_global_search_clear_all: "Очистить все"
+  label_global_search_in_all_projects: "во всех проектах"
+  label_global_search_in_my_bookmarks: "в моих проектах из закладок"
   label_global_search_placeholder: "Введите для поиска..."
   label_global_search_recent_projects: "Недавно использованные проекты"
   label_global_search_recent_searches: "Недавние поиски"

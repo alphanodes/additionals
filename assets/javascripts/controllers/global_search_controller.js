@@ -10,11 +10,10 @@ class GlobalSearchController extends Controller {
     projectName: String
   };
 
-  static targets = ['input', 'results', 'hint', 'scopePanel', 'scopeBadge'];
+  static targets = ['input', 'results', 'hint', 'scopePanel', 'clearButton'];
 
   connect() {
     this.selectedIndex = -1;
-    this.initScope();
     this.debounceTimer = null;
     this.abortController = null;
     this.lastQuery = '';
@@ -28,6 +27,9 @@ class GlobalSearchController extends Controller {
       recentProjects: this.element.dataset.recentProjects || 'Recently used projects',
       clearAll: this.element.dataset.clearAll || 'Clear all'
     };
+
+    this.defaultPlaceholder = this.hasInputTarget ? this.inputTarget.placeholder : '';
+    this.initScope();
 
     this.boundOnKeydown = this.onGlobalKeydown.bind(this);
     this.boundInterceptSearch = this.interceptQuickSearch.bind(this);
@@ -53,6 +55,7 @@ class GlobalSearchController extends Controller {
     if (this.hasInputTarget) {
       this.inputTarget.value = query || '';
       this.inputTarget.focus();
+      this.toggleClearButton(!!query);
     }
 
     if (query && query.length >= 2) {
@@ -124,6 +127,7 @@ class GlobalSearchController extends Controller {
   onInput() {
     const query = this.hasInputTarget ? this.inputTarget.value.trim() : '';
 
+    this.toggleClearButton(query.length > 0);
     clearTimeout(this.debounceTimer);
 
     if (query.length < 2) {
@@ -327,11 +331,13 @@ class GlobalSearchController extends Controller {
 
     const safeQuery = this.escapeHtml(query);
     const searchLabel = this.element.dataset.searchLabel || 'Search';
+    const suffix = this.scopeSuffix();
+    const scopeText = suffix ? ` ${this.escapeHtml(suffix)}` : '';
     const url = `${this.escapeHtml(coreUrl)}?q=${encodeURIComponent(query)}`;
 
     return '<div class="global-search-core-link">'
       + `<a href="${url}" class="global-search-item">`
-      + `<span class="global-search-item-title">${this.escapeHtml(searchLabel)} <strong>${safeQuery}</strong></span>`
+      + `<span class="global-search-item-title">${this.escapeHtml(searchLabel)} <strong>${safeQuery}</strong>${scopeText}</span>`
       + '</a></div>';
   }
 
@@ -432,6 +438,7 @@ class GlobalSearchController extends Controller {
     if (this.hasInputTarget) {
       this.inputTarget.value = term;
     }
+    this.toggleClearButton(true);
     this.performSearch(term);
   }
 
@@ -486,6 +493,7 @@ class GlobalSearchController extends Controller {
         if (this.hasInputTarget) {
           this.inputTarget.value = searchTerm;
         }
+        this.toggleClearButton(true);
         this.performSearch(searchTerm);
         return;
       }
@@ -542,7 +550,7 @@ class GlobalSearchController extends Controller {
     const stored = localStorage.getItem('global_search_scope');
     this.currentScope = stored || (this.projectIdValue ? 'project' : 'global');
     this.updateScopeRadios();
-    this.updateScopeBadge();
+    this.updatePlaceholder();
   }
 
   persistentScopes = ['always_global', 'always_bookmarks'];
@@ -565,7 +573,7 @@ class GlobalSearchController extends Controller {
     }
 
     this.scopePanelTarget.style.display = 'none';
-    this.updateScopeBadge();
+    this.updatePlaceholder();
     this.initialData = null;
 
     // Re-run search with new scope
@@ -591,24 +599,29 @@ class GlobalSearchController extends Controller {
     return scopeMap[this.currentScope] || null;
   }
 
-  updateScopeBadge() {
-    if (!this.hasScopeBadgeTarget) {
+  scopeSuffix() {
+    const { dataset } = this.element;
+    const suffixes = {
+      global: dataset.scopeAll,
+      always_global: dataset.scopeAll,
+      bookmarks: dataset.scopeBookmarks,
+      always_bookmarks: dataset.scopeBookmarks
+    };
+    return suffixes[this.currentScope] || null;
+  }
+
+  updatePlaceholder() {
+    if (!this.hasInputTarget) {
       return;
     }
 
-    const badgeLabels = {
-      global: 'Global',
-      always_global: 'Global',
-      bookmarks: this.element.dataset.bookmarksLabel || 'Bookmarks',
-      always_bookmarks: this.element.dataset.bookmarksLabel || 'Bookmarks'
-    };
+    const suffix = this.scopeSuffix();
+    const searchLabel = this.element.dataset.searchLabel || 'Search';
 
-    const label = badgeLabels[this.currentScope];
-    if (label) {
-      this.scopeBadgeTarget.style.display = '';
-      this.scopeBadgeTarget.textContent = label;
+    if (suffix) {
+      this.inputTarget.placeholder = `${searchLabel} ${suffix}...`;
     } else {
-      this.scopeBadgeTarget.style.display = 'none';
+      this.inputTarget.placeholder = this.defaultPlaceholder;
     }
   }
 
@@ -616,6 +629,26 @@ class GlobalSearchController extends Controller {
     const radios = this.element.querySelectorAll('input[name="global-search-scope"]');
     for (const radio of radios) {
       radio.checked = radio.value === this.currentScope;
+    }
+  }
+
+  // -- Clear input --
+
+  clearInput() {
+    if (this.hasInputTarget) {
+      this.inputTarget.value = '';
+      this.inputTarget.focus();
+    }
+    if (this.hasResultsTarget) {
+      this.resultsTarget.scrollTop = 0;
+    }
+    this.toggleClearButton(false);
+    this.loadInitialContent();
+  }
+
+  toggleClearButton(visible) {
+    if (this.hasClearButtonTarget) {
+      this.clearButtonTarget.style.display = visible ? '' : 'none';
     }
   }
 

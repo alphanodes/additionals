@@ -1232,4 +1232,183 @@ describe('GlobalSearchController', () => {
       expect(ctx.resultsTarget.innerHTML).toContain('Semantic');
     });
   });
+
+  describe('scope mapping', () => {
+    it('effectiveSearchScope returns bookmarks for bookmark scopes', () => {
+      const ctx = { currentScope: 'bookmarks' };
+      expect(GlobalSearchController.prototype.effectiveSearchScope.call(ctx)).toBe('bookmarks');
+
+      ctx.currentScope = 'always_bookmarks';
+      expect(GlobalSearchController.prototype.effectiveSearchScope.call(ctx)).toBe('bookmarks');
+    });
+
+    it('effectiveSearchScope returns null for global and project scopes', () => {
+      const ctx = { currentScope: 'global' };
+      expect(GlobalSearchController.prototype.effectiveSearchScope.call(ctx)).toBeNull();
+
+      ctx.currentScope = 'project';
+      expect(GlobalSearchController.prototype.effectiveSearchScope.call(ctx)).toBeNull();
+    });
+
+    it('coreSearchScope maps to core search scope values', () => {
+      const ctx = { currentScope: 'global' };
+      expect(GlobalSearchController.prototype.coreSearchScope.call(ctx)).toBe('all');
+
+      ctx.currentScope = 'always_global';
+      expect(GlobalSearchController.prototype.coreSearchScope.call(ctx)).toBe('all');
+
+      ctx.currentScope = 'bookmarks';
+      expect(GlobalSearchController.prototype.coreSearchScope.call(ctx)).toBe('bookmarks');
+
+      ctx.currentScope = 'project';
+      expect(GlobalSearchController.prototype.coreSearchScope.call(ctx)).toBeNull();
+    });
+  });
+
+  describe('renderCoreSearchLink', () => {
+    let ctx;
+
+    beforeEach(() => {
+      ctx = {
+        element: { dataset: { coreSearchUrl: '/search', searchLabel: 'Search', titlesOnlyPrefix: 'in titles' } },
+        currentScope: 'global',
+        activeSearchType: null,
+        titlesOnlyActive: false,
+        escapeHtml: GlobalSearchController.prototype.escapeHtml,
+        scopeSuffix: GlobalSearchController.prototype.scopeSuffix,
+        coreSearchScope: GlobalSearchController.prototype.coreSearchScope
+      };
+    });
+
+    it('builds URL with query parameter', () => {
+      const html = GlobalSearchController.prototype.renderCoreSearchLink.call(ctx, 'test');
+      expect(html).toContain('q=test');
+      expect(html).toContain('href="/search?');
+    });
+
+    it('includes scope=all for global scope', () => {
+      const html = GlobalSearchController.prototype.renderCoreSearchLink.call(ctx, 'test');
+      expect(html).toContain('scope=all');
+    });
+
+    it('includes titles_only when active', () => {
+      ctx.titlesOnlyActive = true;
+      const html = GlobalSearchController.prototype.renderCoreSearchLink.call(ctx, 'test');
+      expect(html).toContain('titles_only=1');
+    });
+
+    it('includes type filter when active', () => {
+      ctx.activeSearchType = 'wiki_pages';
+      const html = GlobalSearchController.prototype.renderCoreSearchLink.call(ctx, 'test');
+      expect(html).toContain('wiki_pages=1');
+    });
+
+    it('does not include scope for project scope', () => {
+      ctx.currentScope = 'project';
+      const html = GlobalSearchController.prototype.renderCoreSearchLink.call(ctx, 'test');
+      expect(html).not.toContain('scope=');
+    });
+
+    it('returns empty string when no coreSearchUrl', () => {
+      ctx.element = { dataset: {} };
+      const html = GlobalSearchController.prototype.renderCoreSearchLink.call(ctx, 'test');
+      expect(html).toBe('');
+    });
+  });
+
+  describe('onInput behavior', () => {
+    let ctx;
+
+    beforeEach(() => {
+      document.body.innerHTML = '<div><input id="inp" /><div id="res"></div></div>';
+      ctx = {
+        hasInputTarget: true,
+        inputTarget: document.getElementById('inp'),
+        lastQuery: '',
+        debounceTimer: null,
+        hasClearButtonTarget: true,
+        clearButtonTarget: { style: { display: 'none' } },
+        toggleClearButton: GlobalSearchController.prototype.toggleClearButton,
+        loadInitialContent: vi.fn(),
+        performSearch: vi.fn()
+      };
+    });
+
+    it('calls loadInitialContent for short queries', () => {
+      ctx.inputTarget.value = 'a';
+      GlobalSearchController.prototype.onInput.call(ctx);
+      expect(ctx.loadInitialContent).toHaveBeenCalled();
+      expect(ctx.lastQuery).toBe('a');
+    });
+
+    it('shows clear button when input has text', () => {
+      ctx.inputTarget.value = 'test';
+      GlobalSearchController.prototype.onInput.call(ctx);
+      expect(ctx.clearButtonTarget.style.display).toBe('');
+    });
+
+    it('hides clear button when input is empty', () => {
+      ctx.clearButtonTarget.style.display = '';
+      ctx.inputTarget.value = '';
+      GlobalSearchController.prototype.onInput.call(ctx);
+      expect(ctx.clearButtonTarget.style.display).toBe('none');
+    });
+
+    it('does not search when query equals lastQuery', () => {
+      ctx.inputTarget.value = 'test';
+      ctx.lastQuery = 'test';
+      GlobalSearchController.prototype.onInput.call(ctx);
+      expect(ctx.performSearch).not.toHaveBeenCalled();
+      expect(ctx.loadInitialContent).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('titles only', () => {
+    it('onTitlesOnlyChange toggles flag and hides panel', () => {
+      const ctx = {
+        titlesOnlyActive: false,
+        hasScopePanelTarget: true,
+        scopePanelTarget: { style: { display: '' } },
+        hasInputTarget: true,
+        inputTarget: { value: 'test', trim: () => 'test' },
+        updatePlaceholder: vi.fn(),
+        performSearch: vi.fn()
+      };
+      // Fix: inputTarget.value.trim()
+      ctx.inputTarget = { value: '  test  ' };
+
+      GlobalSearchController.prototype.onTitlesOnlyChange.call(ctx, { target: { checked: true } });
+      expect(ctx.titlesOnlyActive).toBe(true);
+      expect(ctx.scopePanelTarget.style.display).toBe('none');
+      expect(ctx.updatePlaceholder).toHaveBeenCalled();
+      expect(ctx.performSearch).toHaveBeenCalledWith('test');
+    });
+
+    it('onTitlesOnlyChange does not search with short query', () => {
+      const ctx = {
+        titlesOnlyActive: false,
+        hasScopePanelTarget: true,
+        scopePanelTarget: { style: { display: '' } },
+        hasInputTarget: true,
+        inputTarget: { value: 'a' },
+        updatePlaceholder: vi.fn(),
+        performSearch: vi.fn()
+      };
+
+      GlobalSearchController.prototype.onTitlesOnlyChange.call(ctx, { target: { checked: true } });
+      expect(ctx.titlesOnlyActive).toBe(true);
+      expect(ctx.performSearch).not.toHaveBeenCalled();
+    });
+
+    it('initTitlesOnly sets checkbox state', () => {
+      const checkbox = { checked: false };
+      const ctx = {
+        hasTitlesOnlyTarget: true,
+        titlesOnlyTarget: checkbox,
+        titlesOnlyActive: true
+      };
+      GlobalSearchController.prototype.initTitlesOnly.call(ctx);
+      expect(checkbox.checked).toBe(true);
+    });
+  });
 });

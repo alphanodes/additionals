@@ -29,6 +29,7 @@ class GlobalSearchController extends Controller {
     };
 
     this.defaultPlaceholder = this.hasInputTarget ? this.inputTarget.placeholder : '';
+    this.activeSearchType = null;
     this.initScope();
 
     this.boundOnKeydown = this.onGlobalKeydown.bind(this);
@@ -51,6 +52,7 @@ class GlobalSearchController extends Controller {
     this.selectedIndex = -1;
     this.lastQuery = '';
     this.hasResults = false;
+    this.activeSearchType = null;
 
     if (this.hasInputTarget) {
       this.inputTarget.value = query || '';
@@ -163,6 +165,10 @@ class GlobalSearchController extends Controller {
       params.set('scope', searchScope);
     }
 
+    if (this.activeSearchType) {
+      params.set('types[]', this.activeSearchType);
+    }
+
     const url = `${this.urlValue}?${params}`;
 
     try {
@@ -248,10 +254,12 @@ class GlobalSearchController extends Controller {
     let html = '';
 
     if (query) {
+      html += this.renderSearchTypeTabs();
       html += this.renderCoreSearchLink(query);
     }
 
-    if (!hasKeyword && !hasSemantic && query) {
+    const showSemantic = hasSemantic && !this.activeSearchType;
+    if (!hasKeyword && !showSemantic && query) {
       html += `<p class="global-search-no-results">${this.escapeHtml(this.i18n.noResults)}</p>`;
       this.resultsTarget.innerHTML = html;
       this.selectedIndex = -1;
@@ -262,7 +270,7 @@ class GlobalSearchController extends Controller {
       html += this.renderItem(item, query);
     }
 
-    if (hasSemantic) {
+    if (showSemantic) {
       const semanticIcon = this.element.dataset.semanticIcon || '';
       html += '<div class="global-search-section-header global-search-semantic-header">'
         + `<span>${semanticIcon} ${this.escapeHtml(semantic.label)}</span></div>`;
@@ -575,6 +583,7 @@ class GlobalSearchController extends Controller {
     this.scopePanelTarget.style.display = 'none';
     this.updatePlaceholder();
     this.initialData = null;
+    this.validateActiveSearchType();
 
     // Re-run search with new scope
     if (this.hasInputTarget && this.inputTarget.value.trim().length >= 2) {
@@ -649,6 +658,75 @@ class GlobalSearchController extends Controller {
   toggleClearButton(visible) {
     if (this.hasClearButtonTarget) {
       this.clearButtonTarget.style.display = visible ? '' : 'none';
+    }
+  }
+
+  // -- Search type tabs --
+
+  getSearchTypes() {
+    try {
+      const useProjectTypes = this.currentScope === 'project' && this.element.dataset.searchTypesProject;
+      const data = useProjectTypes ? this.element.dataset.searchTypesProject : this.element.dataset.searchTypes;
+      return JSON.parse(data || '[]');
+    } catch {
+      return [];
+    }
+  }
+
+  validateActiveSearchType() {
+    if (!this.activeSearchType) {
+      return;
+    }
+    const types = this.getSearchTypes();
+    if (!types.some(t => t.id === this.activeSearchType)) {
+      this.activeSearchType = null;
+    }
+  }
+
+  onSearchTypeClick(event) {
+    event.preventDefault();
+    const tab = event.target.closest('[data-type-id]');
+    if (!tab) {
+      return;
+    }
+
+    this.activeSearchType = tab.dataset.typeId || null;
+    this.updateSearchTypeTabs();
+
+    const query = this.hasInputTarget ? this.inputTarget.value.trim() : '';
+    if (query.length >= 2) {
+      this.performSearch(query);
+    }
+  }
+
+  renderSearchTypeTabs() {
+    const types = this.getSearchTypes();
+    if (types.length === 0) {
+      return '';
+    }
+
+    const allLabel = this.element.dataset.tabAll || 'All';
+    let html = '<div class="global-search-tabs" data-action="click->global-search#onSearchTypeClick">';
+    const allActive = !this.activeSearchType ? ' active' : '';
+    html += `<a class="global-search-tab${allActive}" data-type-id="" href="#">${this.escapeHtml(allLabel)}</a>`;
+
+    for (const type of types) {
+      const active = this.activeSearchType === type.id ? ' active' : '';
+      html += `<a class="global-search-tab${active}" data-type-id="${this.escapeHtml(type.id)}" href="#">${this.escapeHtml(type.label)}</a>`;
+    }
+
+    html += '</div>';
+    return html;
+  }
+
+  updateSearchTypeTabs() {
+    if (!this.hasResultsTarget) {
+      return;
+    }
+    const tabs = this.resultsTarget.querySelectorAll('.global-search-tab');
+    for (const tab of tabs) {
+      const isActive = (tab.dataset.typeId || null) === (this.activeSearchType || null);
+      tab.classList.toggle('active', isActive);
     }
   }
 

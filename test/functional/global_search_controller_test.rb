@@ -101,4 +101,30 @@ class GlobalSearchControllerTest < Additionals::ControllerTest
     assert_kind_of Hash, json
     assert json.key? 'keyword'
   end
+
+  def test_search_with_types_filter
+    session[:user_id] = 2
+    @request.headers['Accept'] = 'application/json'
+
+    get :search, params: { q: 'Cannot print recipes', 'types[]': 'issues' }
+
+    assert_response :success
+    json = ActiveSupport::JSON.decode response.body
+
+    assert_kind_of Hash, json
+    assert_kind_of Array, json['keyword']
+  end
+
+  def test_search_with_bookmarks_scope
+    session[:user_id] = 2
+    @request.headers['Accept'] = 'application/json'
+
+    get :search, params: { q: 'test', scope: 'bookmarks' }
+
+    assert_response :success
+    json = ActiveSupport::JSON.decode response.body
+
+    assert_kind_of Hash, json
+    assert_kind_of Array, json['keyword']
+  end
 end

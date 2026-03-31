@@ -15,8 +15,24 @@ module AdditionalsGlobalSearchHelper
       'clear-all': l(:label_global_search_clear_all),
       'scope-all': l(:label_global_search_in_all_projects),
       'scope-bookmarks': l(:label_global_search_in_my_bookmarks),
+      'tab-all': l(:label_all).capitalize,
+      'search-types': global_search_types.to_json,
+      'search-types-project': (@project ? global_search_types(project: @project) : nil)&.to_json,
       'semantic-icon': svg_icon_tag('robot', size: 16, icon_only: true).to_str,
       'core-search-url': search_path,
       action: 'click->global-search#closeOnOverlay' }
+  end
+
+  def global_search_types(project: nil)
+    types = Redmine::Search.available_search_types.dup
+
+    if project
+      types.delete 'projects'
+      types.select! { |t| User.current.allowed_to? :"view_#{t}", project }
+    end
+
+    types.map do |type|
+      { id: type, label: l("label_#{type.singularize}_plural", default: type.humanize) }
+    end
   end
 end

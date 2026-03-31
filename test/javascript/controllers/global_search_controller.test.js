@@ -287,6 +287,7 @@ describe('GlobalSearchController', () => {
         renderGroup: GlobalSearchController.prototype.renderGroup,
         renderItem: GlobalSearchController.prototype.renderItem,
         renderCoreSearchLink: GlobalSearchController.prototype.renderCoreSearchLink,
+        renderSearchTypeTabs: () => '',
         scopeSuffix: GlobalSearchController.prototype.scopeSuffix,
         showHint: GlobalSearchController.prototype.showHint,
         hideHint: GlobalSearchController.prototype.hideHint
@@ -598,6 +599,7 @@ describe('GlobalSearchController', () => {
         persistentScopes: ['always_global', 'always_bookmarks'],
         updateScopeRadios: GlobalSearchController.prototype.updateScopeRadios,
         updatePlaceholder: vi.fn(),
+        validateActiveSearchType: vi.fn(),
         loadInitialContent: vi.fn()
       };
     });
@@ -979,6 +981,248 @@ describe('GlobalSearchController', () => {
       expect(ctx.inputTarget.value).toBe('a');
       expect(ctx.loadInitialContent).toHaveBeenCalled();
       expect(ctx.performSearch).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('search type tabs', () => {
+    it('getSearchTypes returns global types by default', () => {
+      const ctx = {
+        currentScope: 'global',
+        element: { dataset: { searchTypes: JSON.stringify([{ id: 'issues', label: 'Issues' }]) } }
+      };
+      const result = GlobalSearchController.prototype.getSearchTypes.call(ctx);
+      expect(result).toEqual([{ id: 'issues', label: 'Issues' }]);
+    });
+
+    it('getSearchTypes returns project types when scope is project', () => {
+      const ctx = {
+        currentScope: 'project',
+        element: {
+          dataset: {
+            searchTypes: JSON.stringify([{ id: 'issues', label: 'Issues' }, { id: 'projects', label: 'Projects' }]),
+            searchTypesProject: JSON.stringify([{ id: 'issues', label: 'Issues' }])
+          }
+        }
+      };
+      const result = GlobalSearchController.prototype.getSearchTypes.call(ctx);
+      expect(result).toEqual([{ id: 'issues', label: 'Issues' }]);
+    });
+
+    it('getSearchTypes returns global types for bookmarks scope', () => {
+      const ctx = {
+        currentScope: 'bookmarks',
+        element: {
+          dataset: {
+            searchTypes: JSON.stringify([{ id: 'issues', label: 'Issues' }, { id: 'projects', label: 'Projects' }]),
+            searchTypesProject: JSON.stringify([{ id: 'issues', label: 'Issues' }])
+          }
+        }
+      };
+      const result = GlobalSearchController.prototype.getSearchTypes.call(ctx);
+      expect(result).toHaveLength(2);
+    });
+
+    it('getSearchTypes returns empty array for invalid JSON', () => {
+      const ctx = {
+        currentScope: 'global',
+        element: { dataset: { searchTypes: 'invalid' } }
+      };
+      const result = GlobalSearchController.prototype.getSearchTypes.call(ctx);
+      expect(result).toEqual([]);
+    });
+
+    it('renderSearchTypeTabs generates HTML with all tab and type tabs', () => {
+      const ctx = {
+        currentScope: 'global',
+        activeSearchType: null,
+        element: {
+          dataset: {
+            tabAll: 'All',
+            searchTypes: JSON.stringify([{ id: 'issues', label: 'Issues' }, { id: 'wiki_pages', label: 'Wiki' }])
+          }
+        },
+        getSearchTypes: GlobalSearchController.prototype.getSearchTypes,
+        escapeHtml: GlobalSearchController.prototype.escapeHtml
+      };
+      const html = GlobalSearchController.prototype.renderSearchTypeTabs.call(ctx);
+      expect(html).toContain('All');
+      expect(html).toContain('Issues');
+      expect(html).toContain('Wiki');
+      expect(html).toContain('data-type-id=""');
+      expect(html).toContain('data-type-id="issues"');
+      expect(html).toContain('data-type-id="wiki_pages"');
+    });
+
+    it('renderSearchTypeTabs marks active type', () => {
+      const ctx = {
+        currentScope: 'global',
+        activeSearchType: 'issues',
+        element: {
+          dataset: {
+            tabAll: 'All',
+            searchTypes: JSON.stringify([{ id: 'issues', label: 'Issues' }])
+          }
+        },
+        getSearchTypes: GlobalSearchController.prototype.getSearchTypes,
+        escapeHtml: GlobalSearchController.prototype.escapeHtml
+      };
+      const html = GlobalSearchController.prototype.renderSearchTypeTabs.call(ctx);
+      expect(html).toContain('data-type-id="issues"');
+      expect(html).toMatch(/data-type-id="issues"[^>]*href="#"[^>]*>/);
+    });
+
+    it('renderSearchTypeTabs returns empty string when no types', () => {
+      const ctx = {
+        currentScope: 'global',
+        activeSearchType: null,
+        element: { dataset: { searchTypes: '[]' } },
+        getSearchTypes: GlobalSearchController.prototype.getSearchTypes
+      };
+      const html = GlobalSearchController.prototype.renderSearchTypeTabs.call(ctx);
+      expect(html).toBe('');
+    });
+
+    it('onSearchTypeClick sets active type and triggers search', () => {
+      document.body.innerHTML = '<div id="tabs"><a class="global-search-tab" data-type-id="issues">Issues</a></div>';
+      const ctx = {
+        activeSearchType: null,
+        hasInputTarget: true,
+        inputTarget: { value: 'test query' },
+
+        updateSearchTypeTabs: vi.fn(),
+        performSearch: vi.fn()
+      };
+      const tab = document.querySelector('[data-type-id]');
+      const event = { preventDefault: vi.fn(), target: tab };
+      GlobalSearchController.prototype.onSearchTypeClick.call(ctx, event);
+      expect(ctx.activeSearchType).toBe('issues');
+      expect(ctx.performSearch).toHaveBeenCalledWith('test query');
+    });
+
+    it('onSearchTypeClick resets to all when clicking all tab', () => {
+      document.body.innerHTML = '<div id="tabs"><a class="global-search-tab" data-type-id="">All</a></div>';
+      const ctx = {
+        activeSearchType: 'issues',
+        hasInputTarget: true,
+        inputTarget: { value: 'test' },
+
+        updateSearchTypeTabs: vi.fn(),
+        performSearch: vi.fn()
+      };
+      const tab = document.querySelector('[data-type-id]');
+      const event = { preventDefault: vi.fn(), target: tab };
+      GlobalSearchController.prototype.onSearchTypeClick.call(ctx, event);
+      expect(ctx.activeSearchType).toBeNull();
+    });
+
+    it('validateActiveSearchType resets type if not in current list', () => {
+      const ctx = {
+        activeSearchType: 'contacts',
+        currentScope: 'project',
+        element: {
+          dataset: {
+            searchTypesProject: JSON.stringify([{ id: 'issues', label: 'Issues' }])
+          }
+        },
+        getSearchTypes: GlobalSearchController.prototype.getSearchTypes
+      };
+      GlobalSearchController.prototype.validateActiveSearchType.call(ctx);
+      expect(ctx.activeSearchType).toBeNull();
+    });
+
+    it('validateActiveSearchType keeps type if still in list', () => {
+      const ctx = {
+        activeSearchType: 'issues',
+        currentScope: 'global',
+        element: {
+          dataset: {
+            searchTypes: JSON.stringify([{ id: 'issues', label: 'Issues' }])
+          }
+        },
+        getSearchTypes: GlobalSearchController.prototype.getSearchTypes
+      };
+      GlobalSearchController.prototype.validateActiveSearchType.call(ctx);
+      expect(ctx.activeSearchType).toBe('issues');
+    });
+  });
+
+  describe('clear input', () => {
+    it('clearInput clears value, hides clear button and loads initial content', () => {
+      document.body.innerHTML = '<div><input id="inp" value="test" /><div id="res"></div></div>';
+      const ctx = {
+        hasInputTarget: true,
+        inputTarget: document.getElementById('inp'),
+        hasResultsTarget: true,
+        resultsTarget: document.getElementById('res'),
+        hasClearButtonTarget: true,
+        clearButtonTarget: { style: { display: '' } },
+        toggleClearButton: GlobalSearchController.prototype.toggleClearButton,
+        loadInitialContent: vi.fn()
+      };
+      GlobalSearchController.prototype.clearInput.call(ctx);
+      expect(ctx.inputTarget.value).toBe('');
+      expect(ctx.clearButtonTarget.style.display).toBe('none');
+      expect(ctx.loadInitialContent).toHaveBeenCalled();
+    });
+  });
+
+  describe('semantic results with type filter', () => {
+    it('hides semantic results when a search type is active', () => {
+      document.body.innerHTML = '<div id="results"></div><div id="hint"></div>';
+      const ctx = {
+        element: { dataset: { coreSearchUrl: '/search', searchLabel: 'Search' } },
+        hasResultsTarget: true,
+        resultsTarget: document.getElementById('results'),
+        hasHintTarget: true,
+        hintTarget: document.getElementById('hint'),
+        selectedIndex: 0,
+        activeSearchType: 'issues',
+        i18n: { noResults: 'No results' },
+        currentScope: 'global',
+        escapeHtml: GlobalSearchController.prototype.escapeHtml,
+        highlightMatch: GlobalSearchController.prototype.highlightMatch,
+        renderItem: GlobalSearchController.prototype.renderItem,
+        renderCoreSearchLink: GlobalSearchController.prototype.renderCoreSearchLink,
+        renderSearchTypeTabs: () => '',
+        scopeSuffix: GlobalSearchController.prototype.scopeSuffix,
+        showHint: GlobalSearchController.prototype.showHint,
+        hideHint: GlobalSearchController.prototype.hideHint
+      };
+      const data = {
+        keyword: [{ title: 'Issue #1', url: '/issues/1', type: 'Issues' }],
+        semantic: { label: 'Semantic', results: [{ title: 'Related', url: '/issues/2', type: 'Issues' }] }
+      };
+      GlobalSearchController.prototype.renderResults.call(ctx, data, 'test');
+      expect(ctx.resultsTarget.innerHTML).not.toContain('Semantic');
+    });
+
+    it('shows semantic results when no search type is active', () => {
+      document.body.innerHTML = '<div id="results"></div><div id="hint"></div>';
+      const ctx = {
+        element: { dataset: { coreSearchUrl: '/search', searchLabel: 'Search', semanticIcon: '' } },
+        hasResultsTarget: true,
+        resultsTarget: document.getElementById('results'),
+        hasHintTarget: true,
+        hintTarget: document.getElementById('hint'),
+        selectedIndex: 0,
+        activeSearchType: null,
+        i18n: { noResults: 'No results' },
+        currentScope: 'global',
+        escapeHtml: GlobalSearchController.prototype.escapeHtml,
+        highlightMatch: GlobalSearchController.prototype.highlightMatch,
+        renderItem: GlobalSearchController.prototype.renderItem,
+        renderCoreSearchLink: GlobalSearchController.prototype.renderCoreSearchLink,
+        renderSearchTypeTabs: () => '',
+        scopeSuffix: GlobalSearchController.prototype.scopeSuffix,
+        showHint: GlobalSearchController.prototype.showHint,
+        hideHint: GlobalSearchController.prototype.hideHint
+      };
+      const data = {
+        keyword: [{ title: 'Issue #1', url: '/issues/1', type: 'Issues' }],
+        semantic: { label: 'Semantic', results: [{ title: 'Related', url: '/issues/2', type: 'Issues' }] }
+      };
+      GlobalSearchController.prototype.renderResults.call(ctx, data, 'test');
+      expect(ctx.resultsTarget.innerHTML).toContain('Semantic');
     });
   });
 });

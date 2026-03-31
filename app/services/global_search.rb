@@ -19,9 +19,9 @@ module GlobalSearch
       end
     end
 
-    def search(query, user:, project: nil, scope: nil, limit: 10)
+    def search(query, user:, project: nil, scope: nil, types: nil, limit: 10)
       projects = resolve_projects scope, user, project
-      keyword = keyword_search query, user: user, projects: projects, limit: limit
+      keyword = keyword_search query, user: user, projects: projects, types: types, limit: limit
       semantic = provider_search query, user: user, project: project, limit: 5
 
       # Deduplicate: remove semantic hits already in keyword results
@@ -47,8 +47,8 @@ module GlobalSearch
       end
     end
 
-    def keyword_search(query, user:, projects: nil, limit: 10)
-      scope = Redmine::Search.available_search_types
+    def keyword_search(query, user:, projects: nil, types: nil, limit: 10)
+      scope = types.present? ? Array(types) & Redmine::Search.available_search_types : Redmine::Search.available_search_types
       fetcher = Redmine::Search::Fetcher.new query, user, scope, projects, all_words: true
       return [] if fetcher.tokens.blank?
 

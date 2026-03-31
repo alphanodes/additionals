@@ -106,6 +106,7 @@ de:
   label_enable_sidebar: Sidebar aktivieren
   label_global_footer: "Projektübergreifender Footer"
   label_global_search: "Globale Suche"
+  label_global_search_always_bookmarks: "Meine Lesezeichen (immer)"
   label_global_search_always_global: "Alle Projekte (immer)"
   label_global_search_clear_all: "Alle löschen"
   label_global_search_placeholder: "Tippen zum Suchen..."

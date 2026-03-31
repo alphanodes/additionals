@@ -592,8 +592,11 @@ describe('GlobalSearchController', () => {
         hasScopeBadgeTarget: true,
         scopeBadgeTarget: document.getElementById('badge'),
         currentScope: null,
+        initialData: null,
+        persistentScopes: ['always_global', 'always_bookmarks'],
         updateScopeRadios: GlobalSearchController.prototype.updateScopeRadios,
-        updateScopeBadge: GlobalSearchController.prototype.updateScopeBadge
+        updateScopeBadge: GlobalSearchController.prototype.updateScopeBadge,
+        loadInitialContent: vi.fn()
       };
     });
 

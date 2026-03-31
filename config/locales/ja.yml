@@ -106,6 +106,7 @@ ja:
   label_enable_sidebar: "サイドバーを有効にする"
   label_global_footer: "プロジェクト全体フッター"
   label_global_search: "グローバル検索"
+  label_global_search_always_bookmarks: "ブックマーク (常時)"
   label_global_search_always_global: "全プロジェクト (常時)"
   label_global_search_clear_all: "すべてクリア"
   label_global_search_placeholder: "入力して検索..."

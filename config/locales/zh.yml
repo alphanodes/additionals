@@ -106,6 +106,7 @@ zh:
   label_enable_sidebar: 启用侧边栏
   label_global_footer: "项目范围内的页脚设置"
   label_global_search: "全局搜索"
+  label_global_search_always_bookmarks: "我的书签 (始终)"
   label_global_search_always_global: "所有项目 (始终)"
   label_global_search_clear_all: "全部清除"
   label_global_search_placeholder: "输入以搜索..."

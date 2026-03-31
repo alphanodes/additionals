@@ -106,6 +106,7 @@ ru:
   label_enable_sidebar: "Включить боковую панель"
   label_global_footer: "Project wide footer"
   label_global_search: "Глобальный поиск"
+  label_global_search_always_bookmarks: "Мои закладки (всегда)"
   label_global_search_always_global: "Все проекты (всегда)"
   label_global_search_clear_all: "Очистить все"
   label_global_search_placeholder: "Введите для поиска..."

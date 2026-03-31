@@ -106,6 +106,7 @@ pl:
   label_enable_sidebar: "Włącz pasek boczny"
   label_global_footer: "Szeroka podstawa projektu"
   label_global_search: "Wyszukiwanie globalne"
+  label_global_search_always_bookmarks: "Moje zakładki (zawsze)"
   label_global_search_always_global: "Wszystkie projekty (zawsze)"
   label_global_search_clear_all: "Wyczyść wszystko"
   label_global_search_placeholder: "Wpisz aby wyszukac..."

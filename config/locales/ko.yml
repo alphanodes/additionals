@@ -106,6 +106,7 @@ ko:
   label_enable_sidebar: "사이드바 활성화"
   label_global_footer: "넓은 바닥 글 프로젝트"
   label_global_search: "글로벌 검색"
+  label_global_search_always_bookmarks: "북마크 (항상)"
   label_global_search_always_global: "모든 프로젝트 (항상)"
   label_global_search_clear_all: "모두 지우기"
   label_global_search_placeholder: "입력하여 검색..."

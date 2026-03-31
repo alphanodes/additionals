@@ -15,6 +15,7 @@ class GlobalSearchController < ApplicationController
     results = GlobalSearch.search query,
                                   user: User.current,
                                   project: project,
+                                  scope: params[:scope],
                                   limit: params[:limit]&.to_i || 10
 
     render json: results

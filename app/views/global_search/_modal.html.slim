@@ -20,6 +20,14 @@
             data-action="change->global-search#onScopeChange")
           = @project.name
       label.global-search-scope-option
+        input(type="radio" name="global-search-scope" value="bookmarks"
+          data-action="change->global-search#onScopeChange")
+        = l :label_my_bookmarks
+      label.global-search-scope-option
+        input(type="radio" name="global-search-scope" value="always_bookmarks"
+          data-action="change->global-search#onScopeChange")
+        = l :label_global_search_always_bookmarks
+      label.global-search-scope-option
         input(type="radio" name="global-search-scope" value="global"
           data-action="change->global-search#onScopeChange")
         = l :label_project_all

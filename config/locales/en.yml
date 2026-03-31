@@ -106,6 +106,7 @@ en:
   label_enable_sidebar: Enable sidebar
   label_global_footer: "Project wide footer"
   label_global_search: "Global search"
+  label_global_search_always_bookmarks: "My bookmarks (always)"
   label_global_search_always_global: "All projects (always)"
   label_global_search_clear_all: "Clear all"
   label_global_search_placeholder: "Type to search..."

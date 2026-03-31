@@ -106,6 +106,7 @@
   label_enable_sidebar: Enable sidebar
   label_global_footer: "專案中頁尾設定"
   label_global_search: "全域搜尋"
+  label_global_search_always_bookmarks: "我的書籤 (始終)"
   label_global_search_always_global: "所有專案 (始終)"
   label_global_search_clear_all: "全部清除"
   label_global_search_placeholder: "輸入以搜尋..."

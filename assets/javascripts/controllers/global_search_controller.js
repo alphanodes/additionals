@@ -154,6 +154,11 @@ class GlobalSearchController extends Controller {
       params.set('project_id', projectId);
     }
 
+    const searchScope = this.effectiveSearchScope();
+    if (searchScope) {
+      params.set('scope', searchScope);
+    }
+
     const url = `${this.urlValue}?${params}`;
 
     try {
@@ -540,6 +545,8 @@ class GlobalSearchController extends Controller {
     this.updateScopeBadge();
   }
 
+  persistentScopes = ['always_global', 'always_bookmarks'];
+
   toggleScopePanel() {
     if (!this.hasScopePanelTarget) {
       return;
@@ -551,26 +558,37 @@ class GlobalSearchController extends Controller {
   onScopeChange(event) {
     this.currentScope = event.target.value;
 
-    if (this.currentScope === 'always_global') {
-      localStorage.setItem('global_search_scope', 'always_global');
+    if (this.persistentScopes.includes(this.currentScope)) {
+      localStorage.setItem('global_search_scope', this.currentScope);
     } else {
       localStorage.removeItem('global_search_scope');
     }
 
     this.scopePanelTarget.style.display = 'none';
     this.updateScopeBadge();
+    this.initialData = null;
 
     // Re-run search with new scope
     if (this.hasInputTarget && this.inputTarget.value.trim().length >= 2) {
       this.performSearch(this.inputTarget.value.trim());
+    } else {
+      this.loadInitialContent();
     }
   }
 
   effectiveProjectId() {
-    if (this.currentScope === 'global' || this.currentScope === 'always_global') {
+    if (this.currentScope !== 'project') {
       return null;
     }
     return this.projectIdValue || null;
+  }
+
+  effectiveSearchScope() {
+    const scopeMap = {
+      bookmarks: 'bookmarks',
+      always_bookmarks: 'bookmarks'
+    };
+    return scopeMap[this.currentScope] || null;
   }
 
   updateScopeBadge() {
@@ -578,9 +596,20 @@ class GlobalSearchController extends Controller {
       return;
     }
 
-    const isGlobal = this.currentScope === 'global' || this.currentScope === 'always_global';
-    this.scopeBadgeTarget.style.display = isGlobal ? '' : 'none';
-    this.scopeBadgeTarget.textContent = 'Global';
+    const badgeLabels = {
+      global: 'Global',
+      always_global: 'Global',
+      bookmarks: this.element.dataset.bookmarksLabel || 'Bookmarks',
+      always_bookmarks: this.element.dataset.bookmarksLabel || 'Bookmarks'
+    };
+
+    const label = badgeLabels[this.currentScope];
+    if (label) {
+      this.scopeBadgeTarget.style.display = '';
+      this.scopeBadgeTarget.textContent = label;
+    } else {
+      this.scopeBadgeTarget.style.display = 'none';
+    }
   }
 
   updateScopeRadios() {

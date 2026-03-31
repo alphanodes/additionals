@@ -106,6 +106,7 @@ fr:
   label_enable_sidebar: "Activer la sidebar"
   label_global_footer: "Pied de page projet"
   label_global_search: "Recherche globale"
+  label_global_search_always_bookmarks: "Mes favoris (toujours)"
   label_global_search_always_global: "Tous les projets (toujours)"
   label_global_search_clear_all: "Tout effacer"
   label_global_search_placeholder: "Saisissez pour rechercher..."

@@ -106,6 +106,7 @@ pt-BR:
   label_enable_sidebar: "Habilitar barra lateral"
   label_global_footer: "Projeto de rodapé largo"
   label_global_search: "Pesquisa global"
+  label_global_search_always_bookmarks: "Meus favoritos (sempre)"
   label_global_search_always_global: "Todos os projetos (sempre)"
   label_global_search_clear_all: "Limpar tudo"
   label_global_search_placeholder: "Digite para pesquisar..."

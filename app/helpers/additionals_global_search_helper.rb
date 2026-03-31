@@ -10,6 +10,9 @@ module AdditionalsGlobalSearchHelper
       hint: l(:label_search),
       loading: l(:label_loading),
       'search-label': l(:label_search),
+      'recent-searches': l(:label_global_search_recent_searches),
+      'recent-projects': l(:label_global_search_recent_projects),
+      'clear-all': l(:label_global_search_clear_all),
       'core-search-url': search_path,
       action: 'click->global-search#closeOnOverlay' }
   end

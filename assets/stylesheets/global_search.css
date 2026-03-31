@@ -212,13 +212,34 @@
   margin: 0 6px;
 }
 
-/* Semantic section header */
+/* Section headers */
 
 .global-search-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 10px 12px 4px;
   font-size: var(--a-font-size-sm);
   font-weight: 600;
   color: var(--a-color-muted);
   border-top: 1px solid var(--a-color-border-light);
   margin-top: 4px;
+}
+
+.global-search-results > :first-child .global-search-section-header,
+.global-search-results > .global-search-section-header:first-child {
+  border-top: none;
+  margin-top: 0;
+}
+
+.global-search-clear-link {
+  font-weight: 400;
+  color: var(--a-color-muted);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.global-search-clear-link:hover {
+  color: var(--a-color-dark);
+  text-decoration: underline;
 }

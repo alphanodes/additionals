@@ -40,9 +40,11 @@ describe('GlobalSearchController', () => {
         hintTarget: document.getElementById('hint'),
         selectedIndex: 5,
         lastQuery: 'previous',
+        hasResults: false,
         i18n: { hint: 'Type to search...' },
         cancelPending: vi.fn(),
-        loadInitialContent: vi.fn()
+        loadInitialContent: vi.fn(),
+        saveCurrentQuery: vi.fn()
       };
     });
 
@@ -529,6 +531,7 @@ describe('GlobalSearchController', () => {
         selectedIndex: 0,
         hasResultsTarget: true,
         resultsTarget: document.getElementById('results'),
+        saveCurrentQuery: vi.fn(),
         get selectableItems() {
           return Array.from(this.resultsTarget.querySelectorAll('.global-search-item'));
         }
@@ -536,6 +539,7 @@ describe('GlobalSearchController', () => {
 
       GlobalSearchController.prototype.openSelected.call(ctx);
 
+      expect(ctx.saveCurrentQuery).toHaveBeenCalled();
       expect(window.location.href).toBe('/issues/42');
     });
 
@@ -662,6 +666,257 @@ describe('GlobalSearchController', () => {
     });
   });
 
+  describe('search history', () => {
+    let storage;
+
+    beforeEach(() => {
+      storage = {};
+      const mockStorage = {
+        getItem: key => storage[key] || null,
+        setItem: (key, val) => { storage[key] = val; },
+        removeItem: key => { delete storage[key]; }
+      };
+      Object.defineProperty(window, 'localStorage', { value: mockStorage, writable: true });
+    });
+
+    it('getSearchHistory returns empty array when no history', () => {
+      const result = GlobalSearchController.prototype.getSearchHistory.call({});
+      expect(result).toEqual([]);
+    });
+
+    it('getSearchHistory returns stored terms', () => {
+      localStorage.setItem('global_search_history', JSON.stringify(['foo', 'bar']));
+      const result = GlobalSearchController.prototype.getSearchHistory.call({});
+      expect(result).toEqual(['foo', 'bar']);
+    });
+
+    it('getSearchHistory handles invalid JSON gracefully', () => {
+      localStorage.setItem('global_search_history', 'not-json');
+      const result = GlobalSearchController.prototype.getSearchHistory.call({});
+      expect(result).toEqual([]);
+    });
+
+    it('saveCurrentQuery stores query when results exist', () => {
+      const ctx = {
+        hasResults: true,
+        hasInputTarget: true,
+        inputTarget: { value: '  redmine api  ' },
+        getSearchHistory: GlobalSearchController.prototype.getSearchHistory
+      };
+
+      GlobalSearchController.prototype.saveCurrentQuery.call(ctx);
+
+      const saved = JSON.parse(localStorage.getItem('global_search_history'));
+      expect(saved).toEqual(['redmine api']);
+    });
+
+    it('saveCurrentQuery does not store when no results', () => {
+      const ctx = {
+        hasResults: false,
+        hasInputTarget: true,
+        inputTarget: { value: 'test' }
+      };
+
+      GlobalSearchController.prototype.saveCurrentQuery.call(ctx);
+
+      expect(localStorage.getItem('global_search_history')).toBeNull();
+    });
+
+    it('saveCurrentQuery does not store short queries', () => {
+      const ctx = {
+        hasResults: true,
+        hasInputTarget: true,
+        inputTarget: { value: 'a' },
+        getSearchHistory: GlobalSearchController.prototype.getSearchHistory
+      };
+
+      GlobalSearchController.prototype.saveCurrentQuery.call(ctx);
+
+      expect(localStorage.getItem('global_search_history')).toBeNull();
+    });
+
+    it('saveCurrentQuery deduplicates case-insensitively', () => {
+      localStorage.setItem('global_search_history', JSON.stringify(['Redmine API', 'other']));
+
+      const ctx = {
+        hasResults: true,
+        hasInputTarget: true,
+        inputTarget: { value: 'redmine api' },
+        getSearchHistory: GlobalSearchController.prototype.getSearchHistory
+      };
+
+      GlobalSearchController.prototype.saveCurrentQuery.call(ctx);
+
+      const saved = JSON.parse(localStorage.getItem('global_search_history'));
+      expect(saved).toEqual(['redmine api', 'other']);
+    });
+
+    it('saveCurrentQuery prepends new term', () => {
+      localStorage.setItem('global_search_history', JSON.stringify(['old term']));
+
+      const ctx = {
+        hasResults: true,
+        hasInputTarget: true,
+        inputTarget: { value: 'new term' },
+        getSearchHistory: GlobalSearchController.prototype.getSearchHistory
+      };
+
+      GlobalSearchController.prototype.saveCurrentQuery.call(ctx);
+
+      const saved = JSON.parse(localStorage.getItem('global_search_history'));
+      expect(saved[0]).toBe('new term');
+      expect(saved[1]).toBe('old term');
+    });
+
+    it('saveCurrentQuery limits to MAX_HISTORY_ENTRIES', () => {
+      const existing = Array.from({ length: 20 }, (_, i) => `term ${i}`);
+      localStorage.setItem('global_search_history', JSON.stringify(existing));
+
+      const ctx = {
+        hasResults: true,
+        hasInputTarget: true,
+        inputTarget: { value: 'newest' },
+        getSearchHistory: GlobalSearchController.prototype.getSearchHistory
+      };
+
+      GlobalSearchController.prototype.saveCurrentQuery.call(ctx);
+
+      const saved = JSON.parse(localStorage.getItem('global_search_history'));
+      expect(saved.length).toBe(15);
+      expect(saved[0]).toBe('newest');
+    });
+
+    it('clearHistory removes localStorage and DOM section', () => {
+      localStorage.setItem('global_search_history', JSON.stringify(['test']));
+      document.body.innerHTML = `
+        <div id="results">
+          <div class="global-search-history-section">history</div>
+          <div>other</div>
+        </div>
+      `;
+
+      const ctx = {
+        resultsTarget: document.getElementById('results')
+      };
+
+      const event = { preventDefault: vi.fn() };
+      GlobalSearchController.prototype.clearHistory.call(ctx, event);
+
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(localStorage.getItem('global_search_history')).toBeNull();
+      expect(ctx.resultsTarget.querySelector('.global-search-history-section')).toBeNull();
+    });
+
+    it('renderHistorySection renders terms with data-search-term', () => {
+      const ctx = {
+        i18n: { recentSearches: 'Recently searched', clearAll: 'Clear all' },
+        escapeHtml: GlobalSearchController.prototype.escapeHtml
+      };
+
+      const html = GlobalSearchController.prototype.renderHistorySection.call(ctx, ['foo', 'bar']);
+
+      expect(html).toContain('data-search-term="foo"');
+      expect(html).toContain('data-search-term="bar"');
+      expect(html).toContain('Recently searched');
+      expect(html).toContain('Clear all');
+      expect(html).toContain('global-search-history-section');
+    });
+
+    it('renderInitialContent shows history and projects', () => {
+      document.body.innerHTML = `
+        <div id="results"></div>
+        <div id="hint"></div>
+      `;
+
+      localStorage.setItem('global_search_history', JSON.stringify(['test query']));
+
+      const ctx = {
+        hasResultsTarget: true,
+        resultsTarget: document.getElementById('results'),
+        hasHintTarget: true,
+        hintTarget: document.getElementById('hint'),
+        selectedIndex: 2,
+        i18n: {
+          hint: 'Type to search...',
+          recentSearches: 'Recently searched',
+          recentProjects: 'Recently used projects',
+          clearAll: 'Clear all'
+        },
+        escapeHtml: GlobalSearchController.prototype.escapeHtml,
+        highlightMatch: GlobalSearchController.prototype.highlightMatch,
+        renderItem: GlobalSearchController.prototype.renderItem,
+        renderHistorySection: GlobalSearchController.prototype.renderHistorySection,
+        getSearchHistory: GlobalSearchController.prototype.getSearchHistory,
+        showHint: GlobalSearchController.prototype.showHint,
+        hideHint: GlobalSearchController.prototype.hideHint
+      };
+
+      const data = {
+        keyword: [{ title: 'My Project', url: '/projects/my', type: 'Project' }]
+      };
+
+      GlobalSearchController.prototype.renderInitialContent.call(ctx, data);
+
+      const html = ctx.resultsTarget.innerHTML;
+      expect(html).toContain('global-search-history-section');
+      expect(html).toContain('test query');
+      expect(html).toContain('Recently used projects');
+      expect(html).toContain('My Project');
+    });
+
+    it('renderInitialContent shows hint when no history and no projects', () => {
+      document.body.innerHTML = `
+        <div id="results"></div>
+        <div id="hint" style="display:none"></div>
+      `;
+
+      const ctx = {
+        hasResultsTarget: true,
+        resultsTarget: document.getElementById('results'),
+        hasHintTarget: true,
+        hintTarget: document.getElementById('hint'),
+        selectedIndex: 0,
+        i18n: { hint: 'Type to search...', recentSearches: 'R', recentProjects: 'P', clearAll: 'C' },
+        getSearchHistory: () => [],
+        showHint: GlobalSearchController.prototype.showHint,
+        hideHint: GlobalSearchController.prototype.hideHint
+      };
+
+      GlobalSearchController.prototype.renderInitialContent.call(ctx, { keyword: [] });
+
+      expect(ctx.hintTarget.style.display).toBe('');
+      expect(ctx.hintTarget.textContent).toBe('Type to search...');
+    });
+
+    it('onHistoryTermClick fills input and performs search', () => {
+      document.body.innerHTML = `
+        <div id="results">
+          <a class="global-search-item" data-search-term="redmine api">
+            <span class="global-search-item-title">redmine api</span>
+          </a>
+        </div>
+      `;
+
+      const ctx = {
+        hasInputTarget: true,
+        inputTarget: { value: '' },
+        performSearch: vi.fn()
+      };
+
+      const item = document.querySelector('[data-search-term]');
+      const event = {
+        preventDefault: vi.fn(),
+        target: item.querySelector('.global-search-item-title')
+      };
+
+      GlobalSearchController.prototype.onHistoryTermClick.call(ctx, event);
+
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(ctx.inputTarget.value).toBe('redmine api');
+      expect(ctx.performSearch).toHaveBeenCalledWith('redmine api');
+    });
+  });
+
   describe('open with query', () => {
     let ctx;
 
@@ -678,6 +933,7 @@ describe('GlobalSearchController', () => {
         inputTarget: document.getElementById('search-input'),
         selectedIndex: 5,
         lastQuery: 'old',
+        hasResults: false,
         loadInitialContent: vi.fn(),
         performSearch: vi.fn()
       };

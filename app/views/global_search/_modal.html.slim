@@ -27,5 +27,6 @@
         input(type="radio" name="global-search-scope" value="always_global"
           data-action="change->global-search#onScopeChange")
         = l :label_global_search_always_global
-    .global-search-results#global-search-results(data-global-search-target="results")
-      p.global-search-hint = l :label_search
+    .global-search-results#global-search-results(data-global-search-target="results"
+      data-action="click->global-search#onResultClick")
+      p.global-search-hint(data-global-search-target="hint") = l :label_search

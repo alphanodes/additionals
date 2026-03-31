@@ -1,5 +1,8 @@
 import { Controller } from '@hotwired/stimulus';
 
+const MAX_HISTORY_ENTRIES = 15;
+const HISTORY_STORAGE_KEY = 'global_search_history';
+
 class GlobalSearchController extends Controller {
   static values = {
     url: String,
@@ -15,11 +18,15 @@ class GlobalSearchController extends Controller {
     this.debounceTimer = null;
     this.abortController = null;
     this.lastQuery = '';
+    this.hasResults = false;
 
     this.i18n = {
       noResults: this.element.dataset.noResults || 'No results',
       hint: this.element.dataset.hint || 'Type to search...',
-      loading: this.element.dataset.loading || 'Searching...'
+      loading: this.element.dataset.loading || 'Searching...',
+      recentSearches: this.element.dataset.recentSearches || 'Recently searched',
+      recentProjects: this.element.dataset.recentProjects || 'Recently used projects',
+      clearAll: this.element.dataset.clearAll || 'Clear all'
     };
 
     this.boundOnKeydown = this.onGlobalKeydown.bind(this);
@@ -41,6 +48,7 @@ class GlobalSearchController extends Controller {
     this.element.classList.add('active');
     this.selectedIndex = -1;
     this.lastQuery = '';
+    this.hasResults = false;
 
     if (this.hasInputTarget) {
       this.inputTarget.value = query || '';
@@ -55,6 +63,7 @@ class GlobalSearchController extends Controller {
   }
 
   close() {
+    this.saveCurrentQuery();
     this.element.classList.remove('active');
     this.cancelPending();
     this.selectedIndex = -1;
@@ -176,9 +185,10 @@ class GlobalSearchController extends Controller {
   async loadInitialContent() {
     this.cancelPending();
     this.selectedIndex = -1;
+    this.hasResults = false;
 
     if (this.initialData) {
-      this.renderResults(this.initialData, '');
+      this.renderInitialContent(this.initialData);
       return;
     }
 
@@ -204,12 +214,7 @@ class GlobalSearchController extends Controller {
 
       const data = await response.json();
       this.initialData = data;
-
-      if (Object.keys(data).length > 0) {
-        this.renderResults(data, '');
-      } else {
-        this.showHint(this.i18n.hint);
-      }
+      this.renderInitialContent(data);
     } catch (error) {
       if (error.name !== 'AbortError') {
         this.showHint(this.i18n.hint);
@@ -229,6 +234,7 @@ class GlobalSearchController extends Controller {
     const hasKeyword = keyword.length > 0;
     const hasSemantic = semantic && semantic.results && semantic.results.length > 0;
 
+    this.hasResults = hasKeyword || hasSemantic;
     this.hideHint();
     let html = '';
 
@@ -257,6 +263,54 @@ class GlobalSearchController extends Controller {
 
     this.resultsTarget.innerHTML = html;
     this.selectedIndex = -1;
+  }
+
+  renderInitialContent(data) {
+    if (!this.hasResultsTarget) {
+      return;
+    }
+
+    const history = this.getSearchHistory();
+    const projects = data.keyword || [];
+
+    if (history.length === 0 && projects.length === 0) {
+      this.showHint(this.i18n.hint);
+      return;
+    }
+
+    this.hideHint();
+    let html = '';
+
+    if (history.length > 0) {
+      html += this.renderHistorySection(history);
+    }
+
+    if (projects.length > 0) {
+      html += `<div class="global-search-section-header"><span>${this.escapeHtml(this.i18n.recentProjects)}</span></div>`;
+      for (const item of projects) {
+        html += this.renderItem(item, '');
+      }
+    }
+
+    this.resultsTarget.innerHTML = html;
+    this.selectedIndex = -1;
+  }
+
+  renderHistorySection(history) {
+    let html = '<div class="global-search-history-section">';
+    html += '<div class="global-search-section-header">';
+    html += `<span>${this.escapeHtml(this.i18n.recentSearches)}</span>`;
+    html += `<a href="#" class="global-search-clear-link" data-action="click->global-search#clearHistory">${this.escapeHtml(this.i18n.clearAll)}</a>`;
+    html += '</div>';
+
+    for (const term of history) {
+      html += `<a class="global-search-item global-search-history-item" data-search-term="${this.escapeHtml(term)}" data-action="click->global-search#onHistoryTermClick">`;
+      html += `<span class="global-search-item-title">${this.escapeHtml(term)}</span>`;
+      html += '</a>';
+    }
+
+    html += '</div>';
+    return html;
   }
 
   renderCoreSearchLink(query) {
@@ -308,6 +362,82 @@ class GlobalSearchController extends Controller {
     return escapedText.replace(regex, '<mark>$1</mark>');
   }
 
+  // -- Search history --
+
+  getSearchHistory() {
+    try {
+      const data = localStorage.getItem(HISTORY_STORAGE_KEY);
+      if (!data) {
+        return [];
+      }
+
+      const parsed = JSON.parse(data);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  }
+
+  saveCurrentQuery() {
+    if (!this.hasResults) {
+      return;
+    }
+
+    const query = this.hasInputTarget ? this.inputTarget.value.trim() : '';
+    if (query.length < 2) {
+      return;
+    }
+
+    const history = this.getSearchHistory();
+    const filtered = history.filter(term => term.toLowerCase() !== query.toLowerCase());
+    filtered.unshift(query);
+
+    try {
+      localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(filtered.slice(0, MAX_HISTORY_ENTRIES)));
+    } catch {
+      // localStorage full or unavailable
+    }
+  }
+
+  clearHistory(event) {
+    event.preventDefault();
+
+    try {
+      localStorage.removeItem(HISTORY_STORAGE_KEY);
+    } catch {
+      // localStorage unavailable
+    }
+
+    const section = this.resultsTarget.querySelector('.global-search-history-section');
+    if (section) {
+      section.remove();
+    }
+  }
+
+  onHistoryTermClick(event) {
+    event.preventDefault();
+
+    const item = event.target.closest('[data-search-term]');
+    if (!item) {
+      return;
+    }
+
+    const term = item.dataset.searchTerm;
+    if (this.hasInputTarget) {
+      this.inputTarget.value = term;
+    }
+    this.performSearch(term);
+  }
+
+  // -- Result click handling --
+
+  onResultClick(event) {
+    const item = event.target.closest('.global-search-item');
+    if (item && item.getAttribute('href')) {
+      this.saveCurrentQuery();
+    }
+  }
+
   // -- Selection navigation --
 
   get selectableItems() {
@@ -342,8 +472,21 @@ class GlobalSearchController extends Controller {
   openSelected() {
     const items = this.selectableItems;
     if (this.selectedIndex >= 0 && this.selectedIndex < items.length) {
-      const href = items[this.selectedIndex].getAttribute('href');
+      const selected = items[this.selectedIndex];
+
+      // Handle history term selection via Enter
+      const { searchTerm } = selected.dataset;
+      if (searchTerm) {
+        if (this.hasInputTarget) {
+          this.inputTarget.value = searchTerm;
+        }
+        this.performSearch(searchTerm);
+        return;
+      }
+
+      const href = selected.getAttribute('href');
       if (href) {
+        this.saveCurrentQuery();
         window.location.href = href;
       }
     }

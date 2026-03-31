@@ -254,8 +254,9 @@ class GlobalSearchController extends Controller {
     }
 
     if (hasSemantic) {
-      html += '<div class="global-search-section-header">'
-        + `<span>${this.escapeHtml(semantic.label)}</span></div>`;
+      const semanticIcon = this.element.dataset.semanticIcon || '';
+      html += '<div class="global-search-section-header global-search-semantic-header">'
+        + `<span>${semanticIcon} ${this.escapeHtml(semantic.label)}</span></div>`;
       for (const item of semantic.results) {
         html += this.renderItem(item, query);
       }

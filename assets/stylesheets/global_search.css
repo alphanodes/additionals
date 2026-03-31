@@ -232,6 +232,12 @@
   margin-top: 0;
 }
 
+.global-search-semantic-header span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
 .global-search-clear-link {
   font-weight: 400;
   color: var(--a-color-muted);

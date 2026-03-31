@@ -282,6 +282,8 @@ describe('GlobalSearchController', () => {
         selectedIndex: 2,
         i18n: { noResults: 'No results' },
         currentScope: 'project',
+        activeSearchType: null,
+        titlesOnlyActive: false,
         escapeHtml: GlobalSearchController.prototype.escapeHtml,
         highlightMatch: GlobalSearchController.prototype.highlightMatch,
         renderGroup: GlobalSearchController.prototype.renderGroup,
@@ -289,6 +291,7 @@ describe('GlobalSearchController', () => {
         renderCoreSearchLink: GlobalSearchController.prototype.renderCoreSearchLink,
         renderSearchTypeTabs: () => '',
         scopeSuffix: GlobalSearchController.prototype.scopeSuffix,
+        coreSearchScope: GlobalSearchController.prototype.coreSearchScope,
         showHint: GlobalSearchController.prototype.showHint,
         hideHint: GlobalSearchController.prototype.hideHint
       };
@@ -1177,6 +1180,7 @@ describe('GlobalSearchController', () => {
         hintTarget: document.getElementById('hint'),
         selectedIndex: 0,
         activeSearchType: 'issues',
+        titlesOnlyActive: false,
         i18n: { noResults: 'No results' },
         currentScope: 'global',
         escapeHtml: GlobalSearchController.prototype.escapeHtml,
@@ -1185,6 +1189,7 @@ describe('GlobalSearchController', () => {
         renderCoreSearchLink: GlobalSearchController.prototype.renderCoreSearchLink,
         renderSearchTypeTabs: () => '',
         scopeSuffix: GlobalSearchController.prototype.scopeSuffix,
+        coreSearchScope: GlobalSearchController.prototype.coreSearchScope,
         showHint: GlobalSearchController.prototype.showHint,
         hideHint: GlobalSearchController.prototype.hideHint
       };
@@ -1206,6 +1211,7 @@ describe('GlobalSearchController', () => {
         hintTarget: document.getElementById('hint'),
         selectedIndex: 0,
         activeSearchType: null,
+        titlesOnlyActive: false,
         i18n: { noResults: 'No results' },
         currentScope: 'global',
         escapeHtml: GlobalSearchController.prototype.escapeHtml,
@@ -1214,6 +1220,7 @@ describe('GlobalSearchController', () => {
         renderCoreSearchLink: GlobalSearchController.prototype.renderCoreSearchLink,
         renderSearchTypeTabs: () => '',
         scopeSuffix: GlobalSearchController.prototype.scopeSuffix,
+        coreSearchScope: GlobalSearchController.prototype.coreSearchScope,
         showHint: GlobalSearchController.prototype.showHint,
         hideHint: GlobalSearchController.prototype.hideHint
       };

@@ -357,7 +357,18 @@ class GlobalSearchController extends Controller {
     } else if (suffix) {
       scopeText = ` ${this.escapeHtml(suffix)}`;
     }
-    const url = `${this.escapeHtml(coreUrl)}?q=${encodeURIComponent(query)}`;
+    const params = new URLSearchParams({ q: query });
+    const coreScope = this.coreSearchScope();
+    if (coreScope) {
+      params.set('scope', coreScope);
+    }
+    if (this.titlesOnlyActive) {
+      params.set('titles_only', '1');
+    }
+    if (this.activeSearchType) {
+      params.set(this.activeSearchType, '1');
+    }
+    const url = `${this.escapeHtml(coreUrl)}?${params}`;
 
     return '<div class="global-search-core-link">'
       + `<a href="${url}" class="global-search-item">`
@@ -618,6 +629,16 @@ class GlobalSearchController extends Controller {
 
   effectiveSearchScope() {
     const scopeMap = {
+      bookmarks: 'bookmarks',
+      always_bookmarks: 'bookmarks'
+    };
+    return scopeMap[this.currentScope] || null;
+  }
+
+  coreSearchScope() {
+    const scopeMap = {
+      global: 'all',
+      always_global: 'all',
       bookmarks: 'bookmarks',
       always_bookmarks: 'bookmarks'
     };

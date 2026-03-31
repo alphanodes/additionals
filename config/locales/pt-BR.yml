@@ -111,6 +111,7 @@ pt-BR:
   label_global_search_clear_all: "Limpar tudo"
   label_global_search_in_all_projects: "em todos os projetos"
   label_global_search_in_my_bookmarks: "nos meus projetos favoritos"
+  label_global_search_in_titles: "nos títulos"
   label_global_search_placeholder: "Digite para pesquisar..."
   label_global_search_recent_projects: "Projetos usados recentemente"
   label_global_search_recent_searches: "Pesquisas recentes"

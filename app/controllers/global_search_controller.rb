@@ -17,6 +17,7 @@ class GlobalSearchController < ApplicationController
                                   project: project,
                                   scope: params[:scope],
                                   types: params[:types],
+                                  titles_only: params[:titles_only].present?,
                                   limit: params[:limit]&.to_i || 10
 
     render json: results

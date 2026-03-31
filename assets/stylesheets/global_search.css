@@ -142,8 +142,14 @@
   cursor: pointer;
 }
 
-.global-search-scope-option input[type='radio'] {
+.global-search-scope-option input[type='radio'],
+.global-search-scope-option input[type='checkbox'] {
   margin: 0;
+}
+
+.global-search-scope-divider {
+  border-top: 1px solid var(--a-color-border-light);
+  margin: 4px 0;
 }
 
 /* Scrollable results area */

@@ -10,7 +10,7 @@ class GlobalSearchController extends Controller {
     projectName: String
   };
 
-  static targets = ['input', 'results', 'hint', 'scopePanel', 'clearButton'];
+  static targets = ['input', 'results', 'hint', 'scopePanel', 'clearButton', 'titlesOnly'];
 
   connect() {
     this.selectedIndex = -1;
@@ -30,7 +30,9 @@ class GlobalSearchController extends Controller {
 
     this.defaultPlaceholder = this.hasInputTarget ? this.inputTarget.placeholder : '';
     this.activeSearchType = null;
+    this.titlesOnlyActive = false;
     this.initScope();
+    this.initTitlesOnly();
 
     this.boundOnKeydown = this.onGlobalKeydown.bind(this);
     this.boundInterceptSearch = this.interceptQuickSearch.bind(this);
@@ -167,6 +169,10 @@ class GlobalSearchController extends Controller {
 
     if (this.activeSearchType) {
       params.set('types[]', this.activeSearchType);
+    }
+
+    if (this.titlesOnlyActive) {
+      params.set('titles_only', '1');
     }
 
     const url = `${this.urlValue}?${params}`;
@@ -339,8 +345,18 @@ class GlobalSearchController extends Controller {
 
     const safeQuery = this.escapeHtml(query);
     const searchLabel = this.element.dataset.searchLabel || 'Search';
+    const titlesPrefix = this.titlesOnlyActive
+      ? (this.element.dataset.titlesOnlyPrefix || 'in titles')
+      : null;
     const suffix = this.scopeSuffix();
-    const scopeText = suffix ? ` ${this.escapeHtml(suffix)}` : '';
+    let scopeText = '';
+    if (titlesPrefix && suffix) {
+      scopeText = ` ${this.escapeHtml(titlesPrefix)} ${this.escapeHtml(suffix)}`;
+    } else if (titlesPrefix) {
+      scopeText = ` ${this.escapeHtml(titlesPrefix)}`;
+    } else if (suffix) {
+      scopeText = ` ${this.escapeHtml(suffix)}`;
+    }
     const url = `${this.escapeHtml(coreUrl)}?q=${encodeURIComponent(query)}`;
 
     return '<div class="global-search-core-link">'
@@ -625,9 +641,16 @@ class GlobalSearchController extends Controller {
     }
 
     const suffix = this.scopeSuffix();
+    const titlesPrefix = this.titlesOnlyActive
+      ? (this.element.dataset.titlesOnlyPrefix || 'in titles')
+      : null;
     const searchLabel = this.element.dataset.searchLabel || 'Search';
 
-    if (suffix) {
+    if (titlesPrefix && suffix) {
+      this.inputTarget.placeholder = `${searchLabel} ${titlesPrefix} ${suffix}...`;
+    } else if (titlesPrefix) {
+      this.inputTarget.placeholder = `${searchLabel} ${titlesPrefix}...`;
+    } else if (suffix) {
       this.inputTarget.placeholder = `${searchLabel} ${suffix}...`;
     } else {
       this.inputTarget.placeholder = this.defaultPlaceholder;
@@ -638,6 +661,24 @@ class GlobalSearchController extends Controller {
     const radios = this.element.querySelectorAll('input[name="global-search-scope"]');
     for (const radio of radios) {
       radio.checked = radio.value === this.currentScope;
+    }
+  }
+
+  // -- Titles only --
+
+  initTitlesOnly() {
+    if (this.hasTitlesOnlyTarget) {
+      this.titlesOnlyTarget.checked = this.titlesOnlyActive;
+    }
+  }
+
+  onTitlesOnlyChange(event) {
+    this.titlesOnlyActive = event.target.checked;
+    this.scopePanelTarget.style.display = 'none';
+    this.updatePlaceholder();
+
+    if (this.hasInputTarget && this.inputTarget.value.trim().length >= 2) {
+      this.performSearch(this.inputTarget.value.trim());
     }
   }
 

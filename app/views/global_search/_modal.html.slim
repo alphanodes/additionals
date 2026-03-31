@@ -39,6 +39,12 @@
         input(type="radio" name="global-search-scope" value="always_global"
           data-action="change->global-search#onScopeChange")
         = l :label_global_search_always_global
+      .global-search-scope-divider
+      label.global-search-scope-option
+        input(type="checkbox" name="global-search-titles-only"
+          data-global-search-target="titlesOnly"
+          data-action="change->global-search#onTitlesOnlyChange")
+        = l :label_search_titles_only
     .global-search-results#global-search-results(data-global-search-target="results"
       data-action="click->global-search#onResultClick")
       p.global-search-hint(data-global-search-target="hint") = l :label_search

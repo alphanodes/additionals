@@ -111,6 +111,7 @@ zh:
   label_global_search_clear_all: "全部清除"
   label_global_search_in_all_projects: "在所有项目中"
   label_global_search_in_my_bookmarks: "在我的书签项目中"
+  label_global_search_in_titles: "在标题中"
   label_global_search_placeholder: "输入以搜索..."
   label_global_search_recent_projects: "最近使用的项目"
   label_global_search_recent_searches: "最近搜索"

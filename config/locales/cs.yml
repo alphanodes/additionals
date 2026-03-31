@@ -111,6 +111,7 @@ cs:
   label_global_search_clear_all: "Vymazat vše"
   label_global_search_in_all_projects: "ve všech projektech"
   label_global_search_in_my_bookmarks: "v mých projektech ze záložek"
+  label_global_search_in_titles: "v názvech"
   label_global_search_placeholder: "Zadejte pro vyhledavani..."
   label_global_search_recent_projects: "Nedávno použité projekty"
   label_global_search_recent_searches: "Nedávno hledané"

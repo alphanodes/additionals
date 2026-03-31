@@ -15,6 +15,7 @@ module AdditionalsGlobalSearchHelper
       'clear-all': l(:label_global_search_clear_all),
       'scope-all': l(:label_global_search_in_all_projects),
       'scope-bookmarks': l(:label_global_search_in_my_bookmarks),
+      'titles-only-prefix': l(:label_global_search_in_titles),
       'tab-all': l(:label_all).capitalize,
       'search-types': global_search_types.to_json,
       'search-types-project': (@project ? global_search_types(project: @project) : nil)&.to_json,

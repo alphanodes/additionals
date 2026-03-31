@@ -40,6 +40,7 @@
 
 .global-search-input {
   width: 100%;
+  height: auto;
   border: none;
   outline: none;
   background: transparent url('../images/search.svg') no-repeat 16px 50%;

@@ -482,6 +482,7 @@ class GlobalSearchController extends Controller {
   onResultClick(event) {
     const item = event.target.closest('.global-search-item');
     if (item && item.getAttribute('href')) {
+      item.classList.add('selected');
       this.saveCurrentQuery();
     }
   }

@@ -226,7 +226,8 @@
 }
 
 .global-search-item:hover,
-.global-search-item.active {
+.global-search-item.active,
+.global-search-item.selected {
   background: var(--a-color-bg-light);
   text-decoration: none;
   color: var(--a-color-dark);

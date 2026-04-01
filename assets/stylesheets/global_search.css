@@ -293,6 +293,10 @@
   margin-top: 0;
 }
 
+.global-search-semantic-header {
+  color: var(--a-color-dark);
+}
+
 .global-search-semantic-header span {
   display: flex;
   align-items: center;

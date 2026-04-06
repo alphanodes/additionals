@@ -1363,6 +1363,82 @@ describe('GlobalSearchController', () => {
     });
   });
 
+  describe('performSearch error handling', () => {
+    let ctx;
+
+    beforeEach(() => {
+      document.body.innerHTML = `
+        <div id="overlay" data-global-search-url-value="/global_search/search">
+          <input id="search-input" type="text" />
+          <div id="results"></div>
+          <div id="hint"></div>
+        </div>
+      `;
+
+      ctx = {
+        element: document.getElementById('overlay'),
+        urlValue: '/global_search/search',
+        hasInputTarget: true,
+        inputTarget: document.getElementById('search-input'),
+        hasResultsTarget: true,
+        resultsTarget: document.getElementById('results'),
+        hasHintTarget: true,
+        hintTarget: document.getElementById('hint'),
+        lastQuery: '',
+        abortController: null,
+        activeSearchType: null,
+        titlesOnlyActive: false,
+        currentScope: 'global',
+        i18n: { noResults: 'No results', loading: 'Loading...' },
+        cancelPending: GlobalSearchController.prototype.cancelPending,
+        setLoading: GlobalSearchController.prototype.setLoading,
+        showHint: GlobalSearchController.prototype.showHint,
+        hideHint: GlobalSearchController.prototype.hideHint,
+        renderResults: vi.fn(),
+        effectiveProjectId: () => null,
+        effectiveSearchScope: () => null,
+        debounceTimer: null
+      };
+    });
+
+    it('clears loading state when response is not ok', async () => {
+      vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: false, status: 500 }));
+      vi.stubGlobal('AdditionalsHelpers', { csrfToken: () => 'token' });
+
+      await GlobalSearchController.prototype.performSearch.call(ctx, 'test query');
+
+      expect(ctx.inputTarget.classList.contains('ajax-loading')).toBe(false);
+      expect(ctx.hintTarget.textContent).toBe('No results');
+
+      vi.unstubAllGlobals();
+    });
+
+    it('clears loading state on network error', async () => {
+      vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new TypeError('Failed to fetch')));
+      vi.stubGlobal('AdditionalsHelpers', { csrfToken: () => 'token' });
+
+      await GlobalSearchController.prototype.performSearch.call(ctx, 'test query');
+
+      expect(ctx.inputTarget.classList.contains('ajax-loading')).toBe(false);
+      expect(ctx.hintTarget.textContent).toBe('No results');
+
+      vi.unstubAllGlobals();
+    });
+
+    it('does not show error hint on abort', async () => {
+      const abortError = new DOMException('The operation was aborted.', 'AbortError');
+      vi.stubGlobal('fetch', vi.fn().mockRejectedValue(abortError));
+      vi.stubGlobal('AdditionalsHelpers', { csrfToken: () => 'token' });
+
+      await GlobalSearchController.prototype.performSearch.call(ctx, 'test query');
+
+      expect(ctx.inputTarget.classList.contains('ajax-loading')).toBe(false);
+      expect(ctx.hintTarget.textContent).not.toBe('No results');
+
+      vi.unstubAllGlobals();
+    });
+  });
+
   describe('titles only', () => {
     it('onTitlesOnlyChange toggles flag and hides panel', () => {
       const ctx = {

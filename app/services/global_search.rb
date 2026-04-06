@@ -53,7 +53,12 @@ module GlobalSearch
       return [] if fetcher.tokens.blank?
 
       results = fetcher.results 0, limit
-      results.map { |record| format_record record }
+      results.filter_map do |record|
+        format_record record
+      rescue StandardError => e
+        Rails.logger.warn "GlobalSearch: Failed to format record #{record.class}##{record.id}: #{e.message}"
+        nil
+      end
     end
 
     def provider_search(query, user:, project: nil, limit: 5)
@@ -66,6 +71,8 @@ module GlobalSearch
 
         results[:label] ||= I18n.t provider.label
         results[:results].concat hits
+      rescue StandardError => e
+        Rails.logger.warn "GlobalSearch: Provider #{provider.name} failed: #{e.message}"
       end
       results[:results].present? ? results : nil
     end

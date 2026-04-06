@@ -188,6 +188,7 @@ class GlobalSearchController extends Controller {
       });
 
       if (!response.ok) {
+        this.setLoading(false);
         this.showHint(this.i18n.noResults);
         return;
       }

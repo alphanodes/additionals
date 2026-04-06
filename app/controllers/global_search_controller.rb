@@ -21,6 +21,9 @@ class GlobalSearchController < ApplicationController
                                   limit: params[:limit]&.to_i || 10
 
     render json: results
+  rescue StandardError => e
+    Rails.logger.error "GlobalSearch error: #{e.message}\n#{e.backtrace&.first(5)&.join "\n"}"
+    render json: { error: e.message }, status: :internal_server_error
   end
 
   private

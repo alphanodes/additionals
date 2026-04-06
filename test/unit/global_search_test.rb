@@ -87,6 +87,54 @@ class GlobalSearchTest < Additionals::TestCase
     GlobalSearch.providers.replace original_providers
   end
 
+  def test_search_result_entries_have_required_keys
+    result = GlobalSearch.search 'Cannot print recipes', user: User.current, types: ['issues']
+
+    assert_kind_of Hash, result
+    assert_kind_of Array, result[:keyword]
+    assert result[:keyword].any?, 'Should return results'
+
+    result[:keyword].each do |entry|
+      assert entry.key?(:title), 'Each result should have :title'
+      assert entry.key?(:url), 'Each result should have :url'
+      assert entry.key?(:type), 'Each result should have :type'
+    end
+  end
+
+  def test_format_record_works_for_issue
+    record = issues :issues_001
+    result = GlobalSearch.send :format_record, record
+
+    assert_kind_of Hash, result
+    assert result[:title].present?
+    assert result[:url].present?
+    assert result[:type].present?
+  end
+
+  def test_search_returns_results_when_provider_raises
+    error_provider = Class.new do
+      def self.search(*)
+        raise StandardError, 'Provider exploded'
+      end
+
+      def self.label = 'label_error'
+
+      def self.permission = nil
+    end
+
+    original_providers = GlobalSearch.providers.dup
+    GlobalSearch.register error_provider
+
+    result = GlobalSearch.search 'Cannot print recipes', user: User.current
+
+    assert_kind_of Hash, result
+    assert_kind_of Array, result[:keyword]
+    # keyword search should still work even if provider search fails
+    assert result[:keyword].any?, 'Keyword results should be present despite provider error'
+  ensure
+    GlobalSearch.providers.replace original_providers
+  end
+
   def test_resolve_projects_returns_nil_for_global
     result = GlobalSearch.search 'Cannot print recipes', user: User.current
 

@@ -111,9 +111,7 @@ module Additionals
       name = "idx_#{table}_#{column}_trgm"
       return if conn.index_exists? table, name: name
 
-      quoted_table = conn.quote_table_name table
-      quoted_column = conn.quote_column_name column
-      conn.execute "CREATE INDEX #{name} ON #{quoted_table} USING gin (#{quoted_column} gin_trgm_ops)"
+      conn.add_index table, column, using: :gin, opclass: :gin_trgm_ops, name: name
     end
 
     # Remove a GIN trigram index if it exists.

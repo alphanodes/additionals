@@ -92,6 +92,33 @@ module Additionals
       end
     end
 
+    # Check if PostgreSQL with pg_trgm extension is available.
+    # Safe to call on MySQL (returns false).
+    def postgresql_with_pg_trgm?
+      return false unless ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'
+
+      ActiveRecord::Base.connection.execute(
+        "SELECT 1 FROM pg_extension WHERE extname = 'pg_trgm'"
+      ).any?
+    rescue StandardError
+      false
+    end
+
+    # Create a GIN trigram index for fast ILIKE searches.
+    # No-op if index already exists.
+    def add_trgm_index(table, column)
+      name = "idx_#{table}_#{column}_trgm"
+      return if ActiveRecord::Base.connection.index_exists? table, name: name
+
+      ActiveRecord::Base.connection.execute "CREATE INDEX #{name} ON #{table} USING gin (#{column} gin_trgm_ops)"
+    end
+
+    # Remove a GIN trigram index if it exists.
+    def remove_trgm_index(table, column)
+      name = "idx_#{table}_#{column}_trgm"
+      ActiveRecord::Base.connection.remove_index table, name: name if ActiveRecord::Base.connection.index_exists? table, name: name
+    end
+
     def debug(message = 'running', console: false)
       if console
         RedminePluginKit::Debug.msg message

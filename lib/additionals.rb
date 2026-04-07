@@ -107,16 +107,20 @@ module Additionals
     # Create a GIN trigram index for fast ILIKE searches.
     # No-op if index already exists.
     def add_trgm_index(table, column)
+      conn = ActiveRecord::Base.connection
       name = "idx_#{table}_#{column}_trgm"
-      return if ActiveRecord::Base.connection.index_exists? table, name: name
+      return if conn.index_exists? table, name: name
 
-      ActiveRecord::Base.connection.execute "CREATE INDEX #{name} ON #{table} USING gin (#{column} gin_trgm_ops)"
+      quoted_table = conn.quote_table_name table
+      quoted_column = conn.quote_column_name column
+      conn.execute "CREATE INDEX #{name} ON #{quoted_table} USING gin (#{quoted_column} gin_trgm_ops)"
     end
 
     # Remove a GIN trigram index if it exists.
     def remove_trgm_index(table, column)
+      conn = ActiveRecord::Base.connection
       name = "idx_#{table}_#{column}_trgm"
-      ActiveRecord::Base.connection.remove_index table, name: name if ActiveRecord::Base.connection.index_exists? table, name: name
+      conn.remove_index table, name: name if conn.index_exists? table, name: name
     end
 
     def debug(message = 'running', console: false)

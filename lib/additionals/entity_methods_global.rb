@@ -86,11 +86,11 @@ module Additionals
                 else
                   connection.quote_column_name column
                 end
-          sql << "LOWER(#{col}) LIKE LOWER(:p) ESCAPE :s"
+          sql << Redmine::Database.like(col, ':p')
         end
 
         sql_string = sql.join ' OR '
-        where sql_string, p: like_pattern(value, wildcard), s: '\\'
+        where sql_string, p: like_pattern(value, wildcard)
       end
     end
 

@@ -104,21 +104,48 @@ module Additionals
       false
     end
 
-    # Create a GIN trigram index for fast ILIKE searches.
-    # No-op if index already exists.
+    # Create a GIN trigram expression index using f_unaccent() for fast ILIKE searches.
+    # Requires f_unaccent() IMMUTABLE wrapper function.
+    # No-op if f_unaccent() is not available or index already exists.
     def add_trgm_index(table, column)
-      conn = ActiveRecord::Base.connection
-      name = "idx_#{table}_#{column}_trgm"
-      return if conn.index_exists? table, column, name: name
+      return unless postgresql_f_unaccent?
 
-      conn.add_index table, column, using: :gin, opclass: :gin_trgm_ops, name: name
+      conn = ActiveRecord::Base.connection
+      name = trgm_index_name table, column
+      return if trgm_index_exists? conn, name
+
+      quoted_table = conn.quote_table_name table
+      quoted_column = conn.quote_column_name column
+      conn.execute "CREATE INDEX #{name} ON #{quoted_table} USING gin (f_unaccent(#{quoted_column}) gin_trgm_ops)"
     end
 
     # Remove a GIN trigram index if it exists.
+    # Safe to call on MySQL (no-op).
     def remove_trgm_index(table, column)
+      return unless ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'
+
       conn = ActiveRecord::Base.connection
-      name = "idx_#{table}_#{column}_trgm"
-      conn.remove_index table, name: name if conn.index_exists? table, column, name: name
+      name = trgm_index_name table, column
+      conn.execute "DROP INDEX IF EXISTS #{name}" if trgm_index_exists? conn, name
+    end
+
+    def trgm_index_name(table, column)
+      "idx_#{table}_#{column}_trgm"
+    end
+
+    def trgm_index_exists?(conn, name)
+      conn.select_value("SELECT 1 FROM pg_indexes WHERE indexname = '#{name}'").present?
+    end
+
+    # Check if f_unaccent() IMMUTABLE wrapper function is available
+    def postgresql_f_unaccent?
+      return false unless ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'
+
+      ActiveRecord::Base.connection.select_value(
+        "SELECT 1 FROM pg_proc WHERE proname = 'f_unaccent'"
+      ).present?
+    rescue StandardError
+      false
     end
 
     def debug(message = 'running', console: false)

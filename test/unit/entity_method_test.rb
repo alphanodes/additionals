@@ -56,4 +56,42 @@ class EntityMethodTest < Additionals::TestCase
   def test_like_with_wildcard_with_empty_value
     assert_empty Wiki.like_with_wildcard(columns: :start_page, value: '')
   end
+
+  def test_like_with_wildcard_finds_exact_match
+    wikis = Wiki.like_with_wildcard columns: :start_page, value: 'Wiki', wildcard: :none
+
+    assert_includes wikis.map(&:start_page), 'Wiki'
+  end
+
+  def test_like_with_wildcard_with_both_wildcard
+    wikis = Wiki.like_with_wildcard columns: :start_page, value: 'ik', wildcard: :both
+
+    assert_includes wikis.map(&:start_page), 'Wiki'
+  end
+
+  def test_like_with_wildcard_case_insensitive
+    wikis = Wiki.like_with_wildcard columns: :start_page, value: 'wiki', wildcard: :none
+
+    assert_includes wikis.map(&:start_page), 'Wiki'
+  end
+
+  def test_like_with_wildcard_with_right_wildcard
+    wikis = Wiki.like_with_wildcard columns: :start_page, value: 'Wi', wildcard: :right
+
+    assert_includes wikis.map(&:start_page), 'Wiki'
+  end
+
+  def test_like_with_wildcard_with_table_qualified_column
+    wikis = Wiki.like_with_wildcard columns: 'wikis.start_page', value: 'Wiki', wildcard: :none
+
+    assert_includes wikis.map(&:start_page), 'Wiki'
+  end
+
+  def test_like_with_wildcard_with_multiple_columns
+    issues = Issue.like_with_wildcard columns: %w[issues.subject issues.description],
+                                      value: 'recipe',
+                                      wildcard: :both
+
+    assert_not_empty issues
+  end
 end

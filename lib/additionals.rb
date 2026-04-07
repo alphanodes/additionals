@@ -109,7 +109,7 @@ module Additionals
     def add_trgm_index(table, column)
       conn = ActiveRecord::Base.connection
       name = "idx_#{table}_#{column}_trgm"
-      return if conn.index_exists? table, name: name
+      return if conn.index_exists? table, column, name: name
 
       conn.add_index table, column, using: :gin, opclass: :gin_trgm_ops, name: name
     end
@@ -118,7 +118,7 @@ module Additionals
     def remove_trgm_index(table, column)
       conn = ActiveRecord::Base.connection
       name = "idx_#{table}_#{column}_trgm"
-      conn.remove_index table, name: name if conn.index_exists? table, name: name
+      conn.remove_index table, name: name if conn.index_exists? table, column, name: name
     end
 
     def debug(message = 'running', console: false)

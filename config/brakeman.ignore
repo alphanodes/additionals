@@ -1,0 +1,10 @@
+{
+  "ignored_warnings": [
+    {
+      "fingerprint": "11692c14a109b57c54d3a441b1d6a56407906b58469c9fc5e1b1f86f33dfc099",
+      "note": "column is from hardcoded model definitions via Redmine::Database.like, not user input"
+    }
+  ],
+  "updated": "2026-04-07",
+  "brakeman_version": "8.0.4"
+}

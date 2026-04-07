@@ -88,10 +88,10 @@ class EntityMethodTest < Additionals::TestCase
   end
 
   def test_like_with_wildcard_with_multiple_columns
-    issues = Issue.like_with_wildcard columns: %w[issues.subject issues.description],
-                                      value: 'recipe',
-                                      wildcard: :both
+    dashboards = Dashboard.like_with_wildcard columns: %w[dashboards.name dashboards.description],
+                                              value: 'welcome',
+                                              wildcard: :both
 
-    assert_not_empty issues
+    assert_not_empty dashboards
   end
 end

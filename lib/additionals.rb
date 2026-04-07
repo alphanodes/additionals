@@ -104,6 +104,19 @@ module Additionals
       false
     end
 
+    # Build a WHERE condition for case/accent-insensitive LIKE search.
+    # Returns [sql_string, *bind_values] suitable for ActiveRecord .where(*).
+    # Avoids string interpolation in where() which triggers Brakeman warnings.
+    #
+    # Usage:
+    #   scope.where *Additionals.like_condition(columns: %w[issues.subject issues.description], value: "%term%")
+    #   scope.where *Additionals.like_condition(columns: 'contacts.email', value: "%#{email}%")
+    def like_condition(columns:, value:)
+      cols = Array columns
+      sql = cols.map { |col| Redmine::Database.like col, '?' }.join ' OR '
+      [sql, *([value] * cols.size)]
+    end
+
     # Create a GIN trigram expression index using f_unaccent() for fast ILIKE searches.
     # Requires f_unaccent() IMMUTABLE wrapper function.
     # No-op if f_unaccent() is not available or index already exists.
@@ -114,9 +127,9 @@ module Additionals
       name = trgm_index_name table, column
       return if trgm_index_exists? conn, name
 
-      quoted_table = conn.quote_table_name table
-      quoted_column = conn.quote_column_name column
-      conn.execute "CREATE INDEX #{name} ON #{quoted_table} USING gin (f_unaccent(#{quoted_column}) gin_trgm_ops)"
+      trgm_execute_ddl conn,
+                       'CREATE INDEX %<name>s ON %<table>s USING gin (f_unaccent(%<column>s) gin_trgm_ops)',
+                       table, column, name
     end
 
     # Remove a GIN trigram index if it exists.
@@ -126,11 +139,20 @@ module Additionals
 
       conn = ActiveRecord::Base.connection
       name = trgm_index_name table, column
-      conn.execute "DROP INDEX IF EXISTS #{name}" if trgm_index_exists? conn, name
+      return unless trgm_index_exists? conn, name
+
+      trgm_execute_ddl conn, 'DROP INDEX IF EXISTS %<name>s', table, column, name
     end
 
     def trgm_index_name(table, column)
       "idx_#{table}_#{column}_trgm"
+    end
+
+    def trgm_execute_ddl(conn, template, table, column, name)
+      conn.execute format(template,
+                          name: name,
+                          table: conn.quote_table_name(table),
+                          column: conn.quote_column_name(column))
     end
 
     def trgm_index_exists?(conn, name)

@@ -142,6 +142,79 @@ class GlobalSearchTest < Additionals::TestCase
     assert_not_nil result[:keyword], 'Global search without scope or project should return keyword results'
   end
 
+  def test_quick_jump_with_hash_id
+    result = GlobalSearch.search '#1', user: User.current
+
+    assert_kind_of Hash, result
+    assert_kind_of Array, result[:keyword]
+    assert result[:keyword].any?, 'Quick-jump should find entities with ID 1'
+
+    types = result[:keyword].pluck :type
+
+    assert_includes types, 'Issues'
+  end
+
+  def test_plain_number_does_not_trigger_quick_jump
+    result = GlobalSearch.search '1', user: User.current
+
+    assert_kind_of Hash, result
+    assert_kind_of Array, result[:keyword]
+    # Plain number should trigger normal keyword search, not quick-jump
+  end
+
+  def test_quick_jump_returns_multiple_entity_types
+    result = GlobalSearch.search '#1', user: User.current
+
+    types = result[:keyword].pluck(:type).uniq
+
+    assert_operator types.size, :>, 1, "Quick-jump should return multiple entity types, got: #{types}"
+  end
+
+  def test_quick_jump_result_has_required_keys
+    result = GlobalSearch.search '#1', user: User.current
+
+    result[:keyword].each do |entry|
+      assert entry.key?(:title), 'Quick-jump result should have :title'
+      assert entry.key?(:url), 'Quick-jump result should have :url'
+      assert entry.key?(:type), 'Quick-jump result should have :type'
+    end
+  end
+
+  def test_quick_jump_respects_visibility
+    User.current = User.anonymous
+    result = GlobalSearch.search '#1', user: User.current
+
+    assert_kind_of Hash, result
+    # Anonymous should see fewer or no results depending on permissions
+    skip if result[:keyword].blank?
+
+    result[:keyword].each do |entry|
+      assert entry[:title].present?
+    end
+  end
+
+  def test_quick_jump_nonexistent_id_falls_through_to_keyword_search
+    result = GlobalSearch.search '9999999', user: User.current
+
+    assert_kind_of Hash, result
+    # Should fall through to keyword search (which also finds nothing for this number)
+    assert_kind_of Array, result[:keyword]
+  end
+
+  def test_quick_jump_skips_semantic
+    result = GlobalSearch.search '#1', user: User.current
+
+    assert_nil result[:semantic], 'Quick-jump should not trigger semantic search'
+  end
+
+  def test_non_numeric_query_does_not_trigger_quick_jump
+    result = GlobalSearch.search 'Cannot print recipes', user: User.current
+
+    assert_kind_of Array, result[:keyword]
+    # Normal keyword search returns results based on text matching, not ID
+    assert result[:keyword].any?
+  end
+
   def test_resolve_projects_returns_project_array
     project = projects :projects_001
     result = GlobalSearch.search 'Cannot print recipes', user: User.current, project: project

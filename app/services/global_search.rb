@@ -20,6 +20,11 @@ module GlobalSearch
     end
 
     def search(query, user:, project: nil, scope: nil, types: nil, titles_only: false, limit: 10)
+      # Quick-jump: direct ID lookup
+      if (jump = quick_jump query, user: user, types: types)
+        return { keyword: jump, semantic: nil }
+      end
+
       projects = resolve_projects scope, user, project
       keyword = keyword_search query, user: user, projects: projects, types: types, titles_only: titles_only, limit: limit
       semantic = provider_search query, user: user, project: project, limit: 5
@@ -35,6 +40,29 @@ module GlobalSearch
     end
 
     private
+
+    def quick_jump(query, user:, types: nil)
+      return unless (m = query.match(/^#(\d+)$/))
+
+      id = m[1].to_i
+      results = []
+      searchable_classes(types: types).each do |klass|
+        record = klass.visible(user).find_by id: id
+        next unless record
+
+        results << format_record(record)
+      rescue StandardError
+        next
+      end
+      results.presence
+    end
+
+    def searchable_classes(types: nil)
+      search_types = types.present? ? Array(types) & Redmine::Search.available_search_types : Redmine::Search.available_search_types
+      search_types.filter_map do |type|
+        type.singularize.classify.safe_constantize
+      end
+    end
 
     def resolve_projects(scope, user, project)
       case scope

@@ -195,6 +195,14 @@ class GlobalSearchController extends Controller {
 
       const data = await response.json();
       this.setLoading(false);
+
+      // Quick-jump: if query is #ID and exactly one result, navigate directly
+      if (/^#\d+$/.test(query) && data.keyword && data.keyword.length === 1 && !data.semantic) {
+        this.saveCurrentQuery();
+        window.location.href = data.keyword[0].url;
+        return;
+      }
+
       this.renderResults(data, query);
     } catch (error) {
       this.setLoading(false);
@@ -555,7 +563,7 @@ class GlobalSearchController extends Controller {
     if (searchInput) {
       searchInput.addEventListener('focus', this.boundInterceptSearch);
 
-      const isMac = navigator.platform.indexOf('Mac') > -1;
+      const isMac = navigator.userAgentData?.platform === 'macOS' || /Mac/.test(navigator.userAgent);
       const shortcut = isMac ? '\u2318K' : 'Ctrl+K';
       const searchLabel = this.element.dataset.searchLabel || 'Search';
       searchInput.setAttribute('placeholder', `${searchLabel} ${shortcut}`);

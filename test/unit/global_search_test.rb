@@ -215,6 +215,17 @@ class GlobalSearchTest < Additionals::TestCase
     assert result[:keyword].any?
   end
 
+  def test_search_respects_disabled_modules
+    with_plugin_settings 'additionals', disabled_modules: %i[news] do
+      result = GlobalSearch.search '#1', user: User.current
+
+      types = result[:keyword].pluck :type
+
+      assert_not_includes types, 'News'
+      assert_includes types, 'Issues'
+    end
+  end
+
   def test_resolve_projects_returns_project_array
     project = projects :projects_001
     result = GlobalSearch.search 'Cannot print recipes', user: User.current, project: project

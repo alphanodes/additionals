@@ -222,6 +222,9 @@ module Additionals
       loader.add_patch [{ target: Redmine::Views::LabelledFormBuilder, patch: 'LabelledFormBuilder' },
                         { target: WatchersHelper, patch: 'WatchersHelper' }]
 
+      # Filter search types based on disabled modules
+      Redmine::Search.singleton_class.prepend Additionals::Patches::SearchPatch
+
       loader.add_global_helper [Additionals::Helpers,
                                 AdditionalsClipboardHelper,
                                 AdditionalsGlobalSearchHelper,

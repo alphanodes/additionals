@@ -68,4 +68,31 @@ class RedmineAccessControlTest < Additionals::TestCase
       Redmine::AccessControl.active_entity_module? Document
     end
   end
+
+  def test_available_search_types_includes_all_by_default
+    types = Redmine::Search.available_search_types
+
+    assert_includes types, 'issues'
+    assert_includes types, 'news'
+    assert_includes types, 'wiki_pages'
+  end
+
+  def test_available_search_types_excludes_disabled_modules
+    with_plugin_settings 'additionals', disabled_modules: %i[news documents] do
+      types = Redmine::Search.available_search_types
+
+      assert_includes types, 'issues'
+      assert_not_includes types, 'news'
+      assert_not_includes types, 'documents'
+      assert_includes types, 'wiki_pages'
+    end
+  end
+
+  def test_available_search_types_restores_after_settings_change
+    with_plugin_settings 'additionals', disabled_modules: %i[boards] do
+      assert_not_includes Redmine::Search.available_search_types, 'messages'
+    end
+
+    assert_includes Redmine::Search.available_search_types, 'messages'
+  end
 end

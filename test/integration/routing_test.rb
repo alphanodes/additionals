@@ -22,6 +22,7 @@ class RoutingTest < Redmine::RoutingTest
     should_route 'GET /auto_completes/authors' => 'auto_completes#authors'
     should_route 'GET /auto_completes/grouped_principals' => 'auto_completes#grouped_principals'
     should_route 'GET /auto_completes/grouped_users' => 'auto_completes#grouped_users'
+    should_route 'GET /auto_completes/custom_field_users' => 'auto_completes#custom_field_users'
   end
 
   def test_global_search

@@ -30,11 +30,39 @@ module Additionals
           render_params = { search_term: @search_term }
           render_params[:with_me] = RedminePluginKit.true? params[:with_me] if params.key? :with_me
 
+          if params[:issue_id].present?
+            issue = Issue.find_by id: params[:issue_id]
+            render_params[:involved_principals] = issue_involved_principals(issue) if issue
+          end
+
           render_grouped_users_with_select2(scope, **render_params)
         end
 
         def assignee
           scope = @project ? @project.assignable_principals.visible : Principal.assignable
+
+          render_grouped_users_with_select2 scope, search_term: @search_term
+        end
+
+        def authors
+          scope = @project ? @project.users.visible : User.active.visible
+
+          render_grouped_users_with_select2 scope, search_term: @search_term
+        end
+
+        def custom_field_users
+          cf = CustomField.find_by id: params[:custom_field_id]
+          return render json: [] unless cf && @project
+
+          scope = @project.users.visible
+          if cf.user_role.is_a? Array
+            role_ids = cf.user_role.map(&:to_s).compact_blank
+            role_ids.map!(&:to_i)
+            if role_ids.any?
+              scope = scope.where "#{Member.table_name}.id IN (SELECT DISTINCT member_id" \
+                                  " FROM #{MemberRole.table_name} WHERE role_id IN (?))", role_ids
+            end
+          end
 
           render_grouped_users_with_select2 scope, search_term: @search_term
         end
@@ -67,6 +95,12 @@ module Additionals
 
         def find_search_term
           @search_term = build_search_query_term params
+        end
+
+        def issue_involved_principals(issue)
+          principals = [issue.author, issue.prior_assigned_to].uniq
+          principals.compact!
+          principals.select { |p| @search_term.blank? || p.name.downcase.include?(@search_term.downcase) }
         end
       end
     end

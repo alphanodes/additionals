@@ -47,6 +47,6 @@ module AdditionalsIssuesHelper
       issue.editable? &&
       issue.safe_attribute?('assigned_to_id') &&
       issue.assigned_to_id != User.current.id &&
-      issue.project.assignable_users.detect { |u| u.id == User.current.id }
+      issue.project.assignable_users(issue.tracker).exists?(id: User.current.id)
   end
 end

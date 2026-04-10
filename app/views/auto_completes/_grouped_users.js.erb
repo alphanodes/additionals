@@ -6,6 +6,18 @@
             'value' => me_value }.to_json) %>
   <% sep_required = true %>
 <% end %>
+<% if @involved_principals.present? %>
+<%= ',' if sep_required %>
+{
+  "text": "<%= l(:label_involved_principals) %>",
+  "children": <%= raw @involved_principals.map { |user| {
+                        'id' => user[:id],
+                        'text' => user[:name],
+                        'name' => user[:name],
+                        'value' => user[:id] } }.to_json %>
+  <% sep_required = true %>
+}
+<% end %>
 <% @users.each do |group, users| %>
 <% next if users.blank? %>
 <%= ',' if sep_required %>

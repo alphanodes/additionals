@@ -17,8 +17,10 @@ module AdditionalsQueriesHelper
     end
   end
 
-  def render_grouped_users_with_select2(users, search_term: nil, with_me: true, with_ano: false, me_value: 'me')
+  def render_grouped_users_with_select2(users, search_term: nil, with_me: true, with_ano: false, me_value: 'me',
+                                        involved_principals: nil)
     @users = { active: [], groups: [], registered: [], locked: [] }
+    @involved_principals = involved_principals&.map { |p| { id: p.id, name: p.name, obj: p } } || []
 
     users = users.like search_term if search_term.present?
 

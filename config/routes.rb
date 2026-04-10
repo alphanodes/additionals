@@ -47,6 +47,7 @@ Rails.application.routes.draw do
       get :authors
       get :grouped_principals
       get :grouped_users
+      get :custom_field_users
     end
   end
 end

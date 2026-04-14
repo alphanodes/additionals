@@ -10,11 +10,11 @@ module Additionals
 
         attr_accessor :search_string
 
-        # NOTE: alias_method used with redmine_contacts
+        # NOTE: alias_method instead of prepend to stay compatible with redmineup redmine_contacts
         alias_method :add_available_filter_without_additionals, :add_available_filter
         alias_method :add_available_filter, :add_available_filter_with_additionals
 
-        # NOTE: alias_method used with redmine_contacts
+        # NOTE: alias_method instead of prepend to stay compatible with redmineup redmine_contacts
         alias_method :add_filter_without_additionals, :add_filter
         alias_method :add_filter, :add_filter_with_additionals
 
@@ -57,7 +57,7 @@ module Additionals
 
         def add_available_filter_with_additionals(field, options)
           add_available_filter_without_additionals field, options
-          values = filters[field].blank? ? [] : filters[field][:values]
+          values = filters&.dig(field, :values) || []
           initialize_user_values_for_select2 field, values
 
           @available_filters

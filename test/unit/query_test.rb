@@ -110,6 +110,42 @@ class QueryTest < Additionals::TestCase
     end
   end
 
+  def test_add_available_filter_with_nil_filters
+    query = IssueQuery.new name: '_'
+    # Simulate nil filters (e.g. when query is instantiated without DB data)
+    query.filters = nil
+
+    assert_nothing_raised do
+      query.add_available_filter 'author_id', type: :author
+    end
+
+    assert query.available_filters.key?('author_id')
+  end
+
+  def test_add_available_filter_with_select2_field_resolves_values
+    user = users :users_002
+    query = IssueQuery.new name: '_'
+    query.filters = { 'author_id' => { operator: '=', values: [user.id.to_s] } }
+
+    query.add_available_filter 'author_id', type: :author
+
+    filter = query.available_filters['author_id']
+
+    assert filter[:values].any? { |_name, id| id == user.id.to_s },
+           'Select2 user filter should resolve user IDs to name-id pairs'
+  end
+
+  def test_add_available_filter_with_non_select2_field_and_nil_filters
+    query = IssueQuery.new name: '_'
+    query.filters = nil
+
+    assert_nothing_raised do
+      query.add_available_filter 'created_on', type: :date_past
+    end
+
+    assert query.available_filters.key?('created_on')
+  end
+
   def test_issue_query_principals_with_hide
     prepare_query_tests
     User.current = @user_with_hide

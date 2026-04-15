@@ -175,8 +175,7 @@
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
   padding-left: 8px !important;
-  padding-top: 2px;
-  line-height: 20px;
+  line-height: 22px;
   height: 22px;
   position: relative;
 }

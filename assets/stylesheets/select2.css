@@ -174,6 +174,8 @@
 }
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
+  font-family: var(--fonts-main);
+  font-size: var(--a-font-size-md);
   padding-left: 8px !important;
   line-height: 22px;
   height: 22px;

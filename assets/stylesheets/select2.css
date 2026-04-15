@@ -176,9 +176,8 @@
 .select2-container--default .select2-selection--single .select2-selection__rendered {
   padding-left: 8px !important;
   padding-top: 2px;
-  line-height: 18px;
-  font-size: var(--a-font-size-md);
-  height: 23px;
+  line-height: 20px;
+  height: 22px;
   position: relative;
 }
 

@@ -45,10 +45,15 @@ module Additionals
           # Apply sanitization
           Redmine::WikiFormatting::CommonMark::SANITIZER.call fragment
 
-          # Apply standard Redmine scrubbers
-          Redmine::WikiFormatting::CommonMark::SCRUBBERS.each do |scrubber|
-            fragment.scrub! scrubber
+          # Apply standard Redmine scrubbers + post processor scrubbers (inline attachments, hires images)
+          scrubber = Loofah::Scrubber.new do |node|
+            (Redmine::WikiFormatting::CommonMark::SCRUBBERS + post_processor_scrubbers).each do |s|
+              result = s.scrub node
+              break result if result == Loofah::Scrubber::STOP
+              break if node.parent.nil?
+            end
           end
+          fragment.scrub! scrubber
 
           # Apply Additionals scrubbers
           fragment.scrub! Additionals::WikiFormatting::CommonMark::SmileyScrubber.new if Additionals.setting? :legacy_smiley_support

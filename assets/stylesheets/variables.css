@@ -35,6 +35,8 @@
   --a-color-stats-week: #de9e40;
   --a-color-stats-month: #6bbce9;
   --a-color-stats-year: #72a563;
+  --a-top-menu-bg: #3e5b76;
+  --a-top-menu-color: #fff;
   --a-fixed-width: 95%;
 
   /* Typography scale — aligned with Redmine Core (application.css)

@@ -131,7 +131,12 @@ module CrudControllerBase
       return if @crud[:create_assert_equals].blank?
 
       @crud[:create_assert_equals].each do |name, value|
-        assert_equal value, entity.send(name), "Field #{name} test failed"
+        actual = entity.send name
+        if name == :tag_list
+          assert_sorted_equal value, actual.to_a, "Field #{name} test failed"
+        else
+          assert_equal value, actual, "Field #{name} test failed"
+        end
       end
     end
 

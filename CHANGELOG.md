@@ -17,6 +17,7 @@
 - mermaid 11.13.0 support
 - add dhtmlxgantt
 - remote d3.min library
+- sortable.js updated to 1.15.7
 
 ## 4.3.0
 

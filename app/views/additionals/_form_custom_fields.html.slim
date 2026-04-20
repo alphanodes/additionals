@@ -1,0 +1,21 @@
+- custom_field_values = entity.custom_field_values.select(&:editable?)
+- if custom_field_values.present?
+  ruby:
+    custom_field_values_full_width = custom_field_values.select { |value| value.custom_field.full_width_layout? }
+    custom_field_values -= custom_field_values_full_width
+    left_count = (custom_field_values.size / 2.0).ceil
+    left_values = custom_field_values.first left_count
+    right_values = custom_field_values.drop left_count
+  .splitcontent
+    .splitcontentleft
+      - left_values.each do |value|
+        p = custom_field_tag_with_label entity_name, value, required: value.custom_field.is_required?
+    .splitcontentright
+      - right_values.each do |value|
+        p = custom_field_tag_with_label entity_name, value, required: value.custom_field.is_required?
+
+  - custom_field_values_full_width.each do |value|
+    p = custom_field_tag_with_label entity_name, value, required: value.custom_field.is_required?
+    - if value.custom_field.full_text_formatting?
+      = wikitoolbar_for "#{entity_name}_custom_field_values_#{value.custom_field_id}",
+                        preview_text_path(project_id: entity.project)

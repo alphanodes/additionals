@@ -16,6 +16,7 @@
 - Fix Textile RULES compatibility for Redmine Master where Filter class replaces Formatter
 - mermaid 11.13.0 support
 - add dhtmlxgantt
+- remote d3.min library
 
 ## 4.3.0
 

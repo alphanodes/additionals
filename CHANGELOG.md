@@ -14,6 +14,8 @@
 - Add dashboard copy feature with security check for editable permission #123
 - Add dashboard lock/unlock actions to action menu
 - Fix Textile RULES compatibility for Redmine Master where Filter class replaces Formatter
+- Chart.js updated to 4.5.1
+- Chart.js Plugin matrix updated to 3.0.0
 - mermaid 11.13.0 support
 - add dhtmlxgantt
 - remote d3.min library

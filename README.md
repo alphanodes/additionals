@@ -125,11 +125,11 @@ Don't worry, if you only need a subset of the provided libraries. If you do not 
 
 It provides :
 
-* [Chart.js](https://github.com/chartjs/Chart.js)
+* [Chart.js 4.5.1](https://github.com/chartjs/Chart.js)
 * [Chart.js Plugin annotation 3.0.1](https://github.com/chartjs/chartjs-plugin-annotation)
 * [Chart.js Plugin colorschemes 0.4.0 (patched for chartjs 3)](https://github.com/nagix/chartjs-plugin-colorschemes)
 * [Chart.js Plugin datalabels 2.2.0](https://github.com/chartjs/chartjs-plugin-datalabels)
-* [Chart.js Plugin matrix 2.0.1](https://github.com/kurkle/chartjs-chart-matrix)
+* [Chart.js Plugin matrix 3.0.0](https://github.com/kurkle/chartjs-chart-matrix)
 * [d3plus 2.0.3](https://d3plus.org/)
 * [FontAwesome 5.15.4](https://fontawesome.com/)
 * [mermaid 11.13.0](https://github.com/mermaid-js/mermaid)

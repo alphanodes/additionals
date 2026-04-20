@@ -5,32 +5,19 @@ window.toggleFilter = function(field) {
   return additionals_transform_to_select2(field);
 };
 
-/* global availableFilters, additionals_filter_urls, additionals_field_formats, formatNameWithIcon, ADDITIONALS_LABEL_SEARCH */
+/* global availableFilters, additionals_filter_urls, additionals_field_formats, ADDITIONALS_LABEL_SEARCH */
 function additionals_transform_to_select2(field) {
   const {field_format} = availableFilters[field];
   const initialized_select2 = $(`#tr_${  field  } .values .select2`);
   if (initialized_select2.length === 0 && (typeof additionals_field_formats !== 'undefined') && $.inArray(field_format, additionals_field_formats) >= 0) {
     $(`#tr_${  field  } .toggle-multiselect`).hide();
     $(`#tr_${  field  } .values .value`).attr('multiple', 'multiple');
-    $(`#tr_${  field  } .values .value`).select2({
-      ajax: {
-        url: additionals_filter_urls[field_format],
-        dataType: 'json',
-        delay: 250,
-        data(params) {
-          return { q: params.term };
-        },
-        processResults(data) {
-          return { results: data };
-        },
-        cache: true
-      },
-      placeholder: ' ',
-      minimumInputLength: 1,
-      width: '90%',
-      templateResult: formatNameWithIcon
-    }).on('select2:open', function() {
-      $(this).parent('span').find('.select2-search__field').val(' ').trigger($.Event('input', { which: 13 })).val('');
+
+    const selectField = $(`#tr_${  field  } .values .value`);
+    initSelect2(selectField, {
+      url: additionals_filter_urls[field_format],
+      min_input_length: 1,
+      format_state: 'formatNameWithIcon'
     });
   }
 }
@@ -148,40 +135,39 @@ function transformToSelect2(field, options) {
 
   findInRowBy(field, '.toggle-multiselect').hide();
   const selectField = findSelectTagInRowBy(field);
-  selectField.select2(buildSelect2Options(options));
-
-  const select2Instance = selectField.data('select2');
-  select2Instance.on('results:message', function() {
-    this.dropdown._resizeDropdown();
-    this.dropdown._positionDropdown();
-  });
+  initSelect2(selectField, options);
 }
 
 /* exported select2Tag */
 function select2Tag(id, options) {
   $(() => {
     const selectField = $(`select#${  id}`);
-    const builtOptions = buildSelect2Options(options);
-    const { searchPlaceholder } = builtOptions;
-    delete builtOptions.searchPlaceholder;
-
-    selectField.select2(builtOptions);
-
-    const select2Instance = selectField.data('select2');
-    if (select2Instance !== undefined) {
-      select2Instance.on('results:message', function() {
-        this.dropdown._resizeDropdown();
-        this.dropdown._positionDropdown();
-      });
-    }
-
-    if (searchPlaceholder) {
-      selectField.on('select2:open', () => {
-        const searchField = document.querySelector('.select2-container--open .select2-search__field');
-        if (searchField) { searchField.setAttribute('placeholder', searchPlaceholder); }
-      });
-    }
+    initSelect2(selectField, options);
   });
+}
+
+function initSelect2(selectField, options) {
+  const builtOptions = buildSelect2Options(options);
+  const { searchPlaceholder } = builtOptions;
+  delete builtOptions.searchPlaceholder;
+
+  selectField.select2(builtOptions);
+
+  const select2Instance = selectField.data('select2');
+  if (select2Instance !== undefined) {
+    select2Instance.on('results:message', function() {
+      this.dropdown._resizeDropdown();
+      this.dropdown._positionDropdown();
+    });
+  }
+
+  if (searchPlaceholder) {
+    // For single-select: search field appears in dropdown on open
+    selectField.on('select2:open', () => {
+      const searchField = document.querySelector('.select2-container--open .select2-search--dropdown .select2-search__field');
+      if (searchField) { searchField.setAttribute('placeholder', searchPlaceholder); }
+    });
+  }
 }
 
 function buildSelect2Options(options) {

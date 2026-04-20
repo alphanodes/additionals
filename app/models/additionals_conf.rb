@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AdditionalsConf
-  SELECT2_INIT_ENTRIES = 30
+  SELECT2_INIT_ENTRIES = 100
   API_LIMIT = 100
 
   class << self

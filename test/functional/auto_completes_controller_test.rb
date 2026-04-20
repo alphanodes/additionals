@@ -65,6 +65,22 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
     end
   end
 
+  def test_issue_assignee_with_groups_enabled
+    with_settings issue_group_assignment: '1' do
+      get :issue_assignee, xhr: true
+
+      assert_response :success
+      json = ActiveSupport::JSON.decode response.body
+
+      assert_kind_of Array, json
+
+      group_section = json.detect { |g| g.is_a?(Hash) && g['text'] == 'Groups' }
+
+      assert_not_nil group_section, 'Expected Groups section when issue_group_assignment is enabled'
+      assert group_section['children'].any?, 'Expected at least one group'
+    end
+  end
+
   def test_issue_assignee_with_involved_principals
     issue = issues :issues_001
 

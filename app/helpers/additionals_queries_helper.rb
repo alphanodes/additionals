@@ -18,17 +18,24 @@ module AdditionalsQueriesHelper
   end
 
   def render_grouped_users_with_select2(users, search_term: nil, with_me: true, with_ano: false, me_value: 'me',
-                                        involved_principals: nil)
+                                        involved_principals: nil, use_assignment_frequency: false)
     @users = { active: [], groups: [], registered: [], locked: [] }
     @involved_principals = involved_principals&.map { |p| { id: p.id, name: p.name, obj: p } } || []
 
-    users = users.like search_term if search_term.present?
-
-    sorted_users = users.select("users.*, #{User.table_name}.last_login_on IS NULL AS select_order")
-                        .order("select_order ASC, #{User.table_name}.last_login_on DESC")
-                        .limit(AdditionalsConf.select2_init_entries)
-                        .to_a
-                        .sort_by(&:name)
+    sorted_users = if search_term.present?
+                     users.like(search_term)
+                          .limit(AdditionalsConf.select2_init_entries)
+                          .to_a
+                          .sort_by(&:name)
+                   elsif use_assignment_frequency
+                     select_by_assignment_frequency users
+                   else
+                     users.select("users.*, #{User.table_name}.last_login_on IS NULL AS select_order")
+                          .order("select_order ASC, #{User.table_name}.last_login_on DESC")
+                          .limit(AdditionalsConf.select2_init_entries)
+                          .to_a
+                          .sort_by(&:name)
+                   end
 
     with_users = false
     sorted_users.each do |user|
@@ -270,5 +277,32 @@ module AdditionalsQueriesHelper
 
   def link_to_issues(issues)
     safe_join(issues.map { |issue| link_to_issue(issue, subject: false, tracker: false) }, ', ')
+  end
+
+  private
+
+  def select_by_assignment_frequency(scope)
+    limit = AdditionalsConf.select2_init_entries
+
+    # Subquery: principal IDs ranked by issue assignment count
+    frequency_ids = Issue.where(assigned_to_id: scope.select(:id))
+                         .group(:assigned_to_id)
+                         .order('COUNT(assigned_to_id) DESC')
+                         .limit(limit)
+                         .pluck(:assigned_to_id)
+
+    # Fill remaining slots with principals that have no assignments
+    if frequency_ids.length < limit
+      remaining = limit - frequency_ids.length
+      filler_ids = Principal.where(id: scope.where.not(id: frequency_ids).select(:id))
+                            .order(:lastname, :firstname)
+                            .limit(remaining)
+                            .pluck(:id)
+      frequency_ids.concat filler_ids
+    end
+
+    scope.where(id: frequency_ids)
+         .to_a
+         .sort_by(&:name)
   end
 end

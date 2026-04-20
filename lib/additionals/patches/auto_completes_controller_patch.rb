@@ -35,13 +35,13 @@ module Additionals
             render_params[:involved_principals] = issue_involved_principals(issue) if issue
           end
 
-          render_grouped_users_with_select2(scope, **render_params)
+          render_grouped_users_with_select2(scope, use_assignment_frequency: true, **render_params)
         end
 
         def assignee
           scope = @project ? @project.assignable_principals.visible : Principal.assignable
 
-          render_grouped_users_with_select2 scope, search_term: @search_term
+          render_grouped_users_with_select2 scope, search_term: @search_term, use_assignment_frequency: true
         end
 
         def authors

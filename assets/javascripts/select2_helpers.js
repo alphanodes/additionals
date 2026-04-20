@@ -5,7 +5,7 @@ window.toggleFilter = function(field) {
   return additionals_transform_to_select2(field);
 };
 
-/* global availableFilters, additionals_filter_urls, additionals_field_formats, formatNameWithIcon */
+/* global availableFilters, additionals_filter_urls, additionals_field_formats, formatNameWithIcon, ADDITIONALS_LABEL_SEARCH */
 function additionals_transform_to_select2(field) {
   const {field_format} = availableFilters[field];
   const initialized_select2 = $(`#tr_${  field  } .values .select2`);
@@ -161,13 +161,24 @@ function transformToSelect2(field, options) {
 function select2Tag(id, options) {
   $(() => {
     const selectField = $(`select#${  id}`);
-    selectField.select2(buildSelect2Options(options));
+    const builtOptions = buildSelect2Options(options);
+    const { searchPlaceholder } = builtOptions;
+    delete builtOptions.searchPlaceholder;
+
+    selectField.select2(builtOptions);
 
     const select2Instance = selectField.data('select2');
     if (select2Instance !== undefined) {
       select2Instance.on('results:message', function() {
         this.dropdown._resizeDropdown();
         this.dropdown._positionDropdown();
+      });
+    }
+
+    if (searchPlaceholder) {
+      selectField.on('select2:open', () => {
+        const searchField = document.querySelector('.select2-container--open .select2-search__field');
+        if (searchField) { searchField.setAttribute('placeholder', searchPlaceholder); }
       });
     }
   });
@@ -180,7 +191,8 @@ function buildSelect2Options(options) {
     minimumInputLength: options.min_input_length || 0,
     templateResult: window[options.format_state],
     templateSelection: window[options.format_selection],
-    width: options.width || '90%'
+    width: options.width || '90%',
+    searchPlaceholder: options.search_placeholder || (typeof ADDITIONALS_LABEL_SEARCH !== 'undefined' ? ADDITIONALS_LABEL_SEARCH : '')
   };
 
   addDataSourceOptions(result, options);

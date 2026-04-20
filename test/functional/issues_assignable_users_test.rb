@@ -62,8 +62,11 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
     end
 
     assert_response :success
-    assert_select 'select#issue_assigned_to_id' do
-      assert_select 'option', text: user_with_workflow.name
+    # When HRM is installed, assignee options are loaded via Select2 AJAX, not rendered as HTML options
+    unless AdditionalsPlugin.active_hrm?
+      assert_select 'select#issue_assigned_to_id' do
+        assert_select 'option', text: user_with_workflow.name
+      end
     end
 
     # Should use reasonable number of queries (much less than original N+1 problem).
@@ -143,9 +146,12 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
     get :new, params: { project_id: project.id, tracker_id: tracker.id }
 
     assert_response :success
-    assert_select 'select#issue_assigned_to_id' do
-      assert_select 'option', { text: user_with_hidden_role.name, count: 0 },
-                    'Regular user should not see users with hidden roles in assignee dropdown'
+    # When HRM is installed, assignee options are loaded via Select2 AJAX, not rendered as HTML options
+    unless AdditionalsPlugin.active_hrm?
+      assert_select 'select#issue_assigned_to_id' do
+        assert_select 'option', { text: user_with_hidden_role.name, count: 0 },
+                      'Regular user should not see users with hidden roles in assignee dropdown'
+      end
     end
 
     # Test with admin user (should see hidden role user)
@@ -154,8 +160,10 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
     get :new, params: { project_id: project.id, tracker_id: tracker.id }
 
     assert_response :success
-    assert_select 'select#issue_assigned_to_id' do
-      assert_select 'option', text: user_with_hidden_role.name
+    unless AdditionalsPlugin.active_hrm? # rubocop:disable Style/GuardClause
+      assert_select 'select#issue_assigned_to_id' do
+        assert_select 'option', text: user_with_hidden_role.name
+      end
     end
   end
 
@@ -288,8 +296,10 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
     end
 
     assert_response :success
-    assert_select 'select#issue_assigned_to_id' do
-      assert_select 'option', text: edit_user.name
+    unless AdditionalsPlugin.active_hrm?
+      assert_select 'select#issue_assigned_to_id' do
+        assert_select 'option', text: edit_user.name
+      end
     end
 
     # Should not cause N+1 queries
@@ -339,8 +349,10 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
     end
 
     assert_response :success
-    assert_select 'select#issue_assigned_to_id' do
-      assert_select 'option', text: bulk_user.name
+    unless AdditionalsPlugin.active_hrm?
+      assert_select 'select#issue_assigned_to_id' do
+        assert_select 'option', text: bulk_user.name
+      end
     end
 
     # Should not cause N+1 queries even with multiple issues

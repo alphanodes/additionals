@@ -91,6 +91,23 @@ describe('select2_helpers.js', () => {
       expect(result.allowClear).toBe(false);
       expect(result.minimumInputLength).toBe(0);
       expect(result.width).toBe('90%');
+      expect(result.searchPlaceholder).toBe('');
+    });
+
+    it('uses ADDITIONALS_LABEL_SEARCH as default search placeholder when available', () => {
+      globalThis.ADDITIONALS_LABEL_SEARCH = 'Suche';
+      const result = buildSelect2Options({});
+
+      expect(result.searchPlaceholder).toBe('Suche');
+      delete globalThis.ADDITIONALS_LABEL_SEARCH;
+    });
+
+    it('uses explicit search_placeholder over global default', () => {
+      globalThis.ADDITIONALS_LABEL_SEARCH = 'Suche';
+      const result = buildSelect2Options({ search_placeholder: 'Custom' });
+
+      expect(result.searchPlaceholder).toBe('Custom');
+      delete globalThis.ADDITIONALS_LABEL_SEARCH;
     });
 
     it('adds ajax config when url is provided', () => {

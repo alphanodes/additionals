@@ -76,6 +76,7 @@ fr:
   label_all_projects: Tous les projets
   label_app_menu: Menu applicatif
   label_auto_watch_on_issue_assigned: "Les tâches qui m'ont été confiées"
+  label_calendar_week: "CW %{week}"
   label_change_is_private: Changer Privé/non privé
   label_change_to_dashboard: "Passer au tableau de bord"
   label_chart_color_schema: Schéma de couleur graphique

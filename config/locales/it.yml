@@ -76,6 +76,7 @@ it:
   label_all_projects: Tutti i progetti
   label_app_menu: App menu
   label_auto_watch_on_issue_assigned: Issues assegnati a me
+  label_calendar_week: "SC %{week}"
   label_change_is_private: "Cambia privato/non privato"
   label_change_to_dashboard: "Passa a Dashboard"
   label_chart_color_schema: "Schema di colori delle tabelle"

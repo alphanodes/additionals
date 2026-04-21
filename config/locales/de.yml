@@ -76,6 +76,7 @@ de:
   label_all_projects: Alle Projekte
   label_app_menu: App Menü
   label_auto_watch_on_issue_assigned: Tickets, die mir zugewiesen werden
+  label_calendar_week: "KW %{week}"
   label_change_is_private: Privat/Nicht-Privat ändern
   label_change_to_dashboard: Zu Dashboard wechseln
   label_chart_color_schema: Charts Farbschema

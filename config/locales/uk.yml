@@ -76,6 +76,7 @@ uk:
   label_all_projects: Всі проекти
   label_app_menu: App menu
   label_auto_watch_on_issue_assigned: "Білети, закреплені за мною"
+  label_calendar_week: "CW %{week}"
   label_change_is_private: "Визначення приватне / не-приватне"
   label_change_to_dashboard: "Переключитись на приборну панель"
   label_chart_color_schema: Charts color scheme

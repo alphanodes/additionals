@@ -15,7 +15,7 @@
     "globals": "^17.5.0",
     "jsdom": "^27.4.0",
     "markdownlint-cli": "^0.48.0",
-    "stylelint": "^17.9.0",
+    "stylelint": "^17.9.1",
     "stylelint-config-standard": "^40.0.0",
     "stylelint-declaration-strict-value": "^1.11.1",
     "vitest": "^4.1.5"

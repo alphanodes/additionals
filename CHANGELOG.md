@@ -18,7 +18,7 @@
 - Chart.js updated to 4.5.1
 - Chart.js Plugin matrix updated to 3.0.0
 - mermaid 11.13.0 support
-- add dhtmlxgantt
+- add dhtmlxgantt 9.1.4
 - remote d3.min library
 - sortable.js updated to 1.15.7
 

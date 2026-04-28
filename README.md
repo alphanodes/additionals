@@ -131,6 +131,7 @@ It provides :
 * [Chart.js Plugin datalabels 2.2.0](https://github.com/chartjs/chartjs-plugin-datalabels)
 * [Chart.js Plugin matrix 3.0.0](https://github.com/kurkle/chartjs-chart-matrix)
 * [d3plus 3.1.4](https://d3plus.org/)
+* [dhtmlxGantt 9.1.4](https://dhtmlx.com/docs/products/dhtmlxGantt/)
 * [FontAwesome 5.15.4](https://fontawesome.com/)
 * [mermaid 11.13.0](https://github.com/mermaid-js/mermaid)
 * [moment 2.30.1](https://github.com/moment/moment) (used by Chart.js)
@@ -157,6 +158,7 @@ The following modules are available :
 * clipboardjs
 * d3
 * d3plus
+* dhtmlxgantt
 * font_awesome
 * mermaid
 * select2

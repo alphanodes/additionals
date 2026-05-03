@@ -36,6 +36,10 @@ class AdditionalsPlugin
       @active_servicedesk ||= Redmine::Plugin.installed? 'redmine_servicedesk'
     end
 
+    def active_templates?
+      @active_templates ||= Redmine::Plugin.installed? 'redmine_templates'
+    end
+
     def active_canned_responses?(force: true)
       Redmine::Plugin.installed?('redmine_servicedesk') && (force || Redmine::AccessControl.active_module?(:canned_responses))
     end

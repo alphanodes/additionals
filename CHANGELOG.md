@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.5.0
+
+- Fix PostgreSQL error in `Project#assignable_principals` and `Principal.assignable_for_issues` when chained with `.sorted`
+
 ## 4.4.0
 
 - Add global search modal (Cmd+K) with Redmine Core Fetcher and scope toggle #15206

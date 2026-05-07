@@ -21,6 +21,38 @@ class ProjectTest < Additionals::TestCase
     end
   end
 
+  # PostgreSQL strict mode rejects `SELECT DISTINCT … ORDER BY users.type`
+  # when `users.type` is not in the SELECT list (raises
+  # PG::InvalidColumnReference). MySQL silently tolerates it. Materializing
+  # the relation into an Array forces query execution and surfaces the bug
+  # on PG without needing adapter-specific test branches.
+  def test_assignable_principals_can_be_materialized_with_sorted_chain
+    project = projects :projects_005
+
+    result = nil
+    assert_nothing_raised do
+      result = project.assignable_principals.to_a
+    end
+    assert_kind_of Array, result
+  end
+
+  def test_assignable_principals_returns_unique_principals
+    project = projects :projects_005
+    ids = project.assignable_principals.pluck :id
+
+    assert_equal ids.size, ids.uniq.size,
+                 'assignable_principals returned duplicate principals'
+  end
+
+  def test_assignable_principals_is_sorted_by_principal_order
+    project = projects :projects_005
+    ids = project.assignable_principals.pluck :id
+    expected = Principal.where(id: ids).sorted.pluck(:id)
+
+    assert_equal expected, ids,
+                 'assignable_principals does not respect Principal.sorted order'
+  end
+
   def test_visible_users
     project = projects :projects_005
 

@@ -111,12 +111,18 @@ module Additionals
         #
         # - always with groups and users
         # - no tracker support -> cannot be used with issues
+        #
+        # Wraps the JOIN-with-DISTINCT in a subquery so the outer `.sorted`
+        # ORDER BY does not conflict with PostgreSQL's strict
+        # SELECT-DISTINCT-must-include-ORDER-BY-columns rule. MySQL tolerates
+        # the original .distinct.sorted chain, PG raises
+        # PG::InvalidColumnReference.
         def assignable_principals
-          Principal.assignable
-                   .joins(members: :roles)
-                   .where(members: { project_id: id },
-                          roles: { assignable: true })
-                   .distinct
+          Principal.where(id: Principal.assignable
+                              .joins(members: :roles)
+                                       .where(members: { project_id: id },
+                                              roles: { assignable: true })
+                                       .select(:id))
                    .sorted
         end
 

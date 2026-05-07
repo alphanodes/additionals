@@ -18,15 +18,21 @@ module Additionals
       included do
         scope :assignable, -> { active.visible.where type: %w[User Group] }
 
+        # Subquery wrap: the inner SELECT-DISTINCT lives without ORDER BY
+        # (caller chains `.sorted` after the scope, which adds ORDER BY on
+        # `users.type`/`firstname`/`lastname`). PostgreSQL rejects
+        # SELECT DISTINCT … ORDER BY x when x is not in the SELECT list,
+        # which trips on the JOINs through members/roles. Wrapping the
+        # DISTINCT-id selection in a subquery and applying ORDER BY on the
+        # outer plain SELECT keeps both adapters happy.
         scope :assignable_for_issues, lambda { |*args|
           project = args.first
-          users = assignable
-          users = users.where.not type: 'Group' unless Setting.issue_group_assignment?
-          users = users.joins(members: :roles)
-                       .where(roles: { assignable: true })
-                       .distinct
-          users = users.member_of project if project.present?
-          users
+          ids_scope = assignable.joins(members: :roles)
+                                .where(roles: { assignable: true })
+          ids_scope = ids_scope.where.not(type: 'Group') unless Setting.issue_group_assignment?
+          ids_scope = ids_scope.where(members: { project_id: project.id }) if project.present?
+
+          where id: ids_scope.select(:id)
         }
 
         # TODO: find better solution, which not requires overwrite visible

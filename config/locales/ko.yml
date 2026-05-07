@@ -198,6 +198,7 @@ ko:
   label_uptime: 가동 시간
   label_user_is_author_of: "이 사용자는 이 글의 작성자입니다 %{entity}."
   label_user_list: "사용자 목록"
+  label_visibility_groups: 이 그룹에만 해당
   label_web_apis: Web APIs
   label_weekly: 주간
   label_wiki_pdf_remove_attachments: PDF보기에서 첨부 파일 제거

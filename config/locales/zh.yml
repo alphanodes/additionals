@@ -198,6 +198,7 @@ zh:
   label_uptime: 上线时间
   label_user_is_author_of: "这个用户是这个的作者 %{entity}."
   label_user_list: "用户列表"
+  label_visibility_groups: 仅限于这些组
   label_web_apis: Web APIs
   label_weekly: 每周
   label_wiki_pdf_remove_attachments: 从 PDF 中删除附件

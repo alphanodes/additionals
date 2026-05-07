@@ -198,6 +198,7 @@
   label_uptime: "上線時間"
   label_user_is_author_of: "这个用户是这个的作者 %{entity}."
   label_user_list: "用戶列表"
+  label_visibility_groups: 僅限於這些群組
   label_web_apis: Web APIs
   label_weekly: "每周"
   label_wiki_pdf_remove_attachments: "在 PDF 中刪除附件"

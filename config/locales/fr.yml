@@ -198,6 +198,7 @@ fr:
   label_uptime: Uptime
   label_user_is_author_of: "Cet utilisateur est l'auteur de cette %{entity}."
   label_user_list: "Liste des utilisateurs"
+  label_visibility_groups: uniquement pour ces groupes
   label_web_apis: APIs Web
   label_weekly: hebdomadaire
   label_wiki_pdf_remove_attachments: "Supprimer les pièces jointes de la vue PDF"

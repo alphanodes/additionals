@@ -198,6 +198,7 @@ ru:
   label_uptime: Uptime
   label_user_is_author_of: "Этот пользователь является автором этого %{entity}."
   label_user_list: "Список пользователей"
+  label_visibility_groups: только для этих групп
   label_web_apis: Web APIs
   label_weekly: "еженедельно"
   label_wiki_pdf_remove_attachments: "Удаление вложений из PDF-формата"

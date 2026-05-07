@@ -198,6 +198,7 @@ de:
   label_uptime: Betriebszeit
   label_user_is_author_of: Dieser Benutzer ist der Autor dieses %{entity}.
   label_user_list: Benutzerliste
+  label_visibility_groups: nur für diese Gruppen
   label_web_apis: Web APIs
   label_weekly: wöchentlich
   label_wiki_pdf_remove_attachments: Dateianhänge nicht anzeigen

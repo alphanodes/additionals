@@ -198,6 +198,7 @@ pt-BR:
   label_uptime: "Horário de funcionamento"
   label_user_is_author_of: "Este usuário é o autor deste %{entity}."
   label_user_list: "Lista de usuários"
+  label_visibility_groups: apenas para estes grupos
   label_web_apis: Web APIs
   label_weekly: "semanalmente"
   label_wiki_pdf_remove_attachments: "Remover anexos da visualização em PDF"

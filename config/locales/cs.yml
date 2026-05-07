@@ -198,6 +198,7 @@ cs:
   label_uptime: Uptime
   label_user_is_author_of: "Tento uživatel je autorem tohoto %{entity}."
   label_user_list: "Seznam uživatelů"
+  label_visibility_groups: pouze pro tyto skupiny
   label_web_apis: Web APIs
   label_weekly: "týdně"
   label_wiki_pdf_remove_attachments: "Odebrat přílohy ze zobrazení PDF"

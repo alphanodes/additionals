@@ -198,6 +198,7 @@ uk:
   label_uptime: Uptime
   label_user_is_author_of: "Цей користувач є автором цього %{entity}."
   label_user_list: "Список користувачів"
+  label_visibility_groups: тільки для цих груп
   label_web_apis: Web APIs
   label_weekly: "щотижнево"
   label_wiki_pdf_remove_attachments: "Видалення вкладень із PDF-формату"

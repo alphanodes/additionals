@@ -198,6 +198,7 @@ es:
   label_uptime: Tiempo encendido
   label_user_is_author_of: "Este usuario es el autor de esta %{entity}."
   label_user_list: "Lista de usuarios"
+  label_visibility_groups: solo para estos grupos
   label_web_apis: Web APIs
   label_weekly: semanalmente
   label_wiki_pdf_remove_attachments: Quitar los adjuntos de la vista en PDF

@@ -198,6 +198,7 @@ ja:
   label_uptime: Uptime
   label_user_is_author_of: "このユーザーは、この %{entity}."
   label_user_list: "ユーザ一覧"
+  label_visibility_groups: これらのグループのみ
   label_web_apis: Web APIs
   label_weekly: "毎週"
   label_wiki_pdf_remove_attachments: "PDF表示から添付ファイルを削除する"

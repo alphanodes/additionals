@@ -29,7 +29,7 @@ module Additionals
       headline
     end
 
-    def entry_page_title(name, obj: nil, obj_link: nil, query: nil, icon_name: nil)
+    def entry_page_title(name, obj: nil, obj_link: nil, query: nil, icon_name: nil, icon_plugin: 'additionals', icon_sprite: nil)
       items = []
       case obj
       when Issue
@@ -46,7 +46,7 @@ module Additionals
       items << h(query.name) if query && !query.new_record?
 
       page_title = []
-      page_title << svg_icon_tag(icon_name, css_class: 'icon-padding', size: 24) if icon_name
+      page_title << svg_icon_tag(icon_name, css_class: 'icon-padding', size: 24, plugin: icon_plugin, sprite: icon_sprite) if icon_name
       page_title << render_breadcrumb(items)
 
       safe_join page_title

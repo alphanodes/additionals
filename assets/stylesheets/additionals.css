@@ -79,6 +79,16 @@ svg.icon-svg.smiley {
   stroke-width: 2;
 }
 
+svg.icon-svg.info-smiley { stroke-width: 2; }
+
+.icon-smiley-check svg.icon-svg.info-smiley,
+.icon-smiley-success svg.icon-svg.info-smiley { stroke: var(--a-color-success); }
+
+.icon-smiley-exclamation svg.icon-svg.info-smiley,
+.icon-smiley-failure svg.icon-svg.info-smiley { stroke: var(--a-color-warning); }
+
+.icon-smiley-question svg.icon-svg.info-smiley { stroke: var(--a-color-help); }
+
 ul.dashboard-list {
   padding-left: 20px;
   margin-top: 0;

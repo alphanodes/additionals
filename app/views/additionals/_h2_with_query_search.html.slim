@@ -1,6 +1,10 @@
 h2#page-title.live-search
   - if defined? css_class
-    = svg_icon_tag css_class, css_class: 'icon-padding', size: 24
+    = svg_icon_tag css_class,
+                   css_class: 'icon-padding',
+                   size: 24,
+                   plugin: local_assigns.fetch(:plugin, 'additionals'),
+                   sprite: local_assigns[:sprite]
   = @query.new_record? ? l(title) : h(@query.name)
   = search_field_tag :search,
                      q,

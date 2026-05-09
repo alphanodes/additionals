@@ -16,7 +16,7 @@
         button.global-search-scope-toggle(type="button"
           data-action="click->global-search#toggleScopePanel"
           title=(l :label_search_scope))
-          == (svg_icon_tag 'settings', size: 16, plugin: 'additionals')
+          == sprite_icon 'settings', size: 16
     .global-search-scope-panel(data-global-search-target="scopePanel" style="display:none")
       - if @project
         label.global-search-scope-option

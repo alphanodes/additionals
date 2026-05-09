@@ -1,1155 +1,806 @@
 <?xml version="1.0"?>
- <svg xmlns="http://www.w3.org/2000/svg" class="icon--sprite">
+<svg xmlns="http://www.w3.org/2000/svg" class="icon--sprite">
   <defs>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--pdf">
-      <!-- file-type-pdf -->
-      <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-      <path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4" />
-      <path d="M5 18h1.5a1.5 1.5 0 0 0 0 -3h-1.5v6" />
-      <path d="M17 18h2" />
-      <path d="M20 15h-3v6" />
-      <path d="M11 15v6h1a2 2 0 0 0 2 -2v-2a2 2 0 0 0 -2 -2h-1z" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--page-up">
-      <!-- circle-arrow-up -->
-      <path d="M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-4.98 3.66l-.163 .01l-.086 .016l-.142 .045l-.113 .054l-.07 .043l-.095 .071l-.058 .054l-4 4l-.083 .094a1 1 0 0 0 1.497 1.32l2.293 -2.293v5.586l.007 .117a1 1 0 0 0 1.993 -.117v-5.585l2.293 2.292l.094 .083a1 1 0 0 0 1.32 -1.497l-4 -4l-.082 -.073l-.089 -.064l-.113 -.062l-.081 -.034l-.113 -.034l-.112 -.02l-.098 -.006z" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--euro">
-      <!-- currency-euro -->
-      <path d="M17.2 7a6 7 0 1 0 0 10" />
-      <path d="M13 10h-8m0 4h8" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--canned-response">
-      <!-- message-2-share -->
-      <path d="M8 9h8" />
-      <path d="M8 13h6" />
-      <path d="M12 21l-3 -3h-3a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v6" />
-      <path d="M16 22l5 -5" />
-      <path d="M21 21.5v-4.5h-4.5" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--web">
-      <!-- world -->
-      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
-      <path d="M3.6 9h16.8" />
-      <path d="M3.6 15h16.8" />
-      <path d="M11.5 3a17 17 0 0 0 0 18" />
-      <path d="M12.5 3a17 17 0 0 1 0 18" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--ticket">
-      <!-- ticket -->
-      <path d="M15 5l0 2" />
-      <path d="M15 11l0 2" />
-      <path d="M15 17l0 2" />
-      <path d="M5 5h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-3a2 2 0 0 0 0 -4v-3a2 2 0 0 1 2 -2" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--phone">
-      <!-- phone -->
-      <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--send-reply">
-      <!-- send -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M10 14l11 -11" />
-      <path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--mail">
-      <!-- mail -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" />
-      <path d="M3 7l9 6l9 -6" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--invoice-mail">
-      <!-- mail-dollar -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <path d="M13.5 19h-8.5a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v3.5" />
-      <path d="M21 15h-2.5a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 0 1 0 3h-2.5" />
-      <path d="M19 21v1m0 -8v1" />
-      <path d="M3 7l9 6l9 -6" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--mail-sent">
-      <!-- mail-up -->
-      <path d="M12 19h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v5.5" />
-      <path d="M19 22v-6" />
-      <path d="M22 19l-3 -3l-3 3" />
-      <path d="M3 7l9 6l9 -6" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--mail-received">
-      <!-- mail-down -->
-      <path d="M12 19h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v5.5" />
-      <path d="M19 16v6" />
-      <path d="M22 19l-3 3l-3 -3" />
-      <path d="M3 7l9 6l9 -6" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--mail-spam">
-      <!-- ghost -->
-      <path d="M5 11a7 7 0 0 1 14 0v7a1.78 1.78 0 0 1 -3.1 1.4a1.65 1.65 0 0 0 -2.6 0a1.65 1.65 0 0 1 -2.6 0a1.65 1.65 0 0 0 -2.6 0a1.78 1.78 0 0 1 -3.1 -1.4v-7" />
-      <path d="M10 10l.01 0" />
-      <path d="M14 10l.01 0" />
-      <path d="M10 14a3.5 3.5 0 0 0 4 0" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--timelog">
-      <!-- clock-hour-5 -->
-      <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-      <path d="M12 12l2 3" />
-      <path d="M12 7v5" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--versionlist">
-      <!-- layout-list -->
-      <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
-      <path d="M4 14m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--cube">
-      <!-- cube -->
-      <path d="M21 16.008v-8.018a1.98 1.98 0 0 0 -1 -1.717l-7 -4.008a2.016 2.016 0 0 0 -2 0l-7 4.008c-.619 .355 -1 1.01 -1 1.718v8.018c0 .709 .381 1.363 1 1.717l7 4.008a2.016 2.016 0 0 0 2 0l7 -4.008c.619 -.355 1 -1.01 1 -1.718z" />
-      <path d="M12 22v-10" />
-      <path d="M12 12l8.73 -5.04" />
-      <path d="M3.27 6.96l8.73 5.04" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--issues">
-      <!-- list-check -->
-      <path d="M3.5 5.5l1.5 1.5l2.5 -2.5" />
-      <path d="M3.5 11.5l1.5 1.5l2.5 -2.5" />
-      <path d="M3.5 17.5l1.5 1.5l2.5 -2.5" />
-      <path d="M11 6l9 0" />
-      <path d="M11 12l9 0" />
-      <path d="M11 18l9 0" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--list-details">
-      <!-- list-details -->
-      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-        <path d="M13 5h8" />
-        <path d="M13 9h5" />
-        <path d="M13 15h8" />
-        <path d="M13 19h5" />
-        <path d="M3 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
-        <path d="M3 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--list">
-      <!-- list -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <path d="M9 6l11 0" />
-      <path d="M9 12l11 0" />
-      <path d="M9 18l11 0" />
-      <path d="M5 6l0 .01" />
-      <path d="M5 12l0 .01" />
-      <path d="M5 18l0 .01" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--issue-add">
-      <!-- code-plus -->
-      <path d="M9 12h6" />
-      <path d="M12 9v6" />
-      <path d="M6 19a2 2 0 0 1 -2 -2v-4l-1 -1l1 -1v-4a2 2 0 0 1 2 -2" />
-      <path d="M18 19a2 2 0 0 0 2 -2v-4l1 -1l-1 -1v-4a2 2 0 0 0 -2 -2" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--vcard">
-      <!-- credit-card -->
-      <path d="M3 5m0 3a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3z" />
-      <path d="M3 10l18 0" />
-      <path d="M7 15l.01 0" />
-      <path d="M11 15l2 0" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--contact">
-      <!-- man -->
-      <path d="M10 16v5" />
-      <path d="M14 16v5" />
-      <path d="M9 9h6l-1 7h-4z" />
-      <path d="M5 11c1.333 -1.333 2.667 -2 4 -2" />
-      <path d="M19 11c-1.333 -1.333 -2.667 -2 -4 -2" />
-      <path d="M12 4m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--contacts">
-      <!-- friends -->
-      <path d="M7 5m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-      <path d="M5 22v-5l-1 -1v-4a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4l-1 1v5" />
-      <path d="M17 5m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-      <path d="M15 22v-4h-2l2 -6a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1l2 6h-2v4" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--file">
-      <!-- file -->
-      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-        <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--filelist">
-      <!-- file-description -->
-      <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-      <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
-      <path d="M9 17h6" />
-      <path d="M9 13h6" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--fingerprint">
-      <!-- fingerprint -->
-      <path d="M18.9 7a8 8 0 0 1 1.1 5v1a6 6 0 0 0 .8 3" />
-      <path d="M8 11a4 4 0 0 1 8 0v1a10 10 0 0 0 2 6" />
-      <path d="M12 11v2a14 14 0 0 0 2.5 8" />
-      <path d="M8 15a18 18 0 0 0 1.8 6" />
-      <path d="M4.9 19a22 22 0 0 1 -.9 -7v-1a8 8 0 0 1 12 -6.95" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--invoice">
-      <!-- file-euro -->
-      <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-      <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
-      <path d="M12 14h-3" />
-      <path d="M14 11.172a3 3 0 1 0 0 5.656" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--invoice-add">
-      <!-- receipt-2 -->
-      <path d="M5 21v-16a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16l-3 -2l-2 2l-2 -2l-2 2l-2 -2l-3 2" />
-      <path d="M14 8h-2.5a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 0 1 0 3h-2.5m2 0v1.5m0 -9v1.5" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--invoice-payment">
-      <!-- shopping-cart-dollar -->
-      <path d="M4 19a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-      <path d="M13 17h-7v-14h-2" />
-      <path d="M6 5l14 1l-.575 4.022m-4.925 2.978h-8.5" />
-      <path d="M21 15h-2.5a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 0 1 0 3h-2.5" />
-      <path d="M19 21v1m0 -8v1" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--wiki-pages">
-      <!-- world-latitude -->
-      <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-      <path d="M4.6 7l14.8 0" />
-      <path d="M3 12l18 0" />
-      <path d="M4.6 17l14.8 0" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--merge">
-      <!-- arrow-merge -->
-      <path d="M8 7l4 -4l4 4" />
-      <path d="M12 3v5.394a6.737 6.737 0 0 1 -3 5.606a6.737 6.737 0 0 0 -3 5.606v1.394" />
-      <path d="M12 3v5.394a6.737 6.737 0 0 0 3 5.606a6.737 6.737 0 0 1 3 5.606v1.394" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--git-merge" stroke-width="2">
-      <!-- git-merge -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M7 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-      <path d="M7 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-      <path d="M17 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-      <path d="M7 8l0 8" />
-      <path d="M7 8a4 4 0 0 0 4 4h4" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--workflow">
-      <!-- switch-3 -->
-      <path d="M3 17h2.397a5 5 0 0 0 4.096 -2.133l.177 -.253m3.66 -5.227l.177 -.254a5 5 0 0 1 4.096 -2.133h3.397" />
-      <path d="M18 4l3 3l-3 3" />
-      <path d="M3 7h2.397a5 5 0 0 1 4.096 2.133l4.014 5.734a5 5 0 0 0 4.096 2.133h3.397" />
-      <path d="M18 20l3 -3l-3 -3" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--show-source">
-      <!-- zoom-code -->
-      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
-        <path d="M21 21l-6 -6" />
-        <path d="M8 8l-2 2l2 2" />
-        <path d="M12 8l2 2l-2 2" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--db-entry">
-      <!-- database -->
-      <path d="M12 6m-8 0a8 3 0 1 0 16 0a8 3 0 1 0 -16 0" />
-      <path d="M4 6v6a8 3 0 0 0 16 0v-6" />
-      <path d="M4 12v6a8 3 0 0 0 16 0v-6" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--fullscreen">
-      <!-- arrows-maximize -->
-      <path d="M16 4l4 0l0 4" />
-      <path d="M14 10l6 -6" />
-      <path d="M8 20l-4 0l0 -4" />
-      <path d="M4 20l6 -6" />
-      <path d="M16 20l4 0l0 -4" />
-      <path d="M14 14l6 6" />
-      <path d="M8 4l-4 0l0 4" />
-      <path d="M4 4l6 6" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--twitter">
-      <!-- brand-twitter -->
-      <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c0 -.249 1.51 -2.772 1.818 -4.013z" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--github">
-      <!-- brand-github -->
-      <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--gitlab">
-      <!-- brand-gitlab -->
-      <path d="M21 14l-9 7l-9 -7l3 -11l3 7h6l3 -7z" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--google-drive">
-      <!-- brand-google-drive -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M12 10l-6 10l-3 -5l6 -10z" />
-      <path d="M9 15h12l-3 5h-12" />
-      <path d="M15 15l-6 -10h6l6 10z" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--redmine">
-      <g fill="none" stroke="#a21408" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="m1.092 15.088c.789.243 4.098 1.005 4.098 1.005.198.061.139.21.139.21-.228 1.798-.178 3.17-.178 3.644 0 .21-.153.18-.153.18h-4.83c-.209 0-.164-.19-.164-.19.04-.599.212-2.303.878-4.746 0 0 .033-.157.21-.103zm21.816 0c-.789.243-4.098 1.005-4.098 1.005-.198.061-.139.21-.139.21.228 1.798.178 3.17.178 3.644 0 .21.153.18.153.18h4.83c.21 0 .164-.19.164-.19-.04-.599-.212-2.303-.878-4.746 0 0-.034-.157-.21-.103zm-1.929-5.354-3.448 1.667c-.164.063-.082.212-.082.212.476 1.134.766 2.091.99 3.251.038.194.169.132.169.132l3.879-1.684s.116-.044.068-.193c-.172-.531-1.05-2.649-1.402-3.341 0 0-.062-.105-.174-.044zm-17.958 0 3.448 1.667c.164.063.082.212.082.212-.476 1.134-.766 2.091-.991 3.251-.037.194-.169.132-.169.132l-3.878-1.684s-.116-.044-.068-.193c.172-.531 1.05-2.649 1.402-3.341 0 0 .062-.105.174-.044zm4.085-4.368 2.302 2.681c.099.128-.032.222-.032.222-.923.498-1.59 1.25-2.161 2.111-.114.17-.236.046-.236.046l-2.917-2.184s-.126-.074-.016-.22c.854-1.134 1.63-1.934 2.871-2.689 0 0 .094-.089.189.033zm9.788 0-2.302 2.681c-.099.128.032.222.032.222.923.498 1.59 1.25 2.161 2.111.114.17.236.046.236.046l2.917-2.184s.126-.074.016-.22c-.854-1.134-1.63-1.934-2.871-2.689 0 0-.094-.089-.189.033zm-4.894 2.295c.388 0 1.105.037 1.444.093.177.03.221-.088.221-.088l1.449-3.028s.097-.114-.106-.188c-1.082-.396-1.657-.578-3.008-.578-1.335 0-1.926.182-3.008.578-.203.074-.106.188-.106.188l1.449 3.028s.044.118.221.088c.339-.056 1.056-.093 1.444-.093z" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--add">
-      <!-- circle-plus -->
-      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
-        <path d="M9 12h6" />
-        <path d="M12 9v6" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--smiley-smiley">
-      <!--  mood-smile -->
-      <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <path stroke-width="1" d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-        <path d="M9 10l.01 0" />
-        <path d="M15 10l.01 0" />
-        <path d="M9.5 15a3.5 3.5 0 0 0 5 0" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--smiley-smiley2">
-      <!--  mood-smile-beam -->
-      <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <path stroke-width="1" d="M12 21a9 9 0 1 1 0 -18a9 9 0 0 1 0 18z" />
-        <path d="M10 10c-.5 -1 -2.5 -1 -3 0" />
-        <path d="M17 10c-.5 -1 -2.5 -1 -3 0" />
-        <path d="M14.5 15a3.5 3.5 0 0 1 -5 0" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--smiley-laughing">
-      <!-- mood-happy -->
-      <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <path stroke-width="1" d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-        <path d="M9 9l.01 0" />
-        <path d="M15 9l.01 0" />
-        <path d="M8 13a4 4 0 1 0 8 0h-8" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--smiley-laughing2">
-      <!--  mood-spark -->
-      <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <path stroke-width="1" d="M21 12a9 9 0 1 0 -8.994 9" />
-        <path d="M9 10h.01" />
-        <path d="M15 10h.01" />
-        <path d="M9.5 15a3.5 3.5 0 0 0 5 0" />
-        <path d="M19 22.5a4.75 4.75 0 0 1 3.5 -3.5a4.75 4.75 0 0 1 -3.5 -3.5a4.75 4.75 0 0 1 -3.5 3.5a4.75 4.75 0 0 1 3.5 3.5" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--smiley-crying">
-      <!--  mood-cry -->
-      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <path stroke="none" d="M0 0h24v24H0z" />
-        <path d="M9 10l.01 0" />
-        <path d="M15 10l.01 0" />
-        <path d="M9.5 15.25a3.5 3.5 0 0 1 5 0" />
-        <path d="M17.566 17.606a2 2 0 1 0 2.897 .03l-1.463 -1.636l-1.434 1.606z" />
-        <path stroke-width="1" d="M20.865 13.517a8.937 8.937 0 0 0 .135 -1.517a9 9 0 1 0 -9 9c.69 0 1.36 -.076 2 -.222" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--smiley-sad">
-      <!--  mood-sad -->
-      <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <path stroke-width="1" d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-        <path d="M9 10l.01 0" />
-        <path d="M15 10l.01 0" />
-        <path d="M9.5 15.25a3.5 3.5 0 0 1 5 0" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--smiley-wink">
-      <!-- mood-wink -->
-      <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <path stroke-width="1" d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-        <path d="M15 10h.01" />
-        <path d="M9.5 15a3.5 3.5 0 0 0 5 0" />
-        <path d="M8.5 8.5l1.5 1.5l-1.5 1.5" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--smiley-cheeky">
-      <!--  mood-tongue-wink -->
-      <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <path stroke-width="1" d="M12 21a9 9 0 1 1 0 -18a9 9 0 0 1 0 18z" />
-        <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-        <path d="M9 10h.01" />
-        <path d="M10 14v2a2 2 0 0 0 4 0v-2" />
-        <path d="M15.5 14h-7" />
-        <path d="M17 10c-.5 -1 -2.5 -1 -3 0" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--smiley-shock">
-      <!--  mood-surprised -->
-      <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <path stroke-width="1" d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-        <path d="M9 9l.01 0" />
-        <path d="M15 9l.01 0" />
-        <path d="M12 15m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--smiley-annoyed">
-      <!--  mood-angry -->
-      <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <path stroke-width="1" d="M12 21a9 9 0 1 1 0 -18a9 9 0 0 1 0 18z" />
-        <path d="M8 9l2 1" />
-        <path d="M16 9l-2 1" />
-        <path d="M14.5 16.05a3.5 3.5 0 0 0 -5 0" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--smiley-confuse">
-      <!-- mood-unamused -->
-      <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <path stroke-width="1" d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-        <path d="M11 16l4 -1.5" />
-        <path d="M10 10c-.5 -1 -2.5 -1 -3 0" />
-        <path d="M17 10c-.5 -1 -2.5 -1 -3 0" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--smiley-straight">
-      <!-- mood-nerd -->
-      <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <path stroke-width="1" d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-        <path d="M8 10m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-        <path d="M16 10m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-        <path d="M9.5 15a3.5 3.5 0 0 0 5 0" />
-        <path d="M3.5 9h2.5" />
-        <path d="M18 9h2.5" />
-        <path d="M10 9.5c1.333 -1.333 2.667 -1.333 4 0" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--smiley-embarrassed">
-      <!-- mood-sad-dizzy -->
-      <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <path stroke-width="1" d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-        <path d="M14.5 16.05a3.5 3.5 0 0 0 -5 0" />
-        <path d="M8 9l2 2" />
-        <path d="M10 9l-2 2" />
-        <path d="M14 9l2 2" />
-        <path d="M16 9l-2 2" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--smiley-kiss">
-      <!-- mood-heart -->
-      <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <path stroke-width="1" d="M21 12a9 9 0 1 0 -8.012 8.946" />
-        <path d="M9 10h.01" />
-        <path d="M15 10h.01" />
-        <path d="M9.5 15a3.59 3.59 0 0 0 2.774 .99" />
-        <path d="M18.994 21.5l2.518 -2.58a1.74 1.74 0 0 0 .004 -2.413a1.627 1.627 0 0 0 -2.346 -.005l-.168 .172l-.168 -.172a1.627 1.627 0 0 0 -2.346 -.004a1.74 1.74 0 0 0 -.004 2.412l2.51 2.59z" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--smiley-angel">
-      <!-- mood-boy -->
-      <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <path stroke-width="1" d="M17 4.5a9 9 0 0 1 3.864 5.89a2.5 2.5 0 0 1 -.29 4.36a9 9 0 0 1 -17.137 0a2.5 2.5 0 0 1 -.29 -4.36a9 9 0 0 1 3.746 -5.81" />
-        <path d="M9.5 16a3.5 3.5 0 0 0 5 0" />
-        <path d="M8.5 2c1.5 1 2.5 3.5 2.5 5" />
-        <path d="M12.5 2c1.5 2 2 3.5 2 5" />
-        <path d="M9 12l.01 0" />
-        <path d="M15 12l.01 0" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--smiley-evil">
-      <!-- mood-wrrr -->
-      <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <path stroke-width="1" d="M12 21a9 9 0 1 1 0 -18a9 9 0 0 1 0 18z" />
-        <path d="M8 16l1 -1l1.5 1l1.5 -1l1.5 1l1.5 -1l1 1" />
-        <path d="M8.5 11.5l1.5 -1.5l-1.5 -1.5" />s
-        <path d="M15.5 11.5l-1.5 -1.5l1.5 -1.5" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--smiley-rock">
-      <!-- hand-love-you -->
-      <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <path stroke-width="1" d="M11 11.5v-1a1.5 1.5 0 0 1 3 0v1.5" />
-        <path d="M17 12v-6.5a1.5 1.5 0 0 1 3 0v10.5a6 6 0 0 1 -6 6h-2h.208a6 6 0 0 1 -5.012 -2.7a69.74 69.74 0 0 1 -.196 -.3c-.312 -.479 -1.407 -2.388 -3.286 -5.728a1.5 1.5 0 0 1 .536 -2.022a1.867 1.867 0 0 1 2.28 .28l1.47 1.47" />
-        <path d="M14 10.5a1.5 1.5 0 0 1 3 0v1.5" />
-        <path d="M8 13v-8.5a1.5 1.5 0 0 1 3 0v7.5" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--smiley-check">
-      <!-- check -->
-      <g fill="none" stroke="#40a154" stroke-linecap="round" stroke-linejoin="round" stroke-width="5">
-        <path d="M5 12l5 5l10 -10" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--smiley-exclamation">
-      <!-- exclamation-mark -->
-      <g fill="#e35000" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-        <path d="M12 9v4" />
-        <path d="M12 16v.01" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--smiley-question">
-      <!-- help-circle -->
-      <g fill="#34a8eb" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
-        <path d="M12 16v.01" />
-        <path d="M12 13a2 2 0 0 0 .914 -3.782a1.98 1.98 0 0 0 -2.414 .483" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--smiley-success">
-      <!-- circle-check -->
-      <g fill="#71c45e" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-        <path d="M9 12l2 2l4 -4" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--smiley-failure">
-      <!-- circle-x -->
-      <g fill="#e35000" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-        <path d="M10 10l4 4m0 -4l-4 4" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--thumb-up">
-      <!-- thumb-up -->
-      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M7 11v8a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1v-7a1 1 0 0 1 1 -1h3a4 4 0 0 0 4 -4v-1a2 2 0 0 1 4 0v5h3a2 2 0 0 1 2 2l-1 5a2 3 0 0 1 -2 2h-7a3 3 0 0 1 -3 -3" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--thumb-down">
-      <!-- thumb-down -->
-      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M7 13v-8a1 1 0 0 0 -1 -1h-2a1 1 0 0 0 -1 1v7a1 1 0 0 0 1 1h3a4 4 0 0 1 4 4v1a2 2 0 0 0 4 0v-5h3a2 2 0 0 0 2 -2l-1 -5a2 3 0 0 0 -2 -2h-7a3 3 0 0 0 -3 3" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--at">
-      <!-- at -->
-      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
-        <path d="M16 12v1.5a2.5 2.5 0 0 0 5 0v-1.5a9 9 0 1 0 -5.5 8.28" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--map">
-      <!-- map-pin -->
-      <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-      <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--company">
-      <!-- building-skyscraper -->
-      <g fill="none" stroke="#b5b1b1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M3 21l18 0" />
-        <path d="M5 21v-14l8 -4v18" />
-        <path d="M19 21v-10l-6 -4" />
-        <path d="M9 9l0 .01" />
-        <path d="M9 12l0 .01" />
-        <path d="M9 15l0 .01" />
-        <path d="M9 18l0 .01" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--person">
-      <!-- user-scan -->
-      <g fill="none" stroke="#b5b1b1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M10 9a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-        <path d="M4 8v-2a2 2 0 0 1 2 -2h2" />
-        <path d="M4 16v2a2 2 0 0 0 2 2h2" />
-        <path d="M16 4h2a2 2 0 0 1 2 2v2" />
-        <path d="M16 20h2a2 2 0 0 0 2 -2v-2" />
-        <path d="M8 16a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--unknown-user">
-      <!-- spy -->
-      <g fill="none" stroke="#b5b1b1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M3 11h18" />
-        <path d="M5 11v-4a3 3 0 0 1 3 -3h8a3 3 0 0 1 3 3v4" />
-        <path d="M7 17m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-        <path d="M17 17m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-        <path d="M10 17h4" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--arrow-right">
-      <!-- arrow-right -->
-      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M5 12l14 0" />
-        <path d="M13 18l6 -6" />
-        <path d="M13 6l6 6" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--read">
-      <!-- eye-check -->
-      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-          <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-          <path d="M11.102 17.957c-3.204 -.307 -5.904 -2.294 -8.102 -5.957c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6a19.5 19.5 0 0 1 -.663 1.032" />
-          <path d="M15 19l2 2l4 -4" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--two-person-rule">
-      <!-- scan-eye -->
-      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M4 8v-2a2 2 0 0 1 2 -2h2" />
-        <path d="M4 16v2a2 2 0 0 0 2 2h2" />
-        <path d="M16 4h2a2 2 0 0 1 2 2v2" />
-        <path d="M16 20h2a2 2 0 0 0 2 -2v-2" />
-        <path d="M7 12c3.333 -4.667 6.667 -4.667 10 0" />
-        <path d="M7 12c3.333 4.667 6.667 4.667 10 0" />
-        <path d="M12 12h-.01" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--checks">
-      <!-- checks -->
-      <path d="M7 12l5 5l10 -10" />
-      <path d="M2 12l5 5m5 -5l5 -5" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--lock-filled">
-      <!-- lock -->
-      <g fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-        <path d="M12 2a5 5 0 0 1 5 5v3a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-10a3 3 0 0 1 -3 -3v-6a3 3 0 0 1 3 -3v-3a5 5 0 0 1 5 -5m0 12a2 2 0 0 0 -1.995 1.85l-.005 .15a2 2 0 1 0 2 -2m0 -10a3 3 0 0 0 -3 3v3h6v-3a3 3 0 0 0 -3 -3" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--key">
-      <!-- key -->
-      <g fill="none" stroke="#b5b1b1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M16.555 3.843l3.602 3.602a2.877 2.877 0 0 1 0 4.069l-2.643 2.643a2.877 2.877 0 0 1 -4.069 0l-.301 -.301l-6.558 6.558a2 2 0 0 1 -1.239 .578l-.175 .008h-1.172a1 1 0 0 1 -.993 -.883l-.007 -.117v-1.172a2 2 0 0 1 .467 -1.284l.119 -.13l.414 -.414h2v-2h2v-2l2.144 -2.144l-.301 -.301a2.877 2.877 0 0 1 0 -4.069l2.643 -2.643a2.877 2.877 0 0 1 4.069 0z" />
-        <path d="M15 9h.01" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--password">
-      <!-- shield-half -->
-      <path d="M11.998 2l.032 .002l.086 .005a1 1 0 0 1 .342 .104l.105 .062l.097 .076l.016 .015l.247 .21a11 11 0 0 0 7.189 2.537l.342 -.01a1 1 0 0 1 1.005 .717a13 13 0 0 1 -9.208 16.25a1 1 0 0 1 -.502 0a13 13 0 0 1 -9.209 -16.25a1 1 0 0 1 1.005 -.717a11 11 0 0 0 7.791 -2.75l.046 -.036l.053 -.041a1 1 0 0 1 .217 -.112l.075 -.023l.036 -.01a1 1 0 0 1 .12 -.022l.086 -.005zm.002 2.296l-.176 .135a13 13 0 0 1 -7.288 2.572l-.264 .006l-.064 .31a11 11 0 0 0 1.064 7.175l.17 .314a11 11 0 0 0 6.49 5.136l.068 .019z" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--shield-lock">
-      <!-- shield-lock -->
-      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-          <path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3" />
-          <path d="M12 11m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-          <path d="M12 12l0 2.5" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--shield-lock-filled">
-      <!-- shield-lock -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M11.998 2l.118 .007l.059 .008l.061 .013l.111 .034a.993 .993 0 0 1 .217 .112l.104 .082l.255 .218a11 11 0 0 0 7.189 2.537l.342 -.01a1 1 0 0 1 1.005 .717a13 13 0 0 1 -9.208 16.25a1 1 0 0 1 -.502 0a13 13 0 0 1 -9.209 -16.25a1 1 0 0 1 1.005 -.717a11 11 0 0 0 7.531 -2.527l.263 -.225l.096 -.075a.993 .993 0 0 1 .217 -.112l.112 -.034a.97 .97 0 0 1 .119 -.021l.115 -.007zm.002 7a2 2 0 0 0 -1.995 1.85l-.005 .15l.005 .15a2 2 0 0 0 .995 1.581v1.769l.007 .117a1 1 0 0 0 1.993 -.117l.001 -1.768a2 2 0 0 0 -1.001 -3.732z" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--shield">
-      <!-- shield -->
-      <path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--shield-check">
-      <!-- shield-check -->
-      <g fill="none" stroke="#b5b1b1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M11.46 20.846a12 12 0 0 1 -7.96 -14.846a12 12 0 0 0 8.5 -3a12 12 0 0 0 8.5 3a12 12 0 0 1 -.09 7.06" />
-        <path d="M15 19l2 2l4 -4" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--shield-check-filled">
-      <!-- shield-check filled -->
-      <g fill="none" stroke="#b5b1b1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M11.998 2l.118 .007l.059 .008l.061 .013l.111 .034a.993 .993 0 0 1 .217 .112l.104 .082l.255 .218a11 11 0 0 0 7.189 2.537l.342 -.01a1 1 0 0 1 1.005 .717a13 13 0 0 1 -9.208 16.25a1 1 0 0 1 -.502 0a13 13 0 0 1 -9.209 -16.25a1 1 0 0 1 1.005 -.717a11 11 0 0 0 7.531 -2.527l.263 -.225l.096 -.075a.993 .993 0 0 1 .217 -.112l.112 -.034a.97 .97 0 0 1 .119 -.021l.115 -.007zm3.71 7.293a1 1 0 0 0 -1.415 0l-3.293 3.292l-1.293 -1.292l-.094 -.083a1 1 0 0 0 -1.32 1.497l2 2l.094 .083a1 1 0 0 0 1.32 -.083l4 -4l.083 -.094a1 1 0 0 0 -.083 -1.32z" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--calendar">
-      <!-- calendar -->
-       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-       <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" />
-       <path d="M16 3v4" />
-       <path d="M8 3v4" />
-       <path d="M4 11h16" />
-       <path d="M11 15h1" />
-       <path d="M12 15v3" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--calendar-work">
-      <!-- calendar-week -->
-      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" />
-        <path d="M16 3v4" />
-        <path d="M8 3v4" />
-        <path d="M4 11h16" />
-        <path d="M8 14v4" />
-        <path d="M12 14v4" />
-        <path d="M16 14v4" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--calendar-holiday">
-      <!-- calendar-smile -->
-      <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12zm12 -4v4m-8 -4v4m-4 4h16m-9.995 3h.01m3.99 0h.01" />
-      <path d="M10.005 17a3.5 3.5 0 0 0 4 0" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--member">
-      <!-- heart-handshake -->
-      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
-        <path d="M12 6l-3.293 3.293a1 1 0 0 0 0 1.414l.543 .543c.69 .69 1.81 .69 2.5 0l1 -1a3.182 3.182 0 0 1 4.5 0l2.25 2.25" />
-        <path d="M12.5 15.5l2 2" />
-        <path d="M15 13l2 2" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--group">
-      <!-- group -->
-      <path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
-      <path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1"/>
-      <path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
-      <path d="M17 10h2a2 2 0 0 1 2 2v1"/>
-      <path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
-      <path d="M3 13v-1a2 2 0 0 1 2 -2h2"/>
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--user">
-      <!-- user -->
-      <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-      <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--user-edit">
-      <!-- user-edit -->
-      <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-      <path d="M6 21v-2a4 4 0 0 1 4 -4h3.5" />
-      <path d="M18.42 15.61a2.1 2.1 0 0 1 2.97 2.97l-3.39 3.42h-3v-3l3.42 -3.39" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--calendar-user">
-      <!-- calendar-user -->
-      <path d="M12 21h-6a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4.5" />
-      <path d="M16 3v4" />
-      <path d="M8 3v4" />
-      <path d="M4 11h16" />
-      <path d="M19 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-      <path d="M22 22a2 2 0 0 0 -2 -2h-2a2 2 0 0 0 -2 2" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--attendance">
-      <!-- exclamation-circle -->
-      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-        <path d="M12 9v4" />
-        <path d="M12 16v.01" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--hrm">
-      <!-- user-circle -->
-      <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-      <path d="M12 10m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-      <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--gift">
-      <!-- gift filled -->
-      <path d="M3 8m0 1a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1z" />
-      <path d="M12 8l0 13" />
-      <path d="M19 12v7a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-7" />
-      <path d="M7.5 8a2.5 2.5 0 0 1 0 -5a4.8 8 0 0 1 4.5 5a4.8 8 0 0 1 4.5 -5a2.5 2.5 0 0 1 0 5" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--clock">
-      <!-- clock -->
-      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
-      <path d="M12 7v5l3 3" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--clock-filled">
-      <!-- clock -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-5 2.66a1 1 0 0 0 -.993 .883l-.007 .117v5l.009 .131a1 1 0 0 0 .197 .477l.087 .1l3 3l.094 .082a1 1 0 0 0 1.226 0l.094 -.083l.083 -.094a1 1 0 0 0 0 -1.226l-.083 -.094l-2.707 -2.708v-4.585l-.007 -.117a1 1 0 0 0 -.993 -.883z" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--report">
-      <path d="M4 20h3" />
-      <path d="M17 20h3" />
-      <path d="M10.5 20h3" />
-      <path d="M4 16h3" />
-      <path d="M17 16h3" />
-      <path d="M10.5 16h3" />
-      <path d="M4 12h3" />
-      <path d="M17 12h3" />
-      <path d="M10.5 12h3" />
-      <path d="M4 8h3" />
-      <path d="M17 8h3" />
-      <path d="M4 4h3" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--log">
-      <!-- book-2 -->
-      <path d="M19 4v16h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12z" />
-      <path d="M19 16h-12a2 2 0 0 0 -2 2" />
-      <path d="M9 8h6" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--details">
-      <!-- info-circle -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M12 2c5.523 0 10 4.477 10 10a10 10 0 0 1 -19.995 .324l-.005 -.324l.004 -.28c.148 -5.393 4.566 -9.72 9.996 -9.72zm0 9h-1l-.117 .007a1 1 0 0 0 0 1.986l.117 .007v3l.007 .117a1 1 0 0 0 .876 .876l.117 .007h1l.117 -.007a1 1 0 0 0 .876 -.876l.007 -.117l-.007 -.117a1 1 0 0 0 -.764 -.857l-.112 -.02l-.117 -.006v-3l-.007 -.117a1 1 0 0 0 -.876 -.876l-.117 -.007zm.01 -3l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007z" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--meeting">
-      <!-- brand-ubuntu -->
-      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M12 5m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-        <path d="M17.723 7.41a7.992 7.992 0 0 0 -3.74 -2.162m-3.971 0a7.993 7.993 0 0 0 -3.789 2.216m-1.881 3.215a8 8 0 0 0 -.342 2.32c0 .738 .1 1.453 .287 2.132m1.96 3.428a7.993 7.993 0 0 0 3.759 2.19m4 0a7.993 7.993 0 0 0 3.747 -2.186m1.962 -3.43a8.008 8.008 0 0 0 .287 -2.131c0 -.764 -.107 -1.503 -.307 -2.203" />
-        <path d="M5 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-        <path d="M19 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-      </g>
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--history">
-      <!-- history -->
-      <path d="M12 8l0 4l2 2"/>
-      <path d="M3.05 11a9 9 0 1 1 .5 4m-.5 5v-5h5"/>
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--unsupported">
-      <!-- circle-minus -->
-      <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-      <path d="M9 12l6 0" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--test">
-      <!-- flask -->
-      <path d="M20 8.04l-12.122 12.124a2.857 2.857 0 1 1 -4.041 -4.04l12.122 -12.124" />
-      <path d="M7 13h8" />
-      <path d="M19 15l1.5 1.6a2 2 0 1 1 -3 0l1.5 -1.6z" />
-      <path d="M15 3l6 6" />
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--additionals">
+      <path d="M12.483 20.935c-.862 .239 -1.898 -.178 -2.158 -1.252a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.08 .262 1.496 1.308 1.247 2.173"/>
+      <path d="M16 19h6"/>
+      <path d="M19 16v6"/>
+      <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--ai">
+      <path d="M5 7l5 5l-5 5"/>
+      <path d="M13 17l6 0"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--archive">
+      <path d="M3 6a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2"/>
+      <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10"/>
+      <path d="M10 12l4 0"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--archive-off">
+      <path d="M8 4h11a2 2 0 1 1 0 4h-7m-4 0h-3a2 2 0 0 1 -.826 -3.822"/>
+      <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 1.824 -1.18m.176 -3.82v-7"/>
+      <path d="M10 12h2"/>
+      <path d="M3 3l18 18"/>
     </symbol>
     <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--assign">
-      <!-- arrow-right-dashed -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M12 5v.5m0 3v1.5m0 3v6" />
-      <path d="M18 13l-6 6" />
-      <path d="M6 13l6 6" />
+      <path d="M5 12h.5m3 0h1.5m3 0h6"/>
+      <path d="M13 18l6 -6"/>
+      <path d="M13 6l6 6"/>
     </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--settings">
-      <!-- settings -->
-      <path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" />
-      <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--at">
+      <path d="M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"/>
+      <path d="M16 12v1.5a2.5 2.5 0 0 0 5 0v-1.5a9 9 0 1 0 -5.5 8.28"/>
     </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--robot">
-      <!-- robot -->
-      <path d="M6 4m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z" />
-      <path d="M12 2v2" />
-      <path d="M9 12v9" />
-      <path d="M15 12v9" />
-      <path d="M5 16l4 -2" />
-      <path d="M15 14l4 2" />
-      <path d="M9 18h6" />
-      <path d="M10 8v.01" />
-      <path d="M14 8v.01" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="icon--tags">
-      <!-- tags -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M3 8v4.172a2 2 0 0 0 .586 1.414l5.71 5.71a2.41 2.41 0 0 0 3.408 0l3.592 -3.592a2.41 2.41 0 0 0 0 -3.408l-5.71 -5.71a2 2 0 0 0 -1.414 -.586h-4.172a2 2 0 0 0 -2 2z" />
-      <path d="M18 19l1.592 -1.592a4.82 4.82 0 0 0 0 -6.816l-4.592 -4.592" />
-      <path d="M7 10h-.01" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--additionals">
-      <!-- settings-plus -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M12.483 20.935c-.862 .239 -1.898 -.178 -2.158 -1.252a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.08 .262 1.496 1.308 1.247 2.173" />
-      <path d="M16 19h6" />
-      <path d="M19 16v6" />
-      <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--servicedesk">
-      <!-- lifebuoy -->
-      <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
-      <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-      <path d="M15 15l3.35 3.35" />
-      <path d="M9 15l-3.35 3.35" />
-      <path d="M5.65 5.65l3.35 3.35" />
-      <path d="M18.35 5.65l-3.35 3.35" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--encryption">
-      <!-- lock-access -->
-      <path d="M4 8v-2a2 2 0 0 1 2 -2h2" />
-      <path d="M4 16v2a2 2 0 0 0 2 2h2" />
-      <path d="M16 4h2a2 2 0 0 1 2 2v2" />
-      <path d="M16 20h2a2 2 0 0 0 2 -2v-2" />
-      <path d="M8 11m0 1a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1v3a1 1 0 0 1 -1 1h-6a1 1 0 0 1 -1 -1z" />
-      <path d="M10 11v-2a2 2 0 1 1 4 0v2" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--filter">
-      <!-- filter -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M4 4h16v2.172a2 2 0 0 1 -.586 1.414l-4.414 4.414v7l-6 2v-8.5l-4.48 -4.928a2 2 0 0 1 -.52 -1.345v-2.227z" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--reddit">
-      <!-- brand-reddit -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M12 8c2.648 0 5.028 .826 6.675 2.14a2.5 2.5 0 0 1 2.326 4.36c0 3.59 -4.03 6.5 -9 6.5c-4.875 0 -8.845 -2.8 -9 -6.294l-1 -.206a2.5 2.5 0 0 1 2.326 -4.36c1.646 -1.313 4.026 -2.14 6.674 -2.14z" />
-      <path d="M12 8l1 -5l6 1" />
-      <path d="M19 4m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-      <circle cx="9" cy="13" r=".5" fill="currentColor" />
-      <circle cx="15" cy="13" r=".5" fill="currentColor" />
-      <path d="M10 17c.667 .333 1.333 .5 2 .5s1.333 -.167 2 -.5" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--archive">
-      <!-- archive -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
-      <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
-      <path d="M10 12l4 0" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--archive-off">
-      <!-- archive-off -->
-      <path d="M8 4h11a2 2 0 1 1 0 4h-7m-4 0h-3a2 2 0 0 1 -.826 -3.822" />
-      <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 1.824 -1.18m.176 -3.82v-7" />
-      <path d="M10 12h2" />
-      <path d="M3 3l18 18" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--dashboard">
-      <!-- layout-dashboard -->
-      <path d="M5 4h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1" />
-      <path d="M5 16h4a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1" />
-      <path d="M15 12h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1" />
-      <path d="M15 4h4a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--photo">
-      <!-- photo -->
-      <path d="M15 8h.01" />
-      <path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12z" />
-      <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" />
-      <path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--square-chevron-left">
-      <!-- square-chevron-left -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M13 15l-3 -3l3 -3" />
-      <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--square-chevron-left-filled">
-      <!-- square-chevron-left -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M19 2a3 3 0 0 1 3 3v14a3 3 0 0 1 -3 3h-14a3 3 0 0 1 -3 -3v-14a3 3 0 0 1 3 -3zm-5.293 6.293a1 1 0 0 0 -1.414 0l-3 3l-.083 .094a1 1 0 0 0 .083 1.32l3 3l.094 .083a1 1 0 0 0 1.32 -.083l.083 -.094a1 1 0 0 0 -.083 -1.32l-2.292 -2.293l2.292 -2.293l.083 -.094a1 1 0 0 0 -.083 -1.32z" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--trophy">
-      <!-- trophy -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M8 21l8 0" />
-      <path d="M12 17l0 4" />
-      <path d="M7 4l10 0" />
-      <path d="M17 4v8a5 5 0 0 1 -10 0v-8" />
-      <path d="M5 9m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-      <path d="M19 9m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--eye">
-      <!-- eye -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-      <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--due">
-      <!-- bell -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" />
-      <path d="M9 17v1a3 3 0 0 0 6 0v-1" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--notes">
-      <!-- message-circle -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M3 20l1.3 -3.9c-2.324 -3.437 -1.426 -7.872 2.1 -10.374c3.526 -2.501 8.59 -2.296 11.845 .48c3.255 2.777 3.695 7.266 1.029 10.501c-2.666 3.235 -7.615 4.215 -11.574 2.293l-4.7 1" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--estimated_hours">
-      <!-- hourglass-empty -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M6 20v-2a6 6 0 1 1 12 0v2a1 1 0 0 1 -1 1h-10a1 1 0 0 1 -1 -1z" />
-      <path d="M6 4v2a6 6 0 1 0 12 0v-2a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1z" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--star">
-      <!-- star -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--star-filled">
-      <!-- star filled -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--calendar-event">
-      <!-- calendar-event -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M4 5m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
-      <path d="M16 3l0 4" />
-      <path d="M8 3l0 4" />
-      <path d="M4 11l16 0" />
-      <path d="M8 15h2v2h-2z" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--stars">
-      <!-- stars -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M17.8 19.817l-2.172 1.138a.392 .392 0 0 1 -.568 -.41l.415 -2.411l-1.757 -1.707a.389 .389 0 0 1 .217 -.665l2.428 -.352l1.086 -2.193a.392 .392 0 0 1 .702 0l1.086 2.193l2.428 .352a.39 .39 0 0 1 .217 .665l-1.757 1.707l.414 2.41a.39 .39 0 0 1 -.567 .411l-2.172 -1.138z" />
-      <path d="M6.2 19.817l-2.172 1.138a.392 .392 0 0 1 -.568 -.41l.415 -2.411l-1.757 -1.707a.389 .389 0 0 1 .217 -.665l2.428 -.352l1.086 -2.193a.392 .392 0 0 1 .702 0l1.086 2.193l2.428 .352a.39 .39 0 0 1 .217 .665l-1.757 1.707l.414 2.41a.39 .39 0 0 1 -.567 .411l-2.172 -1.138z" />
-      <path d="M12 9.817l-2.172 1.138a.392 .392 0 0 1 -.568 -.41l.415 -2.411l-1.757 -1.707a.389 .389 0 0 1 .217 -.665l2.428 -.352l1.086 -2.193a.392 .392 0 0 1 .702 0l1.086 2.193l2.428 .352a.39 .39 0 0 1 .217 .665l-1.757 1.707l.414 2.41a.39 .39 0 0 1 -.567 .411l-2.172 -1.138z" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--rocket">
-      <!-- rocket -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M4 13a8 8 0 0 1 7 7a6 6 0 0 0 3 -5a9 9 0 0 0 6 -8a3 3 0 0 0 -3 -3a9 9 0 0 0 -8 6a6 6 0 0 0 -5 3" />
-      <path d="M7 14a6 6 0 0 0 -3 6a6 6 0 0 0 6 -3" />
-      <path d="M15 9m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--calendar-clock">
-      <!-- calendar-clock -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M10.5 21h-4.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v3" />
-      <path d="M16 3v4" />
-      <path d="M8 3v4" />
-      <path d="M4 11h10" />
-      <path d="M18 18m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
-      <path d="M18 16.5v1.5l.5 .5" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--chart-bar">
-      <!-- chart-bar -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M3 13a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
-      <path d="M15 9a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
-      <path d="M9 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
-      <path d="M4 20h14" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--vimeo">
-      <!-- vimeo -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M3 8.5l1 1s1.5 -1.102 2 -.5c.509 .609 1.863 7.65 2.5 9c.556 1.184 1.978 2.89 4 1.5c2 -1.5 7.5 -5.5 8.5 -11.5c.444 -2.661 -1 -4 -2.5 -4c-2 0 -4.047 1.202 -4.5 4c2.05 -1.254 2.551 1 1.5 3c-1.052 2 -2 3 -2.5 3c-.49 0 -.924 -1.165 -1.5 -3.5c-.59 -2.42 -.5 -6.5 -3 -6.5s-5.5 4.5 -5.5 4.5z" />
-    </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--youtube">
-      <!-- youtube -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M2 8a4 4 0 0 1 4 -4h12a4 4 0 0 1 4 4v8a4 4 0 0 1 -4 4h-12a4 4 0 0 1 -4 -4v-8z" />
-      <path d="M10 9l5 3l-5 3z" />
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--attendance">
+      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/>
+      <path d="M12 9v4"/>
+      <path d="M12 16v.01"/>
     </symbol>
     <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--bath">
-      <!-- bath -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <path d="M4 12h16a1 1 0 0 1 1 1v3a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-3a1 1 0 0 1 1 -1z" />
-      <path d="M6 12v-7a2 2 0 0 1 2 -2h3v2.25" />
-      <path d="M4 21l1 -1.5" />
-      <path d="M20 21l-1 -1.5" />
+      <path d="M4 12h16a1 1 0 0 1 1 1v3a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-3a1 1 0 0 1 1 -1"/>
+      <path d="M6 12v-7a2 2 0 0 1 2 -2h3v2.25"/>
+      <path d="M4 21l1 -1.5"/>
+      <path d="M20 21l-1 -1.5"/>
     </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--stopwatch">
-      <!-- stopwatch -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <path d="M5 13a7 7 0 1 0 14 0a7 7 0 0 0 -14 0z" />
-      <path d="M14.5 10.5l-2.5 2.5" />
-      <path d="M17 8l1 -1" />
-      <path d="M14 3h-4" />
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--calendar">
+      <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12"/>
+      <path d="M16 3v4"/>
+      <path d="M8 3v4"/>
+      <path d="M4 11h16"/>
+      <path d="M11 15h1"/>
+      <path d="M12 15v3"/>
     </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--player-play">
-      <!-- player-play -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" />
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--calendar-clock">
+      <path d="M10.5 21h-4.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v3"/>
+      <path d="M16 3v4"/>
+      <path d="M8 3v4"/>
+      <path d="M4 11h10"/>
+      <path d="M14 18a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"/>
+      <path d="M18 16.5v1.5l.5 .5"/>
     </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--player-stop">
-      <!-- player-stop -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" />
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--calendar-event">
+      <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2l0 -12"/>
+      <path d="M16 3l0 4"/>
+      <path d="M8 3l0 4"/>
+      <path d="M4 11l16 0"/>
+      <path d="M8 15h2v2h-2l0 -2"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--calendar-holiday">
+      <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12m12 -4v4m-8 -4v4m-4 4h16m-9.995 3h.01m3.99 0h.01"/>
+      <path d="M10.005 17a3.5 3.5 0 0 0 4 0"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--calendar-user">
+      <path d="M12 21h-6a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4.5"/>
+      <path d="M16 3v4"/>
+      <path d="M8 3v4"/>
+      <path d="M4 11h16"/>
+      <path d="M17 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+      <path d="M22 22a2 2 0 0 0 -2 -2h-2a2 2 0 0 0 -2 2"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--calendar-work">
+      <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12"/>
+      <path d="M16 3v4"/>
+      <path d="M8 3v4"/>
+      <path d="M4 11h16"/>
+      <path d="M7 14h.013"/>
+      <path d="M10.01 14h.005"/>
+      <path d="M13.01 14h.005"/>
+      <path d="M16.015 14h.005"/>
+      <path d="M13.015 17h.005"/>
+      <path d="M7.01 17h.005"/>
+      <path d="M10.01 17h.005"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--canned-response">
+      <path d="M8 9h8"/>
+      <path d="M8 13h6"/>
+      <path d="M12 21l-3 -3h-3a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v6"/>
+      <path d="M16 22l5 -5"/>
+      <path d="M21 21.5v-4.5h-4.5"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--caret-down">
+      <path d="M6 10l6 6l6 -6h-12"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--caret-up">
+      <path d="M18 14l-6 -6l-6 6h12"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--cc">
+      <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10"/>
+      <path d="M10 10.5a1.5 1.5 0 0 0 -3 0v3a1.5 1.5 0 0 0 3 0"/>
+      <path d="M17 10.5a1.5 1.5 0 0 0 -3 0v3a1.5 1.5 0 0 0 3 0"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--chart-bar">
+      <path d="M3 13a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -6"/>
+      <path d="M15 9a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -10"/>
+      <path d="M9 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -14"/>
+      <path d="M4 20h14"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--checks">
+      <path d="M7 12l5 5l10 -10"/>
+      <path d="M2 12l5 5m5 -5l5 -5"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--clock">
+      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"/>
+      <path d="M12 7v5l3 3"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" id="icon--clock-filled">
+      <path d="M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-5 2.66a1 1 0 0 0 -.993 .883l-.007 .117v5l.009 .131a1 1 0 0 0 .197 .477l.087 .1l3 3l.094 .082a1 1 0 0 0 1.226 0l.094 -.083l.083 -.094a1 1 0 0 0 0 -1.226l-.083 -.094l-2.707 -2.708v-4.585l-.007 -.117a1 1 0 0 0 -.993 -.883z"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--clock-play">
+      <path d="M12 7v5l2 2"/>
+      <path d="M17 22l5 -3l-5 -3l0 6"/>
+      <path d="M13.017 20.943a9 9 0 1 1 7.831 -7.292"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--collapse-all">
+      <path d="M4 18v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2"/>
+      <path d="M4 9h16"/>
+      <path d="M10 16l2 -2l2 2"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--company">
+      <path d="M3 21l18 0"/>
+      <path d="M5 21v-14l8 -4v18"/>
+      <path d="M19 21v-10l-6 -4"/>
+      <path d="M9 9l0 .01"/>
+      <path d="M9 12l0 .01"/>
+      <path d="M9 15l0 .01"/>
+      <path d="M9 18l0 .01"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--contact">
+      <path d="M10 16v5"/>
+      <path d="M14 16v5"/>
+      <path d="M9 9h6l-1 7h-4l-1 -7"/>
+      <path d="M5 11c1.333 -1.333 2.667 -2 4 -2"/>
+      <path d="M19 11c-1.333 -1.333 -2.667 -2 -4 -2"/>
+      <path d="M10 4a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--contacts">
+      <path d="M5 5a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+      <path d="M5 22v-5l-1 -1v-4a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4l-1 1v5"/>
+      <path d="M15 5a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+      <path d="M15 22v-4h-2l2 -6a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1l2 6h-2v4"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--cube">
+      <path d="M21 16.008v-8.018a1.98 1.98 0 0 0 -1 -1.717l-7 -4.008a2.016 2.016 0 0 0 -2 0l-7 4.008c-.619 .355 -1 1.01 -1 1.718v8.018c0 .709 .381 1.363 1 1.717l7 4.008a2.016 2.016 0 0 0 2 0l7 -4.008c.619 -.355 1 -1.01 1 -1.718"/>
+      <path d="M12 22v-10"/>
+      <path d="M12 12l8.73 -5.04"/>
+      <path d="M3.27 6.96l8.73 5.04"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--dashboard">
+      <path d="M5 4h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1"/>
+      <path d="M5 16h4a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1"/>
+      <path d="M15 12h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1"/>
+      <path d="M15 4h4a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--db-entry">
+      <path d="M4 6a8 3 0 1 0 16 0a8 3 0 1 0 -16 0"/>
+      <path d="M4 6v6a8 3 0 0 0 16 0v-6"/>
+      <path d="M4 12v6a8 3 0 0 0 16 0v-6"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--details">
+      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"/>
+      <path d="M12 9h.01"/>
+      <path d="M11 12h1v4h1"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--drag-drop">
+      <path d="M8 10a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2l0 -8"/>
+      <path d="M4 4l0 .01"/>
+      <path d="M8 4l0 .01"/>
+      <path d="M12 4l0 .01"/>
+      <path d="M16 4l0 .01"/>
+      <path d="M4 8l0 .01"/>
+      <path d="M4 12l0 .01"/>
+      <path d="M4 16l0 .01"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--due">
+      <path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"/>
+      <path d="M9 17v1a3 3 0 0 0 6 0v-1"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--encryption">
+      <path d="M4 8v-2a2 2 0 0 1 2 -2h2"/>
+      <path d="M4 16v2a2 2 0 0 0 2 2h2"/>
+      <path d="M16 4h2a2 2 0 0 1 2 2v2"/>
+      <path d="M16 20h2a2 2 0 0 0 2 -2v-2"/>
+      <path d="M8 12a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1v3a1 1 0 0 1 -1 1h-6a1 1 0 0 1 -1 -1l0 -3"/>
+      <path d="M10 11v-2a2 2 0 1 1 4 0v2"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--estimated_hours">
+      <path d="M6 20v-2a6 6 0 1 1 12 0v2a1 1 0 0 1 -1 1h-10a1 1 0 0 1 -1 -1"/>
+      <path d="M6 4v2a6 6 0 1 0 12 0v-2a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--euro">
+      <path d="M17.2 7a6 7 0 1 0 0 10"/>
+      <path d="M13 10h-8m0 4h8"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--expand-all">
+      <path d="M4 18v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2"/>
+      <path d="M4 9h16"/>
+      <path d="M10 14l2 2l2 -2"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--eye">
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
+      <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--filelist">
+      <path d="M14 3v4a1 1 0 0 0 1 1h4"/>
+      <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2"/>
+      <path d="M9 17h6"/>
+      <path d="M9 13h6"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--filter">
+      <path d="M4 4h16v2.172a2 2 0 0 1 -.586 1.414l-4.414 4.414v7l-6 2v-8.5l-4.48 -4.928a2 2 0 0 1 -.52 -1.345v-2.227"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--fingerprint">
+      <path d="M18.9 7a8 8 0 0 1 1.1 5v1a6 6 0 0 0 .8 3"/>
+      <path d="M8 11a4 4 0 0 1 8 0v1a10 10 0 0 0 2 6"/>
+      <path d="M12 11v2a14 14 0 0 0 2.5 8"/>
+      <path d="M8 15a18 18 0 0 0 1.8 6"/>
+      <path d="M4.9 19a22 22 0 0 1 -.9 -7v-1a8 8 0 0 1 12 -6.95"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--fullscreen">
+      <path d="M16 4l4 0l0 4"/>
+      <path d="M14 10l6 -6"/>
+      <path d="M8 20l-4 0l0 -4"/>
+      <path d="M4 20l6 -6"/>
+      <path d="M16 20l4 0l0 -4"/>
+      <path d="M14 14l6 6"/>
+      <path d="M8 4l-4 0l0 4"/>
+      <path d="M4 4l6 6"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--gift">
+      <path d="M3 9a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1l0 -2"/>
+      <path d="M12 8l0 13"/>
+      <path d="M19 12v7a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-7"/>
+      <path d="M7.5 8a2.5 2.5 0 0 1 0 -5a4.8 8 0 0 1 4.5 5a4.8 8 0 0 1 4.5 -5a2.5 2.5 0 0 1 0 5"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--git-merge">
+      <path d="M5 18a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+      <path d="M5 6a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+      <path d="M15 12a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+      <path d="M7 8l0 8"/>
+      <path d="M7 8a4 4 0 0 0 4 4h4"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--github">
+      <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--gitlab">
+      <path d="M21 14l-9 7l-9 -7l3 -11l3 7h6l3 -7l3 11"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--google-drive">
+      <path d="M12 10l-6 10l-3 -5l6 -10l3 5"/>
+      <path d="M9 15h12l-3 5h-12"/>
+      <path d="M15 15l-6 -10h6l6 10l-6 0"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--hrm">
+      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/>
+      <path d="M9 10a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/>
+      <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--invoice">
+      <path d="M14 3v4a1 1 0 0 0 1 1h4"/>
+      <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2"/>
+      <path d="M12 14h-3"/>
+      <path d="M14 11.172a3 3 0 1 0 0 5.656"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--invoice-add">
+      <path d="M5 21v-16a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16l-3 -2l-2 2l-2 -2l-2 2l-2 -2l-3 2"/>
+      <path d="M14 8h-2.5a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 0 1 0 3h-2.5m2 0v1.5m0 -9v1.5"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--invoice-mail">
+      <path d="M13.5 19h-8.5a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v3.5"/>
+      <path d="M21 15h-2.5a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 0 1 0 3h-2.5"/>
+      <path d="M19 21v1m0 -8v1"/>
+      <path d="M3 7l9 6l9 -6"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--invoice-payment">
+      <path d="M4 19a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
+      <path d="M13 17h-7v-14h-2"/>
+      <path d="M6 5l14 1l-.575 4.022m-4.925 2.978h-8.5"/>
+      <path d="M21 15h-2.5a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 0 1 0 3h-2.5"/>
+      <path d="M19 21v1m0 -8v1"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--issue-add">
+      <path d="M9 12h6"/>
+      <path d="M12 9v6"/>
+      <path d="M6 19a2 2 0 0 1 -2 -2v-4l-1 -1l1 -1v-4a2 2 0 0 1 2 -2"/>
+      <path d="M18 19a2 2 0 0 0 2 -2v-4l1 -1l-1 -1v-4a2 2 0 0 0 -2 -2"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--issues">
+      <path d="M3.5 5.5l1.5 1.5l2.5 -2.5"/>
+      <path d="M3.5 11.5l1.5 1.5l2.5 -2.5"/>
+      <path d="M3.5 17.5l1.5 1.5l2.5 -2.5"/>
+      <path d="M11 6l9 0"/>
+      <path d="M11 12l9 0"/>
+      <path d="M11 18l9 0"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--list-details">
+      <path d="M13 5h8"/>
+      <path d="M13 9h5"/>
+      <path d="M13 15h8"/>
+      <path d="M13 19h5"/>
+      <path d="M3 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -4"/>
+      <path d="M3 15a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -4"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" id="icon--lock-filled">
+      <path d="M12 2a5 5 0 0 1 5 5v3a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-10a3 3 0 0 1 -3 -3v-6a3 3 0 0 1 3 -3v-3a5 5 0 0 1 5 -5m0 12a2 2 0 0 0 -1.995 1.85l-.005 .15a2 2 0 1 0 2 -2m0 -10a3 3 0 0 0 -3 3v3h6v-3a3 3 0 0 0 -3 -3"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--log">
+      <path d="M19 4v16h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12"/>
+      <path d="M19 16h-12a2 2 0 0 0 -2 2"/>
+      <path d="M9 8h6"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--mail">
+      <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10"/>
+      <path d="M3 7l9 6l9 -6"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--mail-received">
+      <path d="M12 19h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v5.5"/>
+      <path d="M19 16v6"/>
+      <path d="M22 19l-3 3l-3 -3"/>
+      <path d="M3 7l9 6l9 -6"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--mail-sent">
+      <path d="M12 19h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v5.5"/>
+      <path d="M19 22v-6"/>
+      <path d="M22 19l-3 -3l-3 3"/>
+      <path d="M3 7l9 6l9 -6"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--mail-spam">
+      <path d="M5 11a7 7 0 0 1 14 0v7a1.78 1.78 0 0 1 -3.1 1.4a1.65 1.65 0 0 0 -2.6 0a1.65 1.65 0 0 1 -2.6 0a1.65 1.65 0 0 0 -2.6 0a1.78 1.78 0 0 1 -3.1 -1.4v-7"/>
+      <path d="M10 10l.01 0"/>
+      <path d="M14 10l.01 0"/>
+      <path d="M10 14a3.5 3.5 0 0 0 4 0"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--map">
+      <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"/>
+      <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--meeting">
+      <path d="M10 5a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+      <path d="M17.723 7.41a7.992 7.992 0 0 0 -3.74 -2.162m-3.971 0a7.993 7.993 0 0 0 -3.789 2.216m-1.881 3.215a8 8 0 0 0 -.342 2.32c0 .738 .1 1.453 .287 2.132m1.96 3.428a7.993 7.993 0 0 0 3.759 2.19m4 0a7.993 7.993 0 0 0 3.747 -2.186m1.962 -3.43a8.008 8.008 0 0 0 .287 -2.131c0 -.764 -.107 -1.503 -.307 -2.203"/>
+      <path d="M3 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+      <path d="M17 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--member">
+      <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"/>
+      <path d="M12 6l-3.293 3.293a1 1 0 0 0 0 1.414l.543 .543c.69 .69 1.81 .69 2.5 0l1 -1a3.182 3.182 0 0 1 4.5 0l2.25 2.25"/>
+      <path d="M12.5 15.5l2 2"/>
+      <path d="M15 13l2 2"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--merge">
+      <path d="M8 7l4 -4l4 4"/>
+      <path d="M12 3v5.394a6.737 6.737 0 0 1 -3 5.606a6.737 6.737 0 0 0 -3 5.606v1.394"/>
+      <path d="M12 3v5.394a6.737 6.737 0 0 0 3 5.606a6.737 6.737 0 0 1 3 5.606v1.394"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--money">
+      <path d="M7 15h-3a1 1 0 0 1 -1 -1v-8a1 1 0 0 1 1 -1h12a1 1 0 0 1 1 1v3"/>
+      <path d="M7 10a1 1 0 0 1 1 -1h12a1 1 0 0 1 1 1v8a1 1 0 0 1 -1 1h-12a1 1 0 0 1 -1 -1l0 -8"/>
+      <path d="M12 14a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--notes">
+      <path d="M3 20l1.3 -3.9c-2.324 -3.437 -1.426 -7.872 2.1 -10.374c3.526 -2.501 8.59 -2.296 11.845 .48c3.255 2.777 3.695 7.266 1.029 10.501c-2.666 3.235 -7.615 4.215 -11.574 2.293l-4.7 1"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--offline">
+      <path d="M4 10a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
+      <path d="M6 4v4"/>
+      <path d="M6 12v8"/>
+      <path d="M13.499 14.675a2 2 0 1 0 -1.499 3.325"/>
+      <path d="M12 4v10"/>
+      <path d="M12 18v2"/>
+      <path d="M16 7a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
+      <path d="M18 4v1"/>
+      <path d="M18 9v3"/>
+      <path d="M16 19a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/>
+      <path d="M17 21l4 -4"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--online">
+      <path d="M4 10a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
+      <path d="M6 4v4"/>
+      <path d="M6 12v8"/>
+      <path d="M13.823 15.176a2 2 0 1 0 -2.638 2.651"/>
+      <path d="M12 4v10"/>
+      <path d="M16 7a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
+      <path d="M18 4v1"/>
+      <path d="M18 9v5"/>
+      <path d="M15 19l2 2l4 -4"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--page-up">
+      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"/>
+      <path d="M12 8l-4 4"/>
+      <path d="M12 8v8"/>
+      <path d="M16 12l-4 -4"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--password">
+      <path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3"/>
+      <path d="M12 3v18"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--pdf">
+      <path d="M14 3v4a1 1 0 0 0 1 1h4"/>
+      <path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4"/>
+      <path d="M5 18h1.5a1.5 1.5 0 0 0 0 -3h-1.5v6"/>
+      <path d="M17 18h2"/>
+      <path d="M20 15h-3v6"/>
+      <path d="M11 15v6h1a2 2 0 0 0 2 -2v-2a2 2 0 0 0 -2 -2h-1"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--person">
+      <path d="M10 9a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
+      <path d="M4 8v-2a2 2 0 0 1 2 -2h2"/>
+      <path d="M4 16v2a2 2 0 0 0 2 2h2"/>
+      <path d="M16 4h2a2 2 0 0 1 2 2v2"/>
+      <path d="M16 20h2a2 2 0 0 0 2 -2v-2"/>
+      <path d="M8 16a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--phone">
+      <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--photo">
+      <path d="M15 8h.01"/>
+      <path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12"/>
+      <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5"/>
+      <path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3"/>
     </symbol>
     <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--player-pause">
-      <!-- player-pause -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <path d="M9 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z" />
-      <path d="M17 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z" />
+      <path d="M6 6a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v12a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1l0 -12"/>
+      <path d="M14 6a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v12a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1l0 -12"/>
     </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" id="icon--cc">
-      <!-- badge-cc -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <path d="M3 5m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
-      <path d="M10 10.5a1.5 1.5 0 0 0 -3 0v3a1.5 1.5 0 0 0 3 0" />
-      <path d="M17 10.5a1.5 1.5 0 0 0 -3 0v3a1.5 1.5 0 0 0 3 0" />
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--player-play">
+      <path d="M7 4v16l13 -8l-13 -8"/>
     </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--ai">
-      <!-- prompt -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <path d="M5 7l5 5l-5 5" />
-      <path d="M13 17l6 0" />
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--player-stop">
+      <path d="M5 7a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2l0 -10"/>
     </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--online">
-      <!-- adjustments-check -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <path d="M4 10a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-      <path d="M6 4v4" />
-      <path d="M6 12v8" />
-      <path d="M13.823 15.176a2 2 0 1 0 -2.638 2.651" />
-      <path d="M12 4v10" />
-      <path d="M16 7a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-      <path d="M18 4v1" />
-      <path d="M18 9v5" />
-      <path d="M15 19l2 2l4 -4" />
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--plus">
+      <path d="M12 5l0 14"/>
+      <path d="M5 12l14 0"/>
     </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--offline">
-      <!-- adjustments-cancel -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <path d="M4 10a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-      <path d="M6 4v4" />
-      <path d="M6 12v8" />
-      <path d="M13.499 14.675a2 2 0 1 0 -1.499 3.325" />
-      <path d="M12 4v10" />
-      <path d="M12 18v2" />
-      <path d="M16 7a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-      <path d="M18 4v1" />
-      <path d="M18 9v3" />
-      <path d="M19 19m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-      <path d="M17 21l4 -4" />
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--read">
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
+      <path d="M11.102 17.957c-3.204 -.307 -5.904 -2.294 -8.102 -5.957c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6a19.5 19.5 0 0 1 -.663 1.032"/>
+      <path d="M15 19l2 2l4 -4"/>
     </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--taskboard">
-      <!-- layout-kanban -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <path d="M4 4l6 0" />
-      <path d="M14 4l6 0" />
-      <path d="M4 8m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
-      <path d="M14 8m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--reddit">
+      <path d="M12 8c2.648 0 5.028 .826 6.675 2.14a2.5 2.5 0 0 1 2.326 4.36c0 3.59 -4.03 6.5 -9 6.5c-4.875 0 -8.845 -2.8 -9 -6.294l-1 -.206a2.5 2.5 0 0 1 2.326 -4.36c1.646 -1.313 4.026 -2.14 6.674 -2.14l.999 0"/>
+      <path d="M12 8l1 -5l6 1"/>
+      <path d="M18 4a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/>
+      <path d="M8.5 13a.5 .5 0 1 0 1 0a.5 .5 0 1 0 -1 0"/>
+      <path d="M14.5 13a.5 .5 0 1 0 1 0a.5 .5 0 1 0 -1 0"/>
+      <path d="M10 17c.667 .333 1.333 .5 2 .5s1.333 -.167 2 -.5"/>
     </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--toggle-left">
-      <!-- toggle-left -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <path d="M8 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-      <path d="M2 6m0 6a6 6 0 0 1 6 -6h8a6 6 0 0 1 6 6v0a6 6 0 0 1 -6 6h-8a6 6 0 0 1 -6 -6z" />
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--refresh">
+      <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4"/>
+      <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"/>
     </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--toggle-right">
-      <!-- toggle-right -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <path d="M16 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-      <path d="M2 6m0 6a6 6 0 0 1 6 -6h8a6 6 0 0 1 6 6v0a6 6 0 0 1 -6 6h-8a6 6 0 0 1 -6 -6z" />
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--robot">
+      <path d="M6 6a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2l0 -4"/>
+      <path d="M12 2v2"/>
+      <path d="M9 12v9"/>
+      <path d="M15 12v9"/>
+      <path d="M5 16l4 -2"/>
+      <path d="M15 14l4 2"/>
+      <path d="M9 18h6"/>
+      <path d="M10 8v.01"/>
+      <path d="M14 8v.01"/>
     </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--refresh">
-      <!-- refresh -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
-      <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--rocket">
+      <path d="M4 13a8 8 0 0 1 7 7a6 6 0 0 0 3 -5a9 9 0 0 0 6 -8a3 3 0 0 0 -3 -3a9 9 0 0 0 -8 6a6 6 0 0 0 -5 3"/>
+      <path d="M7 14a6 6 0 0 0 -3 6a6 6 0 0 0 6 -3"/>
+      <path d="M14 9a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/>
     </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--x">
-      <!-- x -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <path d="M18 6l-12 12" />
-      <path d="M6 6l12 12" />
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--send-reply">
+      <path d="M10 14l11 -11"/>
+      <path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5"/>
     </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--plus">
-      <!-- plus -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <path d="M12 5l0 14" />
-      <path d="M5 12l14 0" />
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--servicedesk">
+      <path d="M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"/>
+      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/>
+      <path d="M15 15l3.35 3.35"/>
+      <path d="M9 15l-3.35 3.35"/>
+      <path d="M5.65 5.65l3.35 3.35"/>
+      <path d="M18.35 5.65l-3.35 3.35"/>
     </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--drag-drop">
-      <!-- drag-drop-2 -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <path d="M8 10a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2l0 -8" />
-      <path d="M4 4l0 .01" />
-      <path d="M8 4l0 .01" />
-      <path d="M12 4l0 .01" />
-      <path d="M16 4l0 .01" />
-      <path d="M4 8l0 .01" />
-      <path d="M4 12l0 .01" />
-      <path d="M4 16l0 .01" />
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--share">
+      <path d="M3 12a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/>
+      <path d="M15 6a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/>
+      <path d="M15 18a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/>
+      <path d="M8.7 10.7l6.6 -3.4"/>
+      <path d="M8.7 13.3l6.6 3.4"/>
     </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--share">
-      <!-- share -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <path d="M3 12a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-      <path d="M15 6a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-      <path d="M15 18a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-      <path d="M8.7 10.7l6.6 -3.4" />
-      <path d="M8.7 13.3l6.6 3.4" />
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--shield">
+      <path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3"/>
     </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--caret-up">
-      <!-- caret-up -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <path d="M18 14l-6 -6l-6 6h12" />
+    <symbol viewBox="0 0 24 24" id="icon--shield-check-filled">
+      <path d="M11.998 2l.118 .007l.059 .008l.061 .013l.111 .034a.993 .993 0 0 1 .217 .112l.104 .082l.255 .218a11 11 0 0 0 7.189 2.537l.342 -.01a1 1 0 0 1 1.005 .717a13 13 0 0 1 -9.208 16.25a1 1 0 0 1 -.502 0a13 13 0 0 1 -9.209 -16.25a1 1 0 0 1 1.005 -.717a11 11 0 0 0 7.531 -2.527l.263 -.225l.096 -.075a.993 .993 0 0 1 .217 -.112l.112 -.034a.97 .97 0 0 1 .119 -.021l.115 -.007zm3.71 7.293a1 1 0 0 0 -1.415 0l-3.293 3.292l-1.293 -1.292l-.094 -.083a1 1 0 0 0 -1.32 1.497l2 2l.094 .083a1 1 0 0 0 1.32 -.083l4 -4l.083 -.094a1 1 0 0 0 -.083 -1.32z"/>
     </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--caret-down">
-      <!-- caret-down -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <path d="M6 10l6 6l6 -6h-12" />
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--shield-lock">
+      <path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3"/>
+      <path d="M11 11a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/>
+      <path d="M12 12l0 2.5"/>
     </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--expand-all">
-      <!-- layout-navbar-expand -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <path d="M4 18v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2" />
-      <path d="M4 9h16" />
-      <path d="M10 14l2 2l2 -2" />
+    <symbol viewBox="0 0 24 24" id="icon--shield-lock-filled">
+      <path d="M11.998 2l.118 .007l.059 .008l.061 .013l.111 .034a.993 .993 0 0 1 .217 .112l.104 .082l.255 .218a11 11 0 0 0 7.189 2.537l.342 -.01a1 1 0 0 1 1.005 .717a13 13 0 0 1 -9.208 16.25a1 1 0 0 1 -.502 0a13 13 0 0 1 -9.209 -16.25a1 1 0 0 1 1.005 -.717a11 11 0 0 0 7.531 -2.527l.263 -.225l.096 -.075a.993 .993 0 0 1 .217 -.112l.112 -.034a.97 .97 0 0 1 .119 -.021l.115 -.007zm.002 7a2 2 0 0 0 -1.995 1.85l-.005 .15l.005 .15a2 2 0 0 0 .995 1.581v1.769l.007 .117a1 1 0 0 0 1.993 -.117l.001 -1.768a2 2 0 0 0 -1.001 -3.732z"/>
     </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--collapse-all">
-      <!-- layout-navbar-collapse -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <path d="M4 18v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2" />
-      <path d="M4 9h16" />
-      <path d="M10 16l2 -2l2 2" />
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--show-source">
+      <path d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"/>
+      <path d="M21 21l-6 -6"/>
+      <path d="M8 8l-2 2l2 2"/>
+      <path d="M12 8l2 2l-2 2"/>
     </symbol>
-    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="icon--clock-play">
-      <!-- clock-play -->
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M12 7v5l2 2" />
-      <path d="M17 22l5 -3l-5 -3l0 6" />
-      <path d="M13.017 20.943a9 9 0 1 1 7.831 -7.292" />
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--smiley-angel">
+      <path d="M17 4.5a9 9 0 0 1 3.864 5.89a2.5 2.5 0 0 1 -.29 4.36a9 9 0 0 1 -17.137 0a2.5 2.5 0 0 1 -.29 -4.36a9 9 0 0 1 3.746 -5.81"/>
+      <path d="M9.5 16a3.5 3.5 0 0 0 5 0"/>
+      <path d="M8.5 2c1.5 1 2.5 3.5 2.5 5"/>
+      <path d="M12.5 2c1.5 2 2 3.5 2 5"/>
+      <path d="M9 12l.01 0"/>
+      <path d="M15 12l.01 0"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--smiley-annoyed">
+      <path d="M12 21a9 9 0 1 1 0 -18a9 9 0 0 1 0 18"/>
+      <path d="M8 9l2 1"/>
+      <path d="M16 9l-2 1"/>
+      <path d="M14.5 16.05a3.5 3.5 0 0 0 -5 0"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--smiley-check">
+      <path d="M5 12l5 5l10 -10"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--smiley-cheeky">
+      <path d="M12 21a9 9 0 1 1 0 -18a9 9 0 0 1 0 18"/>
+      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/>
+      <path d="M9 10h.01"/>
+      <path d="M10 14v2a2 2 0 0 0 4 0v-2"/>
+      <path d="M15.5 14h-7"/>
+      <path d="M17 10c-.5 -1 -2.5 -1 -3 0"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--smiley-confuse">
+      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/>
+      <path d="M11 16l4 -1.5"/>
+      <path d="M10 10c-.5 -1 -2.5 -1 -3 0"/>
+      <path d="M17 10c-.5 -1 -2.5 -1 -3 0"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--smiley-crying">
+      <path d="M9 10l.01 0"/>
+      <path d="M15 10l.01 0"/>
+      <path d="M9.5 15.25a3.5 3.5 0 0 1 5 0"/>
+      <path d="M17.566 17.606a2 2 0 1 0 2.897 .03l-1.463 -1.636l-1.434 1.606"/>
+      <path d="M20.865 13.517a8.937 8.937 0 0 0 .135 -1.517a9 9 0 1 0 -9 9c.69 0 1.36 -.076 2 -.222"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--smiley-embarrassed">
+      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/>
+      <path d="M14.5 16.05a3.5 3.5 0 0 0 -5 0"/>
+      <path d="M8 9l2 2"/>
+      <path d="M10 9l-2 2"/>
+      <path d="M14 9l2 2"/>
+      <path d="M16 9l-2 2"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--smiley-evil">
+      <path d="M12 21a9 9 0 1 1 0 -18a9 9 0 0 1 0 18"/>
+      <path d="M8 16l1 -1l1.5 1l1.5 -1l1.5 1l1.5 -1l1 1"/>
+      <path d="M8.5 11.5l1.5 -1.5l-1.5 -1.5"/>
+      <path d="M15.5 11.5l-1.5 -1.5l1.5 -1.5"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--smiley-exclamation">
+      <path d="M12 19v.01"/>
+      <path d="M12 15v-10"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--smiley-failure">
+      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/>
+      <path d="M10 10l4 4m0 -4l-4 4"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--smiley-kiss">
+      <path d="M21 12a9 9 0 1 0 -8.012 8.946"/>
+      <path d="M9 10h.01"/>
+      <path d="M15 10h.01"/>
+      <path d="M9.5 15a3.59 3.59 0 0 0 2.774 .99"/>
+      <path d="M18.994 21.5l2.518 -2.58a1.74 1.74 0 0 0 .004 -2.413a1.627 1.627 0 0 0 -2.346 -.005l-.168 .172l-.168 -.172a1.627 1.627 0 0 0 -2.346 -.004a1.74 1.74 0 0 0 -.004 2.412l2.51 2.59"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--smiley-laughing">
+      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/>
+      <path d="M9 9l.01 0"/>
+      <path d="M15 9l.01 0"/>
+      <path d="M8 13a4 4 0 1 0 8 0h-8"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--smiley-laughing2">
+      <path d="M21 12a9 9 0 1 0 -8.994 9"/>
+      <path d="M9 10h.01"/>
+      <path d="M15 10h.01"/>
+      <path d="M9.5 15a3.5 3.5 0 0 0 5 0"/>
+      <path d="M19 22.5a4.75 4.75 0 0 1 3.5 -3.5a4.75 4.75 0 0 1 -3.5 -3.5a4.75 4.75 0 0 1 -3.5 3.5a4.75 4.75 0 0 1 3.5 3.5"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--smiley-question">
+      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"/>
+      <path d="M12 16v.01"/>
+      <path d="M12 13a2 2 0 0 0 .914 -3.782a1.98 1.98 0 0 0 -2.414 .483"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--smiley-rock">
+      <path d="M11 11.5v-1a1.5 1.5 0 0 1 3 0v1.5"/>
+      <path d="M17 12v-6.5a1.5 1.5 0 0 1 3 0v10.5a6 6 0 0 1 -6 6h-2h.208a6 6 0 0 1 -5.012 -2.7a69.74 69.74 0 0 1 -.196 -.3c-.312 -.479 -1.407 -2.388 -3.286 -5.728a1.5 1.5 0 0 1 .536 -2.022a1.867 1.867 0 0 1 2.28 .28l1.47 1.47"/>
+      <path d="M14 10.5a1.5 1.5 0 0 1 3 0v1.5"/>
+      <path d="M8 13v-8.5a1.5 1.5 0 0 1 3 0v7.5"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--smiley-sad">
+      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/>
+      <path d="M9 10l.01 0"/>
+      <path d="M15 10l.01 0"/>
+      <path d="M9.5 15.25a3.5 3.5 0 0 1 5 0"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--smiley-shock">
+      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/>
+      <path d="M9 9l.01 0"/>
+      <path d="M15 9l.01 0"/>
+      <path d="M10 15a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--smiley-smiley">
+      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/>
+      <path d="M9 10l.01 0"/>
+      <path d="M15 10l.01 0"/>
+      <path d="M9.5 15a3.5 3.5 0 0 0 5 0"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--smiley-smiley2">
+      <path d="M12 21a9 9 0 1 1 0 -18a9 9 0 0 1 0 18"/>
+      <path d="M10 10c-.5 -1 -2.5 -1 -3 0"/>
+      <path d="M17 10c-.5 -1 -2.5 -1 -3 0"/>
+      <path d="M14.5 15a3.5 3.5 0 0 1 -5 0"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--smiley-straight">
+      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/>
+      <path d="M6 10a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+      <path d="M14 10a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+      <path d="M9.5 15a3.5 3.5 0 0 0 5 0"/>
+      <path d="M3.5 9h2.5"/>
+      <path d="M18 9h2.5"/>
+      <path d="M10 9.5c1.333 -1.333 2.667 -1.333 4 0"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--smiley-success">
+      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/>
+      <path d="M9 12l2 2l4 -4"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--smiley-wink">
+      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/>
+      <path d="M15 10h.01"/>
+      <path d="M9.5 15a3.5 3.5 0 0 0 5 0"/>
+      <path d="M8.5 8.5l1.5 1.5l-1.5 1.5"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--square-chevron-left">
+      <path d="M13 15l-3 -3l3 -3"/>
+      <path d="M3 5a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" id="icon--square-chevron-left-filled">
+      <path d="M19 2a3 3 0 0 1 3 3v14a3 3 0 0 1 -3 3h-14a3 3 0 0 1 -3 -3v-14a3 3 0 0 1 3 -3zm-5.293 6.293a1 1 0 0 0 -1.414 0l-3 3l-.083 .094a1 1 0 0 0 .083 1.32l3 3l.094 .083a1 1 0 0 0 1.32 -.083l.083 -.094a1 1 0 0 0 -.083 -1.32l-2.292 -2.293l2.292 -2.293l.083 -.094a1 1 0 0 0 -.083 -1.32z"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--star">
+      <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873l-6.158 -3.245"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" id="icon--star-filled">
+      <path d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--stars">
+      <path d="M17.8 19.817l-2.172 1.138a.392 .392 0 0 1 -.568 -.41l.415 -2.411l-1.757 -1.707a.389 .389 0 0 1 .217 -.665l2.428 -.352l1.086 -2.193a.392 .392 0 0 1 .702 0l1.086 2.193l2.428 .352a.39 .39 0 0 1 .217 .665l-1.757 1.707l.414 2.41a.39 .39 0 0 1 -.567 .411l-2.172 -1.138"/>
+      <path d="M6.2 19.817l-2.172 1.138a.392 .392 0 0 1 -.568 -.41l.415 -2.411l-1.757 -1.707a.389 .389 0 0 1 .217 -.665l2.428 -.352l1.086 -2.193a.392 .392 0 0 1 .702 0l1.086 2.193l2.428 .352a.39 .39 0 0 1 .217 .665l-1.757 1.707l.414 2.41a.39 .39 0 0 1 -.567 .411l-2.172 -1.138"/>
+      <path d="M12 9.817l-2.172 1.138a.392 .392 0 0 1 -.568 -.41l.415 -2.411l-1.757 -1.707a.389 .389 0 0 1 .217 -.665l2.428 -.352l1.086 -2.193a.392 .392 0 0 1 .702 0l1.086 2.193l2.428 .352a.39 .39 0 0 1 .217 .665l-1.757 1.707l.414 2.41a.39 .39 0 0 1 -.567 .411l-2.172 -1.138"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--stopwatch">
+      <path d="M5 13a7 7 0 1 0 14 0a7 7 0 0 0 -14 0"/>
+      <path d="M14.5 10.5l-2.5 2.5"/>
+      <path d="M17 8l1 -1"/>
+      <path d="M14 3h-4"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--tags">
+      <path d="M3 8v4.172a2 2 0 0 0 .586 1.414l5.71 5.71a2.41 2.41 0 0 0 3.408 0l3.592 -3.592a2.41 2.41 0 0 0 0 -3.408l-5.71 -5.71a2 2 0 0 0 -1.414 -.586h-4.172a2 2 0 0 0 -2 2"/>
+      <path d="M18 19l1.592 -1.592a4.82 4.82 0 0 0 0 -6.816l-4.592 -4.592"/>
+      <path d="M7 10h-.01"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--taskboard">
+      <path d="M4 4l6 0"/>
+      <path d="M14 4l6 0"/>
+      <path d="M4 10a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2l0 -8"/>
+      <path d="M14 10a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2l0 -2"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--template">
+      <path d="M4 5a1 1 0 0 1 1 -1h14a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-14a1 1 0 0 1 -1 -1l0 -2"/>
+      <path d="M4 13a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -6"/>
+      <path d="M14 12l6 0"/>
+      <path d="M14 16l6 0"/>
+      <path d="M14 20l6 0"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--test">
+      <path d="M9 3l6 0"/>
+      <path d="M10 9l4 0"/>
+      <path d="M10 3v6l-4 11a.7 .7 0 0 0 .5 1h11a.7 .7 0 0 0 .5 -1l-4 -11v-6"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--thumb-down">
+      <path d="M7 13v-8a1 1 0 0 0 -1 -1h-2a1 1 0 0 0 -1 1v7a1 1 0 0 0 1 1h3a4 4 0 0 1 4 4v1a2 2 0 0 0 4 0v-5h3a2 2 0 0 0 2 -2l-1 -5a2 3 0 0 0 -2 -2h-7a3 3 0 0 0 -3 3"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--ticket">
+      <path d="M15 5l0 2"/>
+      <path d="M15 11l0 2"/>
+      <path d="M15 17l0 2"/>
+      <path d="M5 5h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-3a2 2 0 0 0 0 -4v-3a2 2 0 0 1 2 -2"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--timelog">
+      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/>
+      <path d="M12 12l2 3"/>
+      <path d="M12 7v5"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--toggle-left">
+      <path d="M6 12a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+      <path d="M2 12a6 6 0 0 1 6 -6h8a6 6 0 0 1 6 6a6 6 0 0 1 -6 6h-8a6 6 0 0 1 -6 -6"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--toggle-right">
+      <path d="M14 12a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+      <path d="M2 12a6 6 0 0 1 6 -6h8a6 6 0 0 1 6 6a6 6 0 0 1 -6 6h-8a6 6 0 0 1 -6 -6"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--trophy">
+      <path d="M8 21l8 0"/>
+      <path d="M12 17l0 4"/>
+      <path d="M7 4l10 0"/>
+      <path d="M17 4v8a5 5 0 0 1 -10 0v-8"/>
+      <path d="M3 9a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+      <path d="M17 9a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--twitter">
+      <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c0 -.249 1.51 -2.772 1.818 -4.013l0 .001"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--two-person-rule">
+      <path d="M4 8v-2a2 2 0 0 1 2 -2h2"/>
+      <path d="M4 16v2a2 2 0 0 0 2 2h2"/>
+      <path d="M16 4h2a2 2 0 0 1 2 2v2"/>
+      <path d="M16 20h2a2 2 0 0 0 2 -2v-2"/>
+      <path d="M7 12c3.333 -4.667 6.667 -4.667 10 0"/>
+      <path d="M7 12c3.333 4.667 6.667 4.667 10 0"/>
+      <path d="M12 12h-.01"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--unknown-user">
+      <path d="M3 11h18"/>
+      <path d="M5 11v-4a3 3 0 0 1 3 -3h8a3 3 0 0 1 3 3v4"/>
+      <path d="M4 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/>
+      <path d="M14 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/>
+      <path d="M10 17h4"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--unsupported">
+      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/>
+      <path d="M9 12l6 0"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--user-edit">
+      <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"/>
+      <path d="M6 21v-2a4 4 0 0 1 4 -4h3.5"/>
+      <path d="M18.42 15.61a2.1 2.1 0 0 1 2.97 2.97l-3.39 3.42h-3v-3l3.42 -3.39"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--vcard">
+      <path d="M3 8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3l0 -8"/>
+      <path d="M3 10l18 0"/>
+      <path d="M7 15l.01 0"/>
+      <path d="M11 15l2 0"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--versionlist">
+      <path d="M4 6a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2l0 -2"/>
+      <path d="M4 16a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2l0 -2"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--vimeo">
+      <path d="M3 8.5l1 1s1.5 -1.102 2 -.5c.509 .609 1.863 7.65 2.5 9c.556 1.184 1.978 2.89 4 1.5c2 -1.5 7.5 -5.5 8.5 -11.5c.444 -2.661 -1 -4 -2.5 -4c-2 0 -4.047 1.202 -4.5 4c2.05 -1.254 2.551 1 1.5 3c-1.052 2 -2 3 -2.5 3c-.49 0 -.924 -1.165 -1.5 -3.5c-.59 -2.42 -.5 -6.5 -3 -6.5s-5.5 4.5 -5.5 4.5"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--web">
+      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"/>
+      <path d="M3.6 9h16.8"/>
+      <path d="M3.6 15h16.8"/>
+      <path d="M11.5 3a17 17 0 0 0 0 18"/>
+      <path d="M12.5 3a17 17 0 0 1 0 18"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--wiki-pages">
+      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/>
+      <path d="M4.6 7l14.8 0"/>
+      <path d="M3 12l18 0"/>
+      <path d="M4.6 17l14.8 0"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--workflow">
+      <path d="M3 17h2.397a5 5 0 0 0 4.096 -2.133l.177 -.253m3.66 -5.227l.177 -.254a5 5 0 0 1 4.096 -2.133h3.397"/>
+      <path d="M18 4l3 3l-3 3"/>
+      <path d="M3 7h2.397a5 5 0 0 1 4.096 2.133l4.014 5.734a5 5 0 0 0 4.096 2.133h3.397"/>
+      <path d="M18 20l3 -3l-3 -3"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--x">
+      <path d="M18 6l-12 12"/>
+      <path d="M6 6l12 12"/>
+    </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--youtube">
+      <path d="M2 8a4 4 0 0 1 4 -4h12a4 4 0 0 1 4 4v8a4 4 0 0 1 -4 4h-12a4 4 0 0 1 -4 -4v-8"/>
+      <path d="M10 9l5 3l-5 3l0 -6"/>
     </symbol>
   </defs>
 </svg>

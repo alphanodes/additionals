@@ -55,7 +55,7 @@ module Additionals
           link_options = { class: 'redmine-link' }
           link_options[:title] = options[:title].presence || l(:label_redmine_org_issue)
 
-          link_to_external svg_icon_tag('redmine', label: "##{link_name}", size: 12), link, **link_options
+          link_to_external svg_icon_tag('redmine', label: "##{link_name}", size: 12, sprite: 'icons_custom'), link, **link_options
         end
       end
     end

@@ -51,7 +51,7 @@ class ClipboardHelperTest < Additionals::HelperTest
   def test_render_text_with_clipboard_without_button
     html = render_text_with_clipboard 'test@example.com', with_button: false
 
-    assert_include '<acronym', html
+    assert_include '<abbr', html
     assert_include 'class="clipboard-text"', html
     assert_include 'data-controller="clipboard-feedback"', html
     assert_include 'data-action="click-&gt;clipboard-feedback#copy"', html
@@ -88,12 +88,12 @@ class ClipboardHelperTest < Additionals::HelperTest
   def test_render_text_with_clipboard_for_email_without_button
     html = render_text_with_clipboard 'user@example.com', with_button: false
 
-    assert_include '<acronym', html
+    assert_include '<abbr', html
     assert_include 'class="clipboard-text"', html
     assert_include 'data-controller="clipboard-feedback"', html
     assert_include 'data-clipboard-feedback-text-value="user@example.com"', html
     assert_include 'data-clipboard-feedback-copied-label-value="Copied!"', html
-    assert_include 'user@example.com</acronym>', html
+    assert_include 'user@example.com</abbr>', html
   end
 
   def test_render_text_with_clipboard_for_email_with_custom_class

@@ -41,14 +41,14 @@ module AdditionalsClipboardHelper
                  clipboard_copy_button(text, icon:, css_class:, title:)], ' '
     else
       css_classes = ['clipboard-text', css_class].compact.join ' '
-      tag.acronym text,
-                  class: css_classes,
-                  title:,
-                  data: { controller: 'clipboard-feedback',
-                          action: 'click->clipboard-feedback#copy',
-                          'clipboard-feedback-text-value': text,
-                          'clipboard-feedback-copied-label-value': l(:label_copied_to_clipboard),
-                          'clipboard-feedback-original-title-value': title }
+      tag.abbr text,
+               class: css_classes,
+               title:,
+               data: { controller: 'clipboard-feedback',
+                       action: 'click->clipboard-feedback#copy',
+                       'clipboard-feedback-text-value': text,
+                       'clipboard-feedback-copied-label-value': l(:label_copied_to_clipboard),
+                       'clipboard-feedback-original-title-value': title }
     end
   end
 end

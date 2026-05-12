@@ -194,7 +194,8 @@ module Additionals
     def setup
       RenderAsync.configuration.jquery = true
 
-      loader.add_patch %w[ApplicationController
+      loader.add_patch %w[AdminController
+                          ApplicationController
                           AutoCompletesController
                           Issue
                           TimeEntry

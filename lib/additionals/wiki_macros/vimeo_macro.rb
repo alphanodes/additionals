@@ -9,7 +9,7 @@ module Additionals
 
     Syntax:
 
-      {{vimeo(<video key> [, width=640, height=360, autoplay=BOOL, mode=MODE, name=NAME, title=TITLE])}}
+      {{vimeo(<video key> [, width=640, height=360, autoplay=BOOL, mode=MODE, group=GROUP, name=NAME, title=TITLE])}}
 
     Parameters:
 
@@ -29,6 +29,7 @@ module Additionals
       {{vimeo(142849533, autoplay=true)}} autoplay video
       {{vimeo(142849533, mode=link)}} show link to Vimeo video
       {{vimeo(142849533, mode=link, name=Cool video)}} show link to Vimeo video and name it 'Cool video'
+      {{vimeo(142849533, mode=link, group=12345, name=Cool video)}} show link to Vimeo video inside group 12345
       {{vimeo(142849533, title=Cool video)}} use mouse over title 'Cool video' on video link
         DESCRIPTION
 

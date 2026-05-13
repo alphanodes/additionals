@@ -9,7 +9,7 @@ module Additionals
 
     Syntax:
 
-      {{google_docs(<link> [, width=100%, height=485, edit_link=LINK)}}
+      {{google_docs(<link> [, width=100%, height=485, edit_link=LINK])}}
 
     Parameters:
 
@@ -20,8 +20,8 @@ module Additionals
 
     Examples:
 
-      {{google_docs(https://docs.google.com/spreadsheets/d/e/2PACX-1vQL__Vgu0Y0f-P__GJ9kpUmQ0S-HG56ni_b-x4WpWxzGIGXh3X6A587SeqvJDpH42rDmWVZoUN07VGE/pubhtml)}
-      {{google_docs(https://docs.google.com/spreadsheets/d/e/2PACX-1vQL__Vgu0Y0f-P__GJ9kpUmQ0S-HG56ni_b-x4WpWxzGIGXh3X6A587SeqvJDpH42rDmWVZoUN07VGE/pubhtml, width=514, height=422)}
+      {{google_docs(https://docs.google.com/spreadsheets/d/e/2PACX-1vQL__Vgu0Y0f-P__GJ9kpUmQ0S-HG56ni_b-x4WpWxzGIGXh3X6A587SeqvJDpH42rDmWVZoUN07VGE/pubhtml)}}
+      {{google_docs(https://docs.google.com/spreadsheets/d/e/2PACX-1vQL__Vgu0Y0f-P__GJ9kpUmQ0S-HG56ni_b-x4WpWxzGIGXh3X6A587SeqvJDpH42rDmWVZoUN07VGE/pubhtml, width=514, height=422)}}
         DESCRIPTION
 
         macro :google_docs do |_obj, args|

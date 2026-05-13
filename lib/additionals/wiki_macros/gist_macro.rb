@@ -5,7 +5,7 @@ module Additionals
     module GistMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-    Embet GitHub gist
+    Embed GitHub gist
 
     Syntax:
 

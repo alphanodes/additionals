@@ -9,7 +9,7 @@ module Additionals
 
     Syntax:
 
-      {{fa(ICON [, class=CLASS, title=TITLE, text=TEXT size=SIZE, color=COLOR)}}
+      {{fa(ICON [, class=CLASS, title=TITLE, text=TEXT, size=SIZE, color=COLOR, link=URL])}}
       ICON of fontawesome icon, eg. fa-adjust
       CLASS = additional css classes
       TITLE = mouseover title
@@ -29,10 +29,10 @@ module Additionals
       ...show fontawesome icon "fas fa-adjust" with title "Show icon"
       {{fa(fab_angellist)}}
       ...Show fontawesome icon "fab fa-angellist"
-      {{fa(adjust, link=https=//www.redmine.org))}}
+      {{fa(adjust, link=https://www.redmine.org)}}
       ...Show fontawesome icon "fas fa-adjust" and link it to https://www.redmine.org
-      {{fa(adjust, link=https=//www.redmine.de, name=Go to Redmine.org))}}
-      ...Show fontawesome icon "fas fa-adjust" with name "Go to Redmine.org" and link it to https://www.redmine.org
+      {{fa(adjust, link=https://www.redmine.org, text=Go to Redmine.org)}}
+      ...Show fontawesome icon "fas fa-adjust" with text "Go to Redmine.org" and link it to https://www.redmine.org
         DESCRIPTION
 
         macro :fa do |_obj, args|

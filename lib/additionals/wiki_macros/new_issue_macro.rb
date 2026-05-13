@@ -9,7 +9,7 @@ module Additionals
 
     Syntax:
 
-      {{new_issue([PROJECT_NAME, name=Custom name]}}
+      {{new_issue([PROJECT_NAME, name=Custom name])}}
 
       PROJECT_NAME can be project identifier, project name or project id.
 
@@ -32,7 +32,7 @@ module Additionals
       {{new_issue(the-identifier)}}
       Link to create new issue in project with the identifier of 'the-identifier'
       and the name 'New issue for broken displays'
-      {{new_issue(the-identifier, title=New issue for broken displays)}}
+      {{new_issue(the-identifier, name=New issue for broken displays)}}
         DESCRIPTION
 
         macro :new_issue do |_obj, args|

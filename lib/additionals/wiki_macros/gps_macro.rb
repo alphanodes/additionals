@@ -18,7 +18,7 @@ module Additionals
     Parameters:
 
       :param string lat: latitude of location
-      :param string log: longitude of location
+      :param string lon: longitude of location
       :param int zoom: zoom level (if service supports it)
       :param string service: show only this service. osm, gmap, route, hike or bayern
       :param string layer: layer to use (if service supports it)

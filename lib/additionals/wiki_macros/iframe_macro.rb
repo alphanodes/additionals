@@ -10,7 +10,7 @@ module Additionals
 
     Syntax:
 
-      {{iframe(<url> [, width=100%, height=485)}}
+      {{iframe(<url> [, width=100%, height=485, with_link=BOOL])}}
 
     Parameters:
 
@@ -25,7 +25,7 @@ module Additionals
       {{iframe(https://www.google.com/)}}
 
       show iframe of URL https://www.google.com/ and show link to it
-      {{iframe(https://www.google.com/, with_link: true)}}
+      {{iframe(https://www.google.com/, with_link=true)}}
         DESCRIPTION
 
         macro :iframe do |_obj, args|

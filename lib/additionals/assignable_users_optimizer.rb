@@ -58,7 +58,7 @@ module Additionals
 
       # Exclude members with ONLY hidden roles
       scope.where.not(id: Member.where(project_id: project.id)
-                          .where.not(user_id: visible_member_ids)
+                                .where.not(user_id: visible_member_ids)
                                 .select(:user_id))
     end
 

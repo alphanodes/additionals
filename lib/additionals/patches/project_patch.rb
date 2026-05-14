@@ -119,7 +119,7 @@ module Additionals
         # PG::InvalidColumnReference.
         def assignable_principals
           Principal.where(id: Principal.assignable
-                              .joins(members: :roles)
+                                       .joins(members: :roles)
                                        .where(members: { project_id: id },
                                               roles: { assignable: true })
                                        .select(:id))

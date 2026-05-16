@@ -59,10 +59,19 @@ describe('GlobalSearchController', () => {
       expect(ctx.selectedIndex).toBe(-1);
     });
 
-    it('open clears input value and focuses it', () => {
-      const focusSpy = vi.spyOn(ctx.inputTarget, 'focus');
+    it('open clears input value synchronously', () => {
       GlobalSearchController.prototype.open.call(ctx);
       expect(ctx.inputTarget.value).toBe('');
+    });
+
+    it('open defers input focus to next animation frame', async () => {
+      const focusSpy = vi.spyOn(ctx.inputTarget, 'focus');
+      GlobalSearchController.prototype.open.call(ctx);
+      // focus() must NOT run in the same tick - the display:none -> display:flex
+      // paint has not happened yet, and a synchronous focus() in this race window
+      // leaves the caret invisible until a window refocus forces a repaint.
+      expect(focusSpy).not.toHaveBeenCalled();
+      await new Promise(resolve => requestAnimationFrame(resolve));
       expect(focusSpy).toHaveBeenCalled();
     });
 

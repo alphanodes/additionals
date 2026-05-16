@@ -58,7 +58,9 @@ class GlobalSearchController extends Controller {
 
     if (this.hasInputTarget) {
       this.inputTarget.value = query || '';
-      this.inputTarget.focus();
+      // Defer focus until after the display:none -> display:flex paint, so the
+      // browser's compositor sets up the caret layer and the cursor is visible.
+      requestAnimationFrame(() => this.inputTarget.focus());
       this.toggleClearButton(!!query);
     }
 

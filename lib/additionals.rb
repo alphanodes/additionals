@@ -196,6 +196,7 @@ module Additionals
 
       loader.add_patch %w[AdminController
                           ApplicationController
+                          ApplicationHelper
                           AutoCompletesController
                           Issue
                           TimeEntry

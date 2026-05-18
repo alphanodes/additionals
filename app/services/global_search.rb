@@ -67,7 +67,7 @@ module GlobalSearch
     def resolve_projects(scope, user, project)
       case scope
       when 'bookmarks'
-        Project.where id: user.bookmarked_project_ids
+        Project.listable.where id: user.bookmarked_project_ids
       when 'my_projects'
         user.projects
       else

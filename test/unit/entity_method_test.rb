@@ -12,16 +12,21 @@ class EntityMethodTest < Additionals::TestCase
   def test_allowed_entity_target_projects
     projects = Dashboard.allowed_entity_target_projects permission: :save_dashboards,
                                                         user: users(:users_002)
+    # When `redmine_templates` is installed, project 5 carries a
+    # `TemplateProject` fixture and `Project.allowed_to_condition`
+    # filters template projects out via NOT EXISTS template_projects.
+    expected = template_project?(projects(:projects_005)) ? [1, 2] : [1, 2, 5]
 
-    assert_sorted_equal [1, 2, 5], projects.ids
+    assert_sorted_equal expected, projects.ids
   end
 
   def test_allowed_entity_target_projects_with_project
     projects = Dashboard.allowed_entity_target_projects permission: :save_dashboards,
                                                         user: users(:users_002),
                                                         project: projects(:projects_003)
+    expected = template_project?(projects(:projects_005)) ? [1, 2, 3] : [1, 2, 3, 5]
 
-    assert_sorted_equal [1, 2, 3, 5], projects.ids
+    assert_sorted_equal expected, projects.ids
   end
 
   def test_allowed_entity_target_projects_with_exclude_project
@@ -39,6 +44,14 @@ class EntityMethodTest < Additionals::TestCase
                                                         exclude: projects(:projects_005)
 
     assert_sorted_equal [1, 2, 3], projects.ids
+  end
+
+  # Returns true if `redmine_templates` is installed and has tagged the
+  # given project as a template (TemplateProject row exists). Used by
+  # the `allowed_entity_target_projects` tests to adapt expectations
+  # when `Project.allowed_to_condition` filters template projects out.
+  def template_project?(project)
+    defined?(TemplateProject) && TemplateProject.exists?(project_id: project.id)
   end
 
   def test_like_pattern

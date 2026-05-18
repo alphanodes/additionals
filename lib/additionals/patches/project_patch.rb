@@ -18,6 +18,20 @@ module Additionals
       end
 
       class_methods do
+        # Canonical scope for project listings that intentionally bypass
+        # `Project.visible` -- typical callers are admin-only optimizations
+        # that read every project regardless of role permissions, or ID-based
+        # lookups (bookmarks, custom-field references, ...) that join their
+        # own visibility logic on top.
+        #
+        # Default: equivalent to `all`. Plugins that need to subtract certain
+        # project kinds from every such listing override the scope via
+        # `prepend`, and callers automatically pick up the narrower scope
+        # without having to know which plugins are installed.
+        def listable
+          all
+        end
+
         def usable_status_ids
           USABLE_STATUSES.keys
         end

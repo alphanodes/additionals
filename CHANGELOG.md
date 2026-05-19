@@ -2,6 +2,7 @@
 
 ## 4.5.0
 
+- Copy project dashboards when a project is copied via `Project#copy`
 - Fix `NoMethodError` in `DashboardContentProject` `projectinformation` block when adding blocks to a system-default project dashboard outside any project context
 - Fix PostgreSQL error in `Project#assignable_principals` and `Principal.assignable_for_issues` when chained with `.sorted`
 

@@ -179,6 +179,8 @@
   svg: brand-reddit
 - name: refresh
   svg: refresh
+- name: report
+  svg: chart-bar-popular
 - name: robot
   svg: robot
 - name: rocket

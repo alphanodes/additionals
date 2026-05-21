@@ -2,6 +2,7 @@
 
 ## 4.5.0
 
+- **BREAKING**: Removed `Additionals.time_zone_correct` - the method had asymmetric DST semantics (static `utc_offset` minus OS-dependent `localtime.utc_offset`) and could not correctly handle cross-timezone display. Use Rails standard timezone mechanics (`in_time_zone`, `Time.use_zone`) instead.
 - Copy project dashboards when a project is copied via `Project#copy`
 - Fix `NoMethodError` in `DashboardContentProject` `projectinformation` block when adding blocks to a system-default project dashboard outside any project context
 - Fix PostgreSQL error in `Project#assignable_principals` and `Principal.assignable_for_issues` when chained with `.sorted`

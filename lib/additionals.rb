@@ -33,11 +33,6 @@ module Additionals
       end
     end
 
-    def time_zone_correct(time, user: User.current)
-      timezone = user.time_zone || Time.zone
-      timezone.utc_offset - Time.zone.local_to_utc(time).localtime.utc_offset
-    end
-
     def hash_remove_with_default(field, options, default = nil)
       value = nil
       if options.key? field

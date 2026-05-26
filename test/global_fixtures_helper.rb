@@ -16,7 +16,7 @@ module Additionals
       # wins on filename collisions, so a plugin's queries.yml still overrides
       # Redmine core's queries.yml when both exist, and falls back to the core
       # file when the plugin has none.
-      self.fixture_paths += [plugin_fixture_path] if respond_to?(:fixture_paths) && !fixture_paths.include?(plugin_fixture_path)
+      self.fixture_paths += [plugin_fixture_path] if respond_to?(:fixture_paths) && fixture_paths.exclude?(plugin_fixture_path)
 
       super
     end

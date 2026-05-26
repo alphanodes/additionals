@@ -9,10 +9,14 @@ module Additionals
     def fixtures(*table_names)
       return super if table_names.first == :all
 
-      dir = plugin_fixture_path
-      table_names.each do |x|
-        ActiveRecord::FixtureSet.create_fixtures dir, x if File.exist? File.join(dir, "#{x}.yml")
-      end
+      # Register the plugin fixture directory in fixture_paths so Rails' standard
+      # fixture loader picks up the plugin's overrides - including in parallel
+      # test workers (each with its own database). The plugin path is appended
+      # after the default paths; in Rails' fixture glob expansion the later file
+      # wins on filename collisions, so a plugin's queries.yml still overrides
+      # Redmine core's queries.yml when both exist, and falls back to the core
+      # file when the plugin has none.
+      self.fixture_paths += [plugin_fixture_path] if respond_to?(:fixture_paths) && !fixture_paths.include?(plugin_fixture_path)
 
       super
     end

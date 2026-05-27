@@ -16,6 +16,27 @@ ActiveSupport::TestCase.setup do
 end
 
 module Additionals
+  # Defines the two standard I18n tests (test_valid_languages and
+  # test_locales_validness) on the given test class. Plugins use this in their
+  # i18n_test.rb to avoid duplicating identical boilerplate; only the
+  # plugin-specific metadata stays in the plugin's test file.
+  def self.define_i18n_tests(test_class, plugin:, file_cnt:, locales:,
+                             control_string:, control_english:)
+    test_class.class_eval do
+      include Redmine::I18n unless include? Redmine::I18n
+
+      define_method :test_valid_languages do
+        assert_kind_of Array, valid_languages
+        assert_kind_of Symbol, valid_languages.first
+      end
+
+      define_method :test_locales_validness do
+        assert_locales_validness plugin:, file_cnt:, locales:,
+                                 control_string:, control_english:
+      end
+    end
+  end
+
   module GlobalTestHelper
     def after_setup
       return super unless defined?(Bullet) && Bullet.enable?

@@ -17,7 +17,10 @@ module Additionals
       # already cached (see ActiveRecord::FixtureSet.fixture_is_cached?), so
       # this gives us full-file override semantics: a plugin's queries.yml
       # replaces Redmine core's queries.yml entirely, no merge.
-      load_plugin_fixtures = -> { files_to_load.each { |x| ActiveRecord::FixtureSet.create_fixtures dir, x } }
+      # Rails' parallelize_setup hook calls our block with the worker number
+      # (see ActiveSupport::Testing::Parallelization::Worker#after_fork). Accept
+      # and ignore it via splat so direct .call (no args) also works.
+      load_plugin_fixtures = ->(*) { files_to_load.each { |x| ActiveRecord::FixtureSet.create_fixtures dir, x } }
       load_plugin_fixtures.call
 
       # Rails parallel test workers each get their own database, connection

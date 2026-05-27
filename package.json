@@ -9,7 +9,7 @@
     "@eslint/js": "^10.0.1",
     "@hotwired/stimulus": "^3.2.2",
     "@stylistic/stylelint-config": "^5.0.0",
-    "@stylistic/stylelint-plugin": "^5.1.0",
+    "@stylistic/stylelint-plugin": "^5.2.0",
     "eslint": "^10.4.0",
     "eslint-plugin-no-jquery": "^3.1.1",
     "globals": "^17.6.0",

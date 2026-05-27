@@ -5,7 +5,6 @@ require File.expand_path '../../test_helper', __FILE__
 class PrincipalTest < Additionals::TestCase
   def setup
     prepare_tests
-    User.current = nil
   end
 
   # PostgreSQL strict mode rejects `SELECT DISTINCT … ORDER BY users.type`

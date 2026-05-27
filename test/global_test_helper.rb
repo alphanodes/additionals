@@ -1,5 +1,20 @@
 # frozen_string_literal: true
 
+# Reset process-global state before every test so test order does not affect
+# outcomes when tests run in the same parallel worker. I18n part mirrors
+# Redmine core's own fix in commit a01ff5a5a (#44116). User.current is an
+# established plugin-test convention (hundreds of explicit per-test resets in
+# our plugin family) that we centralize here.
+#
+# Implemented as a setup block on ActiveSupport::TestCase (not as an instance
+# method on the GlobalTestHelper mixin) so the reset fires via Rails callbacks
+# regardless of whether subclasses define their own `def setup` without
+# calling super - which is common across our plugin tests.
+ActiveSupport::TestCase.setup do
+  I18n.locale = I18n.default_locale # rubocop:disable Rails/I18nLocaleAssignment
+  User.current = nil
+end
+
 module Additionals
   module GlobalTestHelper
     def after_setup

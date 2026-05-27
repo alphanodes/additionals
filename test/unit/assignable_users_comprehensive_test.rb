@@ -6,11 +6,6 @@ require File.expand_path '../../test_helper', __FILE__
 class AssignableUsersComprehensiveTest < Additionals::TestCase
   def setup
     prepare_tests
-    User.current = nil
-  end
-
-  def teardown
-    User.current = nil
   end
 
   def test_timeentry_uses_log_time_specific_implementation

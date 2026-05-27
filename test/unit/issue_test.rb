@@ -7,11 +7,6 @@ class IssueTest < Additionals::TestCase
 
   def setup
     prepare_tests
-    set_language_if_valid 'en'
-  end
-
-  def teardown
-    User.current = nil
   end
 
   def test_create

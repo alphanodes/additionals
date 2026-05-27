@@ -7,12 +7,6 @@ class ClipboardHelperTest < Additionals::HelperTest
   include Redmine::I18n
   include ERB::Util
 
-  def setup
-    super
-    set_language_if_valid 'en'
-    User.current = nil
-  end
-
   def test_clipboard_copy_button
     html = clipboard_copy_button 'test_text'
 

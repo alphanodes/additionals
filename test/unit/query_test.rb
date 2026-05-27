@@ -3,10 +3,6 @@
 require File.expand_path '../../test_helper', __FILE__
 
 class QueryTest < Additionals::TestCase
-  def setup
-    User.current = nil
-  end
-
   # sql_aggr and sql_aggr_filtered tests
   #
   # sql_aggr: Simple aggregation for counting ALL items in a table

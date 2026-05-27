@@ -6,11 +6,6 @@ require File.expand_path '../../test_helper', __FILE__
 class IssueAssignableUsersPerformanceTest < Additionals::TestCase
   def setup
     prepare_tests
-    User.current = nil
-  end
-
-  def teardown
-    User.current = nil
   end
 
   def test_issue_assignable_users_with_tracker_no_n_plus_one

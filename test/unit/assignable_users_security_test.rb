@@ -6,11 +6,6 @@ require File.expand_path '../../test_helper', __FILE__
 class AssignableUsersSecurityTest < Additionals::TestCase
   def setup
     prepare_tests
-    User.current = nil
-  end
-
-  def teardown
-    User.current = nil
   end
 
   # CRITICAL: Test for the tracker permission logic error

@@ -12,12 +12,6 @@ class GlobalHelperTest < Additionals::HelperTest
   include Redmine::I18n
   include ERB::Util
 
-  def setup
-    super
-    set_language_if_valid 'en'
-    User.current = nil
-  end
-
   def test_user_with_avatar
     html = user_with_avatar users(:users_001)
 

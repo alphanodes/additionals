@@ -21,7 +21,6 @@ end
 class WelcomeControllerTest < Additionals::ControllerTest
   def setup
     Setting.default_language = 'en'
-    User.current = nil
   end
 
   def test_show_with_left_text_block

@@ -72,11 +72,6 @@ end
 class EntityMethodsAssignableUsersTest < Additionals::TestCase
   def setup
     prepare_tests
-    User.current = nil
-  end
-
-  def teardown
-    User.current = nil
   end
 
   def test_assignable_users_with_project_performance

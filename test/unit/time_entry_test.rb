@@ -7,10 +7,6 @@ class TimeEntryTest < Additionals::TestCase
     prepare_tests
   end
 
-  def teardown
-    User.current = nil
-  end
-
   def test_create_time_entry_without_issue
     entry = TimeEntry.generate project: projects(:projects_001)
 

@@ -8,11 +8,6 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
 
   def setup
     prepare_tests
-    User.current = nil
-  end
-
-  def teardown
-    User.current = nil
   end
 
   # CRITICAL: Test issues#new uses optimized assignable_users without N+1

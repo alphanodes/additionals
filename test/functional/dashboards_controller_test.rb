@@ -8,7 +8,6 @@ class DashboardsControllerTest < Additionals::ControllerTest
   def setup
     prepare_tests
 
-    User.current = nil
     @user = users :users_002
     @user_without_permission = users :users_004
 

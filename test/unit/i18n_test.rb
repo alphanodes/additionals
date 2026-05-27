@@ -7,11 +7,6 @@ class I18nTest < Additionals::TestCase
 
   def setup
     prepare_tests
-    User.current = nil
-  end
-
-  def teardown
-    set_language_if_valid 'en'
   end
 
   def test_valid_languages

@@ -5,7 +5,6 @@ require File.expand_path '../../test_helper', __FILE__
 class AccountControllerTest < Additionals::ControllerTest
   def setup
     Setting.default_language = 'en'
-    User.current = nil
   end
 
   def test_get_login_with_welcome_text

@@ -5,11 +5,6 @@ require File.expand_path '../../test_helper', __FILE__
 class AssignableUsersOptimizerTest < Additionals::TestCase
   def setup
     prepare_tests
-    User.current = nil
-  end
-
-  def teardown
-    User.current = nil
   end
 
   def test_project_assignable_users_performance

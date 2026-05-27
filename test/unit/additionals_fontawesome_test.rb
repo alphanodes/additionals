@@ -5,10 +5,6 @@ require File.expand_path '../../test_helper', __FILE__
 class AdditionalsFontAwesomeTest < Additionals::TestCase
   include Redmine::I18n
 
-  def setup
-    set_language_if_valid 'en'
-  end
-
   def test_value_info_should_return_infos
     info = AdditionalsFontAwesome.value_info 'invalid'
 

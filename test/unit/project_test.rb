@@ -5,7 +5,6 @@ require File.expand_path '../../test_helper', __FILE__
 class ProjectTest < Additionals::TestCase
   def setup
     prepare_tests
-    User.current = nil
   end
 
   def test_assignable_users_amount

@@ -20,8 +20,7 @@ module Additionals
   # test_locales_validness) on the given test class. Plugins use this in their
   # i18n_test.rb to avoid duplicating identical boilerplate; only the
   # plugin-specific metadata stays in the plugin's test file.
-  def self.define_i18n_tests(test_class, plugin:, file_cnt:, locales:,
-                             control_string:, control_english:)
+  def self.define_i18n_tests(test_class, plugin:, control_string:, control_english:)
     test_class.class_eval do
       include Redmine::I18n unless include? Redmine::I18n
 
@@ -31,8 +30,7 @@ module Additionals
       end
 
       define_method :test_locales_validness do
-        assert_locales_validness plugin:, file_cnt:, locales:,
-                                 control_string:, control_english:
+        assert_locales_validness plugin:, control_string:, control_english:
       end
     end
   end
@@ -209,20 +207,59 @@ module Additionals
       assert_select "table.list.#{table_css}.sort-by-#{column_css}.sort-desc"
     end
 
-    def assert_locales_validness(plugin:, file_cnt:, locales:, control_string:, control_english:)
-      lang_files_count = Rails.root.glob("plugins/#{plugin}/config/locales/*.yml").size
+    # Verify locale files of a plugin are complete, consistent and actually
+    # translated. Powered by i18n-tasks: detects missing keys, inconsistent
+    # interpolation variables and locales that fall back to English. The
+    # locale list is auto-detected from config/locales/*.yml in the plugin.
+    def assert_locales_validness(plugin:, control_string:, control_english:)
+      require 'i18n/tasks'
 
-      assert_equal file_cnt, lang_files_count
-      valid_languages.each do |lang|
-        assert set_language_if_valid(lang)
-        if lang.to_s == 'en'
-          assert_equal control_english, l(control_string)
-        elsif locales.include? lang.to_s
-          assert_not l(control_string) == control_english, lang
+      task = I18n::Tasks::BaseTask.new(
+        base_locale: 'en',
+        # %{locale} is i18n-tasks placeholder syntax, not Ruby string formatting
+        data: { read: ["plugins/#{plugin}/config/locales/%{locale}.yml"] }, # rubocop:disable Style/FormatStringToken
+        search: { paths: ["plugins/#{plugin}/lib"] }
+      )
+
+      assert_not_empty task.locales, "Plugin #{plugin} has no locale files"
+      assert_includes task.locales, 'en', "Plugin #{plugin} must have config/locales/en.yml"
+
+      task.locales.each do |lang|
+        assert set_language_if_valid(lang), "Locale '#{lang}' is not in Redmine valid_languages"
+        if lang == 'en'
+          assert_equal control_english, l(control_string),
+                       "control_string :#{control_string} in en.yml must equal #{control_english.inspect}"
+        else
+          assert_not_equal control_english, l(control_string),
+                           "Translation for :#{control_string} in #{lang}.yml equals " \
+                           "English #{control_english.inspect} - locale appears untranslated"
         end
       end
 
+      missing = task.missing_diff_forest task.locales - [task.base_locale], task.base_locale
+
+      assert_empty missing,
+                   "Plugin #{plugin}: missing translation keys per locale:\n#{i18n_format_forest missing}"
+
+      inconsistent = task.inconsistent_interpolations
+
+      assert_empty inconsistent,
+                   "Plugin #{plugin}: inconsistent interpolations:\n#{i18n_format_forest inconsistent}"
+    ensure
       set_language_if_valid 'en'
+    end
+
+    def i18n_format_forest(forest)
+      out = []
+      forest.each do |locale_node|
+        keys = []
+        locale_node.keys { |k, _| keys << k }
+        next if keys.empty?
+
+        out << "  #{locale_node.key}:"
+        keys.each { |k| out << "    #{k}" }
+      end
+      out.join "\n"
     end
 
     def assert_dashboard_query_blocks(blocks = [])

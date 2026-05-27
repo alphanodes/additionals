@@ -9,8 +9,6 @@ class I18nTest < Additionals::TestCase
 
   Additionals.define_i18n_tests self,
                                 plugin: 'additionals',
-                                file_cnt: 14,
-                                locales: %w[pt-BR cs de es fr it ja ko po ru uk zh-TW zh],
                                 control_string: :label_open_external_urls,
                                 control_english: 'Open external URLs'
 end

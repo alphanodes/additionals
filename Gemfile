@@ -51,6 +51,7 @@ if File.file? File.expand_path './.enable_test', __dir__
     gem 'rails_best_practices', require: false
   end
   group :test do
+    gem 'i18n-tasks', require: false
     gem 'minitest-reporters'
     gem 'simplecov-cobertura' if ENV['COVERAGE_COBERTURA']
     gem 'timecop'

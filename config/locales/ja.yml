@@ -192,7 +192,7 @@ ja:
   label_text_sync: "テキスト"
   label_top_macros_help_html: "RedmineやRedmineプラグインで提供されている、インストールされているすべてのRedmineマクロのリストが表示されます。"
   label_top_menu: Top menu
-  label_top_menu_help: "ここで新しいトップメニューの項目を定義出来ます。"
+  label_top_menu_help_html: "ここで新しいトップメニューの項目を定義出来ます。"
   label_twitter_account: Twitter アカウント
   label_twitter_hashtag: Twitter ハッシュタグ
   label_uptime: Uptime

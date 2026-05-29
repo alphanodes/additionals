@@ -130,7 +130,7 @@ It provides :
 * [Chart.js Plugin colorschemes 0.4.0 (patched for chartjs 3)](https://github.com/nagix/chartjs-plugin-colorschemes)
 * [Chart.js Plugin datalabels 2.2.0](https://github.com/chartjs/chartjs-plugin-datalabels)
 * [Chart.js Plugin matrix 3.0.0](https://github.com/kurkle/chartjs-chart-matrix)
-* [d3plus 3.1.4](https://d3plus.org/)
+* [d3plus 3.1.6](https://d3plus.org/)
 * [dhtmlxGantt 9.1.4](https://dhtmlx.com/docs/products/dhtmlxGantt/)
 * [FontAwesome 5.15.4](https://fontawesome.com/)
 * [mermaid 11.13.0](https://github.com/mermaid-js/mermaid)

@@ -406,7 +406,11 @@ class Dashboard < ApplicationRecord
   end
 
   def check_destroy_system_default
-    raise 'It is not allowed to delete dashboard, which is system default' unless deletable?
+    return if deletable?
+
+    raise 'It is not allowed to delete dashboard, because you have no permission' unless editable?
+
+    raise 'It is not allowed to delete dashboard, which is system default'
   end
 
   def dashboard_type_check

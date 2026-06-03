@@ -49,7 +49,7 @@ module Additionals
         def add_assigned_watcher
           return unless assigned_to_id
           return unless assigned_to.is_a? User
-          return unless author.pref.auto_watch_on? 'issue_assigned'
+          return unless assigned_to.pref.auto_watch_on? 'issue_assigned'
           return if watcher_user_ids.include? assigned_to_id
           return unless assigned_to.active?
 

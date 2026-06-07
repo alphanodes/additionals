@@ -187,6 +187,8 @@ module Additionals
     private
 
     def setup
+      require_supported_database!
+
       RenderAsync.configuration.jquery = true
 
       loader.add_patch %w[AdminController
@@ -263,6 +265,17 @@ module Additionals
 
       # Discover and load global search providers from all plugins
       GlobalSearch.load_providers
+    end
+
+    # Read adapter from database.yml without opening a connection, so the check
+    # also works during db:create / db:drop when no database exists yet.
+    def require_supported_database!
+      adapter = ActiveRecord::Base.connection_db_config.adapter.to_s.downcase
+      return if %w[mysql2 trilogy postgresql].include? adapter
+
+      raise "\n\033[31madditionals plugin requires MySQL or PostgreSQL. " \
+            "Detected adapter: #{adapter}. " \
+            "See https://github.com/alphanodes/additionals#requirements\033[0m"
     end
   end
 end

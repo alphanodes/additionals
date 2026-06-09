@@ -19,7 +19,7 @@ module Additionals
           icons.sort_by! { |a| a[:text] }
 
           respond_to do |format|
-            format.js { render json: icons }
+            format.json { render json: icons }
             format.html { render json: icons }
           end
         end

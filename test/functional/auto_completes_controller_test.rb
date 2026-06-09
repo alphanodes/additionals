@@ -6,6 +6,8 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
   def setup
     prepare_tests
     Setting.default_language = 'en'
+    # Frontend callers (select2, jQuery autocomplete) ask for JSON, so do the tests.
+    @request.headers['Accept'] = 'application/json'
   end
 
   def test_fontawesome_default
@@ -159,6 +161,20 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
 
     assert_equal 'active', json.first['text']
     assert_equal 7, json.first['children'].count
+  end
+
+  def test_grouped_users_should_respond_to_accept_json
+    get :grouped_users, xhr: true
+
+    assert_response :success
+    assert_equal 'application/json', response.media_type
+  end
+
+  def test_grouped_principals_should_respond_to_accept_json
+    get :grouped_principals, xhr: true
+
+    assert_response :success
+    assert_equal 'application/json', response.media_type
   end
 
   def test_grouped_users_with_me
@@ -355,7 +371,7 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
       @request.session[:user_id] = nil
       get :authors, xhr: true
 
-      assert_response :unauthorized
+      assert_response :forbidden
     end
   end
 
@@ -380,7 +396,7 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
           params: { project_id: 1, custom_field_id: 1 },
           xhr: true
 
-      assert_response :unauthorized
+      assert_response :forbidden
     end
   end
 
@@ -407,7 +423,7 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
       @request.session[:user_id] = nil
       get :issue_assignee, xhr: true
 
-      assert_response :unauthorized
+      assert_response :forbidden
     end
   end
 

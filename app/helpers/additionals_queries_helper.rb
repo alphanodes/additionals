@@ -68,9 +68,8 @@ module AdditionalsQueriesHelper
 
     respond_to do |format|
       format.html { head :not_acceptable }
-      format.js do
+      format.json do
         render layout: false,
-               format: :json,
                partial: 'auto_completes/grouped_users',
                locals: { with_me: with_me && (search_term.blank? || l(:label_me).downcase.include?(search_term.downcase)),
                          with_ano: with_ano && (search_term.blank? || l(:label_user_anonymous).downcase.include?(search_term.downcase)),

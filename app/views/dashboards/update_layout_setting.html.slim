@@ -1,0 +1,3 @@
+- @updated_blocks.each do |block|
+  template data-remote-update-action='replace' data-remote-update-target="#block-#{block}"
+    = render_dashboard_block block.to_s, @dashboard

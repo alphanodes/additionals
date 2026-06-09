@@ -1,5 +1,17 @@
 /* exported AdditionalsHelpers */
-// Foundation for Stimulus controllers — provides shared helpers (CSRF, fetch)
+/* global setupHoverTooltips */
+// Foundation for Stimulus controllers — provides shared helpers (CSRF, fetch),
+// plus a global hook that re-initializes Redmine's jQuery UI tooltips after
+// any DOM swap performed by our async controllers.
+
+function reinitTooltipsAfterAsyncSwap() {
+  if (typeof setupHoverTooltips === 'function') {
+    setupHoverTooltips();
+  }
+}
+
+document.addEventListener('remote-form:success', reinitTooltipsAfterAsyncSwap);
+document.addEventListener('render-async:load', reinitTooltipsAfterAsyncSwap);
 
 window.AdditionalsHelpers = {
   csrfToken() {

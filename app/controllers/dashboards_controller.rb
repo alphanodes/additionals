@@ -188,8 +188,9 @@ class DashboardsController < ApplicationController
     if @dashboard.add_block @block
       @dashboard.save
       respond_to do |format|
-        format.html { redirect_to dashboard_link_path(@project, @dashboard) }
-        format.js
+        format.html do
+          request.xhr? ? render : redirect_to(dashboard_link_path(@project, @dashboard))
+        end
       end
     else
       render_error status: 422
@@ -202,8 +203,9 @@ class DashboardsController < ApplicationController
     @dashboard.remove_block @block
     @dashboard.save
     respond_to do |format|
-      format.html { redirect_to dashboard_link_path(@project, @dashboard) }
-      format.js
+      format.html do
+        request.xhr? ? render : redirect_to(dashboard_link_path(@project, @dashboard))
+      end
     end
   end
 

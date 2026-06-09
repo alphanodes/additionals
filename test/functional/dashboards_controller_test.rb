@@ -390,4 +390,20 @@ class DashboardsControllerTest < Additionals::ControllerTest
 
     assert_not dashboard.locked?, 'Dashboard should be unlocked after unlock action'
   end
+
+  def test_update_layout_setting_renders_template_directives_for_html
+    @request.session[:user_id] = 2
+    @request.headers['Accept'] = 'text/html'
+    @request.headers['X-Requested-With'] = 'XMLHttpRequest'
+
+    dashboard = dashboards :system_default_welcome
+
+    post :update_layout_setting,
+         params: { id: dashboard.id,
+                   settings: { 'text' => { 'title' => 'Updated', 'text' => 'New text' } } }
+
+    assert_response :success
+    assert_equal 'text/html', response.media_type
+    assert_select 'template[data-remote-update-action=?][data-remote-update-target=?]', 'replace', '#block-text'
+  end
 end

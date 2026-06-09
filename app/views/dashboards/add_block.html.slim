@@ -1,0 +1,7 @@
+template data-remote-update-action='remove' data-remote-update-target="#block-#{@block}"
+
+template data-remote-update-action='prepend' data-remote-update-target='#list-top'
+  = render_dashboard_blocks [@block], @dashboard
+
+template data-remote-update-action='replace' data-remote-update-target='#block-select'
+  = dashboard_block_select_tag @dashboard

@@ -6,6 +6,7 @@
 = javascript_include_tag 'additionals_stimulus', plugin: 'additionals'
 = javascript_include_tag 'controllers/clipboard_feedback_controller', plugin: 'additionals', type: 'module'
 = javascript_include_tag 'controllers/live_search_controller', plugin: 'additionals', type: 'module'
+= javascript_include_tag 'controllers/remote_form_controller', plugin: 'additionals', type: 'module'
 = javascript_include_tag 'controllers/render_async_controller', plugin: 'additionals', type: 'module'
 - if User.current.logged? && Additionals.setting?(:global_search)
   = stylesheet_link_tag 'global_search', plugin: 'additionals'

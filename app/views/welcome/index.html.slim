@@ -10,7 +10,7 @@
                              wrapper_css: 'dashboard-locked',
                              plugin: ''
     - else
-      = form_tag add_block_dashboard_path(@dashboard), remote: true, id: 'block-form', authenticity_token: true do
+      = remote_form_tag add_block_dashboard_path(@dashboard), id: 'block-form', authenticity_token: true do
         = dashboard_block_select_tag @dashboard
 
   = actions_dropdown do

@@ -246,11 +246,10 @@ module DashboardsHelper
                               wrapper_title: dashboard_block_sync_info(block_definition))
       end
       icons << tag.span(sprite_icon('reorder', ''), class: 'icon-only icon-sort-handle sort-handle', title: l(:button_move))
-      icons << delete_link(_remove_block_dashboard_path(@project, dashboard, block:),
-                           method: :post,
-                           remote: true,
-                           class: 'icon-only icon-close',
-                           title: l(:button_delete))
+      icons << remote_delete_link(_remove_block_dashboard_path(@project, dashboard, block:),
+                                  method: :post,
+                                  class: 'icon-only icon-close',
+                                  title: l(:button_delete))
 
       content = tag.div(safe_join(icons), class: 'contextual') + content
     end

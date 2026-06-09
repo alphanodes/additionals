@@ -16,6 +16,13 @@ class RenderAsyncController extends Controller {
     this.boundLoad = this.load.bind(this);
     this.element.addEventListener('refresh', this.boundLoad);
 
+    // Pause polling while the tab is hidden, refresh immediately when it
+    // returns. Only relevant for auto-refresh blocks.
+    if (this.intervalValue > 0) {
+      this.boundVisibilityChange = this.handleVisibilityChange.bind(this);
+      document.addEventListener('visibilitychange', this.boundVisibilityChange);
+    }
+
     if (this.hasToggleSelectorValue && this.toggleSelectorValue) {
       this.toggleHandler = this.handleToggle.bind(this);
       this.toggleTargets = document.querySelectorAll(this.toggleSelectorValue);
@@ -30,10 +37,22 @@ class RenderAsyncController extends Controller {
   disconnect() {
     this.stopPolling();
     this.element.removeEventListener('refresh', this.boundLoad);
+    if (this.boundVisibilityChange) {
+      document.removeEventListener('visibilitychange', this.boundVisibilityChange);
+    }
     if (this.toggleTargets) {
       this.toggleTargets.forEach(target => {
         target.removeEventListener(this.toggleEventValue, this.toggleHandler);
       });
+    }
+  }
+
+  handleVisibilityChange() {
+    if (document.hidden) {
+      this.stopPolling();
+    } else if (this.intervalId === null) {
+      // Tab is visible again - load immediately and resume polling.
+      this.load();
     }
   }
 

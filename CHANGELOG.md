@@ -2,7 +2,10 @@
 
 ## 4.5.0
 
-- **BREAKING**: Removed `Additionals.time_zone_correct` - the method had asymmetric DST semantics (static `utc_offset` minus OS-dependent `localtime.utc_offset`) and could not correctly handle cross-timezone display. Use Rails standard timezone mechanics (`in_time_zone`, `Time.use_zone`) instead.
+- Removed `Additionals.time_zone_correct` - the method had asymmetric DST semantics (static `utc_offset` minus OS-dependent `localtime.utc_offset`) and could not correctly handle cross-timezone display. Use Rails standard timezone mechanics (`in_time_zone`, `Time.use_zone`) instead.
+- Replace the (unmaintained) `render_async` gem with a native Stimulus controller. The public `render_async` / `render_async_cache` / `render_async_cache_key` helper API is preserved; `DashboardContent::RENDER_ASYNC_CACHE_EXPIRES_IN` and the `auto_refresh` block setting behave exactly as before.
+- `DashboardAsyncBlocksController#show` now responds with `format.html` (was `format.js` with a `text/html` content-type override). Frontend requests use `Accept: text/html` plus `X-Requested-With: XMLHttpRequest`.
+- Polling-mode async blocks (blocks with `auto_refresh` enabled) automatically pause when the browser tab becomes hidden and resume with an immediate refresh when it returns. Reduces backend load for inactive tabs.
 - Copy project dashboards when a project is copied via `Project#copy`
 - Fix `NoMethodError` in `DashboardContentProject` `projectinformation` block when adding blocks to a system-default project dashboard outside any project context
 - Fix PostgreSQL error in `Project#assignable_principals` and `Principal.assignable_for_issues` when chained with `.sorted`

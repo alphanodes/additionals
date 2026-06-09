@@ -266,11 +266,12 @@ module Additionals
       blocks.each do |block_def|
         block_def[:user_id]
         @request.session[:user_id] = block_def[:user_id].presence || 2
+        @request.headers['Accept'] = 'text/html'
+        @request.headers['X-Requested-With'] = 'XMLHttpRequest'
         get block_def[:action].presence || :show,
             params: { dashboard_id: block_def[:dashboard_id],
                       block: block_def[:block],
-                      project_id: block_def[:project],
-                      format: 'js' }
+                      project_id: block_def[:project] }
 
         assert_response :success, "assert_response for #{block_def[:block]}"
         assert_select "table.list.#{block_def[:entities_class]}"

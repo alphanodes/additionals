@@ -31,9 +31,8 @@ class DashboardAsyncBlocksController < ApplicationController
     partial_locals = build_dashboard_partial_locals @block, @block_definition, @settings, @dashboard
 
     respond_to do |format|
-      format.js do
+      format.html do
         render partial: partial_locals[:async][:partial],
-               content_type: 'text/html',
                locals: partial_locals
       end
     end

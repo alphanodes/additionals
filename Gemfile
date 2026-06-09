@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 gem 'redmine_plugin_kit'
-gem 'render_async'
 gem 'rss'
 gem 'slim-rails'
 gem 'tanuki_emoji', '~> 0.13.0'

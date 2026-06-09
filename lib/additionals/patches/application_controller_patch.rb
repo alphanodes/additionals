@@ -10,6 +10,7 @@ module Additionals
 
         before_action :enable_smileys
         helper :additionals_js_heads
+        helper :additionals_render_async
       end
 
       module InstanceMethods

@@ -189,8 +189,6 @@ module Additionals
     def setup
       require_supported_database!
 
-      RenderAsync.configuration.jquery = true
-
       loader.add_patch %w[AdminController
                           ApplicationController
                           ApplicationHelper

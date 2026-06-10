@@ -49,22 +49,19 @@ class AdditionalsImportsController < ApplicationController
   def mapping
     @custom_fields = @import.mappable_custom_fields
 
-    if request.get?
-      auto_map_fields
-      return
-    end
-
-    return unless request.post?
-
-    respond_to do |format|
-      format.html do
-        if params[:previous]
-          redirect_to settings_import_path
-        else
-          redirect_to run_import_path
+    if request.post?
+      respond_to do |format|
+        format.html do
+          if params[:previous]
+            redirect_to settings_import_path
+          else
+            redirect_to run_import_path
+          end
         end
+        format.js
       end
-      format.js
+    else
+      auto_map_fields
     end
   end
 

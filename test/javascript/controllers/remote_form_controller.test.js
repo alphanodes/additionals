@@ -46,8 +46,8 @@ describe('RemoteFormController', () => {
       send(url, method, body) { sendCalls.push({ url, method, body }); }
     });
 
-    it('sends with data-method as uppercase', () => {
-      const link = linkWith({ 'data-method': 'delete' });
+    it('sends with data-remote-method as uppercase', () => {
+      const link = linkWith({ 'data-remote-method': 'delete' });
 
       RemoteFormController.prototype.click.call(ctxFor(link), { preventDefault: () => {} });
 
@@ -56,7 +56,7 @@ describe('RemoteFormController', () => {
       expect(sendCalls[0].body).toBeNull();
     });
 
-    it('defaults to GET when no data-method set', () => {
+    it('defaults to GET when no data-remote-method set', () => {
       const link = linkWith({});
 
       RemoteFormController.prototype.click.call(ctxFor(link), { preventDefault: () => {} });
@@ -66,7 +66,7 @@ describe('RemoteFormController', () => {
 
     it('aborts when confirm dialog is declined', () => {
       confirmSpy.mockReturnValue(false);
-      const link = linkWith({ 'data-confirm': 'Sure?', 'data-method': 'delete' });
+      const link = linkWith({ 'data-remote-confirm': 'Sure?', 'data-remote-method': 'delete' });
 
       RemoteFormController.prototype.click.call(ctxFor(link), { preventDefault: () => {} });
 
@@ -76,12 +76,21 @@ describe('RemoteFormController', () => {
 
     it('proceeds when confirm dialog is accepted', () => {
       confirmSpy.mockReturnValue(true);
-      const link = linkWith({ 'data-confirm': 'Sure?', 'data-method': 'delete' });
+      const link = linkWith({ 'data-remote-confirm': 'Sure?', 'data-remote-method': 'delete' });
 
       RemoteFormController.prototype.click.call(ctxFor(link), { preventDefault: () => {} });
 
       expect(confirmSpy).toHaveBeenCalled();
       expect(sendCalls).toHaveLength(1);
+    });
+
+    it('ignores rails-ujs style data-confirm so it cannot trigger a second dialog', () => {
+      const link = linkWith({ 'data-confirm': 'Sure?', 'data-method': 'delete' });
+
+      RemoteFormController.prototype.click.call(ctxFor(link), { preventDefault: () => {} });
+
+      expect(confirmSpy).not.toHaveBeenCalled();
+      expect(sendCalls[0].method).toBe('GET');
     });
   });
 

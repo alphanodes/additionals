@@ -21,9 +21,11 @@ class RemoteFormController extends Controller {
   click(event) {
     event.preventDefault();
     const link = this.element;
-    const confirmMessage = link.dataset.confirm;
+    // Use plugin-prefixed dataset keys so we don't collide with rails-ujs,
+    // which delegates on `a[data-confirm]` / `a[data-method]` at document level.
+    const confirmMessage = link.dataset.remoteConfirm;
     if (confirmMessage && !window.confirm(confirmMessage)) { return; }
-    const method = (link.dataset.method || 'GET').toUpperCase();
+    const method = (link.dataset.remoteMethod || 'GET').toUpperCase();
     this.send(link.href, method, null);
   }
 

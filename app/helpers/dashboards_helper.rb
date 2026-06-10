@@ -312,6 +312,27 @@ module DashboardsHelper
     min_height = resolve_async_min_height settings, async
     options[:min_height] = min_height if min_height
 
+    # Lazy is opt-in per block, NOT default-on for all async blocks. Reasons
+    # (so future-you does not flip this to true thinking it is a free win):
+    #
+    # 1. Polling blocks (with :interval) need to fetch immediately and keep
+    #    polling regardless of viewport -- lazy would defeat auto-refresh.
+    # 2. Toggle blocks (with :toggle) load on a click trigger, lazy would
+    #    short-circuit that interaction.
+    # 3. Lazy needs a meaningful min-height on the skeleton, otherwise the
+    #    ~96 px placeholders stack inside the IntersectionObserver's 200 px
+    #    rootMargin and all blocks trigger at initial load -- lazy gains
+    #    nothing. min-height in turn needs a :data_check_class for the cheap
+    #    EXISTS pre-check, and not every block has one.
+    # 4. Print mode (Cmd+P): lazy blocks outside the viewport are missing
+    #    from the print output. A beforeprint hook to force-load them is a
+    #    follow-up, until then lazy is print-hostile.
+    # 5. UX trade-off: lazy saves initial requests but costs visible loading
+    #    when the user scrolls. Worth it on long data dashboards, friction
+    #    on compact overview dashboards -- per-block decision.
+    #
+    # Query blocks are the explicit exception (set in build_dashboard_partial_locals)
+    # because they typically render the largest data sets.
     options[:lazy] = true if async[:lazy]
 
     options

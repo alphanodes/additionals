@@ -8,7 +8,8 @@ class RenderAsyncController extends Controller {
     interval: { type: Number, default: 0 },
     toggleSelector: { type: String, default: '' },
     toggleEvent: { type: String, default: 'click' },
-    errorMessage: { type: String, default: '' }
+    errorMessage: { type: String, default: '' },
+    lazy: { type: Boolean, default: false }
   };
 
   connect() {
@@ -29,6 +30,8 @@ class RenderAsyncController extends Controller {
       this.toggleTargets.forEach(target => {
         target.addEventListener(this.toggleEventValue, this.toggleHandler);
       });
+    } else if (this.lazyValue) {
+      this.observeLazyTrigger();
     } else {
       this.load();
     }
@@ -36,6 +39,7 @@ class RenderAsyncController extends Controller {
 
   disconnect() {
     this.stopPolling();
+    this.disconnectLazyObserver();
     this.element.removeEventListener('refresh', this.boundLoad);
     if (this.boundVisibilityChange) {
       document.removeEventListener('visibilitychange', this.boundVisibilityChange);
@@ -44,6 +48,26 @@ class RenderAsyncController extends Controller {
       this.toggleTargets.forEach(target => {
         target.removeEventListener(this.toggleEventValue, this.toggleHandler);
       });
+    }
+  }
+
+  // Defers load() until the controller element scrolls into the viewport.
+  // rootMargin pre-loads 200px before the element enters the viewport so the
+  // user does not see a perceptible delay.
+  observeLazyTrigger() {
+    this.lazyObserver = new IntersectionObserver(entries => {
+      if (entries.some(e => e.isIntersecting)) {
+        this.disconnectLazyObserver();
+        this.load();
+      }
+    }, { rootMargin: '200px' });
+    this.lazyObserver.observe(this.element);
+  }
+
+  disconnectLazyObserver() {
+    if (this.lazyObserver) {
+      this.lazyObserver.disconnect();
+      this.lazyObserver = null;
     }
   }
 
@@ -65,6 +89,9 @@ class RenderAsyncController extends Controller {
   }
 
   load() {
+    // An external `refresh` event can fire before the lazy observer triggers.
+    // Stop observing once we are loading anyway.
+    this.disconnectLazyObserver();
     fetch(this.urlValue, {
       method: 'GET',
       headers: {
@@ -106,18 +133,43 @@ class RenderAsyncController extends Controller {
   // Parses HTML into a DocumentFragment and re-creates <script> elements.
   // Scripts inserted via innerHTML are inert by spec; cloning them as fresh
   // script nodes makes the browser execute them.
+  //
+  // Inline scripts execute immediately on insertion and do NOT wait for any
+  // preceding external script with `async = false`. To guarantee that an inline
+  // call like `RedmineReporting.renderChart(...)` runs after its external
+  // `burndown_chart.js` dependency, we strip inline scripts from the fragment
+  // and re-inject them after the external script's load event fires.
   parseHTML(html) {
     const template = document.createElement('template');
     template.innerHTML = html;
     const fragment = template.content;
 
+    let waitForExternal = Promise.resolve();
+
     fragment.querySelectorAll('script').forEach(oldScript => {
-      const newScript = document.createElement('script');
-      Array.from(oldScript.attributes).forEach(attr => {
-        newScript.setAttribute(attr.name, attr.value);
-      });
-      newScript.text = oldScript.textContent;
-      oldScript.parentNode.replaceChild(newScript, oldScript);
+      if (oldScript.src) {
+        const newScript = document.createElement('script');
+        Array.from(oldScript.attributes).forEach(attr => {
+          newScript.setAttribute(attr.name, attr.value);
+        });
+        newScript.async = false;
+        waitForExternal = new Promise(resolve => {
+          newScript.addEventListener('load', resolve, { once: true });
+          newScript.addEventListener('error', resolve, { once: true });
+        });
+        oldScript.parentNode.replaceChild(newScript, oldScript);
+      } else {
+        const scriptText = oldScript.textContent;
+        // Remove from fragment so it does not auto-execute on insert.
+        oldScript.remove();
+        // Re-run after the most recent external script in this batch loaded.
+        waitForExternal.then(() => {
+          const newScript = document.createElement('script');
+          newScript.text = scriptText;
+          document.body.appendChild(newScript);
+          newScript.remove();
+        });
+      }
     });
 
     return fragment;

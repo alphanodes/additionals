@@ -269,11 +269,20 @@ module DashboardsHelper
       partial_locals[:klass] = block_definition[:query_block][:class]
       partial_locals[:async] = { required_settings: %i[query_id],
                                  exposed_params: %i[sort],
-                                 partial: 'dashboards/blocks/query_list' }
+                                 partial: 'dashboards/blocks/query_list',
+                                 query_block: block_definition[:query_block],
+                                 lazy: true }
       partial_locals[:async][:unique_params] = [Redmine::Utils.random_hex(16)] if params[:refresh].present?
       partial_locals[:async] = partial_locals[:async].merge block_definition[:async] if block_definition[:async]
     elsif block_definition[:async]
       partial_locals[:async] = block_definition[:async]
+    end
+
+    # Matrix blocks declare their chart in block_definition[:matrix][:matrix_class]
+    # — promote it to async[:chart_class] so the render_async helper can opt
+    # them into lazy load + min-height without per-block boilerplate.
+    if partial_locals[:async] && block_definition[:matrix] && !partial_locals[:async][:chart_class]
+      partial_locals[:async] = partial_locals[:async].merge chart_class: block_definition[:matrix][:matrix_class]
     end
 
     partial_locals
@@ -285,7 +294,49 @@ module DashboardsHelper
       options[:interval] = (async[:cache_expires_in] || DashboardContent::RENDER_ASYNC_CACHE_EXPIRES_IN) * 1000
     end
 
+    min_height = resolve_async_min_height settings, async
+    options[:min_height] = min_height if min_height
+
+    # Lazy is opt-in per block — either explicit, via chart_class, or via
+    # query_block (set by build_dashboard_partial_locals).
+    options[:lazy] = true if async[:lazy] || async[:chart_class]
+
     options
+  end
+
+  # Determines a min-height (px) for the async placeholder so the lazy
+  # observer can see the final layout before content loads.
+  # Returns nil when no data is expected — the placeholder stays small
+  # and rendering follows the natural content height (e.g. "no data" text).
+  def resolve_async_min_height(settings, async)
+    return AdditionalsChart::CHART_HEADER_HEIGHT + AdditionalsChart::CHART_DEFAULT_HEIGHT if chart_data_expected? async
+
+    query_min_height = query_block_min_height settings, async
+    return query_min_height if query_min_height
+
+    case async[:min_height]
+    when Integer
+      async[:min_height]
+    when Proc
+      async[:min_height].call @project, settings
+    end
+  end
+
+  def chart_data_expected?(async)
+    klass = async[:chart_class]
+    klass.respond_to?(:chart_data_present?) && klass.chart_data_present?(project: @project)
+  end
+
+  def query_block_min_height(settings, async)
+    qb = async[:query_block]
+    return unless qb && settings[:query_id].present?
+
+    query = qb[:class].visible.find_by id: settings[:query_id]
+    return unless query
+
+    query.project = @project if qb[:with_project] && @project
+    count = query.send qb[:count_method] || 'query_count'
+    250 if count.to_i.positive?
   end
 
   def dashboard_async_required_settings?(settings, async)

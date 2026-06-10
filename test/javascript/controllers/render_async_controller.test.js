@@ -9,6 +9,97 @@ describe('RenderAsyncController', () => {
       expect(RenderAsyncController.values.toggleSelector).toEqual({ type: String, default: '' });
       expect(RenderAsyncController.values.toggleEvent).toEqual({ type: String, default: 'click' });
       expect(RenderAsyncController.values.errorMessage).toEqual({ type: String, default: '' });
+      expect(RenderAsyncController.values.lazy).toEqual({ type: Boolean, default: false });
+    });
+  });
+
+  describe('observeLazyTrigger', () => {
+    let observeCalls;
+    let observerInstances;
+    let originalIO;
+
+    beforeEach(() => {
+      observeCalls = [];
+      observerInstances = [];
+      originalIO = globalThis.IntersectionObserver;
+      globalThis.IntersectionObserver = class {
+        constructor(callback, options) {
+          this.callback = callback;
+          this.options = options;
+          this.disconnect = vi.fn();
+          observerInstances.push(this);
+        }
+        observe(target) {
+          observeCalls.push({ target, options: this.options });
+        }
+      };
+    });
+
+    afterEach(() => {
+      globalThis.IntersectionObserver = originalIO;
+    });
+
+    it('creates an IntersectionObserver with a 200px rootMargin and observes the element', () => {
+      const element = document.createElement('div');
+      const ctx = { element };
+
+      RenderAsyncController.prototype.observeLazyTrigger.call(ctx);
+
+      expect(observerInstances).toHaveLength(1);
+      expect(observeCalls).toHaveLength(1);
+      expect(observeCalls[0].target).toBe(element);
+      expect(observeCalls[0].options.rootMargin).toBe('200px');
+      expect(ctx.lazyObserver).toBe(observerInstances[0]);
+    });
+
+    it('triggers load() and disconnects when the element intersects', () => {
+      const ctx = {
+        element: document.createElement('div'),
+        load: vi.fn(),
+        disconnectLazyObserver: RenderAsyncController.prototype.disconnectLazyObserver
+      };
+
+      RenderAsyncController.prototype.observeLazyTrigger.call(ctx);
+      const observer = observerInstances[0];
+      observer.callback([{ isIntersecting: true }]);
+
+      expect(ctx.load).toHaveBeenCalledOnce();
+      expect(observer.disconnect).toHaveBeenCalledOnce();
+      expect(ctx.lazyObserver).toBeNull();
+    });
+
+    it('does not trigger load() when only non-intersecting entries are reported', () => {
+      const ctx = {
+        element: document.createElement('div'),
+        load: vi.fn(),
+        disconnectLazyObserver: RenderAsyncController.prototype.disconnectLazyObserver
+      };
+
+      RenderAsyncController.prototype.observeLazyTrigger.call(ctx);
+      observerInstances[0].callback([{ isIntersecting: false }]);
+
+      expect(ctx.load).not.toHaveBeenCalled();
+      expect(observerInstances[0].disconnect).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('disconnectLazyObserver', () => {
+    it('disconnects and clears the lazyObserver reference when set', () => {
+      const observer = { disconnect: vi.fn() };
+      const ctx = { lazyObserver: observer };
+
+      RenderAsyncController.prototype.disconnectLazyObserver.call(ctx);
+
+      expect(observer.disconnect).toHaveBeenCalledOnce();
+      expect(ctx.lazyObserver).toBeNull();
+    });
+
+    it('is a no-op when no lazyObserver is set', () => {
+      const ctx = { lazyObserver: null };
+
+      RenderAsyncController.prototype.disconnectLazyObserver.call(ctx);
+
+      expect(ctx.lazyObserver).toBeNull();
     });
   });
 
@@ -116,26 +207,44 @@ describe('RenderAsyncController', () => {
   });
 
   describe('parseHTML', () => {
-    it('re-creates script elements so the browser executes them', () => {
-      const html = '<div>before</div><script>window.__rerunScriptFlag = "ran";</script>';
-
-      const fragment = RenderAsyncController.prototype.parseHTML.call({}, html);
-      const scripts = fragment.querySelectorAll('script');
-
-      expect(scripts).toHaveLength(1);
-      // After parseHTML, the script is a freshly-created element (not the one that
-      // came out of template.innerHTML). The original was inert; this clone is live.
-      expect(scripts[0].textContent).toBe('window.__rerunScriptFlag = "ran";');
+    afterEach(() => {
+      // Clean up any inline scripts that re-injected into body during the test.
+      document.body.querySelectorAll('script').forEach(s => s.remove());
+      delete window.__rerunScriptFlag;
     });
 
-    it('copies script attributes onto the re-created node', () => {
-      const html = '<script type="application/javascript" data-x="y">/* noop */</script>';
+    it('strips inline scripts from the fragment and re-injects them later', async () => {
+      const html = '<div>before</div><script>window.__rerunScriptFlag = "ran";</script>';
+      const appendSpy = vi.spyOn(document.body, 'appendChild');
+
+      const fragment = RenderAsyncController.prototype.parseHTML.call({}, html);
+
+      // Inline script is removed from the fragment so it does not auto-execute on insert.
+      expect(fragment.querySelectorAll('script')).toHaveLength(0);
+
+      // It is re-appended to document.body after the (resolved) external-script promise.
+      await new Promise(resolve => setTimeout(resolve, 0));
+
+      const appendedScript = appendSpy.mock.calls
+        .map(call => call[0])
+        .find(node => node?.tagName === 'SCRIPT');
+      expect(appendedScript).toBeDefined();
+      expect(appendedScript.text).toBe('window.__rerunScriptFlag = "ran";');
+
+      appendSpy.mockRestore();
+    });
+
+    it('keeps external scripts in the fragment and forces async=false', () => {
+      const html = '<script src="/foo.js" type="application/javascript" data-x="y"></script>';
 
       const fragment = RenderAsyncController.prototype.parseHTML.call({}, html);
       const script = fragment.querySelector('script');
 
+      expect(script).not.toBeNull();
+      expect(script.getAttribute('src')).toBe('/foo.js');
       expect(script.getAttribute('type')).toBe('application/javascript');
       expect(script.dataset.x).toBe('y');
+      expect(script.async).toBe(false);
     });
 
     it('passes through non-script content unchanged', () => {

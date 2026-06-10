@@ -38,13 +38,20 @@ module AdditionalsRenderAsyncHelper
       data_attrs['render-async-toggle-event-value'] = toggle[:event].to_s if toggle[:event].present?
     end
 
+    data_attrs['render-async-lazy-value'] = 'true' if options[:lazy]
+
     error_message = options[:error_message]
     data_attrs['render-async-error-message-value'] = error_message if error_message.present?
+
+    style = nil
+    min_height = options[:min_height].to_i
+    style = "min-height:#{min_height}px" if min_height.positive?
 
     content_tag tag_name,
                 placeholder,
                 id: container_id,
                 class: container_class,
+                style: style,
                 data: data_attrs
   end
 end

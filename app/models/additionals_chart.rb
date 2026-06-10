@@ -8,6 +8,24 @@ class AdditionalsChart
 
   CHART_DEFAULT_HEIGHT = 350
   CHART_DEFAULT_WIDTH = 400
+  CHART_HEADER_HEIGHT = 80
+
+  class << self
+    # Cheap pre-check before async fetch — drives the lazy-load min-height.
+    # Subclasses should override with a single EXISTS query. Default is
+    # false (conservative — no min-height, layout stays compact for unknown
+    # charts; lazy may not trigger but no empty-block sizing risk).
+    def chart_data_present?(project:) # rubocop:disable Lint/UnusedMethodArgument
+      false
+    end
+
+    # Total box height expected once the chart is rendered (canvas + header).
+    # Used by render_async to set min-height so the lazy observer can see
+    # the final layout before content loads.
+    def chart_height
+      CHART_DEFAULT_HEIGHT + CHART_HEADER_HEIGHT
+    end
+  end
 
   def initialize(project: nil, query: nil)
     self.project = project

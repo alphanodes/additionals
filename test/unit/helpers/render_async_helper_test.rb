@@ -46,6 +46,34 @@ class RenderAsyncHelperTest < Additionals::HelperTest
     assert_include 'data-render-async-toggle-event-value="click"', html
   end
 
+  def test_render_async_emits_lazy_value
+    html = render_async '/path', lazy: true
+
+    assert_include 'data-render-async-lazy-value="true"', html
+  end
+
+  def test_render_async_emits_min_height_style
+    html = render_async '/path', min_height: 400
+
+    assert_include 'style="min-height:400px"', html
+  end
+
+  def test_render_async_skips_min_height_for_zero_or_blank
+    html_blank = render_async '/path'
+    html_zero  = render_async '/path', min_height: 0
+
+    assert_not_include 'min-height', html_blank
+    assert_not_include 'min-height', html_zero
+  end
+
+  def test_render_async_skips_lazy_value_when_not_set
+    html_default = render_async '/path'
+    html_false   = render_async '/path', lazy: false
+
+    assert_not_include 'render-async-lazy-value', html_default
+    assert_not_include 'render-async-lazy-value', html_false
+  end
+
   def test_render_async_emits_error_message_value
     html = render_async '/path', error_message: '<p>boom</p>'
 

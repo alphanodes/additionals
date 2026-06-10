@@ -359,11 +359,15 @@ module DashboardsHelper
   # `data_check_class` may be declared as a Class (when reachable at patch
   # load time) or as a String (when reachable only at render time via a soft
   # plugin dependency). Constantize lazily so neither side has to know.
+  # Soft-dependency block definitions are already gated by their `:if`
+  # predicate -- if we still land in the rescue, it's almost certainly a
+  # typo or missing plugin install. Warn instead of swallowing silently.
   def data_check_present?(async)
     klass = async[:data_check_class]
     klass = klass.constantize if klass.is_a? String
     klass.respond_to?(:chart_data_present?) && klass.chart_data_present?(project: @project)
-  rescue NameError
+  rescue NameError => e
+    Rails.logger.warn { "[additionals] data_check_class could not be resolved: #{async[:data_check_class].inspect} (#{e.message})" }
     false
   end
 

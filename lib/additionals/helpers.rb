@@ -157,10 +157,6 @@ module Additionals
       end
     end
 
-    def additionals_library_load(module_names)
-      safe_join(Array(module_names).map { |module_name| send(:"additionals_load_#{module_name}") })
-    end
-
     def autocomplete_select_entries(name, type, option_tags, **options)
       if option_tags.present?
         if option_tags.is_a? ActiveRecord::Relation
@@ -322,108 +318,6 @@ module Additionals
 
         link_to sprite_icon('link-break', l(:label_relation_remove)), url, options
       end
-    end
-
-    private
-
-    def additionals_already_loaded?(scope, js_name)
-      locked = "#{js_name}.#{scope}"
-      @alreaded_loaded = [] if @alreaded_loaded.nil?
-      return true if @alreaded_loaded.include? locked
-
-      @alreaded_loaded << locked
-      false
-    end
-
-    def additionals_include_js(js_name, core: false)
-      if additionals_already_loaded? 'js', js_name
-        ''
-      else
-        javascript_include_tag js_name, plugin: core ? nil : 'additionals'
-      end
-    end
-
-    def additionals_include_css(css)
-      if additionals_already_loaded? 'css', css
-        ''
-      else
-        stylesheet_link_tag css, plugin: 'additionals'
-      end
-    end
-
-    def additionals_load_select2
-      additionals_include_css('select2') +
-        additionals_include_js('select2.min') +
-        additionals_include_js('select2_helpers')
-    end
-
-    def additionals_load_actioncable
-      additionals_include_js 'actioncable', core: true
-    end
-
-    def additionals_load_font_awesome
-      additionals_include_css 'fontawesome-all.min'
-    end
-
-    # Chart.js core. Bundles the colorschemes plugin because every Chart.js
-    # block in our stack relies on the shared `RedmineReporting.setting
-    # :chart_color_schema` palette. Custom-color charts (e.g. heatmaps) just
-    # ignore the extra plugin -- harmless ~20 KB once cached.
-    def additionals_load_chartjs
-      additionals_include_js('chart.umd') +
-        additionals_include_js('chartjs-plugin-colorschemes.min')
-    end
-
-    # Standard Chart.js meta package -- core + colorschemes (via chartjs) +
-    # datalabels + annotation. Covers the typical Reporting-style chart.
-    def additionals_load_chartjs_meta
-      additionals_load_chartjs +
-        additionals_load_chartjs_datalabels +
-        additionals_load_chartjs_annotation
-    end
-
-    def additionals_load_chartjs_core
-      additionals_include_js 'chart.min', core: true
-    end
-
-    def additionals_load_chartjs_colorschemes
-      additionals_include_js 'chartjs-plugin-colorschemes.min'
-    end
-
-    def additionals_load_chartjs_datalabels
-      additionals_include_js 'chartjs-plugin-datalabels.min'
-    end
-
-    def additionals_load_chartjs_annotation
-      additionals_include_js 'chartjs-plugin-annotation.min'
-    end
-
-    def additionals_load_chartjs_moment
-      additionals_include_js('moment-with-locales.min') +
-        additionals_include_js('chartjs-adapter-moment.min')
-    end
-
-    def additionals_load_chartjs_matrix
-      additionals_load_chartjs_moment +
-        additionals_include_js('chartjs-chart-matrix.min')
-    end
-
-    def additionals_load_mermaid
-      additionals_include_js('mermaid.min') +
-        additionals_include_js('mermaid_load')
-    end
-
-    def additionals_load_sortable
-      additionals_include_js 'sortable.min'
-    end
-
-    def additionals_load_d3plus
-      additionals_include_js 'd3plus.min'
-    end
-
-    def additionals_load_dhtmlxgantt
-      additionals_include_css('dhtmlxgantt') +
-        additionals_include_js('dhtmlxgantt')
     end
   end
 end

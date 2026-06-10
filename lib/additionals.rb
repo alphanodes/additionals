@@ -223,6 +223,7 @@ module Additionals
       Redmine::Search.singleton_class.prepend Additionals::Patches::SearchPatch
 
       loader.add_global_helper [Additionals::Helpers,
+                                AdditionalsAssetLoaderHelper,
                                 AdditionalsClipboardHelper,
                                 AdditionalsGlobalSearchHelper,
                                 AdditionalsIconsHelper,

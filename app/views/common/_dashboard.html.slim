@@ -13,9 +13,10 @@
 / (this should always set, because to support new entries)
 - include_calendar_headers_tags
 
-- if dashboard.content.with_chartjs?
+- libraries = dashboard_required_libraries dashboard
+- if libraries.any?
   - content_for :header_tags do
-    = additionals_library_load %i[chartjs chartjs_colorschemes chartjs_datalabels chartjs_annotation chartjs_matrix]
+    = additionals_library_load libraries
 
 javascript:
   $(function() {

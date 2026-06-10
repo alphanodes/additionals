@@ -15,10 +15,6 @@ class DashboardContent
     end
   end
 
-  def with_chartjs?
-    false
-  end
-
   def initialize(attr = {})
     self.user = attr[:user].presence || User.current
     self.project = attr[:project].presence

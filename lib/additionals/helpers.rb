@@ -365,8 +365,21 @@ module Additionals
       additionals_include_css 'fontawesome-all.min'
     end
 
+    # Chart.js core. Bundles the colorschemes plugin because every Chart.js
+    # block in our stack relies on the shared `RedmineReporting.setting
+    # :chart_color_schema` palette. Custom-color charts (e.g. heatmaps) just
+    # ignore the extra plugin -- harmless ~20 KB once cached.
     def additionals_load_chartjs
-      additionals_include_js 'chart.umd'
+      additionals_include_js('chart.umd') +
+        additionals_include_js('chartjs-plugin-colorschemes.min')
+    end
+
+    # Standard Chart.js meta package -- core + colorschemes (via chartjs) +
+    # datalabels + annotation. Covers the typical Reporting-style chart.
+    def additionals_load_chartjs_meta
+      additionals_load_chartjs +
+        additionals_load_chartjs_datalabels +
+        additionals_load_chartjs_annotation
     end
 
     def additionals_load_chartjs_core

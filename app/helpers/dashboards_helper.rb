@@ -7,6 +7,28 @@ module DashboardsHelper
           skip_digest: true, &)
   end
 
+  # Returns the unique list of additionals_library_load keys required by all
+  # blocks in the dashboard's current layout. Each block declares what it
+  # needs explicitly via `:libraries` (top-level or under `:async`).
+  def dashboard_required_libraries(dashboard)
+    return [] unless dashboard
+
+    block_ids = dashboard.layout.values.flatten
+    block_ids.uniq!
+    libs = block_ids.flat_map do |id|
+      cfg = dashboard.content.find_block id
+      cfg ? block_libraries(cfg) : []
+    end
+    libs.uniq!
+    libs
+  end
+
+  def block_libraries(cfg)
+    libs = Array cfg[:libraries]
+    libs |= Array cfg.dig :async, :libraries
+    libs
+  end
+
   def dashboard_sidebar?(dashboard, params)
     if params['enable_sidebar'].blank?
       if dashboard.blank?
@@ -278,13 +300,6 @@ module DashboardsHelper
       partial_locals[:async] = block_definition[:async]
     end
 
-    # Matrix blocks declare their chart in block_definition[:matrix][:matrix_class]
-    # — promote it to async[:chart_class] so the render_async helper can opt
-    # them into lazy load + min-height without per-block boilerplate.
-    if partial_locals[:async] && block_definition[:matrix] && !partial_locals[:async][:chart_class]
-      partial_locals[:async] = partial_locals[:async].merge chart_class: block_definition[:matrix][:matrix_class]
-    end
-
     partial_locals
   end
 
@@ -297,9 +312,7 @@ module DashboardsHelper
     min_height = resolve_async_min_height settings, async
     options[:min_height] = min_height if min_height
 
-    # Lazy is opt-in per block — either explicit, via chart_class, or via
-    # query_block (set by build_dashboard_partial_locals).
-    options[:lazy] = true if async[:lazy] || async[:chart_class]
+    options[:lazy] = true if async[:lazy]
 
     options
   end
@@ -309,7 +322,7 @@ module DashboardsHelper
   # Returns nil when no data is expected — the placeholder stays small
   # and rendering follows the natural content height (e.g. "no data" text).
   def resolve_async_min_height(settings, async)
-    return AdditionalsChart::CHART_HEADER_HEIGHT + AdditionalsChart::CHART_DEFAULT_HEIGHT if chart_data_expected? async
+    return AdditionalsChart::CHART_HEADER_HEIGHT + AdditionalsChart::CHART_DEFAULT_HEIGHT if data_check_present? async
 
     query_min_height = query_block_min_height settings, async
     return query_min_height if query_min_height
@@ -322,9 +335,15 @@ module DashboardsHelper
     end
   end
 
-  def chart_data_expected?(async)
-    klass = async[:chart_class]
+  # `data_check_class` may be declared as a Class (when reachable at patch
+  # load time) or as a String (when reachable only at render time via a soft
+  # plugin dependency). Constantize lazily so neither side has to know.
+  def data_check_present?(async)
+    klass = async[:data_check_class]
+    klass = klass.constantize if klass.is_a? String
     klass.respond_to?(:chart_data_present?) && klass.chart_data_present?(project: @project)
+  rescue NameError
+    false
   end
 
   def query_block_min_height(settings, async)

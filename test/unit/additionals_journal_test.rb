@@ -35,4 +35,24 @@ class AdditionalsJournalTest < Additionals::TestCase
                                                      [1, 2, 3])
     end
   end
+
+  def test_add_system_note_returns_false_for_non_journalized_entity
+    entity = 'not journalizable'
+
+    assert_not AdditionalsJournal.add_system_note(entity, 'a note')
+  end
+
+  def test_add_system_note_persists_note_and_returns_true
+    assert_difference 'Journal.count' do
+      assert AdditionalsJournal.add_system_note(@issue, 'system note', user: users(:users_001))
+    end
+  end
+
+  def test_add_system_note_returns_false_on_invalid_record
+    @issue.subject = ''
+
+    assert_no_difference 'Journal.count' do
+      assert_not AdditionalsJournal.add_system_note(@issue, 'system note', user: users(:users_001))
+    end
+  end
 end

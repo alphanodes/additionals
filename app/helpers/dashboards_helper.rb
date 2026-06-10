@@ -551,6 +551,6 @@ module DashboardsHelper
       user.pref.recently_used_dashboards[dashboard_type] = dashboard.id
     end
 
-    user.pref.save
+    user.pref.save!
   end
 end

@@ -96,7 +96,7 @@ module Additionals
       # Saves the changes in a Journal
       # Called after_save
       def create_journal
-        current_journal&.save
+        current_journal&.save!
       end
 
       # Returns the journals that are visible to user with their index

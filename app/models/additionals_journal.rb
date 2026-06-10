@@ -32,7 +32,7 @@ class AdditionalsJournal < Journal
                                              prop_key:,
                                              old_value:,
                                              value:)
-        journal.save
+        journal.save!
       end
 
       journal
@@ -61,7 +61,10 @@ class AdditionalsJournal < Journal
       return false unless entity.respond_to? :init_journal
 
       entity.init_journal user, note
-      entity.save
+      entity.save!
+      true
+    rescue ActiveRecord::RecordInvalid
+      false
     end
   end
 end

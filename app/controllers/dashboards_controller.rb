@@ -143,7 +143,7 @@ class DashboardsController < ApplicationController
     return render_403 unless @dashboard.deletable?
 
     begin
-      @dashboard.destroy
+      @dashboard.destroy!
       flash[:notice] = flash_msg :delete
       respond_to do |format|
         format.html { redirect_to @project.nil? ? home_path : project_path(@project) }
@@ -177,7 +177,7 @@ class DashboardsController < ApplicationController
     block_settings.each do |block, settings|
       @dashboard.update_block_settings block, settings.to_unsafe_hash
     end
-    @dashboard.save
+    @dashboard.save!
     @updated_blocks = block_settings.keys
   end
 
@@ -186,7 +186,7 @@ class DashboardsController < ApplicationController
   def add_block
     @block = params[:block]
     if @dashboard.add_block @block
-      @dashboard.save
+      @dashboard.save!
       respond_to do |format|
         format.html do
           request.xhr? ? render : redirect_to(dashboard_link_path(@project, @dashboard))
@@ -201,7 +201,7 @@ class DashboardsController < ApplicationController
   def remove_block
     @block = params[:block]
     @dashboard.remove_block @block
-    @dashboard.save
+    @dashboard.save!
     respond_to do |format|
       format.html do
         request.xhr? ? render : redirect_to(dashboard_link_path(@project, @dashboard))
@@ -214,7 +214,7 @@ class DashboardsController < ApplicationController
   # params[:blocks] : array of block ids of the group
   def order_blocks
     @dashboard.order_blocks params[:group], params[:blocks]
-    @dashboard.save
+    @dashboard.save!
     head :ok
   end
 

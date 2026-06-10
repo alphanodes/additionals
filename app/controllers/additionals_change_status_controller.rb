@@ -5,7 +5,7 @@ class AdditionalsChangeStatusController < ApplicationController
   helper :additionals_issues
 
   def update
-    issue_old_status_id = @issue.status.id
+    issue_old_status_id = @issue.status_id
     issue_old_user = @issue.assigned_to
     new_status_id = params[:new_status_id].to_i
     allowed_status = @issue.sidebar_change_status_allowed_to User.current, new_status_id
@@ -24,7 +24,8 @@ class AdditionalsChangeStatusController < ApplicationController
               issue: @issue,
               journal: @issue.current_journal
 
-    if !@issue.save || issue_old_status_id == @issue.status_id
+    saved = @issue.save
+    if !saved || issue_old_status_id == @issue.status_id
       flash[:error] = if issue_old_status_id == @issue.status_id
                         flash_msg :error_issue_status_could_not_changed
                       else

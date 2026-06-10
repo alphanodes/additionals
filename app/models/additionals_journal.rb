@@ -32,6 +32,8 @@ class AdditionalsJournal < Journal
                                              prop_key:,
                                              old_value:,
                                              value:)
+        # Use save! to bypass Journal#save's journalize_changes override which
+        # would overwrite the manually built details we just appended.
         journal.save!
       end
 

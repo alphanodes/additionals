@@ -31,6 +31,7 @@
               = thumbnail_tag attachment
 
         = render_notes nil, journal if journal.notes.present?
+  = call_hook :view_additionals_journals_journal_bottom, journal: journal
 
 - if edit_mode
   - heads_for_wiki_formatter

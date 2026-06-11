@@ -1,0 +1,12 @@
+- if Additionals.setting?(:issue_link_category) && @issue.category_id
+  / Replace the rendered category value with a link to the project issue list
+  / filtered by this category. The link is built server-side via link_to (the
+  / name is escaped exactly once) and injected as HTML, so the &-separated query
+  / string is decoded correctly by the browser - setting it via attr('href')
+  / would keep the HTML-encoded &amp; and break the set_filter parameter.
+  - category_link = link_to @issue.category.name,
+                            project_issues_path(@issue.project, set_filter: 1, category_id: @issue.category_id),
+                            class: 'issue-category-link',
+                            title: l(:label_issue_link_category_title)
+  javascript:
+    $('.issue .attribute.category > .value').html("#{escape_javascript category_link}");

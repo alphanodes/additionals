@@ -183,6 +183,34 @@ class IssuesControllerTest < Additionals::ControllerTest
     end
   end
 
+  def test_show_links_category_when_enabled
+    with_plugin_settings 'additionals', issue_link_category: 1 do
+      get :show, params: { id: 1 }
+
+      assert_response :success
+      assert_match(/issue-category-link/, response.body)
+      assert_match(/category_id=1/, response.body)
+    end
+  end
+
+  def test_do_not_link_category_when_disabled
+    with_plugin_settings 'additionals', issue_link_category: 0 do
+      get :show, params: { id: 1 }
+
+      assert_response :success
+      assert_no_match(/issue-category-link/, response.body)
+    end
+  end
+
+  def test_do_not_link_category_without_category
+    with_plugin_settings 'additionals', issue_link_category: 1 do
+      get :show, params: { id: 2 }
+
+      assert_response :success
+      assert_no_match(/issue-category-link/, response.body)
+    end
+  end
+
   def test_show_attachments
     with_plugin_settings 'additionals', issue_hide_max_attachments: 10 do
       get :show, params: { id: 3 }

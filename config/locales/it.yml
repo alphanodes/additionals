@@ -64,6 +64,7 @@ it:
   hidden_macros_in_toolbar_info: "Tutte le macro disponibili che l'utente registrato può utilizzare sono elencate tramite il pulsante macro della barra degli strumenti del wiki. Le macro contrassegnate qui non vengono offerte per la selezione. In questo modo è possibile limitare la portata dell'elenco."
   info_hidden_roles_html: "I ruoli nascosti possono essere utilizzati solo insieme alla visibilità dell'utente \"Membri di progetti visibili\". Se l'utente non è in un ruolo visibile all'utente corrente, questo ruolo, incluso l'utente, è nascosto nella pagina di panoramica del progetto e nelle liste di ricerca."
   info_issue_hide_max_attachments: "Se il numero di file inseriti in questa sezione è superiore a quello massimo, tutti gli allegati di un problema vengono visualizzati nascosti."
+  info_issue_link_category: "Collega la categoria nella pagina del problema all'elenco dei problemi del progetto corrente filtrato per questa categoria."
   info_live_search_result_restriction: "I risultati di LiveSearch sono limitati a %{value} colpi. Prova a descrivere la tua ricerca in modo più dettagliato."
   label_account_login_bottom: "Testo per la pagina di accesso"
   label_activate_quickstart: Attivare quickstart
@@ -136,6 +137,8 @@ it:
   label_issue_freezed_with_close: "Impedire la modifica dei problemi chiusi (Freeze)"
   label_issue_genitive: tema
   label_issue_hide_max_attachments: "Mostra file massimi"
+  label_issue_link_category: "Collega la categoria"
+  label_issue_link_category_title: "Mostra i problemi con questa categoria"
   label_issue_note_with_author: "Mostra l'autore dell'attività con una nota"
   label_issue_status_change: "Se \"Assignee\" è invariato e lo stato della questione è cambiato da x a y, allora l'autore è assegnato alla questione"
   label_issue_timelog_required: "Time log per i problemi richiesti"

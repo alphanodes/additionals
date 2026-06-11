@@ -64,6 +64,7 @@ zh:
   hidden_macros_in_toolbar_info: 登录用户可以使用的所有可用宏都可通过 Wiki 页面工具栏 的 宏 按钮列出。请在此处选择不希望列出的宏。
   info_hidden_roles_html: 隐藏功能只能与"用户可见度"选项一起使用。如果某用户不在对当前用户可见的角色，则此用户及其角色在项目概述页和查询列表中将对当前用户隐藏。
   info_issue_hide_max_attachments: "如果超过此处输入的文件数量，则会隐藏显示问题的所有文件附件。"
+  info_issue_link_category: "将问题页面上的类别链接到当前项目按此类别筛选的问题列表。"
   info_live_search_result_restriction: "LiveSearch的结果仅限于 %{value}。命中率。尝试更详细地描述你的搜索。"
   label_account_login_bottom: "用于登陆页的文本"
   label_activate_quickstart: Activate quickstart
@@ -136,6 +137,8 @@ zh:
   label_issue_freezed_with_close: 禁止修改已关闭的问题 (冻结)
   label_issue_genitive: "问题"
   label_issue_hide_max_attachments: "显示最大文件数"
+  label_issue_link_category: "链接类别"
+  label_issue_link_category_title: "显示此类别的问题"
   label_issue_note_with_author: "显示任务的作者与注释"
   label_issue_status_change: "若 \"指派给\" 的值未修改，且问题状态要从 X 变更为 Y，那么该问题必须指派给问题作者自己。"
   label_issue_timelog_required: 问题需要登记工时

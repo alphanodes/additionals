@@ -64,6 +64,7 @@
   hidden_macros_in_toolbar_info: All available macros that the logged in user can use are listed via the macro button of the wiki toolbar. Macros marked here are not offered for selection. This allows you to limit the scope of the list.
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.
   info_issue_hide_max_attachments: "如果超过此处输入的文件数量，则会隐藏显示问题的所有文件附件。"
+  info_issue_link_category: "将问题页面上的类别链接到当前项目按此类别筛选的问题列表。"
   info_live_search_result_restriction: "LiveSearch的结果仅限于 %{value}。命中率。尝试更详细地描述你的搜索。"
   label_account_login_bottom: "登入頁文字"
   label_activate_quickstart: Activate quickstart
@@ -136,6 +137,8 @@
   label_issue_freezed_with_close: Disallow editing of closed issues (Freeze)
   label_issue_genitive: "问题"
   label_issue_hide_max_attachments: "显示最大文件数"
+  label_issue_link_category: "链接类别"
+  label_issue_link_category_title: "显示此类别的问题"
   label_issue_note_with_author: "显示任务的作者与注释"
   label_issue_status_change: "若未修改 \"被分派者\" ，且議題狀態要從 X 變更為 Y ，則該議題必須被分派給議題作者。"
   label_issue_timelog_required: "所需问题的时间记录"

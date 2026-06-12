@@ -64,7 +64,7 @@ en:
   hidden_macros_in_toolbar_info: All available macros that the logged in user can use are listed via the macro button of the wiki toolbar. Macros marked here are not offered for selection. This allows you to limit the scope of the list.
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.
   info_issue_hide_max_attachments: If the number of files entered here is exceeding all file attachments of an issue are displayed hidden.
-  info_issue_link_category: Link the category on the issue page to the issue list of the current project filtered by this category.
+  info_issue_link_category: Link the category (on the issue page and in issue list columns) to the issue list of the respective project filtered by this category.
   info_live_search_result_restriction: "LiveSearch results are limited to %{value} entries. Try to filter your search a better way."
   label_account_login_bottom: "Text for login page"
   label_activate_quickstart: Activate quickstart

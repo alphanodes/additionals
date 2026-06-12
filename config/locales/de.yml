@@ -64,7 +64,7 @@ de:
   hidden_macros_in_toolbar_info: Alle verfügbaren Makros, die der angemeldete Benutzer verwenden kann, werden über den Makro-Button der Wiki-Toolbar aufgelistet. Hier markierte Makros werden nicht zur Auswahl angeboten. Damit lässt sich der Listenumfang einschränken.
   info_hidden_roles_html: Versteckte Rollen können nur zusammen mit der Benutzersichtbarkeit "Mitglieder von sichtbaren Projekten" verwendet werden. Diese Option funktioniert nur, wenn der Benutzer in keiner Rolle ist die für den aktuellen Benutzer sichtbar ist. Passt alles wird diese Rolle inklusive Benutzer auf der Projektübersichtsseite und in Abfragelisten ausgeblendet.
   info_issue_hide_max_attachments: Wird die hier angegebene Anzahl überschritten, werden alle Dateianhänge im Ticket eingeklappt/versteckt dargestellt.
-  info_issue_link_category: Verlinkt die Kategorie auf der Ticket-Seite mit der nach dieser Kategorie gefilterten Ticketliste des aktuellen Projekts.
+  info_issue_link_category: Verlinkt die Kategorie (auf der Ticket-Seite und in Spalten von Ticketlisten) mit der nach dieser Kategorie gefilterten Ticketliste des jeweiligen Projekts.
   info_live_search_result_restriction: LiveSearch Ergebnisse sind auf %{value} Treffer begrenzt. Versuche Deine Suche genauer zu beschreiben.
   label_account_login_bottom: "Text für Anmeldeseite"
   label_activate_quickstart: Schnellstart aktivieren

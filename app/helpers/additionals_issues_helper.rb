@@ -49,4 +49,21 @@ module AdditionalsIssuesHelper
       issue.assigned_to_id != User.current.id &&
       issue.project.assignable_users(issue.tracker).exists?(id: User.current.id)
   end
+
+  # Render the issue category as a link to the issue list of the issue's
+  # project, filtered by this category. Falls back to the plain (escaped)
+  # category name when the issue_link_category setting is disabled - which
+  # matches Redmine core's default rendering (format_object -> h(name)).
+  # The category can be passed in to reuse an already loaded association
+  # (e.g. the preloaded value in a query column) and avoid an extra query.
+  def link_to_issue_category(issue, category: nil)
+    category ||= issue.category
+    return '' if category.nil?
+    return h category.name unless Additionals.setting? :issue_link_category
+
+    link_to category.name,
+            project_issues_path(issue.project, set_filter: 1, category_id: category.id),
+            class: 'issue-category-link',
+            title: l(:label_issue_link_category_title)
+  end
 end

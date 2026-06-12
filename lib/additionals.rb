@@ -217,7 +217,8 @@ module Additionals
       loader.add_helper({ controller: 'Issues', helper: 'AdditionalsCommonJournals' })
 
       loader.add_patch [{ target: Redmine::Views::LabelledFormBuilder, patch: 'LabelledFormBuilder' },
-                        { target: WatchersHelper, patch: 'WatchersHelper' }]
+                        { target: WatchersHelper, patch: 'WatchersHelper' },
+                        { target: QueriesHelper, patch: 'QueriesHelper' }]
 
       # Filter search types based on disabled modules
       Redmine::Search.singleton_class.prepend Additionals::Patches::SearchPatch

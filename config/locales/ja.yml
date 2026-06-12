@@ -64,7 +64,7 @@ ja:
   hidden_macros_in_toolbar_info: "ログインしているユーザーが使用できるすべての利用可能なマクロは、wikiツールバーのマクロボタンを使ってリストアップされています。ここでマークされたマクロは選択のために提供されていません。これにより、リストの範囲を制限することができます。"
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.
   info_issue_hide_max_attachments: "ここに入力したファイル数を超えると、issueの添付ファイルはすべて非表示になります。"
-  info_issue_link_category: "issueページのカテゴリを、現在のプロジェクトのこのカテゴリで絞り込んだissue一覧にリンクします。"
+  info_issue_link_category: "issueページおよびissue一覧の列のカテゴリを、該当プロジェクトのこのカテゴリで絞り込んだissue一覧にリンクします。"
   info_live_search_result_restriction: "LiveSearchの検索結果は %{value} に限定されます。がヒットしました。検索内容をもっと詳しく説明してみてください。"
   label_account_login_bottom: "ログイン画面の文章"
   label_activate_quickstart: "アクティブ化 quickstart"

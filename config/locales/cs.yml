@@ -64,7 +64,7 @@ cs:
   hidden_macros_in_toolbar_info: "Všechna dostupná makra, která může přihlášený uživatel použít, jsou uvedena prostřednictvím tlačítka makro na panelu nástrojů wiki. Makra zde označená nejsou nabízena k výběru. To vám umožní omezit rozsah seznamu."
   info_hidden_roles_html: "Skryté role lze použít pouze spolu s viditelností uživatele \"Members of visible projects\". Pokud uživatel není v roli, která je viditelná pro aktuálního uživatele, je tato role včetně uživatele skryta na stránce s přehledem projektu a v seznamech dotazů."
   info_issue_hide_max_attachments: "Pokud je zde zadán vyšší počet souborů, zobrazí se všechny přílohy k danému vydání skrytě."
-  info_issue_link_category: "Propojí kategorii na stránce úkolu se seznamem úkolů aktuálního projektu filtrovaným podle této kategorie."
+  info_issue_link_category: "Propojí kategorii (na stránce úkolu a ve sloupcích seznamů úkolů) se seznamem úkolů příslušného projektu filtrovaným podle této kategorie."
   info_live_search_result_restriction: "Výsledky vyhledávání LiveSearch jsou omezeny na %{value} zásahy. Zkuste své hledání popsat podrobněji."
   label_account_login_bottom: "Text pro přihlašovací stránku"
   label_activate_quickstart: Aktivovat quickstart

@@ -211,6 +211,36 @@ class IssuesControllerTest < Additionals::ControllerTest
     end
   end
 
+  def test_index_links_category_column_when_enabled
+    with_plugin_settings 'additionals', issue_link_category: 1 do
+      get :index, params: { set_filter: 1, c: %w[subject category] }
+
+      assert_response :success
+      assert_select 'td.category a.issue-category-link'
+    end
+  end
+
+  def test_index_does_not_link_category_column_when_disabled
+    with_plugin_settings 'additionals', issue_link_category: 0 do
+      get :index, params: { set_filter: 1, c: %w[subject category] }
+
+      assert_response :success
+      assert_select 'td.category a.issue-category-link', count: 0
+    end
+  end
+
+  def test_index_links_category_column_to_own_project_across_projects
+    issue = issues :issues_001
+
+    with_plugin_settings 'additionals', issue_link_category: 1 do
+      get :index, params: { set_filter: 1, c: %w[subject category] }
+
+      assert_response :success
+      assert_select "tr#issue-#{issue.id} td.category a.issue-category-link[href*=?]",
+                    "/projects/#{issue.project.identifier}/issues"
+    end
+  end
+
   def test_show_attachments
     with_plugin_settings 'additionals', issue_hide_max_attachments: 10 do
       get :show, params: { id: 3 }

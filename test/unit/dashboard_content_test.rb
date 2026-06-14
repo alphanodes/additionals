@@ -20,4 +20,8 @@ class DashboardContentTest < Additionals::TestCase
     assert_not content.full_width_group?('left')
     assert_not content.full_width_group?('right')
   end
+
+  def test_column_groups
+    assert_equal %w[left right], DashboardContent.new.column_groups
+  end
 end

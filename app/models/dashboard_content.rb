@@ -32,6 +32,11 @@ class DashboardContent
     FULL_WIDTH_GROUPS.include? group.to_s
   end
 
+  # The 50% column groups (left/right) as opposed to the full-width rows.
+  def column_groups
+    groups - FULL_WIDTH_GROUPS
+  end
+
   def block_definitions
     {
       'issuequery' => { label: l(:label_query_with_name, l(:label_issue_plural)),

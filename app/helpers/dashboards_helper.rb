@@ -228,16 +228,27 @@ module DashboardsHelper
                onchange: "$('#block-form').submit();"
   end
 
-  # Renders a single dashboard group as a block-receiver. Empty full-width
-  # groups (top/bottom) are skipped unless blocks can be sorted (drag & drop
-  # needs the receiver as a drop target while editing); the 50% column groups
-  # (left/right) are always rendered to keep the column layout stable. See
-  # GitHub #112.
-  def render_dashboard_group(group, dashboard, can_sort:)
-    blocks_html = render_dashboard_blocks dashboard.layout[group], dashboard
-    return if blocks_html.blank? && !can_sort && dashboard.content.full_width_group?(group)
+  # Renders all dashboard groups as block-receivers. Empty groups are skipped
+  # in read-only layouts (not sortable) to avoid whitespace: full-width groups
+  # (top/bottom) individually, and the 50% columns (left/right) only when BOTH
+  # are empty, so a lone column never stretches to full width. While sortable,
+  # nothing is skipped because drag & drop needs the receivers as drop targets.
+  # See GitHub #112.
+  def render_dashboard_groups(dashboard, can_sort:)
+    rendered = dashboard.available_groups.index_with do |group|
+      render_dashboard_blocks dashboard.layout[group], dashboard
+    end
+    columns_blank = dashboard.content.column_groups.all? { |group| rendered[group].blank? }
 
-    tag.div blocks_html, id: "list-#{group}", class: "block-receiver splitcontent#{group}"
+    groups = dashboard.available_groups.filter_map do |group|
+      blocks_html = rendered[group]
+      next if blocks_html.blank? && !can_sort &&
+              (dashboard.content.full_width_group?(group) || columns_blank)
+
+      tag.div blocks_html, id: "list-#{group}", class: "block-receiver splitcontent#{group}"
+    end
+
+    safe_join groups
   end
 
   # Renders the blocks

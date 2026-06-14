@@ -159,3 +159,20 @@ welcome_for_roles:
   locked: false
   author_id: 1
   visibility: 1
+
+top_only_welcome:
+  name: Top only welcome
+  dashboard_type: <%= DashboardContentWelcome::TYPE_NAME %>
+  locked: true
+  enable_sidebar: false
+  author_id: 1
+  visibility: 2
+  options: |
+    ---
+    :layout:
+      top:
+      - text
+    :layout_settings:
+      text:
+        :title: Top block
+        :text: Some example text in top block

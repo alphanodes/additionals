@@ -228,6 +228,18 @@ module DashboardsHelper
                onchange: "$('#block-form').submit();"
   end
 
+  # Renders a single dashboard group as a block-receiver. Empty full-width
+  # groups (top/bottom) are skipped unless blocks can be sorted (drag & drop
+  # needs the receiver as a drop target while editing); the 50% column groups
+  # (left/right) are always rendered to keep the column layout stable. See
+  # GitHub #112.
+  def render_dashboard_group(group, dashboard, can_sort:)
+    blocks_html = render_dashboard_blocks dashboard.layout[group], dashboard
+    return if blocks_html.blank? && !can_sort && dashboard.content.full_width_group?(group)
+
+    tag.div blocks_html, id: "list-#{group}", class: "block-receiver splitcontent#{group}"
+  end
+
   # Renders the blocks
   def render_dashboard_blocks(blocks, dashboard, _options = {})
     s = ''.html_safe

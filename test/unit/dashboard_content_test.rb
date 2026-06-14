@@ -11,4 +11,13 @@ class DashboardContentTest < Additionals::TestCase
     assert_includes DashboardContent.types, DashboardContentProject::TYPE_NAME
     assert_includes DashboardContent.types, DashboardContentWelcome::TYPE_NAME
   end
+
+  def test_full_width_group
+    content = DashboardContent.new
+
+    assert content.full_width_group?('top')
+    assert content.full_width_group?('bottom')
+    assert_not content.full_width_group?('left')
+    assert_not content.full_width_group?('right')
+  end
 end

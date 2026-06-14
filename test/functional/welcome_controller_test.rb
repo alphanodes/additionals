@@ -39,6 +39,19 @@ class WelcomeControllerTest < Additionals::ControllerTest
     assert_select 'div#list-right div#block-text__1', text: /example text/
   end
 
+  def test_empty_full_width_group_skipped_on_locked_dashboard
+    # system_default_welcome is locked (not sortable) and has no bottom blocks:
+    # the empty full-width bottom receiver must be skipped (GitHub #112), while
+    # the populated top and column groups stay present.
+    @request.session[:user_id] = 4
+    get :index
+
+    assert_response :success
+    assert_select 'div#list-top'
+    assert_select 'div#list-left'
+    assert_select 'div#list-bottom', count: 0
+  end
+
   def test_show_with_hook_view_welcome_index_top
     Redmine::Hook.add_listener ViewWelcomeIndexTopRenderOn
     @request.session[:user_id] = 4

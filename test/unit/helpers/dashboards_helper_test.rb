@@ -87,6 +87,28 @@ class DashboardsHelperTest < Additionals::HelperTest
     assert_equal [], dashboard_required_libraries(dashboard)
   end
 
+  def test_render_dashboard_group_skips_empty_full_width_group_when_not_sortable
+    dashboard = build_test_dashboard layout: {}, blocks: {}
+
+    assert_nil render_dashboard_group('top', dashboard, can_sort: false)
+    assert_nil render_dashboard_group('bottom', dashboard, can_sort: false)
+  end
+
+  def test_render_dashboard_group_renders_empty_full_width_group_when_sortable
+    dashboard = build_test_dashboard layout: {}, blocks: {}
+    result = render_dashboard_group 'top', dashboard, can_sort: true
+
+    assert_includes result, 'id="list-top"'
+    assert_includes result, 'block-receiver'
+  end
+
+  def test_render_dashboard_group_always_renders_empty_column_group
+    dashboard = build_test_dashboard layout: {}, blocks: {}
+
+    assert_includes render_dashboard_group('left', dashboard, can_sort: false), 'id="list-left"'
+    assert_includes render_dashboard_group('right', dashboard, can_sort: false), 'id="list-right"'
+  end
+
   private
 
   def build_test_dashboard(layout:, blocks:)

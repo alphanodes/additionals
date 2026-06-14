@@ -164,7 +164,17 @@ svg.dashboard-system-default.global {
 .gototop {
   margin-top: 20px;
   text-align: right;
-  padding: 10px 0;
+}
+
+/* Padding on the link itself, so the clickable area is a comfortably sized
+   target on the right instead of spanning the full page width */
+.gototop a {
+  display: inline-block;
+  padding: 10px 15px;
+}
+
+.gototop a:hover {
+  background-color: var(--a-color-bg-subtle);
 }
 
 /* Footer */

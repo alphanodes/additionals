@@ -228,7 +228,7 @@ class DashboardTest < Additionals::TestCase
   end
 
   def test_dashboard_welcome_scope
-    assert_equal 4, Dashboard.visible.welcome_only.count
+    assert_equal 5, Dashboard.visible.welcome_only.count
   end
 
   def test_dashboard_project_scope

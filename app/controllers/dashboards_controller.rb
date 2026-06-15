@@ -237,11 +237,14 @@ class DashboardsController < ApplicationController
     raise ::Unauthorized unless @dashboard.visible?
 
     if @dashboard.dashboard_type == DashboardContentProject::TYPE_NAME && @dashboard.project.nil?
-      @dashboard.content_project = if params[:dashboard].present? && params[:dashboard][:content_project_id].present?
-                                     find_project params[:dashboard][:content_project_id]
-                                   else
-                                     find_project_by_project_id
-                                   end
+      # find_project* set @project as a side effect; their return value is not
+      # guaranteed to be the project, so read @project afterwards.
+      if params[:dashboard].present? && params[:dashboard][:content_project_id].present?
+        find_project params[:dashboard][:content_project_id]
+      else
+        find_project_by_project_id
+      end
+      @dashboard.content_project = @project
     else
       @project = @dashboard.project
     end

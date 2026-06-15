@@ -176,3 +176,21 @@ top_only_welcome:
       text:
         :title: Top block
         :text: Some example text in top block
+
+project_news_default:
+  name: Project news dashboard
+  dashboard_type: <%= DashboardContentProject::TYPE_NAME %>
+  system_default: false
+  locked: false
+  enable_sidebar: false
+  project_id:
+  author_id: 1
+  visibility: 2
+  options: |
+    ---
+    :layout:
+      top:
+      - news
+    :layout_settings:
+      news:
+        :max_entries: '10'

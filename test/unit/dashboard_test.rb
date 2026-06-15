@@ -232,7 +232,7 @@ class DashboardTest < Additionals::TestCase
   end
 
   def test_dashboard_project_scope
-    assert_equal 4, Dashboard.visible.project_only.count
+    assert_equal 5, Dashboard.visible.project_only.count
   end
 
   def test_destroy_dashboard_without_roles

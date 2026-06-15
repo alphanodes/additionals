@@ -480,19 +480,28 @@ module DashboardsHelper
 
   def render_news_block(block, _block_definition, settings, dashboard)
     max_entries = settings[:max_entries] || DashboardContent::DEFAULT_MAX_ENTRIES
+    with_subprojects = RedminePluginKit.true? settings[:with_subprojects]
+    news = news_block_entries dashboard, max_entries, with_subprojects: with_subprojects
 
-    news = if dashboard.content_project.nil?
-             News.latest User.current, max_entries
-           else
-             dashboard.content_project
-                      .news
-                      .limit(max_entries)
-                      .includes(:author, :project)
-                      .reorder(created_on: :desc)
-                      .to_a
-           end
+    render 'dashboards/blocks/news', block:, max_entries:, news:,
+                                     with_subprojects: with_subprojects,
+                                     content_project_id: dashboard.content_project&.id
+  end
 
-    render 'dashboards/blocks/news', block:, max_entries:, news:
+  def news_block_entries(dashboard, max_entries, with_subprojects: false)
+    return News.latest User.current, max_entries if dashboard.content_project.nil?
+
+    project = dashboard.content_project
+    scope = if with_subprojects && !project.leaf?
+              News.visible.where project_id: project.self_and_descendants.ids
+            else
+              project.news
+            end
+
+    scope.limit(max_entries)
+         .includes(:author, :project)
+         .reorder(created_on: :desc)
+         .to_a
   end
 
   def render_my_spent_time_block(block, block_definition, settings, dashboard)

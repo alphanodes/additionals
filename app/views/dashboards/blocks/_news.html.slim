@@ -9,13 +9,33 @@ h3.icon.icon-news = sprite_icon 'news', l(:label_news_latest)
                                              value: max_entries,
                                              tag_name: "settings[#{block}][max_entries]",
                                              min: 1, max: 1000, required: true
+        - if @project
+          p
+            = additionals_settings_checkbox :with_subprojects,
+                                            label: :label_cross_project_descendants,
+                                            active_value: with_subprojects,
+                                            tag_name: "settings[#{block}][with_subprojects]"
       p
         = submit_tag l(:button_save)
         '
         = link_to_function l(:button_cancel), "$('##{block}-settings').toggle()"
 
 - if news.any?
-  = render partial: 'news/news', collection: news
+  - if with_subprojects
+    - news.each do |entry|
+      p
+        - if entry.project_id != content_project_id
+          == "#{link_to_project entry.project}: "
+        = link_to entry.title, news_path(entry)
+        - if entry.comments_count.positive?
+          span.comments = "(#{l :label_x_comments, count: entry.comments_count})"
+        br
+        - if entry.summary.present?
+          span.summary = entry.summary
+          br
+        span.author = authoring entry.created_on, entry.author
+  - else
+    = render partial: 'news/news', collection: news
   p
     - if @project
       = link_to l(:label_news_view_all), project_news_index_path(@project)

@@ -103,7 +103,38 @@ class DashboardsHelperTest < Additionals::HelperTest
     assert_includes result, 'id="list-bottom"'
   end
 
+  def test_news_block_entries_excludes_subproject_news_by_default
+    User.current = users :users_001
+    sub_news = create_subproject_news
+    dashboard = build_test_dashboard layout: {}, blocks: {}
+    dashboard.content_project = projects :projects_001
+
+    entries = news_block_entries dashboard, 10
+
+    assert_not_includes entries, sub_news
+  end
+
+  def test_news_block_entries_includes_subproject_news_when_enabled
+    User.current = users :users_001
+    sub_news = create_subproject_news
+    dashboard = build_test_dashboard layout: {}, blocks: {}
+    dashboard.content_project = projects :projects_001
+
+    entries = news_block_entries dashboard, 10, with_subprojects: true
+
+    assert_includes entries, sub_news
+  end
+
   private
+
+  def create_subproject_news
+    subproject = projects :projects_003
+    subproject.enable_module! :news
+    News.create! project: subproject,
+                 title: 'Subproject news',
+                 description: 'News from a subproject',
+                 author: User.current
+  end
 
   def build_test_dashboard(layout:, blocks:)
     DashboardContentStub.test_blocks = blocks

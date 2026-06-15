@@ -2,6 +2,7 @@
 
 ## 4.5.0
 
+- Raise a clear, actionable error in the dashboard defaults migration when no usable owner user is found, instead of a cryptic NoMethodError #186
 - Do not convert emoji shortcodes inside links (CommonMark), so URLs containing segments like `:v:` are no longer turned into emoji #176
 - Removed `Additionals.time_zone_correct` - the method had asymmetric DST semantics (static `utc_offset` minus OS-dependent `localtime.utc_offset`) and could not correctly handle cross-timezone display. Use Rails standard timezone mechanics (`in_time_zone`, `Time.use_zone`) instead.
 - Replace the (unmaintained) `render_async` gem with a native Stimulus controller. The public `render_async` / `render_async_cache` / `render_async_cache_key` helper API is preserved; `DashboardContent::RENDER_ASYNC_CACHE_EXPIRES_IN` and the `auto_refresh` block setting behave exactly as before.

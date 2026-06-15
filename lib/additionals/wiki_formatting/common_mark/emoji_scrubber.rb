@@ -9,7 +9,9 @@ module Additionals
 
         def scrub(node)
           return unless node.text?
-          return if ancestor? node, %w[pre code]
+          # skip links too: a raw URL like .../:v:/... is autolinked and its
+          # text node would otherwise turn ":v:" into an emoji
+          return if ancestor? node, %w[pre code a]
 
           content = node.text
           return unless with_emoji?(content) || content.match(emoji_unicode_pattern)

@@ -64,6 +64,49 @@ module WikiFormatting
       end
     end
 
+    def test_emojis_not_in_links
+      input = '<a href="https://example.com/:heart:/g/x">https://example.com/:heart:/g/x</a>'
+      with_plugin_settings 'additionals', legacy_smiley_support: 0,
+                                          emoji_support: 1 do
+        result = emoji_filter input
+
+        assert_not_includes result, '<additionals-emoji'
+        assert_includes result, ':heart:'
+      end
+    end
+
+    def test_unicode_emojis_not_in_links
+      input = '<a href="https://example.com/x">https://example.com/✌️/x</a>'
+      with_plugin_settings 'additionals', legacy_smiley_support: 0,
+                                          emoji_support: 1 do
+        result = emoji_filter input
+
+        assert_not_includes result, '<additionals-emoji'
+      end
+    end
+
+    def test_emojis_still_render_next_to_links
+      input = ':heart: <a href="https://example.com/">link</a>'
+      with_plugin_settings 'additionals', legacy_smiley_support: 0,
+                                          emoji_support: 1 do
+        result = emoji_filter input
+
+        assert_includes result, '<additionals-emoji'
+        assert_not_includes result, ':heart:'
+      end
+    end
+
+    def test_emojis_still_render_outside_code_and_links
+      input = ':heart:'
+      with_plugin_settings 'additionals', legacy_smiley_support: 0,
+                                          emoji_support: 1 do
+        result = emoji_filter input
+
+        assert_includes result, '<additionals-emoji'
+        assert_not_includes result, ':heart:'
+      end
+    end
+
     def test_version_detection_loads_correct_classes
       if Redmine::VERSION::BRANCH == 'devel'
         # Redmine Master should load Scrubbers

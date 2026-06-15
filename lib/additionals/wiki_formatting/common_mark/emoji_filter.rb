@@ -14,7 +14,9 @@ module Additionals
           include Additionals::Formatter
 
           def call
-            ignore_ancestor_tags = %w[pre code].to_set
+            # skip links too: a raw URL like .../:v:/... is autolinked and its
+            # text node would otherwise turn ":v:" into an emoji
+            ignore_ancestor_tags = %w[pre code a].to_set
             doc.xpath('descendant-or-self::text()').each do |node|
               content = node.to_html
               next if has_ancestor? node, ignore_ancestor_tags

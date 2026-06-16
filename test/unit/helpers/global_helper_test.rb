@@ -40,4 +40,20 @@ class GlobalHelperTest < Additionals::HelperTest
     assert_equal 'redmine.org/test', Nokogiri::HTML.parse(link_to_url('http://redmine.org/test')).xpath('//a').first.text
     assert_equal 'redmine.org/test', Nokogiri::HTML.parse(link_to_url('https://redmine.org/test')).xpath('//a').first.text
   end
+
+  # select2 does not support allowClear on multiple selects: it renders a
+  # "Remove all items" clear button as a stray empty choice. Disable it there.
+  def test_autocomplete_select_entries_disables_allow_clear_for_multiple
+    html = autocomplete_select_entries 'test[user_ids][]', 'assignee_auto_completes', nil,
+                                       multiple: true, allow_clear: true
+
+    assert_include 'allowClear: false', html
+  end
+
+  def test_autocomplete_select_entries_keeps_allow_clear_for_single
+    html = autocomplete_select_entries 'test[user_id]', 'assignee_auto_completes', nil,
+                                       multiple: false, allow_clear: true
+
+    assert_include 'allowClear: true', html
+  end
 end

@@ -19,7 +19,7 @@ javascript:
         cache: true
       },
       placeholder: "#{options[:placeholder].presence}",
-      allowClear: #{options[:allow_clear].present? && options[:allow_clear] ? 'true' : 'false'},
+      allowClear: #{!options[:multiple] && options[:allow_clear].present? && options[:allow_clear] ? 'true' : 'false'},
       minimumInputLength: 0,
       width: "#{options[:width].presence || '90%'}",
       templateResult: #{options[:template_result].presence || 'formatNameWithIcon'},

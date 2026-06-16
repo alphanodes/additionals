@@ -10,7 +10,7 @@
       var s = document.createElement("script");
       s.type = "text/javascript";
       s.async = true;
-      var theUrl = "#{raw url}";
+      var theUrl = "#{raw j(url)}";
       s.src = theUrl + (theUrl.indexOf("?") >= 0 ? "&" : "?") + "app=" + appName;
       embedder.parentNode.appendChild(s);
     })();

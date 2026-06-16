@@ -508,6 +508,20 @@ class WikiControllerTest < Additionals::ControllerTest
                   text: %r{https://widgets\.cryptocompare\.com/serve/v3/coin/header\?fsyms=BTC,ETH&tsyms=EUR}
   end
 
+  def test_show_with_cryptocompare_macro_escapes_option_values
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{cryptocompare(fsym=BTC";alert(1)//)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    # the injected quote must stay inside the JS string literal (escaped), not break out
+    assert_not_includes response.body, 'BTC";alert'
+    assert_includes response.body, 'BTC\";alert'
+  end
+
   def test_show_with_date_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
 

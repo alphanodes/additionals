@@ -243,6 +243,9 @@
   border-radius: 2px;
   cursor: text;
   min-height: 20px;
+
+  /* anchor for the absolutely positioned "remove all" clear button */
+  position: relative;
 }
 
 #sidebar .select2-container--default .select2-selection--multiple .select2-selection__rendered,
@@ -250,7 +253,9 @@
   box-sizing: border-box;
   list-style: none;
   margin: -3px 0 -4px;
-  padding: 2px;
+
+  /* reserve space on the right so choices never run under the clear button */
+  padding: 2px 22px 2px 2px;
   width: 100%;
 }
 
@@ -260,11 +265,15 @@
 
 .select2-container--default .select2-selection--multiple .select2-selection__clear {
   cursor: pointer;
-  float: right;
   font-weight: bold;
-  margin-top: 5px;
-  margin-right: 10px;
   padding: 1px;
+
+  /* pin to the top-right instead of floating: a floated clear button is the
+     first child in the DOM and claims the whole first line when the choices
+     are long, showing up as a stray empty choice (#15425) */
+  position: absolute;
+  right: 6px;
+  top: 4px;
 }
 
 #sidebar .select2-container--default .select2-selection--multiple .select2-selection__choice,
@@ -275,7 +284,14 @@
   float: left;
   margin-right: 3px;
   margin-top: 3px;
+
+  /* truncate long entries instead of overflowing the field; full value stays
+     available via the title tooltip select2 sets on the choice */
+  max-width: 100%;
+  overflow: hidden;
   padding: 0 3px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {

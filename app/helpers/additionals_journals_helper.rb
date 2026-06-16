@@ -162,7 +162,9 @@ module AdditionalsJournalsHelper
 
   def email_custom_field_values_attributes(entry, html)
     items = []
-    entry.custom_field_values.each do |value|
+    # Only expose custom field values the recipient is allowed to see
+    values = entry.respond_to?(:visible_custom_field_values) ? entry.visible_custom_field_values : entry.custom_field_values
+    values.each do |value|
       cf_value = show_value value, false
       next if cf_value.blank?
 

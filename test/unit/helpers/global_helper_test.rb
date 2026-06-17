@@ -40,4 +40,19 @@ class GlobalHelperTest < Additionals::HelperTest
     assert_equal 'redmine.org/test', Nokogiri::HTML.parse(link_to_url('http://redmine.org/test')).xpath('//a').first.text
     assert_equal 'redmine.org/test', Nokogiri::HTML.parse(link_to_url('https://redmine.org/test')).xpath('//a').first.text
   end
+
+  def test_autocomplete_select_entries_keeps_blank_option_for_single
+    html = autocomplete_select_entries 'foo', 'assignee_auto_completes', nil,
+                                       multiple: false, include_blank: true
+
+    assert_match(/<option value=""/, html)
+  end
+
+  def test_autocomplete_select_entries_omits_blank_option_for_multiple
+    html = autocomplete_select_entries 'foo', 'assignee_auto_completes', nil,
+                                       multiple: true, include_blank: true
+
+    assert_no_match(/<option value=""/, html)
+    assert_match(/<input[^>]*type="hidden"[^>]*name="foo\[\]"/, html)
+  end
 end

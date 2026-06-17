@@ -180,9 +180,12 @@ module Additionals
 
       s = []
       s << hidden_field_tag("#{name}[]", '') if options[:multiple]
+      # No blank option for multiple selects: the hidden field above already
+      # clears the value, and a blank <option> gets selected by select2's
+      # "clear all" button, showing up as a stray empty choice (#15425)
       s << select_tag(name,
                       option_tags,
-                      include_blank: options[:include_blank],
+                      include_blank: !options[:multiple] && options[:include_blank],
                       multiple: options[:multiple],
                       disabled: options[:disabled])
       s << render(layout: false,

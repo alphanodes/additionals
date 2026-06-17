@@ -36,4 +36,21 @@ class AdditionalsSelect2HelperTest < Additionals::HelperTest
 
     assert_no_match(/<option value=""/, html)
   end
+
+  def test_multiple_select_hidden_field_appends_array_brackets_to_plain_name
+    html = additionals_select2_tag 'foo',
+                                   options_for_select([%w[Bar 1]]),
+                                   multiple: true, include_blank: true
+
+    assert_match(/<input[^>]*type="hidden"[^>]*name="foo\[\]"/, html)
+  end
+
+  def test_multiple_select_hidden_field_does_not_double_bracket_array_name
+    html = additionals_select2_tag 'foo[]',
+                                   options_for_select([%w[Bar 1]]),
+                                   multiple: true, include_blank: true
+
+    assert_match(/<input[^>]*type="hidden"[^>]*name="foo\[\]"/, html)
+    assert_no_match(/name="foo\[\]\[\]"/, html)
+  end
 end

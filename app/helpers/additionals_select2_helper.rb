@@ -10,7 +10,13 @@ module AdditionalsSelect2Helper
 
     s = select_tag name, option_tags, options
     id = options.delete(:id) || sanitize_to_id(name)
-    s << hidden_field_tag("#{name}[]", '') if options[:multiple] && options.fetch(:include_hidden, true)
+    # Only append the array brackets when the name does not already end in
+    # "[]" (as it does for multiple custom fields), otherwise the hidden field
+    # name becomes "[][]" and Rack parses a nested ["", ...] value (#15425).
+    if options[:multiple] && options.fetch(:include_hidden, true)
+      hidden_name = name.to_s.end_with?('[]') ? name : "#{name}[]"
+      s << hidden_field_tag(hidden_name, '', id: nil)
+    end
 
     s + javascript_tag("select2Tag('#{id}', #{options.to_json});")
   end

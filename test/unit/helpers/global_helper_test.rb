@@ -55,4 +55,12 @@ class GlobalHelperTest < Additionals::HelperTest
     assert_no_match(/<option value=""/, html)
     assert_match(/<input[^>]*type="hidden"[^>]*name="foo\[\]"/, html)
   end
+
+  def test_autocomplete_select_entries_hidden_field_does_not_double_bracket_array_name
+    html = autocomplete_select_entries 'foo[]', 'assignee_auto_completes', nil,
+                                       multiple: true, include_blank: true
+
+    assert_match(/<input[^>]*type="hidden"[^>]*name="foo\[\]"/, html)
+    assert_no_match(/name="foo\[\]\[\]"/, html)
+  end
 end

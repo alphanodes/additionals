@@ -33,8 +33,7 @@ module Additionals
       d3plus: %i[_d3plus_min],
       sortable: %i[_sortable_min],
       # Single-atom packages kept for granular use (e.g. blocks that want only
-      # one chartjs plugin in addition to a heatmap-style chart).
-      chartjs_core: %i[_chartjs_core_min],
+      # one chartjs plugin on top of the chartjs base).
       chartjs_colorschemes: %i[_chartjs_colorschemes],
       chartjs_datalabels: %i[_chartjs_datalabels],
       chartjs_annotation: %i[_chartjs_annotation]
@@ -46,7 +45,6 @@ module Additionals
     # rubocop: disable Layout/HashAlignment
     ATOMS = {
       _chartjs_core_umd:       Asset.new(type: :js,  path: 'vendor/chart.umd'),
-      _chartjs_core_min:       Asset.new(type: :js,  path: 'chart.min', core: true),
       _chartjs_colorschemes:   Asset.new(type: :js,  path: 'vendor/chartjs-plugin-colorschemes.min'),
       _chartjs_datalabels:     Asset.new(type: :js,  path: 'vendor/chartjs-plugin-datalabels.min'),
       _chartjs_annotation:     Asset.new(type: :js,  path: 'vendor/chartjs-plugin-annotation.min'),

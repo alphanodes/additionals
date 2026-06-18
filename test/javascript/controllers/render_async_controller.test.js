@@ -223,7 +223,7 @@ describe('RenderAsyncController', () => {
       expect(fragment.querySelectorAll('script')).toHaveLength(0);
 
       // It is re-appended to document.body after the (resolved) external-script promise.
-      await new Promise(resolve => setTimeout(resolve, 0));
+      await new Promise(resolve => { setTimeout(resolve, 0); });
 
       const appendedScript = appendSpy.mock.calls
         .map(call => call[0])

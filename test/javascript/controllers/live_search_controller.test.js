@@ -103,7 +103,7 @@ describe('LiveSearchController', () => {
       fetchSpy.mockRestore();
     });
 
-    it('uses form action when no URL value', async () => {
+    it('uses form action when no URL value', () => {
       document.body.innerHTML = `
         <form id="query_form" action="/issues">
           <input name="q" value="test" />

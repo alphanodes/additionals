@@ -110,6 +110,23 @@ const sharedRules = {
   'no-template-curly-in-string': 'error',
   'no-unmodified-loop-condition': 'error',
   'no-undef-init': 'error',
+
+  // code quality / modernization (Phase 2 — required fixing existing code)
+  'prefer-object-spread': 'error',
+  'arrow-body-style': 'error',
+  'no-implicit-coercion': 'error',
+  'no-nested-ternary': 'error',
+  'consistent-return': 'error',
+  'no-param-reassign': 'error',
+  'no-promise-executor-return': 'error',
+  'no-shadow': 'error',
+  'no-else-return': 'error',
+  'no-lonely-if': 'error',
+  'operator-assignment': 'error',
+  'no-multi-assign': 'error',
+  'no-new': 'error',
+  'no-useless-concat': 'error',
+  'require-await': 'error',
 };
 
 // Build the plugin's flat-config array. All options are optional:

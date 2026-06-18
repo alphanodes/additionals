@@ -71,7 +71,7 @@ describe('GlobalSearchController', () => {
       // paint has not happened yet, and a synchronous focus() in this race window
       // leaves the caret invisible until a window refocus forces a repaint.
       expect(focusSpy).not.toHaveBeenCalled();
-      await new Promise(resolve => requestAnimationFrame(resolve));
+      await new Promise(resolve => { requestAnimationFrame(resolve); });
       expect(focusSpy).toHaveBeenCalled();
     });
 

@@ -173,7 +173,7 @@ function initSelect2(selectField, options) {
 function buildSelect2Options(options) {
   const result = {
     placeholder: options.placeholder || '',
-    allowClear: !!options.allow_clear,
+    allowClear: Boolean(options.allow_clear),
     minimumInputLength: options.min_input_length || 0,
     templateResult: window[options.format_state],
     templateSelection: window[options.format_selection],
@@ -275,7 +275,7 @@ function fixScopedTags(e, eventSelect) {
 function buildTagGroupName(tag_name) {
   // build labels
   let labels = tag_name.split('::');
-  labels = labels.map((el) => { return el.trim(); });
+  labels = labels.map((el) => el.trim());
 
   // first label is group name
   // remove group value

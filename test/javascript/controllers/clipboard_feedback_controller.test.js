@@ -23,7 +23,7 @@ describe('ClipboardFeedbackController', () => {
         copiedLabelValue: '',
         copyToClipboard: vi.fn().mockResolvedValue(),
         showFeedback: vi.fn(),
-        showError: vi.fn()
+        showError: vi.fn(),
       };
     });
 
@@ -139,7 +139,7 @@ describe('ClipboardFeedbackController', () => {
         hasCopiedLabelValue: false,
         showIconFeedback: vi.fn(),
         showTooltipFeedback: vi.fn(),
-        closeDropdown: vi.fn()
+        closeDropdown: vi.fn(),
       };
 
       ClipboardFeedbackController.prototype.showFeedback.call(ctx);
@@ -155,7 +155,7 @@ describe('ClipboardFeedbackController', () => {
         hasCopiedLabelValue: true,
         showIconFeedback: vi.fn(),
         showTooltipFeedback: vi.fn(),
-        closeDropdown: vi.fn()
+        closeDropdown: vi.fn(),
       };
 
       ClipboardFeedbackController.prototype.showFeedback.call(ctx);
@@ -171,7 +171,7 @@ describe('ClipboardFeedbackController', () => {
         hasCopiedLabelValue: false,
         showIconFeedback: vi.fn(),
         showTooltipFeedback: vi.fn(),
-        closeDropdown: vi.fn()
+        closeDropdown: vi.fn(),
       };
 
       ClipboardFeedbackController.prototype.showFeedback.call(ctx);

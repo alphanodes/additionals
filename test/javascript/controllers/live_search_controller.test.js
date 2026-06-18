@@ -14,7 +14,7 @@ describe('LiveSearchController', () => {
       document.body.innerHTML = '<input id="search" value="initial" />';
       const ctx = {
         element: document.getElementById('search'),
-        debounceTimer: null
+        debounceTimer: null,
       };
 
       LiveSearchController.prototype.connect.call(ctx);
@@ -29,7 +29,7 @@ describe('LiveSearchController', () => {
       vi.useFakeTimers();
       const ctx = {
         debounceTimer: null,
-        performSearch: vi.fn()
+        performSearch: vi.fn(),
       };
 
       LiveSearchController.prototype.onInput.call(ctx);
@@ -46,7 +46,7 @@ describe('LiveSearchController', () => {
       vi.useFakeTimers();
       const ctx = {
         debounceTimer: null,
-        performSearch: vi.fn()
+        performSearch: vi.fn(),
       };
 
       LiveSearchController.prototype.onInput.call(ctx);
@@ -67,7 +67,7 @@ describe('LiveSearchController', () => {
         element: { value: 'test', classList: { add: vi.fn(), remove: vi.fn() } },
         lastValue: 'test',
         hasUrlValue: false,
-        hasTargetValue: false
+        hasTargetValue: false,
       };
 
       LiveSearchController.prototype.performSearch.call(ctx);
@@ -87,7 +87,7 @@ describe('LiveSearchController', () => {
         hasUrlValue: true,
         urlValue: '/search',
         hasTargetValue: true,
-        targetValue: 'results'
+        targetValue: 'results',
       };
 
       LiveSearchController.prototype.performSearch.call(ctx);
@@ -120,7 +120,7 @@ describe('LiveSearchController', () => {
         lastValue: '',
         hasUrlValue: false,
         hasTargetValue: false,
-        selectAllColumns: LiveSearchController.prototype.selectAllColumns
+        selectAllColumns: LiveSearchController.prototype.selectAllColumns,
       };
 
       LiveSearchController.prototype.performSearch.call(ctx);

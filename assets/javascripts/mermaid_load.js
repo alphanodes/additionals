@@ -9,7 +9,7 @@ if (globalThis !== undefined && globalThis.mermaidTheme !== undefined) {
 if (globalThis !== undefined && globalThis.mermaidThemeVariables !== undefined) {
   mermaidThemeVariables = globalThis.mermaidThemeVariables; // eslint-disable-line prefer-destructuring
 } else {
-  mermaidThemeVariables = { 'fontSize': '12px' };
+  mermaidThemeVariables = { fontSize: '12px' };
 }
 
 // Initialize Mermaid globally
@@ -40,7 +40,7 @@ async function renderMermaidMacro(selector) {
 
   /* Workaround for duplicate IDs when multiple mermaid macros are in one comment */
   /* https://github.com/redmica/redmica_ui_extension/pull/63#discussion_r1905198612 */
-  await mermaid.run({ querySelector: selector, suppressErrors: true});
+  await mermaid.run({ querySelector: selector, suppressErrors: true });
 }
 
 initAllMermaidMacro(true);

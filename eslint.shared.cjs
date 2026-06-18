@@ -17,6 +17,7 @@
 const js = require('@eslint/js');
 const globals = require('globals');
 const noJquery = require('eslint-plugin-no-jquery');
+const stylistic = require('@stylistic/eslint-plugin');
 
 // Resolve the chained deprecated config from eslint-plugin-no-jquery
 // since it uses legacy "extends" which is not supported in flat config.
@@ -33,11 +34,33 @@ function resolvePluginConfig(plugin, configName) {
 const sharedRules = {
   ...resolvePluginConfig(noJquery, 'deprecated'),
 
-  // stylistic
-  indent: ['error', 2],
-  'linebreak-style': ['error', 'unix'],
-  quotes: ['error', 'single'],
-  semi: ['error', 'always'],
+  // stylistic / layout — handled by @stylistic (the core formatting rules are
+  // deprecated in ESLint and slated for removal). Airbnb-aligned set.
+  '@stylistic/indent': ['error', 2],
+  '@stylistic/linebreak-style': ['error', 'unix'],
+  '@stylistic/quotes': ['error', 'single'],
+  '@stylistic/semi': ['error', 'always'],
+  '@stylistic/comma-dangle': ['error', 'always-multiline'],
+  '@stylistic/comma-spacing': 'error',
+  '@stylistic/comma-style': 'error',
+  '@stylistic/object-curly-spacing': ['error', 'always'],
+  '@stylistic/array-bracket-spacing': ['error', 'never'],
+  '@stylistic/space-in-parens': ['error', 'never'],
+  '@stylistic/space-infix-ops': 'error',
+  '@stylistic/space-before-blocks': 'error',
+  '@stylistic/space-before-function-paren': ['error', { anonymous: 'always', named: 'never', asyncArrow: 'always' }],
+  '@stylistic/keyword-spacing': 'error',
+  '@stylistic/arrow-spacing': 'error',
+  '@stylistic/key-spacing': 'error',
+  '@stylistic/semi-spacing': 'error',
+  '@stylistic/function-call-spacing': 'error',
+  '@stylistic/brace-style': ['error', '1tbs', { allowSingleLine: true }],
+  '@stylistic/quote-props': ['error', 'as-needed'],
+  '@stylistic/operator-linebreak': 'error',
+  '@stylistic/no-multiple-empty-lines': ['error', { max: 1, maxEOF: 0, maxBOF: 0 }],
+  '@stylistic/no-trailing-spaces': 'error',
+  '@stylistic/eol-last': 'error',
+  '@stylistic/no-mixed-operators': 'error',
   curly: 'error',
   'dot-notation': 'error',
 
@@ -116,6 +139,7 @@ module.exports = function createEslintConfig(options = {}) {
   config.push({
     plugins: {
       'no-jquery': noJquery,
+      '@stylistic': stylistic,
     },
     languageOptions: {
       ecmaVersion: 2022,

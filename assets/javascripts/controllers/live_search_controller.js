@@ -3,7 +3,7 @@ import { Controller } from '@hotwired/stimulus';
 class LiveSearchController extends Controller {
   static values = {
     url: String,
-    target: String
+    target: String,
   };
 
   connect() {
@@ -48,7 +48,7 @@ class LiveSearchController extends Controller {
     this.element.classList.add('ajax-loading');
 
     fetch(`${url}?${data}`, {
-      headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      headers: { 'X-Requested-With': 'XMLHttpRequest' },
     })
       .then(response => response.text())
       .then(html => {

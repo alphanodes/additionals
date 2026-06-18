@@ -9,7 +9,7 @@ class RenderAsyncController extends Controller {
     toggleSelector: { type: String, default: '' },
     toggleEvent: { type: String, default: 'click' },
     errorMessage: { type: String, default: '' },
-    lazy: { type: Boolean, default: false }
+    lazy: { type: Boolean, default: false },
   };
 
   connect() {
@@ -97,9 +97,9 @@ class RenderAsyncController extends Controller {
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
         'X-CSRF-Token': this.csrfToken(),
-        'Accept': 'text/html'
+        Accept: 'text/html',
       },
-      credentials: 'same-origin'
+      credentials: 'same-origin',
     })
       .then(response => {
         if (!response.ok) {
@@ -178,7 +178,7 @@ class RenderAsyncController extends Controller {
   handleError(error) {
     const event = new CustomEvent('render-async:error', {
       bubbles: true,
-      detail: { error }
+      detail: { error },
     });
     this.element.dispatchEvent(event);
 

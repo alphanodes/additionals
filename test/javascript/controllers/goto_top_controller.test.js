@@ -11,7 +11,7 @@ describe('GotoTopController', () => {
 
       const ctx = {
         element: document.getElementById('anchor'),
-        scrollToTop: GotoTopController.prototype.scrollToTop
+        scrollToTop: GotoTopController.prototype.scrollToTop,
       };
 
       GotoTopController.prototype.connect.call(ctx);
@@ -27,7 +27,7 @@ describe('GotoTopController', () => {
 
       const ctx = {
         element: document.getElementById('anchor'),
-        scrollToTop: GotoTopController.prototype.scrollToTop
+        scrollToTop: GotoTopController.prototype.scrollToTop,
       };
 
       // Should not throw
@@ -44,7 +44,7 @@ describe('GotoTopController', () => {
 
       const ctx = {
         element: document.getElementById('anchor'),
-        scrollToTop: GotoTopController.prototype.scrollToTop
+        scrollToTop: GotoTopController.prototype.scrollToTop,
       };
 
       GotoTopController.prototype.connect.call(ctx);
@@ -63,7 +63,7 @@ describe('GotoTopController', () => {
       const header = document.getElementById('sticky-issue-header');
       const ctx = {
         stickyHeader: header,
-        boundClick: vi.fn()
+        boundClick: vi.fn(),
       };
 
       GotoTopController.prototype.disconnect.call(ctx);

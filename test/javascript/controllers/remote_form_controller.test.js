@@ -9,7 +9,7 @@ describe('RemoteFormController', () => {
       const sendCalls = [];
       const ctx = {
         element: form,
-        send(url, method, body) { sendCalls.push({ url, method, body }); }
+        send(url, method, body) { sendCalls.push({ url, method, body }); },
       };
 
       RemoteFormController.prototype.submit.call(ctx, { preventDefault: () => {} });
@@ -43,7 +43,7 @@ describe('RemoteFormController', () => {
 
     const ctxFor = (link) => ({
       element: link,
-      send(url, method, body) { sendCalls.push({ url, method, body }); }
+      send(url, method, body) { sendCalls.push({ url, method, body }); },
     });
 
     it('sends with data-remote-method as uppercase', () => {
@@ -107,7 +107,7 @@ describe('RemoteFormController', () => {
 
       ctx = {
         element,
-        execute: RemoteFormController.prototype.execute
+        execute: RemoteFormController.prototype.execute,
       };
     });
 

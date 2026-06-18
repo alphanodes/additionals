@@ -7,7 +7,7 @@ class GlobalSearchController extends Controller {
   static values = {
     url: String,
     projectId: String,
-    projectName: String
+    projectName: String,
   };
 
   static targets = ['input', 'results', 'hint', 'scopePanel', 'clearButton', 'titlesOnly'];
@@ -25,7 +25,7 @@ class GlobalSearchController extends Controller {
       loading: this.element.dataset.loading || 'Searching...',
       recentSearches: this.element.dataset.recentSearches || 'Recently searched',
       recentProjects: this.element.dataset.recentProjects || 'Recently used projects',
-      clearAll: this.element.dataset.clearAll || 'Clear all'
+      clearAll: this.element.dataset.clearAll || 'Clear all',
     };
 
     this.defaultPlaceholder = this.hasInputTarget ? this.inputTarget.placeholder : '';
@@ -182,11 +182,11 @@ class GlobalSearchController extends Controller {
     try {
       const response = await fetch(url, {
         headers: {
-          'Accept': 'application/json',
+          Accept: 'application/json',
           'X-CSRF-Token': AdditionalsHelpers.csrfToken(),
-          'X-Requested-With': 'XMLHttpRequest'
+          'X-Requested-With': 'XMLHttpRequest',
         },
-        signal: this.abortController.signal
+        signal: this.abortController.signal,
       });
 
       if (!response.ok) {
@@ -234,10 +234,10 @@ class GlobalSearchController extends Controller {
     try {
       const response = await fetch(this.urlValue, {
         headers: {
-          'Accept': 'application/json',
-          'X-Requested-With': 'XMLHttpRequest'
+          Accept: 'application/json',
+          'X-Requested-With': 'XMLHttpRequest',
         },
-        signal: this.abortController.signal
+        signal: this.abortController.signal,
       });
 
       if (!response.ok) {
@@ -289,8 +289,8 @@ class GlobalSearchController extends Controller {
 
     if (showSemantic) {
       const semanticIcon = this.element.dataset.semanticIcon || '';
-      html += '<div class="global-search-section-header global-search-semantic-header">'
-        + `<span>${semanticIcon} ${this.escapeHtml(semantic.label)}</span></div>`;
+      html += '<div class="global-search-section-header global-search-semantic-header">' +
+        `<span>${semanticIcon} ${this.escapeHtml(semantic.label)}</span></div>`;
       for (const item of semantic.results) {
         html += this.renderItem(item, query);
       }
@@ -381,12 +381,11 @@ class GlobalSearchController extends Controller {
     }
     const url = `${this.escapeHtml(coreUrl)}?${params}`;
 
-    return '<div class="global-search-core-link">'
-      + `<a href="${url}" class="global-search-item">`
-      + `<span class="global-search-item-title">${this.escapeHtml(searchLabel)} <strong>${safeQuery}</strong>${scopeText}</span>`
-      + '</a></div>';
+    return '<div class="global-search-core-link">' +
+      `<a href="${url}" class="global-search-item">` +
+      `<span class="global-search-item-title">${this.escapeHtml(searchLabel)} <strong>${safeQuery}</strong>${scopeText}</span>` +
+      '</a></div>';
   }
-
 
   renderItem(item, query) {
     const safeTitle = this.highlightMatch(this.escapeHtml(item.title), query);
@@ -642,7 +641,7 @@ class GlobalSearchController extends Controller {
   effectiveSearchScope() {
     const scopeMap = {
       bookmarks: 'bookmarks',
-      always_bookmarks: 'bookmarks'
+      always_bookmarks: 'bookmarks',
     };
     return scopeMap[this.currentScope] || null;
   }
@@ -652,7 +651,7 @@ class GlobalSearchController extends Controller {
       global: 'all',
       always_global: 'all',
       bookmarks: 'bookmarks',
-      always_bookmarks: 'bookmarks'
+      always_bookmarks: 'bookmarks',
     };
     return scopeMap[this.currentScope] || null;
   }
@@ -663,7 +662,7 @@ class GlobalSearchController extends Controller {
       global: dataset.scopeAll,
       always_global: dataset.scopeAll,
       bookmarks: dataset.scopeBookmarks,
-      always_bookmarks: dataset.scopeBookmarks
+      always_bookmarks: dataset.scopeBookmarks,
     };
     return suffixes[this.currentScope] || null;
   }

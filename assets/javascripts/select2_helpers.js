@@ -1,13 +1,13 @@
 var oldAdditionalsToggleFilter = window.toggleFilter; // eslint-disable-line no-var
 
-window.toggleFilter = function(field) {
+window.toggleFilter = function (field) {
   oldAdditionalsToggleFilter(field);
   return additionals_transform_to_select2(field);
 };
 
 /* global availableFilters, additionals_filter_urls, additionals_field_formats, ADDITIONALS_LABEL_SEARCH */
 function additionals_transform_to_select2(field) {
-  const {field_format} = availableFilters[field];
+  const { field_format } = availableFilters[field];
   const initialized_select2 = $(`#tr_${  field  } .values .select2`);
   if (initialized_select2.length === 0 && (typeof additionals_field_formats !== 'undefined') && $.inArray(field_format, additionals_field_formats) >= 0) {
     $(`#tr_${  field  } .toggle-multiselect`).hide();
@@ -17,7 +17,7 @@ function additionals_transform_to_select2(field) {
     initSelect2(selectField, {
       url: additionals_filter_urls[field_format],
       min_input_length: 1,
-      format_state: 'formatNameWithIcon'
+      format_state: 'formatNameWithIcon',
     });
   }
 }
@@ -71,7 +71,7 @@ function setSelect2FilterValues(field, options, values) {
 function addSelectTag(field) {
   const fieldId = sanitizeToId(field);
   $(`#tr_${  fieldId}`).find('.values').append(
-    `<span style="display: none;"><select class="value" id="values_${fieldId}_1" name="v[${field}][]"></select></span>`
+    `<span style="display: none;"><select class="value" id="values_${fieldId}_1" name="v[${field}][]"></select></span>`,
   );
 }
 
@@ -155,7 +155,7 @@ function initSelect2(selectField, options) {
 
   const select2Instance = selectField.data('select2');
   if (select2Instance !== undefined) {
-    select2Instance.on('results:message', function() {
+    select2Instance.on('results:message', function () {
       this.dropdown._resizeDropdown();
       this.dropdown._positionDropdown();
     });
@@ -178,7 +178,7 @@ function buildSelect2Options(options) {
     templateResult: window[options.format_state],
     templateSelection: window[options.format_selection],
     width: options.width || '90%',
-    searchPlaceholder: options.search_placeholder || (typeof ADDITIONALS_LABEL_SEARCH !== 'undefined' ? ADDITIONALS_LABEL_SEARCH : '')
+    searchPlaceholder: options.search_placeholder || (typeof ADDITIONALS_LABEL_SEARCH !== 'undefined' ? ADDITIONALS_LABEL_SEARCH : ''),
   };
 
   addDataSourceOptions(result, options);
@@ -193,7 +193,7 @@ function addDataSourceOptions(target, options) {
       url: options.url,
       dataType: 'json',
       delay: SELECT2_DELAY,
-      data (params) {
+      data(params) {
         if (params === undefined) {
           console.log('missing params for ajax call');
           console.log(target);
@@ -201,10 +201,10 @@ function addDataSourceOptions(target, options) {
         }
         return { q: params.term };
       },
-      processResults (data) {
+      processResults(data) {
         return { results: data };
       },
-      cache: true
+      cache: true,
     };
   } else {
     target.data = options.data || [];

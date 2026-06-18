@@ -23,8 +23,8 @@ window.AdditionalsHelpers = {
     const { headers, ...rest } = options;
     const merged = {
       'X-CSRF-Token': this.csrfToken(),
-      'Accept': 'application/json',
-      ...headers
+      Accept: 'application/json',
+      ...headers,
     };
     // Remove undefined values (e.g., Content-Type: undefined for FormData)
     Object.keys(merged).forEach((key) => {
@@ -38,5 +38,5 @@ window.AdditionalsHelpers = {
     }
 
     return response.json();
-  }
+  },
 };

@@ -5,7 +5,7 @@ class ClipboardFeedbackController extends Controller {
   static values = {
     text: String,
     copiedLabel: String,
-    originalTitle: String
+    originalTitle: String,
   };
 
   copy(event) {

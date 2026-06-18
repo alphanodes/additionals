@@ -75,7 +75,7 @@ describe('select2_helpers.js', () => {
         placeholder: 'Select...',
         allow_clear: true,
         min_input_length: 2,
-        width: '100%'
+        width: '100%',
       });
 
       expect(result.placeholder).toBe('Select...');

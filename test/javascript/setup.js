@@ -20,7 +20,7 @@ if (typeof process !== 'undefined' && process.stderr) {
 // Mock AdditionalsHelpers (normally provided by additionals_stimulus.js)
 globalThis.AdditionalsHelpers = {
   csrfToken: () => 'test-csrf-token',
-  fetchJSON: vi.fn()
+  fetchJSON: vi.fn(),
 };
 
 // Mock sanitizeHTML (normally provided by Redmine Core)

@@ -37,9 +37,9 @@ class RemoteFormController extends Controller {
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
         'X-CSRF-Token': this.csrfToken(),
-        'Accept': 'text/html'
+        Accept: 'text/html',
       },
-      credentials: 'same-origin'
+      credentials: 'same-origin',
     })
       .then(response => {
         if (!response.ok) {
@@ -77,33 +77,33 @@ class RemoteFormController extends Controller {
     const fragment = directive.content.cloneNode(true);
 
     switch (action) {
-    case 'replace':
-      target.replaceWith(...fragment.childNodes);
-      break;
-    case 'prepend':
-      target.prepend(fragment);
-      break;
-    case 'append':
-      target.append(fragment);
-      break;
-    case 'inner':
-      target.replaceChildren(fragment);
-      break;
-    case 'remove':
-      target.remove();
-      break;
-    default:
+      case 'replace':
+        target.replaceWith(...fragment.childNodes);
+        break;
+      case 'prepend':
+        target.prepend(fragment);
+        break;
+      case 'append':
+        target.append(fragment);
+        break;
+      case 'inner':
+        target.replaceChildren(fragment);
+        break;
+      case 'remove':
+        target.remove();
+        break;
+      default:
       // Unknown action - emit a warning, do nothing.
-      if (typeof console !== 'undefined') {
-        console.warn(`remote-form: unknown action "${action}"`);
-      }
+        if (typeof console !== 'undefined') {
+          console.warn(`remote-form: unknown action "${action}"`);
+        }
     }
   }
 
   handleError(error) {
     const event = new CustomEvent('remote-form:error', {
       bubbles: true,
-      detail: { error }
+      detail: { error },
     });
     this.element.dispatchEvent(event);
   }

@@ -45,7 +45,7 @@ describe('GlobalSearchController', () => {
         cancelPending: vi.fn(),
         loadInitialContent: vi.fn(),
         saveCurrentQuery: vi.fn(),
-        toggleClearButton: vi.fn()
+        toggleClearButton: vi.fn(),
       };
     });
 
@@ -126,7 +126,7 @@ describe('GlobalSearchController', () => {
 
     it('escapes HTML angle brackets', () => {
       expect(callEscapeHtml('<script>alert("xss")</script>')).toBe(
-        '&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;'
+        '&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;',
       );
     });
 
@@ -166,20 +166,20 @@ describe('GlobalSearchController', () => {
 
     it('highlights multiple occurrences', () => {
       expect(callHighlight('foo bar foo', 'foo')).toBe(
-        '<mark>foo</mark> bar <mark>foo</mark>'
+        '<mark>foo</mark> bar <mark>foo</mark>',
       );
     });
 
     it('escapes regex special characters in query', () => {
       // The query "foo.bar" should not match "fooXbar" via regex dot
       expect(callHighlight('foo.bar fooXbar', 'foo.bar')).toBe(
-        '<mark>foo.bar</mark> fooXbar'
+        '<mark>foo.bar</mark> fooXbar',
       );
     });
 
     it('handles parentheses in query', () => {
       expect(callHighlight('test (value) here', '(value)')).toBe(
-        'test <mark>(value)</mark> here'
+        'test <mark>(value)</mark> here',
       );
     });
 
@@ -210,7 +210,7 @@ describe('GlobalSearchController', () => {
         resultsTarget: document.getElementById('results'),
         get selectableItems() {
           return Array.from(this.resultsTarget.querySelectorAll('.global-search-item'));
-        }
+        },
       };
     });
 
@@ -302,14 +302,14 @@ describe('GlobalSearchController', () => {
         scopeSuffix: GlobalSearchController.prototype.scopeSuffix,
         coreSearchScope: GlobalSearchController.prototype.coreSearchScope,
         showHint: GlobalSearchController.prototype.showHint,
-        hideHint: GlobalSearchController.prototype.hideHint
+        hideHint: GlobalSearchController.prototype.hideHint,
       };
     });
 
     it('renders flat result list with type and project', () => {
       const data = [
         { title: 'Bug #42: Login broken', url: '/issues/42', type: 'Issues', project_name: 'Alpha' },
-        { title: 'Wiki Page', url: '/wiki/page', type: 'Wiki' }
+        { title: 'Wiki Page', url: '/wiki/page', type: 'Wiki' },
       ];
 
       GlobalSearchController.prototype.renderResults.call(ctx, wrapKeyword(data), 'test');
@@ -341,8 +341,8 @@ describe('GlobalSearchController', () => {
       const data = {
         issues: {
           label: 'Issues',
-          results: [{ title: 'Bug #1', url: '/issues/1' }]
-        }
+          results: [{ title: 'Bug #1', url: '/issues/1' }],
+        },
       };
 
       GlobalSearchController.prototype.renderResults.call(ctx, data, 'bug');
@@ -354,8 +354,8 @@ describe('GlobalSearchController', () => {
       const data = {
         issues: {
           label: 'Issues',
-          results: [{ title: 'Bug #1', url: '/issues/1' }]
-        }
+          results: [{ title: 'Bug #1', url: '/issues/1' }],
+        },
       };
 
       ctx.selectedIndex = 5;
@@ -366,7 +366,7 @@ describe('GlobalSearchController', () => {
 
     it('escapes HTML in titles', () => {
       const data = [
-        { title: '<script>alert("xss")</script>', url: '/issues/1', type: 'Issues' }
+        { title: '<script>alert("xss")</script>', url: '/issues/1', type: 'Issues' },
       ];
 
       GlobalSearchController.prototype.renderResults.call(ctx, wrapKeyword(data), 'nomatch');
@@ -416,7 +416,7 @@ describe('GlobalSearchController', () => {
         open: vi.fn(),
         close: vi.fn(),
         moveSelection: vi.fn(),
-        openSelected: vi.fn()
+        openSelected: vi.fn(),
       };
     });
 
@@ -484,7 +484,7 @@ describe('GlobalSearchController', () => {
 
       ctx = {
         hasHintTarget: true,
-        hintTarget: document.getElementById('hint')
+        hintTarget: document.getElementById('hint'),
       };
     });
 
@@ -508,7 +508,7 @@ describe('GlobalSearchController', () => {
       const abortSpy = vi.fn();
       const ctx = {
         debounceTimer: setTimeout(() => {}, 10000),
-        abortController: { abort: abortSpy }
+        abortController: { abort: abortSpy },
       };
 
       GlobalSearchController.prototype.cancelPending.call(ctx);
@@ -520,7 +520,7 @@ describe('GlobalSearchController', () => {
     it('handles null abortController gracefully', () => {
       const ctx = {
         debounceTimer: null,
-        abortController: null
+        abortController: null,
       };
 
       // Should not throw
@@ -540,7 +540,7 @@ describe('GlobalSearchController', () => {
       Object.defineProperty(window, 'location', {
         value: { href: '' },
         writable: true,
-        configurable: true
+        configurable: true,
       });
 
       const ctx = {
@@ -550,7 +550,7 @@ describe('GlobalSearchController', () => {
         saveCurrentQuery: vi.fn(),
         get selectableItems() {
           return Array.from(this.resultsTarget.querySelectorAll('.global-search-item'));
-        }
+        },
       };
 
       GlobalSearchController.prototype.openSelected.call(ctx);
@@ -568,7 +568,7 @@ describe('GlobalSearchController', () => {
         resultsTarget: document.getElementById('results'),
         get selectableItems() {
           return Array.from(this.resultsTarget.querySelectorAll('.global-search-item'));
-        }
+        },
       };
 
       // Should not throw
@@ -585,7 +585,7 @@ describe('GlobalSearchController', () => {
       const mockStorage = {
         getItem: key => storage[key] || null,
         setItem: (key, val) => { storage[key] = val; },
-        removeItem: key => { delete storage[key]; }
+        removeItem: key => { delete storage[key]; },
       };
       Object.defineProperty(window, 'localStorage', { value: mockStorage, writable: true });
       document.body.innerHTML = `
@@ -612,7 +612,7 @@ describe('GlobalSearchController', () => {
         updateScopeRadios: GlobalSearchController.prototype.updateScopeRadios,
         updatePlaceholder: vi.fn(),
         validateActiveSearchType: vi.fn(),
-        loadInitialContent: vi.fn()
+        loadInitialContent: vi.fn(),
       };
     });
 
@@ -663,7 +663,7 @@ describe('GlobalSearchController', () => {
         hasInputTarget: true,
         inputTarget: document.getElementById('inp'),
         currentScope: 'global',
-        scopeSuffix: GlobalSearchController.prototype.scopeSuffix
+        scopeSuffix: GlobalSearchController.prototype.scopeSuffix,
       };
       GlobalSearchController.prototype.updatePlaceholder.call(pCtx);
       expect(pCtx.inputTarget.placeholder).toBe('Search in all projects...');
@@ -677,7 +677,7 @@ describe('GlobalSearchController', () => {
         inputTarget: document.getElementById('inp'),
         currentScope: 'project',
         defaultPlaceholder: 'Type to search...',
-        scopeSuffix: GlobalSearchController.prototype.scopeSuffix
+        scopeSuffix: GlobalSearchController.prototype.scopeSuffix,
       };
       GlobalSearchController.prototype.updatePlaceholder.call(pCtx);
       expect(pCtx.inputTarget.placeholder).toBe('Type to search...');
@@ -707,7 +707,7 @@ describe('GlobalSearchController', () => {
       const mockStorage = {
         getItem: key => storage[key] || null,
         setItem: (key, val) => { storage[key] = val; },
-        removeItem: key => { delete storage[key]; }
+        removeItem: key => { delete storage[key]; },
       };
       Object.defineProperty(window, 'localStorage', { value: mockStorage, writable: true });
     });
@@ -734,7 +734,7 @@ describe('GlobalSearchController', () => {
         hasResults: true,
         hasInputTarget: true,
         inputTarget: { value: '  redmine api  ' },
-        getSearchHistory: GlobalSearchController.prototype.getSearchHistory
+        getSearchHistory: GlobalSearchController.prototype.getSearchHistory,
       };
 
       GlobalSearchController.prototype.saveCurrentQuery.call(ctx);
@@ -747,7 +747,7 @@ describe('GlobalSearchController', () => {
       const ctx = {
         hasResults: false,
         hasInputTarget: true,
-        inputTarget: { value: 'test' }
+        inputTarget: { value: 'test' },
       };
 
       GlobalSearchController.prototype.saveCurrentQuery.call(ctx);
@@ -760,7 +760,7 @@ describe('GlobalSearchController', () => {
         hasResults: true,
         hasInputTarget: true,
         inputTarget: { value: 'a' },
-        getSearchHistory: GlobalSearchController.prototype.getSearchHistory
+        getSearchHistory: GlobalSearchController.prototype.getSearchHistory,
       };
 
       GlobalSearchController.prototype.saveCurrentQuery.call(ctx);
@@ -775,7 +775,7 @@ describe('GlobalSearchController', () => {
         hasResults: true,
         hasInputTarget: true,
         inputTarget: { value: 'redmine api' },
-        getSearchHistory: GlobalSearchController.prototype.getSearchHistory
+        getSearchHistory: GlobalSearchController.prototype.getSearchHistory,
       };
 
       GlobalSearchController.prototype.saveCurrentQuery.call(ctx);
@@ -791,7 +791,7 @@ describe('GlobalSearchController', () => {
         hasResults: true,
         hasInputTarget: true,
         inputTarget: { value: 'new term' },
-        getSearchHistory: GlobalSearchController.prototype.getSearchHistory
+        getSearchHistory: GlobalSearchController.prototype.getSearchHistory,
       };
 
       GlobalSearchController.prototype.saveCurrentQuery.call(ctx);
@@ -809,7 +809,7 @@ describe('GlobalSearchController', () => {
         hasResults: true,
         hasInputTarget: true,
         inputTarget: { value: 'newest' },
-        getSearchHistory: GlobalSearchController.prototype.getSearchHistory
+        getSearchHistory: GlobalSearchController.prototype.getSearchHistory,
       };
 
       GlobalSearchController.prototype.saveCurrentQuery.call(ctx);
@@ -829,7 +829,7 @@ describe('GlobalSearchController', () => {
       `;
 
       const ctx = {
-        resultsTarget: document.getElementById('results')
+        resultsTarget: document.getElementById('results'),
       };
 
       const event = { preventDefault: vi.fn() };
@@ -843,7 +843,7 @@ describe('GlobalSearchController', () => {
     it('renderHistorySection renders terms with data-search-term', () => {
       const ctx = {
         i18n: { recentSearches: 'Recently searched', clearAll: 'Clear all' },
-        escapeHtml: GlobalSearchController.prototype.escapeHtml
+        escapeHtml: GlobalSearchController.prototype.escapeHtml,
       };
 
       const html = GlobalSearchController.prototype.renderHistorySection.call(ctx, ['foo', 'bar']);
@@ -873,7 +873,7 @@ describe('GlobalSearchController', () => {
           hint: 'Type to search...',
           recentSearches: 'Recently searched',
           recentProjects: 'Recently used projects',
-          clearAll: 'Clear all'
+          clearAll: 'Clear all',
         },
         escapeHtml: GlobalSearchController.prototype.escapeHtml,
         highlightMatch: GlobalSearchController.prototype.highlightMatch,
@@ -881,11 +881,11 @@ describe('GlobalSearchController', () => {
         renderHistorySection: GlobalSearchController.prototype.renderHistorySection,
         getSearchHistory: GlobalSearchController.prototype.getSearchHistory,
         showHint: GlobalSearchController.prototype.showHint,
-        hideHint: GlobalSearchController.prototype.hideHint
+        hideHint: GlobalSearchController.prototype.hideHint,
       };
 
       const data = {
-        keyword: [{ title: 'My Project', url: '/projects/my', type: 'Project' }]
+        keyword: [{ title: 'My Project', url: '/projects/my', type: 'Project' }],
       };
 
       GlobalSearchController.prototype.renderInitialContent.call(ctx, data);
@@ -912,7 +912,7 @@ describe('GlobalSearchController', () => {
         i18n: { hint: 'Type to search...', recentSearches: 'R', recentProjects: 'P', clearAll: 'C' },
         getSearchHistory: () => [],
         showHint: GlobalSearchController.prototype.showHint,
-        hideHint: GlobalSearchController.prototype.hideHint
+        hideHint: GlobalSearchController.prototype.hideHint,
       };
 
       GlobalSearchController.prototype.renderInitialContent.call(ctx, { keyword: [] });
@@ -934,13 +934,13 @@ describe('GlobalSearchController', () => {
         hasInputTarget: true,
         inputTarget: { value: '' },
         performSearch: vi.fn(),
-        toggleClearButton: vi.fn()
+        toggleClearButton: vi.fn(),
       };
 
       const item = document.querySelector('[data-search-term]');
       const event = {
         preventDefault: vi.fn(),
-        target: item.querySelector('.global-search-item-title')
+        target: item.querySelector('.global-search-item-title'),
       };
 
       GlobalSearchController.prototype.onHistoryTermClick.call(ctx, event);
@@ -970,7 +970,7 @@ describe('GlobalSearchController', () => {
         hasResults: false,
         loadInitialContent: vi.fn(),
         performSearch: vi.fn(),
-        toggleClearButton: vi.fn()
+        toggleClearButton: vi.fn(),
       };
     });
 
@@ -1000,7 +1000,7 @@ describe('GlobalSearchController', () => {
     it('getSearchTypes returns global types by default', () => {
       const ctx = {
         currentScope: 'global',
-        element: { dataset: { searchTypes: JSON.stringify([{ id: 'issues', label: 'Issues' }]) } }
+        element: { dataset: { searchTypes: JSON.stringify([{ id: 'issues', label: 'Issues' }]) } },
       };
       const result = GlobalSearchController.prototype.getSearchTypes.call(ctx);
       expect(result).toEqual([{ id: 'issues', label: 'Issues' }]);
@@ -1012,9 +1012,9 @@ describe('GlobalSearchController', () => {
         element: {
           dataset: {
             searchTypes: JSON.stringify([{ id: 'issues', label: 'Issues' }, { id: 'projects', label: 'Projects' }]),
-            searchTypesProject: JSON.stringify([{ id: 'issues', label: 'Issues' }])
-          }
-        }
+            searchTypesProject: JSON.stringify([{ id: 'issues', label: 'Issues' }]),
+          },
+        },
       };
       const result = GlobalSearchController.prototype.getSearchTypes.call(ctx);
       expect(result).toEqual([{ id: 'issues', label: 'Issues' }]);
@@ -1026,9 +1026,9 @@ describe('GlobalSearchController', () => {
         element: {
           dataset: {
             searchTypes: JSON.stringify([{ id: 'issues', label: 'Issues' }, { id: 'projects', label: 'Projects' }]),
-            searchTypesProject: JSON.stringify([{ id: 'issues', label: 'Issues' }])
-          }
-        }
+            searchTypesProject: JSON.stringify([{ id: 'issues', label: 'Issues' }]),
+          },
+        },
       };
       const result = GlobalSearchController.prototype.getSearchTypes.call(ctx);
       expect(result).toHaveLength(2);
@@ -1037,7 +1037,7 @@ describe('GlobalSearchController', () => {
     it('getSearchTypes returns empty array for invalid JSON', () => {
       const ctx = {
         currentScope: 'global',
-        element: { dataset: { searchTypes: 'invalid' } }
+        element: { dataset: { searchTypes: 'invalid' } },
       };
       const result = GlobalSearchController.prototype.getSearchTypes.call(ctx);
       expect(result).toEqual([]);
@@ -1050,11 +1050,11 @@ describe('GlobalSearchController', () => {
         element: {
           dataset: {
             tabAll: 'All',
-            searchTypes: JSON.stringify([{ id: 'issues', label: 'Issues' }, { id: 'wiki_pages', label: 'Wiki' }])
-          }
+            searchTypes: JSON.stringify([{ id: 'issues', label: 'Issues' }, { id: 'wiki_pages', label: 'Wiki' }]),
+          },
         },
         getSearchTypes: GlobalSearchController.prototype.getSearchTypes,
-        escapeHtml: GlobalSearchController.prototype.escapeHtml
+        escapeHtml: GlobalSearchController.prototype.escapeHtml,
       };
       const html = GlobalSearchController.prototype.renderSearchTypeTabs.call(ctx);
       expect(html).toContain('All');
@@ -1072,11 +1072,11 @@ describe('GlobalSearchController', () => {
         element: {
           dataset: {
             tabAll: 'All',
-            searchTypes: JSON.stringify([{ id: 'issues', label: 'Issues' }])
-          }
+            searchTypes: JSON.stringify([{ id: 'issues', label: 'Issues' }]),
+          },
         },
         getSearchTypes: GlobalSearchController.prototype.getSearchTypes,
-        escapeHtml: GlobalSearchController.prototype.escapeHtml
+        escapeHtml: GlobalSearchController.prototype.escapeHtml,
       };
       const html = GlobalSearchController.prototype.renderSearchTypeTabs.call(ctx);
       expect(html).toContain('data-type-id="issues"');
@@ -1088,7 +1088,7 @@ describe('GlobalSearchController', () => {
         currentScope: 'global',
         activeSearchType: null,
         element: { dataset: { searchTypes: '[]' } },
-        getSearchTypes: GlobalSearchController.prototype.getSearchTypes
+        getSearchTypes: GlobalSearchController.prototype.getSearchTypes,
       };
       const html = GlobalSearchController.prototype.renderSearchTypeTabs.call(ctx);
       expect(html).toBe('');
@@ -1102,7 +1102,7 @@ describe('GlobalSearchController', () => {
         inputTarget: { value: 'test query' },
 
         updateSearchTypeTabs: vi.fn(),
-        performSearch: vi.fn()
+        performSearch: vi.fn(),
       };
       const tab = document.querySelector('[data-type-id]');
       const event = { preventDefault: vi.fn(), target: tab };
@@ -1119,7 +1119,7 @@ describe('GlobalSearchController', () => {
         inputTarget: { value: 'test' },
 
         updateSearchTypeTabs: vi.fn(),
-        performSearch: vi.fn()
+        performSearch: vi.fn(),
       };
       const tab = document.querySelector('[data-type-id]');
       const event = { preventDefault: vi.fn(), target: tab };
@@ -1133,10 +1133,10 @@ describe('GlobalSearchController', () => {
         currentScope: 'project',
         element: {
           dataset: {
-            searchTypesProject: JSON.stringify([{ id: 'issues', label: 'Issues' }])
-          }
+            searchTypesProject: JSON.stringify([{ id: 'issues', label: 'Issues' }]),
+          },
         },
-        getSearchTypes: GlobalSearchController.prototype.getSearchTypes
+        getSearchTypes: GlobalSearchController.prototype.getSearchTypes,
       };
       GlobalSearchController.prototype.validateActiveSearchType.call(ctx);
       expect(ctx.activeSearchType).toBeNull();
@@ -1148,10 +1148,10 @@ describe('GlobalSearchController', () => {
         currentScope: 'global',
         element: {
           dataset: {
-            searchTypes: JSON.stringify([{ id: 'issues', label: 'Issues' }])
-          }
+            searchTypes: JSON.stringify([{ id: 'issues', label: 'Issues' }]),
+          },
         },
-        getSearchTypes: GlobalSearchController.prototype.getSearchTypes
+        getSearchTypes: GlobalSearchController.prototype.getSearchTypes,
       };
       GlobalSearchController.prototype.validateActiveSearchType.call(ctx);
       expect(ctx.activeSearchType).toBe('issues');
@@ -1169,7 +1169,7 @@ describe('GlobalSearchController', () => {
         hasClearButtonTarget: true,
         clearButtonTarget: { style: { display: '' } },
         toggleClearButton: GlobalSearchController.prototype.toggleClearButton,
-        loadInitialContent: vi.fn()
+        loadInitialContent: vi.fn(),
       };
       GlobalSearchController.prototype.clearInput.call(ctx);
       expect(ctx.inputTarget.value).toBe('');
@@ -1200,11 +1200,11 @@ describe('GlobalSearchController', () => {
         scopeSuffix: GlobalSearchController.prototype.scopeSuffix,
         coreSearchScope: GlobalSearchController.prototype.coreSearchScope,
         showHint: GlobalSearchController.prototype.showHint,
-        hideHint: GlobalSearchController.prototype.hideHint
+        hideHint: GlobalSearchController.prototype.hideHint,
       };
       const data = {
         keyword: [{ title: 'Issue #1', url: '/issues/1', type: 'Issues' }],
-        semantic: { label: 'Semantic', results: [{ title: 'Related', url: '/issues/2', type: 'Issues' }] }
+        semantic: { label: 'Semantic', results: [{ title: 'Related', url: '/issues/2', type: 'Issues' }] },
       };
       GlobalSearchController.prototype.renderResults.call(ctx, data, 'test');
       expect(ctx.resultsTarget.innerHTML).not.toContain('Semantic');
@@ -1231,11 +1231,11 @@ describe('GlobalSearchController', () => {
         scopeSuffix: GlobalSearchController.prototype.scopeSuffix,
         coreSearchScope: GlobalSearchController.prototype.coreSearchScope,
         showHint: GlobalSearchController.prototype.showHint,
-        hideHint: GlobalSearchController.prototype.hideHint
+        hideHint: GlobalSearchController.prototype.hideHint,
       };
       const data = {
         keyword: [{ title: 'Issue #1', url: '/issues/1', type: 'Issues' }],
-        semantic: { label: 'Semantic', results: [{ title: 'Related', url: '/issues/2', type: 'Issues' }] }
+        semantic: { label: 'Semantic', results: [{ title: 'Related', url: '/issues/2', type: 'Issues' }] },
       };
       GlobalSearchController.prototype.renderResults.call(ctx, data, 'test');
       expect(ctx.resultsTarget.innerHTML).toContain('Semantic');
@@ -1285,7 +1285,7 @@ describe('GlobalSearchController', () => {
         titlesOnlyActive: false,
         escapeHtml: GlobalSearchController.prototype.escapeHtml,
         scopeSuffix: GlobalSearchController.prototype.scopeSuffix,
-        coreSearchScope: GlobalSearchController.prototype.coreSearchScope
+        coreSearchScope: GlobalSearchController.prototype.coreSearchScope,
       };
     });
 
@@ -1339,7 +1339,7 @@ describe('GlobalSearchController', () => {
         clearButtonTarget: { style: { display: 'none' } },
         toggleClearButton: GlobalSearchController.prototype.toggleClearButton,
         loadInitialContent: vi.fn(),
-        performSearch: vi.fn()
+        performSearch: vi.fn(),
       };
     });
 
@@ -1406,7 +1406,7 @@ describe('GlobalSearchController', () => {
         renderResults: vi.fn(),
         effectiveProjectId: () => null,
         effectiveSearchScope: () => null,
-        debounceTimer: null
+        debounceTimer: null,
       };
     });
 
@@ -1457,7 +1457,7 @@ describe('GlobalSearchController', () => {
         hasInputTarget: true,
         inputTarget: { value: 'test', trim: () => 'test' },
         updatePlaceholder: vi.fn(),
-        performSearch: vi.fn()
+        performSearch: vi.fn(),
       };
       // Fix: inputTarget.value.trim()
       ctx.inputTarget = { value: '  test  ' };
@@ -1477,7 +1477,7 @@ describe('GlobalSearchController', () => {
         hasInputTarget: true,
         inputTarget: { value: 'a' },
         updatePlaceholder: vi.fn(),
-        performSearch: vi.fn()
+        performSearch: vi.fn(),
       };
 
       GlobalSearchController.prototype.onTitlesOnlyChange.call(ctx, { target: { checked: true } });
@@ -1490,7 +1490,7 @@ describe('GlobalSearchController', () => {
       const ctx = {
         hasTitlesOnlyTarget: true,
         titlesOnlyTarget: checkbox,
-        titlesOnlyActive: true
+        titlesOnlyActive: true,
       };
       GlobalSearchController.prototype.initTitlesOnly.call(ctx);
       expect(checkbox.checked).toBe(true);

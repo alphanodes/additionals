@@ -56,7 +56,7 @@ describe('RenderAsyncController', () => {
       const ctx = {
         element: document.createElement('div'),
         load: vi.fn(),
-        disconnectLazyObserver: RenderAsyncController.prototype.disconnectLazyObserver
+        disconnectLazyObserver: RenderAsyncController.prototype.disconnectLazyObserver,
       };
 
       RenderAsyncController.prototype.observeLazyTrigger.call(ctx);
@@ -72,7 +72,7 @@ describe('RenderAsyncController', () => {
       const ctx = {
         element: document.createElement('div'),
         load: vi.fn(),
-        disconnectLazyObserver: RenderAsyncController.prototype.disconnectLazyObserver
+        disconnectLazyObserver: RenderAsyncController.prototype.disconnectLazyObserver,
       };
 
       RenderAsyncController.prototype.observeLazyTrigger.call(ctx);
@@ -112,7 +112,7 @@ describe('RenderAsyncController', () => {
         load: vi.fn(),
         stopPolling() {
           this.intervalId = null;
-        }
+        },
       };
     });
 
@@ -156,7 +156,7 @@ describe('RenderAsyncController', () => {
       ctx = {
         intervalId: null,
         load: vi.fn(),
-        stopPolling: vi.fn()
+        stopPolling: vi.fn(),
       };
     });
 
@@ -305,7 +305,7 @@ describe('RenderAsyncController', () => {
       ctx = {
         element,
         intervalValue: 0,
-        parseHTML: RenderAsyncController.prototype.parseHTML
+        parseHTML: RenderAsyncController.prototype.parseHTML,
       };
     });
 

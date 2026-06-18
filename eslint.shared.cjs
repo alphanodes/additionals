@@ -62,6 +62,31 @@ const sharedRules = {
   'no-new-wrappers': 'error',
   'no-return-assign': 'error',
   'no-sequences': 'error',
+
+  // modernization guardrails — keep legacy patterns out (arguments, .apply,
+  // Math.pow, Object() number parsing, non-Error promise rejects)
+  'prefer-rest-params': 'error',
+  'prefer-spread': 'error',
+  'prefer-exponentiation-operator': 'error',
+  'prefer-numeric-literals': 'error',
+  'prefer-promise-reject-errors': 'error',
+
+  // remove dead/useless constructs
+  'no-useless-constructor': 'error',
+  'no-useless-rename': 'error',
+  'no-useless-computed-key': 'error',
+  'no-useless-return': 'error',
+  'no-useless-call': 'error',
+  'no-lone-blocks': 'error',
+
+  // additional correctness guardrails
+  'array-callback-return': 'error',
+  'no-unreachable-loop': 'error',
+  'default-case-last': 'error',
+  'no-unneeded-ternary': 'error',
+  'no-template-curly-in-string': 'error',
+  'no-unmodified-loop-condition': 'error',
+  'no-undef-init': 'error',
 };
 
 // Build the plugin's flat-config array. All options are optional:

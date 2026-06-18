@@ -50,13 +50,11 @@ const sharedRules = {
 
 module.exports = [
   {
-    // Ignore vendor/minified files in root (controllers/ subdirectory is always linted)
+    // Third-party libraries live in assets/javascripts/vendor/ and are not linted.
+    // Everything else (own root scripts + controllers/) is linted by default, so
+    // new own scripts can never be silently skipped.
     ignores: [
-      'assets/javascripts/*.js',
-      '!assets/javascripts/additionals.js',
-      '!assets/javascripts/additionals_stimulus.js',
-      '!assets/javascripts/mermaid_load.js',
-      '!assets/javascripts/select2_helpers.js',
+      'assets/javascripts/vendor/**',
     ],
   },
   js.configs.recommended,
@@ -65,7 +63,7 @@ module.exports = [
       'no-jquery': noJquery,
     },
     languageOptions: {
-      ecmaVersion: 2019,
+      ecmaVersion: 2022,
       sourceType: 'script',
       globals: {
         ...globals.browser,
@@ -96,10 +94,22 @@ module.exports = [
       sourceType: 'module',
       globals: {
         ...globals.browser,
+        __dirname: 'readonly',
         AdditionalsHelpers: 'readonly',
-        sanitizeHTML: 'readonly',
+        buildSelect2Options: 'readonly',
+        buildTagGroupName: 'readonly',
+        createTag: 'readonly',
+        formatFontawesomeText: 'readonly',
+        formatNameWithIcon: 'readonly',
         globalThis: 'readonly',
+        openExternalUrlsInTab: 'readonly',
+        operatorByType: 'readonly',
         process: 'readonly',
+        sanitizeHTML: 'readonly',
+        sanitizeToId: 'readonly',
+        setSelect2Filter: 'readonly',
+        showPluginSettingsTab: 'readonly',
+        updateSVGIcon: 'readonly',
       },
     },
     rules: sharedRules,

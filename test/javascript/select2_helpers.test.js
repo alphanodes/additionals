@@ -3,7 +3,7 @@ import { readFileSync } from 'fs';
 import { resolve } from 'path';
 
 // Mock jQuery and Select2 (required by select2_helpers.js)
-globalThis.$ = vi.fn(selector => {
+globalThis.$ = vi.fn(() => {
   const el = { length: 0, hide: vi.fn(), attr: vi.fn(), select2: vi.fn(), append: vi.fn(), find: vi.fn(() => el), on: vi.fn(), val: vi.fn(), data: vi.fn() };
   return el;
 });

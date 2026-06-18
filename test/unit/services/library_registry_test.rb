@@ -11,7 +11,7 @@ module Additionals
 
       assert_equal 1, result.size
       assert_equal :js, result.first.type
-      assert_equal 'd3plus.min', result.first.path
+      assert_equal 'vendor/d3plus.min', result.first.path
       assert_not result.first.core
     end
 
@@ -19,25 +19,25 @@ module Additionals
       result = Registry.resolve :chartjs
       paths = result.map(&:path)
 
-      assert_equal %w[chart.umd chartjs-plugin-colorschemes.min], paths
+      assert_equal %w[vendor/chart.umd vendor/chartjs-plugin-colorschemes.min], paths
     end
 
     def test_resolves_nested_composite_package
       paths = Registry.resolve(:chartjs_meta).map(&:path)
 
-      assert_equal %w[chart.umd
-                      chartjs-plugin-colorschemes.min
-                      chartjs-plugin-datalabels.min
-                      chartjs-plugin-annotation.min],
+      assert_equal %w[vendor/chart.umd
+                      vendor/chartjs-plugin-colorschemes.min
+                      vendor/chartjs-plugin-datalabels.min
+                      vendor/chartjs-plugin-annotation.min],
                    paths
     end
 
     def test_resolves_chartjs_matrix_pulls_in_moment
       paths = Registry.resolve(:chartjs_matrix).map(&:path)
 
-      assert_includes paths, 'moment-with-locales.min'
-      assert_includes paths, 'chartjs-adapter-moment.min'
-      assert_includes paths, 'chartjs-chart-matrix.min'
+      assert_includes paths, 'vendor/moment-with-locales.min'
+      assert_includes paths, 'vendor/chartjs-adapter-moment.min'
+      assert_includes paths, 'vendor/chartjs-chart-matrix.min'
     end
 
     def test_dedups_across_multiple_packages
@@ -52,14 +52,14 @@ module Additionals
       paths = Registry.resolve(%i[chartjs_meta chartjs]).map(&:path)
 
       assert_equal paths.uniq, paths
-      assert_includes paths, 'chart.umd'
+      assert_includes paths, 'vendor/chart.umd'
     end
 
     def test_dedups_atoms_reachable_via_different_packages
       # Both chartjs (composite) and chartjs_colorschemes (single atom) point
       # at the same colorschemes file; resolution should emit it once.
       paths = Registry.resolve(%i[chartjs chartjs_colorschemes]).map(&:path)
-      colorschemes_count = paths.count 'chartjs-plugin-colorschemes.min'
+      colorschemes_count = paths.count 'vendor/chartjs-plugin-colorschemes.min'
 
       assert_equal 1, colorschemes_count
     end

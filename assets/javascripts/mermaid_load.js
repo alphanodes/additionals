@@ -1,4 +1,4 @@
-/* global globalThis, mermaid */
+/* global mermaid */
 var mermaidTheme; // eslint-disable-line no-var
 var mermaidThemeVariables; // eslint-disable-line no-var
 if (globalThis !== undefined && globalThis.mermaidTheme !== undefined) {

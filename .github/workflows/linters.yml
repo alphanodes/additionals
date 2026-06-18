@@ -55,7 +55,7 @@ jobs:
       run: node_modules/.bin/stylelint assets/stylesheets/
 
     - name: Run ESLint
-      run: node_modules/.bin/eslint assets/javascripts/ test/javascript/ --no-error-on-unmatched-pattern
+      run: node_modules/.bin/eslint assets/javascripts/ test/javascript/
 
     - name: Run MarkdownLint
       run: node_modules/.bin/markdownlint README.md CHANGELOG.md

@@ -1,3 +1,4 @@
+.top-menu a.top-submenu,
 #top-menu a.top-submenu {
   padding-bottom: 10px;
 }
@@ -266,6 +267,43 @@ div.macro-title {
 
 div.macro-desc {
   border-bottom: 1px solid #eee;
+}
+
+/* Redmine master uses nav.top-menu; rules are duplicated for the .top-menu
+   class (master) and #top-menu id (Redmine 6.x). Kept as separate blocks in
+   ascending specificity order (class before id) for stylelint. */
+.top-menu li:hover ul.menu-children,
+.top-menu li ul.menu-children.visible { display: block; }
+
+.top-menu .menu-children {
+  display: none;
+  position: absolute;
+  width: inherit;
+  z-index: 45;
+  background-color: var(--a-color-white);
+  box-shadow: 2px 2px 14px var(--a-color-black);
+  top: 17px;
+  font-size: var(--a-font-size-base);
+}
+
+.top-menu .menu-children li {
+  float: left;
+  clear: both;
+  width: 100%;
+}
+
+.top-menu .menu-children li a {
+  display: block;
+  color: var(--a-color-dark);
+  padding: 5px 10px;
+  background-color: var(--a-color-white);
+  font-weight: normal;
+  margin-right: 0;
+}
+
+.top-menu .menu-children li a:hover {
+  color: var(--a-color-white);
+  background-color: var(--a-color-menu-hover);
 }
 
 #top-menu li:hover ul.menu-children,

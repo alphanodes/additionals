@@ -7,6 +7,7 @@ module Additionals
 
     included do
       include Additionals::EntityMethodsGlobal
+      include Additionals::Concerns::JournalizedRealChanges
       include InstanceMethods
 
       attr_reader :current_journal

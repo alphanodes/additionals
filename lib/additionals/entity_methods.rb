@@ -100,6 +100,30 @@ module Additionals
         current_journal&.save
       end
 
+      # Bump updated_on for journal-only edits (notes, relations) whose data lives
+      # outside the entity's own table, so the entity sorts/feeds correctly as
+      # changed. Without this, a note- or relation-only edit would leave updated_on
+      # untouched (only custom field changes are covered, via Redmine-core's
+      # acts_as_customizable touch).
+      #
+      # Shared here as opt-in: register it per model with
+      # `before_save :force_updated_on_change`. It is deliberately NOT registered
+      # as a callback in EntityMethods, so entities that do not want it (or do not
+      # journalize) are unaffected.
+      #
+      # We use this "dumb" variant (any initialized journal) rather than
+      # Redmine-core's Issue#force_updated_on_change, which only touches when the
+      # journal already has notes/details: relation details are written *after*
+      # save (controller after-save hooks), so at this point the journal still
+      # looks empty and the smart check would miss relation-only changes. The
+      # downside - a truly empty save also bumps updated_on - is filtered out for
+      # reporting by JournalizedRealChanges#real_changes? (the two are a pair).
+      def force_updated_on_change
+        return unless @current_journal || changed?
+
+        self.updated_on = current_time_from_proper_timezone
+      end
+
       # Returns the journals that are visible to user with their index
       # Used to display the issue history
       # ! this is a replacement of Redmine method for all entities

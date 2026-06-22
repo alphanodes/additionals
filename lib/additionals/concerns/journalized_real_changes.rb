@@ -41,10 +41,16 @@ module Additionals
           changes.delete 'lock_version'
         end
 
+        # NOTE: details.count (DB query), not details.any? (in-memory). An
+        # unsaved current_journal can carry transient, never-persisted detail
+        # objects - e.g. Redmine builds a child_id detail on the parent when a
+        # child is attached, which is discarded (no real parent edit). count
+        # only sees persisted details and so ignores that noise; any? would
+        # treat the phantom detail as a real change and log empty saves.
         @prepare_save_tag_change ||
           changes.any? ||
           (with_details && (current_journal&.notes.present? ||
-                            current_journal&.details&.any? ||
+                            (current_journal&.details&.count || 0).positive? ||
                             custom_field_values_really_changed?))
       end
 

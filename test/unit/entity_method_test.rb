@@ -54,6 +54,31 @@ class EntityMethodTest < Additionals::TestCase
     defined?(TemplateProject) && TemplateProject.exists?(project_id: project.id)
   end
 
+  # real_changes? must ignore an unsaved current_journal that only carries
+  # transient, never-persisted detail objects (e.g. the child_id detail
+  # Redmine builds on a parent issue when a child is attached). Counting them
+  # as a real change logs empty saves and fires spurious automation jobs.
+  # Regression for the .any? -> .count switch in JournalizedRealChanges.
+  def test_real_changes_ignores_unsaved_journal_details
+    dashboard = dashboards :private_welcome
+    dashboard.reload
+    journal = Journal.new user: users(:users_002)
+    journal.details << JournalDetail.new(property: 'attr', prop_key: 'child_id', old_value: nil, value: '99')
+    dashboard.instance_variable_set :@current_journal, journal
+
+    assert_equal 0, journal.details.count
+    assert journal.details.any?
+    assert_not dashboard.real_changes?
+  end
+
+  def test_real_changes_detects_journal_notes
+    dashboard = dashboards :private_welcome
+    dashboard.reload
+    dashboard.instance_variable_set :@current_journal, Journal.new(user: users(:users_002), notes: 'a note')
+
+    assert dashboard.real_changes?
+  end
+
   def test_like_pattern
     assert_equal 'ss', Wiki.like_pattern(' ss ')
     assert_equal 'ss%', Wiki.like_pattern('ss', :right)

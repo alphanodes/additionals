@@ -105,8 +105,7 @@ class WelcomeControllerTest < Additionals::ControllerTest
       @request.session[:user_id] = 1
       get :index
 
-      # Redmine 6.x uses div#top-menu, Redmine master uses nav.top-menu
-      assert_select '#top-menu a.help, nav.top-menu a.help'
+      assert_top_menu 'a.help'
     end
   end
 
@@ -117,8 +116,7 @@ class WelcomeControllerTest < Additionals::ControllerTest
       @request.session[:user_id] = 1
       get :index
 
-      # Redmine 6.x uses div#top-menu, Redmine master uses nav.top-menu
-      assert_select '#top-menu a.help, nav.top-menu a.help', count: 0
+      assert_top_menu 'a.help', count: 0
     end
   end
 

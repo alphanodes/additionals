@@ -124,6 +124,19 @@ module Additionals
       assert_select spec
     end
 
+    # Assert against the top menu, matching both the Redmine 6.x (#top-menu) and
+    # the Redmine master (nav.top-menu) layout.
+    def assert_top_menu(selector, *, &)
+      assert_select("#top-menu #{selector}, nav.top-menu #{selector}", *, &)
+    end
+
+    # Dasherized names (last css class) of the main top-menu items, excluding the
+    # account menu, in document order. Works for both top-menu layouts.
+    def top_menu_item_names
+      css_select('#top-menu > ul > li > a, nav.top-menu .top-menu__links:not(#account) > ul > li > a')
+        .map { |a| a['class'].to_s.split.last }
+    end
+
     def assert_select_totalable_columns(columns)
       assert_select 'p.query-totals' do
         columns.each do |column_name|

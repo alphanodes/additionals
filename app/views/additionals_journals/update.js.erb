@@ -6,11 +6,15 @@
   $("#journal-<%= @journal.id %>-notes").show();
   $("#journal-<%= @journal.id %>-form").remove();
 
-  var journal_header = $("#change-<%= @journal.id %> h4");
-  var journal_updated_info = journal_header.find("span.update-info");
+  // Target the .journal-info span (not the whole h4) so the "edited" indicator
+  // is appended next to the author, matching the initial render and Redmine
+  // core's issue history. Appending to the h4 would place it after
+  // .journal-meta (actions/link) at the far right and shift those icons.
+  var journal_info = $("#change-<%= @journal.id %> h4.journal-header .journal-info");
+  var journal_updated_info = journal_info.find("span.update-info");
   if (journal_updated_info.length > 0) {
     journal_updated_info.replaceWith('<%= escape_javascript(render_journal_update_info(@journal)) %>');
   } else {
-    journal_header.append('<%= escape_javascript(render_journal_update_info(@journal)) %>');
+    journal_info.append('<%= escape_javascript(render_journal_update_info(@journal)) %>');
   }
 <% end %>

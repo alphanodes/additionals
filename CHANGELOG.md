@@ -13,6 +13,7 @@
 - Fix PostgreSQL error in `Project#assignable_principals` and `Principal.assignable_for_issues` when chained with `.sorted`
 - Add option to include subproject news in the dashboard news block #164
 - d3plus updated to 3.1.6
+- mermaid 11.16.0 support
 
 ## 4.4.0
 

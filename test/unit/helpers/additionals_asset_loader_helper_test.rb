@@ -76,4 +76,17 @@ class AdditionalsAssetLoaderHelperTest < Additionals::HelperTest
 
     assert_predicate html, :html_safe?
   end
+
+  def test_emits_stylesheet_with_registered_plugin_path
+    Additionals::LibraryRegistry.register(
+      :test_counter,
+      [Additionals::LibraryRegistry::Asset.new(type: :css, path: 'my-counter', plugin: 'redmine_test')]
+    )
+    html = additionals_library_load :test_counter
+
+    assert_match(/<link\b/, html)
+    assert_match %r{/plugin_assets/redmine_test/.*my-counter}, html
+  ensure
+    Additionals::LibraryRegistry.send(:registered).delete :test_counter
+  end
 end

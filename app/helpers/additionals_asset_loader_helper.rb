@@ -13,14 +13,14 @@ module AdditionalsAssetLoaderHelper
   private
 
   def additionals_include_asset(asset)
-    key = [asset.type, asset.path]
+    key = [asset.type, asset.path, asset.plugin]
     return if additionals_loaded_assets.include? key
 
     additionals_loaded_assets << key
 
     case asset.type
-    when :js then javascript_include_tag asset.path, plugin: asset.core ? nil : 'additionals'
-    when :css then stylesheet_link_tag asset.path, plugin: 'additionals'
+    when :js then javascript_include_tag asset.path, plugin: asset.core ? nil : asset.plugin
+    when :css then stylesheet_link_tag asset.path, plugin: asset.plugin
     end
   end
 

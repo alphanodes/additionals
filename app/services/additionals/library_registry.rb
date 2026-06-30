@@ -10,10 +10,14 @@ module Additionals
   # This module is pure data + resolution. Tag generation, view context and
   # per-request "already loaded" tracking live in AdditionalsAssetLoaderHelper.
   module LibraryRegistry
-    Asset = Data.define :type, :path, :core do
+    Asset = Data.define :type, :path, :core, :plugin do
       # core: false by default -- only Redmine-core assets (asset path under
       # public/javascripts vs public/plugin_assets/additionals) set core:true.
-      def initialize(type:, path:, core: false)
+      # plugin: which plugin ships the file (asset path lives under
+      # public/plugin_assets/<plugin>). Defaults to 'additionals' so the
+      # built-in atoms below stay unchanged; sister plugins registering their
+      # own packages pass their own plugin id. Ignored for core assets.
+      def initialize(type:, path:, core: false, plugin: 'additionals')
         super
       end
     end
@@ -66,6 +70,27 @@ module Additionals
     # rubocop: enable Layout/HashAlignment
 
     class << self
+      # Registers a package contributed by another plugin so it can be
+      # requested via `additionals_library_load` / block `:libraries` exactly
+      # like the built-in packages. `assets` is an ordered list whose entries
+      # are either Asset records (leaf files) or Symbols (names of other
+      # packages to pull in).
+      #
+      # Call this from a `config.to_prepare` block, NOT once at boot: this
+      # class lives under an autoload path and is reloaded in development,
+      # which wipes the registration. to_prepare re-runs after every reload
+      # and repopulates the freshly loaded class.
+      #
+      # Raises if the name shadows a built-in package/atom so typos and
+      # accidental collisions fail loudly. Re-registering the same name (e.g.
+      # on reload) just overwrites the previous entry.
+      def register(name, assets)
+        name = name.to_sym
+        raise ArgumentError, "Cannot register #{name.inspect}: name is a built-in package" if PACKAGES.key?(name) || ATOMS.key?(name)
+
+        registered[name] = Array assets
+      end
+
       # Resolves one or more package names into an ordered, deduplicated list
       # of Asset records. Unknown names raise ArgumentError -- block
       # definitions should fail loudly on typos, not silently load nothing.
@@ -79,22 +104,38 @@ module Additionals
 
       private
 
+      def registered
+        @registered ||= {}
+      end
+
       def collect(name, result, seen_packages, seen_assets)
         return if seen_packages.include? name
 
         seen_packages << name
 
-        if PACKAGES.key? name
+        if registered.key? name
+          registered[name].each do |entry|
+            if entry.is_a? Asset
+              add_asset entry, result, seen_assets
+            else
+              collect entry.to_sym, result, seen_packages, seen_assets
+            end
+          end
+        elsif PACKAGES.key? name
           PACKAGES[name].each { |child| collect child, result, seen_packages, seen_assets }
         elsif (atom = ATOMS[name])
-          asset_key = [atom.type, atom.path]
-          return if seen_assets.include? asset_key
-
-          seen_assets << asset_key
-          result << atom
+          add_asset atom, result, seen_assets
         else
           raise ArgumentError, "Unknown asset package: #{name.inspect}"
         end
+      end
+
+      def add_asset(atom, result, seen_assets)
+        asset_key = [atom.type, atom.path, atom.plugin]
+        return if seen_assets.include? asset_key
+
+        seen_assets << asset_key
+        result << atom
       end
     end
   end

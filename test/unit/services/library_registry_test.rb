@@ -95,5 +95,51 @@ module Additionals
       assert_equal Registry.resolve(:d3plus).map(&:path),
                    Registry.resolve('d3plus').map(&:path)
     end
+
+    def test_default_atom_plugin_is_additionals
+      assert_equal 'additionals', Registry.resolve(:d3plus).first.plugin
+    end
+
+    def test_register_makes_package_resolvable
+      Registry.register :test_pkg,
+                        [Registry::Asset.new(type: :css, path: 'my-styles', plugin: 'redmine_test')]
+      asset = Registry.resolve(:test_pkg).first
+
+      assert_equal :css, asset.type
+      assert_equal 'my-styles', asset.path
+      assert_equal 'redmine_test', asset.plugin
+    ensure
+      Registry.send(:registered).delete :test_pkg
+    end
+
+    def test_register_can_reference_built_in_packages
+      Registry.register :test_pkg,
+                        [:d3plus, Registry::Asset.new(type: :css, path: 'my-styles', plugin: 'redmine_test')]
+      paths = Registry.resolve(:test_pkg).map(&:path)
+
+      assert_equal %w[vendor/d3plus.min my-styles], paths
+    ensure
+      Registry.send(:registered).delete :test_pkg
+    end
+
+    def test_register_raises_on_built_in_collision
+      assert_raises ArgumentError do
+        Registry.register :chartjs, [Registry::Asset.new(type: :js, path: 'evil', plugin: 'redmine_test')]
+      end
+    end
+
+    def test_dedups_same_path_across_plugins_kept_separate
+      # Same file name in two different plugins must NOT be deduplicated into
+      # one -- the dedup key includes the plugin.
+      Registry.register :test_pkg,
+                        [Registry::Asset.new(type: :css, path: 'shared', plugin: 'redmine_a'),
+                         Registry::Asset.new(type: :css, path: 'shared', plugin: 'redmine_b')]
+      result = Registry.resolve :test_pkg
+
+      assert_equal 2, result.size
+      assert_equal %w[redmine_a redmine_b], result.map(&:plugin)
+    ensure
+      Registry.send(:registered).delete :test_pkg
+    end
   end
 end

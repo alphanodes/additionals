@@ -74,7 +74,9 @@ ko:
   label_additionals: Additionals
   label_additionals_feed: Atom+RSS Feed
   label_additionals_message: "메시지"
+  label_all_active_users: "모든 활성 사용자"
   label_all_projects: 모든 프로젝트
+  label_all_users: "모든 사용자"
   label_app_menu: 앱 메뉴
   label_auto_watch_on_issue_assigned: "나에게 배정된 티켓"
   label_calendar_week: "CW %{week}"
@@ -167,6 +169,7 @@ ko:
   label_percentage: "백분율"
   label_project_information: "프로젝트 정보"
   label_project_list: "프로젝트 목록"
+  label_project_scope: "프로젝트에서"
   label_project_setting: "계획"
   label_quantity: "수량"
   label_query_delete: 검색어 삭제

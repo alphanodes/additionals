@@ -74,7 +74,9 @@ ja:
   label_additionals: Additionals
   label_additionals_feed: Atom+RSS Feed
   label_additionals_message: "メッセージ"
+  label_all_active_users: "すべての有効なユーザ"
   label_all_projects: すべてのプロジェクト
+  label_all_users: "すべてのユーザ"
   label_app_menu: App menu
   label_auto_watch_on_issue_assigned: "私に割り当てられたチケット"
   label_calendar_week: "CW %{week}"
@@ -167,6 +169,7 @@ ja:
   label_percentage: "割合"
   label_project_information: "プロジェクト情報"
   label_project_list: "プロジェクト一覧"
+  label_project_scope: "プロジェクトから"
   label_project_setting: "プロジェクト"
   label_quantity: "数量"
   label_query_delete: Delete query

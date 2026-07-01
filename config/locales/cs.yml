@@ -74,7 +74,9 @@ cs:
   label_additionals: Additionals
   label_additionals_feed: Atom+RSS Feed
   label_additionals_message: "Zpráva"
+  label_all_active_users: "Všichni aktivní uživatelé"
   label_all_projects: "Všechny projekty"
+  label_all_users: "Všichni uživatelé"
   label_app_menu: App menu
   label_auto_watch_on_issue_assigned: "Lístky, které mi byly přiděleny"
   label_calendar_week: "CW %{week}"
@@ -167,6 +169,7 @@ cs:
   label_percentage: "Procento"
   label_project_information: "Informace o projektu"
   label_project_list: "Seznam projektů"
+  label_project_scope: "z projektu"
   label_project_setting: "Projekt"
   label_quantity: "Množství"
   label_query_delete: "Smazat dotaz"

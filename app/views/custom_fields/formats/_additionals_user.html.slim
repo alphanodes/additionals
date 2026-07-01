@@ -1,0 +1,34 @@
+/ Form partial for the core "user" custom field format, overriding
+/ custom_fields/formats/_user via Additionals::Patches::UserFormatPatch
+/ (self.form_partial). Adds a user scope selector: all users / all active
+/ users / project members / members with selected roles. Rendered by
+/ render_custom_field_format_partial with f and custom_field as locals.
+- user_roles_empty = !custom_field.user_role.is_a?(Array) || custom_field.user_role.delete_if(&:empty?).blank?
+p
+  label = l :label_role
+  label.block
+    = radio_button_tag 'custom_field[user_scope]', '1', custom_field.user_scope == '1',
+        id: 'custom_field_user_scope_all', data: { disables: '.custom_field_user_role input' }
+    =< l :label_all_users
+  label.block
+    = radio_button_tag 'custom_field[user_scope]', '4', custom_field.user_scope == '4',
+        id: 'custom_field_user_scope_active', data: { disables: '.custom_field_user_role input' }
+    =< l :label_all_active_users
+  label.block
+    = radio_button_tag 'custom_field[user_scope]', '2',
+        user_roles_empty && %w[1 4].exclude?(custom_field.user_scope.to_s),
+        id: 'custom_field_user_scope_project', data: { disables: '.custom_field_user_role input' }
+    =< l :label_project_scope
+  label.block
+    = radio_button_tag 'custom_field[user_scope]', '3', custom_field.user_role.present?,
+        id: 'custom_field_user_scope_only', data: { enables: '.custom_field_user_role input' }
+    =< l :label_only
+    | :
+  - Role.givable.sorted.each do |role|
+    label.block.custom_field_user_role style='padding-left:2em;'
+      = check_box_tag 'custom_field[user_role][]', role.id,
+          custom_field.user_role.is_a?(Array) && custom_field.user_role.include?(role.id.to_s),
+          id: nil
+      =< role.name
+  = hidden_field_tag 'custom_field[user_role][]', ''
+p = edit_tag_style_tag f

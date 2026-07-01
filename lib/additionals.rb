@@ -218,7 +218,8 @@ module Additionals
 
       loader.add_patch [{ target: Redmine::Views::LabelledFormBuilder, patch: 'LabelledFormBuilder' },
                         { target: WatchersHelper, patch: 'WatchersHelper' },
-                        { target: QueriesHelper, patch: 'QueriesHelper' }]
+                        { target: QueriesHelper, patch: 'QueriesHelper' },
+                        { target: Redmine::FieldFormat::UserFormat, patch: 'UserFormat' }]
 
       # Filter search types based on disabled modules
       Redmine::Search.singleton_class.prepend Additionals::Patches::SearchPatch

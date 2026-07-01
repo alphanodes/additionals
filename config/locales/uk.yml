@@ -74,7 +74,9 @@ uk:
   label_additionals: Additionals
   label_additionals_feed: Atom+RSS Feed
   label_additionals_message: "Повідомлення"
+  label_all_active_users: "Усі активні користувачі"
   label_all_projects: Всі проекти
+  label_all_users: "Усі користувачі"
   label_app_menu: App menu
   label_auto_watch_on_issue_assigned: "Білети, закреплені за мною"
   label_calendar_week: "CW %{week}"
@@ -167,6 +169,7 @@ uk:
   label_percentage: "Процент"
   label_project_information: "Інформація про проект"
   label_project_list: "Список проектів"
+  label_project_scope: "з проєкту"
   label_project_setting: "Проект"
   label_quantity: "Кількість"
   label_query_delete: "Видалити query"

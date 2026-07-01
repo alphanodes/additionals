@@ -74,7 +74,9 @@ en:
   label_additionals: Additionals
   label_additionals_feed: Atom+RSS Feed
   label_additionals_message: Message
+  label_all_active_users: "All active users"
   label_all_projects: All projects
+  label_all_users: "All users"
   label_app_menu: App menu
   label_auto_watch_on_issue_assigned: Issues assigned to me
   label_calendar_week: "CW %{week}"
@@ -167,6 +169,7 @@ en:
   label_percentage: Percentage
   label_project_information: "Project information"
   label_project_list: "Project list"
+  label_project_scope: from project
   label_project_setting: Project
   label_quantity: "Quantity"
   label_query_delete: Delete query

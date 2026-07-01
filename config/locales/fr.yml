@@ -74,7 +74,9 @@ fr:
   label_additionals: Additionals
   label_additionals_feed: Flux Atom+RSS
   label_additionals_message: Message
+  label_all_active_users: "Tous les utilisateurs actifs"
   label_all_projects: Tous les projets
+  label_all_users: "Tous les utilisateurs"
   label_app_menu: Menu applicatif
   label_auto_watch_on_issue_assigned: "Les tâches qui m'ont été confiées"
   label_calendar_week: "CW %{week}"
@@ -167,6 +169,7 @@ fr:
   label_percentage: Percentage
   label_project_information: "Informations sur le projet"
   label_project_list: "liste des projets"
+  label_project_scope: "du projet"
   label_project_setting: "Projet"
   label_quantity: "Quantité"
   label_query_delete: Annuler la requête

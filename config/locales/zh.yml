@@ -74,7 +74,9 @@ zh:
   label_additionals: Additionals
   label_additionals_feed: "Atom+RSS Feed"
   label_additionals_message: "讯息"
+  label_all_active_users: "所有活动用户"
   label_all_projects: 所有项目
+  label_all_users: "所有用户"
   label_app_menu: 应用菜单
   label_auto_watch_on_issue_assigned: "分配给我的机票"
   label_calendar_week: "CW %{week}"
@@ -167,6 +169,7 @@ zh:
   label_percentage: Percentage
   label_project_information: "项目信息"
   label_project_list: "项目列表"
+  label_project_scope: "来自项目"
   label_project_setting: "项目"
   label_quantity: "Quantity"
   label_query_delete: 删除查询

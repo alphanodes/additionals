@@ -557,6 +557,8 @@ table.entity-list td.block_column pre {
 @media screen and (max-width: 899px) {
   .gototop { display: none; }
 
+  .dashboard .splitcontentleft,
+  .dashboard .splitcontentright,
   .dashboard .splitcontentbottom {
     width: 100%;
     flex: auto;

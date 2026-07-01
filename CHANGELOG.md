@@ -10,6 +10,7 @@
 - Polling-mode async blocks (blocks with `auto_refresh` enabled) automatically pause when the browser tab becomes hidden and resume with an immediate refresh when it returns. Reduces backend load for inactive tabs.
 - Copy project dashboards when a project is copied via `Project#copy`
 - Fix `NoMethodError` in `DashboardContentProject` `projectinformation` block when adding blocks to a system-default project dashboard outside any project context
+- Fix dashboard left and right columns not stacking on mobile viewports below the 899px breakpoint (regression from #200)
 - Fix PostgreSQL error in `Project#assignable_principals` and `Principal.assignable_for_issues` when chained with `.sorted`
 - Add option to include subproject news in the dashboard news block #164
 - d3plus updated to 3.1.6

@@ -11,7 +11,7 @@ Additionals is a `Redmine` plugin for customizing Redmine, providing wiki macros
 
 | Name               | requirement                      |
 | -------------------|----------------------------------|
-| `Redmine` version  | >= 6.1                           |
+| `Redmine` version  | >= 7.0                           |
 | `Ruby` version     | >= 3.2                           |
 | Database version   | MySQL >= 8.0 or PostgreSQL >= 14 |
 

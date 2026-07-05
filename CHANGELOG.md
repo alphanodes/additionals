@@ -1,5 +1,12 @@
 # Changelog
 
+## 4.6.0
+
+- Require Redmine 7.0 or newer and drop Redmine 6.x compatibility
+- CommonMark and Textile formatting now use Redmine 7's native Loofah scrubbers; the HTML::Pipeline-based smiley and emoji filters (which Redmine 7 no longer ships) have been removed
+- Restyle the top-menu submenu dropdowns to match Redmine 7 core (open-color variables): on touch devices a submenu opens on tap, and menus taller than the viewport now scroll instead of being cut off
+- Assignee auto-watch on issue creation now uses Redmine core's `issue_assigned_to_me` preference; core already handles assignment changes on existing issues, so additionals only fills the create-time gap
+
 ## 4.5.0
 
 - Add a configurable user scope to the core "user" custom field format (all users / all active users / project members / by role), selectable per field and available to any entity that assigns a user field. Dependent plugins enable it for their entities via `customized_class_names << 'Entity'`

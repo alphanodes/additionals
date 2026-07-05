@@ -15,8 +15,11 @@ module Additionals
         before_validation :auto_assigned_to
         before_save :change_status_with_assigned_to_change
 
-        # TODO: Remove when Redmine 6.x support is dropped (Redmine 7 has issue_assigned_to_me in core)
-        after_commit :add_assigned_watcher unless Redmine::VERSION::BRANCH == 'devel'
+        # Redmine core auto-watches the assignee only when the assignment changes
+        # on an existing issue (Journal#watchable_users, issue_assigned_to_me
+        # preference); it does not cover assigning directly on issue creation.
+        # Fill that gap here using the same core preference.
+        after_create_commit :add_assigned_watcher
 
         safe_attributes 'author_id',
                         if: proc { |issue, user|
@@ -47,9 +50,8 @@ module Additionals
 
       module InstanceMethods
         def add_assigned_watcher
-          return unless assigned_to_id
           return unless assigned_to.is_a? User
-          return unless assigned_to.pref.auto_watch_on? 'issue_assigned'
+          return unless assigned_to.pref.auto_watch_on? 'issue_assigned_to_me'
           return if watcher_user_ids.include? assigned_to_id
           return unless assigned_to.active?
 

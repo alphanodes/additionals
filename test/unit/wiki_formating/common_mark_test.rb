@@ -107,20 +107,11 @@ module WikiFormatting
       end
     end
 
-    def test_version_detection_loads_correct_classes
-      if Redmine::VERSION::BRANCH == 'devel'
-        # Redmine Master should load Scrubbers
-        assert defined?(Additionals::WikiFormatting::CommonMark::EmojiScrubber),
-               'EmojiScrubber should be defined in Redmine Master'
-        assert defined?(Additionals::WikiFormatting::CommonMark::SmileyScrubber),
-               'SmileyScrubber should be defined in Redmine Master'
-      else
-        # Redmine stable should load Filters
-        assert defined?(Additionals::WikiFormatting::CommonMark::EmojiFilter),
-               'EmojiFilter should be defined in Redmine stable'
-        assert defined?(Additionals::WikiFormatting::CommonMark::SmileyFilter),
-               'SmileyFilter should be defined in Redmine stable'
-      end
+    def test_scrubbers_are_defined
+      assert defined?(Additionals::WikiFormatting::CommonMark::EmojiScrubber),
+             'EmojiScrubber should be defined'
+      assert defined?(Additionals::WikiFormatting::CommonMark::SmileyScrubber),
+             'SmileyScrubber should be defined'
     end
 
     def test_formatter_uses_correct_implementation
@@ -139,25 +130,15 @@ module WikiFormatting
     private
 
     def smiley_filter(html)
-      if Redmine::VERSION::BRANCH == 'devel'
-        fragment = Redmine::WikiFormatting::HtmlParser.parse html
-        scrubber = Additionals::WikiFormatting::CommonMark::SmileyScrubber.new
-        fragment.scrub! scrubber
-        fragment.to_s
-      else
-        Additionals::WikiFormatting::CommonMark::SmileyFilter.to_html html, @options
-      end
+      fragment = Redmine::WikiFormatting::HtmlParser.parse html
+      fragment.scrub! Additionals::WikiFormatting::CommonMark::SmileyScrubber.new
+      fragment.to_s
     end
 
     def emoji_filter(html)
-      if Redmine::VERSION::BRANCH == 'devel'
-        fragment = Redmine::WikiFormatting::HtmlParser.parse html
-        scrubber = Additionals::WikiFormatting::CommonMark::EmojiScrubber.new
-        fragment.scrub! scrubber
-        fragment.to_s
-      else
-        Additionals::WikiFormatting::CommonMark::EmojiFilter.to_html html, @options
-      end
+      fragment = Redmine::WikiFormatting::HtmlParser.parse html
+      fragment.scrub! Additionals::WikiFormatting::CommonMark::EmojiScrubber.new
+      fragment.to_s
     end
   end
 end

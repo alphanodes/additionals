@@ -173,15 +173,10 @@ module Additionals
       end
     end
 
-    # Returns the class containing RULES constant for Textile formatting
-    # Redmine 6.1: Formatter class inherits from RedCloth3 and has RULES
-    # Redmine Master (7.0+): Filter class inherits from RedCloth3 and has RULES
+    # Returns the class containing the RULES constant for Textile formatting.
+    # The Filter class inherits from RedCloth3 and holds RULES.
     def textile_rules_class
-      if defined?(Redmine::WikiFormatting::Textile::Filter)
-        Redmine::WikiFormatting::Textile::Filter
-      else
-        Redmine::WikiFormatting::Textile::Formatter
-      end
+      Redmine::WikiFormatting::Textile::Filter
     end
 
     private
@@ -239,21 +234,13 @@ module Additionals
           loader.add_patch [{ target: Redmine::WikiFormatting::CommonMark::Formatter, patch: 'FormatterCommonMark' }]
           loader.add_patch [{ target: Redmine::WikiFormatting::CommonMark::Helper, patch: 'FormattingHelper' }]
         when 'textile'
-          # Redmine 6.1: Formatter inherits from RedCloth3 and has RULES
-          # Redmine Master (7.0+): Filter inherits from RedCloth3 and has RULES
           loader.add_patch [{ target: textile_rules_class, patch: 'FormatterTextile' },
                             { target: Redmine::WikiFormatting::Textile::Helper, patch: 'FormattingHelper' }]
         end
       end
 
-      # Clients - load filters for Redmine 6.1 stable, scrubbers for Redmine Master
-      if Redmine::VERSION::BRANCH == 'devel'
-        # Redmine Master (7.0+) - Load Scrubbers
-        loader.require_files File.join('wiki_formatting', 'common_mark', '**/*_scrubber.rb')
-      else
-        # Redmine 6.1 stable - Load Filters
-        loader.require_files File.join('wiki_formatting', 'common_mark', '**/*_filter.rb')
-      end
+      # Load Loofah scrubbers for CommonMark formatting
+      loader.require_files File.join('wiki_formatting', 'common_mark', '**/*_scrubber.rb')
 
       # Apply patches and helper
       loader.apply!

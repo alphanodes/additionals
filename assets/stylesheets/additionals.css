@@ -1,5 +1,4 @@
-.top-menu a.top-submenu,
-#top-menu a.top-submenu {
+.top-menu a.top-submenu {
   padding-bottom: 10px;
 }
 
@@ -269,21 +268,26 @@ div.macro-desc {
   border-bottom: 1px solid #eee;
 }
 
-/* Redmine master uses nav.top-menu; rules are duplicated for the .top-menu
-   class (master) and #top-menu id (Redmine 6.x). Kept as separate blocks in
-   ascending specificity order (class before id) for stylelint. */
-.top-menu li:hover ul.menu-children,
+/* Top-menu submenu flyouts. On pointer devices they open on hover; touch
+   devices toggle the `visible` class via JS (see top_menu_dropdown.js). */
+@media (hover: hover) {
+  .top-menu li:hover ul.menu-children { display: block; }
+}
+
 .top-menu li ul.menu-children.visible { display: block; }
 
 .top-menu .menu-children {
   display: none;
   position: absolute;
-  width: inherit;
+  min-width: 160px;
   z-index: 45;
-  background-color: var(--a-color-white);
-  box-shadow: 2px 2px 14px var(--a-color-black);
+  background-color: var(--oc-white);
+  border: 1px solid var(--oc-gray-4);
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
   top: 17px;
-  font-size: var(--a-font-size-base);
+  overflow: hidden;
+  font-size: var(--a-font-size-sm);
 }
 
 .top-menu .menu-children li {
@@ -293,51 +297,17 @@ div.macro-desc {
 }
 
 .top-menu .menu-children li a {
-  display: block;
-  color: var(--a-color-dark);
-  padding: 5px 10px;
-  background-color: var(--a-color-white);
+  display: flex;
+  color: var(--oc-blue-9);
+  padding: 8px 16px;
   font-weight: normal;
   margin-right: 0;
 }
 
 .top-menu .menu-children li a:hover {
-  color: var(--a-color-white);
-  background-color: var(--a-color-menu-hover);
-}
-
-#top-menu li:hover ul.menu-children,
-#top-menu li ul.menu-children.visible { display: block; }
-
-#top-menu .menu-children {
-  display: none;
-  position: absolute;
-  width: inherit;
-  z-index: 45;
-  background-color: var(--a-color-white);
-  box-shadow: 2px 2px 14px var(--a-color-black);
-  top: 17px;
-  font-size: var(--a-font-size-base);
-}
-
-#top-menu .menu-children li {
-  float: left;
-  clear: both;
-  width: 100%;
-}
-
-#top-menu .menu-children li a {
-  display: block;
-  color: var(--a-color-dark);
-  padding: 5px 10px;
-  background-color: var(--a-color-white);
-  font-weight: normal;
-  margin-right: 0;
-}
-
-#top-menu .menu-children li a:hover {
-  color: var(--a-color-white);
-  background-color: var(--a-color-menu-hover);
+  color: var(--oc-blue-9);
+  background-color: var(--oc-gray-1);
+  text-decoration: none;
 }
 
 input.livesearch {

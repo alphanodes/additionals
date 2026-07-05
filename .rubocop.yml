@@ -5,7 +5,7 @@ plugins:
 
 AllCops:
   TargetRubyVersion: 3.2
-  TargetRailsVersion: 7.2
+  TargetRailsVersion: 8.1
   DisabledByDefault: false
   NewCops: enable
   ActiveSupportExtensionsEnabled: true
@@ -61,6 +61,11 @@ Rails/HelperInstanceVariable:
   Enabled: false
 
 Rails/SkipsModelValidations:
+  Enabled: false
+
+# Redmine uses `Model.find params[:id]` throughout core; params.expect is not
+# part of the Redmine convention and its autocorrect breaks rescue-based 404s.
+Rails/StrongParametersExpect:
   Enabled: false
 
 Rails/Output:

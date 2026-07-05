@@ -49,6 +49,9 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
       new_status_id: IssueStatus.order(:id).last.id
     )
 
+    # Enough assignable users so a regression to per-user queries would be caught
+    create_assignable_users project, tracker, 30
+
     @request.session[:user_id] = users(:users_001).id
 
     # This should use optimized assignable_users and not cause N+1
@@ -65,7 +68,11 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
     end
 
     # Should use reasonable number of queries (much less than original N+1 problem).
-    # Current count is ~98 queries, of which ~15 are exact duplicates (~4ms wasted).
+    # With the 30 assignable users created above the count is ~120 on Redmine 7
+    # (Rails 8.1) and stays constant regardless of user count (verified 30 vs 60
+    # users), so a regression to per-user queries would add ~1 query per user and
+    # exceed this limit. The remaining duplicates stem from Redmine Core and other
+    # plugins, not from additionals.
     #
     # Known duplicate queries from Redmine Core (not caused by our plugins):
     #
@@ -83,8 +90,8 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
     #
     # 3. Project trackers loaded 4x via different code paths in reporting_issues_helper.
     #
-    # Limit set to 105 to allow small fluctuations from plugin settings queries.
-    assert_operator queries_count, :<=, 105, 'Issues#new should not cause N+1 queries with assignable_users'
+    # Limit set to 127 (~7 headroom over baseline, well below the ~148 an N+1 would cause).
+    assert_operator queries_count, :<=, 127, 'Issues#new should not cause N+1 queries with assignable_users'
   end
 
   # CRITICAL: Test issues#new respects hidden roles
@@ -283,6 +290,9 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
       new_status_id: IssueStatus.order(:id).last.id
     )
 
+    # Enough assignable users so a regression to per-user queries would be caught
+    create_assignable_users project, tracker, 30
+
     @request.session[:user_id] = users(:users_001).id
 
     # This should use optimized assignable_users
@@ -297,8 +307,11 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
       end
     end
 
-    # Should not cause N+1 queries
-    assert_operator queries_count, :<=, 110, 'Issues#edit should not cause N+1 queries'
+    # With the 30 assignable users created above the count is ~116 and stays
+    # constant regardless of user count, so a per-user N+1 regression would exceed
+    # this limit. Extra queries stem from Redmine Core and other plugins.
+    # Limit set to 123 (~7 headroom over baseline, well below the ~144 an N+1 would cause).
+    assert_operator queries_count, :<=, 123, 'Issues#edit should not cause N+1 queries'
   end
 
   # CRITICAL: Test bulk edit with optimized assignable_users
@@ -336,6 +349,9 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
 
     Member.create! project: project, principal: bulk_user, roles: [bulk_role]
 
+    # Enough assignable users so a regression to per-user queries would be caught
+    create_assignable_users project, tracker, 30
+
     @request.session[:user_id] = users(:users_001).id
 
     # Test bulk edit form
@@ -350,8 +366,11 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
       end
     end
 
-    # Should not cause N+1 queries even with multiple issues
-    assert_operator queries_count, :<=, 120, 'Bulk edit should not cause N+1 queries'
+    # With the 30 assignable users created above the count is ~120 and stays
+    # constant regardless of user count, so a per-user N+1 regression would exceed
+    # this limit. Extra queries stem from Redmine Core and other plugins.
+    # Limit set to 127 (~7 headroom over baseline, well below the ~148 an N+1 would cause).
+    assert_operator queries_count, :<=, 127, 'Bulk edit should not cause N+1 queries'
   end
 
   # CRITICAL: Test that tracker changes update assignable users correctly
@@ -399,5 +418,24 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
     # This verifies the system works, even if specific workflow might not be visible
     # The key is that it doesn't cause N+1 queries and respects the optimization
     assert_select 'form#issue-form'
+  end
+
+  private
+
+  # Creates +count+ assignable users (members with an assignable role that has a
+  # workflow transition for the tracker). This gives the N+1 guards enough data
+  # to be meaningful: with the optimization the query count stays constant, but a
+  # regression to per-user queries would add ~count queries and exceed the limit.
+  def create_assignable_users(project, tracker, count)
+    role = Role.create! name: 'Bulk Assignable Role', assignable: true,
+                        permissions: %i[view_issues add_issues edit_issues]
+    WorkflowTransition.create! tracker_id: tracker.id, role_id: role.id,
+                               old_status_id: IssueStatus.order(:id).first.id,
+                               new_status_id: IssueStatus.order(:id).last.id
+    count.times do |i|
+      user = User.create! login: "bulkassignable#{i}", firstname: 'Bulk', lastname: "User#{i}",
+                          mail: "bulkassignable#{i}@example.com", status: User::STATUS_ACTIVE
+      Member.create! project:, principal: user, roles: [role]
+    end
   end
 end

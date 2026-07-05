@@ -153,12 +153,9 @@ class IssueTest < Additionals::TestCase
     end
   end
 
-  # TODO: Remove when Redmine 6.x support is dropped (Redmine 7 has issue_assigned_to_me in core)
   def test_assigned_to_should_add_watcher
-    skip 'Redmine 7+ uses core issue_assigned_to_me' if Redmine::VERSION::BRANCH == 'devel'
-
     user = users :users_003
-    user.pref.auto_watch_on = ['issue_assigned']
+    user.pref.auto_watch_on = ['issue_assigned_to_me']
     user.pref.save
     issue = Issue.new author_id: user.id, project_id: 1, tracker_id: 1, assigned_to_id: user.id, subject: 'test_assigned_should_add_watcher'
 
@@ -167,10 +164,7 @@ class IssueTest < Additionals::TestCase
     end
   end
 
-  # TODO: Remove when Redmine 6.x support is dropped (Redmine 7 has issue_assigned_to_me in core)
   def test_assigned_to_with_group_should_not_add_watcher
-    skip 'Redmine 7+ uses core issue_assigned_to_me' if Redmine::VERSION::BRANCH == 'devel'
-
     group = Group.find 10
     Member.create! project_id: 1, principal: group, role_ids: [1]
 
@@ -186,16 +180,13 @@ class IssueTest < Additionals::TestCase
   # Regression for redmine_automation#15432: the auto-watch preference belongs
   # to the assignee, not to the author. Stephan reported that auto-watch did
   # not fire when he was assigned to a helpdesk ticket he had not created.
-  # TODO: Remove when Redmine 6.x support is dropped (Redmine 7 has issue_assigned_to_me in core)
   def test_assigned_to_should_add_watcher_when_assignee_has_pref_but_author_does_not
-    skip 'Redmine 7+ uses core issue_assigned_to_me' if Redmine::VERSION::BRANCH == 'devel'
-
     author = users :users_002
     author.pref.auto_watch_on = []
     author.pref.save!
 
     assignee = users :users_003
-    assignee.pref.auto_watch_on = ['issue_assigned']
+    assignee.pref.auto_watch_on = ['issue_assigned_to_me']
     assignee.pref.save!
 
     issue = Issue.new author_id: author.id, project_id: 1, tracker_id: 1, assigned_to_id: assignee.id,
@@ -210,12 +201,9 @@ class IssueTest < Additionals::TestCase
   # Regression for redmine_automation#15432: when only the author has the
   # auto-watch preference but the assignee does not, the assignee must NOT be
   # added as a watcher (the buggy implementation did exactly that).
-  # TODO: Remove when Redmine 6.x support is dropped (Redmine 7 has issue_assigned_to_me in core)
   def test_assigned_to_should_not_add_watcher_when_only_author_has_pref
-    skip 'Redmine 7+ uses core issue_assigned_to_me' if Redmine::VERSION::BRANCH == 'devel'
-
     author = users :users_002
-    author.pref.auto_watch_on = ['issue_assigned']
+    author.pref.auto_watch_on = ['issue_assigned_to_me']
     author.pref.save!
 
     assignee = users :users_003

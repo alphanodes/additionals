@@ -5,7 +5,7 @@
     = f.text_field :name, size: 255, required: true
 
   p
-    = f.text_area :description, rows: addtionals_textarea_cols(@dashboard.description, min: 4), class: 'wiki-edit'
+    = f.textarea :description, rows: addtionals_textarea_cols(@dashboard.description, min: 4), class: 'wiki-edit'
 
   .splitcontent
     .splitcontentleft

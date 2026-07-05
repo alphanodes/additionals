@@ -16,6 +16,7 @@ module.exports = require('./eslint.shared.cjs')({
     createTag: 'readonly',
     formatFontawesomeText: 'readonly',
     formatNameWithIcon: 'readonly',
+    initTopMenuDropdown: 'readonly',
     openExternalUrlsInTab: 'readonly',
     operatorByType: 'readonly',
     sanitizeHTML: 'readonly',

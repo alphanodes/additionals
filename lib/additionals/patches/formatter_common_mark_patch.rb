@@ -13,26 +13,10 @@ module Additionals
         def to_html(*_args)
           return super unless Additionals.setting?(:legacy_smiley_support) || Additionals.setting?(:emoji_support)
 
-          if Redmine::VERSION::BRANCH == 'devel'
-            # Redmine Master (7.0+) - Use Loofah Scrubbers
-            to_html_with_scrubbers
-          else
-            # Redmine 6.1 stable - Use HTML::Pipeline Filters
-            to_html_with_pipeline
-          end
+          to_html_with_scrubbers
         end
 
         private
-
-        def to_html_with_pipeline
-          filters = Redmine::WikiFormatting::CommonMark::MarkdownPipeline.filters.dup
-          filters << Additionals::WikiFormatting::CommonMark::SmileyFilter if Additionals.setting? :legacy_smiley_support
-          filters << Additionals::WikiFormatting::CommonMark::EmojiFilter if Additionals.setting? :emoji_support
-          pipeline = HTML::Pipeline.new filters, Redmine::WikiFormatting::CommonMark::PIPELINE_CONFIG
-
-          result = pipeline.call @text
-          result[:output].to_s
-        end
 
         def to_html_with_scrubbers
           # Convert markdown to HTML

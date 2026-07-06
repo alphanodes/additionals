@@ -156,7 +156,11 @@ svg.dashboard-system-default.global {
   text-decoration: none;
 }
 
-.sudo-admin { color: var(--a-color-alert); }
+/* Warning ring around the account avatar while redmine_sudo admin permission is
+   active. redmine_sudo adds the `sudo-active` class to #account. */
+#account.sudo-active .dropdown-trigger .avatar {
+  box-shadow: 0 0 0 2px var(--a-color-alert);
+}
 
 .nodata.nodata-left { text-align: left; }
 

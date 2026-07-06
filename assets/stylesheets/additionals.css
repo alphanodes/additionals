@@ -300,6 +300,7 @@ div.macro-desc {
 
 .top-menu .menu-children li a {
   display: flex;
+  gap: 0.4em; /* flex layout trims the whitespace between a leading icon and its label */
   color: var(--oc-blue-9);
   padding: 8px 16px;
   font-weight: normal;

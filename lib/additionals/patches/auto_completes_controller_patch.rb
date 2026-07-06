@@ -52,17 +52,10 @@ module Additionals
 
         def custom_field_users
           cf = CustomField.find_by id: params[:custom_field_id]
-          return render json: [] unless cf && @project
+          return render json: [] unless cf
 
-          scope = @project.users.visible
-          if cf.user_role.is_a? Array
-            role_ids = cf.user_role.map(&:to_s).compact_blank
-            role_ids.map!(&:to_i)
-            if role_ids.any?
-              scope = scope.where "#{Member.table_name}.id IN (SELECT DISTINCT member_id" \
-                                  " FROM #{MemberRole.table_name} WHERE role_id IN (?))", role_ids
-            end
-          end
+          scope = custom_field_users_scope cf
+          return render json: [] if scope.nil?
 
           render_grouped_users_with_select2 scope, search_term: @search_term
         end
@@ -92,6 +85,27 @@ module Additionals
         end
 
         private
+
+        # Mirrors the user scope of Additionals::Patches::UserFormatPatch#possible_values_records
+        # so the select2 AJAX suggestions match the plain <select> options:
+        #   '1' => all visible users (incl. locked), '4' => all active visible users,
+        #   else => project members (optionally narrowed by the configured roles).
+        # Returns nil when the project-based scopes are requested without a project.
+        def custom_field_users_scope(custom_field)
+          case custom_field.user_scope.to_s
+          when '1' then User.visible
+          when '4' then User.active.visible
+          else
+            return unless @project
+
+            scope = @project.users.visible
+            role_ids = custom_field.user_role.is_a?(Array) ? custom_field.user_role.map(&:to_s).compact_blank.map(&:to_i) : []
+            return scope if role_ids.empty?
+
+            scope.where "#{Member.table_name}.id IN (SELECT DISTINCT member_id" \
+                        " FROM #{MemberRole.table_name} WHERE role_id IN (?))", role_ids
+          end
+        end
 
         def find_search_term
           @search_term = build_search_query_term params

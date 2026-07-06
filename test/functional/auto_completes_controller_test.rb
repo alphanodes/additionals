@@ -441,4 +441,64 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
     assert_equal 'active', json.first['text']
     assert_equal 2, json.first['children'].count
   end
+
+  def test_custom_field_users_scope_all_includes_active_non_project_user
+    @request.session[:user_id] = 1
+    outsider = User.generate! firstname: 'Xavier', lastname: 'Scopeoutsider'
+    cf = IssueCustomField.create! name: 'Scope All CF', field_format: 'user', is_for_all: true, user_scope: '1'
+
+    get :custom_field_users,
+        params: { project_id: 1, custom_field_id: cf.id, q: 'Scopeoutsider' },
+        xhr: true
+
+    assert_response :success
+    assert_includes custom_field_users_ids(response.body), outsider.id
+  end
+
+  def test_custom_field_users_scope_all_includes_locked_user
+    @request.session[:user_id] = 1
+    locked = User.generate! firstname: 'Laura', lastname: 'Scopelocked', status: User::STATUS_LOCKED
+    cf = IssueCustomField.create! name: 'Scope All Locked CF', field_format: 'user', is_for_all: true, user_scope: '1'
+
+    get :custom_field_users,
+        params: { project_id: 1, custom_field_id: cf.id, q: 'Scopelocked' },
+        xhr: true
+
+    assert_response :success
+    assert_includes custom_field_users_ids(response.body), locked.id
+  end
+
+  def test_custom_field_users_scope_active_includes_non_project_user
+    @request.session[:user_id] = 1
+    outsider = User.generate! firstname: 'Yara', lastname: 'Activeoutsider'
+    cf = IssueCustomField.create! name: 'Scope Active CF', field_format: 'user', is_for_all: true, user_scope: '4'
+
+    get :custom_field_users,
+        params: { project_id: 1, custom_field_id: cf.id, q: 'Activeoutsider' },
+        xhr: true
+
+    assert_response :success
+    assert_includes custom_field_users_ids(response.body), outsider.id
+  end
+
+  def test_custom_field_users_scope_active_excludes_locked_user
+    @request.session[:user_id] = 1
+    locked = User.generate! firstname: 'Nora', lastname: 'Activelocked', status: User::STATUS_LOCKED
+    cf = IssueCustomField.create! name: 'Scope Active Locked CF', field_format: 'user', is_for_all: true, user_scope: '4'
+
+    get :custom_field_users,
+        params: { project_id: 1, custom_field_id: cf.id, q: 'Activelocked' },
+        xhr: true
+
+    assert_response :success
+    assert_not_includes custom_field_users_ids(response.body), locked.id
+  end
+
+  private
+
+  # Flattens the grouped select2 JSON payload into a plain list of user ids.
+  def custom_field_users_ids(body)
+    json = ActiveSupport::JSON.decode body
+    json.flat_map { |group| group['children'] || [group] }.filter_map { |entry| entry['id']&.to_i }
+  end
 end

@@ -332,7 +332,9 @@ module Additionals
           next false if override.args[:original].blank?
 
           partial = override.args[:partial].to_s
+          # rubocop:disable Style/ArrayIntersect -- partial is a String; include? is substring match, not Array intersection
           patterns.any? { |pattern| partial.include? pattern }
+          # rubocop:enable Style/ArrayIntersect
         end
 
         next if relevant_overrides.empty?

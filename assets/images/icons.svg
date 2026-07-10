@@ -7,6 +7,14 @@
       <path d="M19 16v6"/>
       <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"/>
     </symbol>
+    <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--address-book">
+      <path d="M20 6v12a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2"/>
+      <path d="M10 16h6"/>
+      <path d="M11 11a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+      <path d="M4 8h3"/>
+      <path d="M4 12h3"/>
+      <path d="M4 16h3"/>
+    </symbol>
     <symbol viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="icon--ai">
       <path d="M5 7l5 5l-5 5"/>
       <path d="M13 17l6 0"/>

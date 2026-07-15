@@ -5,10 +5,12 @@ require File.expand_path '../../test_helper', __FILE__
 class RoutingTest < Redmine::RoutingTest
   def test_issue_assign_to_me
     should_route 'PUT /issues/1/assign_to_me' => 'additionals_assign_to_me#update', issue_id: '1'
+    should_route 'PATCH /issues/1/assign_to_me' => 'additionals_assign_to_me#update', issue_id: '1'
   end
 
   def test_issue_change_status
     should_route 'PUT /issues/1/change_status' => 'additionals_change_status#update', issue_id: '1'
+    should_route 'PATCH /issues/1/change_status' => 'additionals_change_status#update', issue_id: '1'
   end
 
   def test_help_macro
@@ -35,7 +37,12 @@ class RoutingTest < Redmine::RoutingTest
 
     should_route 'GET /dashboards/1.xml' => 'dashboards#show', id: '1', format: 'xml'
     should_route 'GET /dashboards/1.json' => 'dashboards#show', id: '1', format: 'json'
+    should_route 'GET /dashboards/new' => 'dashboards#new'
     should_route 'GET /dashboards/1/edit' => 'dashboards#edit', id: '1'
+    should_route 'POST /dashboards' => 'dashboards#create'
+    should_route 'PATCH /dashboards/1' => 'dashboards#update', id: '1'
+    should_route 'PUT /dashboards/1' => 'dashboards#update', id: '1'
+    should_route 'DELETE /dashboards/1' => 'dashboards#destroy', id: '1'
 
     should_route 'POST /dashboards/1/update_layout_setting' => 'dashboards#update_layout_setting', id: '1'
     should_route 'POST /dashboards/1/add_block' => 'dashboards#add_block', id: '1'

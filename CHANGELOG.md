@@ -6,7 +6,7 @@
 - CommonMark and Textile formatting now use Redmine 7's native Loofah scrubbers; the HTML::Pipeline-based smiley and emoji filters (which Redmine 7 no longer ships) have been removed
 - Restyle the top-menu submenu dropdowns to match Redmine 7 core (open-color variables): on touch devices a submenu opens on tap, and menus taller than the viewport now scroll instead of being cut off
 - Assignee auto-watch on issue creation now uses Redmine core's `issue_assigned_to_me` preference; core already handles assignment changes on existing issues, so additionals only fills the create-time gap
-- d3plus updated to 4.2.0
+- d3plus updated to 4.3.0
 
 ## 4.5.0
 

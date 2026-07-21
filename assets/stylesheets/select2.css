@@ -12,7 +12,7 @@
   box-sizing: border-box;
   cursor: pointer;
   display: block;
-  height: 24px;
+  min-height: var(--a-control-height);
   user-select: none;
   -webkit-user-select: none;
 }
@@ -39,7 +39,7 @@
   box-sizing: border-box;
   cursor: pointer;
   display: block;
-  min-height: 24px;
+  min-height: var(--a-control-height);
   user-select: none;
   -webkit-user-select: none;
 }
@@ -61,7 +61,8 @@
   box-sizing: border-box;
   border: none;
   font-size: 100%;
-  margin-top: 2px;
+  line-height: var(--a-control-line-height);
+  margin: 0;
   padding: 0;
 }
 
@@ -168,17 +169,19 @@
 .select2-container--default .select2-selection--single {
   background-color: var(--a-color-white);
   background-image: none !important;
-  border: 1px solid var(--a-color-input-border);
-  border-radius: 2px;
-  height: 24px;
+  border: var(--a-control-border-width) solid var(--a-color-input-border);
+  border-radius: 3px;
+  min-height: var(--a-control-height);
 }
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
   font-family: var(--fonts-main);
   font-size: var(--a-font-size-md);
+
+  /* same box model as a native select: content line + core padding */
+  line-height: var(--a-control-line-height);
+  padding-block: var(--a-control-padding-block);
   padding-left: 8px !important;
-  line-height: 22px;
-  height: 22px;
   position: relative;
 }
 
@@ -194,7 +197,7 @@
 }
 
 .select2-container--default .select2-selection--single .select2-selection__arrow {
-  height: 20px;
+  height: 100%;
   position: absolute;
   top: 0;
   right: 1px;
@@ -239,10 +242,10 @@
 
 .select2-container--default .select2-selection--multiple {
   background-color: var(--a-color-white);
-  border: 1px solid var(--a-color-input-border);
-  border-radius: 2px;
+  border: var(--a-control-border-width) solid var(--a-color-input-border);
+  border-radius: 3px;
   cursor: text;
-  min-height: 20px;
+  min-height: var(--a-control-height);
 
   /* anchor for the absolutely positioned "remove all" clear button */
   position: relative;
@@ -252,15 +255,35 @@
 .select2-container--default .select2-selection--multiple .select2-selection__rendered {
   box-sizing: border-box;
   list-style: none;
-  margin: -3px 0 -4px;
+  margin: 0;
 
-  /* reserve space on the right so choices never run under the clear button */
-  padding: 2px 22px 2px 2px;
+  /* reset the list line-height inherited from core, otherwise the empty
+     inline search item alone is taller than a native control */
+  line-height: var(--a-control-line-height);
+
+  /* core control padding, plus room on the right so choices never run under
+     the clear button */
+  padding-block: var(--a-control-padding-block);
+  padding-inline: 2px 22px;
   width: 100%;
+
+  /* flex instead of floats: choices and the inline search field stay
+     vertically centered on one row and wrap with an even gap on multiple
+     rows -- the old float layout needed negative margins to fit the 20px
+     core control height of Redmine 6.1 and overflowed its border since 7.0 */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 3px;
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
   list-style: none;
+
+  /* flex avoids the inline strut: an inline-level input or remove-icon inside
+     the item would otherwise make the line box taller than its line-height */
+  display: flex;
+  align-items: center;
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__clear {
@@ -268,12 +291,12 @@
   font-weight: bold;
   padding: 1px;
 
-  /* pin to the top-right instead of floating: a floated clear button is the
+  /* pin to the right instead of floating: a floated clear button is the
      first child in the DOM and claims the whole first line when the choices
      are long, showing up as a stray empty choice (#15425) */
   position: absolute;
-  right: 6px;
-  top: 4px;
+  inset-inline-end: 6px;
+  top: var(--a-control-padding-block);
 }
 
 #sidebar .select2-container--default .select2-selection--multiple .select2-selection__choice,
@@ -281,9 +304,7 @@
   background-color: var(--a-color-bg-light);
   border-radius: 2px;
   cursor: default;
-  float: left;
-  margin-right: 3px;
-  margin-top: 3px;
+  line-height: var(--a-control-line-height);
 
   /* truncate long entries instead of overflowing the field; full value stays
      available via the title tooltip select2 sets on the choice */
@@ -306,15 +327,9 @@
   color: var(--a-color-dark);
 }
 
-.select2-container--default[dir='rtl'] .select2-selection--multiple .select2-selection__choice,
-.select2-container--default[dir='rtl'] .select2-selection--multiple .select2-search--inline {
-  float: right;
-}
-
-.select2-container--default[dir='rtl'] .select2-selection--multiple .select2-selection__choice {
-  margin-left: 5px;
-  margin-right: auto;
-}
+/* no RTL override needed for the choice list: the flex layout that replaced
+   the original floats already flows with `direction`, and the reserved space
+   for the clear button uses logical properties on both sides */
 
 .select2-container--default[dir='rtl'] .select2-selection--multiple .select2-selection__choice__remove {
   margin-left: 2px;
@@ -431,5 +446,8 @@
 
 .filter .select2-container--default .select2-selection--multiple .select2-selection__choice {
   border: 0;
-  padding: 2px 5px;
+
+  /* no vertical padding: the choice has to stay as high as its line box so a
+     single-row filter field matches the native select next to it */
+  padding: 0 5px;
 }

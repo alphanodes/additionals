@@ -82,6 +82,21 @@
   /* Emoji inline size — uses em to scale with surrounding text */
   --a-font-size-emoji: 1.2em;
 
+  /* Form control geometry — mirrors Redmine Core (application.css):
+   * input, select, button { padding-block: 4px } + 1px border.
+   * Use these so custom controls (select2, ...) line up with native ones
+   * instead of hardcoding a pixel height that breaks on the next core change. */
+  --a-control-padding-block: 4px;
+  --a-control-border-width: 1px;
+
+  /* Matches the rendered line box of a native select (font-size: 0.8125rem,
+   * line-height: normal) — keeps custom controls at the same 25px as core. */
+  --a-control-line-height: 15px;
+  --a-control-height:
+    calc(
+      var(--a-control-line-height) + var(--a-control-padding-block) * 2 + var(--a-control-border-width) * 2
+    );
+
   /* Sticky header scroll margins (for anchor links to not hide behind sticky header) */
   --sticky-header-scroll-margin: 50px;
   --sticky-header-scroll-margin-mobile: 114px;

@@ -63,4 +63,47 @@ class GlobalHelperTest < Additionals::HelperTest
     assert_match(/<input[^>]*type="hidden"[^>]*name="foo\[\]"/, html)
     assert_no_match(/name="foo\[\]\[\]"/, html)
   end
+
+  def test_render_label_sum_keeps_html_safe_label_intact
+    result = render_label_sum '<a href="/x">file</a>'.html_safe, '1 KB'
+
+    assert_predicate result, :html_safe?
+    assert_includes result, '<a href="/x">file</a>'
+  end
+
+  def test_entity_mail_attachments_returns_all_without_journal
+    issue = issues :issues_001
+    attachment = Attachment.create! container: issue,
+                                    file: uploaded_test_file('testfile.txt', 'text/plain'),
+                                    author: users(:users_001)
+
+    assert_includes entity_mail_attachments(issue.reload, nil), attachment
+  end
+
+  def test_entity_mail_attachments_returns_only_journal_added
+    issue = issues :issues_001
+    added = Attachment.create! container: issue,
+                               file: uploaded_test_file('testfile.txt', 'text/plain'),
+                               author: users(:users_001)
+    other = Attachment.create! container: issue,
+                               file: uploaded_test_file('testfile.txt', 'text/plain'),
+                               author: users(:users_001)
+    journal = Journal.create! journalized: issue, user: users(:users_001)
+    journal.details.create! property: 'attachment', prop_key: added.id.to_s, value: added.filename
+
+    result = entity_mail_attachments issue.reload, journal
+
+    assert_includes result, added
+    assert_not_includes result, other
+  end
+
+  def test_entity_mail_attachments_empty_when_journal_has_no_attachment_detail
+    issue = issues :issues_001
+    Attachment.create! container: issue,
+                       file: uploaded_test_file('testfile.txt', 'text/plain'),
+                       author: users(:users_001)
+    journal = Journal.create! journalized: issue, user: users(:users_001), notes: 'note only'
+
+    assert_empty entity_mail_attachments(issue.reload, journal)
+  end
 end

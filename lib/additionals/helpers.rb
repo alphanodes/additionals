@@ -290,7 +290,25 @@ module Additionals
 
     def render_label_sum(label, sum)
       name = label.is_a?(Symbol) ? l(label) : label
-      "#{name} (#{sum})"
+      # safe_join keeps an html_safe label (e.g. link_to_attachment) intact;
+      # a plain string interpolation would drop the html_safe flag and get
+      # escaped by the caller (e.g. the entity mailer's attachment list).
+      safe_join [name, " (#{sum})"]
+    end
+
+    # Attachments to list in an entity notification. On creation (no journal)
+    # every attachment is new, so list them all. On update, list only the ones
+    # added in this journal - so the notification shows what this change added,
+    # not the entity's whole attachment history.
+    def entity_mail_attachments(entity, journal)
+      return entity.attachments if journal.nil?
+
+      added_ids = journal.details.filter_map do |detail|
+        detail.prop_key.to_i if detail.property == 'attachment' && detail.value.present?
+      end
+      return [] if added_ids.empty?
+
+      entity.attachments.select { |attachment| added_ids.include? attachment.id }
     end
 
     def labeled_line(label, value: nil, line_class: nil, label_class: nil, value_class: nil, icon: nil)

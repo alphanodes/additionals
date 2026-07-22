@@ -18,11 +18,11 @@
   <% sep_required = true %>
 }
 <% end %>
-<% @users.each do |group, users| %>
+<% @grouped_user_sections.each do |label, users| %>
 <% next if users.blank? %>
 <%= ',' if sep_required %>
 {
-  "text": "<%= group == :groups ? l(:label_group_plural) : l("status_#{group}")  %>",
+  "text": "<%= label %>",
   "children": <%= raw users.map { |user| {
                         'id' => user[:id],
                         'text' => user[:name],

@@ -35,13 +35,14 @@ module Additionals
             render_params[:involved_principals] = issue_involved_principals(issue) if issue
           end
 
-          render_grouped_users_with_select2(scope, use_assignment_frequency: true, **render_params)
+          render_grouped_users_with_select2(scope, use_assignment_frequency: true, apply_assignee_format: true, **render_params)
         end
 
         def assignee
           scope = @project ? @project.assignable_principals.visible : Principal.assignable
 
-          render_grouped_users_with_select2 scope, search_term: @search_term, use_assignment_frequency: true
+          render_grouped_users_with_select2 scope, search_term: @search_term, use_assignment_frequency: true,
+                                                   apply_assignee_format: true
         end
 
         def authors
@@ -78,7 +79,10 @@ module Additionals
           scope = @project ? @project.assignable_principals.visible : Principal.assignable
 
           render_params = { search_term: @search_term,
-                            with_me: RedminePluginKit.true?(params[:with_me]) }
+                            with_me: RedminePluginKit.true?(params[:with_me]),
+                            # Assignee ordering only when the caller flags an assignee context
+                            # (e.g. entity assigned_to selects); watcher/plain principal picks omit it.
+                            apply_assignee_format: RedminePluginKit.true?(params[:assignee_format]) }
           render_params[:me_value] = params[:me_value] if params.key? :me_value
 
           render_grouped_users_with_select2(scope, **render_params)

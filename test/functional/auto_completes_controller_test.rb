@@ -117,6 +117,66 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
     assert_equal 2, json.third['children'].count
   end
 
+  def test_assignee_with_groups_then_users_format
+    with_settings assignee_dropdown_display_format: 'groups_then_users' do
+      get :assignee, xhr: true
+
+      assert_response :success
+      json = ActiveSupport::JSON.decode response.body
+
+      assert_equal 'me', json.first['id']
+      assert_equal 'Groups', json.second['text']
+      assert_equal 2, json.second['children'].count
+      assert_equal 'active', json.third['text']
+      assert_equal 7, json.third['children'].count
+    end
+  end
+
+  def test_assignee_with_users_by_group_format
+    with_settings assignee_dropdown_display_format: 'users_by_group' do
+      get :assignee, xhr: true
+
+      assert_response :success
+      json = ActiveSupport::JSON.decode response.body
+
+      assert_equal 'me', json.first['id']
+      assert_equal 'Groups', json.second['text']
+
+      a_team = json.detect { |g| g.is_a?(Hash) && g['text'] == Group.find(10).name }
+
+      assert_not_nil a_team, 'Expected a per-group section listing the group members'
+      assert_equal [8], a_team['children'].pluck('id')
+    end
+  end
+
+  def test_grouped_principals_ignores_assignee_format_without_flag
+    with_settings assignee_dropdown_display_format: 'groups_then_users' do
+      get :grouped_principals, xhr: true
+
+      assert_response :success
+      json = ActiveSupport::JSON.decode response.body
+
+      # Without the assignee_format flag the legacy order is kept (active before Groups),
+      # even though the setting requests groups first.
+      assert_equal 'active', json.first['text']
+      assert_equal 'Groups', json.second['text']
+    end
+  end
+
+  def test_grouped_principals_applies_assignee_format_with_flag
+    with_settings assignee_dropdown_display_format: 'groups_then_users' do
+      get :grouped_principals,
+          params: { assignee_format: true },
+          xhr: true
+
+      assert_response :success
+      json = ActiveSupport::JSON.decode response.body
+
+      assert_equal 'Groups', json.first['text']
+      assert_equal 'active', json.second['text']
+    end
+  end
+
   def test_grouped_principals
     get :grouped_principals, xhr: true
 

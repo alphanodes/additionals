@@ -82,10 +82,6 @@
 
 h2 = project_overview_name @project, @dashboard
 
-/ Redmine core renders the "project closed" warning globally in layouts/base.html.erb
-/ since https://www.redmine.org/issues/43818, so it must not be repeated here
-/ (would show twice on the overview).
-
 = render 'common/dashboard', dashboard: @dashboard
 
 javascript:

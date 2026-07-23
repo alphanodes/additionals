@@ -19,7 +19,12 @@ module Additionals
 
       class_methods do
         def admin_column_field
-          AdditionalsPlugin.active_sudo? ? 'sudoer' : 'admin'
+          # Fall back to 'admin' while the sudoer column does not exist yet, e.g. during
+          # the initial plugin migration boot when redmine_sudo is installed alongside
+          # other plugins whose migrations run before redmine_sudo adds the column.
+          return 'admin' unless AdditionalsPlugin.active_sudo? && column_names.include?('sudoer')
+
+          'sudoer'
         end
 
         # NOTE: this is a better (performance related) solution as:

@@ -82,11 +82,9 @@
 
 h2 = project_overview_name @project, @dashboard
 
-- unless @project.active?
-  p.warning
-    =
-    span.icon.icon-lock
-      = sprite_icon 'lock', l(:text_project_closed)
+/ Redmine core renders the "project closed" warning globally in layouts/base.html.erb
+/ since https://www.redmine.org/issues/43818, so it must not be repeated here
+/ (would show twice on the overview).
 
 = render 'common/dashboard', dashboard: @dashboard
 

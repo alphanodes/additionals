@@ -51,6 +51,18 @@ class ProjectsControllerTest < Additionals::ControllerTest
     assert_select 'div.test', text: 'Example text'
   end
 
+  def test_show_closed_project_shows_warning_only_once
+    project = projects :projects_001
+    project.close
+    @request.session[:user_id] = 1
+
+    get :show,
+        params: { id: project.id }
+
+    assert_response :success
+    assert_select 'p.warning span.icon-lock', 1
+  end
+
   def test_show_with_invalid_dashboard
     get :show,
         params: { id: 1,

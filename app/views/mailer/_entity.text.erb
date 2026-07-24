@@ -7,8 +7,8 @@
 ----------------------------------------
 <%= entity.send content_field %>
 
-<% attachments = entity_mail_attachments entity, @journal -%>
-<% if with_attachments && attachments.any? -%>
+<% attachments = with_attachments ? entity_mail_attachments(entity, @journal) : [] -%>
+<% if attachments.any? -%>
 ---<%= l(:label_attachment_plural).ljust(37, '-') %>
 <% attachments.each do |attachment| -%>
 <%= attachment.filename %> (<%= number_to_human_size attachment.filesize %>)

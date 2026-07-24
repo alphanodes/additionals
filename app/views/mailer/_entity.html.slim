@@ -6,8 +6,8 @@ h1 = link_to h(title), entity_url
 
 = textilizable entity, content_field, only_path: false
 
-- attachments = entity_mail_attachments entity, @journal
-- if with_attachments && attachments.any?
+- attachments = with_attachments ? entity_mail_attachments(entity, @journal) : []
+- if attachments.any?
   fieldset.attachments
     legend = l :label_attachment_plural
     - attachments.each do |attachment|

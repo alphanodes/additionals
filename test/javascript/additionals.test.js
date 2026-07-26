@@ -64,18 +64,27 @@ describe('additionals.js', () => {
     });
   });
 
-  describe('formatFontawesomeText', () => {
-    it('returns span with icon when id is present', () => {
-      const result = formatFontawesomeText({ id: 'fas_home', text: 'Home' });
+  describe('formatIconOption', () => {
+    it('returns span with an svg icon when id and data-href are present', () => {
+      const element = document.createElement('option');
+      element.dataset.href = '/assets/additionals/icons.svg#icon--home';
+      const result = formatIconOption({ id: 'home', text: 'Home', element });
 
       expect(result.tagName).toBe('SPAN');
-      expect(result.innerHTML).toContain('fas');
-      expect(result.innerHTML).toContain('fa-home');
+      expect(result.innerHTML).toContain('icon--home');
       expect(result.innerHTML).toContain('Home');
     });
 
+    it('returns span with only text when data-href is missing', () => {
+      const element = document.createElement('option');
+      const result = formatIconOption({ id: 'home', text: 'Home', element });
+
+      expect(result.tagName).toBe('SPAN');
+      expect(result.innerHTML).toBe('Home');
+    });
+
     it('returns text when id is undefined', () => {
-      const result = formatFontawesomeText({ text: 'No icon' });
+      const result = formatIconOption({ text: 'No icon' });
 
       expect(result).toBe('No icon');
     });

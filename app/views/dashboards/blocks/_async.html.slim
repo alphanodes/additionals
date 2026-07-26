@@ -25,7 +25,7 @@
                        **render_async_options(settings, async)) do
     .clear-both
     p
-      i.fas.fa-sync.fa-spin
+      = svg_icon_tag 'refresh', css_class: 'additionals-spin'
       '
       = l :label_loading
 

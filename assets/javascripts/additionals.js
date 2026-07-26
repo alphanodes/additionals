@@ -18,15 +18,28 @@ function formatNameWithIcon(opt) {
   return span;
 }
 
-/* exported formatFontawesomeText */
-function formatFontawesomeText(icon) {
-  if (icon.id === undefined) {
+/* Render a select2 option for the Tabler icon picker: SVG sprite icon + name.
+   The full sprite href is provided per option via data-href. */
+/* exported formatIconOption */
+function formatIconOption(icon) {
+  if (icon.id === undefined || icon.id === '') {
     return icon.text;
   }
 
-  const fa = icon.id.split('_');
+  const href = icon.element && icon.element.dataset ? icon.element.dataset.href : null;
   const span = document.createElement('span');
-  span.innerHTML = `<i class="${fa[0]} fa-${fa[1]}"></i> ${icon.text}`;
+  if (href) {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('class', 's18 icon-svg');
+    svg.setAttribute('aria-hidden', 'true');
+    const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+    use.setAttribute('href', href);
+    svg.appendChild(use);
+    span.appendChild(svg);
+    span.appendChild(document.createTextNode(` ${icon.text}`));
+  } else {
+    span.textContent = icon.text;
+  }
   return span;
 }
 

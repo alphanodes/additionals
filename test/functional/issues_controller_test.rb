@@ -122,6 +122,23 @@ class IssuesControllerTest < Additionals::ControllerTest
     end
   end
 
+  test 'use open and closed status icons in issue sidebar' do
+    with_plugin_settings 'additionals', issue_change_status_in_sidebar: 1,
+                                        issue_timelog_required: 0,
+                                        issue_timelog_required_tracker: [1],
+                                        issue_timelog_required_status: [5] do
+      @request.session[:user_id] = 2
+      issue = Issue.generate! tracker_id: 1, status_id: 1
+      get :show,
+          params: { id: issue.id }
+
+      assert_response :success
+      # open target status -> empty circle, closed target status -> check circle
+      assert_select 'ul.issue-status-change-sidebar a.status-switch.status-4 svg use[href$=?]', 'icon--circle'
+      assert_select 'ul.issue-status-change-sidebar a.status-switch.status-5 svg use[href$=?]', 'icon--circle-check'
+    end
+  end
+
   test 'show forbidden status in issue sidebar with permission issue_timelog_never_required' do
     manager_role = roles :roles_002
     manager_role.add_permission! :issue_timelog_never_required

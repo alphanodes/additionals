@@ -37,9 +37,9 @@ module AdditionalsMenuHelper
     menu_options[:if] = onlyif if onlyif.present?
 
     menu_options[:caption] = if symbol.present? && name.present?
-                               font_awesome_icon symbol, post_text: name
+                               additionals_icon symbol, post_text: name
                              elsif symbol.present?
-                               font_awesome_icon symbol
+                               additionals_icon symbol
                              elsif name.present?
                                name.to_s
                              end

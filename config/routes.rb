@@ -41,7 +41,6 @@ Rails.application.routes.draw do
 
   resources :auto_completes, only: [] do
     collection do
-      get :fontawesome
       get :issue_assignee
       get :assignee
       get :authors

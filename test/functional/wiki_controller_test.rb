@@ -423,16 +423,43 @@ class WikiControllerTest < Additionals::ControllerTest
     assert_select 'div.wiki div.additionals-projects tr.project'
   end
 
-  def test_show_with_fa_macro
+  def test_show_with_tabler_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    page = WikiPage.generate! content: '{{fa(adjust)}}',
+    page = WikiPage.generate! content: '{{tabler(car)}}',
                               title: __method__.to_s
 
     get :show,
         params: { project_id: 1, id: page.title }
 
     assert_response :success
-    assert_select 'i.fas.fa-adjust'
+    assert_select 'svg.icon-svg.additionals-macro-icon use[href*=?]', 'icon--car'
+  end
+
+  def test_show_with_fa_macro
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{fa(fas_car)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select 'svg.icon-svg.additionals-macro-icon use[href*=?]', 'icon--car'
+  end
+
+  def test_show_with_fa_macro_options
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{fa(car, color=#ff0000, text=Drive, link=https://www.redmine.org)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select 'a[href=?][style*=?]', 'https://www.redmine.org', 'color: #ff0000' do
+      assert_select 'svg.icon-svg.additionals-macro-icon use[href*=?]', 'icon--car'
+      assert_select 'a', text: /Drive/
+    end
   end
 
   def test_show_with_redmine_issue_macro

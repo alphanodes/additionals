@@ -5,7 +5,6 @@ require File.expand_path '../../../test_helper', __FILE__
 class GlobalHelperTest < Additionals::HelperTest
   include Additionals::Helpers
   include RedminePluginKit::Helpers::GlobalHelper
-  include AdditionalsFontawesomeHelper
   include AdditionalsMenuHelper
   include CustomFieldsHelper
   include AvatarsHelper
@@ -16,24 +15,6 @@ class GlobalHelperTest < Additionals::HelperTest
     html = user_with_avatar users(:users_001)
 
     assert_include 'Redmine Admin', html
-  end
-
-  def test_font_awesome_icon
-    html = font_awesome_icon 'fas_cloud-upload-alt', class: 'test'
-
-    assert_include 'class="fas fa-cloud-upload-alt test"', html
-
-    html = font_awesome_icon 'fab_xing', class: 'test'
-
-    assert_include 'class="fab fa-xing test"', html
-
-    html = font_awesome_icon 'fas_cloud-upload-alt', pre_text: 'Testing'
-
-    assert_include 'Testing <span', html
-
-    html = font_awesome_icon 'fas_cloud-upload-alt', post_text: 'Testing'
-
-    assert_include '</span> Testing', html
   end
 
   def test_link_to_url

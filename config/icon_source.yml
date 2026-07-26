@@ -12,49 +12,472 @@
 # Excluded from this file:
 #   - Icons that also exist in Redmine core 6.1 (callers use plugin: "")
 #   - Custom icons without Tabler equivalent (in icons_custom.svg)
-
+- name: accessible
+  svg: accessible
+- name: ad
+  svg: ad
 - name: additionals
   svg: settings-plus
 - name: address-book
   svg: address-book
 - name: ai
   svg: prompt
+- name: alert-triangle
+  svg: alert-triangle
+- name: align-center
+  svg: align-center
+- name: align-left
+  svg: align-left
+- name: align-right
+  svg: align-right
+- name: ambulance
+  svg: ambulance
+- name: anchor
+  svg: anchor
+- name: ankh
+  svg: ankh
+- name: antenna-bars-5
+  svg: antenna-bars-5
+- name: apple
+  svg: apple
 - name: archive
   svg: archive
 - name: archive-off
   svg: archive-off
+- name: arrow-down
+  svg: arrow-down
+- name: arrow-left
+  svg: arrow-left
+- name: arrow-right
+  svg: arrow-right
+- name: arrow-up
+  svg: arrow-up
 - name: assign
   svg: arrow-right-dashed
+- name: asterisk
+  svg: asterisk
 - name: at
   svg: at
+- name: atom
+  svg: atom
 - name: attendance
   svg: exclamation-circle
+- name: award
+  svg: award
+- name: baby-carriage
+  svg: baby-carriage
+- name: backspace
+  svg: backspace
+- name: badge-cc
+  svg: badge-cc
+- name: ball-baseball
+  svg: ball-baseball
+- name: ball-basketball
+  svg: ball-basketball
+- name: ball-bowling
+  svg: ball-bowling
+- name: ball-football
+  svg: ball-football
+- name: ball-volleyball
+  svg: ball-volleyball
+- name: ban
+  svg: ban
+- name: barcode
+  svg: barcode
 - name: bath
   svg: bath
+- name: battery-automotive
+  svg: battery-automotive
+- name: bed
+  svg: bed
+- name: beer
+  svg: beer
+- name: bell
+  svg: bell
+- name: bible
+  svg: bible
+- name: bike
+  svg: bike
+- name: binoculars
+  svg: binoculars
+- name: biohazard
+  svg: biohazard
+- name: blender
+  svg: blender
+- name: blind
+  svg: blind
+- name: bluetooth
+  svg: bluetooth
+- name: bold
+  svg: bold
+- name: bolt
+  svg: bolt
+- name: bomb
+  svg: bomb
+- name: bone
+  svg: bone
+- name: bong
+  svg: bong
+- name: book
+  svg: book
+- name: bookmark
+  svg: bookmark
+- name: border-all
+  svg: border-all
+- name: border-none
+  svg: border-none
+- name: border-style
+  svg: border-style
+- name: box
+  svg: box
+- name: braille
+  svg: braille
+- name: brain
+  svg: brain
+- name: brand-airbnb
+  svg: brand-airbnb
+- name: brand-algolia
+  svg: brand-algolia
+- name: brand-alipay
+  svg: brand-alipay
+- name: brand-amazon
+  svg: brand-amazon
+- name: brand-android
+  svg: brand-android
+- name: brand-angular
+  svg: brand-angular
+- name: brand-audible
+  svg: brand-audible
+- name: brand-aws
+  svg: brand-aws
+- name: brand-bandcamp
+  svg: brand-bandcamp
+- name: brand-behance
+  svg: brand-behance
+- name: brand-bitbucket
+  svg: brand-bitbucket
+- name: brand-blackberry
+  svg: brand-blackberry
+- name: brand-blogger
+  svg: brand-blogger
+- name: brand-bootstrap
+  svg: brand-bootstrap
+- name: brand-chrome
+  svg: brand-chrome
+- name: brand-cloudflare
+  svg: brand-cloudflare
+- name: brand-codepen
+  svg: brand-codepen
+- name: brand-css3
+  svg: brand-css3
+- name: brand-deezer
+  svg: brand-deezer
+- name: brand-deviantart
+  svg: brand-deviantart
+- name: brand-digg
+  svg: brand-digg
+- name: brand-discord
+  svg: brand-discord
+- name: brand-docker
+  svg: brand-docker
+- name: brand-dribbble
+  svg: brand-dribbble
+- name: brand-dropbox
+  svg: brand-dropbox
+- name: brand-drupal
+  svg: brand-drupal
+- name: brand-edge
+  svg: brand-edge
+- name: brand-ember
+  svg: brand-ember
+- name: brand-etsy
+  svg: brand-etsy
+- name: brand-evernote
+  svg: brand-evernote
+- name: brand-facebook
+  svg: brand-facebook
+- name: brand-figma
+  svg: brand-figma
+- name: brand-firefox
+  svg: brand-firefox
+- name: brand-flickr
+  svg: brand-flickr
+- name: brand-flipboard
+  svg: brand-flipboard
+- name: brand-foursquare
+  svg: brand-foursquare
+- name: brand-git
+  svg: brand-git
+- name: brand-github
+  svg: brand-github
+- name: brand-gitlab
+  svg: brand-gitlab
+- name: brand-google
+  svg: brand-google
+- name: brand-google-drive
+  svg: brand-google-drive
+- name: brand-google-play
+  svg: brand-google-play
+- name: brand-hackerrank
+  svg: brand-hackerrank
+- name: brand-html5
+  svg: brand-html5
+- name: brand-instagram
+  svg: brand-instagram
+- name: brand-intercom
+  svg: brand-intercom
+- name: brand-jira
+  svg: brand-jira
+- name: brand-kickstarter
+  svg: brand-kickstarter
+- name: brand-laravel
+  svg: brand-laravel
+- name: brand-lastfm
+  svg: brand-lastfm
+- name: brand-linkedin
+  svg: brand-linkedin
+- name: brand-mastodon
+  svg: brand-mastodon
+- name: brand-medium
+  svg: brand-medium
+- name: brand-meetup
+  svg: brand-meetup
+- name: brand-npm
+  svg: brand-npm
+- name: brand-opera
+  svg: brand-opera
+- name: brand-patreon
+  svg: brand-patreon
+- name: brand-paypal
+  svg: brand-paypal
+- name: brand-php
+  svg: brand-php
+- name: brand-pinterest
+  svg: brand-pinterest
+- name: brand-producthunt
+  svg: brand-producthunt
+- name: brand-python
+  svg: brand-python
+- name: brand-qq
+  svg: brand-qq
+- name: brand-react
+  svg: brand-react
+- name: brand-reddit
+  svg: brand-reddit
+- name: brand-redhat
+  svg: brand-redhat
+- name: brand-rust
+  svg: brand-rust
+- name: brand-safari
+  svg: brand-safari
+- name: brand-sass
+  svg: brand-sass
+- name: brand-sketch
+  svg: brand-sketch
+- name: brand-skype
+  svg: brand-skype
+- name: brand-slack
+  svg: brand-slack
+- name: brand-snapchat
+  svg: brand-snapchat
+- name: brand-soundcloud
+  svg: brand-soundcloud
+- name: brand-spotify
+  svg: brand-spotify
+- name: brand-strava
+  svg: brand-strava
+- name: brand-stripe
+  svg: brand-stripe
+- name: brand-swift
+  svg: brand-swift
+- name: brand-symfony
+  svg: brand-symfony
+- name: brand-telegram
+  svg: brand-telegram
+- name: brand-tiktok
+  svg: brand-tiktok
+- name: brand-trello
+  svg: brand-trello
+- name: brand-tumblr
+  svg: brand-tumblr
+- name: brand-twitch
+  svg: brand-twitch
+- name: brand-twitter
+  svg: brand-twitter
+- name: brand-uber
+  svg: brand-uber
+- name: brand-ubuntu
+  svg: brand-ubuntu
+- name: brand-unity
+  svg: brand-unity
+- name: brand-unsplash
+  svg: brand-unsplash
+- name: brand-vimeo
+  svg: brand-vimeo
+- name: brand-vk
+  svg: brand-vk
+- name: brand-waze
+  svg: brand-waze
+- name: brand-weibo
+  svg: brand-weibo
+- name: brand-whatsapp
+  svg: brand-whatsapp
+- name: brand-windows
+  svg: brand-windows
+- name: brand-wix
+  svg: brand-wix
+- name: brand-wordpress
+  svg: brand-wordpress
+- name: brand-xbox
+  svg: brand-xbox
+- name: brand-xing
+  svg: brand-xing
+- name: brand-yahoo
+  svg: brand-yahoo
+- name: brand-yandex
+  svg: brand-yandex
+- name: brand-yarn
+  svg: brand-yarn
+- name: brand-youtube
+  svg: brand-youtube
+- name: brand-zhihu
+  svg: brand-zhihu
+- name: briefcase
+  svg: briefcase
+- name: broadcast
+  svg: broadcast
+- name: brush
+  svg: brush
+- name: bucket-droplet
+  svg: bucket-droplet
+- name: bug
+  svg: bug
+- name: building
+  svg: building
+- name: building-factory
+  svg: building-factory
+- name: building-hospital
+  svg: building-hospital
+- name: building-monument
+  svg: building-monument
+- name: bulb
+  svg: bulb
+- name: bus
+  svg: bus
+- name: calculator
+  svg: calculator
 - name: calendar
   svg: calendar
+- name: calendar-check
+  svg: calendar-check
 - name: calendar-clock
   svg: calendar-clock
 - name: calendar-event
   svg: calendar-event
 - name: calendar-holiday
   svg: calendar-smile
+- name: calendar-minus
+  svg: calendar-minus
+- name: calendar-plus
+  svg: calendar-plus
 - name: calendar-user
   svg: calendar-user
+- name: calendar-week
+  svg: calendar-week
 - name: calendar-work
   svg: calendar-week
+- name: calendar-x
+  svg: calendar-x
+- name: camera
+  svg: camera
+- name: cannabis
+  svg: cannabis
 - name: canned-response
   svg: message-2-share
+- name: car
+  svg: car
+- name: car-crash
+  svg: car-crash
+- name: caravan
+  svg: caravan
 - name: caret-down
   svg: caret-down
+- name: caret-left
+  svg: caret-left
+- name: caret-right
+  svg: caret-right
 - name: caret-up
   svg: caret-up
+- name: carrot
+  svg: carrot
+- name: cash
+  svg: cash
+- name: cash-register
+  svg: cash-register
+- name: cat
+  svg: cat
 - name: cc
   svg: badge-cc
+- name: certificate
+  svg: certificate
+- name: chalkboard
+  svg: chalkboard
+- name: chalkboard-teacher
+  svg: chalkboard-teacher
+- name: chart-area
+  svg: chart-area
 - name: chart-bar
   svg: chart-bar
+- name: chart-line
+  svg: chart-line
+- name: chart-pie
+  svg: chart-pie
+- name: check
+  svg: check
 - name: checks
   svg: checks
+- name: cheese
+  svg: cheese
+- name: chess
+  svg: chess
+- name: chess-bishop
+  svg: chess-bishop
+- name: chess-king
+  svg: chess-king
+- name: chess-knight
+  svg: chess-knight
+- name: chess-queen
+  svg: chess-queen
+- name: chess-rook
+  svg: chess-rook
+- name: chevron-down
+  svg: chevron-down
+- name: chevron-left
+  svg: chevron-left
+- name: chevron-right
+  svg: chevron-right
+- name: chevron-up
+  svg: chevron-up
+- name: circle
+  svg: circle
+- name: circle-arrow-left
+  svg: circle-arrow-left
+- name: circle-arrow-up
+  svg: circle-arrow-up
+- name: circle-check
+  svg: circle-check
+- name: circle-dot
+  svg: circle-dot
+- name: circle-minus
+  svg: circle-minus
+- name: circle-plus
+  svg: circle-plus
+- name: clipboard
+  svg: clipboard
+- name: clipboard-check
+  svg: clipboard-check
+- name: clipboard-list
+  svg: clipboard-list
 - name: clock
   svg: clock
 - name: clock-filled
@@ -62,56 +485,272 @@
   style: filled
 - name: clock-play
   svg: clock-play
+- name: cloud
+  svg: cloud
+- name: cloud-download
+  svg: cloud-download
+- name: cloud-rain
+  svg: cloud-rain
+- name: cloud-upload
+  svg: cloud-upload
+- name: code
+  svg: code
+- name: coffee
+  svg: coffee
+- name: coins
+  svg: coins
 - name: collapse-all
   svg: layout-navbar-collapse
+- name: columns
+  svg: columns
 - name: company
   svg: building-skyscraper
+- name: compass
+  svg: compass
 - name: contact
   svg: man
 - name: contacts
   svg: friends
+- name: cookie
+  svg: cookie
+- name: copy
+  svg: copy
+- name: copyright
+  svg: copyright
+- name: creative-commons
+  svg: creative-commons
+- name: creative-commons-by
+  svg: creative-commons-by
+- name: creative-commons-nc
+  svg: creative-commons-nc
+- name: creative-commons-nd
+  svg: creative-commons-nd
+- name: creative-commons-sa
+  svg: creative-commons-sa
+- name: creative-commons-zero
+  svg: creative-commons-zero
+- name: credit-card
+  svg: credit-card
+- name: crop
+  svg: crop
+- name: cross
+  svg: cross
+- name: crown
+  svg: crown
 - name: cube
   svg: cube
+- name: currency-dollar
+  svg: currency-dollar
+- name: currency-euro
+  svg: currency-euro
+- name: cut
+  svg: cut
 - name: dashboard
   svg: layout-dashboard
+- name: database
+  svg: database
 - name: db-entry
   svg: database
+- name: deaf
+  svg: deaf
 - name: details
   svg: info-circle
+- name: device-desktop
+  svg: device-desktop
+- name: device-floppy
+  svg: device-floppy
+- name: device-gamepad
+  svg: device-gamepad
+- name: device-laptop
+  svg: device-laptop
+- name: device-sim
+  svg: device-sim
+- name: device-tv
+  svg: device-tv
+- name: dice
+  svg: dice
+- name: directions
+  svg: directions
+- name: divide
+  svg: divide
+- name: dna
+  svg: dna
+- name: dog
+  svg: dog
+- name: download
+  svg: download
 - name: drag-drop
   svg: drag-drop-2
 - name: due
   svg: bell
+- name: dumbbell
+  svg: dumbbell
+- name: edit
+  svg: edit
+- name: egg
+  svg: egg
 - name: encryption
   svg: lock-access
+- name: equal-not
+  svg: equal-not
+- name: eraser
+  svg: eraser
 - name: estimated_hours
   svg: hourglass-empty
 - name: euro
   svg: currency-euro
+- name: exchange
+  svg: exchange
+- name: exclamation-circle
+  svg: exclamation-circle
+- name: exclamation-mark
+  svg: exclamation-mark
 - name: expand-all
   svg: layout-navbar-expand
+- name: external-link
+  svg: external-link
 - name: eye
   svg: eye
+- name: feather
+  svg: feather
+- name: file
+  svg: file
+- name: file-code
+  svg: file-code
+- name: file-download
+  svg: file-download
+- name: file-excel
+  svg: file-excel
+- name: file-export
+  svg: file-export
+- name: file-import
+  svg: file-import
+- name: file-invoice
+  svg: file-invoice
+- name: file-type-pdf
+  svg: file-type-pdf
+- name: file-upload
+  svg: file-upload
+- name: file-word
+  svg: file-word
 - name: filelist
   svg: file-description
 - name: filter
   svg: filter
 - name: fingerprint
   svg: fingerprint
+- name: fire-extinguisher
+  svg: fire-extinguisher
+- name: first-aid-kit
+  svg: first-aid-kit
+- name: fish
+  svg: fish
+- name: flag
+  svg: flag
+- name: flame
+  svg: flame
+- name: flask
+  svg: flask
+- name: folder
+  svg: folder
+- name: folder-minus
+  svg: folder-minus
+- name: folder-open
+  svg: folder-open
+- name: folder-plus
+  svg: folder-plus
 - name: fullscreen
   svg: arrows-maximize
+- name: gas-station
+  svg: gas-station
+- name: gauge
+  svg: gauge
+- name: gavel
+  svg: gavel
+- name: gender-female
+  svg: gender-female
+- name: gender-male
+  svg: gender-male
+- name: ghost
+  svg: ghost
 - name: gift
   svg: gift
+- name: git-branch
+  svg: git-branch
 - name: git-merge
   svg: git-merge
 - name: github
   svg: brand-github
 - name: gitlab
   svg: brand-gitlab
+- name: glass-cocktail
+  svg: glass-cocktail
+- name: globe
+  svg: globe
 - name: google-drive
   svg: brand-google-drive
+- name: grip-horizontal
+  svg: grip-horizontal
+- name: grip-vertical
+  svg: grip-vertical
+- name: hammer
+  svg: hammer
+- name: hand-middle-finger
+  svg: hand-middle-finger
+- name: hand-stop
+  svg: hand-stop
+- name: hash
+  svg: hash
+- name: heading
+  svg: heading
+- name: headphones
+  svg: headphones
+- name: headset
+  svg: headset
+- name: heart
+  svg: heart
+- name: heart-broken
+  svg: heart-broken
+- name: heart-handshake
+  svg: heart-handshake
+- name: heartbeat
+  svg: heartbeat
+- name: helicopter
+  svg: helicopter
+- name: helmet
+  svg: helmet
+- name: help
+  svg: help
+- name: highlight
+  svg: highlight
+- name: history
+  svg: history
+- name: home
+  svg: home
+- name: horse
+  svg: horse
+- name: hospital
+  svg: hospital
+- name: hourglass
+  svg: hourglass
 - name: hrm
   svg: user-circle
+- name: ice-cream
+  svg: ice-cream
+- name: icons
+  svg: icons
+- name: id
+  svg: id
+- name: id-badge
+  svg: id-badge
+- name: id-badge-2
+  svg: id-badge-2
+- name: inbox
+  svg: inbox
+- name: infinity
+  svg: infinity
+- name: info-circle
+  svg: info-circle
 - name: invoice
   svg: file-euro
 - name: invoice-add
@@ -124,13 +763,47 @@
   svg: code-plus
 - name: issues
   svg: list-check
+- name: italic
+  svg: italic
+- name: key
+  svg: key
+- name: keyboard
+  svg: keyboard
+- name: language
+  svg: language
+- name: leaf
+  svg: leaf
+- name: lemon
+  svg: lemon
+- name: lifebuoy
+  svg: lifebuoy
+- name: line
+  svg: line
+- name: link
+  svg: link
+- name: list
+  svg: list
+- name: list-check
+  svg: list-check
 - name: list-details
   svg: list-details
+- name: list-numbers
+  svg: list-numbers
+- name: location-search
+  svg: location-search
+- name: lock
+  svg: lock
 - name: lock-filled
   svg: lock
   style: filled
+- name: lock-open
+  svg: lock-open
 - name: log
   svg: book-2
+- name: lungs
+  svg: lungs
+- name: magnet
+  svg: magnet
 - name: mail
   svg: mail
 - name: mail-received
@@ -141,56 +814,182 @@
   svg: ghost
 - name: map
   svg: map-pin
+- name: map-pin
+  svg: map-pin
+- name: markdown
+  svg: markdown
+- name: mars
+  svg: mars
+- name: mask
+  svg: mask
+- name: masks-theater
+  svg: masks-theater
+- name: medal
+  svg: medal
 - name: meeting
   svg: brand-ubuntu
 - name: member
   svg: heart-handshake
+- name: menorah
+  svg: menorah
 - name: merge
   svg: arrow-merge
+- name: message
+  svg: message
+- name: message-dots
+  svg: message-dots
+- name: messages
+  svg: messages
+- name: meteor
+  svg: meteor
+- name: microphone
+  svg: microphone
+- name: microscope
+  svg: microscope
+- name: minus
+  svg: minus
 - name: money
   svg: cash
+- name: mood-angry
+  svg: mood-angry
+- name: mood-happy
+  svg: mood-happy
+- name: mood-sad-dizzy
+  svg: mood-sad-dizzy
+- name: mood-smile-beam
+  svg: mood-smile-beam
+- name: moon
+  svg: moon
+- name: mosque
+  svg: mosque
+- name: motorbike
+  svg: motorbike
+- name: mountain
+  svg: mountain
+- name: mouse
+  svg: mouse
+- name: music
+  svg: music
+- name: network
+  svg: network
+- name: news
+  svg: news
 - name: notes
   svg: message-circle
 - name: offline
   svg: adjustments-cancel
+- name: om
+  svg: om
 - name: online
   svg: adjustments-check
+- name: packages
+  svg: packages
 - name: page-up
   svg: circle-arrow-up
+- name: palette
+  svg: palette
+- name: paperclip
+  svg: paperclip
+- name: parking
+  svg: parking
 - name: password
   svg: shield-half
+- name: paw
+  svg: paw
 - name: pdf
   svg: file-type-pdf
+- name: peace
+  svg: peace
+- name: pencil
+  svg: pencil
+- name: percentage
+  svg: percentage
 - name: person
   svg: user-scan
 - name: phone
   svg: phone
 - name: photo
   svg: photo
+- name: photo-video
+  svg: photo-video
+- name: pills
+  svg: pills
+- name: plane
+  svg: plane
+- name: plane-arrival
+  svg: plane-arrival
+- name: plane-departure
+  svg: plane-departure
 - name: player-pause
   svg: player-pause
 - name: player-play
   svg: player-play
 - name: player-stop
   svg: player-stop
+- name: plug
+  svg: plug
 - name: plus
   svg: plus
+- name: point
+  svg: point
+- name: poo
+  svg: poo
+- name: pray
+  svg: pray
+- name: prescription
+  svg: prescription
+- name: printer
+  svg: printer
+- name: puzzle
+  svg: puzzle
+- name: qrcode
+  svg: qrcode
+- name: rainbow
+  svg: rainbow
 - name: read
   svg: eye-check
+- name: receipt
+  svg: receipt
+- name: recycle
+  svg: recycle
 - name: reddit
   svg: brand-reddit
 - name: refresh
   svg: refresh
+- name: registered
+  svg: registered
 - name: report
   svg: chart-bar-popular
+- name: road
+  svg: road
 - name: robot
   svg: robot
 - name: rocket
   svg: rocket
+- name: route
+  svg: route
+- name: rss
+  svg: rss
+- name: ruler
+  svg: ruler
+- name: satellite
+  svg: satellite
+- name: school
+  svg: school
+- name: search
+  svg: search
+- name: seedling
+  svg: seedling
+- name: send
+  svg: send
 - name: send-reply
   svg: send
+- name: server
+  svg: server
 - name: servicedesk
   svg: lifebuoy
+- name: settings
+  svg: settings
 - name: share
   svg: share
 - name: shield
@@ -203,8 +1002,24 @@
 - name: shield-lock-filled
   svg: shield-lock
   style: filled
+- name: ship
+  svg: ship
+- name: shopping-bag
+  svg: shopping-bag
+- name: shopping-cart
+  svg: shopping-cart
 - name: show-source
   svg: zoom-code
+- name: signature
+  svg: signature
+- name: sitemap
+  svg: sitemap
+- name: skull
+  svg: skull
+- name: slash
+  svg: slash
+- name: sleigh
+  svg: sleigh
 - name: smiley-angel
   svg: mood-boy
 - name: smiley-annoyed
@@ -249,28 +1064,76 @@
   svg: circle-check
 - name: smiley-wink
   svg: mood-wink
+- name: smoking
+  svg: smoking
+- name: snowboarding
+  svg: snowboarding
+- name: snowflake
+  svg: snowflake
+- name: snowman
+  svg: snowman
+- name: solar-panel
+  svg: solar-panel
+- name: sort-ascending-letters
+  svg: sort-ascending-letters
+- name: spider
+  svg: spider
+- name: spray
+  svg: spray
+- name: square
+  svg: square
+- name: square-check
+  svg: square-check
 - name: square-chevron-left
   svg: square-chevron-left
 - name: square-chevron-left-filled
   svg: square-chevron-left
   style: filled
+- name: square-minus
+  svg: square-minus
+- name: square-plus
+  svg: square-plus
+- name: square-root
+  svg: square-root
 - name: star
   svg: star
 - name: star-filled
   svg: star
   style: filled
+- name: star-half
+  svg: star-half
 - name: stars
   svg: stars
+- name: steam
+  svg: steam
+- name: stethoscope
+  svg: stethoscope
 - name: stopwatch
   svg: stopwatch
+- name: strikethrough
+  svg: strikethrough
+- name: subscript
+  svg: subscript
+- name: sun
+  svg: sun
+- name: superscript
+  svg: superscript
+- name: table
+  svg: table
+- name: tag
+  svg: tag
 - name: tags
   svg: tags
 - name: taskboard
   svg: layout-kanban
 - name: template
   svg: template
+- name: terminal
+  svg: terminal
 - name: test
   svg: flask
+- name: thermometer
+  svg: thermometer
 - name: thumb-down
   svg: thumb-down
 - name: ticket
@@ -281,31 +1144,107 @@
   svg: toggle-left
 - name: toggle-right
   svg: toggle-right
+- name: toilet-paper
+  svg: toilet-paper
+- name: tool
+  svg: tool
+- name: tools
+  svg: tools
+- name: tractor
+  svg: tractor
+- name: trademark
+  svg: trademark
+- name: train
+  svg: train
+- name: trash
+  svg: trash
+- name: tree
+  svg: tree
 - name: trophy
   svg: trophy
+- name: truck
+  svg: truck
+- name: truck-loading
+  svg: truck-loading
 - name: twitter
   svg: brand-twitter
 - name: two-person-rule
   svg: scan-eye
+- name: umbrella
+  svg: umbrella
+- name: underline
+  svg: underline
 - name: unknown-user
   svg: spy
+- name: unlink
+  svg: unlink
 - name: unsupported
   svg: circle-minus
+- name: upload
+  svg: upload
+- name: usb
+  svg: usb
+- name: user
+  svg: user
+- name: user-check
+  svg: user-check
+- name: user-circle
+  svg: user-circle
+- name: user-cog
+  svg: user-cog
 - name: user-edit
   svg: user-edit
+- name: user-minus
+  svg: user-minus
+- name: user-plus
+  svg: user-plus
+- name: user-shield
+  svg: user-shield
+- name: user-x
+  svg: user-x
+- name: users
+  svg: users
 - name: vcard
   svg: credit-card
+- name: venus
+  svg: venus
 - name: versionlist
   svg: layout-list
+- name: video
+  svg: video
 - name: vimeo
   svg: brand-vimeo
+- name: virus
+  svg: virus
+- name: volume-off
+  svg: volume-off
+- name: wallet
+  svg: wallet
+- name: wave-square
+  svg: wave-square
 - name: web
   svg: world
+- name: weight
+  svg: weight
+- name: wheelchair
+  svg: wheelchair
+- name: wifi
+  svg: wifi
 - name: wiki-pages
   svg: world-latitude
+- name: wind
+  svg: wind
+- name: window-maximize
+  svg: window-maximize
+- name: window-minimize
+  svg: window-minimize
 - name: workflow
   svg: switch-3
+- name: world
+  svg: world
 - name: x
   svg: x
+- name: yin-yang
+  svg: yin-yang
 - name: youtube
   svg: brand-youtube

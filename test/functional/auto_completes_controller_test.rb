@@ -10,47 +10,6 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
     @request.headers['Accept'] = 'application/json'
   end
 
-  def test_fontawesome_default
-    get :fontawesome
-
-    assert_response :success
-    json = ActiveSupport::JSON.decode response.body
-
-    assert_kind_of Array, json
-    icon = json.first
-
-    assert_kind_of Hash, icon
-    assert_equal 'far_address-book', icon['id']
-    assert_equal 'Address Book', icon['text']
-  end
-
-  def test_fontawesome_search
-    get :fontawesome,
-        params: { q: 'sun' }
-
-    assert_response :success
-    json = ActiveSupport::JSON.decode response.body
-
-    assert_kind_of Array, json
-    assert_equal 5, json.count
-    icon = json.first
-
-    assert_kind_of Hash, icon
-    assert_equal 'fas_cloud-sun', icon['id']
-    assert_equal 'Cloud with Sun', icon['text']
-  end
-
-  def test_fontawesome_search_without_result
-    get :fontawesome,
-        params: { q: 'doesnotexist' }
-
-    assert_response :success
-    json = ActiveSupport::JSON.decode response.body
-
-    assert_kind_of Array, json
-    assert_equal 0, json.count
-  end
-
   def test_issue_assignee
     with_settings issue_group_assignment: '0' do
       get :issue_assignee, xhr: true

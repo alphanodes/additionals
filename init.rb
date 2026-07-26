@@ -53,12 +53,3 @@ RedminePluginKit::Loader.persisting do
   # Hooks
   loader.load_model_hooks!
 end
-
-RedminePluginKit::Loader.after_initialize do
-  unless defined? FONTAWESOME_ICONS
-    # @TODO: this should be moved to AdditionalsFontAwesome and use an instance of it
-    FONTAWESOME_ICONS = { fab: AdditionalsFontAwesome.load_icons(:fab),
-                          far: AdditionalsFontAwesome.load_icons(:far),
-                          fas: AdditionalsFontAwesome.load_icons(:fas) }.freeze
-  end
-end

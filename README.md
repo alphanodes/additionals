@@ -133,7 +133,6 @@ It provides :
 * [Chart.js Plugin matrix 3.0.0](https://github.com/kurkle/chartjs-chart-matrix)
 * [d3plus 4.3.0](https://d3plus.org/)
 * [dhtmlxGantt 9.1.4](https://dhtmlx.com/docs/products/dhtmlxGantt/)
-* [FontAwesome 5.15.4](https://fontawesome.com/)
 * [mermaid 11.16.0](https://github.com/mermaid-js/mermaid)
 * [moment 2.30.1](https://github.com/moment/moment) (used by Chart.js)
 * [Select2 4.0.13](https://select2.org/)
@@ -160,7 +159,6 @@ The following modules are available :
 * d3
 * d3plus
 * dhtmlxgantt
-* font_awesome
 * mermaid
 * select2
 
@@ -375,7 +373,6 @@ There you find useful manual links to various Redmine related topics which will 
 
 The following menu items are currently implemented if a plugin is installed, that supports this additionals-function:
 
-* FontAwesome Icons
 * Redmine Macros (for more information see: Macros)
 * Redmine Guide
 * Redmine Changelog
@@ -685,8 +682,6 @@ You should have received a copy of the GNU General Public License along with thi
 
 Thanks to:
 
-* Font Awesome Free Icons (<https://fontawesome.com/license/free>) licenced under - Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License.
-  Copyright (c) 2018- Fonticons, Inc.
 * Tabler Icons - Free and open source icons (<https://tabler.io/icons>) licensed under MIT License.
   Copyright (c) 2020- Paweł Kuna
 * mermaid.js

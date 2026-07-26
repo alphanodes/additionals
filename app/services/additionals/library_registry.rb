@@ -32,7 +32,6 @@ module Additionals
       select2: %i[_select2_css _select2_js _select2_helpers],
       mermaid: %i[_mermaid_min _mermaid_load],
       dhtmlxgantt: %i[_dhtmlxgantt_css _dhtmlxgantt_js],
-      font_awesome: %i[_font_awesome_css],
       actioncable: %i[_actioncable_core],
       d3plus: %i[_d3plus_min],
       sortable: %i[_sortable_min],
@@ -64,7 +63,6 @@ module Additionals
       _select2_helpers:        Asset.new(type: :js,  path: 'select2_helpers'),
       _dhtmlxgantt_js:         Asset.new(type: :js,  path: 'vendor/dhtmlxgantt'),
       _select2_css:            Asset.new(type: :css, path: 'select2'),
-      _font_awesome_css:       Asset.new(type: :css, path: 'fontawesome-all.min'),
       _dhtmlxgantt_css:        Asset.new(type: :css, path: 'dhtmlxgantt')
     }.freeze
     # rubocop: enable Layout/HashAlignment

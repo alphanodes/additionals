@@ -1,0 +1,12 @@
+- options ||= {}
+javascript:
+  $(function() {
+    $(".#{field_class}").select2({
+      placeholder: "#{options[:placeholder].presence}",
+      allowClear: #{options[:allow_clear] ? true : false},
+      width: "#{options[:width].presence || '250px'}",
+      minimumResultsForSearch: 10,
+      templateResult: formatIconOption,
+      templateSelection: formatIconOption
+    })
+  })

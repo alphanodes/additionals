@@ -14,16 +14,6 @@ module Additionals
       end
 
       module InstanceMethods
-        def fontawesome
-          icons = AdditionalsFontAwesome.search_for_select @search_term, params[:selected].to_s.strip
-          icons.sort_by! { |a| a[:text] }
-
-          respond_to do |format|
-            format.json { render json: icons }
-            format.html { render json: icons }
-          end
-        end
-
         def issue_assignee
           scope = Principal.assignable_for_issues @project
 

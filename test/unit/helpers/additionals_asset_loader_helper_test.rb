@@ -13,14 +13,6 @@ class AdditionalsAssetLoaderHelperTest < Additionals::HelperTest
     assert_match %r{/plugin_assets/additionals/}, html
   end
 
-  def test_emits_stylesheet_link_tag_for_css_package
-    html = additionals_library_load :font_awesome
-
-    assert_match(/<link\b/, html)
-    assert_match(/rel="stylesheet"/, html)
-    assert_match(/href=.+fontawesome-all.min/, html)
-  end
-
   def test_emits_both_css_and_js_for_dhtmlxgantt
     html = additionals_library_load :dhtmlxgantt
 

@@ -3,6 +3,9 @@
 ## 4.6.0
 
 - Require Redmine 7.0 or newer and drop Redmine 6.x compatibility
+- Replace FontAwesome with Redmine 7's Tabler SVG sprite icons throughout. Stored icon values are now plain Tabler names; legacy FontAwesome values (`fas_car`, ...) are still translated on the fly, so existing data keeps rendering. The `additionals_icon` helper and the `additionals_icon_select` / `additionals_icon_select_tag` pickers replace `font_awesome_icon` and `additionals_fontawesome_select`, and the new `{{tabler}}` wiki macro replaces `{{fa}}` (kept as a backward compatible alias). The FontAwesome webfonts, stylesheet, helper and `AdditionalsFontAwesome` model have been removed
+- The `{{fa}}` / `{{tabler}}` wiki macros resolve bare FontAwesome icon names (e.g. `{{fa(file-alt)}}`, `{{fa(wrench)}}`, `{{fa(list-ol)}}`) through the icon map, and the `size` option renders at the requested size again instead of an oversized fallback. The Tabler sprite gained additional icons (numbered list, gender, message, alert, floppy disk, ...) so heavily used legacy macro content keeps its intended symbols
+- The issue sidebar "change status" panel now uses a hollow circle for open target statuses and a check circle for closed ones, making the open/closed distinction clear (previously an ambiguous chevron square)
 - CommonMark and Textile formatting now use Redmine 7's native Loofah scrubbers; the HTML::Pipeline-based smiley and emoji filters (which Redmine 7 no longer ships) have been removed
 - Restyle the top-menu submenu dropdowns to match Redmine 7 core (open-color variables): on touch devices a submenu opens on tap, and menus taller than the viewport now scroll instead of being cut off
 - Assignee auto-watch on issue creation now uses Redmine core's `issue_assigned_to_me` preference; core already handles assignment changes on existing issues, so additionals only fills the create-time gap

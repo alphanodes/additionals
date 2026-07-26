@@ -224,7 +224,6 @@ module Additionals
                                 AdditionalsClipboardHelper,
                                 AdditionalsGlobalSearchHelper,
                                 AdditionalsIconsHelper,
-                                AdditionalsFontawesomeHelper,
                                 AdditionalsMenuHelper,
                                 AdditionalsSelect2Helper]
 

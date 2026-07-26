@@ -74,6 +74,21 @@ em.info a.external {
 
 .icon-svg.disabled { stroke: var(--a-color-disabled); }
 
+/* async loading spinner (dashboard blocks) */
+svg.icon-svg.additionals-spin {
+  transform-origin: center;
+  animation: additionals-spin 1s linear infinite;
+}
+
+@keyframes additionals-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* {{fa}} wiki macro icon: follow the surrounding text color (or the color
+   option set on the wrapper) */
+svg.icon-svg.additionals-macro-icon { stroke: currentcolor; }
+
 svg.icon-svg.smiley {
   fill: var(--a-color-smiley);
   stroke-width: 2;
@@ -124,6 +139,16 @@ svg.s64 {
   height: 64px;
 }
 
+svg.s50 {
+  width: 50px;
+  height: 50px;
+}
+
+svg.s40 {
+  width: 40px;
+  height: 40px;
+}
+
 svg.s32 {
   width: 32px;
   height: 32px;
@@ -132,6 +157,11 @@ svg.s32 {
 svg.s24 {
   width: 1.5rem;
   height: 1.5rem;
+}
+
+svg.s22 {
+  width: 22px;
+  height: 22px;
 }
 
 svg.s16 {
@@ -309,6 +339,12 @@ div.macro-desc {
   padding: 8px 16px;
   font-weight: normal;
   margin-right: 0;
+}
+
+/* submenu icons follow the link text color (the dropdown has a light
+   background, so they must not inherit the top-menu bar's white stroke) */
+.top-menu .menu-children a svg.icon-svg {
+  stroke: currentcolor;
 }
 
 .top-menu .menu-children li a:hover {

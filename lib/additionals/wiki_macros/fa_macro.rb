@@ -2,70 +2,105 @@
 
 module Additionals
   module WikiMacros
+    # Hosts the {{tabler}} icon macro and its backward compatible {{fa}} alias.
+    # Both render a Tabler sprite icon.
     module FaMacro
+      # Options accepted by both macros
+      OPTIONS = %i[class title text size color link].freeze
+
+      # Map legacy size tokens to a tabler pixel size that has a matching .s<n>
+      # css class. Plain numbers pass through unchanged.
+      LEGACY_SIZES = { 'xs' => 12, 'sm' => 14, 'lg' => 22,
+                       '2x' => 40, '3x' => 50, '4x' => 50, '5x' => 50 }.freeze
+
+      class << self
+        # Translate a size option into a numeric tabler icon size (or nil)
+        def icon_size(value)
+          return if value.blank?
+
+          value = value.to_s
+          LEGACY_SIZES[value] || (value.match?(/\A\d+\z/) ? value.to_i : nil)
+        end
+
+        # Shared renderer for the {{tabler}} / {{fa}} macros. `view` is the macro
+        # context (a view), which provides additionals_icon and the tag helpers.
+        def render(view, args, options)
+          css_classes = ['additionals-macro-icon']
+          css_classes += options[:class].split if options[:class].present?
+
+          icon_options = { css_class: css_classes.join(' ') }
+          size = icon_size options[:size]
+          icon_options[:size] = size if size
+
+          content = view.additionals_icon args[0], **icon_options
+          content = view.safe_join [content, options[:text]], ' ' if options[:text].present?
+
+          wrapper = {}
+          wrapper[:title] = options[:title] if options[:title].present?
+          wrapper[:style] = "color: #{options[:color]}" if options[:color].present?
+
+          if options[:link].present?
+            view.link_to content, options[:link], **wrapper
+          elsif wrapper.any?
+            view.tag.span content, **wrapper
+          else
+            content
+          end
+        end
+      end
+
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-    Show Font Awesome icon.
+    Show an icon from the Tabler icon set.
+
+    Syntax:
+
+      {{tabler(ICON [, class=CLASS, title=TITLE, text=TEXT, size=SIZE, color=COLOR, link=URL])}}
+      ICON  = tabler icon name (e.g. car); legacy values (fas_car) still work
+      CLASS = additional css classes
+      TITLE = mouseover title
+      TEXT  = text to show next to the icon
+      SIZE  = icon size in px (e.g. 24); legacy tokens (lg, 2x, ...) are mapped
+      COLOR = css color code
+      LINK  = link the icon (and text) to this URL
+
+    Examples:
+
+      {{tabler(car)}}
+      ...show the tabler "car" icon
+      {{tabler(car, title=Show icon)}}
+      ...show the "car" icon with title "Show icon"
+      {{tabler(car, size=24)}}
+      ...show the "car" icon at 24px
+      {{tabler(car, color=#ff0000)}}
+      ...show the "car" icon in red
+      {{tabler(car, link=https://www.redmine.org, text=Go to Redmine.org)}}
+      ...show the "car" icon with text, linked to redmine.org
+        DESCRIPTION
+
+        macro :tabler do |_obj, args|
+          args, options = extract_macro_options args, *Additionals::WikiMacros::FaMacro::OPTIONS
+          raise 'The correct usage is {{tabler(<ICON>, class=CLASS, title=TITLE, text=TEXT, size=SIZE, color=COLOR)}}' if args.empty?
+
+          Additionals::WikiMacros::FaMacro.render self, args, options
+        end
+
+        desc <<-DESCRIPTION
+    Backward compatible alias for {{tabler}}.
 
     Syntax:
 
       {{fa(ICON [, class=CLASS, title=TITLE, text=TEXT, size=SIZE, color=COLOR, link=URL])}}
-      ICON of fontawesome icon, eg. fa-adjust
-      CLASS = additional css classes
-      TITLE = mouseover title
-      TEXT = Text to show
-      LINK = Link icon and text (if specified) to this URL
-      COLOR = css color code
 
-    Examples:
-
-      {{fa(adjust)}}
-      ...show fontawesome icon "fas fa-adjust"
-      {{fa(adjust, class=fa-inverse)}}
-        ...show fontawesome icon "fas fa-stack" and inverse
-      {{fa(adjust, size=4x)}}
-        ...show fontawesome icon "fas fa-adjust" with size 4x
-      {{fa(fas_adjust, title=Show icon)}}
-      ...show fontawesome icon "fas fa-adjust" with title "Show icon"
-      {{fa(fab_angellist)}}
-      ...Show fontawesome icon "fab fa-angellist"
-      {{fa(adjust, link=https://www.redmine.org)}}
-      ...Show fontawesome icon "fas fa-adjust" and link it to https://www.redmine.org
-      {{fa(adjust, link=https://www.redmine.org, text=Go to Redmine.org)}}
-      ...Show fontawesome icon "fas fa-adjust" with text "Go to Redmine.org" and link it to https://www.redmine.org
+    Legacy values (e.g. fas_car) are translated to the matching
+    tabler icon. Prefer {{tabler}} for new content.
         DESCRIPTION
 
         macro :fa do |_obj, args|
-          args, options = extract_macro_options args, :class, :title, :text, :size, :color, :link
+          args, options = extract_macro_options args, *Additionals::WikiMacros::FaMacro::OPTIONS
           raise 'The correct usage is {{fa(<ICON>, class=CLASS, title=TITLE, text=TEXT, size=SIZE, color=COLOR)}}' if args.empty?
 
-          values = args[0].split '_'
-
-          classes = []
-          if values.count == 2
-            classes << values[0]
-            classes << "fa-#{values[1]}"
-          else
-            classes << 'fas'
-            classes << "fa-#{values[0]}"
-          end
-
-          classes += options[:class].split if options[:class].present?
-          classes << "fa-#{options[:size]}" if options[:size].present?
-
-          content_options = { class: classes.uniq.join(' ') }
-          content_options[:title] = options[:title] if options[:title].present?
-          content_options[:style] = "color: #{options[:color]}" if options[:color].present?
-
-          text = options[:text].present? ? " #{options[:text]}" : ''
-
-          if options[:link].present?
-            tag.a href: options[:link] do
-              tag.i text, content_options
-            end
-          else
-            tag.i text, **content_options
-          end
+          Additionals::WikiMacros::FaMacro.render self, args, options
         end
       end
     end

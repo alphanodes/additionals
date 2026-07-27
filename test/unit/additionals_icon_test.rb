@@ -75,6 +75,14 @@ class AdditionalsIconTest < Additionals::TestCase
     assert_not AdditionalsIcon.known?('fas_car')
   end
 
+  def test_custom_brand_marks_are_known_and_selectable
+    %w[shelly victron zabbix].each do |name|
+      assert AdditionalsIcon.known?(name), "#{name} should be a known custom brand mark"
+      assert_equal 'icons_custom', AdditionalsIcon.sprite(name)
+      assert_includes AdditionalsIcon.selectable, name
+    end
+  end
+
   def test_selectable_is_sorted_and_present
     list = AdditionalsIcon.selectable
 

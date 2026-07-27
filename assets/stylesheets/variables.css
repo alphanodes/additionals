@@ -74,11 +74,6 @@
    * Plugins: servicedesk contact header, reporting taskboard headings */
   --a-font-size-xl: 1.25rem;
 
-  /* ~23px — Page headings, h1 level
-   * Core: #header h1 (1.4375rem)
-   * Plugins: large dashboard headings */
-  --a-font-size-xxl: 1.4375rem;
-
   /* Emoji inline size — uses em to scale with surrounding text */
   --a-font-size-emoji: 1.2em;
 

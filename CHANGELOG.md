@@ -12,6 +12,7 @@
 - Assignee auto-watch on issue creation now uses Redmine core's `issue_assigned_to_me` preference; core already handles assignment changes on existing issues, so additionals only fills the create-time gap
 - select2 fields now match the height of Redmine 7 form controls (they were still sized for Redmine 6.1 and rendered too flat next to a native select, most visibly in query filters and the tag field). Heights derive from the new `--a-control-height` / `--a-control-line-height` / `--a-control-padding-block` variables instead of hardcoded pixels, and the multi-select choice list uses flexbox rather than floats with negative margins
 - `User.admin_column_field` falls back to `admin` while the `sudoer` column does not exist yet, so `redmine_sudo` can be installed together with other plugins in a single `redmine:plugins:migrate` (previously their migrations could run before `redmine_sudo` added the column and fail with `column users.sudoer does not exist`)
+- The `issue_assignee` and `custom_field_users` autocomplete endpoints now honour the `me_value` parameter, like `grouped_users` and `grouped_principals` already did. The `<< me >>` entry defaults to the literal `me` required by query filters, but form selects write to an `*_id` column where `me` casts to integer 0 and violates the foreign key - those callers pass the real user id instead
 - d3plus updated to 4.3.0
 
 ## 4.5.0

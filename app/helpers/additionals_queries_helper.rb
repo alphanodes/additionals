@@ -17,6 +17,10 @@ module AdditionalsQueriesHelper
     end
   end
 
+  # me_value is the id the "<< me >>" entry carries. The default 'me' is the query filter
+  # contract (Query resolves it per user at runtime). Form fields writing to an *_id column
+  # MUST pass me_value: User.current.id instead - a literal 'me' casts to integer 0 there and
+  # produces an invalid foreign key (see Redmine core's principals_options_for_select).
   def render_grouped_users_with_select2(users, search_term: nil, with_me: true, with_ano: false, me_value: 'me',
                                         involved_principals: nil, use_assignment_frequency: false,
                                         apply_assignee_format: false)

@@ -19,6 +19,7 @@ module Additionals
 
           render_params = { search_term: @search_term }
           render_params[:with_me] = RedminePluginKit.true? params[:with_me] if params.key? :with_me
+          render_params[:me_value] = params[:me_value] if params.key? :me_value
 
           if params[:issue_id].present?
             issue = Issue.find_by id: params[:issue_id]
@@ -48,7 +49,10 @@ module Additionals
           scope = custom_field_users_scope cf
           return render json: [] if scope.nil?
 
-          render_grouped_users_with_select2 scope, search_term: @search_term
+          render_params = { search_term: @search_term }
+          render_params[:me_value] = params[:me_value] if params.key? :me_value
+
+          render_grouped_users_with_select2(scope, **render_params)
         end
 
         def grouped_users

@@ -26,6 +26,22 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
     end
   end
 
+  # Form selects write to an assigned_to_id column, where the filter default 'me' would cast
+  # to integer 0 and violate the foreign key. They pass the real user id via me_value instead.
+  def test_issue_assignee_with_me_value_replaces_me_id
+    @request.session[:user_id] = 2
+
+    get :issue_assignee,
+        params: { me_value: 2 },
+        xhr: true
+
+    assert_response :success
+    json = ActiveSupport::JSON.decode response.body
+
+    assert_equal '2', json.first['id']
+    assert_equal '2', json.first['value']
+  end
+
   def test_issue_assignee_with_groups_enabled
     with_settings issue_group_assignment: '1' do
       get :issue_assignee, xhr: true
@@ -167,6 +183,20 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
     assert_equal 7, json.second['children'].count
     assert_equal 'Groups', json.third['text']
     assert_equal 2, json.third['children'].count
+  end
+
+  def test_grouped_principals_with_me_value_replaces_me_id
+    @request.session[:user_id] = 2
+
+    get :grouped_principals,
+        params: { with_me: true, me_value: 2 },
+        xhr: true
+
+    assert_response :success
+    json = ActiveSupport::JSON.decode response.body
+
+    assert_equal '2', json.first['id']
+    assert_equal '2', json.first['value']
   end
 
   def test_grouped_users
@@ -351,6 +381,40 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
 
     assert_kind_of Array, json
     assert json.any?
+  end
+
+  def test_custom_field_users_defaults_to_me_id
+    cf = IssueCustomField.create! name: 'Test User CF',
+                                  field_format: 'user',
+                                  is_for_all: true,
+                                  tracker_ids: [1]
+
+    get :custom_field_users,
+        params: { project_id: 1, custom_field_id: cf.id },
+        xhr: true
+
+    assert_response :success
+    json = ActiveSupport::JSON.decode response.body
+
+    assert_equal 'me', json.first['id']
+  end
+
+  def test_custom_field_users_with_me_value_replaces_me_id
+    @request.session[:user_id] = 2
+    cf = IssueCustomField.create! name: 'Test User CF',
+                                  field_format: 'user',
+                                  is_for_all: true,
+                                  tracker_ids: [1]
+
+    get :custom_field_users,
+        params: { project_id: 1, custom_field_id: cf.id, me_value: 2 },
+        xhr: true
+
+    assert_response :success
+    json = ActiveSupport::JSON.decode response.body
+
+    assert_equal '2', json.first['id']
+    assert_equal '2', json.first['value']
   end
 
   def test_custom_field_users_with_search

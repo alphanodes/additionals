@@ -9,6 +9,20 @@ class EntityMethodTest < Additionals::TestCase
     prepare_tests
   end
 
+  # The assignee validation is registered for every entity that includes EntityMethods.
+  # Entities without an assigned_to column (Dashboard, HrmHoliday, ...) must not be affected
+  # by it - the guard in validate_assignee has to skip them instead of raising.
+  def test_entity_without_assigned_to_column_is_not_affected_by_assignee_validation
+    dashboard = Dashboard.new name: 'Assignee guard',
+                              dashboard_type: DashboardContentProject::TYPE_NAME,
+                              author: users(:users_002),
+                              project: projects(:projects_001)
+
+    assert_not dashboard.respond_to?(:assigned_to)
+    assert_save dashboard
+    assert_empty dashboard.errors[:assigned_to_id]
+  end
+
   def test_allowed_entity_target_projects
     projects = Dashboard.allowed_entity_target_projects permission: :save_dashboards,
                                                         user: users(:users_002)

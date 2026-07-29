@@ -11,6 +11,20 @@ module Additionals
       include InstanceMethods
 
       attr_reader :current_journal
+
+      # Set by copy_from implementations, mirrors Redmine core's Issue#@copied_from.
+      attr_accessor :copied_from
+
+      # Registered for every entity, unlike the opt-in force_updated_on_change below:
+      # "an assignee must be assignable" is an invariant of assigned_to, not a per-entity
+      # preference, and opting in is exactly the step that gets forgotten on the next
+      # entity. Entities without an assigned_to column skip it at runtime.
+      # Guarded because EntityMethods is also included by plain Ruby classes, which have
+      # no validation callbacks.
+      if self < ActiveRecord::Base
+        before_validation :clear_unassignable_assignee
+        validate :validate_assignee
+      end
     end
 
     class_methods do
@@ -79,6 +93,45 @@ module Additionals
 
         principals.uniq!
         principals.sort
+      end
+
+      # Accepts the literal 'me' as an alias for the current user. Placed on the setter rather
+      # than in each controller so every entry path resolves it the same way - form, API, bulk
+      # edit, import and console. Without it 'me' would cast to integer 0 and be rejected by
+      # validate_assignee.
+      def assigned_to_id=(value)
+        super(value == 'me' ? User.current.id : value)
+      end
+
+      # Mirrors Redmine core's Issue#project= ("Clear the assignee if not available in the new
+      # project for new issues (eg. copy)"): a copy inherits the source assignee, who may not be
+      # assignable in the target project. That assignee is dropped instead of failing validation,
+      # because the user did not pick it - unlike a plain create, which must reach
+      # validate_assignee. Dirty tracking cannot tell the two apart on a new record
+      # (project_id_was is nil there either way), so copy_from flags the copy explicitly.
+      def clear_unassignable_assignee
+        return unless copied_from && new_record?
+        return unless respond_to?(:assigned_to) && has_attribute?(:assigned_to_id)
+        return if assigned_to.blank? || assignable_users.include?(assigned_to)
+
+        self.assigned_to_id = nil
+      end
+
+      # Mirrors Redmine core's assignee check (Issue#validate_issue): an assignee that is not
+      # assignable in the entity's project is rejected. Without it such a value reaches the
+      # database, where it either violates an assigned_to_id foreign key (500) or is silently
+      # stored as an unusable reference. Any non-numeric value casts to integer 0, so this also
+      # catches a picker or API client submitting a token the setter above does not resolve.
+      #
+      # Skipped for entities without an assigned_to column (Dashboard, HrmHoliday, ...) and for
+      # entities without a project: a global entity has no project membership to check against.
+      def validate_assignee
+        return unless respond_to?(:assigned_to) && has_attribute?(:assigned_to_id)
+        return if assigned_to_id.blank? || !assigned_to_id_changed?
+        return unless respond_to?(:project) && project.present?
+        return if assignable_users.include? assigned_to
+
+        errors.add :assigned_to_id, :invalid
       end
 
       def last_notes

@@ -215,6 +215,12 @@ module DashboardsHelper
   end
 
   # Returns the select tag used to add or remove a block
+  #
+  # The change is routed straight to the surrounding form's `remote-form`
+  # controller. A jQuery `$('#block-form').submit()` would not work here: jQuery
+  # triggers its own handlers and then calls the native `form.submit()`, which
+  # never emits a submit event, so the Stimulus action would be skipped and the
+  # block would be added through a full page reload instead of AJAX.
   def dashboard_block_select_tag(dashboard)
     blocks_in_use = dashboard.layout.values.flatten
     options = tag.option "<< #{l :label_add_dashboard_block} >>", value: ''
@@ -225,7 +231,7 @@ module DashboardsHelper
                options,
                id: 'block-select',
                class: 'dashboard-block-select',
-               onchange: "$('#block-form').submit();"
+               data: { action: 'change->remote-form#submit' }
   end
 
   # Renders all dashboard groups as block-receivers. Empty groups are skipped

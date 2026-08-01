@@ -125,7 +125,22 @@ class DashboardsHelperTest < Additionals::HelperTest
     assert_includes entries, sub_news
   end
 
+  def test_block_select_tag_submits_through_stimulus
+    # jQuery's .submit() calls the native form.submit(), which emits no submit
+    # event and therefore bypasses the remote-form controller -- the block would
+    # then be added through a full page reload instead of AJAX
+    User.current = users :users_001
+    select = parse_html dashboard_block_select_tag(build_test_dashboard(layout: {}, blocks: {})), 'select#block-select'
+
+    assert_equal 'change->remote-form#submit', select['data-action']
+    assert_nil select['onchange']
+  end
+
   private
+
+  def parse_html(html, selector)
+    Nokogiri::HTML::DocumentFragment.parse(html).at_css selector
+  end
 
   def create_subproject_news
     subproject = projects :projects_003

@@ -2,6 +2,16 @@
 
 require File.expand_path '../../../test_helper', __FILE__
 
+# Form object with an icon attribute that is not named :icon, mirroring how
+# plugins dodge a column collision (redmine_reporting stores `reporting_icon`).
+# A stub rather than the real model, because additionals is tested on its own
+# and must not depend on a plugin that provides such a column.
+class IconFieldStub
+  include ActiveModel::Model
+
+  attr_accessor :reporting_icon
+end
+
 class AdditionalsIconsHelperTest < Additionals::HelperTest
   include AdditionalsIconsHelper
 
@@ -141,6 +151,6 @@ class AdditionalsIconsHelperTest < Additionals::HelperTest
   private
 
   def icon_form_builder
-    Redmine::Views::LabelledFormBuilder.new :project, Project.new, self, {}
+    Redmine::Views::LabelledFormBuilder.new :project, IconFieldStub.new, self, {}
   end
 end

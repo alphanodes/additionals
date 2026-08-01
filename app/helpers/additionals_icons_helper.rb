@@ -38,6 +38,9 @@ module AdditionalsIconsHelper
   def additionals_icon_select(form, selected, **options)
     icon_field = options.delete(:icon_field) || :icon
     name = options.delete(:name) || icon_field
+    # the attribute name may differ from :icon (e.g. reporting_icon to avoid a plugin
+    # collision), which would leave the form builder with a humanized, untranslated label
+    label = options.delete(:label) || :field_icon
     required = options.delete :required
     include_blank = options.delete :include_blank
     include_blank = !required if include_blank.nil?
@@ -56,7 +59,7 @@ module AdditionalsIconsHelper
 
     select = form.select name,
                          options_for_select(additionals_icon_select_options(selected), selected),
-                         { include_blank: },
+                         { include_blank:, label: },
                          class: field_class
     return select unless loader
 

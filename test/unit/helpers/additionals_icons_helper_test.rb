@@ -119,4 +119,28 @@ class AdditionalsIconsHelperTest < Additionals::HelperTest
     assert_match(/select2-menu-icon-field/, js)
     assert_match(/formatIconOption/, js)
   end
+
+  def test_additionals_icon_select_labels_a_renamed_icon_field
+    html = with_settings default_language: 'en' do
+      additionals_icon_select icon_form_builder, nil, icon_field: :reporting_icon, loader: false
+    end
+
+    # without the shared label the form builder would humanize the attribute name
+    assert_match %r{<label[^>]*for="project_reporting_icon"[^>]*>Icon</label>}, html
+    assert_no_match(/Reporting icon/, html)
+  end
+
+  def test_additionals_icon_select_label_can_be_overwritten
+    html = with_settings default_language: 'en' do
+      additionals_icon_select icon_form_builder, nil, icon_field: :reporting_icon, label: :field_name, loader: false
+    end
+
+    assert_match %r{<label[^>]*>Name</label>}, html
+  end
+
+  private
+
+  def icon_form_builder
+    Redmine::Views::LabelledFormBuilder.new :project, Project.new, self, {}
+  end
 end

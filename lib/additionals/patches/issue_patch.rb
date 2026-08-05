@@ -8,6 +8,11 @@ module Additionals
       included do
         prepend InstanceOverwriteMethods
         include InstanceMethods
+        # EntityMethodsGlobal is meant for every entity including core ones, but
+        # Issue only received it because additional_tags happened to mix it in.
+        # Plugins call Issue.load_visible_notes_count and friends, so the entity
+        # this plugin family revolves around has to carry them on its own.
+        include Additionals::EntityMethodsGlobal
 
         validate :validate_change_on_closed
         validate :validate_timelog_required

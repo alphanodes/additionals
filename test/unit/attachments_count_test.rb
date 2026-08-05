@@ -69,8 +69,12 @@ class AttachmentsCountTest < Additionals::TestCase
 
   private
 
+  # IssueQuery only gains the query concern through a dependent plugin, so the
+  # concern is mixed into the instance here - the way a plugin query class gets
+  # it - to keep the test running on additionals alone.
   def issue_ids_for(operator, values)
     query = IssueQuery.new name: '_'
+    query.extend Additionals::Concerns::Query::InstanceMethods
     sql = query.send :sql_for_attachments_count_field, 'attachments_count', operator, values
 
     Issue.where(sql).ids

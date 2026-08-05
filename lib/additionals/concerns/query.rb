@@ -207,6 +207,24 @@ module Additionals
                                type: :integer
         end
 
+        # A count column alone only answers "how many" per entry, never "which
+        # entries" - core's attachment filter matches file names, not the amount.
+        def initialize_attachments_count_filter
+          add_available_filter 'attachments_count',
+                               type: :integer,
+                               name: l(:field_attachments_count)
+        end
+
+        def sql_for_attachments_count_field(_field, operator, value)
+          sql_aggr_filtered table: Attachment.table_name,
+                            values: value,
+                            group_field: 'container_id',
+                            operator:,
+                            sub_query: "#{Attachment.table_name}" \
+                                       " WHERE #{Attachment.table_name}.container_id = #{queried_table_name}.id" \
+                                       " AND #{Attachment.table_name}.container_type = '#{queried_class.base_class.name}'"
+        end
+
         def sql_for_notes_count_field(_field, operator, value)
           sql_aggr_filtered table: Journal.table_name,
                             values: value,

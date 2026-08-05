@@ -43,6 +43,7 @@ uk:
   error_issues_could_not_be_assigned_to_me: "Задача не могла бути делегована  мені."
   errors_no_or_invalid_arguments: "Відсутні або не дійсні аргументи"
   field_always_expose: "Завжди показувати назву приборної панелі"
+  field_attachments_count: "Кількість файлів"
   field_color: Color
   field_dashboard_locked: "Заблоковано"
   field_enable_new_ticket_message: "Активувати повідомлення про завдання"

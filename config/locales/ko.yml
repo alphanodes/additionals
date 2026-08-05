@@ -43,6 +43,7 @@ ko:
   error_issues_could_not_be_assigned_to_me: "나에게 문제를 할당 할 수 없습니다"
   errors_no_or_invalid_arguments: "인수가 없거나 유효하지 않습니다"
   field_always_expose: "항상 대시보드 이름 표시"
+  field_attachments_count: "파일 수"
   field_color: 색깔
   field_dashboard_locked: Locked
   field_enable_new_ticket_message: "작업 메시지 활성화"

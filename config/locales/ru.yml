@@ -43,6 +43,7 @@ ru:
   error_issues_could_not_be_assigned_to_me: "Задача не могла быть поручена мне."
   errors_no_or_invalid_arguments: "Нет или недействительные аргументы"
   field_always_expose: "Всегда показать название приборной панели"
+  field_attachments_count: "Количество файлов"
   field_color: Color
   field_dashboard_locked: "Заблокировано"
   field_enable_new_ticket_message: "Активировать сообщение о задании"

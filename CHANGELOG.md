@@ -17,6 +17,7 @@
 - Adding a dashboard block runs through AJAX again instead of reloading the whole page. The block select submitted its form with jQuery, which never emits a submit event and therefore bypassed the Stimulus `remote-form` controller introduced with the rails-ujs removal
 - d3plus updated to 4.3.0
 - mermaid 11.16.1 support (includes an upstream prototype pollution fix)
+- New shared attachment count for every entity that includes `EntityMethods`: the `attachments_count` reader with a page-wide `load_attachments_count` preload, the `QueryAttachmentsCountColumn` list column and the `initialize_attachments_count_filter` / `sql_for_attachments_count_field` query filter. Core only offers the file list, which turns into a wall of names in a list, while the count answers what is actually asked - is anything attached and how much
 - The issue attachments section can now be linked to as `#attachments`. Redmine gives `#relations` and `#issue_tree` an anchor but never gave the files one; since this plugin already replaces that block (to collapse long file lists), the anchor belongs here. Jumping straight at it expands a collapsed list, so the link never lands on a closed drawer
 
 ## 4.5.0

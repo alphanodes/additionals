@@ -43,6 +43,7 @@ pt-BR:
   error_issues_could_not_be_assigned_to_me: "A tarefa não poderia ser me atribuída"
   errors_no_or_invalid_arguments: "Nenhum argumento ou argumentos inválidos"
   field_always_expose: "Mostrar sempre o nome do painel de bordo"
+  field_attachments_count: "Número de arquivos"
   field_color: "Cor"
   field_dashboard_locked: "Bloqueado"
   field_enable_new_ticket_message: "Ativar mensagem de tarefa"

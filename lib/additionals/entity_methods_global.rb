@@ -10,6 +10,20 @@ module Additionals
     end
 
     class_methods do
+      # Preloads the attachment count for a collection of entities with one
+      # grouped query instead of one query per entity.
+      def load_attachments_count(entries)
+        return if entries.none?
+
+        counts = Attachment.where(container_type: base_class.name, container_id: entries.map(&:id))
+                           .group(:container_id)
+                           .count
+
+        entries.each do |entry|
+          entry.instance_variable_set :@attachments_count, counts[entry.id].to_i
+        end
+      end
+
       # Preloads visible last notes for a collection of entity
       # this is a copy of Issue.load_visible_last_notes, but usable for all entities
       # @see https://www.redmine.org/projects/redmine/repository/entry/trunk/app/models/issue.rb#L1214
@@ -95,6 +109,16 @@ module Additionals
     end
 
     module InstanceMethods
+      # How many files are attached. Reads the preloaded value when the list
+      # asked for the whole page at once (see load_attachments_count),
+      # otherwise counts on its own. Uses defined? instead of ||=, so a
+      # preloaded 0 is not counted again on every call.
+      def attachments_count
+        return @attachments_count if defined? @attachments_count
+
+        @attachments_count = attachments.size
+      end
+
       def assigned_to_notified_users
         return [] unless assigned_to
 

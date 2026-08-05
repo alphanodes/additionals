@@ -43,6 +43,7 @@ de:
   error_issues_could_not_be_assigned_to_me: Das Ticket konnte nicht mir zugeordnet werden
   errors_no_or_invalid_arguments: Kein oder ungültiger Parameter
   field_always_expose: Dashboard Name immer anzeigen
+  field_attachments_count: Anzahl Dateien
   field_color: Farbe
   field_dashboard_locked: Schutz aktivieren
   field_enable_new_ticket_message: Aktiviere Hinweistext

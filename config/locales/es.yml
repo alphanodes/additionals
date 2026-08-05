@@ -43,6 +43,7 @@ es:
   error_issues_could_not_be_assigned_to_me: La petición no puede ser asignada a mi mismo
   errors_no_or_invalid_arguments: Parámetros inválidos
   field_always_expose: "Mostrar siempre el nombre del salpicadero"
+  field_attachments_count: Número de archivos
   field_color: Color
   field_dashboard_locked: "Bloqueada"
   field_enable_new_ticket_message: "Activar el mensaje de la empresa"

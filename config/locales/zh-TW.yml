@@ -43,6 +43,7 @@
   error_issues_could_not_be_assigned_to_me: 问题无法分配给我
   errors_no_or_invalid_arguments: "參數無效或不存在。"
   field_always_expose: "始终显示仪表盘名称"
+  field_attachments_count: 檔案數量
   field_color: 顏色
   field_dashboard_locked: Locked
   field_enable_new_ticket_message: "激活任务信息"

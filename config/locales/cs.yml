@@ -43,6 +43,7 @@ cs:
   error_issues_could_not_be_assigned_to_me: "Problém se mi nepodařilo přiřadit"
   errors_no_or_invalid_arguments: "Žádné nebo neplatné argumenty"
   field_always_expose: "Vždy zobrazit název palubní desky"
+  field_attachments_count: "Počet souborů"
   field_color: Barva
   field_dashboard_locked: "Uzamčené"
   field_enable_new_ticket_message: "Aktivace zprávy o vydání"

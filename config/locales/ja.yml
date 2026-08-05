@@ -43,6 +43,7 @@ ja:
   error_issues_could_not_be_assigned_to_me: "問題を自分に割り当てることができませんでした"
   errors_no_or_invalid_arguments: "引数がない、または無効な引数"
   field_always_expose: "ダッシュボード名を常に表示する"
+  field_attachments_count: "ファイル数"
   field_color: "カラー"
   field_dashboard_locked: Locked
   field_enable_new_ticket_message: "タスク起動メッセージ"

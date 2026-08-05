@@ -43,6 +43,7 @@ en:
   error_issues_could_not_be_assigned_to_me: Issue could not be assigned to me
   errors_no_or_invalid_arguments: No or invalid arguments
   field_always_expose: Always show dashboard name
+  field_attachments_count: Number of files
   field_color: Color
   field_dashboard_locked: Locked
   field_enable_new_ticket_message: Activate issue message

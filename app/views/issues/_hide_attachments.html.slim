@@ -1,15 +1,28 @@
+/ The anchor makes the files section linkable (#attachments). Redmine gives
+/ #relations and #issue_tree one, the attachments block never had one - and
+/ since this override owns the block, this is the only place it can live.
+/ Collapsed and expanded case share it, so a link works either way.
 - if @issue.attachments.any?
-  - max_files = Additionals.setting :issue_hide_max_attachments
-  - file_count = @issue.attachments.length
-  - if max_files.present? && file_count > max_files.to_i
-    fieldset.collapsible.collapsed.hide-attachments
-      legend.icon.icon-collapsed onclick='toggleFieldset(this);'
-        = sprite_icon 'angle-right', rtl: true
-        strong = label_with_count :label_attachment_plural, file_count
-      .hidden
-        = link_to_attachments @issue, thumbnails: true
-  - else
-    hr
-    p
-      strong = l :label_attachment_plural
-    = link_to_attachments @issue, thumbnails: true
+  #attachments
+    - max_files = Additionals.setting :issue_hide_max_attachments
+    - file_count = @issue.attachments.length
+    - if max_files.present? && file_count > max_files.to_i
+      fieldset.collapsible.collapsed.hide-attachments
+        legend.icon.icon-collapsed onclick='toggleFieldset(this);'
+          = sprite_icon 'angle-right', rtl: true
+          strong = label_with_count :label_attachment_plural, file_count
+        .hidden
+          = link_to_attachments @issue, thumbnails: true
+      / Jumping straight at the anchor has to show the files, not just their
+      / heading - otherwise the link lands on a closed drawer.
+      javascript:
+        $(function() {
+          if (window.location.hash === '#attachments') {
+            $('#attachments fieldset.hide-attachments.collapsed legend').each(function() { toggleFieldset(this); });
+          }
+        });
+    - else
+      hr
+      p
+        strong = l :label_attachment_plural
+      = link_to_attachments @issue, thumbnails: true

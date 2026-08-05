@@ -16,6 +16,8 @@
 - `EntityMethods` now enforces the assignee rules Redmine core applies to issues, for every entity that includes it (passwords, DB entries, AI prompts, contacts, invoices, templates, ...): an assignee who is not assignable in the entity's project is rejected with a validation error instead of reaching the database, a copy drops an assignee who is not assignable in the target project, and the literal `me` resolves to the current user on every path (form, API, bulk edit, import). Plugins previously translated `me` in their controllers, which covered only the two actions that were touched
 - Adding a dashboard block runs through AJAX again instead of reloading the whole page. The block select submitted its form with jQuery, which never emits a submit event and therefore bypassed the Stimulus `remote-form` controller introduced with the rails-ujs removal
 - d3plus updated to 4.3.0
+- mermaid 11.16.1 support (includes an upstream prototype pollution fix)
+- The issue attachments section can now be linked to as `#attachments`. Redmine gives `#relations` and `#issue_tree` an anchor but never gave the files one; since this plugin already replaces that block (to collapse long file lists), the anchor belongs here. Jumping straight at it expands a collapsed list, so the link never lands on a closed drawer
 
 ## 4.5.0
 

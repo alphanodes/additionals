@@ -10,36 +10,18 @@ module Additionals
       end
 
       module InstanceOverwriteMethods
+        # Smileys and emojis are applied on top of core's finished html rather
+        # than by restating its pipeline (parser, sanitizer, scrubber order).
+        #
+        # They cannot join core's scrubber run either: each replaces its text
+        # node, so within one pass the second one would no longer find the node
+        # the first has swapped out - ":) and :smile:" would lose the emoji.
+        # Hence the separate passes, in that order.
         def to_html(*_args)
-          return super unless Additionals.setting?(:legacy_smiley_support) || Additionals.setting?(:emoji_support)
+          html = super
+          return html unless Additionals.setting?(:legacy_smiley_support) || Additionals.setting?(:emoji_support)
 
-          to_html_with_scrubbers
-        end
-
-        private
-
-        def to_html_with_scrubbers
-          # Convert markdown to HTML
-          html = Redmine::WikiFormatting::CommonMark::MarkdownFilter.new(
-            @text,
-            Redmine::WikiFormatting::CommonMark::PIPELINE_CONFIG
-          ).call
           fragment = Redmine::WikiFormatting::HtmlParser.parse html
-
-          # Apply sanitization
-          Redmine::WikiFormatting::CommonMark::SANITIZER.call fragment
-
-          # Apply standard Redmine scrubbers + post processor scrubbers (inline attachments, hires images)
-          scrubber = Loofah::Scrubber.new do |node|
-            (Redmine::WikiFormatting::CommonMark::SCRUBBERS + post_processor_scrubbers).each do |s|
-              result = s.scrub node
-              break result if result == Loofah::Scrubber::STOP
-              break if node.parent.nil?
-            end
-          end
-          fragment.scrub! scrubber
-
-          # Apply Additionals scrubbers
           fragment.scrub! Additionals::WikiFormatting::CommonMark::SmileyScrubber.new if Additionals.setting? :legacy_smiley_support
           fragment.scrub! Additionals::WikiFormatting::CommonMark::EmojiScrubber.new if Additionals.setting? :emoji_support
 

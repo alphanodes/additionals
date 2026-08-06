@@ -25,6 +25,23 @@ class WatchersControllerTest < Additionals::ControllerTest
     Member.create! project: @project, principal: @hidden_user, roles: [@hidden_role]
   end
 
+  # Removing a watcher is not a destructive delete, so core labels and marks it
+  # accordingly (https://www.redmine.org/issues/34917). Our copy of watchers_list
+  # has to follow, otherwise the button drifts back to the old trash wording.
+  def test_watchers_list_uses_cores_remove_button
+    viewer = create_viewer_user permissions: %i[view_issues view_issue_watchers delete_issue_watchers view_project]
+    issue = issues :issues_001
+    Watcher.create! watchable: issue, user: viewer
+
+    @request.session[:user_id] = viewer.id
+
+    get :show, params: { id: issue.id }
+
+    assert_response :success
+    assert_select 'ul.watchers a.delete.icon-link-break', 1
+    assert_select 'ul.watchers a.icon-del', 0
+  end
+
   def test_watchers_list_should_hide_members_with_hidden_roles
     viewer = create_viewer_user permissions: %i[view_issues view_issue_watchers view_project]
     issue = issues :issues_001

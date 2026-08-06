@@ -21,6 +21,7 @@
 - The issue attachments section can now be linked to as `#attachments`. Redmine gives `#relations` and `#issue_tree` an anchor but never gave the files one; since this plugin already replaces that block (to collapse long file lists), the anchor belongs here. Jumping straight at it expands a collapsed list, so the link never lands on a closed drawer
 - MariaDB is now documented and tested as a database of its own (11.8 or newer). It was always the mysql variant most installations actually run, since Debian and Ubuntu ship it instead of MySQL, but it was never covered by the test suite
 - Raised the minimum database versions to releases that are still supported upstream: MySQL 8.4 (8.0 reached end of life in April 2026) and PostgreSQL 16 (14 reaches it in November 2026). Every documented minimum now runs in CI, so the requirement table is backed by tests instead of assumption, and the current PostgreSQL release is additionally covered across the full ruby matrix
+- Raised the minimum ruby version to 3.3, since 3.2 reached end of life in March 2026 and no longer receives security fixes. Redmine itself still accepts 3.2, so the plugin keeps working there, but it is no longer tested against it
 
 ## 4.5.0
 

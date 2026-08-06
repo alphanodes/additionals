@@ -10,7 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        ruby: ['3.2', '3.3', '3.4', '4.0']
+        ruby: ['3.3', '3.4', '4.0']
         redmine: ['7.0-stable', 'master']
         # Ruby compatibility does not depend on the database, so the full ruby
         # matrix runs on the current PostgreSQL only. Every other database gets

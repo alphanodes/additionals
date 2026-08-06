@@ -12,18 +12,33 @@ jobs:
       matrix:
         ruby: ['3.2', '3.3', '3.4', '4.0']
         redmine: ['7.0-stable', 'master']
-        db: ['postgres', 'mysql']
-        # MariaDB is the mysql variant most Redmine installations actually run
-        # (Debian and Ubuntu ship it instead of MySQL). It differs from MySQL in
-        # default collation and error reporting, so cover it on one ruby version
-        # instead of duplicating the whole matrix.
+        # Ruby compatibility does not depend on the database, so the full ruby
+        # matrix runs on the current PostgreSQL only. Every other database gets
+        # two jobs, which is enough to catch adapter and dialect differences.
+        db: ['postgres']
         include:
+          - ruby: '3.4'
+            redmine: '7.0-stable'
+            db: 'mysql'
+          - ruby: '3.4'
+            redmine: 'master'
+            db: 'mysql'
+          # MariaDB is the mysql variant most Redmine installations actually run,
+          # since Debian and Ubuntu ship it instead of MySQL.
           - ruby: '3.4'
             redmine: '7.0-stable'
             db: 'mariadb'
           - ruby: '3.4'
             redmine: 'master'
             db: 'mariadb'
+          # Pins the oldest PostgreSQL we claim to support in the README,
+          # otherwise that claim is never verified.
+          - ruby: '3.4'
+            redmine: '7.0-stable'
+            db: 'postgres16'
+          - ruby: '3.4'
+            redmine: 'master'
+            db: 'postgres16'
       fail-fast: false
 
     services:
@@ -41,8 +56,23 @@ jobs:
           --health-timeout 5s
           --health-retries 5
 
+      postgres16:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          # will assign a random free host port
+          - 5432/tcp
+
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
       mysql:
-        image: mysql:8.0
+        image: mysql:8.4
         env:
           MYSQL_ROOT_PASSWORD: 'BestPasswordEver'
         ports:
@@ -77,6 +107,11 @@ jobs:
         run: |
           mysql --host 127.0.0.1 --port ${{ job.services.mariadb.ports[3306] }} -uroot -pBestPasswordEver -e "SELECT VERSION()"
         if: matrix.db == 'mariadb'
+
+      - name: Verify PostgreSQL 16 connection from host
+        run: |
+          PGPASSWORD=postgres psql --host 127.0.0.1 --port ${{ job.services.postgres16.ports[5432] }} -U postgres -c "SELECT version()"
+        if: matrix.db == 'postgres16'
 
       - name: Checkout Redmine
         uses: actions/checkout@v5
@@ -132,6 +167,7 @@ jobs:
           RAILS_ENV: test
           MYSQL_PORT: ${{ job.services.mysql.ports[3306] }}
           MARIADB_PORT: ${{ job.services.mariadb.ports[3306] }}
+          POSTGRES16_PORT: ${{ job.services.postgres16.ports[5432] }}
         working-directory: redmine
         run: |
           bundle exec rake generate_secret_token
@@ -142,6 +178,7 @@ jobs:
           RAILS_ENV: test
           MYSQL_PORT: ${{ job.services.mysql.ports[3306] }}
           MARIADB_PORT: ${{ job.services.mariadb.ports[3306] }}
+          POSTGRES16_PORT: ${{ job.services.postgres16.ports[5432] }}
         working-directory: redmine
         run: bundle exec rake redmine:plugins:test NAME=additionals RUBYOPT="-W0"
 
@@ -150,5 +187,6 @@ jobs:
           RAILS_ENV: test
           MYSQL_PORT: ${{ job.services.mysql.ports[3306] }}
           MARIADB_PORT: ${{ job.services.mariadb.ports[3306] }}
+          POSTGRES16_PORT: ${{ job.services.postgres16.ports[5432] }}
         working-directory: redmine
         run: bundle exec rake redmine:plugins:migrate NAME=additionals VERSION=0

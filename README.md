@@ -13,7 +13,7 @@ Additionals is a `Redmine` plugin for customizing Redmine, providing wiki macros
 | -------------------|---------------------------------------------------|
 | `Redmine` version  | >= 7.0                                            |
 | `Ruby` version     | >= 3.2                                            |
-| Database version   | MySQL >= 8.0, MariaDB >= 11.8 or PostgreSQL >= 14 |
+| Database version   | MySQL >= 8.4, MariaDB >= 11.8 or PostgreSQL >= 16 |
 
 > **_NOTE:_** Only MySQL (including MariaDB) and PostgreSQL are supported. Although Redmine itself supports SQLite and MSSQL, `additionals` (and all plugins building on it) do not. The plugin will refuse to load on unsupported adapters. Raw SQL in migrations and queries is written and tested against MySQL/MariaDB/PostgreSQL only.
 > **_NOTE:_** If you use MySQL or MariaDB, make sure all database tables using the same storage engine (InnoDB is recommended) and character set (utf8mb4 is recommended). Mixing engines breaks foreign keys: a plugin migration that references a `MyISAM` table fails with a misleading `does not match column ... type` error.

@@ -1,0 +1,8 @@
+test:
+  adapter: postgresql
+  host: 127.0.0.1
+  port: <%= ENV["POSTGRES16_PORT"] %>
+  database: redmine
+  username: postgres
+  password: postgres
+  encoding: utf8

@@ -19,6 +19,8 @@
 - mermaid 11.16.1 support (includes an upstream prototype pollution fix)
 - New shared attachment count for every entity that includes `EntityMethods`: the `attachments_count` reader with a page-wide `load_attachments_count` preload, the `QueryAttachmentsCountColumn` list column and the `initialize_attachments_count_filter` / `sql_for_attachments_count_field` query filter. Core only offers the file list, which turns into a wall of names in a list, while the count answers what is actually asked - is anything attached and how much
 - The issue attachments section can now be linked to as `#attachments`. Redmine gives `#relations` and `#issue_tree` an anchor but never gave the files one; since this plugin already replaces that block (to collapse long file lists), the anchor belongs here. Jumping straight at it expands a collapsed list, so the link never lands on a closed drawer
+- MariaDB is now documented and tested as a database of its own (11.8 or newer). It was always the mysql variant most installations actually run, since Debian and Ubuntu ship it instead of MySQL, but it was never covered by the test suite
+- Raised the minimum database versions to releases that are still supported upstream: MySQL 8.4 (8.0 reached end of life in April 2026) and PostgreSQL 16 (14 reaches it in November 2026). Every documented minimum now runs in CI, so the requirement table is backed by tests instead of assumption, and the current PostgreSQL release is additionally covered across the full ruby matrix
 
 ## 4.5.0
 

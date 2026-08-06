@@ -1,0 +1,8 @@
+test:
+  adapter: mysql2
+  database: redmine
+  port: <%= ENV["MARIADB_PORT"] %>
+  host: 127.0.0.1
+  username: root
+  password: BestPasswordEver
+  encoding: utf8mb4

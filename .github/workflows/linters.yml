@@ -42,7 +42,7 @@ jobs:
 
     - name: Run Brakeman
       run: |
-        bundle exec brakeman -5
+        bundle exec brakeman -8
 
     - name: Setup node
       uses: actions/setup-node@v6

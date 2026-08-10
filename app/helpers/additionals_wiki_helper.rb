@@ -15,6 +15,7 @@ module AdditionalsWikiHelper
                        "#{project} - #{page.title} - # #{page.content.version}")
     end
     pdf.ln
+    wiki_pdf_before_content pdf, page
     # Set resize image scale
     pdf.set_image_scale 1.6
     pdf.SetFontStyle '', 9
@@ -34,4 +35,13 @@ module AdditionalsWikiHelper
     end
     pdf.output
   end
+
+  # Extension point for plugins that add content between the title and the page
+  # body of the PDF export, for example a header block with custom field values.
+  # Renders nothing by default.
+  #
+  # @param pdf [ITCPDF]
+  # @param page [WikiPage]
+  # @return [void]
+  def wiki_pdf_before_content(pdf, page); end
 end

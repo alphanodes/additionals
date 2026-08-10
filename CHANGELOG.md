@@ -22,6 +22,8 @@
 - MariaDB is now documented and tested as a database of its own (11.8 or newer). It was always the mysql variant most installations actually run, since Debian and Ubuntu ship it instead of MySQL, but it was never covered by the test suite
 - Raised the minimum database versions to releases that are still supported upstream: MySQL 8.4 (8.0 reached end of life in April 2026) and PostgreSQL 16 (14 reaches it in November 2026). Every documented minimum now runs in CI, so the requirement table is backed by tests instead of assumption, and the current PostgreSQL release is additionally covered across the full ruby matrix
 - Raised the minimum ruby version to 3.3, since 3.2 reached end of life in March 2026 and no longer receives security fixes. Redmine itself still accepts 3.2, so the plugin keeps working there, but it is no longer tested against it
+- New shared style for sidebar attributes: a list marked with the class `sidebar-attributes` renders name/value pairs the same way everywhere - label in front of the value, long values wrapping below their label instead of being squeezed into a rest column, and paragraph margins removed for string, link and text custom field values. Used by the contact attributes (servicedesk), the user attributes (hrm) and the wiki page attributes (wiki_guide), which each carried their own formatting before - the hrm rule even applied to every sidebar in the application
+- New extension point `wiki_pdf_before_content` in the wiki PDF export: plugins can render content between the title line and the page body without overriding `wiki_page_to_pdf` again, which would silently drop the existing settings for removing the title line and the attachment list, depending on load order
 
 ## 4.5.0
 

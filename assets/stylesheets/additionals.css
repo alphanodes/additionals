@@ -437,6 +437,32 @@ table.table-of-values caption {
 .additionals-number-positive { color: var(--a-color-success); }
 .additionals-number-negative { color: var(--a-color-alert); }
 
+/* Name/value pairs in a sidebar: a list of properties, label in front of the
+   value. Shared here so every plugin renders sidebar attributes alike - Redmine
+   uses the same list markup for user attributes in its core view.
+
+   Flowing instead of fixed columns on purpose: a sidebar is narrow, and a long
+   value (address, link) wraps below its label rather than being squeezed into a
+   rest column. Margin, padding and bullets already come from Redmine's
+   "#sidebar ul" rules, so only the label needs styling here. */
+.sidebar-attributes span.label {
+  margin-right: 3px;
+  font-weight: bold;
+  line-height: 1.3em;
+}
+
+/* String and text values are rendered as wiki content, so their paragraph would
+   add vertical margins inside the row. Written per field type, like Redmine does
+   for issue attributes. */
+.sidebar-attributes .string_cf .wiki p,
+.sidebar-attributes .link_cf .wiki p {
+  margin-block: 0;
+}
+
+.sidebar-attributes .text_cf .wiki p:first-of-type {
+  margin-block-start: 0;
+}
+
 /* stylelint-disable selector-class-pattern */
 .jstb_macros {
   background-image: url('../images/bt_macros.svg');

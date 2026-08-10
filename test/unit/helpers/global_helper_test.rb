@@ -11,6 +11,46 @@ class GlobalHelperTest < Additionals::HelperTest
   include Redmine::I18n
   include ERB::Util
 
+  def test_custom_field_value_with_single_value
+    field = IssueCustomField.generate! name: 'Height'
+    value = CustomFieldValue.new
+    value.custom_field = field
+    value.value = '20'
+
+    assert custom_field_value?(value)
+  end
+
+  def test_custom_field_value_without_value
+    field = IssueCustomField.generate! name: 'Height'
+    value = CustomFieldValue.new
+    value.custom_field = field
+    value.value = ''
+
+    assert_not custom_field_value?(value)
+  end
+
+  # A multi value field without any value arrives as [nil]. That is present?, so a
+  # plain check would render a label without a value.
+  def test_custom_field_value_for_multi_value_field_without_value
+    field = IssueCustomField.generate! name: 'Orientation', field_format: 'list',
+                                       multiple: true, possible_values: %w[North South]
+    value = CustomFieldValue.new
+    value.custom_field = field
+    value.value = [nil]
+
+    assert_not custom_field_value?(value)
+  end
+
+  def test_custom_field_value_for_multi_value_field_with_values
+    field = IssueCustomField.generate! name: 'Orientation', field_format: 'list',
+                                       multiple: true, possible_values: %w[North South]
+    value = CustomFieldValue.new
+    value.custom_field = field
+    value.value = [nil, 'North']
+
+    assert custom_field_value?(value)
+  end
+
   def test_attribute_label_with_text
     assert_equal '<span class="label">Height:</span>', attribute_label('Height')
   end

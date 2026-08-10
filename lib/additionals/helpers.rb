@@ -52,6 +52,18 @@ module Additionals
       safe_join page_title
     end
 
+    # Whether a custom value has something to show.
+    #
+    # A multi value custom field without any value comes as [nil]: that is
+    # present? and would render an empty row. Redmine core avoids this by looking
+    # at the rendered value (see render_custom_field_values).
+    #
+    # @param custom_value [CustomValue, CustomFieldValue]
+    # @return [Boolean]
+    def custom_field_value?(custom_value)
+      Array.wrap(custom_value.value).any?(&:present?)
+    end
+
     # Label of an attribute row, as used in the sidebar_attributes lists and
     # wherever a label and a value sit next to each other.
     #

@@ -7,9 +7,8 @@ h3 = block_definition[:label]
   ul.dashboard-list
     - if @project.homepage.present?
       li
-        span.label
-          = l :field_homepage
-          ' :
+        = attribute_label :field_homepage
+        '
         - if uri_with_safe_scheme? @project.homepage
           = link_to_url @project.homepage
         - else
@@ -17,9 +16,8 @@ h3 = block_definition[:label]
 
     - render_custom_field_values @project do |custom_field, formatted|
       li class="#{custom_field.css_classes}"
-        span.label
-          = custom_field.name
-        ' :
+        = attribute_label custom_field
+        '
         = formatted
 
 = call_hook :view_projects_show_dashboard_info_block, project: @project, dashboard:

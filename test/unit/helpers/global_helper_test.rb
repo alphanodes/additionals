@@ -11,6 +11,35 @@ class GlobalHelperTest < Additionals::HelperTest
   include Redmine::I18n
   include ERB::Util
 
+  def test_attribute_label_with_text
+    assert_equal '<span class="label">Height:</span>', attribute_label('Height')
+  end
+
+  def test_attribute_label_with_locale_key
+    assert_equal "<span class=\"label\">#{l :field_subject}:</span>", attribute_label(:field_subject)
+  end
+
+  # A custom field brings its description along, shown as tooltip the way Redmine
+  # does it for issue attributes.
+  def test_attribute_label_with_custom_field_description
+    field = IssueCustomField.generate! name: 'Height', description: 'In meters'
+    html = attribute_label field
+
+    assert_include 'title="In meters"', html
+    assert_include 'class="label field-description"', html
+    assert_include 'Height:', html
+  end
+
+  def test_attribute_label_with_custom_field_without_description
+    field = IssueCustomField.generate! name: 'Height'
+
+    assert_equal '<span class="label">Height:</span>', attribute_label(field)
+  end
+
+  def test_attribute_label_with_explicit_title
+    assert_include 'title="own hint"', attribute_label('Height', title: 'own hint')
+  end
+
   def test_user_with_avatar
     html = user_with_avatar users(:users_001)
 

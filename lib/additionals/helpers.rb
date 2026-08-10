@@ -52,6 +52,30 @@ module Additionals
       safe_join page_title
     end
 
+    # Label of an attribute row, as used in the sidebar_attributes lists and
+    # wherever a label and a value sit next to each other.
+    #
+    # A custom field carries its description as tooltip, the same way Redmine does
+    # it for the attributes of an issue (see custom_field_name_tag). Rebuilt here
+    # instead of calling that helper, because CustomFieldsHelper is only available
+    # in some controllers, while this helper is global.
+    #
+    # @param label [String, Symbol, CustomField] text, locale key or custom field
+    # @param title [String, nil] tooltip, taken from the custom field if not given
+    # @return [String]
+    def attribute_label(label, title: nil)
+      if label.is_a? CustomField
+        title ||= label.description.presence
+        label = label.name
+      end
+
+      label = l label if label.is_a? Symbol
+
+      tag.span "#{label}:",
+               class: ['label', title.present? ? 'field-description' : nil].compact,
+               title: title.presence
+    end
+
     def label_with_count(label, info, only_positive: false)
       text = label.is_a?(Symbol) ? l(label) : label
       if info.blank? || only_positive && !info.positive?

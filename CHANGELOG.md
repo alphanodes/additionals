@@ -2,6 +2,7 @@
 
 ## 4.6.0
 
+- New global helper `attribute_label` renders the label of an attribute row. For a custom field it shows the description as tooltip, the same way Redmine does it for the attributes of an issue. Used by the attribute lists of wiki pages, contacts, users, tags and the project information dashboard block, where the project custom fields now show their description as well.
 - Require Redmine 7.0 or newer and drop Redmine 6.x compatibility
 - Replace FontAwesome with Redmine 7's Tabler SVG sprite icons throughout. Stored icon values are now plain Tabler names; legacy FontAwesome values (`fas_car`, ...) are still translated on the fly, so existing data keeps rendering. The `additionals_icon` helper and the `additionals_icon_select` / `additionals_icon_select_tag` pickers replace `font_awesome_icon` and `additionals_fontawesome_select`, and the new `{{tabler}}` wiki macro replaces `{{fa}}` (kept as a backward compatible alias). The FontAwesome webfonts, stylesheet, helper and `AdditionalsFontAwesome` model have been removed
 - The `{{fa}}` / `{{tabler}}` wiki macros resolve bare FontAwesome icon names (e.g. `{{fa(file-alt)}}`, `{{fa(wrench)}}`, `{{fa(list-ol)}}`) through the icon map, and the `size` option renders at the requested size again instead of an oversized fallback. The Tabler sprite gained additional icons (numbered list, gender, message, alert, floppy disk, ...) so heavily used legacy macro content keeps its intended symbols

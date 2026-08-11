@@ -7,8 +7,29 @@ module Additionals
 
       included do
         include InstanceMethods
+        prepend InstanceOverwriteMethods
 
         helper :additionals_settings
+      end
+
+      module InstanceOverwriteMethods
+        # Redmine keeps the settings of a plugin in a single hash and replaces it as a
+        # whole when the form is saved. A setting introduced by a plugin update is
+        # therefore missing from the stored hash of every installation that ever saved
+        # the form, and the form renders it as empty or off although the default is
+        # what actually applies. A required field is worse than cosmetic there: it
+        # blocks saving the tab at all.
+        #
+        # Filled in here and not in the settings helpers, because views also read
+        # @settings directly.
+        def plugin
+          super
+
+          return if performed? || @settings.blank?
+
+          defaults = @plugin.settings[:default]
+          @settings = defaults.merge @settings if defaults.is_a? Hash
+        end
       end
 
       module InstanceMethods

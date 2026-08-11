@@ -479,6 +479,59 @@ class WikiControllerTest < Additionals::ControllerTest
     assert_select 'svg.icon-svg.additionals-macro-icon use[href*=?]', 'icon--car'
   end
 
+  def test_show_with_tabler_macro_and_repeat
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{tabler(star-filled, repeat=3)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select 'div.wiki svg.additionals-macro-icon use[href*=?]', 'icon--star-filled', count: 3
+  end
+
+  def test_show_with_tabler_macro_and_repeat_above_the_limit
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{tabler(star-filled, repeat=100)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select 'div.wiki svg.additionals-macro-icon use[href*=?]', 'icon--star-filled',
+                  count: Additionals::WikiMacros::FaMacro::MAX_REPEAT
+  end
+
+  def test_show_with_tabler_macro_and_invalid_repeat
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{tabler(star-filled, repeat=nonsense)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select 'div.wiki svg.additionals-macro-icon use[href*=?]', 'icon--star-filled', count: 1
+  end
+
+  # Text and link belong to the group of icons, not to each single one.
+  def test_show_with_tabler_macro_and_repeat_with_text_and_link
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{tabler(star-filled, repeat=3, text=3 of 5, link=https://www.redmine.org)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select 'div.wiki a[href=?]', 'https://www.redmine.org', count: 1 do
+      assert_select 'svg.additionals-macro-icon use[href*=?]', 'icon--star-filled', count: 3
+      assert_select 'a', text: /3 of 5/
+    end
+  end
+
   def test_show_with_fa_macro_options
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     page = WikiPage.generate! content: '{{fa(car, color=#ff0000, text=Drive, link=https://www.redmine.org)}}',

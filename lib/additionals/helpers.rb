@@ -21,6 +21,27 @@ module Additionals
       safe_join titles
     end
 
+    # Renders wiki pages grouped by the day of their last change.
+    #
+    # Shared by the recently_updated macro and by plugins that render the same
+    # list elsewhere, so it looks the same wherever it is used.
+    #
+    # @param pages [Enumerable<WikiPage>] pages, already ordered by change date
+    # @param title [String, nil] heading above the list, omitted if blank
+    # @return [String] empty string if there is nothing to show
+    def render_recently_updated_wiki_pages(pages, title: nil)
+      grouped_pages = pages.group_by { |page| page.content.updated_on.to_date }
+      return '' if grouped_pages.empty?
+
+      content = []
+      content << tag.h3(title) if title.present?
+      content += grouped_pages.flat_map do |date, date_pages|
+        [tag.strong(format_date(date)), render_recently_updated_wiki_page_group(date_pages)]
+      end
+
+      tag.div safe_join(content), class: 'recently-updated'
+    end
+
     def entity_headline(object_name:, type:, capitalize: true, obj: nil) # rubocop: disable Lint/UnusedMethodArgument
       object_name = l object_name if object_name.is_a? Symbol
 
@@ -368,6 +389,18 @@ module Additionals
                        "$(this).prev('input[type=hidden]').val('1');$(this).parent().hide()",
                        class: 'icon-only icon-link-break link-remove',
                        title: l(:label_relation_remove)
+    end
+
+    private
+
+    def render_recently_updated_wiki_page_group(pages)
+      tag.ul class: 'wiki-flat' do
+        safe_join(
+          pages.map do |page|
+            tag.li link_to(page.pretty_title, project_wiki_page_path(page.project, page.title))
+          end
+        )
+      end
     end
   end
 end

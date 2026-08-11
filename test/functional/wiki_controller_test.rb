@@ -289,6 +289,9 @@ class WikiControllerTest < Additionals::ControllerTest
     assert_select 'a[href=?]', '/projects/ecookbook/activity'
   end
 
+  # The macro output is looked up inside the content on purpose: a plugin may render
+  # the same markup elsewhere on the page, so an unanchored selector would match
+  # more than once.
   def test_show_recently_updated_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     page = WikiPage.generate! content: '{{recently_updated}}',
@@ -298,7 +301,7 @@ class WikiControllerTest < Additionals::ControllerTest
         params: { project_id: 1, id: page.title }
 
     assert_response :success
-    assert_select 'div.recently-updated' do
+    assert_select 'div#content div.recently-updated' do
       assert_select 'h3', /Updated pages/
     end
   end
@@ -312,7 +315,7 @@ class WikiControllerTest < Additionals::ControllerTest
         params: { project_id: 1, id: page.title }
 
     assert_response :success
-    assert_select 'div.recently-updated' do
+    assert_select 'div#content div.recently-updated' do
       assert_select 'h3', /Recent Changes/
     end
   end
@@ -326,8 +329,37 @@ class WikiControllerTest < Additionals::ControllerTest
         params: { project_id: 1, id: page.title }
 
     assert_response :success
-    assert_select 'div.recently-updated' do
+    assert_select 'div#content div.recently-updated' do
       assert_select 'h3', count: 0
+    end
+  end
+
+  def test_show_recently_updated_macro_with_limit
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{recently_updated(7, limit=1)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select 'div#content div.recently-updated' do
+      assert_select 'ul.wiki-flat li', count: 1
+    end
+  end
+
+  def test_show_recently_updated_macro_without_limit
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    WikiPage.generate! content: 'another page', title: "#{__method__}_other"
+    page = WikiPage.generate! content: '{{recently_updated}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select 'div#content div.recently-updated' do
+      assert_select 'ul.wiki-flat li', minimum: 2
     end
   end
 
@@ -340,7 +372,7 @@ class WikiControllerTest < Additionals::ControllerTest
         params: { project_id: 1, id: page.title }
 
     assert_response :success
-    assert_select 'div.recently-updated' do
+    assert_select 'div#content div.recently-updated' do
       assert_select 'h3', count: 0
     end
   end
@@ -354,7 +386,7 @@ class WikiControllerTest < Additionals::ControllerTest
         params: { project_id: 1, id: page.title }
 
     assert_response :success
-    assert_select 'div.recently-updated' do
+    assert_select 'div#content div.recently-updated' do
       assert_select 'h3', count: 0
     end
   end
@@ -371,7 +403,7 @@ class WikiControllerTest < Additionals::ControllerTest
 
       assert_response :success
       # When no pages are found, the macro should not render anything (no div.recently-updated)
-      assert_select 'div.recently-updated', count: 0
+      assert_select 'div#content div.recently-updated', count: 0
     end
   end
 

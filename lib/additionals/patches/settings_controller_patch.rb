@@ -22,13 +22,22 @@ module Additionals
         #
         # Filled in here and not in the settings helpers, because views also read
         # @settings directly.
+        # The stored settings arrive as a HashWithIndifferentAccess (string keys, read
+        # by either spelling), while the defaults of the plugin loader use symbols.
+        # Both parts of this line matter: reverse_merge adds only the missing keys and
+        # never overwrites a stored value, and with_indifferent_access keeps symbol
+        # access working. Merging the other way round (defaults.merge settings) returns
+        # an ordinary hash carrying every key twice, where a lookup by symbol finds the
+        # empty default instead of the stored value.
         def plugin
           super
 
           return if performed? || @settings.blank?
 
           defaults = @plugin.settings[:default]
-          @settings = defaults.merge @settings if defaults.is_a? Hash
+          return unless defaults.is_a? Hash
+
+          @settings = @settings.with_indifferent_access.reverse_merge defaults
         end
       end
 

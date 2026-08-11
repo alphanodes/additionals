@@ -33,4 +33,44 @@ class SettingsControllerTest < Additionals::ControllerTest
     assert_response :success
     assert_select 'input[name=?][checked=checked]', 'settings[open_external_urls]', count: 0
   end
+
+  # This is how the settings form stores them: the params arrive with string keys,
+  # while the defaults of the plugin loader use symbols. Reading the form has to
+  # find the stored value under either spelling.
+  def test_plugin_form_shows_stored_values_of_a_hash_with_string_keys
+    Setting.plugin_additionals = { 'global_wiki_sidebar' => 'Stored sidebar text',
+                                   'open_external_urls' => '0' }
+
+    get :plugin, params: { id: 'additionals' }
+
+    assert_response :success
+    assert_select 'textarea[name=?]', 'settings[global_wiki_sidebar]', text: 'Stored sidebar text'
+    assert_select 'input[name=?][checked=checked]', 'settings[open_external_urls]', count: 0
+  end
+
+  def test_plugin_form_adds_a_missing_default_to_a_hash_with_string_keys
+    Setting.plugin_additionals = { 'global_wiki_sidebar' => 'Stored sidebar text' }
+
+    get :plugin, params: { id: 'additionals' }
+
+    assert_response :success
+    assert_select 'textarea[name=?]', 'settings[global_wiki_sidebar]', text: 'Stored sidebar text'
+    assert_select 'input[name=?][checked=checked]', 'settings[open_external_urls]'
+  end
+
+  # Saving and reading back through the controller makes no assumption about how the
+  # settings are stored, which is what the two tests above have to do.
+  def test_plugin_form_shows_what_was_saved_through_the_form
+    post :plugin, params: { id: 'additionals',
+                            settings: { 'global_wiki_sidebar' => 'Saved through the form',
+                                        'open_external_urls' => '0' } }
+
+    assert_redirected_to plugin_settings_path('additionals')
+
+    get :plugin, params: { id: 'additionals' }
+
+    assert_response :success
+    assert_select 'textarea[name=?]', 'settings[global_wiki_sidebar]', text: 'Saved through the form'
+    assert_select 'input[name=?][checked=checked]', 'settings[open_external_urls]', count: 0
+  end
 end

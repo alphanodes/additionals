@@ -1,4 +1,11 @@
+/ The javascript: filter HTML-escapes its interpolations, which is the wrong
+/ escaping for a JS string literal: it turns the "&" between query parameters
+/ into "&amp;", so everything after the first parameter ends up as part of that
+/ parameter's value. escape_javascript escapes what a JS string actually needs
+/ (quotes, backslashes, newlines) and leaves "&" alone; html_safe keeps the
+/ filter from escaping it again afterwards.
 - options ||= {}
+- ajax_url = escape_javascript(ajax_url).html_safe
 javascript:
   $(function() {
     $("#{defined?(field_name_id) ? ('#' + field_name_id) : ('.' + field_class)}").select2({

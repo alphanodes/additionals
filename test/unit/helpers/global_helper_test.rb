@@ -114,6 +114,18 @@ class GlobalHelperTest < Additionals::HelperTest
     assert_no_match(/name="foo\[\]\[\]"/, html)
   end
 
+  # The select2 ajax url is interpolated into a JS string literal. HTML escaping
+  # would turn the "&" between query parameters into "&amp;", so everything
+  # behind the first parameter would arrive as part of its value.
+  def test_autocomplete_select_entries_keeps_ampersand_in_ajax_url
+    html = autocomplete_select_entries 'foo', 'assignee_auto_completes', nil,
+                                       multiple: false,
+                                       ajax_params: { with_me: true, active_only: true }
+
+    assert_match(/url: "[^"]*active_only=true&with_me=true/, html)
+    assert_no_match(/url: "[^"]*&amp;/, html)
+  end
+
   def test_render_label_sum_keeps_html_safe_label_intact
     result = render_label_sum '<a href="/x">file</a>'.html_safe, '1 KB'
 

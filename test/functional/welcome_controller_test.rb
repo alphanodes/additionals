@@ -23,6 +23,17 @@ class WelcomeControllerTest < Additionals::ControllerTest
     Setting.default_language = 'en'
   end
 
+  # A multiple select only submits the options that are marked, and the columns a block
+  # was given sit in the right-hand list unmarked. Without this the choice never reaches
+  # the server and the block silently keeps the columns of its query (#10179).
+  def test_block_settings_form_marks_its_selected_options_on_submit
+    @request.session[:user_id] = 1
+    get :index
+
+    assert_response :success
+    assert_select 'form[action*=?][onsubmit*=?]', 'update_layout_setting', 'selected_'
+  end
+
   def test_show_with_left_text_block
     @request.session[:user_id] = 4
     get :index

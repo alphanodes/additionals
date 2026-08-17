@@ -143,4 +143,91 @@ describe('additionals.js', () => {
       expect(result).toBe(false);
     });
   });
+
+  describe('variable cheat-sheets', () => {
+    // markup as link_to_show_variables and the variable list render it
+    function setupDom({ target = null, focusField = false } = {}) {
+      const insertTarget = target ? ` data-insert-target="${target}"` : '';
+      document.body.innerHTML = `
+        <p>
+          <input id="my_field" value="">
+          <textarea id="other_field" class="variable-value"></textarea>
+          <em class="info"><a href="#" class="show-variables">Show variables</a></em>
+          <em class="info available-variables toggle-variables"${insertTarget}>
+            <a href="#" class="var">{%name%}</a>
+          </em>
+        </p>
+      `;
+
+      if (focusField) {
+        document.getElementById('other_field').dispatchEvent(new FocusEvent('focus'));
+      }
+    }
+
+    function click(selector) {
+      document.querySelector(selector)
+        .dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+    }
+
+    it('reveals the list and hides the link', () => {
+      setupDom();
+
+      click('a.show-variables');
+
+      expect(document.querySelector('em.available-variables').classList.contains('toggle-variables')).toBe(false);
+      expect(document.querySelector('a.show-variables').style.display).toBe('none');
+    });
+
+    it('reveals the list named by data-show-target', () => {
+      document.body.innerHTML = `
+        <p>
+          <em class="info"><a href="#" class="show-variables" data-show-target="second_list">Show</a></em>
+          <em class="info available-variables toggle-variables" id="first_list"></em>
+          <em class="info available-variables toggle-variables" id="second_list"></em>
+        </p>
+      `;
+
+      click('a.show-variables');
+
+      expect(document.getElementById('second_list').classList.contains('toggle-variables')).toBe(false);
+      expect(document.getElementById('first_list').classList.contains('toggle-variables')).toBe(true);
+    });
+
+    it('inserts a variable into the field named by data-insert-target', () => {
+      setupDom({ target: 'my_field' });
+
+      click('a.var');
+
+      expect(document.getElementById('my_field').value).toBe('{%name%}');
+    });
+
+    it('inserts a variable at the cursor position', () => {
+      setupDom({ target: 'my_field' });
+      const field = document.getElementById('my_field');
+      field.value = 'ab';
+      field.selectionStart = 1;
+      field.selectionEnd = 1;
+
+      click('a.var');
+
+      expect(field.value).toBe('a{%name%}b');
+    });
+
+    it('inserts into the last focused field when no target is named', () => {
+      setupDom({ focusField: true });
+
+      click('a.var');
+
+      expect(document.getElementById('other_field').value).toBe('{%name%}');
+    });
+
+    it('leaves the fields alone when nothing was focused', () => {
+      setupDom();
+
+      click('a.var');
+
+      expect(document.getElementById('my_field').value).toBe('');
+      expect(document.getElementById('other_field').value).toBe('');
+    });
+  });
 });

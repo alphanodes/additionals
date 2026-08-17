@@ -101,54 +101,63 @@ function addTabToFromAction(form, name) {
 // with class "variable-value" the user edited last.
 //
 // Delegated on document, so forms replaced by ajax keep working. Loaded
-// globally through additionals/_html_head, which is why every plugin gets
-// this without an asset of its own.
-jQuery(($) => {
-  // Inserts text where the cursor is, keeping the scroll position.
-  $.fn.insertTextAtCaret = function (value) {
-    return this.each(function () {
-      if (this.selectionStart === undefined) {
-        this.value += value;
-      } else {
-        const start = this.selectionStart;
-        const end = this.selectionEnd;
-        const { scrollTop } = this;
+// globally through additionals/_html_head, which is why every plugin gets this
+// without an asset of its own.
 
-        this.value = this.value.slice(0, start) + value + this.value.slice(end);
-        this.selectionStart = start + value.length;
-        this.selectionEnd = this.selectionStart;
-        this.scrollTop = scrollTop;
-      }
-      this.focus();
-    });
-  };
+// Inserts text where the cursor is, keeping the scroll position. Global,
+// because views insert the answer of an ajax request the same way.
+function insertTextAtCaret(field, value) { // eslint-disable-line no-unused-vars
+  if (!field) { return; }
 
+  if (field.selectionStart === undefined) {
+    field.value += value;
+  } else {
+    const start = field.selectionStart;
+    const end = field.selectionEnd;
+    const { scrollTop } = field;
+
+    field.value = field.value.slice(0, start) + value + field.value.slice(end);
+    field.selectionStart = start + value.length;
+    field.selectionEnd = field.selectionStart;
+    field.scrollTop = scrollTop;
+  }
+
+  field.focus();
+}
+
+(() => {
   let lastVarField = null;
 
-  $(document).on('focus', '.variable-value', function () {
-    lastVarField = this;
-  });
+  // focus does not bubble, so it is captured instead of delegated
+  document.addEventListener('focus', (event) => {
+    if (event.target.classList?.contains('variable-value')) { lastVarField = event.target; }
+  }, true);
 
-  $(document).on('click', 'a.show-variables', function (event) {
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest('a.show-variables');
+    if (!link) { return; }
+
     event.preventDefault();
-    const link = $(this);
-    link.hide();
+    link.style.display = 'none';
 
     // an explicit target is needed where two lists share a parent
-    const targetId = link.data('show-target');
-    if (targetId) {
-      $(`#${targetId}`).show();
-    } else {
-      link.parent().siblings('em.available-variables').show();
-    }
+    const targetId = link.dataset.showTarget;
+    const list = targetId
+      ? document.getElementById(targetId)
+      : link.parentElement?.parentElement?.querySelector('em.available-variables');
+
+    // the list is hidden by the class, so dropping it is what reveals it
+    list?.classList.remove('toggle-variables');
   });
 
-  $(document).on('click', 'a.var', function (event) {
+  document.addEventListener('click', (event) => {
+    const variable = event.target.closest('a.var');
+    if (!variable) { return; }
+
     event.preventDefault();
-    const targetId = $(this).closest('[data-insert-target]').data('insert-target');
-    const field = targetId ? $(`#${targetId}`) : $(lastVarField);
-    if (!field.length) { return; }
+    const targetId = variable.closest('[data-insert-target]')?.dataset.insertTarget;
+    const field = targetId ? document.getElementById(targetId) : lastVarField;
 
-    field.insertTextAtCaret($(this).html());
+    insertTextAtCaret(field, variable.innerHTML);
   });
-});
+})();

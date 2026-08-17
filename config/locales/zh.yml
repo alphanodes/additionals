@@ -1,5 +1,6 @@
 # Simplified Chinese strings
 zh:
+  label_show_variables: "显示变量"
   seconds:
     one: 第二次
     other: "%{count} 秒钟"
@@ -238,6 +239,7 @@ zh:
   rule_issue_status_change_info: "用例：若问题的状态修改为 \"Approval\"，则自动分配给问题作者。"
   rule_issue_timelog_required_info_html: '对于所选"问题跟踪"的问题，如果问题需要接受已定义状态之一，则需要"时间预期"。以下情况不需要"时间预期"<br />- 没有"创建时间预订"的权限<br />- 用户角色具有授权"无需登记工时"<br />用例：对于接受状态为"待验证"的问题，需要已花费时间。'
   setting_export_limit: "导出限制"
+  text_available_variables: "可用变量: %{variables}"
   top_rules_help: "您可以在此定义用于问题处理的相关规则。"
   top_wiki_help: 您可以在此定义 Wiki 的内容及设置。
   wiki_pdf_remove_attachments_info: 当启用时，Wiki 附件将不会显示在 PDF 视图中。

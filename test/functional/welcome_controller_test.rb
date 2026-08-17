@@ -25,7 +25,7 @@ class WelcomeControllerTest < Additionals::ControllerTest
 
   # A multiple select only submits the options that are marked, and the columns a block
   # was given sit in the right-hand list unmarked. Without this the choice never reaches
-  # the server and the block silently keeps the columns of its query (#10179).
+  # the server and the block silently keeps the columns of its query.
   def test_block_settings_form_marks_its_selected_options_on_submit
     @request.session[:user_id] = 1
     get :index

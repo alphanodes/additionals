@@ -1,5 +1,6 @@
 # French strings
 fr:
+  label_show_variables: "Afficher les variables"
   seconds:
     one: seconde
     other: "%{count} secondes"
@@ -238,6 +239,7 @@ fr:
   rule_issue_status_change_info: "Cas d'utilisation: les problèmes doivent être automatiquement affectés à l'auteur, si l'état passe à \"Approuvé\"."
   rule_issue_timelog_required_info_html: "Pour chaque ticket des trackers sélectionnés, une réservation temporelle est nécessaire si le ticket doit recevoir l'une des propriétés de statut définies. La réservation de temps n'est pas nécessaire si:<br />- aucun droit n'existe pour créer des réservations de temps <br />- l'utilisateur a l'autorisation \"Réservations de temps non nécessaires\" <br />Use case: Pour accepter un ticket avec le statut \"Vérifier\", le temps passé est également requis."
   setting_export_limit: "Limite d'exportation"
+  text_available_variables: "Variables disponibles : %{variables}"
   top_rules_help: "Ici, vous pouvez définir des règles, qui sont utilisées dans les tâches de tous les projets."
   top_wiki_help: "Ici vous pouvez définir le contenu et les paramètres de votre Wiki."
   wiki_pdf_remove_attachments_info: "Lorsqu'ils sont actifs, les fichiers Wiki joints ne seront pas affichés en vue PDF."

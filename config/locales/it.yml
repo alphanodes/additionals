@@ -1,5 +1,6 @@
 # Italian strings
 it:
+  label_show_variables: "Mostra variabili"
   seconds:
     one: secondo
     other: "%{count} secondi"
@@ -238,6 +239,7 @@ it:
   rule_issue_status_change_info: "Caso d'uso: i problemi dovrebbero essere assegnati automaticamente all'autore, se lo stato cambia in \"Approval\"."
   rule_issue_timelog_required_info_html: "Per ogni biglietto degli inseguitori selezionati, è necessaria una prenotazione a tempo se il biglietto deve ricevere una delle proprietà di stato definite. La prenotazione del tempo non è richiesta se:<br />- non esistono diritti per la creazione di prenotazioni di tempo<br />- l'utente ha l'autorizzazione \"Tempo di prenotazione non richiesto\" <br />Use case: Per accettare un biglietto con lo stato \"Per verificare\", è richiesto anche il tempo trascorso."
   setting_export_limit: "Limite di esportazione"
+  text_available_variables: "Variabili disponibili: %{variables}"
   top_rules_help: "Qui è possibile definire le regole, che sono utilizzate nelle questioni di tutti i progetti."
   top_wiki_help: "Qui puoi definire contenuti e impostazioni per il tuo Wiki."
   wiki_pdf_remove_attachments_info: "Quando è attivo, il Wiki file allegati non verranno visualizzati nella vista PDF."

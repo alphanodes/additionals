@@ -1,5 +1,6 @@
 # Brasilian strings
 pt-BR:
+  label_show_variables: "Mostrar variáveis"
   seconds:
     one: segundo
     other: "%{count} segundos"
@@ -238,6 +239,7 @@ pt-BR:
   rule_issue_status_change_info: "Use Case: issues should be automatically assigned to author, if the status changes to \"Approval\"."
   rule_issue_timelog_required_info_html: "Para cada tarefa dos rastreadores selecionados, uma reserva de tempo é necessária para que a tarefa receba uma das propriedades de status definidas. A reserva de tempo não é necessária se:<br />- não existem direitos para a criação de reservas de tempo<br />- o usuário tem a autorização \"Time logging not required\"<br />Estojo de uso: Para a aceitação de uma tarefa com o status \"To Verify\", o tempo gasto também é necessário."
   setting_export_limit: "Limite de exportação"
+  text_available_variables: "Variáveis disponíveis: %{variables}"
   top_rules_help: "Aqui você pode definir regras, que são utilizadas em tarefas de todos os projetos."
   top_wiki_help: "Aqui você pode definir conteúdos e configurações para seu Wiki."
   wiki_pdf_remove_attachments_info: "Quando ativo, os arquivos Wiki anexos não serão exibidos na visualização em PDF."

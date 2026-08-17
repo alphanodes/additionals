@@ -1,5 +1,6 @@
 # Spanish strings
 es:
+  label_show_variables: "Mostrar variables"
   seconds:
     one: segundo
     other: "%{count} segundos"
@@ -238,6 +239,7 @@ es:
   rule_issue_status_change_info: "Caso de Uso: las peticiones deben ser automáticamente asignadas al autor en caso de que el estado cambié a \"Aprobación\"."
   rule_issue_timelog_required_info_html: 'Por cada petición de los tipos seleccionados requieren registro de tiempo si la petición recibe una de las definiciones de estado seleccionadas. El registro de tiempo no es requerido si:<br />- no tiene privilegios para la creación de Registros de tiempo<br />- el usuario tiene el permiso "No requiere registro de tiempo"<br />Caso de Uso: Para aceptar una petición con el estado "Por verificar", el tiempo utilizado también es requerido.'
   setting_export_limit: "Límite de exportación"
+  text_available_variables: "Variables disponibles: %{variables}"
   top_rules_help: "Aquí puede definir reglas que serán utizadas en las peticiones de todos los proyectos."
   top_wiki_help: "Aquí puede definir contenidos y configuracioens para su Wiki."
   wiki_pdf_remove_attachments_info: "Cuando está activa, los adjuntos no serán mostrados en los PDF."

@@ -1,5 +1,6 @@
 # Czech strings
 cs:
+  label_show_variables: "Zobrazit proměnné"
   seconds:
     one: "Druhý"
     other: "%{count} sekundy"
@@ -238,6 +239,7 @@ cs:
   rule_issue_status_change_info: "Případ použití: problémy by měly být automaticky přiřazeny autorovi, pokud se stav změní na \"Approval\"."
   rule_issue_timelog_required_info_html: 'Pro každý úkol vybraných sledovačů je nutná časová rezervace, pokud má lístek obdržet jednu z definovaných stavových vlastností. Rezervace času není nutná, pokud:<br />- neexistují žádná práva na vytvoření časových rezervací.<br />- uživatel má oprávnění "Time logging not required"<br />Případ použití: Pro přijetí tipu se stavem "To verify" je vyžadován také strávený čas.'
   setting_export_limit: "Vývozní limit"
+  text_available_variables: "Dostupné proměnné: %{variables}"
   top_rules_help: "Zde můžete definovat pravidla, která se používají v úkolech všech projektů."
   top_wiki_help: "Zde můžete definovat obsah a nastavení vaší Wiki."
   wiki_pdf_remove_attachments_info: "Pokud je aktivní, připojené soubory Wiki se nebudou zobrazovat v zobrazení PDF."

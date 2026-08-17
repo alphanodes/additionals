@@ -9,7 +9,7 @@
   div id="#{block}-settings" class="#{'hidden' if with_async}"
     / A multiple select only submits the options that are marked, and the columns in the
     / right-hand list are not - so without this the column choice never reaches the server
-    / and the block keeps the columns of its query (#10179).
+    / and the block keeps the columns of its query.
     = remote_form_tag _update_layout_setting_dashboard_path(@project, dashboard),
                       onsubmit: "$(this).find('select[id^=selected_] option').prop('selected', true)" do
       = render block_definition[:settings_partial].presence || "#{async[:partial]}_settings",

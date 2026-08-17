@@ -1,5 +1,6 @@
 # Korean strings
 ko:
+  label_show_variables: "변수 표시"
   seconds:
     one: "두번째"
     other: "%{count} 초"
@@ -238,6 +239,7 @@ ko:
   rule_issue_status_change_info: "Use Case: issues should be automatically assigned to author, if the status changes to \"Approval\"."
   rule_issue_timelog_required_info_html: '선택된 트래커의 각 티켓에 대해 티켓이 정의 된 상태 속성 중 하나를 수신하려면 시간 예약이 필요합니다. 다음과 같은 경우 시간 예약이 필요하지 않습니다:<br />- no rights exist for the creation of time bookings<br />- 사용자에게 권한이 있습니다 "Time logging not required"<br />사용 사례 : 상태가  "To Verify" 인 티켓을 수락하려면 소요 시간도 필요합니다.'
   setting_export_limit: "Export limit"
+  text_available_variables: "사용할 수 있는 변수: %{variables}"
   top_rules_help: "여기에서 모든 프로젝트의 문제에 사용되는 규칙을 정의 할 수 있습니다."
   top_wiki_help: 여기에서 위키의 내용과 설정을 정의 할 수 있습니다.
   wiki_pdf_remove_attachments_info: 활성화 된 경우 첨부 된 Wiki 파일은 PDF보기에 표시되지 않습니다.

@@ -1,5 +1,6 @@
 # English strings
 en:
+  label_show_variables: "Show variables"
   seconds:
     one: second
     other: "%{count} seconds"
@@ -238,6 +239,7 @@ en:
   rule_issue_status_change_info: "Use Case: issues should be automatically assigned to author, if the status changes to \"Approval\"."
   rule_issue_timelog_required_info_html: 'For each issue of the selected trackers, a time booking is necessary if the issue is to receive one of the defined status properties. The time booking is not required if:<br />- no rights exist for the creation of time bookings<br />- the user has the authorization "Time logging not required"<br />Use case: For the acceptance of an issue with the status "To Verify", the time spent is also required.'
   setting_export_limit: "Export limit"
+  text_available_variables: "Available variables: %{variables}"
   top_rules_help: "Here you can define rules, which are used in issues of all projects."
   top_wiki_help: "Here you can define contents and settings for your Wiki."
   wiki_pdf_remove_attachments_info: "When active the attached Wiki files will not be displayed in PDF view."

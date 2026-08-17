@@ -1,5 +1,6 @@
 # Ukrainian strings
 uk:
+  label_show_variables: "Показати змінні"
   seconds:
     one: Секунда
     other: "%{count} Секунди"
@@ -238,6 +239,7 @@ uk:
   rule_issue_status_change_info: "Use Case: issues should be automatically assigned to author, if the status changes to \"Approval\"."
   rule_issue_timelog_required_info_html: "Для кожного білета відібранних трекерів необхідно забронювати час,якщо  білет повинен отримати одне із визначених  значення  статусів. Бронювання часу не потребуєьтся, якщо:<br />- не існує  няких прав на резервування часу.<br />- у користувача є авторизація \"Time logging not required\"<br />Використовуй кейс: Для приняття білету з статусом \"To Verify\" також буде потрібен витрачений час."
   setting_export_limit: "Ліміт експорту"
+  text_available_variables: "Доступні змінні: %{variables}"
   top_rules_help: "Тут  можна визначити правила, котрі використовуються  в задачах всіх проектів."
   top_wiki_help: "Тут  ви можете визначити  зміст  і налаштування  для вашої Віки."
   wiki_pdf_remove_attachments_info: "Якщо  прапорець не встановлено, вкладені  Віки-файли не будуть відображатись в PDF-форматі."

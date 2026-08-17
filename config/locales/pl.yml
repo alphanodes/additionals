@@ -1,5 +1,6 @@
 # Polish strings
 pl:
+  label_show_variables: "Pokaż zmienne"
   seconds:
     one: druga
     other: "%{count} sekundy"
@@ -238,6 +239,7 @@ pl:
   rule_issue_status_change_info: "Przypadek użycia: sprawy powinny być automatycznie przypisywane do autora, jeśli ich status zmieni się na \"Approval\"."
   rule_issue_timelog_required_info_html: 'Dla każdego biletu wybranych trackerów konieczna jest rezerwacja czasu, jeśli bilet ma otrzymać jedną ze zdefiniowanych właściwości statusu. Rezerwacja czasu nie jest wymagana, jeśli:<br />- nie istnieją żadne prawa do tworzenia rezerwacji czasu.<br />- użytkownik posiada autoryzację "Time logging not required"<br />Przypadek użycia: Do przyjęcia biletu o statusie "To verify" wymagany jest również czas poświęcony na jego akceptację.'
   setting_export_limit: "Limit eksportu"
+  text_available_variables: "Dostępne zmienne: %{variables}"
   top_rules_help: "Tutaj możesz zdefiniować reguły, które są używane w sprawach wszystkich projektów."
   top_wiki_help: "Tutaj możesz zdefiniować zawartość i ustawienia dla swojej Wiki."
   wiki_pdf_remove_attachments_info: "Gdy jest aktywny, załączone pliki Wiki nie będą wyświetlane w widoku PDF."

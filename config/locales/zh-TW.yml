@@ -1,5 +1,6 @@
 # Traditional Chinese strings
 "zh-TW":
+  label_show_variables: "顯示變數"
   seconds:
     one: 第二次
     other: "%{count} 秒钟"
@@ -238,6 +239,7 @@
   rule_issue_status_change_info: "範例：若議題的狀態修改為 \"已完成\"，則自動被分派給議題作者。"
   rule_issue_timelog_required_info_html: 'For each ticket of the selected trackers, a time booking is necessary if the ticket is to receive one of the defined status properties. The time booking is not required if:<br />- no rights exist for the creation of time bookings<br />- the user has the authorization "Time logging not required"<br />Use case: For the acceptance of a ticket with the status "To Verify", the time spent is also required.'
   setting_export_limit: "出口限额"
+  text_available_variables: "可用變數: %{variables}"
   top_rules_help: "您可以在此自訂議題處理的相關規則。"
   top_wiki_help: "您可以在此自訂Wiki的內容和設定。"
   wiki_pdf_remove_attachments_info: "當啟用時，Wiki附件將不會顯示在PDF中。"

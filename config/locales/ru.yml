@@ -1,5 +1,6 @@
 # Russian strings
 ru:
+  label_show_variables: "Показать переменные"
   seconds:
     one: Второй
     other: "%{count} Секунды"
@@ -238,6 +239,7 @@ ru:
   rule_issue_status_change_info: "Use Case: issues should be automatically assigned to author, if the status changes to \"Approval\"."
   rule_issue_timelog_required_info_html: "Для каждого билета выбранных трекеров необходимо забронировать время, если билет должен получить одно из определенных свойств статуса. Бронирование времени не требуется, если:<br />- не существует никаких прав на резервирование времени.<br />- у пользователя есть авторизация \"Time logging not required\"<br />Используй кейс: Для принятия билета со статусом \"To Verify\" также требуется потраченное время."
   setting_export_limit: "Лимит экспорта"
+  text_available_variables: "Доступные переменные: %{variables}"
   top_rules_help: "Здесь можно определить правила, которые используются в задачах всех проектов."
   top_wiki_help: "Здесь вы можете определить содержимое и настройки для вашей Вики."
   wiki_pdf_remove_attachments_info: "Если флажок установлен, вложенные Вики-файлы не будут отображаться в PDF-формате."

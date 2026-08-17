@@ -609,3 +609,13 @@ table.entity-list td.block_column pre {
 @media print {
   .gototop { display: none; }
 }
+
+/* Variable cheat-sheet of a form: the list stays hidden until the user asks
+   for it through the "show variables" link. Handler in additionals.js. */
+.available-variables.toggle-variables {
+  display: none;
+}
+
+.available-variables a.var {
+  white-space: nowrap;
+}

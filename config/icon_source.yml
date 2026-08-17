@@ -800,6 +800,8 @@
   svg: lock-open
 - name: log
   svg: book-2
+- name: logout
+  svg: logout
 - name: lungs
   svg: lungs
 - name: magnet

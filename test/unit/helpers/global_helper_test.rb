@@ -11,6 +11,28 @@ class GlobalHelperTest < Additionals::HelperTest
   include Redmine::I18n
   include ERB::Util
 
+  # Variable cheat-sheets of any plugin are revealed by this link (#15778)
+  def test_link_to_show_variables_renders_link
+    html = link_to_show_variables
+
+    assert_include 'class="show-variables"', html
+    assert_include 'href="#"', html
+    assert_not_include 'data-show-target', html
+  end
+
+  def test_link_to_show_variables_with_target_adds_data_attribute
+    html = link_to_show_variables target: 'my_vars_list'
+
+    assert_include 'class="show-variables"', html
+    assert_include 'data-show-target="my_vars_list"', html
+  end
+
+  def test_link_to_show_variables_without_target_adds_no_data_attribute
+    html = link_to_show_variables target: nil
+
+    assert_not_include 'data-show-target', html
+  end
+
   def test_custom_field_value_with_single_value
     field = IssueCustomField.generate! name: 'Height'
     value = CustomFieldValue.new

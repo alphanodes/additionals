@@ -391,6 +391,19 @@ module Additionals
                        title: l(:label_relation_remove)
     end
 
+    # Link which reveals a hidden list of {%var%} placeholders. The list is
+    # rendered as `em.info.available-variables.toggle-variables` next to it;
+    # the handler in additionals.js reveals it and inserts a clicked variable.
+    #
+    # target names the list by id, which is needed where two of them share a
+    # parent - without it the sibling lookup would reveal both.
+    def link_to_show_variables(target: nil)
+      options = { class: 'show-variables' }
+      options[:data] = { 'show-target' => target } if target
+
+      link_to l(:label_show_variables), '#', **options
+    end
+
     private
 
     def render_recently_updated_wiki_page_group(pages)

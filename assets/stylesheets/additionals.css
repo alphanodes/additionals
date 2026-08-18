@@ -583,9 +583,13 @@ table.entity-list td.block_column pre {
 
 /* Dashboard block: summary stats */
 
+/* The value is pushed to the right edge of the label, which lines the figures up
+ * in a narrow dashboard column. A block spanning the whole dashboard would tear
+ * the pair a page width apart, so the row itself is capped. */
 .dashboard-block li.summary-stat {
   display: flex;
   align-items: baseline;
+  max-width: 32rem;
   padding: 5px 0;
   border-bottom: 1px solid var(--a-color-border-light);
 }

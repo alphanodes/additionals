@@ -21,6 +21,12 @@
   --a-color-border-light: #ddd;
   --a-color-bg-light: #eee;
   --a-color-muted: #999;
+
+  /* Secondary text: labels of a label/value pair, timestamps, dates beside a
+   * name. Held down a step from the body text, but still meant to be read -
+   * unlike --a-color-muted. Themes are expected to override it; without a
+   * definition here every plugin using it silently lost the colour. */
+  --a-color-text-muted: var(--oc-gray-6);
   --a-color-highlight: #dbe4ff;
   --a-color-disabled: #aaa;
   --a-color-smiley: #edae40;

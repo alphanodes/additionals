@@ -186,6 +186,24 @@ svg.dashboard-system-default.global {
   text-decoration: none;
 }
 
+.additionals-avatar { margin-right: 0.25em; }
+
+/* An avatar written next to its name is one unit, the margin above spaces it.
+   A detail page carries core's issue class, and div.issue .avatar floats every
+   avatar below it with the margin of the large author avatar core draws there -
+   that would pull the avatar out of the line and tear the pair apart. */
+div.issue .additionals-avatar {
+  float: none;
+  margin: 0 0.25em 0 0;
+}
+
+/* A linked avatar carries the class on the link, so the float has to go from the
+   image inside it as well - a floated child would leave the link box empty. */
+div.issue .additionals-avatar .avatar {
+  float: none;
+  margin: 0;
+}
+
 /* Warning ring around the account avatar while redmine_sudo admin permission is
    active. redmine_sudo adds the `sudo-active` class to #account. */
 #account.sudo-active .dropdown-trigger .avatar {
@@ -261,8 +279,6 @@ div.clear-both { clear: both; }
 }
 
 .clipboard-text { cursor: pointer; }
-
-.additionals-avatar { margin-right: 0.25em; }
 
 .dashboard-block h3 svg,
 #page-title svg {

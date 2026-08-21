@@ -186,6 +186,29 @@ svg.dashboard-system-default.global {
   text-decoration: none;
 }
 
+/* Core ships .avatar size classes for 13/16/22/24/40/50 only, so an avatar drawn
+   at any other size has no size at all. An image avatar carries width and height
+   attributes and survives that, but the initials avatar is a bare inline-flex
+   span and collapses to the width of its two letters. 14px is the default of
+   user_with_avatar, 32px is used all over servicedesk. */
+.avatar.s14 {
+  block-size: 14px;
+  inline-size: 14px;
+}
+
+span[role='img'].avatar.s14 {
+  font-size: calc(0.875rem * 0.4);
+}
+
+.avatar.s32 {
+  block-size: 32px;
+  inline-size: 32px;
+}
+
+span[role='img'].avatar.s32 {
+  font-size: calc(2rem * 0.4);
+}
+
 .additionals-avatar { margin-right: 0.25em; }
 
 /* An avatar written next to its name is one unit, the margin above spaces it.

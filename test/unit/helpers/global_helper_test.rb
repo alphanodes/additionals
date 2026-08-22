@@ -108,6 +108,37 @@ class GlobalHelperTest < Additionals::HelperTest
     assert_include 'Redmine Admin', html
   end
 
+  # A gravatar carries no width or height, so without the size class it collapses
+  # whenever the image does not arrive (#10179)
+  def test_avatar_gravatar_carries_size_class
+    with_settings gravatar_enabled: '1' do
+      assert_include 'class="s32 gravatar avatar"', avatar(users(:users_002), size: 32)
+    end
+  end
+
+  def test_avatar_gravatar_keeps_the_size_class_once_when_it_is_already_set
+    with_settings gravatar_enabled: '1' do
+      html = avatar users(:users_002), size: 32, class: 's32'
+
+      assert_equal 1, html.scan(/\bs32\b/).size
+    end
+  end
+
+  def test_avatar_gravatar_falls_back_to_the_default_size_class
+    with_settings gravatar_enabled: '1' do
+      assert_include "s#{GravatarHelper::DEFAULT_OPTIONS[:size]} ", avatar(users(:users_002))
+    end
+  end
+
+  def test_avatar_initials_carries_the_size_class_only_once
+    with_settings gravatar_enabled: '0' do
+      html = avatar users(:users_002), size: 32
+
+      assert_include 'role="img"', html
+      assert_equal 1, html.scan(/\bs32\b/).size
+    end
+  end
+
   def test_link_to_url
     assert_equal 'redmine.org/test', Nokogiri::HTML.parse(link_to_url('http://redmine.org/test')).xpath('//a').first.text
     assert_equal 'redmine.org/test', Nokogiri::HTML.parse(link_to_url('https://redmine.org/test')).xpath('//a').first.text

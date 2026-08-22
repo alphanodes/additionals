@@ -186,11 +186,24 @@ svg.dashboard-system-default.global {
   text-decoration: none;
 }
 
+/* A table cell carries the name of its column, so `avatar` there means "the
+   avatar column" and never "this element is an avatar" - Redmine builds the cell
+   class from the column name (Query#css_classes), so the collision can appear
+   without anyone writing markup. Core's component rule would take the cell out
+   of the table layout with display: inline-flex, which leaves the row
+   background and the column below it broken off under the avatar. */
+td.avatar,
+th.avatar {
+  display: table-cell;
+  border-radius: 0;
+}
+
 /* Core ships .avatar size classes for 13/16/22/24/40/50 only, so an avatar drawn
    at any other size has no size at all. An image avatar carries width and height
    attributes and survives that, but the initials avatar is a bare inline-flex
    span and collapses to the width of its two letters. 14px is the default of
-   user_with_avatar, 32px is used all over servicedesk. */
+   user_with_avatar, 32px is used all over servicedesk, 250px is the avatar
+   upload preview of hrm. */
 .avatar.s14 {
   block-size: 14px;
   inline-size: 14px;
@@ -207,6 +220,15 @@ span[role='img'].avatar.s14 {
 
 span[role='img'].avatar.s32 {
   font-size: calc(2rem * 0.4);
+}
+
+.avatar.s250 {
+  block-size: 250px;
+  inline-size: 250px;
+}
+
+span[role='img'].avatar.s250 {
+  font-size: calc(15.625rem * 0.4);
 }
 
 .additionals-avatar { margin-right: 0.25em; }

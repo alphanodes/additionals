@@ -18,6 +18,54 @@ function formatNameWithIcon(opt) {
   return span;
 }
 
+/* Tabler sprite helpers for javascript generated markup.
+
+   The sprite paths carry an asset digest, so they cannot be built in
+   javascript. ADDITIONALS_ICON_SPRITES is provided by the html head partial
+   and maps a sprite key ('core', 'additionals', 'additionals_custom') to its
+   asset path. */
+/* global ADDITIONALS_ICON_SPRITES */
+/* exported spriteIconPath */
+function spriteIconPath(sprite) {
+  if (typeof ADDITIONALS_ICON_SPRITES === 'undefined') { return ''; }
+
+  return ADDITIONALS_ICON_SPRITES[sprite || 'core'] || '';
+}
+
+/* Build the markup of a sprite icon, as it is rendered by the sprite_icon
+   helper on the server side. Redmine covers the plain cases itself:
+   createSVGIcon builds an icon of the core sprite, updateSVGIcon swaps the icon
+   of a rendered one. Use this where neither fits, so for an icon of another
+   sprite or one that needs its own size, class or tooltip.
+
+   options: sprite ('core' by default), size (18), cssClass, title (rendered as
+   svg title element, which is what shows a tooltip on an svg) */
+/* exported spriteIcon */
+function spriteIcon(name, options) {
+  const opts = options || {};
+  // a sprite name is lowercase and hyphen separated, everything else is
+  // rejected instead of being written into the markup
+  const iconName = String(name).replace(/[^a-z0-9-]/g, '');
+  const path = spriteIconPath(opts.sprite);
+  if (!iconName || !path) { return ''; }
+
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('class', `s${opts.size || 18} icon-svg${opts.cssClass ? ` ${opts.cssClass}` : ''}`);
+  if (opts.title) {
+    const title = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+    title.textContent = opts.title;
+    svg.appendChild(title);
+  } else {
+    svg.setAttribute('aria-hidden', 'true');
+  }
+
+  const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+  use.setAttribute('href', `${path}#icon--${iconName}`);
+  svg.appendChild(use);
+
+  return svg.outerHTML;
+}
+
 /* Render a select2 option for the Tabler icon picker: SVG sprite icon + name.
    The full sprite href is provided per option via data-href. */
 /* exported formatIconOption */

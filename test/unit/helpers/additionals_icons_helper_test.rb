@@ -64,6 +64,14 @@ class AdditionalsIconsHelperTest < Additionals::HelperTest
     assert_match(/class="s40 icon-svg additionals-macro-icon"/, html)
   end
 
+  def test_icon_sprites_carry_the_digested_asset_paths
+    sprites = additionals_icon_sprites
+
+    assert_match %r{/icons-\w+\.svg\z}, sprites[:core]
+    assert_match %r{/additionals/icons-\w+\.svg\z}, sprites[:additionals]
+    assert_match %r{/additionals/icons_custom-\w+\.svg\z}, sprites[:additionals_custom]
+  end
+
   def test_icon_select_options_carry_main_sprite_href
     car = send(:additionals_icon_select_options, nil).find { |option| option[1] == 'car' }
 

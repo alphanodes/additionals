@@ -8,6 +8,11 @@ const scriptContent = readFileSync(scriptPath, 'utf-8');
 
 // Mock Redmine Core globals
 globalThis.replaceInHistory = vi.fn();
+globalThis.ADDITIONALS_ICON_SPRITES = {
+  core: '/assets/icons-abc123.svg',
+  additionals: '/assets/plugin_assets/additionals/icons-def456.svg',
+  additionals_custom: '/assets/plugin_assets/additionals/icons_custom-789abc.svg',
+};
 
 // Use indirect eval to execute in global scope (direct eval runs in module scope)
 const globalEval = eval; // eslint-disable-line no-eval
@@ -61,6 +66,56 @@ describe('additionals.js', () => {
 
       expect(result.tagName).toBe('SPAN');
       expect(result.innerHTML).toBe('Plain text');
+    });
+  });
+
+  describe('spriteIcon', () => {
+    it('builds an icon from the core sprite by default', () => {
+      const result = spriteIcon('email');
+
+      expect(result).toContain('/assets/icons-abc123.svg#icon--email');
+      expect(result).toContain('class="s18 icon-svg"');
+      expect(result).toContain('aria-hidden="true"');
+    });
+
+    it('builds an icon from the additionals sprite', () => {
+      const result = spriteIcon('heading', { sprite: 'additionals' });
+
+      expect(result).toContain('/assets/plugin_assets/additionals/icons-def456.svg#icon--heading');
+    });
+
+    it('applies size and css class', () => {
+      const result = spriteIcon('email', { size: 24, cssClass: 'symbol' });
+
+      expect(result).toContain('class="s24 icon-svg symbol"');
+    });
+
+    it('renders a title element instead of aria-hidden', () => {
+      const result = spriteIcon('email', { title: 'Send mail' });
+
+      expect(result).toContain('<title>Send mail</title>');
+      expect(result).not.toContain('aria-hidden');
+    });
+
+    it('escapes a title with markup', () => {
+      const result = spriteIcon('email', { title: '<b>x</b>' });
+
+      expect(result).toContain('&lt;b&gt;x&lt;/b&gt;');
+    });
+
+    it('strips characters that are not part of a sprite name', () => {
+      const result = spriteIcon('email"><script>');
+
+      expect(result).toContain('#icon--emailscript');
+      expect(result).not.toContain('<script>');
+    });
+
+    it('returns an empty string for an unknown sprite', () => {
+      expect(spriteIcon('email', { sprite: 'nope' })).toBe('');
+    });
+
+    it('returns an empty string for a blank name', () => {
+      expect(spriteIcon('')).toBe('');
     });
   });
 

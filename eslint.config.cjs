@@ -22,6 +22,8 @@ module.exports = require('./eslint.shared.cjs')({
     sanitizeHTML: 'readonly',
     sanitizeToId: 'readonly',
     setSelect2Filter: 'readonly',
+    spriteIcon: 'readonly',
+    spriteIconPath: 'readonly',
     showPluginSettingsTab: 'readonly',
     updateSVGIcon: 'readonly',
   },

@@ -145,18 +145,26 @@ module AdditionalsIconsHelper
                               wrapper_css:
   end
 
+  # Sprite asset paths for icons that are built in javascript, keyed by sprite
+  # name. Javascript cannot build them itself, because the paths carry an asset
+  # digest (see spriteIcon in additionals.js).
+  def additionals_icon_sprites
+    { core: asset_path('icons.svg'),
+      additionals: asset_path('plugin_assets/additionals/icons.svg'),
+      additionals_custom: asset_path('plugin_assets/additionals/icons_custom.svg') }
+  end
+
   private
 
   # Build [name, value, {data-href}] tuples so select2 can render an SVG
   # preview per option (the sprite href is resolved server side).
   def additionals_icon_select_options(selected)
-    main_sprite = asset_path 'plugin_assets/additionals/icons.svg'
-    custom_sprite = asset_path 'plugin_assets/additionals/icons_custom.svg'
+    sprites = additionals_icon_sprites
     selectable = AdditionalsIcon.selectable
     selectable |= [selected] if selected.present? && AdditionalsIcon.known?(selected)
 
     selectable.map do |name|
-      base = AdditionalsIcon.sprite(name) == AdditionalsIcon::CUSTOM_SPRITE ? custom_sprite : main_sprite
+      base = sprites[AdditionalsIcon.sprite(name) == AdditionalsIcon::CUSTOM_SPRITE ? :additionals_custom : :additionals]
       [name, name, { 'data-href' => "#{base}#icon--#{name}" }]
     end
   end

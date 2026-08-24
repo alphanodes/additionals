@@ -16,7 +16,7 @@ module WikiEdit
              end
 
   Deface::Override.new virtual_path: 'wiki/edit',
-                       name: 'wiki-edit',
+                       name: 'additionals-wiki-edit',
                        insert_before: 'fieldset',
                        original:,
                        partial: 'hooks/view_wiki_form_bottom'

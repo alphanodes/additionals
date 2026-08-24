@@ -2,14 +2,14 @@
 
 require File.expand_path '../../test_helper', __FILE__
 
-# Validates that all Deface overrides from additionals have correct hashes.
-# This ensures the overrides still match their target elements in Redmine templates.
+# Validates that all Deface overrides from additionals still match their target elements
+# in the templates they are anchored to.
 #
-# Overrides are identified as belonging to this plugin by their partial path
-# containing 'additionals' or 'hooks/view_'.
+# Overrides belong to this plugin by the prefix of their name, so overrides built from
+# :text are covered as well.
 #
 class AdditionalsDefaceOverridesTest < Additionals::TestCase
   def test_all_deface_overrides_have_valid_hashes
-    assert_deface_overrides_valid partial_patterns: %w[additionals hooks/view_]
+    assert_deface_overrides_valid name_prefix: 'additionals'
   end
 end

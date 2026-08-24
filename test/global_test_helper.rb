@@ -308,37 +308,40 @@ module Additionals
       ActiveSupport::Notifications.unsubscribe subscriber if subscriber
     end
 
-    # Validates that all Deface overrides matching the given pattern have correct hashes.
+    # Validates that all Deface overrides of a plugin still match their target elements.
     # This simulates Deface's runtime behavior by applying overrides in sequence order,
     # so it can detect hash conflicts caused by earlier overrides modifying the template.
     #
-    # @param partial_patterns [Array<String>, String] patterns to match against partial paths
-    #   e.g. 'wiki_guide' matches partials like 'wiki/wiki_guide_edit_link'
+    # Overrides belong to a plugin by the prefix of their name, not by the path of their
+    # partial: overrides built from :text have no partial and would be skipped silently.
+    #
+    # @param name_prefix [String] prefix every override name of the plugin starts with,
+    #   e.g. 'reporting' for 'reporting-add-counter-fieldset'
     #
     # Example usage in plugin test:
     #   def test_deface_overrides_have_valid_hashes
-    #     assert_deface_overrides_valid partial_patterns: ['wiki_guide', 'wiki/show_update_info']
+    #     assert_deface_overrides_valid name_prefix: 'wiki-guide'
     #   end
     #
-    def assert_deface_overrides_valid(partial_patterns:)
-      patterns = Array partial_patterns
+    def assert_deface_overrides_valid(name_prefix:)
+      prefix = "#{name_prefix}-"
       invalid_overrides = []
+      checked_overrides = 0
 
       # rubocop:disable Rails/FindEach -- Deface::Override.all returns a Hash, not ActiveRecord::Relation
       Deface::Override.all.each do |virtual_path, overrides_hash|
         # Collect overrides we care about for this template
         relevant_overrides = overrides_hash.select do |_name, override|
-          next false unless override.respond_to? :args
-          next false if override.args[:original].blank?
-
-          partial = override.args[:partial].to_s
-          patterns.any? { |pattern| partial.include? pattern }
+          override.respond_to?(:args) && override.name.to_s.start_with?(prefix)
         end
 
         next if relevant_overrides.empty?
 
         template_path = deface_resolve_template_path virtual_path
-        next unless template_path && File.exist?(template_path)
+        if template_path.nil?
+          invalid_overrides << "#{virtual_path}: template not found"
+          next
+        end
 
         # Get ALL overrides for this template, sorted by sequence (like Deface does at runtime)
         all_overrides_sorted = overrides_hash.values.sort_by(&:sequence)
@@ -353,7 +356,11 @@ module Additionals
 
           # If this is one of our overrides, validate it
           if relevant_overrides.value? override
-            if elements.empty?
+            checked_overrides += 1
+
+            if override.args[:original].blank?
+              invalid_overrides << "#{override.name}: no :original defined, so a changed anchor stays unnoticed"
+            elsif elements.empty?
               invalid_overrides << "#{override.name}: selector '#{override.selector}' finds no elements"
             else
               actual_hash = if override.args[:closing_selector].present?
@@ -381,6 +388,8 @@ module Additionals
 
       assert_empty invalid_overrides,
                    "Deface overrides with invalid hashes:\n#{invalid_overrides.join "\n"}"
+      assert_predicate checked_overrides, :positive?,
+                       "No deface override starts with '#{prefix}' - the plugin prefix is probably wrong"
     end
 
     def WikiPage.generate(**options)
@@ -472,13 +481,13 @@ module Additionals
       range
     end
 
+    # Overrides may target plugin templates as well, so every view path is searched,
+    # not only the one of redmine core.
     def deface_resolve_template_path(virtual_path)
-      possible_paths = [
-        Rails.root.join('app', 'views', "#{virtual_path}.html.erb"),
-        Rails.root.join('app', 'views', "#{virtual_path}.html.slim")
-      ]
-
-      possible_paths.find { |path| File.exist? path }
+      ActionController::Base.view_paths
+                            .map(&:to_s)
+                            .flat_map { |root| ["#{root}/#{virtual_path}.html.erb", "#{root}/#{virtual_path}.html.slim"] }
+                            .find { |path| File.exist? path }
     end
   end
 end

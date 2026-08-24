@@ -45,7 +45,7 @@ module Additionals
     # Leaf entries -- one entry per real file include. Underscore-prefixed by
     # convention to mark them internal; block definitions and view templates
     # should reference PACKAGES, not ATOMS.
-    # rubocop: disable Layout/HashAlignment
+    # rubocop:disable-next Layout/HashAlignment
     ATOMS = {
       _chartjs_core_umd:       Asset.new(type: :js,  path: 'vendor/chart.umd'),
       _chartjs_colorschemes:   Asset.new(type: :js,  path: 'vendor/chartjs-plugin-colorschemes.min'),
@@ -65,7 +65,6 @@ module Additionals
       _select2_css:            Asset.new(type: :css, path: 'select2'),
       _dhtmlxgantt_css:        Asset.new(type: :css, path: 'dhtmlxgantt')
     }.freeze
-    # rubocop: enable Layout/HashAlignment
 
     class << self
       # Registers a package contributed by another plugin so it can be

@@ -104,7 +104,7 @@ class DashboardsController < ApplicationController
           flash[:notice] = flash_msg :create
           redirect_to dashboard_link_path(@project, @dashboard)
         end
-        format.api  { render action: :show, status: :created, location: dashboard_url(@dashboard, project_id: @project) }
+        format.api { render action: :show, status: :created, location: dashboard_url(@dashboard, project_id: @project) }
       end
     else
       respond_to do |format|

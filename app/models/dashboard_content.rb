@@ -112,7 +112,7 @@ class DashboardContent
   end
 
   def find_block(block)
-    block.to_s =~  /\A(.*?)(__\d+)?\z/
+    block.to_s =~ /\A(.*?)(__\d+)?\z/
     name = Regexp.last_match 1
     available_blocks.key?(name) ? available_blocks[name].merge(name:) : nil
   end

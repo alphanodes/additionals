@@ -328,7 +328,7 @@ module Additionals
       invalid_overrides = []
       checked_overrides = 0
 
-      # rubocop:disable Rails/FindEach -- Deface::Override.all returns a Hash, not ActiveRecord::Relation
+      # rubocop:disable-next Rails/FindEach -- Deface::Override.all returns a Hash, not ActiveRecord::Relation
       Deface::Override.all.each do |virtual_path, overrides_hash|
         # Collect overrides we care about for this template
         relevant_overrides = overrides_hash.select do |_name, override|
@@ -384,7 +384,6 @@ module Additionals
           deface_simulate_override_in_place doc, override if elements.any?
         end
       end
-      # rubocop:enable Rails/FindEach
 
       assert_empty invalid_overrides,
                    "Deface overrides with invalid hashes:\n#{invalid_overrides.join "\n"}"

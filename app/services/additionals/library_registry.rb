@@ -33,6 +33,7 @@ module Additionals
       mermaid: %i[_mermaid_min _mermaid_load],
       dhtmlxgantt: %i[_dhtmlxgantt_css _dhtmlxgantt_js],
       actioncable: %i[_actioncable_core],
+      codemirror: %i[_codemirror],
       d3plus: %i[_d3plus_min],
       sortable: %i[_sortable_min],
       # Single-atom packages kept for granular use (e.g. blocks that want only
@@ -56,6 +57,7 @@ module Additionals
       _chartjs_chart_matrix:   Asset.new(type: :js,  path: 'vendor/chartjs-chart-matrix.min'),
       _d3plus_min:             Asset.new(type: :js,  path: 'vendor/d3plus.min'),
       _sortable_min:           Asset.new(type: :js,  path: 'vendor/sortable.min'),
+      _codemirror:             Asset.new(type: :js,  path: 'vendor/codemirror'),
       _actioncable_core:       Asset.new(type: :js,  path: 'actioncable', core: true),
       _mermaid_min:            Asset.new(type: :js,  path: 'vendor/mermaid.min'),
       _mermaid_load:           Asset.new(type: :js,  path: 'mermaid_load'),

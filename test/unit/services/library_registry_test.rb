@@ -15,6 +15,15 @@ module Additionals
       assert_not result.first.core
     end
 
+    def test_resolves_codemirror
+      result = Registry.resolve :codemirror
+
+      assert_equal 1, result.size
+      assert_equal :js, result.first.type
+      assert_equal 'vendor/codemirror', result.first.path
+      assert_not result.first.core
+    end
+
     def test_resolves_composite_package_in_order
       result = Registry.resolve :chartjs
       paths = result.map(&:path)

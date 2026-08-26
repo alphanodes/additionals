@@ -2,6 +2,7 @@
 
 ## 4.6.0
 
+- Base values for the priority colour variables `--a-color-prio1` to `--a-color-prio3`, which so far only existed in themes, so anything colouring by priority keeps its colour without one
 - New javascript helpers `spriteIcon(name, options)` and `spriteIconPath(sprite)` build Tabler sprite icons from client side code, with the digested sprite paths exposed as the `ADDITIONALS_ICON_SPRITES` global (new `additionals_icon_sprites` helper)
 - Fix the spacing of an avatar rendered next to its name (`additionals-avatar`) on detail pages, where core's `div.issue .avatar` float applied to it
 - The `tabler` and `fa` macros accept a `repeat` option, e.g. `{{tabler(star-filled, repeat=3)}}` for a rating (capped at 20)

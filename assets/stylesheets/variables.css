@@ -38,6 +38,14 @@
   --a-color-success-border: #9fcf9f;
   --a-color-alert-border: #fcc;
   --a-color-orange: #ffa500;
+
+  /* Priority colours by distance from the default priority: prio1 below it,
+   * prio2 above it, prio3 for the two loudest ranks. Themes have always
+   * overridden these, but nothing defined them, so anything colouring by
+   * priority lost its colour outside a theme. Values match the flow theme. */
+  --a-color-prio1: var(--oc-gray-5);
+  --a-color-prio2: var(--oc-orange-6);
+  --a-color-prio3: var(--oc-red-5);
   --a-color-stats-week: #de9e40;
   --a-color-stats-month: #6bbce9;
   --a-color-stats-year: #72a563;

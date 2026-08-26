@@ -123,7 +123,7 @@ jobs:
       - name: Checkout additionals
         uses: actions/checkout@v5
         with:
-          repository: AlphaNodes/additionals
+          repository: alphanodes/additionals
           path: redmine/plugins/additionals
 
       - name: Update package archives

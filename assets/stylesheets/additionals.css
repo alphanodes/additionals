@@ -526,6 +526,15 @@ table.table-of-values caption {
 }
 /* stylelint-enable selector-class-pattern */
 
+/* An instance can hold dozens of macros, so the list scrolls instead of running
+   past the window. The stacking order keeps it above the visual editor, whose
+   own popups sit at 1300. */
+ul.additionals-macro-menu {
+  z-index: 1400;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
 div.relation-list-header {
   background: #eee;
   font-weight: bold;

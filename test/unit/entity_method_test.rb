@@ -23,6 +23,30 @@ class EntityMethodTest < Additionals::TestCase
     assert_empty dashboard.errors[:assigned_to_id]
   end
 
+  # Journal#save returns false for an empty journal by design, and that happens on
+  # every save without a journalized change - create_journal must not report it,
+  # otherwise the log fills up with warnings about normal saves. additionals has no
+  # journalized entity of its own (Dashboard includes EntityMethods, but has no
+  # journals), so this needs an entity of a dependent plugin. The same test runs in
+  # redmine_db, where it is covered by CI - here it is skipped without the plugin.
+  def test_create_journal_does_not_report_empty_journal
+    skip 'Skip test, because redmine_db is not installed' unless AdditionalsPlugin.active_db?
+
+    entry = DbEntry.create! name: 'Empty journal guard',
+                            project: projects(:projects_001),
+                            type: DbType.create!(name: 'Empty journal guard', color: '#333', icon: 'car'),
+                            author: users(:users_002)
+    entry.init_journal users(:users_002)
+
+    log = capture_rails_log do
+      assert_no_difference 'Journal.count' do
+        assert_save entry
+      end
+    end
+
+    assert_empty log
+  end
+
   def test_allowed_entity_target_projects
     projects = Dashboard.allowed_entity_target_projects permission: :save_dashboards,
                                                         user: users(:users_002)

@@ -150,7 +150,18 @@ module Additionals
       # Saves the changes in a Journal
       # Called after_save
       def create_journal
-        current_journal&.save
+        journal = current_journal
+        return if journal.nil? || journal.save
+
+        # Journal#save returns false for an empty journal by design (nothing
+        # journalizable changed), which happens on every plain save and is not an
+        # error. Only a journal that carries content and was still rejected - by a
+        # validation of a Journal subclass or an aborting callback of another
+        # plugin - points to a real problem: the entity is saved, but the user's
+        # note or details are silently lost.
+        return if journal.notes_and_details_empty?
+
+        Rails.logger.warn { "[additionals] Journal for #{self.class.name}##{id} was rejected and not saved" }
       end
 
       # Bump updated_on for journal-only edits (notes, relations) whose data lives

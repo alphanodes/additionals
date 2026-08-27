@@ -308,6 +308,18 @@ module Additionals
       ActiveSupport::Notifications.unsubscribe subscriber if subscriber
     end
 
+    # Captures everything written to Rails.logger while the block runs and returns
+    # it as a string, so a test can assert that a code path stays silent.
+    def capture_rails_log
+      original_logger = Rails.logger
+      log = StringIO.new
+      Rails.logger = ActiveSupport::Logger.new log
+      yield
+      log.string
+    ensure
+      Rails.logger = original_logger
+    end
+
     # Validates that all Deface overrides of a plugin still match their target elements.
     # This simulates Deface's runtime behavior by applying overrides in sequence order,
     # so it can detect hash conflicts caused by earlier overrides modifying the template.

@@ -23,7 +23,7 @@
 - `EntityMethods` enforces core's assignee rules for every entity that includes it: a non-assignable assignee is rejected by validation, a copy drops one the target project does not allow, and `me` resolves to the current user on every path (form, API, bulk edit, import)
 - Fix adding a dashboard block reloading the whole page instead of running through AJAX, since the jQuery submit bypassed the `remote-form` Stimulus controller
 - d3plus updated to 4.3.0
-- mermaid 11.17.0 support (includes an upstream prototype pollution fix)
+- mermaid 11.17.2 support (includes an upstream prototype pollution fix)
 - New shared attachment count for entities including `EntityMethods`: the `attachments_count` reader with `load_attachments_count` preload, the `QueryAttachmentsCountColumn` list column and the `attachments_count` query filter
 - The issue attachments section can be linked to as `#attachments`, and the link expands a collapsed file list
 - MariaDB 11.8 or newer is documented and tested as a database of its own

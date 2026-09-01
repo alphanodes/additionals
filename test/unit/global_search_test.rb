@@ -135,6 +135,70 @@ class GlobalSearchTest < Additionals::TestCase
     GlobalSearch.providers.replace original_providers
   end
 
+  def test_digit_only_query_without_keyword_hits_skips_providers
+    with_counting_provider do |provider|
+      result = GlobalSearch.search '987654321', user: User.current
+
+      assert_empty result[:keyword], 'Fixture data should not contain this number'
+      assert_equal 0, provider.calls, 'Providers must not be asked for an unfindable number'
+    end
+  end
+
+  def test_digit_only_query_with_keyword_hits_asks_providers
+    issue = issues :issues_001
+    issue.update! subject: '987654321'
+
+    with_counting_provider do |provider|
+      result = GlobalSearch.search '987654321', user: User.current
+
+      assert result[:keyword].any?, 'The renamed issue should be found'
+      assert_equal 1, provider.calls
+    end
+  end
+
+  def test_query_with_letters_asks_providers_even_without_keyword_hits
+    with_counting_provider do |provider|
+      result = GlobalSearch.search 'Zzyzx Quuxbar', user: User.current
+
+      assert_empty result[:keyword]
+      assert_equal 1, provider.calls
+    end
+  end
+
+  def test_provider_receives_the_requested_types
+    with_counting_provider do |provider|
+      GlobalSearch.search 'Cannot print recipes', user: User.current, types: ['issues']
+
+      assert_equal ['issues'], provider.last_types
+    end
+  end
+
+  def test_deduplication_keeps_a_semantic_hit_of_another_type
+    issue = issues :issues_001
+    provider = provider_returning [{ id: issue.id, title: 'Semantic hit', url: '/db_entries/1', type: 'DB' }]
+
+    with_provider provider do
+      result = GlobalSearch.search 'Cannot print recipes', user: User.current
+
+      assert result[:keyword].any?
+      assert_not_nil result[:semantic], 'A hit with its own url must survive deduplication'
+    end
+  end
+
+  def test_deduplication_drops_a_semantic_hit_with_the_same_url
+    issue = issues :issues_001
+    provider = provider_returning [{ id: issue.id, title: issue.subject, url: "/issues/#{issue.id}", type: 'Issues' }]
+
+    with_provider provider do
+      result = GlobalSearch.search issue.subject, user: User.current
+
+      keyword_urls = result[:keyword].pluck :url
+
+      assert_includes keyword_urls, "/issues/#{issue.id}"
+      assert_nil result[:semantic], 'A hit already listed by the keyword search must be dropped'
+    end
+  end
+
   def test_resolve_projects_returns_nil_for_global
     result = GlobalSearch.search 'Cannot print recipes', user: User.current
 
@@ -237,5 +301,49 @@ class GlobalSearchTest < Additionals::TestCase
     result[:keyword].each do |entry|
       assert_equal project.name, entry[:project_name], 'All results should belong to the specified project'
     end
+  end
+
+  private
+
+  def with_counting_provider(&)
+    provider = Class.new do
+      class << self
+        attr_accessor :calls, :last_types
+
+        def search(*, types: nil, **)
+          self.calls += 1
+          self.last_types = types
+          []
+        end
+
+        def label = 'label_counting'
+        def permission = nil
+      end
+    end
+    provider.calls = 0
+
+    with_provider provider, &
+  end
+
+  def provider_returning(hits)
+    provider = Class.new do
+      class << self
+        attr_accessor :hits
+
+        def search(*, **) = hits
+        def label = 'label_stub'
+        def permission = nil
+      end
+    end
+    provider.hits = hits
+    provider
+  end
+
+  def with_provider(provider)
+    original_providers = GlobalSearch.providers.dup
+    GlobalSearch.register provider
+    yield provider
+  ensure
+    GlobalSearch.providers.replace original_providers
   end
 end

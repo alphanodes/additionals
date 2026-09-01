@@ -27,12 +27,14 @@ module GlobalSearch
 
       projects = resolve_projects scope, user, project
       keyword = keyword_search query, user: user, projects: projects, types: types, titles_only: titles_only, limit: limit
-      semantic = provider_search query, user: user, project: project, limit: 5
+      semantic = provider_search query, user: user, project: project, limit: 5, types: types, keyword_results: keyword
 
-      # Deduplicate: remove semantic hits already in keyword results
+      # Deduplicate over the url: an id alone is not unique across types, and a provider may
+      # identify a record differently than the keyword search does (a wiki page by its content
+      # id, for instance). The url is what both sides agree on.
       if semantic && keyword.present?
-        keyword_ids = keyword.filter_map { |r| r[:id] }
-        semantic[:results].reject! { |r| keyword_ids.include? r[:id] }
+        keyword_urls = keyword.filter_map { |r| r[:url] }.to_set
+        semantic[:results].reject! { |r| keyword_urls.include? r[:url] }
         semantic = nil if semantic[:results].blank?
       end
 
@@ -95,12 +97,14 @@ module GlobalSearch
       end
     end
 
-    def provider_search(query, user:, project: nil, limit: 5)
+    def provider_search(query, user:, project: nil, limit: 5, types: nil, keyword_results: nil)
+      return if skip_providers? query, keyword_results
+
       results = { label: nil, results: [] }
       providers.each do |provider|
         next unless user_can_use? provider, user, project
 
-        hits = provider.search query, user: user, project: project, limit: limit
+        hits = provider.search query, user: user, project: project, limit: limit, types: types
         next if hits.blank?
 
         results[:label] ||= I18n.t provider.label
@@ -109,6 +113,15 @@ module GlobalSearch
         Rails.logger.warn "GlobalSearch: Provider #{provider.name} failed: #{e.message}"
       end
       results[:results].present? ? results : nil
+    end
+
+    # A digit-only query the keyword search cannot find carries nothing a semantic provider
+    # could pick up either: a bare number has no meaning to embed. Asking anyway costs an
+    # external request per keystroke and per filter click, which is what exhausts provider
+    # rate limits. Numbers that do mean something (an error code, a year) are found by the
+    # keyword search and still reach the providers.
+    def skip_providers?(query, keyword_results)
+      keyword_results.blank? && query.match?(/\A#?\d+\z/)
     end
 
     def format_record(record)

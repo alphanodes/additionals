@@ -2,6 +2,9 @@
 
 ## 4.6.0
 
+- Global search deduplicates keyword and provider hits by url instead of id alone, so a semantic hit no longer disappears because an unrelated record of another type happens to share its id
+- Global search passes the selected search types on to its providers, so a provider can restrict itself to what was asked for
+- Global search no longer asks semantic providers for a digit-only query the keyword search cannot find, since a bare number carries nothing they could match on
 - Base values for the priority colour variables `--a-color-prio1` to `--a-color-prio3`, which so far only existed in themes, so anything colouring by priority keeps its colour without one
 - New javascript helpers `spriteIcon(name, options)` and `spriteIconPath(sprite)` build Tabler sprite icons from client side code, with the digested sprite paths exposed as the `ADDITIONALS_ICON_SPRITES` global (new `additionals_icon_sprites` helper)
 - Fix the spacing of an avatar rendered next to its name (`additionals-avatar`) on detail pages, where core's `div.issue .avatar` float applied to it

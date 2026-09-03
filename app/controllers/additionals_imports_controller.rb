@@ -112,8 +112,9 @@ class AdditionalsImportsController < ApplicationController
 
   def find_import
     @import = Import.find_by user_id: User.current.id, filename: params[:id]
-    @import.project = @project
     return render_404 if @import.nil?
+
+    @import.project = @project
     return redirect_to new_import_path if @import.finished? && action_name != 'show'
 
     update_from_params if request.post?

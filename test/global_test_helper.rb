@@ -227,14 +227,16 @@ module Additionals
     def assert_locales_validness(plugin:, control_string:, control_english:)
       require 'i18n/tasks'
 
+      locales = assert_plugin_locale_files plugin
+
       task = I18n::Tasks::BaseTask.new(
         base_locale: 'en',
+        locales:,
         # %{locale} is i18n-tasks placeholder syntax, not Ruby string formatting
         data: { read: ["plugins/#{plugin}/config/locales/%{locale}.yml"] }, # rubocop:disable Style/FormatStringToken
         search: { paths: ["plugins/#{plugin}/lib"] }
       )
 
-      assert_not_empty task.locales, "Plugin #{plugin} has no locale files"
       assert_includes task.locales, 'en', "Plugin #{plugin} must have config/locales/en.yml"
 
       task.locales.each do |lang|
@@ -260,6 +262,26 @@ module Additionals
                    "Plugin #{plugin}: inconsistent interpolations:\n#{i18n_format_forest inconsistent}"
     ensure
       set_language_if_valid 'en'
+    end
+
+    # Redmine loads every config/locales/*.yml of a plugin, so besides the locales
+    # themselves a plugin may ship additions to a locale owned by someone else
+    # (redmine_core_de.yml adds German translations to Redmine core strings).
+    # Those are named <purpose>_<language>.yml and are no locale of their own.
+    def assert_plugin_locale_files(plugin)
+      languages = valid_languages.map(&:to_s)
+      files = Rails.root.glob("plugins/#{plugin}/config/locales/*.yml").map { |file| File.basename file, '.yml' }
+
+      assert_not_empty files, "Plugin #{plugin} has no locale files"
+
+      locales, additions = files.partition { |name| languages.include? name }
+      unknown = additions.reject { |name| languages.include? name.split('_').last }
+
+      assert_empty unknown,
+                   "Plugin #{plugin}: config/locales/#{unknown.to_comma_list} is neither a locale nor " \
+                   'an addition to one (expected <purpose>_<language>.yml)'
+
+      locales.sort
     end
 
     def i18n_format_forest(forest)

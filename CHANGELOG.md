@@ -2,6 +2,7 @@
 
 ## 4.6.0
 
+- `assert_locales_validness` accepts locale files that add to a locale owned by someone else (`<purpose>_<language>.yml`, e.g. a plugin's `redmine_core_de.yml`), instead of reporting them as an unknown language
 - Global search deduplicates keyword and provider hits by url instead of id alone, so a semantic hit no longer disappears because an unrelated record of another type happens to share its id
 - Global search passes the selected search types on to its providers, so a provider can restrict itself to what was asked for
 - Global search no longer asks semantic providers for a digit-only query the keyword search cannot find, since a bare number carries nothing they could match on

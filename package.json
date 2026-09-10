@@ -1,13 +1,5 @@
 {
-  "dependencies": {
-    "@codemirror/commands": "^6.9.1",
-    "@codemirror/lang-markdown": "^6.5.2",
-    "@codemirror/language": "^6.11.4",
-    "@codemirror/state": "^6.7.1",
-    "@codemirror/view": "^6.43.9",
-    "@lezer/highlight": "^1.2.1",
-    "@lezer/markdown": "^1.7.2"
-  },
+  "dependencies": {},
   "license": "GPL-2.0",
   "scripts": {
     "test": "vitest run",

@@ -6,17 +6,10 @@ module Additionals
       extend ActiveSupport::Concern
 
       included do
+        prepend InstanceOverwriteMethods
         include InstanceMethods
 
         attr_accessor :search_string
-
-        # NOTE: alias_method instead of prepend to stay compatible with redmineup redmine_contacts
-        alias_method :add_available_filter_without_additionals, :add_available_filter
-        alias_method :add_available_filter, :add_available_filter_with_additionals
-
-        # NOTE: alias_method instead of prepend to stay compatible with redmineup redmine_contacts
-        alias_method :add_filter_without_additionals, :add_filter
-        alias_method :add_filter, :add_filter_with_additionals
 
         # list_optional is default, but required for short filters
         operators_by_filter_type[:author_optional] = operators_by_filter_type[:list_optional]
@@ -44,9 +37,9 @@ module Additionals
         end
       end
 
-      module InstanceMethods
-        def add_filter_with_additionals(field, operator, values = nil)
-          add_filter_without_additionals field, operator, values
+      module InstanceOverwriteMethods
+        def add_filter(field, operator, values = nil)
+          super
           return unless available_filters[field]
 
           initialize_user_values_for_select2 field, values
@@ -55,14 +48,16 @@ module Additionals
           true
         end
 
-        def add_available_filter_with_additionals(field, options)
-          add_available_filter_without_additionals field, options
+        def add_available_filter(field, options)
+          super
           values = filters&.dig(field, :values) || []
           initialize_user_values_for_select2 field, values
 
           @available_filters
         end
+      end
 
+      module InstanceMethods
         def ids_from_string(string)
           string.to_s.scan(/\d+/).map(&:to_i)
         end

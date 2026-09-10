@@ -18,8 +18,8 @@ module Additionals
         #
         # Adding the size class core already uses for its initials avatars gives
         # the image its box from css instead, so it holds its place either way.
-        # It is not patched into AvatarsHelper#avatar, because both redmine_hrm
-        # and redmine_contacts_helpdesk wrap that one with alias_method.
+        # It patches gravatar rather than AvatarsHelper#avatar so that it also
+        # covers the calls that do not go through the avatar helper.
         def gravatar(email, options = {})
           size_class = "s#{(options[:size] || GravatarHelper::DEFAULT_OPTIONS[:size]).to_i}"
           classes = options[:class].to_s.split

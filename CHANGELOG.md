@@ -35,6 +35,7 @@
 - Raised the minimum ruby version to 3.3; Redmine itself still accepts 3.2, but the plugin is no longer tested against it
 - New shared style `sidebar-attributes` for sidebar name/value lists: label in front of the value, long values wrapping below their label, no paragraph margins on custom field values. Used by the contact (servicedesk), user (hrm) and wiki page (wiki_guide) attributes
 - New extension point `wiki_pdf_before_content` in the wiki PDF export, for rendering content between the title line and the page body
+- Patches of Redmine classes use `prepend` instead of `alias_method`, which removes a common source of incompatibility with other plugins extending the same methods; the RedmineUp plugins have switched to `prepend` as well
 
 ## 4.5.0
 

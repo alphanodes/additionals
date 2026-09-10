@@ -20,6 +20,10 @@ class SpriteValidationTest < Additionals::TestCase
   PLUGINS_ROOT = Rails.root.join('plugins').freeze
   CORE_SPRITE  = Rails.root.join('app/assets/images/icons.svg').freeze
   CALL_REGEX = /\b(svg_icon_tag|sprite_icon)\b\s*\(?\s*['"]([\w-]+)['"]/m
+  # Only our own plugins are in scope. A third-party plugin ships its own icons
+  # and its own sprite; reporting its names as missing says nothing about this
+  # plugin and turns the test red in every instance that installs one.
+  PLUGIN_AUTHOR = 'AlphaNodes'
 
   def setup
     @sprite_cache = {}
@@ -28,7 +32,7 @@ class SpriteValidationTest < Additionals::TestCase
   def test_all_literal_icon_calls_resolve_to_existing_symbols
     issues = []
 
-    Dir.glob(PLUGINS_ROOT.join('*/{app,lib}/**/*.{rb,slim,erb}')).each do |path|
+    own_plugin_sources.each do |path|
       next if path.include? '/test/'
 
       content = File.read path
@@ -57,6 +61,12 @@ class SpriteValidationTest < Additionals::TestCase
   end
 
   private
+
+  def own_plugin_sources
+    Redmine::Plugin.all
+                   .select { |plugin| plugin.author.to_s.include? PLUGIN_AUTHOR }
+                   .flat_map { |plugin| Dir.glob PLUGINS_ROOT.join("#{plugin.id}/{app,lib}/**/*.{rb,slim,erb}") }
+  end
 
   # Returns the absolute Pathname of the sprite the call should resolve in,
   # or `nil` when the target plugin has no sprite (skip).

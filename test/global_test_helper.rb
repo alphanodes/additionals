@@ -351,13 +351,19 @@ module Additionals
     #
     # @param name_prefix [String] prefix every override name of the plugin starts with,
     #   e.g. 'reporting' for 'reporting-add-counter-fieldset'
+    # @param optional_templates [Boolean] pass true when the plugin overrides templates of an
+    #   optional third party plugin. Such a template is absent wherever that plugin is not
+    #   installed - the CI for example - and the override simply never applies there, which is
+    #   not a defect. Templates that ARE present stay checked, so nothing is lost where the
+    #   plugin is installed. Never pass it for core templates: a core template that cannot be
+    #   found is exactly the drift this assertion exists for.
     #
     # Example usage in plugin test:
     #   def test_deface_overrides_have_valid_hashes
     #     assert_deface_overrides_valid name_prefix: 'wiki-guide'
     #   end
     #
-    def assert_deface_overrides_valid(name_prefix:)
+    def assert_deface_overrides_valid(name_prefix:, optional_templates: false)
       prefix = "#{name_prefix}-"
       invalid_overrides = []
       checked_overrides = 0
@@ -373,7 +379,7 @@ module Additionals
 
         template_path = deface_resolve_template_path virtual_path
         if template_path.nil?
-          invalid_overrides << "#{virtual_path}: template not found"
+          invalid_overrides << "#{virtual_path}: template not found" unless optional_templates
           next
         end
 

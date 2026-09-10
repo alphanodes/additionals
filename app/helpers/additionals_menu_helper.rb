@@ -145,18 +145,7 @@ module AdditionalsMenuHelper
   def additionals_help_items_fallbacks(plugin_id)
     plugins = { redmine_drawio: [{ title: 'draw.io usage',
                                    id: :drawio,
-                                   url: 'https://github.com/mikitex70/redmine_drawio#usage' }],
-                redmine_agile: [{ title: 'Redmine Agile',
-                                  id: :agile,
-                                  url: 'https://www.redmineup.com/pages/help/agile' }],
-                redmine_contacts: [{ title: 'Redmine CRM',
-                                     id: :crm,
-                                     url: 'https://www.redmineup.com/pages/help/crm',
-                                     admin: true }],
-                redmine_contacts_helpdesk: [{ title: 'Redmine Helpdesk',
-                                              id: :helpdesk,
-                                              url: 'https://www.redmineup.com/pages/help/helpdesk',
-                                              admin: true }] }
+                                   url: 'https://github.com/mikitex70/redmine_drawio#usage' }] }
     plugins[plugin_id]
   end
 end

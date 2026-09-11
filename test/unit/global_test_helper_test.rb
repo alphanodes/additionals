@@ -2,17 +2,9 @@
 
 require File.expand_path '../../test_helper', __FILE__
 
-# Validates that all Deface overrides from additionals still match their target elements
-# in the templates they are anchored to.
-#
-# Overrides belong to this plugin by the prefix of their name, so overrides built from
-# :text are covered as well.
-#
-class AdditionalsDefaceOverridesTest < Additionals::TestCase
-  def test_all_deface_overrides_have_valid_hashes
-    assert_deface_overrides_valid name_prefix: 'additionals'
-  end
-
+# The assertions in global_test_helper.rb are used by every plugin of the family,
+# so their own contract is tested here rather than in one of the plugins.
+class GlobalTestHelperTest < Additionals::TestCase
   # A plugin may override a template of an optional third party plugin. Where
   # that plugin is not installed the template is absent and the override never
   # applies - not a defect, so optional_templates lets the assertion pass. The

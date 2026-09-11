@@ -494,10 +494,15 @@ module Additionals
     # define == so loosely that Array#include? reports false positives.
     def applied_module_ids
       ids = Set.new
-      ObjectSpace.each_object Module do |mod|
-        mod.ancestors.each { |a| ids << a.object_id }
-      rescue TypeError, NoMethodError
-        next
+      # a deprecated constant is a Module that forwards every call to its
+      # replacement and warns while doing so - the sweep would print those
+      # warnings in every plugin, although it only walks past them
+      Rails.application.deprecators.silence do
+        ObjectSpace.each_object Module do |mod|
+          mod.ancestors.each { |a| ids << a.object_id }
+        rescue TypeError, NoMethodError
+          next
+        end
       end
       ids
     end

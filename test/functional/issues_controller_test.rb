@@ -309,4 +309,40 @@ class IssuesControllerTest < Additionals::ControllerTest
     # Verify the page renders without N+1 from assignable_users.detect
     # The EXISTS query is tested implicitly - if it broke, the page would error
   end
+
+  # column_value is prepended onto core's QueriesHelper. With the setting on,
+  # the category cell becomes a filter link; with it off and for every other
+  # column the value has to reach core through super.
+  def test_index_renders_the_category_as_a_filter_link
+    @request.session[:user_id] = 1
+    issue = issues :issues_001
+
+    with_plugin_settings 'additionals', issue_link_category: 1 do
+      get :index, params: { project_id: issue.project_id,
+                            set_filter: 1,
+                            status_id: '*',
+                            c: %w[subject category] }
+    end
+
+    assert_response :success
+    assert_select 'table.issues td.category a.issue-category-link[href*=?]', "category_id=#{issue.category_id}"
+    # rendered by core, reached through super
+    assert_select 'table.issues td.subject'
+  end
+
+  def test_index_renders_the_category_as_plain_text_when_the_link_is_off
+    @request.session[:user_id] = 1
+    issue = issues :issues_001
+
+    with_plugin_settings 'additionals', issue_link_category: 0 do
+      get :index, params: { project_id: issue.project_id,
+                            set_filter: 1,
+                            status_id: '*',
+                            c: %w[subject category] }
+    end
+
+    assert_response :success
+    assert_select 'table.issues td.category a', count: 0
+    assert_select 'table.issues td.category', text: issue.category.name
+  end
 end

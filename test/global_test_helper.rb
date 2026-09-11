@@ -384,11 +384,20 @@ module Additionals
     #                                   conditional: %w[Contact ContactQuery Password WikiPage]
     #   end
     #
+    # conditional names the patches that are registered behind an optional
+    # plugin - they reach nothing where that plugin is absent, which is why the
+    # assertion has to be told about them. Everything else must arrive.
     def assert_plugin_patches_applied(plugin, conditional: [])
       applied = applied_module_ids
+      names = plugin_patch_names plugin
       unused = []
 
-      plugin_patch_names(plugin).each do |name|
+      # an exception for a patch that no longer exists silences the assertion for
+      # a name nobody watches any more
+      assert_empty Array(conditional) - names,
+                   "conditional names without a patch file: #{(Array(conditional) - names).join ', '}"
+
+      names.each do |name|
         next if Array(conditional).include? name
 
         mod = "#{plugin.plugin_id.camelize}::Patches::#{name}Patch".safe_constantize

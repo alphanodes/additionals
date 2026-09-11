@@ -363,6 +363,46 @@ module Additionals
     #     assert_deface_overrides_valid name_prefix: 'wiki-guide'
     #   end
     #
+    # Asserts that every patch a plugin ships really reached a class.
+    #
+    # A patch only takes effect if `loader.add_patch` names it AND the module
+    # lands in the target's ancestors. Both halves fail silently: a patch file
+    # nobody registered, or a registration whose target class was renamed,
+    # simply does nothing - and every test of that plugin still passes. The
+    # loader itself is no help here, it clears its patch list after applying.
+    #
+    # `conditional:` names the patches that are registered behind a condition
+    # (`add_patch 'ContactQuery' if AdditionalsPlugin.active_servicedesk?`).
+    # Those are inactive wherever the condition is false - the CI installs far
+    # fewer plugins than a developer machine - so they are not reported. Naming
+    # them is the point: it keeps the set of patches that this environment does
+    # NOT cover visible and reviewable instead of silently absent.
+    #
+    # Example usage in plugin test:
+    #   def test_patches_are_applied
+    #     assert_plugin_patches_applied RedmineDb,
+    #                                   conditional: %w[Contact ContactQuery Password WikiPage]
+    #   end
+    #
+    def assert_plugin_patches_applied(plugin, conditional: [])
+      applied = applied_module_ids
+      unused = []
+
+      plugin_patch_names(plugin).each do |name|
+        next if Array(conditional).include? name
+
+        mod = "#{plugin.plugin_id.camelize}::Patches::#{name}Patch".safe_constantize
+        if mod.nil?
+          unused << "#{name}: #{plugin.plugin_id.camelize}::Patches::#{name}Patch does not exist"
+        elsif applied.exclude? mod.object_id
+          unused << "#{name}: the module is in no class - add_patch is missing or its target is gone"
+        end
+      end
+
+      assert_empty unused,
+                   "Patches that reach nothing:\n#{unused.join "\n"}"
+    end
+
     def assert_deface_overrides_valid(name_prefix:, optional_templates: false)
       prefix = "#{name_prefix}-"
       invalid_overrides = []
@@ -448,6 +488,28 @@ module Additionals
     end
 
     private
+
+    # One pass over all loaded modules, collecting the object_id of everything
+    # that appears in any ancestor chain. Identity on purpose: some gems (xpath)
+    # define == so loosely that Array#include? reports false positives.
+    def applied_module_ids
+      ids = Set.new
+      ObjectSpace.each_object Module do |mod|
+        mod.ancestors.each { |a| ids << a.object_id }
+      rescue TypeError, NoMethodError
+        next
+      end
+      ids
+    end
+
+    # The patch names a plugin ships on disk, derived from the file names under
+    # lib/<plugin>/patches - that is what add_patch is supposed to cover.
+    def plugin_patch_names(plugin)
+      dir = Rails.root.join "plugins/#{plugin.plugin_id}/lib/#{plugin.plugin_id}/patches"
+      return [] unless dir.directory?
+
+      dir.glob('*_patch.rb').map { |f| f.basename('.rb').to_s.delete_suffix('_patch').camelize }
+    end
 
     # Simulates applying a Deface override by modifying the doc in place.
     # Uses actual source_element content to match runtime hash calculations.

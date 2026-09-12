@@ -83,6 +83,7 @@ it:
   label_auto_watch_on_issue_assigned: Issues assegnati a me
   label_calendar_week: "SC %{week}"
   label_change_is_private: "Cambia privato/non privato"
+  label_change_project: Cambia progetto
   label_change_to_dashboard: "Passa a Dashboard"
   label_chart_color_schema: "Schema di colori delle tabelle"
   label_chart_with_name: "Chart: %{value}"
@@ -133,6 +134,7 @@ it:
   label_icon_color: Icon colore
   label_inactive: Inattivo
   label_invalid_feed_data: "Dati di alimentazione o URL non validi"
+  label_is_non_private: non privato
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_auto_assign: "Se \"Assigned to\" non è assegnato a un utente e lo stato del nuovo problema è x, allora il problema è assegnato automaticamente al primo gruppo con utenti del ruolo predefinito."
   label_issue_change_status: Modifica issue stato
@@ -249,5 +251,6 @@ it:
   field_watched_by_me: "Osservato da me"
   label_with_amount: "Importo %{value}"
   label_list_all_entries: "Elenco di tutti %{value}"
+  label_table_of_values: Tabella dei valori
   text_dashboard_lock_confirmation: Sei sicuro di voler bloccare questa dashboard?
   text_dashboard_unlock_confirmation: Sei sicuro di voler sbloccare questa dashboard?

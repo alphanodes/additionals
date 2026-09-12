@@ -83,6 +83,7 @@ de:
   label_auto_watch_on_issue_assigned: Tickets, die mir zugewiesen werden
   label_calendar_week: "KW %{week}"
   label_change_is_private: Privat/Nicht-Privat ändern
+  label_change_project: Projekt ändern
   label_change_to_dashboard: Zu Dashboard wechseln
   label_chart_color_schema: Charts Farbschema
   label_chart_with_name: "Chart: %{value}"
@@ -133,6 +134,7 @@ de:
   label_icon_color: Symbolfarbe
   label_inactive: Inaktiv
   label_invalid_feed_data: Ungültige Feed Daten oder URL
+  label_is_non_private: Nicht-Privat
   label_issue_assign_to_me: Ticket "Mir zuweisen" anzeigen
   label_issue_auto_assign: "Wird \"Zugewiesen an\" nicht zugewiesen und der neue Ticketstatus ist x, dann wird die ersten Gruppe mit Benutzern der festgelegten Rolle das Ticket zugewiesen."
   label_issue_change_status: Status ändern
@@ -249,5 +251,6 @@ de:
   field_watched_by_me: Von mir beobachtet
   label_with_amount: "Anzahl %{value}"
   label_list_all_entries: "Alle %{value} auflisten"
+  label_table_of_values: Wertetabelle
   text_dashboard_lock_confirmation: Möchtest du dieses Dashboard wirklich sperren?
   text_dashboard_unlock_confirmation: Möchtest du die Sperre für dieses Dashboard wirklich aufheben?

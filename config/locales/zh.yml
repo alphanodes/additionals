@@ -83,6 +83,7 @@ zh:
   label_auto_watch_on_issue_assigned: "分配给我的机票"
   label_calendar_week: "CW %{week}"
   label_change_is_private: 修改私有/非私有
+  label_change_project: "变更项目"
   label_change_to_dashboard: "切换到仪表盘"
   label_chart_color_schema: 图表配色主题
   label_chart_with_name: "图表: %{value}"
@@ -133,6 +134,7 @@ zh:
   label_icon_color: 图标颜色
   label_inactive: "非活动"
   label_invalid_feed_data: "无效的 feed 数据或 URL"
+  label_is_non_private: "非私有"
   label_issue_assign_to_me: 在问题页显示“指派给我”
   label_issue_auto_assign: "若 \"指派给\" 的值未设置为具体用户，且新建问题的状态为 X， 那么问题将自动指派给预定义角色用户的对应组。"
   label_issue_change_status: 更新问题状态
@@ -249,5 +251,6 @@ zh:
   field_watched_by_me: "由我观看"
   label_with_amount: "金额 %{value}"
   label_list_all_entries: "列出所有 %{value}"
+  label_table_of_values: "数值表"
   text_dashboard_lock_confirmation: 您确定要锁定此仪表盘吗？
   text_dashboard_unlock_confirmation: 您确定要解锁此仪表盘吗？

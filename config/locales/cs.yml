@@ -83,6 +83,7 @@ cs:
   label_auto_watch_on_issue_assigned: "Lístky, které mi byly přiděleny"
   label_calendar_week: "CW %{week}"
   label_change_is_private: "Změnit soukromé / neveřejné"
+  label_change_project: Změnit projekt
   label_change_to_dashboard: "Přepnout na Dashboard"
   label_chart_color_schema: "Barevné schéma grafů"
   label_chart_with_name: "Diagram: %{value}"
@@ -133,6 +134,7 @@ cs:
   label_icon_color: "Barva ikony"
   label_inactive: "Neaktivní"
   label_invalid_feed_data: "Neplatná data zdroje nebo adresa URL"
+  label_is_non_private: neveřejné
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_auto_assign: "Pokud \"Assigned to\" není přiřazeno uživateli a nový stav problému je x, pak je problém automaticky přiřazen první skupině s uživateli s předdefinovanou rolí."
   label_issue_change_status: "Změnit stav"
@@ -249,5 +251,6 @@ cs:
   field_watched_by_me: "Sledováno mnou"
   label_with_amount: "Částka %{value}"
   label_list_all_entries: "Seznam všech %{value}"
+  label_table_of_values: Tabulka hodnot
   text_dashboard_lock_confirmation: Opravdu chcete zamknout tento dashboard?
   text_dashboard_unlock_confirmation: Opravdu chcete odemknout tento dashboard?

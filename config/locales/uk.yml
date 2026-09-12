@@ -83,6 +83,7 @@ uk:
   label_auto_watch_on_issue_assigned: "Білети, закреплені за мною"
   label_calendar_week: "CW %{week}"
   label_change_is_private: "Визначення приватне / не-приватне"
+  label_change_project: Змінити проект
   label_change_to_dashboard: "Переключитись на приборну панель"
   label_chart_color_schema: Charts color scheme
   label_chart_with_name: "Chart: %{value}"
@@ -133,6 +134,7 @@ uk:
   label_icon_color: Icon color
   label_inactive: Неактивний
   label_invalid_feed_data: "Недійсні данні або URL-адрес"
+  label_is_non_private: не-приватне
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
   label_issue_change_status: "Змінити статус"
@@ -249,5 +251,6 @@ uk:
   field_watched_by_me: "Під моїм наглядом"
   label_with_amount: "Сумма %{value}"
   label_list_all_entries: "Перерахувати все %{value}"
+  label_table_of_values: Таблиця значень
   text_dashboard_lock_confirmation: Ви впевнені, що хочете заблокувати цю панель?
   text_dashboard_unlock_confirmation: Ви впевнені, що хочете розблокувати цю панель?

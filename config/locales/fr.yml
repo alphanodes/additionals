@@ -83,6 +83,7 @@ fr:
   label_auto_watch_on_issue_assigned: "Les tâches qui m'ont été confiées"
   label_calendar_week: "CW %{week}"
   label_change_is_private: Changer Privé/non privé
+  label_change_project: Changer le projet
   label_change_to_dashboard: "Passer au tableau de bord"
   label_chart_color_schema: Schéma de couleur graphique
   label_chart_with_name: "Graphique: %{value}"
@@ -133,6 +134,7 @@ fr:
   label_icon_color: Couleur d'icône
   label_inactive: Inactif
   label_invalid_feed_data: "Données d'alimentation ou URL invalides"
+  label_is_non_private: non privé
   label_issue_assign_to_me: Voir "M'affecter" sur les tâches
   label_issue_auto_assign: "Si l'option \"Assigned to\" n'est pas attribuée à un utilisateur et que le statut de la nouvelle question est x, la question est automatiquement attribuée au premier groupe d'utilisateurs ayant le rôle prédéfini."
   label_issue_change_status: Modifier le statut
@@ -249,5 +251,6 @@ fr:
   field_watched_by_me: "Surveillé par moi"
   label_with_amount: "Montant %{value}"
   label_list_all_entries: "Liste complète %{value}"
+  label_table_of_values: Tableau de la valeur
   text_dashboard_lock_confirmation: Êtes-vous sûr de vouloir verrouiller ce tableau de bord?
   text_dashboard_unlock_confirmation: Êtes-vous sûr de vouloir déverrouiller ce tableau de bord?

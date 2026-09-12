@@ -83,6 +83,7 @@ es:
   label_auto_watch_on_issue_assigned: "Temas que me han sido asignados"
   label_calendar_week: "SC %{week}"
   label_change_is_private: Cambiar privado/no-privado
+  label_change_project: Cambiar proyecto
   label_change_to_dashboard: "Cambiar a Dashboard"
   label_chart_color_schema: Charts color scheme
   label_chart_with_name: "Chart: %{value}"
@@ -133,6 +134,7 @@ es:
   label_icon_color: Color de ícono
   label_inactive: Inactivo
   label_invalid_feed_data: "Datos o URL de alimentación inválidos"
+  label_is_non_private: no-privado
   label_issue_assign_to_me: Mostrar "Asignar a mi mismo" en las peticiones
   label_issue_auto_assign: "Si \"Asignado a\" no es asignado a un usuario y el estado de la nueva petición es x, entonces la petición es auto asignada al primer grupo con usuarios del rol predefinido."
   label_issue_change_status: Cambiar estado
@@ -249,5 +251,6 @@ es:
   field_watched_by_me: "Vigilado por mí"
   label_with_amount: "Importe %{value}"
   label_list_all_entries: "Lista completa %{value}"
+  label_table_of_values: Tabla de valores
   text_dashboard_lock_confirmation: ¿Está seguro de que desea bloquear este dashboard?
   text_dashboard_unlock_confirmation: ¿Está seguro de que desea desbloquear este dashboard?

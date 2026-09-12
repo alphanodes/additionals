@@ -83,6 +83,7 @@ ru:
   label_auto_watch_on_issue_assigned: "Билеты, закрепленные за мной"
   label_calendar_week: "CW %{week}"
   label_change_is_private: "Изменение частного / не-частного"
+  label_change_project: "Изменить проект"
   label_change_to_dashboard: "Переключиться на приборную панель"
   label_chart_color_schema: Charts color scheme
   label_chart_with_name: "Chart: %{value}"
@@ -133,6 +134,7 @@ ru:
   label_icon_color: Icon color
   label_inactive: "Неактивный"
   label_invalid_feed_data: "Недействительные данные корма или URL-адрес"
+  label_is_non_private: "нечастный"
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
   label_issue_change_status: "Изменить статус"
@@ -249,5 +251,6 @@ ru:
   field_watched_by_me: "Под моим наблюдением"
   label_with_amount: "Сумма %{value}"
   label_list_all_entries: "Перечислить все %{value}"
+  label_table_of_values: "Таблица значений"
   text_dashboard_lock_confirmation: Вы уверены, что хотите заблокировать эту панель?
   text_dashboard_unlock_confirmation: Вы уверены, что хотите разблокировать эту панель?

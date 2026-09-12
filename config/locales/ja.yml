@@ -83,6 +83,7 @@ ja:
   label_auto_watch_on_issue_assigned: "私に割り当てられたチケット"
   label_calendar_week: "CW %{week}"
   label_change_is_private: "プライベート／非プライベート変更"
+  label_change_project: "プロジェクトを変更"
   label_change_to_dashboard: "ダッシュボードに切り替える"
   label_chart_color_schema: Charts color scheme
   label_chart_with_name: "チャート: %{value}"
@@ -133,6 +134,7 @@ ja:
   label_icon_color: Icon color
   label_inactive: "非アクティブ"
   label_invalid_feed_data: "無効なフィードデータまたはURL"
+  label_is_non_private: "非プライベート"
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
   label_issue_change_status: Change status
@@ -249,5 +251,6 @@ ja:
   field_watched_by_me: "私が見る"
   label_with_amount: "金額 %{value}"
   label_list_all_entries: "すべて表示 %{value}"
+  label_table_of_values: "値の表"
   text_dashboard_lock_confirmation: このダッシュボードをロックしてもよろしいですか？
   text_dashboard_unlock_confirmation: このダッシュボードのロックを解除してもよろしいですか？

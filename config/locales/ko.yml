@@ -83,6 +83,7 @@ ko:
   label_auto_watch_on_issue_assigned: "나에게 배정된 티켓"
   label_calendar_week: "CW %{week}"
   label_change_is_private: 개인 / 비 개인 변경
+  label_change_project: "프로젝트 변경"
   label_change_to_dashboard: "대시보드로 전환"
   label_chart_color_schema: 차트 색 구성표
   label_chart_with_name: "차트: %{value}"
@@ -133,6 +134,7 @@ ko:
   label_icon_color: 시간
   label_inactive: "비활성"
   label_invalid_feed_data: "잘못된 피드 데이터 또는 URL"
+  label_is_non_private: "비 개인"
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
   label_issue_change_status: 상태 변경
@@ -249,5 +251,6 @@ ko:
   field_watched_by_me: "내가 시청"
   label_with_amount: "금액 %{value}"
   label_list_all_entries: "모두 나열 %{value}"
+  label_table_of_values: "값 테이블"
   text_dashboard_lock_confirmation: 이 대시보드를 잠그시겠습니까?
   text_dashboard_unlock_confirmation: 이 대시보드의 잠금을 해제하시겠습니까?

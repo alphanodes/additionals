@@ -83,6 +83,7 @@ pl:
   label_auto_watch_on_issue_assigned: "Bilety przypisane do mnie"
   label_calendar_week: "CW %{week}"
   label_change_is_private: "Zmień prywatny / prywatny / nieprywatny"
+  label_change_project: Zmiana projektu
   label_change_to_dashboard: "Przełącz się na tablicę rozdzielczą"
   label_chart_color_schema: Charts color scheme
   label_chart_with_name: "Chart: %{value}"
@@ -133,6 +134,7 @@ pl:
   label_icon_color: Icon color
   label_inactive: Nieaktywny
   label_invalid_feed_data: "Nieprawidłowe dane lub adres URL"
+  label_is_non_private: nieprywatny
   label_issue_assign_to_me: "Pokaż opcję \"Assign to me\" w sprawie"
   label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
   label_issue_change_status: "Zmiana statusu"
@@ -249,5 +251,6 @@ pl:
   field_watched_by_me: "Oglądany przeze mnie"
   label_with_amount: "Kwota %{value}"
   label_list_all_entries: "Wymień wszystkie %{value}"
+  label_table_of_values: Tabela wartości
   text_dashboard_lock_confirmation: Czy na pewno chcesz zablokować ten dashboard?
   text_dashboard_unlock_confirmation: Czy na pewno chcesz odblokować ten dashboard?

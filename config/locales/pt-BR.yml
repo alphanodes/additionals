@@ -83,6 +83,7 @@ pt-BR:
   label_auto_watch_on_issue_assigned: "Ingressos atribuídos a mim"
   label_calendar_week: "CW %{week}"
   label_change_is_private: "Mudança privada/não-privada"
+  label_change_project: Alterar projeto
   label_change_to_dashboard: "Mude para Dashboard"
   label_chart_color_schema: "Esquema de cores dos gráficos"
   label_chart_with_name: "Gráfico: %{value}"
@@ -133,6 +134,7 @@ pt-BR:
   label_icon_color: "Cor do ícone"
   label_inactive: Inativo
   label_invalid_feed_data: "Dados de alimentação inválidos ou URL"
+  label_is_non_private: não-privado
   label_issue_assign_to_me: "Mostrar \"Designar para mim\" em questão"
   label_issue_auto_assign: "Se \"Atribuído a\" não é atribuído a um usuário e o novo status de emissão é x então a emissão é automaticamente atribuída ao primeiro grupo com usuários da função pré-definida."
   label_issue_change_status: "Mudança de status"
@@ -249,5 +251,6 @@ pt-BR:
   field_watched_by_me: "Observado por mim"
   label_with_amount: "Valor %{value}"
   label_list_all_entries: "Listar tudo %{value}"
+  label_table_of_values: Tabela de valores
   text_dashboard_lock_confirmation: Tem certeza de que deseja bloquear este dashboard?
   text_dashboard_unlock_confirmation: Tem certeza de que deseja desbloquear este dashboard?

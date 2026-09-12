@@ -131,6 +131,7 @@ zh:
   label_hidden_macros_in_toolbar: 隐藏的宏
   label_hour: 小时
   label_icon_color: 图标颜色
+  label_inactive: "非活动"
   label_invalid_feed_data: "无效的 feed 数据或 URL"
   label_issue_assign_to_me: 在问题页显示“指派给我”
   label_issue_auto_assign: "若 \"指派给\" 的值未设置为具体用户，且新建问题的状态为 X， 那么问题将自动指派给预定义角色用户的对应组。"

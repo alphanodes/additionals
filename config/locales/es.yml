@@ -131,6 +131,7 @@ es:
   label_hidden_macros_in_toolbar: Hidden macros
   label_hour: hora
   label_icon_color: Color de ícono
+  label_inactive: Inactivo
   label_invalid_feed_data: "Datos o URL de alimentación inválidos"
   label_issue_assign_to_me: Mostrar "Asignar a mi mismo" en las peticiones
   label_issue_auto_assign: "Si \"Asignado a\" no es asignado a un usuario y el estado de la nueva petición es x, entonces la petición es auto asignada al primer grupo con usuarios del rol predefinido."

@@ -131,6 +131,7 @@ ko:
   label_hidden_macros_in_toolbar: Hidden macros
   label_hour: 시간
   label_icon_color: 시간
+  label_inactive: "비활성"
   label_invalid_feed_data: "잘못된 피드 데이터 또는 URL"
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."

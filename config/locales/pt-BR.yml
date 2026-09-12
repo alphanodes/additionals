@@ -131,6 +131,7 @@ pt-BR:
   label_hidden_macros_in_toolbar: "Macros escondidas"
   label_hour: "hora"
   label_icon_color: "Cor do ícone"
+  label_inactive: Inativo
   label_invalid_feed_data: "Dados de alimentação inválidos ou URL"
   label_issue_assign_to_me: "Mostrar \"Designar para mim\" em questão"
   label_issue_auto_assign: "Se \"Atribuído a\" não é atribuído a um usuário e o novo status de emissão é x então a emissão é automaticamente atribuída ao primeiro grupo com usuários da função pré-definida."

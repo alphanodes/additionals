@@ -131,6 +131,7 @@
   label_hidden_macros_in_toolbar: Hidden macros
   label_hour: 小時
   label_icon_color: 圖示顏色
+  label_inactive: "非活動"
   label_invalid_feed_data: "无效的饲料数据或URL"
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_auto_assign: "若建立新議題的 \"被分派者\" 未設定，且狀態為 X 時，將被自動分派給指定角色。"

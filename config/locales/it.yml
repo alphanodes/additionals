@@ -131,6 +131,7 @@ it:
   label_hidden_macros_in_toolbar: Hidden macros
   label_hour: ora
   label_icon_color: Icon colore
+  label_inactive: Inattivo
   label_invalid_feed_data: "Dati di alimentazione o URL non validi"
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_auto_assign: "Se \"Assigned to\" non è assegnato a un utente e lo stato del nuovo problema è x, allora il problema è assegnato automaticamente al primo gruppo con utenti del ruolo predefinito."

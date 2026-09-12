@@ -131,6 +131,7 @@ cs:
   label_hidden_macros_in_toolbar: "Skrytá makra"
   label_hour: "hodina"
   label_icon_color: "Barva ikony"
+  label_inactive: "Neaktivní"
   label_invalid_feed_data: "Neplatná data zdroje nebo adresa URL"
   label_issue_assign_to_me: Show "Assign to me" on issue
   label_issue_auto_assign: "Pokud \"Assigned to\" není přiřazeno uživateli a nový stav problému je x, pak je problém automaticky přiřazen první skupině s uživateli s předdefinovanou rolí."

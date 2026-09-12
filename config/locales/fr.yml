@@ -131,6 +131,7 @@ fr:
   label_hidden_macros_in_toolbar: Cacher les macros
   label_hour: Heure
   label_icon_color: Couleur d'icône
+  label_inactive: Inactif
   label_invalid_feed_data: "Données d'alimentation ou URL invalides"
   label_issue_assign_to_me: Voir "M'affecter" sur les tâches
   label_issue_auto_assign: "Si l'option \"Assigned to\" n'est pas attribuée à un utilisateur et que le statut de la nouvelle question est x, la question est automatiquement attribuée au premier groupe d'utilisateurs ayant le rôle prédéfini."

@@ -227,16 +227,26 @@ module AdditionalsQueriesHelper
       /\A(?:in|ex)ternal:/.match?(token)
   end
 
-  def set_flash_from_bulk_save(entries, unsaved_ids, name_plural:)
-    if unsaved_ids.empty?
+  # Takes the unsaved entries themselves, not their ids: that is what lets the
+  # message say WHY they failed. Core dropped its own bulk save flash with
+  # r13943 and re-renders the bulk edit form instead, which needs such a form
+  # to exist. Where a bulk update runs without one, the reasons go into the
+  # flash, grouped by bulk_edit_error_messages just as core lists them.
+  def set_flash_from_bulk_save(entries, unsaved, name_plural:)
+    if unsaved.empty?
       flash[:notice] = flash_msg :update unless entries.empty?
-    else
-      flash[:error] = l :notice_failed_to_save_entity,
-                        name_plural:,
-                        count: unsaved_ids.size,
-                        total: entries.size,
-                        ids: "##{unsaved_ids.join ', #'}"
+      return
     end
+
+    view = ApplicationController.helpers
+    summary = l :notice_failed_to_save_entries,
+                name_plural:,
+                count: unsaved.size,
+                total: entries.size,
+                ids: "##{unsaved.map(&:id).join ', #'}"
+    reasons = view.bulk_edit_error_messages(unsaved).map { |message| view.content_tag :li, message }
+
+    flash[:error] = view.safe_join [summary, view.content_tag(:ul, view.safe_join(reasons))]
   end
 
   # Returns the query definition as hidden field tags

@@ -74,6 +74,15 @@ directory, not in the repository.
    - the Mermaid line in `README.md`
    - a new `CHANGELOG.md` entry: `- mermaid <version> support`
 
+## Theme, look and layout
+
+`mermaid_load.js` passes `theme`, `themeVariables`, `look` and `layout` to
+`mermaid.initialize` only when a Redmine theme sets the matching global
+(`mermaidTheme`, `mermaidThemeVariables`, `mermaidLook`, `mermaidLayout`).
+Since Mermaid 12 the defaults differ per diagram type (e.g. `redux-color` for
+flowcharts), and a global `theme` in `initialize` overrides all of them. Do not
+add hardcoded defaults there again.
+
 ## Verifying the build
 
 Before trusting a new build, confirm the build config still matches the

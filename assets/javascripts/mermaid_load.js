@@ -1,15 +1,18 @@
 /* global mermaid */
 
 // Initialize Mermaid globally
-// theme, themeVariables, look and layout are only passed on when a theme sets
-// them (globalThis.mermaidTheme, ...), so mermaid's own per diagram defaults
-// (ELK layout, neo look, redux-color theme) apply otherwise.
+// theme, look and layout are only passed on when a theme sets them
+// (globalThis.mermaidTheme, ...), so mermaid's own per diagram defaults
+// (ELK layout, neo look, redux-color theme) apply otherwise. Lines are 1px
+// instead of redux-color's 2px, which crowd diagrams with many edges. A
+// diagram that needs different values sets them in its own front matter.
 function initAllMermaidMacro(startOnLoad = false) {
   if (typeof mermaid === 'undefined') {return;}
 
   const config = {
     startOnLoad,
     maxTextSize: 500000,
+    themeVariables: globalThis.mermaidThemeVariables ?? { strokeWidth: 1 },
     flowchart: {
       useMaxWidth: false,
     },
@@ -20,7 +23,6 @@ function initAllMermaidMacro(startOnLoad = false) {
   };
 
   if (globalThis.mermaidTheme !== undefined) {config.theme = globalThis.mermaidTheme;}
-  if (globalThis.mermaidThemeVariables !== undefined) {config.themeVariables = globalThis.mermaidThemeVariables;}
   if (globalThis.mermaidLook !== undefined) {config.look = globalThis.mermaidLook;}
   if (globalThis.mermaidLayout !== undefined) {config.layout = globalThis.mermaidLayout;}
 

@@ -76,12 +76,17 @@ directory, not in the repository.
 
 ## Theme, look and layout
 
-`mermaid_load.js` passes `theme`, `themeVariables`, `look` and `layout` to
-`mermaid.initialize` only when a Redmine theme sets the matching global
-(`mermaidTheme`, `mermaidThemeVariables`, `mermaidLook`, `mermaidLayout`).
-Since Mermaid 12 the defaults differ per diagram type (e.g. `redux-color` for
-flowcharts), and a global `theme` in `initialize` overrides all of them. Do not
-add hardcoded defaults there again.
+`mermaid_load.js` passes `theme`, `look` and `layout` to `mermaid.initialize`
+only when a Redmine theme sets the matching global (`mermaidTheme`,
+`mermaidLook`, `mermaidLayout`). Since Mermaid 12 the defaults differ per
+diagram type (e.g. `redux-color` for flowcharts), and a global `theme` in
+`initialize` overrides all of them, so do not add a hardcoded theme there.
+
+The one deliberate default is `themeVariables: { strokeWidth: 1 }` (unless a
+theme sets `mermaidThemeVariables`): `redux-color` draws 2px lines, which
+crowd diagrams with many edges. A diagram that needs different values sets
+them in its own front matter, as the workflow graph in `redmine_reporting`
+does.
 
 ## Verifying the build
 
@@ -101,6 +106,12 @@ established format:
 - **Render in a real browser.** Load `mermaid.min.js` + `mermaid_load.js` on a
   minimal page with a `<pre class="mermaid">` diagram and confirm it renders to
   an SVG without `renderMermaidMacro` console errors.
+- **Check whether gantt can switch to the new appearance.** Mermaid 12 keeps
+  the old `default` theme for gantt. With `redux-color` the bars of the
+  `redmine_reporting` roadmap (projects and version list, `display_type=roadmap`)
+  are white on a near white background and hard to see. Render the roadmap with
+  `theme: redux-color` in its front matter; once the bars are clearly visible,
+  switch gantt to the new appearance.
 
 ## Committing
 

@@ -20,7 +20,7 @@ module Additionals
   # test_locales_validness) on the given test class. Plugins use this in their
   # i18n_test.rb to avoid duplicating identical boilerplate; only the
   # plugin-specific metadata stays in the plugin's test file.
-  def self.define_i18n_tests(test_class, plugin:, control_string:, control_english:)
+  def self.define_i18n_tests(test_class, plugin:, control_string:, control_english:, allowed_missing: [])
     test_class.class_eval do
       include Redmine::I18n unless include? Redmine::I18n
 
@@ -31,6 +31,10 @@ module Additionals
 
       define_method :test_locales_validness do
         assert_locales_validness plugin:, control_string:, control_english:
+      end
+
+      define_method :test_used_locale_keys_are_resolvable do
+        assert_used_locale_keys_resolvable plugin:, allowed_missing:
       end
     end
   end
@@ -387,6 +391,139 @@ module Additionals
     # conditional names the patches that are registered behind an optional
     # plugin - they reach nothing where that plugin is absent, which is why the
     # assertion has to be told about them. Everything else must arrive.
+    # A locale key that only exists in a plugin further down the dependency
+    # chain resolves on a developer machine, where everything is installed, and
+    # turns into "translation missing" at a customer running without that
+    # optional plugin. Nothing fails, so only this check notices.
+    #
+    # Deliberately reads the permitted locale files instead of asking I18n:
+    # at runtime every installed plugin has contributed its keys already, so
+    # I18n would resolve them all and the test would pass everywhere but the
+    # isolated CI.
+    #
+    # allowed_missing lists keys that were checked and found unreachable
+    # without their origin plugin (guarded by AdditionalsPlugin.active_*?, by
+    # a view hook only that plugin fires, ...). An entry is documentation:
+    # it says someone followed the call path and it holds.
+    def assert_used_locale_keys_resolvable(plugin:, allowed_missing: [])
+      directory = Redmine::Plugin.find(plugin).directory
+      available = locale_keys_of Rails.root.join('config/locales/en.yml')
+      available |= locale_keys_of File.join(directory, 'config/locales/en.yml')
+      required_plugin_ids(plugin).each do |dep|
+        available |= locale_keys_of Rails.root.join('plugins', dep, 'config/locales/en.yml')
+      end
+
+      missing = used_locale_keys(directory) - available - allowed_missing.map(&:to_s)
+      stale = allowed_missing.map(&:to_s) - used_locale_keys(directory).to_a
+
+      assert_empty missing,
+                   "Locale keys used but resolvable neither through redmine core, the plugin's own " \
+                   "locales nor a required plugin: #{missing.to_a.sort.to_comma_list}"
+      assert_empty stale,
+                   "allowed_missing names keys the plugin no longer uses: #{stale.sort.to_comma_list}"
+    end
+
+    # Flat keys plus intermediate nodes: pluralisation blocks such as
+    # "seconds: {one:, other:}" are addressed as `l :seconds`. Leaves below
+    # activerecord.* count under their bare name too, they are reached through
+    # the scope argument.
+    def locale_keys_of(path)
+      return Set.new unless File.exist? path
+
+      data = YAML.safe_load_file path, permitted_classes: [Symbol], aliases: true
+      root = data.is_a?(Hash) ? data.values.first : nil
+      return Set.new unless root.is_a? Hash
+
+      keys = Set.new
+      walk = lambda do |node, prefix|
+        node.each do |key, value|
+          keys << "#{prefix}#{key}"
+          keys << key if prefix.start_with?('activerecord.') && !value.is_a?(Hash)
+          walk.call value, "#{prefix}#{key}." if value.is_a? Hash
+        end
+      end
+      walk.call root, ''
+      keys
+    rescue StandardError
+      Set.new
+    end
+
+    # Keys the plugin's own code asks for. l is not the only way in: I18n.t is
+    # plain Rails, flash_msg is additionals' own, and a symbol can sit in an
+    # array literal (the admin info checklist does that).
+    LOCALE_KEY = '[A-Za-z][A-Za-z0-9_]*'
+    LOCALE_KEY_PATTERNS = [/\bl\s*\(?\s*:(#{LOCALE_KEY})\b/,
+                           /\bl\s*\(?\s*'(#{LOCALE_KEY})'/,
+                           /\bl\s*\(?\s*"(#{LOCALE_KEY})"/,
+                           /\bI18n\.t\s*\(?\s*:(#{LOCALE_KEY})\b/,
+                           /\bflash_msg\s*\(?\s*:(#{LOCALE_KEY})\b/,
+                           # deferred translation; demands an underscore because
+                           # "title:" is also ActiveRecord ordering (title: :asc)
+                           /\b(?:label|caption|title):\s*:([A-Za-z][A-Za-z0-9]*_#{LOCALE_KEY})\b/,
+                           /\[\s*:((?:label|text|notice|error|button|field)_[A-Za-z0-9_]+)\s*,/].freeze
+    # flash_msg maps these onto fixed keys internally, every other symbol IS the key
+    FLASH_MSG_ACTIONS = %w[create update delete save_error delete_error].freeze
+    LOCALE_COMMENT_LINE = %r{\A\s*(?:\#|<%\#|/(?!\S))}
+    LOCALE_SOURCE_DIRS = %w[app lib config].freeze
+    LOCALE_SOURCE_EXTENSIONS = %w[.rb .rake .slim .erb].freeze
+    # redmine_automation loads these out of every plugin, so code there may use its locales
+    AUTOMATION_DIRS = %w[automation_rules automation_rule_actions automation_rule_conditions
+                         automation_variable_filters automation_variable_list_providers
+                         automation_health_checks fixed_automation_rules].freeze
+
+    def used_locale_keys(directory)
+      keys = Set.new
+      LOCALE_SOURCE_DIRS.each do |sub|
+        Dir[File.join(directory, sub, '**', '*')].each do |file|
+          next unless File.file?(file) && LOCALE_SOURCE_EXTENSIONS.include?(File.extname(file))
+          next if automation_owned? file.sub("#{directory}/", '')
+
+          keys |= locale_keys_in_source File.read(file, encoding: 'UTF-8', invalid: :replace)
+        end
+      end
+      keys
+    end
+
+    def locale_keys_in_source(source)
+      keys = Set.new
+      source.each_line do |line|
+        # a key named in a comment is not a usage, and a scope: argument makes
+        # the real key a path we cannot rebuild here
+        next if line.match?(LOCALE_COMMENT_LINE) || line.include?('scope:')
+
+        LOCALE_KEY_PATTERNS.each do |pattern|
+          line.scan(pattern) { |(key)| keys << key unless FLASH_MSG_ACTIONS.include? key }
+        end
+      end
+      keys
+    end
+
+    def automation_owned?(relative_path)
+      parts = relative_path.split '/'
+      parts.first == 'lib' && AUTOMATION_DIRS.include?(parts[1])
+    end
+
+    # Both declaration places, resolved transitively - see "Pflicht-Abhängigkeiten
+    # stehen an zwei Stellen" in the central CLAUDE.md.
+    def required_plugin_ids(plugin, seen = Set.new)
+      directory = Redmine::Plugin.find(plugin).directory
+      found = Set['additionals']
+      Dir[File.join(directory, 'lib', '*.rb')].each do |file|
+        list = File.read(file)[/REQUIRED_ALPHANODES_PLUGINS\s*=\s*%w\[([^\]]*)\]/m, 1]
+        found.merge list.split if list
+      end
+      init = File.join directory, 'init.rb'
+      found.merge File.read(init).scan(/requires_redmine_plugin\s+:([a-z_]+)/).flatten if File.exist? init
+
+      found.each do |dep|
+        next if seen.include?(dep) || !Redmine::Plugin.installed?(dep)
+
+        seen << dep
+        required_plugin_ids dep, seen
+      end
+      seen
+    end
+
     def assert_plugin_patches_applied(plugin, conditional: [])
       applied = applied_module_ids
       names = plugin_patch_names plugin

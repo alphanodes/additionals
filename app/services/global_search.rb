@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module GlobalSearch
+  QUICK_JUMP_PATTERN = /\A#(\d+)\z/
+
   class << self
     # Provider API - only for extra sources (e.g. semantic search from redmine_ai)
     def providers
@@ -19,36 +21,74 @@ module GlobalSearch
       end
     end
 
+    # Keyword results only. The providers answer in a request of their own (see
+    # provider_search), so the keyword results never wait for an external service.
     def search(query, user:, project: nil, scope: nil, types: nil, titles_only: false, limit: 10)
       # Quick-jump: direct ID lookup
       if (jump = quick_jump query, user: user, types: types)
-        return { keyword: jump, semantic: nil }
+        return { keyword: jump, jump: true }
       end
 
       projects = resolve_projects scope, user, project
-      keyword = keyword_search query, user: user, projects: projects, types: types, titles_only: titles_only, limit: limit
-      semantic = provider_search query, user: user, project: project, limit: 5, types: types, keyword_results: keyword
+      { keyword: keyword_search(query, user: user, projects: projects, types: types, titles_only: titles_only, limit: limit),
+        jump: false }
+    end
 
-      # Deduplicate over the url: an id alone is not unique across types, and a provider may
-      # identify a record differently than the keyword search does (a wiki page by its content
-      # id, for instance). The url is what both sides agree on.
-      if semantic && keyword.present?
-        keyword_urls = keyword.filter_map { |r| r[:url] }.to_set
-        semantic[:results].reject! { |r| keyword_urls.include? r[:url] }
-        semantic = nil if semantic[:results].blank?
+    # The client deduplicates the hits against the keyword results it already shows, over
+    # the url: an id alone is not unique across types, and a provider may identify a record
+    # differently than the keyword search does (a wiki page by its content id, for instance).
+    def provider_search(query, user:, project: nil, limit: 5, types: nil, keyword_hits: false)
+      return if skip_providers? query, keyword_hits
+
+      results = { label: nil, results: [] }
+      usable_providers(user, project).each do |provider|
+        hits = provider.search query, user: user, project: project, limit: limit, types: types
+        next if hits.blank?
+
+        results[:label] ||= I18n.t provider.label
+        results[:results].concat hits
+      rescue StandardError => e
+        Rails.logger.warn "GlobalSearch: Provider #{provider.name} failed: #{e.message}"
       end
+      results[:results].present? ? results : nil
+    end
 
-      { keyword: keyword, semantic: semantic }
+    # The search types at least one provider can answer for the user. The client only asks
+    # the providers and shows a loading state when the active type is among them.
+    def provider_search_types(user:, project: nil)
+      types = usable_providers(user, project).flat_map do |provider|
+        provider.respond_to?(:search_types) ? provider.search_types : Redmine::Search.available_search_types
+      end
+      types.uniq!
+      types
+    end
+
+    def provider_label(user:, project: nil)
+      provider = usable_providers(user, project).first
+      provider ? I18n.t(provider.label) : nil
     end
 
     private
 
+    # Runs on every page for the search dialog, so a failing provider must not take the page down.
+    def usable_providers(user, project)
+      providers.select do |provider|
+        (!provider.respond_to?(:available?) || provider.available?) && user_can_use?(provider, user, project)
+      rescue StandardError => e
+        Rails.logger.warn "GlobalSearch: Provider #{provider.name} unusable: #{e.message}"
+        false
+      end
+    end
+
+    # An issue comes first: it is what an id reference means in Redmine, and the client
+    # preselects the first hit so Enter opens it.
     def quick_jump(query, user:, types: nil)
-      return unless (m = query.match(/^#(\d+)$/))
+      return unless (m = query.match QUICK_JUMP_PATTERN)
 
       id = m[1].to_i
+      classes = searchable_classes types: types
       results = []
-      searchable_classes(types: types).each do |klass|
+      ((classes & [Issue]) + (classes - [Issue])).each do |klass|
         record = klass.visible(user).find_by id: id
         next unless record
 
@@ -97,31 +137,15 @@ module GlobalSearch
       end
     end
 
-    def provider_search(query, user:, project: nil, limit: 5, types: nil, keyword_results: nil)
-      return if skip_providers? query, keyword_results
+    # A bare number carries no meaning a semantic provider could pick up, and asking anyway
+    # costs an external request. An id reference (#1234) never reaches the providers: the
+    # keyword search finds every text referencing an id that starts with those digits,
+    # which says nothing about its meaning. A plain number only does when the keyword search
+    # found it, because then it means something (an error code, a year).
+    def skip_providers?(query, keyword_hits)
+      return true if query.match? QUICK_JUMP_PATTERN
 
-      results = { label: nil, results: [] }
-      providers.each do |provider|
-        next unless user_can_use? provider, user, project
-
-        hits = provider.search query, user: user, project: project, limit: limit, types: types
-        next if hits.blank?
-
-        results[:label] ||= I18n.t provider.label
-        results[:results].concat hits
-      rescue StandardError => e
-        Rails.logger.warn "GlobalSearch: Provider #{provider.name} failed: #{e.message}"
-      end
-      results[:results].present? ? results : nil
-    end
-
-    # A digit-only query the keyword search cannot find carries nothing a semantic provider
-    # could pick up either: a bare number has no meaning to embed. Asking anyway costs an
-    # external request per keystroke and per filter click, which is what exhausts provider
-    # rate limits. Numbers that do mean something (an error code, a year) are found by the
-    # keyword search and still reach the providers.
-    def skip_providers?(query, keyword_results)
-      keyword_results.blank? && query.match?(/\A#?\d+\z/)
+      !keyword_hits && query.match?(/\A\d+\z/)
     end
 
     def format_record(record)

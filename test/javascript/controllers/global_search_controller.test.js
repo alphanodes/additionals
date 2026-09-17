@@ -1,5 +1,23 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import GlobalSearchController from '../../../assets/javascripts/controllers/global_search_controller.js';
+
+// A context that inherits every controller method, so a test only lists the state it cares
+// about and does not break whenever a method calls a new helper.
+function buildContext(props = {}) {
+  const defaults = {
+    element: { dataset: {} },
+    searchGeneration: 0,
+    keywordUrls: new Set(),
+    lastInputAt: 0,
+    pendingJump: null,
+    semanticTimer: null,
+    semanticAbortController: null,
+  };
+  return Object.create(
+    GlobalSearchController.prototype,
+    Object.getOwnPropertyDescriptors({ ...defaults, ...props }),
+  );
+}
 
 describe('GlobalSearchController', () => {
   describe('static declarations', () => {
@@ -282,7 +300,7 @@ describe('GlobalSearchController', () => {
         <div id="hint">Loading...</div>
       `;
 
-      ctx = {
+      ctx = buildContext({
         element: { dataset: { coreSearchUrl: '/search', searchLabel: 'Search' } },
         hasResultsTarget: true,
         resultsTarget: document.getElementById('results'),
@@ -293,17 +311,8 @@ describe('GlobalSearchController', () => {
         currentScope: 'project',
         activeSearchType: null,
         titlesOnlyActive: false,
-        escapeHtml: GlobalSearchController.prototype.escapeHtml,
-        highlightMatch: GlobalSearchController.prototype.highlightMatch,
-        renderGroup: GlobalSearchController.prototype.renderGroup,
-        renderItem: GlobalSearchController.prototype.renderItem,
-        renderCoreSearchLink: GlobalSearchController.prototype.renderCoreSearchLink,
         renderSearchTypeTabs: () => '',
-        scopeSuffix: GlobalSearchController.prototype.scopeSuffix,
-        coreSearchScope: GlobalSearchController.prototype.coreSearchScope,
-        showHint: GlobalSearchController.prototype.showHint,
-        hideHint: GlobalSearchController.prototype.hideHint,
-      };
+      });
     });
 
     it('renders flat result list with type and project', () => {
@@ -506,10 +515,10 @@ describe('GlobalSearchController', () => {
   describe('cancelPending', () => {
     it('clears debounce timer and aborts controller', () => {
       const abortSpy = vi.fn();
-      const ctx = {
+      const ctx = buildContext({
         debounceTimer: setTimeout(() => {}, 10000),
         abortController: { abort: abortSpy },
-      };
+      });
 
       GlobalSearchController.prototype.cancelPending.call(ctx);
 
@@ -518,10 +527,10 @@ describe('GlobalSearchController', () => {
     });
 
     it('handles null abortController gracefully', () => {
-      const ctx = {
+      const ctx = buildContext({
         debounceTimer: null,
         abortController: null,
-      };
+      });
 
       // Should not throw
       GlobalSearchController.prototype.cancelPending.call(ctx);
@@ -562,14 +571,11 @@ describe('GlobalSearchController', () => {
     it('does nothing when no item is selected', () => {
       document.body.innerHTML = '<div id="results"></div>';
 
-      const ctx = {
+      const ctx = buildContext({
         selectedIndex: -1,
         hasResultsTarget: true,
         resultsTarget: document.getElementById('results'),
-        get selectableItems() {
-          return Array.from(this.resultsTarget.querySelectorAll('.global-search-item'));
-        },
-      };
+      });
 
       // Should not throw
       GlobalSearchController.prototype.openSelected.call(ctx);
@@ -1178,67 +1184,512 @@ describe('GlobalSearchController', () => {
     });
   });
 
-  describe('semantic results with type filter', () => {
-    it('hides semantic results when a search type is active', () => {
-      document.body.innerHTML = '<div id="results"></div><div id="hint"></div>';
-      const ctx = {
-        element: { dataset: { coreSearchUrl: '/search', searchLabel: 'Search' } },
-        hasResultsTarget: true,
-        resultsTarget: document.getElementById('results'),
-        hasHintTarget: true,
-        hintTarget: document.getElementById('hint'),
-        selectedIndex: 0,
-        activeSearchType: 'issues',
-        titlesOnlyActive: false,
-        i18n: { noResults: 'No results' },
-        currentScope: 'global',
-        escapeHtml: GlobalSearchController.prototype.escapeHtml,
-        highlightMatch: GlobalSearchController.prototype.highlightMatch,
-        renderItem: GlobalSearchController.prototype.renderItem,
-        renderCoreSearchLink: GlobalSearchController.prototype.renderCoreSearchLink,
-        renderSearchTypeTabs: () => '',
-        scopeSuffix: GlobalSearchController.prototype.scopeSuffix,
-        coreSearchScope: GlobalSearchController.prototype.coreSearchScope,
-        showHint: GlobalSearchController.prototype.showHint,
-        hideHint: GlobalSearchController.prototype.hideHint,
-      };
-      const data = {
-        keyword: [{ title: 'Issue #1', url: '/issues/1', type: 'Issues' }],
-        semantic: { label: 'Semantic', results: [{ title: 'Related', url: '/issues/2', type: 'Issues' }] },
-      };
-      GlobalSearchController.prototype.renderResults.call(ctx, data, 'test');
-      expect(ctx.resultsTarget.innerHTML).not.toContain('Semantic');
-    });
+  describe('semantic search in its own request', () => {
+    let ctx;
 
-    it('shows semantic results when no search type is active', () => {
-      document.body.innerHTML = '<div id="results"></div><div id="hint"></div>';
-      const ctx = {
-        element: { dataset: { coreSearchUrl: '/search', searchLabel: 'Search', semanticIcon: '' } },
+    beforeEach(() => {
+      document.body.innerHTML = `
+        <div id="overlay"><input id="search-input" /><div id="results"></div><div id="hint"></div></div>
+      `;
+      const element = document.getElementById('overlay');
+      Object.assign(element.dataset, {
+        coreSearchUrl: '/search',
+        searchLabel: 'Search',
+        semanticIcon: '',
+        semanticUrl: '/global_search/semantic',
+        semanticTypes: JSON.stringify(['issues', 'wiki_pages']),
+        semanticLabel: 'Semantic results',
+      });
+
+      ctx = buildContext({
+        element,
+        urlValue: '/global_search/search',
+        hasInputTarget: true,
+        inputTarget: document.getElementById('search-input'),
         hasResultsTarget: true,
         resultsTarget: document.getElementById('results'),
         hasHintTarget: true,
         hintTarget: document.getElementById('hint'),
-        selectedIndex: 0,
+        selectedIndex: -1,
+        lastQuery: '',
+        abortController: null,
+        debounceTimer: null,
         activeSearchType: null,
         titlesOnlyActive: false,
-        i18n: { noResults: 'No results' },
         currentScope: 'global',
-        escapeHtml: GlobalSearchController.prototype.escapeHtml,
-        highlightMatch: GlobalSearchController.prototype.highlightMatch,
-        renderItem: GlobalSearchController.prototype.renderItem,
-        renderCoreSearchLink: GlobalSearchController.prototype.renderCoreSearchLink,
+        i18n: { noResults: 'No results', loading: 'Loading...' },
         renderSearchTypeTabs: () => '',
-        scopeSuffix: GlobalSearchController.prototype.scopeSuffix,
-        coreSearchScope: GlobalSearchController.prototype.coreSearchScope,
-        showHint: GlobalSearchController.prototype.showHint,
-        hideHint: GlobalSearchController.prototype.hideHint,
-      };
-      const data = {
-        keyword: [{ title: 'Issue #1', url: '/issues/1', type: 'Issues' }],
-        semantic: { label: 'Semantic', results: [{ title: 'Related', url: '/issues/2', type: 'Issues' }] },
-      };
-      GlobalSearchController.prototype.renderResults.call(ctx, data, 'test');
-      expect(ctx.resultsTarget.innerHTML).toContain('Semantic');
+      });
+      vi.stubGlobal('AdditionalsHelpers', { csrfToken: () => 'token' });
+    });
+
+    afterEach(() => {
+      vi.useRealTimers();
+      vi.unstubAllGlobals();
+    });
+
+    const keywordData = {
+      keyword: [{ title: 'Keyword hit', url: '/issues/1', type: 'Issues' }],
+      jump: false,
+    };
+
+    it('shows keyword results with a loading semantic section', () => {
+      ctx.renderResults(keywordData, 'printer');
+
+      expect(ctx.resultsTarget.textContent).toContain('Keyword hit');
+      const section = ctx.resultsTarget.querySelector('[data-semantic-section]');
+      expect(section.textContent).toContain('Semantic results');
+      expect(section.textContent).toContain('Loading...');
+    });
+
+    it('shows the loading section instead of no results while semantic hits are pending', () => {
+      ctx.renderResults({ keyword: [], jump: false }, 'printer');
+
+      expect(ctx.resultsTarget.querySelector('.global-search-no-results')).toBeNull();
+      expect(ctx.resultsTarget.querySelector('[data-semantic-section]')).not.toBeNull();
+    });
+
+    it('renders no semantic section without semantic url', () => {
+      delete ctx.element.dataset.semanticUrl;
+      ctx.renderResults(keywordData, 'printer');
+
+      expect(ctx.resultsTarget.querySelector('[data-semantic-section]')).toBeNull();
+    });
+
+    it('renders a semantic section for a type the provider answers', () => {
+      ctx.activeSearchType = 'issues';
+      ctx.renderResults(keywordData, 'printer');
+
+      expect(ctx.resultsTarget.querySelector('[data-semantic-section]')).not.toBeNull();
+    });
+
+    it('renders no semantic section for a type the provider does not answer', () => {
+      ctx.activeSearchType = 'changesets';
+      ctx.renderResults(keywordData, 'printer');
+
+      expect(ctx.resultsTarget.querySelector('[data-semantic-section]')).toBeNull();
+    });
+
+    it('does not ask for an id reference', () => {
+      expect(ctx.semanticApplies('#163', 5)).toBe(false);
+    });
+
+    it('does not ask for a bare number the keyword search did not find', () => {
+      expect(ctx.semanticApplies('2026', 0)).toBe(false);
+    });
+
+    it('asks for a bare number the keyword search found', () => {
+      expect(ctx.semanticApplies('2026', 2)).toBe(true);
+    });
+
+    it('uses the project types in project scope', () => {
+      ctx.element.dataset.semanticTypesProject = JSON.stringify(['issues']);
+      ctx.currentScope = 'project';
+
+      expect(ctx.semanticTypes()).toEqual(['issues']);
+    });
+
+    it('uses the global types outside project scope', () => {
+      ctx.element.dataset.semanticTypesProject = JSON.stringify([]);
+      ctx.currentScope = 'global';
+
+      expect(ctx.semanticTypes()).toEqual(['issues', 'wiki_pages']);
+    });
+
+    it('keeps a pending semantic search when typing does not change the query', () => {
+      vi.useFakeTimers();
+      ctx.performSemanticSearch = vi.fn();
+      ctx.lastQuery = 'printer';
+      ctx.lastInputAt = Date.now();
+      ctx.scheduleSemanticSearch('printer', 1, ctx.searchGeneration);
+
+      vi.advanceTimersByTime(500);
+      ctx.inputTarget.value = 'printer ';
+      ctx.onInput();
+      vi.advanceTimersByTime(799);
+      expect(ctx.performSemanticSearch).not.toHaveBeenCalled();
+
+      vi.advanceTimersByTime(1);
+      expect(ctx.performSemanticSearch).toHaveBeenCalledWith('printer', 1, ctx.searchGeneration);
+    });
+
+    it('treats a tab click as input for the semantic delay', () => {
+      vi.useFakeTimers();
+      ctx.performSearch = vi.fn();
+      ctx.inputTarget.value = 'printer';
+      document.body.insertAdjacentHTML('beforeend', '<a id="tab" data-type-id="issues" href="#"></a>');
+
+      ctx.onSearchTypeClick({ preventDefault: () => {}, target: document.getElementById('tab') });
+
+      expect(ctx.lastInputAt).toBe(Date.now());
+    });
+
+    it('still asks after typing a character and deleting it again', () => {
+      vi.useFakeTimers();
+      ctx.performSemanticSearch = vi.fn();
+      ctx.performSearch = vi.fn();
+      ctx.lastQuery = 'printer';
+      ctx.lastInputAt = Date.now();
+      ctx.scheduleSemanticSearch('printer', 1, ctx.searchGeneration);
+
+      vi.advanceTimersByTime(600);
+      ctx.inputTarget.value = 'printers';
+      ctx.onInput();
+      vi.advanceTimersByTime(100);
+      ctx.inputTarget.value = 'printer';
+      ctx.onInput();
+      vi.advanceTimersByTime(800);
+
+      expect(ctx.performSemanticSearch).toHaveBeenCalledTimes(1);
+    });
+
+    it('removes the semantic section when the keyword search fails', async () => {
+      ctx.renderResults(keywordData, 'printer');
+      vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: false, status: 500 }));
+
+      await ctx.performSearch('printers');
+
+      expect(ctx.resultsTarget.querySelector('[data-semantic-section]')).toBeNull();
+    });
+
+    it('cancels a scheduled semantic search when a new search starts', () => {
+      vi.useFakeTimers();
+      ctx.performSemanticSearch = vi.fn();
+      ctx.lastInputAt = Date.now();
+      ctx.scheduleSemanticSearch('printer', 1, ctx.searchGeneration);
+      vi.stubGlobal('fetch', vi.fn(() => new Promise(() => {})));
+
+      ctx.performSearch('printers');
+      vi.advanceTimersByTime(1000);
+
+      expect(ctx.performSemanticSearch).not.toHaveBeenCalled();
+    });
+
+    it('removes the section when the semantic request fails, keeping keyword hits', async () => {
+      vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: false, status: 500 }));
+      ctx.renderResults(keywordData, 'printer');
+
+      await ctx.performSemanticSearch('printer', 1, ctx.searchGeneration);
+
+      expect(ctx.resultsTarget.querySelector('[data-semantic-section]')).toBeNull();
+      expect(ctx.resultsTarget.querySelector('.global-search-no-results')).toBeNull();
+      expect(ctx.resultsTarget.textContent).toContain('Keyword hit');
+    });
+
+    it('shows no results when the semantic request fails without keyword hits', async () => {
+      vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new TypeError('Failed to fetch')));
+      ctx.renderResults({ keyword: [], jump: false }, 'printer');
+
+      await ctx.performSemanticSearch('printer', 0, ctx.searchGeneration);
+
+      expect(ctx.resultsTarget.textContent).toContain('No results');
+    });
+
+    it('renders nothing when the semantic request is aborted', async () => {
+      const abortError = new DOMException('The operation was aborted.', 'AbortError');
+      vi.stubGlobal('fetch', vi.fn().mockRejectedValue(abortError));
+      ctx.renderResults(keywordData, 'printer');
+
+      await ctx.performSemanticSearch('printer', 1, ctx.searchGeneration);
+
+      expect(ctx.resultsTarget.querySelector('.global-search-semantic-loading')).not.toBeNull();
+    });
+
+    it('counts semantic hits as results for the search history', () => {
+      ctx.renderResults({ keyword: [], jump: false }, 'printer');
+      ctx.renderSemanticResults({ label: 'x', results: [{ title: 'Related', url: '/issues/2' }] }, 'printer', ctx.searchGeneration);
+
+      expect(ctx.hasResults).toBe(true);
+    });
+
+    it('keeps the selection when the semantic hits arrive and reaches them with ArrowDown', () => {
+      ctx.renderResults(keywordData, 'printer');
+      ctx.moveSelection(1);
+      ctx.moveSelection(1);
+      const selected = ctx.selectableItems[ctx.selectedIndex];
+
+      ctx.renderSemanticResults({ label: 'x', results: [{ title: 'Related', url: '/issues/2' }] }, 'printer', ctx.searchGeneration);
+
+      expect(ctx.selectableItems[ctx.selectedIndex]).toBe(selected);
+      ctx.moveSelection(1);
+      expect(ctx.selectableItems[ctx.selectedIndex].getAttribute('href')).toBe('/issues/2');
+    });
+
+    it('fills the section and drops hits already listed by the keyword search', () => {
+      ctx.renderResults(keywordData, 'printer');
+      ctx.renderSemanticResults({
+        label: 'Semantic results',
+        results: [
+          { title: 'Duplicate', url: '/issues/1', type: 'Issues' },
+          { title: 'Related', url: '/issues/2', type: 'Issues' },
+        ],
+      }, 'printer', ctx.searchGeneration);
+
+      const section = ctx.resultsTarget.querySelector('[data-semantic-section]');
+      expect(section.textContent).toContain('Related');
+      expect(section.textContent).not.toContain('Duplicate');
+      expect(section.textContent).not.toContain('Loading...');
+    });
+
+    it('removes the section when no semantic hit remains', () => {
+      ctx.renderResults(keywordData, 'printer');
+      ctx.renderSemanticResults({ label: 'x', results: [] }, 'printer', ctx.searchGeneration);
+
+      expect(ctx.resultsTarget.querySelector('[data-semantic-section]')).toBeNull();
+      expect(ctx.resultsTarget.querySelector('.global-search-no-results')).toBeNull();
+    });
+
+    it('shows no results when neither search found anything', () => {
+      ctx.renderResults({ keyword: [], jump: false }, 'printer');
+      ctx.renderSemanticResults(null, 'printer', ctx.searchGeneration);
+
+      expect(ctx.resultsTarget.querySelector('[data-semantic-section]')).toBeNull();
+      expect(ctx.resultsTarget.textContent).toContain('No results');
+    });
+
+    it('ignores semantic results of an outdated search', () => {
+      ctx.renderResults(keywordData, 'printer');
+      const outdated = ctx.searchGeneration;
+      ctx.cancelPending();
+      ctx.renderSemanticResults({ label: 'x', results: [{ title: 'Stale', url: '/issues/9' }] }, 'printer', outdated);
+
+      expect(ctx.resultsTarget.textContent).not.toContain('Stale');
+    });
+
+    it('waits for typing to settle before asking', () => {
+      vi.useFakeTimers();
+      ctx.performSemanticSearch = vi.fn();
+      ctx.lastInputAt = Date.now();
+
+      ctx.scheduleSemanticSearch('printer', 1, ctx.searchGeneration);
+      vi.advanceTimersByTime(799);
+      expect(ctx.performSemanticSearch).not.toHaveBeenCalled();
+
+      vi.advanceTimersByTime(1);
+      expect(ctx.performSemanticSearch).toHaveBeenCalledWith('printer', 1, ctx.searchGeneration);
+    });
+
+    it('asks at once when the search was not triggered by typing', () => {
+      vi.useFakeTimers();
+      ctx.performSemanticSearch = vi.fn();
+
+      ctx.scheduleSemanticSearch('printer', 1, ctx.searchGeneration);
+      vi.advanceTimersByTime(0);
+
+      expect(ctx.performSemanticSearch).toHaveBeenCalled();
+    });
+
+    it('drops a scheduled semantic search on new input', () => {
+      vi.useFakeTimers();
+      ctx.performSemanticSearch = vi.fn();
+      ctx.loadInitialContent = vi.fn();
+      ctx.lastInputAt = Date.now();
+
+      ctx.scheduleSemanticSearch('printer', 1, ctx.searchGeneration);
+      ctx.inputTarget.value = 'printers';
+      ctx.onInput();
+      vi.advanceTimersByTime(1000);
+
+      expect(ctx.performSemanticSearch).not.toHaveBeenCalled();
+    });
+
+    it('sends query, keyword hit count, project and type to the semantic endpoint', async () => {
+      const fetchMock = vi.fn().mockResolvedValue({ ok: true, json: () => Promise.resolve({ label: 'x', results: [] }) });
+      vi.stubGlobal('fetch', fetchMock);
+      ctx.currentScope = 'project';
+      ctx.projectIdValue = 'ecookbook';
+      ctx.activeSearchType = 'issues';
+
+      await ctx.performSemanticSearch('printer', 3, ctx.searchGeneration);
+
+      const url = new URL(fetchMock.mock.calls[0][0], 'http://localhost');
+      expect(url.pathname).toBe('/global_search/semantic');
+      expect(url.searchParams.get('q')).toBe('printer');
+      expect(url.searchParams.get('keyword_hits')).toBe('3');
+      expect(url.searchParams.get('project_id')).toBe('ecookbook');
+      expect(url.searchParams.get('types[]')).toBe('issues');
+    });
+
+    it('schedules the semantic search after the keyword results', async () => {
+      vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, json: () => Promise.resolve(keywordData) }));
+      ctx.scheduleSemanticSearch = vi.fn();
+
+      await ctx.performSearch('printer');
+
+      expect(ctx.resultsTarget.textContent).toContain('Keyword hit');
+      expect(ctx.scheduleSemanticSearch).toHaveBeenCalledWith('printer', 1, ctx.searchGeneration);
+    });
+  });
+
+  describe('id reference', () => {
+    let ctx;
+    const jumpData = {
+      keyword: [
+        { title: 'Bug #1631', url: '/issues/1631', type: 'Issues' },
+        { title: 'Project', url: '/projects/p', type: 'Projects' },
+      ],
+      jump: true,
+    };
+
+    const originalLocation = Object.getOwnPropertyDescriptor(window, 'location');
+
+    beforeEach(() => {
+      document.body.innerHTML = '<div id="overlay"><input id="search-input" /><div id="results"></div></div>';
+      Object.defineProperty(window, 'location', { value: { href: '' }, writable: true, configurable: true });
+      ctx = buildContext({
+        element: document.getElementById('overlay'),
+        urlValue: '/global_search/search',
+        hasInputTarget: true,
+        inputTarget: document.getElementById('search-input'),
+        hasResultsTarget: true,
+        resultsTarget: document.getElementById('results'),
+        hasHintTarget: false,
+        selectedIndex: -1,
+        lastQuery: '',
+        abortController: null,
+        debounceTimer: null,
+        activeSearchType: null,
+        titlesOnlyActive: false,
+        currentScope: 'global',
+        i18n: { noResults: 'No results', loading: 'Loading...' },
+        renderSearchTypeTabs: () => '',
+        saveCurrentQuery: vi.fn(),
+      });
+      ctx.element.dataset.coreSearchUrl = '/search';
+      vi.stubGlobal('AdditionalsHelpers', { csrfToken: () => 'token' });
+    });
+
+    afterEach(() => {
+      vi.unstubAllGlobals();
+      Object.defineProperty(window, 'location', originalLocation);
+    });
+
+    it('preselects the first hit and marks it for Enter without navigating', () => {
+      ctx.renderResults(jumpData, '#1631');
+
+      const selected = ctx.resultsTarget.querySelector('.global-search-item.selected');
+      expect(selected.getAttribute('href')).toBe('/issues/1631');
+      expect(selected.querySelector('kbd').textContent).toBe('Enter');
+      expect(ctx.selectableItems[ctx.selectedIndex]).toBe(selected);
+      expect(window.location.href).toBe('');
+    });
+
+    it('opens the preselected hit on Enter', () => {
+      ctx.renderResults(jumpData, '#1631');
+      ctx.openSelected();
+
+      expect(window.location.href).toBe('/issues/1631');
+    });
+
+    it('does not navigate when the results arrive without Enter', async () => {
+      vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, json: () => Promise.resolve(jumpData) }));
+
+      await ctx.performSearch('#1631');
+
+      expect(window.location.href).toBe('');
+    });
+
+    it('navigates once the results arrive when Enter came first', async () => {
+      vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, json: () => Promise.resolve(jumpData) }));
+      ctx.inputTarget.value = '#1631';
+
+      ctx.openSelected();
+      await vi.waitFor(() => expect(window.location.href).toBe('/issues/1631'));
+    });
+
+    it('forgets an early Enter when the input changes', () => {
+      ctx.pendingJump = '#163';
+      ctx.loadInitialContent = vi.fn();
+      ctx.inputTarget.value = '#1631';
+      ctx.onInput();
+
+      expect(ctx.pendingJump).toBeNull();
+    });
+
+    it('does not jump later when the request after an early Enter failed', async () => {
+      const fetchMock = vi.fn()
+        .mockResolvedValueOnce({ ok: false, status: 500 })
+        .mockResolvedValue({ ok: true, json: () => Promise.resolve(jumpData) });
+      vi.stubGlobal('fetch', fetchMock);
+      ctx.inputTarget.value = '#1631';
+
+      ctx.openSelected();
+      await vi.waitFor(() => expect(ctx.abortController).toBeNull());
+      await ctx.performSearch('#1631');
+
+      expect(window.location.href).toBe('');
+    });
+
+    it('does not jump after the dialog was closed before the results arrived', async () => {
+      const fetchMock = vi.fn()
+        .mockImplementationOnce(() => new Promise(() => {}))
+        .mockResolvedValue({ ok: true, json: () => Promise.resolve(jumpData) });
+      vi.stubGlobal('fetch', fetchMock);
+      ctx.inputTarget.value = '#1631';
+
+      ctx.openSelected();
+      ctx.close();
+      // Reopened, the history entry runs the same search again.
+      await ctx.performSearch('#1631');
+
+      expect(window.location.href).toBe('');
+    });
+
+    it('does not open the selection of the previous query after typing on', () => {
+      ctx.performSearch = vi.fn();
+      ctx.renderResults(jumpData, '#1');
+      ctx.lastQuery = '#1';
+      ctx.inputTarget.value = '#12';
+
+      ctx.onInput();
+      ctx.openSelected();
+
+      expect(window.location.href).toBe('');
+    });
+
+    it('waits for the results of the new query when Enter follows typing', () => {
+      ctx.performSearch = vi.fn(function performSearch(query) { this.lastQuery = query; this.abortController = {}; });
+      ctx.renderResults(jumpData, '#1');
+      ctx.lastQuery = '#1';
+      ctx.inputTarget.value = '#12';
+
+      ctx.onInput();
+      ctx.openSelected();
+
+      expect(ctx.pendingJump).toBe('#12');
+    });
+
+    it('removes the Enter marker when the query changes', () => {
+      ctx.performSearch = vi.fn();
+      ctx.renderResults(jumpData, '#1');
+      ctx.lastQuery = '#1';
+      ctx.inputTarget.value = '#12';
+
+      ctx.onInput();
+
+      expect(ctx.resultsTarget.querySelector('kbd')).toBeNull();
+    });
+
+    it('ignores Enter without selection for a normal query', () => {
+      ctx.performSearch = vi.fn();
+      ctx.inputTarget.value = 'printer';
+
+      ctx.openSelected();
+
+      expect(ctx.performSearch).not.toHaveBeenCalled();
+      expect(ctx.pendingJump).toBeNull();
+    });
+
+    it('never schedules a semantic search for an id reference', async () => {
+      vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, json: () => Promise.resolve(jumpData) }));
+      ctx.element.dataset.semanticUrl = '/global_search/semantic';
+      ctx.element.dataset.semanticTypes = '["issues"]';
+      ctx.scheduleSemanticSearch = vi.fn();
+
+      await ctx.performSearch('#1631');
+
+      expect(ctx.scheduleSemanticSearch).not.toHaveBeenCalled();
+      expect(ctx.resultsTarget.querySelector('[data-semantic-section]')).toBeNull();
     });
   });
 
@@ -1330,17 +1781,16 @@ describe('GlobalSearchController', () => {
 
     beforeEach(() => {
       document.body.innerHTML = '<div><input id="inp" /><div id="res"></div></div>';
-      ctx = {
+      ctx = buildContext({
         hasInputTarget: true,
         inputTarget: document.getElementById('inp'),
         lastQuery: '',
         debounceTimer: null,
         hasClearButtonTarget: true,
         clearButtonTarget: { style: { display: 'none' } },
-        toggleClearButton: GlobalSearchController.prototype.toggleClearButton,
         loadInitialContent: vi.fn(),
         performSearch: vi.fn(),
-      };
+      });
     });
 
     it('calls loadInitialContent for short queries', () => {
@@ -1384,7 +1834,7 @@ describe('GlobalSearchController', () => {
         </div>
       `;
 
-      ctx = {
+      ctx = buildContext({
         element: document.getElementById('overlay'),
         urlValue: '/global_search/search',
         hasInputTarget: true,
@@ -1407,7 +1857,7 @@ describe('GlobalSearchController', () => {
         effectiveProjectId: () => null,
         effectiveSearchScope: () => null,
         debounceTimer: null,
-      };
+      });
     });
 
     it('clears loading state when response is not ok', async () => {

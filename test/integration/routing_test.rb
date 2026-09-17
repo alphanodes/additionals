@@ -28,6 +28,7 @@ class RoutingTest < Redmine::RoutingTest
 
   def test_global_search
     should_route 'GET /global_search/search' => 'global_search#search'
+    should_route 'GET /global_search/semantic' => 'global_search#semantic'
   end
 
   def test_dashboards

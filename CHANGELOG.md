@@ -4,9 +4,11 @@
 
 - Bulk edit reports why records could not be saved, not just their ids: the flash now lists the validation errors grouped by message, the way core lists them above its bulk edit form. The message itself appeared as "translation missing" before, because `set_flash_from_bulk_save` asked for a key that never existed
 - `assert_locales_validness` accepts locale files that add to a locale owned by someone else (`<purpose>_<language>.yml`, e.g. a plugin's `redmine_core_de.yml`), instead of reporting them as an unknown language
+- Global search shows keyword results right away and loads provider (semantic) results in a request of their own (`/global_search/semantic`), started only once typing has settled. Providers can declare `search_types` and `available?` to control when the dialog asks them
+- Global search no longer redirects on its own for an id reference like `#1234`: the first hit, an issue if there is one, is preselected and marked, and Enter opens it, also when pressed before the results arrived
 - Global search deduplicates keyword and provider hits by url instead of id alone, so a semantic hit no longer disappears because an unrelated record of another type happens to share its id
 - Global search passes the selected search types on to its providers, so a provider can restrict itself to what was asked for
-- Global search no longer asks semantic providers for a digit-only query the keyword search cannot find, since a bare number carries nothing they could match on
+- Global search no longer asks semantic providers for an id reference (`#1234`) or for a digit-only query the keyword search cannot find, since neither carries anything they could match on
 - Base values for the priority colour variables `--a-color-prio1` to `--a-color-prio3`, which so far only existed in themes, so anything colouring by priority keeps its colour without one
 - New javascript helpers `spriteIcon(name, options)` and `spriteIconPath(sprite)` build Tabler sprite icons from client side code, with the digested sprite paths exposed as the `ADDITIONALS_ICON_SPRITES` global (new `additionals_icon_sprites` helper)
 - Fix the spacing of an avatar rendered next to its name (`additionals-avatar`) on detail pages, where core's `div.issue .avatar` float applied to it

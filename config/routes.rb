@@ -35,6 +35,7 @@ Rails.application.routes.draw do
 
   resource :global_search, only: [], controller: 'global_search' do
     get :search, on: :collection
+    get :semantic, on: :collection
   end
 
   resource :additionals_macros, only: :show, path: '/help/macros'

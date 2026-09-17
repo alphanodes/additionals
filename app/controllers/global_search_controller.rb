@@ -2,10 +2,10 @@
 
 class GlobalSearchController < ApplicationController
   before_action :require_login
+  before_action :find_optional_search_project
 
   def search
-    query = params[:q].to_s.strip
-    project = Project.visible.find_by identifier: params[:project_id] if params[:project_id].present?
+    query = search_query
 
     if query.length < 2
       render json: initial_data
@@ -14,7 +14,7 @@ class GlobalSearchController < ApplicationController
 
     results = GlobalSearch.search query,
                                   user: User.current,
-                                  project: project,
+                                  project: @search_project,
                                   scope: params[:scope],
                                   types: params[:types],
                                   titles_only: params[:titles_only].present?,
@@ -22,11 +22,40 @@ class GlobalSearchController < ApplicationController
 
     render json: results
   rescue StandardError => e
-    Rails.logger.error "GlobalSearch error: #{e.message}\n#{e.backtrace&.first(5)&.join "\n"}"
-    render json: { error: e.message }, status: :internal_server_error
+    render_search_error e
+  end
+
+  # Results of the registered providers (semantic search). keyword_hits tells whether the
+  # keyword search found anything, which decides whether a bare number is worth asking for.
+  def semantic
+    query = search_query
+    results = if query.length >= 2
+                GlobalSearch.provider_search query,
+                                             user: User.current,
+                                             project: @search_project,
+                                             types: params[:types],
+                                             keyword_hits: params[:keyword_hits].to_i.positive?
+              end
+
+    render json: results || { label: nil, results: [] }
+  rescue StandardError => e
+    render_search_error e
   end
 
   private
+
+  def search_query
+    params[:q].to_s.strip
+  end
+
+  def find_optional_search_project
+    @search_project = Project.visible.find_by identifier: params[:project_id] if params[:project_id].present?
+  end
+
+  def render_search_error(error)
+    Rails.logger.error "GlobalSearch error: #{error.message}\n#{error.backtrace&.first(5)&.join "\n"}"
+    render json: { error: error.message }, status: :internal_server_error
+  end
 
   def initial_data
     jump_box = Redmine::ProjectJumpBox.new User.current
@@ -38,6 +67,6 @@ class GlobalSearchController < ApplicationController
         type: l(:label_project) }
     end
 
-    { keyword: projects, semantic: nil }
+    { keyword: projects, jump: false }
   end
 end

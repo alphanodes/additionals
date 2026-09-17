@@ -2,6 +2,11 @@ import { Controller } from '@hotwired/stimulus';
 
 const MAX_HISTORY_ENTRIES = 15;
 const HISTORY_STORAGE_KEY = 'global_search_history';
+const KEYWORD_DEBOUNCE_MS = 300;
+// Semantic results cost a request to an external AI provider, and the server serializes
+// those. Waiting until typing has settled keeps intermediate input from occupying the slot.
+const SEMANTIC_DEBOUNCE_MS = 800;
+const ID_REFERENCE = /^#\d+$/;
 
 class GlobalSearchController extends Controller {
   static values = {
@@ -16,6 +21,13 @@ class GlobalSearchController extends Controller {
     this.selectedIndex = -1;
     this.debounceTimer = null;
     this.abortController = null;
+    this.semanticTimer = null;
+    this.semanticAbortController = null;
+    this.semanticRequest = null;
+    this.searchGeneration = 0;
+    this.lastInputAt = 0;
+    this.pendingJump = null;
+    this.keywordUrls = new Set();
     this.lastQuery = '';
     this.hasResults = false;
 
@@ -133,6 +145,7 @@ class GlobalSearchController extends Controller {
   onInput() {
     const query = this.hasInputTarget ? this.inputTarget.value.trim() : '';
 
+    this.lastInputAt = Date.now();
     this.toggleClearButton(query.length > 0);
     clearTimeout(this.debounceTimer);
 
@@ -142,21 +155,32 @@ class GlobalSearchController extends Controller {
       return;
     }
 
+    // Typing that does not change the query (a trailing space) keeps its results, but
+    // still counts as typing for a semantic search that has not started yet.
     if (query === this.lastQuery) {
+      this.rescheduleSemanticSearch();
       return;
     }
 
+    // The shown results belong to the previous query: Enter must not open their selection,
+    // and their semantic search waits for typing to settle again. The keyword search
+    // replaces both once it starts.
+    this.pendingJump = null;
+    this.clearSelection();
+    this.rescheduleSemanticSearch();
     this.debounceTimer = setTimeout(() => {
       this.performSearch(query);
-    }, 300);
+    }, KEYWORD_DEBOUNCE_MS);
   }
 
   async performSearch(query) {
     this.cancelPending();
     this.setLoading(true);
     this.lastQuery = query;
+    const generation = this.searchGeneration;
 
-    this.abortController = new AbortController();
+    const abortController = new AbortController();
+    this.abortController = abortController;
     const params = new URLSearchParams({ q: query });
 
     const projectId = this.effectiveProjectId();
@@ -186,31 +210,199 @@ class GlobalSearchController extends Controller {
           'X-CSRF-Token': AdditionalsHelpers.csrfToken(),
           'X-Requested-With': 'XMLHttpRequest',
         },
-        signal: this.abortController.signal,
+        signal: abortController.signal,
       });
 
       if (!response.ok) {
+        this.pendingJump = null;
         this.setLoading(false);
+        this.removeSemanticSection();
         this.showHint(this.i18n.noResults);
         return;
       }
 
       const data = await response.json();
-      this.setLoading(false);
+      if (generation !== this.searchGeneration) {
+        return;
+      }
 
-      // Quick-jump: if query is #ID and exactly one result, navigate directly
-      if (/^#\d+$/.test(query) && data.keyword && data.keyword.length === 1 && !data.semantic) {
+      this.setLoading(false);
+      this.renderResults(data, query);
+
+      const keywordCount = (data.keyword || []).length;
+      if (data.jump && keywordCount > 0 && this.pendingJump === query) {
         this.saveCurrentQuery();
         window.location.href = data.keyword[0].url;
         return;
       }
 
-      this.renderResults(data, query);
+      this.pendingJump = null;
+      if (!data.jump) {
+        this.scheduleSemanticSearch(query, keywordCount, generation);
+      }
     } catch (error) {
-      this.setLoading(false);
+      // A search that was superseded leaves the loading state to its successor.
+      if (this.abortController === abortController) {
+        this.setLoading(false);
+      }
       if (error.name !== 'AbortError') {
+        this.pendingJump = null;
+        this.removeSemanticSection();
         this.showHint(this.i18n.noResults);
       }
+    } finally {
+      if (this.abortController === abortController) {
+        this.abortController = null;
+      }
+    }
+  }
+
+  // -- Semantic search --
+
+  semanticTypes() {
+    try {
+      const { dataset } = this.element;
+      const useProjectTypes = this.currentScope === 'project' && dataset.semanticTypesProject;
+      const types = JSON.parse((useProjectTypes ? dataset.semanticTypesProject : dataset.semanticTypes) || '[]');
+      return Array.isArray(types) ? types : [];
+    } catch {
+      return [];
+    }
+  }
+
+  semanticApplies(query, keywordCount) {
+    if (!this.element.dataset.semanticUrl || !query || ID_REFERENCE.test(query)) {
+      return false;
+    }
+    // The server skips a bare number the keyword search did not find, so there is
+    // nothing to wait for.
+    if (keywordCount === 0 && /^\d+$/.test(query)) {
+      return false;
+    }
+
+    const types = this.semanticTypes();
+    if (types.length === 0) {
+      return false;
+    }
+    return !this.activeSearchType || types.includes(this.activeSearchType);
+  }
+
+  scheduleSemanticSearch(query, keywordCount, generation) {
+    if (!this.semanticApplies(query, keywordCount)) {
+      return;
+    }
+
+    this.semanticRequest = { query, keywordCount, generation };
+    const delay = Math.max(0, SEMANTIC_DEBOUNCE_MS - (Date.now() - this.lastInputAt));
+    this.semanticTimer = setTimeout(() => {
+      this.semanticTimer = null;
+      this.performSemanticSearch(query, keywordCount, generation);
+    }, delay);
+  }
+
+  rescheduleSemanticSearch() {
+    if (!this.semanticTimer || !this.semanticRequest) {
+      return;
+    }
+
+    clearTimeout(this.semanticTimer);
+    this.semanticTimer = null;
+    const { query, keywordCount, generation } = this.semanticRequest;
+    this.scheduleSemanticSearch(query, keywordCount, generation);
+  }
+
+  async performSemanticSearch(query, keywordCount, generation) {
+    const abortController = new AbortController();
+    this.semanticAbortController = abortController;
+    const params = new URLSearchParams({ q: query, keyword_hits: String(keywordCount) });
+
+    const projectId = this.effectiveProjectId();
+    if (projectId) {
+      params.set('project_id', projectId);
+    }
+
+    if (this.activeSearchType) {
+      params.set('types[]', this.activeSearchType);
+    }
+
+    let data = null;
+    try {
+      const response = await fetch(`${this.element.dataset.semanticUrl}?${params}`, {
+        headers: {
+          Accept: 'application/json',
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+        signal: abortController.signal,
+      });
+      if (response.ok) {
+        data = await response.json();
+      }
+    } catch (error) {
+      if (error.name === 'AbortError') {
+        return;
+      }
+    } finally {
+      if (this.semanticAbortController === abortController) {
+        this.semanticAbortController = null;
+      }
+    }
+
+    this.renderSemanticResults(data, query, generation);
+  }
+
+  renderSemanticResults(data, query, generation) {
+    if (generation !== this.searchGeneration || !this.hasResultsTarget) {
+      return;
+    }
+
+    const section = this.resultsTarget.querySelector('[data-semantic-section]');
+    if (!section) {
+      return;
+    }
+
+    // Deduplicate over the url: an id alone is not unique across types, and a provider may
+    // identify a record differently than the keyword search does.
+    const results = (data?.results || []).filter(item => !this.keywordUrls.has(item.url));
+    if (results.length === 0) {
+      if (!this.hasResults) {
+        section.insertAdjacentHTML('beforebegin', this.renderNoResults());
+      }
+      section.remove();
+      return;
+    }
+
+    let html = this.renderSemanticHeader(data.label);
+    for (const item of results) {
+      html += this.renderItem(item, query);
+    }
+    section.innerHTML = html;
+    this.hasResults = true;
+  }
+
+  cancelSemantic() {
+    clearTimeout(this.semanticTimer);
+    this.semanticTimer = null;
+    if (this.semanticAbortController) {
+      this.semanticAbortController.abort();
+      this.semanticAbortController = null;
+    }
+  }
+
+  // An id reference (#1234) opens its first hit on Enter. If Enter comes before the
+  // results, the jump happens as soon as they arrive.
+  jumpWhenReady() {
+    const query = this.hasInputTarget ? this.inputTarget.value.trim() : '';
+    if (!ID_REFERENCE.test(query)) {
+      return;
+    }
+
+    // performSearch clears pendingJump, so it is set afterwards. The request is still open
+    // then: fetch never resolves before the first await.
+    if (query !== this.lastQuery) {
+      this.performSearch(query);
+      this.pendingJump = query;
+    } else if (this.abortController) {
+      this.pendingJump = query;
     }
   }
 
@@ -229,7 +421,8 @@ class GlobalSearchController extends Controller {
       this.resultsTarget.innerHTML = '';
     }
 
-    this.abortController = new AbortController();
+    const abortController = new AbortController();
+    this.abortController = abortController;
 
     try {
       const response = await fetch(this.urlValue, {
@@ -237,7 +430,7 @@ class GlobalSearchController extends Controller {
           Accept: 'application/json',
           'X-Requested-With': 'XMLHttpRequest',
         },
-        signal: this.abortController.signal,
+        signal: abortController.signal,
       });
 
       if (!response.ok) {
@@ -251,6 +444,11 @@ class GlobalSearchController extends Controller {
       if (error.name !== 'AbortError') {
         this.showHint(this.i18n.hint);
       }
+    } finally {
+      // jumpWhenReady reads a set abortController as "a request is open".
+      if (this.abortController === abortController) {
+        this.abortController = null;
+      }
     }
   }
 
@@ -261,12 +459,12 @@ class GlobalSearchController extends Controller {
       return;
     }
 
-    const { semantic } = data;
     const keyword = data.keyword || [];
     const hasKeyword = keyword.length > 0;
-    const hasSemantic = semantic && semantic.results && semantic.results.length > 0;
+    const semanticPending = !data.jump && this.semanticApplies(query, keyword.length);
 
-    this.hasResults = hasKeyword || hasSemantic;
+    this.keywordUrls = new Set(keyword.map(item => item.url));
+    this.hasResults = hasKeyword;
     this.hideHint();
     let html = '';
 
@@ -275,29 +473,65 @@ class GlobalSearchController extends Controller {
       html += this.renderCoreSearchLink(query);
     }
 
-    const showSemantic = hasSemantic && !this.activeSearchType;
-    if (!hasKeyword && !showSemantic && query) {
-      html += `<p class="global-search-no-results">${this.escapeHtml(this.i18n.noResults)}</p>`;
+    if (!hasKeyword && !semanticPending && query) {
+      html += this.renderNoResults();
       this.resultsTarget.innerHTML = html;
       this.selectedIndex = -1;
       return;
     }
 
-    for (const item of keyword) {
-      html += this.renderItem(item, query);
-    }
+    keyword.forEach((item, index) => {
+      html += this.renderItem(item, query, { jumpTarget: Boolean(data.jump) && index === 0 });
+    });
 
-    if (showSemantic) {
-      const semanticIcon = this.element.dataset.semanticIcon || '';
-      html += '<div class="global-search-section-header global-search-semantic-header">' +
-        `<span>${semanticIcon} ${this.escapeHtml(semantic.label)}</span></div>`;
-      for (const item of semantic.results) {
-        html += this.renderItem(item, query);
-      }
+    if (semanticPending) {
+      const header = this.renderSemanticHeader(this.element.dataset.semanticLabel);
+      const loading = `<p class="global-search-semantic-loading">${this.escapeHtml(this.i18n.loading)}</p>`;
+      html += `<div class="global-search-semantic" data-semantic-section>${header}${loading}</div>`;
     }
 
     this.resultsTarget.innerHTML = html;
     this.selectedIndex = -1;
+
+    if (data.jump) {
+      this.selectJumpTarget();
+    }
+  }
+
+  renderSemanticHeader(label) {
+    const semanticIcon = this.element.dataset.semanticIcon || '';
+    return '<div class="global-search-section-header global-search-semantic-header">' +
+      `<span>${semanticIcon} ${this.escapeHtml(label || '')}</span></div>`;
+  }
+
+  renderNoResults() {
+    return `<p class="global-search-no-results">${this.escapeHtml(this.i18n.noResults)}</p>`;
+  }
+
+  clearSelection() {
+    this.selectedIndex = -1;
+    if (!this.hasResultsTarget) {
+      return;
+    }
+    for (const item of this.resultsTarget.querySelectorAll('.global-search-item.selected')) {
+      item.classList.remove('selected');
+    }
+    for (const shortcut of this.resultsTarget.querySelectorAll('.global-search-item-shortcut')) {
+      shortcut.remove();
+    }
+  }
+
+  removeSemanticSection() {
+    this.resultsTarget?.querySelector('[data-semantic-section]')?.remove();
+  }
+
+  selectJumpTarget() {
+    const items = this.selectableItems;
+    const index = items.findIndex(item => item.hasAttribute('data-jump-target'));
+    if (index >= 0) {
+      this.selectedIndex = index;
+      items[index].classList.add('selected');
+    }
   }
 
   renderInitialContent(data) {
@@ -387,11 +621,13 @@ class GlobalSearchController extends Controller {
       '</a></div>';
   }
 
-  renderItem(item, query) {
+  renderItem(item, query, { jumpTarget = false } = {}) {
     const safeTitle = this.highlightMatch(this.escapeHtml(item.title), query);
     const safeUrl = this.escapeHtml(item.url);
 
-    let html = `<a href="${safeUrl}" class="global-search-item">`;
+    let html = jumpTarget
+      ? `<a href="${safeUrl}" class="global-search-item" data-jump-target><kbd class="global-search-item-shortcut">Enter</kbd>`
+      : `<a href="${safeUrl}" class="global-search-item">`;
     html += `<span class="global-search-item-title">${safeTitle}</span>`;
 
     let meta = '';
@@ -549,7 +785,10 @@ class GlobalSearchController extends Controller {
         this.saveCurrentQuery();
         window.location.href = href;
       }
+      return;
     }
+
+    this.jumpWhenReady();
   }
 
   // -- Header search interception --
@@ -621,6 +860,7 @@ class GlobalSearchController extends Controller {
     this.scopePanelTarget.style.display = 'none';
     this.updatePlaceholder();
     this.initialData = null;
+    this.lastInputAt = Date.now();
     this.validateActiveSearchType();
 
     // Re-run search with new scope
@@ -706,6 +946,7 @@ class GlobalSearchController extends Controller {
 
   onTitlesOnlyChange(event) {
     this.titlesOnlyActive = event.target.checked;
+    this.lastInputAt = Date.now();
     this.scopePanelTarget.style.display = 'none';
     this.updatePlaceholder();
 
@@ -764,6 +1005,7 @@ class GlobalSearchController extends Controller {
     }
 
     this.activeSearchType = tab.dataset.typeId || null;
+    this.lastInputAt = Date.now();
     this.updateSearchTypeTabs();
 
     const query = this.hasInputTarget ? this.inputTarget.value.trim() : '';
@@ -830,6 +1072,11 @@ class GlobalSearchController extends Controller {
       this.abortController.abort();
       this.abortController = null;
     }
+    this.cancelSemantic();
+    this.pendingJump = null;
+    this.setLoading(false);
+    // Invalidates responses that already arrived but are not rendered yet.
+    this.searchGeneration += 1;
   }
 
   escapeHtml(str) {

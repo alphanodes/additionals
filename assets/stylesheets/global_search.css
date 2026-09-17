@@ -243,6 +243,25 @@
   white-space: nowrap;
 }
 
+.global-search-item-shortcut {
+  float: right;
+  margin-left: 8px;
+  padding: 0 6px;
+  border: 1px solid var(--a-color-border-light);
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: var(--a-font-size-sm);
+  color: var(--a-color-muted);
+  background: var(--a-color-white);
+}
+
+.global-search-semantic-loading {
+  padding: 10px 12px;
+  margin: 0;
+  font-size: var(--a-font-size-sm);
+  color: var(--a-color-muted);
+}
+
 .global-search-core-link .global-search-item-title {
   color: var(--a-color-muted);
 }

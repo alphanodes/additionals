@@ -20,6 +20,10 @@ module AdditionalsGlobalSearchHelper
       'search-types': global_search_types.to_json,
       'search-types-project': (@project ? global_search_types(project: @project) : nil)&.to_json,
       'semantic-icon': svg_icon_tag('robot', size: 16, icon_only: true).to_str,
+      'semantic-url': semantic_global_search_path,
+      'semantic-types': GlobalSearch.provider_search_types(user: User.current).to_json,
+      'semantic-types-project': (@project ? GlobalSearch.provider_search_types(user: User.current, project: @project) : nil)&.to_json,
+      'semantic-label': GlobalSearch.provider_label(user: User.current, project: @project),
       'core-search-url': search_path,
       action: 'click->global-search#closeOnOverlay' }
   end

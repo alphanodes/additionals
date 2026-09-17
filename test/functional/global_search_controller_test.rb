@@ -25,7 +25,7 @@ class GlobalSearchControllerTest < Additionals::ControllerTest
 
     assert_kind_of Hash, json
     assert json.key? 'keyword'
-    assert json.key? 'semantic'
+    assert json.key? 'jump'
   end
 
   def test_search_returns_json
@@ -148,5 +148,111 @@ class GlobalSearchControllerTest < Additionals::ControllerTest
 
     assert_kind_of Hash, json
     assert_kind_of Array, json['keyword']
+  end
+
+  def test_semantic_requires_login
+    get :semantic, params: { q: 'test query' }
+
+    assert_response :redirect
+  end
+
+  def test_semantic_returns_provider_results
+    session[:user_id] = 2
+    @request.headers['Accept'] = 'application/json'
+
+    with_semantic_provider do |provider|
+      get :semantic, params: { q: 'Cannot print recipes', project_id: 'ecookbook', 'types[]': 'issues' }
+
+      assert_response :success
+      json = ActiveSupport::JSON.decode response.body
+
+      assert_equal ['/issues/1'], json['results'].pluck('url')
+      assert_equal ['issues'], provider.last_types
+      assert_equal projects(:projects_001), provider.last_project
+    end
+  end
+
+  def test_semantic_with_short_query_asks_no_provider
+    session[:user_id] = 2
+    @request.headers['Accept'] = 'application/json'
+
+    with_semantic_provider do |provider|
+      get :semantic, params: { q: 'a' }
+
+      assert_response :success
+      assert_empty ActiveSupport::JSON.decode(response.body)['results']
+      assert_equal 0, provider.calls
+    end
+  end
+
+  def test_semantic_skips_a_number_without_keyword_hits
+    session[:user_id] = 2
+    @request.headers['Accept'] = 'application/json'
+
+    with_semantic_provider do |provider|
+      get :semantic, params: { q: '2026' }
+
+      assert_equal 0, provider.calls
+    end
+  end
+
+  def test_semantic_asks_for_a_number_with_keyword_hits
+    session[:user_id] = 2
+    @request.headers['Accept'] = 'application/json'
+
+    with_semantic_provider do |provider|
+      get :semantic, params: { q: '2026', keyword_hits: '3' }
+
+      assert_equal 1, provider.calls
+    end
+  end
+
+  def test_semantic_with_a_failing_provider_returns_no_results
+    session[:user_id] = 2
+    @request.headers['Accept'] = 'application/json'
+
+    failing = Class.new do
+      def self.available? = raise(StandardError, 'provider broken')
+      def self.search(*, **) = [{ id: 1, title: 'Never', url: '/issues/1' }]
+      def self.label = :label_search
+      def self.permission = nil
+    end
+
+    original_providers = GlobalSearch.providers.dup
+    GlobalSearch.providers.replace [failing]
+
+    get :semantic, params: { q: 'Cannot print recipes' }
+
+    assert_response :success
+    assert_empty ActiveSupport::JSON.decode(response.body)['results']
+  ensure
+    GlobalSearch.providers.replace original_providers
+  end
+
+  private
+
+  def with_semantic_provider
+    provider = Class.new do
+      class << self
+        attr_accessor :calls, :last_types, :last_project
+
+        def search(*, project: nil, types: nil, **)
+          self.calls += 1
+          self.last_types = types
+          self.last_project = project
+          [{ id: 1, title: 'Semantic hit', url: '/issues/1', type: 'Issues' }]
+        end
+
+        def label = :label_search
+        def permission = nil
+      end
+    end
+    provider.calls = 0
+
+    original_providers = GlobalSearch.providers.dup
+    GlobalSearch.providers.replace [provider]
+    yield provider
+  ensure
+    GlobalSearch.providers.replace original_providers
   end
 end

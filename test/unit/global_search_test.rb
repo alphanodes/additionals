@@ -7,13 +7,15 @@ class GlobalSearchTest < Additionals::TestCase
     User.current = users :users_002
   end
 
-  def test_search_returns_keyword_and_semantic_keys
-    result = GlobalSearch.search 'Cannot print recipes', user: User.current
+  def test_search_returns_keyword_results_without_asking_providers
+    with_counting_provider do |provider|
+      result = GlobalSearch.search 'Cannot print recipes', user: User.current
 
-    assert_kind_of Hash, result
-    assert result.key?(:keyword), 'Result should contain :keyword key'
-    assert result.key?(:semantic), 'Result should contain :semantic key'
-    assert_kind_of Array, result[:keyword]
+      assert_kind_of Array, result[:keyword]
+      assert_not result[:jump]
+      assert_not result.key?(:semantic), 'Provider results come from a request of their own'
+      assert_equal 0, provider.calls
+    end
   end
 
   def test_search_with_short_query_returns_empty
@@ -111,7 +113,7 @@ class GlobalSearchTest < Additionals::TestCase
     assert result[:type].present?
   end
 
-  def test_search_returns_results_when_provider_raises
+  def test_provider_search_returns_nil_when_provider_raises
     error_provider = Class.new do
       def self.search(*)
         raise StandardError, 'Provider exploded'
@@ -122,80 +124,126 @@ class GlobalSearchTest < Additionals::TestCase
       def self.permission = nil
     end
 
-    original_providers = GlobalSearch.providers.dup
-    GlobalSearch.register error_provider
+    with_provider error_provider do
+      assert_nil GlobalSearch.provider_search('Cannot print recipes', user: User.current)
+    end
+  end
 
-    result = GlobalSearch.search 'Cannot print recipes', user: User.current
+  def test_provider_search_returns_label_and_hits
+    provider = provider_returning [{ id: 1, title: 'Semantic hit', url: '/issues/1', type: 'Issues' }]
+    provider.define_singleton_method(:label) { :label_search }
 
-    assert_kind_of Hash, result
-    assert_kind_of Array, result[:keyword]
-    # keyword search should still work even if provider search fails
-    assert result[:keyword].any?, 'Keyword results should be present despite provider error'
-  ensure
-    GlobalSearch.providers.replace original_providers
+    with_provider provider do
+      result = GlobalSearch.provider_search 'Cannot print recipes', user: User.current
+
+      assert_equal I18n.t(:label_search), result[:label]
+      assert_equal ['/issues/1'], result[:results].pluck(:url)
+    end
   end
 
   def test_digit_only_query_without_keyword_hits_skips_providers
     with_counting_provider do |provider|
-      result = GlobalSearch.search '987654321', user: User.current
-
-      assert_empty result[:keyword], 'Fixture data should not contain this number'
+      assert_nil GlobalSearch.provider_search('987654321', user: User.current, keyword_hits: false)
       assert_equal 0, provider.calls, 'Providers must not be asked for an unfindable number'
     end
   end
 
   def test_digit_only_query_with_keyword_hits_asks_providers
-    issue = issues :issues_001
-    issue.update! subject: '987654321'
-
     with_counting_provider do |provider|
-      result = GlobalSearch.search '987654321', user: User.current
+      GlobalSearch.provider_search '987654321', user: User.current, keyword_hits: true
 
-      assert result[:keyword].any?, 'The renamed issue should be found'
       assert_equal 1, provider.calls
+    end
+  end
+
+  def test_id_reference_never_asks_providers
+    with_counting_provider do |provider|
+      GlobalSearch.provider_search '#163', user: User.current, keyword_hits: true
+
+      assert_equal 0, provider.calls, 'An id reference carries no meaning to embed'
     end
   end
 
   def test_query_with_letters_asks_providers_even_without_keyword_hits
     with_counting_provider do |provider|
-      result = GlobalSearch.search 'Zzyzx Quuxbar', user: User.current
+      GlobalSearch.provider_search 'Zzyzx Quuxbar', user: User.current, keyword_hits: false
 
-      assert_empty result[:keyword]
       assert_equal 1, provider.calls
     end
   end
 
   def test_provider_receives_the_requested_types
     with_counting_provider do |provider|
-      GlobalSearch.search 'Cannot print recipes', user: User.current, types: ['issues']
+      GlobalSearch.provider_search 'Cannot print recipes', user: User.current, types: ['issues']
 
       assert_equal ['issues'], provider.last_types
     end
   end
 
-  def test_deduplication_keeps_a_semantic_hit_of_another_type
-    issue = issues :issues_001
-    provider = provider_returning [{ id: issue.id, title: 'Semantic hit', url: '/db_entries/1', type: 'DB' }]
+  def test_unavailable_provider_is_not_asked
+    provider = Class.new do
+      class << self
+        attr_accessor :calls
+
+        def search(*, **)
+          self.calls += 1
+          []
+        end
+
+        def available? = false
+        def label = 'label_unavailable'
+        def permission = nil
+      end
+    end
+    provider.calls = 0
 
     with_provider provider do
-      result = GlobalSearch.search 'Cannot print recipes', user: User.current
+      GlobalSearch.provider_search 'Cannot print recipes', user: User.current
 
-      assert result[:keyword].any?
-      assert_not_nil result[:semantic], 'A hit with its own url must survive deduplication'
+      assert_equal 0, provider.calls
+      assert_empty GlobalSearch.provider_search_types(user: User.current)
+      assert_nil GlobalSearch.provider_label(user: User.current)
     end
   end
 
-  def test_deduplication_drops_a_semantic_hit_with_the_same_url
-    issue = issues :issues_001
-    provider = provider_returning [{ id: issue.id, title: issue.subject, url: "/issues/#{issue.id}", type: 'Issues' }]
+  def test_failing_provider_is_left_out
+    failing = provider_returning [{ id: 1, title: 'Hit', url: '/issues/1', type: 'Issues' }]
+    failing.define_singleton_method(:available?) { raise StandardError, 'provider broken' }
+
+    with_provider failing do
+      assert_nil GlobalSearch.provider_search('Cannot print recipes', user: User.current)
+      assert_empty GlobalSearch.provider_search_types(user: User.current)
+    end
+  end
+
+  def test_provider_search_types_come_from_the_provider
+    provider = provider_returning []
+    provider.define_singleton_method(:search_types) { %w[issues wiki_pages] }
 
     with_provider provider do
-      result = GlobalSearch.search issue.subject, user: User.current
+      assert_equal %w[issues wiki_pages], GlobalSearch.provider_search_types(user: User.current)
+    end
+  end
 
-      keyword_urls = result[:keyword].pluck :url
+  def test_provider_search_types_default_to_all_search_types
+    with_provider provider_returning([]) do
+      assert_equal Redmine::Search.available_search_types, GlobalSearch.provider_search_types(user: User.current)
+    end
+  end
 
-      assert_includes keyword_urls, "/issues/#{issue.id}"
-      assert_nil result[:semantic], 'A hit already listed by the keyword search must be dropped'
+  def test_provider_search_types_are_empty_without_providers
+    with_providers_replaced_by [] do
+      assert_empty GlobalSearch.provider_search_types(user: User.current)
+    end
+  end
+
+  def test_provider_is_skipped_without_permission
+    provider = provider_returning [{ id: 1, title: 'Hit', url: '/issues/1', type: 'Issues' }]
+    provider.define_singleton_method(:permission) { :view_ai_semantic_search_that_nobody_has }
+
+    with_provider provider do
+      assert_nil GlobalSearch.provider_search('Cannot print recipes', user: User.anonymous)
+      assert_empty GlobalSearch.provider_search_types(user: User.anonymous)
     end
   end
 
@@ -213,9 +261,14 @@ class GlobalSearchTest < Additionals::TestCase
     assert_kind_of Array, result[:keyword]
     assert result[:keyword].any?, 'Quick-jump should find entities with ID 1'
 
-    types = result[:keyword].pluck :type
+    assert result[:jump]
+    assert_equal '/issues/1', result[:keyword].first[:url], 'The issue must come first'
+  end
 
-    assert_includes types, 'Issues'
+  def test_quick_jump_lists_the_issue_first_even_with_types_in_another_order
+    result = GlobalSearch.search '#1', user: User.current, types: %w[projects issues]
+
+    assert_equal %w[/issues/1 /projects/ecookbook], result[:keyword].pluck(:url)
   end
 
   def test_plain_number_does_not_trigger_quick_jump
@@ -265,10 +318,10 @@ class GlobalSearchTest < Additionals::TestCase
     assert_kind_of Array, result[:keyword]
   end
 
-  def test_quick_jump_skips_semantic
-    result = GlobalSearch.search '#1', user: User.current
+  def test_hash_id_without_match_is_no_jump
+    result = GlobalSearch.search '#987654321', user: User.current
 
-    assert_nil result[:semantic], 'Quick-jump should not trigger semantic search'
+    assert_not result[:jump]
   end
 
   def test_non_numeric_query_does_not_trigger_quick_jump
@@ -339,10 +392,16 @@ class GlobalSearchTest < Additionals::TestCase
     provider
   end
 
-  def with_provider(provider)
+  # Only the given provider is registered, so the result does not depend on which other
+  # plugins (redmine_ai) happen to be installed.
+  def with_provider(provider, &)
+    with_providers_replaced_by([provider]) { yield provider }
+  end
+
+  def with_providers_replaced_by(providers)
     original_providers = GlobalSearch.providers.dup
-    GlobalSearch.register provider
-    yield provider
+    GlobalSearch.providers.replace providers
+    yield
   ensure
     GlobalSearch.providers.replace original_providers
   end

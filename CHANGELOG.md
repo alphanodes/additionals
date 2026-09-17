@@ -4,7 +4,9 @@
 
 - Bulk edit reports why records could not be saved, not just their ids: the flash now lists the validation errors grouped by message, the way core lists them above its bulk edit form. The message itself appeared as "translation missing" before, because `set_flash_from_bulk_save` asked for a key that never existed
 - `assert_locales_validness` accepts locale files that add to a locale owned by someone else (`<purpose>_<language>.yml`, e.g. a plugin's `redmine_core_de.yml`), instead of reporting them as an unknown language
-- Global search shows keyword results right away and loads provider (semantic) results in a request of their own (`/global_search/semantic`), started only once typing has settled. Providers can declare `search_types` and `available?` to control when the dialog asks them
+- Global search shows keyword results right away and loads provider (semantic) results in a request of their own (`/global_search/semantic`), started only once typing has settled. Providers declare the types they answer with `search_types`, an empty list while they are not set up
+- Global search passes the "My bookmarks" scope to providers as `projects:`, so semantic hits stay within the bookmarked projects
+- Global search escapes quotes in result and history values, which Redmine's `sanitizeHTML` leaves alone, so a value can no longer end an HTML attribute
 - Global search no longer redirects on its own for an id reference like `#1234`: the first hit, an issue if there is one, is preselected and marked, and Enter opens it, also when pressed before the results arrived
 - Global search deduplicates keyword and provider hits by url instead of id alone, so a semantic hit no longer disappears because an unrelated record of another type happens to share its id
 - Global search passes the selected search types on to its providers, so a provider can restrict itself to what was asked for

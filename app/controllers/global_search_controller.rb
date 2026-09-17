@@ -33,6 +33,7 @@ class GlobalSearchController < ApplicationController
                 GlobalSearch.provider_search query,
                                              user: User.current,
                                              project: @search_project,
+                                             scope: params[:scope],
                                              types: params[:types],
                                              keyword_hits: params[:keyword_hits].to_i.positive?
               end

@@ -156,9 +156,21 @@ describe('GlobalSearchController', () => {
       expect(callEscapeHtml('say "hello"')).toBe('say &quot;hello&quot;');
     });
 
+    it('escapes single quotes', () => {
+      expect(callEscapeHtml('it\'s')).toBe('it&#39;s');
+    });
+
     it('handles null input', () => {
-      // sanitizeHTML global returns '' for null
       expect(callEscapeHtml(null)).toBe('');
+    });
+
+    it('keeps a history term with quotes inside its attribute', () => {
+      const ctx = buildContext({ i18n: { recentSearches: 'Recent', clearAll: 'Clear' } });
+      document.body.innerHTML = ctx.renderHistorySection(['x" onmouseover="alert(1)']);
+
+      const item = document.querySelector('[data-search-term]');
+      expect(item.dataset.searchTerm).toBe('x" onmouseover="alert(1)');
+      expect(item.hasAttribute('onmouseover')).toBe(false);
     });
 
     it('handles empty string', () => {
@@ -207,6 +219,22 @@ describe('GlobalSearchController', () => {
 
     it('returns text unchanged when query is null/undefined', () => {
       expect(callHighlight('Hello World', null)).toBe('Hello World');
+    });
+
+    it('does not cut into an entity of the escaped text', () => {
+      expect(callHighlight('say &quot;hi&quot;', 'quot')).toBe('say &quot;hi&quot;');
+    });
+
+    it('does not cut into a numeric entity', () => {
+      expect(callHighlight('it&#39;s 39', '39')).toBe('it&#39;s <mark>39</mark>');
+    });
+
+    it('highlights a query with a quote in the escaped text', () => {
+      expect(callHighlight('it&#39;s here', 'it\'s')).toBe('<mark>it&#39;s</mark> here');
+    });
+
+    it('highlights a query with an ampersand in the escaped text', () => {
+      expect(callHighlight('R&amp;D team', 'r&d')).toBe('<mark>R&amp;D</mark> team');
     });
   });
 
@@ -1282,20 +1310,6 @@ describe('GlobalSearchController', () => {
       expect(ctx.semanticApplies('2026', 2)).toBe(true);
     });
 
-    it('uses the project types in project scope', () => {
-      ctx.element.dataset.semanticTypesProject = JSON.stringify(['issues']);
-      ctx.currentScope = 'project';
-
-      expect(ctx.semanticTypes()).toEqual(['issues']);
-    });
-
-    it('uses the global types outside project scope', () => {
-      ctx.element.dataset.semanticTypesProject = JSON.stringify([]);
-      ctx.currentScope = 'global';
-
-      expect(ctx.semanticTypes()).toEqual(['issues', 'wiki_pages']);
-    });
-
     it('keeps a pending semantic search when typing does not change the query', () => {
       vi.useFakeTimers();
       ctx.performSemanticSearch = vi.fn();
@@ -1508,6 +1522,17 @@ describe('GlobalSearchController', () => {
       expect(url.searchParams.get('keyword_hits')).toBe('3');
       expect(url.searchParams.get('project_id')).toBe('ecookbook');
       expect(url.searchParams.get('types[]')).toBe('issues');
+    });
+
+    it('sends the bookmark scope to the semantic endpoint', async () => {
+      const fetchMock = vi.fn().mockResolvedValue({ ok: true, json: () => Promise.resolve({ label: 'x', results: [] }) });
+      vi.stubGlobal('fetch', fetchMock);
+      ctx.currentScope = 'bookmarks';
+
+      await ctx.performSemanticSearch('printer', 3, ctx.searchGeneration);
+
+      const url = new URL(fetchMock.mock.calls[0][0], 'http://localhost');
+      expect(url.searchParams.get('scope')).toBe('bookmarks');
     });
 
     it('schedules the semantic search after the keyword results', async () => {

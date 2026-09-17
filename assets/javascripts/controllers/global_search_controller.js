@@ -7,6 +7,21 @@ const KEYWORD_DEBOUNCE_MS = 300;
 // those. Waiting until typing has settled keeps intermediate input from occupying the slot.
 const SEMANTIC_DEBOUNCE_MS = 800;
 const ID_REFERENCE = /^#\d+$/;
+const HTML_ENTITY = '&(?:#\\d+|\\w+);';
+
+// Escapes quotes as well: values also land in attributes (href, data-search-term), where
+// Redmine's sanitizeHTML leaves a quote free to end the attribute.
+function escapeHtml(str) {
+  if (str === null || str === undefined) {
+    return '';
+  }
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
 
 class GlobalSearchController extends Controller {
   static values = {
@@ -261,9 +276,7 @@ class GlobalSearchController extends Controller {
 
   semanticTypes() {
     try {
-      const { dataset } = this.element;
-      const useProjectTypes = this.currentScope === 'project' && dataset.semanticTypesProject;
-      const types = JSON.parse((useProjectTypes ? dataset.semanticTypesProject : dataset.semanticTypes) || '[]');
+      const types = JSON.parse(this.element.dataset.semanticTypes || '[]');
       return Array.isArray(types) ? types : [];
     } catch {
       return [];
@@ -319,6 +332,11 @@ class GlobalSearchController extends Controller {
     const projectId = this.effectiveProjectId();
     if (projectId) {
       params.set('project_id', projectId);
+    }
+
+    const searchScope = this.effectiveSearchScope();
+    if (searchScope) {
+      params.set('scope', searchScope);
     }
 
     if (this.activeSearchType) {
@@ -650,9 +668,11 @@ class GlobalSearchController extends Controller {
       return escapedText;
     }
 
-    const safeQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const regex = new RegExp(`(${safeQuery})`, 'gi');
-    return escapedText.replace(regex, '<mark>$1</mark>');
+    // The text is escaped, so the query is matched in its escaped form. An entity is
+    // consumed as a whole first: a query like "quot" must not cut into "&quot;".
+    const safeQuery = escapeHtml(query).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`(${safeQuery})|${HTML_ENTITY}`, 'gi');
+    return escapedText.replace(regex, (match, hit) => (hit ? `<mark>${hit}</mark>` : match));
   }
 
   // -- Search history --
@@ -1080,12 +1100,7 @@ class GlobalSearchController extends Controller {
   }
 
   escapeHtml(str) {
-    if (typeof sanitizeHTML === 'function') {
-      return sanitizeHTML(str);
-    }
-    const el = document.createElement('span');
-    el.textContent = String(str);
-    return el.innerHTML;
+    return escapeHtml(str);
   }
 }
 

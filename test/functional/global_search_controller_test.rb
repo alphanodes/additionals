@@ -172,6 +172,18 @@ class GlobalSearchControllerTest < Additionals::ControllerTest
     end
   end
 
+  def test_semantic_passes_the_search_scope
+    session[:user_id] = 2
+    @request.headers['Accept'] = 'application/json'
+
+    with_semantic_provider do |provider|
+      get :semantic, params: { q: 'Cannot print recipes', scope: 'bookmarks' }
+
+      assert_equal Project.listable.where(id: users(:users_002).bookmarked_project_ids).to_sql,
+                   provider.last_projects.to_sql
+    end
+  end
+
   def test_semantic_with_short_query_asks_no_provider
     session[:user_id] = 2
     @request.headers['Accept'] = 'application/json'
@@ -207,39 +219,18 @@ class GlobalSearchControllerTest < Additionals::ControllerTest
     end
   end
 
-  def test_semantic_with_a_failing_provider_returns_no_results
-    session[:user_id] = 2
-    @request.headers['Accept'] = 'application/json'
-
-    failing = Class.new do
-      def self.available? = raise(StandardError, 'provider broken')
-      def self.search(*, **) = [{ id: 1, title: 'Never', url: '/issues/1' }]
-      def self.label = :label_search
-      def self.permission = nil
-    end
-
-    original_providers = GlobalSearch.providers.dup
-    GlobalSearch.providers.replace [failing]
-
-    get :semantic, params: { q: 'Cannot print recipes' }
-
-    assert_response :success
-    assert_empty ActiveSupport::JSON.decode(response.body)['results']
-  ensure
-    GlobalSearch.providers.replace original_providers
-  end
-
   private
 
   def with_semantic_provider
     provider = Class.new do
       class << self
-        attr_accessor :calls, :last_types, :last_project
+        attr_accessor :calls, :last_types, :last_project, :last_projects
 
-        def search(*, project: nil, types: nil, **)
+        def search(*, project: nil, projects: nil, types: nil, **)
           self.calls += 1
           self.last_types = types
           self.last_project = project
+          self.last_projects = projects
           [{ id: 1, title: 'Semantic hit', url: '/issues/1', type: 'Issues' }]
         end
 

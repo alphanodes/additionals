@@ -22,8 +22,7 @@ module AdditionalsGlobalSearchHelper
       'semantic-icon': svg_icon_tag('robot', size: 16, icon_only: true).to_str,
       'semantic-url': semantic_global_search_path,
       'semantic-types': GlobalSearch.provider_search_types(user: User.current).to_json,
-      'semantic-types-project': (@project ? GlobalSearch.provider_search_types(user: User.current, project: @project) : nil)&.to_json,
-      'semantic-label': GlobalSearch.provider_label(user: User.current, project: @project),
+      'semantic-label': GlobalSearch.provider_label(user: User.current),
       'core-search-url': search_path,
       action: 'click->global-search#closeOnOverlay' }
   end

@@ -180,54 +180,32 @@ class GlobalSearchTest < Additionals::TestCase
     end
   end
 
-  def test_unavailable_provider_is_not_asked
-    provider = Class.new do
-      class << self
-        attr_accessor :calls
+  # How bookmarks are stored depends on the installed plugins (redmine_reporting turns them
+  # into watched projects), so the test compares with the scope the keyword search uses.
+  def test_provider_search_passes_the_bookmarked_projects
+    provider = provider_capturing_options
 
-        def search(*, **)
-          self.calls += 1
-          []
-        end
+    with_provider provider do
+      GlobalSearch.provider_search 'Cannot print recipes', user: User.current, scope: 'bookmarks'
 
-        def available? = false
-        def label = 'label_unavailable'
-        def permission = nil
-      end
+      assert_equal Project.listable.where(id: User.current.bookmarked_project_ids).to_sql,
+                   provider.options[:projects].to_sql
     end
-    provider.calls = 0
+  end
+
+  def test_provider_search_passes_no_projects_without_scope
+    provider = provider_capturing_options
 
     with_provider provider do
       GlobalSearch.provider_search 'Cannot print recipes', user: User.current
 
-      assert_equal 0, provider.calls
-      assert_empty GlobalSearch.provider_search_types(user: User.current)
-      assert_nil GlobalSearch.provider_label(user: User.current)
-    end
-  end
-
-  def test_failing_provider_is_left_out
-    failing = provider_returning [{ id: 1, title: 'Hit', url: '/issues/1', type: 'Issues' }]
-    failing.define_singleton_method(:available?) { raise StandardError, 'provider broken' }
-
-    with_provider failing do
-      assert_nil GlobalSearch.provider_search('Cannot print recipes', user: User.current)
-      assert_empty GlobalSearch.provider_search_types(user: User.current)
+      assert_nil provider.options[:projects]
     end
   end
 
   def test_provider_search_types_come_from_the_provider
-    provider = provider_returning []
-    provider.define_singleton_method(:search_types) { %w[issues wiki_pages] }
-
-    with_provider provider do
-      assert_equal %w[issues wiki_pages], GlobalSearch.provider_search_types(user: User.current)
-    end
-  end
-
-  def test_provider_search_types_default_to_all_search_types
     with_provider provider_returning([]) do
-      assert_equal Redmine::Search.available_search_types, GlobalSearch.provider_search_types(user: User.current)
+      assert_equal %w[issues wiki_pages], GlobalSearch.provider_search_types(user: User.current)
     end
   end
 
@@ -378,12 +356,31 @@ class GlobalSearchTest < Additionals::TestCase
     with_provider provider, &
   end
 
+  def provider_capturing_options
+    provider = Class.new do
+      class << self
+        attr_accessor :options
+
+        def search(_query, **options)
+          self.options = options
+          []
+        end
+
+        def label = :label_search
+        def permission = nil
+      end
+    end
+    provider.options = nil
+    provider
+  end
+
   def provider_returning(hits)
     provider = Class.new do
       class << self
         attr_accessor :hits
 
         def search(*, **) = hits
+        def search_types = %w[issues wiki_pages]
         def label = 'label_stub'
         def permission = nil
       end

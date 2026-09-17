@@ -29,27 +29,6 @@ class AdditionalsGlobalSearchHelperTest < Additionals::HelperTest
     assert_equal I18n.t(:label_search), data[:'semantic-label']
   end
 
-  def test_global_search_data_has_project_types_only_in_a_project
-    GlobalSearch.providers.replace [provider(search_types: %w[issues])]
-
-    assert_nil global_search_data[:'semantic-types-project']
-
-    @project = projects :projects_001
-
-    assert_equal '["issues"]', global_search_data[:'semantic-types-project']
-  end
-
-  def test_global_search_data_survives_a_failing_provider
-    failing = provider search_types: %w[issues]
-    failing.define_singleton_method(:available?) { raise StandardError, 'provider broken' }
-    GlobalSearch.providers.replace [failing]
-
-    data = global_search_data
-
-    assert_equal '[]', data[:'semantic-types']
-    assert_nil data[:'semantic-label']
-  end
-
   private
 
   def provider(search_types:)

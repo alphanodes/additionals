@@ -23,12 +23,12 @@ globalThis.AdditionalsHelpers = {
   fetchJSON: vi.fn(),
 };
 
-// Mock sanitizeHTML (normally provided by Redmine Core)
+// Same implementation as Redmine Core's sanitizeHTML (application-legacy.js), which
+// escapes &, < and > only - a stricter stand-in would hide missing quote escaping.
 globalThis.sanitizeHTML = (str) => {
-  if (str === null || str === undefined) { return ''; }
-  const s = String(str);
-  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+  const temp = document.createElement('span');
+  temp.textContent = str;
+  return temp.innerHTML;
 };
 
 // Polyfill Element.scrollIntoView (not implemented in jsdom)

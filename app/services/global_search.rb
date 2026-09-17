@@ -37,12 +37,13 @@ module GlobalSearch
     # The client deduplicates the hits against the keyword results it already shows, over
     # the url: an id alone is not unique across types, and a provider may identify a record
     # differently than the keyword search does (a wiki page by its content id, for instance).
-    def provider_search(query, user:, project: nil, limit: 5, types: nil, keyword_hits: false)
+    def provider_search(query, user:, project: nil, scope: nil, limit: 5, types: nil, keyword_hits: false)
       return if skip_providers? query, keyword_hits
 
+      projects = resolve_projects scope, user, project if scope.present?
       results = { label: nil, results: [] }
       usable_providers(user, project).each do |provider|
-        hits = provider.search query, user: user, project: project, limit: limit, types: types
+        hits = provider.search query, user: user, project: project, projects: projects, limit: limit, types: types
         next if hits.blank?
 
         results[:label] ||= I18n.t provider.label
@@ -55,29 +56,21 @@ module GlobalSearch
 
     # The search types at least one provider can answer for the user. The client only asks
     # the providers and shows a loading state when the active type is among them.
-    def provider_search_types(user:, project: nil)
-      types = usable_providers(user, project).flat_map do |provider|
-        provider.respond_to?(:search_types) ? provider.search_types : Redmine::Search.available_search_types
-      end
+    def provider_search_types(user:)
+      types = usable_providers(user, nil).flat_map(&:search_types)
       types.uniq!
       types
     end
 
-    def provider_label(user:, project: nil)
-      provider = usable_providers(user, project).first
+    def provider_label(user:)
+      provider = usable_providers(user, nil).first
       provider ? I18n.t(provider.label) : nil
     end
 
     private
 
-    # Runs on every page for the search dialog, so a failing provider must not take the page down.
     def usable_providers(user, project)
-      providers.select do |provider|
-        (!provider.respond_to?(:available?) || provider.available?) && user_can_use?(provider, user, project)
-      rescue StandardError => e
-        Rails.logger.warn "GlobalSearch: Provider #{provider.name} unusable: #{e.message}"
-        false
-      end
+      providers.select { |provider| user_can_use? provider, user, project }
     end
 
     # An issue comes first: it is what an id reference means in Redmine, and the client

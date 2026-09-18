@@ -18,6 +18,30 @@ class GlobalSearchTest < Additionals::TestCase
     end
   end
 
+  # Redmine ranks every type together and by date. Without taking turns between the types,
+  # the newer issues take all three places and the older wiki page never shows up.
+  def test_keyword_search_keeps_every_type_in_the_list
+    page = wiki_page_about 'Grasshopper'
+    4.times { |index| Issue.generate! project: page.wiki.project, subject: "Entry #{index} about Grasshopper" }
+
+    result = GlobalSearch.search 'Grasshopper', user: User.current, limit: 3
+
+    assert_equal 3, result[:keyword].size
+    assert_includes result[:keyword].pluck(:type), I18n.t(:label_wiki_page_plural)
+  end
+
+  def test_keyword_search_keeps_the_order_within_a_type
+    page = wiki_page_about 'Grasshopper'
+    subjects = Array.new(3) { |index| "Entry #{index} about Grasshopper" }
+    subjects.each { |subject| Issue.generate! project: page.wiki.project, subject: }
+
+    titles = GlobalSearch.search('Grasshopper', user: User.current, limit: 4)[:keyword].pluck :title
+    issue_titles = titles.select { |title| title.include? 'Entry' }
+
+    assert_equal issue_titles, issue_titles.sort_by { |title| -title[/Entry (\d)/, 1].to_i },
+                 'newest first, as Redmine ranks them'
+  end
+
   def test_search_with_short_query_returns_empty
     result = GlobalSearch.search 'a', user: User.current
 
@@ -401,5 +425,15 @@ class GlobalSearchTest < Additionals::TestCase
     yield
   ensure
     GlobalSearch.providers.replace original_providers
+  end
+
+  # An older page, so the issues created afterwards rank above it
+  def wiki_page_about(term)
+    project = projects :projects_001
+    page = WikiPage.create! wiki: project.wiki, title: term
+    page.build_content text: "A page about #{term}."
+    page.content.save!
+    page.content.update_column :updated_on, 2.days.ago
+    page
   end
 end

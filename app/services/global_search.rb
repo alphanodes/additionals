@@ -121,13 +121,34 @@ module GlobalSearch
                                              live_search: true
       return [] if fetcher.tokens.blank?
 
-      results = fetcher.results 0, limit
-      results.filter_map do |record|
+      load_records(balanced_result_ids(fetcher, limit)).filter_map do |record|
         format_record record
       rescue StandardError => e
         Rails.logger.warn "GlobalSearch: Failed to format record #{record.class}##{record.id}: #{e.message}"
         nil
       end
+    end
+
+    # Redmine ranks the hits of all types together and by date, so a type with many recent
+    # records takes the whole list: an older wiki page ends up behind the records referring to
+    # it and never reaches the dialog. Taking turns between the types keeps each of them in
+    # view, and the order within a type stays Redmine's.
+    def balanced_result_ids(fetcher, limit)
+      by_type = fetcher.result_ids.group_by(&:first)
+      rounds = by_type.each_value.map(&:size).max.to_i
+
+      rounds.times.flat_map { |round| by_type.each_value.filter_map { |pairs| pairs[round] } }.first limit
+    end
+
+    # Loads the selected records the way Redmine::Search::Fetcher#results does, which can only
+    # ever load one continuous section of the ranked list.
+    def load_records(type_and_ids)
+      by_type = Hash.new { |hash, key| hash[key] = [] }
+      type_and_ids.group_by(&:first).each do |type, pairs|
+        by_type[type] += type.singularize.camelcase.constantize.search_results_from_ids pairs.map(&:last)
+      end
+
+      type_and_ids.filter_map { |type, id| by_type[type].detect { |record| record.id == id } }
     end
 
     # A bare number carries no meaning a semantic provider could pick up, and asking anyway

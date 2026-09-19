@@ -28,6 +28,19 @@ class GlobalSearchControllerTest < Additionals::ControllerTest
     assert json.key? 'jump'
   end
 
+  # The dialog builds its tabs from these counts
+  def test_search_reports_the_hit_count_of_every_type
+    session[:user_id] = 2
+    @request.headers['Accept'] = 'application/json'
+
+    get :search, params: { q: 'Cannot print recipes' }
+
+    counts = ActiveSupport::JSON.decode(response.body)['counts']
+
+    assert_kind_of Hash, counts
+    assert_operator counts['issues'].to_i, :>, 0
+  end
+
   def test_search_returns_json
     session[:user_id] = 2
     @request.headers['Accept'] = 'application/json'

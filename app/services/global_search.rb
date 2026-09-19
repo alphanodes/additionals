@@ -30,8 +30,8 @@ module GlobalSearch
       end
 
       projects = resolve_projects scope, user, project
-      { keyword: keyword_search(query, user: user, projects: projects, types: types, titles_only: titles_only, limit: limit),
-        jump: false }
+      hits = keyword_search query, user: user, projects: projects, types: types, titles_only: titles_only, limit: limit
+      { keyword: hits[:results], counts: hits[:counts], jump: false }
     end
 
     # The client deduplicates the hits against the keyword results it already shows, over
@@ -119,25 +119,32 @@ module GlobalSearch
                                              all_words: true,
                                              titles_only: titles_only,
                                              live_search: true
-      return [] if fetcher.tokens.blank?
+      return { results: [], counts: {} } if fetcher.tokens.blank?
 
-      load_records(balanced_result_ids(fetcher, limit)).filter_map do |record|
+      results = load_records(result_ids_covering_every_type(fetcher, limit)).filter_map do |record|
         format_record record
       rescue StandardError => e
         Rails.logger.warn "GlobalSearch: Failed to format record #{record.class}##{record.id}: #{e.message}"
         nil
       end
+
+      { results: results, counts: fetcher.result_count_by_type }
     end
 
-    # Redmine ranks the hits of all types together and by date, so a type with many recent
-    # records takes the whole list: an older wiki page ends up behind the records referring to
-    # it and never reaches the dialog. Taking turns between the types keeps each of them in
-    # view, and the order within a type stays Redmine's.
-    def balanced_result_ids(fetcher, limit)
-      by_type = fetcher.result_ids.group_by(&:first)
-      rounds = by_type.each_value.map(&:size).max.to_i
+    # The best hits keep every one of their places: Redmine ranks all types together and by
+    # date, and that ranking decides. A type missing from them is added with its best hit
+    # afterwards, so a single wiki page does not disappear behind a hundred issues that happen
+    # to be newer. Nothing is pushed out for it - the list grows by those few entries instead.
+    def result_ids_covering_every_type(fetcher, limit)
+      ranked = fetcher.result_ids
+      selected = ranked.first limit
+      covered = selected.to_set(&:first)
 
-      rounds.times.flat_map { |round| by_type.each_value.filter_map { |pairs| pairs[round] } }.first limit
+      ranked.group_by(&:first).each do |type, pairs|
+        selected << pairs.first unless covered.include? type
+      end
+
+      selected
     end
 
     # Loads the selected records the way Redmine::Search::Fetcher#results does, which can only

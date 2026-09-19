@@ -441,6 +441,52 @@ describe('GlobalSearchController', () => {
     });
   });
 
+  describe('search type tabs', () => {
+    const types = [
+      { id: 'issues', label: 'Issues' },
+      { id: 'wiki_pages', label: 'Wiki pages' },
+      { id: 'documents', label: 'Documents' },
+    ];
+
+    function tabContext(props = {}) {
+      return buildContext({
+        element: { dataset: { searchTypes: JSON.stringify(types), tabAll: 'All' } },
+        activeSearchType: null,
+        currentScope: 'all',
+        ...props,
+      });
+    }
+
+    it('offers every type before a search has counted anything', () => {
+      const html = GlobalSearchController.prototype.renderSearchTypeTabs.call(tabContext());
+
+      expect(html).toContain('Documents');
+    });
+
+    it('drops the types without hits and shows the count of the others', () => {
+      const ctx = tabContext({ typeCounts: { issues: 120, wiki_pages: 27 } });
+
+      const html = GlobalSearchController.prototype.renderSearchTypeTabs.call(ctx);
+
+      expect(html).toContain('Issues');
+      expect(html).toContain('>120<');
+      expect(html).toContain('>27<');
+      expect(html).not.toContain('Documents');
+    });
+
+    it('keeps the counts of the unfiltered search while a tab filters', () => {
+      const ctx = tabContext({
+        typeCounts: { issues: 120, wiki_pages: 27 },
+        activeSearchType: 'issues',
+        hasResultsTarget: false,
+      });
+
+      GlobalSearchController.prototype.renderResults.call(ctx, { keyword: [], counts: { issues: 120 } }, 'query');
+
+      expect(ctx.typeCounts).toEqual({ issues: 120, wiki_pages: 27 });
+    });
+  });
+
   describe('onGlobalKeydown', () => {
     let ctx;
 
@@ -1088,6 +1134,7 @@ describe('GlobalSearchController', () => {
           },
         },
         getSearchTypes: GlobalSearchController.prototype.getSearchTypes,
+        typesWithHits: GlobalSearchController.prototype.typesWithHits,
         escapeHtml: GlobalSearchController.prototype.escapeHtml,
       };
       const html = GlobalSearchController.prototype.renderSearchTypeTabs.call(ctx);
@@ -1110,6 +1157,7 @@ describe('GlobalSearchController', () => {
           },
         },
         getSearchTypes: GlobalSearchController.prototype.getSearchTypes,
+        typesWithHits: GlobalSearchController.prototype.typesWithHits,
         escapeHtml: GlobalSearchController.prototype.escapeHtml,
       };
       const html = GlobalSearchController.prototype.renderSearchTypeTabs.call(ctx);
@@ -1123,6 +1171,7 @@ describe('GlobalSearchController', () => {
         activeSearchType: null,
         element: { dataset: { searchTypes: '[]' } },
         getSearchTypes: GlobalSearchController.prototype.getSearchTypes,
+        typesWithHits: GlobalSearchController.prototype.typesWithHits,
       };
       const html = GlobalSearchController.prototype.renderSearchTypeTabs.call(ctx);
       expect(html).toBe('');

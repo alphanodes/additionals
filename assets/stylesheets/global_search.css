@@ -216,6 +216,12 @@
 
 /* Result items */
 
+.global-search-tab-count {
+  margin-left: 4px;
+  font-size: var(--a-font-size-sm);
+  color: var(--a-color-muted);
+}
+
 .global-search-item {
   display: block;
   padding: 10px 12px;

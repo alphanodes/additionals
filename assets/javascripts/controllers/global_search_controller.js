@@ -82,6 +82,7 @@ class GlobalSearchController extends Controller {
     this.lastQuery = '';
     this.hasResults = false;
     this.activeSearchType = null;
+    this.typeCounts = null;
 
     if (this.hasInputTarget) {
       this.inputTarget.value = query || '';
@@ -479,6 +480,12 @@ class GlobalSearchController extends Controller {
 
     const keyword = data.keyword || [];
     const hasKeyword = keyword.length > 0;
+
+    // While a tab filters the search, its answer only counts that one type - the other tabs
+    // would disappear and leave no way back. So the counts of the unfiltered search are kept.
+    if (!this.activeSearchType) {
+      this.typeCounts = data.counts || {};
+    }
     const semanticPending = !data.jump && this.semanticApplies(query, keyword.length);
 
     this.keywordUrls = new Set(keyword.map(item => item.url));
@@ -1007,6 +1014,17 @@ class GlobalSearchController extends Controller {
     }
   }
 
+  // A tab for a type without hits leads to an empty list, so only types that answered are
+  // offered. Without counts - before the first search - every type stays available.
+  typesWithHits() {
+    const types = this.getSearchTypes();
+    if (!this.typeCounts) {
+      return types;
+    }
+
+    return types.filter(type => this.typeCounts[type.id]);
+  }
+
   validateActiveSearchType() {
     if (!this.activeSearchType) {
       return;
@@ -1035,7 +1053,7 @@ class GlobalSearchController extends Controller {
   }
 
   renderSearchTypeTabs() {
-    const types = this.getSearchTypes();
+    const types = this.typesWithHits();
     if (types.length === 0) {
       return '';
     }
@@ -1047,7 +1065,10 @@ class GlobalSearchController extends Controller {
 
     for (const type of types) {
       const active = this.activeSearchType === type.id ? ' active' : '';
-      html += `<a class="global-search-tab${active}" data-type-id="${this.escapeHtml(type.id)}" href="#">${this.escapeHtml(type.label)}</a>`;
+      const count = this.typeCounts?.[type.id];
+      const label = count ? `${this.escapeHtml(type.label)} <span class="global-search-tab-count">${count}</span>`
+        : this.escapeHtml(type.label);
+      html += `<a class="global-search-tab${active}" data-type-id="${this.escapeHtml(type.id)}" href="#">${label}</a>`;
     }
 
     html += '</div>';

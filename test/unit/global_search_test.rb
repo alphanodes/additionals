@@ -18,16 +18,29 @@ class GlobalSearchTest < Additionals::TestCase
     end
   end
 
-  # Redmine ranks every type together and by date. Without taking turns between the types,
-  # the newer issues take all three places and the older wiki page never shows up.
-  def test_keyword_search_keeps_every_type_in_the_list
+  # Redmine ranks every type together and by date, so the newer issues take all three places.
+  # The wiki page is added afterwards rather than pushing one of them out.
+  def test_keyword_search_adds_a_type_missing_from_the_ranked_hits
     page = wiki_page_about 'Grasshopper'
     4.times { |index| Issue.generate! project: page.wiki.project, subject: "Entry #{index} about Grasshopper" }
 
     result = GlobalSearch.search 'Grasshopper', user: User.current, limit: 3
 
-    assert_equal 3, result[:keyword].size
-    assert_includes result[:keyword].pluck(:type), I18n.t(:label_wiki_page_plural)
+    assert_equal 4, result[:keyword].size, 'three ranked hits plus the wiki page'
+    issue_hits = result[:keyword].count { |entry| entry[:title].include? 'Entry' }
+
+    assert_equal 3, issue_hits
+    assert_equal I18n.t(:label_wiki_page_plural), result[:keyword].last[:type],
+                 'the added entry comes last, it is not there by rank'
+  end
+
+  def test_keyword_search_adds_nothing_when_every_type_is_present
+    page = wiki_page_about 'Grasshopper'
+    Issue.generate! project: page.wiki.project, subject: 'Entry about Grasshopper'
+
+    result = GlobalSearch.search 'Grasshopper', user: User.current, limit: 10
+
+    assert_equal 2, result[:keyword].size
   end
 
   def test_keyword_search_keeps_the_order_within_a_type
@@ -40,6 +53,19 @@ class GlobalSearchTest < Additionals::TestCase
 
     assert_equal issue_titles, issue_titles.sort_by { |title| -title[/Entry (\d)/, 1].to_i },
                  'newest first, as Redmine ranks them'
+  end
+
+  # The tabs of the dialog are built from these counts, so they can show only the types that
+  # have hits, with their number.
+  def test_search_reports_the_hit_count_of_every_type
+    page = wiki_page_about 'Grasshopper'
+    2.times { |index| Issue.generate! project: page.wiki.project, subject: "Entry #{index} about Grasshopper" }
+
+    counts = GlobalSearch.search('Grasshopper', user: User.current)[:counts]
+
+    assert_equal 2, counts['issues']
+    assert_equal 1, counts['wiki_pages']
+    assert_not counts.key?('documents'), 'a type without hits is not reported'
   end
 
   def test_search_with_short_query_returns_empty

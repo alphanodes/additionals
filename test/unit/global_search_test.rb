@@ -18,20 +18,31 @@ class GlobalSearchTest < Additionals::TestCase
     end
   end
 
-  # Redmine ranks every type together and by date, so the newer issues take all three places.
-  # The wiki page is added afterwards rather than pushing one of them out.
-  def test_keyword_search_adds_a_type_missing_from_the_ranked_hits
+  # The ranked hits keep every one of their places - a type missing from them is added after
+  # them, it does not push one out. Both are asserted against Redmine's own ranking, because
+  # how it orders the types among each other is not ours to predict.
+  def test_keyword_search_keeps_the_ranked_hits_in_their_places
     page = wiki_page_about 'Grasshopper'
     4.times { |index| Issue.generate! project: page.wiki.project, subject: "Entry #{index} about Grasshopper" }
+    ranked = ranked_hits 'Grasshopper'
 
     result = GlobalSearch.search 'Grasshopper', user: User.current, limit: 3
 
-    assert_equal 4, result[:keyword].size, 'three ranked hits plus the wiki page'
-    issue_hits = result[:keyword].count { |entry| entry[:title].include? 'Entry' }
+    ranked_ids = ranked.take(3).pluck 1
 
-    assert_equal 3, issue_hits
-    assert_equal I18n.t(:label_wiki_page_plural), result[:keyword].last[:type],
-                 'the added entry comes last, it is not there by rank'
+    assert_equal ranked_ids, result[:keyword].first(3).pluck(:id)
+  end
+
+  def test_keyword_search_covers_every_type_that_has_hits
+    page = wiki_page_about 'Grasshopper'
+    4.times { |index| Issue.generate! project: page.wiki.project, subject: "Entry #{index} about Grasshopper" }
+    ranked = ranked_hits 'Grasshopper'
+    types = ranked.pluck(0).uniq
+
+    result = GlobalSearch.search 'Grasshopper', user: User.current, limit: 3
+
+    assert_operator types.size, :>, 1, 'the wiki page and the issues have to be found for this test'
+    assert_equal types.size, result[:keyword].pluck(:type).uniq.size
   end
 
   def test_keyword_search_adds_nothing_when_every_type_is_present
@@ -40,7 +51,7 @@ class GlobalSearchTest < Additionals::TestCase
 
     result = GlobalSearch.search 'Grasshopper', user: User.current, limit: 10
 
-    assert_equal 2, result[:keyword].size
+    assert_equal ranked_hits('Grasshopper').size, result[:keyword].size
   end
 
   def test_keyword_search_keeps_the_order_within_a_type
@@ -451,6 +462,12 @@ class GlobalSearchTest < Additionals::TestCase
     yield
   ensure
     GlobalSearch.providers.replace original_providers
+  end
+
+  # Redmine's own ranking, the reference the selection is asserted against
+  def ranked_hits(query)
+    Redmine::Search::Fetcher.new(query, User.current, Redmine::Search.available_search_types, nil,
+                                 all_words: true, titles_only: false, live_search: true).result_ids
   end
 
   # An older page, so the issues created afterwards rank above it

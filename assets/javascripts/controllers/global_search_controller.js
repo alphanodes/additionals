@@ -622,7 +622,10 @@ class GlobalSearchController extends Controller {
   // there as well: a count taken in the project next to a link into the global search
   // contradicts itself.
   coreSearchParams(query) {
-    const params = new URLSearchParams({ q: query });
+    // The dialog searches attachments, the core search page leaves them out unless asked. The
+    // page behind the link therefore has to be asked, or it answers with fewer hits than the
+    // number next to the link - a file named "Oberklausen.pdf" answers a search for "klaus".
+    const params = new URLSearchParams({ q: query, attachments: '1' });
     const coreScope = this.coreSearchScope();
     if (coreScope) {
       params.set('scope', coreScope);

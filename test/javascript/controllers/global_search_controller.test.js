@@ -2059,6 +2059,13 @@ describe('GlobalSearchController', () => {
       expect(html).toContain('scope=all');
     });
 
+    // The dialog counts attachments, the search page only does so when asked - without this
+    // the page lists fewer hits than the number the dialog put next to the link
+    it('asks the search page to search attachments as well', () => {
+      const html = GlobalSearchController.prototype.renderCoreSearchLink.call(ctx, 'test');
+      expect(html).toContain('attachments=1');
+    });
+
     it('includes titles_only when active', () => {
       ctx.titlesOnlyActive = true;
       const html = GlobalSearchController.prototype.renderCoreSearchLink.call(ctx, 'test');

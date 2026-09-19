@@ -116,7 +116,9 @@ module AdditionalsIconsHelper
                    wrapper_title: nil,
                    wrapper_css: nil)
     sprite ||= IconsHelper::DEFAULT_SPRITE
-    sprite = plugin.present? ? "plugin_assets/#{plugin}/#{sprite}.svg" : "#{sprite}.svg"
+    # Core icons go through sprite_source, so a theme that ships its own
+    # icons.svg replaces them here the same way it does in core
+    sprite = plugin.present? ? "plugin_assets/#{plugin}/#{sprite}.svg" : sprite_source(icon_name, sprite:)
 
     icon_options = { sprite: }
     icon_options[:size] = size if size

@@ -156,9 +156,44 @@ class AdditionalsIconsHelperTest < Additionals::HelperTest
     assert_match %r{<label[^>]*>Name</label>}, html
   end
 
+  def test_svg_icon_tag_takes_core_icon_from_theme_sprite_that_has_it
+    use_theme_with_sprite '<symbol id="icon--edit"></symbol>'
+
+    # whether the path carries a digest depends on precompiled assets, not on us
+    assert_match %r{/themes/sprite_theme/icons[-\w]*\.svg#icon--edit}, svg_icon_tag('edit', plugin: '')
+  end
+
+  def test_svg_icon_tag_falls_back_to_core_sprite_for_icon_missing_in_theme_sprite
+    use_theme_with_sprite '<symbol id="icon--other"></symbol>'
+    html = svg_icon_tag 'edit', plugin: ''
+
+    assert_no_match %r{themes/sprite_theme}, html
+    assert_match %r{/icons-\w+\.svg#icon--edit}, html
+  end
+
+  def test_svg_icon_tag_ignores_theme_sprite_for_plugin_icons
+    use_theme_with_sprite '<symbol id="icon--edit"></symbol>'
+    html = svg_icon_tag 'edit'
+
+    assert_no_match %r{themes/sprite_theme}, html
+    assert_match %r{/additionals/icons-\w+\.svg#icon--edit}, html
+  end
+
   private
 
   def icon_form_builder
     Redmine::Views::LabelledFormBuilder.new :project, IconFieldStub.new, self, {}
+  end
+
+  # A theme with its own icons.svg. Only the asset lookup is stubbed, the way
+  # core tests it: a test theme cannot be added to the asset load path. The
+  # real sprites are resolved beforehand and handed through unchanged.
+  def use_theme_with_sprite(content)
+    @current_theme = Redmine::Themes::Theme.new '/tmp/sprite_theme'
+    load_path = Rails.application.assets.load_path
+    assets = %w[icons.svg plugin_assets/additionals/icons.svg].index_with { |path| load_path.find path }
+    assets['themes/sprite_theme/icons.svg'] = Struct.new(:digest, :content, :digested_path)
+                                                    .new('abc123', content, 'themes/sprite_theme/icons-abc123.svg')
+    assets.each { |path, asset| load_path.stubs(:find).with(path).returns asset }
   end
 end

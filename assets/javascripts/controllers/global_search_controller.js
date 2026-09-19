@@ -83,6 +83,7 @@ class GlobalSearchController extends Controller {
     this.hasResults = false;
     this.activeSearchType = null;
     this.typeCounts = null;
+    this.typeCountsQuery = null;
 
     if (this.hasInputTarget) {
       this.inputTarget.value = query || '';
@@ -481,10 +482,13 @@ class GlobalSearchController extends Controller {
     const keyword = data.keyword || [];
     const hasKeyword = keyword.length > 0;
 
-    // While a tab filters the search, its answer only counts that one type - the other tabs
-    // would disappear and leave no way back. So the counts of the unfiltered search are kept.
-    if (!this.activeSearchType) {
+    // A filtered answer only counts the type it was filtered to. As long as the query stays
+    // the same, the counts of the unfiltered search are kept, so switching tabs does not make
+    // the others disappear. For a new query they are gone: the dialog then shows the active
+    // tab with its own number and "all" to get back, rather than numbers of the query before.
+    if (!this.activeSearchType || this.typeCountsQuery !== query) {
       this.typeCounts = data.counts || {};
+      this.typeCountsQuery = query;
     }
     const semanticPending = !data.jump && this.semanticApplies(query, keyword.length);
 
@@ -514,6 +518,8 @@ class GlobalSearchController extends Controller {
       const loading = `<p class="global-search-semantic-loading">${this.escapeHtml(this.i18n.loading)}</p>`;
       html += `<div class="global-search-semantic" data-semantic-section>${header}${loading}</div>`;
     }
+
+    html += this.renderAllResultsLink(query, keyword.length);
 
     this.resultsTarget.innerHTML = html;
     this.selectedIndex = -1;
@@ -607,6 +613,28 @@ class GlobalSearchController extends Controller {
     return html;
   }
 
+  // The dialog searches the project while its scope says so, and then the link has to lead
+  // there as well: a count taken in the project next to a link into the global search
+  // contradicts itself.
+  coreSearchParams(query) {
+    const params = new URLSearchParams({ q: query });
+    const coreScope = this.coreSearchScope();
+    if (coreScope) {
+      params.set('scope', coreScope);
+    }
+    if (this.currentScope === 'project' && this.projectIdValue) {
+      params.set('project_id', this.projectIdValue);
+    }
+    if (this.titlesOnlyActive) {
+      params.set('titles_only', '1');
+    }
+    if (this.activeSearchType) {
+      params.set(this.activeSearchType, '1');
+    }
+
+    return params;
+  }
+
   renderCoreSearchLink(query) {
     const coreUrl = this.element.dataset.coreSearchUrl;
     if (!coreUrl) {
@@ -627,23 +655,43 @@ class GlobalSearchController extends Controller {
     } else if (suffix) {
       scopeText = ` ${this.escapeHtml(suffix)}`;
     }
-    const params = new URLSearchParams({ q: query });
-    const coreScope = this.coreSearchScope();
-    if (coreScope) {
-      params.set('scope', coreScope);
-    }
-    if (this.titlesOnlyActive) {
-      params.set('titles_only', '1');
-    }
-    if (this.activeSearchType) {
-      params.set(this.activeSearchType, '1');
-    }
-    const url = `${this.escapeHtml(coreUrl)}?${params}`;
+    const url = `${this.escapeHtml(coreUrl)}?${this.coreSearchParams(query)}`;
 
     return '<div class="global-search-core-link">' +
       `<a href="${url}" class="global-search-item">` +
       `<span class="global-search-item-title">${this.escapeHtml(searchLabel)} <strong>${safeQuery}</strong>${scopeText}</span>` +
       '</a></div>';
+  }
+
+  // Closes the list when the core search holds more than it shows. With every hit already
+  // listed the link would promise something that is not there, so it stays away.
+  renderAllResultsLink(query, shown) {
+    const coreUrl = this.element.dataset.coreSearchUrl;
+    const total = this.hitsBehindTheLink();
+    if (!query || !coreUrl || total <= shown) {
+      return '';
+    }
+
+    // The number sits inside the sentence, so each language can place it where it belongs
+    const label = (this.element.dataset.allResults || 'All %{count} results').replace('%{count}', total);
+
+    return '<div class="global-search-all-results">' +
+      `<a href="${this.escapeHtml(coreUrl)}?${this.coreSearchParams(query)}" class="global-search-item">` +
+      `<span class="global-search-item-title">${this.escapeHtml(label)}</span>` +
+      '</a></div>';
+  }
+
+  // How many hits the core search behind the link holds: the ones of the active tab, or all
+  // of them. The dialog only ever shows ten, so without the number nothing says there is more.
+  hitsBehindTheLink() {
+    if (!this.typeCounts) {
+      return 0;
+    }
+    if (this.activeSearchType) {
+      return this.typeCounts[this.activeSearchType] || 0;
+    }
+
+    return Object.values(this.typeCounts).reduce((sum, value) => sum + value, 0);
   }
 
   renderItem(item, query, { jumpTarget = false } = {}) {
@@ -762,10 +810,15 @@ class GlobalSearchController extends Controller {
 
   // -- Selection navigation --
 
+  // The link to the core search at the top is not part of the selection: Enter belongs to the
+  // best hit. The one closing the list is, it is the last thing one arrives at.
   get selectableItems() {
-    return this.hasResultsTarget
-      ? Array.from(this.resultsTarget.querySelectorAll('.global-search-item'))
-      : [];
+    if (!this.hasResultsTarget) {
+      return [];
+    }
+
+    return Array.from(this.resultsTarget.querySelectorAll('.global-search-item'))
+      .filter(item => !item.closest('.global-search-core-link'));
   }
 
   moveSelection(direction) {
@@ -793,8 +846,12 @@ class GlobalSearchController extends Controller {
 
   openSelected() {
     const items = this.selectableItems;
-    if (this.selectedIndex >= 0 && this.selectedIndex < items.length) {
-      const selected = items[this.selectedIndex];
+    // Enter without having moved the selection opens the best hit, which is the first of the
+    // list. Without hits it stays with the jump of an id reference.
+    const index = this.selectedIndex >= 0 ? this.selectedIndex : this.firstHitIndex();
+
+    if (index >= 0 && index < items.length) {
+      const selected = items[index];
 
       // Handle history term selection via Enter
       const { searchTerm } = selected.dataset;
@@ -816,6 +873,15 @@ class GlobalSearchController extends Controller {
     }
 
     this.jumpWhenReady();
+  }
+
+  // Only while the list holds the hits of what stands in the field right now: the initial view
+  // lists earlier searches, which Enter is not meant to repeat by itself, and after typing on
+  // the hits still shown belong to the query before (see the id reference tests).
+  firstHitIndex() {
+    const query = this.hasInputTarget ? this.inputTarget.value.trim() : '';
+
+    return this.hasResults && query === this.lastQuery ? 0 : -1;
   }
 
   // -- Header search interception --

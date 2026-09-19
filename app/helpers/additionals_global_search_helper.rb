@@ -17,6 +17,7 @@ module AdditionalsGlobalSearchHelper
       'scope-bookmarks': l(:label_global_search_in_my_bookmarks),
       'titles-only-prefix': l(:label_global_search_in_titles),
       'tab-all': l(:label_all).capitalize,
+      'all-results': l(:label_global_search_all_results),
       'search-types': global_search_types.to_json,
       'search-types-project': (@project ? global_search_types(project: @project) : nil)&.to_json,
       'semantic-icon': svg_icon_tag('robot', size: 16, icon_only: true).to_str,

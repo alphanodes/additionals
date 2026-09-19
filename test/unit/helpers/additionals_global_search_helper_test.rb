@@ -29,6 +29,13 @@ class AdditionalsGlobalSearchHelperTest < Additionals::HelperTest
     assert_equal I18n.t(:label_search), data[:'semantic-label']
   end
 
+  # The number belongs inside the sentence, so each language can place it where it fits
+  def test_global_search_data_carries_the_label_of_the_closing_line
+    set_language_if_valid 'en'
+
+    assert_equal 'All 5 results', format(global_search_data[:'all-results'], count: 5)
+  end
+
   private
 
   def provider(search_types:)

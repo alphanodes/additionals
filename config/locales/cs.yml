@@ -113,6 +113,7 @@ cs:
   label_enable_sidebar: "Umožnit sidebar"
   label_global_footer: "Široká zápatí projektu"
   label_global_search: "Globalni vyhledavani"
+  label_global_search_all_results: "Všechny výsledky (%{count})"
   label_global_search_always_bookmarks: "Moje záložky (vždy)"
   label_global_search_always_global: "Vsechny projekty (vzdy)"
   label_global_search_clear_all: "Vymazat vše"

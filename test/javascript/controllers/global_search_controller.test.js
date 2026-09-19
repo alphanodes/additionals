@@ -352,7 +352,7 @@ describe('GlobalSearchController', () => {
       GlobalSearchController.prototype.renderResults.call(ctx, wrapKeyword(data), 'test');
 
       const items = ctx.resultsTarget.querySelectorAll('.global-search-item');
-      expect(items).toHaveLength(3); // 2 results + 1 core search link
+      expect(items).toHaveLength(3); // the link to the core search, then 2 results
 
       // First real result (after core search link)
       const firstResult = items[1];
@@ -484,6 +484,100 @@ describe('GlobalSearchController', () => {
       GlobalSearchController.prototype.renderResults.call(ctx, { keyword: [], counts: { issues: 120 } }, 'query');
 
       expect(ctx.typeCounts).toEqual({ issues: 120, wiki_pages: 27 });
+    });
+  });
+
+  describe('the line closing the list', () => {
+    function linkContext(props = {}) {
+      return buildContext({
+        element: { dataset: { coreSearchUrl: '/search', allResults: 'All %{count} results' } },
+        currentScope: 'global',
+        activeSearchType: null,
+        titlesOnlyActive: false,
+        projectIdValue: '',
+        typeCounts: { issues: 120, wiki_pages: 27 },
+        ...props,
+      });
+    }
+
+    it('names how many hits the core search holds', () => {
+      const html = GlobalSearchController.prototype.renderAllResultsLink.call(linkContext(), 'ansible', 10);
+
+      expect(html).toContain('All 147 results');
+    });
+
+    it('stays away while every hit is already listed', () => {
+      const ctx = linkContext({ typeCounts: { issues: 4, contacts: 2 } });
+
+      const html = GlobalSearchController.prototype.renderAllResultsLink.call(ctx, 'nitton', 6);
+
+      expect(html).toBe('');
+    });
+
+    it('names the hits of the active tab, not all of them', () => {
+      const ctx = linkContext({ activeSearchType: 'wiki_pages' });
+
+      const html = GlobalSearchController.prototype.renderAllResultsLink.call(ctx, 'ansible', 10);
+
+      expect(html).toContain('All 27 results');
+      expect(html).toContain('wiki_pages=1');
+    });
+
+    // A count taken in the project next to a link into the global search contradicts itself
+    it('leads into the project while the scope says so', () => {
+      const ctx = linkContext({ currentScope: 'project', projectIdValue: 'ecookbook' });
+
+      const html = GlobalSearchController.prototype.renderAllResultsLink.call(ctx, 'ansible', 10);
+
+      expect(html).toContain('project_id=ecookbook');
+    });
+  });
+
+  describe('Enter without having moved the selection', () => {
+    function enterContext(props = {}) {
+      document.body.innerHTML = `
+        <div id="results">
+          <a class="global-search-item" href="/issues/42">hit</a>
+        </div>`;
+      Object.defineProperty(window, 'location', { value: { href: '' }, writable: true, configurable: true });
+
+      return buildContext({
+        hasResultsTarget: true,
+        resultsTarget: document.getElementById('results'),
+        hasInputTarget: true,
+        inputTarget: { value: 'printer' },
+        selectedIndex: -1,
+        hasResults: true,
+        lastQuery: 'printer',
+        saveCurrentQuery: () => {},
+        ...props,
+      });
+    }
+
+    it('opens the first hit', () => {
+      const ctx = enterContext();
+
+      GlobalSearchController.prototype.openSelected.call(ctx);
+
+      expect(window.location.href).toBe('/issues/42');
+    });
+
+    // The hits of the previous query are still on screen right after typing on
+    it('waits instead of opening a hit of the query before', () => {
+      const ctx = enterContext({ inputTarget: { value: 'printers' }, jumpWhenReady: vi.fn() });
+
+      GlobalSearchController.prototype.openSelected.call(ctx);
+
+      expect(window.location.href).toBe('');
+      expect(ctx.jumpWhenReady).toHaveBeenCalled();
+    });
+
+    it('does not repeat an earlier search from the initial view', () => {
+      const ctx = enterContext({ hasResults: false, jumpWhenReady: vi.fn() });
+
+      GlobalSearchController.prototype.openSelected.call(ctx);
+
+      expect(window.location.href).toBe('');
     });
   });
 
@@ -1467,8 +1561,7 @@ describe('GlobalSearchController', () => {
 
     it('keeps the selection when the semantic hits arrive and reaches them with ArrowDown', () => {
       ctx.renderResults(keywordData, 'printer');
-      ctx.moveSelection(1);
-      ctx.moveSelection(1);
+      ctx.moveSelection(1); // the single keyword hit, the link at the top is not selectable
       const selected = ctx.selectableItems[ctx.selectedIndex];
 
       ctx.renderSemanticResults({ label: 'x', results: [{ title: 'Related', url: '/issues/2' }] }, 'printer', ctx.searchGeneration);
@@ -1811,6 +1904,10 @@ describe('GlobalSearchController', () => {
         escapeHtml: GlobalSearchController.prototype.escapeHtml,
         scopeSuffix: GlobalSearchController.prototype.scopeSuffix,
         coreSearchScope: GlobalSearchController.prototype.coreSearchScope,
+        coreSearchParams: GlobalSearchController.prototype.coreSearchParams,
+        hitsBehindTheLink: GlobalSearchController.prototype.hitsBehindTheLink,
+        typeCounts: null,
+        projectIdValue: '',
       };
     });
 

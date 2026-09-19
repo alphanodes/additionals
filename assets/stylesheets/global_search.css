@@ -249,6 +249,10 @@
   white-space: nowrap;
 }
 
+.global-search-all-results .global-search-item-title {
+  color: var(--a-color-muted);
+}
+
 .global-search-item-shortcut {
   float: right;
   margin-left: 8px;

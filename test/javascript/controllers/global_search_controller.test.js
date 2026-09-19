@@ -474,16 +474,56 @@ describe('GlobalSearchController', () => {
       expect(html).not.toContain('Documents');
     });
 
-    it('keeps the counts of the unfiltered search while a tab filters', () => {
-      const ctx = tabContext({
-        typeCounts: { issues: 120, wiki_pages: 27 },
-        activeSearchType: 'issues',
-        hasResultsTarget: false,
+    // The counts live through renderResults, so the context has to carry what it renders into.
+    function countingContext(props = {}) {
+      document.body.innerHTML = '<div id="results"></div>';
+      return tabContext({
+        hasResultsTarget: true,
+        resultsTarget: document.getElementById('results'),
+        hasHintTarget: false,
+        i18n: { noResults: 'No results', loading: 'Searching' },
+        currentScope: 'global',
+        projectIdValue: '',
+        titlesOnlyActive: false,
+        activeSearchType: null,
+        ...props,
       });
+    }
 
-      GlobalSearchController.prototype.renderResults.call(ctx, { keyword: [], counts: { issues: 120 } }, 'query');
+    function answer(ctx, counts, query = 'rechnung') {
+      GlobalSearchController.prototype.renderResults.call(ctx, { keyword: [], counts }, query);
+    }
+
+    it('keeps the counts of the unfiltered search while a tab filters', () => {
+      const ctx = countingContext();
+      answer(ctx, { issues: 120, wiki_pages: 27 });
+
+      ctx.activeSearchType = 'issues';
+      answer(ctx, { issues: 120 });
 
       expect(ctx.typeCounts).toEqual({ issues: 120, wiki_pages: 27 });
+    });
+
+    it('counts anew when the scope changes although the query does not', () => {
+      const ctx = countingContext({ currentScope: 'project', projectIdValue: '7' });
+      answer(ctx, { issues: 5, contacts: 2 });
+      ctx.activeSearchType = 'issues';
+      answer(ctx, { issues: 5 });
+
+      ctx.currentScope = 'global';
+      answer(ctx, { issues: 1181 });
+
+      expect(ctx.typeCounts).toEqual({ issues: 1181 });
+    });
+
+    it('counts anew when the search turns to titles only', () => {
+      const ctx = countingContext({ activeSearchType: 'issues' });
+      answer(ctx, { issues: 1181 });
+
+      ctx.titlesOnlyActive = true;
+      answer(ctx, { issues: 540 });
+
+      expect(ctx.typeCounts).toEqual({ issues: 540 });
     });
   });
 

@@ -83,7 +83,7 @@ class GlobalSearchController extends Controller {
     this.hasResults = false;
     this.activeSearchType = null;
     this.typeCounts = null;
-    this.typeCountsQuery = null;
+    this.typeCountsKey = null;
 
     if (this.hasInputTarget) {
       this.inputTarget.value = query || '';
@@ -483,13 +483,15 @@ class GlobalSearchController extends Controller {
     const keyword = data.keyword || [];
     const hasKeyword = keyword.length > 0;
 
-    // A filtered answer only counts the type it was filtered to. As long as the query stays
-    // the same, the counts of the unfiltered search are kept, so switching tabs does not make
-    // the others disappear. For a new query they are gone: the dialog then shows the active
-    // tab with its own number and "all" to get back, rather than numbers of the query before.
-    if (!this.activeSearchType || this.typeCountsQuery !== query) {
+    // A filtered answer only counts the type it was filtered to. As long as the search itself
+    // stays the same, the counts of the unfiltered search are kept, so switching tabs does not
+    // make the others disappear. Anything else that changes what is searched - a new query, a
+    // different scope, titles only - invalidates them: the dialog then shows the active tab
+    // with its own number and "all" to get back, rather than numbers of the search before.
+    const contextKey = this.searchContextKey(query);
+    if (!this.activeSearchType || this.typeCountsKey !== contextKey) {
       this.typeCounts = data.counts || {};
-      this.typeCountsQuery = query;
+      this.typeCountsKey = contextKey;
     }
     const semanticPending = !data.jump && this.semanticApplies(query, keyword.length);
 
@@ -979,6 +981,17 @@ class GlobalSearchController extends Controller {
       return null;
     }
     return this.projectIdValue || null;
+  }
+
+  // Everything that decides what the server counts, so a scope or titles-only switch does not
+  // leave the numbers of the search before next to the results of the one now.
+  searchContextKey(query) {
+    return JSON.stringify([
+      query,
+      this.currentScope || '',
+      this.effectiveProjectId() || '',
+      this.titlesOnlyActive,
+    ]);
   }
 
   effectiveSearchScope() {

@@ -162,6 +162,7 @@ class GlobalSearchController extends Controller {
   onInput() {
     const query = this.hasInputTarget ? this.inputTarget.value.trim() : '';
 
+    this.closeScopePanel();
     this.lastInputAt = Date.now();
     this.toggleClearButton(query.length > 0);
     clearTimeout(this.debounceTimer);
@@ -941,6 +942,15 @@ class GlobalSearchController extends Controller {
     this.scopePanelTarget.style.display = visible ? 'none' : '';
   }
 
+  // Opened just to look up the current scope, the panel covers the results and has no way out
+  // of its own: the options are radio buttons, so clicking the one already selected does
+  // nothing. Every search closes it, which is what one does next anyway.
+  closeScopePanel() {
+    if (this.hasScopePanelTarget) {
+      this.scopePanelTarget.style.display = 'none';
+    }
+  }
+
   onScopeChange(event) {
     this.currentScope = event.target.value;
 
@@ -950,7 +960,7 @@ class GlobalSearchController extends Controller {
       localStorage.removeItem('global_search_scope');
     }
 
-    this.scopePanelTarget.style.display = 'none';
+    this.closeScopePanel();
     this.updatePlaceholder();
     this.initialData = null;
     this.lastInputAt = Date.now();
@@ -1040,7 +1050,7 @@ class GlobalSearchController extends Controller {
   onTitlesOnlyChange(event) {
     this.titlesOnlyActive = event.target.checked;
     this.lastInputAt = Date.now();
-    this.scopePanelTarget.style.display = 'none';
+    this.closeScopePanel();
     this.updatePlaceholder();
 
     if (this.hasInputTarget && this.inputTarget.value.trim().length >= 2) {

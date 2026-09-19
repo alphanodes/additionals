@@ -487,6 +487,45 @@ describe('GlobalSearchController', () => {
     });
   });
 
+  describe('scope panel', () => {
+    function panelContext(props = {}) {
+      document.body.innerHTML = '<div id="panel"></div>';
+      const panel = document.getElementById('panel');
+      panel.style.display = '';
+
+      return buildContext({
+        hasScopePanelTarget: true,
+        scopePanelTarget: panel,
+        hasInputTarget: true,
+        inputTarget: { value: 'wiki' },
+        lastQuery: '',
+        debounceTimer: null,
+        performSearch: () => {},
+        loadInitialContent: () => {},
+        toggleClearButton: () => {},
+        rescheduleSemanticSearch: () => {},
+        ...props,
+      });
+    }
+
+    // It covers the results and has no way out of its own - the options are radio buttons
+    it('closes while typing', () => {
+      const ctx = panelContext();
+
+      GlobalSearchController.prototype.onInput.call(ctx);
+
+      expect(ctx.scopePanelTarget.style.display).toBe('none');
+    });
+
+    it('closes when the query gets too short to search', () => {
+      const ctx = panelContext({ inputTarget: { value: 'w' } });
+
+      GlobalSearchController.prototype.onInput.call(ctx);
+
+      expect(ctx.scopePanelTarget.style.display).toBe('none');
+    });
+  });
+
   describe('the line closing the list', () => {
     function linkContext(props = {}) {
       return buildContext({
@@ -783,6 +822,7 @@ describe('GlobalSearchController', () => {
         currentScope: null,
         initialData: null,
         persistentScopes: ['always_global', 'always_bookmarks'],
+        closeScopePanel: GlobalSearchController.prototype.closeScopePanel,
         updateScopeRadios: GlobalSearchController.prototype.updateScopeRadios,
         updatePlaceholder: vi.fn(),
         validateActiveSearchType: vi.fn(),
@@ -2075,6 +2115,7 @@ describe('GlobalSearchController', () => {
         titlesOnlyActive: false,
         hasScopePanelTarget: true,
         scopePanelTarget: { style: { display: '' } },
+        closeScopePanel: GlobalSearchController.prototype.closeScopePanel,
         hasInputTarget: true,
         inputTarget: { value: 'test', trim: () => 'test' },
         updatePlaceholder: vi.fn(),
@@ -2095,6 +2136,7 @@ describe('GlobalSearchController', () => {
         titlesOnlyActive: false,
         hasScopePanelTarget: true,
         scopePanelTarget: { style: { display: '' } },
+        closeScopePanel: GlobalSearchController.prototype.closeScopePanel,
         hasInputTarget: true,
         inputTarget: { value: 'a' },
         updatePlaceholder: vi.fn(),

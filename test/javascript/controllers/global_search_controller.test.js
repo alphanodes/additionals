@@ -525,6 +525,31 @@ describe('GlobalSearchController', () => {
 
       expect(ctx.typeCounts).toEqual({ issues: 540 });
     });
+
+    // Losing the bar here locks the dialog into the filter: every further keystroke searches
+    // that type alone, and nothing on screen leads back.
+    it('keeps the way back to all when the filtered search finds nothing', () => {
+      const ctx = countingContext();
+      answer(ctx, { issues: 120, wiki_pages: 27 });
+      ctx.activeSearchType = 'wiki_pages';
+
+      answer(ctx, {}, 'redmine xyzzy');
+      const html = GlobalSearchController.prototype.renderSearchTypeTabs.call(ctx);
+
+      expect(html).toContain('data-type-id=""');
+      expect(html).toContain('Wiki pages');
+    });
+
+    it('offers the types again after a direct hit answered without counting', () => {
+      const ctx = countingContext();
+      answer(ctx, { issues: 120, wiki_pages: 27 });
+
+      GlobalSearchController.prototype.renderResults.call(ctx, { keyword: [], jump: true }, '#1234');
+      const html = GlobalSearchController.prototype.renderSearchTypeTabs.call(ctx);
+
+      expect(html).toContain('Issues');
+      expect(html).toContain('Documents');
+    });
   });
 
   describe('scope panel', () => {
@@ -567,9 +592,24 @@ describe('GlobalSearchController', () => {
   });
 
   describe('the line closing the list', () => {
+    const linkTypes = [
+      { id: 'issues', label: 'Issues' },
+      { id: 'wiki_pages', label: 'Wiki pages' },
+      { id: 'contacts', label: 'Contacts' },
+      { id: 'projects', label: 'Projects' },
+    ];
+
     function linkContext(props = {}) {
+      const dataset = {
+        coreSearchUrl: '/search',
+        allResults: 'All %{count} results',
+        searchTypes: JSON.stringify(linkTypes),
+        ...(props.dataset || {}),
+      };
+      delete props.dataset;
+
       return buildContext({
-        element: { dataset: { coreSearchUrl: '/search', allResults: 'All %{count} results' } },
+        element: { dataset },
         currentScope: 'global',
         activeSearchType: null,
         titlesOnlyActive: false,
@@ -581,6 +621,23 @@ describe('GlobalSearchController', () => {
 
     it('names how many hits the core search holds', () => {
       const html = GlobalSearchController.prototype.renderAllResultsLink.call(linkContext(), 'ansible', 10);
+
+      expect(html).toContain('All 147 results');
+    });
+
+    // The core search leaves the projects themselves out inside a project, so counting them
+    // promises hits that the page behind the link does not show.
+    it('leaves out what the core search does not search in a project', () => {
+      const ctx = linkContext({
+        currentScope: 'project',
+        projectIdValue: 'foo',
+        dataset: {
+          searchTypesProject: JSON.stringify(linkTypes.filter(type => type.id !== 'projects')),
+        },
+        typeCounts: { issues: 120, wiki_pages: 27, projects: 1 },
+      });
+
+      const html = GlobalSearchController.prototype.renderAllResultsLink.call(ctx, 'ansible', 10);
 
       expect(html).toContain('All 147 results');
     });

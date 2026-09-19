@@ -490,7 +490,9 @@ class GlobalSearchController extends Controller {
     // with its own number and "all" to get back, rather than numbers of the search before.
     const contextKey = this.searchContextKey(query);
     if (!this.activeSearchType || this.typeCountsKey !== contextKey) {
-      this.typeCounts = data.counts || {};
+      // A direct hit answers without counting anything. Null keeps that apart from a search
+      // that counted zero of everything, so the tabs stay offered instead of vanishing.
+      this.typeCounts = data.counts || null;
       this.typeCountsKey = contextKey;
     }
     const semanticPending = !data.jump && this.semanticApplies(query, keyword.length);
@@ -694,7 +696,9 @@ class GlobalSearchController extends Controller {
       return this.typeCounts[this.activeSearchType] || 0;
     }
 
-    return Object.values(this.typeCounts).reduce((sum, value) => sum + value, 0);
+    // Only the types the core search behind the link searches as well: in a project it leaves
+    // out the projects themselves, and a number nobody can reach there is a wrong one.
+    return this.getSearchTypes().reduce((sum, type) => sum + (this.typeCounts[type.id] || 0), 0);
   }
 
   renderItem(item, query, { jumpTarget = false } = {}) {
@@ -1104,14 +1108,17 @@ class GlobalSearchController extends Controller {
   }
 
   // A tab for a type without hits leads to an empty list, so only types that answered are
-  // offered. Without counts - before the first search - every type stays available.
+  // offered. Without counts - before the first search, or after a direct hit that counts
+  // nothing - every type stays available. The active tab stays as well even when its own
+  // search found nothing: dropping it takes the whole bar with it, and with the bar the
+  // "all" tab that is the only way out of the filter.
   typesWithHits() {
     const types = this.getSearchTypes();
     if (!this.typeCounts) {
       return types;
     }
 
-    return types.filter(type => this.typeCounts[type.id]);
+    return types.filter(type => this.typeCounts[type.id] || type.id === this.activeSearchType);
   }
 
   validateActiveSearchType() {

@@ -11,7 +11,7 @@
     "@stylistic/eslint-plugin": "^5.10.0",
     "@stylistic/stylelint-config": "^5.0.0",
     "@stylistic/stylelint-plugin": "^5.3.0",
-    "eslint": "^10.10.0",
+    "eslint": "^10.11.0",
     "eslint-plugin-no-jquery": "^3.1.1",
     "globals": "^17.12.0",
     "jsdom": "^27.4.0",
@@ -19,7 +19,7 @@
     "stylelint": "^17.15.0",
     "stylelint-config-standard": "^40.0.0",
     "stylelint-declaration-strict-value": "^1.12.1",
-    "vite": "^8.2.2",
-    "vitest": "^5.0.0"
+    "vite": "^8.3.0",
+    "vitest": "^5.0.1"
   }
 }

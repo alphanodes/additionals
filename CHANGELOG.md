@@ -2,7 +2,7 @@
 
 ## 4.7.0
 
-- `link_to_issue_with_subject` renders a whole issue line as one link, subject included. Core's `link_to_issue` appends the subject after the link, so the issue's state classes reach its number alone and `a.issue.closed` strikes through "#123" while the subject stays untouched. Wherever one line stands for one issue, the subject now carries the styling with it
+- `Additionals::Helpers#link_to_issue_with_subject` renders a whole issue line as one link, subject included. Core's `link_to_issue` appends the subject after the link, so the issue's state classes reach its number alone and `a.issue.closed` strikes through "#123" while the subject stays untouched. Wherever one line stands for one issue, the subject now carries the styling with it
 
 ## 4.6.0
 

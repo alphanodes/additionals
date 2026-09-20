@@ -50,30 +50,6 @@ module AdditionalsIssuesHelper
       issue.project.assignable_users(issue.tracker).exists?(id: User.current.id)
   end
 
-  # One link for a whole issue line, subject included.
-  #
-  # Core's link_to_issue appends the subject *after* the link, so the issue's
-  # state classes reach its number alone: a.issue.closed then strikes through
-  # "#123" and leaves the subject untouched. Wherever one line stands for one
-  # issue - a card list, a dashboard block, a tab list - the subject belongs
-  # inside the link, so core's own styling covers the whole entry and no plugin
-  # needs a stylesheet of its own for it.
-  #
-  # @param issue [Issue] the issue to link to
-  # @param tracker [Boolean] put the tracker name in front of the number
-  # @param truncate [Integer, nil] shorten the subject to this many characters
-  def link_to_issue_with_subject(issue, tracker: false, truncate: nil)
-    subject = truncate ? issue.subject.truncate(truncate) : issue.subject
-    text = +''
-    text << "#{issue.tracker} " if tracker
-    text << "##{issue.id}: #{subject}"
-
-    link_to text,
-            issue_path(issue),
-            class: issue.css_classes,
-            title: (issue.subject if truncate)
-  end
-
   # Render the issue category as a link to the issue list of the issue's
   # project, filtered by this category. Falls back to the plain (escaped)
   # category name when the issue_link_category setting is disabled - which

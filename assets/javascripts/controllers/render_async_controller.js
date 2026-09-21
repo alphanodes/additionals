@@ -200,6 +200,29 @@ class RenderAsyncController extends Controller {
   }
 }
 
+// Issues are often changed out-of-band -- the REST API, bulk-edit, a
+// third-party quick-edit/context-menu plugin -- none of which know this
+// controller exists. Rather than have every such caller remember to dispatch
+// a `refresh` event, listen once for any AJAX call that looks like it wrote
+// to an issue and nudge every render-async block on the page ourselves.
+// Server-side, IssuePatch#expire_dashboard_query_list_caches (additionals)
+// clears the matching fragment cache in the same request cycle, so this
+// reload is guaranteed to see fresh data rather than the same stale HTML.
+const ISSUE_WRITE_URL = /\/issues(\/|\.json|$)/;
+const ISSUE_WRITE_METHODS = new Set(['POST', 'PUT', 'PATCH', 'DELETE']);
+
+if (typeof window !== 'undefined' && window.jQuery) {
+  window.jQuery(document).on('ajaxComplete', (_event, xhr, settings) => {
+    const method = (settings.type || 'GET').toUpperCase();
+    if (!ISSUE_WRITE_METHODS.has(method) || !ISSUE_WRITE_URL.test(settings.url)) return;
+    if (xhr.status < 200 || xhr.status >= 300) return;
+
+    document.querySelectorAll('[data-controller~="render-async"]').forEach(el => {
+      el.dispatchEvent(new CustomEvent('refresh'));
+    });
+  });
+}
+
 if (typeof window !== 'undefined' && window.Stimulus) {
   window.Stimulus.register('render-async', RenderAsyncController);
 }

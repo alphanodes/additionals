@@ -29,7 +29,7 @@ module Additionals
         DESCRIPTION
 
         macro :iframe do |_obj, args|
-          args, options = extract_macro_options args, :width, :height, :slide, :with_link
+          args, options = extract_macro_options args, :width, :height, :with_link
 
           width = options[:width].presence || '100%'
           height = options[:height].presence || 485

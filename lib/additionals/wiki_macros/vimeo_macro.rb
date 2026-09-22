@@ -49,7 +49,7 @@ module Additionals
                      "https://vimeo.com/#{v}"
                    end
 
-            link_to_external svg_icon_tag('youtube', label: options[:name] || 'Vimeo'),
+            link_to_external svg_icon_tag('vimeo', label: options[:name] || 'Vimeo'),
                              link,
                              title: options[:title].presence,
                              class: 'video vimeo'

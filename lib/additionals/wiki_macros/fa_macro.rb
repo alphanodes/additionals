@@ -18,6 +18,11 @@ module Additionals
       LEGACY_SIZES = { 'xs' => 12, 'sm' => 14, 'lg' => 22,
                        '2x' => 40, '3x' => 50, '4x' => 50, '5x' => 50 }.freeze
 
+      # Accepted values for the color option, which ends up in a style attribute:
+      # hex codes, plain color names and the open-color / additionals css variables.
+      # Anything else could inject further css declarations.
+      COLOR_PATTERN = /\A(?:\#(?:\h{3,4}|\h{6}|\h{8})|[a-z]+|var\(--(?:oc|a)-[a-z0-9-]+\))\z/i
+
       class << self
         # Translate a size option into a numeric tabler icon size (or nil)
         def icon_size(value)
@@ -25,6 +30,10 @@ module Additionals
 
           value = value.to_s
           LEGACY_SIZES[value] || (value.match?(/\A\d+\z/) ? value.to_i : nil)
+        end
+
+        def valid_color?(value)
+          COLOR_PATTERN.match? value.to_s.strip
         end
 
         # How often the icon is rendered. Anything but a positive number means once,
@@ -40,6 +49,8 @@ module Additionals
         # Shared renderer for the {{tabler}} / {{fa}} macros. `view` is the macro
         # context (a view), which provides additionals_icon and the tag helpers.
         def render(view, args, options)
+          raise view.l(:errors_no_or_invalid_arguments) if options[:color].present? && !valid_color?(options[:color])
+
           css_classes = ['additionals-macro-icon']
           css_classes += options[:class].split if options[:class].present?
 
@@ -54,7 +65,7 @@ module Additionals
 
           wrapper = {}
           wrapper[:title] = options[:title] if options[:title].present?
-          wrapper[:style] = "color: #{options[:color]}" if options[:color].present?
+          wrapper[:style] = "color: #{options[:color].strip}" if options[:color].present?
 
           if options[:link].present?
             view.link_to content, options[:link], **wrapper
@@ -78,7 +89,7 @@ module Additionals
       TITLE  = mouseover title
       TEXT   = text to show next to the icon
       SIZE   = icon size in px (e.g. 24); legacy tokens (lg, 2x, ...) are mapped
-      COLOR  = css color code
+      COLOR  = hex code (#f00, #ff0000), color name (red) or var(--oc-...)/var(--a-...)
       LINK   = link the icon (and text) to this URL
       REPEAT = show the icon that many times, e.g. for a rating (at most 20)
 

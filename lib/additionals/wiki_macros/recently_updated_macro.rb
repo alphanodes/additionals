@@ -32,8 +32,9 @@ module Additionals
         DESCRIPTION
 
         macro :recently_updated do |obj, args|
-          page = obj.page
-          return '' unless page&.project
+          page = obj.page if obj.is_a?(WikiContent) || obj.is_a?(WikiContentVersion)
+          raise 'The macro recently_updated can only be used on a wiki page' if page.nil?
+          return '' unless page.project
 
           args, options = extract_macro_options args, :title, :limit
           days = args.first&.strip&.to_i || 7

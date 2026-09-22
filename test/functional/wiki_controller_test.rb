@@ -158,6 +158,20 @@ class WikiControllerTest < Additionals::ControllerTest
     assert_select 'iframe[src=?]', '//player.vimeo.com/video/142849533'
   end
 
+  def test_show_with_vimeo_macro_in_link_mode
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{vimeo(142849533, mode=link)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select 'div.wiki a.vimeo[href=?]', 'https://vimeo.com/142849533' do
+      assert_select 'svg use[href*=?]', 'icon--vimeo'
+    end
+  end
+
   def test_show_with_slideshare_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     page = WikiPage.generate! content: '{{slideshare(57941706)}}',
@@ -192,6 +206,18 @@ class WikiControllerTest < Additionals::ControllerTest
 
     assert_response :success
     assert_select 'iframe[src=?]', 'https://www.redmine.org/'
+  end
+
+  def test_show_with_iframe_macro_with_link
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{iframe(https://www.redmine.org/, with_link=true)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select 'div.wiki a.external[href=?]', 'https://www.redmine.org/', text: 'Open in new window'
   end
 
   def test_show_with_twitter_macro
@@ -248,7 +274,7 @@ class WikiControllerTest < Additionals::ControllerTest
         params: { project_id: 1, id: page.title }
 
     assert_select 'a.reddit'
-    assert_select 'a[href=?]', 'https://www.reddit.com/username/redmine',
+    assert_select 'a[href=?]', 'https://www.reddit.com/user/redmine',
                   text: 'u/redmine'
 
     page.content.text = '{{reddit(r/redmine)}}'
@@ -287,6 +313,18 @@ class WikiControllerTest < Additionals::ControllerTest
     assert_response :success
     assert_select 'span.last-updated-at'
     assert_select 'a[href=?]', '/projects/ecookbook/activity'
+  end
+
+  def test_show_last_updated_at_macro_with_single_argument_reports_usage
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{last_updated_at(ecookbook)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select '#content div.flash.error', text: /The correct usage is \{\{last_updated_at\(/
   end
 
   def test_show_last_updated_at_macro_for_page_of_other_project
@@ -627,6 +665,48 @@ class WikiControllerTest < Additionals::ControllerTest
       assert_select 'svg.icon-svg.additionals-macro-icon use[href*=?]', 'icon--car'
       assert_select 'a', text: /Drive/
     end
+  end
+
+  def test_show_with_tabler_macro_and_color_name
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{tabler(car, color=red)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select 'div.wiki span[style=?]', 'color: red' do
+      assert_select 'svg.additionals-macro-icon use[href*=?]', 'icon--car'
+    end
+  end
+
+  def test_show_with_tabler_macro_and_color_variable
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{tabler(car, color=var(--oc-red-8))}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select 'div.wiki span[style=?]', 'color: var(--oc-red-8)'
+  end
+
+  # The color ends up in a style attribute, so it must not be able to add
+  # further css declarations.
+  def test_show_with_fa_macro_rejects_css_injection_in_color
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{fa(car, color=red; background:url(https://evil.example/x.png))}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select '#content div.flash.error', text: /No or invalid arguments/
+    assert_select 'div.wiki [style*=?]', 'background', count: 0
+    assert_select 'div.wiki svg.additionals-macro-icon', count: 0
   end
 
   def test_show_with_redmine_issue_macro

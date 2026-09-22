@@ -2,6 +2,10 @@
 
 ## 4.7.0
 
+- The `tabler` and `fa` macros accept only hex codes, color names and `var(--oc-...)`/`var(--a-...)` as `color`. Other values show a macro error instead of being written into the style attribute, where they could inject css
+- The `recently_updated` macro reports that it only works on wiki pages when used elsewhere, instead of failing with an internal error
+- The `vimeo` macro in link mode shows the Vimeo icon instead of the YouTube one
+- The `reddit` macro links user names to their profile at `https://www.reddit.com/user/<name>` instead of `/username/<name>`
 - Boolean macro options accept `false`: `download` of `attachment_link`, `with_sum` of `members`, `with_create_issue` of `projects` and `avatar`/`text` of `user` used to be switched on by any value
 - The `meteoblue` macro can switch off the values shown by default (pictogram, temperatures, precipitation, spot), supports `pressure` and shows the widget in German only for the German locale, no longer for every user without an own language
 - The `gmap` macro supports `q=` (making mode `place` usable) and passes `way_mode` as the travel mode of directions

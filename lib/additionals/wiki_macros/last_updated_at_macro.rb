@@ -32,7 +32,7 @@ module Additionals
           if args.empty?
             page = obj
           else
-            raise '{{last_updated_at(project_identifier, wiki_page)}}' if args.length < 2
+            raise 'The correct usage is {{last_updated_at(project_identifier, wiki_page)}}' if args.length < 2
 
             project_name = args[0].strip
             page_name = args[1].strip

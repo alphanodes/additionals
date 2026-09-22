@@ -30,7 +30,7 @@ module Additionals
                              title: l(:label_reddit_subject)
           when 'u/'
             link_to_external svg_icon_tag('reddit', label: name),
-                             "https://www.reddit.com/username/#{name[2..]}",
+                             "https://www.reddit.com/user/#{name[2..]}",
                              class: 'icon reddit',
                              title: l(:label_reddit_user_account)
           else

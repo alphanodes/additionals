@@ -44,6 +44,19 @@ class IssuesControllerTest < Additionals::ControllerTest
     assert_select '#issue_author_id'
   end
 
+  test 'recently_updated macro outside a wiki page reports that it only works there' do
+    issue = issues :issues_001
+    issue.update_column :description, '{{recently_updated}}'
+    session[:user_id] = 2
+
+    get :show,
+        params: { id: issue.id }
+
+    assert_response :success
+    assert_select 'div.description div.flash.error',
+                  text: /The macro recently_updated can only be used on a wiki page/
+  end
+
   test 'author field as unauthorized user in edit' do
     session[:user_id] = 3
     get :edit,

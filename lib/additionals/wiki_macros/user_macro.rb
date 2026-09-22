@@ -8,7 +8,7 @@ module Additionals
              "Syntax:\n\n" \
              "{{user(USER_NAME [, format=USER_FORMAT, avatar=BOOL, text=BOOL])}}\n\n" \
              "USER_NAME can be user id, user name (login name) or current_user\n" \
-             "USER_FORMAT (if omitted, the system setting is used)\n- " \
+             "USER_FORMAT (system or omitted uses the system setting)\n- system\n- " \
              "#{User::USER_FORMATS.keys.join "\n- "}\n\n" \
              "avatar=true shows the avatar, text=true shows the name without link.\n" \
              'Locked users are shown without link. If the user does not exist, ' \
@@ -40,21 +40,21 @@ module Additionals
 
           return macro_not_available :label_user unless user
 
-          name = if options[:format].blank?
+          name = if options[:format].blank? || options[:format] == 'system'
                    user.name
                  else
                    user.name options[:format].to_sym
                  end
 
           s = []
-          if options[:avatar].present? && options[:avatar]
+          if RedminePluginKit.true? options[:avatar]
             s << avatar(user, size: 14)
             s << ' '
           end
 
           link_css = "macro #{user.css_classes}"
 
-          s << if user.active? && (options[:text].blank? || !options[:text])
+          s << if user.active? && RedminePluginKit.false?(options[:text])
                  link_to h(name), user_url(user, only_path: controller_path != 'mailer'), class: link_css
                else
                  tag.span h(name), class: link_css

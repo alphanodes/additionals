@@ -49,7 +49,7 @@ module Additionals
           zoom = options[:zoom].presence || 17
           layer = options[:layer].presence || 'vt_standard'
 
-          if lat.empty? || lon.empty?
+          if lat.blank? || lon.blank?
             raise 'The correct usage is {{gps([lat=Latitude, lon=Longitude, service=SERVICE, name=NAME, zoom=ZOOM, layer: LAYER])}}'
           end
 

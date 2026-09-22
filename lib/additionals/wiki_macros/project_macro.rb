@@ -38,7 +38,7 @@ module Additionals
                  formats: [:html],
                  locals: { projects: @projects,
                            list_title: options[:title],
-                           with_create_issue: options[:with_create_issue] }
+                           with_create_issue: RedminePluginKit.true?(options[:with_create_issue]) }
         end
       end
     end

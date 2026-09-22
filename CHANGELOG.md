@@ -2,6 +2,10 @@
 
 ## 4.7.0
 
+- Boolean macro options accept `false`: `download` of `attachment_link`, `with_sum` of `members`, `with_create_issue` of `projects` and `avatar`/`text` of `user` used to be switched on by any value
+- The `meteoblue` macro can switch off the values shown by default (pictogram, temperatures, precipitation, spot), supports `pressure` and shows the widget in German only for the German locale, no longer for every user without an own language
+- The `gmap` macro supports `q=` (making mode `place` usable) and passes `way_mode` as the travel mode of directions
+- `{{user(..., format=system)}}` uses the user format of the system settings, `{{gps}}` without coordinates shows its usage instead of an error
 - The `members`, `group_users`, `attachment_link` and `last_updated_at` macros show a hint like "(Group: not available)" when the referenced record is missing or not visible, the `user` macro when the user is missing. Before, they showed the raw macro call, an error or nothing. Plugins show the same hint with the new helper `macro_not_available`
 - The `group_users` and `last_updated_at` macros respect the visibility of groups and projects and the permission to view wiki pages, so they no longer reveal hidden groups or pages
 - `Additionals::Helpers#link_to_issue_with_subject` renders a whole issue line as one link, subject included. Core's `link_to_issue` appends the subject after the link, so the issue's state classes reach its number alone and `a.issue.closed` strikes through "#123" while the subject stays untouched. Wherever one line stands for one issue, the subject now carries the styling with it

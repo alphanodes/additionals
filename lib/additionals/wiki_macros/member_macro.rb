@@ -72,7 +72,7 @@ module Additionals
                         .sorted
           end
 
-          list_title = if options[:with_sum]
+          list_title = if RedminePluginKit.true? options[:with_sum]
                          list_title = options[:title].presence || l(:label_member_plural)
                          list_title + " (#{users.count})"
                        else

@@ -968,4 +968,179 @@ class WikiControllerTest < Additionals::ControllerTest
     assert_select '#content span.macro-not-available', text: '(File: not available)'
     assert_select '#content div.flash.error', count: 0
   end
+
+  def test_show_with_attachment_link_macro_download_option
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: "{{attachment_link(15, download=true, text=Download)}}\n\n" \
+                                       '{{attachment_link(15, download=false, text=Page)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select '#content div.wiki a[href=?]', '/attachments/download/15/private.diff', text: 'Download'
+    assert_select '#content div.wiki a[href=?]', '/attachments/15', text: 'Page'
+  end
+
+  def test_show_with_members_macro_with_sum_option
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: "{{members(with_sum=true)}}\n\n{{members(with_sum=false)}}",
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select 'div.wiki div.users', count: 2
+    assert_select 'div.wiki div.users h3', count: 1
+    assert_select 'div.wiki div.users:first-of-type h3', text: /\AMembers \(\d+\)/
+  end
+
+  def test_show_with_projects_macro_with_create_issue_option
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: "{{projects(title=Alpha, with_create_issue=true)}}\n\n" \
+                                       '{{projects(title=Beta, with_create_issue=false)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    with_link, without_link = css_select 'div.wiki div.additionals-projects'
+
+    assert_match(/\AAlpha/, with_link.at_css('h3').text)
+    assert with_link.at_css('a.icon-add[href="/projects/ecookbook/issues/new"]')
+    assert_match(/\ABeta/, without_link.at_css('h3').text)
+    assert_empty without_link.css('a.icon-add')
+  end
+
+  def test_show_user_with_avatar_option
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: "{{user(jsmith, avatar=true)}}\n\n{{user(admin, avatar=false)}}",
+                              title: __method__.to_s
+
+    with_settings gravatar_enabled: '0' do
+      get :show,
+          params: { project_id: 1, id: page.title }
+    end
+
+    assert_response :success
+    assert_select '#content div.wiki a[href=?]', '/users/1', text: 'Redmine Admin'
+    assert_select '#content div.wiki .avatar', count: 1
+    assert_select '#content div.wiki span.avatar', text: 'JS'
+  end
+
+  def test_show_user_with_text_false
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{user(current_user, text=false)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select '#content a.user.active[href=?]', '/users/2', text: 'John Smith'
+    assert_select '#content span.user.active', count: 0
+  end
+
+  def test_show_user_with_format_system
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{user(jsmith, format=system)}}',
+                              title: __method__.to_s
+
+    with_settings user_format: 'lastname_firstname' do
+      get :show,
+          params: { project_id: 1, id: page.title }
+    end
+
+    assert_response :success
+    assert_select '#content div.wiki a[href=?]', '/users/2', text: 'Smith John'
+  end
+
+  def test_show_with_meteoblue_macro_flags
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    content = "{{meteoblue(münchen_deutschland_2867714)}}\n\n" \
+              '{{meteoblue(münchen_deutschland_2867714, pictoicon=false, maxtemperature=false, ' \
+              'mintemperature=false, precipitation=false, precipitationprobability=false, spot=false, ' \
+              'pressure=true, uv=true)}}'
+    page = WikiPage.generate! content:, title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    default_src, switched_src = css_select('div.wiki iframe').pluck 'src'
+
+    assert switched_src.start_with?('https://www.meteoblue.com/en/weather/widget/daily/m%C3%BCnchen_deutschland_2867714?')
+    %w[pictoicon maxtemperature mintemperature precipitation precipitationprobability spot].each do |flag|
+      assert_includes default_src, "&#{flag}=1"
+      assert_includes switched_src, "&#{flag}=0"
+    end
+    %w[windspeed windgust winddirection uv humidity pressure].each do |flag|
+      assert_includes default_src, "&#{flag}=0"
+    end
+    assert_includes switched_src, '&pressure=1'
+    assert_includes switched_src, '&uv=1'
+  end
+
+  def test_show_with_meteoblue_macro_follows_effective_locale
+    users(:users_002).update_column :language, ''
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{meteoblue(münchen_deutschland_2867714)}}',
+                              title: __method__.to_s
+
+    { 'en' => 'https://www.meteoblue.com/en/weather/widget/daily/',
+      'de' => 'https://www.meteoblue.com/de/wetter/widget/daily/' }.each do |language, url|
+      with_settings default_language: language do
+        get :show,
+            params: { project_id: 1, id: page.title }
+      end
+
+      assert_response :success
+      assert_select 'div.wiki iframe[src^=?]', url
+    end
+  end
+
+  def test_show_with_gmap_macro_in_place_mode
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{gmap(mode=place, q=Eiffel Tower)}}',
+                              title: __method__.to_s
+
+    with_plugin_settings 'additionals', google_maps_api_key: 'test-key' do
+      get :show,
+          params: { project_id: 1, id: page.title }
+    end
+
+    assert_response :success
+    assert_select 'div.wiki iframe[src=?]',
+                  'https://www.google.com/maps/embed/v1/place?key=test-key&q=Eiffel%20Tower'
+  end
+
+  def test_show_with_gmap_macro_with_way_mode
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{gmap(mode=directions, origin=Munich, destination=Arco, way_mode=bicycling)}}',
+                              title: __method__.to_s
+
+    with_plugin_settings 'additionals', google_maps_api_key: 'test-key' do
+      get :show,
+          params: { project_id: 1, id: page.title }
+    end
+
+    assert_response :success
+    assert_select 'div.wiki iframe[src=?]',
+                  'https://www.google.com/maps/embed/v1/directions?key=test-key&destination=Arco&origin=Munich&mode=bicycling'
+  end
+
+  def test_show_with_gps_macro_without_coordinates_reports_usage
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{gps(48.22346)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select '#content div.flash.error', text: /The correct usage is \{\{gps\(/
+  end
 end

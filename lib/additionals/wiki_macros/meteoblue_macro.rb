@@ -19,15 +19,19 @@ module Additionals
       :param int width: widget width (default 216)
       :param int height: widget height (default 368)
       :param bool color: color (default) or monochrome (false)
-      :param bool windspeed, windgust, winddirection, uv, humidity: show this value (default false)
+      :param bool pictoicon, maxtemperature, mintemperature, precipitation, precipitationprobability, spot:
+                  show this value (default true)
+      :param bool windspeed, windgust, winddirection, uv, humidity, pressure: show this value (default false)
 
-      Pictogram, max/min temperature, precipitation, precipitation probability and spot are always shown.
+      The widget uses German for the German locale, English otherwise.
 
     Examples:
 
       {{meteoblue(münchen_deutschland_2867714)}}       weather for Munich
 
       {{meteoblue(münchen_deutschland_2867714, days=6, color=false)}} weather for Munich of the next 6 days without color
+
+      {{meteoblue(münchen_deutschland_2867714, spot=false, pressure=true)}} weather for Munich without spot, with pressure
         DESCRIPTION
 
         macro :meteoblue do |_obj, args|
@@ -46,6 +50,7 @@ module Additionals
                                                 :humidity,
                                                 :precipitation,
                                                 :precipitationprobability,
+                                                :pressure,
                                                 :spot)
 
           raise 'The correct usage is {{meteoblue(<location>[, days=x, color=BOOL])}}' if args.empty?
@@ -60,7 +65,7 @@ module Additionals
           width = options[:width].presence || 216
           height = options[:height].presence || 368
 
-          src = if User.current.language.blank? ? ::I18n.locale : User.current.language == 'de'
+          src = if current_language.to_s == 'de'
                   +'https://www.meteoblue.com/de/wetter/widget/daily/'
                 else
                   +'https://www.meteoblue.com/en/weather/widget/daily/'
@@ -90,12 +95,7 @@ module Additionals
   end
 
   def self.meteoblue_flag(options, name, default: false)
-    flag = "&#{name}="
-    flag << if RedminePluginKit.true?(options[name]) || default
-              '1'
-            else
-              '0'
-            end
-    flag
+    enabled = options[name].blank? ? default : RedminePluginKit.true?(options[name])
+    "&#{name}=#{enabled ? '1' : '0'}"
   end
 end

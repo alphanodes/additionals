@@ -43,7 +43,7 @@ module Additionals
           return macro_not_available :label_attachment unless attachment&.visible?
 
           attachment_options = { class: 'attachment-link' }
-          attachment_options[:download] = true if options[:download]
+          attachment_options[:download] = true if RedminePluginKit.true? options[:download]
           attachment_options[:text] = options[:text] if options[:text].present?
 
           link_to_attachment(attachment, **attachment_options)

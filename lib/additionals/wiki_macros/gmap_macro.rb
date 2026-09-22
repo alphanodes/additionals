@@ -10,14 +10,16 @@ module Additionals
     Syntax:
 
     {{gmap(QUERY [, mode=MODE, width=620, height=350, OPTIONS])}}
+    {{gmap(q=QUERY [, mode=MODE, width=620, height=350, OPTIONS])}}
 
     Parameters:
 
-      :param string QUERY: location to search for (required for mode search)
-      :param string mode: search (default), directions, view or streetview
+      :param string QUERY, q: location to search for (required for modes search and place)
+      :param string mode: search (default), place, directions, view or streetview
       :param int width: widget width (default 620)
       :param int height: widget height (default 350)
       :param string origin, destination, waypoints, avoid, units: used by mode directions
+      :param string way_mode: travel mode for mode directions: driving, walking, bicycling, transit or flying
       :param string center, zoom, maptype: used by mode view
       :param string location, pano, heading, pitch, fov: used by mode streetview
       :param string language, region: language and region of the map
@@ -25,7 +27,9 @@ module Additionals
     Examples:
 
       {{gmap(Munich)}} Google map with Munich
+      {{gmap(mode=place, q=Eiffel Tower)}} Google map with the place Eiffel Tower
       {{gmap(mode=directions, origin=Munich+Rosenheimerstr, destination=Arco)}} Directions from Munich to Arco
+      {{gmap(mode=directions, origin=Munich, destination=Arco, way_mode=bicycling)}} Directions by bicycle
         DESCRIPTION
 
         macro :gmap do |_obj, args|
@@ -66,6 +70,7 @@ module Additionals
                                                 :origin,
                                                 :pano,
                                                 :pitch,
+                                                :q,
                                                 :region,
                                                 :units,
                                                 :way_mode,
@@ -92,7 +97,7 @@ module Additionals
           src_options.each do |key|
             src << Additionals.gmap_flags(options, key)
           end
-          src << "&#{mode}=" + ERB::Util.url_encode(options[:way_mode]) if options[:way_mode].present?
+          src << "&mode=#{ERB::Util.url_encode options[:way_mode]}" if options[:way_mode].present?
 
           tag.iframe width:, height:, src:, frameborder: 0, allowfullscreen: 'true'
         end

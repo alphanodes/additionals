@@ -304,7 +304,7 @@ class WikiControllerTest < Additionals::ControllerTest
   # a page in a project the reader cannot see looks the same as a missing one
   def test_show_last_updated_at_macro_for_page_of_invisible_project
     @request.session[:user_id] = 3
-    page = WikiPage.generate! content: '{{last_updated_at(private-child, Wiki)}}',
+    page = WikiPage.generate! content: '{{last_updated_at(onlinestore, Start_page)}}',
                               title: __method__.to_s
 
     get :show,
@@ -314,6 +314,20 @@ class WikiControllerTest < Additionals::ControllerTest
     assert_select '#content .wiki span.last-updated-at', count: 0
     assert_select '#content .wiki span.macro-not-available', text: '(Wiki page: not available)'
     assert_select '#content .wiki', text: /\{\{last_updated_at/, count: 0
+  end
+
+  def test_show_last_updated_at_macro_for_page_without_wiki_permission
+    EnabledModule.where(project_id: 2, name: 'wiki').delete_all
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{last_updated_at(onlinestore, Start_page)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select '#content .wiki span.last-updated-at', count: 0
+    assert_select '#content .wiki span.macro-not-available', text: '(Wiki page: not available)'
   end
 
   # The macro output is looked up inside the content on purpose: a plugin may render
@@ -481,6 +495,21 @@ class WikiControllerTest < Additionals::ControllerTest
 
     assert_response :success
     assert_select 'div.wiki div.user'
+  end
+
+  # a group the reader cannot see looks the same as a missing one
+  def test_show_with_group_users_macro_for_invisible_group
+    Role.update_all users_visibility: 'members_of_visible_projects'
+    @request.session[:user_id] = 3
+    page = WikiPage.generate! content: '{{group_users(B Team)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select 'div.wiki div.user', count: 0
+    assert_select 'div.wiki span.macro-not-available', text: '(Group: not available)'
   end
 
   def test_show_with_group_users_macro_for_unknown_group
@@ -910,7 +939,20 @@ class WikiControllerTest < Additionals::ControllerTest
         params: { project_id: 1, id: page.title }
 
     assert_response :success
-    assert_select '#content div.flash.error'
+    assert_select '#content div.flash.error', text: /attachment_link\(<attachment_id>\)/
+    assert_select '#content span.macro-not-available', count: 0
+  end
+
+  def test_show_with_attachment_link_macro_with_non_numeric_id_reports_usage
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{attachment_link(abc)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select '#content div.flash.error', text: /attachment_link\(<attachment_id>\)/
     assert_select '#content span.macro-not-available', count: 0
   end
 

@@ -6,11 +6,13 @@ module Additionals
       Redmine::WikiFormatting::Macros.register do
         desc "Display link to user profile\n\n" \
              "Syntax:\n\n" \
-             "{{user(USER_NAME [, format=USER_FORMAT, text=BOOL], avatar=BOOL])}}\n\n" \
-             "USER_NAME can be user id or user name (login name)\n" \
-             "USER_FORMATS\n" \
-             "- system (use system settings) (default)\n- " \
+             "{{user(USER_NAME [, format=USER_FORMAT, avatar=BOOL, text=BOOL])}}\n\n" \
+             "USER_NAME can be user id, user name (login name) or current_user\n" \
+             "USER_FORMAT (if omitted, the system setting is used)\n- " \
              "#{User::USER_FORMATS.keys.join "\n- "}\n\n" \
+             "avatar=true shows the avatar, text=true shows the name without link.\n" \
+             'Locked users are shown without link. If the user does not exist, ' \
+             "a \"not available\" hint is shown.\n\n" \
              "Examples:\n\n" \
              "{{user(1)}}\n" \
              "...Link to user with user id 1\n\n" \

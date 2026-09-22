@@ -7,21 +7,24 @@ module Additionals
     module CryptocompareMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-    Show CryptoCompare information.
+    Show a CryptoCompare widget.
+
+    At least one parameter is required, e.g. type=chart. Separate multiple
+    currencies with ";" (a "," starts a new parameter).
 
     Syntax:
 
-      {{cryptocompare(options)}}
+      {{cryptocompare(type=TYPE [, fsym=SYM, tsym=SYM, fsyms=SYMS, tsyms=SYMS, period=PERIOD])}}
 
     Parameters:
 
-      :param string fsym: default BTC
-      :param string tsym: default EUR
-      :param string fsyms: default BTC,ETH,LTC (if supported by widget type)
-      :param string tsyms: default EUR,USD (if supported by widget type)
-      :param string period: (if supported by widget type)
+      :param string fsym: default BTC (not used by tabbed, header_v2, header_v3)
+      :param string tsym: default EUR (only used by chart, historical, news)
+      :param string fsyms: default BTC;ETH;LTC (used by tabbed, header_v2, header_v3)
+      :param string tsyms: default EUR;USD, EUR for header_v3 (not used by chart, historical, news)
+      :param string period: if supported by widget type, otherwise the widget default is used
 
-                            * 1D = 1 day (default)
+                            * 1D = 1 day
                             * 1W = 1 week
                             * 2W = 2 weeks
                             * 1M = 1 month
@@ -44,9 +47,12 @@ module Additionals
                             * tabbed
                             * titles
 
-      Examples:
-       Show `header_v3` widget type for crypto currencies `BTC` and `ETH`:
-       {{cryptocompare(fsyms=BTC;ETH, type=header_v3)}}
+    Examples:
+
+      {{cryptocompare(type=chart)}}
+      ...Show chart widget for BTC in EUR
+      {{cryptocompare(fsyms=BTC;ETH, type=header_v3)}}
+      ...Show header_v3 widget for BTC and ETH
         DESCRIPTION
 
         macro :cryptocompare do |_obj, args|

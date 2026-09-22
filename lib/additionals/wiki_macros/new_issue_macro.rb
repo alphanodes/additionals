@@ -5,24 +5,25 @@ module Additionals
     module NewIssueMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-    Create a link for "New issue" for the current user.
+    Create a "New issue" link for the current user.
+
+    Nothing is shown if the project does not exist, is not visible or the current user
+    is not allowed to add issues.
 
     Syntax:
 
-      {{new_issue([PROJECT_NAME, name=Custom name])}}
+      {{new_issue([PROJECT_NAME, name=NAME])}}
 
       PROJECT_NAME can be project identifier, project name or project id.
 
-      If no PROJECT_NAME is specified, first project is used, which the current user
-      has permission to create an issue.
+      If no PROJECT_NAME is specified, the first project is used in which the current
+      user can add issues and be assigned.
 
     Parameters:
 
-      :param string project_name: can be project identifier, project name or project id
-                                  If no project_name is specified, first project is used, which the current user
-                                  has permission to create an issue.
-      :param string name: name to use for link. If not specified, "New issue" is used.
-                          You can use all language as suffix, eg. name_de, name_it, button_es
+      :param string project_name: project identifier, project name or project id
+      :param string name: link text (default "New issue"). Use a language suffix for
+                          a translated text, e.g. name_de, name_it, name_es
 
     Examples:
 

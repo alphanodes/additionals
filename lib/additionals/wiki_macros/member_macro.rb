@@ -5,39 +5,40 @@ module Additionals
     module MemberMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-    Display members.
+    Display members of a project, or all users if no project is given.
+
+    Only users visible to the current user are listed, with avatar, login, email
+    address (unless hidden) and, for a project, their roles. If the project does not
+    exist or is not visible, a "not available" hint is shown.
 
     Syntax:
 
-      {{members([PROJECT_NAME, title=My members list, role=ROLE, with_sum=BOOL)]}}
-
-      PROJECT_NAME can be project identifier, project name or project id
+      {{members([PROJECT_NAME, title=TITLE, role=ROLE, with_sum=BOOL])}}
 
     Parameters:
 
-      :param string project_name: can be project identifier, project name or project id
-      :param string title: title to use for member list
-      :param string role: only list members with this role. If you want to use multiple roles as filters, you have to use a | as separator.
-      :param bool with_sum: show amount of members.
+      :param string project_name: project identifier, project name or project id
+      :param string title: title of the member list
+      :param string role: only list members with this role name (requires a project).
+                          Separate multiple roles with |, e.g. role=Manager|Developer
+      :param bool with_sum: show the number of members in the title (default title "Members")
 
     Examples:
 
       {{members}}
-      ...List all members for all projects (with the current user permission)
+      ...List all active users visible to the current user
 
       {{members(with_sum=true)}}
-      ...List all members for all projects and show title with amount of members
+      ...List all active users and show the number of users in the title
 
       {{members(the-identifier)}}
-      ...A box showing all members for the project with the identifier of 'the-identifier'
+      ...List all members of the project with the identifier 'the-identifier'
 
       {{members(the-identifier, role=Manager)}}
-      ...A box showing all members for the project with the identifier of 'the-identifier', which
-      have the role "Manager"
+      ...List all members of the project 'the-identifier' with the role "Manager"
 
       {{members(the-identifier, title=My user list)}}
-      ...A box showing all members for the project with the identifier of 'the-identifier' and with
-      box title "My user list"
+      ...List all members of the project 'the-identifier' with title "My user list"
         DESCRIPTION
 
         macro :members do |_obj, args|

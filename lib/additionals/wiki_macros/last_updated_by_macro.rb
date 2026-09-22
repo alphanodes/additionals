@@ -5,7 +5,7 @@ module Additionals
     module LastUpdatedByMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-    Displays a user who updated the page.
+    Displays the user (with avatar) who last updated the current wiki page.
 
     Syntax:
 

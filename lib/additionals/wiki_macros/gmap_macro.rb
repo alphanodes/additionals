@@ -5,23 +5,27 @@ module Additionals
     module GmapMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-    Display a google map.
+    Display a Google map (requires a Google Maps Embed API key in the additionals settings).
 
     Syntax:
 
-    {{gmap([q=QUERY, mode=MODE, width=216, height=368])}}
+    {{gmap(QUERY [, mode=MODE, width=620, height=350, OPTIONS])}}
 
     Parameters:
 
-      :param string q: query, e.g. a city or location
-      :param string mode: place, directions, search, view oder streetview (default: search)
-      :param int width: widget width
-      :param int height: widget height
+      :param string QUERY: location to search for (required for mode search)
+      :param string mode: search (default), directions, view or streetview
+      :param int width: widget width (default 620)
+      :param int height: widget height (default 350)
+      :param string origin, destination, waypoints, avoid, units: used by mode directions
+      :param string center, zoom, maptype: used by mode view
+      :param string location, pano, heading, pitch, fov: used by mode streetview
+      :param string language, region: language and region of the map
 
     Examples:
 
-      {{gmap(Munich)}} Google maps with Munich
-      {{gmap(mode=directions, origin=Munich+Rosenheimerstr, destination=Arco)}} Direction from Munich to Arco
+      {{gmap(Munich)}} Google map with Munich
+      {{gmap(mode=directions, origin=Munich+Rosenheimerstr, destination=Arco)}} Directions from Munich to Arco
         DESCRIPTION
 
         macro :gmap do |_obj, args|

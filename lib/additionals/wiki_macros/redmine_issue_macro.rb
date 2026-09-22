@@ -13,9 +13,8 @@ module Additionals
 
    Parameters:
 
-    :param string id: issue id from redmine.org
-    :param string url: this can be an absolute path to an redmine.org issue or an issue id
-    :param string title: title of link to display
+    :param string id or url: redmine.org issue id (optionally with anchor) or absolute URL of a redmine.org issue
+    :param string title: title (mouseover) of the link (default "Redmine.org issue")
 
    Examples:
 
@@ -24,7 +23,7 @@ module Additionals
       Link to redmine.org issue with issue id and anchor:
       {{redmine_issue(1333#note-6)}}
       Link to redmine.org issue with absolute url:
-      {{redmine_issue(http://www.redmine.org/issues/12066)}}
+      {{redmine_issue(https://www.redmine.org/issues/12066)}}
         DESCRIPTION
 
         macro :redmine_issue do |_obj, args|

@@ -5,11 +5,14 @@ module Additionals
     module GroupUsersMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-    List users of a user group (according the respective permissions)
+    List users of a group, with avatar, login and email address (unless hidden).
+
+    Only groups and users visible to the current user are taken into account. If the
+    group does not exist or is not visible, a "not available" hint is shown.
 
     Syntax:
 
-      {{group_users(GROUP_NAME}}
+      {{group_users(GROUP_NAME)}}
 
     Examples:
 
@@ -20,7 +23,7 @@ module Additionals
           raise 'The correct usage is {{group_users(<group_name>)}}' if args.empty?
 
           group_name = args[0].strip
-          group = Group.named(group_name).order(:id).first
+          group = Group.visible.named(group_name).order(:id).first
           return macro_not_available :label_group unless group
 
           users = Principal.visible.where(id: group.users).order(User.name_formatter[:order])

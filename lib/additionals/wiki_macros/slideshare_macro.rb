@@ -5,7 +5,7 @@ module Additionals
     module SlideshareMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-    Slideshare macro to include Slideshare slide.
+    Slideshare macro to include a Slideshare presentation.
 
     Syntax:
 
@@ -13,10 +13,10 @@ module Additionals
 
     Parameters:
 
-      :param string key: Slideshare embedded key code, e.g. 57941706. This is the part is the last number in url: http://de.slideshare.net/AnimeshSingh/caps-whats-best-for-deploying-and-managing-openstack-chef-vs-ansible-vs-puppet-vs-salt-57941706
-      :param int width: width
-      :param int height: height
-      :param int slide: Slide page
+      :param string key: Slideshare embed key, e.g. 57941706. This is the last number in the URL, e.g. https://de.slideshare.net/AnimeshSingh/caps-whats-best-for-deploying-and-managing-openstack-chef-vs-ansible-vs-puppet-vs-salt-57941706
+      :param int width: width (default 595)
+      :param int height: height (default 485)
+      :param int slide: slide to start with
 
     Examples:
 

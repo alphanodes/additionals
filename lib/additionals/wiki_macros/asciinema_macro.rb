@@ -5,12 +5,12 @@ module Additionals
     module AsciinemaMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-     Graphical application developers often use screencasts to demonstrate functions of their programs.
+     Embed an asciinema.org terminal recording (asciicast).
 
      Syntax: {{asciinema(cast_id)}}
 
      Parameters:
-      cast_id (string) – asciinema.org asciicast id
+      cast_id (string) - asciinema.org asciicast id
 
      Scope:
       This macro works in all text fields with formatting support.

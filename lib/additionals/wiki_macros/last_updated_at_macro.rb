@@ -5,7 +5,10 @@ module Additionals
     module LastUpdatedAtMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-    Displays date of last update of a wiki page.
+    Displays the date of the last update of a wiki page.
+
+    Without arguments, the current wiki page is used. If the project or wiki page
+    does not exist or is not visible, a "not available" hint is shown.
 
     Syntax:
 
@@ -13,7 +16,14 @@ module Additionals
 
     Scope:
 
-    This macro only works in wiki page contexts.
+    This macro only works in project contexts; without arguments only in wiki pages.
+
+    Examples:
+
+    {{last_updated_at}}
+    ...last update of the current wiki page
+    {{last_updated_at(the-identifier, Wiki)}}
+    ...last update of page "Wiki" in project "the-identifier"
         DESCRIPTION
 
         macro :last_updated_at do |obj, args|

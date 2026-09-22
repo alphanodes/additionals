@@ -5,7 +5,7 @@ module Additionals
     module TwitterMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-    Creates link to twitter account page or topic.
+    Creates a link to a Twitter profile or hashtag.
 
     Syntax:
 
@@ -13,7 +13,7 @@ module Additionals
 
     Parameters:
 
-      :param string profile: Twitter profile name with @. E.g. alphanodes
+      :param string name: profile name with or without @ (e.g. alphanodes), or hashtag with # (e.g. #redmine)
 
     Examples:
 

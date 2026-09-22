@@ -5,7 +5,7 @@ module Additionals
     module VimeoMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-    Vimeo macro to include Vimeo video or show link to Vimeo video.
+    Vimeo macro to include a Vimeo video or show a link to a Vimeo video.
 
     Syntax:
 
@@ -13,14 +13,14 @@ module Additionals
 
     Parameters:
 
-      :param string video key: Vimeo video key, e.g. KMU0tzLwhbE.
-      :param int width: width
-      :param int height: height
+      :param string video key: Vimeo video id, e.g. 142849533
+      :param int width: width (default 640)
+      :param int height: height (default 360)
       :param bool autoplay: autoplay video
-      :param string mode: iframe or link
-      :param string group: link video to group (only used with param mode = link)
-      :param string name: name of link (only used with param mode = link)
-      :param string title: title/mouseover of link (only used with param mode = link)
+      :param string mode: iframe (default) or link
+      :param string group: link video to group (only used with mode=link)
+      :param string name: link text (only used with mode=link, default "Vimeo")
+      :param string title: title/mouseover of link (only used with mode=link)
 
     Examples:
 
@@ -30,7 +30,7 @@ module Additionals
       {{vimeo(142849533, mode=link)}} show link to Vimeo video
       {{vimeo(142849533, mode=link, name=Cool video)}} show link to Vimeo video and name it 'Cool video'
       {{vimeo(142849533, mode=link, group=12345, name=Cool video)}} show link to Vimeo video inside group 12345
-      {{vimeo(142849533, title=Cool video)}} use mouse over title 'Cool video' on video link
+      {{vimeo(142849533, mode=link, title=Cool video)}} use mouse over title 'Cool video' on video link
         DESCRIPTION
 
         macro :vimeo do |_obj, args|

@@ -7,16 +7,18 @@ module Additionals
         desc <<-DESCRIPTION
     Google docs macro to include Google documents.
 
+    Only links starting with https://docs.google.com/ are accepted.
+
     Syntax:
 
       {{google_docs(<link> [, width=100%, height=485, edit_link=LINK])}}
 
     Parameters:
 
-      :param string link: Embedded Google docs link
-      :param int width: width (if not specified, 100% is used)
-      :param int height: height (if not specified, 485 is used)
-      :param int edit_link: Link to edit page
+      :param string link: embedded (published) Google docs link
+      :param string width: width in px or % (default 100%)
+      :param int height: height in px (default 485)
+      :param string edit_link: Google docs link, shown as "Open in Google Docs" link below the document
 
     Examples:
 

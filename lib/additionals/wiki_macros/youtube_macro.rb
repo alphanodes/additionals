@@ -5,7 +5,7 @@ module Additionals
     module YoutubeMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-    Youtube macro to include Youtube video or show link to Youtube video.
+    Youtube macro to include a Youtube video or show a link to a Youtube video.
 
     Syntax:
 
@@ -13,13 +13,13 @@ module Additionals
 
     Parameters:
 
-      :param string video key: Youtube video key, e.g. KMU0tzLwhbE.
-      :param int width: width
-      :param int height: height
+      :param string video key: Youtube video key, e.g. KMU0tzLwhbE
+      :param int width: width (default 640)
+      :param int height: height (default 360)
       :param bool autoplay: autoplay video
-      :param string mode: iframe or link
-      :param string name: name of link (only used with param mode = link)
-      :param string title: title/mouseover of link (only used with param mode = link)
+      :param string mode: iframe (default) or link
+      :param string name: link text (only used with mode=link, default "Youtube")
+      :param string title: title/mouseover of link (only used with mode=link)
 
     Examples:
 
@@ -28,7 +28,7 @@ module Additionals
       {{youtube(KMU0tzLwhbE, autoplay=true)}} autoplay video
       {{youtube(KMU0tzLwhbE, mode=link)}} show link to Youtube video
       {{youtube(KMU0tzLwhbE, mode=link, name=Cool video)}} show link to Youtube video and name it 'Cool video'
-      {{youtube(KMU0tzLwhbE, title=Cool video)}} use mouse over title 'Cool video' on video link
+      {{youtube(KMU0tzLwhbE, mode=link, title=Cool video)}} use mouse over title 'Cool video' on video link
         DESCRIPTION
 
         macro :youtube do |_obj, args|

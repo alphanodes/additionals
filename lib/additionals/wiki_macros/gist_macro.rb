@@ -5,19 +5,19 @@ module Additionals
     module GistMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-    Embed GitHub gist
+    Embed a GitHub gist.
 
     Syntax:
 
-    {{gist(gist)}}
+      {{gist(gist)}}
 
     Parameters:
 
-      :param string gist: gist to display. With or without Github username.
+      :param string gist: gist id, with or without GitHub user name
 
     Examples:
-      {{gist(6737338)}} - show Github gist ``6737338`` (without user name)
-      {{gist(plentz/6737338)}} - Show Github gist ``plentz/6737338`` (with user name)
+      {{gist(6737338)}} - show GitHub gist ``6737338`` (without user name)
+      {{gist(plentz/6737338)}} - show GitHub gist ``plentz/6737338`` (with user name)
         DESCRIPTION
 
         macro :gist do |_obj, args|

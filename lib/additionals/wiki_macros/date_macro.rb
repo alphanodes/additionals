@@ -5,7 +5,7 @@ module Additionals
     module DateMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-    Display current date.
+    Display the current date (in the time zone of the current user) or a given date.
 
     Syntax:
 
@@ -14,13 +14,13 @@ module Additionals
       - current_date           current date (default)
       - current_date_with_time current date with time
       - current_year           current year
-      - current_month          current month
-      - current_day            current day
+      - current_month          current month (number)
+      - current_day            current day of month
       - current_hour           current hour
       - current_minute         current minute
-      - current_weekday        current weekday
-      - current_weeknumber     current week number (1 - 52) The week starts with Monday
-      - YYYY-MM-DD             e.g. 2018-12-24, which will formated with Redmine date format
+      - current_weekday        name of the current weekday
+      - current_weeknumber     current ISO week number (1 - 53), weeks start on Monday
+      - YYYY-MM-DD             e.g. 2018-12-24, shown in the Redmine date format
 
     Examples:
 
@@ -28,10 +28,10 @@ module Additionals
         ...show current date
         {{date(current_year)}}
         ...show current year
-        {{date(current_month)}}
-        ...show current month
         {{date(current_weeknumber)}}
         ...show current week number
+        {{date(2018-12-24)}}
+        ...show 2018-12-24 in the Redmine date format
         DESCRIPTION
 
         macro :date do |_obj, args|

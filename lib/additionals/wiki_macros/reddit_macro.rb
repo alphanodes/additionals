@@ -5,12 +5,15 @@ module Additionals
     module RedditMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-    Creates link to reddit.
-      {{reddit(<subject or user name>)}}
+    Creates a link to a reddit subreddit or user profile.
+
+    Syntax:
+
+      {{reddit(<subreddit or user name>)}}
 
     Examples:
 
-     {{reddit(redmine)}} or {{reddit(r/redmine)}} - Show link to reddit subject `r/redmine`
+     {{reddit(redmine)}} or {{reddit(r/redmine)}} - Show link to subreddit `r/redmine`
      {{reddit(u/redmine)}} - Show link to reddit user profile `u/redmine`
         DESCRIPTION
 

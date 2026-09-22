@@ -5,22 +5,27 @@ module Additionals
     module ProjectMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-    List projects.
+    List all active projects the current user is a member of, as a tree with homepage links.
 
     Syntax:
 
-      {{projects([title=My project list, with_create_issue=BOOL])}}
+      {{projects([title=TITLE, with_create_issue=BOOL])}}
+
+    Parameters:
+
+      :param string title: title of the project list
+      :param bool with_create_issue: show a "New issue" link for projects in which the user can add issues
 
     Examples:
 
       {{projects}}
-      ...List all project, which I am member of
+      ...List all projects I am a member of
 
       {{projects(title=My project list)}}
-      ...List all project with title "My project list", which I am member of
+      ...List all projects I am a member of with title "My project list"
 
       {{projects(with_create_issue=true)}}
-      ...List all project with link to create new issue, which I am member of
+      ...List all projects I am a member of with a link to create a new issue
         DESCRIPTION
 
         macro :projects do |_obj, args|

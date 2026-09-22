@@ -5,31 +5,23 @@ module Additionals
     module MeteoblueMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-    Display current weather from meteoblue service.
+    Display a weather forecast from meteoblue.
 
     Syntax:
 
-    {{meteoblue(<location> [, days=INT, width=216, height=368, color=BOOL])}}
+    {{meteoblue(<location> [, days=4, width=216, height=368, color=BOOL, OPTIONS])}}
 
-    Params:
+    Parameters:
 
-      :param string location: Weather location,
-                    e.g. münchen_deutschland_2867714. This is the part after
-                    https://www.meteoblue.com/en/weather/forecast/week/
-      :param int width: widget width
-      :param int height: widget height
-      :param bool color: color or monochrome
-      :param bool pictoicon: pictoicon
-      :param bool maxtemperature: maxtemperature
-      :param bool mintemperature: mintemperature
-      :param bool windspeed: windspeed
-      :param bool windgust: windgust
-      :param bool winddirection: winddirection
-      :param bool uv: uv
-      :param bool humidity: humidity
-      :param bool precipitation: precipitation
-      :param bool precipitationprobability: precipitationprobability
-      :param bool spot: spot
+      :param string location: weather location, e.g. münchen_deutschland_2867714. This is the part after
+                              https://www.meteoblue.com/en/weather/forecast/week/
+      :param int days: number of days (default 4)
+      :param int width: widget width (default 216)
+      :param int height: widget height (default 368)
+      :param bool color: color (default) or monochrome (false)
+      :param bool windspeed, windgust, winddirection, uv, humidity: show this value (default false)
+
+      Pictogram, max/min temperature, precipitation, precipitation probability and spot are always shown.
 
     Examples:
 

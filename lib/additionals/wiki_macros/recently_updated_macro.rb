@@ -5,11 +5,18 @@ module Additionals
     module RecentlyUpdatedMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-    Displays a list of wiki pages that were updated recently.
+    Displays a list of pages of the current wiki that were updated recently.
+    Nothing is shown if no page was updated in this period.
 
     Syntax:
 
       {{recently_updated([days, title=STRING, limit=NUMBER])}}
+
+    Parameters:
+
+      :param int days: number of days (default 7)
+      :param string title: list title (default "Updated pages"); false, none or off hides it
+      :param int limit: maximum number of pages (default no limit)
 
     Scope:
 
@@ -17,8 +24,8 @@ module Additionals
 
     Examples:
 
-      {{recently_updated}} - List last updated pages with default i18n title
-      {{recently_updated(15)}} - List last updated pages of the last 15 days with default i18n title
+      {{recently_updated}} - List pages updated in the last 7 days with default title
+      {{recently_updated(15)}} - List pages updated in the last 15 days with default title
       {{recently_updated(7, title=Recent changes)}} - List with custom title
       {{recently_updated(7, title=false)}} - List without title (also works: title=none, title=off)
       {{recently_updated(7, limit=10)}} - List at most 10 pages

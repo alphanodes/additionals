@@ -5,17 +5,17 @@ module Additionals
     module RedmineWikiMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-  Link to redmine.org wiki page.
+  Link to a redmine.org wiki page.
 
   Syntax:
 
-    {{redmine_wiki(url [, name=NAME, title=TITLE])}}
+    {{redmine_wiki(page or url [, name=NAME, title=TITLE])}}
 
   Parameters:
 
-    :param string url: this can be an absolute path to an redmine.org issue or an issue id
-    :param string name: name to display for link, if not specified, wiki page name is used
-    :param string title: title of link to display
+    :param string page or url: redmine.org wiki page name (optionally with anchor) or absolute URL of a redmine.org wiki page
+    :param string name: link text (default is the wiki page name)
+    :param string title: title (mouseover) of the link
 
   Examples:
 

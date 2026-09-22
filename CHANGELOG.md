@@ -2,8 +2,8 @@
 
 ## 4.7.0
 
-- The `user`, `members`, `group_users`, `attachment_link` and `last_updated_at` macros show a hint like "(User: not available)" for a missing or hidden record, instead of the raw macro call, an error or nothing. Plugins use it via the new helper `macro_not_available`
-- The `last_updated_at` macro no longer reveals pages of projects the reader cannot see
+- The `members`, `group_users`, `attachment_link` and `last_updated_at` macros show a hint like "(Group: not available)" when the referenced record is missing or not visible, the `user` macro when the user is missing. Before, they showed the raw macro call, an error or nothing. Plugins show the same hint with the new helper `macro_not_available`
+- The `group_users` and `last_updated_at` macros respect the visibility of groups and projects and the permission to view wiki pages, so they no longer reveal hidden groups or pages
 - `Additionals::Helpers#link_to_issue_with_subject` renders a whole issue line as one link, subject included. Core's `link_to_issue` appends the subject after the link, so the issue's state classes reach its number alone and `a.issue.closed` strikes through "#123" while the subject stays untouched. Wherever one line stands for one issue, the subject now carries the styling with it
 
 ## 4.6.0

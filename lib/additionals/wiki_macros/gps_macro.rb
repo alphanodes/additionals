@@ -5,31 +5,34 @@ module Additionals
     module GpsMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-    Display a GPS coordinates and link it to Google or Openstreetmap.
+    Display GPS coordinates with links to OpenStreetMap, Google Maps and a Google Maps route.
+
+    With GPS_MACRO_WITH_BAVARIA_ONLY enabled, links to BayernAtlas (bayern) and its
+    hiking map (hike) are added.
 
     Syntax:
 
-    {{gps([lat=LAT, lon=LON, zoom=ZOOM, service=SERVICE, layer=LAYER, name=NAME])}}
+    {{gps(LAT, LON [, zoom=ZOOM, service=SERVICE, layer=LAYER, name=NAME])}}
 
     or
 
-    {{gps(LAT, LON, zoom=ZOOM, service=SERVICE, layer=LAYER, name=NAME])}}
+    {{gps(lat=LAT, lon=LON [, zoom=ZOOM, service=SERVICE, layer=LAYER, name=NAME])}}
 
     Parameters:
 
       :param string lat: latitude of location
       :param string lon: longitude of location
-      :param int zoom: zoom level (if service supports it)
-      :param string service: show only this service. osm, gmap, route, hike or bayern
-      :param string layer: layer to use (if service supports it)
-      :param string name: if specified, name is used as link name
+      :param int zoom: zoom level for osm (default 17) and bayern (default 12)
+      :param string service: show only this service: osm, gmap, route (hike, bayern if enabled)
+      :param string layer: BayernAtlas background layer for bayern (default vt_standard)
+      :param string name: with service: link text, without service: replaces the "GPS" prefix
 
     Examples:
 
-      {{gps(49.56083,11.56018)}}
-      {{gps(49.56083,11.56018,zoom=12)}}
-      {{gps(49.56083,11.56018,layer=gmap)}}
-      {{gps(lat=49.56083,lon=11.56018)}}
+      {{gps(49.56083, 11.56018)}}
+      {{gps(49.56083, 11.56018, zoom=12)}}
+      {{gps(49.56083, 11.56018, service=osm)}}
+      {{gps(lat=49.56083, lon=11.56018, service=gmap, name=Office)}}
         DESCRIPTION
 
         macro :gps do |_obj, args|

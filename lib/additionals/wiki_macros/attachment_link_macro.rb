@@ -5,35 +5,39 @@ module Additionals
     module AttachmentLinkMacro
       Redmine::WikiFormatting::Macros.register do
         desc <<-DESCRIPTION
-    Link to any attachment.
+    Link to an attachment.
+
+    The attachment is only linked if the current user can view it (i.e. its issue,
+    wiki page, document etc.). Otherwise a "not available" hint is shown.
 
     Syntax:
 
-      {{attachment_link(ID, [id=INT, text=Custom link name, download=BOOL])}}
+      {{attachment_link(ID [, text=TEXT, download=BOOL])}}
+      {{attachment_link(id=ID [, text=TEXT, download=BOOL])}}
 
     Parameters:
 
-      :param int id: id of attachment (required)
-      :param string text: alternativ link text (default is filename of attachment)
-      :param bool download: true or false (if true, attachment is linked to direct download; default false)
+      :param int id: numeric id of the attachment (required)
+      :param string text: link text (default is the filename of the attachment)
+      :param bool download: link to the direct download instead of the attachment page (default false)
 
     Examples:
 
       {{attachment_link(1)}} or {{attachment_link(id=1)}}
-      ...Link to attachment of issue with attachment id 1
+      ...Link to the attachment with id 1
 
-      {{attachment_link(1, name=Important file of other issue)}}
-      ...Link to attachment of issue with attachment id 1 and use link name "Important file of other issue"
+      {{attachment_link(1, text=Important file)}}
+      ...Link to the attachment with id 1 with link text "Important file"
 
-      {{attachment_link(1, download=TRUE)}}
-      ...Link to attachment of issue with attachment id 1. Link to download file"
+      {{attachment_link(1, download=true)}}
+      ...Link to the direct download of the attachment with id 1
         DESCRIPTION
 
         macro :attachment_link do |_obj, args|
           args, options = extract_macro_options args, :text, :download, :id
 
           attachment_id = options[:id].presence || args&.first
-          raise 'The correct usage is {{attachment_link(<attachment_id>)}}' if attachment_id.blank?
+          raise 'The correct usage is {{attachment_link(<attachment_id>)}}' unless attachment_id.to_s.match?(/\A\d+\z/)
 
           attachment = Attachment.find_by id: attachment_id
           return macro_not_available :label_attachment unless attachment&.visible?

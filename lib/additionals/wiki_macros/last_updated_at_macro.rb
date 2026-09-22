@@ -26,17 +26,17 @@ module Additionals
 
             project_name = args[0].strip
             page_name = args[1].strip
-            project = Project.find_by name: project_name
-            project ||= Project.find_by identifier: project_name
-            return unless project
+            project = Project.visible.find_by name: project_name
+            project ||= Project.visible.find_by identifier: project_name
+            return macro_not_available :label_wiki_page unless project && User.current.allowed_to?(:view_wiki_pages, project)
 
             wiki = Wiki.find_by project_id: project.id
-            return unless wiki
+            return macro_not_available :label_wiki_page unless wiki
 
             page = wiki.find_page page_name
           end
 
-          return unless page
+          return macro_not_available :label_wiki_page unless page
 
           # TODO: find solution for time_tag without to use html_safe
           tag.span(l(:label_updated_time, time_tag(page.updated_on)).html_safe,

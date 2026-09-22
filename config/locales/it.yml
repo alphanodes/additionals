@@ -154,6 +154,7 @@ it:
   label_last_year: l'anno scorso
   label_legacy_smiley_support: Legacy smiley support
   label_live_search_hints: "Ricerche sul campo disponibili: %{value}"
+  label_macro_not_available: "(%{name}: non disponibile)"
   label_macro_plural: macros
   label_max_entries: "Voci massime"
   label_max_live_search_results: "Numero massimo di risultati di LiveSearch"

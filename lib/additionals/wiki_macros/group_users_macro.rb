@@ -21,7 +21,7 @@ module Additionals
 
           group_name = args[0].strip
           group = Group.named(group_name).order(:id).first
-          raise unless group
+          return macro_not_available :label_group unless group
 
           users = Principal.visible.where(id: group.users).order(User.name_formatter[:order])
           render partial: 'wiki/user_macros',

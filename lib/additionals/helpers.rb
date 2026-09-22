@@ -27,6 +27,19 @@ module Additionals
               title: (issue.subject if shortened)
     end
 
+    # Placeholder for a macro whose record the current user cannot see.
+    #
+    # Used alike for a record that does not exist and one that is not visible,
+    # so the page gives away neither its name nor whether the id exists.
+    # Returning nil instead makes core print the raw macro call, which looks
+    # like a broken page to somebody who merely lacks access.
+    #
+    # @param label [Symbol, String] what the macro refers to, e.g. :label_user
+    def macro_not_available(label)
+      name = label.is_a?(Symbol) ? l(label) : label
+      tag.span l(:label_macro_not_available, name:), class: 'macro-not-available'
+    end
+
     def link_to_query_filter(url, title:)
       link_to svg_icon_tag('filter', label: :button_filter),
               url,

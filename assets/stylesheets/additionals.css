@@ -359,6 +359,12 @@ div.macro-desc {
   border-bottom: 1px solid #eee;
 }
 
+/* A macro whose record the reader cannot see: a hint, not an error */
+span.macro-not-available {
+  color: var(--a-color-text-muted);
+  font-style: italic;
+}
+
 /* Top-menu submenu flyouts. On pointer devices they open on hover; touch
    devices toggle the `visible` class via JS (see top_menu_dropdown.js). */
 @media (hover: hover) {

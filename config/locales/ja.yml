@@ -154,6 +154,7 @@ ja:
   label_last_year: "ぜんねん"
   label_legacy_smiley_support: Legacy smiley support
   label_live_search_hints: "利用可能なフィールド検索: %{value}"
+  label_macro_not_available: "(%{name}: 利用できません)"
   label_macro_plural: macros
   label_max_entries: "最大エントリ数"
   label_max_live_search_results: "LiveSearchの最大検索結果数"

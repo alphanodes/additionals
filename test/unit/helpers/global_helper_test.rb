@@ -11,6 +11,18 @@ class GlobalHelperTest < Additionals::HelperTest
   include Redmine::I18n
   include ERB::Util
 
+  def test_macro_not_available_with_label_symbol
+    html = macro_not_available :label_user
+
+    assert_select_in html, 'span.macro-not-available', text: "(#{l :label_user}: not available)"
+  end
+
+  def test_macro_not_available_with_label_string
+    html = macro_not_available 'Password'
+
+    assert_select_in html, 'span.macro-not-available', text: '(Password: not available)'
+  end
+
   # Variable cheat-sheets of any plugin are revealed by this link (#15778)
   def test_link_to_show_variables_renders_link
     html = link_to_show_variables

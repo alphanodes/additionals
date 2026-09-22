@@ -154,6 +154,7 @@ cs:
   label_last_year: "minulý rok"
   label_legacy_smiley_support: Legacy smiley support
   label_live_search_hints: "Dostupná vyhledávání v polích: %{value}"
+  label_macro_not_available: "(%{name}: nedostupné)"
   label_macro_plural: "Makra"
   label_max_entries: "Maximální počet záznamů"
   label_max_live_search_results: "Maximální počet výsledků vyhledávání LiveSearch"

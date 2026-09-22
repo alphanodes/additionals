@@ -36,7 +36,7 @@ module Additionals
                      User.find_by login: user_id
                    end
 
-          return unless user
+          return macro_not_available :label_user unless user
 
           name = if options[:format].blank?
                    user.name

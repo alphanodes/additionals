@@ -52,10 +52,9 @@ module Additionals
             project = Project.visible.find_by id: project_id
             project ||= Project.visible.find_by identifier: project_id
             project ||= Project.visible.find_by name: project_id
-            return unless project
+            return macro_not_available :label_project unless project
 
             principals = project.visible_users
-            return unless principals
 
             users = []
             principals.each do |principal|

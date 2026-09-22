@@ -33,9 +33,10 @@ module Additionals
           args, options = extract_macro_options args, :text, :download, :id
 
           attachment_id = options[:id].presence || args&.first
+          raise 'The correct usage is {{attachment_link(<attachment_id>)}}' if attachment_id.blank?
 
-          attachment = Attachment.find attachment_id
-          return '' unless attachment&.visible?
+          attachment = Attachment.find_by id: attachment_id
+          return macro_not_available :label_attachment unless attachment&.visible?
 
           attachment_options = { class: 'attachment-link' }
           attachment_options[:download] = true if options[:download]

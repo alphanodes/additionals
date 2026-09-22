@@ -289,6 +289,33 @@ class WikiControllerTest < Additionals::ControllerTest
     assert_select 'a[href=?]', '/projects/ecookbook/activity'
   end
 
+  def test_show_last_updated_at_macro_for_page_of_other_project
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{last_updated_at(ecookbook, CookBook_documentation)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select '#content .wiki span.last-updated-at'
+  end
+
+  # a page in a project the reader cannot see looks the same as a missing one
+  def test_show_last_updated_at_macro_for_page_of_invisible_project
+    @request.session[:user_id] = 3
+    page = WikiPage.generate! content: '{{last_updated_at(private-child, Wiki)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select '#content .wiki span.last-updated-at', count: 0
+    assert_select '#content .wiki span.macro-not-available', text: '(Wiki page: not available)'
+    assert_select '#content .wiki', text: /\{\{last_updated_at/, count: 0
+  end
+
   # The macro output is looked up inside the content on purpose: a plugin may render
   # the same markup elsewhere on the page, so an unanchored selector would match
   # more than once.
@@ -419,6 +446,19 @@ class WikiControllerTest < Additionals::ControllerTest
     assert_select 'div.wiki div.user'
   end
 
+  def test_show_with_members_macro_for_unknown_project
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{members(unknown-project)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select 'div.wiki span.macro-not-available', text: '(Project: not available)'
+    assert_select 'div.wiki', text: /\{\{members/, count: 0
+  end
+
   def test_show_with_new_issue_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     page = WikiPage.generate! content: '{{new_issue}}',
@@ -441,6 +481,19 @@ class WikiControllerTest < Additionals::ControllerTest
 
     assert_response :success
     assert_select 'div.wiki div.user'
+  end
+
+  def test_show_with_group_users_macro_for_unknown_group
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{group_users(Unknown Team)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select 'div.wiki span.macro-not-available', text: '(Group: not available)'
+    assert_select 'div.wiki div.flash.error', count: 0
   end
 
   def test_show_with_projects_macro
@@ -810,6 +863,19 @@ class WikiControllerTest < Additionals::ControllerTest
                   text: 'John Smith'
   end
 
+  def test_show_user_with_unknown_user
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{user(unknown_login)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select '#content span.macro-not-available', text: '(User: not available)'
+    assert_select '#content .wiki', text: /\{\{user/, count: 0
+  end
+
   def test_show_with_attachment_link_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     page = WikiPage.generate! content: '{{attachment_link(15)}}',
@@ -832,5 +898,32 @@ class WikiControllerTest < Additionals::ControllerTest
 
     assert_response :success
     assert_select '#content a[href=?]', '/attachments/15', text: 'private.diff', count: 0
+    assert_select '#content span.macro-not-available', text: '(File: not available)'
+  end
+
+  def test_show_with_attachment_link_macro_without_id_reports_usage
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{attachment_link}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select '#content div.flash.error'
+    assert_select '#content span.macro-not-available', count: 0
+  end
+
+  def test_show_with_attachment_link_macro_for_unknown_attachment
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{attachment_link(999999)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select '#content span.macro-not-available', text: '(File: not available)'
+    assert_select '#content div.flash.error', count: 0
   end
 end

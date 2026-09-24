@@ -214,8 +214,12 @@ const ISSUE_WRITE_METHODS = new Set(['POST', 'PUT', 'PATCH', 'DELETE']);
 if (typeof window !== 'undefined' && window.jQuery) {
   window.jQuery(document).on('ajaxComplete', (_event, xhr, settings) => {
     const method = (settings.type || 'GET').toUpperCase();
-    if (!ISSUE_WRITE_METHODS.has(method) || !ISSUE_WRITE_URL.test(settings.url)) return;
-    if (xhr.status < 200 || xhr.status >= 300) return;
+    if (!ISSUE_WRITE_METHODS.has(method) || !ISSUE_WRITE_URL.test(settings.url)) {
+      return;
+    }
+    if (xhr.status < 200 || xhr.status >= 300) {
+      return;
+    }
 
     document.querySelectorAll('[data-controller~="render-async"]').forEach(el => {
       el.dispatchEvent(new CustomEvent('refresh'));

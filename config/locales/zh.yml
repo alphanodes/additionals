@@ -63,7 +63,7 @@ zh:
   global_sidebar_info: "请在此处输入项目范围内侧边栏信息。自定义侧边栏信息将在项目概述页、问题列表页及 Wiki 页显示。"
   global_wiki_sidebar_info: '请在此处输入项目范围内的 Wiki 侧边栏信息。该侧边栏信息将只显示在 Wiki 页内。在此空间内输入诸如 "Last changed pages" 的宏命令。若项目内使用指定的侧边栏（Wiki 页），则该信息将优先显示在侧边栏内。'
   google_maps_embed_api_html: 如果你想使用 Gmap 宏以现实 Google 地图，请在此处使用你的 Google 地图 API Key。之后你就可以使用宏和多种参数。关于如何使用参数的更多信息请查看 <a href="https://developers.google.com/maps/documentation/embed/guide" class="external">https://developers.google.com/maps/documentation/embed/guide</a>. Gmap 宏只有在此处提供 Key 的情况下才可用。
-  hidden_macros_in_toolbar_info: 登录用户可以使用的所有可用宏都可通过 Wiki 页面工具栏 的 宏 按钮列出。请在此处选择不希望列出的宏。
+  hidden_macros_in_toolbar_info: 登录用户可以使用的所有可用宏都可通过 Wiki 页面工具栏 的 宏 按钮列出。请在此处选择不希望列出的宏。隐藏的宏仍可在文本中使用。它们只是从此列表中移除，并未被禁用。
   info_hidden_roles_html: 隐藏功能只能与"用户可见度"选项一起使用。如果某用户不在对当前用户可见的角色，则此用户及其角色在项目概述页和查询列表中将对当前用户隐藏。
   info_issue_hide_max_attachments: "如果超过此处输入的文件数量，则会隐藏显示问题的所有文件附件。"
   info_issue_link_category: "将问题页面和问题列表列中的类别链接到相应项目按此类别筛选的问题列表。"

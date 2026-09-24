@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Dashboard "query list" blocks now refresh when an issue is changed out-of-band (REST API, bulk edit, a third-party quick-edit/context-menu plugin), instead of only after the async block's cache TTL expires. `Issue` expires the matching `dashboard_async_blocks` fragment cache on save/destroy, and `render_async_controller.js` nudges every render-async block on the page as soon as it observes an AJAX call that looks like an issue write
+
 ## 4.6.0
 
 - Bulk edit reports why records could not be saved, not just their ids: the flash now lists the validation errors grouped by message, the way core lists them above its bulk edit form. The message itself appeared as "translation missing" before, because `set_flash_from_bulk_save` asked for a key that never existed

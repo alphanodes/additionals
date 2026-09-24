@@ -26,6 +26,13 @@ module Additionals
         # Fill that gap here using the same core preference.
         after_create_commit :add_assigned_watcher
 
+        # Dashboard "query list" blocks are wrapped in a TTL-based fragment
+        # cache (see DashboardsHelper#dashboard_async_cache), so a change made
+        # out-of-band (REST API, bulk edit, a third-party quick-edit plugin)
+        # would otherwise stay invisible on the project overview page until
+        # the cache entry expires, no matter how the frontend is told to reload.
+        after_commit :expire_dashboard_query_list_caches, on: %i[create update destroy]
+
         safe_attributes 'author_id',
                         if: proc { |issue, user|
                           issue.new_record? && user.allowed_to?(:change_new_issue_author, issue.project) ||
@@ -85,6 +92,25 @@ module Additionals
       end
 
       private
+
+      # Rails.cache (FileStore by default) supports pattern-based deletion,
+      # so we can drop every dashboard async-block fragment scoped to this
+      # project without knowing the exact block/settings combination that
+      # produced it. The cache key format is fixed by
+      # AdditionalsRenderAsyncHelper#render_async_cache_key /
+      # DashboardsHelper#dashboard_async_cache: "views/render_async_<path>",
+      # where <path> is the project-scoped dashboard_async_blocks route
+      # (see config/routes.rb), so matching on that path prefix is stable
+      # regardless of query-string param order.
+      #
+      # This only reaches project dashboards (where the project identifier is
+      # part of the URL path). A global/welcome dashboard's cross-project
+      # query blocks are not addressed here.
+      def expire_dashboard_query_list_caches
+        return if project.blank?
+
+        Rails.cache.delete_matched %r{\Aviews/render_async_/projects/#{Regexp.escape project.to_param.to_s}/dashboard_async_blocks}
+      end
 
       def auto_assigned_to
         return if !Additionals.setting?(:issue_auto_assign) ||

@@ -109,7 +109,7 @@ module Additionals
       def expire_dashboard_query_list_caches
         return if project.blank?
 
-        Rails.cache.delete_matched(/\Aviews\/render_async_\/projects\/#{Regexp.escape(project.to_param.to_s)}\/dashboard_async_blocks/)
+        Rails.cache.delete_matched(%r{\Aviews/render_async_/projects/#{Regexp.escape project.to_param.to_s}/dashboard_async_blocks})
       end
 
       def auto_assigned_to

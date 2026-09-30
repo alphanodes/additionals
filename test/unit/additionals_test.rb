@@ -92,6 +92,13 @@ class AdditionalsTest < Additionals::TestCase
     assert(orders.all? { |order| order.sort_by { |name| Additionals.name_sort_key name } == expected })
   end
 
+  def test_name_sort_key_treats_decomposed_accents_like_composed_ones
+    decomposed = "E\u0301mile"
+    names = ['Emilia', decomposed]
+
+    assert_equal([decomposed, 'Emilia'], names.sort_by { |name| Additionals.name_sort_key name })
+  end
+
   def test_name_sort_key_accepts_nil_and_symbols
     assert_equal([nil, :a, 'b', :c], [:c, nil, 'b', :a].sort_by { |name| Additionals.name_sort_key name })
   end

@@ -117,15 +117,18 @@ module Additionals
     # Latin letters are compared without case and accents ("Öl" next to "ober"). Characters
     # without a latin approximation are kept as they are, because transliterate turns them
     # into "?" - Cyrillic or Japanese names would all be equal and end up in random order.
+    # Names are composed first (NFC), because a decomposed accent would stay a separate
+    # character without a latin approximation and "é" would sort apart from itself.
     # The name itself breaks ties, so the order never depends on the input order.
     def name_sort_key(value)
-      name = value.to_s
+      raw = value.to_s
+      name = raw.unicode_normalize :nfc
       lower = name.downcase
       latin = lower.gsub(/[^\x00-\x7F]/) do |char|
         approximation = ActiveSupport::Inflector.transliterate char
         approximation == '?' ? char : approximation
       end
-      [latin, lower, name]
+      [latin, lower, name, raw]
     end
 
     # Create a GIN trigram expression index using f_unaccent() for fast ILIKE searches.

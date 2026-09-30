@@ -322,10 +322,13 @@ module Additionals
       css_select('table.projects thead th').map(&:text)
     end
 
-    def count_sql_queries
+    # matching: counts only the queries matching this pattern, e.g. /additional_taggings/
+    def count_sql_queries(matching: nil)
       queries = []
       subscriber = ActiveSupport::Notifications.subscribe 'sql.active_record' do |_name, _started, _finished, _unique_id, data|
-        queries << data[:sql] unless data[:name] == 'SCHEMA'
+        next if data[:name] == 'SCHEMA' || (matching && !data[:sql].match?(matching))
+
+        queries << data[:sql]
       end
 
       yield

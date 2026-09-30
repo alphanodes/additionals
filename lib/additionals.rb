@@ -112,6 +112,22 @@ module Additionals
       [sql, *([value] * cols.size)]
     end
 
+    # Sort key for names in any script, independent of the database collation:
+    #   names.sort_by { |name| Additionals.name_sort_key name }
+    # Latin letters are compared without case and accents ("Öl" next to "ober"). Characters
+    # without a latin approximation are kept as they are, because transliterate turns them
+    # into "?" - Cyrillic or Japanese names would all be equal and end up in random order.
+    # The name itself breaks ties, so the order never depends on the input order.
+    def name_sort_key(value)
+      name = value.to_s
+      lower = name.downcase
+      latin = lower.gsub(/[^\x00-\x7F]/) do |char|
+        approximation = ActiveSupport::Inflector.transliterate char
+        approximation == '?' ? char : approximation
+      end
+      [latin, lower, name]
+    end
+
     # Create a GIN trigram expression index using f_unaccent() for fast ILIKE searches.
     # Requires f_unaccent() IMMUTABLE wrapper function.
     # No-op if f_unaccent() is not available or index already exists.

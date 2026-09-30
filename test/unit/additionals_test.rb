@@ -62,4 +62,37 @@ class AdditionalsTest < Additionals::TestCase
       assert_equal 25, Additionals.single_page_limit
     end
   end
+
+  def test_name_sort_key_sorts_latin_names_without_case_and_accents
+    names = %w[Zebra Öl äpfel Birne Émile ober]
+
+    assert_equal(%w[äpfel Birne Émile ober Öl Zebra], names.sort_by { |name| Additionals.name_sort_key name })
+  end
+
+  # transliterate turns characters without a latin approximation into "?",
+  # which made such names equal and left their order to chance
+  def test_name_sort_key_sorts_names_without_latin_approximation_alphabetically
+    names = %w[Яблоко Арбуз Привет]
+
+    assert_equal(%w[Арбуз Привет Яблоко], names.sort_by { |name| Additionals.name_sort_key name })
+  end
+
+  def test_name_sort_key_puts_latin_names_before_other_scripts
+    names = %w[東京 Привет Zebra äpfel]
+
+    assert_equal(%w[äpfel Zebra Привет 東京], names.sort_by { |name| Additionals.name_sort_key name })
+  end
+
+  def test_name_sort_key_gives_the_same_order_for_any_input_order
+    names = %w[東京 大阪 Привет Арбуз Zebra äpfel Äpfel]
+    expected = names.sort_by { |name| Additionals.name_sort_key name }
+
+    orders = Array.new(20) { |seed| names.shuffle random: Random.new(seed) }
+
+    assert(orders.all? { |order| order.sort_by { |name| Additionals.name_sort_key name } == expected })
+  end
+
+  def test_name_sort_key_accepts_nil_and_symbols
+    assert_equal([nil, :a, 'b', :c], [:c, nil, 'b', :a].sort_by { |name| Additionals.name_sort_key name })
+  end
 end

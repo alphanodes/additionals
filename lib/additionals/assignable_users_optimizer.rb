@@ -15,16 +15,17 @@ module Additionals
     # CRITICAL SECURITY: Only admin users and users with show_hidden_roles_in_memberbox permission
     # should see users with hidden roles.
 
-    # Check if current user can see users with hidden roles
+    # Check if a user can see users with hidden roles
     # @param project [Project, nil] The project context (nil for global check)
-    # @return [Boolean] true if current user can see hidden roles
-    def can_see_hidden_roles?(project = nil)
-      return true if User.current.admin?
+    # @param user [User] The user to check, pass it explicitly where User.current may differ
+    # @return [Boolean] true if the user can see hidden roles
+    def can_see_hidden_roles?(project = nil, user: User.current)
+      return true if user.admin?
 
       if project
-        User.current.allowed_to? :show_hidden_roles_in_memberbox, project
+        user.allowed_to? :show_hidden_roles_in_memberbox, project
       else
-        User.current.allowed_to? :show_hidden_roles_in_memberbox, nil, global: true
+        user.allowed_to? :show_hidden_roles_in_memberbox, nil, global: true
       end
     end
 
@@ -47,9 +48,10 @@ module Additionals
     #
     # @param scope [ActiveRecord::Relation] The scope to filter (e.g. watcher_users)
     # @param project [Project] The project context
+    # @param user [User] The viewing user, pass it explicitly where User.current may differ
     # @return [ActiveRecord::Relation] Filtered scope
-    def exclude_hidden_role_members(scope, project)
-      return scope if can_see_hidden_roles? project
+    def exclude_hidden_role_members(scope, project, user: User.current)
+      return scope if can_see_hidden_roles?(project, user:)
 
       # Members who have at least one non-hidden role
       visible_member_ids = Member.joins(member_roles: :role)

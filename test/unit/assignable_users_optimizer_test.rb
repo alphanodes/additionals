@@ -1281,6 +1281,32 @@ class AssignableUsersOptimizerTest < Additionals::TestCase
     assert_equal 2, result.size, 'All watchers should be visible when no hidden roles exist'
   end
 
+  def test_exclude_hidden_role_members_uses_given_user_instead_of_current
+    project = projects :projects_001
+    issue = issues :issues_001
+    hidden_user, regular_user = create_watcher_hidden_role_test_data project, issue
+
+    User.current = users :users_001
+    result = Additionals::AssignableUsersOptimizer.exclude_hidden_role_members(issue.watcher_users, project,
+                                                                               user: regular_user).to_a
+
+    assert_not_includes result, hidden_user
+  end
+
+  def test_can_see_hidden_roles_uses_given_admin_instead_of_current
+    project = projects :projects_001
+    User.current = users :users_003
+
+    assert Additionals::AssignableUsersOptimizer.can_see_hidden_roles?(project, user: users(:users_001))
+  end
+
+  def test_can_see_hidden_roles_denies_given_regular_user_while_current_is_admin
+    project = projects :projects_001
+    User.current = users :users_001
+
+    assert_not Additionals::AssignableUsersOptimizer.can_see_hidden_roles?(project, user: users(:users_003))
+  end
+
   private
 
   def create_watcher_hidden_role_test_data(project, issue)

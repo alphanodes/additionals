@@ -29,6 +29,19 @@ module Additionals
       end
     end
 
+    # Ids of the given projects in which the user sees hidden roles, for lists
+    # over many projects: one query instead of can_see_hidden_roles? per project
+    # @param project_ids [Array<Integer>] The projects to check
+    # @param user [User] The user to check
+    # @return [Array<Integer>] The ids out of project_ids with hidden roles visible
+    def project_ids_with_hidden_roles(project_ids, user: User.current)
+      return project_ids if user.admin? || project_ids.empty?
+
+      Project.where(id: project_ids)
+             .where(Project.allowed_to_condition(user, :show_hidden_roles_in_memberbox))
+             .ids
+    end
+
     # Filter role IDs to only include visible ones for current user
     # @param role_ids [Array<Integer>] Role IDs to filter
     # @param project [Project, nil] The project context (nil for global check)

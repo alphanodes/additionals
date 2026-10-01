@@ -1293,6 +1293,32 @@ class AssignableUsersOptimizerTest < Additionals::TestCase
     assert_not_includes result, hidden_user
   end
 
+  def test_project_ids_with_hidden_roles_returns_all_for_admin
+    ids = Project.ids
+
+    assert_equal ids, Additionals::AssignableUsersOptimizer.project_ids_with_hidden_roles(ids, user: users(:users_001))
+  end
+
+  def test_project_ids_with_hidden_roles_includes_project_with_permission
+    result = Additionals::AssignableUsersOptimizer.project_ids_with_hidden_roles [1], user: users(:users_002)
+
+    assert_equal [1], result
+  end
+
+  def test_project_ids_with_hidden_roles_excludes_project_without_permission
+    result = Additionals::AssignableUsersOptimizer.project_ids_with_hidden_roles [1], user: users(:users_003)
+
+    assert_empty result
+  end
+
+  def test_project_ids_with_hidden_roles_matches_the_check_per_project
+    user = users :users_002
+    expected = Project.all.filter_map { |p| p.id if Additionals::AssignableUsersOptimizer.can_see_hidden_roles? p, user: }
+
+    assert_equal expected.sort,
+                 Additionals::AssignableUsersOptimizer.project_ids_with_hidden_roles(Project.ids, user:).sort
+  end
+
   def test_can_see_hidden_roles_uses_given_admin_instead_of_current
     project = projects :projects_001
     User.current = users :users_003

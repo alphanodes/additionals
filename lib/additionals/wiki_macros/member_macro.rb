@@ -56,13 +56,23 @@ module Additionals
             return macro_not_available :label_project unless project
 
             principals = project.visible_users
+            with_hidden_roles = Additionals::AssignableUsersOptimizer.can_see_hidden_roles? project
 
             users = []
             principals.each do |principal|
               next unless principal.type == 'User'
 
-              user_roles[principal.id] = principal.roles_for_project project
-              users << principal if options[:role].blank? || Additionals.check_role_matches?(user_roles[principal.id], options[:role])
+              roles = principal.roles_for_project project
+              unless with_hidden_roles
+                visible_roles = roles.reject(&:hide)
+                # like the members box: a member by hidden roles only is not listed
+                next if visible_roles.empty? && roles.any?
+
+                roles = visible_roles
+              end
+
+              user_roles[principal.id] = roles
+              users << principal if options[:role].blank? || Additionals.check_role_matches?(roles, options[:role])
             end
           else
             users = User.visible

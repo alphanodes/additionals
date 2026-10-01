@@ -9,20 +9,6 @@ const SEMANTIC_DEBOUNCE_MS = 800;
 const ID_REFERENCE = /^#\d+$/;
 const HTML_ENTITY = '&(?:#\\d+|\\w+);';
 
-// Escapes quotes as well: values also land in attributes (href, data-search-term), where
-// Redmine's sanitizeHTML leaves a quote free to end the attribute.
-function escapeHtml(str) {
-  if (str === null || str === undefined) {
-    return '';
-  }
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
-
 class GlobalSearchController extends Controller {
   static values = {
     url: String,
@@ -1219,6 +1205,8 @@ class GlobalSearchController extends Controller {
     this.searchGeneration += 1;
   }
 
+  // escapeHtml of additionals.js, which escapes quotes as well: values also land
+  // in attributes (href, data-search-term)
   escapeHtml(str) {
     return escapeHtml(str);
   }

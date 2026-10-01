@@ -12,10 +12,31 @@ function formatNameWithIcon(opt) {
     return opt.name;
   }
 
-  const text = opt.name_with_icon !== undefined ? opt.name_with_icon : opt.text;
   const span = document.createElement('span');
-  span.innerHTML = text;
+  if (opt.name_with_icon === undefined) {
+    // text is a plain value (user, tag or contact name), parsing it as html
+    // would run event handlers even on this detached span
+    span.textContent = opt.text;
+  } else {
+    // name_with_icon is html built and escaped on the server side
+    span.innerHTML = opt.name_with_icon;
+  }
   return span;
+}
+
+/* Escape a value for html built in javascript. Quotes are escaped as well,
+   because Redmine's sanitizeHTML leaves them as they are and a value inside
+   an attribute could end it. */
+/* exported escapeHtml */
+function escapeHtml(value) {
+  if (value === null || value === undefined) { return ''; }
+
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
 
 /* Tabler sprite helpers for javascript generated markup.

@@ -35,7 +35,8 @@ Redmine::Plugin.register :additionals do
     permission :issue_timelog_never_required, {}
   end
 
-  requires_redmine version_or_higher: '7.0'
+  # the Redmine version of all plugins built on additionals is checked here
+  requires_redmine version_or_higher: '7.0.2'
 
   menu :admin_menu,
        :additionals,

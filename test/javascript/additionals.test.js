@@ -67,6 +67,32 @@ describe('additionals.js', () => {
       expect(result.tagName).toBe('SPAN');
       expect(result.innerHTML).toBe('Plain text');
     });
+
+    it('does not parse the text fallback as html', () => {
+      const result = formatNameWithIcon({ text: 'Xss <img src=x onerror="alert(1)">' });
+
+      expect(result.querySelector('img')).toBeNull();
+    });
+
+    it('shows markup in the text fallback as text', () => {
+      const result = formatNameWithIcon({ text: 'Xss <img src=x>' });
+
+      expect(result.textContent).toBe('Xss <img src=x>');
+    });
+  });
+
+  describe('escapeHtml', () => {
+    it('escapes markup and both quote types', () => {
+      expect(escapeHtml('<a href="x" title=\'y\'>&</a>')).toBe('&lt;a href=&quot;x&quot; title=&#39;y&#39;&gt;&amp;&lt;/a&gt;');
+    });
+
+    it('returns an empty string for null', () => {
+      expect(escapeHtml(null)).toBe('');
+    });
+
+    it('converts numbers to strings', () => {
+      expect(escapeHtml(42)).toBe('42');
+    });
   });
 
   describe('spriteIcon', () => {

@@ -23,6 +23,20 @@ globalThis.AdditionalsHelpers = {
   fetchJSON: vi.fn(),
 };
 
+// escapeHtml of additionals.js (global there), with its real behaviour. Loading
+// the file itself would register its document listeners a second time in
+// additionals.test.js, which loads it as well.
+globalThis.escapeHtml = (value) => {
+  if (value === null || value === undefined) { return ''; }
+
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+};
+
 // Same implementation as Redmine Core's sanitizeHTML (application-legacy.js), which
 // escapes &, < and > only - a stricter stand-in would hide missing quote escaping.
 globalThis.sanitizeHTML = (str) => {

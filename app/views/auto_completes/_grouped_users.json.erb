@@ -9,7 +9,7 @@
 <% if @involved_principals.present? %>
 <%= ',' if sep_required %>
 {
-  "text": "<%= l(:label_involved_principals) %>",
+  "text": <%= raw l(:label_involved_principals).to_json %>,
   "children": <%= raw @involved_principals.map { |user| {
                         'id' => user[:id],
                         'text' => user[:name],
@@ -22,7 +22,7 @@
 <% next if users.blank? %>
 <%= ',' if sep_required %>
 {
-  "text": "<%= label %>",
+  "text": <%= raw label.to_json %>,
   "children": <%= raw users.map { |user| {
                         'id' => user[:id],
                         'text' => user[:name],

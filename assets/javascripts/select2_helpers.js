@@ -112,16 +112,35 @@ function findInRowBy(field, selector) {
   return $(`#tr_${  sanitizeToId(field)  } ${  selector}`);
 }
 
+// avatar is html of the server, text and email are plain values (contact names
+// come from incoming mails) and must never be parsed as html
+function select2AvatarSpan(opt) {
+  const span = document.createElement('span');
+  span.innerHTML = opt.avatar || '';
+  return span;
+}
+
 /* exported formatStateWithAvatar */
 function formatStateWithAvatar(opt) {
   if (opt.loading) {return opt.text;}
-  return $(`<span>${  opt.avatar  }&nbsp;${  opt.text  }</span>`);
+  const span = select2AvatarSpan(opt);
+  span.append(`\u00a0${opt.text}`);
+  return span;
 }
 
 /* exported formatStateWithMultiaddress */
 function formatStateWithMultiaddress(opt) {
   if (opt.loading) {return opt.text;}
-  return $(`<span class="select2-contact">${  opt.avatar  }<p class="select2-contact__name">${  opt.text  }</p><p class="select2-contact__email">${  opt.email  }</p></span>`);
+  const span = select2AvatarSpan(opt);
+  span.className = 'select2-contact';
+  const name = document.createElement('p');
+  name.className = 'select2-contact__name';
+  name.textContent = opt.text;
+  const email = document.createElement('p');
+  email.className = 'select2-contact__email';
+  email.textContent = opt.email || '';
+  span.append(name, email);
+  return span;
 }
 
 /* exported formatSelectionWithEmails */

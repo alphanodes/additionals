@@ -152,6 +152,22 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
     end
   end
 
+  def test_grouped_principals_keeps_group_names_as_plain_json_text
+    group = Group.find 10
+    group.update_column :lastname, %q(Team "A" \\ <b>O'Brien</b>)
+
+    with_settings assignee_dropdown_display_format: 'users_by_group' do
+      get :grouped_principals,
+          params: { assignee_format: true },
+          xhr: true
+
+      assert_response :success
+      json = ActiveSupport::JSON.decode response.body
+
+      assert_includes json.pluck('text'), group.lastname
+    end
+  end
+
   def test_grouped_principals
     get :grouped_principals, xhr: true
 

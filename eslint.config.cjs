@@ -7,6 +7,7 @@ module.exports = require('./eslint.shared.cjs')({
   ignores: ['assets/javascripts/vendor/**'],
   controllerGlobals: {
     AdditionalsHelpers: 'readonly',
+    escapeHtml: 'readonly',
     sanitizeHTML: 'readonly',
   },
   testGlobals: {
@@ -14,8 +15,11 @@ module.exports = require('./eslint.shared.cjs')({
     buildSelect2Options: 'readonly',
     buildTagGroupName: 'readonly',
     createTag: 'readonly',
+    escapeHtml: 'readonly',
     formatIconOption: 'readonly',
     formatNameWithIcon: 'readonly',
+    formatStateWithAvatar: 'readonly',
+    formatStateWithMultiaddress: 'readonly',
     initTopMenuDropdown: 'readonly',
     openExternalUrlsInTab: 'readonly',
     operatorByType: 'readonly',

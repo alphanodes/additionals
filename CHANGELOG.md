@@ -2,6 +2,9 @@
 
 ## 4.7.0
 
+- Requires Redmine 7.0.2 or higher, which fixes two security issues of Redmine core. Plugins built on additionals rely on this version
+- Names in select fields (users, contacts, tags) are shown as text. Html in a name could run scripts in the filter and field selections before
+- The `members` macro leaves out hidden roles and members by hidden roles only, like the members box, for users without the permission to see hidden roles
 - The `tabler` and `fa` macros accept only hex codes, color names and `var(--oc-...)`/`var(--a-...)` as `color`. Other values show a macro error instead of being written into the style attribute, where they could inject css
 - The `recently_updated` macro reports that it only works on wiki pages when used elsewhere, instead of failing with an internal error
 - The `vimeo` macro in link mode shows the Vimeo icon instead of the YouTube one

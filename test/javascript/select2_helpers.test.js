@@ -165,4 +165,48 @@ describe('select2_helpers.js', () => {
       expect(operatorByType.new_type).toEqual(['=', '!']);
     });
   });
+
+  describe('formatStateWithAvatar', () => {
+    const contact = { text: 'Xss <img src=x onerror="alert(1)">', avatar: '<img class="avatar" src="/a.png">' };
+
+    it('renders the avatar of the server as html', () => {
+      expect(formatStateWithAvatar(contact).querySelectorAll('img.avatar')).toHaveLength(1);
+    });
+
+    it('does not parse the name as html', () => {
+      expect(formatStateWithAvatar(contact).querySelectorAll('img')).toHaveLength(1);
+    });
+
+    it('shows the name as text', () => {
+      expect(formatStateWithAvatar(contact).textContent).toBe('\u00a0Xss <img src=x onerror="alert(1)">');
+    });
+
+    it('renders without avatar', () => {
+      expect(formatStateWithAvatar({ text: 'Name' }).textContent).toBe('\u00a0Name');
+    });
+  });
+
+  describe('formatStateWithMultiaddress', () => {
+    const contact = {
+      text: '<img src=x onerror="alert(1)">',
+      email: '<b>x</b>@example.com',
+      avatar: '<img class="avatar" src="/a.png">',
+    };
+
+    it('does not parse name or email as html', () => {
+      const result = formatStateWithMultiaddress(contact);
+
+      expect(result.querySelectorAll('img, b')).toHaveLength(1);
+    });
+
+    it('shows the name as text', () => {
+      expect(formatStateWithMultiaddress(contact).querySelector('.select2-contact__name').textContent)
+        .toBe('<img src=x onerror="alert(1)">');
+    });
+
+    it('shows the email as text', () => {
+      expect(formatStateWithMultiaddress(contact).querySelector('.select2-contact__email').textContent)
+        .toBe('<b>x</b>@example.com');
+    });
+  });
 });

@@ -1063,6 +1063,43 @@ class WikiControllerTest < Additionals::ControllerTest
     assert_select '#content div.wiki a[href=?]', '/attachments/15', text: 'Page'
   end
 
+  def test_show_with_members_macro_skips_members_with_only_hidden_roles
+    hidden_role = Role.generate! name: 'Hidden macro role', users_visibility: 'members_of_visible_projects', hide: true
+    hidden_member = User.generate! firstname: 'Hidden', lastname: 'Member'
+    Member.create! principal: hidden_member, project_id: 1, role_ids: [hidden_role.id]
+    @request.session[:user_id] = 3
+    page = WikiPage.generate! content: '{{members(ecookbook)}}', title: __method__.to_s
+
+    get :show, params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select 'div.wiki div.users', text: /Hidden Member/, count: 0
+  end
+
+  def test_show_with_members_macro_does_not_name_hidden_roles
+    hidden_role = Role.generate! name: 'Hidden macro role', users_visibility: 'members_of_visible_projects', hide: true
+    Member.find_by(user_id: 2, project_id: 1).roles << hidden_role
+    @request.session[:user_id] = 3
+    page = WikiPage.generate! content: '{{members(ecookbook)}}', title: __method__.to_s
+
+    get :show, params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select 'div.wiki div.users', text: /Hidden macro role/, count: 0
+  end
+
+  def test_show_with_members_macro_names_hidden_roles_with_permission
+    hidden_role = Role.generate! name: 'Hidden macro role', users_visibility: 'members_of_visible_projects', hide: true
+    Member.find_by(user_id: 2, project_id: 1).roles << hidden_role
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{members(ecookbook)}}', title: __method__.to_s
+
+    get :show, params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select 'div.wiki div.users', text: /Hidden macro role/
+  end
+
   def test_show_with_members_macro_with_sum_option
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     page = WikiPage.generate! content: "{{members(with_sum=true)}}\n\n{{members(with_sum=false)}}",

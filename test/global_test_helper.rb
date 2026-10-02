@@ -337,6 +337,16 @@ module Additionals
       ActiveSupport::Notifications.unsubscribe subscriber if subscriber
     end
 
+    # The view context Redmine builds for the pages of a controller. Helper tests
+    # call the helpers on it instead of including modules, so they see the
+    # helpers, patches and method resolution of a real view. Pass the controller
+    # of the pages the helper is used on: the one of ApplicationController only
+    # has the global helpers. Keep it in @redmine_view, ActionView::TestCase uses
+    # @view itself.
+    def build_redmine_view(controller_class = ApplicationController)
+      controller_class.new.tap { |c| c.request = ActionDispatch::TestRequest.create }.view_context
+    end
+
     # Captures everything written to Rails.logger while the block runs and returns
     # it as a string, so a test can assert that a code path stays silent.
     def capture_rails_log

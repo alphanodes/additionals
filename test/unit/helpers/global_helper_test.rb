@@ -288,10 +288,4 @@ class GlobalHelperTest < Additionals::HelperTest
     assert_not_include '<script>', html
     assert_include '&lt;script&gt;', html
   end
-
-  private
-
-  def build_redmine_view
-    ApplicationController.new.tap { |c| c.request = ActionDispatch::TestRequest.create }.view_context
-  end
 end

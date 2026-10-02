@@ -175,7 +175,8 @@ function addTabToFromAction(form, name) {
 
 // Inserts text where the cursor is, keeping the scroll position. Global,
 // because views insert the answer of an ajax request the same way.
-function insertTextAtCaret(field, value) { // eslint-disable-line no-unused-vars
+/* exported insertTextAtCaret */
+function insertTextAtCaret(field, value) {
   if (!field) { return; }
 
   if (field.selectionStart === undefined) {

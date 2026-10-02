@@ -2,30 +2,31 @@
 
 require File.expand_path '../../../test_helper', __FILE__
 
+# The helpers are called on the view context Redmine builds for its pages, not on
+# modules included here: the test then sees the helpers, patches and method
+# resolution of a real view.
 class GlobalHelperTest < Additionals::HelperTest
-  include Additionals::Helpers
-  include RedminePluginKit::Helpers::GlobalHelper
-  include AdditionalsMenuHelper
-  include CustomFieldsHelper
-  include AvatarsHelper
-  include Redmine::I18n
-  include ERB::Util
+  def setup
+    super
+    # not @view, ActionView::TestCase keeps its own view there
+    @redmine_view = build_redmine_view
+  end
 
   def test_macro_not_available_with_label_symbol
-    html = macro_not_available :label_user
+    html = @redmine_view.macro_not_available :label_user
 
     assert_select_in html, 'span.macro-not-available', text: "(#{l :label_user}: not available)"
   end
 
   def test_macro_not_available_with_label_string
-    html = macro_not_available 'Password'
+    html = @redmine_view.macro_not_available 'Password'
 
     assert_select_in html, 'span.macro-not-available', text: '(Password: not available)'
   end
 
   # Variable cheat-sheets of any plugin are revealed by this link (#15778)
   def test_link_to_show_variables_renders_link
-    html = link_to_show_variables
+    html = @redmine_view.link_to_show_variables
 
     assert_include 'class="show-variables"', html
     assert_include 'href="#"', html
@@ -33,14 +34,14 @@ class GlobalHelperTest < Additionals::HelperTest
   end
 
   def test_link_to_show_variables_with_target_adds_data_attribute
-    html = link_to_show_variables target: 'my_vars_list'
+    html = @redmine_view.link_to_show_variables target: 'my_vars_list'
 
     assert_include 'class="show-variables"', html
     assert_include 'data-show-target="my_vars_list"', html
   end
 
   def test_link_to_show_variables_without_target_adds_no_data_attribute
-    html = link_to_show_variables target: nil
+    html = @redmine_view.link_to_show_variables target: nil
 
     assert_not_include 'data-show-target', html
   end
@@ -51,7 +52,7 @@ class GlobalHelperTest < Additionals::HelperTest
     value.custom_field = field
     value.value = '20'
 
-    assert custom_field_value?(value)
+    assert @redmine_view.custom_field_value?(value)
   end
 
   def test_custom_field_value_without_value
@@ -60,7 +61,7 @@ class GlobalHelperTest < Additionals::HelperTest
     value.custom_field = field
     value.value = ''
 
-    assert_not custom_field_value?(value)
+    assert_not @redmine_view.custom_field_value?(value)
   end
 
   # A multi value field without any value arrives as [nil]. That is present?, so a
@@ -72,7 +73,7 @@ class GlobalHelperTest < Additionals::HelperTest
     value.custom_field = field
     value.value = [nil]
 
-    assert_not custom_field_value?(value)
+    assert_not @redmine_view.custom_field_value?(value)
   end
 
   def test_custom_field_value_for_multi_value_field_with_values
@@ -82,22 +83,22 @@ class GlobalHelperTest < Additionals::HelperTest
     value.custom_field = field
     value.value = [nil, 'North']
 
-    assert custom_field_value?(value)
+    assert @redmine_view.custom_field_value?(value)
   end
 
   def test_attribute_label_with_text
-    assert_equal '<span class="label">Height:</span>', attribute_label('Height')
+    assert_equal '<span class="label">Height:</span>', @redmine_view.attribute_label('Height')
   end
 
   def test_attribute_label_with_locale_key
-    assert_equal "<span class=\"label\">#{l :field_subject}:</span>", attribute_label(:field_subject)
+    assert_equal "<span class=\"label\">#{l :field_subject}:</span>", @redmine_view.attribute_label(:field_subject)
   end
 
   # A custom field brings its description along, shown as tooltip the way Redmine
   # does it for issue attributes.
   def test_attribute_label_with_custom_field_description
     field = IssueCustomField.generate! name: 'Height', description: 'In meters'
-    html = attribute_label field
+    html = @redmine_view.attribute_label field
 
     assert_include 'title="In meters"', html
     assert_include 'class="label field-description"', html
@@ -107,15 +108,15 @@ class GlobalHelperTest < Additionals::HelperTest
   def test_attribute_label_with_custom_field_without_description
     field = IssueCustomField.generate! name: 'Height'
 
-    assert_equal '<span class="label">Height:</span>', attribute_label(field)
+    assert_equal '<span class="label">Height:</span>', @redmine_view.attribute_label(field)
   end
 
   def test_attribute_label_with_explicit_title
-    assert_include 'title="own hint"', attribute_label('Height', title: 'own hint')
+    assert_include 'title="own hint"', @redmine_view.attribute_label('Height', title: 'own hint')
   end
 
   def test_user_with_avatar
-    html = user_with_avatar users(:users_001)
+    html = @redmine_view.user_with_avatar users(:users_001)
 
     assert_include 'Redmine Admin', html
   end
@@ -125,20 +126,20 @@ class GlobalHelperTest < Additionals::HelperTest
     group = Group.find 10
     group.update_column :lastname, '<img src=x onerror="alert(1)">'
 
-    assert_equal '&lt;img src=x onerror=&quot;alert(1)&quot;&gt;', user_with_avatar(group, no_link: true).to_s
+    assert_equal '&lt;img src=x onerror=&quot;alert(1)&quot;&gt;', @redmine_view.user_with_avatar(group, no_link: true).to_s
   end
 
   # A gravatar carries no width or height, so without the size class it collapses
   # whenever the image does not arrive (#10179)
   def test_avatar_gravatar_carries_size_class
     with_settings gravatar_enabled: '1' do
-      assert_include 'class="s32 gravatar avatar"', avatar(users(:users_002), size: 32)
+      assert_include 'class="s32 gravatar avatar"', @redmine_view.avatar(users(:users_002), size: 32)
     end
   end
 
   def test_avatar_gravatar_keeps_the_size_class_once_when_it_is_already_set
     with_settings gravatar_enabled: '1' do
-      html = avatar users(:users_002), size: 32, class: 's32'
+      html = @redmine_view.avatar users(:users_002), size: 32, class: 's32'
 
       assert_equal 1, html.scan(/\bs32\b/).size
     end
@@ -146,13 +147,13 @@ class GlobalHelperTest < Additionals::HelperTest
 
   def test_avatar_gravatar_falls_back_to_the_default_size_class
     with_settings gravatar_enabled: '1' do
-      assert_include "s#{GravatarHelper::DEFAULT_OPTIONS[:size]} ", avatar(users(:users_002))
+      assert_include "s#{GravatarHelper::DEFAULT_OPTIONS[:size]} ", @redmine_view.avatar(users(:users_002))
     end
   end
 
   def test_avatar_initials_carries_the_size_class_only_once
     with_settings gravatar_enabled: '0' do
-      html = avatar users(:users_002), size: 32
+      html = @redmine_view.avatar users(:users_002), size: 32
 
       assert_include 'role="img"', html
       assert_equal 1, html.scan(/\bs32\b/).size
@@ -160,28 +161,28 @@ class GlobalHelperTest < Additionals::HelperTest
   end
 
   def test_link_to_url
-    assert_equal 'redmine.org/test', Nokogiri::HTML.parse(link_to_url('http://redmine.org/test')).xpath('//a').first.text
-    assert_equal 'redmine.org/test', Nokogiri::HTML.parse(link_to_url('https://redmine.org/test')).xpath('//a').first.text
+    assert_equal 'redmine.org/test', Nokogiri::HTML.parse(@redmine_view.link_to_url('http://redmine.org/test')).xpath('//a').first.text
+    assert_equal 'redmine.org/test', Nokogiri::HTML.parse(@redmine_view.link_to_url('https://redmine.org/test')).xpath('//a').first.text
   end
 
   def test_autocomplete_select_entries_keeps_blank_option_for_single
-    html = autocomplete_select_entries 'foo', 'assignee_auto_completes', nil,
-                                       multiple: false, include_blank: true
+    html = @redmine_view.autocomplete_select_entries 'foo', 'assignee_auto_completes', nil,
+                                                     multiple: false, include_blank: true
 
     assert_match(/<option value=""/, html)
   end
 
   def test_autocomplete_select_entries_omits_blank_option_for_multiple
-    html = autocomplete_select_entries 'foo', 'assignee_auto_completes', nil,
-                                       multiple: true, include_blank: true
+    html = @redmine_view.autocomplete_select_entries 'foo', 'assignee_auto_completes', nil,
+                                                     multiple: true, include_blank: true
 
     assert_no_match(/<option value=""/, html)
     assert_match(/<input[^>]*type="hidden"[^>]*name="foo\[\]"/, html)
   end
 
   def test_autocomplete_select_entries_hidden_field_does_not_double_bracket_array_name
-    html = autocomplete_select_entries 'foo[]', 'assignee_auto_completes', nil,
-                                       multiple: true, include_blank: true
+    html = @redmine_view.autocomplete_select_entries 'foo[]', 'assignee_auto_completes', nil,
+                                                     multiple: true, include_blank: true
 
     assert_match(/<input[^>]*type="hidden"[^>]*name="foo\[\]"/, html)
     assert_no_match(/name="foo\[\]\[\]"/, html)
@@ -191,16 +192,16 @@ class GlobalHelperTest < Additionals::HelperTest
   # would turn the "&" between query parameters into "&amp;", so everything
   # behind the first parameter would arrive as part of its value.
   def test_autocomplete_select_entries_keeps_ampersand_in_ajax_url
-    html = autocomplete_select_entries 'foo', 'assignee_auto_completes', nil,
-                                       multiple: false,
-                                       ajax_params: { with_me: true, active_only: true }
+    html = @redmine_view.autocomplete_select_entries 'foo', 'assignee_auto_completes', nil,
+                                                     multiple: false,
+                                                     ajax_params: { with_me: true, active_only: true }
 
     assert_match(/url: "[^"]*active_only=true&with_me=true/, html)
     assert_no_match(/url: "[^"]*&amp;/, html)
   end
 
   def test_render_label_sum_keeps_html_safe_label_intact
-    result = render_label_sum '<a href="/x">file</a>'.html_safe, '1 KB'
+    result = @redmine_view.render_label_sum '<a href="/x">file</a>'.html_safe, '1 KB'
 
     assert_predicate result, :html_safe?
     assert_includes result, '<a href="/x">file</a>'
@@ -212,7 +213,7 @@ class GlobalHelperTest < Additionals::HelperTest
                                     file: uploaded_test_file('testfile.txt', 'text/plain'),
                                     author: users(:users_001)
 
-    assert_includes entity_mail_attachments(issue.reload, nil), attachment
+    assert_includes @redmine_view.entity_mail_attachments(issue.reload, nil), attachment
   end
 
   def test_entity_mail_attachments_returns_only_journal_added
@@ -226,7 +227,7 @@ class GlobalHelperTest < Additionals::HelperTest
     journal = Journal.create! journalized: issue, user: users(:users_001)
     journal.details.create! property: 'attachment', prop_key: added.id.to_s, value: added.filename
 
-    result = entity_mail_attachments issue.reload, journal
+    result = @redmine_view.entity_mail_attachments issue.reload, journal
 
     assert_includes result, added
     assert_not_includes result, other
@@ -239,14 +240,14 @@ class GlobalHelperTest < Additionals::HelperTest
                        author: users(:users_001)
     journal = Journal.create! journalized: issue, user: users(:users_001), notes: 'note only'
 
-    assert_empty entity_mail_attachments(issue.reload, journal)
+    assert_empty @redmine_view.entity_mail_attachments(issue.reload, journal)
   end
   # link_to_issue_with_subject
 
   def test_link_to_issue_with_subject_puts_the_subject_inside_the_link
     issue = issues :issues_001
 
-    html = link_to_issue_with_subject issue
+    html = @redmine_view.link_to_issue_with_subject issue
 
     assert_include ">##{issue.id}: #{issue.subject}</a>", html
     assert_include "/issues/#{issue.id}", html
@@ -258,21 +259,21 @@ class GlobalHelperTest < Additionals::HelperTest
     issue = issues :issues_008
 
     assert_predicate issue, :closed?
-    assert_include 'closed', link_to_issue_with_subject(issue)
-    assert_not_include 'closed', link_to_issue_with_subject(issues(:issues_001))
+    assert_include 'closed', @redmine_view.link_to_issue_with_subject(issue)
+    assert_not_include 'closed', @redmine_view.link_to_issue_with_subject(issues(:issues_001))
   end
 
   def test_link_to_issue_with_subject_can_name_the_tracker
     issue = issues :issues_001
 
-    assert_include ">#{issue.tracker} ##{issue.id}: ", link_to_issue_with_subject(issue, tracker: true)
+    assert_include ">#{issue.tracker} ##{issue.id}: ", @redmine_view.link_to_issue_with_subject(issue, tracker: true)
   end
 
   def test_link_to_issue_with_subject_shortens_on_request_and_keeps_the_full_text_as_title
     issue = issues :issues_001
     issue.update_columns subject: 'a' * 80
 
-    html = link_to_issue_with_subject issue.reload, truncate: 20
+    html = @redmine_view.link_to_issue_with_subject issue.reload, truncate: 20
 
     assert_include '...', html
     assert_include %(title="#{'a' * 80}"), html
@@ -282,9 +283,15 @@ class GlobalHelperTest < Additionals::HelperTest
     issue = issues :issues_001
     issue.update_columns subject: '<script>alert(1)</script>'
 
-    html = link_to_issue_with_subject issue.reload
+    html = @redmine_view.link_to_issue_with_subject issue.reload
 
     assert_not_include '<script>', html
     assert_include '&lt;script&gt;', html
+  end
+
+  private
+
+  def build_redmine_view
+    ApplicationController.new.tap { |c| c.request = ActionDispatch::TestRequest.create }.view_context
   end
 end

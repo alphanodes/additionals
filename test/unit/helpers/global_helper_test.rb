@@ -120,6 +120,14 @@ class GlobalHelperTest < Additionals::HelperTest
     assert_include 'Redmine Admin', html
   end
 
+  # The result is used as html, also as name_with_icon of the select2 json
+  def test_user_with_avatar_escapes_group_name
+    group = Group.find 10
+    group.update_column :lastname, '<img src=x onerror="alert(1)">'
+
+    assert_equal '&lt;img src=x onerror=&quot;alert(1)&quot;&gt;', user_with_avatar(group, no_link: true).to_s
+  end
+
   # A gravatar carries no width or height, so without the size class it collapses
   # whenever the image does not arrive (#10179)
   def test_avatar_gravatar_carries_size_class

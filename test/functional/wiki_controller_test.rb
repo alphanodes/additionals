@@ -1076,6 +1076,18 @@ class WikiControllerTest < Additionals::ControllerTest
     assert_select 'div.wiki div.users', text: /Hidden Member/, count: 0
   end
 
+  def test_show_with_members_macro_skips_subproject_members_with_only_hidden_roles
+    hidden_role = Role.generate! name: 'Hidden macro role', users_visibility: 'members_of_visible_projects', hide: true
+    hidden_member = User.generate! firstname: 'Hidden', lastname: 'Submember'
+    Member.create! principal: hidden_member, project_id: 3, role_ids: [hidden_role.id]
+    @request.session[:user_id] = 3
+    page = WikiPage.generate! content: '{{members(ecookbook)}}', title: __method__.to_s
+
+    get :show, params: { project_id: 1, id: page.title }
+
+    assert_select 'div.wiki div.users', text: /Hidden Submember/, count: 0
+  end
+
   def test_show_with_members_macro_does_not_name_hidden_roles
     hidden_role = Role.generate! name: 'Hidden macro role', users_visibility: 'members_of_visible_projects', hide: true
     Member.find_by(user_id: 2, project_id: 1).roles << hidden_role

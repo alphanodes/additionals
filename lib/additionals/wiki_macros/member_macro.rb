@@ -57,19 +57,23 @@ module Additionals
 
             principals = project.visible_users
             with_hidden_roles = Additionals::AssignableUsersOptimizer.can_see_hidden_roles? project
+            # like the members box: a member by hidden roles only is not listed,
+            # which includes the members of subprojects the list shows as well
+            unless with_hidden_roles
+              visible_member_ids = Member.joins(:roles)
+                                         .where(project_id: project.self_and_descendants.visible.select(:id),
+                                                roles: { hide: false })
+                                         .distinct
+                                         .pluck(:user_id)
+            end
 
             users = []
             principals.each do |principal|
               next unless principal.type == 'User'
+              next unless with_hidden_roles || visible_member_ids.include?(principal.id)
 
               roles = principal.roles_for_project project
-              unless with_hidden_roles
-                visible_roles = roles.reject(&:hide)
-                # like the members box: a member by hidden roles only is not listed
-                next if visible_roles.empty? && roles.any?
-
-                roles = visible_roles
-              end
+              roles = roles.reject(&:hide) unless with_hidden_roles
 
               user_roles[principal.id] = roles
               users << principal if options[:role].blank? || Additionals.check_role_matches?(roles, options[:role])

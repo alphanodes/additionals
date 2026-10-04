@@ -19,6 +19,7 @@
 - `Additionals.name_sort_key` sorts names in any script independent of the database. Plugins sorted with `transliterate`, which turns Cyrillic, Chinese or Japanese characters into `?`, so such names ended up in random order
 - The test helper `count_sql_queries` takes `matching:` to count only the queries of one table, e.g. `count_sql_queries(matching: /additional_taggings/) { ... }` to show that a list loads its tags at once
 - d3plus updated to 4.6.0
+- mermaid 12.1.0 support
 
 ## 4.6.0
 

@@ -301,9 +301,10 @@ function insertTextAtCaret(field, value) {
     configurable: true,
     enumerable: true,
     get() { return library; },
+    // assigned first, so the library stays available if initialize throws
     set(value) {
-      if (keepAdditionalsMermaidConfig(value)) { value.initialize({ startOnLoad: false }); }
       library = value;
+      if (keepAdditionalsMermaidConfig(value)) { value.initialize({ startOnLoad: false }); }
     },
   });
 })();

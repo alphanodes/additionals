@@ -63,6 +63,17 @@ describe('mermaid configuration of additionals.js', () => {
       expect(secondInitialize.mock.calls[1][0]).toMatchObject({ maxTextSize: 500000, startOnLoad: true });
     });
 
+    // A theme can pass values mermaid rejects. Code blocks and macros still
+    // find the library and report the error themselves.
+    it('keeps a library as global mermaid when its initialization fails', () => {
+      const failing = { initialize: () => { throw new Error('invalid theme variables'); }, run: vi.fn() };
+      try { globalThis.mermaid = failing; } catch { /* the bundle reports the error */ }
+      const global = globalThis.mermaid;
+      globalThis.mermaid = library;
+
+      expect(global).toBe(failing);
+    });
+
     // mermaid_load.js has turned on starting on load by then
     it('does not initialize a library again when it is assigned again', () => {
       globalThis.mermaid = library;

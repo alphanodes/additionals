@@ -231,3 +231,73 @@ function insertTextAtCaret(field, value) {
     insertTextAtCaret(field, variable.innerHTML);
   });
 })();
+
+// Configuration of every mermaid diagram, whoever renders it: the additionals
+// macros (mermaid_load.js) and, since Redmine 7.1, core for mermaid code
+// blocks. Core loads the library on its own, without mermaid_load.js, so the
+// configuration is attached to the library as soon as it is defined.
+(() => {
+  // theme, look and layout are only passed on when a theme sets them
+  // (globalThis.mermaidTheme, ...), so mermaid's own per diagram defaults
+  // (ELK layout, neo look, redux-color theme) apply otherwise. Lines are 1px
+  // instead of redux-color's 2px, which crowd diagrams with many edges. A
+  // diagram that needs different values sets them in its own front matter.
+  function additionalsMermaidConfig() {
+    const config = {
+      maxTextSize: 500000,
+      themeVariables: globalThis.mermaidThemeVariables ?? { strokeWidth: 1 },
+      flowchart: {
+        useMaxWidth: false,
+      },
+      gantt: {
+        topAxis: true,
+        weekday: 'monday',
+      },
+    };
+
+    if (globalThis.mermaidTheme !== undefined) { config.theme = globalThis.mermaidTheme; }
+    if (globalThis.mermaidLook !== undefined) { config.look = globalThis.mermaidLook; }
+    if (globalThis.mermaidLayout !== undefined) { config.layout = globalThis.mermaidLayout; }
+
+    return config;
+  }
+
+  const isPlainObject = value => value?.constructor === Object;
+
+  // Sections like flowchart or themeVariables are merged as well, so options
+  // passed for one of them keep the additionals values of the others.
+  function mergeMermaidConfig(base, config) {
+    const merged = { ...base, ...config };
+    Object.keys(config).forEach((key) => {
+      if (isPlainObject(base[key]) && isPlainObject(config[key])) { merged[key] = { ...base[key], ...config[key] }; }
+    });
+    return merged;
+  }
+
+  // Each mermaid.initialize call replaces the whole configuration, so every
+  // call starts from the additionals configuration instead.
+  function keepAdditionalsMermaidConfig(library) {
+    if (typeof library?.initialize !== 'function' || library.initialize.withAdditionalsConfig) { return; }
+
+    const libraryInitialize = library.initialize;
+    const initialize = (config = {}) => libraryInitialize.call(library, mergeMermaidConfig(additionalsMermaidConfig(), config));
+    initialize.withAdditionalsConfig = true;
+    library.initialize = initialize;
+  }
+
+  // The mermaid bundle ends with globalThis["mermaid"] = ..., which lands in
+  // the setter. It stays in place, as two scripts loading the library at the
+  // same time (core and a macro) assign it twice.
+  let library = globalThis.mermaid;
+  keepAdditionalsMermaidConfig(library);
+
+  Object.defineProperty(globalThis, 'mermaid', {
+    configurable: true,
+    enumerable: true,
+    get() { return library; },
+    set(value) {
+      keepAdditionalsMermaidConfig(value);
+      library = value;
+    },
+  });
+})();

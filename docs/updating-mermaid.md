@@ -4,7 +4,7 @@
 
 ## Which file and why
 
-Redmine loads classic `<script>` tags and expects a global `mermaid` object (see `assets/javascripts/mermaid_load.js` and the `_mermaid_min` entry in `app/services/additionals/library_registry.rb`).
+Redmine loads classic `<script>` tags and expects a global `mermaid` object (see `assets/javascripts/mermaid_load.js`, the mermaid part of `assets/javascripts/additionals.js` and the `_mermaid_min` entry in `app/services/additionals/library_registry.rb`).
 
 The npm package provides exactly that as `dist/mermaid.min.js`: a single file IIFE that assigns `globalThis.mermaid`. Upstream builds it on purpose in `.esbuild/build.ts` next to `mermaid.tiny.min.js`, and it has been part of every release since 11.0.0 (only 10.0.0 was ESM-only). It is not the recommended entry point of the package (that is the ESM build), so check on every update that it is still there.
 
@@ -65,19 +65,21 @@ Take the `target` list from `.build/common.ts` of the release being built.
 
 ## Theme, look and layout
 
-`mermaid_load.js` passes `theme`, `look` and `layout` to `mermaid.initialize` only when a Redmine theme sets the matching global (`mermaidTheme`, `mermaidLook`, `mermaidLayout`). Since Mermaid 12 the defaults differ per diagram type (e.g. `redux-color` for flowcharts), and a global `theme` in `initialize` overrides all of them, so do not add a hardcoded theme there.
+`additionals.js` passes `theme`, `look` and `layout` to `mermaid.initialize` only when a Redmine theme sets the matching global (`mermaidTheme`, `mermaidLook`, `mermaidLayout`). Since Mermaid 12 the defaults differ per diagram type (e.g. `redux-color` for flowcharts), and a global `theme` in `initialize` overrides all of them, so do not add a hardcoded theme there.
 
 The one deliberate default is `themeVariables: { strokeWidth: 1 }` (unless a theme sets `mermaidThemeVariables`): `redux-color` draws 2px lines, which crowd diagrams with many edges. A diagram that needs different values sets them in its own front matter, as the workflow graph in `redmine_reporting` does.
 
 ## Redmine core renders code blocks (since 7.1)
 
-Redmine core renders `mermaid` code blocks with its own Stimulus controller, using a library an administrator installs with `redmine:mermaid:install`. `additionals` points core at its bundled library instead (`window.MermaidAssetUrl` in `app/views/additionals/_html_head.html.slim`, only where `Redmine::Mermaid` exists), so every diagram on a page uses one version and no extra installation is needed. Core calls `mermaid.initialize` with its own options; `mermaid_load.js` merges the additionals configuration into every call, so macros and code blocks on one page keep the same settings. On a page with code blocks only, core loads the library without `mermaid_load.js` and mermaid's defaults apply.
+Redmine core renders `mermaid` code blocks with its own Stimulus controller, using a library an administrator installs with `redmine:mermaid:install`. `additionals` points core at its bundled library instead (`window.MermaidAssetUrl` in `app/views/additionals/_html_head.html.slim`, only where `Redmine::Mermaid` exists), so every diagram on a page uses one version and no extra installation is needed; the admin information page shows mermaid as available accordingly (`AdminControllerPatch`).
+
+Core loads the library without `mermaid_load.js`, so the configuration lives in `additionals.js`, which runs on every page before any library. It defines `globalThis.mermaid` as a setter: the assignment at the end of the bundle lands there and wraps `mermaid.initialize` (on every assignment, as core and a macro may load the library at the same time), which merges the additionals configuration (one level deep, so a passed `flowchart` keeps the other `flowchart` values) into every call. Macros and code blocks therefore render alike, whoever loads the library and whoever initializes last.
 
 ## Verifying the update
 
 - **The file is the IIFE build.** `dist/mermaid.min.js` exists, starts with `"use strict";var __esbuild_esm_mermaid_nm`, ends with `globalThis["mermaid"] = ...` and contains the new `version:"..."`. If it is missing or has another format, use the fallback build.
 - **Smoke-test the global.** Loading the file must expose `globalThis.mermaid` with the same API surface as the previous bundle (`initialize`, `run`, `render`, `parse`, ...).
-- **Render in a real browser.** Load `mermaid.min.js` + `mermaid_load.js` on a minimal page with `<pre class="mermaid">` diagrams (flowchart, sequence, gantt, mindmap, architecture, a KaTeX label) and confirm they render to SVGs without console errors.
+- **Render in a real browser.** Load `additionals.js`, `mermaid.min.js` and `mermaid_load.js` on a minimal page with `<pre class="mermaid">` diagrams (flowchart, sequence, gantt, mindmap, architecture, a KaTeX label) and confirm they render to SVGs without console errors.
 - **Check whether gantt can switch to the new appearance.** Mermaid 12 keeps the old `default` theme for gantt. With `redux-color` the bars of the `redmine_reporting` roadmap (projects and version list, `display_type=roadmap`) are white on a near white background and hard to see. Render the roadmap with `theme: redux-color` in its front matter; once the bars are clearly visible, switch gantt to the new appearance.
 
 ## Committing

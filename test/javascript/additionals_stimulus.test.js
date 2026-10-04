@@ -12,12 +12,19 @@ globalEval(scriptContent);
 
 describe('additionals_stimulus.js', () => {
   describe('clearWarnLeavingUnsaved', () => {
-    let removeData;
+    let calls;
 
     beforeEach(() => {
+      document.body.innerHTML = '<textarea id="a"></textarea><textarea id="b"></textarea>';
+      calls = [];
       // jQuery is not available in jsdom; core's warnLeavingUnsaved keeps its flag in jQuery data
-      removeData = vi.fn();
-      vi.stubGlobal('$', vi.fn(() => ({ removeData })));
+      vi.stubGlobal('$', vi.fn((selector) => {
+        const elements = typeof selector === 'string' ? [...document.querySelectorAll(selector)] : [selector];
+        return {
+          toArray: () => elements,
+          removeData: (key) => { calls.push(`removeData:${key}`); },
+        };
+      }));
     });
 
     afterEach(() => {
@@ -30,8 +37,8 @@ describe('additionals_stimulus.js', () => {
       expect($).toHaveBeenCalledWith('textarea');
     });
 
-    it('drops the unsaved flag of the given textarea only', () => {
-      const textarea = document.createElement('textarea');
+    it('passes the given textarea to jQuery', () => {
+      const textarea = document.getElementById('a');
 
       window.AdditionalsHelpers.clearWarnLeavingUnsaved(textarea);
 
@@ -41,7 +48,36 @@ describe('additionals_stimulus.js', () => {
     it('removes the changed key from the jQuery data store', () => {
       window.AdditionalsHelpers.clearWarnLeavingUnsaved();
 
-      expect(removeData).toHaveBeenCalledWith('changed');
+      expect(calls).toEqual(['removeData:changed']);
+    });
+
+    it('drops the flag only after a focused textarea fired its blur', () => {
+      const textarea = document.getElementById('a');
+      textarea.focus();
+      textarea.addEventListener('blur', () => { calls.push('blur'); });
+
+      window.AdditionalsHelpers.clearWarnLeavingUnsaved(textarea);
+
+      expect(calls).toEqual(['blur', 'removeData:changed']);
+    });
+
+    it('keeps the focus on a focused textarea', () => {
+      const textarea = document.getElementById('a');
+      textarea.focus();
+
+      window.AdditionalsHelpers.clearWarnLeavingUnsaved();
+
+      expect(document.activeElement).toBe(textarea);
+    });
+
+    it('leaves the focus alone when no given textarea has it', () => {
+      const other = document.getElementById('b');
+      other.focus();
+      other.addEventListener('blur', () => { calls.push('blur'); });
+
+      window.AdditionalsHelpers.clearWarnLeavingUnsaved(document.getElementById('a'));
+
+      expect(calls).toEqual(['removeData:changed']);
     });
   });
 });

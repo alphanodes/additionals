@@ -43,7 +43,15 @@ window.AdditionalsHelpers = {
   // Drops the unsaved flag of Redmine core's warnLeavingUnsaved after an async submit, which
   // the core submit listener does not see. Core keeps the flag in jQuery's internal data
   // store, so deleting a data-changed attribute (dataset) has no effect.
+  // A focused textarea is blurred first: its pending change event, which core's leave check
+  // triggers with blur() as well, would set the flag again. Focusing it again resets the
+  // value the browser compares against.
   clearWarnLeavingUnsaved(textareas = 'textarea') {
-    $(textareas).removeData('changed');
+    const $textareas = $(textareas);
+    const focused = $textareas.toArray().includes(document.activeElement) ? document.activeElement : null;
+
+    if (focused) { focused.blur(); }
+    $textareas.removeData('changed');
+    if (focused) { focused.focus(); }
   },
 };

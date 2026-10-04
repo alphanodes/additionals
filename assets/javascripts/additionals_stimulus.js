@@ -39,4 +39,11 @@ window.AdditionalsHelpers = {
 
     return response.json();
   },
+
+  // Drops the unsaved flag of Redmine core's warnLeavingUnsaved after an async submit, which
+  // the core submit listener does not see. Core keeps the flag in jQuery's internal data
+  // store, so deleting a data-changed attribute (dataset) has no effect.
+  clearWarnLeavingUnsaved(textareas = 'textarea') {
+    $(textareas).removeData('changed');
+  },
 };

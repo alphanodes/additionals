@@ -283,7 +283,7 @@ module Additionals
       end
       # No blank option for multiple selects: the hidden field above already
       # clears the value, and a blank <option> gets selected by select2's
-      # "clear all" button, showing up as a stray empty choice (#15425)
+      # "clear all" button, showing up as a stray empty choice
       s << select_tag(name,
                       option_tags,
                       include_blank: !options[:multiple] && options[:include_blank],

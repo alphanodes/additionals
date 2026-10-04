@@ -54,6 +54,15 @@ module Additionals
       end
 
       module InstanceMethods
+        # Principals offered in the assignee selection as "Author / Recent participants",
+        # as core since Redmine 7.1 (https://www.redmine.org/issues/44021): author, previous assignee and the author of the latest note
+        def involved_principals(user = User.current)
+          last_notes_author = journals.visible(user).where.not(notes: '').reorder(id: :desc).first&.user
+          principals = [author, prior_assigned_to, last_notes_author].uniq
+          principals.compact!
+          principals
+        end
+
         def add_assigned_watcher
           return unless assigned_to.is_a? User
           return unless assigned_to.pref.auto_watch_on? 'issue_assigned_to_me'

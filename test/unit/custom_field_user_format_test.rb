@@ -14,8 +14,16 @@ class CustomFieldUserFormatTest < Additionals::TestCase
 
     records = field.format.possible_values_records field, @issue
 
-    assert_equal User.visible.sorted.to_a, records.to_a
+    assert_equal User.visible.where(type: 'User').sorted.to_a, records.to_a
     assert_includes records, @locked_user
+  end
+
+  def test_scope_all_does_not_offer_the_anonymous_user
+    field = IssueCustomField.create! name: 'Owner', field_format: 'user', user_scope: '1'
+
+    records = field.format.possible_values_records field, @issue
+
+    assert_not_includes records, User.anonymous
   end
 
   def test_scope_active_excludes_locked_users
@@ -51,5 +59,43 @@ class CustomFieldUserFormatTest < Additionals::TestCase
 
     assert_includes ids, @locked_user.id.to_s
     assert_includes ids, 'me'
+  end
+
+  def test_scope_all_lists_no_groups_by_default
+    field = IssueCustomField.create! name: 'Owner', field_format: 'user', user_scope: '1'
+
+    records = field.format.possible_values_records field, @issue
+
+    assert_not records.any?(Group)
+  end
+
+  def test_scope_all_offers_groups_if_the_field_allows_them
+    skip 'Requires Redmine 7.1 or higher' unless CustomField.new.respond_to? :possible_principals
+
+    field = IssueCustomField.create! name: 'Owner', field_format: 'user', user_scope: '1', possible_principals: 'user_group'
+
+    records = field.format.possible_values_records field, @issue
+
+    assert_includes records, Group.find(10)
+  end
+
+  def test_scope_active_offers_only_groups_for_group_fields
+    skip 'Requires Redmine 7.1 or higher' unless CustomField.new.respond_to? :possible_principals
+
+    field = IssueCustomField.create! name: 'Owner', field_format: 'user', user_scope: '4', possible_principals: 'group'
+
+    records = field.format.possible_values_records field, @issue
+
+    assert records.all?(Group)
+  end
+
+  def test_query_filter_values_for_scope_all_offers_groups_if_the_field_allows_them
+    skip 'Requires Redmine 7.1 or higher' unless CustomField.new.respond_to? :possible_principals
+
+    field = IssueCustomField.create! name: 'Owner', field_format: 'user', user_scope: '1', possible_principals: 'user_group'
+
+    ids = field.format.query_filter_values(field, IssueQuery.new).pluck 1
+
+    assert_includes ids, '10'
   end
 end

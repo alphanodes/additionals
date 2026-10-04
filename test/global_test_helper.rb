@@ -2,7 +2,7 @@
 
 # Reset process-global state before every test so test order does not affect
 # outcomes when tests run in the same parallel worker. I18n part mirrors
-# Redmine core's own fix in commit a01ff5a5a (#44116). User.current is an
+# Redmine core's own fix in commit a01ff5a5a (https://www.redmine.org/issues/44116). User.current is an
 # established plugin-test convention (hundreds of explicit per-test resets in
 # our plugin family) that we centralize here.
 #

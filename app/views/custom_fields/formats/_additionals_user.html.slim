@@ -4,6 +4,13 @@
 / users / project members / members with selected roles. Rendered by
 / render_custom_field_format_partial with f and custom_field as locals.
 - user_roles_empty = !custom_field.user_role.is_a?(Array) || custom_field.user_role.delete_if(&:empty?).blank?
+/ Users, groups or both (Redmine 7.1+, https://www.redmine.org/issues/21026)
+/ TODO(Redmine 7.0 EOL): render the select without the respond_to? check.
+- if custom_field.respond_to? :possible_principals
+  p
+    = f.select :possible_principals,
+               [[l(:label_user_plural), 'user'], [l(:label_users_and_groups), 'user_group'], [l(:label_group_plural), 'group']],
+               label: :field_possible_values
 p
   label = l :label_role
   label.block

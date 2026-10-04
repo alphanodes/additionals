@@ -593,11 +593,98 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
     assert_not_includes custom_field_users_ids(response.body), locked.id
   end
 
+  def test_custom_field_users_without_me_for_multiple_values
+    cf = IssueCustomField.create! name: 'Multiple User CF', field_format: 'user', is_for_all: true, multiple: true
+
+    get :custom_field_users,
+        params: { project_id: 1, custom_field_id: cf.id },
+        xhr: true
+
+    assert_not_includes custom_field_users_raw_ids(response.body), 'me'
+  end
+
+  def test_custom_field_users_for_other_field_format
+    get :custom_field_users,
+        params: { project_id: 1, custom_field_id: custom_fields(:custom_fields_002).id },
+        xhr: true
+
+    assert_empty ActiveSupport::JSON.decode(response.body)
+  end
+
+  def test_custom_field_users_scope_all_offers_groups_if_the_field_allows_them
+    skip 'Requires Redmine 7.1 or higher' unless CustomField.new.respond_to? :possible_principals
+
+    @request.session[:user_id] = 1
+    cf = IssueCustomField.create! name: 'Scope All Group CF', field_format: 'user', is_for_all: true,
+                                  user_scope: '1', possible_principals: 'user_group'
+
+    get :custom_field_users,
+        params: { project_id: 1, custom_field_id: cf.id, q: 'A Team' },
+        xhr: true
+
+    assert_includes custom_field_users_ids(response.body), 10
+  end
+
+  def test_custom_field_users_project_scope_offers_member_groups_if_the_field_allows_them
+    skip 'Requires Redmine 7.1 or higher' unless CustomField.new.respond_to? :possible_principals
+
+    @request.session[:user_id] = 1
+    cf = IssueCustomField.create! name: 'Project Group CF', field_format: 'user', is_for_all: true,
+                                  possible_principals: 'group'
+
+    get :custom_field_users,
+        params: { project_id: 2, custom_field_id: cf.id },
+        xhr: true
+
+    assert_equal [11], custom_field_users_ids(response.body)
+  end
+
+  def test_custom_field_users_start_list_offers_groups_beside_recent_users
+    skip 'Requires Redmine 7.1 or higher' unless CustomField.new.respond_to? :possible_principals
+
+    @request.session[:user_id] = 1
+    cf = IssueCustomField.create! name: 'Start List Group CF', field_format: 'user', is_for_all: true,
+                                  user_scope: '1', possible_principals: 'user_group'
+
+    with_select2_init_entries 2 do
+      get :custom_field_users,
+          params: { project_id: 1, custom_field_id: cf.id },
+          xhr: true
+    end
+
+    assert_includes custom_field_users_ids(response.body), 10
+  end
+
+  def test_grouped_principals_start_list_offers_groups_beside_recent_users
+    @request.session[:user_id] = 1
+
+    with_settings issue_group_assignment: '1' do
+      with_select2_init_entries 1 do
+        get :grouped_principals,
+            params: { project_id: 2 },
+            xhr: true
+      end
+    end
+
+    assert_includes custom_field_users_ids(response.body), 11
+  end
+
   private
 
   # Flattens the grouped select2 JSON payload into a plain list of user ids.
   def custom_field_users_ids(body)
+    custom_field_users_raw_ids(body).map(&:to_i)
+  end
+
+  def with_select2_init_entries(limit, &)
+    AdditionalsConf.instance_variable_set :@select2_init_entries, nil
+    Redmine::Configuration.with('select2_init_entries' => limit, &)
+  ensure
+    AdditionalsConf.instance_variable_set :@select2_init_entries, nil
+  end
+
+  def custom_field_users_raw_ids(body)
     json = ActiveSupport::JSON.decode body
-    json.flat_map { |group| group['children'] || [group] }.filter_map { |entry| entry['id']&.to_i }
+    json.flat_map { |group| group['children'] || [group] }.filter_map { |entry| entry['id'] }
   end
 end

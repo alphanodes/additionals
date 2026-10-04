@@ -35,11 +35,7 @@ module AdditionalsQueriesHelper
                    elsif use_assignment_frequency
                      select_by_assignment_frequency users
                    else
-                     users.select("users.*, #{User.table_name}.last_login_on IS NULL AS select_order")
-                          .order("select_order ASC, #{User.table_name}.last_login_on DESC")
-                          .limit(AdditionalsConf.select2_init_entries)
-                          .to_a
-                          .sort_by(&:name)
+                     select_recent_users_and_groups users
                    end
 
     with_users = false
@@ -370,6 +366,19 @@ module AdditionalsQueriesHelper
         .pluck(Arel.sql('groups_users.group_id'), :id)
         .group_by(&:first)
         .transform_values { |rows| rows.map(&:last) }
+  end
+
+  # Users ordered by their last login and groups by name, each up to the limit.
+  # Groups never log in, ordered together with the users they would never make the list.
+  def select_recent_users_and_groups(scope)
+    limit = AdditionalsConf.select2_init_entries
+    principals = scope.select("users.*, #{User.table_name}.last_login_on IS NULL AS select_order")
+                      .where(type: 'User')
+                      .order("select_order ASC, #{User.table_name}.last_login_on DESC")
+                      .limit(limit)
+                      .to_a
+    principals.concat scope.where(type: 'Group').sorted.limit(limit).to_a unless scope.klass <= User
+    principals.sort_by(&:name)
   end
 
   def select_by_assignment_frequency(scope)

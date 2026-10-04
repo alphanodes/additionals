@@ -584,8 +584,20 @@ select.dashboard-block-select {
 }
 /* stylelint-enable selector-max-id */
 
+/* .dropdown-items: Redmine 7.1+ actions dropdown (https://www.redmine.org/issues/44205),
+   core greys out disabled items only inside li.
+   Redmine 7.0 EOL: drop the div.drdn-items selectors */
 div.drdn-items a.disabled,
-div.drdn-items a.disabled:hover { color: var(--a-color-disabled); }
+.dropdown-content .dropdown-items a.disabled,
+div.drdn-items a.disabled:hover,
+.dropdown-content .dropdown-items a.disabled:hover {
+  background-color: transparent;
+  color: var(--a-color-disabled);
+  cursor: not-allowed;
+}
+
+.dropdown-content .dropdown-items a.disabled .icon-svg,
+.dropdown-content .dropdown-items a.disabled:hover .icon-svg { stroke: var(--a-color-disabled); }
 
 table.entity-list td.block_column {
   color: var(--a-color-info);

@@ -11,11 +11,11 @@ module Additionals
 
       module InstanceOverwriteMethods
         # OVERRIDE of WatchersHelper#watchers_list from Redmine Core
-        # Based on: Redmine 6.1 (commit 9052d4d05 - #42589)
+        # Based on: Redmine 6.1 (commit 9052d4d05 - https://www.redmine.org/issues/42589)
         # Source:   app/helpers/watchers_helper.rb
         #
         # Reason:   Filter watcher_users to hide members with hidden roles
-        #           (Role#hide = true) from the watchers list. See #14191.
+        #           (Role#hide = true) from the watchers list.
         #
         # Change:   Added AssignableUsersOptimizer.exclude_hidden_role_members
         #           filter after building the watcher scope.

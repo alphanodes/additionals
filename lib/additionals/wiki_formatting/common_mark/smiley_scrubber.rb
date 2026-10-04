@@ -21,7 +21,7 @@ module Additionals
         private
 
         # Optimized ancestor check with early exit pattern
-        # See Redmine Core Issue #43446 for performance rationale
+        # See Redmine Core Issue https://www.redmine.org/issues/43446 for performance rationale
         def ancestor?(node, tags)
           parent = node.parent
           while parent

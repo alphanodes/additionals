@@ -12,8 +12,11 @@ class PluginConventionsTest < Additionals::TestCase
                                 control_string: :label_open_external_urls,
                                 control_english: 'Open external URLs',
                                 # the hrm user type filter is only added when redmine_hrm
-                                # patches the query - checked, it never renders without it
-                                allowed_missing: %i[field_hrm_user_type]
+                                # patches the query - checked, it never renders without it;
+                                # label_users_and_groups comes with Redmine 7.1 and is only
+                                # rendered when core supports groups in user fields (https://www.redmine.org/issues/21026);
+                                # TODO(Redmine 7.0 EOL): remove label_users_and_groups here
+                                allowed_missing: %i[field_hrm_user_type label_users_and_groups]
 
   def setup
     prepare_tests

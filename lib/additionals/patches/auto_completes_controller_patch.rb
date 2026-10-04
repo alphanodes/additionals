@@ -43,13 +43,15 @@ module Additionals
         end
 
         def custom_field_users
-          cf = CustomField.find_by id: params[:custom_field_id]
+          cf = CustomField.find_by id: params[:custom_field_id], field_format: 'user'
           return render json: [] unless cf
 
           scope = custom_field_users_scope cf
           return render json: [] if scope.nil?
 
-          render_params = { search_term: @search_term }
+          # As core (https://www.redmine.org/issues/44376): "<< me >>" only for single value fields that offer users
+          render_params = { search_term: @search_term,
+                            with_me: !cf.multiple? && cf.format.additionals_principal_types(cf).include?('User') }
           render_params[:me_value] = params[:me_value] if params.key? :me_value
 
           render_grouped_users_with_select2(scope, **render_params)
@@ -86,23 +88,21 @@ module Additionals
 
         # Mirrors the user scope of Additionals::Patches::UserFormatPatch#possible_values_records
         # so the select2 AJAX suggestions match the plain <select> options:
-        #   '1' => all visible users (incl. locked), '4' => all active visible users,
+        #   '1' => all visible principals (incl. locked), '4' => all active visible principals,
         #   else => project members (optionally narrowed by the configured roles).
+        # Principals are users, groups or both, depending on the custom field (https://www.redmine.org/issues/21026).
         # Returns nil when the project-based scopes are requested without a project.
         def custom_field_users_scope(custom_field)
-          case custom_field.user_scope.to_s
-          when '1' then User.visible
-          when '4' then User.active.visible
-          else
-            return unless @project
+          principals = custom_field.format.additionals_scope_principals custom_field
+          return principals if principals
+          return unless @project
 
-            scope = @project.users.visible
-            role_ids = custom_field.user_role.is_a?(Array) ? custom_field.user_role.map(&:to_s).compact_blank.map(&:to_i) : []
-            return scope if role_ids.empty?
+          scope = @project.principals.visible.where type: custom_field.format.additionals_principal_types(custom_field)
+          role_ids = custom_field.user_role.is_a?(Array) ? custom_field.user_role.map(&:to_s).compact_blank.map(&:to_i) : []
+          return scope if role_ids.empty?
 
-            scope.where "#{Member.table_name}.id IN (SELECT DISTINCT member_id" \
-                        " FROM #{MemberRole.table_name} WHERE role_id IN (?))", role_ids
-          end
+          scope.where "#{Member.table_name}.id IN (SELECT DISTINCT member_id" \
+                      " FROM #{MemberRole.table_name} WHERE role_id IN (?))", role_ids
         end
 
         def find_search_term
@@ -110,9 +110,7 @@ module Additionals
         end
 
         def issue_involved_principals(issue)
-          principals = [issue.author, issue.prior_assigned_to].uniq
-          principals.compact!
-          principals.select { |p| @search_term.blank? || p.name.downcase.include?(@search_term.downcase) }
+          issue.involved_principals.select { |p| @search_term.blank? || p.name.downcase.include?(@search_term.downcase) }
         end
       end
     end

@@ -12,7 +12,7 @@
 //     testGlobals: { MyTestGlobal: 'readonly' },
 //   });
 //
-// ecmaVersion 2022: Redmine dropped IE11 in 5.0.0 (#34978), so modern syntax
+// ecmaVersion 2022: Redmine dropped IE11 in 5.0.0 (https://www.redmine.org/issues/34978), so modern syntax
 // (optional chaining etc.) is safe even in directly-served classic scripts.
 const js = require('@eslint/js');
 const globals = require('globals');

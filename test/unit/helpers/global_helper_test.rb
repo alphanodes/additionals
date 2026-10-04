@@ -24,7 +24,7 @@ class GlobalHelperTest < Additionals::HelperTest
     assert_select_in html, 'span.macro-not-available', text: '(Password: not available)'
   end
 
-  # Variable cheat-sheets of any plugin are revealed by this link (#15778)
+  # Variable cheat-sheets of any plugin are revealed by this link
   def test_link_to_show_variables_renders_link
     html = @redmine_view.link_to_show_variables
 
@@ -130,7 +130,7 @@ class GlobalHelperTest < Additionals::HelperTest
   end
 
   # A gravatar carries no width or height, so without the size class it collapses
-  # whenever the image does not arrive (#10179)
+  # whenever the image does not arrive
   def test_avatar_gravatar_carries_size_class
     with_settings gravatar_enabled: '1' do
       assert_include 'class="s32 gravatar avatar"', @redmine_view.avatar(users(:users_002), size: 32)

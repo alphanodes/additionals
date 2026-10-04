@@ -296,7 +296,10 @@ module DashboardsHelper
                               wrapper_class: 'icon-only',
                               wrapper_title: dashboard_block_sync_info(block_definition))
       end
-      icons << tag.span(sprite_icon('reorder', ''), class: 'icon-only icon-sort-handle sort-handle', title: l(:button_move))
+      # Same handle icon as core on My page: arrows-move since Redmine 7.1 (https://www.redmine.org/issues/44436)
+      # TODO(Redmine 7.0 EOL): use arrows-move directly
+      move_icon = AdditionalsIcon.core?('arrows-move') ? 'arrows-move' : 'reorder'
+      icons << tag.span(sprite_icon(move_icon, ''), class: 'icon-only icon-sort-handle sort-handle', title: l(:button_move))
       icons << remote_delete_link(_remove_block_dashboard_path(@project, dashboard, block:),
                                   method: :post,
                                   class: 'icon-only icon-close',

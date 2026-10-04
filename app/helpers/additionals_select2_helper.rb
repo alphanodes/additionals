@@ -5,14 +5,14 @@ module AdditionalsSelect2Helper
     # No blank option for multiple selects: the hidden field below already
     # submits an empty value to clear the field, and select2's "clear all"
     # would otherwise select the blank option and render it as a stray empty
-    # choice (#15425). This mirrors Redmine core's select_edit_tag convention.
+    # choice. This mirrors Redmine core's select_edit_tag convention.
     options[:include_blank] = false if options[:multiple]
 
     s = select_tag name, option_tags, options
     id = options.delete(:id) || sanitize_to_id(name)
     # Only append the array brackets when the name does not already end in
     # "[]" (as it does for multiple custom fields), otherwise the hidden field
-    # name becomes "[][]" and Rack parses a nested ["", ...] value (#15425).
+    # name becomes "[][]" and Rack parses a nested ["", ...] value.
     if options[:multiple] && options.fetch(:include_hidden, true)
       hidden_name = name.to_s.end_with?('[]') ? name : "#{name}[]"
       s << hidden_field_tag(hidden_name, '', id: nil)

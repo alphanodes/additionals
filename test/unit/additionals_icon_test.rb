@@ -7,6 +7,14 @@ class AdditionalsIconTest < Additionals::TestCase
     AdditionalsIcon.reset!
   end
 
+  def test_core_knows_icon_of_the_core_sprite
+    assert AdditionalsIcon.core?('reorder')
+  end
+
+  def test_core_does_not_know_icon_of_the_additionals_sprite_only
+    assert_not AdditionalsIcon.core?('brand-drupal')
+  end
+
   def test_resolve_translates_legacy_solid_value
     assert_equal 'car', AdditionalsIcon.resolve('fas_car')
   end

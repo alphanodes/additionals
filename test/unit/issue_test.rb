@@ -17,6 +17,22 @@ class IssueTest < Additionals::TestCase
     assert_nil issue.description
   end
 
+  def test_involved_principals_include_the_author_of_the_latest_note
+    issue = issues :issues_001
+    note_author = users :users_003
+    Journal.create! journalized: issue, user: note_author, notes: 'Latest note'
+
+    assert_includes issue.involved_principals(users(:users_001)), note_author
+  end
+
+  def test_involved_principals_ignore_journals_without_notes
+    issue = issues :issues_001
+    detail_author = users :users_004
+    Journal.create! journalized: issue, user: detail_author, notes: ''
+
+    assert_not_includes issue.involved_principals(users(:users_001)), detail_author
+  end
+
   def test_change_open_issue
     with_plugin_settings 'additionals', issue_freezed_with_close: 1 do
       User.current = users :users_003
@@ -177,9 +193,9 @@ class IssueTest < Additionals::TestCase
     end
   end
 
-  # Regression for redmine_automation#15432: the auto-watch preference belongs
-  # to the assignee, not to the author. Stephan reported that auto-watch did
-  # not fire when he was assigned to a helpdesk ticket he had not created.
+  # Regression: the auto-watch preference belongs
+  # to the assignee, not to the author. Auto-watch did not fire for a user
+  # assigned to a helpdesk ticket someone else had created.
   def test_assigned_to_should_add_watcher_when_assignee_has_pref_but_author_does_not
     author = users :users_002
     author.pref.auto_watch_on = []
@@ -198,7 +214,7 @@ class IssueTest < Additionals::TestCase
     assert_includes issue.reload.watcher_user_ids, assignee.id
   end
 
-  # Regression for redmine_automation#15432: when only the author has the
+  # Regression: when only the author has the
   # auto-watch preference but the assignee does not, the assignee must NOT be
   # added as a watcher (the buggy implementation did exactly that).
   def test_assigned_to_should_not_add_watcher_when_only_author_has_pref

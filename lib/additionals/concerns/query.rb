@@ -267,14 +267,22 @@ module Additionals
         # NOTE: - group_id is not used, if groups is specified
         #       - if groups not specified, all givable groups are used
         def members_of_groups(with_group_id: false, group_id: nil, groups: nil)
-          groups ||= group_id.empty? ? Group.givable : Group.where(id: group_id)
+          group_ids = if groups
+                        groups.map(&:id)
+                      elsif group_id.empty?
+                        Group.givable.ids
+                      else
+                        Group.where(id: group_id).ids
+                      end
+          return [] if group_ids.empty?
 
-          groupies = groups.inject [] do |user_ids, group|
-            user_ids + group.user_ids + (with_group_id ? [group.id] : [])
-          end
-
+          # One query for the members of all groups, as core since Redmine 7.1 (https://www.redmine.org/issues/44382)
+          groupies = User.where("#{User.table_name}.id IN (SELECT gu.user_id" \
+                                " FROM #{User.table_name_prefix}groups_users#{User.table_name_suffix} gu" \
+                                ' WHERE gu.group_id IN (?))', group_ids)
+                         .pluck(:id)
+          groupies.concat group_ids if with_group_id
           groupies.uniq!
-          groupies.compact!
           groupies.sort!
           groupies.map(&:to_s)
         end
@@ -284,7 +292,8 @@ module Additionals
         end
 
         def sql_for_assigned_to_group_field(_field, operator, value)
-          sql_for_field 'assigned_to_id', operator, members_of_groups(group_id: value, with_group_id: true), queried_table_name, 'author_id'
+          sql_for_field 'assigned_to_id', operator, members_of_groups(group_id: value, with_group_id: true), queried_table_name,
+                        'assigned_to_id'
         end
 
         def sql_for_author_role_field(field, operator, value)

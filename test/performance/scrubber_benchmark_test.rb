@@ -103,7 +103,7 @@ class ScrubberBenchmarkTest < Additionals::TestCase
 
     # Redmine Core had 29.4x slowdown for 3x content before fix
     # After fix it was close to linear scaling
-    puts "\nComparison to Redmine Core Issue #43446:"
+    puts "\nComparison to Redmine Core Issue https://www.redmine.org/issues/43446:"
     puts '  Before fix: 3x content was ~29.4x slower'
     puts '  After fix: 3x content was ~3-4x slower (near linear)'
     puts format('  Our result: 3x content is %.1fx slower', results[:medium] / results[:small])

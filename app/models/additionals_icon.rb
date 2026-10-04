@@ -59,6 +59,11 @@ class AdditionalsIcon
       sprite_names.include?(name) || custom_names.include?(name)
     end
 
+    # Whether the Redmine core sprite has the icon, which differs between Redmine versions
+    def core?(name)
+      core_sprite_names.include? name.to_s
+    end
+
     # Curated, sorted list of selectable icons for the picker
     def selectable
       @selectable ||= begin
@@ -82,7 +87,7 @@ class AdditionalsIcon
 
     # Reset memoized data (used by tests)
     def reset!
-      @mapping = @sprite_names = @custom_names = @selectable = @sprite_files = nil
+      @mapping = @sprite_names = @core_sprite_names = @custom_names = @selectable = @sprite_files = nil
     end
 
     private
@@ -105,6 +110,10 @@ class AdditionalsIcon
 
     def sprite_names
       @sprite_names ||= loader.yaml_config_load('icon_source.yml').to_set { |entry| entry['name'] }
+    end
+
+    def core_sprite_names
+      @core_sprite_names ||= YAML.load_file(Rails.root.join('config/icon_source.yml')).to_set { |entry| entry['name'] }
     end
 
     def custom_names

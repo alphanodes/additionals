@@ -43,13 +43,31 @@ describe('mermaid configuration of additionals.js', () => {
       expect(libraryInitialize.mock.calls[0][0].maxTextSize).toBe(1000);
     });
 
+    // A second library is loaded when core and a macro load it at the same
+    // time. Unless initialized, it renders all diagrams with mermaid's
+    // defaults on window load.
+    it('initializes a loaded library without starting it on load', () => {
+      const secondInitialize = vi.fn();
+      globalThis.mermaid = { initialize: secondInitialize, run: vi.fn() };
+      globalThis.mermaid = library;
+
+      expect(secondInitialize.mock.calls[0][0]).toMatchObject({ maxTextSize: 500000, startOnLoad: false });
+    });
+
     it('adds the configuration to a library loaded a second time', () => {
       const secondInitialize = vi.fn();
       globalThis.mermaid = { initialize: secondInitialize, run: vi.fn() };
-      globalThis.mermaid.initialize({});
+      globalThis.mermaid.initialize({ startOnLoad: true });
       globalThis.mermaid = library;
 
-      expect(secondInitialize.mock.calls[0][0].maxTextSize).toBe(500000);
+      expect(secondInitialize.mock.calls[1][0]).toMatchObject({ maxTextSize: 500000, startOnLoad: true });
+    });
+
+    // mermaid_load.js has turned on starting on load by then
+    it('does not initialize a library again when it is assigned again', () => {
+      globalThis.mermaid = library;
+
+      expect(libraryInitialize).not.toHaveBeenCalled();
     });
 
     it('takes the theme a Redmine theme sets', () => {

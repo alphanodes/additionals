@@ -13,8 +13,9 @@ const libraryInitialize = vi.fn();
 evalScript('additionals.js');
 globalThis.mermaid = { initialize: libraryInitialize, run: vi.fn() };
 evalScript('mermaid_load.js');
-// mocks are cleared before every test
-const configOnLoad = libraryInitialize.mock.calls[0][0];
+// additionals.js initializes the library first, mermaid_load.js last.
+// Mocks are cleared before every test.
+const configOnLoad = libraryInitialize.mock.calls.at(-1)[0];
 
 describe('mermaid_load', () => {
   it('starts rendering the macros on load', () => {

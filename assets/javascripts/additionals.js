@@ -276,18 +276,24 @@ function insertTextAtCaret(field, value) {
 
   // Each mermaid.initialize call replaces the whole configuration, so every
   // call starts from the additionals configuration instead.
+  // Returns true if the library was not wrapped before.
   function keepAdditionalsMermaidConfig(library) {
-    if (typeof library?.initialize !== 'function' || library.initialize.withAdditionalsConfig) { return; }
+    if (typeof library?.initialize !== 'function' || library.initialize.withAdditionalsConfig) { return false; }
 
     const libraryInitialize = library.initialize;
     const initialize = (config = {}) => libraryInitialize.call(library, mergeMermaidConfig(additionalsMermaidConfig(), config));
     initialize.withAdditionalsConfig = true;
     library.initialize = initialize;
+    return true;
   }
 
   // The mermaid bundle ends with globalThis["mermaid"] = ..., which lands in
   // the setter. It stays in place, as two scripts loading the library at the
-  // same time (core and a macro) assign it twice.
+  // same time (core and the macro detector of redmine_reporting) assign it
+  // twice. Only the last one stays global and gets initialized by its loader,
+  // but each one starts rendering all diagrams on window load, the earlier
+  // one with mermaid's defaults. So every library is initialized right away
+  // without starting on load; mermaid_load.js turns that on for the global one.
   let library = globalThis.mermaid;
   keepAdditionalsMermaidConfig(library);
 
@@ -296,7 +302,7 @@ function insertTextAtCaret(field, value) {
     enumerable: true,
     get() { return library; },
     set(value) {
-      keepAdditionalsMermaidConfig(value);
+      if (keepAdditionalsMermaidConfig(value)) { value.initialize({ startOnLoad: false }); }
       library = value;
     },
   });

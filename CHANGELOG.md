@@ -18,6 +18,7 @@
 - `Additionals::Helpers#link_to_issue_with_subject` renders a whole issue line as one link, subject included. Core's `link_to_issue` appends the subject after the link, so the issue's state classes reach its number alone and `a.issue.closed` strikes through "#123" while the subject stays untouched. Wherever one line stands for one issue, the subject now carries the styling with it
 - `Additionals.name_sort_key` sorts names in any script independent of the database. Plugins sorted with `transliterate`, which turns Cyrillic, Chinese or Japanese characters into `?`, so such names ended up in random order
 - The test helper `count_sql_queries` takes `matching:` to count only the queries of one table, e.g. `count_sql_queries(matching: /additional_taggings/) { ... }` to show that a list loads its tags at once
+- d3plus updated to 4.6.0
 
 ## 4.6.0
 

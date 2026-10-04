@@ -2,6 +2,10 @@
 = stylesheet_link_tag 'additionals', plugin: 'additionals'
 = javascript_tag "var ADDITIONALS_LABEL_SEARCH = #{l(:label_search).to_json};"
 = javascript_tag "var ADDITIONALS_ICON_SPRITES = #{additionals_icon_sprites.to_json};"
+/ Redmine core (since 7.1) loads this library to render mermaid code blocks. It uses the
+/ bundled one, so the versions match and no redmine:mermaid:install is needed.
+- if defined? Redmine::Mermaid
+  = javascript_tag "window.MermaidAssetUrl = #{asset_path('plugin_assets/additionals/vendor/mermaid.min.js').to_json};"
 = javascript_include_tag 'additionals', plugin: 'additionals'
 = javascript_include_tag 'additionals_stimulus', plugin: 'additionals'
 = javascript_include_tag 'top_menu_dropdown', plugin: 'additionals'

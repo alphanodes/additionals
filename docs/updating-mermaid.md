@@ -69,6 +69,10 @@ Take the `target` list from `.build/common.ts` of the release being built.
 
 The one deliberate default is `themeVariables: { strokeWidth: 1 }` (unless a theme sets `mermaidThemeVariables`): `redux-color` draws 2px lines, which crowd diagrams with many edges. A diagram that needs different values sets them in its own front matter, as the workflow graph in `redmine_reporting` does.
 
+## Redmine core renders code blocks (since 7.1)
+
+Redmine core renders `mermaid` code blocks with its own Stimulus controller, using a library an administrator installs with `redmine:mermaid:install`. `additionals` points core at its bundled library instead (`window.MermaidAssetUrl` in `app/views/additionals/_html_head.html.slim`, only where `Redmine::Mermaid` exists), so every diagram on a page uses one version and no extra installation is needed. Core calls `mermaid.initialize` with its own options; `mermaid_load.js` merges the additionals configuration into every call, so macros and code blocks on one page keep the same settings. On a page with code blocks only, core loads the library without `mermaid_load.js` and mermaid's defaults apply.
+
 ## Verifying the update
 
 - **The file is the IIFE build.** `dist/mermaid.min.js` exists, starts with `"use strict";var __esbuild_esm_mermaid_nm`, ends with `globalThis["mermaid"] = ...` and contains the new `version:"..."`. If it is missing or has another format, use the fallback build.

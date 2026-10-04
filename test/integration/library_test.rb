@@ -34,4 +34,24 @@ class JavascriptLibraryTest < Additionals::IntegrationTest
     assert_select "script:match('src',?)", %r{/mermaid_load.*\.js}, count: 0
     assert_select "script:match('src',?)", %r{/mermaid\.min.*\.js}, count: 0
   end
+
+  # Redmine core renders mermaid code blocks itself with a library that has to
+  # be installed separately. It loads the bundled one of additionals instead.
+  def test_points_core_mermaid_rendering_at_the_bundled_library
+    skip 'Redmine core renders no mermaid code blocks' unless defined? Redmine::Mermaid
+
+    log_user 'admin', 'admin'
+    get '/'
+
+    assert_select 'head script', text: %r{window\.MermaidAssetUrl = ".*/plugin_assets/additionals/vendor/mermaid\.min.*\.js"}
+  end
+
+  def test_sets_no_mermaid_library_url_without_core_mermaid_rendering
+    skip 'Redmine core renders mermaid code blocks' if defined? Redmine::Mermaid
+
+    log_user 'admin', 'admin'
+    get '/'
+
+    assert_select 'head script', text: /MermaidAssetUrl/, count: 0
+  end
 end

@@ -20,6 +20,7 @@
 - The test helper `count_sql_queries` takes `matching:` to count only the queries of one table, e.g. `count_sql_queries(matching: /additional_taggings/) { ... }` to show that a list loads its tags at once
 - d3plus updated to 4.6.0
 - mermaid 12.1.0 support
+- Redmine versions that render mermaid code blocks themselves (7.1 and newer) use the bundled mermaid, so `redmine:mermaid:install` is not needed and diagrams on one page share one version and configuration
 
 ## 4.6.0
 

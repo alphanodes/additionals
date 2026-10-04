@@ -1,16 +1,13 @@
 /* global mermaid */
 
-// Initialize Mermaid globally
+// Configuration of every diagram, whoever renders it.
 // theme, look and layout are only passed on when a theme sets them
 // (globalThis.mermaidTheme, ...), so mermaid's own per diagram defaults
 // (ELK layout, neo look, redux-color theme) apply otherwise. Lines are 1px
 // instead of redux-color's 2px, which crowd diagrams with many edges. A
 // diagram that needs different values sets them in its own front matter.
-function initAllMermaidMacro(startOnLoad = false) {
-  if (typeof mermaid === 'undefined') {return;}
-
+function additionalsMermaidConfig() {
   const config = {
-    startOnLoad,
     maxTextSize: 500000,
     themeVariables: globalThis.mermaidThemeVariables ?? { strokeWidth: 1 },
     flowchart: {
@@ -26,7 +23,29 @@ function initAllMermaidMacro(startOnLoad = false) {
   if (globalThis.mermaidLook !== undefined) {config.look = globalThis.mermaidLook;}
   if (globalThis.mermaidLayout !== undefined) {config.layout = globalThis.mermaidLayout;}
 
-  mermaid.initialize(config);
+  return config;
+}
+
+// Redmine core (since 7.1) renders mermaid code blocks with its own Stimulus
+// controller, which calls mermaid.initialize with its own options. Each call
+// replaces the whole configuration, so every call starts from the additionals
+// configuration instead. Macros and code blocks render alike, whichever
+// initializes last.
+function keepAdditionalsMermaidConfig() {
+  if (mermaid.initialize.withAdditionalsConfig) {return;}
+
+  const libraryInitialize = mermaid.initialize;
+  const initialize = (config = {}) => libraryInitialize.call(mermaid, { ...additionalsMermaidConfig(), ...config });
+  initialize.withAdditionalsConfig = true;
+  mermaid.initialize = initialize;
+}
+
+// Initialize Mermaid globally
+function initAllMermaidMacro(startOnLoad = false) {
+  if (typeof mermaid === 'undefined') {return;}
+
+  keepAdditionalsMermaidConfig();
+  mermaid.initialize({ startOnLoad });
 }
 
 // Render a specific Mermaid macro by selector

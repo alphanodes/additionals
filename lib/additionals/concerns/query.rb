@@ -264,16 +264,9 @@ module Additionals
           Group.givable.visible.sorted.map { |group| [group.name, group.id.to_s] }
         end
 
-        # NOTE: - group_id is not used, if groups is specified
-        #       - if groups not specified, all givable groups are used
-        def members_of_groups(with_group_id: false, group_id: nil, groups: nil)
-          group_ids = if groups
-                        groups.map(&:id)
-                      elsif group_id.empty?
-                        Group.givable.ids
-                      else
-                        Group.where(id: group_id).ids
-                      end
+        # Without group_id all givable groups are used
+        def members_of_groups(group_id:, with_group_id: false)
+          group_ids = group_id.empty? ? Group.givable.ids : Group.where(id: group_id).ids
           return [] if group_ids.empty?
 
           # One query for the members of all groups, as core since Redmine 7.1 (https://www.redmine.org/issues/44382)

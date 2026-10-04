@@ -22,7 +22,7 @@ module Additionals
           render_params[:me_value] = params[:me_value] if params.key? :me_value
 
           if params[:issue_id].present?
-            issue = Issue.find_by id: params[:issue_id]
+            issue = Issue.visible.find_by id: params[:issue_id]
             render_params[:involved_principals] = issue_involved_principals(issue) if issue
           end
 

@@ -4,7 +4,8 @@
 
 - The assignee group filter of entity lists built on additionals queries filters by assignee. It used the author before
 - User custom fields with the scope "all users" or "all active users" offer groups too, if the field allows them (Redmine 7.1 and newer). The built-in anonymous user is no longer offered
-- The assignee selection lists the author of the latest note under "Author / Recent participants", like Redmine 7.1, also in the plain assignee dropdown of Redmine 7.0. Multiple value user fields no longer offer "<< me >>"
+- The assignee selection lists the author of the latest note among the involved principals, like Redmine 7.1, also in the plain assignee dropdown of Redmine 7.0. Involved principals who cannot be assigned are disabled in the search selection, too. Multiple value user fields no longer offer "<< me >>"
+- The assignee search selection only lists the involved principals of an issue the user can see
 - Select fields for users and groups offer groups before anything is typed. They used to appear only on search, because the start list showed the users who logged in last
 - Disabled entries of the dashboard actions menu look disabled with Redmine 7.1 too
 - Requires Redmine 7.0.2 or higher, which fixes two security issues of Redmine core. Plugins built on additionals rely on this version

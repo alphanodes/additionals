@@ -25,7 +25,11 @@ module AdditionalsQueriesHelper
                                         involved_principals: nil, use_assignment_frequency: false,
                                         apply_assignee_format: false)
     @users = { active: [], groups: [], registered: [], locked: [] }
-    @involved_principals = involved_principals&.map { |p| { id: p.id, name: p.name, obj: p } } || []
+    # Involved principals outside the scope cannot be assigned, like in core they are shown disabled
+    assignable_ids = involved_principals.present? ? users.where(id: involved_principals.map(&:id)).ids : []
+    @involved_principals = involved_principals&.map do |p|
+      { id: p.id, name: p.name, obj: p, disabled: assignable_ids.exclude?(p.id) }
+    end || []
 
     sorted_users = if search_term.present?
                      users.like(search_term)

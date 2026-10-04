@@ -3,6 +3,8 @@
 require File.expand_path '../../test_helper', __FILE__
 
 class AutoCompletesControllerTest < Additionals::ControllerTest
+  include Redmine::I18n
+
   def setup
     prepare_tests
     Setting.default_language = 'en'
@@ -74,6 +76,26 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
 
     assert_not_nil involved_group, 'Expected involved principals group'
     assert involved_group['children'].any?
+  end
+
+  def test_issue_assignee_disables_involved_principals_who_cannot_be_assigned
+    issue = issues :issues_001
+    note_author = users :users_007
+    Journal.create! journalized: issue, user: note_author, notes: 'Latest note'
+
+    get :issue_assignee,
+        params: { project_id: 1, issue_id: issue.id },
+        xhr: true
+
+    assert(involved_principals(response.body).detect { |entry| entry['id'] == note_author.id }['disabled'])
+  end
+
+  def test_issue_assignee_offers_no_involved_principals_of_an_invisible_issue
+    get :issue_assignee,
+        params: { project_id: 1, issue_id: issues(:issues_006).id },
+        xhr: true
+
+    assert_empty involved_principals(response.body)
   end
 
   def test_assignee
@@ -672,6 +694,11 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
   private
 
   # Flattens the grouped select2 JSON payload into a plain list of user ids.
+  def involved_principals(body)
+    group = ActiveSupport::JSON.decode(body).detect { |entry| entry['text'] == l(:label_involved_principals) }
+    group ? group['children'] : []
+  end
+
   def custom_field_users_ids(body)
     custom_field_users_raw_ids(body).map(&:to_i)
   end

@@ -14,7 +14,8 @@
                         'id' => user[:id],
                         'text' => user[:name],
                         'name' => user[:name],
-                        'value' => user[:id] } }.to_json %>
+                        'value' => user[:id],
+                        'disabled' => user[:disabled] } }.to_json %>
   <% sep_required = true %>
 }
 <% end %>

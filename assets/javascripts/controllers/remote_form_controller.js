@@ -75,6 +75,7 @@ class RemoteFormController extends Controller {
 
   execute(action, target, directive) {
     const fragment = directive.content.cloneNode(true);
+    const scripts = [...fragment.querySelectorAll('script')];
 
     switch (action) {
       case 'replace':
@@ -98,6 +99,18 @@ class RemoteFormController extends Controller {
           console.warn(`remote-form: unknown action "${action}"`);
         }
     }
+
+    scripts.filter(script => script.isConnected).forEach(RemoteFormController.activateScript);
+  }
+
+  // Scripts parsed via innerHTML are flagged as already started, and clones keep
+  // that flag, so browsers never run them. A freshly created copy runs on insert,
+  // as with the former rails-ujs *.js.erb responses.
+  static activateScript(script) {
+    const fresh = document.createElement('script');
+    [...script.attributes].forEach(attr => fresh.setAttribute(attr.name, attr.value));
+    fresh.textContent = script.textContent;
+    script.replaceWith(fresh);
   }
 
   handleError(error) {

@@ -34,6 +34,25 @@ class WelcomeControllerTest < Additionals::ControllerTest
     assert_select 'form[action*=?][onsubmit*=?]', 'update_layout_setting', 'selected_'
   end
 
+  # Blocks added without a page reload bring the toolbar call of their text field, but
+  # not the toolbar library, which the page has to provide.
+  def test_index_loads_wiki_toolbar_on_editable_dashboard
+    @request.session[:user_id] = 1
+    get :index,
+        params: { dashboard_id: dashboards(:private_welcome) }
+
+    assert_response :success
+    assert_select 'head script[src*=?]', 'jstoolbar/jstoolbar'
+  end
+
+  def test_index_without_wiki_toolbar_on_locked_dashboard
+    @request.session[:user_id] = 4
+    get :index
+
+    assert_response :success
+    assert_select 'head script[src*=?]', 'jstoolbar/jstoolbar', count: 0
+  end
+
   def test_show_with_left_text_block
     @request.session[:user_id] = 4
     get :index

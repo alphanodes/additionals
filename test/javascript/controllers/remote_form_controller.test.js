@@ -242,6 +242,27 @@ describe('RemoteFormController', () => {
     });
   });
 
+  // jsdom runs inserted scripts even when a browser would not, so these tests
+  // check the replacement itself; the browser behaviour is covered by system tests.
+  describe('activateScript', () => {
+    it('replaces the script with a new element', () => {
+      document.body.innerHTML = '<div id="wrap"><script type="text/x-test">x</script></div>';
+      const original = document.querySelector('#wrap script');
+
+      RemoteFormController.activateScript(original);
+
+      expect(document.querySelector('#wrap script')).not.toBe(original);
+    });
+
+    it('keeps attributes and content of the script', () => {
+      document.body.innerHTML = '<div id="wrap"><script type="text/x-test" data-foo="bar">x</script></div>';
+
+      RemoteFormController.activateScript(document.querySelector('#wrap script'));
+
+      expect(document.querySelector('#wrap script').outerHTML).toBe('<script type="text/x-test" data-foo="bar">x</script>');
+    });
+  });
+
   describe('handleError', () => {
     let element;
     let dispatched;

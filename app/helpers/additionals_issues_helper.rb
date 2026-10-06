@@ -50,6 +50,16 @@ module AdditionalsIssuesHelper
       issue.project.assignable_users(issue.tracker).exists?(id: User.current.id)
   end
 
+  # Options for link_to_attachments in the attachments block, which the
+  # additionals-issue-attachments override takes over from redmine core.
+  # TODO(Redmine 7.0 EOL): pass journals unconditionally - 7.0 has no journal
+  # links for attachments and link_to_attachments rejects the unknown key.
+  def issue_attachments_link_options
+    options = { thumbnails: true }
+    options[:journals] = journals_by_attachment_id @journals if respond_to? :journals_by_attachment_id
+    options
+  end
+
   # Render the issue category as a link to the issue list of the issue's
   # project, filtered by this category. Falls back to the plain (escaped)
   # category name when the issue_link_category setting is disabled - which

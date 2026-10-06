@@ -12,7 +12,7 @@
           = sprite_icon 'angle-right', rtl: true
           strong = label_with_count :label_attachment_plural, file_count
         .hidden
-          = link_to_attachments @issue, thumbnails: true
+          = link_to_attachments @issue, issue_attachments_link_options
       / Jumping straight at the anchor has to show the files, not just their
       / heading - otherwise the link lands on a closed drawer.
       javascript:
@@ -25,4 +25,4 @@
       hr
       p
         strong = l :label_attachment_plural
-      = link_to_attachments @issue, thumbnails: true
+      = link_to_attachments @issue, issue_attachments_link_options

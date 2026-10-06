@@ -10,6 +10,7 @@
 - The assignee search selection only lists the involved principals of an issue the user can see
 - Select fields for users and groups offer groups before anything is typed. They used to appear only on search, because the start list showed the users who logged in last
 - Disabled entries of the dashboard actions menu look disabled with Redmine 7.1 too
+- With Redmine 7.1, issue attachments link to the note that added them, also in the attachments block of additionals (collapsed or not)
 - Requires Redmine 7.0.2 or higher, which fixes two security issues of Redmine core. Plugins built on additionals rely on this version
 - Names in select fields (users, contacts, tags) are shown as text. Html in a name could run scripts in the filter and field selections before
 - The `members` macro leaves out hidden roles and members by hidden roles only, like the members box, for users without the permission to see hidden roles

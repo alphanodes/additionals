@@ -289,6 +289,32 @@ class IssuesControllerTest < Additionals::ControllerTest
     end
   end
 
+  # TODO(Redmine 7.1 release): drop the skip once journal links are in every supported version
+  def test_show_attachments_link_to_the_journal_that_added_them
+    skip 'Redmine core has no journal links for attachments' unless IssuesHelper.method_defined? :journals_by_attachment_id
+
+    @request.session[:user_id] = 2
+    with_plugin_settings 'additionals', issue_hide_max_attachments: 10 do
+      get :show, params: { id: 2 }
+
+      assert_response :success
+      assert_select '#attachments div.attachments span.attachment-journal a[href=?]', '#note-1'
+    end
+  end
+
+  # TODO(Redmine 7.1 release): drop the skip once journal links are in every supported version
+  def test_show_hidden_attachments_link_to_the_journal_that_added_them
+    skip 'Redmine core has no journal links for attachments' unless IssuesHelper.method_defined? :journals_by_attachment_id
+
+    @request.session[:user_id] = 2
+    with_plugin_settings 'additionals', issue_hide_max_attachments: 0 do
+      get :show, params: { id: 2 }
+
+      assert_response :success
+      assert_select 'fieldset.hide-attachments div.attachments span.attachment-journal a[href=?]', '#note-1'
+    end
+  end
+
   def test_show_with_hook_view_issue_action_dropdown
     Redmine::Hook.add_listener ViewIssueActionDropdownRenderOn
     @request.session[:user_id] = 2

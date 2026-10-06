@@ -200,6 +200,18 @@ class DashboardTest < Additionals::TestCase
     end
   end
 
+  def test_unknown_dashboard_type_is_invalid
+    dashboard = Dashboard.new dashboard_type: 'DashboardContentWelcome', name: 'Unknown type', author: users(:users_001)
+
+    assert_not dashboard.valid?
+  end
+
+  def test_dashboard_type_has_to_be_a_dashboard_content
+    dashboard = Dashboard.new dashboard_type: 'UserDashboard', name: 'No content', author: users(:users_001)
+
+    assert_not dashboard.valid?
+  end
+
   def test_layout_editable_for_editor_of_unlocked_dashboard
     assert dashboards(:private_welcome).layout_editable?(users(:users_001))
   end

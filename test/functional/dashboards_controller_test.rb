@@ -125,6 +125,30 @@ class DashboardsControllerTest < Additionals::ControllerTest
     end
   end
 
+  def test_new_with_unknown_dashboard_type_renders_form
+    @request.session[:user_id] = @user.id
+
+    get :new, params: { dashboard_type: 'DashboardContentWelcome' }
+
+    assert_response :success
+  end
+
+  def test_create_with_unknown_dashboard_type_should_not_create_dashboard
+    @request.session[:user_id] = @user.id
+
+    assert_no_difference 'Dashboard.count' do
+      post :create, params: { dashboard: { name: 'Unknown type', dashboard_type: 'DashboardContentWelcome' } }
+    end
+  end
+
+  def test_create_with_unknown_dashboard_type_shows_error
+    @request.session[:user_id] = @user.id
+
+    post :create, params: { dashboard: { name: 'Unknown type', dashboard_type: 'DashboardContentWelcome' } }
+
+    assert_select '#errorExplanation'
+  end
+
   def test_new_with_copy_param_should_not_copy_invisible_dashboard
     # SECURITY TEST: User must not be able to copy dashboards they cannot see
     # Dashboard blocks may contain sensitive data (credentials, API keys)

@@ -64,6 +64,7 @@ class Dashboard < ApplicationRecord
   validates :name, presence: true, length: { maximum: 255 }
   validates :dashboard_type, :author, :visibility, presence: true
   validates :visibility, inclusion: { in: [VISIBILITY_PUBLIC, VISIBILITY_ROLES, VISIBILITY_PRIVATE] }
+  validate :validate_dashboard_type
   validate :validate_roles
   validate :validate_visibility
   validate :validate_name
@@ -202,7 +203,7 @@ class Dashboard < ApplicationRecord
   end
 
   def content
-    @content ||= "DashboardContent#{dashboard_type[0..-10]}".constantize.new(project: content_project.presence || project)
+    @content ||= content_class.new(project: content_project.presence || project)
   end
 
   def available_groups
@@ -386,6 +387,18 @@ class Dashboard < ApplicationRecord
     return if !saved_change_to_visibility? || visibility == VISIBILITY_ROLES
 
     roles.clear
+  end
+
+  # dashboard_type comes from request params, so it must resolve to a registered content class
+  def content_class
+    klass = "DashboardContent#{dashboard_type.to_s.delete_suffix 'Dashboard'}".safe_constantize
+    klass if klass.is_a?(Class) && klass < DashboardContent && dashboard_type == klass::TYPE_NAME
+  end
+
+  def validate_dashboard_type
+    return if dashboard_type.blank? || content_class
+
+    errors.add :dashboard_type, :inclusion
   end
 
   def validate_roles

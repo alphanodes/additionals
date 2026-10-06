@@ -497,8 +497,8 @@ class DashboardsControllerTest < Additionals::ControllerTest
   # must scope its news block to the project from the request, not list news
   # from all projects. The bug surfaced because find_dashboard assigned
   # content_project from the return value of find_project_by_project_id, which
-  # other plugins (e.g. redmine_templates) override to no longer return the
-  # project. content_project must be read from @project (the side effect).
+  # other plugins may override to no longer return the project. content_project
+  # must be read from @project (the side effect).
   def test_update_layout_setting_scopes_news_block_to_request_project
     @request.session[:user_id] = 1
     @request.headers['Accept'] = 'text/html'

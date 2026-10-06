@@ -1313,10 +1313,13 @@ class AssignableUsersOptimizerTest < Additionals::TestCase
 
   def test_project_ids_with_hidden_roles_matches_the_check_per_project
     user = users :users_002
-    expected = Project.all.filter_map { |p| p.id if Additionals::AssignableUsersOptimizer.can_see_hidden_roles? p, user: }
+    # Callers pass memberships of visible projects only. Other plugins may hide
+    # projects in Project.allowed_to_condition, which the check per project ignores.
+    projects = Project.visible(user).to_a
+    expected = projects.filter_map { |p| p.id if Additionals::AssignableUsersOptimizer.can_see_hidden_roles? p, user: }
 
     assert_equal expected.sort,
-                 Additionals::AssignableUsersOptimizer.project_ids_with_hidden_roles(Project.ids, user:).sort
+                 Additionals::AssignableUsersOptimizer.project_ids_with_hidden_roles(projects.map(&:id), user:).sort
   end
 
   def test_can_see_hidden_roles_uses_given_admin_instead_of_current

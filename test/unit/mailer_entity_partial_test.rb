@@ -3,10 +3,10 @@
 require File.expand_path '../../test_helper', __FILE__
 
 # Downstream plugins render the shared mailer/_entity partial for their own
-# journalized entities. Some of those entities (e.g. redmine_templates'
-# TemplateProject) have no attachments association and therefore render the
-# partial with `with_attachments: false`. In that case the partial must not
-# touch #attachments at all - otherwise it crashes with NoMethodError.
+# journalized entities. Some of those entities have no attachments association
+# and therefore render the partial with `with_attachments: false`. In that case
+# the partial must not touch #attachments at all - otherwise it crashes with
+# NoMethodError.
 class MailerEntityPartialTest < Additionals::HelperTest
   # A minimal downstream-style entity WITHOUT an attachments association.
   class AttachmentlessEntity

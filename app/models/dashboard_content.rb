@@ -117,6 +117,11 @@ class DashboardContent
     available_blocks.key?(name) ? available_blocks[name].merge(name:) : nil
   end
 
+  # Definition of a block, whether or not the current user may use it
+  def block_definition(block)
+    block_definitions[block.to_s.sub(/__\d+\z/, '')]
+  end
+
   # Returns the default layout for a new dashboard
   def default_layout
     {

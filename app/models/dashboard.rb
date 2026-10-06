@@ -267,7 +267,11 @@ class Dashboard < ApplicationRecord
 
   def update_block_settings(block, settings)
     block = block.to_s
-    block_settings = layout_settings(block).merge(settings.symbolize_keys)
+    settings = settings.symbolize_keys
+    # A block can drop settings the current user may not change
+    settings_filter = content.block_definition(block)&.dig :settings_filter
+    settings = settings_filter.call settings, self if settings_filter
+    block_settings = layout_settings(block).merge settings
     layout_settings[block] = block_settings
   end
 

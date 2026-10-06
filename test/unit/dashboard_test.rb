@@ -2,10 +2,35 @@
 
 require File.expand_path '../../test_helper', __FILE__
 
+# Exposes a block with a settings filter. Dashboard constantizes
+# `DashboardContent#{dashboard_type.chomp('Dashboard')}`, so the class lives at
+# the top level and its name follows TYPE_NAME.
+class DashboardContentFilterStub < DashboardContent
+  TYPE_NAME = 'FilterStubDashboard'
+
+  def block_definitions
+    { 'filtered' => { label: 'Filtered', settings_filter: ->(settings, _dashboard) { settings.except :secret } } }
+  end
+end
+
 class DashboardTest < Additionals::TestCase
   def setup
     prepare_tests
     User.current = users :users_002
+  end
+
+  def test_update_block_settings_applies_settings_filter
+    dashboard = Dashboard.new name: 'Filter', dashboard_type: DashboardContentFilterStub::TYPE_NAME, author_id: 2
+    dashboard.update_block_settings 'filtered__1', 'title' => 'Mine', 'secret' => 'x'
+
+    assert_equal({ title: 'Mine' }, dashboard.layout_settings('filtered__1'))
+  end
+
+  def test_update_block_settings_without_settings_filter_keeps_all_settings
+    dashboard = Dashboard.new name: 'Filter', dashboard_type: DashboardContentFilterStub::TYPE_NAME, author_id: 2
+    dashboard.update_block_settings 'other', 'title' => 'Mine', 'secret' => 'x'
+
+    assert_equal({ title: 'Mine', secret: 'x' }, dashboard.layout_settings('other'))
   end
 
   def test_create_welcome_dashboard

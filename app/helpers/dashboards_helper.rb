@@ -418,6 +418,8 @@ module DashboardsHelper
   def dashboard_async_required_settings?(settings, async)
     return true if async[:required_settings].blank?
     return false if settings.blank?
+    # A proc decides itself, e.g. for blocks that need one of several settings
+    return async[:required_settings].call settings if async[:required_settings].respond_to? :call
 
     async[:required_settings].each do |required_setting|
       return false if settings.exclude?(required_setting) || settings[required_setting].blank?

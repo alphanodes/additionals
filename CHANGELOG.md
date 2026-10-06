@@ -2,6 +2,8 @@
 
 ## 4.7.0
 
+- Dashboard layout and block settings can only be changed by users who may edit the dashboard. Before, everyone who could see a public dashboard could change its block settings, add, remove and reorder blocks
+- Dashboard blocks can drop settings on save with the new block option `settings_filter`, e.g. those the current user may not change. `required_settings` of async blocks also accepts a proc
 - The assignee group filter of entity lists built on additionals queries filters by assignee. It used the author before
 - User custom fields with the scope "all users" or "all active users" offer groups too, if the field allows them (Redmine 7.1 and newer). The built-in anonymous user is no longer offered
 - The assignee selection lists the author of the latest note among the involved principals, like Redmine 7.1, also in the plain assignee dropdown of Redmine 7.0. Involved principals who cannot be assigned are disabled in the search selection, too. Multiple value user fields no longer offer "<< me >>"

@@ -512,6 +512,7 @@ Each block is defined by a hash with these options:
 | `async` | Hash | Asynchronous loading configuration (see below) |
 | `settings_partial` | String | Custom settings form partial |
 | `with_settings_if` | Proc | Conditional settings availability |
+| `settings_filter` | Proc | Called with `(settings, dashboard)` before saving block settings, returns the settings to keep (e.g. drops those the current user may not change) |
 | `max_occurs` | Integer | Maximum times block can be added (`DashboardContent::MAX_MULTIPLE_OCCURS`) |
 | `query_block` | Hash | Query-based block configuration (for IssueQuery, etc.) |
 | `matrix` | Hash | Matrix chart configuration |
@@ -527,6 +528,7 @@ async: {
   cache_expires_in: 3600,                        # Optional: Cache TTL in seconds
   unique_params: [Issue.maximum(:updated_on)],   # Optional: Cache key params
   required_settings: [:status_id, :tracker_id],  # Optional: Required settings
+  # required_settings: ->(settings) { settings[:a].present? || settings[:b].present? }  # Or a proc for one of several
   skip_user_id: true                             # Optional: Exclude user_id from cache key
 }
 ```

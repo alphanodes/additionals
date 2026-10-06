@@ -391,8 +391,70 @@ class DashboardsControllerTest < Additionals::ControllerTest
     assert_not dashboard.locked?, 'Dashboard should be unlocked after unlock action'
   end
 
-  def test_update_layout_setting_renders_template_directives_for_html
+  # Layout and block settings belong to those who may edit the dashboard,
+  # seeing a public dashboard is not enough.
+  def test_update_layout_setting_requires_editable_dashboard
     @request.session[:user_id] = 2
+
+    post :update_layout_setting, params: { id: dashboards(:public_welcome).id,
+                                           settings: { 'text' => { 'text' => 'Changed' } } }
+
+    assert_response :forbidden
+  end
+
+  def test_update_layout_setting_on_locked_dashboard_for_editor
+    @request.session[:user_id] = 1
+    @request.headers['Accept'] = 'text/html'
+    @request.headers['X-Requested-With'] = 'XMLHttpRequest'
+
+    post :update_layout_setting, params: { id: dashboards(:system_default_welcome).id,
+                                           settings: { 'text' => { 'text' => 'Changed' } } }
+
+    assert_response :success
+  end
+
+  def test_add_block_requires_editable_dashboard
+    @request.session[:user_id] = 2
+
+    post :add_block, params: { id: dashboards(:public_welcome).id, block: 'news' }
+
+    assert_response :forbidden
+  end
+
+  def test_add_block_on_own_dashboard
+    @request.session[:user_id] = 2
+
+    post :add_block, params: { id: dashboards(:private_welcome2).id, block: 'news' }
+
+    assert_response :redirect
+  end
+
+  def test_add_block_on_locked_dashboard_for_editor
+    @request.session[:user_id] = 1
+
+    post :add_block, params: { id: dashboards(:system_default_welcome).id, block: 'news' }
+
+    assert_response :forbidden
+  end
+
+  def test_remove_block_requires_editable_dashboard
+    @request.session[:user_id] = 2
+
+    post :remove_block, params: { id: dashboards(:public_welcome).id, block: 'news' }
+
+    assert_response :forbidden
+  end
+
+  def test_order_blocks_requires_editable_dashboard
+    @request.session[:user_id] = 2
+
+    post :order_blocks, params: { id: dashboards(:public_welcome).id, group: 'left', blocks: %w[news] }
+
+    assert_response :forbidden
+  end
+
+  def test_update_layout_setting_renders_template_directives_for_html
+    @request.session[:user_id] = 1
     @request.headers['Accept'] = 'text/html'
     @request.headers['X-Requested-With'] = 'XMLHttpRequest'
 

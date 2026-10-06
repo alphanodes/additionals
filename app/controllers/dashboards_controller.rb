@@ -4,6 +4,9 @@ class DashboardsController < ApplicationController
   menu_item :dashboards
 
   before_action :find_dashboard, except: %i[index new create]
+  # Same rules as the controls on the dashboard page
+  before_action :require_editable, only: %i[update_layout_setting]
+  before_action :require_layout_editable, only: %i[add_block remove_block order_blocks]
   before_action :find_optional_project, only: %i[index new create]
 
   accept_api_auth :index, :show, :create, :update, :destroy
@@ -219,6 +222,14 @@ class DashboardsController < ApplicationController
   end
 
   private
+
+  def require_editable
+    render_403 unless @dashboard.editable?
+  end
+
+  def require_layout_editable
+    render_403 unless @dashboard.editable? && !@dashboard.locked?
+  end
 
   def assign_dashboard_type
     if params['dashboard_type'].present?

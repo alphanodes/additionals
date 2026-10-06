@@ -62,6 +62,26 @@ class DashboardsHelperTest < Additionals::HelperTest
     assert_equal [], block_libraries(cfg)
   end
 
+  def test_dashboard_async_required_settings_with_all_settings_present
+    assert dashboard_async_required_settings?({ text: 'Foo' }, { required_settings: %i[text] })
+  end
+
+  def test_dashboard_async_required_settings_with_missing_setting
+    assert_not dashboard_async_required_settings?({ text: '' }, { required_settings: %i[text] })
+  end
+
+  def test_dashboard_async_required_settings_with_proc_accepting_settings
+    required = ->(settings) { settings[:a].present? || settings[:b].present? }
+
+    assert dashboard_async_required_settings?({ b: 'Foo' }, { required_settings: required })
+  end
+
+  def test_dashboard_async_required_settings_with_proc_rejecting_settings
+    required = ->(settings) { settings[:a].present? || settings[:b].present? }
+
+    assert_not dashboard_async_required_settings?({ c: 'Foo' }, { required_settings: required })
+  end
+
   def test_dashboard_required_libraries_handles_nil_dashboard
     assert_equal [], dashboard_required_libraries(nil)
   end

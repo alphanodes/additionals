@@ -100,6 +100,25 @@ class DashboardsHelperTest < Additionals::HelperTest
     assert_equal result.size, result.uniq.size
   end
 
+  # Blocks added without a page reload cannot load their libraries themselves
+  def test_dashboard_required_libraries_includes_addable_blocks_when_layout_editable
+    User.current = users :users_001
+    dashboard = build_test_dashboard layout: { 'top' => %w[block_a] },
+                                     blocks: { 'block_a' => { libraries: %i[d3plus] },
+                                               'block_b' => { async: { libraries: %i[chartjs_meta] } } }
+
+    assert_includes dashboard_required_libraries(dashboard), :chartjs_meta
+  end
+
+  def test_dashboard_required_libraries_skips_addable_blocks_when_layout_not_editable
+    User.current = User.anonymous
+    dashboard = build_test_dashboard layout: { 'top' => %w[block_a] },
+                                     blocks: { 'block_a' => { libraries: %i[d3plus] },
+                                               'block_b' => { async: { libraries: %i[chartjs_meta] } } }
+
+    assert_equal %i[d3plus], dashboard_required_libraries(dashboard)
+  end
+
   def test_dashboard_required_libraries_skips_unknown_blocks
     dashboard = build_test_dashboard layout: { 'top' => %w[ghost_block] },
                                      blocks: {}

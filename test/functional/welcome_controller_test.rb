@@ -45,7 +45,7 @@ class WelcomeControllerTest < Additionals::ControllerTest
     assert_select 'head script[src*=?]', 'jstoolbar/jstoolbar'
   end
 
-  def test_index_without_wiki_toolbar_on_locked_dashboard
+  def test_index_without_wiki_toolbar_on_not_editable_dashboard
     @request.session[:user_id] = 4
     get :index
 

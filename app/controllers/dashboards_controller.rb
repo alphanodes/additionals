@@ -228,7 +228,7 @@ class DashboardsController < ApplicationController
   end
 
   def require_layout_editable
-    render_403 unless @dashboard.editable? && !@dashboard.locked?
+    render_403 unless @dashboard.layout_editable?
   end
 
   def assign_dashboard_type

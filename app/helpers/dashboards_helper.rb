@@ -10,15 +10,12 @@ module DashboardsHelper
   # Returns the unique list of additionals_library_load keys required by all
   # blocks in the dashboard's current layout. Each block declares what it
   # needs explicitly via `:libraries` (top-level or under `:async`).
+  # If the layout is editable, all addable blocks count, because blocks added
+  # without a page reload cannot load their libraries themselves.
   def dashboard_required_libraries(dashboard)
     return [] unless dashboard
 
-    block_ids = dashboard.layout.values.flatten
-    block_ids.uniq!
-    libs = block_ids.flat_map do |id|
-      cfg = dashboard.content.find_block id
-      cfg ? block_libraries(cfg) : []
-    end
+    libs = dashboard_library_blocks(dashboard).flat_map { |cfg| block_libraries cfg }
     libs.uniq!
     libs
   end
@@ -280,7 +277,7 @@ module DashboardsHelper
     content = render_dashboard_block_content block, block_definition, dashboard, **overwritten_settings
     return if content.blank?
 
-    if dashboard.editable? && !dashboard.locked?
+    if dashboard.layout_editable?
       icons = []
       if block_definition[:no_settings].blank? &&
          (!block_definition.key?(:with_settings_if) || block_definition[:with_settings_if].call(@project))
@@ -589,6 +586,14 @@ module DashboardsHelper
   end
 
   private
+
+  def dashboard_library_blocks(dashboard)
+    return dashboard.content.available_blocks.values if dashboard.layout_editable?
+
+    block_ids = dashboard.layout.values.flatten
+    block_ids.uniq!
+    block_ids.filter_map { |id| dashboard.content.find_block id }
+  end
 
   def dashboard_block_sync_info(block_definition)
     sec = block_definition[:async][:cache_expires_in].presence || DashboardContent::RENDER_ASYNC_CACHE_EXPIRES_IN

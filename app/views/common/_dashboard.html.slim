@@ -1,7 +1,7 @@
 = call_hook :view_dashboard_top, dashboard:, project: @project
 
 #my-page.splitcontent class="#{dashboard_css_classes dashboard}"
-  = render_dashboard_groups dashboard, can_sort: dashboard.editable? && !dashboard.locked?
+  = render_dashboard_groups dashboard, can_sort: dashboard.layout_editable?
 
 = call_hook :view_dashboard_bottom, dashboard:, project: @project
 
@@ -13,7 +13,7 @@
 
 / Blocks added without a page reload call the wiki toolbar for their text fields,
 / but cannot load its library themselves
-- heads_for_wiki_formatter if dashboard.editable? && !dashboard.locked?
+- heads_for_wiki_formatter if dashboard.layout_editable?
 
 - libraries = dashboard_required_libraries dashboard
 - if libraries.any?

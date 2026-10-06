@@ -289,6 +289,11 @@ class Dashboard < ApplicationRecord
     user.admin? || (author == user && user.allowed_to?(:save_dashboards, project, global: true))
   end
 
+  # Blocks can be added, removed and reordered
+  def layout_editable?(user = User.current)
+    editable?(user) && !locked?
+  end
+
   def deletable?(user = User.current)
     return false unless editable? user
 

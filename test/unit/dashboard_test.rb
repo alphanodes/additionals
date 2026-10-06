@@ -200,6 +200,18 @@ class DashboardTest < Additionals::TestCase
     end
   end
 
+  def test_layout_editable_for_editor_of_unlocked_dashboard
+    assert dashboards(:private_welcome).layout_editable?(users(:users_001))
+  end
+
+  def test_layout_not_editable_on_locked_dashboard
+    assert_not dashboards(:system_default_welcome).layout_editable?(users(:users_001))
+  end
+
+  def test_layout_not_editable_without_edit_permission
+    assert_not dashboards(:public_welcome).layout_editable?(users(:users_002))
+  end
+
   # When an editable user (admin) tries to delete a system-default dashboard,
   # the error message must clearly identify the system-default protection.
   # The global project default dashboard is normally locked, so we bypass the

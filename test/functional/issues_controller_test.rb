@@ -289,7 +289,7 @@ class IssuesControllerTest < Additionals::ControllerTest
     end
   end
 
-  # TODO(Redmine 7.1 release): drop the skip once journal links are in every supported version
+  # TODO(Redmine 7.0 EOL): drop the skip once journal links are in every supported version
   def test_show_attachments_link_to_the_journal_that_added_them
     skip 'Redmine core has no journal links for attachments' unless IssuesHelper.method_defined? :journals_by_attachment_id
 
@@ -302,7 +302,7 @@ class IssuesControllerTest < Additionals::ControllerTest
     end
   end
 
-  # TODO(Redmine 7.1 release): drop the skip once journal links are in every supported version
+  # TODO(Redmine 7.0 EOL): drop the skip once journal links are in every supported version
   def test_show_hidden_attachments_link_to_the_journal_that_added_them
     skip 'Redmine core has no journal links for attachments' unless IssuesHelper.method_defined? :journals_by_attachment_id
 

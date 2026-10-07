@@ -133,7 +133,7 @@ class GlobalHelperTest < Additionals::HelperTest
   # whenever the image does not arrive
   def test_avatar_gravatar_carries_size_class
     with_settings gravatar_enabled: '1' do
-      assert_include 'class="s32 gravatar avatar"', @redmine_view.avatar(users(:users_002), size: 32)
+      assert_select_in @redmine_view.avatar(users(:users_002), size: 32), 'img.s32.gravatar.avatar'
     end
   end
 

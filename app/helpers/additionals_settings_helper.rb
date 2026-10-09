@@ -35,8 +35,11 @@ module AdditionalsSettingsHelper
     additionals_settings_input_field(:text_field_tag, name, **)
   end
 
-  def additionals_settings_passwordfield(name, **)
-    additionals_settings_input_field(:password_field_tag, name, **)
+  # A key of another system, not the login of the user: browsers must not fill a saved
+  # login into it. Firefox counts such a filled field as a change and offers to update the
+  # login on the next page change, e.g. when switching settings tabs.
+  def additionals_settings_passwordfield(name, autocomplete: 'new-password', **)
+    additionals_settings_input_field(:password_field_tag, name, autocomplete:, **)
   end
 
   def additionals_settings_urlfield(name, **)

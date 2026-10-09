@@ -32,6 +32,7 @@
 - d3plus updated to 4.7.0
 - mermaid updated to 12.1.0
 - Redmine versions that render mermaid code blocks themselves (7.1 and newer) use the bundled mermaid, so `redmine:mermaid:install` is not needed and code blocks and macros render with the same version and configuration
+- Browsers no longer fill saved logins into password fields of plugin settings and dashboard blocks, so Firefox no longer offers to update a saved login when switching settings tabs. `additionals_settings_passwordfield` marks them as `autocomplete="new-password"`
 
 ## 4.6.0
 

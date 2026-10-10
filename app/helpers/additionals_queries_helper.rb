@@ -42,29 +42,21 @@ module AdditionalsQueriesHelper
                      select_recent_users_and_groups users
                    end
 
-    with_users = false
     sorted_users.each do |user|
       case user.type
       when 'User'
         case user.status
         when Principal::STATUS_ACTIVE
           @users[:active] << { id: user.id, name: user.name, obj: user }
-          with_users = true
         when Principal::STATUS_REGISTERED
           @users[:registered] << { id: user.id, name: user.name, obj: user }
-          with_users = true
         when Principal::STATUS_LOCKED
           @users[:locked] << { id: user.id, name: user.name, obj: user }
-          with_users = true
         end
       when 'Group'
         @users[:groups] << { id: user.id, name: user.name, obj: user }
-        with_users = true
       end
     end
-
-    # TODO: this should be false without search results?
-    # with_me = false unless with_users
 
     # Additionals.debug "with_me: #{with_me}"
     # Additionals.debug "active: #{@users[:active].pluck :id}"

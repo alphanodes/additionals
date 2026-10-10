@@ -122,7 +122,7 @@ class GlobalTestHelperTest < Additionals::TestCase
   # there runs only when redmine_automation is installed.
   def test_automation_directories_are_excluded_from_the_scan
     assert automation_owned?('lib/automation_rules/my_rule.rb')
-    assert_not automation_owned?('lib/redmine_ai/automation_rules_helper.rb')
+    assert_not automation_owned?('lib/my_plugin/automation_rules_helper.rb')
     assert_not automation_owned?('app/models/automation_rules.rb')
   end
 

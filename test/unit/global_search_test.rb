@@ -451,7 +451,7 @@ class GlobalSearchTest < Additionals::TestCase
   end
 
   # Only the given provider is registered, so the result does not depend on which other
-  # plugins (redmine_ai) happen to be installed.
+  # plugins happen to be installed.
   def with_provider(provider, &)
     with_providers_replaced_by([provider]) { yield provider }
   end

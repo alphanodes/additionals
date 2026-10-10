@@ -2,6 +2,7 @@
 
 ## 4.7.0
 
+- Code reloading in development no longer stops halfway when a plugin helper is named like a template with a deface override (e.g. `ai_wiki_edit_button_data` for `wiki/edit`). Deface took such a helper for a compiled template, failed to remove it, and left models without `acts_as_positioned` until the server was restarted
 - Dashboard layout and block settings can only be changed by users who may edit the dashboard. Before, everyone who could see a public dashboard could change its block settings, add, remove and reorder blocks
 - Dashboard blocks added or saved without a page reload run their scripts and find the libraries they need, e.g. the editor toolbar of text blocks, charts or settings that show or hide fields depending on a selection
 - Creating or changing a dashboard with an unknown dashboard type shows a validation error instead of failing with a server error

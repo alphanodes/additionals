@@ -240,6 +240,12 @@ module Additionals
       # Filter search types based on disabled modules
       Redmine::Search.singleton_class.prepend Additionals::Patches::SearchPatch
 
+      # Helpers named like a template must not break the code reload in development.
+      # Deface is not reloaded, so the patch is prepended once and not again on every reload.
+      unless Deface::Override.ancestors.any? { |mod| mod.name == 'Additionals::Patches::DefaceOverridePatch' }
+        Deface::Override.prepend Additionals::Patches::DefaceOverridePatch
+      end
+
       loader.add_global_helper [Additionals::Helpers,
                                 AdditionalsAssetLoaderHelper,
                                 AdditionalsClipboardHelper,

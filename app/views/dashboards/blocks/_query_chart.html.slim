@@ -1,0 +1,22 @@
+- dashboard_async_cache dashboard, block, async, settings do
+  - chart = block_definition[:query_chart][:class].new project: @project, settings: settings
+
+  h3 = settings[:title].presence || chart.title
+
+  - if chart.valid?
+    .additionals-block.additionals-query-chart
+      .additionals-chart-wrapper style="--query-chart-height: #{chart.height}px;"
+        - unless chart.table_only?
+          .additionals-chart-left
+            div[id="query-chart-#{block}"
+                style="height: #{chart.height}px;"
+                data-controller='additionals-chart'
+                data-additionals-chart-payload-value=query_chart_payload(chart).to_json]
+              - unless chart.treemap?
+                canvas data-additionals-chart-target='canvas'
+        - if chart.with_table?
+          .additionals-table-of-values
+            = render 'dashboards/blocks/query_chart_table', chart:
+      .clear-both
+  - else
+    p.nodata = l :label_no_data

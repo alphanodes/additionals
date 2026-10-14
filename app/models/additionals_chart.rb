@@ -43,6 +43,22 @@ class AdditionalsChart
     raise 'overwrite it!'
   end
 
+  # Calculates optimal height for bar charts based on number of elements
+  # Provides different spacing strategies for different element counts
+  #
+  # @param elements [Integer] number of chart elements/bars
+  # @param groups [Integer] number of data groups (default: 1)
+  # @return [Integer] calculated height in pixels
+  def calc_bar_height(elements, groups = 1)
+    group_height = 20
+
+    case elements
+    when 0..2 then (group_height + 50) * groups
+    when 3..4 then (elements * (group_height + 10) * groups)
+    else (elements * group_height * groups)
+    end
+  end
+
   # build return value
   def build_chart_data(datasets, **options)
     cached_labels = labels

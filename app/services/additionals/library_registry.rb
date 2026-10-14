@@ -88,6 +88,11 @@ module Additionals
         registered[name] = Array assets
       end
 
+      # Names of all packages, built-in and registered by other plugins
+      def names
+        PACKAGES.keys | registered.keys
+      end
+
       # Resolves one or more package names into an ordered, deduplicated list
       # of Asset records. Unknown names raise ArgumentError -- block
       # definitions should fail loudly on typos, not silently load nothing.

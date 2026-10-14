@@ -1,0 +1,341 @@
+/* global Chart */
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import AdditionalsChartController, { chartConfig, renderTreemap } from '../../../assets/javascripts/controllers/additionals_chart_controller.js';
+
+function payload(overrides = {}) {
+  return {
+    type: 'doughnut',
+    labels: ['Bug', 'Feature'],
+    datasets: [{ label: 'Issues', data: [3, 1], urls: ['/issues?tracker=1', null] }],
+    total: 4,
+    totalLabel: 'Quantity',
+    colorSchema: 'tableau.Classic20',
+    ...overrides,
+  };
+}
+
+// Context of the value label of the first bar, as chartjs-plugin-datalabels hands it over
+function barContext(width) {
+  return { datasetIndex: 0, dataIndex: 0, chart: { getDatasetMeta: () => ({ data: [{ width }] }) } };
+}
+
+// d3plus.Treemap is called with new and configured by chained calls. The mock
+// keeps the argument of each call.
+function mockTreemap() {
+  const calls = {};
+  class Treemap {
+    render() {
+      calls.render = true;
+      return this;
+    }
+  }
+  ['data', 'groupBy', 'sum', 'label', 'select', 'legend', 'zoom', 'search', 'tableView', 'on', 'tooltipConfig']
+    .forEach((method) => {
+      Treemap.prototype[method] = function chain(value) {
+        calls[method] = value;
+        return this;
+      };
+    });
+  globalThis.d3plus = { Treemap };
+  return calls;
+}
+
+let lastConfig = null;
+
+function render(data) {
+  lastConfig = chartConfig(document.createElement('canvas'), data);
+}
+
+function config() {
+  return lastConfig;
+}
+
+describe('chart configuration', () => {
+  beforeEach(() => {
+    delete globalThis.d3plus;
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('draws a doughnut by default type', () => {
+    render(payload());
+
+    expect(config().type).toBe('doughnut');
+  });
+
+  it('shows the total in the middle of a doughnut', () => {
+    render(payload());
+
+    expect(config().options.plugins.annotation.annotations.total.content).toEqual(['4', 'Quantity']);
+  });
+
+  it('hides the legend of a pie with many slices', () => {
+    const labels = Array.from({ length: 11 }, (_, index) => `Value ${index}`);
+    render(payload({ labels, datasets: [{ label: 'Issues', data: labels.map(() => 1), urls: labels.map(() => null) }] }));
+
+    expect(config().options.plugins.legend.display).toBe(false);
+  });
+
+  it('shows the formatted total in the middle of a doughnut', () => {
+    render(payload({ totalText: '4:30' }));
+
+    expect(config().options.plugins.annotation.annotations.total.content[0]).toBe('4:30');
+  });
+
+  it('shows formatted values in the tooltip', () => {
+    render(payload({ valueTexts: [['3:00', '1:00']] }));
+
+    const label = config().options.plugins.tooltip.callbacks.label({ label: 'Bug', raw: 3, dataIndex: 0 });
+
+    expect(label).toBe('Bug: 3:00 (75%)');
+  });
+
+  it('draws a pie without a total in the middle', () => {
+    render(payload({ type: 'pie' }));
+
+    expect(config().options.plugins.annotation).toBeUndefined();
+  });
+
+  it('lays horizontal bars along the y axis', () => {
+    render(payload({ type: 'bar_horizontal' }));
+
+    expect(config().options.indexAxis).toBe('y');
+  });
+
+  it('lays vertical bars along the x axis', () => {
+    render(payload({ type: 'bar_vertical' }));
+
+    expect(config().options.indexAxis).toBe('x');
+  });
+
+  it('keeps room right of horizontal bars for the longest value', () => {
+    render(payload({ type: 'bar_horizontal', valueTexts: [['2807:30', '1:00']] }));
+
+    // 7 characters at 12px * 0.6 plus padding
+    expect(config().options.layout.padding).toEqual({ right: 59 });
+  });
+
+  it('keeps room above vertical bars for slanted values', () => {
+    render(payload({ type: 'bar_vertical', valueTexts: [['2807:30', '1:00']] }));
+
+    // 51px text plus 12px font, slanted by 45 degrees, plus padding
+    expect(config().options.layout.padding).toEqual({ top: 53 });
+  });
+
+  it('slants a value wider than its vertical bar', () => {
+    render(payload({ type: 'bar_vertical', valueTexts: [['1346', '1']] }));
+
+    const rotation = config().options.plugins.datalabels.rotation(barContext(10));
+
+    expect(rotation).toBe(-45);
+  });
+
+  it('keeps a value level that fits on its vertical bar', () => {
+    render(payload({ type: 'bar_vertical', valueTexts: [['1346', '1']] }));
+
+    const rotation = config().options.plugins.datalabels.rotation(barContext(40));
+
+    expect(rotation).toBe(0);
+  });
+
+  it('keeps values of horizontal bars level', () => {
+    render(payload({ type: 'bar_horizontal', valueTexts: [['1346', '1']] }));
+
+    const rotation = config().options.plugins.datalabels.rotation(barContext(10));
+
+    expect(rotation).toBe(0);
+  });
+
+  it('places the legend of vertical bars below the chart', () => {
+    render(payload({ type: 'bar_vertical' }));
+
+    expect(config().options.plugins.legend.position).toBe('bottom');
+  });
+
+  it('hides the legend of a single series', () => {
+    render(payload({ type: 'bar_vertical' }));
+
+    expect(config().options.plugins.legend.display).toBe(false);
+  });
+
+  it('shows the legend of a comparison', () => {
+    render(payload({
+      type: 'bar_vertical',
+      datasets: [{ label: 'Open', data: [3, 1] }, { label: 'This month', data: [2, 0] }],
+    }));
+
+    expect(config().options.plugins.legend.display).toBe(true);
+  });
+
+  it('opens the list of a clicked slice', () => {
+    const open = vi.spyOn(window, 'open').mockImplementation(() => null);
+    render(payload());
+
+    config().options.onClick({}, [{ datasetIndex: 0, index: 0 }]);
+
+    expect(open).toHaveBeenCalledWith('/issues?tracker=1');
+  });
+
+  it('opens nothing for a slice without list', () => {
+    const open = vi.spyOn(window, 'open').mockImplementation(() => null);
+    render(payload());
+
+    config().options.onClick({}, [{ datasetIndex: 0, index: 1 }]);
+
+    expect(open).not.toHaveBeenCalled();
+  });
+
+  it('opens the list of the comparison for a bar of the second series', () => {
+    const open = vi.spyOn(window, 'open').mockImplementation(() => null);
+    render(payload({
+      type: 'bar_vertical',
+      datasets: [{ label: 'Open', data: [3, 1], urls: ['/issues?open=1', null] },
+        { label: 'Bugs', data: [2, 0], urls: ['/issues?bugs=1', null] }],
+    }));
+
+    config().options.onClick({}, [{ datasetIndex: 1, index: 0 }]);
+
+    expect(open).toHaveBeenCalledWith('/issues?bugs=1');
+  });
+
+  it('shows formatted values in the tooltip of a bar', () => {
+    render(payload({ type: 'bar_vertical', valueTexts: [['3:00', '1:00']] }));
+
+    const label = config().options.plugins.tooltip.callbacks.label({ dataset: { label: 'Hours' }, datasetIndex: 0, dataIndex: 0 });
+
+    expect(label).toBe('Hours: 3:00');
+  });
+
+  it('draws a treemap with d3plus instead of Chart.js', () => {
+    const calls = mockTreemap();
+    renderTreemap(document.createElement('div'), payload({ type: 'treemap' }));
+
+    expect(calls.render).toBe(true);
+  });
+
+  // d3plus fetches a data field named url as JSON, one request per tile
+  it('hands the links to d3plus without a url field', () => {
+    const calls = mockTreemap();
+    renderTreemap(document.createElement('div'), payload({ type: 'treemap' }));
+
+    expect(calls.data.some((tile) => 'url' in tile)).toBe(false);
+  });
+
+  // Two versions "1.0" of different projects must not become one tile
+  it('keeps tiles with the same name apart', () => {
+    const calls = mockTreemap();
+    renderTreemap(document.createElement('div'), payload({ type: 'treemap' }));
+
+    expect(calls.groupBy).toBe('id');
+  });
+
+  // d3plus writes its tooltip as HTML
+  it('escapes the names in the tooltip of a treemap', () => {
+    const calls = mockTreemap();
+    renderTreemap(document.createElement('div'), payload({ type: 'treemap', labels: ['<img src=x onerror=alert(1)>', 'Feature'] }));
+
+    expect(calls.tooltipConfig.title({ name: '<img src=x onerror=alert(1)>' })).toBe('&lt;img src=x onerror=alert(1)&gt;');
+  });
+
+  it('leaves out the untranslated share row of d3plus', () => {
+    const calls = mockTreemap();
+    renderTreemap(document.createElement('div'), payload({ type: 'treemap' }));
+
+    expect(calls.tooltipConfig.tbody).toEqual([]);
+  });
+});
+
+describe('AdditionalsChartController', () => {
+  function controller(data, { canvas = true } = {}) {
+    const element = document.createElement('div');
+    element.id = 'query-chart-issue_chart';
+    const target = canvas ? document.createElement('canvas') : null;
+    if (target) {
+      element.appendChild(target);
+    }
+    document.body.replaceChildren(element);
+    // Stimulus defines element and the values as getters, the methods run on a plain context
+    const { prototype } = AdditionalsChartController;
+    const ctx = {
+      element,
+      payloadValue: data,
+      hasCanvasTarget: Boolean(target),
+      canvasTarget: target,
+    };
+    ctx.connect = prototype.connect.bind(ctx);
+    ctx.disconnect = prototype.disconnect.bind(ctx);
+    ctx.drawTreemap = prototype.drawTreemap.bind(ctx);
+    return ctx;
+  }
+
+  beforeEach(() => {
+    globalThis.AdditionalsHelpers.loadLibrary = vi.fn(() => Promise.resolve());
+    globalThis.Chart = vi.fn(function chart() {
+      this.destroy = vi.fn();
+    });
+    delete globalThis.d3plus;
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    delete globalThis.Chart;
+  });
+
+  it('draws a Chart.js chart on its canvas', () => {
+    const ctrl = controller(payload());
+    ctrl.connect();
+
+    expect(Chart.mock.calls[0][0]).toBe(ctrl.canvasTarget);
+  });
+
+  // A reloaded block replaces its element, the old chart must not stay registered
+  it('releases its chart when the block goes away', () => {
+    const ctrl = controller(payload());
+    ctrl.connect();
+    const { chart } = ctrl;
+    ctrl.disconnect();
+
+    expect(chart.destroy).toHaveBeenCalled();
+  });
+
+  it('reports a failed d3plus load in the console', async () => {
+    const error = vi.spyOn(console, 'error').mockImplementation(() => {});
+    AdditionalsHelpers.loadLibrary.mockReturnValue(Promise.reject(new Error('Could not load')));
+    controller(payload({ type: 'treemap' }), { canvas: false }).connect();
+    await new Promise((resolve) => { setTimeout(resolve, 0); });
+
+    expect(error).toHaveBeenCalled();
+  });
+
+  it('draws nothing without a canvas', () => {
+    controller(payload(), { canvas: false }).connect();
+
+    expect(Chart).not.toHaveBeenCalled();
+  });
+
+  it('loads d3plus for a treemap', () => {
+    mockTreemap();
+    controller(payload({ type: 'treemap' }), { canvas: false }).connect();
+
+    expect(AdditionalsHelpers.loadLibrary).toHaveBeenCalledWith('d3plus');
+  });
+
+  it('draws the treemap once d3plus is there', async () => {
+    const calls = mockTreemap();
+    await controller(payload({ type: 'treemap' }), { canvas: false }).drawTreemap(payload({ type: 'treemap' }));
+
+    expect(calls.render).toBe(true);
+  });
+
+  // The block may be reloaded while d3plus is loading
+  it('draws no treemap into a removed block', async () => {
+    const calls = mockTreemap();
+    const ctrl = controller(payload({ type: 'treemap' }), { canvas: false });
+    ctrl.element.remove();
+    await ctrl.drawTreemap(payload({ type: 'treemap' }));
+
+    expect(calls.render).toBeUndefined();
+  });
+});

@@ -150,6 +150,8 @@ It provides the following Rails helper methods :
 
 This method loads all JS and CSS files needed by the required module.
 
+In the browser, `AdditionalsHelpers.loadLibrary(module_name)` loads a module on demand, once per page, and returns a promise. Use it where the page cannot know in advance whether a module is needed, e.g. a dashboard block that needs it only with certain settings. Files the page already includes are skipped.
+
 The following modules are available :
 
 * chartjs

@@ -556,6 +556,38 @@ query_block: {
 }
 ```
 
+### Query Chart Blocks
+
+A chart block shows how the entries of a query spread over the values of one of its columns (doughnut, pie, bars, treemap or table), counted or summed up. Subclass `AdditionalsQueryChart` with the query class and the list a slice links to, and let it define the block:
+
+```ruby
+class TimeEntryQueryChart < AdditionalsQueryChart
+  def query_class = TimeEntryQuery
+
+  private
+
+  def entity_plural_label = :label_spent_time
+  def custom_field_project_key = "#{TimeEntry.table_name}.project_id"
+
+  def list_path(params)
+    url_helpers = Rails.application.routes.url_helpers
+    # without project on the welcome dashboard
+    project ? url_helpers.project_time_entries_path(project, params) : url_helpers.time_entries_path(params)
+  end
+end
+
+blocks['time_entry_chart'] = TimeEntryQueryChart.dashboard_block(label: l(:label_chart_with_name, l(:label_spent_time)),
+                                                                 permission: :view_time_entries)
+```
+
+`dashboard_block` sets the async partial `dashboards/blocks/query_chart` with its settings form, the Chart.js libraries and `max_occurs`; further options extend or replace these. Grouping and totals come from core (`result_count_by_group`, `total_by_group_for`), so visibility and filters behave like the grouped list; custom fields with multiple values are counted separately, since core cannot group them. The `additionals-chart` Stimulus controller draws the chart from the payload, loads d3plus only for a treemap (`AdditionalsHelpers.loadLibrary('d3plus')`) and releases the chart when the block is reloaded or removed. A subclass can restrict the query to open entries on top of its filters (`open_only_supported?`, `open_only_label`, `open_only_scope`, `open_only_url_filter`), e.g. to open issues.
+
+Pitfalls of the display, all handled in `additionals.css` and the controller:
+
+- The chart and table layout lives under `.additionals-query-chart` and overrides the fixed widths of the older charts (`.additionals-chart-left` 360px, `.values` 450px) until every chart uses it.
+- Header and total of the scrolling table of values only stick with `overflow: clip` instead of core's `overflow: hidden` (which makes the table its own scroll container), separate borders and a `z-index` on `thead`/`tfoot`.
+- The `clip` option of chartjs-plugin-datalabels cuts values off at the edge. Instead `layout.padding` reserves room for the longest value, values wider than their vertical bar are slanted by 45 degrees, and the legend of vertical bars sits below the chart, since the padding lies above the legend.
+
 ## Dashboard Types
 
 ### WelcomeDashboard (`DashboardContentWelcome`)

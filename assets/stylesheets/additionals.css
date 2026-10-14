@@ -485,6 +485,61 @@ table.table-of-values {
   margin-left: 20px;
 }
 
+/* query chart blocks: the chart takes the width the table of values leaves, in a
+   narrow column the table moves below it */
+.additionals-query-chart .additionals-chart-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.additionals-query-chart .additionals-chart-left {
+  flex: 1 1 360px;
+  min-width: 0;
+  float: none;
+  width: auto;
+}
+
+/* A long table scrolls instead of stretching the block: as high as the chart,
+   at least about ten rows. Header and total stay visible. */
+.additionals-query-chart .additionals-table-of-values {
+  flex: 0 1 450px;
+  max-height: max(var(--query-chart-height), 22em);
+  overflow-y: auto;
+}
+
+.additionals-query-chart .additionals-table-of-values:only-child {
+  flex-basis: 100%;
+  max-height: 40em;
+}
+
+/* The table fills its column instead of the fixed width of the older charts.
+   core's overflow: hidden makes the table the scroll container of its sticky
+   rows, clip keeps the rounded corners without. Collapsed borders would let
+   the scrolled rows shine through above and below the sticky ones. */
+.additionals-query-chart .additionals-table-of-values > .values {
+  overflow: clip;
+  float: none;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.additionals-query-chart .additionals-table-of-values thead {
+  position: sticky;
+  z-index: 1;
+  top: 0;
+}
+
+.additionals-query-chart .additionals-table-of-values tfoot {
+  position: sticky;
+  z-index: 1;
+  bottom: 0;
+  background-color: var(--oc-white);
+}
+
 table.table-of-values td {
   padding: 3px;
 }

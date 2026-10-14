@@ -122,6 +122,18 @@ module Additionals
       Registry.send(:registered).delete :test_pkg
     end
 
+    def test_names_contain_built_in_packages
+      assert_includes Registry.names, :d3plus
+    end
+
+    def test_names_contain_registered_packages
+      Registry.register :test_pkg, [Registry::Asset.new(type: :css, path: 'my-styles', plugin: 'redmine_test')]
+
+      assert_includes Registry.names, :test_pkg
+    ensure
+      Registry.send(:registered).delete :test_pkg
+    end
+
     def test_register_raises_on_built_in_collision
       assert_raises ArgumentError do
         Registry.register :chartjs, [Registry::Asset.new(type: :js, path: 'evil', plugin: 'redmine_test')]

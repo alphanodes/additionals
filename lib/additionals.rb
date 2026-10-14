@@ -252,6 +252,7 @@ module Additionals
                                 AdditionalsGlobalSearchHelper,
                                 AdditionalsIconsHelper,
                                 AdditionalsMenuHelper,
+                                AdditionalsQueryChartHelper,
                                 AdditionalsSelect2Helper]
 
       Redmine::WikiFormatting.format_names.each do |format|

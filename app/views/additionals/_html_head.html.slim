@@ -2,6 +2,7 @@
 = stylesheet_link_tag 'additionals', plugin: 'additionals'
 = javascript_tag "var ADDITIONALS_LABEL_SEARCH = #{l(:label_search).to_json};"
 = javascript_tag "var ADDITIONALS_ICON_SPRITES = #{additionals_icon_sprites.to_json};"
+= javascript_tag "var ADDITIONALS_LIBRARIES = #{additionals_library_urls.to_json};"
 / Redmine core (since 7.1) loads this library to render mermaid code blocks. It uses the
 / bundled one, so the versions match and no redmine:mermaid:install is needed.
 - if defined? Redmine::Mermaid
@@ -12,6 +13,7 @@
 = javascript_include_tag 'controllers/clipboard_feedback_controller', plugin: 'additionals', type: 'module'
 = javascript_include_tag 'controllers/live_search_controller', plugin: 'additionals', type: 'module'
 = javascript_include_tag 'controllers/remote_form_controller', plugin: 'additionals', type: 'module'
+= javascript_include_tag 'controllers/additionals_chart_controller', plugin: 'additionals', type: 'module'
 = javascript_include_tag 'controllers/render_async_controller', plugin: 'additionals', type: 'module'
 - if User.current.logged? && Additionals.setting?(:global_search)
   = stylesheet_link_tag 'global_search', plugin: 'additionals'

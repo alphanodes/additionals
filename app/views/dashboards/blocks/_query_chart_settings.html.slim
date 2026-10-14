@@ -1,0 +1,69 @@
+- chart = block_definition[:query_chart][:class].new project: @project, settings: settings
+- tag_name = ->(name) { "settings[#{block}][#{name}]" }
+
+.box.tabular.settings
+  p
+    = additionals_settings_textfield :title,
+                                     label: :field_title,
+                                     value: settings[:title],
+                                     placeholder: chart.title,
+                                     tag_name: tag_name.call(:title)
+  p
+    = additionals_settings_select :query_id,
+                                  options_for_query_select(chart.query_class, @project, settings[:query_id]),
+                                  label: :label_query,
+                                  tag_name: tag_name.call(:query_id)
+    em.info = l :info_chart_query
+  - if chart.open_only_supported?
+    p
+      = additionals_settings_checkbox :open_only,
+                                      label: chart.open_only_label,
+                                      active_value: settings[:open_only],
+                                      tag_name: tag_name.call(:open_only)
+  p
+    = additionals_settings_select :group_by,
+                                  options_for_select(chart.group_options, settings[:group_by]),
+                                  label: :field_group_by,
+                                  include_blank: true,
+                                  required: true,
+                                  tag_name: tag_name.call(:group_by)
+  p
+    = additionals_settings_select :measure,
+                                  options_for_select(chart.measure_options, settings[:measure]),
+                                  label: :label_chart_measure,
+                                  tag_name: tag_name.call(:measure)
+    em.info = l :info_chart_measure
+  p
+    = additionals_settings_select :chart_type,
+                                  options_for_query_chart_type(chart.chart_type),
+                                  label: :label_display_type,
+                                  tag_name: tag_name.call(:chart_type)
+  p
+    = additionals_settings_select :compare_query_id,
+                                  options_for_query_select(chart.query_class, @project, settings[:compare_query_id]),
+                                  label: :label_chart_compare_query,
+                                  tag_name: tag_name.call(:compare_query_id)
+    em.info = l :info_chart_compare_query
+  p
+    = additionals_settings_select :order,
+                                  options_for_query_chart_order(chart.order),
+                                  label: :label_sort,
+                                  tag_name: tag_name.call(:order)
+  p
+    = additionals_settings_numberfield :max_entries,
+                                       label: :label_max_entries,
+                                       value: settings[:max_entries],
+                                       min: 0,
+                                       tag_name: tag_name.call(:max_entries)
+    em.info = l :info_chart_max_entries
+  p
+    = additionals_settings_checkbox :show_empty,
+                                    label: :label_chart_show_empty,
+                                    active_value: chart.show_empty?,
+                                    tag_name: tag_name.call(:show_empty)
+  p
+    = additionals_settings_checkbox :with_table,
+                                    label: :label_table_of_values,
+                                    active_value: chart.with_table?,
+                                    tag_name: tag_name.call(:with_table)
+    em.info = l :info_chart_with_table

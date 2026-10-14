@@ -64,6 +64,11 @@ es:
   global_wiki_sidebar_info: 'Ingrese aquí un el texto a ser mostrado en la barra lateral de la Wiki. Esta barra lateral solo será mostrada en las Wiki. Puede utilizar este espacio para macros como "Últimas páginas modificadas". En caso de que se utilice una barra lateral de proyecto esté en uso, este texto será mostrado en su lugar.'
   google_maps_embed_api_html: En caso de querer utilizar el macro Gmap para mostrar mapas de Google necesita ingresar su Clave de API de Google Maps aquí. Luego podrá utilizar el macro y varios parámetros. Mas información acerca de como utilizar estos parametros está disponible en <a href="https://developers.google.com/maps/documentation/embed/guide" class="external">https://developers.google.com/maps/documentation/embed/guide</a>. El macro Gmap funciona solamente si se ingresa esta clave.
   hidden_macros_in_toolbar_info: Todas las macros disponibles que el usuario conectado puede utilizar se enumeran mediante el botón de macros de la barra de herramientas wiki. Las macros marcadas aquí no se ofrecen para la selección. Esto permite restringir el alcance de la lista. Las macros ocultas se pueden seguir utilizando en el texto. Solo se quitan de esta lista, no se desactivan.
+  info_chart_compare_query: "Segunda serie junto a la primera. Se muestra en los gráficos de barras y en la tabla de valores."
+  info_chart_max_entries: "Muestra las entradas más grandes, el resto se agrupa como \"Otros\". Vacío o 0 muestra todas las entradas."
+  info_chart_measure: "Los campos con valores múltiples siempre se cuentan."
+  info_chart_query: "Sin consulta se evalúan todas las entradas visibles."
+  info_chart_with_table: "Se muestra junto al gráfico, siempre con la visualización Tabla."
   info_hidden_roles_html: Los roles ocultos sólo se pueden utilizar junto con la visibilidad del usuario "Miembros de proyectos visibles". Si el usuario no está en una función que sea visible para el usuario actual, esta función, que incluye al usuario, se oculta en la página de resumen del proyecto y en las listas de consulta.
   info_issue_hide_max_attachments: "Si se sobrepasa el número de archivos introducidos aquí, todos los archivos adjuntos de una incidencia se muestran ocultos."
   info_issue_link_category: "Vincula la categoría (en la página de la incidencia y en las columnas de las listas de incidencias) con la lista de incidencias del proyecto correspondiente filtrada por esta categoría."
@@ -86,6 +91,18 @@ es:
   label_change_project: Cambiar proyecto
   label_change_to_dashboard: "Cambiar a Dashboard"
   label_chart_color_schema: Charts color scheme
+  label_chart_compare_query: "Comparación"
+  label_chart_measure: "Métrica"
+  label_chart_order_field: "Orden del campo"
+  label_chart_order_value: "Mayor valor primero"
+  label_chart_others: "Otros"
+  label_chart_show_empty: "Mostrar entradas sin valor"
+  label_chart_type_bar_horizontal: "Barras horizontales"
+  label_chart_type_bar_vertical: "Barras verticales"
+  label_chart_type_doughnut: "Anillo"
+  label_chart_type_pie: "Circular"
+  label_chart_type_table: "Tabla"
+  label_chart_type_treemap: "Treemap"
   label_chart_with_name: "Chart: %{value}"
   label_chartjs_colorscheme_info: "Lista de colores"
   label_content_plural: Contenido
@@ -172,6 +189,7 @@ es:
   label_open_in_google_docs: "Abrir en Google Docs"
   label_open_in_new_windows: Abrir en una nueva ventana
   label_pdf_wiki_settings: Configuración de la Wiki en PDF
+  label_percent_value: "%{value} %"
   label_percentage: Porcentaje
   label_project_information: "Información del proyecto"
   label_project_list: "Lista de proyectos"

@@ -10,7 +10,23 @@ module AdditionalsAssetLoaderHelper
     safe_join(Additionals::LibraryRegistry.resolve(module_names).filter_map { |asset| additionals_include_asset(asset) })
   end
 
+  # Asset URLs of every library, for loading a library on demand in the browser
+  # (AdditionalsHelpers.loadLibrary). Needed where the libraries in the head
+  # cannot know in advance, e.g. a block that only needs a library with
+  # certain settings.
+  def additionals_library_urls
+    Additionals::LibraryRegistry.names.index_with do |name|
+      Additionals::LibraryRegistry.resolve(name).map { |asset| { type: asset.type, url: additionals_asset_url(asset) } }
+    end
+  end
+
   private
+
+  # Same paths as javascript_include_tag and stylesheet_link_tag with plugin: of Redmine
+  def additionals_asset_url(asset)
+    path = asset.core ? asset.path : "plugin_assets/#{asset.plugin}/#{asset.path}"
+    asset.type == :css ? stylesheet_path(path) : javascript_path(path)
+  end
 
   def additionals_include_asset(asset)
     key = [asset.type, asset.path, asset.plugin]

@@ -81,4 +81,23 @@ class AdditionalsAssetLoaderHelperTest < Additionals::HelperTest
   ensure
     Additionals::LibraryRegistry.send(:registered).delete :test_counter
   end
+
+  # loadLibrary skips an asset the page has already, so both must name it alike
+  def test_library_url_matches_the_included_script
+    src = additionals_library_load(:d3plus)[/src="([^"]+)"/, 1]
+
+    assert_equal src, additionals_library_urls[:d3plus].first[:url]
+  end
+
+  def test_library_url_of_a_stylesheet_matches_the_included_link
+    href = additionals_library_load(:select2)[/href="([^"]+)"/, 1]
+
+    assert_equal href, additionals_library_urls[:select2].first[:url]
+  end
+
+  def test_library_urls_keep_the_order_of_a_package
+    types = additionals_library_urls[:dhtmlxgantt].pluck :type
+
+    assert_equal %i[css js], types
+  end
 end

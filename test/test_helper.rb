@@ -56,6 +56,28 @@ module Additionals
     end
   end
 
+  # Chart over core issues, as the chart blocks of the plugins define one
+  class TestIssueQueryChart < AdditionalsQueryChart
+    def query_class
+      IssueQuery
+    end
+
+    private
+
+    def entity_plural_label
+      :label_issue_plural
+    end
+
+    def custom_field_project_key
+      "#{Issue.table_name}.project_id"
+    end
+
+    def list_path(params)
+      url_helpers = Rails.application.routes.url_helpers
+      project ? url_helpers.project_issues_path(project, params) : url_helpers.issues_path(params)
+    end
+  end
+
   class HelperTest < Redmine::HelperTest
     include Additionals::TestHelper
     extend PluginFixturesLoader

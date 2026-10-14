@@ -268,14 +268,20 @@ blocks['my_advanced_async_block'] = {
     partial: 'dashboards/blocks/my_block',
     cache_expires_in: 1800,  # 30 minutes
     unique_params: [
-      Issue.maximum(:updated_on),        # Invalidate when issues change
-      IssueStatus.maximum(:updated_on)   # Invalidate when statuses change
+      TimeEntry.maximum(:updated_on),    # Invalidate when time entries change
+      MemberRole.maximum(:id)            # Invalidate when memberships are added
     ],
     required_settings: [:project_id, :tracker_id],  # Block won't load without these
     skip_user_id: false  # Include user_id in cache key (default)
   }
 }
 ```
+
+#### 3.4 Why the Cache Expires by Time
+
+Async blocks expire after `cache_expires_in` on purpose, they are not invalidated when data changes. What a block shows depends on much more than its main records: a query block also reflects time entries, journals, custom field values, memberships and permissions. Change-based invalidation would have to know all of these sources, and a missed one would leave a block wrong until the cache expires. A short TTL is wrong for seconds at most, wherever a change comes from, and the refresh link of a dashboard bypasses the cache.
+
+`unique_params` is the cheap way to react to changes: each value becomes part of the cache key, so a new value leads to a new entry. Use values from indexed columns, because they are evaluated on every request. `MAX(updated_on)` of a table without an index on that column reads the whole table, e.g. `issues` in Redmine core.
 
 ### Step 4: Real-World Example With Text Editor
 
@@ -526,7 +532,7 @@ Async blocks load content via AJAX (improves page load performance):
 async: {
   partial: 'dashboards/blocks/my_block',         # Required: View template
   cache_expires_in: 3600,                        # Optional: Cache TTL in seconds
-  unique_params: [Issue.maximum(:updated_on)],   # Optional: Cache key params
+  unique_params: [TimeEntry.maximum(:updated_on)], # Optional: Cache key params (indexed columns)
   required_settings: [:status_id, :tracker_id],  # Optional: Required settings
   # required_settings: ->(settings) { settings[:a].present? || settings[:b].present? }  # Or a proc for one of several
   skip_user_id: true                             # Optional: Exclude user_id from cache key

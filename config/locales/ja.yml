@@ -67,6 +67,7 @@ ja:
   info_chart_compare_query: "1つ目の系列の隣に表示される2つ目の系列です。棒グラフと値の表に表示されます。"
   info_chart_max_entries: "最も大きい項目を表示し、残りは「その他」としてまとめます。空または0の場合はすべての項目を表示します。"
   info_chart_measure: "複数の値を持つフィールドは常に件数で集計されます。"
+  info_chart_min_share: "割合（％）がこの値より小さい項目は「その他」としてまとめます。空または0の場合は何もまとめません。"
   info_chart_query: "クエリを指定しない場合、表示可能なすべての項目が集計されます。"
   info_chart_with_table: "グラフの横に表示されます。表示形式が「表」の場合は常に表示されます。"
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.
@@ -93,6 +94,7 @@ ja:
   label_chart_color_schema: Charts color scheme
   label_chart_compare_query: "比較"
   label_chart_measure: "指標"
+  label_chart_min_share: "小さい値をまとめる（％未満）"
   label_chart_order_field: "フィールドの順序"
   label_chart_order_value: "値の大きい順"
   label_chart_others: "その他"

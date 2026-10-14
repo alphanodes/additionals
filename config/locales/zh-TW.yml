@@ -67,6 +67,7 @@
   info_chart_compare_query: "與第一個資料系列並列顯示的第二個資料系列。在長條圖和數值表中顯示。"
   info_chart_max_entries: "顯示最大的項目，其餘項目合併為「其他」。留空或 0 顯示所有項目。"
   info_chart_measure: "多選欄位一律計數。"
+  info_chart_min_share: "占比（百分比）低於此值的項目合併為「其他」。留空或 0 不合併。"
   info_chart_query: "未選擇查詢時，統計所有可見項目。"
   info_chart_with_table: "顯示在圖表旁邊，顯示方式為「表格」時一律顯示。"
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.
@@ -93,6 +94,7 @@
   label_chart_color_schema: Charts color scheme
   label_chart_compare_query: "比較"
   label_chart_measure: "指標"
+  label_chart_min_share: "合併較小的值（低於 %）"
   label_chart_order_field: "依欄位順序"
   label_chart_order_value: "數值最大的在前"
   label_chart_others: "其他"

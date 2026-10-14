@@ -67,6 +67,7 @@ de:
   info_chart_compare_query: "Zweite Datenreihe neben der ersten. Wird bei Balken und in der Wertetabelle angezeigt."
   info_chart_max_entries: "Zeigt die größten Einträge, der Rest wird als \"Sonstige\" zusammengefasst. Leer oder 0 zeigt alle Einträge."
   info_chart_measure: "Felder mit Mehrfachauswahl werden immer gezählt."
+  info_chart_min_share: "Einträge mit einem kleineren Anteil in Prozent werden als \"Sonstige\" zusammengefasst. Leer oder 0 fasst nichts zusammen."
   info_chart_query: "Ohne Abfrage werden alle sichtbaren Einträge ausgewertet."
   info_chart_with_table: "Wird neben dem Diagramm angezeigt, bei der Darstellung Tabelle immer."
   info_hidden_roles_html: Versteckte Rollen können nur zusammen mit der Benutzersichtbarkeit "Mitglieder von sichtbaren Projekten" verwendet werden. Diese Option funktioniert nur, wenn der Benutzer in keiner Rolle ist die für den aktuellen Benutzer sichtbar ist. Passt alles wird diese Rolle inklusive Benutzer auf der Projektübersichtsseite und in Abfragelisten ausgeblendet.
@@ -93,6 +94,7 @@ de:
   label_chart_color_schema: Charts Farbschema
   label_chart_compare_query: "Vergleich"
   label_chart_measure: "Kennzahl"
+  label_chart_min_share: "Kleine Werte zusammenfassen (unter %)"
   label_chart_order_field: "Reihenfolge des Feldes"
   label_chart_order_value: "Größter Wert zuerst"
   label_chart_others: "Sonstige"

@@ -45,6 +45,10 @@ class AdditionalsQueryChartHelperTest < Additionals::HelperTest
     assert_empty Nokogiri::HTML.fragment(render_settings_form).css('input[name="settings[chart][open_only]"]')
   end
 
+  def test_settings_form_offers_a_minimum_share
+    assert_not_empty Nokogiri::HTML.fragment(render_settings_form).css('input[name="settings[chart][min_share]"]')
+  end
+
   private
 
   # The form is part of the dashboard pages and rendered with their helpers

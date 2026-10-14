@@ -67,6 +67,7 @@ en:
   info_chart_compare_query: "Second series next to the first one. Shown in bar charts and in the table of values."
   info_chart_max_entries: "Shows the largest entries, the rest is summed up as \"Others\". Empty or 0 shows all entries."
   info_chart_measure: "Fields with multiple values are always counted."
+  info_chart_min_share: "Entries with a smaller share in percent are summed up as \"Others\". Empty or 0 combines nothing."
   info_chart_query: "Without a query all visible entries are evaluated."
   info_chart_with_table: "Shown next to the chart, always for the display type Table."
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.
@@ -93,6 +94,7 @@ en:
   label_chart_color_schema: Charts color scheme
   label_chart_compare_query: "Comparison"
   label_chart_measure: "Measure"
+  label_chart_min_share: "Combine small values (below %)"
   label_chart_order_field: "Order of the field"
   label_chart_order_value: "Largest value first"
   label_chart_others: "Others"

@@ -112,6 +112,38 @@ class AdditionalsQueryChartTest < Additionals::TestCase
     assert_equal I18n.t(:label_chart_others), limited.entries.last.label
   end
 
+  def test_min_share_sums_up_smaller_values_as_others
+    entries = issue_chart(group_by: 'tracker').entries
+    share = smallest_share(entries) + 0.1
+    expected = entries.select { |entry| entry.value * 100.0 / entries.sum(&:value) < share }.sum(&:value)
+    others = issue_chart(group_by: 'tracker', min_share: share.to_s).entries.detect { |entry| entry.key.nil? }
+
+    assert_equal expected, others&.value
+  end
+
+  # Unlike leaving them out, the total and the shares stay right
+  def test_min_share_keeps_the_total
+    entries = issue_chart(group_by: 'tracker').entries
+    share = smallest_share(entries) + 0.1
+
+    assert_equal entries.sum(&:value), issue_chart(group_by: 'tracker', min_share: share.to_s).total
+  end
+
+  def test_min_share_below_every_value_sums_up_nothing
+    entries = issue_chart(group_by: 'tracker').entries
+
+    assert_equal entries.map(&:key), issue_chart(group_by: 'tracker', min_share: '0.001').entries.map(&:key)
+  end
+
+  # Small values go first, max entries limits the rest
+  def test_min_share_applies_before_max_entries
+    entries = issue_chart(group_by: 'tracker').entries
+    largest_share = entries.map(&:value).max * 100.0 / entries.sum(&:value)
+    limited = issue_chart group_by: 'tracker', min_share: (largest_share - 0.1).to_s, max_entries: '5'
+
+    assert_equal [entries.max_by(&:value).key, nil], limited.entries.map(&:key)
+  end
+
   def test_url_filters_by_the_value_of_the_entry
     entry = issue_chart(group_by: 'tracker').entries.detect { |e| e.key == trackers(:trackers_001) }
 
@@ -259,6 +291,10 @@ class AdditionalsQueryChartTest < Additionals::TestCase
 
   def entry_values(chart)
     chart.entries.to_h { |entry| [entry.key, entry.value] }
+  end
+
+  def smallest_share(entries)
+    entries.map(&:value).min * 100.0 / entries.sum(&:value)
   end
 
   def multiple_list_field

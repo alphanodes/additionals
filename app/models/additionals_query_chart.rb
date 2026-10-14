@@ -360,18 +360,37 @@ class AdditionalsQueryChart < AdditionalsChart
     end
   end
 
+  # Small values first, then the largest entries up to the maximum. What does
+  # not show becomes one entry "Others", so total and shares stay right.
   def limit_entries(entries)
+    kept, others = split_small_entries entries
     max_entries = settings[:max_entries].to_i
-    return entries unless max_entries.positive? && entries.size > max_entries
+    if max_entries.positive? && kept.size > max_entries
+      largest = kept.max_by max_entries, &:value
+      others += kept - largest
+      kept = largest
+    end
+    return entries if others.empty?
 
-    kept = entries.max_by max_entries, &:value
-    others = entries - kept
-    sort_entries(kept) << Entry.new(key: nil,
-                                    label: l(:label_chart_others),
-                                    value: others.sum(&:value),
-                                    compare_value: others.sum(&:compare_value),
-                                    url: nil,
-                                    compare_url: nil)
+    sort_entries(kept) << others_entry(others)
+  end
+
+  # Entries with a share below min_share percent of the first series
+  def split_small_entries(entries)
+    min_share = settings[:min_share].to_f
+    sum = entries.sum(&:value)
+    return [entries, []] unless min_share.positive? && sum.positive?
+
+    entries.partition { |entry| entry.value * 100.0 / sum >= min_share }
+  end
+
+  def others_entry(others)
+    Entry.new key: nil,
+              label: l(:label_chart_others),
+              value: others.sum(&:value),
+              compare_value: others.sum(&:compare_value),
+              url: nil,
+              compare_url: nil
   end
 
   def entry_label(key)

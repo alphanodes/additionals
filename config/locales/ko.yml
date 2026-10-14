@@ -67,6 +67,7 @@ ko:
   info_chart_compare_query: "첫 번째 계열 옆에 표시되는 두 번째 계열입니다. 막대 차트와 값 테이블에 표시됩니다."
   info_chart_max_entries: "가장 큰 항목을 표시하고 나머지는 \"기타\"로 합산합니다. 비어 있거나 0이면 모든 항목을 표시합니다."
   info_chart_measure: "여러 값을 가진 필드는 항상 개수로 집계됩니다."
+  info_chart_min_share: "비율(%)이 이 값보다 작은 항목은 \"기타\"로 합산합니다. 비어 있거나 0이면 합산하지 않습니다."
   info_chart_query: "쿼리가 없으면 표시 가능한 모든 항목이 집계됩니다."
   info_chart_with_table: "차트 옆에 표시됩니다. 표시 형식이 '표'이면 항상 표시됩니다."
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". 사용자가 현재 사용자에게 보이는 역할이 아닌 경우 사용자를 포함한이 역할은 프로젝트 개요 페이지와 쿼리 목록에서 숨겨집니다.
@@ -93,6 +94,7 @@ ko:
   label_chart_color_schema: 차트 색 구성표
   label_chart_compare_query: "비교"
   label_chart_measure: "지표"
+  label_chart_min_share: "작은 값 합산 (% 미만)"
   label_chart_order_field: "필드 순서"
   label_chart_order_value: "큰 값 우선"
   label_chart_others: "기타"

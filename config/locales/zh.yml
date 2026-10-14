@@ -67,6 +67,7 @@ zh:
   info_chart_compare_query: "与第一个数据系列并列显示的第二个数据系列。在条形图和数值表中显示。"
   info_chart_max_entries: "显示最大的条目，其余条目合并为\"其他\"。留空或 0 显示所有条目。"
   info_chart_measure: "多选字段始终计数。"
+  info_chart_min_share: "占比（百分比）低于此值的条目合并为\"其他\"。留空或 0 不合并。"
   info_chart_query: "不选择查询时，统计所有可见条目。"
   info_chart_with_table: "显示在图表旁边，显示方式为\"表格\"时始终显示。"
   info_hidden_roles_html: 隐藏功能只能与"用户可见度"选项一起使用。如果某用户不在对当前用户可见的角色，则此用户及其角色在项目概述页和查询列表中将对当前用户隐藏。
@@ -93,6 +94,7 @@ zh:
   label_chart_color_schema: 图表配色主题
   label_chart_compare_query: "对比"
   label_chart_measure: "指标"
+  label_chart_min_share: "合并较小的值（低于 %）"
   label_chart_order_field: "按字段顺序"
   label_chart_order_value: "数值最大的在前"
   label_chart_others: "其他"

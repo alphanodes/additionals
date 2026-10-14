@@ -154,15 +154,19 @@ In the browser, `AdditionalsHelpers.loadLibrary(module_name)` loads a module on 
 
 The following modules are available :
 
+* actioncable
 * chartjs
+* chartjs_annotation
 * chartjs_colorschemes
 * chartjs_datalabels
-* clipboardjs
-* d3
+* chartjs_matrix
+* chartjs_meta
+* chartjs_moment
 * d3plus
 * dhtmlxgantt
 * mermaid
 * select2
+* sortable
 
 ### Redmine Plugins, which are using _additionals_
 

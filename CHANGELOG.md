@@ -36,6 +36,7 @@
 - mermaid updated to 12.2.0
 - Redmine versions that render mermaid code blocks themselves (7.1 and newer) use the bundled mermaid, so `redmine:mermaid:install` is not needed and code blocks and macros render with the same version and configuration
 - Browsers no longer fill saved logins into password fields of plugin settings and dashboard blocks, so Firefox no longer offers to update a saved login when switching settings tabs. `additionals_settings_passwordfield` marks them as `autocomplete="new-password"`
+- Query list blocks on dashboards show the changes right after editing one of their entries, e.g. via the context menu. Before, returning to the dashboard only skipped the cache of the page itself, but its blocks were still loaded from cache until it expired
 
 ## 4.6.0
 

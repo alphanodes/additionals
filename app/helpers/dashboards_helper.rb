@@ -2,9 +2,23 @@
 
 module DashboardsHelper
   def dashboard_async_cache(dashboard, block, async, settings, &)
-    cache(render_async_cache_key(_dashboard_async_blocks_path(@project, dashboard.async_params(block, async, settings))),
+    cache_key = render_async_cache_key _dashboard_async_blocks_path(@project, dashboard.async_params(block, async, settings))
+    # With refresh (e.g. the back_url after editing an entry of a query list block),
+    # the cached block has to be replaced, not only bypassed: otherwise it is still
+    # delivered from cache until it expires.
+    controller.expire_fragment cache_key if params[:refresh].present?
+
+    cache(cache_key,
           expires_in: async[:cache_expires_in] || DashboardContent::RENDER_ASYNC_CACHE_EXPIRES_IN,
           skip_digest: true, &)
+  end
+
+  # URL the async block content is loaded from. A refresh of the dashboard page
+  # is passed on, so the block request renders fresh content (see dashboard_async_cache).
+  def dashboard_async_block_path(dashboard, block, async, settings)
+    async_params = dashboard.async_params block, async, settings
+    async_params[:refresh] = 1 if params[:refresh].present?
+    _dashboard_async_blocks_path @project, async_params
   end
 
   # Returns the unique list of additionals_library_load keys required by all
@@ -323,7 +337,6 @@ module DashboardsHelper
                                  partial: 'dashboards/blocks/query_list',
                                  query_block: block_definition[:query_block],
                                  lazy: true }
-      partial_locals[:async][:unique_params] = [Redmine::Utils.random_hex(16)] if params[:refresh].present?
       partial_locals[:async] = partial_locals[:async].merge block_definition[:async] if block_definition[:async]
     elsif block_definition[:async]
       partial_locals[:async] = block_definition[:async]

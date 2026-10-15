@@ -10,20 +10,24 @@ function form({ groupBy = 'status', chartType = 'doughnut', period = '', compare
   return `
     <div data-controller="additionals-chart-settings"
          data-additionals-chart-settings-timeline-groups-value='["created_on"]'
+         data-additionals-chart-settings-number-groups-value='["estimated_hours"]'
          data-additionals-chart-settings-line-types-value='["line","area"]'
          data-additionals-chart-settings-series-types-value='${JSON.stringify(SERIES_TYPES)}'
          data-additionals-chart-settings-previous-period-value="previous">
       <select id="group_by" data-additionals-chart-settings-target="groupBy"
               data-action="additionals-chart-settings#update">
-        ${['status', 'created_on'].map((value) => option(value, groupBy)).join('')}
+        ${['status', 'created_on', 'estimated_hours'].map((value) => option(value, groupBy)).join('')}
       </select>
       <span id="interval" data-additionals-chart-settings-target="interval"></span>
+      <span id="classes" data-additionals-chart-settings-target="classes"></span>
       <p id="split" data-additionals-chart-settings-target="series"></p>
       <select id="chart_type" data-additionals-chart-settings-target="chartType"
               data-action="additionals-chart-settings#update">
         ${['doughnut', 'pie', 'treemap', ...SERIES_TYPES].map((value) => option(value, chartType)).join('')}
       </select>
-      <p id="order" data-additionals-chart-settings-target="category"></p>
+      <p id="order" data-additionals-chart-settings-target="order"></p>
+      <p id="max_entries" data-additionals-chart-settings-target="maxEntries"></p>
+      <p id="show_empty" data-additionals-chart-settings-target="showEmpty"></p>
       <p id="period" data-additionals-chart-settings-target="period">
         <select id="period_select" data-additionals-chart-settings-target="periodSelect"
                 data-action="additionals-chart-settings#update">
@@ -119,6 +123,42 @@ describe('AdditionalsChartSettingsController', () => {
     await render({ groupBy: 'created_on', chartType: 'line' });
 
     expect(element('order').hidden).toBe(true);
+  });
+
+  it('hides the bounds of a category', async () => {
+    await render();
+
+    expect(element('classes').hidden).toBe(true);
+  });
+
+  it('shows the bounds of a number field', async () => {
+    await render({ groupBy: 'estimated_hours' });
+
+    expect(element('classes').hidden).toBe(false);
+  });
+
+  it('hides the order of a number field', async () => {
+    await render({ groupBy: 'estimated_hours' });
+
+    expect(element('order').hidden).toBe(true);
+  });
+
+  it('hides the maximum of a number field', async () => {
+    await render({ groupBy: 'estimated_hours' });
+
+    expect(element('max_entries').hidden).toBe(true);
+  });
+
+  it('keeps entries without value for a number field', async () => {
+    await render({ groupBy: 'estimated_hours' });
+
+    expect(element('show_empty').hidden).toBe(false);
+  });
+
+  it('hides entries without value for a date field', async () => {
+    await render({ groupBy: 'created_on', chartType: 'line' });
+
+    expect(element('show_empty').hidden).toBe(true);
   });
 
   it('hides the period of a date field', async () => {

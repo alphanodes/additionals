@@ -64,6 +64,7 @@ de:
   global_wiki_sidebar_info: 'Hier kann für die Wiki Sidebar ein projektübergreifender Text hinterlegt werden. Diese Sidebar wird nur auf den Wiki Seiten angezeigt und kann z.B. für  Makros wie "Zuletzt geänderte Seiten" verwendet werden. Wird eine projektspezifische Sidebar angelegt (über eine Wiki Seite), dann wird diese anstelle der projektübergreifenden Sidebar angezeigt.'
   google_maps_embed_api_html: Wenn Du das Gmap Makro verwenden willst um Google Karten darzustellen, musst Du hier Deinen Google Maps Embed API Schlüssel eintragen. Mehr Informationen dazu findest Du unter <a href="https://developers.google.com/maps/documentation/embed/guide" class="external">https://developers.google.com/maps/documentation/embed/guide</a>. Wird hier kein Schlüssel eingetragen, kann das gmap Makro nicht verwendet werden.
   hidden_macros_in_toolbar_info: Alle verfügbaren Makros, die der angemeldete Benutzer verwenden kann, werden über den Makro-Button der Wiki-Toolbar aufgelistet. Hier markierte Makros werden nicht zur Auswahl angeboten. Damit lässt sich der Listenumfang einschränken. Versteckte Makros bleiben im Text weiterhin nutzbar. Sie werden nur aus dieser Liste entfernt, nicht deaktiviert.
+  info_chart_classes: "Leer teilt die Werte automatisch in etwa fünf gleich breite Klassen. Feste Grenzen bleiben stabil, wenn sich die Daten ändern."
   info_chart_compare_query: "Zweite Datenreihe neben der ersten. Wird bei Balken, Linien und in der Wertetabelle angezeigt."
   info_chart_counted_several_times: "Einträge mit mehreren Werten zählen bei jedem ihrer Werte. Der Gesamtwert zählt jeden Eintrag einmal, die Anteile ergeben deshalb zusammen mehr als 100 %."
   info_chart_description: "Wird unter dem Titel angezeigt. Wiki-Formatierung ist möglich, z.B. Links auf Wiki-Seiten oder Tickets."
@@ -96,6 +97,11 @@ de:
   label_change_is_private: Privat/Nicht-Privat ändern
   label_change_project: Projekt ändern
   label_change_to_dashboard: Zu Dashboard wechseln
+  label_chart_class_below: "unter %{value}"
+  label_chart_class_from: "ab %{value}"
+  label_chart_class_range: "%{from} bis unter %{to}"
+  label_chart_classes: "Grenzen"
+  label_chart_classes_auto: "automatisch"
   label_chart_color_schema: Charts Farbschema
   label_chart_compare_query: "Vergleich"
   label_chart_interval: "je"

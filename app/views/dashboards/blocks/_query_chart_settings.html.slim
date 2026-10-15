@@ -3,6 +3,7 @@
 
 .box.tabular.settings[data-controller='additionals-chart-settings'
                        data-additionals-chart-settings-timeline-groups-value=chart.timeline_group_names.to_json
+                       data-additionals-chart-settings-number-groups-value=chart.number_group_names.to_json
                        data-additionals-chart-settings-line-types-value=AdditionalsQueryChart::LINE_TYPES.to_json
                        data-additionals-chart-settings-series-types-value=AdditionalsQueryChart::SERIES_TYPES.to_json
                        data-additionals-chart-settings-previous-period-value=AdditionalsQueryChart::PREVIOUS_PERIOD]
@@ -41,6 +42,10 @@
     span.query-chart-interval data-additionals-chart-settings-target='interval'
       = label_tag tag_name.call(:interval), l(:label_chart_interval)
       = select_tag tag_name.call(:interval), options_for_query_chart_interval(chart.interval)
+    span.query-chart-classes data-additionals-chart-settings-target='classes'
+      = label_tag tag_name.call(:classes), l(:label_chart_classes)
+      = text_field_tag tag_name.call(:classes), settings[:classes], size: 14, placeholder: l(:label_chart_classes_auto)
+      em.info = l :info_chart_classes
   - if chart.period_supported?
     p data-additionals-chart-settings-target='period'
       = additionals_settings_select :period,
@@ -76,12 +81,12 @@
                                   tag_name: tag_name.call(:compare_query_id),
                                   data: { additionals_chart_settings_target: 'compareSelect' }
     em.info = l :info_chart_compare_query
-  p data-additionals-chart-settings-target='category'
+  p data-additionals-chart-settings-target='order'
     = additionals_settings_select :order,
                                   options_for_query_chart_order(chart.order),
                                   label: :label_sort,
                                   tag_name: tag_name.call(:order)
-  p
+  p data-additionals-chart-settings-target='maxEntries'
     = additionals_settings_numberfield :max_entries,
                                        label: :label_max_entries,
                                        value: settings[:max_entries],
@@ -97,7 +102,7 @@
                                        step: 0.1,
                                        tag_name: tag_name.call(:min_share)
     em.info = l :info_chart_min_share
-  p data-additionals-chart-settings-target='category'
+  p data-additionals-chart-settings-target='showEmpty'
     = additionals_settings_checkbox :show_empty,
                                     label: :label_chart_show_empty,
                                     active_value: chart.show_empty?,

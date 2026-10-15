@@ -64,6 +64,7 @@ uk:
   global_wiki_sidebar_info: 'Enter a project wide available text message for your wiki sidebar, here. This sidebar text will be displayed at the wiki pages only. Use this space for Macros like "Last changed pages" for example. In case a project specific sidebar is used (wiki page), this will be preferably displayed in the sidebar instead.'
   google_maps_embed_api_html: In case you want to use the Gmap macro in order to display Goole maps please implement your Google Maps API key here. Afterwards you can use the macro and various parameters. More information on how to use the parameters are provided at <a href="https://developers.google.com/maps/documentation/embed/guide" class="external">https://developers.google.com/maps/documentation/embed/guide</a>. The Gmap macro works only in combination with the embedded key here.
   hidden_macros_in_toolbar_info: "Всі доступі макроси, котрі може використовувати авторизований  в системі користувач, перераховані за допомогою кнопки макроса на панели інструментів віки. Макроси, відмічені тут, не пропонуються  для вибору. Це дозволяє вам обмежити область дії списка. Приховані макроси й надалі можна використовувати в тексті. Вони лише прибираються з цього списку, а не вимикаються."
+  info_chart_classes: "Порожнє поле автоматично ділить значення приблизно на пʼять класів однакової ширини. Задані межі залишаються незмінними, коли змінюються дані."
   info_chart_compare_query: "Другий ряд поруч із першим. Відображається в стовпчастих і лінійних діаграмах і в таблиці значень."
   info_chart_counted_several_times: "Записи з кількома значеннями враховуються в кожному з них. Підсумок враховує кожен запис один раз, тому частки разом перевищують 100 %."
   info_chart_description: "Відображається під заголовком. Можна використовувати вікі-розмітку, наприклад посилання на вікі-сторінки або задачі."
@@ -96,6 +97,11 @@ uk:
   label_change_is_private: "Визначення приватне / не-приватне"
   label_change_project: Змінити проект
   label_change_to_dashboard: "Переключитись на приборну панель"
+  label_chart_class_below: "менше %{value}"
+  label_chart_class_from: "від %{value}"
+  label_chart_class_range: "від %{from} до менше %{to}"
+  label_chart_classes: "Межі"
+  label_chart_classes_auto: "автоматично"
   label_chart_color_schema: Charts color scheme
   label_chart_compare_query: "Порівняння"
   label_chart_interval: "за"

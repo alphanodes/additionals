@@ -41,6 +41,13 @@ class AdditionalsQueryChart < AdditionalsChart
   # (issue_assignee, author). Dates are summed up to periods.
   NON_CATEGORY_FILTER_TYPES = %i[integer float string text search tree relation].freeze
   DATE_FILTER_TYPES = %i[date date_past].freeze
+  # Numbers are summed up to classes of their values
+  NUMBER_FILTER_TYPES = %i[integer float hour].freeze
+  # Automatic classes split the values into about this many of the same width
+  AUTOMATIC_CLASSES = 5
+  # The number filters know no "below": the upper bound of a class of decimals
+  # stays just below the next one
+  CLASS_BOUND_GAP = 0.000001
   # Columns core shows as hours in the totals of a list
   HOURS_COLUMNS = %i[hours spent_hours total_spent_hours estimated_hours
                      total_estimated_hours estimated_remaining_hours].freeze
@@ -156,6 +163,21 @@ class AdditionalsQueryChart < AdditionalsChart
     @timeline = group_column.present? && date_column?(group_column)
   end
 
+  # Grouped by a number, the entries are classes of its values
+  def number_classes?
+    return @number_classes if defined? @number_classes
+
+    @number_classes = group_column.present? && number_column?(group_column)
+  end
+
+  # Bounds of the classes as given, or round steps over all values
+  def class_bounds
+    @class_bounds ||= begin
+      bounds = settings[:classes].to_s.split(/;|,\s+|\s+/).filter_map { |bound| Float(bound.tr(',', '.'), exception: false) }
+      bounds.any? ? bounds.uniq.sort! : automatic_class_bounds
+    end
+  end
+
   def bar_chart?
     BAR_TYPES.include? chart_type
   end
@@ -221,7 +243,7 @@ class AdditionalsQueryChart < AdditionalsChart
   def split?
     return @split if defined? @split
 
-    @split = split_column.present? && series_chart? && (timeline? || split_column?(group_column)) &&
+    @split = split_column.present? && series_chart? && (timeline? || number_classes? || split_column?(group_column)) &&
              !(multiple_values_column?(group_column) && multiple_values_column?(split_column))
   end
 
@@ -295,6 +317,11 @@ class AdditionalsQueryChart < AdditionalsChart
   # Group columns that make a timeline, for the settings form
   def timeline_group_names
     group_columns.filter_map { |column| column.name.to_s if date_column? column }
+  end
+
+  # Group columns whose values form classes, for the settings form
+  def number_group_names
+    group_columns.filter_map { |column| column.name.to_s if number_column? column }
   end
 
   def group_options
@@ -502,7 +529,8 @@ class AdditionalsQueryChart < AdditionalsChart
   # its id), which a grouping by two columns would bypass. A date would be a
   # timeline per part.
   def split_column?(column)
-    (column.instance_of?(QueryColumn) || column.is_a?(QueryCustomFieldColumn)) && !date_column?(column)
+    (column.instance_of?(QueryColumn) || column.is_a?(QueryCustomFieldColumn)) &&
+      !date_column?(column) && !number_type?(column)
   end
 
   # Columns a chart can sum up, the totals of the list by default
@@ -515,6 +543,7 @@ class AdditionalsQueryChart < AdditionalsChart
   # with multiple values would look for them on the entry itself
   def group_column?(column)
     return false if column.is_a? QueryAssociationCustomFieldColumn
+    return number_column? column if number_type? column
     return false unless column.groupable? || multiple_values_column?(column)
 
     type = filter_type_for column
@@ -526,6 +555,24 @@ class AdditionalsQueryChart < AdditionalsChart
 
   def date_column?(column)
     DATE_FILTER_TYPES.include? filter_type_for(column)
+  end
+
+  def number_type?(column)
+    NUMBER_FILTER_TYPES.include? filter_type_for(column)
+  end
+
+  # Numbers stored in a column of the entry or in a custom field. Computed
+  # columns, e.g. counts of notes, are subqueries per entry: grouping by them
+  # would count for every entry and each plugin builds them its own way.
+  def number_column?(column)
+    return false unless number_type?(column) && !multiple_values_column?(column)
+    return true if column.is_a? QueryCustomFieldColumn
+
+    column.instance_of?(QueryColumn) && options_query.queried_class.column_names.include?(column.name.to_s)
+  end
+
+  def integer_column?(column)
+    filter_type_for(column) == :integer
   end
 
   # Custom fields tell their type by their format, also if they are no filter
@@ -557,20 +604,21 @@ class AdditionalsQueryChart < AdditionalsChart
 
     apply_periods
     [query, (compare_query if compare?)].compact.each { |series_query| limit_to_latest_periods series_query }
-    values = period_values query, grouped_values(query)
-    compare_values = compare? ? period_values(compare_query, grouped_values(compare_query)) : {}
-    split_values = split? ? period_values(nil, split_values(query)) : {}
+    values = bucket_values query, grouped_values(query)
+    compare_values = compare? ? bucket_values(compare_query, grouped_values(compare_query)) : {}
+    split_values = split? ? bucket_values(nil, split_values(query)) : {}
 
     keys = values.keys | compare_values.keys
     keys.delete nil unless show_empty?
     keys = timeline_periods keys if timeline?
+    keys = (0..class_bounds.size).to_a + (keys.include?(nil) ? [nil] : []) if number_classes?
     preload_version_projects keys
 
     entries = keys.filter_map do |key|
       value = values[key] || 0
       compare_value = compare_values[key] || 0
-      # A period without entries keeps its place in the timeline
-      next if value.zero? && compare_value.zero? && !timeline?
+      # A period or class without entries keeps its place
+      next if value.zero? && compare_value.zero? && !timeline? && !(number_classes? && key)
 
       Entry.new key:, label: entry_label(key), value:, compare_value:,
                 url: entry_url(query, key),
@@ -578,8 +626,80 @@ class AdditionalsQueryChart < AdditionalsChart
                 parts: split_values.fetch(key, {})
     end
 
-    entries = limit_entries sort_entries(entries) unless timeline?
+    entries = limit_entries sort_entries(entries) unless timeline? || number_classes?
     split? ? split_entries(entries) : entries
+  end
+
+  # Days summed up to periods; numbers come as classes already
+  def bucket_values(query, values)
+    return values if number_classes?
+
+    period_values query, values
+  end
+
+  # Round steps of the same width from the smallest to the largest value
+  def automatic_class_bounds
+    apply_periods
+    scope = number_scope query
+    number = number_expression scope.klass, group_column
+    first, last = scope.where.not(no_number_condition(scope.klass, group_column)).pick(number.minimum, number.maximum)
+    return [] unless first
+
+    first = first.to_f
+    last = last.to_f
+
+    step = class_step last - first
+    bound = ((first / step).floor * step) + step
+    bounds = []
+    while bound <= last && bounds.size < MAX_PERIODS
+      bounds << bound
+      bound += step
+    end
+    bounds.empty? ? [last] : bounds
+  end
+
+  # 1, 2 or 5 times a power of ten, whole numbers for integer columns
+  def class_step(span)
+    raw = span.to_f / AUTOMATIC_CLASSES
+    return 1 unless raw.positive?
+
+    magnitude = 10**Math.log10(raw).floor
+    step = [1, 2, 5, 10].map { |factor| factor * magnitude }.detect { |candidate| candidate >= raw }
+    integer_column?(group_column) ? [step.ceil, 1].max : step
+  end
+
+  def class_label(index)
+    bounds = class_bounds
+    if index.zero?
+      l :label_chart_class_below, value: format_bound(bounds.first)
+    elsif index == bounds.size
+      l :label_chart_class_from, value: format_bound(bounds.last)
+    else
+      l :label_chart_class_range, from: format_bound(bounds[index - 1]), to: format_bound(bounds[index])
+    end
+  end
+
+  # Operator and values of the filter of a class, see CLASS_BOUND_GAP
+  def class_filter(index)
+    bounds = class_bounds
+    below = ->(bound) { filter_bound(integer_column?(group_column) ? bound - 1 : bound - CLASS_BOUND_GAP) }
+    if index.zero?
+      ['<=', [below.call(bounds.first)]]
+    elsif index == bounds.size
+      ['>=', [filter_bound(bounds.last)]]
+    else
+      ['><', [filter_bound(bounds[index - 1]), below.call(bounds[index])]]
+    end
+  end
+
+  def format_bound(bound)
+    ActiveSupport::NumberHelper.number_to_rounded bound, precision: 2, strip_insignificant_zeros: true,
+                                                         locale: ::I18n.locale
+  end
+
+  # Plain decimals, a filter does not read 1.0e-06
+  def filter_bound(bound)
+    bound == bound.to_i ? bound.to_i.to_s : format('%.6f', bound).sub(/0+\z/, '')
   end
 
   # Values per day summed up per period, values of a split per part. The
@@ -809,7 +929,9 @@ class AdditionalsQueryChart < AdditionalsChart
 
   # Values per key of the group and key of the split column
   def split_values(query)
-    counts = if multiple_values_column?(group_column) || multiple_values_column?(split_column)
+    counts = if number_classes? && !multiple_values_column?(split_column)
+               number_split_counts query
+             elsif multiple_values_column?(group_column) || multiple_values_column?(split_column)
                multiple_split_counts query
              else
                split_counts query
@@ -836,15 +958,16 @@ class AdditionalsQueryChart < AdditionalsChart
     with_values = with_values_scope query, multiple.custom_field
     statement = group_statement query, other
     klass = with_values.klass
-    other_sql = group_sql klass, statement
+    other_sql = Arel.sql split_group(klass, other, statement)
+    value = CustomValue.arel_table[:value]
 
+    # Plucked, see number_values
     counts = with_values.joins(query_joins(query, [statement]))
-                        .group(other_sql, CustomValue.arel_table[:value]).distinct.count(:id)
-                        .to_h { |(other_key, value), count| [[other_key, value], count] }
-    query.base_scope.where.not(id: with_values.select(:id))
-         .joins(query_joins(query, [statement]))
-         .group(other_sql).distinct.count(:id)
-         .each { |other_key, count| counts[[other_key, nil]] = count }
+                        .group(other_sql, value).pluck(other_sql, value, distinct_count(with_values))
+                        .to_h { |other_key, field_value, count| [[other_key, field_value], count] }
+    without = query.base_scope.where.not(id: with_values.select(:id)).joins(query_joins(query, [statement]))
+    without.group(other_sql).pluck(other_sql, distinct_count(without))
+           .each { |other_key, count| counts[[other_key, nil]] = count }
 
     # Keys as [group, split]
     counts = map_split_keys klass, counts, [[other, statement], [multiple, nil]]
@@ -854,8 +977,11 @@ class AdditionalsQueryChart < AdditionalsChart
   end
 
   # Statement of a column as the query groups by it. A query class may
-  # decide that itself, e.g. for columns of its own.
+  # decide that itself, e.g. for columns of its own. Core groups by no number
+  # columns but those of custom fields, the base groups by the column then.
   def group_statement(query, column)
+    return number_statement column if number_type? column
+
     group_by = query.group_by
     query.group_by = column.name.to_s
     query.group_by_statement
@@ -863,9 +989,18 @@ class AdditionalsQueryChart < AdditionalsChart
     query.group_by = group_by
   end
 
+  def number_statement(column)
+    column.is_a?(QueryCustomFieldColumn) ? column.custom_field.group_statement : column.name.to_s
+  end
+
   # Joins the statements need, e.g. the values of a custom field
   def query_joins(query, statements)
     query.send :joins_for_order_statement, statements.join(',')
+  end
+
+  # A number groups by its class, any other column by its statement
+  def split_group(klass, column, statement)
+    number_classes? && column == group_column ? class_expression(klass, column) : group_sql(klass, statement)
   end
 
   # SQL to group by a statement. Grouped by a single column, ActiveRecord
@@ -897,7 +1032,9 @@ class AdditionalsQueryChart < AdditionalsChart
   end
 
   def split_key_mapper(klass, column, statement, keys)
-    if column.is_a? QueryCustomFieldColumn
+    if number_classes? && column == group_column
+      keys.index_with { |key| key&.to_i }
+    elsif column.is_a? QueryCustomFieldColumn
       keys.index_with { |key| key.presence && column.custom_field.cast_value(key) }
     elsif (reflection = klass.reflect_on_association statement.to_sym) && reflection.belongs_to?
       records = reflection.klass.where(id: keys.compact).index_by(&:id)
@@ -915,9 +1052,86 @@ class AdditionalsQueryChart < AdditionalsChart
 
   def grouped_values(query)
     return multiple_values_counts query if multiple_values?
+    return number_values query if number_classes?
 
     values = measure_column ? query.total_by_group_for(measure_column) : query.result_count_by_group
     merge_blank_keys values || {}
+  end
+
+  # Values per class, the index of the class as key. The database groups by
+  # class, so sums are rounded per class like the totals of the list.
+  # ActiveRecord names the key of a grouping after its expression and cannot
+  # read it back once the name is cut, as for the long expression of a
+  # custom field: counts are plucked, sums taken class by class.
+  def number_values(query)
+    scope = number_scope query
+    expression = class_expression scope.klass, group_column
+    if measure_column
+      return class_keys.index_with do |index|
+        query.send :total_with_scope, measure_column, scope.where(class_condition(expression, index))
+      end
+    end
+
+    scope.group(expression).pluck(expression, distinct_count(scope)).to_h { |index, count| [index&.to_i, count] }
+  end
+
+  # Values per class and value of the split column, see number_values
+  def number_split_counts(query)
+    statement = group_statement query, split_column
+    scope = number_scope(query).joins query_joins(query, [statement])
+    expression = class_expression scope.klass, group_column
+    other = Arel.sql group_sql(scope.klass, statement)
+    counts = if measure_column
+               class_keys.each_with_object({}) do |index, values|
+                 grouped = scope.where(class_condition(expression, index)).group(other)
+                 query.send(:total_with_scope, measure_column, grouped).each { |key, value| values[[index, key]] = value }
+               end
+             else
+               scope.group(expression, other).pluck(expression, other, distinct_count(scope))
+                    .to_h { |index, key, count| [[index&.to_i, key], count] }
+             end
+    map_split_keys scope.klass, counts, [[group_column, nil], [split_column, statement]]
+  end
+
+  def distinct_count(scope)
+    scope.klass.arel_table[:id].count true
+  end
+
+  # Every class and no value
+  def class_keys
+    (0..class_bounds.size).to_a << nil
+  end
+
+  def class_condition(expression, index)
+    index.nil? ? expression.eq(nil) : expression.eq(index)
+  end
+
+  def number_scope(query)
+    query.base_scope.joins query_joins(query, [number_statement(group_column)])
+  end
+
+  # The number of a column as the database compares it
+  def number_expression(klass, column)
+    return Arel::Table.new(klass.table_name)[column.name] unless column.is_a? QueryCustomFieldColumn
+
+    Arel.sql column.custom_field.order_statement
+  end
+
+  # NULL, and an empty value of a custom field, which the number would read as 0
+  def no_number_condition(klass, column)
+    return Arel::Table.new(klass.table_name)[column.name].eq(nil) unless column.is_a? QueryCustomFieldColumn
+
+    value = Arel::Table.new("cf_#{column.custom_field.id}")[:value]
+    value.eq(nil).or(value.eq(''))
+  end
+
+  # Index of the class of a number, NULL without one. Built by Arel, handed
+  # over as SQL: grouped by a node, ActiveRecord cannot read back the keys.
+  def class_expression(klass, column)
+    number = number_expression klass, column
+    expression = Arel::Nodes::Case.new.when(no_number_condition(klass, column)).then(Arel.sql('NULL'))
+    class_bounds.each_with_index { |bound, index| expression = expression.when(number.lt(bound)).then(index) }
+    Arel.sql expression.else(class_bounds.size).to_sql
   end
 
   # A column may hold NULL and an empty string for no value, the list shows
@@ -1026,6 +1240,7 @@ class AdditionalsQueryChart < AdditionalsChart
     # Like the groups of the list the chart links to
     return "(#{l :label_blank_value})" if key.nil?
     return period_label key if column == group_column && timeline?
+    return class_label key if column == group_column && number_classes?
     # Versions of other projects carry the project, like format_version_name of core
     return key.to_s_with_project if key.is_a?(Version) && key.project != project
     return key.to_s if key.is_a? ActiveRecord::Base
@@ -1088,6 +1303,8 @@ class AdditionalsQueryChart < AdditionalsChart
         add_url_filter params, filter, '!*', ['']
       elsif period && filter == key_filters.keys.first
         add_url_filter params, filter, '><', period
+      elsif number_classes? && filter == key_filters.keys.first
+        add_url_filter params, filter, *class_filter(filter_key)
       else
         add_url_filter params, filter, '=', [entry_value(filter_key)]
       end

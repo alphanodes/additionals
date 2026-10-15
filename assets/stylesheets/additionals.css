@@ -578,13 +578,20 @@ table.table-of-values caption {
   margin: 0;
 }
 
-/* The interval of a date field follows its select in the same line, the
-   label is no field label of the tabular form */
-.tabular .query-chart-interval label {
+/* The interval of a date field and the bounds of a number field follow
+   their select in the same line, the label is no field label of the form */
+.tabular .query-chart-interval label,
+.tabular .query-chart-classes label {
   float: none;
   width: auto;
   margin: 0 0.5em;
   font-weight: normal;
+}
+
+/* Settings of a dashboard block give every text field a fixed width, the
+   bounds are a few numbers next to their select */
+#my-page.dashboard .settings .query-chart-classes input[type='text'] {
+  width: auto;
 }
 
 .additionals-projects ul {

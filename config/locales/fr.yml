@@ -64,6 +64,7 @@ fr:
   global_wiki_sidebar_info: "Entrez ici un message texte disponible pour l'ensemble du projet pour votre barre latérale wiki. Ce texte de la barre latérale sera affiché uniquement sur les pages wiki. Use this space for Macros like \"Last changed pages\" for example. Dans le cas où une barre latérale spécifique au projet est utilisée (page wiki), celle-ci sera de préférence affichée dans la barre latérale."
   google_maps_embed_api_html: "Si vous souhaitez utiliser la macro Gmap pour afficher les cartes de Goole, veuillez implémenter votre clé API Google Maps ici. Ensuite, vous pouvez utiliser la macro et divers paramètres. Pour plus d'informations sur l'utilisation des paramètres, voir <a href=\"https://developers.google.com/maps/documentation/embed/guide\">https://developers.google.com/maps/documentation/embed/guide</a>. La macro Gmap ne fonctionne qu'en combinaison avec la clé intégrée."
   hidden_macros_in_toolbar_info: "Toutes les macros disponibles que l'utilisateur connecté peut utiliser sont listées via le bouton macro de la barre d'outils wiki. Les macros marquées ici ne sont pas proposées à la sélection. Ceci vous permet de limiter la portée de la liste. Les macros cachées restent utilisables dans le texte. Elles sont uniquement retirées de cette liste, pas désactivées."
+  info_chart_classes: "Vide répartit automatiquement les valeurs en environ cinq classes de même largeur. Des bornes fixes restent stables lorsque les données changent."
   info_chart_compare_query: "Deuxième série à côté de la première. Affichée dans les diagrammes en barres et en lignes et dans le tableau des valeurs."
   info_chart_counted_several_times: "Les entrées à plusieurs valeurs comptent pour chacune d'elles. Le total compte chaque entrée une seule fois, les parts dépassent donc 100 % au total."
   info_chart_description: "Affichée sous le titre. La mise en forme wiki est possible, p. ex. des liens vers des pages wiki ou des demandes."
@@ -96,6 +97,11 @@ fr:
   label_change_is_private: Changer Privé/non privé
   label_change_project: Changer le projet
   label_change_to_dashboard: "Passer au tableau de bord"
+  label_chart_class_below: "moins de %{value}"
+  label_chart_class_from: "%{value} et plus"
+  label_chart_class_range: "de %{from} à moins de %{to}"
+  label_chart_classes: "Bornes"
+  label_chart_classes_auto: "automatique"
   label_chart_color_schema: Schéma de couleur graphique
   label_chart_compare_query: "Comparaison"
   label_chart_interval: "par"

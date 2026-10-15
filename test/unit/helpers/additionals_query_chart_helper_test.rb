@@ -84,6 +84,10 @@ class AdditionalsQueryChartHelperTest < Additionals::HelperTest
     assert_not_empty Nokogiri::HTML.fragment(render_settings_form).css('textarea[name="settings[chart][description]"]')
   end
 
+  def test_settings_form_offers_class_bounds
+    assert_not_empty Nokogiri::HTML.fragment(render_settings_form).css('input[name="settings[chart][classes]"]')
+  end
+
   def test_table_of_values_lists_the_entries
     chart = Additionals::TestIssueQueryChart.new project: projects(:projects_001), settings: { group_by: 'tracker' }
     html = @redmine_view.render partial: 'dashboards/blocks/query_chart_table', locals: { chart: }

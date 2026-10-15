@@ -6,6 +6,7 @@ import { Controller } from '@hotwired/stimulus';
 // always in the order of time with dates only. Doughnut, pie and treemap show
 // no series, so neither a split nor a comparison. A period applies to the
 // other fields only, the previous one is a comparison of a block with period.
+// A number field forms classes in the order of their values, with bounds.
 //
 // The server falls back the same way for settings saved before (see
 // AdditionalsQueryChart#chart_type), the form only hides what would not apply.
@@ -20,11 +21,12 @@ function hide(element, hidden) {
 }
 
 class AdditionalsChartSettingsController extends Controller {
-  static targets = ['groupBy', 'interval', 'chartType', 'series', 'category', 'period', 'periodSelect',
-    'compareSelect'];
+  static targets = ['groupBy', 'interval', 'classes', 'chartType', 'series', 'order', 'maxEntries', 'showEmpty',
+    'period', 'periodSelect', 'compareSelect'];
 
   static values = {
     timelineGroups: Array,
+    numberGroups: Array,
     lineTypes: Array,
     seriesTypes: Array,
     previousPeriod: String,
@@ -36,10 +38,17 @@ class AdditionalsChartSettingsController extends Controller {
 
   update() {
     const timeline = this.timeline();
+    const classes = this.hasGroupByTarget && this.numberGroupsValue.includes(this.groupByTarget.value);
     if (this.hasIntervalTarget) {
       hide(this.intervalTarget, !timeline);
     }
-    this.categoryTargets.forEach((element) => hide(element, timeline));
+    if (this.hasClassesTarget) {
+      hide(this.classesTarget, !classes);
+    }
+    // Periods and classes keep the order of their values
+    this.orderTargets.forEach((element) => hide(element, timeline || classes));
+    this.maxEntriesTargets.forEach((element) => hide(element, classes));
+    this.showEmptyTargets.forEach((element) => hide(element, timeline));
     if (this.hasPeriodTarget) {
       hide(this.periodTarget, timeline);
     }

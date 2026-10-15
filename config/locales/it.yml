@@ -64,6 +64,7 @@ it:
   global_wiki_sidebar_info: 'Enter a project wide available text message for your wiki sidebar, here. This sidebar text will be displayed at the wiki pages only. Use this space for Macros like "Last changed pages" for example. In case a project specific sidebar is used (wiki page), this will be preferably displayed in the sidebar instead.'
   google_maps_embed_api_html: Se si desidera utilizzare la macro Gmap per visualizzare Google Maps, è necessario immettere qui la chiave API incorporata di Google Maps. Potete trovare maggiori informazioni sotto <a href="https://developers.google.com/maps/documentation/embed/guide">https://developers.google.com/maps/documentation/embed/guide</a>
   hidden_macros_in_toolbar_info: "Tutte le macro disponibili che l'utente registrato può utilizzare sono elencate tramite il pulsante macro della barra degli strumenti del wiki. Le macro contrassegnate qui non vengono offerte per la selezione. In questo modo è possibile limitare la portata dell'elenco. Le macro nascoste restano utilizzabili nel testo. Vengono solo rimosse da questo elenco, non disattivate."
+  info_chart_classes: "Vuoto suddivide automaticamente i valori in circa cinque classi della stessa ampiezza. I limiti fissi restano stabili quando i dati cambiano."
   info_chart_compare_query: "Seconda serie accanto alla prima. Visualizzata nei grafici a barre e a linee e nella tabella dei valori."
   info_chart_counted_several_times: "Le voci con più valori contano per ciascuno di essi. Il totale conta ogni voce una sola volta, perciò le quote insieme superano il 100 %."
   info_chart_description: "Visualizzata sotto il titolo. È possibile la formattazione wiki, ad es. link a pagine wiki o segnalazioni."
@@ -96,6 +97,11 @@ it:
   label_change_is_private: "Cambia privato/non privato"
   label_change_project: Cambia progetto
   label_change_to_dashboard: "Passa a Dashboard"
+  label_chart_class_below: "meno di %{value}"
+  label_chart_class_from: "%{value} e oltre"
+  label_chart_class_range: "da %{from} a meno di %{to}"
+  label_chart_classes: "Limiti"
+  label_chart_classes_auto: "automatico"
   label_chart_color_schema: "Schema di colori delle tabelle"
   label_chart_compare_query: "Confronto"
   label_chart_interval: "per"

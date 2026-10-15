@@ -68,6 +68,7 @@ en:
   info_chart_max_entries: "Shows the largest entries, the rest is summed up as \"Others\". Empty or 0 shows all entries."
   info_chart_measure: "Fields with multiple values are always counted."
   info_chart_min_share: "Entries with a smaller share in percent are summed up as \"Others\". Empty or 0 combines nothing."
+  info_chart_open_only: "Applies on top of the filters of the query."
   info_chart_query: "Without a query all visible entries are evaluated."
   info_chart_with_table: "Shown next to the chart, always for the display type Table."
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.
@@ -105,12 +106,12 @@ en:
   label_chart_type_pie: "Pie"
   label_chart_type_table: "Table"
   label_chart_type_treemap: "Treemap"
+  label_chart_valid_only: "Valid entries only"
   label_chart_with_name: "Chart: %{value}"
   label_chartjs_colorscheme_info: Color list
   label_content_plural: Contents
   label_copied_to_clipboard: Copied!
   label_custom_field_editable_info: If disabled changes are only possible with API calls or via bulk edit.
-  label_custom_fields_distribution: "Custom fields for distribution"
   label_daily: daily
   label_dashboard: Dashboard
   label_dashboard_author: "Author: %{name}"
@@ -234,7 +235,6 @@ en:
   label_weekly: weekly
   label_wiki_pdf_remove_attachments: Remove attachments from PDF view
   label_wiki_pdf_remove_title: Remove Wiki title from PDF view
-  label_without_value: "No %{value}"
   label_yearly: yearly
   latest_entries_changes: "Latest %{value} changes"
   legacy_smiley_support_info_html: 'Convert smileys in text. Activate this option if :), :-) etc are to be converted to smileys. If this setting is changed, the application server <strong>must be restarted</strong>.'

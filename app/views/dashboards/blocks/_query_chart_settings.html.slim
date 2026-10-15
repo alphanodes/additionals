@@ -20,6 +20,7 @@
                                       label: chart.open_only_label,
                                       active_value: settings[:open_only],
                                       tag_name: tag_name.call(:open_only)
+      em.info = l :info_chart_open_only
   p
     = additionals_settings_select :group_by,
                                   options_for_select(chart.group_options, settings[:group_by]),

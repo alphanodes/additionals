@@ -144,6 +144,94 @@ class AdditionalsQueryChartTest < Additionals::TestCase
     assert_equal [entries.max_by(&:value).key, nil], limited.entries.map(&:key)
   end
 
+  def test_open_only_is_offered_with_a_label_for_default_filters
+    assert_predicate project_chart(group_by: 'is_public'), :open_only_supported?
+  end
+
+  # A generic text could not tell the user what the option does
+  def test_open_only_is_not_offered_without_a_label
+    assert_not_predicate issue_chart(group_by: 'tracker'), :open_only_supported?
+  end
+
+  def test_open_only_applies_the_default_filters
+    Project.generate!.update_column :status, Project::STATUS_CLOSED
+
+    assert_equal Project.visible.where(status: Project::STATUS_ACTIVE).count,
+                 project_chart(group_by: 'is_public', open_only: '1').total
+  end
+
+  # The filters of the query stay, the default filters restrict them further
+  def test_open_only_adds_to_the_filters_of_a_query
+    Project.generate!(is_public: false).update_column :status, Project::STATUS_CLOSED
+    query = ProjectQuery.create! name: 'Private', user: users(:users_001), visibility: Query::VISIBILITY_PUBLIC,
+                                 filters: { 'is_public' => { operator: '=', values: ['0'] },
+                                            'status' => { operator: '*', values: [''] } }
+
+    assert_equal Project.visible.where(is_public: false, status: Project::STATUS_ACTIVE).count,
+                 project_chart(group_by: 'is_public', query_id: query.id.to_s, open_only: '1').total
+  end
+
+  def test_url_of_open_only_adds_the_default_filter
+    entry = project_chart(group_by: 'is_public', open_only: '1').entries.first
+
+    assert_equal ['1'], url_values(entry.url, 'status')
+  end
+
+  def test_url_of_open_only_joins_the_status_filter_of_the_query
+    query = ProjectQuery.create! name: 'Active or closed', user: users(:users_001), visibility: Query::VISIBILITY_PUBLIC,
+                                 filters: { 'status' => { operator: '=', values: %w[1 5] } }
+    entry = project_chart(group_by: 'is_public', query_id: query.id.to_s, open_only: '1').entries.first
+
+    assert_equal ['1'], url_values(entry.url, 'status')
+  end
+
+  # No list shows active projects that are not active
+  def test_url_of_open_only_without_common_values_has_no_link
+    query = ProjectQuery.create! name: 'Not active', user: users(:users_001), visibility: Query::VISIBILITY_PUBLIC,
+                                 filters: { 'status' => { operator: '!', values: %w[1] } }
+    compare = ProjectQuery.create! name: 'All', user: users(:users_001), visibility: Query::VISIBILITY_PUBLIC,
+                                   filters: { 'status' => { operator: '*', values: [''] } }
+    entry = project_chart(group_by: 'is_public', query_id: query.id.to_s, compare_query_id: compare.id.to_s,
+                          chart_type: 'bar_vertical', open_only: '1').entries.first
+
+    assert_nil entry.url
+  end
+
+  # A project rule of its own would drop entries of subprojects a query
+  # includes by its filter, if the setting shows no subproject issues
+  def test_default_filters_bring_no_project_rule
+    chart = Class.new(Additionals::TestIssueQueryChart) { def open_only_label = :label_issue_plural }
+                 .new project: @project, settings: { group_by: 'tracker', open_only: '1' }
+
+    with_settings display_subprojects_issues: '0' do
+      assert_no_match(/projects\./, chart.send(:default_filters_statement))
+    end
+  end
+
+  def test_url_of_open_only_keeps_values_the_query_does_not_exclude
+    query = project_query 'status' => { operator: '!', values: %w[5] }
+
+    assert_equal ['1'], url_values(project_chart_url(query), 'status')
+  end
+
+  def test_url_of_open_only_keeps_the_default_filter_for_any_value
+    query = project_query 'status' => { operator: '*', values: [''] }
+
+    assert_equal ['1'], url_values(project_chart_url(query), 'status')
+  end
+
+  def test_url_of_open_only_removes_excluded_values_of_a_default_filter
+    query = project_query 'status' => { operator: '=', values: %w[1 5] }
+
+    assert_equal ['1'], url_values(project_chart_url(query, excluding_default: true), 'status')
+  end
+
+  def test_url_of_open_only_joins_two_exclusions
+    query = project_query 'status' => { operator: '!', values: %w[9] }
+
+    assert_equal %w[5 9], url_values(project_chart_url(query, excluding_default: true), 'status').sort
+  end
+
   def test_url_filters_by_the_value_of_the_entry
     entry = issue_chart(group_by: 'tracker').entries.detect { |e| e.key == trackers(:trackers_001) }
 
@@ -291,6 +379,35 @@ class AdditionalsQueryChartTest < Additionals::TestCase
 
   def entry_values(chart)
     chart.entries.to_h { |entry| [entry.key, entry.value] }
+  end
+
+  def project_query(filters)
+    ProjectQuery.create! name: 'Status', user: users(:users_001), visibility: Query::VISIBILITY_PUBLIC, filters:
+  end
+
+  # The link of the first slice with open only; excluding_default makes the
+  # default filter "status is not closed" instead of "status is active"
+  def project_chart_url(query, excluding_default: false)
+    klass = excluding_default ? excluding_default_project_chart : Additionals::TestProjectQueryChart
+    klass.new(project: nil, settings: { group_by: 'is_public', query_id: query.id.to_s, open_only: '1' }).entries.first.url
+  end
+
+  def excluding_default_project_chart
+    Class.new Additionals::TestProjectQueryChart do
+      private
+
+      def default_filters
+        { 'status' => { operator: '!', values: [Project::STATUS_CLOSED.to_s] } }
+      end
+    end
+  end
+
+  def project_chart(**settings)
+    Additionals::TestProjectQueryChart.new project: nil, settings:
+  end
+
+  def url_values(url, field)
+    Rack::Utils.parse_nested_query(URI(url).query)['v'][field]
   end
 
   def smallest_share(entries)

@@ -68,6 +68,7 @@ cs:
   info_chart_max_entries: "Zobrazí největší položky, zbytek se sečte jako \"Ostatní\". Prázdné nebo 0 zobrazí všechny položky."
   info_chart_measure: "Pole s více hodnotami se vždy počítají."
   info_chart_min_share: "Položky s menším podílem v procentech se sečtou jako \"Ostatní\". Prázdné nebo 0 nic neslučuje."
+  info_chart_open_only: "Působí navíc k filtrům dotazu."
   info_chart_query: "Bez dotazu se vyhodnotí všechny viditelné položky."
   info_chart_with_table: "Zobrazí se vedle grafu, u zobrazení Tabulka vždy."
   info_hidden_roles_html: "Skryté role lze použít pouze spolu s viditelností uživatele \"Members of visible projects\". Pokud uživatel není v roli, která je viditelná pro aktuálního uživatele, je tato role včetně uživatele skryta na stránce s přehledem projektu a v seznamech dotazů."
@@ -105,12 +106,12 @@ cs:
   label_chart_type_pie: "Koláčový"
   label_chart_type_table: "Tabulka"
   label_chart_type_treemap: "Treemap"
+  label_chart_valid_only: "Pouze platné položky"
   label_chart_with_name: "Diagram: %{value}"
   label_chartjs_colorscheme_info: Seznam barev
   label_content_plural: Obsah
   label_copied_to_clipboard: "Zkopírováno!"
   label_custom_field_editable_info: "Pokud jsou změny zakázány, jsou možné pouze pomocí volání API nebo prostřednictvím hromadných úprav."
-  label_custom_fields_distribution: "Vlastní pole pro distribuci"
   label_daily: denně
   label_dashboard: Dashboard
   label_dashboard_author: "Autoři: %{name}"
@@ -234,7 +235,6 @@ cs:
   label_weekly: "týdně"
   label_wiki_pdf_remove_attachments: "Odebrat přílohy ze zobrazení PDF"
   label_wiki_pdf_remove_title: "Odebrat název Wiki ze zobrazení PDF"
-  label_without_value: "No %{value}"
   label_yearly: "roční"
   latest_entries_changes: "Poslední %{value} změny"
   legacy_smiley_support_info_html: 'Převod smiley do textu. Activate this option if :), :-) etc are to be converted to smileys. If this setting is changed, the application server <strong>must be restarted</strong>.'

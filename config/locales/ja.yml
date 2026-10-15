@@ -68,6 +68,7 @@ ja:
   info_chart_max_entries: "最も大きい項目を表示し、残りは「その他」としてまとめます。空または0の場合はすべての項目を表示します。"
   info_chart_measure: "複数の値を持つフィールドは常に件数で集計されます。"
   info_chart_min_share: "割合（％）がこの値より小さい項目は「その他」としてまとめます。空または0の場合は何もまとめません。"
+  info_chart_open_only: "クエリのフィルタに加えて適用されます。"
   info_chart_query: "クエリを指定しない場合、表示可能なすべての項目が集計されます。"
   info_chart_with_table: "グラフの横に表示されます。表示形式が「表」の場合は常に表示されます。"
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.
@@ -105,12 +106,12 @@ ja:
   label_chart_type_pie: "円グラフ"
   label_chart_type_table: "表"
   label_chart_type_treemap: "ツリーマップ"
+  label_chart_valid_only: "有効な項目のみ"
   label_chart_with_name: "チャート: %{value}"
   label_chartjs_colorscheme_info: "カラーリスト"
   label_content_plural: "内容"
   label_copied_to_clipboard: "コピーしました"
   label_custom_field_editable_info: "無効の場合、変更はAPIコールまたは一括編集でのみ可能です。"
-  label_custom_fields_distribution: "配布用のカスタムフィールド"
   label_daily: ひごとに
   label_dashboard: Dashboard
   label_dashboard_author: "著者名: %{name}"
@@ -234,7 +235,6 @@ ja:
   label_weekly: "毎週"
   label_wiki_pdf_remove_attachments: "PDF表示から添付ファイルを削除する"
   label_wiki_pdf_remove_title: "PDF表示からWikiタイトルを削除"
-  label_without_value: "%{value} なし"
   label_yearly: '毎年'
   latest_entries_changes: "最新の %{value} の変更点"
   legacy_smiley_support_info_html: 'スマイリーをテキストに変換する. Activate this option if :), :-) etc are to be converted to smileys. If this setting is changed, the application server <strong>must be restarted</strong>.'

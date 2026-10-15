@@ -68,6 +68,7 @@
   info_chart_max_entries: "顯示最大的項目，其餘項目合併為「其他」。留空或 0 顯示所有項目。"
   info_chart_measure: "多選欄位一律計數。"
   info_chart_min_share: "占比（百分比）低於此值的項目合併為「其他」。留空或 0 不合併。"
+  info_chart_open_only: "在查詢的篩選條件之外額外生效。"
   info_chart_query: "未選擇查詢時，統計所有可見項目。"
   info_chart_with_table: "顯示在圖表旁邊，顯示方式為「表格」時一律顯示。"
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.
@@ -105,12 +106,12 @@
   label_chart_type_pie: "圓餅圖"
   label_chart_type_table: "表格"
   label_chart_type_treemap: "樹狀圖"
+  label_chart_valid_only: "僅有效項目"
   label_chart_with_name: "图表: %{value}"
   label_chartjs_colorscheme_info: "顏色清單"
   label_content_plural: 内容
   label_copied_to_clipboard: "复制!"
   label_custom_field_editable_info: "如果停用，則只能透過 API 呼叫或批量編輯進行變更。"
-  label_custom_fields_distribution: "Custom fields for distribution"
   label_daily: 每天
   label_dashboard: Dashboard
   label_dashboard_author: "作者: %{name}"
@@ -234,7 +235,6 @@
   label_weekly: "每周"
   label_wiki_pdf_remove_attachments: "在 PDF 中刪除附件"
   label_wiki_pdf_remove_title: "在 PDF 中刪除標題"
-  label_without_value: "沒有 %{value}"
   label_yearly: "每年"
   latest_entries_changes: "Latest %{value} changes"
   legacy_smiley_support_info_html: 'Convert smileys in text. Activate this option if :), :-) etc are to be converted to smileys. If this setting is changed, the application server <strong>must be restarted</strong>.'

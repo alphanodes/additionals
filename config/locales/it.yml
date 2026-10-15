@@ -68,6 +68,7 @@ it:
   info_chart_max_entries: "Mostra le voci più grandi, il resto viene raggruppato come \"Altri\". Vuoto o 0 mostra tutte le voci."
   info_chart_measure: "I campi con valori multipli vengono sempre contati."
   info_chart_min_share: "Le voci con una quota percentuale inferiore vengono raggruppate come \"Altri\". Vuoto o 0 non raggruppa nulla."
+  info_chart_open_only: "Si applica in aggiunta ai filtri della query."
   info_chart_query: "Senza query vengono valutate tutte le voci visibili."
   info_chart_with_table: "Mostrata accanto al grafico, sempre con la visualizzazione Tabella."
   info_hidden_roles_html: "I ruoli nascosti possono essere utilizzati solo insieme alla visibilità dell'utente \"Membri di progetti visibili\". Se l'utente non è in un ruolo visibile all'utente corrente, questo ruolo, incluso l'utente, è nascosto nella pagina di panoramica del progetto e nelle liste di ricerca."
@@ -105,12 +106,12 @@ it:
   label_chart_type_pie: "Torta"
   label_chart_type_table: "Tabella"
   label_chart_type_treemap: "Treemap"
+  label_chart_valid_only: "Solo voci valide"
   label_chart_with_name: "Chart: %{value}"
   label_chartjs_colorscheme_info: Color list
   label_content_plural: Il contentuto
   label_copied_to_clipboard: "Copiato!"
   label_custom_field_editable_info: "Se disattivato, le modifiche sono possibili solo con le chiamate API o tramite la modifica in blocco."
-  label_custom_fields_distribution: "Campi personalizzati per la distribuzione"
   label_daily: giornalmente
   label_dashboard: Dashboard
   label_dashboard_author: "Autore: %{name}"
@@ -234,7 +235,6 @@ it:
   label_weekly: settimanalmente
   label_wiki_pdf_remove_attachments: "Rimuovere gli allegati dalla vista PDF"
   label_wiki_pdf_remove_title: "Rimuovere il titolo del Wiki dalla vista PDF"
-  label_without_value: "Nessun %{value}"
   label_yearly: per anno
   latest_entries_changes: "Ultime %{value} modifiche"
   legacy_smiley_support_info_html: 'Convertire smileys in testo. Activate this option if :), :-) etc are to be converted to smileys. If this setting is changed, the application server <strong>must be restarted</strong>.'

@@ -580,7 +580,16 @@ blocks['time_entry_chart'] = TimeEntryQueryChart.dashboard_block(label: l(:label
                                                                  permission: :view_time_entries)
 ```
 
-`dashboard_block` sets the async partial `dashboards/blocks/query_chart` with its settings form, the Chart.js libraries and `max_occurs`; further options extend or replace these. Grouping and totals come from core (`result_count_by_group`, `total_by_group_for`), so visibility and filters behave like the grouped list; custom fields with multiple values are counted separately, since core cannot group them. The `additionals-chart` Stimulus controller draws the chart from the payload, loads d3plus only for a treemap (`AdditionalsHelpers.loadLibrary('d3plus')`) and releases the chart when the block is reloaded or removed. A subclass can restrict the query to open entries on top of its filters (`open_only_supported?`, `open_only_label`, `open_only_scope`, `open_only_url_filter`), e.g. to open issues.
+`dashboard_block` sets the async partial `dashboards/blocks/query_chart` with its settings form, the Chart.js libraries and `max_occurs`; further options extend or replace these. Grouping and totals come from core (`result_count_by_group`, `total_by_group_for`), so visibility and filters behave like the grouped list; custom fields with multiple values are counted separately, since core cannot group them. The `additionals-chart` Stimulus controller draws the chart from the payload, loads d3plus only for a treemap (`AdditionalsHelpers.loadLibrary('d3plus')`) and releases the chart when the block is reloaded or removed.
+
+Hooks a subclass may override:
+
+- `open_only_label`: label of the option to apply the default filters of the query class (e.g. open issues) on top of the filters of the query. The option is only offered with a label, a generic text could not tell what it does. The base joins both filters of a field in the link of a slice where list filters allow it, `url_filter_values` turns special operators into values for that (e.g. "open" into status ids); otherwise the slice has no link.
+- `custom_values_visibility`: condition of the custom field values a user may see, by default via `custom_field_project_key`. Entities without a project or with several projects decide themselves.
+- `prepare_query`: adapts the query of the chart only, e.g. to count an entry once per group if the query joins repeating rows.
+- `measure_columns`: the columns a chart can sum up, the totals of the list by default.
+
+A migration replacing old chart blocks uses `Additionals::DashboardBlockReplacer`: it calls a block for every dashboard block and puts the returned blocks in its place, numbered like `DashboardContent#block_options`.
 
 Pitfalls of the display, all handled in `additionals.css` and the controller:
 

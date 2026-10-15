@@ -26,6 +26,17 @@ class AdditionalsQueryChart < AdditionalsChart
   # to the list of its own query.
   Entry = Data.define :key, :label, :value, :compare_value, :url, :compare_url
 
+  # Restricts a query to the default filters of its class on top of its own
+  # filters. A filter of the same field cannot express that, it would replace
+  # the one the query already has.
+  module DefaultFiltersScope
+    attr_accessor :default_filters_statement
+
+    def base_scope
+      super.where default_filters_statement
+    end
+  end
+
   class << self
     # Definition of a dashboard block showing this chart. Options extend or
     # replace the defaults, e.g. permission or if.
@@ -53,14 +64,17 @@ class AdditionalsQueryChart < AdditionalsChart
     raise 'overwrite it'
   end
 
-  # A subclass restricting the query to open entries on top of its filters
-  # returns true and implements open_only_scope and open_only_url_filter
+  # The block offers to count only what the list shows by default (open
+  # issues, valid entries), if the query class has default filters and the
+  # subclass names them for the user
   def open_only_supported?
-    false
+    open_only_label.present? && default_filters.any?
   end
 
+  # Label of that option, e.g. :label_open_issues_only. Without one the
+  # option is not offered: a generic text could not tell what it does.
   def open_only_label
-    raise 'overwrite it'
+    nil
   end
 
   def valid?
@@ -116,7 +130,7 @@ class AdditionalsQueryChart < AdditionalsChart
     return if query.nil? || settings[:measure].blank? || settings[:measure] == MEASURE_COUNT
     return if multiple_values?
 
-    @measure_column ||= query.available_totalable_columns.detect { |column| column.name.to_s == settings[:measure] }
+    @measure_column ||= measure_columns(query).detect { |column| column.name.to_s == settings[:measure] }
   end
 
   def hours_measure?
@@ -140,7 +154,7 @@ class AdditionalsQueryChart < AdditionalsChart
 
   def measure_options
     [[l(:label_quantity), MEASURE_COUNT]] +
-      options_query.available_totalable_columns.map { |column| [column.caption, column.name.to_s] }
+      measure_columns(options_query).map { |column| [column.caption, column.name.to_s] }
   end
 
   def title
@@ -203,15 +217,28 @@ class AdditionalsQueryChart < AdditionalsChart
     raise 'overwrite it'
   end
 
-  # Module extending a query to restrict it to open entries
-  def open_only_scope
-    raise 'overwrite it'
+  # Condition of the custom values a user may see, like core's grouping
+  def custom_values_visibility(custom_field)
+    custom_field.visibility_by_project_condition custom_field_project_key
   end
 
-  # [field, operator, values] the list of a slice filters by instead of the
-  # query's own filter of that field
-  def open_only_url_filter(_query)
-    raise 'overwrite it'
+  # Operator and values of a filter as explicit values where possible, so a
+  # filter of the query and a default filter of the same field can be joined
+  # in the link of a slice, e.g. "open" as the ids of the open statuses
+  def url_filter_values(_field, operator, values)
+    [operator, values]
+  end
+
+  # Filters a new query of the class sets, e.g. open issues
+  def default_filters
+    @default_filters ||= query_class.new(name: '_').filters || {}
+  end
+
+  # Without project: the query of the chart restricts the projects already,
+  # a project here would add its own subproject rule and drop entries a
+  # subproject filter of the query includes
+  def default_filters_statement
+    @default_filters_statement ||= query_class.new(name: '_').statement
   end
 
   def series_dataset(label, value, url)
@@ -244,8 +271,20 @@ class AdditionalsQueryChart < AdditionalsChart
 
     query.project = project if project
     query.group_by = settings[:group_by]
-    query.extend open_only_scope if open_only?
+    if open_only?
+      query.extend DefaultFiltersScope
+      query.default_filters_statement = default_filters_statement
+    end
+    prepare_query query
     query
+  end
+
+  # Hook for a subclass to adapt the query of the chart, not the list
+  def prepare_query(_query); end
+
+  # Columns a chart can sum up, the totals of the list by default
+  def measure_columns(query)
+    query.available_totalable_columns
   end
 
   def group_column?(column)
@@ -324,11 +363,12 @@ class AdditionalsQueryChart < AdditionalsChart
                        .where(custom_values: { custom_field_id: custom_field.id })
                        .where.not(custom_values: { value: [nil, ''] })
                        # values of a field visible to some roles only, like core's grouping
-                       .where(custom_field.visibility_by_project_condition(custom_field_project_key))
+                       .where(custom_values_visibility(custom_field))
 
-    counts = with_values.group(custom_values[:value]).count
+    # distinct: a query may join rows that repeat an entry, e.g. its projects
+    counts = with_values.group(custom_values[:value]).distinct.count(:id)
                         .transform_keys { |value| custom_field.cast_value value }
-    without = query.base_scope.where.not(id: with_values.select(:id)).count
+    without = query.base_scope.where.not(id: with_values.select(:id)).distinct.count(:id)
     counts[nil] = without if without.positive?
     counts
   end
@@ -431,20 +471,19 @@ class AdditionalsQueryChart < AdditionalsChart
   end
 
   # Without a filter for the column, e.g. a custom field that is no filter,
-  # the list cannot show the entries of a slice
+  # the list cannot show the entries of a slice. Neither can it, if the
+  # filters of the query and the default filters do not join into one.
   def entry_url(query, key)
     filter = filter_name_for group_column
     return unless filter
 
+    filters = url_filters query, filter
+    return unless filters
+
     params = { set_filter: 1, f: [], op: {}, v: {} }
-    open_only_filter = open_only? ? open_only_url_filter(query) : nil
-
-    query.filters.each do |field, options|
-      next if field == filter || field == open_only_filter&.first
-
-      add_url_filter params, field, options[:operator], options[:values]
+    filters.each do |field, (operator, values)|
+      add_url_filter params, field, operator, values unless field == filter
     end
-    add_url_filter params, *open_only_filter if open_only_filter
 
     if key.nil?
       add_url_filter params, filter, '!*', ['']
@@ -453,6 +492,43 @@ class AdditionalsQueryChart < AdditionalsChart
     end
 
     list_path params
+  end
+
+  # The filters of the query, with open only joined with the default filters.
+  # The group field is left out, the slice sets it.
+  def url_filters(query, group_filter)
+    filters = query.filters.to_h { |field, options| [field, [options[:operator], Array(options[:values])]] }
+    return filters unless open_only?
+
+    default_filters.each do |field, options|
+      next if field == group_filter
+
+      default = [options[:operator], Array(options[:values])]
+      filters[field] = filters.key?(field) ? join_url_filters(field, filters[field], default) : default
+      return nil unless filters[field]
+    end
+    filters
+  end
+
+  # Both filters of a field as one, nil if a list filter cannot express that
+  def join_url_filters(field, own, default)
+    # Any value of the query leaves the default filter as it is
+    return default if own.first == '*'
+
+    own = url_filter_values field, *own
+    default = url_filter_values field, *default
+
+    case [own.first, default.first]
+    when %w[= =] then present_url_filter '=', own.last & default.last
+    when %w[! =] then present_url_filter '=', default.last - own.last
+    when %w[= !] then present_url_filter '=', own.last - default.last
+    when %w[! !] then ['!', own.last | default.last]
+    end
+  end
+
+  # No value left would be an empty filter, which the list rejects
+  def present_url_filter(operator, values)
+    [operator, values] if values.any?
   end
 
   def add_url_filter(params, field, operator, values)

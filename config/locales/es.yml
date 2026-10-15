@@ -68,6 +68,7 @@ es:
   info_chart_max_entries: "Muestra las entradas más grandes, el resto se agrupa como \"Otros\". Vacío o 0 muestra todas las entradas."
   info_chart_measure: "Los campos con valores múltiples siempre se cuentan."
   info_chart_min_share: "Las entradas con una proporción menor en porcentaje se agrupan como \"Otros\". Vacío o 0 no agrupa nada."
+  info_chart_open_only: "Se aplica además de los filtros de la consulta."
   info_chart_query: "Sin consulta se evalúan todas las entradas visibles."
   info_chart_with_table: "Se muestra junto al gráfico, siempre con la visualización Tabla."
   info_hidden_roles_html: Los roles ocultos sólo se pueden utilizar junto con la visibilidad del usuario "Miembros de proyectos visibles". Si el usuario no está en una función que sea visible para el usuario actual, esta función, que incluye al usuario, se oculta en la página de resumen del proyecto y en las listas de consulta.
@@ -105,12 +106,12 @@ es:
   label_chart_type_pie: "Circular"
   label_chart_type_table: "Tabla"
   label_chart_type_treemap: "Treemap"
+  label_chart_valid_only: "Solo entradas válidas"
   label_chart_with_name: "Chart: %{value}"
   label_chartjs_colorscheme_info: "Lista de colores"
   label_content_plural: Contenido
   label_copied_to_clipboard: "¡Copiado!"
   label_custom_field_editable_info: If disabled changes are only possible with API calls or via bulk edit.
-  label_custom_fields_distribution: "Campos customizados para la distribución"
   label_daily: diario
   label_dashboard: Dashboard
   label_dashboard_author: "Author: %{name}"
@@ -234,7 +235,6 @@ es:
   label_weekly: semanalmente
   label_wiki_pdf_remove_attachments: Quitar los adjuntos de la vista en PDF
   label_wiki_pdf_remove_title: Quitar el título de la Wiki de la vista en PDF
-  label_without_value: "No %{value}"
   label_yearly: anualmente
   latest_entries_changes: "Últimos %{value} cambios"
   legacy_smiley_support_info_html: 'Convertir smiley en texto. Activate this option if :), :-) etc are to be converted to smileys. If this setting is changed, the application server <strong>must be restarted</strong>.'

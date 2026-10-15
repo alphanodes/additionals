@@ -68,6 +68,7 @@ pl:
   info_chart_max_entries: "Pokazuje największe wpisy, pozostałe są sumowane jako \"Inne\". Puste lub 0 pokazuje wszystkie wpisy."
   info_chart_measure: "Pola z wieloma wartościami są zawsze liczone."
   info_chart_min_share: "Wpisy o mniejszym udziale procentowym są sumowane jako \"Inne\". Puste lub 0 niczego nie łączy."
+  info_chart_open_only: "Działa dodatkowo do filtrów zapytania."
   info_chart_query: "Bez zapytania oceniane są wszystkie widoczne wpisy."
   info_chart_with_table: "Wyświetlana obok wykresu, przy widoku Tabela zawsze."
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". Jeśli użytkownik nie jest w roli, która jest widoczna dla bieżącego użytkownika, rola ta wraz z użytkownikiem jest ukryta na stronie przeglądu projektu i na listach zapytań.
@@ -105,12 +106,12 @@ pl:
   label_chart_type_pie: "Kołowy"
   label_chart_type_table: "Tabela"
   label_chart_type_treemap: "Treemap"
+  label_chart_valid_only: "Tylko ważne wpisy"
   label_chart_with_name: "Chart: %{value}"
   label_chartjs_colorscheme_info: "Lista kolorów"
   label_content_plural: "Spis treści"
   label_copied_to_clipboard: "Skopiowane!"
   label_custom_field_editable_info: "Jeśli wyłączone, zmiany są możliwe tylko za pomocą wywołań API lub poprzez edycję zbiorczą."
-  label_custom_fields_distribution: "Pola niestandardowe dla dystrybucji"
   label_daily: "dobowy"
   label_dashboard: Dashboard
   label_dashboard_author: "Autor: %{name}"
@@ -234,7 +235,6 @@ pl:
   label_weekly: tygodnik
   label_wiki_pdf_remove_attachments: "Usuwanie załączników z widoku PDF"
   label_wiki_pdf_remove_title: Usuń tytuł Wiki z widoku PDF
-  label_without_value: "Nie %{value}"
   label_yearly: coroczny
   latest_entries_changes: "Ostatnie  %{value} zmian"
   legacy_smiley_support_info_html: 'Konwertuj smileys na tekst. Activate this option if :), :-) etc are to be converted to smileys. If this setting is changed, the application server <strong>must be restarted</strong>.'

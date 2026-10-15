@@ -68,6 +68,7 @@ ko:
   info_chart_max_entries: "가장 큰 항목을 표시하고 나머지는 \"기타\"로 합산합니다. 비어 있거나 0이면 모든 항목을 표시합니다."
   info_chart_measure: "여러 값을 가진 필드는 항상 개수로 집계됩니다."
   info_chart_min_share: "비율(%)이 이 값보다 작은 항목은 \"기타\"로 합산합니다. 비어 있거나 0이면 합산하지 않습니다."
+  info_chart_open_only: "쿼리의 필터에 추가로 적용됩니다."
   info_chart_query: "쿼리가 없으면 표시 가능한 모든 항목이 집계됩니다."
   info_chart_with_table: "차트 옆에 표시됩니다. 표시 형식이 '표'이면 항상 표시됩니다."
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". 사용자가 현재 사용자에게 보이는 역할이 아닌 경우 사용자를 포함한이 역할은 프로젝트 개요 페이지와 쿼리 목록에서 숨겨집니다.
@@ -105,12 +106,12 @@ ko:
   label_chart_type_pie: "파이"
   label_chart_type_table: "표"
   label_chart_type_treemap: "트리맵"
+  label_chart_valid_only: "유효한 항목만"
   label_chart_with_name: "차트: %{value}"
   label_chartjs_colorscheme_info: 컬러리스트
   label_content_plural: 내용
   label_copied_to_clipboard: "복사되었습니다!"
   label_custom_field_editable_info: "비활성화된 경우 변경은 API 호출 또는 대량 편집을 통해서만 가능합니다."
-  label_custom_fields_distribution: "배포용 사용자 정의 필드"
   label_daily: 매일
   label_dashboard: Dashboard
   label_dashboard_author: "작가: %{name}"
@@ -234,7 +235,6 @@ ko:
   label_weekly: 주간
   label_wiki_pdf_remove_attachments: PDF보기에서 첨부 파일 제거
   label_wiki_pdf_remove_title: PDF보기에서 위키 제목 제거
-  label_without_value: "아니요 %{value}"
   label_yearly: 매년
   latest_entries_changes: "최근 %{value} 개의 변경 사항"
   legacy_smiley_support_info_html: 'Convert smileys in text. Activate this option if :), :-) etc are to be converted to smileys. If this setting is changed, the application server <strong>must be restarted</strong>.'

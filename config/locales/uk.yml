@@ -68,6 +68,7 @@ uk:
   info_chart_max_entries: "Показує найбільші записи, решта підсумовується як «Інші». Порожнє або 0 показує всі записи."
   info_chart_measure: "Поля з кількома значеннями завжди підраховуються."
   info_chart_min_share: "Записи з меншою часткою у відсотках підсумовуються як «Інші». Порожнє або 0 нічого не об'єднує."
+  info_chart_open_only: "Діє додатково до фільтрів запиту."
   info_chart_query: "Без запиту оцінюються всі видимі записи."
   info_chart_with_table: "Відображається поруч із діаграмою, при відображенні «Таблиця» завжди."
   info_hidden_roles_html: "Приховані ролі можуть використовуватись тільки разом  з видимістю користувача \"Members of visible projects\". Якщо користувач не знаходится в ролі, видимій для поточного  користувача, ця роль, включаючи користувача, прихована на сторінці обзору проекту и в списках запросів."
@@ -105,12 +106,12 @@ uk:
   label_chart_type_pie: "Кругова"
   label_chart_type_table: "Таблиця"
   label_chart_type_treemap: "Деревоподібна карта"
+  label_chart_valid_only: "Лише дійсні записи"
   label_chart_with_name: "Chart: %{value}"
   label_chartjs_colorscheme_info: "Список кольрів"
   label_content_plural: Contents
   label_copied_to_clipboard: "Прийнято!"
   label_custom_field_editable_info: "Якщо вимкнено, зміни можливі  тільки за допомогою викликів API або  через масовое редагування ."
-  label_custom_fields_distribution: "Користувацькі поля для розподіленню"
   label_daily: "щоденний"
   label_dashboard: Dashboard
   label_dashboard_author: "Автор: %{name}"
@@ -234,7 +235,6 @@ uk:
   label_weekly: "щотижнево"
   label_wiki_pdf_remove_attachments: "Видалення вкладень із PDF-формату"
   label_wiki_pdf_remove_title: "Видалити  назву Віки-проекту з PDF-формату"
-  label_without_value: "Ні %{value}"
   label_yearly: "раз в рік"
   latest_entries_changes: "Останні зміни %{value}"
   legacy_smiley_support_info_html: 'Перетворення smileys в текст. Activate this option if :), :-) etc are to be converted to smileys. If this setting is changed, the application server <strong>must be restarted</strong>.'

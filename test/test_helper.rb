@@ -78,6 +78,31 @@ module Additionals
     end
   end
 
+  # Chart over core projects, whose default filter "active" can be applied
+  class TestProjectQueryChart < AdditionalsQueryChart
+    def query_class
+      ProjectQuery
+    end
+
+    def open_only_label
+      :label_project_plural
+    end
+
+    private
+
+    def entity_plural_label
+      :label_project_plural
+    end
+
+    def custom_field_project_key
+      "#{Project.table_name}.id"
+    end
+
+    def list_path(params)
+      Rails.application.routes.url_helpers.projects_path params
+    end
+  end
+
   class HelperTest < Redmine::HelperTest
     include Additionals::TestHelper
     extend PluginFixturesLoader

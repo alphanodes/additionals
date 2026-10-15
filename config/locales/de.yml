@@ -68,6 +68,7 @@ de:
   info_chart_max_entries: "Zeigt die größten Einträge, der Rest wird als \"Sonstige\" zusammengefasst. Leer oder 0 zeigt alle Einträge."
   info_chart_measure: "Felder mit Mehrfachauswahl werden immer gezählt."
   info_chart_min_share: "Einträge mit einem kleineren Anteil in Prozent werden als \"Sonstige\" zusammengefasst. Leer oder 0 fasst nichts zusammen."
+  info_chart_open_only: "Wirkt zusätzlich zu den Filtern der Abfrage."
   info_chart_query: "Ohne Abfrage werden alle sichtbaren Einträge ausgewertet."
   info_chart_with_table: "Wird neben dem Diagramm angezeigt, bei der Darstellung Tabelle immer."
   info_hidden_roles_html: Versteckte Rollen können nur zusammen mit der Benutzersichtbarkeit "Mitglieder von sichtbaren Projekten" verwendet werden. Diese Option funktioniert nur, wenn der Benutzer in keiner Rolle ist die für den aktuellen Benutzer sichtbar ist. Passt alles wird diese Rolle inklusive Benutzer auf der Projektübersichtsseite und in Abfragelisten ausgeblendet.
@@ -105,12 +106,12 @@ de:
   label_chart_type_pie: "Kreisdiagramm"
   label_chart_type_table: "Tabelle"
   label_chart_type_treemap: "Treemap"
+  label_chart_valid_only: "Nur gültige Einträge"
   label_chart_with_name: "Chart: %{value}"
   label_chartjs_colorscheme_info: Farbschema Auflistung
   label_content_plural: Inhalte
   label_copied_to_clipboard: Kopiert!
   label_custom_field_editable_info: Wenn deaktiviert, können Daten nur über die API oder über die Massenbearbeitung angegeben werden.
-  label_custom_fields_distribution: Benutzerdefinierte Felder für Verteilung
   label_daily: täglich
   label_dashboard: Dashboard
   label_dashboard_author: "Autor: %{name}"
@@ -234,7 +235,6 @@ de:
   label_weekly: wöchentlich
   label_wiki_pdf_remove_attachments: Dateianhänge nicht anzeigen
   label_wiki_pdf_remove_title: Wiki Titel nicht anzeigen
-  label_without_value: "Ohne %{value}"
   label_yearly: jährlich
   latest_entries_changes: "Die letzten %{value} Änderungen"
   legacy_smiley_support_info_html: 'Smileys im Text konvertieren. Aktiviere diese Option, wenn :), :-) etc in Smileys konvertiert werden sollen. Wird diese Einstellung verändert, <strong>muss der Anwendungsserver neu gestartet werden</strong>.'

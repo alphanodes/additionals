@@ -588,6 +588,7 @@ Hooks a subclass may override:
 - `custom_values_visibility`: condition of the custom field values a user may see, by default via `custom_field_project_key`. Entities without a project or with several projects decide themselves.
 - `prepare_query`: adapts the query of the chart only, e.g. to count an entry once per group if the query joins repeating rows.
 - `measure_columns`: the columns a chart can sum up, the totals of the list by default.
+- `period_field`: the date filter a block can count in a relative period of (`period`, e.g. this month), with the previous period as comparison (`compare_query_id: previous`); nil offers no period.
 - `default_measure`: what a block without a choice measures, a count by default; a subclass may name a column, e.g. the hours of time entries.
 - `split_column?`: the columns a split may use. By default plain columns and custom fields, whose keys the base maps like core; a column of its own class may count its groups or turn its keys into values itself, which a grouping by two columns would bypass. A subclass excludes further columns, e.g. one whose keys the query flips.
 

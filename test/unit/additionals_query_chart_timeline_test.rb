@@ -100,6 +100,32 @@ class AdditionalsQueryChartTimelineTest < Additionals::TestCase
     assert_equal [Date.new(2026, 2, 1), Date.new(2026, 3, 1)], timeline_chart(max_entries: '2').entries.map(&:key)
   end
 
+  # The query counts from the first shown period on only
+  def test_latest_periods_count_like_the_whole_timeline
+    assert_equal timeline_values(timeline_chart).last(2), timeline_values(timeline_chart(max_entries: '2'))
+  end
+
+  def test_latest_periods_of_a_timestamp_count_like_the_whole_timeline
+    Issue.where(id: @issues.map(&:id)).update_all created_on: Time.utc(2026, 1, 15, 12)
+    Issue.where(id: @issues.last.id).update_all created_on: Time.utc(2026, 3, 5, 12)
+    query_id = IssueQuery.create!(name: 'Mine', user: users(:users_001), visibility: Query::VISIBILITY_PUBLIC,
+                                  filters: { 'issue_id' => { operator: '=', values: [@issues.map(&:id).join(',')] } }).id.to_s
+
+    travel_to Time.local(2026, 3, 20, 12) do # rubocop:disable Rails/TimeZone
+      assert_equal timeline_values(timeline_chart(group_by: 'created_on', query_id:)).last(2),
+                   timeline_values(timeline_chart(group_by: 'created_on', query_id:, max_entries: '2'))
+    end
+  end
+
+  # The compared query ends earlier, its periods within the shown ones still count
+  def test_latest_periods_keep_the_values_of_the_compared_query
+    compare = IssueQuery.create! name: 'January', user: users(:users_001), visibility: Query::VISIBILITY_PUBLIC,
+                                 filters: { 'start_date' => { operator: '<=', values: ['2026-01-31'] } }
+    chart = timeline_chart compare_query_id: compare.id.to_s, max_entries: '3'
+
+    assert_equal [2, 0, 0], chart.entries.map(&:compare_value)
+  end
+
   def test_min_share_does_not_combine_periods
     assert_not_includes timeline_chart(min_share: '50').entries.map(&:key), AdditionalsQueryChart::OTHERS
   end
@@ -152,7 +178,25 @@ class AdditionalsQueryChartTimelineTest < Additionals::TestCase
     Issue.where(id: @issues.first.id).update_all created_on: Time.utc(2026, 1, 31, 23, 30)
     chart = timeline_chart group_by: 'created_on', query_id: created_query.id.to_s
 
-    assert_equal [Date.new(2026, 2, 1)], chart.entries.map(&:key)
+    assert_equal Date.new(2026, 2, 1), chart.entries.first.key
+  end
+
+  # Weeks without entries since the last one are what a timeline of the past shows
+  def test_timeline_of_past_dates_ends_today
+    Issue.where(id: @issues.first.id).update_all created_on: Time.utc(2026, 1, 15, 12)
+
+    travel_to Time.local(2026, 4, 15, 12) do # rubocop:disable Rails/TimeZone
+      chart = timeline_chart group_by: 'created_on', query_id: created_query.id.to_s
+
+      assert_equal Date.new(2026, 4, 1), chart.entries.last.key
+    end
+  end
+
+  # Start dates may lie in the future, the last one ends the timeline
+  def test_timeline_of_other_dates_ends_with_the_last_entry
+    travel_to Time.local(2026, 10, 15, 12) do # rubocop:disable Rails/TimeZone
+      assert_equal Date.new(2026, 3, 1), timeline_chart.entries.last.key
+    end
   end
 
   def test_groups_by_a_date_field
@@ -294,6 +338,10 @@ class AdditionalsQueryChartTimelineTest < Additionals::TestCase
 
   def group_names(chart)
     chart.group_options.map(&:last)
+  end
+
+  def timeline_values(chart)
+    chart.entries.map { |entry| [entry.key, entry.value] }
   end
 
   def entry_values(chart)

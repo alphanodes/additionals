@@ -332,6 +332,28 @@ class AdditionalsQueryChartTest < Additionals::TestCase
     assert_not_includes group_names(issue_chart), 'subject'
   end
 
+  # The values of an issue field belong to the issue, not to its time entries
+  def test_group_options_of_time_entries_do_not_contain_fields_of_the_issue
+    field = multiple_list_field
+    chart = Class.new(Additionals::TestIssueQueryChart) { def query_class = TimeEntryQuery }.new project: @project
+
+    assert_not_includes group_names(chart), "issue.cf_#{field.id}"
+  end
+
+  def test_default_measure_sums_up_a_column
+    chart = Class.new(Additionals::TestIssueQueryChart) { def default_measure = 'estimated_hours' }
+                 .new project: @project, settings: { group_by: 'tracker' }
+
+    assert_equal :estimated_hours, chart.measure_column.name
+  end
+
+  def test_chosen_count_replaces_the_default_measure
+    chart = Class.new(Additionals::TestIssueQueryChart) { def default_measure = 'estimated_hours' }
+                 .new project: @project, settings: { group_by: 'tracker', measure: 'count' }
+
+    assert_nil chart.measure_column
+  end
+
   def test_group_options_contain_fields_with_multiple_values
     field = multiple_list_field
 

@@ -45,7 +45,7 @@
     em.info = l :info_chart_split_by
   p
     = additionals_settings_select :measure,
-                                  options_for_select(chart.measure_options, settings[:measure]),
+                                  options_for_select(chart.measure_options, chart.measure),
                                   label: :label_chart_measure,
                                   tag_name: tag_name.call(:measure)
     em.info = l :info_chart_measure

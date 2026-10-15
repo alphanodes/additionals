@@ -58,6 +58,16 @@ class AdditionalsQueryChart < AdditionalsChart
     end
   end
 
+  # Restricts a query to the days from the first period of a timeline on,
+  # when the timeline shows the latest periods only
+  module PeriodsScope
+    attr_accessor :periods_condition
+
+    def base_scope
+      super.where periods_condition
+    end
+  end
+
   class << self
     # Definition of a dashboard block showing this chart. Options extend or
     # replace the defaults, e.g. permission or if.
@@ -211,11 +221,21 @@ class AdditionalsQueryChart < AdditionalsChart
     @group_column ||= group_columns.detect { |column| column.name.to_s == settings[:group_by] }
   end
 
+  # What a block without a choice measures: counts by default, a subclass
+  # may sum up a column instead, e.g. the hours of time entries
+  def default_measure
+    MEASURE_COUNT
+  end
+
+  def measure
+    settings[:measure].presence || default_measure
+  end
+
   def measure_column
-    return if query.nil? || settings[:measure].blank? || settings[:measure] == MEASURE_COUNT
+    return if query.nil? || measure == MEASURE_COUNT
     return if multiple_values? || (split? && multiple_values_column?(split_column))
 
-    @measure_column ||= measure_columns(query).detect { |column| column.name.to_s == settings[:measure] }
+    @measure_column ||= measure_columns(query).detect { |column| column.name.to_s == measure }
   end
 
   def hours_measure?
@@ -250,6 +270,7 @@ class AdditionalsQueryChart < AdditionalsChart
   def title
     parts = [query&.persisted? ? query.name : l(entity_plural_label)]
     parts << group_column.caption if group_column
+    parts << split_column.caption if split?
     parts.join Additionals::LIST_SEPARATOR
   end
 
@@ -431,7 +452,11 @@ class AdditionalsQueryChart < AdditionalsChart
     query.available_totalable_columns
   end
 
+  # Fields of an associated entry, e.g. of the issue of a time entry, hold
+  # their values there: core cannot group by them, and the count of fields
+  # with multiple values would look for them on the entry itself
   def group_column?(column)
+    return false if column.is_a? QueryAssociationCustomFieldColumn
     return false unless column.groupable? || multiple_values_column?(column)
 
     type = filter_type_for column
@@ -472,6 +497,7 @@ class AdditionalsQueryChart < AdditionalsChart
   def build_entries
     return [] unless group_column
 
+    [query, (compare_query if compare?)].compact.each { |series_query| limit_to_latest_periods series_query }
     values = period_values query, grouped_values(query)
     compare_values = compare? ? period_values(compare_query, grouped_values(compare_query)) : {}
     split_values = split? ? period_values(nil, split_values(query)) : {}
@@ -520,12 +546,43 @@ class AdditionalsQueryChart < AdditionalsChart
     @day_ranges ||= {}.compare_by_identity
   end
 
+  # With a maximum, only the latest periods show: the query counts from the
+  # first of them on instead of grouping its whole history. The last day of
+  # each query bounds its own periods, the timeline ends at the later one, so
+  # no shown period loses entries. Custom fields keep their values in a joined
+  # table, which the base scope has not, so they count everything.
+  def limit_to_latest_periods(query)
+    max_entries = settings[:max_entries].to_i
+    return unless timeline? && max_entries.positive? && !group_column.is_a?(QueryCustomFieldColumn)
+
+    sql = group_sql query.base_scope.klass, group_statement(query, group_column)
+    days = query.base_scope.pick Arel.sql("MIN(#{sql})"), Arel.sql("MAX(#{sql})")
+    return unless days&.last
+
+    first = timeline_end days.last.to_date
+    (max_entries - 1).times { first = period_start first - 1 }
+    # The periods before the first entry stay out like without the limit
+    first = [first, period_start(days.first.to_date)].max
+    periods_start[query] = first
+    query.extend PeriodsScope
+    query.periods_condition = Arel.sql(sql).gteq(first)
+  end
+
+  # First period each query counts from, see limit_to_latest_periods
+  def periods_start
+    @periods_start ||= {}.compare_by_identity
+  end
+
   # All periods from the first to the last one, the latest ones up to the
   # maximum. Without entries before or after, a timeline would only start
   # or end later, so it shows the periods with entries.
   def timeline_periods(keys)
     first, last = keys.minmax
     return [] unless last
+
+    last = timeline_end last
+    # Periods without entries at the start of the limited ones show, too
+    first = [first, *periods_start.values].min
 
     max_entries = settings[:max_entries].to_i
     limit = max_entries.positive? ? [max_entries, MAX_PERIODS].min : MAX_PERIODS
@@ -537,6 +594,16 @@ class AdditionalsQueryChart < AdditionalsChart
       periods << previous
     end
     periods.reverse
+  end
+
+  # Period the timeline ends with. Dates in the past only, e.g. created or
+  # spent on, run up to today: weeks without entries since then are part of
+  # what it shows. Other dates end with their last entry, they may lie in
+  # the future.
+  def timeline_end(last_day)
+    return period_start last_day unless filter_type_for(group_column) == :date_past
+
+    period_start [last_day, User.current.today].max
   end
 
   def period_start(date)

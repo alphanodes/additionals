@@ -138,6 +138,12 @@ class AdditionalsQueryChartSplitTest < Additionals::TestCase
     assert_nil chart.send(:split_key_mapper, Issue, QueryColumn.new(:subject), 'subject', [''])['']
   end
 
+  def test_title_names_the_split
+    captions = %i[label_issue_plural field_tracker field_status].map { |key| ::I18n.t key }
+
+    assert_equal captions.join(Additionals::LIST_SEPARATOR), split_chart.title
+  end
+
   def test_pie_does_not_split
     assert_not split_chart(chart_type: 'doughnut').split?
   end

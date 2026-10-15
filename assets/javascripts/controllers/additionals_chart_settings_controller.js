@@ -4,7 +4,8 @@ import { Controller } from '@hotwired/stimulus';
 // settings that apply to the chosen field and display type. A date field is
 // a timeline, summed up per interval, drawn as line, area, bars or table, and
 // always in the order of time with dates only. Doughnut, pie and treemap show
-// no series, so neither a split nor a comparison.
+// no series, so neither a split nor a comparison. A period applies to the
+// other fields only, the previous one is a comparison of a block with period.
 //
 // The server falls back the same way for settings saved before (see
 // AdditionalsQueryChart#chart_type), the form only hides what would not apply.
@@ -19,12 +20,14 @@ function hide(element, hidden) {
 }
 
 class AdditionalsChartSettingsController extends Controller {
-  static targets = ['groupBy', 'interval', 'chartType', 'series', 'category'];
+  static targets = ['groupBy', 'interval', 'chartType', 'series', 'category', 'period', 'periodSelect',
+    'compareSelect'];
 
   static values = {
     timelineGroups: Array,
     lineTypes: Array,
     seriesTypes: Array,
+    previousPeriod: String,
   };
 
   connect() {
@@ -37,6 +40,10 @@ class AdditionalsChartSettingsController extends Controller {
       hide(this.intervalTarget, !timeline);
     }
     this.categoryTargets.forEach((element) => hide(element, timeline));
+    if (this.hasPeriodTarget) {
+      hide(this.periodTarget, timeline);
+    }
+    this.offerPreviousPeriod(timeline);
 
     if (this.hasChartTypeTarget) {
       this.offerChartTypes(timeline);
@@ -47,6 +54,25 @@ class AdditionalsChartSettingsController extends Controller {
 
   timeline() {
     return this.hasGroupByTarget && this.timelineGroupsValue.includes(this.groupByTarget.value);
+  }
+
+  offerPreviousPeriod(timeline) {
+    if (!this.hasCompareSelectTarget) {
+      return;
+    }
+
+    const select = this.compareSelectTarget;
+    const option = Array.from(select.options).find((item) => item.value === this.previousPeriodValue);
+    if (!option) {
+      return;
+    }
+
+    const offered = !timeline && this.hasPeriodSelectTarget && this.periodSelectTarget.value !== '';
+    option.hidden = !offered;
+    option.disabled = !offered;
+    if (!offered && select.value === this.previousPeriodValue) {
+      select.value = '';
+    }
   }
 
   // Safari ignores hidden options of a select, disabled ones cannot be chosen there either

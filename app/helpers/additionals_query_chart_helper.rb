@@ -18,6 +18,21 @@ module AdditionalsQueryChartHelper
                        selected
   end
 
+  def options_for_query_chart_period(selected)
+    periods = AdditionalsQueryChart::PERIOD_LABELS.map { |code, label| [l(label), code] }
+    options_for_select [[l(:label_all), '']] + periods, selected
+  end
+
+  # The queries of the chart class, and the previous period where the block
+  # counts in a period
+  def options_for_query_chart_compare(chart, project, selected)
+    previous = if chart.period_supported?
+                 tag.option l(:label_chart_previous_period), value: AdditionalsQueryChart::PREVIOUS_PERIOD,
+                                                             selected: selected == AdditionalsQueryChart::PREVIOUS_PERIOD
+               end
+    options_for_query_select chart.query_class, project, selected, leading: previous
+  end
+
   # Sums of hours look like the totals of the list, everything else like a number
   def format_query_chart_value(chart, value)
     chart.hours_measure? ? format_hours(value) : format_object(value)

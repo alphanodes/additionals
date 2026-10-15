@@ -5,13 +5,14 @@ import AdditionalsChartSettingsController from '../../../assets/javascripts/cont
 const SERIES_TYPES = ['bar_horizontal', 'bar_vertical', 'line', 'area', 'table'];
 
 // The settings form as the server renders it, created_on is a date field
-function form({ groupBy = 'status', chartType = 'doughnut' } = {}) {
+function form({ groupBy = 'status', chartType = 'doughnut', period = '', compare = '' } = {}) {
   const option = (value, selected) => `<option value="${value}"${value === selected ? ' selected' : ''}>${value}</option>`;
   return `
     <div data-controller="additionals-chart-settings"
          data-additionals-chart-settings-timeline-groups-value='["created_on"]'
          data-additionals-chart-settings-line-types-value='["line","area"]'
-         data-additionals-chart-settings-series-types-value='${JSON.stringify(SERIES_TYPES)}'>
+         data-additionals-chart-settings-series-types-value='${JSON.stringify(SERIES_TYPES)}'
+         data-additionals-chart-settings-previous-period-value="previous">
       <select id="group_by" data-additionals-chart-settings-target="groupBy"
               data-action="additionals-chart-settings#update">
         ${['status', 'created_on'].map((value) => option(value, groupBy)).join('')}
@@ -23,6 +24,15 @@ function form({ groupBy = 'status', chartType = 'doughnut' } = {}) {
         ${['doughnut', 'pie', 'treemap', ...SERIES_TYPES].map((value) => option(value, chartType)).join('')}
       </select>
       <p id="order" data-additionals-chart-settings-target="category"></p>
+      <p id="period" data-additionals-chart-settings-target="period">
+        <select id="period_select" data-additionals-chart-settings-target="periodSelect"
+                data-action="additionals-chart-settings#update">
+          ${['', 'm', 'lm'].map((value) => option(value, period)).join('')}
+        </select>
+      </p>
+      <select id="compare" data-additionals-chart-settings-target="compareSelect">
+        ${['', 'previous', '7'].map((value) => option(value, compare)).join('')}
+      </select>
     </div>`;
 }
 
@@ -109,6 +119,34 @@ describe('AdditionalsChartSettingsController', () => {
     await render({ groupBy: 'created_on', chartType: 'line' });
 
     expect(element('order').hidden).toBe(true);
+  });
+
+  it('hides the period of a date field', async () => {
+    await render({ groupBy: 'created_on', chartType: 'line' });
+
+    expect(element('period').hidden).toBe(true);
+  });
+
+  it('offers no previous period without a period', async () => {
+    await render({ chartType: 'bar_vertical' });
+
+    expect(element('compare').querySelector('option[value="previous"]').disabled).toBe(true);
+  });
+
+  it('offers the previous period when a period is chosen', async () => {
+    await render({ chartType: 'bar_vertical' });
+
+    choose('period_select', 'm');
+
+    expect(element('compare').querySelector('option[value="previous"]').disabled).toBe(false);
+  });
+
+  it('drops the previous period when the period is removed', async () => {
+    await render({ chartType: 'bar_vertical', period: 'm', compare: 'previous' });
+
+    choose('period_select', '');
+
+    expect(element('compare').value).toBe('');
   });
 
   it('hides split and comparison of a doughnut', async () => {

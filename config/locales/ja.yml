@@ -105,6 +105,8 @@ ja:
   label_chart_order_field: "フィールドの順序"
   label_chart_order_value: "値の大きい順"
   label_chart_others: "その他"
+  label_chart_period: "期間"
+  label_chart_previous_period: "前の期間"
   label_chart_quarter: "%{year}年Q%{quarter}"
   label_chart_show_empty: "値のない項目を表示"
   label_chart_split_by: "分割項目"

@@ -90,6 +90,13 @@ module Additionals
     end
   end
 
+  # Chart over core issues that counts in a period of their creation
+  class TestPeriodIssueQueryChart < TestIssueQueryChart
+    def period_field
+      'created_on'
+    end
+  end
+
   # Chart over core projects, whose default filter "active" can be applied
   class TestProjectQueryChart < AdditionalsQueryChart
     def query_class

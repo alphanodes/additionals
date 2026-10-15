@@ -105,6 +105,8 @@ cs:
   label_chart_order_field: "Pořadí pole"
   label_chart_order_value: "Největší hodnota první"
   label_chart_others: "Ostatní"
+  label_chart_period: "Období"
+  label_chart_previous_period: "Předchozí období"
   label_chart_quarter: "Q%{quarter} %{year}"
   label_chart_show_empty: "Zobrazit položky bez hodnoty"
   label_chart_split_by: "Rozdělit podle"

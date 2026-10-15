@@ -4,7 +4,8 @@
 .box.tabular.settings[data-controller='additionals-chart-settings'
                        data-additionals-chart-settings-timeline-groups-value=chart.timeline_group_names.to_json
                        data-additionals-chart-settings-line-types-value=AdditionalsQueryChart::LINE_TYPES.to_json
-                       data-additionals-chart-settings-series-types-value=AdditionalsQueryChart::SERIES_TYPES.to_json]
+                       data-additionals-chart-settings-series-types-value=AdditionalsQueryChart::SERIES_TYPES.to_json
+                       data-additionals-chart-settings-previous-period-value=AdditionalsQueryChart::PREVIOUS_PERIOD]
   p
     = additionals_settings_textfield :title,
                                      label: :field_title,
@@ -36,6 +37,14 @@
     span.query-chart-interval data-additionals-chart-settings-target='interval'
       = label_tag tag_name.call(:interval), l(:label_chart_interval)
       = select_tag tag_name.call(:interval), options_for_query_chart_interval(chart.interval)
+  - if chart.period_supported?
+    p data-additionals-chart-settings-target='period'
+      = additionals_settings_select :period,
+                                    options_for_query_chart_period(settings[:period]),
+                                    label: :label_chart_period,
+                                    tag_name: tag_name.call(:period),
+                                    data: { additionals_chart_settings_target: 'periodSelect',
+                                            action: 'additionals-chart-settings#update' }
   p data-additionals-chart-settings-target='series'
     = additionals_settings_select :split_by,
                                   options_for_select(chart.split_options, settings[:split_by]),
@@ -58,9 +67,10 @@
                                           action: 'additionals-chart-settings#update' }
   p data-additionals-chart-settings-target='series'
     = additionals_settings_select :compare_query_id,
-                                  options_for_query_select(chart.query_class, @project, settings[:compare_query_id]),
+                                  options_for_query_chart_compare(chart, @project, settings[:compare_query_id]),
                                   label: :label_chart_compare_query,
-                                  tag_name: tag_name.call(:compare_query_id)
+                                  tag_name: tag_name.call(:compare_query_id),
+                                  data: { additionals_chart_settings_target: 'compareSelect' }
     em.info = l :info_chart_compare_query
   p data-additionals-chart-settings-target='category'
     = additionals_settings_select :order,

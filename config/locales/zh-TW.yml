@@ -105,6 +105,8 @@
   label_chart_order_field: "依欄位順序"
   label_chart_order_value: "數值最大的在前"
   label_chart_others: "其他"
+  label_chart_period: "期間"
+  label_chart_previous_period: "前一期間"
   label_chart_quarter: "%{year} 年第 %{quarter} 季"
   label_chart_show_empty: "顯示無值的項目"
   label_chart_split_by: "拆分依據"

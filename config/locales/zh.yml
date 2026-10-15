@@ -105,6 +105,8 @@ zh:
   label_chart_order_field: "按字段顺序"
   label_chart_order_value: "数值最大的在前"
   label_chart_others: "其他"
+  label_chart_period: "时间段"
+  label_chart_previous_period: "上一时间段"
   label_chart_quarter: "%{year} 年第 %{quarter} 季度"
   label_chart_show_empty: "显示无值的条目"
   label_chart_split_by: "拆分依据"

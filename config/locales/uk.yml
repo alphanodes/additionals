@@ -105,6 +105,8 @@ uk:
   label_chart_order_field: "Порядок поля"
   label_chart_order_value: "Спочатку найбільше значення"
   label_chart_others: "Інші"
+  label_chart_period: "Період"
+  label_chart_previous_period: "Попередній період"
   label_chart_quarter: "%{quarter} кв. %{year}"
   label_chart_show_empty: "Показувати записи без значення"
   label_chart_split_by: "Розбити за"

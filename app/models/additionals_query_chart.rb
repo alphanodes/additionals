@@ -18,6 +18,13 @@ class AdditionalsQueryChart < AdditionalsChart
   SERIES_TYPES = (BAR_TYPES + LINE_TYPES + %w[table]).freeze
   INTERVALS = %w[week month quarter year].freeze
   DEFAULT_INTERVAL = 'month'
+  # Relative periods of the date filters of core a block can count in, with
+  # the unit their previous period and its label go by
+  PERIODS = { 'w' => 'week', 'lw' => 'week', 'm' => 'month', 'lm' => 'month', 'y' => 'year' }.freeze
+  PERIOD_LABELS = { 'w' => :label_this_week, 'lw' => :label_last_week, 'm' => :label_this_month,
+                    'lm' => :label_last_month, 'y' => :label_this_year }.freeze
+  # Comparison with the period before the one of the block
+  PREVIOUS_PERIOD = 'previous'
   # More periods are no readable timeline, but a date entered wrongly, e.g. a
   # year 0202, would fill thousands of them up to the other dates
   MAX_PERIODS = 1000
@@ -55,6 +62,15 @@ class AdditionalsQueryChart < AdditionalsChart
 
     def base_scope
       super.where default_filters_statement
+    end
+  end
+
+  # Restricts a query to a period of the date the chart counts by
+  module DatePeriodScope
+    attr_accessor :period_filter, :period_statement
+
+    def base_scope
+      super.where period_statement
     end
   end
 
@@ -169,6 +185,25 @@ class AdditionalsQueryChart < AdditionalsChart
     table_only? || settings[:with_table].nil? || RedminePluginKit.true?(settings[:with_table])
   end
 
+  # Date filter a period of the block applies to, e.g. the day of a time
+  # entry. Without one the block offers no period.
+  def period_field
+    nil
+  end
+
+  def period_supported?
+    period_field.present?
+  end
+
+  # A timeline shows its periods itself
+  def period
+    period_supported? && !timeline? && PERIODS.key?(settings[:period]) ? settings[:period] : nil
+  end
+
+  def previous_period?
+    period.present? && settings[:compare_query_id] == PREVIOUS_PERIOD
+  end
+
   # A comparison is a second series next to the first one, which only bars,
   # lines and the table can show. A split uses the series already.
   def compare?
@@ -271,10 +306,14 @@ class AdditionalsQueryChart < AdditionalsChart
     parts = [query&.persisted? ? query.name : l(entity_plural_label)]
     parts << group_column.caption if group_column
     parts << split_column.caption if split?
+    parts << l(PERIOD_LABELS[period]) if period
     parts.join Additionals::LIST_SEPARATOR
   end
 
+  # Compared with the period before, both series are named by their period
   def series_labels
+    return previous_period_labels if previous_period? && compare?
+
     labels = [query&.persisted? ? query.name : l(entity_plural_label)]
     labels << compare_query.name if compare?
     labels
@@ -408,10 +447,12 @@ class AdditionalsQueryChart < AdditionalsChart
     @options_query ||= query || build_query(nil)
   end
 
+  # The previous period compares the query of the block with itself
   def compare_query
     return if settings[:compare_query_id].blank?
+    return if settings[:compare_query_id] == PREVIOUS_PERIOD && !period
 
-    @compare_query ||= build_query settings[:compare_query_id]
+    @compare_query ||= build_query previous_period? ? settings[:query_id] : settings[:compare_query_id]
   end
 
   def build_query(query_id)
@@ -497,6 +538,7 @@ class AdditionalsQueryChart < AdditionalsChart
   def build_entries
     return [] unless group_column
 
+    apply_periods
     [query, (compare_query if compare?)].compact.each { |series_query| limit_to_latest_periods series_query }
     values = period_values query, grouped_values(query)
     compare_values = compare? ? period_values(compare_query, grouped_values(compare_query)) : {}
@@ -556,7 +598,7 @@ class AdditionalsQueryChart < AdditionalsChart
     return unless timeline? && max_entries.positive? && !group_column.is_a?(QueryCustomFieldColumn)
 
     sql = group_sql query.base_scope.klass, group_statement(query, group_column)
-    days = query.base_scope.pick Arel.sql("MIN(#{sql})"), Arel.sql("MAX(#{sql})")
+    days = query.base_scope.pick Arel.sql(sql).minimum, Arel.sql(sql).maximum
     return unless days&.last
 
     first = timeline_end days.last.to_date
@@ -634,8 +676,8 @@ class AdditionalsQueryChart < AdditionalsChart
   end
 
   # Weeks are numbered like in the calendar of core, by their Thursday
-  def period_label(start)
-    case interval
+  def period_label(start, unit = interval)
+    case unit
     when 'week'
       thursday = start + ((11 - start.cwday) % 7)
       l :label_chart_week, week: thursday.cweek, year: thursday.cwyear
@@ -643,6 +685,58 @@ class AdditionalsQueryChart < AdditionalsChart
     when 'year' then start.year.to_s
     else
       l :label_chart_month, month: l('date.abbr_month_names')[start.month], year: start.year
+    end
+  end
+
+  # The period restricts the query of the block and a compared query alike,
+  # the previous period its own copy of the query. Applied once, when the
+  # chart counts, since the period depends on the group column.
+  def apply_periods
+    return if @periods_applied
+
+    @periods_applied = true
+    return unless period
+
+    restrict_to_period query, [period, ['']]
+    return unless compare_query
+
+    restrict_to_period compare_query, previous_period? ? ['><', previous_period_range.map(&:to_s)] : [period, ['']]
+  end
+
+  def restrict_to_period(query, period_filter)
+    return unless query
+
+    operator, values = period_filter
+    query.extend DatePeriodScope
+    query.period_filter = period_filter
+    query.period_statement = query_class.new(name: '_', filters: { period_field => { operator:, values: } }).statement
+  end
+
+  # First and last day of a period as the date filters of core count it,
+  # weeks starting like they do with the first day of the language
+  def period_range(code)
+    today = User.current.today
+    case code
+    when 'w', 'lw'
+      start = today - ((today.cwday - l(:general_first_day_of_week).to_i) % 7)
+      start -= 7 if code == 'lw'
+      [start, start + 6]
+    when 'm' then [today.beginning_of_month, today.end_of_month]
+    when 'lm' then [today.prev_month.beginning_of_month, today.prev_month.end_of_month]
+    else [today.beginning_of_year, today.end_of_year]
+    end
+  end
+
+  def previous_period_labels
+    [period_range(period), previous_period_range].map { |range| period_label range.first, PERIODS[period] }
+  end
+
+  def previous_period_range
+    from, to = period_range period
+    case PERIODS[period]
+    when 'week' then [from - 7, to - 7]
+    when 'month' then [from.prev_month.beginning_of_month, from.prev_month.end_of_month]
+    else [from.prev_year, to.prev_year]
     end
   end
 
@@ -844,6 +938,7 @@ class AdditionalsQueryChart < AdditionalsChart
 
   # Entries of the chart, each counted once
   def entry_count(query)
+    apply_periods
     scope = show_empty? ? query.base_scope : with_values_scope(query)
     scope.distinct.count :id
   end
@@ -988,6 +1083,14 @@ class AdditionalsQueryChart < AdditionalsChart
   # The group fields are left out, the slice sets them.
   def url_filters(query, key_filters)
     filters = query.filters.to_h { |field, options| [field, [options[:operator], Array(options[:values])]] }
+    period_filter = query.try :period_filter
+    if period_filter
+      # A date filter of the query and the period cannot be joined into one
+      own = filters[period_field]
+      return if own && own.first != '*'
+
+      filters[period_field] = period_filter
+    end
     return filters unless open_only?
 
     default_filters.each do |field, options|

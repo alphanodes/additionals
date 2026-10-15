@@ -105,6 +105,8 @@ ru:
   label_chart_order_field: "Порядок поля"
   label_chart_order_value: "Сначала наибольшее значение"
   label_chart_others: "Прочие"
+  label_chart_period: "Период"
+  label_chart_previous_period: "Предыдущий период"
   label_chart_quarter: "%{quarter} кв. %{year}"
   label_chart_show_empty: "Показывать записи без значения"
   label_chart_split_by: "Разбить по"

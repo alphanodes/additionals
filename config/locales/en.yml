@@ -105,6 +105,8 @@ en:
   label_chart_order_field: "Order of the field"
   label_chart_order_value: "Largest value first"
   label_chart_others: "Others"
+  label_chart_period: "Period"
+  label_chart_previous_period: "Previous period"
   label_chart_quarter: "Q%{quarter} %{year}"
   label_chart_show_empty: "Show entries without value"
   label_chart_split_by: "Split by"

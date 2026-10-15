@@ -105,6 +105,8 @@ ko:
   label_chart_order_field: "필드 순서"
   label_chart_order_value: "큰 값 우선"
   label_chart_others: "기타"
+  label_chart_period: "기간"
+  label_chart_previous_period: "이전 기간"
   label_chart_quarter: "%{year}년 %{quarter}분기"
   label_chart_show_empty: "값이 없는 항목 표시"
   label_chart_split_by: "분할 기준"

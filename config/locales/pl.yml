@@ -105,6 +105,8 @@ pl:
   label_chart_order_field: "Kolejność pola"
   label_chart_order_value: "Największa wartość najpierw"
   label_chart_others: "Inne"
+  label_chart_period: "Okres"
+  label_chart_previous_period: "Poprzedni okres"
   label_chart_quarter: "K%{quarter} %{year}"
   label_chart_show_empty: "Pokaż wpisy bez wartości"
   label_chart_split_by: "Podziel według"

@@ -40,6 +40,18 @@ module Additionals
       end
     end
 
+    # The test environment uses a null store, cached dashboard blocks need a real one.
+    def with_fragment_cache
+      store = ActiveSupport::Cache::MemoryStore.new
+      previous = [Rails.cache, ActionController::Base.cache_store, ActionController::Base.perform_caching]
+      Rails.cache = store
+      ActionController::Base.cache_store = store
+      ActionController::Base.perform_caching = true
+      yield
+    ensure
+      Rails.cache, ActionController::Base.cache_store, ActionController::Base.perform_caching = previous
+    end
+
     def emoji_heart_tag
       '<additionals-emoji title="red heart" data-name="heart" data-unicode-version="6.0">❤️</additionals-emoji>'
     end

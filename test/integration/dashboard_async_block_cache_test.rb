@@ -11,7 +11,7 @@ class DashboardAsyncBlockCacheTest < Additionals::IntegrationTest
   end
 
   def test_refresh_replaces_cached_query_list_block
-    with_dashboard_cache do
+    with_fragment_cache do
       block_url = cache_block 'issuequery'
       @issue.update_column :subject, 'Subject after refresh'
       get '/', params: { dashboard_id: @dashboard.id, refresh: 1 }
@@ -22,7 +22,7 @@ class DashboardAsyncBlockCacheTest < Additionals::IntegrationTest
   end
 
   def test_query_list_block_without_refresh_is_delivered_from_cache
-    with_dashboard_cache do
+    with_fragment_cache do
       block_url = cache_block 'issuequery'
       @issue.update_column :subject, 'Subject without refresh'
       get '/', params: { dashboard_id: @dashboard.id }
@@ -33,7 +33,7 @@ class DashboardAsyncBlockCacheTest < Additionals::IntegrationTest
   end
 
   def test_refresh_keeps_cached_blocks_without_query
-    with_dashboard_cache do
+    with_fragment_cache do
       cache_block 'text_async'
       get '/', params: { dashboard_id: @dashboard.id, refresh: 1 }
 
@@ -52,17 +52,5 @@ class DashboardAsyncBlockCacheTest < Additionals::IntegrationTest
 
     assert_response :success
     block_url
-  end
-
-  # The test environment uses a null store, dashboard blocks need a real one.
-  def with_dashboard_cache
-    store = ActiveSupport::Cache::MemoryStore.new
-    previous = [Rails.cache, ActionController::Base.cache_store, ActionController::Base.perform_caching]
-    Rails.cache = store
-    ActionController::Base.cache_store = store
-    ActionController::Base.perform_caching = true
-    yield
-  ensure
-    Rails.cache, ActionController::Base.cache_store, ActionController::Base.perform_caching = previous
   end
 end

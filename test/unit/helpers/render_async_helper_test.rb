@@ -93,20 +93,44 @@ class RenderAsyncHelperTest < Additionals::HelperTest
   end
 
   def test_render_async_cache_falls_through_when_cache_empty
-    Rails.cache.expects(:read).with("views/#{render_async_cache_key '/uncached'}").returns(nil)
-
-    html = render_async_cache '/uncached'
-
-    assert_include 'data-controller="render-async"', html
-    assert_include 'data-render-async-url-value="/uncached"', html
+    with_fragment_cache do
+      assert_include 'data-render-async-url-value="/uncached"', render_async_cache('/uncached')
+    end
   end
 
   def test_render_async_cache_returns_cached_view_when_present
-    Rails.cache.expects(:read).with("views/#{render_async_cache_key '/cached'}").returns('<p>from cache</p>')
+    with_fragment_cache do
+      controller.write_fragment render_async_cache_key('/cached'), '<p>from cache</p>'
 
-    html = render_async_cache '/cached'
+      assert_equal '<p>from cache</p>', render_async_cache('/cached')
+    end
+  end
 
-    assert_equal '<p>from cache</p>', html
-    assert_predicate html, :html_safe?
+  def test_render_async_cache_returns_cached_view_as_html_safe
+    with_fragment_cache do
+      controller.write_fragment render_async_cache_key('/cached'), '<p>from cache</p>'
+
+      assert_predicate render_async_cache('/cached'), :html_safe?
+    end
+  end
+
+  def test_render_async_cache_returns_cached_view_with_rails_cache_id
+    with_fragment_cache do
+      with_rails_cache_id 'v2' do
+        controller.write_fragment render_async_cache_key('/cached'), '<p>from cache</p>'
+
+        assert_equal '<p>from cache</p>', render_async_cache('/cached')
+      end
+    end
+  end
+
+  private
+
+  def with_rails_cache_id(value)
+    previous = ENV.fetch 'RAILS_CACHE_ID', nil
+    ENV['RAILS_CACHE_ID'] = value
+    yield
+  ensure
+    ENV['RAILS_CACHE_ID'] = previous
   end
 end

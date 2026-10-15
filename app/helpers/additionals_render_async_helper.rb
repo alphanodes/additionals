@@ -11,12 +11,13 @@ module AdditionalsRenderAsyncHelper
     "#{RENDER_ASYNC_CACHE_PREFIX}#{path}"
   end
 
+  # Reads like the cache helper of the block writes it, so RAILS_CACHE_ID or
+  # RAILS_APP_VERSION in the fragment key are respected.
   def render_async_cache(path, **, &)
-    cached_view = Rails.cache.read "views/#{render_async_cache_key path}"
+    cached_view = controller.read_fragment render_async_cache_key(path)
     return render_async(path, **, &) if cached_view.blank?
 
-    # Cache content is rendered server-side by our own controller code.
-    cached_view.html_safe # rubocop:disable Rails/OutputSafety
+    cached_view
   end
 
   def render_async(path, **options, &block)

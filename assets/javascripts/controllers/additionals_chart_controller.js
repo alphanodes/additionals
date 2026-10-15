@@ -3,8 +3,8 @@ import { Controller } from '@hotwired/stimulus';
 
 // Draws a chart block from the payload the server renders into a data
 // attribute (AdditionalsQueryChart#payload), so no value is interpolated into
-// JavaScript. Chart.js draws doughnut, pie and bars, d3plus the treemap. A
-// click on a slice opens the list filtered by its value.
+// JavaScript. Chart.js draws doughnut, pie, bars, lines and areas, d3plus the
+// treemap. A click on a slice opens the list filtered by its value.
 //
 // Chart.js and its plugins come from the libraries of the block. d3plus is
 // large and only needed for a treemap, so the controller loads it on demand
@@ -13,6 +13,10 @@ import { Controller } from '@hotwired/stimulus';
 // or removed block releases its chart.
 
 const BAR_TYPES = ['bar_horizontal', 'bar_vertical'];
+const LINE_TYPES = ['line', 'area'];
+const LINE_POINT_RADIUS = 3;
+// Lines of a timeline with more periods would hide behind their points
+const MAX_PERIODS_WITH_POINTS = 60;
 // A pie legend with more entries pushes the pie into a corner and is cut off;
 // tooltip and table of values name the slices then
 const MAX_LEGEND_ENTRIES = 10;
@@ -271,9 +275,92 @@ function barConfig(payload) {
   return config;
 }
 
+// The series of a click in a period: the stacked area it lies in, the
+// line next to it otherwise. The canvas counts y from the top down.
+function clickedPoint(payload, event, chart) {
+  if (!payload.stacked) {
+    return chart.getElementsAtEventForMode(event, 'nearest', { intersect: false }, false)[0];
+  }
+
+  const points = chart.getElementsAtEventForMode(event, 'index', { intersect: false }, false)
+    .sort((a, b) => a.datasetIndex - b.datasetIndex);
+  return points.find((point) => point.element.y <= event.y);
+}
+
+function timelineClickHandler(payload) {
+  return (event, _elements, chart) => {
+    const point = clickedPoint(payload, event, chart);
+    if (point) {
+      openUrl(entryUrl(payload, point.datasetIndex, point.index));
+    }
+  };
+}
+
+// Stacked areas fill up to the area below them, all others down to the axis
+function lineFill(payload, index) {
+  if (payload.type !== 'area') {
+    return false;
+  }
+  return payload.stacked && index > 0 ? '-1' : 'origin';
+}
+
+// A timeline: one line or area per series, the tooltip names all series of a period
+function lineConfig(payload) {
+  const datasets = payload.datasets.map((dataset, index) => ({
+    ...dataset,
+    fill: lineFill(payload, index),
+    pointRadius: payload.labels.length > MAX_PERIODS_WITH_POINTS ? 0 : LINE_POINT_RADIUS,
+  }));
+
+  return {
+    type: 'line',
+    data: {
+      labels: payload.labels,
+      datasets,
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      onClick: timelineClickHandler(payload),
+      interaction: {
+        mode: 'index',
+        intersect: false,
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          stacked: payload.stacked,
+          title: {
+            display: true,
+            text: payload.totalLabel,
+          },
+        },
+      },
+      plugins: {
+        legend: {
+          display: payload.datasets.length > 1,
+          position: 'bottom',
+        },
+        colorschemes: {
+          scheme: payload.colorSchema,
+          fillAlpha: 0.5,
+        },
+        tooltip: {
+          callbacks: {
+            label: (context) => `${context.dataset.label}: ${valueText(payload, context.datasetIndex, context.dataIndex)}`,
+          },
+        },
+      },
+    },
+  };
+}
+
 // Chart.js configuration of a payload, for every type but the treemap
 export function chartConfig(canvas, payload) {
-  return BAR_TYPES.includes(payload.type) ? barConfig(payload) : pieConfig(canvas, payload);
+  if (BAR_TYPES.includes(payload.type)) {
+    return barConfig(payload);
+  }
+  return LINE_TYPES.includes(payload.type) ? lineConfig(payload) : pieConfig(canvas, payload);
 }
 
 export function renderTreemap(element, payload) {

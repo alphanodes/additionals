@@ -7,10 +7,20 @@
 # Grouping and totals come from core (result_count_by_group,
 # total_by_group_for), so visibility, filters and the casting of custom field
 # values behave exactly like the grouped list. Only custom fields with multiple
-# values need an own count: core cannot group by them.
+# values need an own count: core cannot group by them. Dates are grouped by
+# day like the list and summed up to periods, a timeline.
 class AdditionalsQueryChart < AdditionalsChart
-  CHART_TYPES = %w[doughnut pie bar_horizontal bar_vertical treemap table].freeze
+  CHART_TYPES = %w[doughnut pie bar_horizontal bar_vertical treemap line area table].freeze
   BAR_TYPES = %w[bar_horizontal bar_vertical].freeze
+  LINE_TYPES = %w[line area].freeze
+  # Types that show series: a comparison, the parts of a split or a timeline,
+  # which has no shares of a whole like doughnut, pie and treemap show
+  SERIES_TYPES = (BAR_TYPES + LINE_TYPES + %w[table]).freeze
+  INTERVALS = %w[week month quarter year].freeze
+  DEFAULT_INTERVAL = 'month'
+  # More periods are no readable timeline, but a date entered wrongly, e.g. a
+  # year 0202, would fill thousands of them up to the other dates
+  MAX_PERIODS = 1000
   ORDERS = %w[field value].freeze
   MEASURE_COUNT = 'count'
   # Key of the entry or part that sums up the small values
@@ -18,11 +28,12 @@ class AdditionalsQueryChart < AdditionalsChart
   # A split shows a legend entry per part, about this many fit in a row
   LEGEND_ENTRIES_PER_ROW = 4
   LEGEND_ROW_HEIGHT = 25
-  # Filter types of columns without categories: dates and numbers would need
-  # ranges, text has no categories, trees and relations no single value.
-  # Everything else is a list of some kind, also the autocomplete types of
-  # additionals (issue_assignee, author).
-  NON_CATEGORY_FILTER_TYPES = %i[date date_past integer float string text search tree relation].freeze
+  # Filter types of columns without categories: numbers would need ranges,
+  # text has no categories, trees and relations no single value. Everything
+  # else is a list of some kind, also the autocomplete types of additionals
+  # (issue_assignee, author). Dates are summed up to periods.
+  NON_CATEGORY_FILTER_TYPES = %i[integer float string text search tree relation].freeze
+  DATE_FILTER_TYPES = %i[date date_past].freeze
   # Columns core shows as hours in the totals of a list
   HOURS_COLUMNS = %i[hours spent_hours total_spent_hours estimated_hours
                      total_estimated_hours estimated_remaining_hours].freeze
@@ -91,16 +102,40 @@ class AdditionalsQueryChart < AdditionalsChart
     entries.any? { |entry| entry.value.positive? || entry.compare_value.to_f.positive? }
   end
 
+  # A timeline is drawn as a line unless it is a type it can be shown as, a
+  # category as vertical bars instead of a line
   def chart_type
-    CHART_TYPES.include?(settings[:chart_type]) ? settings[:chart_type] : CHART_TYPES.first
+    @chart_type ||= begin
+      type = CHART_TYPES.include?(settings[:chart_type]) ? settings[:chart_type] : CHART_TYPES.first
+      if timeline?
+        SERIES_TYPES.include?(type) ? type : LINE_TYPES.first
+      else
+        LINE_TYPES.include?(type) ? 'bar_vertical' : type
+      end
+    end
   end
 
   def order
     ORDERS.include?(settings[:order]) ? settings[:order] : ORDERS.first
   end
 
+  def interval
+    INTERVALS.include?(settings[:interval]) ? settings[:interval] : DEFAULT_INTERVAL
+  end
+
+  # Grouped by a date, the entries are periods in the order of time
+  def timeline?
+    return @timeline if defined? @timeline
+
+    @timeline = group_column.present? && date_column?(group_column)
+  end
+
   def bar_chart?
     BAR_TYPES.include? chart_type
+  end
+
+  def line_chart?
+    LINE_TYPES.include? chart_type
   end
 
   def table_only?
@@ -124,18 +159,19 @@ class AdditionalsQueryChart < AdditionalsChart
     table_only? || settings[:with_table].nil? || RedminePluginKit.true?(settings[:with_table])
   end
 
-  # A comparison is a second series next to the first one, which only bars
-  # and the table can show. A split uses the series already.
+  # A comparison is a second series next to the first one, which only bars,
+  # lines and the table can show. A split uses the series already.
   def compare?
-    compare_query.present? && (bar_chart? || table_only?) && !split?
+    compare_query.present? && series_chart? && !split?
   end
 
-  # Each entry split by a second column, as stacked bars or a cross table.
-  # Two fields with multiple values would need two joins of their values.
+  # Each entry split by a second column, as stacked bars or areas, lines or
+  # a cross table. Two fields with multiple values would need two joins of
+  # their values.
   def split?
     return @split if defined? @split
 
-    @split = split_column.present? && (bar_chart? || table_only?) && split_column?(group_column) &&
+    @split = split_column.present? && series_chart? && (timeline? || split_column?(group_column)) &&
              !(multiple_values_column?(group_column) && multiple_values_column?(split_column))
   end
 
@@ -196,6 +232,11 @@ class AdditionalsQueryChart < AdditionalsChart
     @group_columns ||= options_query.available_columns.select { |column| group_column? column }
   end
 
+  # Group columns that make a timeline, for the settings form
+  def timeline_group_names
+    group_columns.filter_map { |column| column.name.to_s if date_column? column }
+  end
+
   def group_options
     group_columns.map { |column| [column.caption, column.name.to_s] }
                  .sort_by! { |caption, _name| caption.to_s.downcase }
@@ -250,12 +291,13 @@ class AdditionalsQueryChart < AdditionalsChart
     (entry.value * 100.0 / total).round
   end
 
-  # Data handed to the additionals-chart Stimulus controller
+  # Data handed to the additionals-chart Stimulus controller. Lines of a
+  # split cross each other, all other parts stack up.
   def payload
     { type: chart_type,
       labels: entries.map(&:label),
       datasets: payload_datasets,
-      stacked: split?,
+      stacked: split? && chart_type != 'line',
       total: total.round(2),
       totalLabel: measure_label,
       colorSchema: color_schema }
@@ -271,6 +313,10 @@ class AdditionalsQueryChart < AdditionalsChart
   end
 
   private
+
+  def series_chart?
+    SERIES_TYPES.include? chart_type
+  end
 
   # Room for the legend of a split, which would squeeze the bars otherwise
   def legend_height
@@ -374,9 +420,10 @@ class AdditionalsQueryChart < AdditionalsChart
   # Columns a split may group by together with the group column: those whose
   # keys the base maps like core does. Columns of an own class may count their
   # groups or turn their keys into values themselves (e.g. a workflow name for
-  # its id), which a grouping by two columns would bypass.
+  # its id), which a grouping by two columns would bypass. A date would be a
+  # timeline per part.
   def split_column?(column)
-    column.instance_of?(QueryColumn) || column.is_a?(QueryCustomFieldColumn)
+    (column.instance_of?(QueryColumn) || column.is_a?(QueryCustomFieldColumn)) && !date_column?(column)
   end
 
   # Columns a chart can sum up, the totals of the list by default
@@ -388,7 +435,14 @@ class AdditionalsQueryChart < AdditionalsChart
     return false unless column.groupable? || multiple_values_column?(column)
 
     type = filter_type_for column
-    type.present? && NON_CATEGORY_FILTER_TYPES.exclude?(type)
+    return false if type.blank?
+    return !multiple_values_column?(column) if DATE_FILTER_TYPES.include? type
+
+    NON_CATEGORY_FILTER_TYPES.exclude? type
+  end
+
+  def date_column?(column)
+    DATE_FILTER_TYPES.include? filter_type_for(column)
   end
 
   # Custom fields tell their type by their format, also if they are no filter
@@ -418,18 +472,20 @@ class AdditionalsQueryChart < AdditionalsChart
   def build_entries
     return [] unless group_column
 
-    values = grouped_values query
-    compare_values = compare? ? grouped_values(compare_query) : {}
-    split_values = split? ? split_values(query) : {}
+    values = period_values query, grouped_values(query)
+    compare_values = compare? ? period_values(compare_query, grouped_values(compare_query)) : {}
+    split_values = split? ? period_values(nil, split_values(query)) : {}
 
     keys = values.keys | compare_values.keys
     keys.delete nil unless show_empty?
+    keys = timeline_periods keys if timeline?
     preload_version_projects keys
 
     entries = keys.filter_map do |key|
       value = values[key] || 0
       compare_value = compare_values[key] || 0
-      next if value.zero? && compare_value.zero?
+      # A period without entries keeps its place in the timeline
+      next if value.zero? && compare_value.zero? && !timeline?
 
       Entry.new key:, label: entry_label(key), value:, compare_value:,
                 url: entry_url(query, key),
@@ -437,8 +493,107 @@ class AdditionalsQueryChart < AdditionalsChart
                 parts: split_values.fetch(key, {})
     end
 
-    entries = limit_entries sort_entries(entries)
+    entries = limit_entries sort_entries(entries) unless timeline?
     split? ? split_entries(entries) : entries
+  end
+
+  # Values per day summed up per period, values of a split per part. The
+  # days with values of a query bound its links if it filters the date itself.
+  def period_values(query, values)
+    return values unless timeline?
+
+    day_ranges[query] = values.keys.filter_map { |key| key.presence&.to_date }.minmax if query
+    values.each_with_object({}) do |(key, value), periods|
+      next if key.blank?
+
+      period = period_start key.to_date
+      periods[period] = periods.key?(period) ? add_period_values(periods[period], value) : value
+    end
+  end
+
+  def add_period_values(sum, value)
+    sum.is_a?(Hash) ? sum.merge(value) { |_key, a, b| a + b } : sum + value
+  end
+
+  # Each query, the one of the chart and the one to compare to
+  def day_ranges
+    @day_ranges ||= {}.compare_by_identity
+  end
+
+  # All periods from the first to the last one, the latest ones up to the
+  # maximum. Without entries before or after, a timeline would only start
+  # or end later, so it shows the periods with entries.
+  def timeline_periods(keys)
+    first, last = keys.minmax
+    return [] unless last
+
+    max_entries = settings[:max_entries].to_i
+    limit = max_entries.positive? ? [max_entries, MAX_PERIODS].min : MAX_PERIODS
+    periods = [last]
+    while periods.size < limit
+      previous = period_start periods.last - 1
+      break if previous < first
+
+      periods << previous
+    end
+    periods.reverse
+  end
+
+  def period_start(date)
+    case interval
+    when 'week' then date - ((date.cwday - first_wday) % 7)
+    when 'quarter' then date.beginning_of_quarter
+    when 'year' then date.beginning_of_year
+    else date.beginning_of_month
+    end
+  end
+
+  def period_end(start)
+    case interval
+    when 'week' then start + 6
+    when 'quarter' then start.end_of_quarter
+    when 'year' then start.end_of_year
+    else start.end_of_month
+    end
+  end
+
+  # First day of a week as the calendar of core shows it, 1 = Monday ... 7 = Sunday
+  def first_wday
+    @first_wday ||= begin
+      start_of_week = Setting.start_of_week.to_i
+      start_of_week = l(:general_first_day_of_week).to_i unless [1, 6, 7].include? start_of_week
+      ((start_of_week - 1) % 7) + 1
+    end
+  end
+
+  # Weeks are numbered like in the calendar of core, by their Thursday
+  def period_label(start)
+    case interval
+    when 'week'
+      thursday = start + ((11 - start.cwday) % 7)
+      l :label_chart_week, week: thursday.cweek, year: thursday.cwyear
+    when 'quarter' then l(:label_chart_quarter, quarter: ((start.month - 1) / 3) + 1, year: start.year)
+    when 'year' then start.year.to_s
+    else
+      l :label_chart_month, month: l('date.abbr_month_names')[start.month], year: start.year
+    end
+  end
+
+  # Days of a period for the filter of its link. A filter of the query on the
+  # same date would be replaced by it, so the days with entries keep its
+  # bounds: a date filter always covers one range of days. Outside of them,
+  # e.g. a period only the compared query has, nothing is left to link to.
+  def period_filter_values(query, start)
+    from = start
+    to = period_end start
+    first, last = day_ranges[query]
+    if query.has_filter? filter_name_for(group_column)
+      return unless first
+
+      from = [from, first].max
+      to = [to, last].min
+    end
+    [from.to_s, to.to_s] if from <= to
   end
 
   # Parts below min_share of all parts become OTHERS, the parts link to the
@@ -691,6 +846,7 @@ class AdditionalsQueryChart < AdditionalsChart
   def entry_label(key, column = group_column)
     # Like the groups of the list the chart links to
     return "(#{l :label_blank_value})" if key.nil?
+    return period_label key if column == group_column && timeline?
     # Versions of other projects carry the project, like format_version_name of core
     return key.to_s_with_project if key.is_a?(Version) && key.project != project
     return key.to_s if key.is_a? ActiveRecord::Base
@@ -729,7 +885,8 @@ class AdditionalsQueryChart < AdditionalsChart
   # Without a filter for the column, e.g. a custom field that is no filter,
   # the list cannot show the entries of a slice. Neither can it, if the
   # filters of the query and the default filters do not join into one.
-  # The link of a part filters by its key of the split column, too
+  # The link of a part filters by its key of the split column, too. A period
+  # filters by its days.
   def entry_url(query, key, **part)
     keys = { group_column => key }
     keys[split_column] = part[:split_key] if part.key? :split_key
@@ -739,6 +896,9 @@ class AdditionalsQueryChart < AdditionalsChart
     filters = url_filters query, key_filters.keys
     return unless filters
 
+    period = period_filter_values query, key if timeline?
+    return if timeline? && period.nil?
+
     params = { set_filter: 1, f: [], op: {}, v: {} }
     filters.each do |field, (operator, values)|
       add_url_filter params, field, operator, values unless key_filters.key? field
@@ -747,6 +907,8 @@ class AdditionalsQueryChart < AdditionalsChart
     key_filters.each do |filter, filter_key|
       if filter_key.nil?
         add_url_filter params, filter, '!*', ['']
+      elsif period && filter == key_filters.keys.first
+        add_url_filter params, filter, '><', period
       else
         add_url_filter params, filter, '=', [entry_value(filter_key)]
       end

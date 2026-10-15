@@ -567,6 +567,15 @@ table.table-of-values caption {
   white-space: nowrap;
 }
 
+/* The interval of a date field follows its select in the same line, the
+   label is no field label of the tabular form */
+.tabular .query-chart-interval label {
+  float: none;
+  width: auto;
+  margin: 0 0.5em;
+  font-weight: normal;
+}
+
 .additionals-projects ul {
   padding-left: 0;
 }

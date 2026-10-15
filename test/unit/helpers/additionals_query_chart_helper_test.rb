@@ -33,6 +33,22 @@ class AdditionalsQueryChartHelperTest < Additionals::HelperTest
                  Nokogiri::HTML.fragment(@redmine_view.options_for_query_chart_type('pie')).css('option').size
   end
 
+  def test_interval_options_offer_every_interval
+    assert_equal AdditionalsQueryChart::INTERVALS.size,
+                 Nokogiri::HTML.fragment(@redmine_view.options_for_query_chart_interval('month')).css('option').size
+  end
+
+  def test_settings_form_offers_an_interval
+    assert_not_empty Nokogiri::HTML.fragment(render_settings_form).css('select[name="settings[chart][interval]"]')
+  end
+
+  # The form shows the interval and the timeline types only for these
+  def test_settings_form_names_the_date_fields
+    controller = Nokogiri::HTML.fragment(render_settings_form).at_css('[data-controller="additionals-chart-settings"]')
+
+    assert_includes JSON.parse(controller['data-additionals-chart-settings-timeline-groups-value']), 'start_date'
+  end
+
   def test_table_of_values_lists_the_entries
     chart = Additionals::TestIssueQueryChart.new project: projects(:projects_001), settings: { group_by: 'tracker' }
     html = @redmine_view.render partial: 'dashboards/blocks/query_chart_table', locals: { chart: }

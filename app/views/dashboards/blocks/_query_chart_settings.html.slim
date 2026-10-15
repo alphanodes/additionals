@@ -1,7 +1,10 @@
 - chart = block_definition[:query_chart][:class].new project: @project, settings: settings
 - tag_name = ->(name) { "settings[#{block}][#{name}]" }
 
-.box.tabular.settings
+.box.tabular.settings[data-controller='additionals-chart-settings'
+                       data-additionals-chart-settings-timeline-groups-value=chart.timeline_group_names.to_json
+                       data-additionals-chart-settings-line-types-value=AdditionalsQueryChart::LINE_TYPES.to_json
+                       data-additionals-chart-settings-series-types-value=AdditionalsQueryChart::SERIES_TYPES.to_json]
   p
     = additionals_settings_textfield :title,
                                      label: :field_title,
@@ -27,8 +30,13 @@
                                   label: :field_group_by,
                                   include_blank: true,
                                   required: true,
-                                  tag_name: tag_name.call(:group_by)
-  p
+                                  tag_name: tag_name.call(:group_by),
+                                  data: { additionals_chart_settings_target: 'groupBy',
+                                          action: 'additionals-chart-settings#update' }
+    span.query-chart-interval data-additionals-chart-settings-target='interval'
+      = label_tag tag_name.call(:interval), l(:label_chart_interval)
+      = select_tag tag_name.call(:interval), options_for_query_chart_interval(chart.interval)
+  p data-additionals-chart-settings-target='series'
     = additionals_settings_select :split_by,
                                   options_for_select(chart.split_options, settings[:split_by]),
                                   label: :label_chart_split_by,
@@ -45,14 +53,16 @@
     = additionals_settings_select :chart_type,
                                   options_for_query_chart_type(chart.chart_type),
                                   label: :label_display_type,
-                                  tag_name: tag_name.call(:chart_type)
-  p
+                                  tag_name: tag_name.call(:chart_type),
+                                  data: { additionals_chart_settings_target: 'chartType',
+                                          action: 'additionals-chart-settings#update' }
+  p data-additionals-chart-settings-target='series'
     = additionals_settings_select :compare_query_id,
                                   options_for_query_select(chart.query_class, @project, settings[:compare_query_id]),
                                   label: :label_chart_compare_query,
                                   tag_name: tag_name.call(:compare_query_id)
     em.info = l :info_chart_compare_query
-  p
+  p data-additionals-chart-settings-target='category'
     = additionals_settings_select :order,
                                   options_for_query_chart_order(chart.order),
                                   label: :label_sort,
@@ -73,7 +83,7 @@
                                        step: 0.1,
                                        tag_name: tag_name.call(:min_share)
     em.info = l :info_chart_min_share
-  p
+  p data-additionals-chart-settings-target='category'
     = additionals_settings_checkbox :show_empty,
                                     label: :label_chart_show_empty,
                                     active_value: chart.show_empty?,

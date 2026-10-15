@@ -11,6 +11,13 @@ module AdditionalsQueryChartHelper
                        selected
   end
 
+  def options_for_query_chart_interval(selected)
+    labels = { 'week' => :label_week, 'month' => :label_month,
+               'quarter' => :label_chart_interval_quarter, 'year' => :label_year }
+    options_for_select AdditionalsQueryChart::INTERVALS.map { |interval| [l(labels[interval]), interval] },
+                       selected
+  end
+
   # Sums of hours look like the totals of the list, everything else like a number
   def format_query_chart_value(chart, value)
     chart.hours_measure? ? format_hours(value) : format_object(value)

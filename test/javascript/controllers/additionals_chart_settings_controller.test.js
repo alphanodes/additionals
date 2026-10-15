@@ -1,0 +1,127 @@
+import { describe, it, expect, beforeAll, afterAll } from 'vitest';
+import { Application } from '@hotwired/stimulus';
+import AdditionalsChartSettingsController from '../../../assets/javascripts/controllers/additionals_chart_settings_controller.js';
+
+const SERIES_TYPES = ['bar_horizontal', 'bar_vertical', 'line', 'area', 'table'];
+
+// The settings form as the server renders it, created_on is a date field
+function form({ groupBy = 'status', chartType = 'doughnut' } = {}) {
+  const option = (value, selected) => `<option value="${value}"${value === selected ? ' selected' : ''}>${value}</option>`;
+  return `
+    <div data-controller="additionals-chart-settings"
+         data-additionals-chart-settings-timeline-groups-value='["created_on"]'
+         data-additionals-chart-settings-line-types-value='["line","area"]'
+         data-additionals-chart-settings-series-types-value='${JSON.stringify(SERIES_TYPES)}'>
+      <select id="group_by" data-additionals-chart-settings-target="groupBy"
+              data-action="additionals-chart-settings#update">
+        ${['status', 'created_on'].map((value) => option(value, groupBy)).join('')}
+      </select>
+      <span id="interval" data-additionals-chart-settings-target="interval"></span>
+      <p id="split" data-additionals-chart-settings-target="series"></p>
+      <select id="chart_type" data-additionals-chart-settings-target="chartType"
+              data-action="additionals-chart-settings#update">
+        ${['doughnut', 'pie', 'treemap', ...SERIES_TYPES].map((value) => option(value, chartType)).join('')}
+      </select>
+      <p id="order" data-additionals-chart-settings-target="category"></p>
+    </div>`;
+}
+
+// Stimulus connects controllers after a mutation of the document
+function render(options) {
+  document.body.innerHTML = form(options);
+  return new Promise((resolve) => { setTimeout(resolve, 0); });
+}
+
+function element(id) {
+  return document.getElementById(id);
+}
+
+function offeredTypes() {
+  return Array.from(element('chart_type').options).filter((option) => !option.disabled).map((option) => option.value);
+}
+
+function choose(id, value) {
+  element(id).value = value;
+  element(id).dispatchEvent(new Event('change'));
+}
+
+describe('AdditionalsChartSettingsController', () => {
+  let application;
+
+  beforeAll(() => {
+    application = Application.start();
+    application.register('additionals-chart-settings', AdditionalsChartSettingsController);
+  });
+
+  afterAll(() => {
+    application.stop();
+  });
+
+  it('hides the interval of a category', async () => {
+    await render();
+
+    expect(element('interval').hidden).toBe(true);
+  });
+
+  it('shows the interval of a date field', async () => {
+    await render({ groupBy: 'created_on', chartType: 'line' });
+
+    expect(element('interval').hidden).toBe(false);
+  });
+
+  it('offers no line and area for a category', async () => {
+    await render();
+
+    expect(offeredTypes()).toEqual(['doughnut', 'pie', 'treemap', 'bar_horizontal', 'bar_vertical', 'table']);
+  });
+
+  it('offers only types with series for a date field', async () => {
+    await render({ groupBy: 'created_on', chartType: 'line' });
+
+    expect(offeredTypes()).toEqual(SERIES_TYPES);
+  });
+
+  it('turns a doughnut into a line when a date field is chosen', async () => {
+    await render();
+
+    choose('group_by', 'created_on');
+
+    expect(element('chart_type').value).toBe('line');
+  });
+
+  it('turns a line into vertical bars when a category is chosen', async () => {
+    await render({ groupBy: 'created_on', chartType: 'line' });
+
+    choose('group_by', 'status');
+
+    expect(element('chart_type').value).toBe('bar_vertical');
+  });
+
+  it('keeps bars when a date field is chosen', async () => {
+    await render({ chartType: 'bar_horizontal' });
+
+    choose('group_by', 'created_on');
+
+    expect(element('chart_type').value).toBe('bar_horizontal');
+  });
+
+  it('hides the order of a date field', async () => {
+    await render({ groupBy: 'created_on', chartType: 'line' });
+
+    expect(element('order').hidden).toBe(true);
+  });
+
+  it('hides split and comparison of a doughnut', async () => {
+    await render();
+
+    expect(element('split').hidden).toBe(true);
+  });
+
+  it('shows split and comparison when bars are chosen', async () => {
+    await render();
+
+    choose('chart_type', 'bar_vertical');
+
+    expect(element('split').hidden).toBe(false);
+  });
+});

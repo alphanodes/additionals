@@ -31,6 +31,19 @@ function stackedPayload() {
   });
 }
 
+// New and closed issues per month
+function timelinePayload(type, stacked = false) {
+  return payload({
+    type,
+    stacked,
+    labels: ['Jan 2026', 'Feb 2026'],
+    datasets: [
+      { label: 'New', data: [3, 0], urls: ['/issues?jan=new', null] },
+      { label: 'Closed', data: [1, 2], urls: ['/issues?jan=closed', null] },
+    ],
+  });
+}
+
 // Context of the value label of the first part of a stacked horizontal bar
 function partContext(bar) {
   return {
@@ -266,6 +279,84 @@ describe('chart configuration', () => {
     const shown = config().options.plugins.datalabels.display(partContext({ x: 4, base: 0, height: 20 }));
 
     expect(shown).toBe(false);
+  });
+
+  it('draws a line chart for a line', () => {
+    render(timelinePayload('line'));
+
+    expect(config().type).toBe('line');
+  });
+
+  it('draws a line without area', () => {
+    render(timelinePayload('line'));
+
+    expect(config().data.datasets[0].fill).toBe(false);
+  });
+
+  it('fills an area down to the axis', () => {
+    render(timelinePayload('area'));
+
+    expect(config().data.datasets[0].fill).toBe('origin');
+  });
+
+  it('stacks the areas of a split', () => {
+    render(timelinePayload('area', true));
+
+    expect(config().data.datasets[1].fill).toBe('-1');
+  });
+
+  it('stacks the values of a split area', () => {
+    render(timelinePayload('area', true));
+
+    expect(config().options.scales.y.stacked).toBe(true);
+  });
+
+  it('shows the legend of a split line', () => {
+    render(timelinePayload('line'));
+
+    expect(config().options.plugins.legend.display).toBe(true);
+  });
+
+  it('opens the list of the line next to a click', () => {
+    const open = vi.spyOn(window, 'open').mockImplementation(() => null);
+    render(timelinePayload('line'));
+    const chart = { getElementsAtEventForMode: () => [{ datasetIndex: 1, index: 0 }] };
+
+    config().options.onClick({ y: 50 }, [], chart);
+
+    expect(open).toHaveBeenCalledWith('/issues?jan=closed');
+  });
+
+  // The upper area reaches from y 40 down to the line of the lower one at y 80
+  it('opens the list of the stacked area a click lies in', () => {
+    const open = vi.spyOn(window, 'open').mockImplementation(() => null);
+    render(timelinePayload('area', true));
+    const chart = {
+      getElementsAtEventForMode: () => [
+        { datasetIndex: 1, index: 0, element: { y: 40 } },
+        { datasetIndex: 0, index: 0, element: { y: 80 } },
+      ],
+    };
+
+    config().options.onClick({ y: 60 }, [], chart);
+
+    expect(open).toHaveBeenCalledWith('/issues?jan=closed');
+  });
+
+  it('opens nothing for a click above the stacked areas', () => {
+    const open = vi.spyOn(window, 'open').mockImplementation(() => null);
+    render(timelinePayload('area', true));
+    const chart = { getElementsAtEventForMode: () => [{ datasetIndex: 0, index: 0, element: { y: 80 } }] };
+
+    config().options.onClick({ y: 20 }, [], chart);
+
+    expect(open).not.toHaveBeenCalled();
+  });
+
+  it('draws no points on a long timeline', () => {
+    render(payload({ type: 'line', labels: Array.from({ length: 61 }, (_v, index) => String(index)) }));
+
+    expect(config().data.datasets[0].pointRadius).toBe(0);
   });
 
   it('draws a treemap with d3plus instead of Chart.js', () => {

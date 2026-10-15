@@ -328,8 +328,8 @@ class AdditionalsQueryChartTest < Additionals::TestCase
     assert_includes group_names(issue_chart), 'assigned_to'
   end
 
-  def test_group_options_do_not_contain_dates
-    assert_not_includes group_names(issue_chart), 'start_date'
+  def test_group_options_do_not_contain_free_text
+    assert_not_includes group_names(issue_chart), 'subject'
   end
 
   def test_group_options_contain_fields_with_multiple_values
@@ -370,7 +370,7 @@ class AdditionalsQueryChartTest < Additionals::TestCase
   end
 
   def test_unknown_group_has_no_entries
-    assert_empty issue_chart(group_by: 'start_date').entries
+    assert_empty issue_chart(group_by: 'subject').entries
   end
 
   def test_query_of_another_user_has_no_entries

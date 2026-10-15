@@ -548,6 +548,25 @@ table.table-of-values caption {
   font-weight: bold;
 }
 
+/* A cross table has a column per part. Core lays out report tables with a
+   fixed width per column, which squeezes many parts into each other: the
+   cross table takes its content width, a row of its own below the chart and
+   scrolls sideways. */
+.additionals-query-chart .additionals-table-of-values.cross-table {
+  flex-basis: 100%;
+}
+
+.additionals-query-chart .additionals-table-of-values.cross-table > .values {
+  width: max-content;
+  min-width: 100%;
+  table-layout: auto;
+}
+
+.additionals-query-chart .additionals-table-of-values.cross-table th,
+.additionals-query-chart .additionals-table-of-values.cross-table td {
+  white-space: nowrap;
+}
+
 .additionals-projects ul {
   padding-left: 0;
 }

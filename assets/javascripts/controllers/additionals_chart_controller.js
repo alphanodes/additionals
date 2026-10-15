@@ -149,11 +149,62 @@ function valueLabelRotation(payload, context) {
   return bar && estimatedTextWidth(text) > bar.width ? -VALUE_LABEL_SLANT : 0;
 }
 
+// Sum of all parts of an entry, the length of its stacked bar
+function rowTotal(payload, index) {
+  return payload.datasets.reduce((sum, dataset) => sum + (dataset.data[index] || 0), 0);
+}
+
+// A part of a stacked bar shows its value inside, if the value fits in
+function valueFitsInPart(payload, context, horizontal) {
+  const bar = context.chart.getDatasetMeta(context.datasetIndex).data[context.dataIndex];
+  if (!bar) {
+    return false;
+  }
+
+  const textWidth = estimatedTextWidth(valueText(payload, context.datasetIndex, context.dataIndex));
+  // The labels are placed before the bars grow, so the size they grow to counts
+  const {
+    x, y, base, width, height,
+  } = bar.getProps(['x', 'y', 'base', 'width', 'height'], true);
+  const length = Math.abs(horizontal ? x - base : y - base);
+  const thickness = horizontal ? height : width;
+  const needed = 2 * VALUE_LABEL_PADDING;
+  return horizontal
+    ? length >= textWidth + needed && thickness >= VALUE_LABEL_FONT_SIZE + needed
+    : length >= VALUE_LABEL_FONT_SIZE + needed && thickness >= textWidth + needed;
+}
+
+// Parts of an entry stack up to one bar, their values sit inside the parts
+function stackedOptions(payload, horizontal) {
+  return {
+    scales: {
+      x: { stacked: true },
+      y: { stacked: true },
+    },
+    tooltip: {
+      callbacks: {
+        label: (context) => {
+          const percentage = share(context.raw, rowTotal(payload, context.dataIndex));
+          return `${context.dataset.label}: ${valueText(payload, context.datasetIndex, context.dataIndex)} (${percentage}%)`;
+        },
+      },
+    },
+    datalabels: {
+      anchor: 'center',
+      align: 'center',
+      padding: VALUE_LABEL_PADDING,
+      display: (context) => context.dataset.data[context.dataIndex] !== 0 && valueFitsInPart(payload, context, horizontal),
+      formatter: (_value, context) => valueText(payload, context.datasetIndex, context.dataIndex),
+    },
+  };
+}
+
 function barConfig(payload) {
   const horizontal = payload.type === 'bar_horizontal';
   const valueAxis = horizontal ? 'x' : 'y';
+  const stacked = payload.stacked ? stackedOptions(payload, horizontal) : null;
 
-  return {
+  const config = {
     type: 'bar',
     data: {
       labels: payload.labels,
@@ -204,6 +255,20 @@ function barConfig(payload) {
     },
     plugins: datalabelsPlugins(),
   };
+
+  if (stacked) {
+    const { options } = config;
+    // Values sit inside the parts, no room needed behind the bars
+    options.layout.padding = 0;
+    options.scales = {
+      x: { ...options.scales.x, ...stacked.scales.x },
+      y: { ...options.scales.y, ...stacked.scales.y },
+    };
+    options.plugins.tooltip = stacked.tooltip;
+    options.plugins.datalabels = stacked.datalabels;
+  }
+
+  return config;
 }
 
 // Chart.js configuration of a payload, for every type but the treemap

@@ -19,6 +19,28 @@ function barContext(width) {
   return { datasetIndex: 0, dataIndex: 0, chart: { getDatasetMeta: () => ({ data: [{ width }] }) } };
 }
 
+// Bug split into New (3) and Closed (1), Feature into New (1)
+function stackedPayload() {
+  return payload({
+    type: 'bar_horizontal',
+    stacked: true,
+    datasets: [
+      { label: 'New', data: [3, 1], urls: [null, null] },
+      { label: 'Closed', data: [1, 0], urls: [null, null] },
+    ],
+  });
+}
+
+// Context of the value label of the first part of a stacked horizontal bar
+function partContext(bar) {
+  return {
+    datasetIndex: 0,
+    dataIndex: 0,
+    dataset: { data: [3, 1] },
+    chart: { getDatasetMeta: () => ({ data: [{ getProps: () => bar }] }) },
+  };
+}
+
 // d3plus.Treemap is called with new and configured by chained calls. The mock
 // keeps the argument of each call.
 function mockTreemap() {
@@ -206,6 +228,44 @@ describe('chart configuration', () => {
     const label = config().options.plugins.tooltip.callbacks.label({ dataset: { label: 'Hours' }, datasetIndex: 0, dataIndex: 0 });
 
     expect(label).toBe('Hours: 3:00');
+  });
+
+  it('stacks the parts of a split entry', () => {
+    render(stackedPayload());
+
+    expect([config().options.scales.x.stacked, config().options.scales.y.stacked]).toEqual([true, true]);
+  });
+
+  it('keeps the axis title of stacked bars', () => {
+    render(stackedPayload());
+
+    expect(config().options.scales.x.title.text).toBe('Quantity');
+  });
+
+  it('shows the share of a part in its entry in the tooltip', () => {
+    render(stackedPayload());
+
+    const label = config().options.plugins.tooltip.callbacks.label({
+      dataset: { label: 'New' }, datasetIndex: 0, dataIndex: 0, raw: 3,
+    });
+
+    expect(label).toBe('New: 3 (75%)');
+  });
+
+  it('shows the value inside a part it fits in', () => {
+    render(stackedPayload());
+
+    const shown = config().options.plugins.datalabels.display(partContext({ x: 100, base: 0, height: 20 }));
+
+    expect(shown).toBe(true);
+  });
+
+  it('hides the value of a part too small for it', () => {
+    render(stackedPayload());
+
+    const shown = config().options.plugins.datalabels.display(partContext({ x: 4, base: 0, height: 20 }));
+
+    expect(shown).toBe(false);
   });
 
   it('draws a treemap with d3plus instead of Chart.js', () => {

@@ -13,6 +13,11 @@ class AdditionalsQueryChart < AdditionalsChart
   BAR_TYPES = %w[bar_horizontal bar_vertical].freeze
   ORDERS = %w[field value].freeze
   MEASURE_COUNT = 'count'
+  # Key of the entry or part that sums up the small values
+  OTHERS = :others
+  # A split shows a legend entry per part, about this many fit in a row
+  LEGEND_ENTRIES_PER_ROW = 4
+  LEGEND_ROW_HEIGHT = 25
   # Filter types of columns without categories: dates and numbers would need
   # ranges, text has no categories, trees and relations no single value.
   # Everything else is a list of some kind, also the autocomplete types of
@@ -23,8 +28,13 @@ class AdditionalsQueryChart < AdditionalsChart
                      total_estimated_hours estimated_remaining_hours].freeze
 
   # One slice of the chart, a row in the table of values. Each series links
-  # to the list of its own query.
-  Entry = Data.define :key, :label, :value, :compare_value, :url, :compare_url
+  # to the list of its own query. Split by a second column, the parts are the
+  # values per key of that column.
+  Entry = Data.define :key, :label, :value, :compare_value, :url, :compare_url, :parts, :part_urls do
+    def initialize(parts: {}, part_urls: {}, **)
+      super
+    end
+  end
 
   # Restricts a query to the default filters of its class on top of its own
   # filters. A filter of the same field cannot express that, it would replace
@@ -115,9 +125,48 @@ class AdditionalsQueryChart < AdditionalsChart
   end
 
   # A comparison is a second series next to the first one, which only bars
-  # and the table can show
+  # and the table can show. A split uses the series already.
   def compare?
-    compare_query.present? && (bar_chart? || table_only?)
+    compare_query.present? && (bar_chart? || table_only?) && !split?
+  end
+
+  # Each entry split by a second column, as stacked bars or a cross table.
+  # Two fields with multiple values would need two joins of their values.
+  def split?
+    return @split if defined? @split
+
+    @split = split_column.present? && (bar_chart? || table_only?) && split_column?(group_column) &&
+             !(multiple_values_column?(group_column) && multiple_values_column?(split_column))
+  end
+
+  def split_column
+    return if group_column.nil? || settings[:split_by].blank? || settings[:split_by] == settings[:group_by]
+
+    @split_column ||= split_columns.detect { |column| column.name.to_s == settings[:split_by] }
+  end
+
+  def split_columns
+    @split_columns ||= group_columns.select { |column| split_column? column }
+  end
+
+  def split_options
+    split_columns.map { |column| [column.caption, column.name.to_s] }
+                 .sort_by! { |caption, _name| caption.to_s.downcase }
+  end
+
+  # Keys of the second column in the order of its field, small ones summed up
+  # as OTHERS
+  def split_keys
+    entries
+    @split_keys || []
+  end
+
+  def split_total(key)
+    entries.sum { |entry| entry.parts[key] || 0 }
+  end
+
+  def split_label(key)
+    key == OTHERS ? l(:label_chart_others) : entry_label(key, split_column)
   end
 
   def group_column
@@ -128,7 +177,7 @@ class AdditionalsQueryChart < AdditionalsChart
 
   def measure_column
     return if query.nil? || settings[:measure].blank? || settings[:measure] == MEASURE_COUNT
-    return if multiple_values?
+    return if multiple_values? || (split? && multiple_values_column?(split_column))
 
     @measure_column ||= measure_columns(query).detect { |column| column.name.to_s == settings[:measure] }
   end
@@ -173,8 +222,26 @@ class AdditionalsQueryChart < AdditionalsChart
     @entries ||= build_entries
   end
 
+  # With multiple values an entry is part of several groups, the total still
+  # counts it once, like the list the chart links to
   def total
-    entries.sum(&:value)
+    @total ||= multiple_values? ? entry_count(query) : entries.sum(&:value)
+  end
+
+  def compare_total
+    @compare_total ||= multiple_values? ? entry_count(compare_query) : entries.sum(&:compare_value)
+  end
+
+  # The groups add up to more than the total, so do their shares
+  def counted_several_times?
+    multiple_values? && entries.sum(&:value) > total
+  end
+
+  # Split by a field with multiple values, the parts of an entry add up to
+  # more than the entry. Sums are rounded per part, so only counts tell.
+  def parts_counted_several_times?
+    split? && multiple_values_column?(split_column) &&
+      entries.any? { |entry| entry.parts.values.sum > entry.value }
   end
 
   def share(entry)
@@ -185,24 +252,32 @@ class AdditionalsQueryChart < AdditionalsChart
 
   # Data handed to the additionals-chart Stimulus controller
   def payload
-    datasets = [series_dataset(series_labels.first, :value, :url)]
-    datasets << series_dataset(series_labels.last, :compare_value, :compare_url) if compare?
-
     { type: chart_type,
       labels: entries.map(&:label),
-      datasets:,
+      datasets: payload_datasets,
+      stacked: split?,
       total: total.round(2),
       totalLabel: measure_label,
       colorSchema: color_schema }
   end
 
   def height
-    return CHART_DEFAULT_HEIGHT unless chart_type == 'bar_horizontal'
-
-    [calc_bar_height(entries.size, compare? ? 2 : 1) + 40, 150].max
+    bars_height = if chart_type == 'bar_horizontal'
+                    [calc_bar_height(entries.size, compare? ? 2 : 1) + 40, 150].max
+                  else
+                    CHART_DEFAULT_HEIGHT
+                  end
+    bars_height + legend_height
   end
 
   private
+
+  # Room for the legend of a split, which would squeeze the bars otherwise
+  def legend_height
+    return 0 unless split?
+
+    (split_keys.size.to_f / LEGEND_ENTRIES_PER_ROW).ceil * LEGEND_ROW_HEIGHT
+  end
 
   def entity_plural_label
     raise 'overwrite it'
@@ -241,8 +316,22 @@ class AdditionalsQueryChart < AdditionalsChart
     @default_filters_statement ||= query_class.new(name: '_').statement
   end
 
+  def payload_datasets
+    return split_keys.map { |key| split_dataset key } if split?
+
+    datasets = [series_dataset(series_labels.first, :value, :url)]
+    datasets << series_dataset(series_labels.last, :compare_value, :compare_url) if compare?
+    datasets
+  end
+
   def series_dataset(label, value, url)
     { label:, data: entries.map(&value), urls: entries.map(&url) }
+  end
+
+  def split_dataset(key)
+    { label: split_label(key),
+      data: entries.map { |entry| entry.parts[key] || 0 },
+      urls: entries.map { |entry| entry.part_urls[key] } }
   end
 
   # The columns to choose from, also if the query of the block was deleted
@@ -281,6 +370,14 @@ class AdditionalsQueryChart < AdditionalsChart
 
   # Hook for a subclass to adapt the query of the chart, not the list
   def prepare_query(_query); end
+
+  # Columns a split may group by together with the group column: those whose
+  # keys the base maps like core does. Columns of an own class may count their
+  # groups or turn their keys into values themselves (e.g. a workflow name for
+  # its id), which a grouping by two columns would bypass.
+  def split_column?(column)
+    column.instance_of?(QueryColumn) || column.is_a?(QueryCustomFieldColumn)
+  end
 
   # Columns a chart can sum up, the totals of the list by default
   def measure_columns(query)
@@ -323,6 +420,7 @@ class AdditionalsQueryChart < AdditionalsChart
 
     values = grouped_values query
     compare_values = compare? ? grouped_values(compare_query) : {}
+    split_values = split? ? split_values(query) : {}
 
     keys = values.keys | compare_values.keys
     keys.delete nil unless show_empty?
@@ -335,10 +433,145 @@ class AdditionalsQueryChart < AdditionalsChart
 
       Entry.new key:, label: entry_label(key), value:, compare_value:,
                 url: entry_url(query, key),
-                compare_url: compare? ? entry_url(compare_query, key) : nil
+                compare_url: compare? ? entry_url(compare_query, key) : nil,
+                parts: split_values.fetch(key, {})
     end
 
-    limit_entries sort_entries(entries)
+    entries = limit_entries sort_entries(entries)
+    split? ? split_entries(entries) : entries
+  end
+
+  # Parts below min_share of all parts become OTHERS, the parts link to the
+  # list filtered by both keys
+  def split_entries(entries)
+    sums = Hash.new 0
+    entries.each { |entry| entry.parts.each { |key, value| sums[key] += value } }
+    sums.delete nil unless show_empty?
+    preload_version_projects sums.keys
+
+    small = small_split_keys sums
+    @split_keys = sums.keys.sort_by { |key| field_sort_key key, split_column } - small
+    @split_keys << OTHERS if small.any?
+
+    entries.map do |entry|
+      parts = entry.parts.slice(*@split_keys)
+      others = entry.parts.slice(*small).values.sum
+      parts[OTHERS] = others if others.positive?
+      part_urls = entry.key == OTHERS ? {} : split_urls(entry, parts.keys)
+      entry.with parts:, part_urls:
+    end
+  end
+
+  def small_split_keys(sums)
+    min_share = settings[:min_share].to_f
+    total_sum = sums.values.sum
+    return [] unless min_share.positive? && total_sum.positive?
+
+    sums.select { |_key, value| value * 100.0 / total_sum < min_share }.keys
+  end
+
+  def split_urls(entry, keys)
+    keys.excluding(OTHERS).index_with { |key| entry_url query, entry.key, split_key: key }
+  end
+
+  # Values per key of the group and key of the split column
+  def split_values(query)
+    counts = if multiple_values_column?(group_column) || multiple_values_column?(split_column)
+               multiple_split_counts query
+             else
+               split_counts query
+             end
+    counts.each_with_object({}) do |((key, split_key), value), values|
+      (values[key] ||= {})[split_key] = value
+    end
+  end
+
+  # distinct: a query may join rows that repeat an entry, e.g. its projects
+  def split_counts(query)
+    columns = [group_column, split_column]
+    scope = query.base_scope
+    statements = columns.map { |column| group_statement query, column }
+    grouped = scope.joins(query_joins(query, statements))
+                   .group(*statements.map { |statement| group_sql scope.klass, statement })
+    values = measure_column ? query.send(:total_with_scope, measure_column, grouped) : grouped.distinct.count(:id)
+    map_split_keys scope.klass, values, columns.zip(statements)
+  end
+
+  # Each selected value counts, like the entries of a field with multiple values
+  def multiple_split_counts(query)
+    multiple, other = [group_column, split_column].partition { |column| multiple_values_column? column }.flatten
+    with_values = with_values_scope query, multiple.custom_field
+    statement = group_statement query, other
+    klass = with_values.klass
+    other_sql = group_sql klass, statement
+
+    counts = with_values.joins(query_joins(query, [statement]))
+                        .group(other_sql, CustomValue.arel_table[:value]).distinct.count(:id)
+                        .to_h { |(other_key, value), count| [[other_key, value], count] }
+    query.base_scope.where.not(id: with_values.select(:id))
+         .joins(query_joins(query, [statement]))
+         .group(other_sql).distinct.count(:id)
+         .each { |other_key, count| counts[[other_key, nil]] = count }
+
+    # Keys as [group, split]
+    counts = map_split_keys klass, counts, [[other, statement], [multiple, nil]]
+    return counts if other == group_column
+
+    counts.transform_keys(&:reverse)
+  end
+
+  # Statement of a column as the query groups by it. A query class may
+  # decide that itself, e.g. for columns of its own.
+  def group_statement(query, column)
+    group_by = query.group_by
+    query.group_by = column.name.to_s
+    query.group_by_statement
+  ensure
+    query.group_by = group_by
+  end
+
+  # Joins the statements need, e.g. the values of a custom field
+  def query_joins(query, statements)
+    query.send :joins_for_order_statement, statements.join(',')
+  end
+
+  # SQL to group by a statement. Grouped by a single column, ActiveRecord
+  # turns an association name into its records, grouped by two it does not:
+  # the foreign key is grouped by then, see map_split_keys. The class of the
+  # scope counts, not the one of the query (e.g. User for Principal).
+  def group_sql(klass, statement)
+    reflection = klass.reflect_on_association statement.to_sym
+    if reflection&.belongs_to?
+      "#{klass.table_name}.#{reflection.foreign_key}"
+    elsif klass.column_names.include? statement
+      "#{klass.table_name}.#{statement}"
+    else
+      statement
+    end
+  end
+
+  # Keys as records and cast values, like core returns the keys of one
+  # column. Each key is cast once, a user or version field loads its record.
+  def map_split_keys(klass, values, columns)
+    mappers = columns.each_with_index.map do |(column, statement), index|
+      split_key_mapper klass, column, statement, values.keys.pluck(index).uniq
+    end
+    # Keys that map to the same one, e.g. NULL and '' as no value, add up
+    values.each_with_object({}) do |(keys, value), mapped|
+      key = keys.each_with_index.map { |raw, index| mappers[index][raw] }
+      mapped[key] = (mapped[key] || 0) + value
+    end
+  end
+
+  def split_key_mapper(klass, column, statement, keys)
+    if column.is_a? QueryCustomFieldColumn
+      keys.index_with { |key| key.presence && column.custom_field.cast_value(key) }
+    elsif (reflection = klass.reflect_on_association statement.to_sym) && reflection.belongs_to?
+      records = reflection.klass.where(id: keys.compact).index_by(&:id)
+      keys.index_with { |key| records[key] }
+    else
+      keys.index_with { |key| key == '' ? nil : key }
+    end
   end
 
   # Versions of other projects are labeled with their project
@@ -351,48 +584,68 @@ class AdditionalsQueryChart < AdditionalsChart
     return multiple_values_counts query if multiple_values?
 
     values = measure_column ? query.total_by_group_for(measure_column) : query.result_count_by_group
-    values || {}
+    merge_blank_keys values || {}
+  end
+
+  # A column may hold NULL and an empty string for no value, the list shows
+  # both as one group without value
+  def merge_blank_keys(values)
+    return values unless values.key? ''
+
+    values = values.dup
+    blank = values.delete ''
+    values[nil] = (values[nil] || 0) + blank
+    values
   end
 
   # Each selected value counts, so an entry with two values is part of two groups
   def multiple_values_counts(query)
     custom_field = group_column.custom_field
-    custom_values = CustomValue.arel_table
-    with_values = query.base_scope
-                       .joins(:custom_values)
-                       .where(custom_values: { custom_field_id: custom_field.id })
-                       .where.not(custom_values: { value: [nil, ''] })
-                       # values of a field visible to some roles only, like core's grouping
-                       .where(custom_values_visibility(custom_field))
+    with_values = with_values_scope query
 
     # distinct: a query may join rows that repeat an entry, e.g. its projects
-    counts = with_values.group(custom_values[:value]).distinct.count(:id)
+    counts = with_values.group(CustomValue.arel_table[:value]).distinct.count(:id)
                         .transform_keys { |value| custom_field.cast_value value }
     without = query.base_scope.where.not(id: with_values.select(:id)).distinct.count(:id)
     counts[nil] = without if without.positive?
     counts
   end
 
+  def with_values_scope(query, custom_field = group_column.custom_field)
+    query.base_scope
+         .joins(:custom_values)
+         .where(custom_values: { custom_field_id: custom_field.id })
+         .where.not(custom_values: { value: [nil, ''] })
+         # values of a field visible to some roles only, like core's grouping
+         .where(custom_values_visibility(custom_field))
+  end
+
+  # Entries of the chart, each counted once
+  def entry_count(query)
+    scope = show_empty? ? query.base_scope : with_values_scope(query)
+    scope.distinct.count :id
+  end
+
   def sort_entries(entries)
     return entries.sort_by { |entry| -entry.value } if order == 'value'
 
-    entries.sort_by { |entry| field_sort_key entry.key }
+    entries.sort_by { |entry| field_sort_key entry.key, group_column }
   end
 
   # Order of the field itself: positions of statuses, trackers and
   # priorities, the possible values of a list, names otherwise. Entries
   # without a value come last.
-  def field_sort_key(key)
+  def field_sort_key(key, column)
     return [1, 0, ''] if key.nil?
 
-    [0, field_position(key), key.to_s.downcase]
+    [0, field_position(key, column), key.to_s.downcase]
   end
 
-  def field_position(key)
+  def field_position(key, column)
     if key.respond_to? :position
       key.position.to_i
-    elsif key.is_a?(String) && group_column.is_a?(QueryCustomFieldColumn)
-      group_column.custom_field.possible_values.index(key) || 0
+    elsif key.is_a?(String) && column.is_a?(QueryCustomFieldColumn)
+      column.custom_field.possible_values.index(key) || 0
     elsif key == false
       1
     else
@@ -415,32 +668,34 @@ class AdditionalsQueryChart < AdditionalsChart
     sort_entries(kept) << others_entry(others)
   end
 
-  # Entries with a share below min_share percent of the first series
+  # Entries with a share below min_share percent of the first series, the
+  # share as the table shows it
   def split_small_entries(entries)
     min_share = settings[:min_share].to_f
-    sum = entries.sum(&:value)
+    sum = multiple_values? ? total : entries.sum(&:value)
     return [entries, []] unless min_share.positive? && sum.positive?
 
     entries.partition { |entry| entry.value * 100.0 / sum >= min_share }
   end
 
   def others_entry(others)
-    Entry.new key: nil,
+    Entry.new key: OTHERS,
               label: l(:label_chart_others),
               value: others.sum(&:value),
               compare_value: others.sum(&:compare_value),
               url: nil,
-              compare_url: nil
+              compare_url: nil,
+              parts: others.map(&:parts).reduce({}) { |sum, parts| sum.merge(parts) { |_key, a, b| a + b } }
   end
 
-  def entry_label(key)
+  def entry_label(key, column = group_column)
     # Like the groups of the list the chart links to
     return "(#{l :label_blank_value})" if key.nil?
     # Versions of other projects carry the project, like format_version_name of core
     return key.to_s_with_project if key.is_a?(Version) && key.project != project
     return key.to_s if key.is_a? ActiveRecord::Base
 
-    filter_value_labels[entry_value(key)] || plain_label(key)
+    filter_value_labels(column)[entry_value(key)] || plain_label(key)
   end
 
   def plain_label(key)
@@ -462,9 +717,10 @@ class AdditionalsQueryChart < AdditionalsChart
 
   # Labels of values that are no records, e.g. yes and no or the status of a
   # project, as the filter of the column shows them
-  def filter_value_labels
-    @filter_value_labels ||= begin
-      filter_name = filter_name_for group_column
+  def filter_value_labels(column)
+    @filter_value_labels ||= {}
+    @filter_value_labels[column.name] ||= begin
+      filter_name = filter_name_for column
       values = filter_name ? query.available_filters[filter_name][:values] : nil
       Array(values).to_h { |label, value| [value.to_s, label.to_s] }
     end
@@ -473,35 +729,40 @@ class AdditionalsQueryChart < AdditionalsChart
   # Without a filter for the column, e.g. a custom field that is no filter,
   # the list cannot show the entries of a slice. Neither can it, if the
   # filters of the query and the default filters do not join into one.
-  def entry_url(query, key)
-    filter = filter_name_for group_column
-    return unless filter
+  # The link of a part filters by its key of the split column, too
+  def entry_url(query, key, **part)
+    keys = { group_column => key }
+    keys[split_column] = part[:split_key] if part.key? :split_key
+    key_filters = keys.transform_keys { |column| filter_name_for column }
+    return if key_filters.key? nil
 
-    filters = url_filters query, filter
+    filters = url_filters query, key_filters.keys
     return unless filters
 
     params = { set_filter: 1, f: [], op: {}, v: {} }
     filters.each do |field, (operator, values)|
-      add_url_filter params, field, operator, values unless field == filter
+      add_url_filter params, field, operator, values unless key_filters.key? field
     end
 
-    if key.nil?
-      add_url_filter params, filter, '!*', ['']
-    else
-      add_url_filter params, filter, '=', [entry_value(key)]
+    key_filters.each do |filter, filter_key|
+      if filter_key.nil?
+        add_url_filter params, filter, '!*', ['']
+      else
+        add_url_filter params, filter, '=', [entry_value(filter_key)]
+      end
     end
 
     list_path params
   end
 
   # The filters of the query, with open only joined with the default filters.
-  # The group field is left out, the slice sets it.
-  def url_filters(query, group_filter)
+  # The group fields are left out, the slice sets them.
+  def url_filters(query, key_filters)
     filters = query.filters.to_h { |field, options| [field, [options[:operator], Array(options[:values])]] }
     return filters unless open_only?
 
     default_filters.each do |field, options|
-      next if field == group_filter
+      next if key_filters.include? field
 
       default = [options[:operator], Array(options[:values])]
       filters[field] = filters.key?(field) ? join_url_filters(field, filters[field], default) : default

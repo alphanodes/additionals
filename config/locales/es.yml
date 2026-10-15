@@ -65,11 +65,14 @@ es:
   google_maps_embed_api_html: En caso de querer utilizar el macro Gmap para mostrar mapas de Google necesita ingresar su Clave de API de Google Maps aquí. Luego podrá utilizar el macro y varios parámetros. Mas información acerca de como utilizar estos parametros está disponible en <a href="https://developers.google.com/maps/documentation/embed/guide" class="external">https://developers.google.com/maps/documentation/embed/guide</a>. El macro Gmap funciona solamente si se ingresa esta clave.
   hidden_macros_in_toolbar_info: Todas las macros disponibles que el usuario conectado puede utilizar se enumeran mediante el botón de macros de la barra de herramientas wiki. Las macros marcadas aquí no se ofrecen para la selección. Esto permite restringir el alcance de la lista. Las macros ocultas se pueden seguir utilizando en el texto. Solo se quitan de esta lista, no se desactivan.
   info_chart_compare_query: "Segunda serie junto a la primera. Se muestra en los gráficos de barras y en la tabla de valores."
+  info_chart_counted_several_times: "Las entradas con varios valores cuentan en cada uno de ellos. El total cuenta cada entrada una sola vez, por eso las proporciones suman más del 100 %."
   info_chart_max_entries: "Muestra las entradas más grandes, el resto se agrupa como \"Otros\". Vacío o 0 muestra todas las entradas."
   info_chart_measure: "Los campos con valores múltiples siempre se cuentan."
   info_chart_min_share: "Las entradas con una proporción menor en porcentaje se agrupan como \"Otros\". Vacío o 0 no agrupa nada."
   info_chart_open_only: "Se aplica además de los filtros de la consulta."
+  info_chart_parts_counted_several_times: "Las entradas con varios valores cuentan en cada una de sus partes, por eso las partes de una barra suman más que su valor."
   info_chart_query: "Sin consulta se evalúan todas las entradas visibles."
+  info_chart_split_by: "Divide cada entrada según un segundo campo, como barras apiladas o tabla cruzada. No disponible en gráficos circulares ni en treemap, sustituye a la comparación."
   info_chart_with_table: "Se muestra junto al gráfico, siempre con la visualización Tabla."
   info_hidden_roles_html: Los roles ocultos sólo se pueden utilizar junto con la visibilidad del usuario "Miembros de proyectos visibles". Si el usuario no está en una función que sea visible para el usuario actual, esta función, que incluye al usuario, se oculta en la página de resumen del proyecto y en las listas de consulta.
   info_issue_hide_max_attachments: "Si se sobrepasa el número de archivos introducidos aquí, todos los archivos adjuntos de una incidencia se muestran ocultos."
@@ -100,6 +103,7 @@ es:
   label_chart_order_value: "Mayor valor primero"
   label_chart_others: "Otros"
   label_chart_show_empty: "Mostrar entradas sin valor"
+  label_chart_split_by: "Dividir por"
   label_chart_type_bar_horizontal: "Barras horizontales"
   label_chart_type_bar_vertical: "Barras verticales"
   label_chart_type_doughnut: "Anillo"

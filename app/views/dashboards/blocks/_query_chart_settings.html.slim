@@ -29,6 +29,13 @@
                                   required: true,
                                   tag_name: tag_name.call(:group_by)
   p
+    = additionals_settings_select :split_by,
+                                  options_for_select(chart.split_options, settings[:split_by]),
+                                  label: :label_chart_split_by,
+                                  include_blank: true,
+                                  tag_name: tag_name.call(:split_by)
+    em.info = l :info_chart_split_by
+  p
     = additionals_settings_select :measure,
                                   options_for_select(chart.measure_options, settings[:measure]),
                                   label: :label_chart_measure,

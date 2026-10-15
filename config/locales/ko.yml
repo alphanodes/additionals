@@ -65,11 +65,14 @@ ko:
   google_maps_embed_api_html: 'Goole지도를 표시하기 위해 Gmap 매크로를 사용하려는 경우 여기에 Google Maps API 키를 구현하십시오. 그 후 매크로 및 다양한 매개 변수를 사용할 수 있습니다. 매개 변수를 사용하는 방법에 대한 자세한 내용은 <a href="https://developers.google.com/maps/documentation/embed/guide" class="external">https://developers.google.com/maps/documentation/embed/guide</a>. Gmap 매크로는 여기에 포함 된 키와 조합해서 만 작동합니다.'
   hidden_macros_in_toolbar_info: 로그인 한 사용자가 사용할 수있는 모든 매크로가 위키 도구 모음의 매크로 버튼을 통해 나열됩니다. 여기에 표시된 매크로는 선택할 수 없습니다. 이를 통해 목록의 범위를 제한 할 수 있습니다. 숨긴 매크로는 텍스트에서 계속 사용할 수 있습니다. 이 목록에서만 제외될 뿐 비활성화되지 않습니다.
   info_chart_compare_query: "첫 번째 계열 옆에 표시되는 두 번째 계열입니다. 막대 차트와 값 테이블에 표시됩니다."
+  info_chart_counted_several_times: "여러 값을 가진 항목은 각 값마다 집계됩니다. 합계는 각 항목을 한 번만 세므로 비율의 합이 100%를 넘습니다."
   info_chart_max_entries: "가장 큰 항목을 표시하고 나머지는 \"기타\"로 합산합니다. 비어 있거나 0이면 모든 항목을 표시합니다."
   info_chart_measure: "여러 값을 가진 필드는 항상 개수로 집계됩니다."
   info_chart_min_share: "비율(%)이 이 값보다 작은 항목은 \"기타\"로 합산합니다. 비어 있거나 0이면 합산하지 않습니다."
   info_chart_open_only: "쿼리의 필터에 추가로 적용됩니다."
+  info_chart_parts_counted_several_times: "여러 값을 가진 항목은 각 부분마다 집계되므로 막대 부분의 합이 막대 값보다 큽니다."
   info_chart_query: "쿼리가 없으면 표시 가능한 모든 항목이 집계됩니다."
+  info_chart_split_by: "각 항목을 두 번째 필드로 나누어 누적 막대 또는 교차 표로 표시합니다. 원형 차트와 트리맵에서는 사용할 수 없으며 비교를 대신합니다."
   info_chart_with_table: "차트 옆에 표시됩니다. 표시 형식이 '표'이면 항상 표시됩니다."
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". 사용자가 현재 사용자에게 보이는 역할이 아닌 경우 사용자를 포함한이 역할은 프로젝트 개요 페이지와 쿼리 목록에서 숨겨집니다.
   info_issue_hide_max_attachments: "여기에 입력한 파일 수를 초과하는 경우 이슈의 모든 첨부 파일이 숨겨져 표시됩니다."
@@ -100,6 +103,7 @@ ko:
   label_chart_order_value: "큰 값 우선"
   label_chart_others: "기타"
   label_chart_show_empty: "값이 없는 항목 표시"
+  label_chart_split_by: "분할 기준"
   label_chart_type_bar_horizontal: "가로 막대"
   label_chart_type_bar_vertical: "세로 막대"
   label_chart_type_doughnut: "도넛"

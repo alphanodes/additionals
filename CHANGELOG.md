@@ -2,7 +2,7 @@
 
 ## 4.7.0
 
-- New base for query chart blocks: `AdditionalsQueryChart` shows how the entries of any query spread over the values of a column as doughnut, pie, bars, treemap or table, counted or summed up, with comparison query, top entries, small values summed up and links into the filtered list. A plugin defines such a block with `dashboard_block`, the `additionals-chart` Stimulus controller draws it
+- New base for query chart blocks: `AdditionalsQueryChart` shows how the entries of any query spread over the values of a column as doughnut, pie, bars, treemap or table, counted or summed up, split by a second column as stacked bars or cross table, with comparison query, top entries, small values summed up and links into the filtered list. A plugin defines such a block with `dashboard_block`, the `additionals-chart` Stimulus controller draws it
 - Query chart blocks offer to apply the default filters of the query class, e.g. open issues or valid entries, if the chart names them. `Additionals::DashboardBlockReplacer` replaces dashboard blocks in migrations
 - `AdditionalsHelpers.loadLibrary(name)` loads a library of the asset loader on demand in the browser, once per page, e.g. for a dashboard block that needs it only with certain settings
 - Code reloading in development keeps working when a helper is named like a template with a deface override (e.g. `foo_wiki_edit_data` for `wiki/edit`). Before, Deface took such a helper for a compiled template and the reload stopped halfway

@@ -65,11 +65,14 @@ de:
   google_maps_embed_api_html: Wenn Du das Gmap Makro verwenden willst um Google Karten darzustellen, musst Du hier Deinen Google Maps Embed API Schlüssel eintragen. Mehr Informationen dazu findest Du unter <a href="https://developers.google.com/maps/documentation/embed/guide" class="external">https://developers.google.com/maps/documentation/embed/guide</a>. Wird hier kein Schlüssel eingetragen, kann das gmap Makro nicht verwendet werden.
   hidden_macros_in_toolbar_info: Alle verfügbaren Makros, die der angemeldete Benutzer verwenden kann, werden über den Makro-Button der Wiki-Toolbar aufgelistet. Hier markierte Makros werden nicht zur Auswahl angeboten. Damit lässt sich der Listenumfang einschränken. Versteckte Makros bleiben im Text weiterhin nutzbar. Sie werden nur aus dieser Liste entfernt, nicht deaktiviert.
   info_chart_compare_query: "Zweite Datenreihe neben der ersten. Wird bei Balken und in der Wertetabelle angezeigt."
+  info_chart_counted_several_times: "Einträge mit mehreren Werten zählen bei jedem ihrer Werte. Der Gesamtwert zählt jeden Eintrag einmal, die Anteile ergeben deshalb zusammen mehr als 100 %."
   info_chart_max_entries: "Zeigt die größten Einträge, der Rest wird als \"Sonstige\" zusammengefasst. Leer oder 0 zeigt alle Einträge."
   info_chart_measure: "Felder mit Mehrfachauswahl werden immer gezählt."
   info_chart_min_share: "Einträge mit einem kleineren Anteil in Prozent werden als \"Sonstige\" zusammengefasst. Leer oder 0 fasst nichts zusammen."
   info_chart_open_only: "Wirkt zusätzlich zu den Filtern der Abfrage."
+  info_chart_parts_counted_several_times: "Einträge mit mehreren Werten zählen in jedem ihrer Teile, die Teile eines Balkens ergeben deshalb mehr als seinen Wert."
   info_chart_query: "Ohne Abfrage werden alle sichtbaren Einträge ausgewertet."
+  info_chart_split_by: "Teilt jeden Eintrag nach einem zweiten Feld auf, als gestapelte Balken oder Kreuztabelle. Nicht bei Ring-, Kreisdiagramm und Treemap, ersetzt den Vergleich."
   info_chart_with_table: "Wird neben dem Diagramm angezeigt, bei der Darstellung Tabelle immer."
   info_hidden_roles_html: Versteckte Rollen können nur zusammen mit der Benutzersichtbarkeit "Mitglieder von sichtbaren Projekten" verwendet werden. Diese Option funktioniert nur, wenn der Benutzer in keiner Rolle ist die für den aktuellen Benutzer sichtbar ist. Passt alles wird diese Rolle inklusive Benutzer auf der Projektübersichtsseite und in Abfragelisten ausgeblendet.
   info_issue_hide_max_attachments: Wird die hier angegebene Anzahl überschritten, werden alle Dateianhänge im Ticket eingeklappt/versteckt dargestellt.
@@ -100,6 +103,7 @@ de:
   label_chart_order_value: "Größter Wert zuerst"
   label_chart_others: "Sonstige"
   label_chart_show_empty: "Einträge ohne Wert anzeigen"
+  label_chart_split_by: "Aufteilen nach"
   label_chart_type_bar_horizontal: "Balken horizontal"
   label_chart_type_bar_vertical: "Balken vertikal"
   label_chart_type_doughnut: "Ringdiagramm"

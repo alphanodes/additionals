@@ -68,12 +68,80 @@ class AdditionalsQueryChartTest < Additionals::TestCase
     assert_equal ['B', nil], chart.entries.map(&:key)
   end
 
+  # The total matches the list the chart links to, an entry counts once
+
+  def test_a_field_with_multiple_values_counts_each_entry_once_in_the_total
+    field = multiple_list_field
+    add_values field, issues(:issues_001), %w[A B]
+    add_values field, issues(:issues_002), %w[A]
+
+    assert_equal 2, issue_chart(group_by: "cf_#{field.id}", show_empty: '0').total
+  end
+
+  def test_total_of_a_field_with_multiple_values_includes_entries_without_value
+    field = multiple_list_field
+    add_values field, issues(:issues_001), %w[A B]
+
+    with_settings display_subprojects_issues: '0' do
+      assert_equal Issue.where(project: @project).count, issue_chart(group_by: "cf_#{field.id}").total
+    end
+  end
+
+  def test_share_of_a_field_with_multiple_values_refers_to_the_entries
+    field = multiple_list_field
+    add_values field, issues(:issues_001), %w[A B]
+    add_values field, issues(:issues_002), %w[A]
+    chart = issue_chart group_by: "cf_#{field.id}", show_empty: '0'
+
+    assert_equal 100, chart.share(chart.entries.detect { |entry| entry.key == 'A' })
+  end
+
+  def test_compare_total_of_a_field_with_multiple_values_counts_each_entry_once
+    field = multiple_list_field
+    add_values field, issues(:issues_001), %w[A B]
+    query = IssueQuery.create! name: 'Compare', user: users(:users_001), project: @project,
+                               visibility: Query::VISIBILITY_PUBLIC, filters: { 'status_id' => { operator: '*', values: [''] } }
+    chart = issue_chart group_by: "cf_#{field.id}", show_empty: '0', chart_type: 'bar_horizontal', compare_query_id: query.id.to_s
+
+    assert_equal 1, chart.compare_total
+  end
+
+  def test_entries_counted_several_times_are_recognized
+    field = multiple_list_field
+    add_values field, issues(:issues_001), %w[A B]
+
+    assert_predicate issue_chart(group_by: "cf_#{field.id}"), :counted_several_times?
+  end
+
+  def test_entries_with_one_value_each_are_not_counted_several_times
+    field = multiple_list_field
+    add_values field, issues(:issues_001), %w[A]
+
+    assert_not_predicate issue_chart(group_by: "cf_#{field.id}"), :counted_several_times?
+  end
+
+  def test_min_share_of_a_field_with_multiple_values_refers_to_the_entries
+    field = multiple_list_field
+    add_values field, issues(:issues_001), %w[A B]
+    add_values field, issues(:issues_002), %w[A]
+
+    # B has 1 of 2 entries (50 %), but only 1 of 3 values
+    keys = issue_chart(group_by: "cf_#{field.id}", show_empty: '0', min_share: '40').entries.map(&:key)
+
+    assert_equal %w[A B], keys
+  end
+
   # A sum would count an entry once for each of its values
 
   def test_a_field_with_multiple_values_is_always_counted
     field = multiple_list_field
 
     assert_nil issue_chart(group_by: "cf_#{field.id}", measure: 'estimated_hours').measure_column
+  end
+
+  # The list shows NULL and an empty string as one group without value
+  def test_an_empty_string_counts_as_no_value
+    assert_equal({ nil => 3, 'A' => 1 }, issue_chart.send(:merge_blank_keys, { nil => 1, '' => 2, 'A' => 1 }))
   end
 
   def test_entries_without_value_can_be_hidden
@@ -116,7 +184,7 @@ class AdditionalsQueryChartTest < Additionals::TestCase
     entries = issue_chart(group_by: 'tracker').entries
     share = smallest_share(entries) + 0.1
     expected = entries.select { |entry| entry.value * 100.0 / entries.sum(&:value) < share }.sum(&:value)
-    others = issue_chart(group_by: 'tracker', min_share: share.to_s).entries.detect { |entry| entry.key.nil? }
+    others = issue_chart(group_by: 'tracker', min_share: share.to_s).entries.detect { |entry| entry.key == AdditionalsQueryChart::OTHERS }
 
     assert_equal expected, others&.value
   end
@@ -141,7 +209,7 @@ class AdditionalsQueryChartTest < Additionals::TestCase
     largest_share = entries.map(&:value).max * 100.0 / entries.sum(&:value)
     limited = issue_chart group_by: 'tracker', min_share: (largest_share - 0.1).to_s, max_entries: '5'
 
-    assert_equal [entries.max_by(&:value).key, nil], limited.entries.map(&:key)
+    assert_equal [entries.max_by(&:value).key, AdditionalsQueryChart::OTHERS], limited.entries.map(&:key)
   end
 
   def test_open_only_is_offered_with_a_label_for_default_filters

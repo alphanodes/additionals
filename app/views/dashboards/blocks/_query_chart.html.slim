@@ -15,8 +15,12 @@
               - unless chart.treemap?
                 canvas data-additionals-chart-target='canvas'
         - if chart.with_table?
-          .additionals-table-of-values
+          .additionals-table-of-values class=('cross-table' if chart.split?)
             = render 'dashboards/blocks/query_chart_table', chart:
       .clear-both
+      - if chart.counted_several_times?
+        em.info = l :info_chart_counted_several_times
+      - elsif chart.parts_counted_several_times?
+        em.info = l :info_chart_parts_counted_several_times
   - else
     p.nodata = l :label_no_data

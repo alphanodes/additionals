@@ -531,6 +531,7 @@ class DashboardsControllerTest < Additionals::ControllerTest
                    settings: { 'news' => { 'max_entries' => '10' } } }
 
     assert_response :success
+    assert_includes response.body, 'eCookbook first release'
     assert_not_includes response.body, 'News on a private project'
   end
 

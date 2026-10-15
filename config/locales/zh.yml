@@ -66,6 +66,7 @@ zh:
   hidden_macros_in_toolbar_info: 登录用户可以使用的所有可用宏都可通过 Wiki 页面工具栏 的 宏 按钮列出。请在此处选择不希望列出的宏。隐藏的宏仍可在文本中使用。它们只是从此列表中移除，并未被禁用。
   info_chart_compare_query: "与第一个数据系列并列显示的第二个数据系列。在条形图、折线图和数值表中显示。"
   info_chart_counted_several_times: "具有多个值的条目会在每个值中计算。总计只计算每个条目一次，因此占比合计会超过 100%。"
+  info_chart_description: "显示在标题下方。可以使用 Wiki 格式，例如指向 Wiki 页面或问题的链接。"
   info_chart_max_entries: "显示最大的条目，其余条目合并为\"其他\"。日期字段显示最近的期间。留空或 0 显示所有条目。"
   info_chart_measure: "多选字段始终计数。"
   info_chart_min_share: "占比（百分比）低于此值的条目合并为\"其他\"，日期字段仅合并拆分的部分。留空或 0 不合并。"

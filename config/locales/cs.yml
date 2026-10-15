@@ -66,6 +66,7 @@ cs:
   hidden_macros_in_toolbar_info: "Všechna dostupná makra, která může přihlášený uživatel použít, jsou uvedena prostřednictvím tlačítka makro na panelu nástrojů wiki. Makra zde označená nejsou nabízena k výběru. To vám umožní omezit rozsah seznamu. Skrytá makra lze v textu nadále používat. Jsou pouze odebrána z tohoto seznamu, nejsou deaktivována."
   info_chart_compare_query: "Druhá řada vedle první. Zobrazuje se ve sloupcových a čárových grafech a v tabulce hodnot."
   info_chart_counted_several_times: "Položky s více hodnotami se počítají u každé z nich. Celkem počítá každou položku jednou, proto podíly dávají dohromady více než 100 %."
+  info_chart_description: "Zobrazí se pod nadpisem. Je možné wiki formátování, např. odkazy na wiki stránky nebo úkoly."
   info_chart_max_entries: "Zobrazí největší položky, zbytek se sečte jako \"Ostatní\". U datového pole poslední období. Prázdné nebo 0 zobrazí všechny položky."
   info_chart_measure: "Pole s více hodnotami se vždy počítají."
   info_chart_min_share: "Položky s menším podílem v procentech se sečtou jako \"Ostatní\", u datového pole pouze části rozdělení. Prázdné nebo 0 nic neslučuje."

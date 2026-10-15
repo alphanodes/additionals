@@ -2,6 +2,8 @@
   - chart = block_definition[:query_chart][:class].new project: @project, settings: settings
 
   h3 = settings[:title].presence || chart.title
+  - if settings[:description].present?
+    .wiki.query-description = textilizable settings[:description]
 
   - if chart.valid?
     .additionals-block.additionals-query-chart
@@ -22,5 +24,6 @@
         em.info = l :info_chart_counted_several_times
       - elsif chart.parts_counted_several_times?
         em.info = l :info_chart_parts_counted_several_times
+      = query_chart_query_descriptions chart
   - else
     p.nodata = l :label_no_data

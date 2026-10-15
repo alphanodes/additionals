@@ -195,6 +195,11 @@ class AdditionalsQueryChart < AdditionalsChart
     period_field.present?
   end
 
+  # Name of the date the period applies to, as its filter names it
+  def period_caption
+    options_query.available_filters[period_field]&.[](:name) if period_supported?
+  end
+
   # A timeline shows its periods itself
   def period
     period_supported? && !timeline? && PERIODS.key?(settings[:period]) ? settings[:period] : nil
@@ -306,8 +311,20 @@ class AdditionalsQueryChart < AdditionalsChart
     parts = [query&.persisted? ? query.name : l(entity_plural_label)]
     parts << group_column.caption if group_column
     parts << split_column.caption if split?
-    parts << l(PERIOD_LABELS[period]) if period
+    parts << "#{period_caption}: #{l PERIOD_LABELS[period]}" if period
     parts.join Additionals::LIST_SEPARATOR
+  end
+
+  # Saved queries of the chart with a description, which tells the reader
+  # where the values come from
+  def described_queries
+    queries = [query]
+    queries << compare_query if compare? && !previous_period? && compare_query.id != query&.id
+    queries.select { |series_query| series_query&.persisted? && series_query.description.present? }
+  end
+
+  def query_url(query)
+    list_path query_id: query.id
   end
 
   # Compared with the period before, both series are named by their period

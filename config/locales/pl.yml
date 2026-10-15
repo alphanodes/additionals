@@ -66,6 +66,7 @@ pl:
   hidden_macros_in_toolbar_info: "Wszystkie dostępne makra, których może używać zalogowany użytkownik, są wymienione za pomocą przycisku makro na pasku narzędzi wiki. Makra zaznaczone tutaj nie są oferowane do wyboru. Pozwala to na ograniczenie zakresu listy. Ukrytych makr nadal można używać w tekście. Są jedynie usuwane z tej listy, a nie wyłączane."
   info_chart_compare_query: "Druga seria obok pierwszej. Wyświetlana na wykresach słupkowych i liniowych oraz w tabeli wartości."
   info_chart_counted_several_times: "Wpisy z kilkoma wartościami liczą się przy każdej z nich. Suma liczy każdy wpis raz, dlatego udziały łącznie przekraczają 100 %."
+  info_chart_description: "Wyświetlany pod tytułem. Możliwe jest formatowanie wiki, np. odnośniki do stron wiki lub zagadnień."
   info_chart_max_entries: "Pokazuje największe wpisy, pozostałe są sumowane jako \"Inne\". Dla pola daty ostatnie okresy. Puste lub 0 pokazuje wszystkie wpisy."
   info_chart_measure: "Pola z wieloma wartościami są zawsze liczone."
   info_chart_min_share: "Wpisy o mniejszym udziale procentowym są sumowane jako \"Inne\", dla pola daty tylko części podziału. Puste lub 0 niczego nie łączy."

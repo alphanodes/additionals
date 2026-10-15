@@ -340,6 +340,27 @@ class AdditionalsQueryChartTest < Additionals::TestCase
     assert_not_includes group_names(chart), "issue.cf_#{field.id}"
   end
 
+  def test_described_queries_contain_a_saved_query_with_description
+    query = IssueQuery.create! name: 'Bugs', description: 'Bugs of the team', user: users(:users_001),
+                               visibility: Query::VISIBILITY_PUBLIC
+
+    assert_equal [query], issue_chart(group_by: 'tracker', query_id: query.id.to_s).described_queries
+  end
+
+  def test_described_queries_skip_a_query_without_description
+    query = IssueQuery.create! name: 'Bugs', user: users(:users_001), visibility: Query::VISIBILITY_PUBLIC
+
+    assert_empty issue_chart(group_by: 'tracker', query_id: query.id.to_s).described_queries
+  end
+
+  def test_described_queries_contain_the_compared_query
+    query = IssueQuery.create! name: 'Last year', description: 'Created last year', user: users(:users_001),
+                               visibility: Query::VISIBILITY_PUBLIC
+    chart = issue_chart group_by: 'tracker', compare_query_id: query.id.to_s, chart_type: 'bar_vertical'
+
+    assert_equal [query], chart.described_queries
+  end
+
   def test_default_measure_sums_up_a_column
     chart = Class.new(Additionals::TestIssueQueryChart) { def default_measure = 'estimated_hours' }
                  .new project: @project, settings: { group_by: 'tracker' }

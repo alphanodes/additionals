@@ -83,8 +83,8 @@ class AdditionalsQueryChartPeriodTest < Additionals::TestCase
     end
   end
 
-  def test_title_names_the_period
-    assert_includes period_chart(period: 'm').title, ::I18n.t(:label_this_month)
+  def test_title_names_the_date_and_the_period
+    assert_includes period_chart(period: 'm').title, "#{::I18n.t :field_created_on}: #{::I18n.t :label_this_month}"
   end
 
   def test_previous_period_needs_a_period

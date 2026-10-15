@@ -63,6 +63,27 @@ class AdditionalsQueryChartHelperTest < Additionals::HelperTest
     assert_equal AdditionalsQueryChart::PREVIOUS_PERIOD, Nokogiri::HTML.fragment(html).css('option')[1]['value']
   end
 
+  # The label tells which date the period applies to
+  def test_settings_form_names_the_date_of_the_period
+    html = render_settings_form Additionals::TestPeriodIssueQueryChart
+
+    assert_includes Nokogiri::HTML.fragment(html).at_css('label[for="settings_chart_period"]').text, ::I18n.t(:field_created_on)
+  end
+
+  def test_query_descriptions_link_the_query
+    query = IssueQuery.create! name: 'Bugs', description: 'Bugs of the team', user: users(:users_001),
+                               visibility: Query::VISIBILITY_PUBLIC
+    chart = Additionals::TestIssueQueryChart.new project: projects(:projects_001),
+                                                 settings: { group_by: 'tracker', query_id: query.id.to_s }
+    html = Nokogiri::HTML.fragment @redmine_view.query_chart_query_descriptions(chart)
+
+    assert_equal 'Bugs', html.at_css(".query-chart-query-description a[href*='query_id=#{query.id}']").text
+  end
+
+  def test_settings_form_offers_a_description
+    assert_not_empty Nokogiri::HTML.fragment(render_settings_form).css('textarea[name="settings[chart][description]"]')
+  end
+
   def test_table_of_values_lists_the_entries
     chart = Additionals::TestIssueQueryChart.new project: projects(:projects_001), settings: { group_by: 'tracker' }
     html = @redmine_view.render partial: 'dashboards/blocks/query_chart_table', locals: { chart: }
@@ -82,10 +103,10 @@ class AdditionalsQueryChartHelperTest < Additionals::HelperTest
   private
 
   # The form is part of the dashboard pages and rendered with their helpers
-  def render_settings_form
+  def render_settings_form(chart_class = Additionals::TestIssueQueryChart)
     build_redmine_view(WelcomeController).render partial: 'dashboards/blocks/query_chart_settings',
                                                  locals: { block: 'chart',
                                                            settings: {},
-                                                           block_definition: { query_chart: { class: Additionals::TestIssueQueryChart } } }
+                                                           block_definition: { query_chart: { class: chart_class } } }
   end
 end

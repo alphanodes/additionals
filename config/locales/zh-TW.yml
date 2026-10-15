@@ -66,6 +66,7 @@
   hidden_macros_in_toolbar_info: All available macros that the logged in user can use are listed via the macro button of the wiki toolbar. Macros marked here are not offered for selection. This allows you to limit the scope of the list. Hidden macros remain usable in the text. They are only removed from this list, not disabled.
   info_chart_compare_query: "與第一個資料系列並列顯示的第二個資料系列。在長條圖、折線圖和數值表中顯示。"
   info_chart_counted_several_times: "具有多個值的項目會在每個值中計算。總計只計算每個項目一次，因此占比合計會超過 100%。"
+  info_chart_description: "顯示在標題下方。可以使用 Wiki 格式，例如連結到 Wiki 頁面或議題。"
   info_chart_max_entries: "顯示最大的項目，其餘項目合併為「其他」。日期欄位顯示最近的期間。留空或 0 顯示所有項目。"
   info_chart_measure: "多選欄位一律計數。"
   info_chart_min_share: "占比（百分比）低於此值的項目合併為「其他」，日期欄位僅合併拆分的部分。留空或 0 不合併。"

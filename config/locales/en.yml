@@ -66,6 +66,7 @@ en:
   hidden_macros_in_toolbar_info: All available macros that the logged in user can use are listed via the macro button of the wiki toolbar. Macros marked here are not offered for selection. This allows you to limit the scope of the list. Hidden macros remain usable in the text. They are only removed from this list, not disabled.
   info_chart_compare_query: "Second series next to the first one. Shown in bar and line charts and in the table of values."
   info_chart_counted_several_times: "Entries with several values count for each of them. The total counts every entry once, so the shares add up to more than 100 %."
+  info_chart_description: "Shown below the title. Wiki formatting is possible, e.g. links to wiki pages or issues."
   info_chart_max_entries: "Shows the largest entries, the rest is summed up as \"Others\". For a date field the latest periods. Empty or 0 shows all entries."
   info_chart_measure: "Fields with multiple values are always counted."
   info_chart_min_share: "Entries with a smaller share in percent are summed up as \"Others\", for a date field only the parts of a split. Empty or 0 combines nothing."

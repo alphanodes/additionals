@@ -13,6 +13,10 @@
                                      placeholder: chart.title,
                                      tag_name: tag_name.call(:title)
   p
+    = label_tag tag_name.call(:description), l(:field_description)
+    = text_area_tag tag_name.call(:description), settings[:description], rows: 3, class: 'wiki-edit'
+    em.info = l :info_chart_description
+  p
     = additionals_settings_select :query_id,
                                   options_for_query_select(chart.query_class, @project, settings[:query_id]),
                                   label: :label_query,
@@ -41,7 +45,7 @@
     p data-additionals-chart-settings-target='period'
       = additionals_settings_select :period,
                                     options_for_query_chart_period(settings[:period]),
-                                    label: :label_chart_period,
+                                    label: "#{l :label_chart_period} (#{chart.period_caption})",
                                     tag_name: tag_name.call(:period),
                                     data: { additionals_chart_settings_target: 'periodSelect',
                                             action: 'additionals-chart-settings#update' }

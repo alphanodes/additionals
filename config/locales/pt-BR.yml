@@ -66,6 +66,7 @@ pt-BR:
   hidden_macros_in_toolbar_info: "Todas as macros disponíveis que o usuário logado pode usar são listadas através do botão de macro da barra de ferramentas do wiki. As macros aqui marcadas não são oferecidas para seleção. Isto permite limitar o escopo da lista. As macros escondidas continuam utilizáveis no texto. Elas são apenas removidas desta lista, não desativadas."
   info_chart_compare_query: "Segunda série ao lado da primeira. Exibida nos gráficos de barras e de linhas e na tabela de valores."
   info_chart_counted_several_times: "Entradas com vários valores contam em cada um deles. O total conta cada entrada uma única vez, por isso as participações somam mais de 100 %."
+  info_chart_description: "Exibida abaixo do título. É possível usar formatação wiki, p. ex. links para páginas wiki ou tarefas."
   info_chart_max_entries: "Mostra as maiores entradas, o restante é agrupado como \"Outros\". Em um campo de data, os últimos períodos. Vazio ou 0 mostra todas as entradas."
   info_chart_measure: "Campos com múltiplos valores são sempre contados."
   info_chart_min_share: "Entradas com participação percentual menor são agrupadas como \"Outros\", em um campo de data somente as partes da divisão. Vazio ou 0 não agrupa nada."

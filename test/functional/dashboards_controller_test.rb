@@ -516,6 +516,24 @@ class DashboardsControllerTest < Additionals::ControllerTest
     assert_not_includes response.body, 'News on a private project'
   end
 
+  # A dashboard bound to a project has to scope its blocks to that project
+  # after saving block settings, as it does on the project overview page.
+  def test_update_layout_setting_scopes_news_block_of_project_bound_dashboard
+    @request.session[:user_id] = 1
+    @request.headers['Accept'] = 'text/html'
+    @request.headers['X-Requested-With'] = 'XMLHttpRequest'
+
+    dashboard = dashboards :private_project
+
+    post :update_layout_setting,
+         params: { id: dashboard.id,
+                   project_id: 'ecookbook',
+                   settings: { 'news' => { 'max_entries' => '10' } } }
+
+    assert_response :success
+    assert_not_includes response.body, 'News on a private project'
+  end
+
   def test_update_layout_setting_scopes_news_block_via_content_project_id_param
     @request.session[:user_id] = 1
     @request.headers['Accept'] = 'text/html'

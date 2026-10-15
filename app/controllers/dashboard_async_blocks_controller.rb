@@ -64,6 +64,7 @@ class DashboardAsyncBlocksController < ApplicationController
     else
       @project = @dashboard.project
       deny_access if @project.present? && !User.current.allowed_to?(:view_project, @project)
+      @dashboard.content_project = @project
     end
 
     @can_edit = @dashboard&.editable?

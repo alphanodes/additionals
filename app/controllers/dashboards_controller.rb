@@ -255,10 +255,11 @@ class DashboardsController < ApplicationController
       else
         find_project_by_project_id
       end
-      @dashboard.content_project = @project
     else
       @project = @dashboard.project
     end
+    # blocks read the project from content_project, also on a project bound dashboard
+    @dashboard.content_project = @project
 
     @can_edit = @dashboard&.editable?
   rescue ActiveRecord::RecordNotFound

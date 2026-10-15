@@ -8,6 +8,7 @@
 - Code reloading in development keeps working when a helper is named like a template with a deface override (e.g. `foo_wiki_edit_data` for `wiki/edit`). Before, Deface took such a helper for a compiled template and the reload stopped halfway
 - Dashboard layout and block settings can only be changed by users who may edit the dashboard. Before, everyone who could see a public dashboard could change its block settings, add, remove and reorder blocks
 - Dashboard blocks added or saved without a page reload run their scripts and find the libraries they need, e.g. the editor toolbar of text blocks, charts or settings that show or hide fields depending on a selection
+- Saving block settings of a dashboard for a single project keeps the news and spent time blocks limited to that project. Before, they showed entries of all projects until the next page reload
 - Creating or changing a dashboard with an unknown dashboard type shows a validation error instead of failing with a server error
 - Dashboard blocks can drop settings on save with the new block option `settings_filter`, e.g. those the current user may not change. `required_settings` of async blocks also accepts a proc
 - The assignee group filter of entity lists built on additionals queries filters by assignee. It used the author before

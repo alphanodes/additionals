@@ -11,6 +11,12 @@ import { Controller } from '@hotwired/stimulus';
 //   </template>
 //
 // Supported actions: replace, prepend, append, inner, remove.
+//
+// A form with invalid values answers 422 with directives showing the errors.
+// They are applied as well, but the form did not succeed.
+
+const UNPROCESSABLE_CONTENT = 422;
+
 class RemoteFormController extends Controller {
   submit(event) {
     event.preventDefault();
@@ -42,19 +48,24 @@ class RemoteFormController extends Controller {
       credentials: 'same-origin',
     })
       .then(response => {
-        if (!response.ok) {
+        if (!response.ok && response.status !== UNPROCESSABLE_CONTENT) {
           throw new Error(`Request failed: ${response.status}`);
         }
-        return response.text();
+        return response.text().then(html => this.applyDirectives(html, response.ok));
       })
-      .then(html => this.applyDirectives(html))
       .catch(error => this.handleError(error))
       .finally(() => this.hideIndicator());
   }
 
-  applyDirectives(html) {
+  applyDirectives(html, succeeded = true) {
     const wrapper = document.createElement('template');
     wrapper.innerHTML = html;
+
+    // Not the errors of a form, e.g. an expired session: nothing to show here
+    if (!succeeded && !wrapper.content.querySelector('template[data-remote-update-action]')) {
+      this.handleError(new Error(`Request failed: ${UNPROCESSABLE_CONTENT}`));
+      return;
+    }
 
     wrapper.content.querySelectorAll('template[data-remote-update-action]').forEach(directive => {
       const action = directive.dataset.remoteUpdateAction;
@@ -65,6 +76,8 @@ class RemoteFormController extends Controller {
         this.execute(action, target, directive);
       });
     });
+
+    if (!succeeded) { return; }
 
     // If the form was inside one of the replaced containers, this.element is now
     // detached and events dispatched on it would not bubble to the document.

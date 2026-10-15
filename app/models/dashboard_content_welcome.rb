@@ -19,6 +19,8 @@ class DashboardContentWelcome < DashboardContent
                           partial: 'dashboards/blocks/welcome' }
 
     blocks['activity'] = { label: l(:label_activity),
+                           settings: { max_entries: MAX_ENTRIES_SETTING.merge(max: 1000),
+                                       me_only: { type: :boolean, label: :label_only_my_activities } },
                            async: { data_method: 'activity_dashboard_data',
                                     partial: 'dashboards/blocks/activity' } }
 

@@ -493,7 +493,36 @@ class DashboardsControllerTest < Additionals::ControllerTest
     assert_select 'template[data-remote-update-action=?][data-remote-update-target=?]', 'replace', '#block-text'
   end
 
-  # Regression: a project dashboard without an own project (system default)
+  def test_update_layout_setting_with_invalid_setting_is_unprocessable
+    post_feed_settings 'max_entries' => '500'
+
+    assert_response :unprocessable_content
+  end
+
+  def test_update_layout_setting_with_invalid_setting_shows_the_error_in_the_form
+    post_feed_settings 'max_entries' => '500'
+
+    assert_select 'template[data-remote-update-action=?][data-remote-update-target=?]', 'prepend', '#feed-settings'
+  end
+
+  def test_update_layout_setting_with_invalid_setting_names_the_setting
+    post_feed_settings 'max_entries' => '500'
+
+    assert_includes response.body, "#{I18n.t :label_max_entries} #{I18n.t 'activerecord.errors.messages.less_than_or_equal_to', count: 100}"
+  end
+
+  def test_update_layout_setting_with_invalid_setting_saves_nothing
+    dashboard = post_feed_settings 'max_entries' => '500'
+
+    assert_equal({ url: 'https://example.org/stored' }, dashboard.reload.layout_settings['feed'])
+  end
+
+  def test_update_layout_setting_drops_unknown_settings
+    dashboard = post_feed_settings 'chart' => 'pie'
+
+    assert_equal({ url: 'https://example.org/feed' }, dashboard.reload.layout_settings['feed'])
+  end
+
   # must scope its news block to the project from the request, not list news
   # from all projects. The bug surfaced because find_dashboard assigned
   # content_project from the return value of find_project_by_project_id, which
@@ -550,5 +579,22 @@ class DashboardsControllerTest < Additionals::ControllerTest
     assert_response :success
     assert_includes response.body, 'eCookbook first release'
     assert_not_includes response.body, 'News on a private project'
+  end
+
+  private
+
+  # Saves settings of a feed block with a stored url, returns its dashboard
+  def post_feed_settings(settings)
+    @request.session[:user_id] = 2
+    @request.headers['Accept'] = 'text/html'
+    @request.headers['X-Requested-With'] = 'XMLHttpRequest'
+    dashboard = Dashboard.create! name: 'Feed', dashboard_type: DashboardContentWelcome::TYPE_NAME,
+                                  author: users(:users_002), layout: { 'left' => %w[feed] },
+                                  layout_settings: { 'feed' => { url: 'https://example.org/stored' } }
+
+    post :update_layout_setting,
+         params: { id: dashboard.id,
+                   settings: { 'feed' => { 'url' => 'https://example.org/feed' }.merge(settings) } }
+    dashboard
   end
 end

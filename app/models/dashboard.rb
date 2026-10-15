@@ -266,14 +266,42 @@ class Dashboard < ApplicationRecord
     layout[group] = blocks
   end
 
+  # Sets the complete layout at once, e.g. for programmatic clients:
+  #
+  #   dashboard.assign_layout 'top' => [{ block: 'feed', settings: { url: '...' } }],
+  #                           'left' => %w[news feed__2]
+  #
+  # Entries are block ids, a block given without settings keeps its stored
+  # ones, given settings replace them. Every block is checked like add_block
+  # does and its settings like update_block_settings: either all is assigned
+  # or nothing. Saving is up to the caller, like with add_block.
+  def assign_layout(spec)
+    Additionals::DashboardLayoutAssignment.new(self, spec).call
+  end
+
+  # Merges the settings into the stored ones of the block. A block with
+  # declared settings drops unknown keys and stores nothing if a value is
+  # invalid. Returns the errors per setting, empty if the settings are stored.
   def update_block_settings(block, settings)
     block = block.to_s
-    settings = settings.symbolize_keys
-    # A block can drop settings the current user may not change
+    settings = permitted_block_settings block, settings
+    schema = content.block_settings block, values: settings, stored: layout_settings(block), dashboard: self
+    if schema
+      return schema.errors unless schema.valid?
+
+      layout_settings[block] = schema.settings
+    else
+      layout_settings[block] = layout_settings(block).merge settings
+    end
+    {}
+  end
+
+  # A block can drop settings the current user may not change. It runs before
+  # the declared settings, so only what the user may change is validated.
+  def permitted_block_settings(block, settings)
+    settings = settings.to_h.symbolize_keys
     settings_filter = content.block_definition(block)&.dig :settings_filter
-    settings = settings_filter.call settings, self if settings_filter
-    block_settings = layout_settings(block).merge settings
-    layout_settings[block] = block_settings
+    settings_filter ? settings_filter.call(settings, self) : settings
   end
 
   def private?(user = User.current)

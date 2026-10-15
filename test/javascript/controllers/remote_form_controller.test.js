@@ -171,6 +171,77 @@ describe('RemoteFormController', () => {
     });
   });
 
+  describe('send', () => {
+    let fetchMock;
+    let events;
+    const recordSuccess = () => events.push('success');
+
+    beforeEach(() => {
+      document.body.innerHTML = '<form id="f"></form><div id="settings"><p>form</p></div>';
+      events = [];
+      document.addEventListener('remote-form:success', recordSuccess);
+    });
+
+    afterEach(() => {
+      document.removeEventListener('remote-form:success', recordSuccess);
+      vi.unstubAllGlobals();
+    });
+
+    const respond = (status, body) => {
+      fetchMock = vi.fn().mockResolvedValue(new Response(body, { status }));
+      vi.stubGlobal('fetch', fetchMock);
+    };
+
+    const errorsHtml = '<template data-remote-update-action="prepend" data-remote-update-target="#settings">' +
+      '<div class="flash error">Invalid</div></template>';
+
+    const sendWith = (ctx) => new Promise((resolve) => {
+      const done = { ...ctx, hideIndicator: resolve };
+      RemoteFormController.prototype.send.call(done, '/save', 'POST', null);
+    });
+
+    const ctxFor = (form) => ({
+      element: form,
+      showIndicator() {},
+      csrfToken: () => '',
+      execute: RemoteFormController.prototype.execute,
+      applyDirectives: RemoteFormController.prototype.applyDirectives,
+      handleError(error) { events.push(`error: ${error.message}`); },
+    });
+
+    it('applies the directives of a response with invalid values', async () => {
+      respond(422, errorsHtml);
+
+      await sendWith(ctxFor(document.getElementById('f')));
+
+      expect(document.querySelector('#settings .flash.error').textContent).toBe('Invalid');
+    });
+
+    it('does not report success for a response with invalid values', async () => {
+      respond(422, errorsHtml);
+
+      await sendWith(ctxFor(document.getElementById('f')));
+
+      expect(events).toEqual([]);
+    });
+
+    it('reports a response with invalid values but without directives as error', async () => {
+      respond(422, 'Invalid form authenticity token');
+
+      await sendWith(ctxFor(document.getElementById('f')));
+
+      expect(events).toEqual(['error: Request failed: 422']);
+    });
+
+    it('reports other failed responses as errors', async () => {
+      respond(500, errorsHtml);
+
+      await sendWith(ctxFor(document.getElementById('f')));
+
+      expect(events).toEqual(['error: Request failed: 500']);
+    });
+  });
+
   describe('execute', () => {
     let target;
 

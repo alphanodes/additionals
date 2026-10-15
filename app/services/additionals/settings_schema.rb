@@ -1,0 +1,259 @@
+# frozen_string_literal: true
+
+module Additionals
+  # Settings declared as data, e.g. the settings of a dashboard block: a hash of
+  # keys with their type and rules, read with values in a context.
+  #
+  #   schema = Additionals::SettingsSchema.new(
+  #     { url: { type: :string, label: :field_url, required: true },
+  #       max_entries: { type: :integer, min: 1, max: 100, default: 10 } },
+  #     params[:settings], project: @project
+  #   )
+  #   schema.valid?    # errors per key, also for a program
+  #   schema.settings  # the values to store, as the forms send them
+  #   schema[:max_entries] # => 10, typed and with its default
+  #   schema.describe  # plain hashes for programmatic clients
+  #
+  # Options of a setting:
+  # - type: string, text, integer, float, boolean, enum or list
+  # - label, info: locale key, text or lambda
+  # - values: allowed values, plain or [label, value], for enum and list
+  # - default, required, min, max
+  # - if: whether the setting exists in the context at all; if not, it counts
+  #   as an unknown key
+  # - applies: whether the setting applies to the other values. One that does
+  #   not apply is kept and not required, so switching back restores it.
+  #
+  # Values, labels and rules can be lambdas, they get the schema to read the
+  # other values (schema[:key]) and the context (schema.context).
+  #
+  # Stored values (stored:) complete the given ones. They were accepted when
+  # they were saved and are only checked for required settings: a query the
+  # current user cannot see, or a column removed since, must not lock the
+  # settings of a block for an editor who did not choose them.
+  #
+  # Values are stored as the forms send them: booleans as "1"/"0", numbers as
+  # strings, blank meaning none. Readers of the stored settings stay unchanged.
+  class SettingsSchema
+    include Redmine::I18n
+
+    TYPES = %i[string text integer float boolean enum list].freeze
+    OPTIONS = %i[type label info values default required min max if applies].freeze
+    TRUE_VALUES = ['1', 'true', true, 1].freeze
+    FALSE_VALUES = ['0', 'false', false, 0, ''].freeze
+    INTEGER_FORMAT = /\A[+-]?\d+\z/
+    FLOAT_FORMAT = /\A[+-]?\d+(\.\d+)?\z/
+
+    attr_reader :context
+
+    def initialize(definitions, values = {}, stored: {}, **context)
+      @definitions = definitions.to_h { |key, definition| [key.to_sym, check_definition(key, definition)] }
+      @context = context
+      @invalid = {}
+      values = values.to_h.symbolize_keys
+      @given_keys = values.keys
+      @values = cast_values(stored.to_h.symbolize_keys.except(*@given_keys), check: false).merge cast_values(values)
+    end
+
+    # Typed value of a setting, its default if it is blank
+    def [](key)
+      key = key.to_sym
+      definition = @definitions[key]
+      return if definition.nil?
+
+      value = @values[key]
+      return resolve definition[:default] if value.blank?
+
+      typed_value definition[:type], value
+    end
+
+    # Values to store: declared, available settings only
+    def settings
+      @values.slice(*available_keys)
+    end
+
+    # Unknown keys and settings that do not exist in the context
+    def ignored_keys
+      @ignored_keys ||= (@given_keys - available_keys).sort
+    end
+
+    def valid?
+      errors.empty?
+    end
+
+    def errors
+      @errors ||= available_keys.each_with_object({}) do |key, errors|
+        messages = errors_for key
+        errors[key] = messages if messages.any?
+      end
+    end
+
+    def full_messages
+      errors.flat_map { |key, messages| messages.map { |message| "#{label_for key} #{message}" } }
+    end
+
+    def describe
+      available_keys.map { |key| description_for key }
+    end
+
+    def label_for(key)
+      label = resolve @definitions[key][:label]
+      label.is_a?(Symbol) ? l(label) : (label.presence || key.to_s.humanize)
+    end
+
+    private
+
+    def check_definition(key, definition)
+      unknown = definition.keys - OPTIONS
+      raise ArgumentError, "unknown options #{unknown.inspect} for setting #{key}" if unknown.any?
+      raise ArgumentError, "unknown type #{definition[:type].inspect} for setting #{key}" if TYPES.exclude? definition[:type]
+
+      definition
+    end
+
+    def cast_values(values, check: true)
+      values.each_with_object({}) do |(key, value), cast|
+        next unless @definitions.key?(key) && !value.nil?
+
+        type = @definitions[key][:type]
+        # A program may send anything, a single value must not be a structure
+        if type != :list && (value.is_a?(Hash) || value.is_a?(Array))
+          @invalid[key] = :invalid if check
+          next
+        end
+
+        cast[key] = cast_value key, type, value
+        @invalid.delete key unless check
+      end
+    end
+
+    def cast_value(key, type, value)
+      case type
+      when :string, :enum
+        value.to_s.strip
+      when :text
+        value.to_s
+      when :integer, :float
+        number = value.to_s.strip
+        @invalid[key] = :not_a_number if number.present? && number !~ (type == :integer ? INTEGER_FORMAT : FLOAT_FORMAT)
+        number
+      when :boolean
+        cast_boolean key, value
+      when :list
+        list = value.is_a?(String) ? value.split(',') : Array(value)
+        list.map { |entry| entry.to_s.strip }.compact_blank
+      end
+    end
+
+    def cast_boolean(key, value)
+      if TRUE_VALUES.include? value
+        '1'
+      elsif FALSE_VALUES.include? value
+        '0'
+      else
+        @invalid[key] = :inclusion
+        value.to_s
+      end
+    end
+
+    def typed_value(type, value)
+      case type
+      when :integer
+        value.to_i
+      when :float
+        value.to_f
+      when :boolean
+        value == '1'
+      else
+        value
+      end
+    end
+
+    def available_keys
+      @available_keys ||= @definitions.keys.select do |key|
+        condition = @definitions[key][:if]
+        condition.nil? || resolve(condition)
+      end
+    end
+
+    def applies?(key)
+      condition = @definitions[key][:applies]
+      condition.nil? || resolve(condition) ? true : false
+    end
+
+    def errors_for(key)
+      return [message(@invalid[key])] if @invalid.key? key
+
+      definition = @definitions[key]
+      value = @values[key]
+      if value.blank?
+        definition[:required] && applies?(key) ? [message(:blank)] : []
+      elsif @given_keys.include? key
+        value_errors definition, value
+      else
+        []
+      end
+    end
+
+    def value_errors(definition, value)
+      case definition[:type]
+      when :integer, :float
+        range_errors definition, typed_value(definition[:type], value)
+      when :enum, :list
+        allowed = allowed_values definition
+        allowed.nil? || (Array(value) - allowed).empty? ? [] : [message(:inclusion)]
+      else
+        []
+      end
+    end
+
+    def range_errors(definition, number)
+      errors = []
+      errors << message(:greater_than_or_equal_to, count: definition[:min]) if definition[:min] && number < definition[:min]
+      errors << message(:less_than_or_equal_to, count: definition[:max]) if definition[:max] && number > definition[:max]
+      errors
+    end
+
+    def allowed_values(definition)
+      values_for(definition)&.pluck(:value)
+    end
+
+    def values_for(definition)
+      values = resolve definition[:values]
+      return if values.nil?
+
+      values.map do |value|
+        label, value = value.is_a?(Array) ? value : [value, value]
+        { value: value.to_s, label: label.to_s }
+      end
+    end
+
+    def description_for(key)
+      definition = @definitions[key]
+      { key:,
+        type: definition[:type],
+        label: label_for(key),
+        description: info_for(definition),
+        required: definition[:required] ? true : nil,
+        default: resolve(definition[:default]),
+        values: values_for(definition),
+        min: definition[:min],
+        max: definition[:max],
+        applies: applies?(key),
+        value: @values.key?(key) ? self[key] : nil }.compact
+    end
+
+    def info_for(definition)
+      info = resolve definition[:info]
+      info.is_a?(Symbol) ? l(info) : info
+    end
+
+    def resolve(option)
+      option.respond_to?(:call) ? option.call(self) : option
+    end
+
+    def message(error, **)
+      ::I18n.t "activerecord.errors.messages.#{error}", **
+    end
+  end
+end

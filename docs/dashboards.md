@@ -127,9 +127,14 @@ blocks['my_configurable_block'] = {
   label: l(:label_my_block),
   permission: :view_issues,
   partial: 'dashboards/blocks/my_configurable_block',
-  settings_partial: 'dashboards/blocks/my_configurable_block_settings'
+  settings_partial: 'dashboards/blocks/my_configurable_block_settings',
+  settings: { title: DashboardContent::TITLE_SETTING,
+              max_entries: DashboardContent::MAX_ENTRIES_SETTING,
+              show_closed: { type: :boolean, label: :label_show_closed } }
 }
 ```
+
+`settings` declares what the settings form sends, see [Declared Settings](#declared-settings).
 
 #### 2.2 Create Settings View
 
@@ -519,6 +524,7 @@ Each block is defined by a hash with these options:
 | `settings_partial` | String | Custom settings form partial |
 | `with_settings_if` | Proc | Conditional settings availability |
 | `settings_filter` | Proc | Called with `(settings, dashboard)` before saving block settings, returns the settings to keep (e.g. drops those the current user may not change) |
+| `settings` | Hash | Declared settings of the block (see [Declared Settings](#declared-settings)) |
 | `max_occurs` | Integer | Maximum times block can be added (`DashboardContent::MAX_MULTIPLE_OCCURS`) |
 | `query_block` | Hash | Query-based block configuration (for IssueQuery, etc.) |
 | `matrix` | Hash | Matrix chart configuration |
@@ -555,6 +561,30 @@ query_block: {
   entries_method: 'issues'             # Optional: Custom entries method
 }
 ```
+
+### Declared Settings
+
+A block declares its settings with `settings`, in the format of [`Additionals::SettingsSchema`](settings-schema.md). Saving them (`Dashboard#update_block_settings`) then drops unknown keys and stores nothing if a value is invalid; the settings form shows the errors. Query list blocks with the settings form of additionals get their settings automatically, blocks with `no_settings` drop every setting. Blocks without `settings` keep whatever they get, as before.
+
+Saving runs in this order: `settings_filter` on the given settings, then the declared settings on them, completed by the stored ones. Only given values are checked against their values and bounds, stored ones only for required settings: a query the editor cannot see or a column removed since does not lock the block. A program may send a part of the settings.
+
+`DashboardContent#available_block_schemas` lists the blocks the user can add with `label`, `max_occurs` and their described settings, `#block_settings(block, values:)` returns the schema of one block.
+
+### Assigning a Layout
+
+`Dashboard#assign_layout` sets all groups at once, e.g. for a program building a dashboard:
+
+```ruby
+result = dashboard.assign_layout 'top' => [{ block: 'feed', settings: { url: 'https://example.org/feed' } }],
+                                 'left' => %w[news feed__2]
+result.success? # then dashboard.save
+result.errors   # => { 'feed' => { max_entries: ['must be less than or equal to 100'] }, 'news' => { base: [...] } }
+result.ignored  # => { 'feed' => [:chart] }, unknown keys that were dropped
+```
+
+Entries are block ids (`feed`, `feed__2`). A block without `settings` keeps its stored settings and is not validated, like a block added with `add_block`; given settings replace the stored ones and are validated completely. Every block is checked like `add_block` does (availability, permission, `max_occurs`, no duplicates); with any error nothing changes. Locked dashboards and dashboards the user may not edit return an error under `:base`.
+
+A project dashboard without an own project (a system default) offers what depends on the project, e.g. its queries, only after `content_project` is set, before the first call of `assign_layout` or `content`.
 
 ### Query Chart Blocks
 

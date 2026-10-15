@@ -174,14 +174,22 @@ class DashboardsController < ApplicationController
     redirect_to dashboard_link_path(@project, @dashboard)
   end
 
+  # Invalid settings are not saved, the open settings form shows the errors
   def update_layout_setting
     block_settings = params[:settings] || {}
 
+    @block_errors = {}
     block_settings.each do |block, settings|
-      @dashboard.update_block_settings block, settings.to_unsafe_hash
+      errors = @dashboard.update_block_settings block, settings.to_unsafe_hash
+      @block_errors[block] = errors if errors.any?
     end
-    @dashboard.save!
-    @updated_blocks = block_settings.keys
+
+    if @block_errors.any?
+      render status: :unprocessable_content
+    else
+      @dashboard.save!
+      @updated_blocks = block_settings.keys
+    end
   end
 
   # The block is added on top of the page

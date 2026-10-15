@@ -582,15 +582,18 @@ module DashboardsHelper
     title.presence || block_definition[:label]
   end
 
+  # Errors of block settings, each named by its setting
+  def dashboard_block_settings_error_messages(dashboard, block, errors)
+    schema = dashboard.content.block_settings block, stored: dashboard.layout_settings(block)
+    errors.flat_map do |key, messages|
+      messages.map { |message| "#{schema.label_for key} #{message}" }
+    end
+  end
+
   # leading: options between the blank one and the queries
   def options_for_query_select(klass, project, selected = nil, leading: nil)
-    # sidebar_queries cannot be use because descendants classes are included
-    # this changes on class loading
-    # queries = klass.visible.global_or_on_project(@project).sorted.to_a
-    queries = klass.visible
-                   .global_or_on_project(project)
-                   .where(type: klass.to_s)
-                   .sorted.to_a
+    # sidebar_queries cannot be used, it includes the queries of subclasses
+    queries = DashboardContent.selectable_queries(klass, project).to_a
 
     safe_join [tag.option, leading, options_from_collection_for_select(queries, :id, :name, selected)].compact
   end

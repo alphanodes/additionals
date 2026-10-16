@@ -1,7 +1,7 @@
 /* global Chart */
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import AdditionalsChartController, {
-  chartConfig, renderTreemap, calendarConfig, calendarLevel, calendarLegend, calendarMonthLabels,
+  chartConfig, renderTreemap, valueTicks, calendarConfig, calendarLevel, calendarLegend, calendarMonthLabels,
 } from '../../../assets/javascripts/controllers/additionals_chart_controller.js';
 
 function payload(overrides = {}) {
@@ -397,6 +397,22 @@ describe('chart configuration', () => {
     renderTreemap(document.createElement('div'), payload({ type: 'treemap' }));
 
     expect(calls.tooltipConfig.tbody).toEqual([]);
+  });
+});
+
+describe('value ticks', () => {
+  it('counts in whole steps', () => {
+    expect(valueTicks(payload({ datasets: [{ label: 'Issues', data: [0, 1, 2] }] }))).toEqual({ precision: 0 });
+  });
+
+  it('leaves decimals to Chart.js', () => {
+    expect(valueTicks(payload({ datasets: [{ label: 'Hours', data: [0.5, 2] }] }))).toEqual({});
+  });
+
+  it('applies to the value axis of a timeline', () => {
+    const { options } = chartConfig(null, payload({ type: 'area', datasets: [{ label: 'Pages', data: [0, 4] }] }));
+
+    expect(options.scales.y.ticks).toEqual({ precision: 0 });
   });
 });
 

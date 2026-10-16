@@ -1,0 +1,11 @@
+/ A chart drawn by the additionals-chart Stimulus controller from the payload
+/ of an AdditionalsChart, without any JavaScript in the view
+- if chart.valid?
+  .additionals-block
+    div[id=local_assigns[:id]
+        style="height: #{chart.height}px;"
+        data-controller='additionals-chart'
+        data-additionals-chart-payload-value=chart.payload.to_json]
+      canvas data-additionals-chart-target='canvas'
+- else
+  p.nodata = l :label_no_data

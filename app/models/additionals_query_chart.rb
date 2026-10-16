@@ -34,8 +34,6 @@ class AdditionalsQueryChart < AdditionalsChart
   # Comparison with the period before the one of the block
   PREVIOUS_PERIOD = 'previous'
   # Icon before the title, after the display type; bars without one of their own
-  CHART_ICONS = { 'doughnut' => 'chart-pie', 'pie' => 'chart-pie', 'line' => 'chart-line',
-                  'area' => 'chart-area', 'calendar' => 'calendar', 'table' => 'table' }.freeze
   # More periods are no readable timeline, but a date entered wrongly, e.g. a
   # year 0202, would fill thousands of them up to the other dates
   MAX_PERIODS = 1000
@@ -200,6 +198,7 @@ class AdditionalsQueryChart < AdditionalsChart
     BAR_TYPES.include? chart_type
   end
 
+  # From the setting, a payload without entries has no calendar to build
   def icon
     CHART_ICONS.fetch chart_type, 'chart-bar'
   end

@@ -70,6 +70,12 @@ function clickHandler(payload) {
   };
 }
 
+// Ticks of a value axis: counts in whole steps, not 0.5 between 0 and 1
+export function valueTicks(payload) {
+  const counts = payload.datasets.every((dataset) => dataset.data.every(Number.isInteger));
+  return counts ? { precision: 0 } : {};
+}
+
 function datalabelsPlugins() {
   return typeof ChartDataLabels === 'undefined' ? [] : [ChartDataLabels];
 }
@@ -231,6 +237,7 @@ function barConfig(payload) {
       scales: {
         [valueAxis]: {
           beginAtZero: true,
+          ticks: valueTicks(payload),
           title: {
             display: true,
             text: payload.totalLabel,
@@ -336,6 +343,7 @@ function lineConfig(payload) {
         y: {
           beginAtZero: true,
           stacked: payload.stacked,
+          ticks: valueTicks(payload),
           title: {
             display: true,
             text: payload.totalLabel,

@@ -9,6 +9,9 @@ class AdditionalsChart
   CHART_DEFAULT_HEIGHT = 350
   CHART_DEFAULT_WIDTH = 400
   CHART_HEADER_HEIGHT = 80
+  # Icon of the title by type, bars for all others
+  CHART_ICONS = { 'doughnut' => 'chart-pie', 'pie' => 'chart-pie', 'line' => 'chart-line',
+                  'area' => 'chart-area', 'calendar' => 'calendar', 'table' => 'table' }.freeze
 
   class << self
     # Cheap pre-check before async fetch — drives the lazy-load min-height.
@@ -41,6 +44,25 @@ class AdditionalsChart
 
   def data
     raise 'overwrite it!'
+  end
+
+  # Data the additionals-chart Stimulus controller draws: type, labels,
+  # datasets (label, data, optional urls per point), totalLabel (title of the
+  # values) and colorSchema. The format is described in docs/dashboards.md.
+  def payload
+    raise 'overwrite it!'
+  end
+
+  def valid?
+    raise 'overwrite it!'
+  end
+
+  def height
+    CHART_DEFAULT_HEIGHT
+  end
+
+  def icon
+    CHART_ICONS.fetch payload[:type], 'chart-bar'
   end
 
   # Calculates optimal height for bar charts based on number of elements

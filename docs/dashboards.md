@@ -630,6 +630,31 @@ Pitfalls of the display, all handled in `additionals.css` and the controller:
 - Header and total of the scrolling table of values only stick with `overflow: clip` instead of core's `overflow: hidden` (which makes the table its own scroll container), separate borders and a `z-index` on `thead`/`tfoot`.
 - The `clip` option of chartjs-plugin-datalabels cuts values off at the edge. Instead `layout.padding` reserves room for the longest value, values wider than their vertical bar are slanted by 45 degrees, and the legend of vertical bars sits below the chart, since the padding lies above the legend.
 
+### Charts With an Evaluation of Their Own
+
+A chart that does not count the entries of a query (e.g. a burndown or the activity of a wiki) subclasses `AdditionalsChart`, implements `payload` and `valid?`, and renders the shared partial below its title. The view contains no JavaScript: the `additionals-chart` Stimulus controller draws the payload like the one of a query chart.
+
+```ruby
+class WikiActivityChart < AdditionalsChart
+  def payload
+    { type: 'area',                       # doughnut, pie, bar_horizontal, bar_vertical, line, area
+      labels: %w[KW 41 KW 42],
+      datasets: [{ label: 'Added', data: [3, 5], urls: [nil, '/projects/foo/activity'] }],
+      totalLabel: l(:label_quantity),     # title of the values, e.g. of the y axis
+      colorSchema: color_schema }
+  end
+
+  def valid? = payload[:datasets].any? { |dataset| dataset[:data].any?(&:positive?) }
+end
+```
+
+```slim
+h3.icon = svg_icon_tag chart.icon, label: :label_wiki_activities
+= render 'additionals/charts/chart', chart:, id: block
+```
+
+All texts of a payload are formatted on the server, so no translation ends up in JavaScript. `height` (350 px by default) sets the height of the chart, `icon` follows the type. Further options of the payload are added with the chart that needs them.
+
 ## Dashboard Types
 
 ### WelcomeDashboard (`DashboardContentWelcome`)

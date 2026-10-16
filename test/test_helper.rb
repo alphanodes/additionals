@@ -90,6 +90,25 @@ module Additionals
     end
   end
 
+  # Chart with an evaluation of its own, as plugins define one besides the
+  # query charts
+  class TestPayloadChart < AdditionalsChart
+    def initialize(type: 'area', data: [1, 2])
+      super()
+      @type = type
+      @data = data
+    end
+
+    def payload
+      { type: @type, labels: %w[A B], datasets: [{ label: 'Pages', data: @data }],
+        totalLabel: 'Quantity', colorSchema: color_schema }
+    end
+
+    def valid?
+      @data.any?(&:positive?)
+    end
+  end
+
   # Chart over core issues that counts in a period of their creation
   class TestPeriodIssueQueryChart < TestIssueQueryChart
     def period_field

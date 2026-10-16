@@ -39,6 +39,15 @@ class AdditionalsChartTest < Additionals::HelperTest
     assert_includes render_chart(Additionals::TestPayloadChart.new(data: [0, 0])), 'nodata'
   end
 
+  def test_charts_side_by_side_get_an_id_each
+    html = @redmine_view.render partial: 'additionals/charts/charts',
+                                locals: { charts: [Additionals::TestPayloadChart.new, Additionals::TestPayloadChart.new],
+                                          id: 'estimation' }
+    ids = Nokogiri::HTML.fragment(html).css('.additionals-charts [data-controller="additionals-chart"]').pluck('id')
+
+    assert_equal %w[estimation-0 estimation-1], ids
+  end
+
   private
 
   def render_chart(chart)

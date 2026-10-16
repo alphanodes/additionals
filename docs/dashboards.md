@@ -653,7 +653,7 @@ h3.icon = svg_icon_tag chart.icon, label: :label_wiki_activities
 = render 'additionals/charts/chart', chart:, id: block
 ```
 
-All texts of a payload are formatted on the server, so no translation ends up in JavaScript: `valueTexts` holds the text of each value per dataset (e.g. a localized decimal), `datasets[].tooltips` an extra tooltip line per point of a line or area. A value of `nil` leaves a gap in a line. `height` (350 px by default) sets the height of the chart, `icon` follows the type. Further options of the payload are added with the chart that needs them.
+All texts of a payload are formatted on the server, so no translation ends up in JavaScript: `valueTexts` holds the text of each value per dataset (e.g. a localized decimal), `datasets[].tooltips` an extra tooltip line per point of a line, area or bar. A value of `nil` leaves a gap in a line. `datasets[].colors` names a CSS custom property per point for parts with a meaning of their own (e.g. overdue in red), they replace the color scheme for that dataset. `stacked: true` with `percent: true` stacks bars as shares of 100 %, the tooltip still names the values. `additionals/charts/charts` renders several charts side by side, below each other in a narrow column. `height` (350 px by default) sets the height of the chart, `icon` follows the type. Further options of the payload are added with the chart that needs them.
 
 ## Dashboard Types
 

@@ -485,6 +485,17 @@ table.table-of-values {
   margin-left: 20px;
 }
 
+/* several charts of a block side by side, below each other in a narrow column */
+.additionals-charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.additionals-charts-item {
+  min-width: 0;
+}
+
 /* query chart blocks: the chart takes the width the table of values leaves, in a
    narrow column the table moves below it */
 .additionals-query-chart .additionals-chart-wrapper {

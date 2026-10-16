@@ -1,0 +1,5 @@
+/ Several charts side by side, below each other in a narrow column
+.additionals-charts
+  - charts.each_with_index do |chart, index|
+    .additionals-charts-item
+      = render 'additionals/charts/chart', chart:, id: "#{id}-#{index}"

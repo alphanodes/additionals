@@ -206,7 +206,7 @@ function stackedOptions(payload, horizontal) {
     tooltip: {
       callbacks: {
         label: (context) => {
-          const percentage = share(context.raw, rowTotal(payload, context.dataIndex));
+          const percentage = partShare(payload, context.datasetIndex, context.dataIndex);
           return `${context.dataset.label}: ${valueText(payload, context.datasetIndex, context.dataIndex)} (${percentage}%)`;
         },
       },
@@ -216,9 +216,28 @@ function stackedOptions(payload, horizontal) {
       align: 'center',
       padding: VALUE_LABEL_PADDING,
       display: (context) => context.dataset.data[context.dataIndex] !== 0 && valueFitsInPart(payload, context, horizontal),
-      formatter: (_value, context) => valueText(payload, context.datasetIndex, context.dataIndex),
+      formatter: (_value, context) => (payload.percent
+        ? `${partShare(payload, context.datasetIndex, context.dataIndex)} %`
+        : valueText(payload, context.datasetIndex, context.dataIndex)),
     },
   };
+}
+
+// Share of a part in its bar, from the values of the payload
+function partShare(payload, datasetIndex, index) {
+  return share(payload.datasets[datasetIndex].data[index], rowTotal(payload, index));
+}
+
+// Parts as shares of their bar, each bar up to 100 %, e.g. to compare the
+// estimated part of few open with many closed issues
+export function shareDatasets(payload) {
+  return payload.datasets.map((dataset) => ({
+    ...dataset,
+    data: dataset.data.map((value, index) => {
+      const total = rowTotal(payload, index);
+      return total > 0 ? (value * 100) / total : 0;
+    }),
+  }));
 }
 
 function barConfig(payload) {
@@ -230,7 +249,7 @@ function barConfig(payload) {
     type: 'bar',
     data: {
       labels: payload.labels,
-      datasets: payload.datasets,
+      datasets: payload.percent ? shareDatasets(payload) : payload.datasets,
     },
     options: {
       indexAxis: horizontal ? 'y' : 'x',
@@ -290,6 +309,11 @@ function barConfig(payload) {
     };
     options.plugins.tooltip = stacked.tooltip;
     options.plugins.datalabels = stacked.datalabels;
+  }
+  if (payload.percent) {
+    const axis = config.options.scales[valueAxis];
+    axis.max = 100;
+    axis.ticks = { callback: (value) => `${value} %` };
   }
 
   return config;
@@ -377,12 +401,27 @@ function lineConfig(payload) {
   };
 }
 
-// Chart.js configuration of a payload, for every type but the treemap
-export function chartConfig(canvas, payload) {
+// Fixed colors of a dataset, one CSS custom property per point, e.g. red for
+// overdue. They take the place of the color scheme for that dataset.
+export function withColors(canvas, dataset) {
+  if (!dataset.colors) {
+    return dataset;
+  }
+  return { ...dataset, backgroundColor: dataset.colors.map((name) => cssVar(canvas, name)) };
+}
+
+function typeConfig(canvas, payload) {
   if (BAR_TYPES.includes(payload.type)) {
     return barConfig(payload);
   }
   return LINE_TYPES.includes(payload.type) ? lineConfig(payload) : pieConfig(canvas, payload);
+}
+
+// Chart.js configuration of a payload, for every type but the treemap
+export function chartConfig(canvas, payload) {
+  const config = typeConfig(canvas, payload);
+  config.data.datasets = config.data.datasets.map((dataset) => withColors(canvas, dataset));
+  return config;
 }
 
 // Level of a day: 0 without value, then one above each bound it exceeds

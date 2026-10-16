@@ -1,7 +1,7 @@
 /* global Chart */
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import AdditionalsChartController, {
-  chartConfig, renderTreemap, valueTicks, tooltipLine, calendarConfig, calendarLevel, calendarLegend, calendarMonthLabels,
+  chartConfig, renderTreemap, valueTicks, tooltipLine, withColors, shareDatasets, calendarConfig, calendarLevel, calendarLegend, calendarMonthLabels,
 } from '../../../assets/javascripts/controllers/additionals_chart_controller.js';
 
 function payload(overrides = {}) {
@@ -400,6 +400,63 @@ describe('chart configuration', () => {
   });
 });
 
+describe('stacked as shares', () => {
+  function sharePayload() {
+    return payload({
+      type: 'bar_vertical',
+      labels: ['open', 'closed'],
+      stacked: true,
+      percent: true,
+      datasets: [{ label: 'Estimated', data: [1, 30] }, { label: 'Not estimated', data: [3, 70] }],
+    });
+  }
+
+  it('turns the parts into shares of their bar', () => {
+    expect(shareDatasets(sharePayload())[0].data).toEqual([25, 30]);
+  });
+
+  it('ends the value axis at 100 %', () => {
+    expect(chartConfig(null, sharePayload()).options.scales.y.max).toBe(100);
+  });
+
+  it('names the count and the share in the tooltip', () => {
+    const { options } = chartConfig(null, sharePayload());
+    const label = options.plugins.tooltip.callbacks.label({
+      dataset: { label: 'Estimated' }, datasetIndex: 0, dataIndex: 0, raw: 25,
+    });
+
+    expect(label).toBe('Estimated: 1 (25%)');
+  });
+});
+
+describe('fixed colors', () => {
+  function canvasWith(colors) {
+    const canvas = document.createElement('canvas');
+    Object.entries(colors).forEach(([name, value]) => canvas.style.setProperty(name, value));
+    document.body.append(canvas);
+    return canvas;
+  }
+
+  it('reads a color per point from its CSS custom property', () => {
+    const canvas = canvasWith({ '--test-red': 'rgb(250, 82, 82)' });
+
+    expect(withColors(canvas, { data: [1], colors: ['--test-red'] }).backgroundColor).toEqual(['rgb(250, 82, 82)']);
+  });
+
+  it('leaves a dataset without colors to the color scheme', () => {
+    const dataset = { data: [1] };
+
+    expect(withColors(null, dataset)).toBe(dataset);
+  });
+
+  it('applies to the slices of a pie', () => {
+    const canvas = canvasWith({ '--test-green': 'rgb(64, 192, 87)' });
+    const { data } = chartConfig(canvas, payload({ type: 'pie', datasets: [{ label: 'Issues', data: [3], colors: ['--test-green'] }] }));
+
+    expect(data.datasets[0].backgroundColor).toEqual(['rgb(64, 192, 87)']);
+  });
+});
+
 describe('tooltip line', () => {
   it('shows the line of a point', () => {
     expect(tooltipLine({ dataset: { tooltips: ['closed: 3', 'closed: 5'] }, dataIndex: 1 })).toBe('closed: 5');
@@ -573,6 +630,8 @@ describe('AdditionalsChartController', () => {
     globalThis.Chart = vi.fn(function chart() {
       this.destroy = vi.fn();
     });
+    // The legend of a calendar colors its levels
+    globalThis.Chart.helpers = { color: () => ({ alpha: () => ({ rgbString: () => 'rgb(0, 0, 0)' }) }) };
     delete globalThis.d3plus;
   });
 

@@ -1,7 +1,7 @@
 /* global Chart */
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import AdditionalsChartController, {
-  chartConfig, renderTreemap, valueTicks, tooltipLine, withColors, shareDatasets, calendarConfig, calendarLevel, calendarLegend, calendarMonthLabels,
+  chartConfig, renderTreemap, valueTicks, tooltipLine, withColors, shareDatasets, lineAnnotations, colorWithAlpha, areaGradient, legendLabels, calendarConfig, calendarLevel, calendarLegend, calendarMonthLabels,
 } from '../../../assets/javascripts/controllers/additionals_chart_controller.js';
 
 function payload(overrides = {}) {
@@ -400,6 +400,108 @@ describe('chart configuration', () => {
   });
 });
 
+describe('burndown lines', () => {
+  function burndownPayload(overrides = {}) {
+    return payload({
+      type: 'line',
+      labels: ['1.6.', '2.6.', '3.6.'],
+      points: false,
+      datasets: [{ label: 'Open', data: [3, 2, null], fill: true },
+        { label: 'Ideal', data: [3, 1.5, 0], style: 'dotted' }],
+      ...overrides,
+    });
+  }
+
+  it('dots a line of the style dotted', () => {
+    expect(chartConfig(null, burndownPayload()).data.datasets[1].borderDash).toEqual([2, 3]);
+  });
+
+  it('fills a line on request', () => {
+    expect(chartConfig(null, burndownPayload()).data.datasets[0].fill).toBe(true);
+  });
+
+  it('leaves the points out on request', () => {
+    expect(chartConfig(null, burndownPayload()).data.datasets[0].pointRadius).toBe(0);
+  });
+
+  it('draws a line on top on request', () => {
+    const { datasets } = chartConfig(null, burndownPayload({ datasets: [{ label: 'Open', data: [3, 2, null], fill: true },
+      { label: 'Total', data: [3, 2, null], onTop: true }] })).data;
+
+    expect(datasets.map((dataset) => dataset.order)).toEqual([0, -1]);
+  });
+
+  it('keeps the legend in the order of the payload', () => {
+    const { sort } = chartConfig(null, burndownPayload()).options.plugins.legend.labels;
+
+    expect([{ datasetIndex: 1 }, { datasetIndex: 0 }].sort(sort).map((item) => item.datasetIndex)).toEqual([0, 1]);
+  });
+
+  it('keeps the tooltip in the order of the payload', () => {
+    const { itemSort } = chartConfig(null, burndownPayload()).options.plugins.tooltip;
+
+    expect([{ datasetIndex: 1 }, { datasetIndex: 0 }].sort(itemSort).map((item) => item.datasetIndex)).toEqual([0, 1]);
+  });
+
+  it('fades a filled line out towards the axis', () => {
+    expect(chartConfig(null, burndownPayload()).data.datasets[0].backgroundColor).toBe(areaGradient);
+  });
+
+  it('keeps stacked areas flat', () => {
+    const { datasets } = chartConfig(null, burndownPayload({ stacked: true })).data;
+
+    expect(datasets[0].backgroundColor).toBeUndefined();
+  });
+
+  it('keeps the gradient of a line with a color of its own', () => {
+    const dataset = withColors(document.body, { data: [1], color: '--test-red', backgroundColor: areaGradient });
+
+    expect(dataset.backgroundColor).toBe(areaGradient);
+  });
+
+  it('shows a point on hover of a line without points', () => {
+    expect(chartConfig(null, burndownPayload()).data.datasets[0].pointHoverRadius).toBeGreaterThan(0);
+  });
+
+  it('draws the gradient in the color of the line', () => {
+    const stops = [];
+    const ctx = { createLinearGradient: () => ({ addColorStop: (offset, color) => stops.push(color) }) };
+
+    areaGradient({ chart: { ctx, chartArea: { top: 0, bottom: 100 } }, dataset: { borderColor: '#ff0000' } });
+
+    expect(stops).toEqual(['rgba(255, 0, 0, 0.35)', 'rgba(255, 0, 0, 0.02)']);
+  });
+
+  it('draws no gradient before the first layout', () => {
+    expect(areaGradient({ chart: { ctx: null }, dataset: { borderColor: '#ff0000' } })).toBe('rgba(0, 0, 0, 0)');
+  });
+
+  it('shows a faded line in the legend in its top color', () => {
+    const generateLabels = () => [{ datasetIndex: 0, strokeStyle: '#ff0000', fillStyle: 'rgba(0, 0, 0, 0)' }];
+    globalThis.Chart = { defaults: { plugins: { legend: { labels: { generateLabels } } } } };
+
+    expect(legendLabels({ data: { datasets: [{ backgroundColor: areaGradient }] } })[0].fillStyle)
+      .toBe('rgba(255, 0, 0, 0.35)');
+  });
+
+  it('adds an opacity to short hex, long hex and rgb colors', () => {
+    expect(['#f00', '#ff0000', 'rgb(255, 0, 0)'].map((color) => colorWithAlpha(color, 0.5)))
+      .toEqual(Array(3).fill('rgba(255, 0, 0, 0.5)'));
+  });
+
+  it('marks a line across the chart at its value', () => {
+    const lines = lineAnnotations(document.body, burndownPayload({ lines: [{ axis: 'x', value: 1.5, label: 'Today' }] }));
+
+    expect([lines.line0.xMin, lines.line0.label.content]).toEqual([1.5, 'Today']);
+  });
+
+  it('adds the lines to the annotations of the chart', () => {
+    const { options } = chartConfig(document.body, burndownPayload({ lines: [{ axis: 'x', value: 1, label: 'Today' }] }));
+
+    expect(Object.keys(options.plugins.annotation.annotations)).toEqual(['line0']);
+  });
+});
+
 describe('stacked as shares', () => {
   function sharePayload() {
     return payload({
@@ -622,6 +724,7 @@ describe('AdditionalsChartController', () => {
     ctx.disconnect = prototype.disconnect.bind(ctx);
     ctx.drawTreemap = prototype.drawTreemap.bind(ctx);
     ctx.drawCalendar = prototype.drawCalendar.bind(ctx);
+    ctx.drawWithLines = prototype.drawWithLines.bind(ctx);
     return ctx;
   }
 
@@ -676,6 +779,12 @@ describe('AdditionalsChartController', () => {
     controller(calendarPayload()).connect();
 
     expect(AdditionalsHelpers.loadLibrary).toHaveBeenCalledWith('chartjs_matrix');
+  });
+
+  it('loads the annotation plugin for lines across the chart', () => {
+    controller(payload({ type: 'line', lines: [{ axis: 'x', value: 1, label: 'Today' }] })).connect();
+
+    expect(AdditionalsHelpers.loadLibrary).toHaveBeenCalledWith('chartjs_annotation');
   });
 
   it('loads d3plus for a treemap', () => {

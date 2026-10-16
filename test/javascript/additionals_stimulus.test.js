@@ -26,7 +26,7 @@ describe('additionals_stimulus.js', () => {
       run += 1;
       window.ADDITIONALS_LIBRARIES = {
         d3plus: [{ type: 'js', url: url('d3plus.js') }],
-        chartjs_matrix: [{ type: 'js', url: url('moment.js') }, { type: 'js', url: url('matrix.js') }],
+        chartjs_matrix: [{ type: 'js', url: url('chart.js') }, { type: 'js', url: url('matrix.js') }],
         select2: [{ type: 'css', url: url('select2.css') }],
       };
     });

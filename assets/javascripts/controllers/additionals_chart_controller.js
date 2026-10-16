@@ -15,6 +15,12 @@ import { Controller } from '@hotwired/stimulus';
 const BAR_TYPES = ['bar_horizontal', 'bar_vertical'];
 const LINE_TYPES = ['line', 'area'];
 const LINE_POINT_RADIUS = 3;
+// Lines without points show one on hover, close enough to find it
+const LINE_POINT_HIT_RADIUS = 8;
+// Opacity of a filled line at the top and the bottom of its gradient
+const AREA_GRADIENT_ALPHA = [0.35, 0.02];
+// Lines of a role of their own, e.g. the ideal line of a burndown
+const LINE_DASHES = { dashed: [6, 4], dotted: [2, 3] };
 // Lines of a timeline with more periods would hide behind their points
 const MAX_PERIODS_WITH_POINTS = 60;
 // A pie legend with more entries pushes the pie into a corner and is cut off;
@@ -348,12 +354,64 @@ function lineFill(payload, index) {
   return payload.stacked && index > 0 ? '-1' : 'origin';
 }
 
+// A color with an opacity, for #rgb, #rrggbb and rgb() as CSS custom
+// properties and color schemes hold them; other notations are returned unchanged
+export function colorWithAlpha(color, alpha) {
+  const rgb = /^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/.exec(color || '');
+  if (rgb) {
+    return `rgba(${rgb[1]}, ${rgb[2]}, ${rgb[3]}, ${alpha})`;
+  }
+  const hex = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(color || '');
+  if (!hex) {
+    return color;
+  }
+  const digits = hex[1].length === 3 ? hex[1].replace(/./g, '$&$&') : hex[1];
+  const [red, green, blue] = digits.match(/../g).map((part) => parseInt(part, 16));
+  return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+}
+
+// A filled line fades out towards the axis. The chart area is only known
+// after the first layout, so it is a scriptable option; the color is the one
+// of the line, set by the color scheme or the dataset.
+export function areaGradient(context) {
+  const { ctx, chartArea } = context.chart;
+  const color = context.dataset.borderColor;
+  if (!chartArea || typeof color !== 'string') {
+    return 'rgba(0, 0, 0, 0)';
+  }
+  const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+  gradient.addColorStop(0, colorWithAlpha(color, AREA_GRADIENT_ALPHA[0]));
+  gradient.addColorStop(1, colorWithAlpha(color, AREA_GRADIENT_ALPHA[1]));
+  return gradient;
+}
+
+// The legend cannot show a gradient, a faded line shows its top color there
+export function legendLabels(chart) {
+  return Chart.defaults.plugins.legend.labels.generateLabels(chart).map((item) => {
+    if (chart.data.datasets[item.datasetIndex].backgroundColor !== areaGradient) {
+      return item;
+    }
+    return { ...item, fillStyle: colorWithAlpha(item.strokeStyle, AREA_GRADIENT_ALPHA[0]) };
+  });
+}
+
+function byDatasetIndex(a, b) {
+  return a.datasetIndex - b.datasetIndex;
+}
+
 // A timeline: one line or area per series, the tooltip names all series of a period
 function lineConfig(payload) {
+  const points = payload.points !== false && payload.labels.length <= MAX_PERIODS_WITH_POINTS;
   const datasets = payload.datasets.map((dataset, index) => ({
     ...dataset,
-    fill: lineFill(payload, index),
-    pointRadius: payload.labels.length > MAX_PERIODS_WITH_POINTS ? 0 : LINE_POINT_RADIUS,
+    fill: dataset.fill ?? lineFill(payload, index),
+    borderDash: LINE_DASHES[dataset.style] || [],
+    pointRadius: points ? LINE_POINT_RADIUS : 0,
+    pointHoverRadius: LINE_POINT_RADIUS + 1,
+    pointHitRadius: LINE_POINT_HIT_RADIUS,
+    order: dataset.onTop ? -1 : 0,
+    // A single filled line fades out, stacked areas keep their flat color
+    ...(dataset.fill === true && !payload.stacked ? { backgroundColor: areaGradient } : {}),
   }));
 
   return {
@@ -382,15 +440,18 @@ function lineConfig(payload) {
         },
       },
       plugins: {
+        // Legend and tooltip keep the order of the payload, a line drawn on top included
         legend: {
           display: payload.datasets.length > 1,
           position: 'bottom',
+          labels: { sort: byDatasetIndex, generateLabels: legendLabels },
         },
         colorschemes: {
           scheme: payload.colorSchema,
           fillAlpha: 0.5,
         },
         tooltip: {
+          itemSort: byDatasetIndex,
           callbacks: {
             label: (context) => `${context.dataset.label}: ${valueText(payload, context.datasetIndex, context.dataIndex)}`,
             afterLabel: tooltipLine,
@@ -404,10 +465,33 @@ function lineConfig(payload) {
 // Fixed colors of a dataset, one CSS custom property per point, e.g. red for
 // overdue. They take the place of the color scheme for that dataset.
 export function withColors(canvas, dataset) {
+  if (dataset.color) {
+    const color = cssVar(canvas, dataset.color);
+    return { ...dataset, borderColor: color, backgroundColor: dataset.backgroundColor || color };
+  }
   if (!dataset.colors) {
     return dataset;
   }
   return { ...dataset, backgroundColor: dataset.colors.map((name) => cssVar(canvas, name)) };
+}
+
+// Lines across the chart with a text, e.g. today on a burndown. On a
+// category axis a value between two entries lies between them.
+export function lineAnnotations(canvas, payload) {
+  return Object.fromEntries((payload.lines || []).map((line, index) => {
+    const color = cssVar(canvas, '--a-color-muted');
+    const position = line.axis === 'x' ? { xMin: line.value, xMax: line.value } : { yMin: line.value, yMax: line.value };
+    return [`line${index}`, {
+      type: 'line',
+      ...position,
+      borderColor: color,
+      borderDash: LINE_DASHES.dashed,
+      borderWidth: 1,
+      label: {
+        display: true, content: line.label, position: 'start', backgroundColor: color,
+      },
+    }];
+  }));
 }
 
 function typeConfig(canvas, payload) {
@@ -421,6 +505,9 @@ function typeConfig(canvas, payload) {
 export function chartConfig(canvas, payload) {
   const config = typeConfig(canvas, payload);
   config.data.datasets = config.data.datasets.map((dataset) => withColors(canvas, dataset));
+  if (payload.lines) {
+    config.options.plugins.annotation = { annotations: lineAnnotations(canvas, payload) };
+  }
   return config;
 }
 
@@ -615,7 +702,17 @@ class AdditionalsChartController extends Controller {
       this.drawTreemap(payload).catch((error) => console.error(error));
     } else if (payload.type === 'calendar' && this.hasCanvasTarget) {
       this.drawCalendar(payload).catch((error) => console.error(error));
+    } else if (payload.lines && this.hasCanvasTarget) {
+      this.drawWithLines(payload).catch((error) => console.error(error));
     } else if (this.hasCanvasTarget) {
+      this.chart = new Chart(this.canvasTarget, chartConfig(this.canvasTarget, payload));
+    }
+  }
+
+  // Lines across the chart need the annotation plugin, which not every page loads
+  async drawWithLines(payload) {
+    await AdditionalsHelpers.loadLibrary('chartjs_annotation');
+    if (this.element.isConnected) {
       this.chart = new Chart(this.canvasTarget, chartConfig(this.canvasTarget, payload));
     }
   }

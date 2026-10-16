@@ -134,7 +134,6 @@ It provides :
 * [d3plus 4.7.0](https://d3plus.org/)
 * [dhtmlxGantt 9.1.4](https://dhtmlx.com/docs/products/dhtmlxGantt/)
 * [mermaid 12.2.0](https://github.com/mermaid-js/mermaid)
-* [moment 2.30.1](https://github.com/moment/moment) (used by Chart.js)
 * [Select2 4.0.13](https://select2.org/)
 * [Sortable 1.15.7](https://github.com/SortableJS/Sortable)
 
@@ -161,7 +160,6 @@ The following modules are available :
 * chartjs_datalabels
 * chartjs_matrix
 * chartjs_meta
-* chartjs_moment
 * d3plus
 * dhtmlxgantt
 * mermaid

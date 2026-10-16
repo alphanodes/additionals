@@ -27,8 +27,7 @@ module Additionals
     PACKAGES = {
       chartjs: %i[_chartjs_core_umd _chartjs_colorschemes],
       chartjs_meta: %i[chartjs _chartjs_datalabels _chartjs_annotation],
-      chartjs_moment: %i[_moment_with_locales _chartjs_adapter_moment],
-      chartjs_matrix: %i[chartjs_moment _chartjs_chart_matrix],
+      chartjs_matrix: %i[_chartjs_chart_matrix],
       select2: %i[_select2_css _select2_js _select2_helpers],
       mermaid: %i[_mermaid_min _mermaid_load],
       dhtmlxgantt: %i[_dhtmlxgantt_css _dhtmlxgantt_js],
@@ -51,8 +50,6 @@ module Additionals
       _chartjs_colorschemes:   Asset.new(type: :js,  path: 'vendor/chartjs-plugin-colorschemes.min'),
       _chartjs_datalabels:     Asset.new(type: :js,  path: 'vendor/chartjs-plugin-datalabels.min'),
       _chartjs_annotation:     Asset.new(type: :js,  path: 'vendor/chartjs-plugin-annotation.min'),
-      _moment_with_locales:    Asset.new(type: :js,  path: 'vendor/moment-with-locales.min'),
-      _chartjs_adapter_moment: Asset.new(type: :js,  path: 'vendor/chartjs-adapter-moment.min'),
       _chartjs_chart_matrix:   Asset.new(type: :js,  path: 'vendor/chartjs-chart-matrix.min'),
       _d3plus_min:             Asset.new(type: :js,  path: 'vendor/d3plus.min'),
       _sortable_min:           Asset.new(type: :js,  path: 'vendor/sortable.min'),

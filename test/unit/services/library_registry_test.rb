@@ -32,12 +32,9 @@ module Additionals
                    paths
     end
 
-    def test_resolves_chartjs_matrix_pulls_in_moment
-      paths = Registry.resolve(:chartjs_matrix).map(&:path)
-
-      assert_includes paths, 'vendor/moment-with-locales.min'
-      assert_includes paths, 'vendor/chartjs-adapter-moment.min'
-      assert_includes paths, 'vendor/chartjs-chart-matrix.min'
+    # The calendar and heat maps use numbers and categories, no time axis
+    def test_resolves_chartjs_matrix_without_a_date_adapter
+      assert_equal ['vendor/chartjs-chart-matrix.min'], Registry.resolve(:chartjs_matrix).map(&:path)
     end
 
     def test_dedups_across_multiple_packages

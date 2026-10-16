@@ -414,6 +414,12 @@ describe('tooltip line', () => {
 
     expect(options.plugins.tooltip.callbacks.afterLabel).toBe(tooltipLine);
   });
+
+  it('applies to the tooltip of bars', () => {
+    const { options } = chartConfig(null, payload({ type: 'bar_vertical' }));
+
+    expect(options.plugins.tooltip.callbacks.afterLabel).toBe(tooltipLine);
+  });
 });
 
 describe('value ticks', () => {

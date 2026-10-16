@@ -70,8 +70,8 @@ function clickHandler(payload) {
   };
 }
 
-// Line below the value of a point in its tooltip, e.g. how many entries a
-// median stands for, formatted by the server
+// Line below the value of a point or bar in its tooltip, e.g. how many
+// entries a median stands for, formatted by the server
 export function tooltipLine(context) {
   return context.dataset.tooltips?.[context.dataIndex] || '';
 }
@@ -264,6 +264,7 @@ function barConfig(payload) {
         tooltip: {
           callbacks: {
             label: (context) => `${context.dataset.label}: ${valueText(payload, context.datasetIndex, context.dataIndex)}`,
+            afterLabel: tooltipLine,
           },
         },
         datalabels: {

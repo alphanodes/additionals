@@ -496,6 +496,43 @@ table.table-of-values {
   min-width: 0;
 }
 
+/* key figures above a chart: label, value and context per tile, a colored
+   edge marks the figure that needs attention */
+.additionals-key-figures {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10em, 1fr));
+  gap: 0.75em;
+  margin: 0.5em 0 1em;
+}
+
+.additionals-key-figure {
+  padding: 0.5em 0.75em;
+  border: 1px solid var(--oc-gray-3);
+  border-left-width: 3px;
+  border-radius: 4px;
+}
+
+.additionals-key-figure.key-figure-alert {
+  border-left-color: var(--a-color-alert);
+}
+
+.key-figure-label,
+.key-figure-note {
+  color: var(--a-color-muted);
+  font-size: var(--a-font-size-sm);
+}
+
+.key-figure-label {
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.key-figure-value {
+  font-size: var(--a-font-size-xl);
+  font-weight: bold;
+  line-height: 1.4;
+}
+
 /* query chart blocks: the chart takes the width the table of values leaves, in a
    narrow column the table moves below it */
 .additionals-query-chart .additionals-chart-wrapper {

@@ -39,6 +39,22 @@ class AdditionalsChartTest < Additionals::HelperTest
     assert_includes render_chart(Additionals::TestPayloadChart.new(data: [0, 0])), 'nodata'
   end
 
+  def test_key_figures_mark_an_alert
+    html = render_key_figures [{ label: 'Done', value: '20 %', alert: true }]
+
+    assert_includes Nokogiri::HTML.fragment(html).at_css('.additionals-key-figure')['class'], 'key-figure-alert'
+  end
+
+  def test_key_figures_show_their_note
+    html = render_key_figures [{ label: 'Done', value: '20 %', note: '2 of 10' }]
+
+    assert_equal '2 of 10', Nokogiri::HTML.fragment(html).at_css('.key-figure-note').text
+  end
+
+  def test_no_key_figures_without_figures
+    assert_empty render_key_figures([]).strip
+  end
+
   def test_charts_side_by_side_get_an_id_each
     html = @redmine_view.render partial: 'additionals/charts/charts',
                                 locals: { charts: [Additionals::TestPayloadChart.new, Additionals::TestPayloadChart.new],
@@ -49,6 +65,10 @@ class AdditionalsChartTest < Additionals::HelperTest
   end
 
   private
+
+  def render_key_figures(figures)
+    @redmine_view.render partial: 'additionals/charts/key_figures', locals: { figures: }
+  end
 
   def render_chart(chart)
     @redmine_view.render partial: 'additionals/charts/chart', locals: { chart:, id: 'wiki_chart' }

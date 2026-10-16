@@ -1,7 +1,7 @@
 /* global Chart */
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import AdditionalsChartController, {
-  chartConfig, renderTreemap, valueTicks, tooltipLine, withColors, shareDatasets, lineAnnotations, colorWithAlpha, areaGradient, legendLabels, calendarConfig, calendarLevel, calendarLegend, calendarMonthLabels,
+  chartConfig, renderTreemap, valueTicks, tooltipLine, withColors, shareDatasets, lineAnnotations, colorWithAlpha, areaGradient, legendLabels, markerTop, markerPlugin, calendarConfig, calendarLevel, calendarLegend, calendarMonthLabels,
 } from '../../../assets/javascripts/controllers/additionals_chart_controller.js';
 
 function payload(overrides = {}) {
@@ -495,10 +495,157 @@ describe('burndown lines', () => {
     expect([lines.line0.xMin, lines.line0.label.content]).toEqual([1.5, 'Today']);
   });
 
+  it('puts the text of a line across the values on the right', () => {
+    const lines = lineAnnotations(document.body, burndownPayload({ lines: [{ axis: 'y', value: 2, label: 'Average' }] }));
+
+    expect(lines.line0.label.position).toBe('end');
+  });
+
   it('adds the lines to the annotations of the chart', () => {
     const { options } = chartConfig(document.body, burndownPayload({ lines: [{ axis: 'x', value: 1, label: 'Today' }] }));
 
     expect(Object.keys(options.plugins.annotation.annotations)).toEqual(['line0']);
+  });
+});
+
+describe('bars with lines and markers', () => {
+  function revenuePayload(overrides = {}) {
+    return payload({
+      type: 'bar_vertical',
+      stacked: true,
+      labels: ['Jan', 'Feb'],
+      datasets: [{ label: 'Paid', data: [10, 20], markers: ['worst', 'best'] },
+        { label: 'Sent', data: [5, 0] },
+        { label: '2025', data: [12, 18], type: 'line', style: 'dashed' }],
+      ...overrides,
+    });
+  }
+
+  function labelContext(revenueConfig, datasetIndex) {
+    return { dataset: revenueConfig.data.datasets[datasetIndex], dataIndex: 0, datasetIndex };
+  }
+
+  it('lays a line over the bars in a stack of its own', () => {
+    const line = chartConfig(document.body, revenuePayload()).data.datasets[2];
+
+    expect([line.stack, line.order, line.borderDash]).toEqual(['line', -1, [6, 4]]);
+  });
+
+  it('keeps the line in its place of the payload in the legend', () => {
+    const { sort } = chartConfig(document.body, revenuePayload()).options.plugins.legend.labels;
+
+    expect([{ datasetIndex: 2 }, { datasetIndex: 0 }].sort(sort).map((item) => item.datasetIndex)).toEqual([0, 2]);
+  });
+
+  it('colors the points of a line with a color of its own', () => {
+    const dataset = withColors(document.body, { data: [1], color: '--test-red', type: 'line' });
+
+    expect(dataset.pointBackgroundColor).toBe(dataset.borderColor);
+  });
+
+  it('keeps the line in its place of the payload in the tooltip', () => {
+    const { itemSort } = chartConfig(document.body, revenuePayload()).options.plugins.tooltip;
+
+    expect([{ datasetIndex: 2 }, { datasetIndex: 0 }].sort(itemSort).map((item) => item.datasetIndex)).toEqual([0, 2]);
+  });
+
+  it('shows no value label on a line', () => {
+    const revenueConfig = chartConfig(document.body, revenuePayload({ stacked: false }));
+
+    expect(revenueConfig.options.plugins.datalabels.display(labelContext(revenueConfig, 2))).toBe(false);
+  });
+
+  it('shows no value labels on request', () => {
+    const revenueConfig = chartConfig(document.body, revenuePayload({ stacked: false, valueLabels: false }));
+
+    expect(revenueConfig.options.plugins.datalabels.display(labelContext(revenueConfig, 0))).toBe(false);
+  });
+
+  it('leaves the line out of the share of a part', () => {
+    const revenueConfig = chartConfig(document.body, revenuePayload());
+    const label = revenueConfig.options.plugins.tooltip.callbacks.label(labelContext(revenueConfig, 0));
+
+    expect(label).toBe('Paid: 10 (67%)');
+  });
+
+  it('shows no share of the stack for a line', () => {
+    const revenueConfig = chartConfig(document.body, revenuePayload());
+
+    expect(revenueConfig.options.plugins.tooltip.callbacks.label(labelContext(revenueConfig, 2))).toBe('2025: 12');
+  });
+
+  it('names the meaning of a marker in the tooltip of stacked bars', () => {
+    const revenueConfig = chartConfig(document.body, revenuePayload());
+
+    expect(revenueConfig.options.plugins.tooltip.callbacks.afterLabel({ dataset: { tooltips: ['Worst month'] }, dataIndex: 0 }))
+      .toBe('Worst month');
+  });
+
+  it('opens the tooltip for the whole column of a marked period', () => {
+    expect(chartConfig(document.body, revenuePayload()).options.interaction).toEqual({ mode: 'index', intersect: false });
+  });
+
+  it('leaves the empty parts out of the tooltip of a column', () => {
+    const { filter } = chartConfig(document.body, revenuePayload()).options.plugins.tooltip;
+
+    expect([filter({ dataset: {}, raw: 0, dataIndex: 0 }), filter({ dataset: { type: 'line' }, raw: 0, dataIndex: 0 })])
+      .toEqual([false, true]);
+  });
+
+  it('keeps an empty part carrying a marker in the tooltip', () => {
+    const { filter } = chartConfig(document.body, revenuePayload()).options.plugins.tooltip;
+
+    expect(filter({ dataset: { markers: ['worst'] }, raw: 0, dataIndex: 0 })).toBe(true);
+  });
+
+  it('opens the list of the bar under the pointer', () => {
+    const open = vi.spyOn(window, 'open').mockImplementation(() => null);
+    const payloadWithUrls = revenuePayload({ datasets: [{ label: 'Paid', data: [10], urls: ['/paid'], markers: ['best'] }, { label: 'Sent', data: [5], urls: ['/sent'] }] });
+    const chart = { getElementsAtEventForMode: () => [{ datasetIndex: 1, index: 0 }] };
+
+    chartConfig(document.body, payloadWithUrls).options.onClick({}, [{ datasetIndex: 0, index: 0 }], chart);
+
+    expect(open).toHaveBeenCalledWith('/sent');
+    open.mockRestore();
+  });
+
+  it('makes room above the bars for markers', () => {
+    expect(chartConfig(document.body, revenuePayload()).options.layout.padding.top).toBeGreaterThan(0);
+  });
+
+  it('draws the markers with a plugin of its own', () => {
+    const ids = chartConfig(document.body, revenuePayload()).plugins.map((plugin) => plugin.id);
+
+    expect(ids).toContain('additionalsMarkers');
+  });
+
+  it('puts a marker on top of the whole stack', () => {
+    const bars = [[{ y: 80, base: 100 }], [{ y: 60, base: 80 }], [{ y: 10, base: 100 }]];
+    const chart = {
+      data: { datasets: [{ stack: undefined }, { stack: undefined }, { type: 'line', stack: 'line' }] },
+      options: { scales: { y: { stacked: true } } },
+      isDatasetVisible: () => true,
+      getDatasetMeta: (index) => ({ data: bars[index] }),
+    };
+
+    expect(markerTop(chart, 0, 0)).toBe(60);
+  });
+
+  it('draws the glyph of a marker above its bar', () => {
+    const texts = [];
+    const chart = {
+      ctx: {
+        save() {}, restore() {}, fillText: (text, x, y) => texts.push([text, x, y]),
+      },
+      data: { datasets: [{ markers: ['best'] }] },
+      options: { scales: { y: {} } },
+      isDatasetVisible: () => true,
+      getDatasetMeta: () => ({ data: [{ x: 30, y: 50, base: 100 }] }),
+    };
+
+    markerPlugin(document.body).afterDatasetsDraw(chart);
+
+    expect(texts).toEqual([['★', 30, 46]]);
   });
 });
 

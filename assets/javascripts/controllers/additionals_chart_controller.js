@@ -21,6 +21,11 @@ const LINE_POINT_HIT_RADIUS = 8;
 const AREA_GRADIENT_ALPHA = [0.35, 0.02];
 // Lines of a role of their own, e.g. the ideal line of a burndown
 const LINE_DASHES = { dashed: [6, 4], dotted: [2, 3] };
+// Marks above a bar, e.g. the best and the worst month: a gold star, the worst
+// one stays unobtrusive. Glyphs instead of emoji look the same on every system.
+const MARKERS = { best: ['★', '--oc-yellow-8'], worst: ['↯', '--a-color-muted'] };
+const MARKER_FONT_SIZE = 14;
+const MARKER_SPACE = MARKER_FONT_SIZE + 8;
 // Lines of a timeline with more periods would hide behind their points
 const MAX_PERIODS_WITH_POINTS = 60;
 // A pie legend with more entries pushes the pie into a corner and is cut off;
@@ -72,6 +77,17 @@ function clickHandler(payload) {
   return (_event, elements) => {
     if (elements.length > 0) {
       openUrl(entryUrl(payload, elements[0].datasetIndex, elements[0].index));
+    }
+  };
+}
+
+// Where the tooltip covers a whole column, a click still opens the list of
+// the bar under the pointer, not of the first part of the column
+function pointerClickHandler(payload) {
+  return (event, _elements, chart) => {
+    const [element] = chart.getElementsAtEventForMode(event, 'nearest', { intersect: true }, false);
+    if (element) {
+      openUrl(entryUrl(payload, element.datasetIndex, element.index));
     }
   };
 }
@@ -144,11 +160,19 @@ function pieConfig(canvas, payload) {
   };
 }
 
+// A line in a bar chart, e.g. the year before as comparison
+function isLine(dataset) {
+  return dataset.type === 'line';
+}
+
 function estimatedTextWidth(text) {
   return Math.ceil(text.length * VALUE_LABEL_FONT_SIZE * DIGIT_WIDTH_FACTOR);
 }
 
 function longestValueWidth(payload) {
+  if (payload.valueLabels === false) {
+    return 0;
+  }
   return payload.datasets.reduce((max, dataset, datasetIndex) => Math.max(
     max,
     ...dataset.data.map((_value, index) => estimatedTextWidth(valueText(payload, datasetIndex, index))),
@@ -179,7 +203,12 @@ function valueLabelRotation(payload, context) {
 
 // Sum of all parts of an entry, the length of its stacked bar
 function rowTotal(payload, index) {
-  return payload.datasets.reduce((sum, dataset) => sum + (dataset.data[index] || 0), 0);
+  return payload.datasets.reduce((sum, dataset) => (isLine(dataset) ? sum : sum + (dataset.data[index] || 0)), 0);
+}
+
+// Value labels are shown for bars only, and not at all on request
+function showValueLabel(payload, context) {
+  return payload.valueLabels !== false && !isLine(context.dataset) && context.dataset.data[context.dataIndex] !== 0;
 }
 
 // A part of a stacked bar shows its value inside, if the value fits in
@@ -211,9 +240,14 @@ function stackedOptions(payload, horizontal) {
     },
     tooltip: {
       callbacks: {
+        afterLabel: tooltipLine,
         label: (context) => {
-          const percentage = partShare(payload, context.datasetIndex, context.dataIndex);
-          return `${context.dataset.label}: ${valueText(payload, context.datasetIndex, context.dataIndex)} (${percentage}%)`;
+          const text = `${context.dataset.label}: ${valueText(payload, context.datasetIndex, context.dataIndex)}`;
+          // A comparison line is no part of the stack
+          if (isLine(context.dataset)) {
+            return text;
+          }
+          return `${text} (${partShare(payload, context.datasetIndex, context.dataIndex)}%)`;
         },
       },
     },
@@ -221,7 +255,7 @@ function stackedOptions(payload, horizontal) {
       anchor: 'center',
       align: 'center',
       padding: VALUE_LABEL_PADDING,
-      display: (context) => context.dataset.data[context.dataIndex] !== 0 && valueFitsInPart(payload, context, horizontal),
+      display: (context) => showValueLabel(payload, context) && valueFitsInPart(payload, context, horizontal),
       formatter: (_value, context) => (payload.percent
         ? `${partShare(payload, context.datasetIndex, context.dataIndex)} %`
         : valueText(payload, context.datasetIndex, context.dataIndex)),
@@ -246,16 +280,85 @@ export function shareDatasets(payload) {
   }));
 }
 
-function barConfig(payload) {
+// A line in a bar chart lies above the bars in a stack of its own
+function barDataset(dataset) {
+  if (!isLine(dataset)) {
+    return dataset;
+  }
+  return {
+    ...dataset,
+    stack: 'line',
+    order: -1,
+    fill: false,
+    borderWidth: 2,
+    borderDash: LINE_DASHES[dataset.style] || [],
+    pointRadius: LINE_POINT_RADIUS,
+    pointHoverRadius: LINE_POINT_RADIUS + 1,
+  };
+}
+
+// The bars a marker sits on: its own, in stacked bars all of its stack
+function markedBars(chart, datasetIndex) {
+  const { stack } = chart.data.datasets[datasetIndex];
+  const stacked = chart.options.scales?.y?.stacked;
+  return chart.data.datasets
+    .map((dataset, other) => (stacked ? dataset.stack === stack && !isLine(dataset) : other === datasetIndex))
+    .flatMap((included, other) => (included && chart.isDatasetVisible(other) ? [other] : []));
+}
+
+// Top of the bar of a marked entry, of its whole stack in stacked bars
+export function markerTop(chart, datasetIndex, index) {
+  const tops = markedBars(chart, datasetIndex)
+    .map((other) => chart.getDatasetMeta(other).data[index])
+    .filter(Boolean)
+    .map((bar) => Math.min(bar.y, bar.base));
+  return tops.length > 0 ? Math.min(...tops) : null;
+}
+
+// Draws the markers of datasets[].markers above their vertical bars
+export function markerPlugin(canvas) {
+  return {
+    id: 'additionalsMarkers',
+    afterDatasetsDraw(chart) {
+      const { ctx } = chart;
+      ctx.save();
+      ctx.font = `bold ${MARKER_FONT_SIZE}px ${getComputedStyle(document.body).fontFamily || 'sans-serif'}`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'bottom';
+      chart.data.datasets.forEach((dataset, datasetIndex) => {
+        if (!dataset.markers || !chart.isDatasetVisible(datasetIndex)) {
+          return;
+        }
+        dataset.markers.forEach((marker, index) => {
+          const top = MARKERS[marker] ? markerTop(chart, datasetIndex, index) : null;
+          if (top === null) {
+            return;
+          }
+          const [glyph, color] = MARKERS[marker];
+          ctx.fillStyle = cssVar(canvas, color);
+          ctx.fillText(glyph, chart.getDatasetMeta(datasetIndex).data[index].x, top - 4);
+        });
+      });
+      ctx.restore();
+    },
+  };
+}
+
+function hasMarkers(payload) {
+  return payload.datasets.some((dataset) => dataset.markers?.some((marker) => MARKERS[marker]));
+}
+
+function barConfig(canvas, payload) {
   const horizontal = payload.type === 'bar_horizontal';
   const valueAxis = horizontal ? 'x' : 'y';
   const stacked = payload.stacked ? stackedOptions(payload, horizontal) : null;
+  const datasets = payload.percent ? shareDatasets(payload) : payload.datasets;
 
   const config = {
     type: 'bar',
     data: {
       labels: payload.labels,
-      datasets: payload.percent ? shareDatasets(payload) : payload.datasets,
+      datasets: datasets.map(barDataset),
     },
     options: {
       indexAxis: horizontal ? 'y' : 'x',
@@ -281,6 +384,8 @@ function barConfig(payload) {
           // The room for the values above vertical bars lies above the
           // legend, the values would run into it
           position: horizontal ? 'top' : 'bottom',
+          // A comparison line drawn on top keeps its place of the payload
+          labels: { sort: byDatasetIndex },
         },
         colorschemes: {
           scheme: payload.colorSchema,
@@ -297,7 +402,7 @@ function barConfig(payload) {
           align: 'end',
           padding: VALUE_LABEL_PADDING,
           rotation: (context) => (horizontal ? 0 : valueLabelRotation(payload, context)),
-          display: (context) => context.dataset.data[context.dataIndex] !== 0,
+          display: (context) => showValueLabel(payload, context),
           formatter: (_value, context) => valueText(payload, context.datasetIndex, context.dataIndex),
         },
       },
@@ -315,6 +420,20 @@ function barConfig(payload) {
     };
     options.plugins.tooltip = stacked.tooltip;
     options.plugins.datalabels = stacked.datalabels;
+  }
+  // The tooltip keeps the order of the payload, a comparison line on top included
+  config.options.plugins.tooltip.itemSort = byDatasetIndex;
+  // Room above vertical bars for their markers. A marker may sit above an
+  // empty period, so the tooltip covers the whole column and leaves out the
+  // parts without value, but the one carrying the marker and its meaning.
+  if (!horizontal && hasMarkers(payload)) {
+    const { options } = config;
+    const { padding } = options.layout;
+    options.layout.padding = { ...(typeof padding === 'object' ? padding : {}), top: Math.max(padding?.top || 0, MARKER_SPACE) };
+    options.interaction = { mode: 'index', intersect: false };
+    options.onClick = pointerClickHandler(payload);
+    options.plugins.tooltip.filter = (item) => isLine(item.dataset) || item.raw !== 0 || Boolean(item.dataset.markers?.[item.dataIndex]);
+    config.plugins = [...config.plugins, markerPlugin(canvas)];
   }
   if (payload.percent) {
     const axis = config.options.scales[valueAxis];
@@ -467,7 +586,13 @@ function lineConfig(payload) {
 export function withColors(canvas, dataset) {
   if (dataset.color) {
     const color = cssVar(canvas, dataset.color);
-    return { ...dataset, borderColor: color, backgroundColor: dataset.backgroundColor || color };
+    return {
+      ...dataset,
+      borderColor: color,
+      backgroundColor: dataset.backgroundColor || color,
+      pointBackgroundColor: color,
+      pointBorderColor: color,
+    };
   }
   if (!dataset.colors) {
     return dataset;
@@ -487,8 +612,10 @@ export function lineAnnotations(canvas, payload) {
       borderColor: color,
       borderDash: LINE_DASHES.dashed,
       borderWidth: 1,
+      // A line across the values carries its text on the right, where the
+      // latest periods are, e.g. still without data
       label: {
-        display: true, content: line.label, position: 'start', backgroundColor: color,
+        display: true, content: line.label, position: line.axis === 'x' ? 'start' : 'end', backgroundColor: color,
       },
     }];
   }));
@@ -496,7 +623,7 @@ export function lineAnnotations(canvas, payload) {
 
 function typeConfig(canvas, payload) {
   if (BAR_TYPES.includes(payload.type)) {
-    return barConfig(payload);
+    return barConfig(canvas, payload);
   }
   return LINE_TYPES.includes(payload.type) ? lineConfig(payload) : pieConfig(canvas, payload);
 }

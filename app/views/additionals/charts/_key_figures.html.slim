@@ -1,9 +1,9 @@
-/ Key figures above a chart, each { label:, value:, note:, alert: }; an alert
-/ marks the figure that needs attention
+/ Key figures above a chart, each { label:, value:, note:, alert:, success: };
+/ an alert marks the figure that needs attention, success a goal reached
 - if figures.any?
   .additionals-key-figures
     - figures.each do |figure|
-      div class=['additionals-key-figure', ('key-figure-alert' if figure[:alert])]
+      div class=['additionals-key-figure', ('key-figure-alert' if figure[:alert]), ('key-figure-success' if figure[:success])]
         .key-figure-label = figure[:label]
         .key-figure-value = figure[:value]
         - if figure[:note]

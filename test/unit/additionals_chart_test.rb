@@ -45,6 +45,12 @@ class AdditionalsChartTest < Additionals::HelperTest
     assert_includes Nokogiri::HTML.fragment(html).at_css('.additionals-key-figure')['class'], 'key-figure-alert'
   end
 
+  def test_key_figures_mark_a_goal_reached
+    html = render_key_figures [{ label: 'Reached', value: '104 %', success: true }]
+
+    assert_includes Nokogiri::HTML.fragment(html).at_css('.additionals-key-figure')['class'], 'key-figure-success'
+  end
+
   def test_key_figures_show_their_note
     html = render_key_figures [{ label: 'Done', value: '20 %', note: '2 of 10' }]
 

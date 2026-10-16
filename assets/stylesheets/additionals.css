@@ -497,7 +497,7 @@ table.table-of-values {
 }
 
 /* key figures above a chart: label, value and context per tile, a colored
-   edge marks the figure that needs attention */
+   edge marks the figure that needs attention or a goal reached */
 .additionals-key-figures {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(10em, 1fr));
@@ -514,6 +514,10 @@ table.table-of-values {
 
 .additionals-key-figure.key-figure-alert {
   border-left-color: var(--a-color-alert);
+}
+
+.additionals-key-figure.key-figure-success {
+  border-left-color: var(--a-color-success);
 }
 
 .key-figure-label,

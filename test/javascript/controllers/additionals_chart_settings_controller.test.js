@@ -11,7 +11,8 @@ function form({ groupBy = 'status', chartType = 'doughnut', period = '', compare
     <div data-controller="additionals-chart-settings"
          data-additionals-chart-settings-timeline-groups-value='["created_on"]'
          data-additionals-chart-settings-number-groups-value='["estimated_hours"]'
-         data-additionals-chart-settings-line-types-value='["line","area"]'
+         data-additionals-chart-settings-timeline-types-value='${JSON.stringify([...SERIES_TYPES, 'calendar'])}'
+         data-additionals-chart-settings-timeline-only-types-value='["line","area","calendar"]'
          data-additionals-chart-settings-series-types-value='${JSON.stringify(SERIES_TYPES)}'
          data-additionals-chart-settings-previous-period-value="previous">
       <select id="group_by" data-additionals-chart-settings-target="groupBy"
@@ -23,7 +24,7 @@ function form({ groupBy = 'status', chartType = 'doughnut', period = '', compare
       <p id="split" data-additionals-chart-settings-target="series"></p>
       <select id="chart_type" data-additionals-chart-settings-target="chartType"
               data-action="additionals-chart-settings#update">
-        ${['doughnut', 'pie', 'treemap', ...SERIES_TYPES].map((value) => option(value, chartType)).join('')}
+        ${['doughnut', 'pie', 'treemap', ...SERIES_TYPES, 'calendar'].map((value) => option(value, chartType)).join('')}
       </select>
       <p id="order" data-additionals-chart-settings-target="order"></p>
       <p id="max_entries" data-additionals-chart-settings-target="maxEntries"></p>
@@ -92,7 +93,13 @@ describe('AdditionalsChartSettingsController', () => {
   it('offers only types with series for a date field', async () => {
     await render({ groupBy: 'created_on', chartType: 'line' });
 
-    expect(offeredTypes()).toEqual(SERIES_TYPES);
+    expect(offeredTypes()).toEqual([...SERIES_TYPES, 'calendar']);
+  });
+
+  it('hides the interval of a calendar', async () => {
+    await render({ groupBy: 'created_on', chartType: 'calendar' });
+
+    expect(element('interval').hidden).toBe(true);
   });
 
   it('turns a doughnut into a line when a date field is chosen', async () => {

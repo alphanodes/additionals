@@ -6,9 +6,9 @@ import { Controller } from '@hotwired/stimulus';
 // JavaScript. Chart.js draws doughnut, pie, bars, lines and areas, d3plus the
 // treemap. A click on a slice opens the list filtered by its value.
 //
-// Chart.js and its plugins come from the libraries of the block. d3plus is
-// large and only needed for a treemap, so the controller loads it on demand
-// through the library registry.
+// Chart.js and its plugins come from the libraries of the block. d3plus, only
+// needed for a treemap, and the matrix plugin, only needed for a calendar,
+// are loaded on demand through the library registry.
 // Blocks loaded asynchronously connect like any other element, and a reloaded
 // or removed block releases its chart.
 
@@ -27,6 +27,12 @@ const VALUE_LABEL_PADDING = 2;
 const DIGIT_WIDTH_FACTOR = 0.6;
 // Degrees a value label is turned when it is wider than its vertical bar
 const VALUE_LABEL_SLANT = 45;
+// Opacity of the color per level of a calendar, days without values first
+const CALENDAR_ALPHAS = [0.08, 0.3, 0.5, 0.72, 0.95];
+const CALENDAR_FALLBACK_COLOR = '#1f77b4';
+const CALENDAR_GAP = 2;
+// Space between two month names
+const CALENDAR_MONTH_GAP = 4;
 
 // Reads a CSS custom property from an element. Canvas cannot resolve var().
 function cssVar(el, name) {
@@ -363,6 +369,150 @@ export function chartConfig(canvas, payload) {
   return LINE_TYPES.includes(payload.type) ? lineConfig(payload) : pieConfig(canvas, payload);
 }
 
+// Level of a day: 0 without value, then one above each bound it exceeds
+export function calendarLevel(levels, value) {
+  if (!value) {
+    return 0;
+  }
+  return 1 + levels.filter((bound) => value > bound).length;
+}
+
+// First color of the color scheme, as the colorschemes plugin defines it
+function schemeColor(payload) {
+  const [group, name] = (payload.colorSchema || '').split('.');
+  const colors = window.Chart?.colorschemes?.[group]?.[name];
+  return colors ? colors[0] : CALENDAR_FALLBACK_COLOR;
+}
+
+function calendarColor(payload, level) {
+  return window.Chart.helpers.color(schemeColor(payload)).alpha(CALENDAR_ALPHAS[level]).rgbString();
+}
+
+// Month names that fit next to each other, from the latest month back: a
+// name shows only if it ends before the next name shown starts. Names are
+// centered on their column, their widths differ by language.
+export function calendarMonthLabels(months, columnWidth, textWidth) {
+  const labels = {};
+  let nextStart = Infinity;
+  Object.keys(months).map(Number).sort((a, b) => b - a).forEach((column) => {
+    const halfWidth = textWidth(months[column]) / 2;
+    const center = (column + 0.5) * columnWidth;
+    if (center + halfWidth + CALENDAR_MONTH_GAP <= nextStart) {
+      labels[column] = months[column];
+      nextStart = center - halfWidth;
+    }
+  });
+  return labels;
+}
+
+// Month names measured in the font of the axis at its current width
+function fittingMonthLabels(scale, calendar) {
+  const { ctx } = scale;
+  ctx.save();
+  ctx.font = window.Chart.helpers.toFont(scale.options.ticks.font).string;
+  const labels = calendarMonthLabels(calendar.months, scale.width / calendar.weeks, (text) => ctx.measureText(text).width);
+  ctx.restore();
+  return labels;
+}
+
+// Ticks at the cells, not between them: the axes reach half a cell beyond
+function cellTicks(count) {
+  return (scale) => {
+    scale.ticks = Array.from({ length: count }, (_value, index) => ({ value: index }));
+  };
+}
+
+// The days of a year as cells, a column per week and a row per weekday
+export function calendarConfig(payload) {
+  const { calendar } = payload;
+  const level = (context) => calendarLevel(calendar.levels, context.raw?.v);
+  const cellSize = (context, count, axis) => {
+    const area = context.chart.chartArea || {};
+    const length = (axis === 'x' ? area.width : area.height) || 0;
+    return Math.max((length / count) - CALENDAR_GAP, 1);
+  };
+
+  return {
+    type: 'matrix',
+    data: {
+      datasets: [{
+        data: calendar.points,
+        backgroundColor: (context) => calendarColor(payload, level(context)),
+        borderWidth: 0,
+        hoverBorderWidth: 1,
+        width: (context) => cellSize(context, calendar.weeks, 'x'),
+        height: (context) => cellSize(context, 7, 'y'),
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      onClick: (_event, elements) => {
+        if (elements.length > 0) {
+          openUrl(entryUrl(payload, 0, elements[0].index));
+        }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          displayColors: false,
+          callbacks: {
+            title: (items) => payload.labels[items[0].dataIndex],
+            label: (context) => `${payload.totalLabel}: ${valueText(payload, 0, context.dataIndex)}`,
+          },
+        },
+      },
+      scales: {
+        x: {
+          type: 'linear',
+          position: 'top',
+          min: -0.5,
+          max: calendar.weeks - 0.5,
+          afterBuildTicks: (scale) => {
+            cellTicks(calendar.weeks)(scale);
+            scale.calendarMonths = fittingMonthLabels(scale, calendar);
+          },
+          grid: { display: false },
+          border: { display: false },
+          ticks: {
+            autoSkip: false,
+            maxRotation: 0,
+            callback(value) {
+              return this.calendarMonths[value] || '';
+            },
+          },
+        },
+        y: {
+          type: 'linear',
+          min: -0.5,
+          max: 6.5,
+          reverse: true,
+          afterBuildTicks: cellTicks(7),
+          grid: { display: false },
+          border: { display: false },
+          ticks: {
+            callback: (value) => calendar.weekdays[value] || '',
+          },
+        },
+      },
+    },
+  };
+}
+
+// Colors of the levels and the values they stand for, below the calendar
+export function calendarLegend(payload) {
+  const legend = document.createElement('div');
+  legend.className = 'additionals-calendar-legend';
+  payload.calendar.legend.forEach((text, level) => {
+    const item = document.createElement('span');
+    const swatch = document.createElement('i');
+    swatch.style.backgroundColor = calendarColor(payload, level);
+    item.append(swatch, text);
+    legend.append(item);
+  });
+  return legend;
+}
+
 export function renderTreemap(element, payload) {
   const data = payload.labels.map((label, index) => ({
     // Two versions "1.0" or users of the same name stay separate tiles
@@ -408,6 +558,8 @@ class AdditionalsChartController extends Controller {
     if (payload.type === 'treemap') {
       // Without d3plus the block stays empty, the reason belongs in the console
       this.drawTreemap(payload).catch((error) => console.error(error));
+    } else if (payload.type === 'calendar' && this.hasCanvasTarget) {
+      this.drawCalendar(payload).catch((error) => console.error(error));
     } else if (this.hasCanvasTarget) {
       this.chart = new Chart(this.canvasTarget, chartConfig(this.canvasTarget, payload));
     }
@@ -418,6 +570,19 @@ class AdditionalsChartController extends Controller {
       this.chart.destroy();
       this.chart = null;
     }
+    this.legend?.remove();
+    this.legend = null;
+  }
+
+  async drawCalendar(payload) {
+    await AdditionalsHelpers.loadLibrary('chartjs_matrix');
+    // The block may have been reloaded while the matrix plugin was loading
+    if (!this.element.isConnected) {
+      return;
+    }
+    this.chart = new Chart(this.canvasTarget, calendarConfig(payload));
+    this.legend = calendarLegend(payload);
+    this.element.after(this.legend);
   }
 
   async drawTreemap(payload) {

@@ -567,6 +567,29 @@ table.table-of-values caption {
   white-space: nowrap;
 }
 
+/* Levels of a calendar below it, a swatch of each color with its values */
+.additionals-calendar-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25em 1em;
+  justify-content: flex-end;
+  color: var(--a-color-muted);
+  font-size: var(--a-font-size-sm);
+}
+
+.additionals-calendar-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+}
+
+.additionals-calendar-legend i {
+  display: inline-block;
+  width: 0.9em;
+  height: 0.9em;
+  border-radius: 2px;
+}
+
 /* Where the values of a chart come from, below it like the other hints */
 .additionals-query-chart .query-chart-query-description {
   margin-top: 0.5em;

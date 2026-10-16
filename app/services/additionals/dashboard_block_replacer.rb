@@ -28,6 +28,17 @@ module Additionals
         settings
       end
 
+      # Old day matrix blocks become chart blocks shown as calendar, keeping
+      # their query. replacements: { 'old_block' => ['new_block', 'date column', {other settings}] }
+      def replace_with_calendars(replacements)
+        call do |block, settings|
+          target, group_by, extra = replacements[block]
+          next unless target
+
+          [[target, { group_by:, chart_type: 'calendar', query_id: settings[:query_id].to_s }.merge(extra || {})]]
+        end
+      end
+
       private
 
       def replace_blocks(dashboard)

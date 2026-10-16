@@ -10,12 +10,20 @@
 # values need an own count: core cannot group by them. Dates are grouped by
 # day like the list and summed up to periods, a timeline.
 class AdditionalsQueryChart < AdditionalsChart
-  CHART_TYPES = %w[doughnut pie bar_horizontal bar_vertical treemap line area table].freeze
+  CHART_TYPES = %w[doughnut pie bar_horizontal bar_vertical treemap line area calendar table].freeze
   BAR_TYPES = %w[bar_horizontal bar_vertical].freeze
   LINE_TYPES = %w[line area].freeze
   # Types that show series: a comparison, the parts of a split or a timeline,
   # which has no shares of a whole like doughnut, pie and treemap show
   SERIES_TYPES = (BAR_TYPES + LINE_TYPES + %w[table]).freeze
+  # A calendar shows the days of a year, like a series only for a timeline
+  TIMELINE_ONLY_TYPES = (LINE_TYPES + %w[calendar]).freeze
+  TIMELINE_TYPES = (SERIES_TYPES + %w[calendar]).freeze
+  # Weeks of a calendar up to today, a year in columns of weeks
+  CALENDAR_WEEKS = 53
+  CALENDAR_HEIGHT = 190
+  # Days with values are split into levels of about the same number of days
+  CALENDAR_QUANTILES = [0.25, 0.5, 0.75].freeze
   INTERVALS = %w[week month quarter year].freeze
   DEFAULT_INTERVAL = 'month'
   # Relative periods of the date filters of core a block can count in, with
@@ -25,6 +33,9 @@ class AdditionalsQueryChart < AdditionalsChart
                     'lm' => :label_last_month, 'y' => :label_this_year }.freeze
   # Comparison with the period before the one of the block
   PREVIOUS_PERIOD = 'previous'
+  # Icon before the title, after the display type; bars without one of their own
+  CHART_ICONS = { 'doughnut' => 'chart-pie', 'pie' => 'chart-pie', 'line' => 'chart-line',
+                  'area' => 'chart-area', 'calendar' => 'calendar', 'table' => 'table' }.freeze
   # More periods are no readable timeline, but a date entered wrongly, e.g. a
   # year 0202, would fill thousands of them up to the other dates
   MAX_PERIODS = 1000
@@ -141,9 +152,9 @@ class AdditionalsQueryChart < AdditionalsChart
     @chart_type ||= begin
       type = CHART_TYPES.include?(settings[:chart_type]) ? settings[:chart_type] : CHART_TYPES.first
       if timeline?
-        SERIES_TYPES.include?(type) ? type : LINE_TYPES.first
+        TIMELINE_TYPES.include?(type) ? type : LINE_TYPES.first
       else
-        LINE_TYPES.include?(type) ? 'bar_vertical' : type
+        TIMELINE_ONLY_TYPES.include?(type) ? 'bar_vertical' : type
       end
     end
   end
@@ -152,8 +163,15 @@ class AdditionalsQueryChart < AdditionalsChart
     ORDERS.include?(settings[:order]) ? settings[:order] : ORDERS.first
   end
 
+  # A calendar shows single days
   def interval
+    return 'day' if calendar?
+
     INTERVALS.include?(settings[:interval]) ? settings[:interval] : DEFAULT_INTERVAL
+  end
+
+  def calendar?
+    chart_type == 'calendar'
   end
 
   # Grouped by a date, the entries are periods in the order of time
@@ -182,6 +200,10 @@ class AdditionalsQueryChart < AdditionalsChart
     BAR_TYPES.include? chart_type
   end
 
+  def icon
+    CHART_ICONS.fetch chart_type, 'chart-bar'
+  end
+
   def line_chart?
     LINE_TYPES.include? chart_type
   end
@@ -203,7 +225,10 @@ class AdditionalsQueryChart < AdditionalsChart
     settings[:show_empty].nil? || RedminePluginKit.true?(settings[:show_empty])
   end
 
+  # A table of the days of a year would be longer than the calendar tells
   def with_table?
+    return false if calendar?
+
     table_only? || settings[:with_table].nil? || RedminePluginKit.true?(settings[:with_table])
   end
 
@@ -404,10 +429,12 @@ class AdditionalsQueryChart < AdditionalsChart
       stacked: split? && chart_type != 'line',
       total: total.round(2),
       totalLabel: measure_label,
-      colorSchema: color_schema }
+      colorSchema: color_schema }.merge(calendar? ? { calendar: calendar_payload } : {})
   end
 
   def height
+    return CALENDAR_HEIGHT if calendar?
+
     bars_height = if chart_type == 'bar_horizontal'
                     [calc_bar_height(entries.size, compare? ? 2 : 1) + 40, 150].max
                   else
@@ -731,15 +758,15 @@ class AdditionalsQueryChart < AdditionalsChart
   # no shown period loses entries. Custom fields keep their values in a joined
   # table, which the base scope has not, so they count everything.
   def limit_to_latest_periods(query)
-    max_entries = settings[:max_entries].to_i
-    return unless timeline? && max_entries.positive? && !group_column.is_a?(QueryCustomFieldColumn)
+    return unless timeline? && limited_timeline?
+    return if group_column.is_a? QueryCustomFieldColumn
 
     sql = group_sql query.base_scope.klass, group_statement(query, group_column)
     days = query.base_scope.pick Arel.sql(sql).minimum, Arel.sql(sql).maximum
     return unless days&.last
 
     first = timeline_end days.last.to_date
-    (max_entries - 1).times { first = period_start first - 1 }
+    (max_periods(first) - 1).times { first = period_start first - 1 }
     # The periods before the first entry stay out like without the limit
     first = [first, period_start(days.first.to_date)].max
     periods_start[query] = first
@@ -750,6 +777,59 @@ class AdditionalsQueryChart < AdditionalsChart
   # First period each query counts from, see limit_to_latest_periods
   def periods_start
     @periods_start ||= {}.compare_by_identity
+  end
+
+  def limited_timeline?
+    calendar? || settings[:max_entries].to_i.positive?
+  end
+
+  # Maximum of periods a timeline up to its last day shows, nil for all of
+  # them. A calendar starts with the first day of a week.
+  def max_periods(last)
+    return ((CALENDAR_WEEKS - 1) * 7) + ((last.cwday - first_wday) % 7) + 1 if calendar?
+
+    max_entries = settings[:max_entries].to_i
+    [max_entries, MAX_PERIODS].min if max_entries.positive?
+  end
+
+  # Days as cells of a calendar: a column per week, a row per weekday from
+  # the first day of a week on. The levels of the colors are quantiles of
+  # the days with values, so a calendar uses all its colors whatever the
+  # numbers are, and a single large day does not pale all others.
+  def calendar_payload
+    offset = (entries.first.key.cwday - first_wday) % 7
+    cells = entries.each_with_index.map { |entry, index| [entry, index + offset] }
+    { points: cells.map { |entry, cell| { x: cell / 7, y: cell % 7, v: entry.value } },
+      weeks: (cells.last.last / 7) + 1,
+      weekdays: (0..6).map { |day| l('date.abbr_day_names')[(first_wday + day) % 7] },
+      months: calendar_months(cells),
+      levels: calendar_levels,
+      legend: calendar_legend }
+  end
+
+  # The value of each level: none, up to each bound, above the last one
+  def calendar_legend
+    levels = calendar_levels
+    texts = ['0'] + levels.map { |bound| l :label_chart_level_up_to, value: format_bound(bound) }
+    texts << l(:label_chart_level_above, value: format_bound(levels.last)) if levels.any?
+    texts
+  end
+
+  # Abbreviated month at the column of its first day, and at the first column.
+  # Which of them fit next to each other only the width of the chart tells.
+  def calendar_months(cells)
+    cells.each_with_object({}) do |(entry, cell), months|
+      next unless cell == cells.first.last || entry.key.day == 1
+
+      months[cell / 7] = l('date.abbr_month_names')[entry.key.month]
+    end
+  end
+
+  def calendar_levels
+    @calendar_levels ||= begin
+      values = entries.map(&:value).select(&:positive?).sort!
+      values.empty? ? [] : CALENDAR_QUANTILES.map { |quantile| values[((values.size - 1) * quantile).floor] }.tap(&:uniq!)
+    end
   end
 
   # All periods from the first to the last one, the latest ones up to the
@@ -763,8 +843,7 @@ class AdditionalsQueryChart < AdditionalsChart
     # Periods without entries at the start of the limited ones show, too
     first = [first, *periods_start.values].min
 
-    max_entries = settings[:max_entries].to_i
-    limit = max_entries.positive? ? [max_entries, MAX_PERIODS].min : MAX_PERIODS
+    limit = max_periods(last) || MAX_PERIODS
     periods = [last]
     while periods.size < limit
       previous = period_start periods.last - 1
@@ -787,6 +866,7 @@ class AdditionalsQueryChart < AdditionalsChart
 
   def period_start(date)
     case interval
+    when 'day' then date
     when 'week' then date - ((date.cwday - first_wday) % 7)
     when 'quarter' then date.beginning_of_quarter
     when 'year' then date.beginning_of_year
@@ -796,6 +876,7 @@ class AdditionalsQueryChart < AdditionalsChart
 
   def period_end(start)
     case interval
+    when 'day' then start
     when 'week' then start + 6
     when 'quarter' then start.end_of_quarter
     when 'year' then start.end_of_year
@@ -815,6 +896,7 @@ class AdditionalsQueryChart < AdditionalsChart
   # Weeks are numbered like in the calendar of core, by their Thursday
   def period_label(start, unit = interval)
     case unit
+    when 'day' then format_date start
     when 'week'
       thursday = start + ((11 - start.cwday) % 7)
       l :label_chart_week, week: thursday.cweek, year: thursday.cwyear

@@ -1,6 +1,8 @@
 /* global Chart */
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import AdditionalsChartController, { chartConfig, renderTreemap } from '../../../assets/javascripts/controllers/additionals_chart_controller.js';
+import AdditionalsChartController, {
+  chartConfig, renderTreemap, calendarConfig, calendarLevel, calendarLegend, calendarMonthLabels,
+} from '../../../assets/javascripts/controllers/additionals_chart_controller.js';
 
 function payload(overrides = {}) {
   return {
@@ -398,6 +400,112 @@ describe('chart configuration', () => {
   });
 });
 
+// Seven pixels per character
+function textWidth(text) {
+  return text.length * 7;
+}
+
+// Axis of a calendar with a canvas that measures like textWidth
+function calendarScale(width) {
+  return {
+    width,
+    options: { ticks: { font: {} } },
+    ctx: { save() {}, restore() {}, measureText: (text) => ({ width: textWidth(text) }) },
+  };
+}
+
+// Two days of a calendar: Monday without, Tuesday with 3 entries
+function calendarPayload() {
+  return payload({
+    type: 'calendar',
+    labels: ['2026-04-06', '2026-04-07'],
+    datasets: [{ label: 'Issues', data: [0, 3], urls: ['/issues?day=6', '/issues?day=7'] }],
+    calendar: {
+      points: [{ x: 0, y: 0, v: 0 }, { x: 0, y: 1, v: 3 }],
+      weeks: 1,
+      weekdays: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+      months: { 0: 'Apr' },
+      levels: [1, 2, 5],
+      legend: ['0', 'up to 1', 'up to 2', 'up to 5', 'above 5'],
+    },
+  });
+}
+
+describe('calendar', () => {
+  beforeEach(() => {
+    globalThis.Chart = {
+      helpers: {
+        color: () => ({ alpha: () => ({ rgbString: () => 'rgb(0, 0, 0)' }) }),
+        toFont: () => ({ string: '12px sans-serif' }),
+      },
+    };
+    window.Chart = globalThis.Chart;
+  });
+
+  it('puts a day without value on the lowest level', () => {
+    expect(calendarLevel([1, 2, 5], 0)).toBe(0);
+  });
+
+  it('puts a value on the level of the first bound it does not exceed', () => {
+    expect(calendarLevel([1, 2, 5], 3)).toBe(3);
+  });
+
+  it('puts a value above all bounds on the highest level', () => {
+    expect(calendarLevel([1, 2, 5], 9)).toBe(4);
+  });
+
+  it('draws the days as cells of a matrix', () => {
+    expect(calendarConfig(calendarPayload()).type).toBe('matrix');
+  });
+
+  it('names the rows by their weekday', () => {
+    const { y } = calendarConfig(calendarPayload()).options.scales;
+
+    expect(y.ticks.callback(1)).toBe('Tu');
+  });
+
+  it('names a column by the month that starts in it', () => {
+    const { x } = calendarConfig(calendarPayload()).options.scales;
+    const scale = calendarScale(100);
+
+    x.afterBuildTicks(scale);
+
+    expect(x.ticks.callback.call(scale, 0)).toBe('Apr');
+  });
+
+  it('names every month if there is room', () => {
+    expect(calendarMonthLabels({ 0: 'Oct', 2: 'Nov', 6: 'Dec' }, 26, textWidth)).toEqual({ 0: 'Oct', 2: 'Nov', 6: 'Dec' });
+  });
+
+  it('leaves out the first month if the next one starts too close', () => {
+    expect(calendarMonthLabels({ 0: 'Oct', 2: 'Nov', 6: 'Dec' }, 8, textWidth)).toEqual({ 2: 'Nov', 6: 'Dec' });
+  });
+
+  it('leaves out months that do not fit next to each other', () => {
+    expect(calendarMonthLabels({ 0: 'Oct', 4: 'Nov', 8: 'Dec', 12: 'Jan' }, 4, textWidth)).toEqual({ 4: 'Nov', 12: 'Jan' });
+  });
+
+  it('keeps the latest month', () => {
+    expect(calendarMonthLabels({ 0: 'Oct', 1: 'Nov' }, 4, textWidth)).toEqual({ 1: 'Nov' });
+  });
+
+  it('leaves out more of longer names', () => {
+    expect(calendarMonthLabels({ 0: 'sept.', 4: 'oct.' }, 8, textWidth)).toEqual({ 4: 'oct.' });
+  });
+
+  it('opens the list of a clicked day', () => {
+    const open = vi.spyOn(window, 'open').mockImplementation(() => null);
+
+    calendarConfig(calendarPayload()).options.onClick({}, [{ index: 1 }]);
+
+    expect(open).toHaveBeenCalledWith('/issues?day=7');
+  });
+
+  it('shows a legend entry per level', () => {
+    expect(calendarLegend(calendarPayload()).querySelectorAll('span')).toHaveLength(5);
+  });
+});
+
 describe('AdditionalsChartController', () => {
   function controller(data, { canvas = true } = {}) {
     const element = document.createElement('div');
@@ -418,6 +526,7 @@ describe('AdditionalsChartController', () => {
     ctx.connect = prototype.connect.bind(ctx);
     ctx.disconnect = prototype.disconnect.bind(ctx);
     ctx.drawTreemap = prototype.drawTreemap.bind(ctx);
+    ctx.drawCalendar = prototype.drawCalendar.bind(ctx);
     return ctx;
   }
 
@@ -464,6 +573,12 @@ describe('AdditionalsChartController', () => {
     controller(payload(), { canvas: false }).connect();
 
     expect(Chart).not.toHaveBeenCalled();
+  });
+
+  it('loads the matrix plugin for a calendar', () => {
+    controller(calendarPayload()).connect();
+
+    expect(AdditionalsHelpers.loadLibrary).toHaveBeenCalledWith('chartjs_matrix');
   });
 
   it('loads d3plus for a treemap', () => {

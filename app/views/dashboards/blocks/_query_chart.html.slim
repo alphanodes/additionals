@@ -1,7 +1,7 @@
 - dashboard_async_cache dashboard, block, async, settings do
   - chart = block_definition[:query_chart][:class].new project: @project, settings: settings
 
-  h3 = settings[:title].presence || chart.title
+  h3.icon = svg_icon_tag chart.icon, label: settings[:title].presence || chart.title
   - if settings[:description].present?
     .wiki.query-description = textilizable settings[:description]
 

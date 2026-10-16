@@ -361,6 +361,14 @@ class AdditionalsQueryChartTest < Additionals::TestCase
     assert_equal [query], chart.described_queries
   end
 
+  def test_icon_follows_the_display_type
+    assert_equal 'chart-line', issue_chart(group_by: 'start_date', chart_type: 'line').icon
+  end
+
+  def test_icon_of_bars
+    assert_equal 'chart-bar', issue_chart(group_by: 'tracker', chart_type: 'bar_horizontal').icon
+  end
+
   def test_default_measure_sums_up_a_column
     chart = Class.new(Additionals::TestIssueQueryChart) { def default_measure = 'estimated_hours' }
                  .new project: @project, settings: { group_by: 'tracker' }

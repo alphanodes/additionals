@@ -15,6 +15,7 @@ import { Controller } from '@hotwired/stimulus';
 // fall back to these, like the server does
 const TIMELINE_FALLBACK = 'line';
 const CATEGORY_FALLBACK = 'bar_vertical';
+const CALENDAR = 'calendar';
 
 function hide(element, hidden) {
   element.hidden = hidden;
@@ -27,7 +28,8 @@ class AdditionalsChartSettingsController extends Controller {
   static values = {
     timelineGroups: Array,
     numberGroups: Array,
-    lineTypes: Array,
+    timelineTypes: Array,
+    timelineOnlyTypes: Array,
     seriesTypes: Array,
     previousPeriod: String,
   };
@@ -40,7 +42,8 @@ class AdditionalsChartSettingsController extends Controller {
     const timeline = this.timeline();
     const classes = this.hasGroupByTarget && this.numberGroupsValue.includes(this.groupByTarget.value);
     if (this.hasIntervalTarget) {
-      hide(this.intervalTarget, !timeline);
+      // A calendar shows days
+      hide(this.intervalTarget, !timeline || this.calendar());
     }
     if (this.hasClassesTarget) {
       hide(this.classesTarget, !classes);
@@ -59,6 +62,10 @@ class AdditionalsChartSettingsController extends Controller {
       const series = this.seriesTypesValue.includes(this.chartTypeTarget.value);
       this.seriesTargets.forEach((element) => hide(element, !series));
     }
+  }
+
+  calendar() {
+    return this.hasChartTypeTarget && this.chartTypeTarget.value === CALENDAR;
   }
 
   timeline() {
@@ -89,8 +96,8 @@ class AdditionalsChartSettingsController extends Controller {
     const select = this.chartTypeTarget;
     Array.from(select.options).forEach((option) => {
       const offered = timeline
-        ? this.seriesTypesValue.includes(option.value)
-        : !this.lineTypesValue.includes(option.value);
+        ? this.timelineTypesValue.includes(option.value)
+        : !this.timelineOnlyTypesValue.includes(option.value);
       option.hidden = !offered;
       option.disabled = !offered;
     });

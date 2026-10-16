@@ -70,6 +70,12 @@ function clickHandler(payload) {
   };
 }
 
+// Line below the value of a point in its tooltip, e.g. how many entries a
+// median stands for, formatted by the server
+export function tooltipLine(context) {
+  return context.dataset.tooltips?.[context.dataIndex] || '';
+}
+
 // Ticks of a value axis: counts in whole steps, not 0.5 between 0 and 1
 export function valueTicks(payload) {
   const counts = payload.datasets.every((dataset) => dataset.data.every(Number.isInteger));
@@ -362,6 +368,7 @@ function lineConfig(payload) {
         tooltip: {
           callbacks: {
             label: (context) => `${context.dataset.label}: ${valueText(payload, context.datasetIndex, context.dataIndex)}`,
+            afterLabel: tooltipLine,
           },
         },
       },

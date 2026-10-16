@@ -107,6 +107,51 @@ class AdditionalsChart
 
   private
 
+  # Periods of a timeline by unit (day, week, month, quarter, year), the
+  # interval of the chart by default
+  def period_start(date, unit = interval)
+    case unit
+    when 'day' then date
+    when 'week' then date - ((date.cwday - first_wday) % 7)
+    when 'quarter' then date.beginning_of_quarter
+    when 'year' then date.beginning_of_year
+    else date.beginning_of_month
+    end
+  end
+
+  def period_end(start, unit = interval)
+    case unit
+    when 'day' then start
+    when 'week' then start + 6
+    when 'quarter' then start.end_of_quarter
+    when 'year' then start.end_of_year
+    else start.end_of_month
+    end
+  end
+
+  # First day of a week as the calendar of core shows it, 1 = Monday ... 7 = Sunday
+  def first_wday
+    @first_wday ||= begin
+      start_of_week = Setting.start_of_week.to_i
+      start_of_week = l(:general_first_day_of_week).to_i unless [1, 6, 7].include? start_of_week
+      ((start_of_week - 1) % 7) + 1
+    end
+  end
+
+  # Weeks are numbered like in the calendar of core, by their Thursday
+  def period_label(start, unit = interval)
+    case unit
+    when 'day' then format_date start
+    when 'week'
+      thursday = start + ((11 - start.cwday) % 7)
+      l :label_chart_week, week: thursday.cweek, year: thursday.cwyear
+    when 'quarter' then l(:label_chart_quarter, quarter: ((start.month - 1) / 3) + 1, year: start.year)
+    when 'year' then start.year.to_s
+    else
+      l :label_chart_month, month: l('date.abbr_month_names')[start.month], year: start.year
+    end
+  end
+
   def build_values_without_gaps(data, gap_value = 0)
     values = []
     labels.each_key do |label|

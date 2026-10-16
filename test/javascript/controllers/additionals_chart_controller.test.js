@@ -1,7 +1,7 @@
 /* global Chart */
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import AdditionalsChartController, {
-  chartConfig, renderTreemap, valueTicks, calendarConfig, calendarLevel, calendarLegend, calendarMonthLabels,
+  chartConfig, renderTreemap, valueTicks, tooltipLine, calendarConfig, calendarLevel, calendarLegend, calendarMonthLabels,
 } from '../../../assets/javascripts/controllers/additionals_chart_controller.js';
 
 function payload(overrides = {}) {
@@ -397,6 +397,22 @@ describe('chart configuration', () => {
     renderTreemap(document.createElement('div'), payload({ type: 'treemap' }));
 
     expect(calls.tooltipConfig.tbody).toEqual([]);
+  });
+});
+
+describe('tooltip line', () => {
+  it('shows the line of a point', () => {
+    expect(tooltipLine({ dataset: { tooltips: ['closed: 3', 'closed: 5'] }, dataIndex: 1 })).toBe('closed: 5');
+  });
+
+  it('shows nothing without lines', () => {
+    expect(tooltipLine({ dataset: {}, dataIndex: 0 })).toBe('');
+  });
+
+  it('applies to the tooltip of a timeline', () => {
+    const { options } = chartConfig(null, payload({ type: 'line' }));
+
+    expect(options.plugins.tooltip.callbacks.afterLabel).toBe(tooltipLine);
   });
 });
 

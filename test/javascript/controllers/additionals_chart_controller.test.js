@@ -1,7 +1,7 @@
 /* global Chart */
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import AdditionalsChartController, {
-  chartConfig, renderTreemap, valueTicks, tooltipLine, withColors, shareDatasets, lineAnnotations, colorWithAlpha, areaGradient, legendLabels, markerTop, markerPlugin, calendarConfig, calendarLevel, calendarLegend, calendarMonthLabels,
+  chartConfig, renderTreemap, valueTicks, tooltipLine, withColors, shareDatasets, lineAnnotations, colorWithAlpha, areaGradient, legendLabels, markerTop, markerPlugin, matrixConfig, calendarConfig, calendarLevel, calendarLegend, calendarMonthLabels,
 } from '../../../assets/javascripts/controllers/additionals_chart_controller.js';
 
 function payload(overrides = {}) {
@@ -649,6 +649,56 @@ describe('bars with lines and markers', () => {
   });
 });
 
+// A canvas with CSS custom properties, as the page provides them
+function canvasWith(colors) {
+  const canvas = document.createElement('canvas');
+  Object.entries(colors).forEach(([name, value]) => canvas.style.setProperty(name, value));
+  document.body.append(canvas);
+  return canvas;
+}
+
+describe('matrix', () => {
+  function matrixPayload() {
+    return payload({
+      type: 'matrix',
+      matrix: {
+        columns: ['Mon', 'Tue'],
+        rows: ['Anna', 'Ben'],
+        cells: [{
+          x: 'Mon', y: 'Anna', color: '--test-red', title: 'Anna - Monday', lines: ['Booked: 2 h'], url: '/anna',
+        }],
+      },
+    });
+  }
+
+  it('colors a cell in the color of its category', () => {
+    const canvas = canvasWith({ '--test-red': 'rgb(250, 82, 82)' });
+    const { backgroundColor } = matrixConfig(canvas, matrixPayload()).data.datasets[0];
+
+    expect(backgroundColor({ raw: matrixPayload().matrix.cells[0] })).toBe('rgb(250, 82, 82)');
+  });
+
+  it('shows the first row on top', () => {
+    expect(matrixConfig(document.body, matrixPayload()).options.scales.y.labels).toEqual(['Ben', 'Anna']);
+  });
+
+  it('names a cell and its values in the tooltip', () => {
+    const { callbacks } = matrixConfig(document.body, matrixPayload()).options.plugins.tooltip;
+    const cell = matrixPayload().matrix.cells[0];
+
+    expect([callbacks.title([{ raw: cell }]), callbacks.label({ raw: cell })]).toEqual(['Anna - Monday', ['Booked: 2 h']]);
+  });
+
+  it('opens the link of a clicked cell', () => {
+    const open = vi.spyOn(window, 'open').mockImplementation(() => null);
+
+    matrixConfig(document.body, matrixPayload()).options.onClick({}, [{ index: 0 }]);
+
+    expect(open).toHaveBeenCalledWith('/anna');
+    open.mockRestore();
+  });
+});
+
 describe('stacked as shares', () => {
   function sharePayload() {
     return payload({
@@ -679,13 +729,6 @@ describe('stacked as shares', () => {
 });
 
 describe('fixed colors', () => {
-  function canvasWith(colors) {
-    const canvas = document.createElement('canvas');
-    Object.entries(colors).forEach(([name, value]) => canvas.style.setProperty(name, value));
-    document.body.append(canvas);
-    return canvas;
-  }
-
   it('reads a color per point from its CSS custom property', () => {
     const canvas = canvasWith({ '--test-red': 'rgb(250, 82, 82)' });
 
@@ -872,6 +915,7 @@ describe('AdditionalsChartController', () => {
     ctx.drawTreemap = prototype.drawTreemap.bind(ctx);
     ctx.drawCalendar = prototype.drawCalendar.bind(ctx);
     ctx.drawWithLines = prototype.drawWithLines.bind(ctx);
+    ctx.drawMatrix = prototype.drawMatrix.bind(ctx);
     return ctx;
   }
 
@@ -932,6 +976,12 @@ describe('AdditionalsChartController', () => {
     controller(payload({ type: 'line', lines: [{ axis: 'x', value: 1, label: 'Today' }] })).connect();
 
     expect(AdditionalsHelpers.loadLibrary).toHaveBeenCalledWith('chartjs_annotation');
+  });
+
+  it('loads the matrix plugin for a matrix', () => {
+    controller(payload({ type: 'matrix', matrix: { columns: [], rows: [], cells: [] } })).connect();
+
+    expect(AdditionalsHelpers.loadLibrary).toHaveBeenCalledWith('chartjs_matrix');
   });
 
   it('loads d3plus for a treemap', () => {

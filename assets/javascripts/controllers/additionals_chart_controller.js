@@ -44,6 +44,8 @@ const CALENDAR_FALLBACK_COLOR = '#1f77b4';
 const CALENDAR_GAP = 2;
 // Space between two month names
 const CALENDAR_MONTH_GAP = 4;
+// Gap between the cells of a matrix of rows and columns
+const MATRIX_GAP = 4;
 
 // Reads a CSS custom property from an element. Canvas cannot resolve var().
 function cssVar(el, name) {
@@ -692,6 +694,60 @@ function cellTicks(count) {
 }
 
 // The days of a year as cells, a column per week and a row per weekday
+// A grid of rows and columns, e.g. users by day. Each cell has the color of
+// its category as the server chose it, a title and lines for its tooltip
+// and a link.
+export function matrixConfig(canvas, payload) {
+  const { matrix } = payload;
+  const cellSize = (context, count, axis) => {
+    const area = context.chart.chartArea || {};
+    const length = (axis === 'x' ? area.width : area.height) || 0;
+    return Math.max((length / count) - MATRIX_GAP, 1);
+  };
+
+  return {
+    type: 'matrix',
+    data: {
+      datasets: [{
+        data: matrix.cells,
+        backgroundColor: (context) => cssVar(canvas, context.raw?.color || ''),
+        borderColor: cssVar(canvas, '--a-color-border-light'),
+        borderWidth: 1,
+        borderRadius: 3,
+        width: (context) => cellSize(context, matrix.columns.length, 'x'),
+        height: (context) => cellSize(context, matrix.rows.length, 'y'),
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      onClick: (_event, elements) => {
+        if (elements.length > 0) {
+          openUrl(matrix.cells[elements[0].index].url);
+        }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            title: (items) => items[0].raw.title,
+            label: (context) => context.raw.lines,
+          },
+        },
+      },
+      scales: {
+        x: {
+          type: 'category', labels: matrix.columns, offset: true, grid: { display: false },
+        },
+        // The first row on top
+        y: {
+          type: 'category', labels: matrix.rows.slice().reverse(), offset: true, grid: { display: false },
+        },
+      },
+    },
+  };
+}
+
 export function calendarConfig(payload) {
   const { calendar } = payload;
   const level = (context) => calendarLevel(calendar.levels, context.raw?.v);
@@ -827,6 +883,8 @@ class AdditionalsChartController extends Controller {
     if (payload.type === 'treemap') {
       // Without d3plus the block stays empty, the reason belongs in the console
       this.drawTreemap(payload).catch((error) => console.error(error));
+    } else if (payload.type === 'matrix' && this.hasCanvasTarget) {
+      this.drawMatrix(payload).catch((error) => console.error(error));
     } else if (payload.type === 'calendar' && this.hasCanvasTarget) {
       this.drawCalendar(payload).catch((error) => console.error(error));
     } else if (payload.lines && this.hasCanvasTarget) {
@@ -851,6 +909,14 @@ class AdditionalsChartController extends Controller {
     }
     this.legend?.remove();
     this.legend = null;
+  }
+
+  async drawMatrix(payload) {
+    await AdditionalsHelpers.loadLibrary('chartjs_matrix');
+    // The block may have been reloaded while the matrix plugin was loading
+    if (this.element.isConnected) {
+      this.chart = new Chart(this.canvasTarget, matrixConfig(this.canvasTarget, payload));
+    }
   }
 
   async drawCalendar(payload) {

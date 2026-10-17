@@ -54,6 +54,8 @@ class AdditionalsQueryChart < AdditionalsChart
   NUMBER_FILTER_TYPES = %i[integer float hour].freeze
   # Automatic classes split the values into about this many of the same width
   AUTOMATIC_CLASSES = 5
+  # Classes given in the settings, each one more query when summed up
+  MAX_CLASSES = 50
   # The number filters know no "below": the upper bound of a class of decimals
   # stays just below the next one
   CLASS_BOUND_GAP = 0.000001
@@ -201,11 +203,13 @@ class AdditionalsQueryChart < AdditionalsChart
     @number_classes = group_column.present? && number_column?(group_column)
   end
 
-  # Bounds of the classes as given, or round steps over all values
+  # Bounds of the classes as given, or round steps over all values. Whole
+  # numbers know no bound between two of them, 2.5 is 3 for them.
   def class_bounds
     @class_bounds ||= begin
       bounds = settings[:classes].to_s.split(/;|,\s+|\s+/).filter_map { |bound| Float(bound.tr(',', '.'), exception: false) }
-      bounds.any? ? bounds.uniq.sort! : automatic_class_bounds
+      bounds.map!(&:ceil) if integer_column? group_column
+      bounds.any? ? bounds.uniq.sort!.first(MAX_CLASSES) : automatic_class_bounds
     end
   end
 
@@ -404,6 +408,12 @@ class AdditionalsQueryChart < AdditionalsChart
 
   def entries
     @entries ||= build_entries
+  end
+
+  # The table of values reads a timeline from the latest period down, the
+  # chart from left to right in the order of time
+  def table_entries
+    timeline? ? entries.reverse : entries
   end
 
   # With multiple values an entry is part of several groups, the total still
@@ -663,7 +673,7 @@ class AdditionalsQueryChart < AdditionalsChart
     keys = values.keys | compare_values.keys
     keys.delete nil unless show_empty?
     keys = timeline_periods keys if timeline?
-    keys = (0..class_bounds.size).to_a + (keys.include?(nil) ? [nil] : []) if number_classes?
+    keys = entry_classes keys if number_classes?
     preload_version_projects keys
 
     entries = keys.filter_map do |key|
@@ -680,6 +690,11 @@ class AdditionalsQueryChart < AdditionalsChart
 
     entries = limit_entries sort_entries(entries) unless timeline? || number_classes?
     split? ? split_entries(entries) : entries
+  end
+
+  # Every class keeps its place, entries without a value come last
+  def entry_classes(keys)
+    class_keys.reject { |key| key.nil? && keys.exclude?(nil) }
   end
 
   # Days summed up to periods; numbers come as classes already
@@ -1059,6 +1074,11 @@ class AdditionalsQueryChart < AdditionalsChart
     return number_statement column if number_type? column
     return hour_statement column if column == group_column && user_zone_hours?
 
+    core_group_statement query, column
+  end
+
+  # The query keeps the grouping it had
+  def core_group_statement(query, column)
     group_by = query.group_by
     query.group_by = column.name.to_s
     query.group_by_statement
@@ -1154,7 +1174,7 @@ class AdditionalsQueryChart < AdditionalsChart
     if number_classes? && column == group_column
       keys.index_with { |key| key&.to_i }
     elsif column.is_a? QueryCustomFieldColumn
-      keys.index_with { |key| key.presence && column.custom_field.cast_value(key) }
+      cast_custom_values column.custom_field, keys
     elsif (reflection = klass.reflect_on_association statement.to_sym) && reflection.belongs_to?
       records = reflection.klass.where(id: keys.compact).index_by(&:id)
       keys.index_with { |key| records[key] }
@@ -1217,9 +1237,10 @@ class AdditionalsQueryChart < AdditionalsChart
     scope.klass.arel_table[:id].count true
   end
 
-  # Every class and no value
+  # Every class and no value. Without any value there are no bounds to
+  # build classes from, only entries without one.
   def class_keys
-    (0..class_bounds.size).to_a << nil
+    (class_bounds.any? ? (0..class_bounds.size).to_a : []) << nil
   end
 
   def class_condition(expression, index)
@@ -1272,10 +1293,22 @@ class AdditionalsQueryChart < AdditionalsChart
 
     # distinct: a query may join rows that repeat an entry, e.g. its projects
     counts = with_values.group(CustomValue.arel_table[:value]).distinct.count(:id)
-                        .transform_keys { |value| custom_field.cast_value value }
+    counts.transform_keys! cast_custom_values(custom_field, counts.keys)
     without = query.base_scope.where.not(id: with_values.select(:id)).distinct.count(:id)
     counts[nil] = without if without.positive?
     counts
+  end
+
+  # Values of a custom field as core casts them, the records of a list of
+  # records (users, versions, ...) in one query instead of one per value
+  def cast_custom_values(custom_field, values)
+    format = custom_field.format
+    unless format.is_a?(Redmine::FieldFormat::RecordList) && format.target_class
+      return values.index_with { |value| value.presence && custom_field.cast_value(value) }
+    end
+
+    records = format.target_class.where(id: values.compact_blank.map(&:to_i)).index_by(&:id)
+    values.index_with { |value| value.presence && records[value.to_i] }
   end
 
   def with_values_scope(query, custom_field = group_column.custom_field)

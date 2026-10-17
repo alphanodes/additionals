@@ -154,6 +154,34 @@ class AdditionalsQueryChartClassesTest < Additionals::TestCase
     assert_equal({ @issues[1].tracker => 1 }, chart.entries.second.parts)
   end
 
+  # Without any value there are no bounds to build classes from, only the
+  # entries without a value remain
+  def test_no_classes_without_values
+    Issue.update_all estimated_hours: nil
+
+    assert_equal [nil], classes_chart(classes: '').entries.map(&:key)
+  end
+
+  # Whole numbers know no bound between two of them
+  def test_bounds_of_whole_numbers_round_up
+    field = integer_field
+    CustomValue.create! custom_field: field, customized: @issues[0], value: '2'
+    chart = classes_chart group_by: "cf_#{field.id}", classes: '2.5; 10'
+
+    assert_equal ['<=', ['2']], url_filter(chart.entries.first.url, "cf_#{field.id}")
+  end
+
+  def test_bounds_of_decimals_stay
+    assert_equal [2.5, 10.0], classes_chart(classes: '2.5; 10').class_bounds
+  end
+
+  # Each class is one more query when summed up
+  def test_classes_given_are_limited
+    bounds = (1..200).to_a.join '; '
+
+    assert_equal AdditionalsQueryChart::MAX_CLASSES, classes_chart(classes: bounds).class_bounds.size
+  end
+
   # A filter does not read 1.0e-06
   def test_url_of_a_class_below_zero
     assert_equal ['<=', ['-0.000001']], url_filter(classes_chart(classes: '0, 10').entries.first.url, 'estimated_hours')

@@ -41,6 +41,27 @@ class AdditionalsQueryChartSplitTest < Additionals::TestCase
     assert_equal [users(:users_002)], split_chart(split_by: "cf_#{field.id}", show_empty: '0').split_keys
   end
 
+  # The users of the keys come in one query, not one per user
+  def test_split_by_a_user_field_loads_the_users_at_once
+    field = IssueCustomField.create! name: 'Split users', field_format: 'user', is_for_all: true,
+                                     is_filter: true, tracker_ids: Tracker.ids
+    one = user_split_queries field, [users(:users_002)]
+    three = user_split_queries field, [users(:users_002), users(:users_003), users(:users_004)]
+
+    assert_equal one, three
+  end
+
+  def test_group_by_a_multiple_user_field_loads_the_users_at_once
+    field = IssueCustomField.create! name: 'Group users', field_format: 'user', multiple: true, is_for_all: true,
+                                     is_filter: true, tracker_ids: Tracker.ids
+    add_values field, issues(:issues_001), [users(:users_002).id.to_s]
+    one = user_queries { split_chart(group_by: "cf_#{field.id}", split_by: '', show_empty: '0').entries }
+    add_values field, issues(:issues_002), [users(:users_003).id.to_s, users(:users_004).id.to_s]
+    three = user_queries { split_chart(group_by: "cf_#{field.id}", split_by: '', show_empty: '0').entries }
+
+    assert_equal one, three
+  end
+
   # A column of an own class may map its keys itself, which a split would bypass
   def test_a_column_of_an_own_class_cannot_split
     column = Class.new(QueryColumn).new :own, groupable: true
@@ -219,6 +240,16 @@ class AdditionalsQueryChartSplitTest < Additionals::TestCase
   end
 
   private
+
+  def user_split_queries(field, users)
+    CustomValue.where(custom_field: field).delete_all
+    users.each_with_index { |user, index| add_values field, Issue.where(project: @project).order(:id).to_a[index], [user.id.to_s] }
+    user_queries { split_chart(split_by: "cf_#{field.id}", show_empty: '0').entries }
+  end
+
+  def user_queries(&)
+    count_sql_queries(matching: /FROM .users. WHERE/, &)
+  end
 
   def split_chart(**settings)
     settings = { group_by: 'tracker', split_by: 'status', chart_type: 'bar_horizontal' }.merge settings

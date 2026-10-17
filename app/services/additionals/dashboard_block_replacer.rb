@@ -29,10 +29,11 @@ module Additionals
       end
 
       # Old day matrix blocks become chart blocks shown as calendar, keeping
-      # their query. replacements: { 'old_block' => ['new_block', 'date column', {other settings}] }
+      # their query. replacements: { 'old_block' => ['new_block', 'date column', {other settings}] },
+      # a block placed more than once (old_block__2) counts as old_block.
       def replace_with_calendars(replacements)
         call do |block, settings|
-          target, group_by, extra = replacements[block]
+          target, group_by, extra = replacements[block.sub(/__\d+\z/, '')]
           next unless target
 
           [[target, { group_by:, chart_type: 'calendar', query_id: settings[:query_id].to_s }.merge(extra || {})]]

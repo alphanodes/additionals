@@ -43,6 +43,13 @@ class DashboardBlockReplacerTest < Additionals::TestCase
     assert_equal %w[news activity], dashboard.reload.layout['left']
   end
 
+  def test_calendars_replace_a_block_placed_several_times
+    dashboard = dashboard_with %w[old_matrix old_matrix__2], 'old_matrix__2' => { query_id: '5' }
+    Additionals::DashboardBlockReplacer.replace_with_calendars 'old_matrix' => %w[issue_chart created_on]
+
+    assert_equal %w[issue_chart issue_chart__1], dashboard.reload.layout['left']
+  end
+
   def test_existing_custom_field_ids_skip_deleted_fields
     assert_equal ['1'], Additionals::DashboardBlockReplacer.existing_custom_field_ids(%w[1 999])
   end

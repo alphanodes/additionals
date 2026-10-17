@@ -87,8 +87,33 @@ class AdditionalsChart
   # see stored_hour. Core converts in the database since
   # https://www.redmine.org/issues/32046; once that is independent of the
   # database, grouping by it is enough.
+  # Where the user and the stored time are apart by part of an hour, e.g. in
+  # India (+5:30), an hour would start on one day and end on the next: it is
+  # truncated to the quarter hour then.
   def stored_hour_sql(sql)
+    return stored_quarter_hour_sql sql if part_hour_apart?
+
     Redmine::Database.postgresql? ? "date_trunc('hour', #{sql})" : "DATE_FORMAT(#{sql}, '%Y-%m-%d %H:00:00')"
+  end
+
+  def stored_quarter_hour_sql(sql)
+    if Redmine::Database.postgresql?
+      "date_trunc('hour', #{sql}) + FLOOR(EXTRACT(MINUTE FROM #{sql}) / 15) * INTERVAL '15 minutes'"
+    else
+      "CONCAT(DATE_FORMAT(#{sql}, '%Y-%m-%d %H:'), LPAD(FLOOR(MINUTE(#{sql}) / 15) * 15, 2, '0'), ':00')"
+    end
+  end
+
+  # Offsets of the user and of the stored time, in winter and in summer
+  def part_hour_apart?
+    zone = User.current.time_zone
+    return false unless zone
+
+    year = User.current.today.year
+    [Time.utc(year, 1, 15), Time.utc(year, 7, 15)].any? do |time|
+      stored_offset = ActiveRecord.default_timezone == :utc ? 0 : time.getlocal.utc_offset
+      (zone.period_for_utc(time).utc_total_offset - stored_offset) % 1.hour != 0
+    end
   end
 
   # An hour of stored_hour_sql as time. MySQL returns it as text, in the time

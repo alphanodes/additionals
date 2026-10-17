@@ -37,6 +37,31 @@ class AdditionalsQueryChartTimeZoneTest < Additionals::TestCase
     assert_equal Date.new(2026, 8, 1), chart.entries.first.key
   end
 
+  # 18:45 UTC is 00:15 of the next day in India (+5:30), the hour from
+  # 18:00 UTC would begin on the day before
+  def test_counts_the_day_of_a_user_half_an_hour_apart
+    User.current.pref.update! time_zone: 'Kolkata'
+    created_at @issues[0], Time.utc(2026, 1, 31, 18, 45)
+
+    assert_equal Date.new(2026, 2, 1), chart.entries.first.key
+  end
+
+  def test_counts_the_day_of_a_user_three_quarters_apart
+    User.current.pref.update! time_zone: 'Kathmandu'
+    created_at @issues[0], Time.utc(2026, 1, 31, 18, 15)
+
+    assert_equal Date.new(2026, 2, 1), chart.entries.first.key
+  end
+
+  # The latest periods are found per hour, the query keeps its grouping
+  def test_query_keeps_its_grouping
+    created_at @issues[0], Time.utc(2026, 1, 15, 12)
+    calendar = chart chart_type: 'calendar'
+    calendar.entries
+
+    assert_equal 'created_on', calendar.query.group_by
+  end
+
   def test_without_a_time_zone_of_the_user_counts_the_day_of_the_server
     User.current.pref.update! time_zone: ''
     time = Time.utc 2026, 1, 31, 23, 30

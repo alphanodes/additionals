@@ -61,6 +61,18 @@ class AdditionalsQueryChartTimelineTest < Additionals::TestCase
     assert_equal [Date.new(2026, 1, 1), Date.new(2026, 2, 1), Date.new(2026, 3, 1)], timeline_chart.entries.map(&:key)
   end
 
+  # The latest period is of most interest in the table, the chart reads
+  # from left to right
+  def test_table_shows_the_latest_period_first
+    assert_equal [Date.new(2026, 3, 1), Date.new(2026, 2, 1), Date.new(2026, 1, 1)], timeline_chart.table_entries.map(&:key)
+  end
+
+  def test_table_of_a_category_keeps_the_order_of_the_chart
+    chart = timeline_chart group_by: 'tracker'
+
+    assert_equal chart.entries, chart.table_entries
+  end
+
   def test_sums_up_the_entries_per_quarter
     with_settings display_subprojects_issues: '0' do
       assert_equal({ Date.new(2026, 1, 1) => 3 }, entry_values(timeline_chart(interval: 'quarter')))

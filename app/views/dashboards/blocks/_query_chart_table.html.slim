@@ -13,7 +13,7 @@ table.list.issue-report.values
           th = chart.compare? ? series_label : chart.measure_label
       th = l :label_percentage
   tbody
-    - chart.entries.each do |entry|
+    - chart.table_entries.each do |entry|
       tr class="#{cycle 'odd', 'even'}"
         td.name = entry.url ? link_to(entry.label, entry.url) : entry.label
         - if chart.split?

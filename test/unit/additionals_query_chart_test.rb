@@ -9,6 +9,18 @@ class AdditionalsQueryChartTest < Additionals::TestCase
     @project = projects :projects_001
   end
 
+  def test_a_chart_unavailable_for_its_settings_is_not_valid
+    unavailable = Class.new Additionals::TestIssueQueryChart do
+      def unavailable_text = 'Not with these settings'
+    end
+
+    assert_not unavailable.new(project: @project, settings: { group_by: 'tracker' }).valid?
+  end
+
+  def test_a_chart_is_available_by_default
+    assert_nil issue_chart(group_by: 'tracker').unavailable_text
+  end
+
   def test_counts_the_entries_of_a_group
     with_settings display_subprojects_issues: '0' do
       entry = issue_chart(group_by: 'tracker').entries.detect { |e| e.key == trackers(:trackers_001) }

@@ -26,4 +26,4 @@
         em.info = l :info_chart_parts_counted_several_times
       = query_chart_query_descriptions chart
   - else
-    p.nodata = l :label_no_data
+    p.nodata = chart.unavailable_text || l(:label_no_data)

@@ -104,6 +104,20 @@ class AdditionalsQueryChartTimeZoneTest < Additionals::TestCase
     end
   end
 
+  # 16:00 UTC is the next day in Tokyo, but still the day before in the time
+  # of a server west of Tokyo: the first shown period begins at midnight of
+  # the user
+  def test_latest_periods_begin_at_midnight_of_the_user
+    User.current.pref.update! time_zone: 'Tokyo'
+    created_at @issues[0], Time.utc(2026, 1, 15, 12)
+    created_at @issues[1], Time.utc(2026, 1, 31, 16)
+    created_at @issues[2], Time.utc(2026, 3, 5, 12)
+
+    travel_to Time.utc(2026, 3, 20, 12) do
+      assert_equal [[Date.new(2026, 2, 1), 1], [Date.new(2026, 3, 1), 1]], timeline(chart(max_entries: '2'))
+    end
+  end
+
   # The link of a period filters the days of the user as core does
   def test_link_of_a_period_finds_its_entries
     created_at @issues[0], Time.utc(2026, 1, 31, 23, 30)

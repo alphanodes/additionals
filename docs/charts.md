@@ -207,6 +207,7 @@ blocks['time_entry_chart'] = TimeEntryQueryChart.dashboard_block(label: l(:label
 | `period_field` | the date filter a block can count in a relative period of (e.g. this month), with the previous period as comparison; `nil` offers no period |
 | `default_measure` | what a block without a choice measures, a count by default; a column, e.g. the hours of time entries |
 | `split_column?` | the columns a split may use; by default plain columns and custom fields, whose keys the base maps like core |
+| `unavailable_text` | why the chart cannot be drawn with its settings, shown instead of it; nil draws it (e.g. amounts of several currencies cannot be added up) |
 
 ## Display
 

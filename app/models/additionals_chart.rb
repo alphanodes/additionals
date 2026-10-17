@@ -81,6 +81,25 @@ class AdditionalsChart
 
   private
 
+  # A timestamp column truncated to the hour as stored, without a conversion
+  # of time zones by the database: MySQL needs its time zone tables for that,
+  # PostgreSQL the right time zone of its session. Ruby converts the hours,
+  # see stored_hour. Core converts in the database since
+  # https://www.redmine.org/issues/32046; once that is independent of the
+  # database, grouping by it is enough.
+  def stored_hour_sql(sql)
+    Redmine::Database.postgresql? ? "date_trunc('hour', #{sql})" : "DATE_FORMAT(#{sql}, '%Y-%m-%d %H:00:00')"
+  end
+
+  # An hour of stored_hour_sql as time. MySQL returns it as text, in the time
+  # Redmine stored it: of the server, or UTC with default_timezone :utc.
+  def stored_hour(value)
+    return value unless value.is_a? String
+
+    parts = value.scan(/\d+/).map(&:to_i)
+    ActiveRecord.default_timezone == :utc ? Time.utc(*parts) : Time.local(*parts) # rubocop:disable Rails/TimeZone
+  end
+
   # Periods of a timeline by unit (day, week, month, quarter, year), the
   # interval of the chart by default
   def period_start(date, unit = interval)

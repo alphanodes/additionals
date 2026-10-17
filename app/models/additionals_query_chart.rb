@@ -141,7 +141,16 @@ class AdditionalsQueryChart < AdditionalsChart
   end
 
   def valid?
+    return false if unavailable_text
+
     entries.any? { |entry| entry.value.positive? || entry.compare_value.to_f.positive? }
+  end
+
+  # Why the chart cannot be drawn with these settings, shown instead of it.
+  # nil draws it, e.g. a subclass refuses to add up amounts of different
+  # currencies.
+  def unavailable_text
+    nil
   end
 
   # A timeline is drawn as a line unless it is a type it can be shown as, a
@@ -775,13 +784,24 @@ class AdditionalsQueryChart < AdditionalsChart
     days = query.base_scope.pick Arel.sql(sql).minimum, Arel.sql(sql).maximum
     return unless days&.last
 
-    first = timeline_end days.last.to_date
+    days = days.map { |day| user_zone_hours? ? user_day(day) : day.to_date }
+    first = timeline_end days.last
     (max_periods(first) - 1).times { first = period_start first - 1 }
     # The periods before the first entry stay out like without the limit
-    first = [first, period_start(days.first.to_date)].max
+    first = [first, period_start(days.first)].max
     periods_start[query] = first
     query.extend PeriodsScope
-    query.periods_condition = Arel.sql(sql).gteq(first)
+    query.periods_condition = periods_condition sql, first
+  end
+
+  # The first day as the column holds it. A timestamp of a user with a time
+  # zone of their own begins at midnight of the user: the instant is quoted
+  # in the time Redmine stores, no conversion by the database.
+  def periods_condition(sql, first)
+    return Arel.sql(sql).gteq(first) unless user_zone_hours?
+
+    column = Arel.sql Array(group_column.sortable).first
+    column.gteq User.current.time_zone.local(first.year, first.month, first.day)
   end
 
   # First period each query counts from, see limit_to_latest_periods
@@ -1046,6 +1066,11 @@ class AdditionalsQueryChart < AdditionalsChart
   # in the time zone of its session. A plugin can rely on neither, so the
   # database counts per hour as stored and Ruby moves each hour to the day of
   # the user. Without a time zone of the user core groups as before.
+  # Core converts with CONVERT_TZ from Time.zone since
+  # https://www.redmine.org/issues/32046, which needs the time zone tables of
+  # MySQL and ignores that Redmine stores in the time of the server. Once core
+  # groups timestamps independent of the database, the core grouping
+  # (group_by_statement) can be used again here.
   def user_zone_hours?
     return @user_zone_hours if defined? @user_zone_hours
 
@@ -1053,8 +1078,7 @@ class AdditionalsQueryChart < AdditionalsChart
   end
 
   def hour_statement(column)
-    sql = Array(column.sortable).first
-    Redmine::Database.postgresql? ? "date_trunc('hour', #{sql})" : "DATE_FORMAT(#{sql}, '%Y-%m-%d %H:00:00')"
+    stored_hour_sql Array(column.sortable).first
   end
 
   # Values per hour as stored, counted like core counts a group
@@ -1075,15 +1099,7 @@ class AdditionalsQueryChart < AdditionalsChart
   end
 
   def user_day(hour)
-    return if hour.blank?
-
-    User.current.time_to_date(hour.is_a?(String) ? stored_time(hour) : hour)
-  end
-
-  # MySQL returns the hour as text, in the time Redmine stored it
-  def stored_time(text)
-    parts = text.scan(/\d+/).map(&:to_i)
-    ActiveRecord.default_timezone == :utc ? Time.utc(*parts) : Time.local(*parts) # rubocop:disable Rails/TimeZone
+    User.current.time_to_date stored_hour(hour) if hour.present?
   end
 
   def number_statement(column)

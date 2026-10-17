@@ -562,6 +562,18 @@ module Additionals
                    "Patches that reach nothing:\n#{unused.join "\n"}"
     end
 
+    # Charts are drawn by the additionals-chart Stimulus controller from the
+    # payload of an AdditionalsChart. A chart built in a view escapes the
+    # shared look, the tests of the controller and the escaping of names.
+    def assert_charts_drawn_from_payload(plugin_id)
+      directory = Redmine::Plugin.find(plugin_id).directory
+      inline = Dir.glob('app/views/**/*.{slim,erb}', base: directory).select do |view|
+        File.read(File.join(directory, view)).match?(/new\s+(Chart\s*\(|d3plus\.)/)
+      end
+
+      assert_empty inline, 'Charts drawn in a view instead of from a payload (AdditionalsChart#payload)'
+    end
+
     def assert_deface_overrides_valid(name_prefix:, optional_templates: false)
       prefix = "#{name_prefix}-"
       invalid_overrides = []

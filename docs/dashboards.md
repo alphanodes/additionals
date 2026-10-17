@@ -1,63 +1,58 @@
 # Dashboard Development Guide
 
-This guide helps developers create custom dashboard blocks for the Redmine dashboard system provided by the `additionals` plugin.
-
-## Overview
-
-**Most developers will create custom dashboard blocks, not new dashboard types.** This guide focuses on:
-
-1. Creating custom dashboard blocks
-2. Adding block settings
-3. Implementing async blocks for better performance
-4. View templates and helpers
-
-## Architecture Overview
+The dashboards of `additionals` replace the welcome page and the project overview of Redmine with layouts of blocks. Most plugins add blocks; new dashboard types are rarely needed. Charts in blocks are described in the [Chart Development Guide](charts.md).
 
 ```mermaid
 graph TD
-    subgraph "Dashboard Types"
-        DC[DashboardContent Base]
-        WD[WelcomeDashboard]
-        PD[ProjectDashboard]
+    DC[DashboardContent<br/>blocks of all dashboards] --> WD[DashboardContentWelcome<br/>welcome page]
+    DC --> PD[DashboardContentProject<br/>project overview]
 
-        DC --> WD
-        DC --> PD
+    subgraph "Extension by plugins"
+        P1[DashboardContentPatch] -.-> DC
+        P2[DashboardContentWelcomePatch] -.-> WD
+        P3[DashboardContentProjectPatch] -.-> PD
     end
-
-    subgraph "WelcomeDashboard Variants"
-        WD --> WSD[System Default<br/>project_id: nil<br/>Deletable: ❌]
-        WD --> WRD[Regular<br/>project_id: nil<br/>Deletable: ✅]
-    end
-
-    subgraph "ProjectDashboard Variants"
-        PD --> PGSD[Global System Default<br/>project_id: nil<br/>Deletable: ❌]
-        PD --> PPSD[Project-Specific System Default<br/>project_id: 123<br/>Deletable: ✅]
-        PD --> PRD[Regular Project Dashboard<br/>project_id: 123<br/>Deletable: ✅]
-    end
-
-    subgraph "Extension Points"
-        EXT[Plugin Patches]
-        EXT --> DCPATCH[DashboardContentPatch<br/>Extends ALL dashboards]
-        EXT --> WDPATCH[DashboardContentWelcomePatch<br/>Extends WelcomeDashboard only]
-        EXT --> PDPATCH[DashboardContentProjectPatch<br/>Extends ProjectDashboard only]
-    end
-
-    style PGSD fill:#ffcccc
-    style WSD fill:#ffcccc
-    style DCPATCH fill:#ccffcc
-    style WDPATCH fill:#ccffcc
-    style PDPATCH fill:#ccffcc
 ```
 
-## Developing Dashboard Blocks
+## Dashboards
 
-### Step 1: Simple Block Without Settings
+### Types
 
-This is the minimal setup to add a custom block to dashboards.
+| Type | Class | Project | Blocks of additionals | Default layout |
+| ---- | ----- | ------- | --------------------- | -------------- |
+| `WelcomeDashboard` | `DashboardContentWelcome` | always `nil`, set by `dashboard_type_check` | `welcome`, `activity`, `legacy_left`, `legacy_right` | left: `welcome`, `legacy_left`; right: `legacy_right` |
+| `ProjectDashboard` | `DashboardContentProject` | a project, or `nil` for all projects | `projectinformation`, `projectissues`, `projecttimeentries`, `projectmembers`, `projectsubprojects`, `legacy_left`, `legacy_right` | left: `projectinformation`, `projectissues`, `projecttimeentries`; right: `projectmembers`, `projectsubprojects` |
 
-#### 1.1 Register the Block
+Blocks available on both types (news, documents, queries, feeds, text, ...) are defined in `DashboardContent`.
 
-Create a patch file: `lib/my_plugin/patches/dashboard_content_patch.rb`
+### System Defaults
+
+A system default is the dashboard a user gets without a choice of their own. Which dashboard a page shows (`Dashboard.default`):
+
+1. the dashboard the user used recently
+2. the system default of the project (`system_default: true`, `project_id` set)
+3. the global system default (`system_default: true`, `project_id: nil`)
+4. a dashboard of the user
+
+| Dashboard | Number allowed | Deletable |
+| --------- | -------------- | --------- |
+| Welcome system default | one | no |
+| Global project system default (`project_id: nil`) | one | no, it is the fallback of every project |
+| Project system default (`project_id` set) | one per project | yes |
+| Any other dashboard | any | yes, if the user may edit it |
+
+Rules enforced by the model:
+
+- A system default is public (`VISIBILITY_PUBLIC`); dashboards are private, for roles or public.
+- Marking a dashboard as system default unsets the other system defaults of its type, for project dashboards of the same project (`update_system_defaults`).
+- A system default cannot turn back into a regular dashboard (`SystemDefaultChangeException`), the global project system default cannot get a project (`ProjectSystemDefaultChangeException`, see `project_id_can_change?`).
+- Deleting a locked dashboard or one that is not `deletable?` raises an error (`before_destroy`). Dashboards of a project are destroyed with it, the global ones stay.
+
+## Blocks
+
+### Registering a Block
+
+A plugin adds blocks by prepending to `block_definitions` of `DashboardContent` (all dashboards), `DashboardContentWelcome` or `DashboardContentProject`. Always start from `super`, otherwise the blocks of all other plugins disappear:
 
 ```ruby
 module MyPlugin
@@ -71,15 +66,12 @@ module MyPlugin
 
       module InstanceOverwriteMethods
         def block_definitions
-          blocks = super  # ← IMPORTANT: Get existing blocks
+          blocks = super
 
-          blocks['my_simple_block'] = {
-            label: l(:label_my_simple_block),
-            permission: :view_issues,
-            no_settings: true,
-            partial: 'dashboards/blocks/my_simple_block'
-          }
-
+          blocks['my_block'] = { label: l(:label_my_block),
+                                 permission: :view_issues,
+                                 no_settings: true,
+                                 partial: 'dashboards/blocks/my_block' }
           blocks
         end
       end
@@ -88,487 +80,127 @@ module MyPlugin
 end
 ```
 
-#### 1.2 Activate the Patch
+Register the patch like every other patch of the plugin, e.g. with `loader.add_patch 'DashboardContent'` of `redmine_plugin_kit`. The block then appears in the block selection; its partial renders below the title bar of the dashboard.
 
-In your `init.rb`:
+### Locals of a Block View
 
-```ruby
-Rails.application.config.after_initialize do
-  DashboardContent.include MyPlugin::Patches::DashboardContentPatch
-end
-```
+| Local | Content |
+| ----- | ------- |
+| `dashboard` | the dashboard |
+| `block` | id of the block, e.g. `my_block` or `my_block__2` for a second one |
+| `block_definition` | the definition hash of the block |
+| `settings` | the stored settings of the block (symbol keys) |
+| `async` | the async configuration (async blocks only) |
+| `@project` | the project, `nil` on the welcome page |
 
-#### 1.3 Create the View
+### Settings
 
-Create file: `app/views/dashboards/blocks/_my_simple_block.html.erb`
-
-```erb
-<h3><%= l(:label_my_simple_block) %></h3>
-<div class="box">
-  <p>This is my simple dashboard block!</p>
-  <ul>
-    <% Issue.open.limit(5).each do |issue| %>
-      <li><%= link_to issue.subject, issue_path(issue) %></li>
-    <% end %>
-  </ul>
-</div>
-```
-
-**Done!** Your block now appears in the dashboard block selector.
-
-### Step 2: Block With Settings
-
-Settings allow users to customize block behavior.
-
-#### 2.1 Register Block With Settings
+A block with settings names a `settings_partial` and declares its settings, so saving them validates and casts them (see [Declared Settings](#declared-settings)):
 
 ```ruby
-blocks['my_configurable_block'] = {
-  label: l(:label_my_block),
-  permission: :view_issues,
-  partial: 'dashboards/blocks/my_configurable_block',
-  settings_partial: 'dashboards/blocks/my_configurable_block_settings',
-  settings: { title: DashboardContent::TITLE_SETTING,
-              max_entries: DashboardContent::MAX_ENTRIES_SETTING,
-              show_closed: { type: :boolean, label: :label_show_closed } }
-}
+blocks['my_block'] = { label: l(:label_my_block),
+                       permission: :view_issues,
+                       partial: 'dashboards/blocks/my_block',
+                       settings_partial: 'dashboards/blocks/my_block_settings',
+                       settings: { title: DashboardContent::TITLE_SETTING,
+                                   max_entries: DashboardContent::MAX_ENTRIES_SETTING,
+                                   show_closed: { type: :boolean, label: :label_show_closed } } }
 ```
 
-`settings` declares what the settings form sends, see [Declared Settings](#declared-settings).
+The fields of the settings partial are named `settings[<block>][<key>]`. The helpers of additionals build them with label and value:
 
-#### 2.2 Create Settings View
-
-Create file: `app/views/dashboards/blocks/_my_configurable_block_settings.html.erb`
-
-```erb
-<div class="box tabular settings">
-  <p>
-    <%= label_tag "settings_#{block}_title", l(:field_title) %>
-    <%= text_field_tag "settings[#{block}][title]",
-                       settings[:title],
-                       size: 30,
-                       placeholder: l(:label_my_block) %>
-  </p>
-
-  <p>
-    <%= label_tag "settings_#{block}_max_entries", l(:label_max_entries) %>
-    <%= number_field_tag "settings[#{block}][max_entries]",
-                         settings[:max_entries].presence || 10,
-                         min: 1,
-                         max: 100,
-                         required: true %>
-  </p>
-
-  <p>
-    <%= check_box_tag "settings[#{block}][show_closed]",
-                      1,
-                      RedminePluginKit.true?(settings[:show_closed]) %>
-    <%= label_tag "settings_#{block}_show_closed", l(:label_show_closed) %>
-  </p>
-</div>
+```slim
+.box.tabular.settings
+  p = additionals_settings_textfield :title, value: settings[:title], tag_name: "settings[#{block}][title]"
+  p = additionals_settings_numberfield :max_entries, value: settings[:max_entries], tag_name: "settings[#{block}][max_entries]",
+                                                     min: 1, max: 100
+  p = additionals_settings_checkbox :show_closed, active_value: settings[:show_closed], tag_name: "settings[#{block}][show_closed]"
 ```
 
-#### 2.3 Use Settings in Block View
-
-Create file: `app/views/dashboards/blocks/_my_configurable_block.html.erb`
-
-```erb
-<h3><%= settings[:title].presence || l(:label_my_block) %></h3>
-
-<div class="box">
-  <% max_entries = settings[:max_entries].presence || 10 %>
-  <% show_closed = RedminePluginKit.true?(settings[:show_closed]) %>
-
-  <% issues = Issue.visible %>
-  <% issues = issues.open unless show_closed %>
-  <% issues = issues.limit(max_entries.to_i) %>
-
-  <% if issues.any? %>
-    <ul>
-      <% issues.each do |issue| %>
-        <li>
-          <%= link_to "##{issue.id}", issue_path(issue) %>:
-          <%= issue.subject %>
-        </li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p class="nodata"><%= l(:label_no_data) %></p>
-  <% end %>
-</div>
-```
-
-### Step 3: Async Blocks (Performance Optimization)
-
-Async blocks load content via AJAX after the page renders, improving initial page load time.
-
-#### 3.1 Register Async Block
-
-```ruby
-blocks['my_async_block'] = {
-  label: l(:label_my_async_block),
-  permission: :view_issues,
-  async: {
-    partial: 'dashboards/blocks/my_async_block',
-    cache_expires_in: 600  # Cache for 10 minutes
-  },
-  settings_partial: 'dashboards/blocks/my_async_block_settings'
-}
-```
-
-#### 3.2 Create Async View With Cache Helper
-
-Create file: `app/views/dashboards/blocks/_my_async_block.html.erb`
-
-```erb
-<% # Wrap content in dashboard_async_cache for proper caching %>
-<% dashboard_async_cache dashboard, block, async, settings do %>
-
-  <h3><%= settings[:title].presence || l(:label_my_async_block) %></h3>
-
-  <div class="box">
-    <% # This code runs asynchronously after page load %>
-    <% issues = Issue.visible.open.limit(10) %>
-
-    <% if issues.any? %>
-      <table class="list">
-        <thead>
-          <tr>
-            <th><%= l(:field_id) %></th>
-            <th><%= l(:field_subject) %></th>
-            <th><%= l(:field_status) %></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% issues.each do |issue| %>
-            <tr>
-              <td><%= link_to "##{issue.id}", issue_path(issue) %></td>
-              <td><%= issue.subject %></td>
-              <td><%= issue.status.name %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <% else %>
-      <p class="nodata"><%= l(:label_no_data) %></p>
-    <% end %>
-  </div>
-
-<% end %>
-```
-
-**Important:** Use `dashboard_async_cache` helper to wrap async block content. This helper:
-
-- Manages AJAX loading
-- Handles caching based on `cache_expires_in`
-- Provides loading indicators
-
-#### 3.3 Advanced Async Configuration
-
-```ruby
-blocks['my_advanced_async_block'] = {
-  label: l(:label_my_block),
-  permission: :view_issues,
-  async: {
-    partial: 'dashboards/blocks/my_block',
-    cache_expires_in: 1800,  # 30 minutes
-    unique_params: [
-      TimeEntry.maximum(:updated_on),    # Invalidate when time entries change
-      MemberRole.maximum(:id)            # Invalidate when memberships are added
-    ],
-    required_settings: [:project_id, :tracker_id],  # Block won't load without these
-    skip_user_id: false  # Include user_id in cache key (default)
-  }
-}
-```
-
-#### 3.4 Why the Cache Expires by Time
-
-Async blocks expire after `cache_expires_in` on purpose, they are not invalidated when data changes. What a block shows depends on much more than its main records: a query block also reflects time entries, journals, custom field values, memberships and permissions. Change-based invalidation would have to know all of these sources, and a missed one would leave a block wrong until the cache expires. A short TTL is wrong for seconds at most, wherever a change comes from, and returning from an entry edited via the context menu of a query list block drops the cached block.
-
-`unique_params` is the cheap way to react to changes: each value becomes part of the cache key, so a new value leads to a new entry. Use values from indexed columns, because they are evaluated on every request. `MAX(updated_on)` of a table without an index on that column reads the whole table, e.g. `issues` in Redmine core.
-
-### Step 4: Real-World Example With Text Editor
-
-This example shows a text block with Wiki formatting (from `additionals` plugin).
-
-#### 4.1 Block Definition
-
-```ruby
-blocks['text_async'] = {
-  label: l(:label_text_sync),
-  async: {
-    partial: 'dashboards/blocks/text_async',
-    cache_expires_in: 600,
-    unique_params: [Setting.text_formatting],  # Invalidate if formatting changes
-    required_settings: [:text]  # Require text content
-  },
-  settings_partial: 'dashboards/blocks/text_async_settings'
-}
-```
-
-#### 4.2 View Template
-
-`app/views/dashboards/blocks/_text_async.html.erb`
-
-```erb
-<% dashboard_async_cache dashboard, block, async, settings do %>
-
-  <% if settings[:title].present? %>
-    <h3><%= settings[:title] %></h3>
-  <% end %>
-
-  <div class="wiki">
-    <%= textilizable settings[:text] %>
-  </div>
-
-<% end %>
-```
-
-#### 4.3 Settings Template
-
-`app/views/dashboards/blocks/_text_async_settings.html.erb`
-
-```erb
-<div class="box">
-  <div class="settings">
-    <p>
-      <%= label_tag "settings_#{block}_title", l(:field_title) %>
-      <%= text_field_tag "settings[#{block}][title]",
-                         settings[:title] || l(:label_text_sync),
-                         size: 50 %>
-    </p>
-    <p>
-      <%= label_tag "settings_#{block}_text", l(:field_text) %>
-      <%= text_area_tag "settings[#{block}][text]",
-                        settings[:text],
-                        rows: 15,
-                        class: 'wiki-edit',
-                        required: true %>
-      <%= wikitoolbar_for "settings_#{block}_text" %>
-    </p>
-  </div>
-</div>
-```
-
-**Note:** The `wikitoolbar_for` helper adds the Redmine wiki toolbar for formatting.
-
-### Step 5: Complex Example From additional_tags
-
-This example shows a feature-rich block with tables, filters, and settings.
-
-#### 5.1 Block Definition
-
-From `additional_tags/lib/additional_tags/patches/dashboard_content_patch.rb`:
-
-```ruby
-blocks['issue_tags'] = {
-  label: l(:field_issue_tags),
-  permission: :view_issue_tags,
-  if: proc { AdditionalTags.setting?(:active_issue_tags) },
-  async: { partial: 'dashboards/blocks/issue_tags' },
-  settings_partial: 'dashboards/blocks/issue_tags_settings'
-}
-```
-
-#### 5.2 View Template (Simplified)
-
-From `additional_tags/app/views/dashboards/blocks/_issue_tags.html.slim`:
-
-```erb
-<h3>
-  <%= svg_icon_tag 'tags', label: block_definition[:label] %>
-</h3>
-
-<% open_issues_only = RedminePluginKit.true?(settings[:open_issues_only]) %>
-<% tags = Issue.available_tags(project: @project, open_issues_only: open_issues_only) %>
-
-<% if RedminePluginKit.true?(settings[:with_table_of_values]) %>
-  <% if tags.present? %>
-    <table class="list tags">
-      <thead>
-        <tr>
-          <th><%= l(:field_name) %></th>
-          <% unless open_issues_only %>
-            <th><%= l(:label_open_issues_plural) %></th>
-            <th><%= l(:label_closed_issues_plural) %></th>
-          <% end %>
-          <th><%= l(:label_total) %></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% tags.each do |tag| %>
-          <tr>
-            <td class="name">
-              <%= link_to tag.name, issues_path(tag: tag.name) %>
-            </td>
-            <% unless open_issues_only %>
-              <td class="value"><%= tag.open_count %></td>
-              <td class="value"><%= tag.closed_count %></td>
-            <% end %>
-            <td class="value"><%= tag.total_count %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% else %>
-    <p class="nodata"><%= l(:label_no_data) %></p>
-  <% end %>
-<% end %>
-```
-
-#### 5.3 Settings Template
-
-From `additional_tags/app/views/dashboards/blocks/_issue_tags_settings.html.slim`:
-
-```erb
-<div class="box tabular settings">
-  <p>
-    <%= check_box_tag "settings[#{block}][with_table_of_values]",
-                      1,
-                      RedminePluginKit.true?(settings[:with_table_of_values]) %>
-    <%= label_tag "settings_#{block}_with_table_of_values",
-                  l(:label_with_table_of_values) %>
-  </p>
-
-  <p>
-    <%= check_box_tag "settings[#{block}][open_issues_only]",
-                      1,
-                      RedminePluginKit.true?(settings[:open_issues_only]) %>
-    <%= label_tag "settings_#{block}_open_issues_only",
-                  l(:label_open_issues_only) %>
-  </p>
-
-  <p>
-    <%= check_box_tag "settings[#{block}][use_colors]",
-                      1,
-                      RedminePluginKit.true?(settings[:use_colors]) %>
-    <%= label_tag "settings_#{block}_use_colors",
-                  l(:label_use_colors) %>
-  </p>
-</div>
-```
-
-### Available Variables in Block Views
-
-When rendering a block, these variables are available:
-
-| Variable | Type | Description |
-| ---------- | ------ | ----------- |
-| `@dashboard` | Dashboard | Current dashboard instance |
-| `@project` | Project | Current project (nil for WelcomeDashboard) |
-| `block` | String | Block name (e.g., 'my_block') |
-| `settings` | Hash | User-configured settings for this block |
-| `block_definition` | Hash | Block definition hash (label, permission, etc.) |
-| `async` | Hash | Async configuration (if async block) |
-
-### Helper Methods for Settings Forms
-
-The `additionals` plugin provides helper methods for consistent settings forms:
-
-```ruby
-# Text field
-additionals_settings_textfield :title,
-                               label: :field_title,
-                               value: settings[:title],
-                               tag_name: "settings[#{block}][title]"
-
-# Number field
-additionals_settings_numberfield :max_entries,
-                                 value: settings[:max_entries] || 10,
-                                 tag_name: "settings[#{block}][max_entries]",
-                                 min: 1,
-                                 max: 100,
-                                 required: true
-
-# Checkbox
-additionals_settings_checkbox :auto_refresh,
-                              label: :label_enable_auto_refresh,
-                              active_value: settings[:auto_refresh],
-                              tag_name: "settings[#{block}][auto_refresh]"
-
-# Select
-additionals_settings_select :query_id,
-                            options_for_query_select(IssueQuery, @project),
-                            label: :label_query,
-                            tag_name: "settings[#{block}][query_id]",
-                            required: true
-```
-
-These helpers automatically:
-
-- Generate correct `name` attributes for form fields
-- Handle labeling consistently
-- Support required field validation
-- Work with the dashboard settings system
-
-## Block Definition Options Reference
-
-Each block is defined by a hash with these options:
-
-### Basic Options
-
-| Option | Type | Description | Example |
-| -------- | ------ | ----------- | ------- |
-| `label` | String/Symbol | Display name (shown in block selector) | `l(:label_my_block)` |
-| `permission` | Symbol/Array | Required permission(s) | `:view_issues` or `[:view_issues, :edit_issues]` |
-| `if` | Proc | Conditional visibility | `proc { User.current.admin? }` |
-| `partial` | String | View template for synchronous rendering | `'dashboards/blocks/my_block'` |
-| `no_settings` | Boolean | Block has no user settings | `true` |
-
-### Advanced Options
-
-| Option | Type | Description |
-| -------- | ------ | ----------- |
-| `async` | Hash | Asynchronous loading configuration (see below) |
-| `settings_partial` | String | Custom settings form partial |
-| `with_settings_if` | Proc | Conditional settings availability |
-| `settings_filter` | Proc | Called with `(settings, dashboard)` before saving block settings, returns the settings to keep (e.g. drops those the current user may not change) |
-| `settings` | Hash | Declared settings of the block (see [Declared Settings](#declared-settings)) |
-| `max_occurs` | Integer | Maximum times block can be added (`DashboardContent::MAX_MULTIPLE_OCCURS`) |
-| `query_block` | Hash | Query-based block configuration (for IssueQuery, etc.) |
-| `matrix` | Hash | Matrix chart configuration |
-| `chart` | Hash | Chart configuration |
-
-### Async Loading Configuration
-
-Async blocks load content via AJAX (improves page load performance):
-
-```ruby
-async: {
-  partial: 'dashboards/blocks/my_block',         # Required: View template
-  cache_expires_in: 3600,                        # Optional: Cache TTL in seconds
-  unique_params: [TimeEntry.maximum(:updated_on)], # Optional: Cache key params (indexed columns)
-  required_settings: [:status_id, :tracker_id],  # Optional: Required settings
-  # required_settings: ->(settings) { settings[:a].present? || settings[:b].present? }  # Or a proc for one of several
-  skip_user_id: true                             # Optional: Exclude user_id from cache key
-}
-```
-
-### Query Block Configuration
-
-For blocks displaying query results (issues, time entries, etc.):
-
-```ruby
-query_block: {
-  label: l(:label_issues),
-  list_partial: 'issues/list',         # View template for list
-  class: IssueQuery,                   # Query class
-  link_helper: '_project_issues_path', # URL helper method
-  entities_var: :issues,               # Variable name for results
-  with_project: true,                  # Include project in query
-  count_method: 'issue_count',         # Optional: Custom count method
-  entries_method: 'issues'             # Optional: Custom entries method
-}
-```
+Read boolean settings with `RedminePluginKit.true?`: a checkbox sends `"0"`, which is truthy in Ruby.
 
 ### Declared Settings
 
-A block declares its settings with `settings`, in the format of [`Additionals::SettingsSchema`](settings-schema.md). Saving them (`Dashboard#update_block_settings`) then drops unknown keys and stores nothing if a value is invalid; the settings form shows the errors. Query list blocks with the settings form of additionals get their settings automatically, blocks with `no_settings` drop every setting. Blocks without `settings` keep whatever they get, as before.
+A block declares its settings with `settings`, in the format of [`Additionals::SettingsSchema`](settings-schema.md). Saving them (`Dashboard#update_block_settings`) then drops unknown keys and stores nothing if a value is invalid; the settings form shows the errors. Query list blocks with the settings form of additionals get their settings automatically, blocks with `no_settings` drop every setting. Blocks without `settings` keep whatever they get.
 
 Saving runs in this order: `settings_filter` on the given settings, then the declared settings on them, completed by the stored ones. Only given values are checked against their values and bounds, stored ones only for required settings: a query the editor cannot see or a column removed since does not lock the block. A program may send a part of the settings.
 
 `DashboardContent#available_block_schemas` lists the blocks the user can add with `label`, `max_occurs` and their described settings, `#block_settings(block, values:)` returns the schema of one block.
+
+### Async Blocks
+
+An async block renders an empty frame first and loads its content with a request of its own, so a slow block does not hold up the page:
+
+```ruby
+blocks['my_block'] = { label: l(:label_my_block),
+                       permission: :view_issues,
+                       settings_partial: 'dashboards/blocks/my_block_settings',
+                       async: { partial: 'dashboards/blocks/my_block',
+                                cache_expires_in: 600,
+                                required_settings: %i[query_id],
+                                libraries: %i[chartjs_meta],
+                                lazy: true } }
+```
+
+The partial wraps its content in `dashboard_async_cache dashboard, block, async, settings do ... end`, which caches it under a key of the block, its settings and the user.
+
+**Why the cache expires by time.** Async blocks expire after `cache_expires_in` on purpose, they are not invalidated when data changes. What a block shows depends on much more than its main records: a query block also reflects time entries, journals, custom field values, memberships and permissions. Change-based invalidation would have to know all of these sources, and a missed one would leave a block wrong until the cache expires. A short TTL is wrong for seconds at most, wherever a change comes from, and returning from an entry edited via the context menu of a query list block drops the cached block.
+
+`unique_params` is the cheap way to react to changes: each value becomes part of the cache key, so a new value leads to a new entry. Use values from indexed columns, because they are evaluated on every request. `MAX(updated_on)` of a table without an index on that column reads the whole table, e.g. `issues` in Redmine core.
+
+**Why lazy loading is opt-in.** `lazy: true` loads a block when it scrolls into view. It is not the default because blocks with auto refresh must poll regardless of the viewport, toggled blocks load on a click, lazy blocks outside the viewport are missing from a printout, and without a placeholder of the final height (`data_check_class`, see the [Chart Development Guide](charts.md)) all placeholders lie in view at once and nothing is saved. Query list blocks are lazy, they render the largest data sets.
+
+### Query List Blocks
+
+A block listing the entries of a saved query sets `query_block`; additionals provides the partials, settings (query, columns, sort, number of entries) and async loading:
+
+```ruby
+blocks['my_entries'] = { label: l(:label_my_entries),
+                         permission: :view_my_entries,
+                         query_block: { label: l(:label_my_entries),
+                                        list_partial: 'my_entries/list',
+                                        class: MyEntryQuery,
+                                        link_helper: '_project_my_entries_path',
+                                        entities_var: :entries,
+                                        with_project: true },
+                         max_occurs: DashboardContent::MAX_MULTIPLE_OCCURS }
+```
+
+### Block Options
+
+| Option | Content |
+| ------ | ------- |
+| `label` | name in the block selection |
+| `permission` | permission(s) the user needs, a symbol or an array |
+| `admin_only` | block for administrators only |
+| `if` | `proc { \|project\| ... }`, the block is offered only if it returns true |
+| `partial` | view of a synchronous block |
+| `async` | async loading, see below |
+| `no_settings` | the block has no settings, stored ones are dropped |
+| `settings_partial` | form of the settings |
+| `with_settings_if` | `proc { \|project\| ... }`, the settings form is offered only if it returns true |
+| `settings` | declared settings, see [Declared Settings](#declared-settings) |
+| `settings_filter` | `proc { \|settings, dashboard\| ... }`, called before saving, returns the settings to keep (e.g. drops those the user may not change) |
+| `max_occurs` | how often the block may be added, e.g. `DashboardContent::MAX_MULTIPLE_OCCURS` |
+| `libraries` | JavaScript libraries the block needs (`additionals_library_load` keys); also allowed under `async` |
+| `query_block` | list of a saved query, see [Query List Blocks](#query-list-blocks) |
+| `query_chart` | chart of a saved query, set by `AdditionalsQueryChart.dashboard_block` |
+
+A plugin may add options of its own and read them from `block_definition` in its views.
+
+| `async` option | Content |
+| -------------- | ------- |
+| `partial` | view rendered by the async request (required) |
+| `cache_expires_in` | lifetime of the cached content in seconds |
+| `unique_params` | further values of the cache key, from indexed columns |
+| `required_settings` | settings without which the block shows nothing; an array or `->(settings) { ... }` for one of several |
+| `skip_user_id` | the same content for all users, e.g. a feed |
+| `lazy` | load when the block scrolls into view |
+| `data_check_class` | class (or class name) with `chart_data_present?(project:)`: with data, the placeholder of a lazy chart gets the height of a chart |
+| `min_height` | height of the placeholder in pixels, or `->(project, settings) { ... }` |
+| `libraries` | JavaScript libraries the content needs |
+
+Libraries are loaded with the page, for every block in the layout and, if the layout is editable, for every block that can be added: a block added without reloading the page cannot load them itself.
 
 ### Assigning a Layout
 
@@ -586,578 +218,30 @@ Entries are block ids (`feed`, `feed__2`). A block without `settings` keeps its 
 
 A project dashboard without an own project (a system default) offers what depends on the project, e.g. its queries, only after `content_project` is set, before the first call of `assign_layout` or `content`.
 
-### Query Chart Blocks
+### Replacing Blocks in a Migration
 
-A chart block shows how the entries of a query spread over the values of one of its columns (doughnut, pie, bars, treemap or table), counted or summed up. Subclass `AdditionalsQueryChart` with the query class and the list a slice links to, and let it define the block:
+A migration that replaces blocks of existing dashboards uses `Additionals::DashboardBlockReplacer`: it calls a block for every dashboard block and puts the returned blocks in its place, numbered like `DashboardContent#block_options`. Block ids may carry a suffix (`my_block__2`); compare the id without it.
 
-```ruby
-class TimeEntryQueryChart < AdditionalsQueryChart
-  def query_class = TimeEntryQuery
+## Testing
 
-  private
+- Fixtures need a global system default for both types; regular dashboards have `system_default: false`.
+- Destroying a project destroys its dashboards; a global system default linked to a project by mistake would be destroyed with it.
+- Blocks of other plugins appear only when those plugins are installed. Tests of additionals run without them.
 
-  def entity_plural_label = :label_spent_time
-  def custom_field_project_key = "#{TimeEntry.table_name}.project_id"
+## Pitfalls
 
-  def list_path(params)
-    url_helpers = Rails.application.routes.url_helpers
-    # without project on the welcome dashboard
-    project ? url_helpers.project_time_entries_path(project, params) : url_helpers.time_entries_path(params)
-  end
-end
-
-blocks['time_entry_chart'] = TimeEntryQueryChart.dashboard_block(label: l(:label_chart_with_name, l(:label_spent_time)),
-                                                                 permission: :view_time_entries)
-```
-
-`dashboard_block` sets the async partial `dashboards/blocks/query_chart` with its settings form, the Chart.js libraries and `max_occurs`; further options extend or replace these. Grouping and totals come from core (`result_count_by_group`, `total_by_group_for`), so visibility and filters behave like the grouped list; custom fields with multiple values are counted separately, since core cannot group them. There an entry counts in each of its groups, but once in the total, so the total matches the linked list; the shares refer to that total and the block explains when they add up to more than 100 %. A second column (`split_by`) splits each entry into parts, shown as stacked bars or a cross table. A date column makes a timeline: core groups by day (timestamps in the time zone of the user), the base sums the days up to weeks, months, quarters or years (`interval`), fills the periods without entries with 0 (up to today for dates in the past only, filter type `date_past`) and links a period with a `><` filter of its days. It is drawn as line, area or bars, `max_entries` keeps the latest periods. A block may carry its own description (`description`, wiki formatted) below its title; the descriptions of its saved queries show below the chart with a link to their list. A timeline can be shown as `calendar`: the days of the latest 53 weeks in columns of weeks, drawn by the matrix plugin of Chart.js, loaded on demand; the color levels are quantiles of the days with values, so no setting is needed for small or large numbers. A number column (filter type integer, float or hour, a column of the table or a custom field) forms classes: bounds from `classes` or round steps over all values; the database groups by class (`CASE`), counts are plucked and sums taken per class, since ActiveRecord cannot read back the keys of a long grouping expression. The settings form offers only the settings that apply to the chosen column and display type (Stimulus controller `additionals-chart-settings`); for settings saved before, `chart_type` falls back the same way. Grouped by two columns, ActiveRecord no longer turns association names into records, so the base groups by the foreign key and loads the records itself; at most one of the two columns may have multiple values. The SQL of a column comes from the query (`group_by_statement`), so a query class that groups a column its own way is respected. The `additionals-chart` Stimulus controller draws the chart from the payload, loads d3plus only for a treemap (`AdditionalsHelpers.loadLibrary('d3plus')`) and releases the chart when the block is reloaded or removed.
-
-Hooks a subclass may override:
-
-- `open_only_label`: label of the option to apply the default filters of the query class (e.g. open issues) on top of the filters of the query. The option is only offered with a label, a generic text could not tell what it does. The base joins both filters of a field in the link of a slice where list filters allow it, `url_filter_values` turns special operators into values for that (e.g. "open" into status ids); otherwise the slice has no link.
-- `custom_values_visibility`: condition of the custom field values a user may see, by default via `custom_field_project_key`. Entities without a project or with several projects decide themselves.
-- `prepare_query`: adapts the query of the chart only, e.g. to count an entry once per group if the query joins repeating rows.
-- `measure_columns`: the columns a chart can sum up, the totals of the list by default.
-- `period_field`: the date filter a block can count in a relative period of (`period`, e.g. this month), with the previous period as comparison (`compare_query_id: previous`); nil offers no period.
-- `default_measure`: what a block without a choice measures, a count by default; a subclass may name a column, e.g. the hours of time entries.
-- `split_column?`: the columns a split may use. By default plain columns and custom fields, whose keys the base maps like core; a column of its own class may count its groups or turn its keys into values itself, which a grouping by two columns would bypass. A subclass excludes further columns, e.g. one whose keys the query flips.
-
-A migration replacing old chart blocks uses `Additionals::DashboardBlockReplacer`: it calls a block for every dashboard block and puts the returned blocks in its place, numbered like `DashboardContent#block_options`.
-
-Pitfalls of the display, all handled in `additionals.css` and the controller:
-
-- The chart and table layout lives under `.additionals-query-chart` and overrides the fixed widths of the older charts (`.additionals-chart-left` 360px, `.values` 450px) until every chart uses it.
-- Header and total of the scrolling table of values only stick with `overflow: clip` instead of core's `overflow: hidden` (which makes the table its own scroll container), separate borders and a `z-index` on `thead`/`tfoot`.
-- The `clip` option of chartjs-plugin-datalabels cuts values off at the edge. Instead `layout.padding` reserves room for the longest value, values wider than their vertical bar are slanted by 45 degrees, and the legend of vertical bars sits below the chart, since the padding lies above the legend.
-
-### Charts With an Evaluation of Their Own
-
-A chart that does not count the entries of a query (e.g. a burndown or the activity of a wiki) subclasses `AdditionalsChart`, implements `payload` and `valid?`, and renders the shared partial below its title. The view contains no JavaScript: the `additionals-chart` Stimulus controller draws the payload like the one of a query chart.
-
-```ruby
-class WikiActivityChart < AdditionalsChart
-  def payload
-    { type: 'area',                       # doughnut, pie, bar_horizontal, bar_vertical, line, area
-      labels: %w[KW 41 KW 42],
-      datasets: [{ label: 'Added', data: [3, 5], urls: [nil, '/projects/foo/activity'] }],
-      totalLabel: l(:label_quantity),     # title of the values, e.g. of the y axis
-      colorSchema: color_schema }
-  end
-
-  def valid? = payload[:datasets].any? { |dataset| dataset[:data].any?(&:positive?) }
-end
-```
-
-```slim
-h3.icon = svg_icon_tag chart.icon, label: :label_wiki_activities
-= render 'additionals/charts/chart', chart:, id: block
-```
-
-All texts of a payload are formatted on the server, so no translation ends up in JavaScript: `valueTexts` holds the text of each value per dataset (e.g. a localized decimal), `datasets[].tooltips` an extra tooltip line per point of a line, area, bar or treemap tile. A treemap tile shows its name, `tileLabels` puts another text on it (e.g. the size of a file whose name rarely fits), the name stays the title of its tooltip; d3plus adds the share; d3plus merges the tiles below a tiny share into one, `restLabel` names it; it links nowhere. A value of `nil` leaves a gap in a line. `datasets[].colors` names a CSS custom property per point for parts with a meaning of their own (e.g. overdue in red), they replace the color scheme for that dataset; a point with `nil` keeps the color of the scheme, so only the parts with a meaning leave it. `stacked: true` with `percent: true` stacks bars as shares of 100 %, the tooltip still names the values. A line takes `style` (`dashed`, `dotted`), `fill: true` (fading out towards the axis, unless stacked), `color` (a CSS custom property for line and area) and `onTop: true` (drawn above the others, legend and tooltip keep the order of the payload); `points: false` leaves out the points of all lines, a point still shows on hover. `lines` draws lines across the chart with a text (`axis`, `value`, `label`), e.g. today on a burndown; on a category axis a value between two entries lies between them. In a bar chart a dataset with `type: 'line'` lies above the bars as comparison, e.g. the year before, outside the stacks and the shares. With `stepped: true` it draws steps between the periods, e.g. working hours per day. `datasets[].tooltips` may hold several lines per point as an array. `datasets[].markers` puts `best` (gold star) or `worst` (an unobtrusive ↯) above a vertical bar, above the whole stack in stacked bars; the meaning belongs in `tooltips`. `valueLabels: false` hides the values next to the bars, e.g. long amounts. `legend: false` hides the legend of bars, e.g. where `colors` give the bars of one dataset different colors and the legend would show only the first one. Type `sankey` draws a hierarchy as flows from the left with d3plus: `sankey: { nodes: [{ id:, name:, url: }], links: [{ source:, target: }] }`; d3plus v4 draws no node labels, the names are in the tooltip. Type `matrix` draws a grid of rows and columns, e.g. users by day: `matrix: { columns:, rows:, cells: [{ x:, y:, color:, title:, lines:, url: }] }`, each cell in the CSS custom property of its category as the server chose it. `additionals/charts/key_figures` renders key figures above a chart, each `{ label:, value:, note:, alert:, success: }`: a red edge marks what needs attention, a green one a goal reached. `additionals/charts/charts` renders several charts side by side, below each other in a narrow column. `height` (350 px by default) sets the height of the chart, `icon` follows the type. Further options of the payload are added with the chart that needs them.
-
-## Dashboard Types
-
-### WelcomeDashboard (`DashboardContentWelcome`)
-
-**Purpose:** Displays content on the Redmine welcome/home page (accessible without project context).
-
-**Characteristics:**
-
-- Always global: `project_id` is always `nil` (enforced in `dashboard_type_check`)
-- Can be set as System Default
-- Only **one** System Default WelcomeDashboard allowed globally
-
-**Available Blocks (from additionals):**
-
-- `welcome` - Welcome text from settings
-- `activity` - Activity stream
-- `legacy_left` - Legacy left column content
-- `legacy_right` - Legacy right column content
-
-**Default Layout:**
-
-```ruby
-{
-  'left' => ['welcome', 'legacy_left'],
-  'right' => ['legacy_right']
-}
-```
-
-**Extending with custom blocks:** Use `DashboardContentWelcomePatch` or `DashboardContentPatch`.
-
-### ProjectDashboard (`DashboardContentProject`)
-
-**Purpose:** Displays content on project overview pages.
-
-**Characteristics:**
-
-- Can be project-specific OR global
-- Can be set as System Default (with different scopes)
-- Multiple System Defaults possible (one per project + one global fallback)
-
-**Available Blocks (from additionals):**
-
-- `projectinformation` - Project description and custom fields
-- `projectissues` - Issues summary
-- `projecttimeentries` - Time tracking summary
-- `projectmembers` - Project members list
-- `projectsubprojects` - Subprojects list
-- `legacy_left` - Legacy left column content
-- `legacy_right` - Legacy right column content
-
-**Default Layout:**
-
-```ruby
-{
-  'left' => ['projectinformation', 'projectissues', 'projecttimeentries'],
-  'right' => ['projectmembers', 'projectsubprojects']
-}
-```
-
-**Extending with custom blocks:** Use `DashboardContentProjectPatch` or `DashboardContentPatch`.
-
-## System Default Concept
-
-### What is a System Default?
-
-A **System Default** dashboard is automatically used as the default dashboard for users when:
-
-1. No recently used dashboard is available
-2. No user-specific dashboard exists
-
-### System Default Rules
-
-**WelcomeDashboard:**
-
-- Only **one** System Default allowed globally
-- Must have `project_id = nil` (always global)
-- `system_default = true`
-
-**ProjectDashboard:**
-
-- Only **one** global System Default allowed (`project_id = nil`)
-- **Multiple** project-specific System Defaults allowed (one per project)
-- `system_default = true`
-
-### ProjectDashboard System Default Variants
-
-#### Variant 1: Global System Default (Fallback)
-
-```ruby
-{
-  dashboard_type: 'ProjectDashboard',
-  system_default: true,
-  project_id: nil  # ← No project assigned
-}
-```
-
-**Usage:** Used as fallback for ALL projects that don't have a project-specific System Default.
-
-#### Variant 2: Project-Specific System Default
-
-```ruby
-{
-  dashboard_type: 'ProjectDashboard',
-  system_default: true,
-  project_id: 123  # ← Assigned to specific project
-}
-```
-
-**Usage:** Used as default for **this specific project only**.
-
-#### Variant 3: Regular Project Dashboard
-
-```ruby
-{
-  dashboard_type: 'ProjectDashboard',
-  system_default: false,
-  project_id: 123  # ← Assigned to specific project
-}
-```
-
-**Usage:** Custom dashboard for a project (not a default).
-
-### System Default Priority
-
-When determining which dashboard to use for a project:
-
-1. **Recently used dashboard** (user preference)
-2. **Project-specific System Default** (`system_default = true`, `project_id = <project_id>`)
-3. **Global System Default** (`system_default = true`, `project_id = nil`)
-4. **User's own dashboard** (created by current user)
-
-See `Dashboard.default` method (line 79-107) for implementation.
-
-## Deletion Rules (`deletable?`)
-
-### Logic (line 273-280)
-
-```ruby
-def deletable?(user = User.current)
-  return false unless editable? user
-
-  return !system_default_was if dashboard_type != DashboardContentProject::TYPE_NAME
-
-  # project dashboards needs special care
-  project.present? || !system_default_was
-end
-```
-
-### Deletion Rules by Dashboard Type
-
-**WelcomeDashboard:**
-
-- ✅ **Deletable:** If NOT System Default (`system_default = false`)
-- ❌ **NOT Deletable:** If System Default (`system_default = true`)
-
-**ProjectDashboard:**
-
-- ✅ **Deletable:** If `project.present?` (project-specific dashboard)
-- ✅ **Deletable:** If NOT System Default (`system_default = false`)
-- ❌ **NOT Deletable:** If System Default AND `project_id = nil` (global fallback)
-
-### Why Global System Defaults Cannot Be Deleted
-
-Global System Defaults serve as fallback templates:
-
-- **WelcomeDashboard System Default:** Required as fallback for welcome page
-- **ProjectDashboard Global System Default:** Required as fallback for projects without specific default
-
-Deleting them would break the default dashboard functionality.
-
-### Protection Mechanism
-
-Two callbacks prevent accidental deletion:
-
-```ruby
-before_destroy :check_locked        # Prevents deletion of locked dashboards
-before_destroy :check_destroy_system_default  # Prevents deletion of non-deletable dashboards
-```
-
-If a non-deletable dashboard deletion is attempted:
-
-```ruby
-def check_destroy_system_default
-  raise 'It is not allowed to delete dashboard, which is system default' unless deletable?
-end
-```
-
-## Database Schema
-
-### Key Attributes
-
-```ruby
-# Dashboard model
-belongs_to :project  # Optional (can be nil for global dashboards)
-belongs_to :author, class_name: 'User'
-
-# Important fields
-dashboard_type    # 'WelcomeDashboard' or 'ProjectDashboard'
-system_default    # Boolean - is this a System Default?
-project_id        # Integer or nil - project assignment
-visibility        # PRIVATE (0), ROLES (1), PUBLIC (2)
-locked           # Boolean - prevents editing
-name             # String - dashboard name
-options          # Serialized hash - layout, settings, etc.
-```
-
-### Validations
-
-**System Default Validations:**
-
-1. **Cannot change from System Default to non-System Default** (line 374-381):
-
-   ```ruby
-   def validate_system_default
-     return if new_record? ||
-               system_default_was == system_default ||
-               system_default? ||
-               project_id.present?
-
-     raise SystemDefaultChangeException
-   end
-   ```
-
-2. **ProjectDashboard System Default cannot change project assignment** (line 383-387):
-
-   ```ruby
-   def validate_project_system_default
-     return if project_id_can_change?
-
-     raise ProjectSystemDefaultChangeException if project_id.present?
-   end
-   ```
-
-3. **System Default must be PUBLIC** (line 425-427):
-
-   ```ruby
-   def validate_visibility
-     errors.add :visibility, :must_be_for_everyone if system_default? && visibility != VISIBILITY_PUBLIC
-   end
-   ```
-
-## System Default Updates
-
-When a dashboard is marked as System Default, all other System Defaults of the same type are automatically disabled:
-
-```ruby
-def update_system_defaults
-  return unless system_default? && User.current.allowed_to?(:set_system_dashboards, project, global: true)
-
-  scope = self.class
-              .where(dashboard_type:)
-              .where.not(id:)
-
-  scope = scope.where project: project if dashboard_type == DashboardContentProject::TYPE_NAME
-
-  scope.update_all system_default: false
-end
-```
-
-**For ProjectDashboard:**
-
-- Setting `system_default = true` with `project_id = 123` disables other System Defaults for **that project**
-- Setting `system_default = true` with `project_id = nil` disables other global System Defaults
-
-**For WelcomeDashboard:**
-
-- Setting `system_default = true` disables all other WelcomeDashboard System Defaults
-
-## Automatic Project Assignment
-
-**WelcomeDashboard** enforces `project_id = nil`:
-
-```ruby
-def dashboard_type_check
-  self.project_id = nil if dashboard_type == DashboardContentWelcome::TYPE_NAME
-end
-```
-
-Even if you try to assign a project to a WelcomeDashboard, it will be removed automatically.
-
-## Visibility Levels
-
-Dashboards support three visibility levels:
-
-```ruby
-VISIBILITY_PRIVATE = 0  # Only visible to author
-VISIBILITY_ROLES   = 1  # Visible to specific roles
-VISIBILITY_PUBLIC  = 2  # Visible to everyone
-```
-
-**System Default Requirement:**
-
-- System Defaults **must** have `VISIBILITY_PUBLIC`
-- This ensures all users can see and use the default dashboard
-
-## Example Scenarios
-
-### Scenario 1: Global ProjectDashboard System Default
-
-```ruby
-Dashboard.create!(
-  name: 'Default Project Overview',
-  dashboard_type: 'ProjectDashboard',
-  system_default: true,
-  project_id: nil,  # ← Global fallback
-  visibility: Dashboard::VISIBILITY_PUBLIC,
-  author: User.current
-)
-```
-
-**Usage:** This dashboard is used for ALL projects that don't have a project-specific System Default.
-
-**Deletable?** ❌ NO - Cannot delete global System Default
-
-### Scenario 2: Project-Specific System Default
-
-```ruby
-project = Project.find(123)
-
-Dashboard.create!(
-  name: 'Project 123 Default',
-  dashboard_type: 'ProjectDashboard',
-  system_default: true,
-  project_id: 123,  # ← Specific project
-  visibility: Dashboard::VISIBILITY_PUBLIC,
-  author: User.current
-)
-```
-
-**Usage:** This dashboard is used as default for project 123 only.
-
-**Deletable?** ✅ YES - Project-specific dashboards are deletable (even if System Default)
-
-### Scenario 3: Custom Project Dashboard
-
-```ruby
-Dashboard.create!(
-  name: 'My Custom Dashboard',
-  dashboard_type: 'ProjectDashboard',
-  system_default: false,  # ← Not a default
-  project_id: 123,
-  visibility: Dashboard::VISIBILITY_PRIVATE,
-  author: User.current
-)
-```
-
-**Usage:** Personal dashboard for project 123 (not used as default).
-
-**Deletable?** ✅ YES - Regular dashboards are always deletable
-
-### Scenario 4: WelcomeDashboard System Default
-
-```ruby
-Dashboard.create!(
-  name: 'Welcome Page Default',
-  dashboard_type: 'WelcomeDashboard',
-  system_default: true,
-  project_id: nil,  # ← Always nil (enforced)
-  visibility: Dashboard::VISIBILITY_PUBLIC,
-  author: User.current
-)
-```
-
-**Usage:** Used as default welcome page for all users.
-
-**Deletable?** ❌ NO - Cannot delete WelcomeDashboard System Default
-
-## Key Methods Reference
-
-### `Dashboard.system_default(dashboard_type)`
-
-Returns the System Default ID for a dashboard type:
-
-```ruby
-Dashboard.system_default('ProjectDashboard')  # → ID of global System Default or nil
-Dashboard.system_default('WelcomeDashboard')  # → ID of System Default or nil
-```
-
-### `Dashboard.default(dashboard_type, project, user, recently_id)`
-
-Returns the appropriate dashboard for a user/project combination (considering priority order).
-
-### `dashboard.deletable?(user)`
-
-Returns `true` if dashboard can be deleted by user.
-
-### `dashboard.project_id_can_change?`
-
-Returns `true` if `project_id` can be modified:
-
-- Always `true` for new records
-- Always `true` for non-ProjectDashboard types
-- `false` for ProjectDashboard System Defaults with `project_id = nil` (cannot assign project to global default)
-- `true` if previous `project_id` was present (can change between projects)
-
-## Common Pitfalls
-
-### 1. Cannot Delete Global System Default
-
-**Error:**
-
-```ruby
-dashboard = Dashboard.find_by(system_default: true, project_id: nil, dashboard_type: 'ProjectDashboard')
-dashboard.destroy
-# → RuntimeError: It is not allowed to delete dashboard, which is system default
-```
-
-**Solution:** Only delete project-specific dashboards, never global System Defaults.
-
-### 2. Cannot Change Project of Global System Default
-
-**Error:**
-
-```ruby
-dashboard = Dashboard.find_by(system_default: true, project_id: nil, dashboard_type: 'ProjectDashboard')
-dashboard.project_id = 123
-dashboard.save
-# → ProjectSystemDefaultChangeException
-```
-
-**Solution:** Global System Defaults must remain global (`project_id = nil`).
-
-### 3. WelcomeDashboard Always Global
-
-**Error:**
-
-```ruby
-Dashboard.create!(
-  dashboard_type: 'WelcomeDashboard',
-  project_id: 123  # ← Will be set to nil automatically
-)
-```
-
-**Result:** `project_id` is automatically set to `nil` in `dashboard_type_check` callback.
-
-### 4. Forgetting to Call `super` in Patch
-
-**Error:**
-
-```ruby
-def block_definitions
-  blocks = {}  # ← Wrong! Ignores parent blocks
-  blocks['my_block'] = { ... }
-  blocks
-end
-```
-
-**Solution:** Always call `super` to get existing blocks:
-
-```ruby
-def block_definitions
-  blocks = super  # ← Correct!
-  blocks['my_block'] = { ... }
-  blocks
-end
-```
-
-## Testing Considerations
-
-### Fixture Setup
-
-When creating test fixtures, ensure:
-
-1. **Global System Defaults exist** for both types
-2. **Project-specific System Defaults** are properly assigned
-3. **Regular dashboards** have `system_default = false`
-
-### Deleting Projects in Tests
-
-When deleting projects that have dashboards:
-
-- Project-specific dashboards (with `project_id`) are deleted via `dependent: :destroy`
-- Global System Defaults (`project_id = nil`) must NOT be affected
-- Ensure test fixtures don't accidentally link global defaults to projects
-
-### Example Test Setup
-
-```ruby
-# Global ProjectDashboard System Default (safe to keep)
-Dashboard.create!(
-  name: 'Global Default',
-  dashboard_type: 'ProjectDashboard',
-  system_default: true,
-  project_id: nil,  # ← Global, won't be deleted
-  visibility: Dashboard::VISIBILITY_PUBLIC
-)
-
-# Project-specific dashboard (will be deleted with project)
-Dashboard.create!(
-  name: 'Project Dashboard',
-  dashboard_type: 'ProjectDashboard',
-  system_default: false,
-  project_id: project.id,  # ← Will be deleted when project is destroyed
-  visibility: Dashboard::VISIBILITY_PUBLIC
-)
-
-project.destroy  # ← Only project-specific dashboard is deleted
-```
+| Symptom | Cause |
+| ------- | ----- |
+| Blocks of other plugins are missing | `block_definitions` started from `{}` instead of `super` |
+| `RuntimeError: It is not allowed to delete dashboard, which is system default` | the global system default cannot be deleted |
+| `ProjectSystemDefaultChangeException` | the global project system default cannot get a project |
+| A welcome dashboard loses its project | welcome dashboards are always global |
+| A block shows old data | the cache lives until `cache_expires_in`; add a cheap `unique_params` value if a change must show at once |
+| A boolean setting cannot be switched off | the checkbox value `"0"` read without `RedminePluginKit.true?` |
 
 ## References
 
-- `app/models/dashboard.rb` - Main Dashboard model
-- `app/models/dashboard_content.rb` - Base class for dashboard content
-- `app/models/dashboard_content_welcome.rb` - WelcomeDashboard implementation
-- `app/models/dashboard_content_project.rb` - ProjectDashboard implementation
-- [additional_tags plugin](https://github.com/alphanodes/additional_tags) - Public example of dashboard extension
+- `app/models/dashboard.rb`: dashboards, system defaults, layout, settings
+- `app/models/dashboard_content.rb`, `dashboard_content_welcome.rb`, `dashboard_content_project.rb`: blocks per type
+- `app/helpers/dashboards_helper.rb`: rendering, async options, libraries
+- [additional_tags](https://github.com/alphanodes/additional_tags): a public plugin adding dashboard blocks

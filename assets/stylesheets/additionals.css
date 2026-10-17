@@ -470,19 +470,9 @@ div.additionals-projects li.project.odd {
   width: 360px;
 }
 
-/* has to be same width as additionals-table-of-values */
-.additionals-chart-right {
-  float: left;
-  width: 450px;
-}
-
 .additionals-table-of-values > .values {
   float: left;
   width: 450px;
-}
-
-table.table-of-values {
-  margin-left: 20px;
 }
 
 /* several charts of a block side by side, below each other in a narrow column */
@@ -590,14 +580,6 @@ table.table-of-values {
   z-index: 1;
   bottom: 0;
   background-color: var(--oc-white);
-}
-
-table.table-of-values td {
-  padding: 3px;
-}
-
-table.table-of-values caption {
-  font-weight: bold;
 }
 
 /* A cross table has a column per part. Core lays out report tables with a

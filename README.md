@@ -654,6 +654,7 @@ In case of further questions use the issue tracking system for this project on G
 Footnotes:
 
 * Dashboard Development Guide: <https://github.com/alphanodes/additionals/blob/main/docs/dashboards.md>
+* Chart Development Guide: <https://github.com/alphanodes/additionals/blob/main/docs/charts.md>
 * Git_hosting: <https://github.com/jbox-web/redmine_git_hosting>
 * block_template: <https://github.com/jbox-web/redmine_git_hosting/blob/master/app/views/dashboards/blocks/_git_urls.html.slim>
 * block_definition: <https://github.com/jbox-web/redmine_git_hosting/blob/master/lib/redmine_git_hosting/patches/dashboard_content_project_patch.rb>

@@ -4,10 +4,9 @@ class AdditionalsChart
   include ActiveRecord::Sanitization
   include Redmine::I18n
 
-  attr_accessor :project, :query, :data_values
+  attr_accessor :project, :query
 
   CHART_DEFAULT_HEIGHT = 350
-  CHART_DEFAULT_WIDTH = 400
   CHART_HEADER_HEIGHT = 80
   # Icon of the title by type, bars for all others
   CHART_ICONS = { 'doughnut' => 'chart-pie', 'pie' => 'chart-pie', 'line' => 'chart-line',
@@ -33,7 +32,6 @@ class AdditionalsChart
   def initialize(project: nil, query: nil)
     self.project = project
     self.query = query
-    self.data_values = {}
 
     query.project = project if query && project
   end
@@ -48,7 +46,7 @@ class AdditionalsChart
 
   # Data the additionals-chart Stimulus controller draws: type, labels,
   # datasets (label, data, optional urls per point), totalLabel (title of the
-  # values) and colorSchema. The format is described in docs/dashboards.md.
+  # values) and colorSchema. The format is described in docs/charts.md.
   def payload
     raise 'overwrite it!'
   end
@@ -79,30 +77,6 @@ class AdditionalsChart
     when 3..4 then (elements * (group_height + 10) * groups)
     else (elements * group_height * groups)
     end
-  end
-
-  # build return value
-  def build_chart_data(datasets, **options)
-    cached_labels = labels
-
-    data = { datasets: datasets.to_json,
-             labels: cached_labels.keys,
-             label_ids: cached_labels.values }
-
-    required_labels = options.key?(:required_labels) ? options.delete(:required_labels) : 2
-
-    data[:valid] = cached_labels.any? && cached_labels.count >= required_labels unless options.key? :valid
-    data[:width] = CHART_DEFAULT_WIDTH unless options.key? :width
-    data[:height] = CHART_DEFAULT_HEIGHT unless options.key? :height
-    data[:value_link_method] = '_project_issues_path' unless options.key? :value_link_method
-    data[:color_schema] = color_schema
-
-    unless options[:skip_data_sum]
-      values = Array(datasets).first[:data]
-      data[:data_sum] = values.present? ? values.sum : 0
-    end
-
-    data.merge options
   end
 
   private
@@ -150,33 +124,5 @@ class AdditionalsChart
     else
       l :label_chart_month, month: l('date.abbr_month_names')[start.month], year: start.year
     end
-  end
-
-  def build_values_without_gaps(data, gap_value = 0)
-    values = []
-    labels.each_key do |label|
-      values << if data.key? label
-                  data[label]
-                else
-                  gap_value
-                end
-    end
-
-    values
-  end
-
-  def init_labels
-    @labels = {}
-  end
-
-  def labels
-    # NOTE: do not sort it, because color changes if user switch language
-    @labels.to_h
-  end
-
-  def add_label(label, id)
-    return if @labels.key? label
-
-    @labels[label] = id
   end
 end

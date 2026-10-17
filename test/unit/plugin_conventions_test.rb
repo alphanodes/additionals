@@ -36,4 +36,9 @@ class PluginConventionsTest < Additionals::TestCase
   def test_all_deface_overrides_have_valid_hashes
     assert_deface_overrides_valid name_prefix: 'additionals'
   end
+
+  # A chart built in a view would pass every feature test, only this notices it
+  def test_charts_are_drawn_from_a_payload
+    assert_charts_drawn_from_payload 'additionals'
+  end
 end

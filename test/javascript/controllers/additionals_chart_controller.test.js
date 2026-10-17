@@ -659,6 +659,13 @@ describe('bars with lines and markers', () => {
     return { dataset: revenueConfig.data.datasets[datasetIndex], dataIndex: 0, datasetIndex };
   }
 
+  it('draws a line of values per period as steps', () => {
+    const datasets = [{ label: 'Spent', data: [3, 0] }, { label: 'Target', data: [8, 0], type: 'line', stepped: true }];
+    const line = chartConfig(document.body, payload({ type: 'bar_vertical', datasets })).data.datasets[1];
+
+    expect(line.stepped).toBe('middle');
+  });
+
   it('lays a line over the bars in a stack of its own', () => {
     const line = chartConfig(document.body, revenuePayload()).data.datasets[2];
 

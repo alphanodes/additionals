@@ -297,6 +297,9 @@ function barDataset(dataset) {
     fill: false,
     borderWidth: 2,
     borderDash: LINE_DASHES[dataset.style] || [],
+    // A value per period, e.g. the working hours of a day: flat across the
+    // period, the steps lie between two periods
+    stepped: dataset.stepped ? 'middle' : false,
     pointRadius: LINE_POINT_RADIUS,
     pointHoverRadius: LINE_POINT_RADIUS + 1,
   };

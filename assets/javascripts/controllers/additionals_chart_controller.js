@@ -14,6 +14,7 @@ import { Controller } from '@hotwired/stimulus';
 
 const BAR_TYPES = ['bar_horizontal', 'bar_vertical'];
 const LINE_TYPES = ['line', 'area'];
+const PIE_TYPES = ['doughnut', 'pie'];
 const LINE_POINT_RADIUS = 3;
 // Lines without points show one on hover, close enough to find it
 const LINE_POINT_HIT_RADIUS = 8;
@@ -41,6 +42,8 @@ const VALUE_LABEL_SLANT = 45;
 // Opacity of the color per level of a calendar, days without values first
 const CALENDAR_ALPHAS = [0.08, 0.3, 0.5, 0.72, 0.95];
 const CALENDAR_FALLBACK_COLOR = '#1f77b4';
+// Bars of the color scheme are filled with its colors at this alpha
+const BAR_FILL_ALPHA = 0.8;
 const CALENDAR_GAP = 2;
 // Space between two month names
 const CALENDAR_MONTH_GAP = 4;
@@ -382,7 +385,8 @@ function barConfig(canvas, payload) {
       },
       plugins: {
         legend: {
-          display: payload.datasets.length > 1,
+          // Colors per bar leave the legend with the color of the first one
+          display: payload.legend !== false && payload.datasets.length > 1,
           // The room for the values above vertical bars lies above the
           // legend, the values would run into it
           position: horizontal ? 'top' : 'bottom',
@@ -391,7 +395,7 @@ function barConfig(canvas, payload) {
         },
         colorschemes: {
           scheme: payload.colorSchema,
-          fillAlpha: 0.8,
+          fillAlpha: BAR_FILL_ALPHA,
         },
         tooltip: {
           callbacks: {
@@ -584,8 +588,9 @@ function lineConfig(payload) {
 }
 
 // Fixed colors of a dataset, one CSS custom property per point, e.g. red for
-// overdue. They take the place of the color scheme for that dataset.
-export function withColors(canvas, dataset) {
+// overdue. They take the place of the color scheme for that dataset, a point
+// without one keeps the color the scheme gives it (fallback by point index).
+export function withColors(canvas, dataset, fallback = () => null) {
   if (dataset.color) {
     const color = cssVar(canvas, dataset.color);
     return {
@@ -599,7 +604,10 @@ export function withColors(canvas, dataset) {
   if (!dataset.colors) {
     return dataset;
   }
-  return { ...dataset, backgroundColor: dataset.colors.map((name) => cssVar(canvas, name)) };
+  return {
+    ...dataset,
+    backgroundColor: dataset.colors.map((name, index) => (name ? cssVar(canvas, name) : fallback(index))),
+  };
 }
 
 // Lines across the chart with a text, e.g. today on a burndown. On a
@@ -633,7 +641,7 @@ function typeConfig(canvas, payload) {
 // Chart.js configuration of a payload, for every type but the treemap
 export function chartConfig(canvas, payload) {
   const config = typeConfig(canvas, payload);
-  config.data.datasets = config.data.datasets.map((dataset) => withColors(canvas, dataset));
+  config.data.datasets = config.data.datasets.map((dataset, index) => withColors(canvas, dataset, (point) => schemeFill(payload, index, point)));
   if (payload.lines) {
     config.options.plugins.annotation = { annotations: lineAnnotations(canvas, payload) };
   }
@@ -648,11 +656,28 @@ export function calendarLevel(levels, value) {
   return 1 + levels.filter((bound) => value > bound).length;
 }
 
+function schemeColors(payload) {
+  const [group, name] = (payload.colorSchema || '').split('.');
+  return window.Chart?.colorschemes?.[group]?.[name];
+}
+
 // First color of the color scheme, as the colorschemes plugin defines it
 function schemeColor(payload) {
-  const [group, name] = (payload.colorSchema || '').split('.');
-  const colors = window.Chart?.colorschemes?.[group]?.[name];
+  const colors = schemeColors(payload);
   return colors ? colors[0] : CALENDAR_FALLBACK_COLOR;
+}
+
+// The color the colorschemes plugin gives a point: per slice in a pie, per
+// dataset with the fill alpha of bars otherwise
+export function schemeFill(payload, datasetIndex, pointIndex) {
+  const colors = schemeColors(payload);
+  if (!colors) {
+    return null;
+  }
+  if (PIE_TYPES.includes(payload.type)) {
+    return colors[pointIndex % colors.length];
+  }
+  return colorWithAlpha(colors[datasetIndex % colors.length], BAR_FILL_ALPHA);
 }
 
 function calendarColor(payload, level) {

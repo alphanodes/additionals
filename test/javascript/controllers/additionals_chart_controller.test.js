@@ -1,7 +1,7 @@
 /* global Chart */
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import AdditionalsChartController, {
-  chartConfig, renderTreemap, valueTicks, tooltipLine, withColors, shareDatasets, lineAnnotations, colorWithAlpha, areaGradient, legendLabels, markerTop, markerPlugin, matrixConfig, calendarConfig, calendarLevel, calendarLegend, calendarMonthLabels,
+  chartConfig, renderTreemap, valueTicks, tooltipLine, withColors, shareDatasets, lineAnnotations, colorWithAlpha, areaGradient, legendLabels, schemeFill, markerTop, markerPlugin, matrixConfig, calendarConfig, calendarLevel, calendarLegend, calendarMonthLabels,
 } from '../../../assets/javascripts/controllers/additionals_chart_controller.js';
 
 function payload(overrides = {}) {
@@ -204,6 +204,16 @@ describe('chart configuration', () => {
     }));
 
     expect(config().options.plugins.legend.display).toBe(true);
+  });
+
+  it('hides the legend of a comparison on request', () => {
+    render(payload({
+      type: 'bar_horizontal',
+      legend: false,
+      datasets: [{ label: 'Used', data: [3, 1] }, { label: 'Available', data: [2, 0] }],
+    }));
+
+    expect(config().options.plugins.legend.display).toBe(false);
   });
 
   it('opens the list of a clicked slice', () => {
@@ -746,6 +756,35 @@ describe('fixed colors', () => {
     const { data } = chartConfig(canvas, payload({ type: 'pie', datasets: [{ label: 'Issues', data: [3], colors: ['--test-green'] }] }));
 
     expect(data.datasets[0].backgroundColor).toEqual(['rgb(64, 192, 87)']);
+  });
+
+  it('keeps the color of the scheme for a point without one', () => {
+    const canvas = canvasWith({ '--test-red': 'rgb(250, 82, 82)' });
+    const dataset = withColors(canvas, { data: [1, 2], colors: ['--test-red', null] }, () => 'scheme');
+
+    expect(dataset.backgroundColor).toEqual(['rgb(250, 82, 82)', 'scheme']);
+  });
+});
+
+describe('scheme fill', () => {
+  beforeEach(() => {
+    window.Chart = { colorschemes: { test: { three: ['#ff0000', '#00ff00', '#0000ff'] } } };
+  });
+
+  afterEach(() => {
+    delete window.Chart;
+  });
+
+  it('fills a bar in the color of its dataset with the alpha of bars', () => {
+    expect(schemeFill(payload({ type: 'bar_horizontal', colorSchema: 'test.three' }), 1, 0)).toBe('rgba(0, 255, 0, 0.8)');
+  });
+
+  it('fills a slice of a pie in the color of the slice', () => {
+    expect(schemeFill(payload({ type: 'pie', colorSchema: 'test.three' }), 0, 4)).toBe('#00ff00');
+  });
+
+  it('leaves the color open without a known scheme', () => {
+    expect(schemeFill(payload({ type: 'pie', colorSchema: 'unknown.scheme' }), 0, 0)).toBeNull();
   });
 });
 

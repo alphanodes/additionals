@@ -985,6 +985,7 @@ class AdditionalsQueryChart < AdditionalsChart
              else
                split_counts query
              end
+    counts = to_user_days counts if user_zone_hours?
     counts.each_with_object({}) do |((key, split_key), value), values|
       (values[key] ||= {})[split_key] = value
     end
@@ -1030,12 +1031,59 @@ class AdditionalsQueryChart < AdditionalsChart
   # columns but those of custom fields, the base groups by the column then.
   def group_statement(query, column)
     return number_statement column if number_type? column
+    return hour_statement column if column == group_column && user_zone_hours?
 
     group_by = query.group_by
     query.group_by = column.name.to_s
     query.group_by_statement
   ensure
     query.group_by = group_by
+  end
+
+  # Timestamps are stored in the time of the server (or UTC). Grouped by the
+  # day of a user with a time zone of their own, the database would have to
+  # convert them: MySQL can only with its time zone tables loaded, PostgreSQL
+  # in the time zone of its session. A plugin can rely on neither, so the
+  # database counts per hour as stored and Ruby moves each hour to the day of
+  # the user. Without a time zone of the user core groups as before.
+  def user_zone_hours?
+    return @user_zone_hours if defined? @user_zone_hours
+
+    @user_zone_hours = timeline? && group_column.is_a?(TimestampQueryColumn) && User.current.time_zone.present?
+  end
+
+  def hour_statement(column)
+    sql = Array(column.sortable).first
+    Redmine::Database.postgresql? ? "date_trunc('hour', #{sql})" : "DATE_FORMAT(#{sql}, '%Y-%m-%d %H:00:00')"
+  end
+
+  # Values per hour as stored, counted like core counts a group
+  def user_zone_values(query)
+    statement = Arel.sql hour_statement(group_column)
+    scope = query.base_scope.group statement
+    values = measure_column ? query.send(:total_with_scope, measure_column, scope) : scope.distinct.count(:id)
+    to_user_days values
+  end
+
+  # Hours as stored summed up to the days of the user, also as the first part
+  # of the keys of a split
+  def to_user_days(values)
+    values.each_with_object({}) do |(key, value), days|
+      day = key.is_a?(Array) ? [user_day(key.first), *key.drop(1)] : user_day(key)
+      days[day] = days.key?(day) ? days[day] + value : value
+    end
+  end
+
+  def user_day(hour)
+    return if hour.blank?
+
+    User.current.time_to_date(hour.is_a?(String) ? stored_time(hour) : hour)
+  end
+
+  # MySQL returns the hour as text, in the time Redmine stored it
+  def stored_time(text)
+    parts = text.scan(/\d+/).map(&:to_i)
+    ActiveRecord.default_timezone == :utc ? Time.utc(*parts) : Time.local(*parts) # rubocop:disable Rails/TimeZone
   end
 
   def number_statement(column)
@@ -1102,6 +1150,7 @@ class AdditionalsQueryChart < AdditionalsChart
   def grouped_values(query)
     return multiple_values_counts query if multiple_values?
     return number_values query if number_classes?
+    return user_zone_values query if user_zone_hours?
 
     values = measure_column ? query.total_by_group_for(measure_column) : query.result_count_by_group
     merge_blank_keys values || {}

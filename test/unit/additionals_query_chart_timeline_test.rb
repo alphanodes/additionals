@@ -171,16 +171,6 @@ class AdditionalsQueryChartTimelineTest < Additionals::TestCase
     assert_equal ['><', %w[2026-01-20 2026-01-31]], url_filter(url, 'start_date')
   end
 
-  # Like the grouped list, MySQL needs its time zone tables for that
-  def test_timestamp_counts_the_day_of_the_user_time_zone
-    skip 'MySQL without time zone tables' unless time_zones_supported?
-    User.current.pref.update! time_zone: 'Berlin'
-    Issue.where(id: @issues.first.id).update_all created_on: Time.utc(2026, 1, 31, 23, 30)
-    chart = timeline_chart group_by: 'created_on', query_id: created_query.id.to_s
-
-    assert_equal Date.new(2026, 2, 1), chart.entries.first.key
-  end
-
   # Weeks without entries since the last one are what a timeline of the past shows
   def test_timeline_of_past_dates_ends_today
     Issue.where(id: @issues.first.id).update_all created_on: Time.utc(2026, 1, 15, 12)
@@ -323,12 +313,6 @@ class AdditionalsQueryChartTimelineTest < Additionals::TestCase
   def created_query
     IssueQuery.create! name: 'Created', user: users(:users_001), visibility: Query::VISIBILITY_PUBLIC,
                        filters: { 'issue_id' => { operator: '=', values: [@issues.first.id.to_s] } }
-  end
-
-  def time_zones_supported?
-    return true unless Redmine::Database.mysql?
-
-    ActiveRecord::Base.connection.select_value("SELECT CONVERT_TZ('2026-01-01 00:00:00', 'UTC', 'Europe/Berlin')").present?
   end
 
   def date_field

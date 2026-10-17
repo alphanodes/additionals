@@ -428,7 +428,7 @@ class AdditionalsQueryChart < AdditionalsChart
       stacked: split? && chart_type != 'line',
       total: total.round(2),
       totalLabel: measure_label,
-      colorSchema: color_schema }.merge(calendar? ? { calendar: calendar_payload } : {})
+      colorSchema: color_schema }.merge(type_payload)
   end
 
   def height
@@ -443,6 +443,17 @@ class AdditionalsQueryChart < AdditionalsChart
   end
 
   private
+
+  # Options only one chart type knows
+  def type_payload
+    if calendar?
+      { calendar: calendar_payload }
+    elsif treemap?
+      { restLabel: l(:label_chart_others) }
+    else
+      {}
+    end
+  end
 
   def series_chart?
     SERIES_TYPES.include? chart_type

@@ -863,6 +863,24 @@ export function calendarLegend(payload) {
   return legend;
 }
 
+// Tiles below a tiny share d3plus merges into one, its fields become lists
+function isTreemapRest(d) {
+  return Boolean(d._isAggregation) || typeof d.name !== 'string';
+}
+
+function treemapName(payload, d) {
+  return isTreemapRest(d) ? payload.restLabel || '' : d.name;
+}
+
+function treemapTooltip(payload, d) {
+  const value = `${payload.totalLabel}: `;
+  if (isTreemapRest(d)) {
+    return escapeHtml(`${value}${share(d.value, payload.total)}%`);
+  }
+  return [`${value}${d.text} (${share(d.value, payload.total)}%)`, d.extra]
+    .filter(Boolean).map(escapeHtml).join('<br>');
+}
+
 export function renderTreemap(element, payload) {
   const data = payload.labels.map((label, index) => ({
     // Two versions "1.0" or users of the same name stay separate tiles
@@ -872,24 +890,28 @@ export function renderTreemap(element, payload) {
     value: payload.datasets[0].data[index],
     // not "url": d3plus fetches a field of that name as data
     link: entryUrl(payload, 0, index),
+    extra: payload.datasets[0].tooltips?.[index] || '',
   }));
 
   return new window.d3plus.Treemap()
     .data(data)
     .groupBy('id')
     .sum('value')
+    // d3plus labels the rest itself, in English otherwise
+    .thresholdName(() => payload.restLabel || '')
     // d3plus v4 takes tile labels from .label(), shapeConfig would show the id
-    .label((d) => d.name)
+    .label((d) => treemapName(payload, d))
     .select(element)
     .legend(false)
     .zoom(false)
     .search(false)
     .tableView(false)
-    .on('click', (d) => openUrl(d && d.link))
+    // The rest has no list of its own
+    .on('click', (d) => openUrl(d && !isTreemapRest(d) ? d.link : null))
     .tooltipConfig({
       // d3plus writes its tooltip as HTML, unlike Chart.js which draws on a canvas
-      title: (d) => escapeHtml(d.name),
-      body: (d) => escapeHtml(`${payload.totalLabel}: ${d.text} (${share(d.value, payload.total)}%)`),
+      title: (d) => escapeHtml(treemapName(payload, d)),
+      body: (d) => treemapTooltip(payload, d),
       // d3plus adds an own, untranslated share row otherwise
       tbody: [],
     })

@@ -66,10 +66,11 @@ function mockTreemap() {
       return this;
     }
   }
-  ['data', 'groupBy', 'sum', 'label', 'select', 'legend', 'zoom', 'search', 'tableView', 'on', 'tooltipConfig']
+  ['data', 'groupBy', 'sum', 'thresholdName', 'label', 'select', 'legend', 'zoom', 'search', 'tableView', 'on', 'tooltipConfig']
     .forEach((method) => {
-      Treemap.prototype[method] = function chain(value) {
-        calls[method] = value;
+      Treemap.prototype[method] = function chain(value, handler) {
+        // on(event, handler) keeps the handler
+        calls[method] = method === 'on' ? handler : value;
         return this;
       };
     });
@@ -400,6 +401,40 @@ describe('chart configuration', () => {
     renderTreemap(document.createElement('div'), payload({ type: 'treemap', labels: ['<img src=x onerror=alert(1)>', 'Feature'] }));
 
     expect(calls.tooltipConfig.title({ name: '<img src=x onerror=alert(1)>' })).toBe('&lt;img src=x onerror=alert(1)&gt;');
+  });
+
+  it('names the rest of small tiles as the server says', () => {
+    const calls = mockTreemap();
+    renderTreemap(document.createElement('div'), payload({ type: 'treemap', restLabel: 'Rest' }));
+
+    expect(calls.label({ _isAggregation: true, name: ['Bug', 'Feature'] })).toBe('Rest');
+  });
+
+  it('names the rest of small tiles where d3plus labels it itself', () => {
+    const calls = mockTreemap();
+    renderTreemap(document.createElement('div'), payload({ type: 'treemap', restLabel: 'Rest' }));
+
+    expect(calls.thresholdName()).toBe('Rest');
+  });
+
+  it('opens no list for the rest of small tiles', () => {
+    const open = vi.spyOn(window, 'open').mockImplementation(() => null);
+    const calls = mockTreemap();
+    renderTreemap(document.createElement('div'), payload({ type: 'treemap' }));
+    calls.on({ _isAggregation: true, name: ['Bug'], link: ['/issues?tracker=1'] });
+
+    expect(open).not.toHaveBeenCalled();
+    open.mockRestore();
+  });
+
+  it('adds the tooltip line of a tile, escaped', () => {
+    const calls = mockTreemap();
+    renderTreemap(document.createElement('div'), payload({
+      type: 'treemap',
+      datasets: [{ label: 'Issues', data: [3, 1], tooltips: ['Project: <b>A</b>', null] }],
+    }));
+
+    expect(calls.tooltipConfig.body(calls.data[0])).toBe('Quantity: 3 (75%)<br>Project: &lt;b&gt;A&lt;/b&gt;');
   });
 
   it('leaves out the untranslated share row of d3plus', () => {

@@ -166,6 +166,12 @@ class AdditionalsQueryChartTest < Additionals::TestCase
     assert_equal values.max(values.size), values
   end
 
+  def test_treemap_names_the_rest_of_small_tiles
+    I18n.with_locale :en do
+      assert_equal 'Others', issue_chart(group_by: 'tracker', chart_type: 'treemap').payload[:restLabel]
+    end
+  end
+
   def test_max_entries_sums_up_the_rest_as_others
     chart = issue_chart group_by: 'tracker'
     all_values = chart.entries.map(&:value).max(chart.entries.size)

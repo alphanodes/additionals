@@ -212,7 +212,7 @@ blocks['time_entry_chart'] = TimeEntryQueryChart.dashboard_block(label: l(:label
 
 Handled in `additionals.css` and the controller, worth knowing before changing them:
 
-- Axes, legends and titles stay in the background for every Chart.js chart: `--a-color-muted` in the font of the page at 11 px, light lines (`--a-color-border-light`) of the value axis only. Axes resolve their text against defaults of their own, so color and font are set on each axis, not only on the chart. A timeline keeps its dates level and leaves out what does not fit; bars keep every label, each entry needs its name.
+- Axes, legends and titles stay in the background for every Chart.js chart: `--a-color-muted` in the font of the page at 11 px, light lines (`--a-color-border-light`) of the value axis only. Axes resolve their text against defaults of their own, so color and font are set on each axis, not only on the chart. Labels of the entries slant where they do not fit: level, a timeline of days would show only every fifth day.
 - The chart and table layout of query chart blocks lives under `.additionals-query-chart`.
 - Header and total of the scrolling table of values only stick with `overflow: clip` instead of core's `overflow: hidden` (which makes the table its own scroll container), separate borders and a `z-index` on `thead`/`tfoot`.
 - The `clip` option of chartjs-plugin-datalabels cuts values off at the edge. Instead `layout.padding` reserves room for the longest value, values wider than their vertical bar are slanted by 45 degrees, and the legend of vertical bars sits below the chart, since the padding lies above the legend.

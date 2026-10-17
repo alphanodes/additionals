@@ -516,8 +516,8 @@ describe('quiet style', () => {
     expect(chartConfig(document.body, payload({ type: 'bar_horizontal' })).options.scales.y.grid.display).toBe(false);
   });
 
-  it('keeps the dates of a timeline level', () => {
-    expect(chartConfig(document.body, payload({ type: 'line' })).options.scales.x.ticks.maxRotation).toBe(0);
+  it('lets the dates of a timeline slant to show more of them', () => {
+    expect(chartConfig(document.body, payload({ type: 'line' })).options.scales.x.ticks.maxRotation).toBeUndefined();
   });
 });
 

@@ -655,9 +655,9 @@ function typeConfig(canvas, payload) {
 
 // Chart.js configuration of a payload, for every type but the treemap
 // Axes and legends stay in the background: muted text in the font of the
-// page, light lines of the value axis only. A timeline keeps its dates level
-// and leaves out what does not fit, bars keep every label of their entries.
-export function quietStyle(canvas, config, payload) {
+// page, light lines of the value axis only. Labels of the entries stay slanted
+// where they do not fit: level, a timeline of days would show every fifth day.
+export function quietStyle(canvas, config) {
   const { options } = config;
   const color = canvas ? cssVar(canvas, '--a-color-muted') : undefined;
   const font = { family: getComputedStyle(document.body).fontFamily, size: CHART_FONT_SIZE };
@@ -668,9 +668,6 @@ export function quietStyle(canvas, config, payload) {
   }
   const categoryAxis = options.indexAxis === 'y' ? 'y' : 'x';
   options.scales[categoryAxis] = { ...options.scales[categoryAxis] };
-  if (LINE_TYPES.includes(payload.type)) {
-    options.scales[categoryAxis].ticks = { maxRotation: 0, autoSkip: true, ...options.scales[categoryAxis].ticks };
-  }
   Object.entries(options.scales).forEach(([id, scale]) => {
     const grid = id === categoryAxis ? { display: false } : { color: canvas ? cssVar(canvas, '--a-color-border-light') : undefined };
     scale.grid = { ...grid, ...scale.grid };
@@ -685,7 +682,7 @@ export function quietStyle(canvas, config, payload) {
 
 export function chartConfig(canvas, payload) {
   const config = typeConfig(canvas, payload);
-  quietStyle(canvas, config, payload);
+  quietStyle(canvas, config);
   config.data.datasets = config.data.datasets.map((dataset, index) => withColors(canvas, dataset, (point) => schemeFill(payload, index, point)));
   if (payload.lines) {
     config.options.plugins.annotation = { annotations: lineAnnotations(canvas, payload) };

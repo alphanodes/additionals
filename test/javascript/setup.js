@@ -1,4 +1,6 @@
 import { vi } from 'vitest';
+import { readFileSync } from 'fs';
+import { resolve } from 'path';
 
 // Suppress jsdom/Stimulus "Node is not defined" errors during DOM cleanup.
 // Stimulus's MutationObserver fires when jsdom tears down the DOM between tests,
@@ -23,19 +25,12 @@ globalThis.AdditionalsHelpers = {
   fetchJSON: vi.fn(),
 };
 
-// escapeHtml of additionals.js (global there), with its real behaviour. Loading
-// the file itself would register its document listeners a second time in
-// additionals.test.js, which loads it as well.
-globalThis.escapeHtml = (value) => {
-  if (value === null || value === undefined) { return ''; }
-
-  return String(value)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-};
+// escapeHtml of additionals.js, where it is global. Only the function is taken
+// from the file: running all of it would register its document listeners a
+// second time in additionals.test.js, which loads it as well.
+const additionalsScript = readFileSync(resolve(__dirname, '../../assets/javascripts/additionals.js'), 'utf-8');
+const escapeHtmlSource = additionalsScript.match(/^function escapeHtml\(value\) \{[\s\S]*?^\}$/m)[0];
+globalThis.escapeHtml = new Function(`return ${escapeHtmlSource}`)();
 
 // Same implementation as Redmine Core's sanitizeHTML (application-legacy.js), which
 // escapes &, < and > only - a stricter stand-in would hide missing quote escaping.

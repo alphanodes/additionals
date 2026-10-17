@@ -103,9 +103,9 @@ All texts of a payload are formatted on the server, so no translation ends up in
 | Key | Content |
 | --- | ------- |
 | `stacked` | stacks the datasets; values sit inside the parts if they fit |
-| `percent` | with `stacked`, the bars are shares of 100 %; the tooltip still names the values |
+| `percent` | with `stacked`, the bars are shares of 100 %; the tooltip still names the values, a `line` keeps its values |
 | `valueLabels: false` | no values next to the bars, e.g. long amounts |
-| `legend: false` | no legend, e.g. where `colors` give the bars of one dataset different colors and the legend would show only the first |
+| `legend: false` | no legend for bars, lines and areas, e.g. where `colors` give the bars of one dataset different colors and the legend would show only the first |
 | `points: false` | no points on lines, a point still shows on hover |
 | `lines` | lines across the chart with a text: `[{ axis: 'x', value:, label: }]`, e.g. today on a burndown; on a category axis a value between two entries lies between them |
 
@@ -131,7 +131,7 @@ All texts of a payload are formatted on the server, so no translation ends up in
 | Key | Content |
 | --- | ------- |
 | `labels` | names of the tiles, the titles of their tooltips |
-| `tileLabels` | another text on the tiles, e.g. the size of a file whose name rarely fits |
+| `tileLabels` | another text on the tiles, e.g. the size of a file whose name rarely fits. Tiles show names as they are, d3plus reads no tags in them |
 | `restLabel` | name of the tile into which d3plus merges the tiles below 0.01 % (shown as "Rest < 0.01%"); it links nowhere |
 
 d3plus adds the share as a second line on every tile; it cannot be replaced. The tooltip names value and share.
@@ -214,7 +214,7 @@ blocks['time_entry_chart'] = TimeEntryQueryChart.dashboard_block(label: l(:label
 
 Handled in `additionals.css` and the controller, worth knowing before changing them:
 
-- Axes, legends and titles stay in the background for every Chart.js chart: `--a-color-muted` in the font of the page at 11 px, light lines (`--a-color-border-light`) of the value axis only. Axes resolve their text against defaults of their own, so color and font are set on each axis, not only on the chart. Labels of the entries slant where they do not fit: level, a timeline of days would show only every fifth day.
+- Axes, legends and titles stay in the background for every Chart.js chart, matrix and calendar included: `--a-color-muted` in the font of the page at 11 px, light lines (`--a-color-border-light`) of the value axis only. Axes resolve their text against defaults of their own, so color and font are set on each axis, not only on the chart. Labels of the entries slant where they do not fit: level, a timeline of days would show only every fifth day.
 - The chart and table layout of query chart blocks lives under `.additionals-query-chart`.
 - Header and total of the scrolling table of values only stick with `overflow: clip` instead of core's `overflow: hidden` (which makes the table its own scroll container), separate borders and a `z-index` on `thead`/`tfoot`.
 - The `clip` option of chartjs-plugin-datalabels cuts values off at the edge. Instead `layout.padding` reserves room for the longest value, values wider than their vertical bar are slanted by 45 degrees, and the legend of vertical bars sits below the chart, since the padding lies above the legend.

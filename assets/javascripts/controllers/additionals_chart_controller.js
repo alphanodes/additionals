@@ -3,12 +3,13 @@ import { Controller } from '@hotwired/stimulus';
 
 // Draws a chart block from the payload the server renders into a data
 // attribute (AdditionalsQueryChart#payload), so no value is interpolated into
-// JavaScript. Chart.js draws doughnut, pie, bars, lines and areas, d3plus the
-// treemap. A click on a slice opens the list filtered by its value.
+// JavaScript. Chart.js draws doughnut, pie, bars, lines, areas, matrix and
+// calendar, d3plus the treemap and the sankey. A click on a slice opens the
+// list filtered by its value.
 //
 // Chart.js and its plugins come from the libraries of the block. d3plus, only
-// needed for a treemap, and the matrix plugin, only needed for a calendar,
-// are loaded on demand through the library registry.
+// needed for a treemap or a sankey, and the matrix plugin, only needed for a
+// matrix or a calendar, are loaded on demand through the library registry.
 // Blocks loaded asynchronously connect like any other element, and a reloaded
 // or removed block releases its chart.
 
@@ -115,9 +116,10 @@ export function tooltipLine(context) {
   return context.dataset.tooltips?.[context.dataIndex] || '';
 }
 
-// Ticks of a value axis: counts in whole steps, not 0.5 between 0 and 1
+// Ticks of a value axis: counts in whole steps, not 0.5 between 0 and 1.
+// A gap without value (null) is no decimal.
 export function valueTicks(payload) {
-  const counts = payload.datasets.every((dataset) => dataset.data.every(Number.isInteger));
+  const counts = payload.datasets.every((dataset) => dataset.data.every((value) => value === null || Number.isInteger(value)));
   return counts ? { precision: 0 } : {};
 }
 
@@ -235,7 +237,7 @@ function valueFitsInPart(payload, context, horizontal) {
     return false;
   }
 
-  const textWidth = estimatedTextWidth(valueText(payload, context.datasetIndex, context.dataIndex));
+  const textWidth = estimatedTextWidth(partLabel(payload, context.datasetIndex, context.dataIndex));
   // The labels are placed before the bars grow, so the size they grow to counts
   const {
     x, y, base, width, height,
@@ -264,7 +266,7 @@ function stackedOptions(payload, horizontal) {
           if (isLine(context.dataset)) {
             return text;
           }
-          return `${text} (${partShare(payload, context.datasetIndex, context.dataIndex)}%)`;
+          return `${text} (${formatNumber(partShare(payload, context.datasetIndex, context.dataIndex))}%)`;
         },
       },
     },
@@ -273,11 +275,16 @@ function stackedOptions(payload, horizontal) {
       align: 'center',
       padding: VALUE_LABEL_PADDING,
       display: (context) => showValueLabel(payload, context) && valueFitsInPart(payload, context, horizontal),
-      formatter: (_value, context) => (payload.percent
-        ? `${partShare(payload, context.datasetIndex, context.dataIndex)} %`
-        : valueText(payload, context.datasetIndex, context.dataIndex)),
+      formatter: (_value, context) => partLabel(payload, context.datasetIndex, context.dataIndex),
     },
   };
+}
+
+// Text inside a part of a stacked bar: its share as shares, its value otherwise
+function partLabel(payload, datasetIndex, index) {
+  return payload.percent
+    ? `${formatNumber(partShare(payload, datasetIndex, index))} %`
+    : valueText(payload, datasetIndex, index);
 }
 
 // Share of a part in its bar, from the values of the payload
@@ -286,9 +293,10 @@ function partShare(payload, datasetIndex, index) {
 }
 
 // Parts as shares of their bar, each bar up to 100 %, e.g. to compare the
-// estimated part of few open with many closed issues
+// estimated part of few open with many closed issues. A line is no part of
+// a bar and keeps its values.
 export function shareDatasets(payload) {
-  return payload.datasets.map((dataset) => ({
+  return payload.datasets.map((dataset) => (isLine(dataset) ? dataset : {
     ...dataset,
     data: dataset.data.map((value, index) => {
       const total = rowTotal(payload, index);
@@ -459,7 +467,7 @@ function barConfig(canvas, payload) {
   if (payload.percent) {
     const axis = config.options.scales[valueAxis];
     axis.max = 100;
-    axis.ticks = { callback: (value) => `${value} %` };
+    axis.ticks = { callback: (value) => `${formatNumber(value)} %` };
   }
 
   return config;
@@ -582,7 +590,7 @@ function lineConfig(payload) {
       plugins: {
         // Legend and tooltip keep the order of the payload, a line drawn on top included
         legend: {
-          display: payload.datasets.length > 1,
+          display: payload.legend !== false && payload.datasets.length > 1,
           position: 'bottom',
           labels: { sort: byDatasetIndex, generateLabels: legendLabels },
         },
@@ -761,7 +769,6 @@ function cellTicks(count) {
   };
 }
 
-// The days of a year as cells, a column per week and a row per weekday
 // A grid of rows and columns, e.g. users by day. Each cell has the color of
 // its category as the server chose it, a title and lines for its tooltip
 // and a link.
@@ -773,7 +780,7 @@ export function matrixConfig(canvas, payload) {
     return Math.max((length / count) - MATRIX_GAP, 1);
   };
 
-  return {
+  const config = {
     type: 'matrix',
     data: {
       datasets: [{
@@ -815,9 +822,12 @@ export function matrixConfig(canvas, payload) {
       },
     },
   };
+  quietStyle(canvas, config);
+  return config;
 }
 
-export function calendarConfig(payload) {
+// The days of a year as cells, a column per week and a row per weekday
+export function calendarConfig(payload, canvas = null) {
   const { calendar } = payload;
   const level = (context) => calendarLevel(calendar.levels, context.raw?.v);
   const cellSize = (context, count, axis) => {
@@ -826,7 +836,7 @@ export function calendarConfig(payload) {
     return Math.max((length / count) - CALENDAR_GAP, 1);
   };
 
-  return {
+  const config = {
     type: 'matrix',
     data: {
       datasets: [{
@@ -892,6 +902,8 @@ export function calendarConfig(payload) {
       },
     },
   };
+  quietStyle(canvas, config);
+  return config;
 }
 
 // Colors of the levels and the values they stand for, below the calendar
@@ -910,7 +922,7 @@ export function calendarLegend(payload) {
 
 // Tiles below a tiny share d3plus merges into one, its fields become lists
 function isTreemapRest(d) {
-  return Boolean(d._isAggregation) || typeof d.name !== 'string';
+  return Boolean(d._isAggregation) || Array.isArray(d.name);
 }
 
 function treemapName(payload, d) {
@@ -952,6 +964,9 @@ export function renderTreemap(element, payload) {
     .thresholdName(() => payload.restLabel || '')
     // d3plus v4 takes tile labels from .label(), shapeConfig would show the id
     .label((d) => treemapLabel(payload, d))
+    // Names as they are: d3plus reads tags like <b> in a label as markup and
+    // shows a "&" next to one as "&amp;"
+    .shapeConfig({ labelConfig: { html: false } })
     .select(element)
     .legend(false)
     .zoom(false)
@@ -1006,6 +1021,9 @@ class AdditionalsChartController extends Controller {
   };
 
   connect() {
+    // A block that disconnects and connects again while a library is still
+    // loading must not draw twice, the draw of the older connection is void
+    this.connection = {};
     const payload = this.payloadValue;
     if (D3PLUS_RENDERERS[payload.type]) {
       // Without d3plus the block stays empty, the reason belongs in the console
@@ -1023,45 +1041,50 @@ class AdditionalsChartController extends Controller {
 
   // Lines across the chart need the annotation plugin, which not every page loads
   async drawWithLines(payload) {
-    await AdditionalsHelpers.loadLibrary('chartjs_annotation');
-    if (this.element.isConnected) {
+    if (await this.loaded('chartjs_annotation')) {
       this.chart = new Chart(this.canvasTarget, chartConfig(this.canvasTarget, payload));
     }
   }
 
   disconnect() {
+    this.connection = null;
     if (this.chart) {
       this.chart.destroy();
       this.chart = null;
     }
+    // d3plus observes the size of the block and the fonts of the page
+    this.viz?.destroy();
+    this.viz = null;
     this.legend?.remove();
     this.legend = null;
   }
 
+  // Whether the library is there and the block still the one it was loaded
+  // for: it may have been reloaded or removed in the meantime
+  async loaded(library) {
+    const { connection } = this;
+    await AdditionalsHelpers.loadLibrary(library);
+    return this.element.isConnected && this.connection === connection;
+  }
+
   async drawMatrix(payload) {
-    await AdditionalsHelpers.loadLibrary('chartjs_matrix');
-    // The block may have been reloaded while the matrix plugin was loading
-    if (this.element.isConnected) {
+    if (await this.loaded('chartjs_matrix')) {
       this.chart = new Chart(this.canvasTarget, matrixConfig(this.canvasTarget, payload));
     }
   }
 
   async drawCalendar(payload) {
-    await AdditionalsHelpers.loadLibrary('chartjs_matrix');
-    // The block may have been reloaded while the matrix plugin was loading
-    if (!this.element.isConnected) {
+    if (!await this.loaded('chartjs_matrix')) {
       return;
     }
-    this.chart = new Chart(this.canvasTarget, calendarConfig(payload));
+    this.chart = new Chart(this.canvasTarget, calendarConfig(payload, this.canvasTarget));
     this.legend = calendarLegend(payload);
     this.element.after(this.legend);
   }
 
   async drawD3plus(payload) {
-    await AdditionalsHelpers.loadLibrary('d3plus');
-    // The block may have been reloaded while d3plus was loading
-    if (this.element.isConnected) {
-      D3PLUS_RENDERERS[payload.type](this.element, payload);
+    if (await this.loaded('d3plus')) {
+      this.viz = D3PLUS_RENDERERS[payload.type](this.element, payload);
     }
   }
 }

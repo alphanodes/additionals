@@ -66,7 +66,7 @@ function mockTreemap() {
       return this;
     }
   }
-  ['data', 'groupBy', 'sum', 'thresholdName', 'label', 'select', 'legend', 'zoom', 'search', 'tableView', 'on', 'tooltipConfig']
+  ['data', 'groupBy', 'sum', 'thresholdName', 'label', 'shapeConfig', 'select', 'legend', 'zoom', 'search', 'tableView', 'on', 'tooltipConfig']
     .forEach((method) => {
       Treemap.prototype[method] = function chain(value, handler) {
         // on(event, handler) keeps the handler
@@ -359,6 +359,12 @@ describe('chart configuration', () => {
     expect(config().options.plugins.legend.display).toBe(true);
   });
 
+  it('hides the legend of a split line on request', () => {
+    render({ ...timelinePayload('line'), legend: false });
+
+    expect(config().options.plugins.legend.display).toBe(false);
+  });
+
   it('opens the list of the line next to a click', () => {
     const open = vi.spyOn(window, 'open').mockImplementation(() => null);
     render(timelinePayload('line'));
@@ -437,6 +443,20 @@ describe('chart configuration', () => {
     renderTreemap(document.createElement('div'), payload({ type: 'treemap', restLabel: 'Rest' }));
 
     expect(calls.label({ _isAggregation: true, name: ['Bug', 'Feature'] })).toBe('Rest');
+  });
+
+  it('names a tile of merged names the rest', () => {
+    const calls = mockTreemap();
+    renderTreemap(document.createElement('div'), payload({ type: 'treemap', restLabel: 'Rest' }));
+
+    expect(calls.label({ name: ['Bug', 'Feature'] })).toBe('Rest');
+  });
+
+  it('shows the name of a tile as it is, without markup', () => {
+    const calls = mockTreemap();
+    renderTreemap(document.createElement('div'), payload({ type: 'treemap' }));
+
+    expect(calls.shapeConfig.labelConfig.html).toBe(false);
   });
 
   it('labels a tile with its name', () => {
@@ -518,6 +538,25 @@ describe('quiet style', () => {
 
   it('lets the dates of a timeline slant to show more of them', () => {
     expect(chartConfig(document.body, payload({ type: 'line' })).options.scales.x.ticks.maxRotation).toBeUndefined();
+  });
+
+  it('writes the rows of a matrix in the muted color', () => {
+    const canvas = canvasWith({ '--a-color-muted': 'rgb(153, 153, 153)' });
+    const matrix = { columns: ['Mon'], rows: ['Anna'], cells: [] };
+
+    expect(matrixConfig(canvas, payload({ type: 'matrix', matrix })).options.scales.y.ticks.color).toBe('rgb(153, 153, 153)');
+  });
+
+  it('writes the weekdays of a calendar in the muted color', () => {
+    const canvas = canvasWith({ '--a-color-muted': 'rgb(153, 153, 153)' });
+
+    expect(calendarConfig(calendarPayload(), canvas).options.scales.y.ticks.color).toBe('rgb(153, 153, 153)');
+  });
+
+  it('keeps the weekdays of a calendar', () => {
+    const { ticks } = calendarConfig(calendarPayload(), document.body).options.scales.y;
+
+    expect(ticks.callback(0)).toBe('Mo');
   });
 });
 
@@ -907,6 +946,42 @@ describe('stacked as shares', () => {
     expect(shareDatasets(sharePayload())[0].data).toEqual([25, 30]);
   });
 
+  // A line is no part of the bar, a share of it would make no sense
+  it('keeps the values of a line', () => {
+    const data = sharePayload();
+    data.datasets.push({ label: 'Last year', type: 'line', data: [5, 50] });
+
+    expect(shareDatasets(data)[2].data).toEqual([5, 50]);
+  });
+
+  it('names the ticks of the value axis in the language of the page', () => {
+    document.documentElement.lang = 'de';
+    const { callback } = chartConfig(null, sharePayload()).options.scales.y.ticks;
+    const text = callback(12.5);
+    document.documentElement.lang = '';
+
+    expect(text).toBe('12,5 %');
+  });
+
+  it('shows the share inside a part', () => {
+    const { formatter } = chartConfig(null, sharePayload()).options.plugins.datalabels;
+
+    expect(formatter(25, { datasetIndex: 0, dataIndex: 0 })).toBe('25 %');
+  });
+
+  // The share is shown, not the value, so the room for the share counts
+  it('shows a share that fits in a part where its value would not', () => {
+    const data = sharePayload();
+    data.valueTexts = [['1.234.567,89 EUR', '1 EUR'], ['3 EUR', '7 EUR']];
+    const { display } = chartConfig(null, data).options.plugins.datalabels;
+    const context = {
+      ...partContext({ y: 0, base: 60, width: 50 }),
+      dataset: data.datasets[0],
+    };
+
+    expect(display(context)).toBe(true);
+  });
+
   it('ends the value axis at 100 %', () => {
     expect(chartConfig(null, sharePayload()).options.scales.y.max).toBe(100);
   });
@@ -1000,6 +1075,11 @@ describe('value ticks', () => {
 
   it('leaves decimals to Chart.js', () => {
     expect(valueTicks(payload({ datasets: [{ label: 'Hours', data: [0.5, 2] }] }))).toEqual({});
+  });
+
+  // A period without value, e.g. a future day of a burndown, is no decimal
+  it('counts in whole steps across a gap', () => {
+    expect(valueTicks(payload({ datasets: [{ label: 'Issues', data: [3, null] }] }))).toEqual({ precision: 0 });
   });
 
   it('applies to the value axis of a timeline', () => {
@@ -1138,6 +1218,7 @@ describe('AdditionalsChartController', () => {
     ctx.drawCalendar = prototype.drawCalendar.bind(ctx);
     ctx.drawWithLines = prototype.drawWithLines.bind(ctx);
     ctx.drawMatrix = prototype.drawMatrix.bind(ctx);
+    ctx.loaded = prototype.loaded.bind(ctx);
     return ctx;
   }
 
@@ -1235,5 +1316,65 @@ describe('AdditionalsChartController', () => {
     await ctrl.drawD3plus(payload({ type: 'treemap' }));
 
     expect(calls.render).toBeUndefined();
+  });
+
+  it('draws no calendar into a removed block', async () => {
+    const ctrl = controller(calendarPayload());
+    ctrl.element.remove();
+    await ctrl.drawCalendar(calendarPayload());
+
+    expect(Chart).not.toHaveBeenCalled();
+  });
+
+  it('draws no matrix into a removed block', async () => {
+    const data = payload({ type: 'matrix', matrix: { columns: [], rows: [], cells: [] } });
+    const ctrl = controller(data);
+    ctrl.element.remove();
+    await ctrl.drawMatrix(data);
+
+    expect(Chart).not.toHaveBeenCalled();
+  });
+
+  it('draws no lines across the chart into a removed block', async () => {
+    const data = payload({ type: 'line', lines: [{ axis: 'x', value: 1, label: 'Today' }] });
+    const ctrl = controller(data);
+    ctrl.element.remove();
+    await ctrl.drawWithLines(data);
+
+    expect(Chart).not.toHaveBeenCalled();
+  });
+
+  // Stimulus connects a moved block again, the first library load ends later
+  it('draws once when the block connects again while the library is loading', async () => {
+    const loads = [];
+    AdditionalsHelpers.loadLibrary.mockImplementation(() => new Promise((resolve) => { loads.push(resolve); }));
+    const data = payload({ type: 'line', lines: [{ axis: 'x', value: 1, label: 'Today' }] });
+    const ctrl = controller(data);
+    ctrl.connect();
+    ctrl.disconnect();
+    ctrl.connect();
+    loads.forEach((resolve) => resolve());
+    await new Promise((resolve) => { setTimeout(resolve, 0); });
+
+    expect(Chart).toHaveBeenCalledTimes(1);
+  });
+
+  it('releases d3plus when the block goes away', async () => {
+    mockTreemap();
+    const destroy = vi.fn();
+    globalThis.d3plus.Treemap.prototype.destroy = destroy;
+    const ctrl = controller(payload({ type: 'treemap' }), { canvas: false });
+    await ctrl.drawD3plus(payload({ type: 'treemap' }));
+    ctrl.disconnect();
+
+    expect(destroy).toHaveBeenCalled();
+  });
+
+  it('removes the legend of a calendar when the block goes away', async () => {
+    const ctrl = controller(calendarPayload());
+    await ctrl.drawCalendar(calendarPayload());
+    ctrl.disconnect();
+
+    expect(document.querySelector('.additionals-calendar-legend')).toBeNull();
   });
 });

@@ -42,6 +42,8 @@ const VALUE_LABEL_SLANT = 45;
 // Opacity of the color per level of a calendar, days without values first
 const CALENDAR_ALPHAS = [0.08, 0.3, 0.5, 0.72, 0.95];
 const CALENDAR_FALLBACK_COLOR = '#1f77b4';
+// Axes, legends and titles in the font of the page at this size
+const CHART_FONT_SIZE = 11;
 // Bars of the color scheme are filled with its colors at this alpha
 const BAR_FILL_ALPHA = 0.8;
 const CALENDAR_GAP = 2;
@@ -61,11 +63,21 @@ function openUrl(url) {
   }
 }
 
+// The language of the page, which Redmine sets to the one of the user.
+// Without it Chart.js formats numbers in the language of the browser.
+export function pageLocale() {
+  return document.documentElement.lang || undefined;
+}
+
+export function formatNumber(value) {
+  return typeof value === 'number' ? new Intl.NumberFormat(pageLocale()).format(value) : String(value);
+}
+
 // Values as the table of values shows them, e.g. hours in the format of the
-// user. Payloads without texts show the plain number.
+// user. Payloads without texts show the number in the language of the page.
 function valueText(payload, datasetIndex, index) {
   const texts = payload.valueTexts && payload.valueTexts[datasetIndex];
-  return texts ? texts[index] : String(payload.datasets[datasetIndex].data[index]);
+  return texts ? texts[index] : formatNumber(payload.datasets[datasetIndex].data[index]);
 }
 
 function share(value, total) {
@@ -139,7 +151,7 @@ function pieConfig(canvas, payload) {
       annotations: {
         total: {
           type: 'doughnutLabel',
-          content: [payload.totalText || String(payload.total), payload.totalLabel],
+          content: [payload.totalText || formatNumber(payload.total), payload.totalLabel],
           font: [
             { family: fontFamily, size: 22, weight: '600' },
             { family: fontFamily, size: 11 },
@@ -642,12 +654,43 @@ function typeConfig(canvas, payload) {
 }
 
 // Chart.js configuration of a payload, for every type but the treemap
+// Axes and legends stay in the background: muted text in the font of the
+// page, light lines of the value axis only. A timeline keeps its dates level
+// and leaves out what does not fit, bars keep every label of their entries.
+export function quietStyle(canvas, config, payload) {
+  const { options } = config;
+  const color = canvas ? cssVar(canvas, '--a-color-muted') : undefined;
+  const font = { family: getComputedStyle(document.body).fontFamily, size: CHART_FONT_SIZE };
+  options.color = color;
+  options.font = font;
+  if (!options.scales) {
+    return;
+  }
+  const categoryAxis = options.indexAxis === 'y' ? 'y' : 'x';
+  options.scales[categoryAxis] = { ...options.scales[categoryAxis] };
+  if (LINE_TYPES.includes(payload.type)) {
+    options.scales[categoryAxis].ticks = { maxRotation: 0, autoSkip: true, ...options.scales[categoryAxis].ticks };
+  }
+  Object.entries(options.scales).forEach(([id, scale]) => {
+    const grid = id === categoryAxis ? { display: false } : { color: canvas ? cssVar(canvas, '--a-color-border-light') : undefined };
+    scale.grid = { ...grid, ...scale.grid };
+    scale.border = { display: false, ...scale.border };
+    // Axes resolve their text against defaults of their own, not of the chart
+    scale.ticks = { color, font, ...scale.ticks };
+    if (scale.title) {
+      scale.title = { color, font, ...scale.title };
+    }
+  });
+}
+
 export function chartConfig(canvas, payload) {
   const config = typeConfig(canvas, payload);
+  quietStyle(canvas, config, payload);
   config.data.datasets = config.data.datasets.map((dataset, index) => withColors(canvas, dataset, (point) => schemeFill(payload, index, point)));
   if (payload.lines) {
     config.options.plugins.annotation = { annotations: lineAnnotations(canvas, payload) };
   }
+  config.options.locale = pageLocale();
   return config;
 }
 
@@ -747,6 +790,7 @@ export function matrixConfig(canvas, payload) {
       }],
     },
     options: {
+      locale: pageLocale(),
       responsive: true,
       maintainAspectRatio: false,
       onClick: (_event, elements) => {
@@ -798,6 +842,7 @@ export function calendarConfig(payload) {
       }],
     },
     options: {
+      locale: pageLocale(),
       responsive: true,
       maintainAspectRatio: false,
       onClick: (_event, elements) => {

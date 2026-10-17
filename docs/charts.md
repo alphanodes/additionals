@@ -83,7 +83,7 @@ Show a figure only where it holds: a tile without meaning (e.g. a comparison wit
 
 ## Payload Reference
 
-All texts of a payload are formatted on the server, so no translation ends up in JavaScript. Colors are CSS custom properties (`--oc-red-6`), read at runtime.
+All texts of a payload are formatted on the server, so no translation ends up in JavaScript. Numbers without a text of the server and the axes of Chart.js are formatted in the language of the page (`lang` of `<html>`, the language of the user), not of the browser. Colors are CSS custom properties (`--oc-red-6`), read at runtime.
 
 ### Common Keys
 
@@ -212,6 +212,7 @@ blocks['time_entry_chart'] = TimeEntryQueryChart.dashboard_block(label: l(:label
 
 Handled in `additionals.css` and the controller, worth knowing before changing them:
 
+- Axes, legends and titles stay in the background for every Chart.js chart: `--a-color-muted` in the font of the page at 11 px, light lines (`--a-color-border-light`) of the value axis only. Axes resolve their text against defaults of their own, so color and font are set on each axis, not only on the chart. A timeline keeps its dates level and leaves out what does not fit; bars keep every label, each entry needs its name.
 - The chart and table layout of query chart blocks lives under `.additionals-query-chart`.
 - Header and total of the scrolling table of values only stick with `overflow: clip` instead of core's `overflow: hidden` (which makes the table its own scroll container), separate borders and a `z-index` on `thead`/`tfoot`.
 - The `clip` option of chartjs-plugin-datalabels cuts values off at the edge. Instead `layout.padding` reserves room for the longest value, values wider than their vertical bar are slanted by 45 degrees, and the legend of vertical bars sits below the chart, since the padding lies above the legend.

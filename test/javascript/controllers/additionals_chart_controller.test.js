@@ -1,7 +1,7 @@
 /* global Chart */
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import AdditionalsChartController, {
-  chartConfig, renderTreemap, renderSankey, valueTicks, tooltipLine, withColors, shareDatasets, lineAnnotations, colorWithAlpha, areaGradient, legendLabels, schemeFill, markerTop, markerPlugin, matrixConfig, calendarConfig, calendarLevel, calendarLegend, calendarMonthLabels,
+  chartConfig, renderTreemap, renderSankey, valueTicks, tooltipLine, withColors, shareDatasets, lineAnnotations, colorWithAlpha, areaGradient, legendLabels, schemeFill, pageLocale, formatNumber, markerTop, markerPlugin, matrixConfig, calendarConfig, calendarLevel, calendarLegend, calendarMonthLabels,
 } from '../../../assets/javascripts/controllers/additionals_chart_controller.js';
 
 function payload(overrides = {}) {
@@ -495,6 +495,58 @@ describe('chart configuration', () => {
   });
 });
 
+describe('quiet style', () => {
+  it('writes axes and legends in the muted color', () => {
+    const canvas = canvasWith({ '--a-color-muted': 'rgb(153, 153, 153)' });
+
+    expect(chartConfig(canvas, payload({ type: 'bar_vertical' })).options.color).toBe('rgb(153, 153, 153)');
+  });
+
+  it('writes the labels of the axes in the muted color', () => {
+    const canvas = canvasWith({ '--a-color-muted': 'rgb(153, 153, 153)' });
+
+    expect(chartConfig(canvas, payload({ type: 'line' })).options.scales.x.ticks.color).toBe('rgb(153, 153, 153)');
+  });
+
+  it('writes in a small font', () => {
+    expect(chartConfig(document.body, payload({ type: 'bar_vertical' })).options.font.size).toBe(11);
+  });
+
+  it('draws no lines along the entries', () => {
+    expect(chartConfig(document.body, payload({ type: 'bar_horizontal' })).options.scales.y.grid.display).toBe(false);
+  });
+
+  it('keeps the dates of a timeline level', () => {
+    expect(chartConfig(document.body, payload({ type: 'line' })).options.scales.x.ticks.maxRotation).toBe(0);
+  });
+});
+
+describe('language of the page', () => {
+  afterEach(() => {
+    document.documentElement.lang = '';
+  });
+
+  it('formats the numbers of Chart.js in the language of the page', () => {
+    document.documentElement.lang = 'de';
+
+    expect(chartConfig(document.body, payload({ type: 'bar_vertical' })).options.locale).toBe('de');
+  });
+
+  it('leaves the language to the browser without one of the page', () => {
+    expect(pageLocale()).toBeUndefined();
+  });
+
+  it('formats a value without a text of the server in the language of the page', () => {
+    document.documentElement.lang = 'de';
+
+    expect(formatNumber(25000.5)).toBe('25.000,5');
+  });
+
+  it('keeps a text as it is', () => {
+    expect(formatNumber('8 h')).toBe('8 h');
+  });
+});
+
 describe('sankey', () => {
   afterEach(() => {
     delete globalThis.d3plus;
@@ -953,7 +1005,7 @@ describe('value ticks', () => {
   it('applies to the value axis of a timeline', () => {
     const { options } = chartConfig(null, payload({ type: 'area', datasets: [{ label: 'Pages', data: [0, 4] }] }));
 
-    expect(options.scales.y.ticks).toEqual({ precision: 0 });
+    expect(options.scales.y.ticks.precision).toBe(0);
   });
 });
 

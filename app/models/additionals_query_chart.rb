@@ -146,6 +146,12 @@ class AdditionalsQueryChart < AdditionalsChart
     entries.any? { |entry| entry.value.positive? || entry.compare_value.to_f.positive? }
   end
 
+  # Text of a value in chart, table of values and total, nil formats it like
+  # the totals of the list. A subclass formats e.g. amounts with their currency.
+  def value_text(_value)
+    nil
+  end
+
   # Why the chart cannot be drawn with these settings, shown instead of it.
   # nil draws it, e.g. a subclass refuses to add up amounts of different
   # currencies.

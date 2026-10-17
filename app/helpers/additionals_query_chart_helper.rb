@@ -33,9 +33,11 @@ module AdditionalsQueryChartHelper
     options_for_query_select chart.query_class, project, selected, leading: previous
   end
 
-  # Sums of hours look like the totals of the list, everything else like a number
+  # A chart may format its values itself (e.g. amounts with their currency),
+  # otherwise sums of hours look like the totals of the list, everything else
+  # like a number
   def format_query_chart_value(chart, value)
-    chart.hours_measure? ? format_hours(value) : format_object(value)
+    chart.value_text(value) || (chart.hours_measure? ? format_hours(value) : format_object(value))
   end
 
   # Data for the additionals-chart controller, values formatted like in the table of values

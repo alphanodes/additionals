@@ -17,6 +17,10 @@ class AdditionalsQueryChartTest < Additionals::TestCase
     assert_not unavailable.new(project: @project, settings: { group_by: 'tracker' }).valid?
   end
 
+  def test_values_are_formatted_like_the_list_by_default
+    assert_nil issue_chart(group_by: 'tracker').value_text(3)
+  end
+
   def test_a_chart_is_available_by_default
     assert_nil issue_chart(group_by: 'tracker').unavailable_text
   end

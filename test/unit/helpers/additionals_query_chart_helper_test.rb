@@ -19,6 +19,16 @@ class AdditionalsQueryChartHelperTest < Additionals::HelperTest
     assert_equal @redmine_view.format_hours(chart.total), @redmine_view.query_chart_payload(chart)[:totalText]
   end
 
+  # A chart may format its values itself, e.g. amounts with their currency
+  def test_value_text_of_the_chart_wins
+    labelled = Class.new Additionals::TestIssueQueryChart do
+      def value_text(value) = "#{value} units"
+    end
+    chart = labelled.new project: projects(:projects_001), settings: { group_by: 'tracker' }
+
+    assert_equal '3 units', @redmine_view.format_query_chart_value(chart, 3)
+  end
+
   def test_payload_has_a_text_per_series
     query = IssueQuery.create! name: 'Bugs', user: users(:users_001), visibility: Query::VISIBILITY_PUBLIC
     chart = Additionals::TestIssueQueryChart.new project: projects(:projects_001),

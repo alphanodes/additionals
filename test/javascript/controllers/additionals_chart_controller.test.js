@@ -410,6 +410,27 @@ describe('chart configuration', () => {
     expect(calls.label({ _isAggregation: true, name: ['Bug', 'Feature'] })).toBe('Rest');
   });
 
+  it('labels a tile with its name', () => {
+    const calls = mockTreemap();
+    renderTreemap(document.createElement('div'), payload({ type: 'treemap' }));
+
+    expect(calls.label(calls.data[0])).toBe('Bug');
+  });
+
+  it('labels a tile with the text of the server instead', () => {
+    const calls = mockTreemap();
+    renderTreemap(document.createElement('div'), payload({ type: 'treemap', tileLabels: ['8 MB', '1 MB'] }));
+
+    expect(calls.label(calls.data[0])).toBe('8 MB');
+  });
+
+  it('keeps the name as title of a tile with a text of its own', () => {
+    const calls = mockTreemap();
+    renderTreemap(document.createElement('div'), payload({ type: 'treemap', tileLabels: ['8 MB', '1 MB'] }));
+
+    expect(calls.tooltipConfig.title(calls.data[0])).toBe('Bug');
+  });
+
   it('names the rest of small tiles where d3plus labels it itself', () => {
     const calls = mockTreemap();
     renderTreemap(document.createElement('div'), payload({ type: 'treemap', restLabel: 'Rest' }));

@@ -872,6 +872,11 @@ function treemapName(payload, d) {
   return isTreemapRest(d) ? payload.restLabel || '' : d.name;
 }
 
+// The tile shows its name or the text the server chose for it, e.g. a size
+function treemapLabel(payload, d) {
+  return isTreemapRest(d) ? treemapName(payload, d) : d.tile;
+}
+
 function treemapTooltip(payload, d) {
   const value = `${payload.totalLabel}: `;
   if (isTreemapRest(d)) {
@@ -886,6 +891,7 @@ export function renderTreemap(element, payload) {
     // Two versions "1.0" or users of the same name stay separate tiles
     id: index,
     name: label,
+    tile: payload.tileLabels?.[index] ?? label,
     text: valueText(payload, 0, index),
     value: payload.datasets[0].data[index],
     // not "url": d3plus fetches a field of that name as data
@@ -900,7 +906,7 @@ export function renderTreemap(element, payload) {
     // d3plus labels the rest itself, in English otherwise
     .thresholdName(() => payload.restLabel || '')
     // d3plus v4 takes tile labels from .label(), shapeConfig would show the id
-    .label((d) => treemapName(payload, d))
+    .label((d) => treemapLabel(payload, d))
     .select(element)
     .legend(false)
     .zoom(false)

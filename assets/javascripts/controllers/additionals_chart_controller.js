@@ -924,6 +924,35 @@ export function renderTreemap(element, payload) {
     .render();
 }
 
+// A hierarchy as flows from the left, e.g. projects and their subprojects.
+// The sankey of d3plus v4 draws no node labels, the names are in the tooltip.
+export function renderSankey(element, payload) {
+  const { nodes, links } = payload.sankey;
+  return new window.d3plus.Sankey()
+    .select(element)
+    .zoom(false)
+    .search(false)
+    .tableView(false)
+    // not "url": d3plus fetches a field of that name as data
+    .nodes(nodes.map((node) => ({ id: node.id, name: node.name, link: node.url })))
+    .links(links)
+    // one column per level instead of pushing every leaf to the right edge
+    .nodeAlign('left')
+    // only names the node for screen readers
+    .label((d) => d.name)
+    .on('click', (d) => openUrl(d && d.link))
+    .tooltipConfig({
+      tbody: [],
+      // d3plus writes its tooltip as HTML
+      title: (d) => (d.source && d.target
+        ? `${escapeHtml(d.source.data.name)} &rarr; ${escapeHtml(d.target.data.name)}`
+        : escapeHtml(d.name)),
+    })
+    .render();
+}
+
+const D3PLUS_RENDERERS = { treemap: renderTreemap, sankey: renderSankey };
+
 class AdditionalsChartController extends Controller {
   static targets = ['canvas'];
 
@@ -933,9 +962,9 @@ class AdditionalsChartController extends Controller {
 
   connect() {
     const payload = this.payloadValue;
-    if (payload.type === 'treemap') {
+    if (D3PLUS_RENDERERS[payload.type]) {
       // Without d3plus the block stays empty, the reason belongs in the console
-      this.drawTreemap(payload).catch((error) => console.error(error));
+      this.drawD3plus(payload).catch((error) => console.error(error));
     } else if (payload.type === 'matrix' && this.hasCanvasTarget) {
       this.drawMatrix(payload).catch((error) => console.error(error));
     } else if (payload.type === 'calendar' && this.hasCanvasTarget) {
@@ -983,11 +1012,11 @@ class AdditionalsChartController extends Controller {
     this.element.after(this.legend);
   }
 
-  async drawTreemap(payload) {
+  async drawD3plus(payload) {
     await AdditionalsHelpers.loadLibrary('d3plus');
     // The block may have been reloaded while d3plus was loading
     if (this.element.isConnected) {
-      renderTreemap(this.element, payload);
+      D3PLUS_RENDERERS[payload.type](this.element, payload);
     }
   }
 }

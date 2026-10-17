@@ -1,7 +1,7 @@
 /* global Chart */
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import AdditionalsChartController, {
-  chartConfig, renderTreemap, valueTicks, tooltipLine, withColors, shareDatasets, lineAnnotations, colorWithAlpha, areaGradient, legendLabels, schemeFill, markerTop, markerPlugin, matrixConfig, calendarConfig, calendarLevel, calendarLegend, calendarMonthLabels,
+  chartConfig, renderTreemap, renderSankey, valueTicks, tooltipLine, withColors, shareDatasets, lineAnnotations, colorWithAlpha, areaGradient, legendLabels, schemeFill, markerTop, markerPlugin, matrixConfig, calendarConfig, calendarLevel, calendarLegend, calendarMonthLabels,
 } from '../../../assets/javascripts/controllers/additionals_chart_controller.js';
 
 function payload(overrides = {}) {
@@ -76,6 +76,35 @@ function mockTreemap() {
     });
   globalThis.d3plus = { Treemap };
   return calls;
+}
+
+function mockSankey() {
+  const calls = {};
+  class Sankey {
+    render() {
+      calls.render = true;
+      return this;
+    }
+  }
+  ['select', 'zoom', 'search', 'tableView', 'nodes', 'links', 'nodeAlign', 'label', 'on', 'tooltipConfig']
+    .forEach((method) => {
+      Sankey.prototype[method] = function chain(value, handler) {
+        calls[method] = method === 'on' ? handler : value;
+        return this;
+      };
+    });
+  globalThis.d3plus = { Sankey };
+  return calls;
+}
+
+function sankeyPayload() {
+  return {
+    type: 'sankey',
+    sankey: {
+      nodes: [{ id: 'root', name: 'Projects' }, { id: 'a', name: '<b>A</b>', url: '/projects/a' }],
+      links: [{ source: 'root', target: 'a' }],
+    },
+  };
 }
 
 let lastConfig = null;
@@ -463,6 +492,45 @@ describe('chart configuration', () => {
     renderTreemap(document.createElement('div'), payload({ type: 'treemap' }));
 
     expect(calls.tooltipConfig.tbody).toEqual([]);
+  });
+});
+
+describe('sankey', () => {
+  afterEach(() => {
+    delete globalThis.d3plus;
+  });
+
+  // d3plus fetches a data field named url as JSON
+  it('hands the links of the nodes to d3plus without a url field', () => {
+    const calls = mockSankey();
+    renderSankey(document.createElement('div'), sankeyPayload());
+
+    expect(calls.nodes.some((node) => 'url' in node)).toBe(false);
+  });
+
+  it('opens the page of a clicked node', () => {
+    const open = vi.spyOn(window, 'open').mockImplementation(() => null);
+    const calls = mockSankey();
+    renderSankey(document.createElement('div'), sankeyPayload());
+    calls.on(calls.nodes[1]);
+
+    expect(open).toHaveBeenCalledWith('/projects/a');
+    open.mockRestore();
+  });
+
+  it('escapes the names in the tooltip', () => {
+    const calls = mockSankey();
+    renderSankey(document.createElement('div'), sankeyPayload());
+
+    expect(calls.tooltipConfig.title({ name: '<b>A</b>' })).toBe('&lt;b&gt;A&lt;/b&gt;');
+  });
+
+  it('names both ends of a link in the tooltip', () => {
+    const calls = mockSankey();
+    renderSankey(document.createElement('div'), sankeyPayload());
+
+    expect(calls.tooltipConfig.title({ source: { data: { name: 'Projects' } }, target: { data: { name: 'A' } } }))
+      .toBe('Projects &rarr; A');
   });
 });
 
@@ -1007,7 +1075,7 @@ describe('AdditionalsChartController', () => {
     };
     ctx.connect = prototype.connect.bind(ctx);
     ctx.disconnect = prototype.disconnect.bind(ctx);
-    ctx.drawTreemap = prototype.drawTreemap.bind(ctx);
+    ctx.drawD3plus = prototype.drawD3plus.bind(ctx);
     ctx.drawCalendar = prototype.drawCalendar.bind(ctx);
     ctx.drawWithLines = prototype.drawWithLines.bind(ctx);
     ctx.drawMatrix = prototype.drawMatrix.bind(ctx);
@@ -1088,7 +1156,14 @@ describe('AdditionalsChartController', () => {
 
   it('draws the treemap once d3plus is there', async () => {
     const calls = mockTreemap();
-    await controller(payload({ type: 'treemap' }), { canvas: false }).drawTreemap(payload({ type: 'treemap' }));
+    await controller(payload({ type: 'treemap' }), { canvas: false }).drawD3plus(payload({ type: 'treemap' }));
+
+    expect(calls.render).toBe(true);
+  });
+
+  it('draws a sankey with d3plus', async () => {
+    const calls = mockSankey();
+    await controller(sankeyPayload(), { canvas: false }).drawD3plus(sankeyPayload());
 
     expect(calls.render).toBe(true);
   });
@@ -1098,7 +1173,7 @@ describe('AdditionalsChartController', () => {
     const calls = mockTreemap();
     const ctrl = controller(payload({ type: 'treemap' }), { canvas: false });
     ctrl.element.remove();
-    await ctrl.drawTreemap(payload({ type: 'treemap' }));
+    await ctrl.drawD3plus(payload({ type: 'treemap' }));
 
     expect(calls.render).toBeUndefined();
   });

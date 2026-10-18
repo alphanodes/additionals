@@ -5,8 +5,13 @@ import AdditionalsChartSettingsController from '../../../assets/javascripts/cont
 const SERIES_TYPES = ['bar_horizontal', 'bar_vertical', 'line', 'area', 'table'];
 
 // The settings form as the server renders it, created_on is a date field
-function form({ groupBy = 'status', chartType = 'doughnut', period = '', compare = '' } = {}) {
+function form({ groupBy = 'status', chartType = 'doughnut', period = '', compare = '', split = '' } = {}) {
   const option = (value, selected) => `<option value="${value}"${value === selected ? ' selected' : ''}>${value}</option>`;
+  const tile = (value) => `
+    <label id="tile_${value}" data-additionals-chart-settings-target="tile">
+      <input type="radio" name="chart_type" value="${value}"${value === chartType ? ' checked' : ''}
+             data-additionals-chart-settings-target="chartType" data-action="change->additionals-chart-settings#update">
+    </label>`;
   return `
     <div data-controller="additionals-chart-settings"
          data-additionals-chart-settings-timeline-groups-value='["created_on"]'
@@ -14,30 +19,38 @@ function form({ groupBy = 'status', chartType = 'doughnut', period = '', compare
          data-additionals-chart-settings-timeline-types-value='${JSON.stringify([...SERIES_TYPES, 'calendar'])}'
          data-additionals-chart-settings-timeline-only-types-value='["line","area","calendar"]'
          data-additionals-chart-settings-series-types-value='${JSON.stringify(SERIES_TYPES)}'
-         data-additionals-chart-settings-previous-period-value="previous">
+         data-additionals-chart-settings-previous-period-value="previous"
+         data-additionals-chart-settings-no-timeline-reason-value="Shows no timeline"
+         data-additionals-chart-settings-timeline-only-reason-value="Only for a date field">
       <select id="group_by" data-additionals-chart-settings-target="groupBy"
               data-action="additionals-chart-settings#update">
         ${['status', 'created_on', 'estimated_hours'].map((value) => option(value, groupBy)).join('')}
       </select>
       <span id="interval" data-additionals-chart-settings-target="interval"></span>
       <span id="classes" data-additionals-chart-settings-target="classes"></span>
-      <p id="split" data-additionals-chart-settings-target="series"></p>
-      <select id="chart_type" data-additionals-chart-settings-target="chartType"
-              data-action="additionals-chart-settings#update">
-        ${['doughnut', 'pie', 'treemap', ...SERIES_TYPES, 'calendar'].map((value) => option(value, chartType)).join('')}
-      </select>
+      <p id="split" data-additionals-chart-settings-target="series">
+        <select id="split_select" data-additionals-chart-settings-target="splitSelect"
+                data-action="additionals-chart-settings#update">
+          ${['', 'tracker'].map((value) => option(value, split)).join('')}
+        </select>
+      </p>
+      <p id="compare_field" data-additionals-chart-settings-target="series">
+        <select id="compare" data-additionals-chart-settings-target="compareSelect">
+          ${['', 'previous', '7'].map((value) => option(value, compare)).join('')}
+        </select>
+        <em id="compare_info" data-additionals-chart-settings-target="compareInfo"></em>
+        <em id="compare_split_info" data-additionals-chart-settings-target="compareSplitInfo"></em>
+      </p>
+      <p id="shares_note" data-additionals-chart-settings-target="sharesNote"></p>
+      ${['doughnut', 'pie', 'treemap', ...SERIES_TYPES, 'calendar'].map(tile).join('')}
       <p id="order" data-additionals-chart-settings-target="order"></p>
       <p id="max_entries" data-additionals-chart-settings-target="maxEntries"></p>
       <p id="show_empty" data-additionals-chart-settings-target="showEmpty"></p>
-      <p id="period" data-additionals-chart-settings-target="period">
-        <select id="period_select" data-additionals-chart-settings-target="periodSelect"
-                data-action="additionals-chart-settings#update">
-          ${['', 'm', 'lm'].map((value) => option(value, period)).join('')}
-        </select>
-      </p>
-      <select id="compare" data-additionals-chart-settings-target="compareSelect">
-        ${['', 'previous', '7'].map((value) => option(value, compare)).join('')}
+      <select id="period_select" data-additionals-chart-settings-target="periodSelect"
+              data-action="additionals-chart-settings#update">
+        ${['', 'm', 'lm'].map((value) => option(value, period)).join('')}
       </select>
+      <em id="period_info" data-additionals-chart-settings-target="periodInfo"></em>
     </div>`;
 }
 
@@ -51,13 +64,27 @@ function element(id) {
   return document.getElementById(id);
 }
 
+function radios() {
+  return Array.from(document.querySelectorAll('input[name="chart_type"]'));
+}
+
 function offeredTypes() {
-  return Array.from(element('chart_type').options).filter((option) => !option.disabled).map((option) => option.value);
+  return radios().filter((radio) => !radio.disabled).map((radio) => radio.value);
+}
+
+function checkedType() {
+  return radios().find((radio) => radio.checked)?.value;
 }
 
 function choose(id, value) {
   element(id).value = value;
   element(id).dispatchEvent(new Event('change'));
+}
+
+function chooseType(value) {
+  const radio = radios().find((item) => item.value === value);
+  radio.checked = true;
+  radio.dispatchEvent(new Event('change'));
 }
 
 describe('AdditionalsChartSettingsController', () => {
@@ -107,7 +134,7 @@ describe('AdditionalsChartSettingsController', () => {
 
     choose('group_by', 'created_on');
 
-    expect(element('chart_type').value).toBe('line');
+    expect(checkedType()).toBe('line');
   });
 
   it('turns a line into vertical bars when a category is chosen', async () => {
@@ -115,7 +142,7 @@ describe('AdditionalsChartSettingsController', () => {
 
     choose('group_by', 'status');
 
-    expect(element('chart_type').value).toBe('bar_vertical');
+    expect(checkedType()).toBe('bar_vertical');
   });
 
   it('keeps bars when a date field is chosen', async () => {
@@ -123,7 +150,7 @@ describe('AdditionalsChartSettingsController', () => {
 
     choose('group_by', 'created_on');
 
-    expect(element('chart_type').value).toBe('bar_horizontal');
+    expect(checkedType()).toBe('bar_horizontal');
   });
 
   it('hides the order of a date field', async () => {
@@ -168,10 +195,22 @@ describe('AdditionalsChartSettingsController', () => {
     expect(element('show_empty').hidden).toBe(true);
   });
 
-  it('hides the period of a date field', async () => {
+  it('disables the period of a date field', async () => {
     await render({ groupBy: 'created_on', chartType: 'line' });
 
-    expect(element('period').hidden).toBe(true);
+    expect(element('period_select').disabled).toBe(true);
+  });
+
+  it('tells why the period of a date field is disabled', async () => {
+    await render({ groupBy: 'created_on', chartType: 'line' });
+
+    expect(element('period_info').hidden).toBe(false);
+  });
+
+  it('hides the period hint of a category', async () => {
+    await render();
+
+    expect(element('period_info').hidden).toBe(true);
   });
 
   it('offers no previous period without a period', async () => {
@@ -205,8 +244,71 @@ describe('AdditionalsChartSettingsController', () => {
   it('shows split and comparison when bars are chosen', async () => {
     await render();
 
-    choose('chart_type', 'bar_vertical');
+    chooseType('bar_vertical');
 
     expect(element('split').hidden).toBe(false);
+  });
+  it('tells why split and comparison are missing for a doughnut', async () => {
+    await render();
+
+    expect(element('shares_note').hidden).toBe(false);
+  });
+
+  it('hides the shares hint for bars', async () => {
+    await render({ chartType: 'bar_vertical' });
+
+    expect(element('shares_note').hidden).toBe(true);
+  });
+
+  it('keeps types that do not fit visible but disabled', async () => {
+    await render();
+
+    expect(element('tile_line').classList.contains('disabled')).toBe(true);
+  });
+
+  it('names the reason of a disabled type of a category', async () => {
+    await render();
+
+    expect(element('tile_line').title).toBe('Only for a date field');
+  });
+
+  it('names the reason of a disabled type of a timeline', async () => {
+    await render({ groupBy: 'created_on', chartType: 'line' });
+
+    expect(element('tile_doughnut').title).toBe('Shows no timeline');
+  });
+
+  it('gives a type that fits no reason', async () => {
+    await render();
+
+    expect(element('tile_bar_vertical').hasAttribute('title')).toBe(false);
+  });
+
+  it('marks the tile of the chosen type', async () => {
+    await render();
+
+    chooseType('bar_vertical');
+
+    expect(element('tile_bar_vertical').classList.contains('selected')).toBe(true);
+  });
+
+  it('disables the comparison when a split is chosen', async () => {
+    await render({ chartType: 'bar_vertical' });
+
+    choose('split_select', 'tracker');
+
+    expect(element('compare').disabled).toBe(true);
+  });
+
+  it('tells that the split replaces the comparison', async () => {
+    await render({ chartType: 'bar_vertical', split: 'tracker' });
+
+    expect([element('compare_info').hidden, element('compare_split_info').hidden]).toEqual([true, false]);
+  });
+
+  it('offers the comparison without a split', async () => {
+    await render({ chartType: 'bar_vertical' });
+
+    expect(element('compare').disabled).toBe(false);
   });
 });

@@ -102,21 +102,6 @@ class AdditionalsQueryChart < AdditionalsChart
     end
   end
 
-  class << self
-    # Definition of a dashboard block showing this chart. Options extend or
-    # replace the defaults, e.g. permission or if.
-    def dashboard_block(label:, **options)
-      { label:,
-        max_occurs: DashboardContent::MAX_MULTIPLE_OCCURS,
-        query_chart: { class: self },
-        async: { required_settings: %i[group_by],
-                 partial: 'dashboards/blocks/query_chart',
-                 libraries: %i[chartjs_meta],
-                 lazy: true,
-                 data_check_class: self } }.merge(options)
-    end
-  end
-
   attr_reader :settings
 
   def initialize(project:, settings: {})
@@ -219,7 +204,7 @@ class AdditionalsQueryChart < AdditionalsChart
 
   # From the setting, a payload without entries has no calendar to build
   def icon
-    CHART_ICONS.fetch chart_type, 'chart-bar'
+    self.class.type_icon chart_type
   end
 
   def line_chart?

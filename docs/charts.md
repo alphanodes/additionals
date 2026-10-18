@@ -162,7 +162,7 @@ A grid of rows and columns, e.g. users by day; each cell in the CSS custom prope
 
 ## Query Chart Blocks
 
-A query chart block shows how the entries of a saved query spread over the values of a column, counted or summed up, as doughnut, pie, bars, line, area, treemap, calendar or table. Subclass `AdditionalsQueryChart` with the query class and the list a part links to, and let it define the block:
+A query chart block shows how the entries of a saved query spread over the values of a column, counted or summed up, as doughnut, pie, bars, line, area, treemap, calendar or table. Subclass `AdditionalsQueryChart` with the query class and the list a part links to, and name it in a block class:
 
 ```ruby
 class TimeEntryQueryChart < AdditionalsQueryChart
@@ -180,11 +180,21 @@ class TimeEntryQueryChart < AdditionalsQueryChart
   end
 end
 
-blocks['time_entry_chart'] = TimeEntryQueryChart.dashboard_block(label: l(:label_chart_with_name, l(:label_spent_time)),
-                                                                 permission: :view_time_entries)
 ```
 
-`dashboard_block` sets the async partial `dashboards/blocks/query_chart` with its settings form, the libraries, lazy loading and `max_occurs`; further options extend or replace these.
+```ruby
+# lib/dashboard_blocks/time_entry_chart_block.rb
+module DashboardBlocks
+  class TimeEntryChartBlock < QueryChartBlock
+    block_id 'time_entry_chart'
+    label { I18n.t :label_chart_with_name, value: I18n.t(:label_spent_time) }
+    permission :view_time_entries
+    chart 'TimeEntryQueryChart'
+  end
+end
+```
+
+`DashboardBlocks::QueryChartBlock` brings the async partial `dashboards/blocks/query_chart` with its settings form, the libraries (`chartjs_meta`, and `query_chart` with the styles of chart and form), lazy loading, `max_occurs` and the declared settings of the chart class.
 
 ### How It Counts
 

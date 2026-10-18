@@ -428,10 +428,14 @@
   svg: chart-area
 - name: chart-bar
   svg: chart-bar
+- name: chart-donut
+  svg: chart-donut
 - name: chart-line
   svg: chart-line
 - name: chart-pie
   svg: chart-pie
+- name: chart-treemap
+  svg: chart-treemap
 - name: check
   svg: check
 - name: checks

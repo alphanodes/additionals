@@ -1,116 +1,142 @@
 - chart = dashboard_block.chart
 - tag_name = ->(name) { "settings[#{block}][#{name}]" }
 
-.box.tabular.settings[data-controller='additionals-chart-settings'
-                       data-additionals-chart-settings-timeline-groups-value=chart.timeline_group_names.to_json
-                       data-additionals-chart-settings-number-groups-value=chart.number_group_names.to_json
-                       data-additionals-chart-settings-timeline-types-value=AdditionalsQueryChart::TIMELINE_TYPES.to_json
-                       data-additionals-chart-settings-timeline-only-types-value=AdditionalsQueryChart::TIMELINE_ONLY_TYPES.to_json
-                       data-additionals-chart-settings-series-types-value=AdditionalsQueryChart::SERIES_TYPES.to_json
-                       data-additionals-chart-settings-previous-period-value=AdditionalsQueryChart::PREVIOUS_PERIOD]
-  p
-    = additionals_settings_textfield :title,
-                                     label: :field_title,
-                                     value: settings[:title],
-                                     placeholder: chart.title,
-                                     tag_name: tag_name.call(:title)
-  p
-    = label_tag tag_name.call(:description), l(:field_description)
-    = text_area_tag tag_name.call(:description), settings[:description], rows: 3, class: 'wiki-edit'
-    em.info = l :info_chart_description
-  p
-    = additionals_settings_select :query_id,
-                                  options_for_query_select(chart.query_class, @project, settings[:query_id]),
-                                  label: :label_query,
-                                  tag_name: tag_name.call(:query_id)
-    em.info = l :info_chart_query
-  - if chart.open_only_supported?
+= query_chart_settings_box chart do
+  fieldset.query-chart-section
+    legend
+      = l :label_chart_section_data
+      small = l :info_chart_section_data
     p
-      = additionals_settings_checkbox :open_only,
-                                      label: chart.open_only_label,
-                                      active_value: settings[:open_only],
-                                      tag_name: tag_name.call(:open_only)
-      em.info = l :info_chart_open_only
-  p
-    = additionals_settings_select :group_by,
-                                  options_for_select(chart.group_options, settings[:group_by]),
-                                  label: :field_group_by,
-                                  include_blank: true,
-                                  required: true,
-                                  tag_name: tag_name.call(:group_by),
-                                  data: { additionals_chart_settings_target: 'groupBy',
-                                          action: 'additionals-chart-settings#update' }
-    span.query-chart-interval data-additionals-chart-settings-target='interval'
-      = label_tag tag_name.call(:interval), l(:label_chart_interval)
-      = select_tag tag_name.call(:interval), options_for_query_chart_interval(chart.interval)
-    span.query-chart-classes data-additionals-chart-settings-target='classes'
-      = label_tag tag_name.call(:classes), l(:label_chart_classes)
-      = text_field_tag tag_name.call(:classes), settings[:classes], size: 14, placeholder: l(:label_chart_classes_auto)
-      em.info = l :info_chart_classes
-  - if chart.period_supported?
-    p data-additionals-chart-settings-target='period'
-      = additionals_settings_select :period,
-                                    options_for_query_chart_period(settings[:period]),
-                                    label: "#{l :label_chart_period} (#{chart.period_caption})",
-                                    tag_name: tag_name.call(:period),
-                                    data: { additionals_chart_settings_target: 'periodSelect',
+      = additionals_settings_select :query_id,
+                                    options_for_query_select(chart.query_class, @project, settings[:query_id]),
+                                    label: :label_query,
+                                    tag_name: tag_name.call(:query_id)
+      em.info = l :info_chart_query
+    - if chart.open_only_supported?
+      p
+        = additionals_settings_checkbox :open_only,
+                                        label: chart.open_only_label,
+                                        active_value: settings[:open_only],
+                                        tag_name: tag_name.call(:open_only)
+        em.info = l :info_chart_open_only
+    - if chart.period_supported?
+      p
+        = additionals_settings_select :period,
+                                      options_for_query_chart_period(settings[:period]),
+                                      label: "#{l :label_chart_period} (#{chart.period_caption})",
+                                      tag_name: tag_name.call(:period),
+                                      data: { additionals_chart_settings_target: 'periodSelect',
+                                              action: 'additionals-chart-settings#update' }
+        em.info data-additionals-chart-settings-target='periodInfo' = l :info_chart_period_timeline
+
+  fieldset.query-chart-section
+    legend
+      = l :label_chart_section_evaluation
+      small = l :info_chart_section_evaluation
+    p
+      = additionals_settings_select :group_by,
+                                    options_for_select(chart.group_options, settings[:group_by]),
+                                    label: :field_group_by,
+                                    include_blank: true,
+                                    required: true,
+                                    tag_name: tag_name.call(:group_by),
+                                    data: { additionals_chart_settings_target: 'groupBy',
                                             action: 'additionals-chart-settings#update' }
-  p data-additionals-chart-settings-target='series'
-    = additionals_settings_select :split_by,
-                                  options_for_select(chart.split_options, settings[:split_by]),
-                                  label: :label_chart_split_by,
-                                  include_blank: true,
-                                  tag_name: tag_name.call(:split_by)
-    em.info = l :info_chart_split_by
-  p
-    = additionals_settings_select :measure,
-                                  options_for_select(chart.measure_options, chart.measure),
-                                  label: :label_chart_measure,
-                                  tag_name: tag_name.call(:measure)
-    em.info = l :info_chart_measure
-  p
-    = additionals_settings_select :chart_type,
-                                  options_for_query_chart_type(chart.chart_type),
-                                  label: :label_display_type,
-                                  tag_name: tag_name.call(:chart_type),
-                                  data: { additionals_chart_settings_target: 'chartType',
-                                          action: 'additionals-chart-settings#update' }
-  p data-additionals-chart-settings-target='series'
-    = additionals_settings_select :compare_query_id,
-                                  options_for_query_chart_compare(chart, @project, settings[:compare_query_id]),
-                                  label: :label_chart_compare_query,
-                                  tag_name: tag_name.call(:compare_query_id),
-                                  data: { additionals_chart_settings_target: 'compareSelect' }
-    em.info = l :info_chart_compare_query
-  p data-additionals-chart-settings-target='order'
-    = additionals_settings_select :order,
-                                  options_for_query_chart_order(chart.order),
-                                  label: :label_sort,
-                                  tag_name: tag_name.call(:order)
-  p data-additionals-chart-settings-target='maxEntries'
-    = additionals_settings_numberfield :max_entries,
-                                       label: :label_max_entries,
-                                       value: settings[:max_entries],
-                                       min: 0,
-                                       tag_name: tag_name.call(:max_entries)
-    em.info = l :info_chart_max_entries
-  p
-    = additionals_settings_numberfield :min_share,
-                                       label: :label_chart_min_share,
-                                       value: settings[:min_share],
-                                       min: 0,
-                                       max: 100,
-                                       step: 0.1,
-                                       tag_name: tag_name.call(:min_share)
-    em.info = l :info_chart_min_share
-  p data-additionals-chart-settings-target='showEmpty'
-    = additionals_settings_checkbox :show_empty,
-                                    label: :label_chart_show_empty,
-                                    active_value: chart.show_empty?,
-                                    tag_name: tag_name.call(:show_empty)
-  p
-    = additionals_settings_checkbox :with_table,
-                                    label: :label_table_of_values,
-                                    active_value: chart.with_table?,
-                                    tag_name: tag_name.call(:with_table)
-    em.info = l :info_chart_with_table
+      span.query-chart-interval data-additionals-chart-settings-target='interval'
+        = label_tag tag_name.call(:interval), l(:label_chart_interval)
+        = select_tag tag_name.call(:interval), options_for_query_chart_interval(chart.interval)
+      span.query-chart-classes data-additionals-chart-settings-target='classes'
+        = label_tag tag_name.call(:classes), l(:label_chart_classes)
+        = text_field_tag tag_name.call(:classes), settings[:classes], size: 14, placeholder: l(:label_chart_classes_auto)
+        em.info = l :info_chart_classes
+    p
+      = additionals_settings_select :measure,
+                                    options_for_select(chart.measure_options, chart.measure),
+                                    label: :label_chart_measure,
+                                    tag_name: tag_name.call(:measure)
+      em.info = l :info_chart_measure
+    p data-additionals-chart-settings-target='series'
+      = additionals_settings_select :split_by,
+                                    options_for_select(chart.split_options, settings[:split_by]),
+                                    label: :label_chart_split_by,
+                                    include_blank: true,
+                                    tag_name: tag_name.call(:split_by),
+                                    data: { additionals_chart_settings_target: 'splitSelect',
+                                            action: 'additionals-chart-settings#update' }
+      em.info = l :info_chart_split_by
+    p data-additionals-chart-settings-target='series'
+      = additionals_settings_select :compare_query_id,
+                                    options_for_query_chart_compare(chart, @project, settings[:compare_query_id]),
+                                    label: :label_chart_compare_query,
+                                    tag_name: tag_name.call(:compare_query_id),
+                                    data: { additionals_chart_settings_target: 'compareSelect' }
+      em.info data-additionals-chart-settings-target='compareInfo' = l :info_chart_compare_query
+      em.info data-additionals-chart-settings-target='compareSplitInfo' = l :info_chart_compare_split
+    p.query-chart-note data-additionals-chart-settings-target='sharesNote'
+      = l :info_chart_shares
+
+  fieldset.query-chart-section
+    legend
+      = l :label_chart_section_display
+      small = l :info_chart_section_display
+    p.query-chart-types
+      label = l :label_display_type
+      span.query-chart-tiles
+        - AdditionalsQueryChart::CHART_TYPES.each do |type|
+          label.query-chart-tile data-additionals-chart-settings-target='tile'
+            = radio_button_tag tag_name.call(:chart_type), type, chart.chart_type == type,
+                               data: { additionals_chart_settings_target: 'chartType',
+                                       action: 'change->additionals-chart-settings#update' }
+            = query_chart_type_icon type
+            span = l :"label_chart_type_#{type}"
+    fieldset.collapsible.collapsed.query-chart-more
+      legend.icon.icon-collapsed onclick='toggleFieldset(this);'
+        = sprite_icon 'angle-right', l(:label_options)
+      div style='display: none;'
+        p data-additionals-chart-settings-target='order'
+          = additionals_settings_select :order,
+                                        options_for_query_chart_order(chart.order),
+                                        label: :label_sort,
+                                        tag_name: tag_name.call(:order)
+        p data-additionals-chart-settings-target='maxEntries'
+          = additionals_settings_numberfield :max_entries,
+                                             label: :label_max_entries,
+                                             value: settings[:max_entries],
+                                             min: 0,
+                                             tag_name: tag_name.call(:max_entries)
+          em.info = l :info_chart_max_entries
+        p
+          = additionals_settings_numberfield :min_share,
+                                             label: :label_chart_min_share,
+                                             value: settings[:min_share],
+                                             min: 0,
+                                             max: 100,
+                                             step: 0.1,
+                                             tag_name: tag_name.call(:min_share)
+          em.info = l :info_chart_min_share
+        p data-additionals-chart-settings-target='showEmpty'
+          = additionals_settings_checkbox :show_empty,
+                                          label: :label_chart_show_empty,
+                                          active_value: chart.show_empty?,
+                                          tag_name: tag_name.call(:show_empty)
+        p
+          = additionals_settings_checkbox :with_table,
+                                          label: :label_table_of_values,
+                                          active_value: chart.with_table?,
+                                          tag_name: tag_name.call(:with_table)
+          em.info = l :info_chart_with_table
+
+  fieldset.query-chart-section
+    legend
+      = l :label_chart_section_caption
+      small = l :info_chart_section_caption
+    p
+      = additionals_settings_textfield :title,
+                                       label: :field_title,
+                                       value: settings[:title],
+                                       placeholder: chart.title,
+                                       tag_name: tag_name.call(:title)
+    p
+      = label_tag tag_name.call(:description), l(:field_description)
+      = text_area_tag tag_name.call(:description), settings[:description], rows: 3, class: 'wiki-edit'
+      em.info = l :info_chart_description

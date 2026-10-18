@@ -1,0 +1,242 @@
+/* Query chart blocks (AdditionalsQueryChart): the chart with its table of values
+   and the settings form, loaded with the block (library query_chart) */
+
+/* query chart blocks: the chart takes the width the table of values leaves, in a
+   narrow column the table moves below it */
+.additionals-query-chart .additionals-chart-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.additionals-query-chart .additionals-chart-left {
+  flex: 1 1 360px;
+  min-width: 0;
+  float: none;
+  width: auto;
+}
+
+/* A long table scrolls instead of stretching the block: as high as the chart,
+   at least about ten rows. Header and total stay visible. */
+.additionals-query-chart .additionals-table-of-values {
+  flex: 0 1 450px;
+  max-height: max(var(--query-chart-height), 22em);
+  overflow-y: auto;
+}
+
+.additionals-query-chart .additionals-table-of-values:only-child {
+  flex-basis: 100%;
+  max-height: 40em;
+}
+
+/* The table fills its column instead of the fixed width of the older charts.
+   core's overflow: hidden makes the table the scroll container of its sticky
+   rows, clip keeps the rounded corners without. Collapsed borders would let
+   the scrolled rows shine through above and below the sticky ones. */
+.additionals-query-chart .additionals-table-of-values > .values {
+  overflow: clip;
+  float: none;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.additionals-query-chart .additionals-table-of-values thead {
+  position: sticky;
+  z-index: 1;
+  top: 0;
+}
+
+.additionals-query-chart .additionals-table-of-values tfoot {
+  position: sticky;
+  z-index: 1;
+  bottom: 0;
+  background-color: var(--oc-white);
+}
+
+/* A cross table has a column per part. Core lays out report tables with a
+   fixed width per column, which squeezes many parts into each other: the
+   cross table takes its content width, a row of its own below the chart and
+   scrolls sideways. */
+.additionals-query-chart .additionals-table-of-values.cross-table {
+  flex-basis: 100%;
+}
+
+.additionals-query-chart .additionals-table-of-values.cross-table > .values {
+  width: max-content;
+  min-width: 100%;
+  table-layout: auto;
+}
+
+.additionals-query-chart .additionals-table-of-values.cross-table th,
+.additionals-query-chart .additionals-table-of-values.cross-table td {
+  white-space: nowrap;
+}
+
+/* Levels of a calendar below it, a swatch of each color with its values */
+.additionals-calendar-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25em 1em;
+  justify-content: flex-end;
+  color: var(--a-color-muted);
+  font-size: var(--a-font-size-sm);
+}
+
+.additionals-calendar-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+}
+
+.additionals-calendar-legend i {
+  display: inline-block;
+  width: 0.9em;
+  height: 0.9em;
+  border-radius: 2px;
+}
+
+/* Where the values of a chart come from, below it like the other hints */
+.additionals-query-chart .query-chart-query-description {
+  margin-top: 0.5em;
+  color: var(--a-color-muted);
+  font-size: var(--a-font-size-sm);
+}
+
+.additionals-query-chart .query-chart-query-description .wiki p {
+  margin: 0;
+}
+
+/* The interval of a date field and the bounds of a number field follow
+   their select in the same line, the label is no field label of the form */
+.tabular .query-chart-interval label,
+.tabular .query-chart-classes label {
+  float: none;
+  width: auto;
+  margin: 0 0.5em;
+  font-weight: normal;
+}
+
+/* Settings of a dashboard block give every text field a fixed width, the
+   bounds are a few numbers next to their select */
+#my-page.dashboard .settings .query-chart-classes input[type='text'] {
+  width: auto;
+}
+
+/* Settings of a chart block in four sections: data, evaluation, display, caption */
+.query-chart-settings fieldset.query-chart-section {
+  margin: 0 0 0.8em;
+  padding: 0.3em 0.8em 0.5em;
+  border: 1px solid var(--oc-gray-4);
+  border-radius: 3px;
+}
+
+/* Below the actions of the block, so all sections have the same width */
+.query-chart-settings fieldset.query-chart-section:first-child {
+  clear: both;
+}
+
+.query-chart-settings fieldset.query-chart-section > legend {
+  padding: 0 0.4em;
+  font-weight: bold;
+}
+
+.query-chart-settings fieldset.query-chart-section > legend small {
+  margin-left: 0.5em;
+  color: var(--a-color-muted);
+  font-size: var(--a-font-size-sm);
+  font-weight: normal;
+}
+
+/* Hints the form switches on and off, the info style of core shows them otherwise */
+.query-chart-settings em.info[hidden] {
+  display: none;
+}
+
+.query-chart-settings .query-chart-note {
+  color: var(--a-color-muted);
+  font-style: italic;
+}
+
+/* The fields of the folded options line up with those of the section */
+.query-chart-settings fieldset.query-chart-more {
+  margin-inline: 0;
+  padding-inline: 0;
+}
+
+/* Display types as tiles: a type that does not fit stays visible, disabled.
+   Inline like a select, so that it moves below the label of a narrow column */
+.query-chart-settings .query-chart-tiles {
+  display: inline-grid;
+  grid-template-columns: repeat(auto-fill, minmax(7.5em, 1fr));
+  gap: 0.4em;
+  width: 100%;
+  max-width: 42em;
+  vertical-align: top;
+}
+
+.tabular label.query-chart-tile {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3em;
+  float: none;
+  width: auto;
+  margin: 0;
+  padding: 0.5em 0.2em 0.4em;
+  border: 1px solid var(--oc-gray-3);
+  border-radius: 4px;
+  background-color: var(--oc-white);
+  color: var(--oc-gray-7);
+  font-size: var(--a-font-size-sm);
+  font-weight: normal;
+  text-align: center;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+  cursor: pointer;
+}
+
+.tabular label.query-chart-tile:hover {
+  border-color: var(--oc-blue-4);
+}
+
+.tabular label.query-chart-tile.selected {
+  border-color: var(--oc-blue-6);
+  background-color: var(--oc-blue-0);
+  box-shadow: inset 0 0 0 1px var(--oc-blue-6);
+  color: var(--oc-blue-9);
+}
+
+.tabular label.query-chart-tile.disabled {
+  border-color: var(--oc-gray-3);
+  background-color: var(--oc-gray-0);
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.tabular label.query-chart-tile:has(input:focus-visible) {
+  outline: 2px solid var(--oc-blue-5);
+  outline-offset: 1px;
+}
+
+/* The radio stays focusable for the keyboard, the tile shows the choice */
+.query-chart-tile input[type='radio'] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.tabular label.query-chart-tile svg.icon-svg {
+  width: 24px;
+  height: 24px;
+  stroke: currentcolor;
+}
+
+/* Tabler has no icon of horizontal bars */
+svg.query-chart-icon-horizontal {
+  transform: rotate(90deg);
+}

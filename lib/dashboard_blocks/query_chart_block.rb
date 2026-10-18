@@ -45,7 +45,7 @@ module DashboardBlocks
 
         async_options || { required_settings: %i[group_by],
                            partial: 'dashboards/blocks/query_chart',
-                           libraries: %i[chartjs_meta],
+                           libraries: %i[chartjs_meta query_chart],
                            lazy: true,
                            data_check_class: chart }
       end

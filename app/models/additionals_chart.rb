@@ -9,10 +9,14 @@ class AdditionalsChart
   CHART_DEFAULT_HEIGHT = 350
   CHART_HEADER_HEIGHT = 80
   # Icon of the title by type, bars for all others
-  CHART_ICONS = { 'doughnut' => 'chart-pie', 'pie' => 'chart-pie', 'line' => 'chart-line',
-                  'area' => 'chart-area', 'calendar' => 'calendar', 'table' => 'table' }.freeze
+  CHART_ICONS = { 'doughnut' => 'chart-donut', 'pie' => 'chart-pie', 'treemap' => 'chart-treemap',
+                  'line' => 'chart-line', 'area' => 'chart-area', 'calendar' => 'calendar', 'table' => 'table' }.freeze
 
   class << self
+    def type_icon(type)
+      CHART_ICONS.fetch type, 'chart-bar'
+    end
+
     # Cheap pre-check before async fetch — drives the lazy-load min-height.
     # Subclasses should override with a single EXISTS query. Default is
     # false (conservative — no min-height, layout stays compact for unknown
@@ -60,7 +64,7 @@ class AdditionalsChart
   end
 
   def icon
-    CHART_ICONS.fetch payload[:type], 'chart-bar'
+    self.class.type_icon payload[:type]
   end
 
   # Calculates optimal height for bar charts based on number of elements

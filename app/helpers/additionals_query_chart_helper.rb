@@ -6,6 +6,27 @@ module AdditionalsQueryChartHelper
                        selected
   end
 
+  # The settings form with its rules (additionals_chart_settings_controller.js)
+  # from the chart class, as the server decides with the block settings
+  def query_chart_settings_box(chart, &)
+    values = { 'timeline-groups' => chart.timeline_group_names.to_json,
+               'number-groups' => chart.number_group_names.to_json,
+               'timeline-types' => AdditionalsQueryChart::TIMELINE_TYPES.to_json,
+               'timeline-only-types' => AdditionalsQueryChart::TIMELINE_ONLY_TYPES.to_json,
+               'series-types' => AdditionalsQueryChart::SERIES_TYPES.to_json,
+               'previous-period' => AdditionalsQueryChart::PREVIOUS_PERIOD,
+               'no-timeline-reason' => l(:label_chart_type_no_timeline),
+               'timeline-only-reason' => l(:label_chart_type_timeline_only) }
+    data = values.transform_keys { |key| "additionals-chart-settings-#{key}-value" }
+    tag.div class: 'box tabular settings query-chart-settings',
+            data: { controller: 'additionals-chart-settings', **data }, &
+  end
+
+  # As in the title of the block; bars of the horizontal type lie on their side
+  def query_chart_type_icon(type)
+    svg_icon_tag AdditionalsChart.type_icon(type), css_class: ('query-chart-icon-horizontal' if type == 'bar_horizontal')
+  end
+
   def options_for_query_chart_order(selected)
     options_for_select AdditionalsQueryChart::ORDERS.map { |order| [l(:"label_chart_order_#{order}"), order] },
                        selected

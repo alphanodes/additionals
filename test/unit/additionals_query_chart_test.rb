@@ -500,14 +500,6 @@ class AdditionalsQueryChartTest < Additionals::TestCase
                  issue_chart(group_by: 'tracker').title
   end
 
-  def test_dashboard_block_renders_the_chart_partial
-    assert_equal 'dashboards/blocks/query_chart', Additionals::TestIssueQueryChart.dashboard_block(label: 'Chart')[:async][:partial]
-  end
-
-  def test_dashboard_block_keeps_given_options
-    assert_equal :view_issues, Additionals::TestIssueQueryChart.dashboard_block(label: 'Chart', permission: :view_issues)[:permission]
-  end
-
   private
 
   def issue_chart(**settings)

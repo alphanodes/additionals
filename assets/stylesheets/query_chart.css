@@ -154,7 +154,7 @@
 }
 
 .query-chart-settings .query-chart-summary-text {
-  font-size: var(--a-font-size-lg);
+  font-size: var(--a-font-size-base);
 }
 
 .query-chart-settings fieldset.query-chart-section > legend {

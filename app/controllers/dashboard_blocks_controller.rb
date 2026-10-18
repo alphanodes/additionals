@@ -15,6 +15,12 @@ class DashboardBlocksController < ApplicationController
   end
 
   def show
+    settings = params[:settings]
+    # Anything but an object of settings, e.g. a string, would read as none
+    if settings.present? && !settings.respond_to?(:to_unsafe_h)
+      return render_api_errors "settings #{l 'activerecord.errors.messages.invalid'}"
+    end
+
     result = service.block params[:id], settings: settings_params
     case result.status
     when :not_found then render_404

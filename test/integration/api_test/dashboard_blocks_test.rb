@@ -173,6 +173,21 @@ module ApiTest
       assert_response :unauthorized
     end
 
+    # A typo in the form of the settings is an error, like a typo in a key
+    test 'GET /dashboard_blocks/:id.json rejects settings that are no object' do
+      get '/dashboard_blocks/news.json', params: { settings: 'max_entries=5' }, headers: credentials('jsmith')
+
+      assert_response :unprocessable_content
+    end
+
+    # A private query of another user is no value of the block for this user
+    test 'GET /dashboard_blocks/:id.json rejects a private query of another user' do
+      get '/dashboard_blocks/issuequery.json', params: { settings: { query_id: queries(:queries_003).id.to_s } },
+                                               headers: credentials('jsmith')
+
+      assert_response :unprocessable_content
+    end
+
     # Even where Redmine requires no login: blocks may compute a lot
     test 'GET /dashboard_blocks.json without credentials requires a login without login_required' do
       with_settings login_required: '0' do

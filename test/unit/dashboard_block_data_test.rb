@@ -104,6 +104,14 @@ class DashboardBlockDataTest < Additionals::TestCase
     assert_equal users(:users_002).name, data[:rows].first.last
   end
 
+  def test_block_names_a_required_setting
+    assert block('feed').setting_required?(:url)
+  end
+
+  def test_block_names_an_optional_setting
+    assert_not block('feed').setting_required?(:title)
+  end
+
   def test_dashboard_exports_a_block_of_its_layout
     dashboard = welcome_dashboard layout_settings: { 'text' => { title: 'Hello', text: 'World' } }
 

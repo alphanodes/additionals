@@ -231,6 +231,12 @@ module DashboardBlocks
       Additionals::SettingsSchema.with_rule_methods settings_definitions, self, except: setting_readers
     end
 
+    # Whether the block declares the setting as required, e.g. to mark it in a
+    # settings form several blocks share
+    def setting_required?(key)
+      declared_settings.dig(key.to_sym, :required) ? true : false
+    end
+
     # The stored settings, read typed and with their defaults
     def settings_schema
       @settings_schema ||= Additionals::SettingsSchema.new declared_settings, {},

@@ -155,6 +155,32 @@ class SettingsSchemaTest < Additionals::TestCase
     assert_predicate schema_for({ type: { type: :enum, values: %w[pie bar] } }, type: 'bar'), :valid?
   end
 
+  # A program names a query instead of giving its id
+  def test_enum_value_given_by_its_label_is_stored_as_value
+    schema = schema_for({ query_id: { type: :enum, values: [%w[Open 5], %w[Closed 6]] } }, query_id: 'closed')
+
+    assert_equal({ query_id: '6' }, schema.settings)
+  end
+
+  def test_label_used_twice_is_rejected
+    schema = schema_for({ query_id: { type: :enum, values: [%w[Open 5], %w[Open 7]] } }, query_id: 'Open')
+
+    assert_includes schema.errors, :query_id
+  end
+
+  def test_value_wins_over_a_label
+    schema = schema_for({ query_id: { type: :enum, values: [%w[5 6], %w[Six 5]] } }, query_id: '5')
+
+    assert_equal({ query_id: '5' }, schema.settings)
+  end
+
+  def test_list_entries_given_by_their_label_are_stored_as_values
+    schema = schema_for({ columns: { type: :list, values: [%w[Subject subject], %w[Status status]] } },
+                        columns: %w[Status subject])
+
+    assert_equal({ columns: %w[status subject] }, schema.settings)
+  end
+
   def test_blank_enum_means_none
     assert_predicate schema_for({ type: { type: :enum, values: %w[pie bar] } }, type: ''), :valid?
   end

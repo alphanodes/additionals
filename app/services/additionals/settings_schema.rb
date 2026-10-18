@@ -17,7 +17,8 @@ module Additionals
   # Options of a setting:
   # - type: string, text, integer, float, boolean, enum or list
   # - label, info: locale key, text or lambda
-  # - values: allowed values, plain or [label, value], for enum and list
+  # - values: allowed values, plain or [label, value], for enum and list. A
+  #   given unique label is stored as its value
   # - offered: the allowed values a form offers for the other values, e.g.
   #   only some display types for a timeline. Other allowed values stay valid,
   #   whoever reads them falls back.
@@ -41,6 +42,7 @@ module Additionals
     include Redmine::I18n
 
     TYPES = %i[string text integer float boolean enum list].freeze
+    LABELED_TYPES = %i[enum list].freeze
     OPTIONS = %i[type label info values offered default required min max if applies].freeze
     # Options of a setting an object can answer with a method named after the
     # setting, see with_rule_methods
@@ -77,6 +79,7 @@ module Additionals
       values = values.to_h.symbolize_keys
       @given_keys = values.keys
       @values = cast_values(stored.to_h.symbolize_keys.except(*@given_keys), check: false).merge cast_values(values)
+      resolve_labels
     end
 
     # Typed value of a setting, its default if it is blank or a number out of
@@ -187,6 +190,32 @@ module Additionals
         list = value.is_a?(String) ? value.split(',') : Array(value)
         list.map { |entry| entry.to_s.strip }.compact_blank
       end
+    end
+
+    # A program may give the label of an allowed value, e.g. the name of a query
+    # instead of its id. Only a unique label counts, a value always wins. After
+    # the casting: the allowed values may depend on the other values.
+    def resolve_labels
+      @given_keys.each do |key|
+        definition = @definitions[key]
+        next unless definition && LABELED_TYPES.include?(definition[:type]) && @values[key].present?
+
+        values = values_for definition
+        next if values.nil?
+
+        @values[key] = if definition[:type] == :list
+                         @values[key].map { |value| value_of_label values, value }
+                       else
+                         value_of_label values, @values[key]
+                       end
+      end
+    end
+
+    def value_of_label(values, value)
+      return value if values.any? { |entry| entry[:value] == value }
+
+      found = values.select { |entry| entry[:label].casecmp? value }
+      found.one? ? found.first[:value] : value
     end
 
     def cast_boolean(key, value)

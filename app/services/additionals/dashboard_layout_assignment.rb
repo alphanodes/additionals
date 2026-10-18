@@ -5,6 +5,11 @@ module Additionals
   # Errors are keyed by block id with the messages per setting (:base for the
   # block itself), and by :base for the dashboard and its groups. Ignored are
   # the keys of given settings a block does not know.
+  #
+  # Stored blocks the user cannot use here (another project, a missing
+  # permission) stay with their settings where they are: a program does not
+  # see them and would remove them for everyone. Given back, they may move,
+  # but their settings cannot change here.
   class DashboardLayoutAssignment
     BLOCK_ID_FORMAT = /\A[a-z0-9_]+?(__\d+)?\z/
 
@@ -58,7 +63,8 @@ module Additionals
     def build
       check_groups
       entries = @spec.flat_map { |group, blocks| group_blocks(group, blocks).map { |entry| [group, normalize(entry)] } }
-      check_blocks(entries.map { |_group, entry| entry[:block] })
+      given = entries.map { |_group, entry| entry[:block] }
+      check_blocks given
 
       layout = @content.groups.index_with { [] }
       settings = {}
@@ -68,7 +74,29 @@ module Additionals
         block_settings = settings_for block, entry
         settings[block] = block_settings if block_settings.present?
       end
+      keep_unavailable_blocks layout, settings, given
       [layout, settings]
+    end
+
+    def unavailable_blocks
+      @unavailable_blocks ||= @dashboard.layout.each_value.flat_map do |blocks|
+        Array(blocks).reject { |block| @content.find_block block }
+      end
+    end
+
+    # At their position in their group, as far as the group reaches
+    def keep_unavailable_blocks(layout, settings, given)
+      stored_settings = @dashboard.layout_settings
+      @dashboard.layout.each do |group, blocks|
+        next unless layout.key? group
+
+        Array(blocks).each_with_index do |block, index|
+          next if given.include?(block) || unavailable_blocks.exclude?(block)
+
+          layout[group].insert [index, layout[group].size].min, block
+          settings[block] = stored_settings[block] if stored_settings[block].present?
+        end
+      end
     end
 
     def group_blocks(group, blocks)
@@ -99,6 +127,8 @@ module Additionals
           next
         end
 
+        next if unavailable_blocks.include? block
+
         dashboard_block = @content.find_block block if block.match? BLOCK_ID_FORMAT
         if dashboard_block.nil?
           add_error block, l('activerecord.errors.messages.inclusion')
@@ -115,6 +145,11 @@ module Additionals
     # Stored settings of a block without settings, the given ones otherwise
     def settings_for(block, entry)
       return @dashboard.layout_settings[block] unless entry.key? :settings
+
+      if unavailable_blocks.include? block
+        add_error block, l('activerecord.errors.messages.inclusion')
+        return @dashboard.layout_settings[block]
+      end
 
       settings = entry[:settings].nil? ? {} : hash_of(entry[:settings])
       if settings.nil?

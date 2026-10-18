@@ -19,7 +19,8 @@ api.dashboard do
           blocks.each do |block|
             api.block do
               api.id block[:block]
-              api.label block[:label]
+              api.label block[:label] if block.key? :label
+              api.available block.fetch(:available, true)
               api.settings block[:settings] if block.key? :settings
             end
           end

@@ -120,6 +120,54 @@ class DashboardLayoutTest < Additionals::TestCase
     assert_equal ['news'], error_keys(result)
   end
 
+  # A program only sees the blocks it can use: a stored block it cannot use
+  # here must not get lost when it writes the layout back
+  def test_assign_layout_keeps_a_stored_block_the_user_cannot_use
+    store_news_without_permission 'left' => %w[news feed]
+    @dashboard.assign_layout 'left' => %w[feed text]
+
+    assert_equal %w[news feed text], @dashboard.layout['left']
+  end
+
+  def test_assign_layout_keeps_the_settings_of_a_stored_block_the_user_cannot_use
+    store_news_without_permission 'left' => %w[news]
+    @dashboard.assign_layout 'left' => %w[feed]
+
+    assert_equal({ max_entries: '3' }, @dashboard.layout_settings('news'))
+  end
+
+  def test_assign_layout_accepts_a_stored_block_the_user_cannot_use
+    store_news_without_permission 'left' => %w[news]
+
+    assert_predicate @dashboard.assign_layout('left' => %w[news feed]), :success?
+  end
+
+  def test_assign_layout_moves_a_stored_block_the_user_cannot_use
+    store_news_without_permission 'left' => %w[news]
+    @dashboard.assign_layout 'right' => %w[news]
+
+    assert_equal [[], %w[news]], @dashboard.layout.values_at('left', 'right')
+  end
+
+  def test_assign_layout_rejects_settings_of_a_block_the_user_cannot_use
+    store_news_without_permission 'left' => %w[news]
+    result = @dashboard.assign_layout 'left' => [{ block: 'news', settings: { max_entries: '5' } }]
+
+    assert_equal ['news'], error_keys(result)
+  end
+
+  def test_layout_export_marks_a_block_the_editor_cannot_use
+    store_news_without_permission 'left' => %w[news]
+
+    assert_equal [{ block: 'news', available: false }], @dashboard.layout_export(users(:users_002))['left']
+  end
+
+  def test_layout_export_leaves_out_a_block_a_reader_cannot_use
+    store_news_without_permission 'left' => %w[news]
+
+    assert_empty @dashboard.layout_export(users(:users_003))['left']
+  end
+
   def test_invalid_setting_is_rejected_per_block_and_setting
     result = @dashboard.assign_layout 'top' => [{ block: 'feed', settings: { url: FEED_URL, max_entries: '500' } }]
 
@@ -166,5 +214,11 @@ class DashboardLayoutTest < Additionals::TestCase
 
   def error_keys(result)
     result.errors.map(&:first)
+  end
+
+  def store_news_without_permission(layout)
+    @dashboard.layout = layout
+    @dashboard.layout_settings = { 'news' => { max_entries: '3' } }
+    Role.find_each { |role| role.remove_permission! :view_news }
   end
 end

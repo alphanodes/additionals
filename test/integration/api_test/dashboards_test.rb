@@ -52,6 +52,19 @@ module ApiTest
       assert_not_includes response.body, 'Some example text in left text block'
     end
 
+    # assign_layout keeps such a block, an editor sees it to place the others around it
+    test 'GET /dashboards/:id.json marks a block an editor cannot use here' do
+      Role.find(1).add_permission! :save_dashboards
+      dashboard = Dashboard.create! name: 'Of jsmith', dashboard_type: DashboardContentWelcome::TYPE_NAME,
+                                    author: users(:users_002), visibility: Dashboard::VISIBILITY_PUBLIC,
+                                    layout: { 'left' => %w[news text] }
+      Role.find_each { |role| role.remove_permission! :view_news }
+
+      get "/dashboards/#{dashboard.id}.json", headers: credentials('jsmith')
+
+      assert_equal [false, true], layout_group('left').pluck('available')
+    end
+
     test 'GET /dashboards/:id.json tells a reader the dashboard is not editable' do
       get "/dashboards/#{welcome_dashboard.id}.json", headers: credentials('jsmith')
 

@@ -292,10 +292,15 @@ class Dashboard < ApplicationRecord
     { block: }.merge editable?(user) ? export : export.except(:settings)
   end
 
-  # The groups of the layout with their blocks as block_export without data
+  # The groups of the layout with their blocks as block_export without data.
+  # A block the user cannot use here only for those who may edit the
+  # dashboard, marked as not available: assign_layout keeps it.
   def layout_export(user = User.current)
+    editable = editable? user
     layout.transform_values do |blocks|
-      Array(blocks).filter_map { |block| block_export block, data: false, user: }
+      Array(blocks).filter_map do |block|
+        block_export(block, data: false, user:) || ({ block:, available: false } if editable)
+      end
     end
   end
 

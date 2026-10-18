@@ -4,21 +4,19 @@ module GlobalSearch
   QUICK_JUMP_PATTERN = /\A#(\d+)\z/
 
   class << self
-    # Provider API - only for extra sources (e.g. semantic search from redmine_ai)
+    # Providers are extra sources (e.g. semantic search of another plugin), a
+    # subclass of GlobalSearch::Provider each in lib/global_search/ of its
+    # plugin, see RedminePluginKit::Extensions. Called in the setup of
+    # additionals, at boot and after every code reload.
+    def load!
+      RedminePluginKit::Extensions.load! 'global_search'
+      # Two providers of the same search type stop the boot
+      @providers = RedminePluginKit::Extensions.classes Provider, key: :search_type
+    end
+
+    # Read at runtime only: the setup of a plugin may run before load!
     def providers
-      @providers ||= []
-    end
-
-    def register(provider_class)
-      providers << provider_class unless providers.include? provider_class
-    end
-
-    def load_providers
-      Rails.root.glob('plugins/*/lib/global_search/*_provider.rb').each do |file|
-        require_dependency file
-      rescue StandardError => e
-        Rails.logger.warn "GlobalSearch: Failed to load #{file}: #{e.message}"
-      end
+      @providers || raise('Global search providers are read before GlobalSearch.load!')
     end
 
     # Keyword results only. The providers answer in a request of their own (see

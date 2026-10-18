@@ -278,8 +278,8 @@ module Additionals
       # Load view hooks
       loader.load_view_hooks!
 
-      # Discover and load global search providers from all plugins
-      GlobalSearch.load_providers
+      # Global search providers of all plugins
+      GlobalSearch.load!
     end
 
     # Read adapter from database.yml without opening a connection, so the check

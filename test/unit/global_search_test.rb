@@ -124,30 +124,9 @@ class GlobalSearchTest < Additionals::TestCase
     assert_kind_of Array, result[:keyword]
   end
 
-  def test_providers_registry
-    assert_kind_of Array, GlobalSearch.providers
-
-    dummy_provider = Class.new do
-      def self.search(*)
-        []
-      end
-
-      def self.label = 'label_dummy'
-
-      def self.permission = nil
-    end
-
-    original_providers = GlobalSearch.providers.dup
-    GlobalSearch.register dummy_provider
-
-    assert_includes GlobalSearch.providers, dummy_provider
-
-    # Do not register duplicates
-    GlobalSearch.register dummy_provider
-
-    assert_equal 1, GlobalSearch.providers.count(dummy_provider)
-  ensure
-    GlobalSearch.providers.replace original_providers
+  # The base of the providers of other plugins is no provider itself
+  def test_providers_leave_out_the_base
+    assert_not_includes GlobalSearch.providers, GlobalSearch::Provider
   end
 
   def test_search_result_entries_have_required_keys

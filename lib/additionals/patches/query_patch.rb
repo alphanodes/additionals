@@ -58,6 +58,40 @@ module Additionals
       end
 
       module InstanceMethods
+        # Options of a query beyond those of core (filters, columns, grouping,
+        # sorting, totals, display type) that plugins add, e.g. a counter box,
+        # declared like settings (Additionals::SettingsSchema), so programs can
+        # list and set them. A plugin extends these three methods with super;
+        # rules are methods named query_option_<key>_<rule>, e.g.
+        # query_option_color_schema_applies?(schema).
+        def query_options_definitions
+          {}
+        end
+
+        # The stored options as the query form sends them
+        def query_option_values
+          {}
+        end
+
+        # The params of the query form for option values (as stored), read by
+        # build_from_params: a plugin writes its options the way its form does
+        def query_option_params(_values)
+          {}
+        end
+
+        # Hints about the stored options for a program, e.g. that an option
+        # works only together with another one; empty when there is nothing to say
+        def query_option_notes
+          []
+        end
+
+        # The options with given values, completed by the stored ones
+        def query_options_schema(values = {})
+          definitions = Additionals::SettingsSchema.with_rule_methods query_options_definitions, self, prefix: 'query_option_'
+          Additionals::SettingsSchema.new definitions, values, stored: query_option_values, query: self,
+                                                               user: User.current, project:
+        end
+
         def ids_from_string(string)
           string.to_s.scan(/\d+/).map(&:to_i)
         end

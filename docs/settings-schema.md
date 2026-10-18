@@ -51,18 +51,25 @@ Some rules to know:
 
 ## Options of a Query Class
 
-Core describes filters, columns and display types itself. Options a plugin adds on top (stored in the serialized `options` of the query or an associated record) can be declared the same way, with the query as context:
+Core describes filters, columns and display types itself. Options a plugin adds on top (stored in the serialized `options` of the query or an associated record, e.g. the counter box of redmine_reporting) are declared on the query, so programs (`list_query_options`, `save_query` of redmine_ai) can list and set them like the query form. A plugin extends three methods of `Query` with `super`:
 
 ```ruby
-BOARD_OPTIONS = {
-  board_statuses: { type: :list, label: :field_status,
-                    values: ->(schema) { IssueStatus.sorted.map { |status| [status.name, status.id.to_s] } },
-                    applies: ->(schema) { schema.context[:query].display_type == 'board' } }
-}.freeze
-
-def board_options_schema(values = options[:board_options] || {})
-  Additionals::SettingsSchema.new BOARD_OPTIONS, values, query: self
+def query_options_definitions
+  super.merge color_schema: { type: :enum, label: :label_issue_board_color_based_on }
 end
+
+# The stored values as the form sends them
+def query_option_values
+  super.merge color_schema: reporting_query_setting&.color_schema
+end
+
+# The params of the form for the values, read by build_from_params
+def query_option_params(values)
+  super.merge color_schema: values[:color_schema]
+end
+
+def query_option_color_schema_applies?(_schema) = display_type == 'task_board'
+def query_option_color_schema_values(_schema) = [[l(:label_tracker), 'tracker'], ...]
 ```
 
-The query decides where the values live and when they are written, e.g. in `build_from_params`.
+Rules are methods named `query_option_<key>_<rule>` (`available?`, `applies?`, `values`, `offered`, `default`, `label`), `SettingsSchema.with_rule_methods` finds them like those of dashboard blocks. `query_options_schema(values)` checks given values, completed by the stored ones. Writing goes through `build_from_params` with `query_option_params`, so the validations of the query run as with the form; a program sends the stored values of options it does not change, the form sends them all with every save.

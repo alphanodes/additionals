@@ -39,6 +39,20 @@ class SettingsSchemaTest < Additionals::TestCase
     assert_empty schema_for(definitions, group: 'date', interval: 'month').not_applied_keys
   end
 
+  def test_rule_methods_are_named_after_the_setting
+    object = Class.new { def interval_applies?(_schema) = false }.new
+    definitions = Additionals::SettingsSchema.with_rule_methods({ interval: { type: :string } }, object)
+
+    assert_equal :interval_applies?, definitions[:interval][:applies].name
+  end
+
+  def test_rule_methods_can_have_a_prefix
+    object = Class.new { def query_option_interval_applies?(_schema) = false }.new
+    definitions = Additionals::SettingsSchema.with_rule_methods({ interval: { type: :string } }, object, prefix: 'query_option_')
+
+    assert definitions[:interval].key?(:applies)
+  end
+
   def test_unknown_keys_are_dropped
     schema = schema_for({ title: { type: :string } }, title: 'Mine', chart: 'pie')
 

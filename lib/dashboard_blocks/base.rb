@@ -33,10 +33,6 @@ module DashboardBlocks
   # Each setting gets a reader of its typed value with its default, e.g.
   # block.max_entries.
   class Base
-    # Options of a setting a block answers with a method, see setting_rules
-    RULE_METHODS = { if: '%s_available?', applies: '%s_applies?', values: '%s_values', offered: '%s_offered',
-                     default: '%s_default', label: '%s_label' }.freeze
-
     class_attribute :settings_definitions, instance_writer: false, default: {}
     # Readers of the settings, never a rule even if named like one (e.g. a
     # setting group_threshold_default next to group_threshold)
@@ -223,9 +219,7 @@ module DashboardBlocks
 
     # The declared settings with the rules the block answers with methods
     def declared_settings
-      settings_definitions.to_h do |key, definition|
-        [key, definition.merge(setting_rules(key))]
-      end
+      Additionals::SettingsSchema.with_rule_methods settings_definitions, self, except: setting_readers
     end
 
     # The stored settings, read typed and with their defaults
@@ -244,13 +238,6 @@ module DashboardBlocks
       when Hash then value.transform_values { |entry| export_value entry }
       when Date, Time, ActiveSupport::TimeWithZone then value.iso8601
       else value.to_s
-      end
-    end
-
-    def setting_rules(key)
-      RULE_METHODS.each_with_object({}) do |(option, method_name), rules|
-        name = format(method_name, key).to_sym
-        rules[option] = method name if respond_to?(name, true) && setting_readers.exclude?(name)
       end
     end
   end

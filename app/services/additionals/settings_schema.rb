@@ -42,6 +42,10 @@ module Additionals
 
     TYPES = %i[string text integer float boolean enum list].freeze
     OPTIONS = %i[type label info values offered default required min max if applies].freeze
+    # Options of a setting an object can answer with a method named after the
+    # setting, see with_rule_methods
+    RULE_METHODS = { if: '%s_available?', applies: '%s_applies?', values: '%s_values', offered: '%s_offered',
+                     default: '%s_default', label: '%s_label' }.freeze
     TRUE_VALUES = ['1', 'true', true, 1].freeze
     FALSE_VALUES = ['0', 'false', false, 0, ''].freeze
     INTEGER_FORMAT = /\A[+-]?\d+\z/
@@ -49,6 +53,22 @@ module Additionals
     NUMBER_TYPES = %i[integer float].freeze
 
     attr_reader :context
+
+    # Definitions completed by the rules an object answers with methods named
+    # after the setting and called with the schema, e.g. for a dashboard block
+    # with_subprojects_available?(schema) as if of with_subprojects. prefix
+    # names the methods of objects that have methods of other kinds too (a
+    # query: query_option_<key>_values), except leaves out methods that are
+    # no rules although named like one.
+    def self.with_rule_methods(definitions, object, prefix: '', except: [])
+      definitions.to_h do |key, definition|
+        rules = RULE_METHODS.each_with_object({}) do |(option, method_name), found|
+          name = :"#{prefix}#{format method_name, key}"
+          found[option] = object.method name if object.respond_to?(name, true) && except.exclude?(name)
+        end
+        [key, definition.merge(rules)]
+      end
+    end
 
     def initialize(definitions, values = {}, stored: {}, **context)
       @definitions = definitions.to_h { |key, definition| [key.to_sym, check_definition(key, definition)] }

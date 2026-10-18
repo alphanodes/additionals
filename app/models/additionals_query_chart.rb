@@ -25,6 +25,9 @@ class AdditionalsQueryChart < AdditionalsChart
   # Days with values are split into levels of about the same number of days
   CALENDAR_QUANTILES = [0.25, 0.5, 0.75].freeze
   INTERVALS = %w[week month quarter year].freeze
+  # A calendar shows days, which are no choice of the form
+  INTERVAL_LABELS = { 'day' => :label_chart_interval_day, 'week' => :label_week, 'month' => :label_month,
+                      'quarter' => :label_chart_interval_quarter, 'year' => :label_year }.freeze
   DEFAULT_INTERVAL = 'month'
   # Relative periods of the date filters of core a block can count in, with
   # the unit their previous period and its label go by
@@ -33,7 +36,6 @@ class AdditionalsQueryChart < AdditionalsChart
                     'lm' => :label_last_month, 'y' => :label_this_year }.freeze
   # Comparison with the period before the one of the block
   PREVIOUS_PERIOD = 'previous'
-  # Icon before the title, after the display type; bars without one of their own
   # More periods are no readable timeline, but a date entered wrongly, e.g. a
   # year 0202, would fill thousands of them up to the other dates
   MAX_PERIODS = 1000
@@ -373,11 +375,23 @@ class AdditionalsQueryChart < AdditionalsChart
   end
 
   def title
-    parts = [query&.persisted? ? query.name : l(entity_plural_label)]
+    parts = [source_label]
     parts << group_column.caption if group_column
     parts << split_column.caption if split?
     parts << "#{period_caption}: #{l PERIOD_LABELS[period]}" if period
     parts.join Additionals::LIST_SEPARATOR
+  end
+
+  # What the chart shows, for its settings form: the measure per group with
+  # split, comparison and display type, then the options that restrict the
+  # entries. Values stay as they are, so the sentence fits every language.
+  def summary
+    return l :label_chart_summary_without_group unless group_column
+
+    details = summary_details.map { |key, value| l key, value: }.join
+    sentence = l summary_key, source: source_label, measure: measure_label, group: group_column.caption,
+                              interval: l(INTERVAL_LABELS[interval]), details: details
+    [sentence, *summary_restrictions].join ' '
   end
 
   # Saved queries of the chart with a description, which tells the reader
@@ -396,7 +410,7 @@ class AdditionalsQueryChart < AdditionalsChart
   def series_labels
     return previous_period_labels if previous_period? && compare?
 
-    labels = [query&.persisted? ? query.name : l(entity_plural_label)]
+    labels = [source_label]
     labels << compare_query.name if compare?
     labels
   end
@@ -488,6 +502,36 @@ class AdditionalsQueryChart < AdditionalsChart
 
   def entity_plural_label
     raise 'overwrite it'
+  end
+
+  def summary_key
+    if timeline?
+      :label_chart_summary_timeline
+    elsif number_classes?
+      :label_chart_summary_classes
+    else
+      :label_chart_summary
+    end
+  end
+
+  # The saved query, otherwise what the chart counts
+  def source_label
+    query&.persisted? ? query.name : l(entity_plural_label)
+  end
+
+  def summary_details
+    details = []
+    details << [:label_chart_summary_split, split_column.caption] if split?
+    details << [:label_chart_summary_compare, previous_period? ? l(:label_chart_previous_period) : compare_query.name] if compare?
+    details << [:label_chart_summary_display, l(:"label_chart_type_#{chart_type}")]
+  end
+
+  # Sentences of their own, the options name themselves
+  def summary_restrictions
+    restrictions = []
+    restrictions << "#{l open_only_label}." if open_only?
+    restrictions << "#{period_caption}: #{l PERIOD_LABELS[period]}." if period
+    restrictions
   end
 
   def list_path(_params)

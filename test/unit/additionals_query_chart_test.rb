@@ -500,6 +500,64 @@ class AdditionalsQueryChartTest < Additionals::TestCase
                  issue_chart(group_by: 'tracker').title
   end
 
+  # The summary of the settings form names what the chart shows
+  def test_summary_names_measure_group_and_display
+    assert_equal 'Issues: Quantity per Tracker, as Doughnut.', summary(group_by: 'tracker')
+  end
+
+  def test_summary_names_the_interval_of_a_timeline
+    assert_equal 'Issues: Quantity over Created per Month, as Line.', summary(group_by: 'created_on', chart_type: 'line')
+  end
+
+  def test_summary_names_days_for_a_calendar
+    assert_equal 'Issues: Quantity over Created per Day, as Calendar.',
+                 summary(group_by: 'created_on', chart_type: 'calendar')
+  end
+
+  def test_summary_names_ranges_of_a_number
+    assert_equal 'Issues: Quantity in ranges of Estimated time, as Doughnut.', summary(group_by: 'estimated_hours')
+  end
+
+  def test_summary_names_a_sum
+    assert_equal 'Issues: Estimated time per Tracker, as Doughnut.', summary(group_by: 'tracker', measure: 'estimated_hours')
+  end
+
+  def test_summary_names_the_split
+    assert_equal 'Issues: Quantity per Tracker, split by Status, as Vertical bars.',
+                 summary(group_by: 'tracker', split_by: 'status', chart_type: 'bar_vertical')
+  end
+
+  def test_summary_names_the_compared_query
+    query = IssueQuery.create! name: 'Bugs', user: users(:users_001), visibility: Query::VISIBILITY_PUBLIC
+
+    assert_equal 'Issues: Quantity per Tracker, compared with Bugs, as Vertical bars.',
+                 summary(group_by: 'tracker', compare_query_id: query.id.to_s, chart_type: 'bar_vertical')
+  end
+
+  def test_summary_names_the_saved_query
+    query = IssueQuery.create! name: 'Bugs', user: users(:users_001), visibility: Query::VISIBILITY_PUBLIC
+
+    assert_equal 'Bugs: Quantity per Tracker, as Doughnut.', summary(group_by: 'tracker', query_id: query.id.to_s)
+  end
+
+  def test_summary_names_the_period
+    chart = Additionals::TestPeriodIssueQueryChart.new project: @project, settings: { group_by: 'tracker', period: 'm' }
+
+    I18n.with_locale :en do
+      assert_equal 'Issues: Quantity per Tracker, as Doughnut. Created: this month.', chart.summary
+    end
+  end
+
+  def test_summary_names_the_default_filters
+    I18n.with_locale :en do
+      assert_equal 'Projects: Quantity per Public, as Doughnut. Projects.', project_chart(group_by: 'is_public', open_only: '1').summary
+    end
+  end
+
+  def test_summary_without_group_asks_for_one
+    assert_equal 'No field to group by is chosen yet.', summary
+  end
+
   private
 
   def issue_chart(**settings)
@@ -561,5 +619,9 @@ class AdditionalsQueryChartTest < Additionals::TestCase
     values.each do |value|
       CustomValue.create! custom_field: field, customized: issue, value:
     end
+  end
+
+  def summary(**settings)
+    I18n.with_locale(:en) { issue_chart(**settings).summary }
   end
 end

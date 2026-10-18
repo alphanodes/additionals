@@ -122,6 +122,7 @@ class AdditionalsQueryChartHelperTest < Additionals::HelperTest
     build_redmine_view(WelcomeController).render partial: 'dashboards/blocks/query_chart_settings',
                                                  locals: { block: 'chart',
                                                            settings: {},
+                                                           dashboard: dashboards(:system_default_welcome),
                                                            dashboard_block: }
   end
 end

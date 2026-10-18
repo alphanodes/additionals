@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :dashboards do
     member do
       post :update_layout_setting
+      get :chart_summary
       post :add_block
       post :remove_block
       post :order_blocks
@@ -25,6 +26,7 @@ Rails.application.routes.draw do
     resources :dashboards do
       member do
         post :update_layout_setting
+        get :chart_summary
         post :add_block
         post :remove_block
         post :order_blocks

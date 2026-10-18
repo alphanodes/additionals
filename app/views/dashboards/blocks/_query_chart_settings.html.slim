@@ -1,7 +1,10 @@
 - chart = dashboard_block.chart
 - tag_name = ->(name) { "settings[#{block}][#{name}]" }
 
-= query_chart_settings_box chart do
+= query_chart_settings_box chart, summary_url: _chart_summary_dashboard_path(@project, dashboard, block:) do
+  .query-chart-summary
+    span.query-chart-summary-heading = l :label_chart_summary_heading
+    span.query-chart-summary-text data-additionals-chart-settings-target='summary' = chart.summary
   fieldset.query-chart-section
     legend
       = l :label_chart_section_data

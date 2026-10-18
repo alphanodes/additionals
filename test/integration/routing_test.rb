@@ -53,6 +53,7 @@ class RoutingTest < Redmine::RoutingTest
     should_route 'DELETE /dashboards/1' => 'dashboards#destroy', id: '1'
 
     should_route 'POST /dashboards/1/update_layout_setting' => 'dashboards#update_layout_setting', id: '1'
+    should_route 'GET /dashboards/1/chart_summary' => 'dashboards#chart_summary', id: '1'
     should_route 'POST /dashboards/1/add_block' => 'dashboards#add_block', id: '1'
     should_route 'POST /dashboards/1/remove_block' => 'dashboards#remove_block', id: '1'
     should_route 'POST /dashboards/1/order_blocks' => 'dashboards#order_blocks', id: '1'
@@ -64,6 +65,7 @@ class RoutingTest < Redmine::RoutingTest
 
     should_route 'POST /projects/foo/dashboards/1/update_layout_setting' => 'dashboards#update_layout_setting',
                  project_id: 'foo', id: '1'
+    should_route 'GET /projects/foo/dashboards/1/chart_summary' => 'dashboards#chart_summary', project_id: 'foo', id: '1'
     should_route 'POST /projects/foo/dashboards/1/add_block' => 'dashboards#add_block', project_id: 'foo', id: '1'
     should_route 'POST /projects/foo/dashboards/1/remove_block' => 'dashboards#remove_block', project_id: 'foo', id: '1'
     should_route 'POST /projects/foo/dashboards/1/order_blocks' => 'dashboards#order_blocks', project_id: 'foo', id: '1'

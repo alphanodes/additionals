@@ -11,13 +11,16 @@ import { Controller } from '@hotwired/stimulus';
 //
 // The server falls back the same way for settings saved before (see
 // AdditionalsQueryChart#chart_type), the form only hides or disables what
-// would not apply.
+// would not apply. What the block shows with the values of the form, and the
+// title it has without one, come from the server (AdditionalsQueryChart#summary).
 
 // The display types of a timeline and of a category without line and area
 // fall back to these, like the server does
 const TIMELINE_FALLBACK = 'line';
 const CATEGORY_FALLBACK = 'bar_vertical';
 const CALENDAR = 'calendar';
+// Several changes in a row ask the server once
+const SUMMARY_DELAY = 250;
 
 function hide(element, hidden) {
   element.hidden = hidden;
@@ -26,7 +29,7 @@ function hide(element, hidden) {
 class AdditionalsChartSettingsController extends Controller {
   static targets = ['groupBy', 'interval', 'classes', 'chartType', 'tile', 'series', 'sharesNote', 'order',
     'maxEntries', 'showEmpty', 'periodSelect', 'periodInfo', 'splitSelect', 'compareSelect', 'compareInfo',
-    'compareSplitInfo'];
+    'compareSplitInfo', 'summary'];
 
   static values = {
     timelineGroups: Array,
@@ -37,10 +40,56 @@ class AdditionalsChartSettingsController extends Controller {
     previousPeriod: String,
     noTimelineReason: String,
     timelineOnlyReason: String,
+    summaryUrl: String,
   };
 
   connect() {
     this.update();
+  }
+
+  disconnect() {
+    clearTimeout(this.summaryTimer);
+    this.summaryRequest?.abort();
+  }
+
+  refreshSummary() {
+    if (!this.hasSummaryTarget || !this.summaryUrlValue) {
+      return;
+    }
+
+    clearTimeout(this.summaryTimer);
+    this.summaryTimer = setTimeout(() => this.loadSummary(), SUMMARY_DELAY);
+  }
+
+  // The values of the form as they would be saved, a later change wins
+  async loadSummary() {
+    this.summaryRequest?.abort();
+    this.summaryRequest = new AbortController();
+    const form = this.element.closest('form');
+    const params = new URLSearchParams(form ? new FormData(form) : undefined);
+    params.delete('authenticity_token');
+    const separator = this.summaryUrlValue.includes('?') ? '&' : '?';
+    try {
+      const response = await fetch(`${this.summaryUrlValue}${separator}${params}`, {
+        headers: { Accept: 'application/json' },
+        credentials: 'same-origin',
+        signal: this.summaryRequest.signal,
+      });
+      if (!response.ok) {
+        return;
+      }
+
+      const { summary, title } = await response.json();
+      this.summaryTarget.textContent = summary;
+      const titleField = this.element.querySelector('input[name$="[title]"]');
+      if (titleField) {
+        titleField.placeholder = title;
+      }
+    } catch (error) {
+      if (error.name !== 'AbortError') {
+        throw error;
+      }
+    }
   }
 
   update() {

@@ -133,9 +133,28 @@
   border-radius: 3px;
 }
 
-/* Below the actions of the block, so all sections have the same width */
-.query-chart-settings fieldset.query-chart-section:first-child {
+/* What the block shows with the values of the form, below the actions of
+   the block, so it has the width of the sections */
+.query-chart-settings .query-chart-summary {
   clear: both;
+  margin: 0 0 0.8em;
+  padding: 0.6em 0.8em;
+  border: 1px solid var(--oc-gray-3);
+  border-radius: 3px;
+  background-color: var(--oc-white);
+}
+
+.query-chart-settings .query-chart-summary-heading {
+  display: block;
+  margin-bottom: 0.3em;
+  color: var(--a-color-muted);
+  font-size: var(--a-font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.query-chart-settings .query-chart-summary-text {
+  font-size: var(--a-font-size-lg);
 }
 
 .query-chart-settings fieldset.query-chart-section > legend {

@@ -7,8 +7,9 @@ module AdditionalsQueryChartHelper
   end
 
   # The settings form with its rules (additionals_chart_settings_controller.js)
-  # from the chart class, as the server decides with the block settings
-  def query_chart_settings_box(chart, &)
+  # from the chart class, as the server decides with the block settings, and
+  # the url of its summary for the values of the open form
+  def query_chart_settings_box(chart, summary_url:, &)
     values = { 'timeline-groups' => chart.timeline_group_names.to_json,
                'number-groups' => chart.number_group_names.to_json,
                'timeline-types' => AdditionalsQueryChart::TIMELINE_TYPES.to_json,
@@ -16,10 +17,12 @@ module AdditionalsQueryChartHelper
                'series-types' => AdditionalsQueryChart::SERIES_TYPES.to_json,
                'previous-period' => AdditionalsQueryChart::PREVIOUS_PERIOD,
                'no-timeline-reason' => l(:label_chart_type_no_timeline),
-               'timeline-only-reason' => l(:label_chart_type_timeline_only) }
+               'timeline-only-reason' => l(:label_chart_type_timeline_only),
+               'summary-url' => summary_url }
     data = values.transform_keys { |key| "additionals-chart-settings-#{key}-value" }
     tag.div class: 'box tabular settings query-chart-settings',
-            data: { controller: 'additionals-chart-settings', **data }, &
+            data: { controller: 'additionals-chart-settings',
+                    action: 'change->additionals-chart-settings#refreshSummary', **data }, &
   end
 
   # As in the title of the block; bars of the horizontal type lie on their side
@@ -33,10 +36,8 @@ module AdditionalsQueryChartHelper
   end
 
   def options_for_query_chart_interval(selected)
-    labels = { 'week' => :label_week, 'month' => :label_month,
-               'quarter' => :label_chart_interval_quarter, 'year' => :label_year }
-    options_for_select AdditionalsQueryChart::INTERVALS.map { |interval| [l(labels[interval]), interval] },
-                       selected
+    intervals = AdditionalsQueryChart::INTERVALS.map { |interval| [l(AdditionalsQueryChart::INTERVAL_LABELS[interval]), interval] }
+    options_for_select intervals, selected
   end
 
   def options_for_query_chart_period(selected)

@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest';
+import { describe, it, expect, beforeAll, afterAll, afterEach, vi } from 'vitest';
 import { Application } from '@hotwired/stimulus';
 import AdditionalsChartSettingsController from '../../../assets/javascripts/controllers/additionals_chart_settings_controller.js';
 
@@ -13,7 +13,10 @@ function form({ groupBy = 'status', chartType = 'doughnut', period = '', compare
              data-additionals-chart-settings-target="chartType" data-action="change->additionals-chart-settings#update">
     </label>`;
   return `
+    <form>
     <div data-controller="additionals-chart-settings"
+         data-action="change->additionals-chart-settings#refreshSummary"
+         data-additionals-chart-settings-summary-url-value="/dashboards/1/chart_summary?block=issue_chart"
          data-additionals-chart-settings-timeline-groups-value='["created_on"]'
          data-additionals-chart-settings-number-groups-value='["estimated_hours"]'
          data-additionals-chart-settings-timeline-types-value='${JSON.stringify([...SERIES_TYPES, 'calendar'])}'
@@ -22,7 +25,9 @@ function form({ groupBy = 'status', chartType = 'doughnut', period = '', compare
          data-additionals-chart-settings-previous-period-value="previous"
          data-additionals-chart-settings-no-timeline-reason-value="Shows no timeline"
          data-additionals-chart-settings-timeline-only-reason-value="Only for a date field">
-      <select id="group_by" data-additionals-chart-settings-target="groupBy"
+      <span id="summary" data-additionals-chart-settings-target="summary">Stored summary</span>
+      <input id="title" name="settings[issue_chart][title]">
+      <select id="group_by" name="settings[issue_chart][group_by]" data-additionals-chart-settings-target="groupBy"
               data-action="additionals-chart-settings#update">
         ${['status', 'created_on', 'estimated_hours'].map((value) => option(value, groupBy)).join('')}
       </select>
@@ -51,7 +56,8 @@ function form({ groupBy = 'status', chartType = 'doughnut', period = '', compare
         ${['', 'm', 'lm'].map((value) => option(value, period)).join('')}
       </select>
       <em id="period_info" data-additionals-chart-settings-target="periodInfo"></em>
-    </div>`;
+    </div>
+    </form>`;
 }
 
 // Stimulus connects controllers after a mutation of the document
@@ -81,6 +87,25 @@ function choose(id, value) {
   element(id).dispatchEvent(new Event('change'));
 }
 
+// A change as the browser reports it, bubbling up to the form
+function change(id, value) {
+  element(id).value = value;
+  element(id).dispatchEvent(new Event('change', { bubbles: true }));
+}
+
+function waitForSummary() {
+  return new Promise((resolve) => { setTimeout(resolve, 300); });
+}
+
+function mockSummary() {
+  const fetchMock = vi.fn(() => Promise.resolve({
+    ok: true,
+    json: () => Promise.resolve({ summary: 'Issues: Quantity over Created', title: 'Issues » Created' }),
+  }));
+  vi.stubGlobal('fetch', fetchMock);
+  return fetchMock;
+}
+
 function chooseType(value) {
   const radio = radios().find((item) => item.value === value);
   radio.checked = true;
@@ -97,6 +122,10 @@ describe('AdditionalsChartSettingsController', () => {
 
   afterAll(() => {
     application.stop();
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
   });
 
   it('hides the interval of a category', async () => {
@@ -310,5 +339,65 @@ describe('AdditionalsChartSettingsController', () => {
     await render({ chartType: 'bar_vertical' });
 
     expect(element('compare').disabled).toBe(false);
+  });
+
+  it('asks the server for the summary of the changed form', async () => {
+    const fetchMock = mockSummary();
+    await render();
+
+    change('group_by', 'created_on');
+    await waitForSummary();
+
+    expect(new URL(fetchMock.mock.calls[0][0], 'http://localhost').searchParams.get('settings[issue_chart][group_by]'))
+      .toBe('created_on');
+  });
+
+  it('keeps the block of the summary url', async () => {
+    const fetchMock = mockSummary();
+    await render();
+
+    change('group_by', 'created_on');
+    await waitForSummary();
+
+    expect(new URL(fetchMock.mock.calls[0][0], 'http://localhost').searchParams.get('block')).toBe('issue_chart');
+  });
+
+  it('shows the summary of the server', async () => {
+    mockSummary();
+    await render();
+
+    change('group_by', 'created_on');
+    await waitForSummary();
+
+    expect(element('summary').textContent).toBe('Issues: Quantity over Created');
+  });
+
+  it('offers the title of the server as placeholder', async () => {
+    mockSummary();
+    await render();
+
+    change('group_by', 'created_on');
+    await waitForSummary();
+
+    expect(element('title').placeholder).toBe('Issues » Created');
+  });
+
+  it('asks the server once for several changes in a row', async () => {
+    const fetchMock = mockSummary();
+    await render();
+
+    change('group_by', 'created_on');
+    change('group_by', 'estimated_hours');
+    await waitForSummary();
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('asks the server nothing before a change', async () => {
+    const fetchMock = mockSummary();
+    await render();
+    await waitForSummary();
+
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 });

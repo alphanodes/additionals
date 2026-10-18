@@ -5,7 +5,7 @@ class DashboardsController < ApplicationController
 
   before_action :find_dashboard, except: %i[index new create]
   # Same rules as the controls on the dashboard page
-  before_action :require_editable, only: %i[update_layout_setting]
+  before_action :require_editable, only: %i[update_layout_setting chart_summary]
   before_action :require_layout_editable, only: %i[add_block remove_block order_blocks]
   before_action :find_optional_project, only: %i[index new create]
 
@@ -190,6 +190,18 @@ class DashboardsController < ApplicationController
       @dashboard.save!
       @updated_blocks = block_settings.keys
     end
+  end
+
+  # What a chart block shows with the values of its open settings form, which
+  # are not stored yet: the summary and the title it has without one
+  # params[:block] : id of the block, params[:settings][block] : its settings
+  def chart_summary
+    block = params[:block].to_s
+    return render_404 unless @dashboard.content.find_block(block).is_a? DashboardBlocks::QueryChartBlock
+
+    settings = @dashboard.permitted_block_settings block, params.dig(:settings, block)&.to_unsafe_h
+    chart = @dashboard.content.dashboard_block(block, settings:, dashboard: @dashboard).chart
+    render json: { summary: chart.summary, title: chart.title }
   end
 
   # The block is added on top of the page

@@ -49,6 +49,14 @@ module AdditionalsRoutesHelper
     end
   end
 
+  def _chart_summary_dashboard_path(project, *)
+    if project
+      chart_summary_project_dashboard_path(project, *)
+    else
+      chart_summary_dashboard_path(*)
+    end
+  end
+
   def _add_block_dashboard_path(project, *)
     if project
       add_block_project_dashboard_path(project, *)

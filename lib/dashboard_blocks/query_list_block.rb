@@ -11,7 +11,7 @@ module DashboardBlocks
 
     class << self
       # The list of the query, see DashboardContent#block_definitions; a
-      # label is a locale key
+      # label is a locale key, the query class is named as a string (see Base)
       def query_block(**options)
         options.any? ? self.query_block_options = options : query_block_options
       end
@@ -19,7 +19,7 @@ module DashboardBlocks
 
     def to_definition
       options = self.class.query_block
-      super.merge query_block: options.merge(label: I18n.t(options[:label]))
+      super.merge query_block: options.merge(label: I18n.t(options[:label]), class: options[:class].to_s.constantize)
     end
   end
 end

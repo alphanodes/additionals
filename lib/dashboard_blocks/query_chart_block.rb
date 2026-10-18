@@ -12,8 +12,9 @@ module DashboardBlocks
     class_attribute :chart_class, instance_writer: false
 
     class << self
-      def chart(klass = nil)
-        klass ? self.chart_class = klass : chart_class
+      # The chart class, named as a string (see Base)
+      def chart(name = nil)
+        name ? self.chart_class = name.to_s : chart_class&.constantize
       end
 
       def async(**options)

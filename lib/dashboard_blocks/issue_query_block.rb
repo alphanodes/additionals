@@ -7,7 +7,7 @@ module DashboardBlocks
     permission :view_issues
     query_block label: :label_issue_plural,
                 list_partial: 'issues/list',
-                class: IssueQuery,
+                class: 'IssueQuery',
                 link_helper: '_project_issues_path',
                 count_method: 'issue_count',
                 entries_method: 'issues',

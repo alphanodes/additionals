@@ -13,6 +13,10 @@ module DashboardBlocks
   #     def available? = Redmine::AccessControl.active_module?(:news)
   #   end
   #
+  # Block classes are loaded at boot, also by db:create and db:migrate: a
+  # class (query, chart, service) is therefore named as a string and resolved
+  # when the definition is built, its class body may read the database.
+  #
   # Settings use the format of Additionals::SettingsSchema. What depends on the
   # user, the project or the data is an instance method (available?,
   # unique_params, settings_definitions), the rest is declared on the class and
@@ -155,8 +159,10 @@ module DashboardBlocks
     private
 
     def async_definition
+      async = self.class.async
+      async = async.merge data_check_class: async[:data_check_class].constantize if async[:data_check_class].is_a? String
       params = unique_params
-      params.nil? ? self.class.async : self.class.async.merge(unique_params: params)
+      params.nil? ? async : async.merge(unique_params: params)
     end
   end
 end

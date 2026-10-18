@@ -72,7 +72,7 @@ module DashboardBlocks
 end
 ```
 
-The block id is stored in the layout of dashboards and never changes. Without `dashboards` a block is offered on every dashboard type, `dashboards :welcome, :project` limits it; a type is the name of a `DashboardContent` subclass (`DashboardContentWelcome` is `:welcome`). The block then appears in the block selection; its partial renders below the title bar of the dashboard.
+The block id is stored in the layout of dashboards and never changes. Block classes are loaded at boot, also by `db:create` and `db:migrate`: name queries, charts and services as a string (`class: 'MyEntryQuery'`, `chart 'MyEntryQueryChart'`, `data_check_class: 'MyChart'`) or use them in a lambda or method, because their class body may read the database. Without `dashboards` a block is offered on every dashboard type, `dashboards :welcome, :project` limits it; a type is the name of a `DashboardContent` subclass (`DashboardContentWelcome` is `:welcome`). The block then appears in the block selection; its partial renders below the title bar of the dashboard.
 
 What depends on the user, the project or the data is an instance method with `project`, `user` and `dashboard_content`:
 
@@ -176,7 +176,7 @@ class MyEntryQueryBlock < QueryListBlock
   permission :view_my_entries
   query_block label: :label_my_entries,
               list_partial: 'my_entries/list',
-              class: MyEntryQuery,
+              class: 'MyEntryQuery',
               link_helper: '_project_my_entries_path',
               entities_var: :entries,
               with_project: true
@@ -186,7 +186,7 @@ class MyEntryChartBlock < QueryChartBlock
   block_id 'my_entry_chart'
   label { I18n.t :label_chart_with_name, value: I18n.t(:label_my_entries) }
   permission :view_my_entries
-  chart MyEntryQueryChart
+  chart 'MyEntryQueryChart'
 end
 ```
 
@@ -273,6 +273,7 @@ A migration that replaces blocks of existing dashboards uses `Additionals::Dashb
 | Symptom | Cause |
 | ------- | ----- |
 | `DashboardBlocks::PatchError` at boot | a plugin patches `block_definitions`; move its blocks to classes |
+| `relation "settings" does not exist` on `db:migrate` | a block class names a query or chart as a constant, not as a string |
 | `UndeclaredError` at boot | `lib/dashboard_blocks/` of a plugin without `loader.extends %w[dashboard_blocks]` |
 | `RuntimeError: It is not allowed to delete dashboard, which is system default` | the global system default cannot be deleted |
 | `ProjectSystemDefaultChangeException` | the global project system default cannot get a project |

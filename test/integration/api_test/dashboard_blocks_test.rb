@@ -111,10 +111,30 @@ module ApiTest
       assert_response :unprocessable_content
     end
 
-    test 'GET /dashboard_blocks/:id.json drops unknown settings' do
-      get '/dashboard_blocks/news.json', params: { settings: { chart: 'pie' } }, headers: credentials('admin')
+    test 'GET /dashboard_blocks/:id.json rejects an unknown setting' do
+      get '/dashboard_blocks/news.json', params: { settings: { max_entry: '5' } }, headers: credentials('admin')
 
-      assert_not json_block['settings'].key?('chart')
+      assert_response :unprocessable_content
+    end
+
+    test 'GET /dashboard_blocks/:id.json names the unknown setting' do
+      get '/dashboard_blocks/news.json', params: { settings: { max_entry: '5' } }, headers: credentials('admin')
+
+      assert_match(/\Amax_entry /, response.parsed_body['errors'].first)
+    end
+
+    # Subprojects only exist on a project dashboard
+    test 'GET /dashboard_blocks/:id.json rejects a setting the block does not have without a project' do
+      get '/dashboard_blocks/news.json', params: { settings: { with_subprojects: '1' } }, headers: credentials('admin')
+
+      assert_response :unprocessable_content
+    end
+
+    test 'GET /projects/:id/dashboard_blocks/:id.json accepts a setting the block has with a project' do
+      get '/projects/ecookbook/dashboard_blocks/news.json', params: { settings: { with_subprojects: '1' } },
+                                                            headers: credentials('admin')
+
+      assert_response :success
     end
 
     test 'GET /dashboard_blocks/:id.json of an unknown block is not found' do

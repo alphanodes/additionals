@@ -27,6 +27,18 @@ class SettingsSchemaTest < Additionals::TestCase
     User.current = users :users_002
   end
 
+  def test_given_setting_that_does_not_apply_is_named
+    definitions = { group: { type: :string }, interval: { type: :string, applies: ->(schema) { schema[:group] == 'date' } } }
+
+    assert_equal [:interval], schema_for(definitions, group: 'tracker', interval: 'month').not_applied_keys
+  end
+
+  def test_given_setting_that_applies_is_not_named
+    definitions = { group: { type: :string }, interval: { type: :string, applies: ->(schema) { schema[:group] == 'date' } } }
+
+    assert_empty schema_for(definitions, group: 'date', interval: 'month').not_applied_keys
+  end
+
   def test_unknown_keys_are_dropped
     schema = schema_for({ title: { type: :string } }, title: 'Mine', chart: 'pie')
 

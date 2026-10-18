@@ -91,6 +91,11 @@ module Additionals
       end
     end
 
+    # Given settings that exist but do not apply to the other values
+    def not_applied_keys
+      (@given_keys & available_keys).reject { |key| applies? key }
+    end
+
     # Unknown keys and settings that do not exist in the context
     def ignored_keys
       @ignored_keys ||= (@given_keys - available_keys).sort

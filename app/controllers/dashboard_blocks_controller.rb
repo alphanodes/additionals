@@ -31,10 +31,11 @@ class DashboardBlocksController < ApplicationController
 
     settings = dashboard.permitted_block_settings block, settings_params
     schema = dashboard.content.block_settings block, values: settings, dashboard: dashboard
-    return render_api_errors schema.full_messages if schema && !schema.valid?
+    errors = settings_errors schema
+    return render_api_errors errors if errors.any?
 
     export = dashboard.content.dashboard_block(block, settings: schema ? schema.settings : settings, dashboard:).export
-    render json: { dashboard_block: { id: block, **export } }
+    render json: { dashboard_block: { id: block, **export, settings_not_applied: schema&.not_applied_keys || [] } }
   end
 
   private
@@ -71,6 +72,16 @@ class DashboardBlocksController < ApplicationController
       type = "DashboardContent#{name.to_s.camelize}".safe_constantize
       type if type.is_a?(Class) && type < DashboardContent
     end
+  end
+
+  # Invalid values, and settings the block does not have here: a program
+  # learns of a typo or a setting of another context instead of a result
+  # without it. Unlike saving on a dashboard, which drops unknown settings.
+  def settings_errors(schema)
+    return [] if schema.nil?
+
+    invalid = l 'activerecord.errors.messages.invalid'
+    schema.ignored_keys.map { |key| "#{key} #{invalid}" } + schema.full_messages
   end
 
   def settings_params

@@ -638,15 +638,10 @@ Learn how to implement Dashboard blocks in your plugins. There are only two thin
 
 > **_NOTE:_** Examples: Go to <https://github.com/alphanodes/additionals/tree/main/app/views/dashboards/blocks> for examples.
 
-* Add block definitions:
-  * Add your block definition in _block_definitions_. This could be in:
-    * dashboard_content.rb (if your block should be available in all dashboards)
-    * dashboard_content_project.rb (if your block should be available in project dashboards only)
-    * dashboard_content_welcome.rb (if your block should be available in welcome dashboards only)
+* Add a block class:
+  * Add a class for your block in _lib/dashboard_blocks/_ of your plugin, a subclass of `DashboardBlocks::Base`, and declare the directory in your _init.rb_ with `loader.extends %w[dashboard_blocks]`.
 
-**_NOTE:_** Examples: Go to <https://github.com/alphanodes/additionals/blob/main/app/models/dashboard_content.rb#L29> for examples for that.
-
-Overwrite it with _prepend_ (not alias_method) to get no conflicts with other plugins. See _redmine_git_hosting_ for an example implementation for a _block template_ and a _block definition_.
+**_NOTE:_** Examples: Go to <https://github.com/alphanodes/additionals/tree/main/lib/dashboard_blocks> for examples.
 
 That's it. As you can see, it's not so hard.
 In case of further questions use the issue tracking system for this project on GitHub.
@@ -655,9 +650,6 @@ Footnotes:
 
 * Dashboard Development Guide: <https://github.com/alphanodes/additionals/blob/main/docs/dashboards.md>
 * Chart Development Guide: <https://github.com/alphanodes/additionals/blob/main/docs/charts.md>
-* Git_hosting: <https://github.com/jbox-web/redmine_git_hosting>
-* block_template: <https://github.com/jbox-web/redmine_git_hosting/blob/master/app/views/dashboards/blocks/_git_urls.html.slim>
-* block_definition: <https://github.com/jbox-web/redmine_git_hosting/blob/master/lib/redmine_git_hosting/patches/dashboard_content_project_patch.rb>
 
 ### Contact and Support
 

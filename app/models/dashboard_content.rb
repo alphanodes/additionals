@@ -148,6 +148,31 @@ class DashboardContent
     }
   end
 
+  # How long blocks about the issues of the user may be cached, longer with more
+  # open issues
+  def issues_cache_expires_in
+    open_issue_count = Rails.cache.fetch issues_cache_key, expires_in: 1.hour do
+      query = if project
+                IssueQuery.new project:, name: '_'
+              else
+                IssueQuery.new name: '_'
+              end
+      query.issue_count
+    end
+
+    if open_issue_count > 1_000
+      86_400 # 1 day
+    elsif open_issue_count > 500
+      14_400 # 4 hour
+    elsif open_issue_count > 200
+      3_600 # 1 hour
+    elsif open_issue_count > 100
+      1_800 # 30 minutes
+    else
+      60
+    end
+  end
+
   private
 
   def settings_definitions_of(definition)
@@ -162,12 +187,6 @@ class DashboardContent
     return if definitions.nil?
 
     Additionals::SettingsSchema.new definitions, values, stored:, user:, project:, dashboard:
-  end
-
-  # Without a text the blocks show a hint, so it is no required setting
-  def text_settings
-    { title: TITLE_SETTING,
-      text: { type: :text, label: :label_text_sync } }
   end
 
   def default_query_list_settings?(definition)
@@ -192,29 +211,6 @@ class DashboardContent
     return if query.nil?
 
     query.available_columns.filter_map { |column| [column.caption, column.name.to_s] unless column.frozen? }
-  end
-
-  def issues_cache_expires_in
-    open_issue_count = Rails.cache.fetch issues_cache_key, expires_in: 1.hour do
-      query = if project
-                IssueQuery.new project:, name: '_'
-              else
-                IssueQuery.new name: '_'
-              end
-      query.issue_count
-    end
-
-    if open_issue_count > 1_000
-      86_400 # 1 day
-    elsif open_issue_count > 500
-      14_400 # 4 hour
-    elsif open_issue_count > 200
-      3_600 # 1 hour
-    elsif open_issue_count > 100
-      1_800 # 30 minutes
-    else
-      60
-    end
   end
 
   def issues_cache_key

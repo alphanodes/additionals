@@ -52,35 +52,37 @@ Rules enforced by the model:
 
 ### Registering a Block
 
-A plugin adds blocks by prepending to `block_definitions` of `DashboardContent` (all dashboards), `DashboardContentWelcome` or `DashboardContentProject`. Always start from `super`, otherwise the blocks of all other plugins disappear:
+A block is a class in `lib/dashboard_blocks/` of its plugin, one file per block. additionals collects the classes of all plugins (see Extension points of `redmine_plugin_kit`), a plugin declares the directory in its `init.rb`:
 
 ```ruby
-module MyPlugin
-  module Patches
-    module DashboardContentPatch
-      extend ActiveSupport::Concern
+loader = RedminePluginKit::Loader.new plugin_id: 'my_plugin'
+loader.extends %w[dashboard_blocks]
+```
 
-      included do
-        prepend InstanceOverwriteMethods
-      end
-
-      module InstanceOverwriteMethods
-        def block_definitions
-          blocks = super
-
-          blocks['my_block'] = { label: l(:label_my_block),
-                                 permission: :view_issues,
-                                 no_settings: true,
-                                 partial: 'dashboards/blocks/my_block' }
-          blocks
-        end
-      end
-    end
+```ruby
+# lib/dashboard_blocks/my_block.rb
+module DashboardBlocks
+  class MyBlock < Base
+    block_id 'my_block'
+    label :label_my_block
+    permission :view_issues
+    no_settings!
+    partial 'dashboards/blocks/my_block'
   end
 end
 ```
 
-Register the patch like every other patch of the plugin, e.g. with `loader.add_patch 'DashboardContent'` of `redmine_plugin_kit`. The block then appears in the block selection; its partial renders below the title bar of the dashboard.
+The block id is stored in the layout of dashboards and never changes. Without `dashboards` a block is offered on every dashboard type, `dashboards :welcome, :project` limits it; a type is the name of a `DashboardContent` subclass (`DashboardContentWelcome` is `:welcome`). The block then appears in the block selection; its partial renders below the title bar of the dashboard.
+
+What depends on the user, the project or the data is an instance method with `project`, `user` and `dashboard_content`:
+
+```ruby
+def available?
+  Redmine::AccessControl.active_module? :news
+end
+```
+
+A patch of `block_definitions` stops the boot with `DashboardBlocks::PatchError`: dashboard blocks are classes only.
 
 ### Locals of a Block View
 
@@ -98,14 +100,19 @@ Register the patch like every other patch of the plugin, e.g. with `loader.add_p
 A block with settings names a `settings_partial` and declares its settings, so saving them validates and casts them (see [Declared Settings](#declared-settings)):
 
 ```ruby
-blocks['my_block'] = { label: l(:label_my_block),
-                       permission: :view_issues,
-                       partial: 'dashboards/blocks/my_block',
-                       settings_partial: 'dashboards/blocks/my_block_settings',
-                       settings: { title: DashboardContent::TITLE_SETTING,
-                                   max_entries: DashboardContent::MAX_ENTRIES_SETTING,
-                                   show_closed: { type: :boolean, label: :label_show_closed } } }
+class MyBlock < Base
+  block_id 'my_block'
+  label :label_my_block
+  permission :view_issues
+  partial 'dashboards/blocks/my_block'
+  settings_partial 'dashboards/blocks/my_block_settings'
+  setting :title, **DashboardContent::TITLE_SETTING
+  setting :max_entries, **DashboardContent::MAX_ENTRIES_SETTING
+  setting :show_closed, type: :boolean, label: :label_show_closed
+end
 ```
+
+Settings that depend on the project come from an instance method `settings_definitions`.
 
 The fields of the settings partial are named `settings[<block>][<key>]`. The helpers of additionals build them with label and value:
 
@@ -121,7 +128,7 @@ Read boolean settings with `RedminePluginKit.true?`: a checkbox sends `"0"`, whi
 
 ### Declared Settings
 
-A block declares its settings with `settings`, in the format of [`Additionals::SettingsSchema`](settings-schema.md). Saving them (`Dashboard#update_block_settings`) then drops unknown keys and stores nothing if a value is invalid; the settings form shows the errors. Query list blocks with the settings form of additionals get their settings automatically, blocks with `no_settings` drop every setting. Blocks without `settings` keep whatever they get.
+A block declares its settings with `setting`, in the format of [`Additionals::SettingsSchema`](settings-schema.md). Saving them (`Dashboard#update_block_settings`) then drops unknown keys and stores nothing if a value is invalid; the settings form shows the errors. Query list blocks with the settings form of additionals get their settings automatically, blocks with `no_settings!` drop every setting. Blocks without declared settings keep whatever they get.
 
 Saving runs in this order: `settings_filter` on the given settings, then the declared settings on them, completed by the stored ones. Only given values are checked against their values and bounds, stored ones only for required settings: a query the editor cannot see or a column removed since does not lock the block. A program may send a part of the settings.
 
@@ -132,68 +139,89 @@ Saving runs in this order: `settings_filter` on the given settings, then the dec
 An async block renders an empty frame first and loads its content with a request of its own, so a slow block does not hold up the page:
 
 ```ruby
-blocks['my_block'] = { label: l(:label_my_block),
-                       permission: :view_issues,
-                       settings_partial: 'dashboards/blocks/my_block_settings',
-                       async: { partial: 'dashboards/blocks/my_block',
-                                cache_expires_in: 600,
-                                required_settings: %i[query_id],
-                                libraries: %i[chartjs_meta],
-                                lazy: true } }
+class MyBlock < Base
+  block_id 'my_block'
+  label :label_my_block
+  permission :view_issues
+  settings_partial 'dashboards/blocks/my_block_settings'
+  async partial: 'dashboards/blocks/my_block',
+        cache_expires_in: 600,
+        required_settings: %i[query_id],
+        libraries: %i[chartjs_meta],
+        lazy: true
+
+  # Part of the cache key, asked when the block is rendered
+  def unique_params
+    [MyEntry.maximum(:updated_on)]
+  end
+end
 ```
 
 The partial wraps its content in `dashboard_async_cache dashboard, block, async, settings do ... end`, which caches it under a key of the block, its settings and the user.
 
 **Why the cache expires by time.** Async blocks expire after `cache_expires_in` on purpose, they are not invalidated when data changes. What a block shows depends on much more than its main records: a query block also reflects time entries, journals, custom field values, memberships and permissions. Change-based invalidation would have to know all of these sources, and a missed one would leave a block wrong until the cache expires. A short TTL is wrong for seconds at most, wherever a change comes from, and returning from an entry edited via the context menu of a query list block drops the cached block.
 
-`unique_params` is the cheap way to react to changes: each value becomes part of the cache key, so a new value leads to a new entry. Use values from indexed columns, because they are evaluated on every request. `MAX(updated_on)` of a table without an index on that column reads the whole table, e.g. `issues` in Redmine core.
+`unique_params` (an instance method) is the cheap way to react to changes: each value becomes part of the cache key, so a new value leads to a new entry. Use values from indexed columns, because they are evaluated on every request. `MAX(updated_on)` of a table without an index on that column reads the whole table, e.g. `issues` in Redmine core.
 
 **Why lazy loading is opt-in.** `lazy: true` loads a block when it scrolls into view. It is not the default because blocks with auto refresh must poll regardless of the viewport, toggled blocks load on a click, lazy blocks outside the viewport are missing from a printout, and without a placeholder of the final height (`data_check_class`, see the [Chart Development Guide](charts.md)) all placeholders lie in view at once and nothing is saved. Query list blocks are lazy, they render the largest data sets.
 
 ### Query List Blocks
 
-A block listing the entries of a saved query sets `query_block`; additionals provides the partials, settings (query, columns, sort, number of entries) and async loading:
+A block listing the entries of a saved query inherits from `QueryListBlock`; additionals provides the partials, settings (query, columns, sort, number of entries) and async loading. A chart of a saved query inherits from `QueryChartBlock` and names its `AdditionalsQueryChart`:
 
 ```ruby
-blocks['my_entries'] = { label: l(:label_my_entries),
-                         permission: :view_my_entries,
-                         query_block: { label: l(:label_my_entries),
-                                        list_partial: 'my_entries/list',
-                                        class: MyEntryQuery,
-                                        link_helper: '_project_my_entries_path',
-                                        entities_var: :entries,
-                                        with_project: true },
-                         max_occurs: DashboardContent::MAX_MULTIPLE_OCCURS }
+class MyEntryQueryBlock < QueryListBlock
+  block_id 'myentryquery'
+  label { I18n.t :label_query_with_name, value: I18n.t(:label_my_entries) }
+  permission :view_my_entries
+  query_block label: :label_my_entries,
+              list_partial: 'my_entries/list',
+              class: MyEntryQuery,
+              link_helper: '_project_my_entries_path',
+              entities_var: :entries,
+              with_project: true
+end
+
+class MyEntryChartBlock < QueryChartBlock
+  block_id 'my_entry_chart'
+  label { I18n.t :label_chart_with_name, value: I18n.t(:label_my_entries) }
+  permission :view_my_entries
+  chart MyEntryQueryChart
+end
 ```
 
-### Block Options
+### Block Declarations
 
-| Option | Content |
-| ------ | ------- |
-| `label` | name in the block selection |
-| `permission` | permission(s) the user needs, a symbol or an array |
-| `admin_only` | block for administrators only |
-| `if` | `proc { \|project\| ... }`, the block is offered only if it returns true |
+| Declaration | Content |
+| ----------- | ------- |
+| `block_id` | id stored in the layout of dashboards |
+| `label` | locale key, or a block for a composed label |
+| `dashboards` | dashboard types the block is offered on, all without it |
+| `permission` | permission(s) the user needs, a symbol or an array (all required) |
+| `admin_only!` | block for administrators only |
 | `partial` | view of a synchronous block |
 | `async` | async loading, see below |
-| `no_settings` | the block has no settings, stored ones are dropped |
+| `no_settings!` | the block has no settings, stored ones are dropped; `settings_form!` brings the form back in a subclass |
 | `settings_partial` | form of the settings |
-| `with_settings_if` | `proc { \|project\| ... }`, the settings form is offered only if it returns true |
-| `settings` | declared settings, see [Declared Settings](#declared-settings) |
-| `settings_filter` | `proc { \|settings, dashboard\| ... }`, called before saving, returns the settings to keep (e.g. drops those the user may not change) |
+| `setting` | a declared setting, see [Declared Settings](#declared-settings) |
+| `settings_filter` | callable with `(settings, dashboard)`, called before saving, returns the settings to keep |
 | `max_occurs` | how often the block may be added, e.g. `DashboardContent::MAX_MULTIPLE_OCCURS` |
-| `libraries` | JavaScript libraries the block needs (`additionals_library_load` keys); also allowed under `async` |
-| `query_block` | list of a saved query, see [Query List Blocks](#query-list-blocks) |
-| `query_chart` | chart of a saved query, set by `AdditionalsQueryChart.dashboard_block` |
+| `definition` | further keys of the definition hash, e.g. for own views |
 
-A plugin may add options of its own and read them from `block_definition` in its views.
+| Instance method | Content |
+| --------------- | ------- |
+| `available?` | whether the block is offered, besides its permission |
+| `unique_params` | further values of the cache key of an async block |
+| `settings_definitions` | declared settings that depend on the project |
+| `to_definition` | the definition hash the views get, e.g. extended with translated keys |
+
+Declarations are inherited. A base class of several blocks declares `abstract!`, then it is no block itself.
 
 | `async` option | Content |
 | -------------- | ------- |
 | `partial` | view rendered by the async request (required) |
 | `cache_expires_in` | lifetime of the cached content in seconds |
-| `unique_params` | further values of the cache key, from indexed columns |
-| `required_settings` | settings without which the block shows nothing; an array or `->(settings) { ... }` for one of several |
+| `required_settings` | settings without which the block shows nothing; an array or a callable with `(settings)` for one of several |
 | `skip_user_id` | the same content for all users, e.g. a feed |
 | `lazy` | load when the block scrolls into view |
 | `data_check_class` | class (or class name) with `chart_data_present?(project:)`: with data, the placeholder of a lazy chart gets the height of a chart |
@@ -201,6 +229,18 @@ A plugin may add options of its own and read them from `block_definition` in its
 | `libraries` | JavaScript libraries the content needs |
 
 Libraries are loaded with the page, for every block in the layout and, if the layout is editable, for every block that can be added: a block added without reloading the page cannot load them itself.
+
+### Replacing a Block of Another Plugin
+
+A subclass with the same `block_id` takes the place of its superclass, e.g. a plugin with an own partial for the members block of additionals:
+
+```ruby
+class MyProjectMembersBlock < ProjectMembersBlock
+  partial 'dashboards/blocks/my_project_members'
+end
+```
+
+Two unrelated classes with the same id stop the boot.
 
 ### Assigning a Layout
 
@@ -232,7 +272,8 @@ A migration that replaces blocks of existing dashboards uses `Additionals::Dashb
 
 | Symptom | Cause |
 | ------- | ----- |
-| Blocks of other plugins are missing | `block_definitions` started from `{}` instead of `super` |
+| `DashboardBlocks::PatchError` at boot | a plugin patches `block_definitions`; move its blocks to classes |
+| `UndeclaredError` at boot | `lib/dashboard_blocks/` of a plugin without `loader.extends %w[dashboard_blocks]` |
 | `RuntimeError: It is not allowed to delete dashboard, which is system default` | the global system default cannot be deleted |
 | `ProjectSystemDefaultChangeException` | the global project system default cannot get a project |
 | A welcome dashboard loses its project | welcome dashboards are always global |
@@ -242,6 +283,7 @@ A migration that replaces blocks of existing dashboards uses `Additionals::Dashb
 ## References
 
 - `app/models/dashboard.rb`: dashboards, system defaults, layout, settings
-- `app/models/dashboard_content.rb`, `dashboard_content_welcome.rb`, `dashboard_content_project.rb`: blocks per type
+- `lib/dashboard_blocks/`: the base classes and the blocks of additionals
+- `app/models/dashboard_content.rb`, `dashboard_content_welcome.rb`, `dashboard_content_project.rb`: dashboard types, default layouts
 - `app/helpers/dashboards_helper.rb`: rendering, async options, libraries
 - [additional_tags](https://github.com/alphanodes/additional_tags): a public plugin adding dashboard blocks

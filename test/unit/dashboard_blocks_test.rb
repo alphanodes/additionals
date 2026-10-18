@@ -55,4 +55,16 @@ class DashboardBlocksTest < Additionals::TestCase
 
     assert_equal I18n.t(:label_issue_plural), definition[:query_block][:label]
   end
+
+  def test_contents_of_additionals_are_not_patched
+    assert_nil DashboardBlocks.check_patches!([DashboardContent, DashboardContentWelcome, DashboardContentProject])
+  end
+
+  def test_patch_of_block_definitions_is_an_error
+    patched = Class.new(DashboardContent) { prepend(Module.new { def block_definitions = super.merge('foreign' => {}) }) }
+
+    assert_raises DashboardBlocks::PatchError do
+      DashboardBlocks.check_patches! [patched]
+    end
+  end
 end

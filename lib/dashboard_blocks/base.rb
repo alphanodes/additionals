@@ -15,7 +15,8 @@ module DashboardBlocks
   #
   # Settings use the format of Additionals::SettingsSchema. What depends on the
   # user, the project or the data is an instance method (available?,
-  # unique_params), the rest is declared on the class and inherited.
+  # unique_params, settings_definitions), the rest is declared on the class and
+  # inherited.
   class Base
     class_attribute :settings_definitions, instance_writer: false, default: {}
     class_attribute :declared_dashboard_types, instance_writer: false
@@ -136,14 +137,16 @@ module DashboardBlocks
 
     # The block as entry of DashboardContent#block_definitions
     def to_definition
-      definition = { label:, if: ->(_project) { available? } }
+      definition = { label: }
+      # Only a block with a condition of its own has one
+      definition[:if] = ->(_project) { available? } if self.class.instance_method(:available?).owner != Base
       definition[:permission] = self.class.permission if self.class.permission
       definition[:admin_only] = true if self.class.admin_only?
       definition[:max_occurs] = self.class.max_occurs if self.class.max_occurs != 1
       definition[:partial] = self.class.partial if self.class.partial
       definition[:async] = async_definition if self.class.async
       definition[:no_settings] = true if self.class.no_settings?
-      definition[:settings] = self.class.settings_definitions if self.class.settings_definitions.any?
+      definition[:settings] = settings_definitions if settings_definitions.any?
       definition[:settings_partial] = self.class.settings_partial if self.class.settings_partial
       definition[:settings_filter] = self.class.settings_filter if self.class.settings_filter
       definition.merge self.class.extra_definition

@@ -18,7 +18,8 @@ module DashboardBlocks
 
     class << self
       # The list of the query: a label is a locale key, the query class is
-      # named as a string (see Base)
+      # named as a string (see Base). export_without names columns programs
+      # never read (export_data), e.g. encrypted values
       def query_block(**options)
         options.any? ? self.query_block_options = options : query_block_options
       end
@@ -69,7 +70,8 @@ module DashboardBlocks
       list = data
       return if list.nil?
 
-      columns = list[:query].inline_columns
+      excluded = Array self.class.query_block[:export_without]
+      columns = list[:query].inline_columns.reject { |column| excluded.include? column.name }
       { query: list[:query].name,
         count: list[:count],
         columns: columns.map { |column| column.caption.to_s },

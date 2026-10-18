@@ -23,9 +23,9 @@ class DashboardContent
       descendants.map { |dc| dc::TYPE_NAME }
     end
 
-    # Whether the user may use the blocks of this dashboard type without a
-    # dashboard (DashboardBlocksController), e.g. a type with a page of its own
-    # that is restricted. On dashboards the visibility of the dashboard decides.
+    # Whether the user may use dashboards and blocks of this type, e.g. a type
+    # with a page of its own that is restricted: Dashboard#visible? asks it, and
+    # the blocks API for blocks only this type offers
     def blocks_accessible?(_user)
       true
     end

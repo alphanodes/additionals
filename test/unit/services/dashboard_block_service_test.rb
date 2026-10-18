@@ -26,6 +26,13 @@ class DashboardBlockServiceTest < Additionals::TestCase
     assert_equal :not_found, Additionals::DashboardBlockService.new.block('unknown').status
   end
 
+  def test_feed_with_own_url_is_forbidden_without_permission_to_save_dashboards
+    Role.find_each { |role| role.remove_permission! :save_dashboards }
+    User.current = users :users_002
+
+    assert_equal :forbidden, Additionals::DashboardBlockService.new.block('feed', settings: { url: 'https://example.org' }).status
+  end
+
   def test_invalid_setting_is_an_error
     assert_equal :invalid, Additionals::DashboardBlockService.new.block('news', settings: { max_entries: '5000' }).status
   end

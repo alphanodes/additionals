@@ -184,6 +184,8 @@ class Dashboard < ApplicationRecord
   end
 
   def visible?(user = User.current)
+    # A dashboard type with a restricted page of its own, e.g. HRM
+    return false if content_class && !content_class.blocks_accessible?(user)
     return true if user.admin?
     return false unless project.nil? || user.allowed_to?(:view_project, project)
     return true if user == author

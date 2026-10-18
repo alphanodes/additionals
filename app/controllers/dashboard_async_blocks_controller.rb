@@ -57,7 +57,8 @@ class DashboardAsyncBlocksController < ApplicationController
 
   def find_dashboard
     @dashboard = Dashboard.find params[:dashboard_id]
-    raise ::Unauthorized unless @dashboard.visible?
+    # Not raised: rescue_from StandardError would answer it as a block error
+    return deny_access unless @dashboard.visible?
 
     if @dashboard.dashboard_type == DashboardContentProject::TYPE_NAME && @dashboard.project.nil?
       @dashboard.content_project = find_project_by_project_id

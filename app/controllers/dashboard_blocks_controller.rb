@@ -4,6 +4,8 @@
 # the user can use, and one block computed with the settings of the request.
 # JSON only, the data of a block is no fixed structure.
 class DashboardBlocksController < ApplicationController
+  # Also where Redmine requires no login: blocks may compute a lot
+  before_action :require_login
   before_action :find_dashboard_project
 
   accept_api_auth :index, :show
@@ -16,6 +18,7 @@ class DashboardBlocksController < ApplicationController
     result = service.block params[:id], settings: settings_params
     case result.status
     when :not_found then render_404
+    when :forbidden then render_403
     when :invalid then render_api_errors result.errors
     else render json: { dashboard_block: result.block }
     end

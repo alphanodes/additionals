@@ -180,6 +180,14 @@ module DashboardBlocks
       available?
     end
 
+    # Whether the user may compute the block with settings of their own,
+    # without a dashboard (blocks API, AI tools). A block that reaches out
+    # with its settings beyond the permissions of the user, e.g. to the URL
+    # of a feed, keeps this to those who could set them on a dashboard.
+    def own_settings_allowed?
+      true
+    end
+
     # Values a cached block loaded after the page depends on, nil for none
     def unique_params
       nil

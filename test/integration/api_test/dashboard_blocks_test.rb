@@ -173,6 +173,40 @@ module ApiTest
       assert_response :unauthorized
     end
 
+    # Even where Redmine requires no login: blocks may compute a lot
+    test 'GET /dashboard_blocks.json without credentials requires a login without login_required' do
+      with_settings login_required: '0' do
+        get '/dashboard_blocks.json'
+      end
+
+      assert_response :unauthorized
+    end
+
+    test 'GET /dashboard_blocks/:id.json without credentials requires a login without login_required' do
+      with_settings login_required: '0' do
+        get '/dashboard_blocks/news.json'
+      end
+
+      assert_response :unauthorized
+    end
+
+    # The server would read any URL of a request for everyone else
+    test 'GET /dashboard_blocks/feed.json is forbidden for users who may not save dashboards' do
+      get '/dashboard_blocks/feed.json', params: { settings: { url: 'https://example.org/feed' } },
+                                         headers: credentials('jsmith')
+
+      assert_response :forbidden
+    end
+
+    test 'GET /dashboard_blocks/feed.json is allowed for users who may save dashboards' do
+      Role.find(1).add_permission! :save_dashboards
+
+      get '/dashboard_blocks/feed.json', params: { settings: { url: 'ftp://127.0.0.1/feed.xml' } },
+                                         headers: credentials('jsmith')
+
+      assert_response :success
+    end
+
     private
 
     def block_ids

@@ -20,4 +20,14 @@ class DashboardAsyncBlocksControllerTest < Additionals::ControllerTest
       { dashboard_id: @project_dashboard.id, block: 'issuequery', project: @project, entities_class: 'issues' }
     ]
   end
+
+  # A private dashboard of another user is no error of a block
+  def test_block_of_an_invisible_dashboard_is_forbidden
+    @request.session[:user_id] = 3
+    @request.headers['X-Requested-With'] = 'XMLHttpRequest'
+
+    get :show, params: { dashboard_id: dashboards(:private_welcome2).id, block: 'legacy_left' }
+
+    assert_response :forbidden
+  end
 end

@@ -11,12 +11,13 @@ module Additionals
   # (DashboardContent.blocks_accessible?). A block of several types counts once,
   # with the first type offering it: its own rules decide there. Settings are
   # those the caller gives, stored settings of dashboards never leave the
-  # server.
+  # server. A block may keep settings of the caller to some users
+  # (DashboardBlocks::Base#own_settings_allowed?, e.g. the URL of a feed).
   #
   #   service = Additionals::DashboardBlockService.new project: @project
   #   service.blocks                          # => [{ id: 'news', label: ..., settings: [...] }, ...]
   #   result = service.block 'news', settings: { max_entries: '5' }
-  #   result.status                           # => :ok, :not_found or :invalid
+  #   result.status                           # => :ok, :not_found, :forbidden or :invalid
   #   result.block                            # => { id:, label:, settings:, settings_not_applied:, data: }
   #   result.errors                           # => ['max_entry is invalid', ...]
   class DashboardBlockService
@@ -47,6 +48,7 @@ module Additionals
       id = id.to_s
       dashboard = dashboards.detect { |entry| entry.content.available_blocks.key? id }
       return Result.new status: :not_found, block: nil, errors: [] unless dashboard
+      return Result.new status: :forbidden, block: nil, errors: [] unless dashboard.content.find_block(id).own_settings_allowed?
 
       settings = dashboard.permitted_block_settings id, settings.to_h
       schema = dashboard.content.block_settings id, values: settings, dashboard: dashboard

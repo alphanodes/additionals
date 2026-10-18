@@ -210,11 +210,12 @@ module DashboardBlocks
       nil
     end
 
-    # What a program reads about the block: its label, typed settings and data
-    def export
-      { label:,
-        settings: settings_schema.available_keys.index_with { |key| export_value settings_schema[key] },
-        data: export_data }
+    # What a program reads about the block: its label, typed settings and data.
+    # Without data, the data is not loaded, e.g. for the layout of a dashboard.
+    def export(data: true)
+      export = { label:,
+                 settings: settings_schema.available_keys.index_with { |key| export_value settings_schema[key] } }
+      data ? export.merge(data: export_data) : export
     end
 
     # The declared settings with the rules the block answers with methods

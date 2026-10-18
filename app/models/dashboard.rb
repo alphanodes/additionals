@@ -280,13 +280,13 @@ class Dashboard < ApplicationRecord
   end
 
   # A block of the layout as a program reads it: its id, label, typed settings
-  # and data (DashboardBlocks::Base#export). Nil for a block that is not in
-  # the layout or not available to the user.
-  def block_export(block)
+  # and data (DashboardBlocks::Base#export), without data for its layout only.
+  # Nil for a block that is not in the layout or not available to the user.
+  def block_export(block, data: true)
     block = block.to_s
     return unless layout.values.flatten.include?(block) && content.find_block(block)
 
-    { block: }.merge content.dashboard_block(block, settings: layout_settings(block), dashboard: self).export
+    { block: }.merge content.dashboard_block(block, settings: layout_settings(block), dashboard: self).export(data:)
   end
 
   # Merges the settings into the stored ones of the block. A block with

@@ -97,6 +97,14 @@ class DashboardBlockDataTest < Additionals::TestCase
     assert_equal 'World', dashboard.block_export('text')[:data][:text]
   end
 
+  # The layout of a dashboard for programs, without loading the data of every block
+  def test_dashboard_exports_a_block_without_its_data
+    dashboard = welcome_dashboard layout_settings: { 'text' => { title: 'Hello', text: 'World' } }
+
+    assert_equal({ block: 'text', label: I18n.t(:label_text_sync), settings: { title: 'Hello', text: 'World' } },
+                 dashboard.block_export('text', data: false))
+  end
+
   def test_dashboard_exports_no_block_outside_its_layout
     assert_nil welcome_dashboard.block_export('news')
   end

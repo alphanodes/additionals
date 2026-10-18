@@ -281,12 +281,22 @@ class Dashboard < ApplicationRecord
 
   # A block of the layout as a program reads it: its id, label, typed settings
   # and data (DashboardBlocks::Base#export), without data for its layout only.
-  # Nil for a block that is not in the layout or not available to the user.
-  def block_export(block, data: true)
+  # The settings only for a user who may edit the dashboard: stored settings
+  # can hold credentials (e.g. tokens of devops blocks). Nil for a block that
+  # is not in the layout or not available to the user.
+  def block_export(block, data: true, user: User.current)
     block = block.to_s
     return unless layout.values.flatten.include?(block) && content.find_block(block)
 
-    { block: }.merge content.dashboard_block(block, settings: layout_settings(block), dashboard: self).export(data:)
+    export = content.dashboard_block(block, settings: layout_settings(block), dashboard: self).export(data:)
+    { block: }.merge editable?(user) ? export : export.except(:settings)
+  end
+
+  # The groups of the layout with their blocks as block_export without data
+  def layout_export(user = User.current)
+    layout.transform_values do |blocks|
+      Array(blocks).filter_map { |block| block_export block, data: false, user: }
+    end
   end
 
   # Merges the settings into the stored ones of the block. A block with

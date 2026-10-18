@@ -35,7 +35,7 @@ class DashboardsController < ApplicationController
       @limit = per_page_option
     end
 
-    scope = Dashboard.visible
+    scope = Additionals::DashboardService.new.dashboards project: @project, dashboard_type: params[:dashboard_type]
     @query_count = scope.count
     @query_pages = Paginator.new @query_count, @limit, params['page']
     @dashboards = scope.sorted

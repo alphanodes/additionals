@@ -105,6 +105,18 @@ class DashboardBlockDataTest < Additionals::TestCase
                  dashboard.block_export('text', data: false))
   end
 
+  # Stored settings can hold credentials, e.g. tokens of devops blocks
+  def test_dashboard_exports_no_settings_to_a_user_who_may_not_edit_it
+    dashboard = welcome_dashboard layout_settings: { 'text' => { title: 'Hello', text: 'World' } }
+
+    assert_not dashboard.block_export('text', data: false, user: users(:users_002)).key?(:settings)
+  end
+
+  def test_dashboard_exports_the_blocks_of_its_layout_by_group
+    assert_equal({ 'left' => [{ block: 'text', label: I18n.t(:label_text_sync) }] },
+                 welcome_dashboard.layout_export(users(:users_002)))
+  end
+
   def test_dashboard_exports_no_block_outside_its_layout
     assert_nil welcome_dashboard.block_export('news')
   end

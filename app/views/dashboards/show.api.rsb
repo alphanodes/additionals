@@ -9,7 +9,24 @@ api.dashboard do
   api.project(id: @dashboard.project_id, name: @dashboard.project.name) unless @dashboard.project.nil?
   api.author id: @dashboard.author_id, name: @dashboard.author.name
   api.visibility @dashboard.visibility
-  api.options @dashboard.options
+  api.editable @dashboard.editable?
+  api.layout_editable @dashboard.layout_editable?
+  api.array :layout do
+    @dashboard.layout_export.each do |group, blocks|
+      api.group do
+        api.name group
+        api.array :blocks do
+          blocks.each do |block|
+            api.block do
+              api.id block[:block]
+              api.label block[:label]
+              api.settings block[:settings] if block.key? :settings
+            end
+          end
+        end
+      end
+    end
+  end
   api.created_on @dashboard.created_at
   api.updated_on @dashboard.updated_at
 

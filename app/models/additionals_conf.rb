@@ -44,13 +44,21 @@ class AdditionalsConf
         else
           env_var
         end
-      elsif Redmine::Configuration[const_var.downcase].present?
+      elsif configured? const_var
         Redmine::Configuration[const_var.downcase]
       elsif !default.nil?
         default
       else
         const_get const_var
       end
+    end
+
+    private
+
+    # false is a value too, e.g. to switch off what is on by default
+    def configured?(const_var)
+      value = Redmine::Configuration[const_var.downcase]
+      !value.nil? && value != ''
     end
   end
 end

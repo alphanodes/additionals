@@ -22,9 +22,12 @@ class AdditionalsQueryChartPeriodTest < Additionals::TestCase
     end
   end
 
+  # All entries of the query of the project, without its default filters. Not
+  # Issue.visible: other plugins may treat a query of a project differently
+  # (e.g. template projects, hidden from lists but not inside a project).
   def test_counts_all_entries_without_a_period
     in_april do
-      assert_equal Issue.visible.where(project: @project.self_and_descendants).count, period_chart.total
+      assert_equal IssueQuery.new(project: @project, name: '_', filters: {}).issue_count, period_chart.total
     end
   end
 

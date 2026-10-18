@@ -11,8 +11,7 @@ module Additionals
         end
 
         def disabled_project_modules
-          @database_ready = (RedminePluginKit::Loader.redmine_database_ready? Setting.table_name) unless defined? @database_ready
-          return [] unless @database_ready
+          return [] unless settings_table_ready?
 
           mods = Additionals.setting(:disabled_modules).to_a.compact_blank
           mods.map(&:to_sym)
@@ -22,8 +21,18 @@ module Additionals
           active_module? klass::ENTITY_MODULE_NAME.to_sym
         end
 
+        # Without the settings table (db:create, db:migrate) no setting disables
+        # a module, and patches of available_project_modules by other plugins
+        # may read settings, which would stop the boot
         def active_module?(mod)
+          return available_project_modules_all.include? mod unless settings_table_ready?
+
           available_project_modules.include? mod
+        end
+
+        def settings_table_ready?
+          @settings_table_ready = RedminePluginKit::Loader.redmine_database_ready? Setting.table_name unless defined? @settings_table_ready
+          @settings_table_ready
         end
 
         def disabled_module?(mod)

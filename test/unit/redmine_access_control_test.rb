@@ -52,6 +52,18 @@ class RedmineAccessControlTest < Additionals::TestCase
     assert Redmine::AccessControl.active_module?(:issue_tracking)
   end
 
+  # db:create and db:migrate: without the settings table no setting disables a
+  # module, and the module list is not asked. The stub stands for a plugin
+  # whose patch of the list reads its settings (e.g. redmine_dmsf).
+  def test_active_module_without_settings_table
+    Redmine::AccessControl.instance_variable_set :@settings_table_ready, false
+    Redmine::AccessControl.stubs(:available_project_modules).raises ActiveRecord::StatementInvalid, 'settings'
+
+    assert Redmine::AccessControl.active_module?(:news)
+  ensure
+    Redmine::AccessControl.remove_instance_variable :@settings_table_ready
+  end
+
   def test_active_entity_module
     assert Redmine::AccessControl.active_entity_module?(Wiki)
 

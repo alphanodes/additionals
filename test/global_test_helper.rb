@@ -342,6 +342,37 @@ module Additionals
       assert_empty undeclared, 'settings sent but not declared'
     end
 
+    # Every block renders on a dashboard as admin, and a block loaded after the
+    # page also with the request the browser sends: no server error and no
+    # error of the block. For an integration test; blocks of project
+    # dashboards with project.
+    def assert_dashboard_blocks_render(blocks, project: nil, layout_settings: {})
+      log_user 'admin', 'admin'
+      User.current = User.find 1
+      type = project ? DashboardContentProject::TYPE_NAME : DashboardContentWelcome::TYPE_NAME
+      dashboard = Dashboard.create! name: 'Blocks render', dashboard_type: type, author: User.current,
+                                    visibility: Dashboard::VISIBILITY_PUBLIC, layout: { 'left' => blocks }, layout_settings: layout_settings
+      get project ? "/projects/#{project.identifier}" : '/', params: { dashboard_id: dashboard.id }
+
+      assert_response :success
+      assert_empty dashboard_block_render_errors(blocks), 'blocks that do not render'
+    end
+
+    # Reads the page first: each request of a block replaces the response
+    def dashboard_block_render_errors(blocks)
+      missing = blocks.select { |block| css_select("#block-#{block}").empty? }
+      async_urls = blocks.index_with do |block|
+        css_select("#block-#{block} [data-render-async-url-value]").first&.[]('data-render-async-url-value')
+      end
+
+      missing.map { |block| "#{block}: not on the page" } + async_urls.compact.filter_map do |block, url|
+        get url, xhr: true, headers: { 'Accept' => 'text/html' }
+        next "#{block}: #{response.status}" unless response.successful?
+
+        "#{block}: block error" if css_select('#errorExplanation').any?
+      end
+    end
+
     def dashboard_block_form_keys
       css_select('[name^="settings["]').each_with_object(Hash.new { |hash, key| hash[key] = [] }) do |field, keys|
         block, key = field['name'].match(/\Asettings\[(\w+)\]\[(\w+)\]/)&.captures

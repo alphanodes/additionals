@@ -99,16 +99,16 @@ module Additionals
           next
         end
 
-        definition = @content.find_block block if block.match? BLOCK_ID_FORMAT
-        if definition.nil?
+        dashboard_block = @content.find_block block if block.match? BLOCK_ID_FORMAT
+        if dashboard_block.nil?
           add_error block, l('activerecord.errors.messages.inclusion')
           next
         end
 
-        name = definition[:name]
-        occurs[name] += 1
-        max_occurs = definition[:max_occurs] || 1
-        add_error block, l('activerecord.errors.messages.less_than_or_equal_to', count: max_occurs) if occurs[name] > max_occurs
+        occurs[dashboard_block.block_id] += 1
+        next if occurs[dashboard_block.block_id] <= dashboard_block.max_occurs
+
+        add_error block, l('activerecord.errors.messages.less_than_or_equal_to', count: dashboard_block.max_occurs)
       end
     end
 

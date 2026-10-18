@@ -8,8 +8,15 @@ require File.expand_path '../../test_helper', __FILE__
 class DashboardContentFilterStub < DashboardContent
   TYPE_NAME = 'FilterStubDashboard'
 
-  def block_definitions
-    { 'filtered' => { label: 'Filtered', settings_filter: ->(settings, _dashboard) { settings.except :secret } } }
+  FILTERED_BLOCK = Class.new DashboardBlocks::Base do
+    block_id 'filtered'
+    label { 'Filtered' }
+    max_occurs 2
+    settings_filter ->(settings, _dashboard) { settings.except :secret }
+  end
+
+  def blocks
+    { 'filtered' => FILTERED_BLOCK.new(self) }
   end
 end
 

@@ -1,22 +1,17 @@
 - with_async = dashboard_async_required_settings? settings, async
 
 - unless with_async
-  h3 = settings[:title].presence || block_definition[:label]
+  h3 = settings[:title].presence || dashboard_block.label
 
-- if @can_edit && \
-     block_definition[:no_settings].blank? && \
-     (!block_definition.key?(:with_settings_if) || block_definition[:with_settings_if].call(@project))
+- if @can_edit && !dashboard_block.no_settings?
   div id="#{block}-settings" class="#{'hidden' if with_async}"
     / A multiple select only submits the options that are marked, and the columns in the
     / right-hand list are not - so without this the column choice never reaches the server
     / and the block keeps the columns of its query.
     = remote_form_tag _update_layout_setting_dashboard_path(@project, dashboard),
                       onsubmit: "$(this).find('select[id^=selected_] option').prop('selected', true)" do
-      = render block_definition[:settings_partial].presence || "#{async[:partial]}_settings",
-               build_dashboard_partial_locals(block,
-                                              block_definition,
-                                              settings,
-                                              dashboard).merge(with_async:)
+      = render dashboard_block.settings_partial.presence || "#{async[:partial]}_settings",
+               build_dashboard_partial_locals(block, settings, dashboard).merge(with_async:)
 
       p
         = submit_tag l(:button_save)

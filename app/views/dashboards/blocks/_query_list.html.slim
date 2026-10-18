@@ -5,8 +5,8 @@
     - count = list[:count]
 
     h3.query-list-block
-      = label_with_count dashboard_query_list_block_title(query, query_block, @project), count
-      = dashboard_query_list_block_alerts dashboard, query, block_definition
+      = label_with_count dashboard_query_list_block_title(query, dashboard_block.query_block, @project), count
+      = dashboard_query_list_block_alerts dashboard, query, dashboard_block
 
     - if query.respond_to?(:description) && query.description.present?
       .query-description
@@ -16,8 +16,8 @@
       / required by some helpers of other plugins
       - @query = query
 
-      = render(query_block[:list_partial],
-               query_block[:entities_var] => list[:entries],
+      = render(dashboard_block.query_block[:list_partial],
+               dashboard_block.query_block[:entities_var] => list[:entries],
                query:,
                query_options: { sort_param: 'sort',
                                sort_link_options: { method: :post, remote: true } })

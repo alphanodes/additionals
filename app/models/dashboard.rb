@@ -310,7 +310,7 @@ class Dashboard < ApplicationRecord
   # the declared settings, so only what the user may change is validated.
   def permitted_block_settings(block, settings)
     settings = settings.to_h.symbolize_keys
-    settings_filter = content.block_definition(block)&.dig :settings_filter
+    settings_filter = content.blocks[content.block_name(block)]&.settings_filter
     settings_filter ? settings_filter.call(settings, self) : settings
   end
 

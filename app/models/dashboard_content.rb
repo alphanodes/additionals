@@ -23,6 +23,13 @@ class DashboardContent
       descendants.map { |dc| dc::TYPE_NAME }
     end
 
+    # Whether the user may use the blocks of this dashboard type without a
+    # dashboard (DashboardBlocksController), e.g. a type with a page of its own
+    # that is restricted. On dashboards the visibility of the dashboard decides.
+    def blocks_accessible?(_user)
+      true
+    end
+
     # Saved queries a block of the project can show, exactly of this class
     # (not e.g. a subclass of another plugin)
     def selectable_queries(klass, project)
@@ -51,10 +58,10 @@ class DashboardContent
     groups - FULL_WIDTH_GROUPS
   end
 
-  # The blocks this content offers by id, built from the block classes of all
-  # plugins (DashboardBlocks)
-  def block_definitions
-    DashboardBlocks.for(self).to_h { |block| [block.block_id, block.to_definition] }
+  # The blocks this content offers by id, from the block classes of all
+  # plugins (DashboardBlocks), whether or not the user may use them
+  def blocks
+    @blocks ||= DashboardBlocks.for(self).index_by(&:block_id)
   end
 
   # Type of the dashboard blocks name in DashboardBlocks::Base.dashboards,
@@ -63,55 +70,33 @@ class DashboardContent
     self.class.name.delete_prefix('DashboardContent').underscore.presence&.to_sym
   end
 
-  # Returns the available blocks
+  # The blocks the user can use here by id, sorted by their label
   def available_blocks
-    return @available_blocks if defined? @available_blocks
-
-    available_blocks = block_definitions.reject do |_block_name, block_specs|
-      block_specs.key?(:permission) && !block_permission_allowed?(block_specs[:permission]) ||
-        block_specs.key?(:admin_only) && block_specs[:admin_only] && !user.admin? ||
-        block_specs.key?(:if) && !block_specs[:if].call(project)
-    end
-
-    @available_blocks = available_blocks.sort_by { |_k, v| v[:label] }.to_h
+    @available_blocks ||= blocks.select { |_id, block| block.allowed? }.sort_by { |_id, block| block.label }.to_h
   end
 
   def block_options(blocks_in_use = [])
-    options = []
-    available_blocks.each do |block, block_options|
-      indexes = blocks_in_use.map do |n|
-        Regexp.last_match(2).to_i if n =~ /\A#{block}(__(\d+))?\z/
+    available_blocks.map do |name, block|
+      indexes = blocks_in_use.filter_map do |n|
+        Regexp.last_match(2).to_i if n =~ /\A#{name}(__(\d+))?\z/
       end
-      indexes.compact!
 
-      occurs = indexes.size
-      block_id = indexes.any? ? "#{block}__#{indexes.max + 1}" : block
-      disabled = (occurs >= (available_blocks[block][:max_occurs] || 1))
-      block_id = nil if disabled
-
-      options << [block_options[:label], block_id]
+      block_id = indexes.any? ? "#{name}__#{indexes.max + 1}" : name
+      block_id = nil if indexes.size >= block.max_occurs
+      [block.label, block_id]
     end
-    options
   end
 
   def valid_block?(block, blocks_in_use = [])
     block.present? && block_options(blocks_in_use).map(&:last).include?(block)
   end
 
+  # The block of a block id (e.g. feed__2) if the user can use it here
   def find_block(block)
-    block.to_s =~ /\A(.*?)(__\d+)?\z/
-    name = Regexp.last_match 1
-    available_blocks.key?(name) ? available_blocks[name].merge(name:) : nil
+    available_blocks[block_name(block)]
   end
 
-  # Definition of a block, whether or not the current user may use it
-  def block_definition(block)
-    # Plugins may query the database while building the definitions
-    @all_block_definitions ||= block_definitions
-    @all_block_definitions[block_name(block)]
-  end
-
-  # Name of the block definition of a block id, e.g. feed for feed__2
+  # Name of the block of a block id, e.g. feed for feed__2
   def block_name(block)
     block.to_s.sub(/__\d+\z/, '')
   end
@@ -119,30 +104,30 @@ class DashboardContent
   # Settings a block declares, nil if it declares none: such a block keeps
   # every setting it gets.
   def block_settings_definitions(block)
-    settings_definitions_of block_definition(block)
+    settings_definitions_of blocks[block_name(block)]
   end
 
   # Settings of a block with the given values, completed by its stored ones,
   # see Additionals::SettingsSchema. Nil for blocks without declared settings.
   def block_settings(block, values: {}, stored: {}, dashboard: nil)
-    settings_schema settings_definitions_of(block_definition(block)), values, dashboard, stored:
+    settings_schema settings_definitions_of(blocks[block_name(block)]), values, dashboard, stored:
   end
 
   # The blocks the user can add, with their settings and whether they export
   # their data, for programmatic clients
   def available_block_schemas(dashboard: nil)
-    available_blocks.to_h do |name, definition|
-      [name, { label: definition[:label],
-               max_occurs: definition[:max_occurs] || 1,
-               exports_data: DashboardBlocks.find(name)&.exports_data? || false,
-               settings: settings_schema(settings_definitions_of(definition), {}, dashboard)&.describe }]
+    available_blocks.transform_values do |block|
+      { label: block.label,
+        max_occurs: block.max_occurs,
+        exports_data: block.class.exports_data?,
+        settings: settings_schema(settings_definitions_of(block), {}, dashboard)&.describe }
     end
   end
 
-  # The block object of a block id with its stored settings, nil for an
-  # unknown block
+  # The block of a block id with its stored settings, nil for a block this
+  # content does not offer
   def dashboard_block(block, settings: {}, dashboard: nil)
-    DashboardBlocks.find(block_name(block))&.new self, settings:, dashboard:
+    blocks[block_name(block)]&.class&.new self, settings:, dashboard:
   end
 
   # Returns the default layout for a new dashboard
@@ -180,11 +165,11 @@ class DashboardContent
 
   private
 
-  def settings_definitions_of(definition)
-    return if definition.nil?
-    return {} if definition[:no_settings]
+  def settings_definitions_of(block)
+    return if block.nil?
+    return {} if block.no_settings?
 
-    definition[:settings]
+    block.declared_settings if block.settings_definitions.any?
   end
 
   def settings_schema(definitions, values, dashboard, stored: {})
@@ -195,10 +180,5 @@ class DashboardContent
 
   def issues_cache_key
     Digest::SHA256.hexdigest [project&.id, User.current.id].compact.join('-')
-  end
-
-  # if more the one permission is specified, all permissions are required
-  def block_permission_allowed?(permission)
-    Array(permission).all? { |p| user.allowed_to? p, project, global: true }
   end
 end

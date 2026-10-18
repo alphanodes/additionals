@@ -25,15 +25,13 @@ module DashboardsHelper
   def dashboard_required_libraries(dashboard)
     return [] unless dashboard
 
-    libs = dashboard_library_blocks(dashboard).flat_map { |cfg| block_libraries cfg }
+    libs = dashboard_library_blocks(dashboard).flat_map { |dashboard_block| block_libraries dashboard_block }
     libs.uniq!
     libs
   end
 
-  def block_libraries(cfg)
-    libs = Array cfg[:libraries]
-    libs |= Array cfg.dig :async, :libraries
-    libs
+  def block_libraries(dashboard_block)
+    Array dashboard_block.async&.dig(:libraries)
   end
 
   def dashboard_sidebar?(dashboard, params)
@@ -278,30 +276,33 @@ module DashboardsHelper
 
   # Renders a single block
   def render_dashboard_block(block, dashboard, overwritten_settings = {})
-    block_definition = dashboard.content.find_block block
-    unless block_definition
+    unless dashboard.content.find_block block
       Rails.logger.debug { "Unknown block \"#{block}\" found in #{dashboard.name} (id=#{dashboard.id})" }
       return
     end
 
-    content = render_dashboard_block_content block, block_definition, dashboard, **overwritten_settings
+    settings = dashboard.layout_settings block
+    settings = settings.merge overwritten_settings if overwritten_settings.present?
+    partial_locals = build_dashboard_partial_locals block, settings, dashboard
+    dashboard_block = partial_locals[:dashboard_block]
+
+    content = render_dashboard_block_content block, dashboard_block, dashboard, partial_locals
     return if content.blank?
 
     if dashboard.layout_editable?
       icons = []
-      if block_definition[:no_settings].blank? &&
-         (!block_definition.key?(:with_settings_if) || block_definition[:with_settings_if].call(@project))
+      unless dashboard_block.no_settings?
         icons << link_to_function(sprite_icon('settings', l(:label_options)),
                                   "$('##{block}-settings').toggle()",
                                   class: 'icon-only icon-settings',
                                   title: l(:label_options))
       end
-      if block_definition.key? :async
+      if dashboard_block.async
         icons << svg_icon_tag('warning',
                               plugin: '',
                               wrapper: :span,
                               wrapper_class: 'icon-only',
-                              wrapper_title: dashboard_block_sync_info(block_definition))
+                              wrapper_title: dashboard_block_sync_info(dashboard_block))
       end
       # Same handle icon as core on My page: arrows-move since Redmine 7.1 (https://www.redmine.org/issues/44436)
       # TODO(Redmine 7.0 EOL): use arrows-move directly
@@ -315,30 +316,16 @@ module DashboardsHelper
       content = tag.div(safe_join(icons), class: 'contextual') + content
     end
 
-    tag.div content, class: "mypage-box dashboard-block block-#{block_definition[:name]}", id: "block-#{block}"
+    tag.div content, class: "mypage-box dashboard-block block-#{dashboard_block.block_id}", id: "block-#{block}"
   end
 
-  def build_dashboard_partial_locals(block, block_definition, settings, dashboard)
-    partial_locals = { dashboard:,
-                       settings:,
-                       dashboard_block: dashboard.content.dashboard_block(block, settings:, dashboard:),
-                       block:,
-                       block_definition:,
-                       user: User.current }
-
-    if block_definition[:query_block]
-      partial_locals[:query_block] = block_definition[:query_block]
-      partial_locals[:klass] = block_definition[:query_block][:class]
-      partial_locals[:async] = { required_settings: %i[query_id],
-                                 exposed_params: %i[sort],
-                                 partial: 'dashboards/blocks/query_list',
-                                 query_block: block_definition[:query_block],
-                                 lazy: true }
-      partial_locals[:async] = partial_locals[:async].merge block_definition[:async] if block_definition[:async]
-    elsif block_definition[:async]
-      partial_locals[:async] = block_definition[:async]
-    end
-
+  # Locals of the partials of a block: dashboard_block is the block with the
+  # settings, async its options if it loads after the page
+  def build_dashboard_partial_locals(block, settings, dashboard)
+    dashboard_block = dashboard.content.dashboard_block(block, settings:, dashboard:)
+    partial_locals = { dashboard:, settings:, dashboard_block:, block:, user: User.current }
+    async = dashboard_block.async
+    partial_locals[:async] = async if async
     partial_locals
   end
 
@@ -449,12 +436,12 @@ module DashboardsHelper
     safe_join title, Additionals::LIST_SEPARATOR
   end
 
-  def dashboard_query_list_block_alerts(dashboard, query, block_definition)
+  def dashboard_query_list_block_alerts(dashboard, query, dashboard_block)
     return if dashboard.visibility == Dashboard::VISIBILITY_PRIVATE
 
     title = if query.visibility == Query::VISIBILITY_PRIVATE
               l :alert_only_visible_by_yourself
-            elsif block_definition.key?(:admin_only) && block_definition[:admin_only]
+            elsif dashboard_block.admin_only?
               l :alert_only_visible_by_admins
             end
 
@@ -466,7 +453,7 @@ module DashboardsHelper
                  css_class: 'suffixed')
   end
 
-  def render_legacy_left_block(_block, _block_definition, _dashboard_block, _dashboard)
+  def render_legacy_left_block(_block, _dashboard_block, _dashboard)
     if @project
       call_hook :view_projects_show_left, project: @project
     else
@@ -474,7 +461,7 @@ module DashboardsHelper
     end
   end
 
-  def render_legacy_right_block(_block, _block_definition, _dashboard_block, _dashboard)
+  def render_legacy_right_block(_block, _dashboard_block, _dashboard)
     if @project
       call_hook :view_projects_show_right, project: @project
     else
@@ -482,22 +469,22 @@ module DashboardsHelper
     end
   end
 
-  def render_documents_block(block, _block_definition, dashboard_block, _dashboard)
+  def render_documents_block(block, dashboard_block, _dashboard)
     render 'dashboards/blocks/documents', block:, max_entries: dashboard_block.max_entries, documents: dashboard_block.data
   end
 
-  def render_news_block(block, _block_definition, dashboard_block, dashboard)
+  def render_news_block(block, dashboard_block, dashboard)
     render 'dashboards/blocks/news', block:, max_entries: dashboard_block.max_entries, news: dashboard_block.data,
                                      with_subprojects: dashboard_block.with_subprojects,
                                      content_project_id: dashboard.content_project&.id
   end
 
-  def render_my_spent_time_block(block, block_definition, dashboard_block, _dashboard)
-    render 'dashboards/blocks/my_spent_time', block:, block_definition:, spent_time: dashboard_block.data
+  def render_my_spent_time_block(block, dashboard_block, _dashboard)
+    render 'dashboards/blocks/my_spent_time', block:, dashboard_block:, spent_time: dashboard_block.data
   end
 
-  def dashboard_feed_title(title, block_definition)
-    title.presence || block_definition[:label]
+  def dashboard_feed_title(dashboard_block)
+    dashboard_block.title.presence || dashboard_block.label
   end
 
   # Errors of block settings, each named by its setting
@@ -526,8 +513,8 @@ module DashboardsHelper
     block_ids.filter_map { |id| dashboard.content.find_block id }
   end
 
-  def dashboard_block_sync_info(block_definition)
-    sec = block_definition[:async][:cache_expires_in].presence || DashboardContent::RENDER_ASYNC_CACHE_EXPIRES_IN
+  def dashboard_block_sync_info(dashboard_block)
+    sec = dashboard_block.async[:cache_expires_in].presence || DashboardContent::RENDER_ASYNC_CACHE_EXPIRES_IN
     if sec < 60
       l :label_dashboard_block_info_async, time: l(:seconds, sec)
     else
@@ -535,15 +522,12 @@ module DashboardsHelper
     end
   end
 
-  # Renders a single block content
-  def render_dashboard_block_content(block, block_definition, dashboard, **overwritten_settings)
-    settings = dashboard.layout_settings block
-    settings = settings.merge overwritten_settings if overwritten_settings.present?
+  # Renders the content of a block: loaded after the page, its own partial or
+  # a render_<block>_block helper
+  def render_dashboard_block_content(block, dashboard_block, dashboard, partial_locals)
+    partial = dashboard_block.partial
 
-    partial = block_definition[:partial]
-    partial_locals = build_dashboard_partial_locals block, block_definition, settings, dashboard
-
-    if block_definition[:query_block] || block_definition[:async]
+    if dashboard_block.async
       render 'dashboards/blocks/async', partial_locals
     elsif partial
       begin
@@ -553,11 +537,7 @@ module DashboardsHelper
         nil
       end
     else
-      send :"render_#{block_definition[:name]}_block",
-           block,
-           block_definition,
-           partial_locals[:dashboard_block],
-           dashboard
+      send :"render_#{dashboard_block.block_id}_block", block, dashboard_block, dashboard
     end
   end
 

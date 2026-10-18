@@ -1,33 +1,39 @@
 # frozen_string_literal: true
 
 # Dashboard blocks for programs, independent of a dashboard: which blocks the
-# user can use in a context with their described settings (index), and one
-# block computed with the settings of the request (show). Settings are those
-# the caller sends, stored settings of dashboards never leave the server.
-# JSON only, the data of a block is no fixed structure.
+# user can use, with their described settings (index), and one block computed
+# with the settings of the request (show). Settings are those the caller
+# sends, stored settings of dashboards never leave the server. JSON only, the
+# data of a block is no fixed structure.
+#
+# Without a project the blocks are those of the welcome page and those only
+# other dashboard types offer (e.g. HRM), if the user may use that type
+# (DashboardContent.blocks_accessible?). A block of several types counts once,
+# with the first type offering it: its own rules decide there.
 class DashboardBlocksController < ApplicationController
   before_action :find_dashboard_project
-  before_action :build_dashboard
 
   accept_api_auth :index, :show
 
   def index
-    blocks = @dashboard.content.available_block_schemas(dashboard: @dashboard).map do |id, schema|
-      { id:, **schema }
+    blocks = dashboards.flat_map do |dashboard|
+      dashboard.content.available_block_schemas(dashboard:).map { |id, schema| { id:, **schema } }
     end
+    blocks.uniq! { |block| block[:id] }
 
-    render json: { dashboard_type: @dashboard.dashboard_type, project_id: @project&.id, dashboard_blocks: blocks }
+    render json: { project_id: @project&.id, dashboard_blocks: blocks }
   end
 
   def show
     block = params[:id].to_s
-    return render_404 unless @dashboard.content.available_blocks.key? block
+    dashboard = dashboards.detect { |entry| entry.content.available_blocks.key? block }
+    return render_404 unless dashboard
 
-    settings = @dashboard.permitted_block_settings block, settings_params
-    schema = @dashboard.content.block_settings block, values: settings, dashboard: @dashboard
+    settings = dashboard.permitted_block_settings block, settings_params
+    schema = dashboard.content.block_settings block, values: settings, dashboard: dashboard
     return render_api_errors schema.full_messages if schema && !schema.valid?
 
-    export = @dashboard.content.dashboard_block(block, settings: schema ? schema.settings : settings, dashboard: @dashboard).export
+    export = dashboard.content.dashboard_block(block, settings: schema ? schema.settings : settings, dashboard:).export
     render json: { dashboard_block: { id: block, **export } }
   end
 
@@ -43,22 +49,27 @@ class DashboardBlocksController < ApplicationController
     render_404
   end
 
-  # A dashboard of the context that is never saved: blocks check their
-  # permissions and rules against it like on a real one
-  def build_dashboard
-    type = params[:dashboard_type].presence ||
-           (@project ? DashboardContentProject::TYPE_NAME : DashboardContentWelcome::TYPE_NAME)
-    error = dashboard_type_error type
-    return render_api_errors error if error
-
-    @dashboard = Dashboard.new dashboard_type: type, author: User.current, project: @project, content_project: @project
+  # Dashboards that are never saved, one per dashboard type of the context in
+  # the order a block counts with: blocks check their permissions and rules
+  # against them like on a real one
+  def dashboards
+    @dashboards ||= dashboard_types.map do |type|
+      Dashboard.new dashboard_type: type::TYPE_NAME, author: User.current, project: @project, content_project: @project
+    end
   end
 
-  def dashboard_type_error(type)
-    if DashboardContent.types.exclude? type
-      "#{Dashboard.human_attribute_name :dashboard_type} #{l 'activerecord.errors.messages.inclusion'}"
-    elsif type == DashboardContentProject::TYPE_NAME && @project.nil?
-      "#{l :field_project} #{l 'activerecord.errors.messages.blank'}"
+  def dashboard_types
+    return [DashboardContentProject] if @project
+
+    [DashboardContentWelcome] + other_dashboard_types.select { |type| type.blocks_accessible? User.current }
+  end
+
+  # Types named by the blocks (dashboards), as dashboard contents may load lazily
+  def other_dashboard_types
+    names = DashboardBlocks.all.flat_map { |block| block.declared_dashboard_types || [] }.to_set - %i[welcome project]
+    names.filter_map do |name|
+      type = "DashboardContent#{name.to_s.camelize}".safe_constantize
+      type if type.is_a?(Class) && type < DashboardContent
     end
   end
 

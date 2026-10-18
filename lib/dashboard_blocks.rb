@@ -4,7 +4,7 @@
 # plugin, see RedminePluginKit::Extensions. DashboardContent builds its block
 # definitions from them.
 module DashboardBlocks
-  # A plugin still adds its blocks by patching block_definitions
+  # A plugin still adds its blocks by a block_definitions method
   class PatchError < StandardError; end
 
   class << self
@@ -25,15 +25,17 @@ module DashboardBlocks
       Rails.application.config.after_initialize { check_patches! }
     end
 
-    # Blocks are classes now, a patch of block_definitions is no way to add one
+    # Blocks are classes, block_definitions of a dashboard content is gone: a
+    # plugin defining it would add nothing without noticing
     def check_patches!(contents = [DashboardContent, *DashboardContent.descendants])
       patched = contents.filter_map do |content|
-        owner = content.instance_method(:block_definitions).owner
-        "#{owner} in #{content}" if owner != DashboardContent
+        next unless content.method_defined? :block_definitions
+
+        "#{content.instance_method(:block_definitions).owner} in #{content}"
       end
       return if patched.empty?
 
-      raise PatchError, "block_definitions is patched (#{patched.to_comma_list}), dashboard blocks are classes " \
+      raise PatchError, "block_definitions is defined (#{patched.to_comma_list}), dashboard blocks are classes " \
                         'in lib/dashboard_blocks/ of a plugin, see docs/dashboards.md of additionals'
     end
 

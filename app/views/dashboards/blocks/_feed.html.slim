@@ -2,7 +2,7 @@
 
   - feed = dashboard_block.data
   h3
-    = dashboard_feed_title dashboard_block.title, block_definition
+    = dashboard_feed_title dashboard_block
 
   - if feed[:valid]
     - if feed[:items].any?

@@ -17,16 +17,27 @@ module DashboardBlocks
     class_attribute :query_block_options, instance_writer: false
 
     class << self
-      # The list of the query, see DashboardContent#block_definitions; a
-      # label is a locale key, the query class is named as a string (see Base)
+      # The list of the query: a label is a locale key, the query class is
+      # named as a string (see Base)
       def query_block(**options)
         options.any? ? self.query_block_options = options : query_block_options
       end
     end
 
-    def to_definition
+    # The list of the query with its label translated and its class
+    def query_block
       options = self.class.query_block
-      super.merge query_block: options.merge(label: I18n.t(options[:label]), class: query_class)
+      options.merge label: I18n.t(options[:label]), class: query_class
+    end
+
+    # A query list loads after the page, lazily and sorted by its own links;
+    # a subclass may change these options with async
+    def async
+      { required_settings: %i[query_id],
+        exposed_params: %i[sort],
+        partial: 'dashboards/blocks/query_list',
+        query_block:,
+        lazy: true }.merge(super || {})
     end
 
     # The saved query of the settings with the chosen columns, nil if the user

@@ -8,19 +8,33 @@ require File.expand_path '../../test_helper', __FILE__
 class DashboardContentSettingsStub < DashboardContent
   TYPE_NAME = 'SettingsStubDashboard'
 
-  def block_definitions
-    super.merge(
-      'declared' => { label: 'Declared',
-                      max_occurs: 2,
-                      settings_filter: ->(settings, _dashboard) { settings.except :secret },
-                      settings: { title: TITLE_SETTING,
-                                  secret: { type: :string },
-                                  max_entries: MAX_ENTRIES_SETTING } },
-      'fixed' => { label: 'Fixed', no_settings: true },
-      'own_query_list' => { label: 'Own query list',
-                            query_block: { class: IssueQuery },
-                            settings_partial: 'dashboards/blocks/own_settings' }
-    )
+  DECLARED_BLOCK = Class.new DashboardBlocks::Base do
+    block_id 'declared'
+    label { 'Declared' }
+    max_occurs 2
+    settings_filter ->(settings, _dashboard) { settings.except :secret }
+    setting :title, **DashboardContent::TITLE_SETTING
+    setting :secret, type: :string
+    setting :max_entries, **DashboardContent::MAX_ENTRIES_SETTING
+  end
+
+  FIXED_BLOCK = Class.new DashboardBlocks::Base do
+    block_id 'fixed'
+    label { 'Fixed' }
+    no_settings!
+  end
+
+  # A block with an own settings form that declares nothing keeps every setting
+  OWN_QUERY_LIST_BLOCK = Class.new DashboardBlocks::Base do
+    block_id 'own_query_list'
+    label { 'Own query list' }
+    settings_partial 'dashboards/blocks/own_settings'
+  end
+
+  def blocks
+    super.merge 'declared' => DECLARED_BLOCK.new(self),
+                'fixed' => FIXED_BLOCK.new(self),
+                'own_query_list' => OWN_QUERY_LIST_BLOCK.new(self)
   end
 end
 

@@ -1,3 +1,4 @@
+- klass = dashboard_block.query_block[:class]
 - query = klass.find_by id: dashboard_block.query_id
 - query.column_names = dashboard_block.columns.map(&:to_sym) if query && dashboard_block.columns.present?
 
@@ -22,7 +23,7 @@
     p
       = additionals_settings_select :query_id,
                                     options_for_query_select(klass, @project),
-                                    label: block_definition[:label],
+                                    label: dashboard_block.label,
                                     tag_name: "settings[#{block}][query_id]",
                                     required: true
     p

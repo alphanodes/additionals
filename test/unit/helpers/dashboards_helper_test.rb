@@ -2,64 +2,45 @@
 
 require File.expand_path '../../../test_helper', __FILE__
 
-# Test stub that exposes a fixed block_definitions hash so we can exercise
-# dashboard_required_libraries without touching plugin patches. Dashboard
-# constantizes `DashboardContent#{dashboard_type.chomp('Dashboard')}` so the
-# class name and TYPE_NAME below have to follow that convention -- which also
-# requires this class to live at the top level, not nested inside the test.
-# Named *Stub (not *Test) so it does not collide with DashboardContentTest in
+# Test stub with blocks of the test, to exercise dashboard_required_libraries
+# without the blocks of the plugins. Dashboard constantizes
+# `DashboardContent#{dashboard_type.chomp('Dashboard')}` so the class name and
+# TYPE_NAME below have to follow that convention -- which also requires this
+# class to live at the top level, not nested inside the test. Named *Stub (not
+# *Test) so it does not collide with DashboardContentTest in
 # test/unit/dashboard_content_test.rb when the full plugin suite runs.
 class DashboardContentStub < DashboardContent
   TYPE_NAME = 'StubDashboard'
 
   class << self
+    # Block ids with the libraries of the block, nil for one rendered with the page
     attr_accessor :test_blocks
   end
 
-  def block_definitions
-    self.class.test_blocks || {}
+  def blocks
+    (self.class.test_blocks || {}).to_h { |id, libraries| [id, self.class.test_block(id, libraries).new(self)] }
+  end
+
+  def self.test_block(id, libraries)
+    Class.new DashboardBlocks::Base do
+      block_id id
+      label { id }
+      async(partial: 'dashboards/blocks/text_async', libraries:) if libraries
+    end
   end
 end
 
 class DashboardsHelperTest < Additionals::HelperTest
   include DashboardsHelper
 
-  def test_block_libraries_returns_empty_for_minimal_config
-    assert_equal [], block_libraries({})
+  def test_block_libraries_of_a_block_rendered_with_the_page_are_empty
+    assert_equal [], block_libraries(DashboardContentStub.test_block('plain', nil).new(DashboardContentStub.new))
   end
 
-  def test_block_libraries_picks_up_top_level_libraries
-    cfg = { libraries: %i[d3plus] }
+  def test_block_libraries_of_a_block_loaded_after_the_page
+    block = DashboardContentStub.test_block('chart', %i[d3plus mermaid]).new DashboardContentStub.new
 
-    assert_equal %i[d3plus], block_libraries(cfg)
-  end
-
-  def test_block_libraries_picks_up_async_libraries
-    cfg = { async: { partial: 'foo', libraries: %i[d3plus mermaid] } }
-
-    assert_equal %i[d3plus mermaid], block_libraries(cfg)
-  end
-
-  def test_block_libraries_merges_top_level_and_async_libraries
-    cfg = { libraries: %i[d3plus], async: { libraries: %i[mermaid] } }
-
-    assert_equal %i[d3plus mermaid], block_libraries(cfg)
-  end
-
-  def test_block_libraries_dedups_across_top_level_and_async
-    cfg = { libraries: %i[chartjs], async: { libraries: %i[chartjs d3plus] } }
-
-    assert_equal %i[chartjs d3plus], block_libraries(cfg)
-  end
-
-  def test_block_libraries_ignores_data_check_class_and_matrix
-    # Library loading is driven exclusively by :libraries. data_check_class
-    # (min-height pre-check) and matrix (matrix-chart routing) must not act
-    # as implicit triggers for asset loading.
-    cfg = { matrix: { matrix_class: 'Foo' },
-            async: { data_check_class: 'SomeChart' } }
-
-    assert_equal [], block_libraries(cfg)
+    assert_equal %i[d3plus mermaid], block_libraries(block)
   end
 
   def test_dashboard_async_required_settings_with_all_settings_present
@@ -89,9 +70,7 @@ class DashboardsHelperTest < Additionals::HelperTest
   def test_dashboard_required_libraries_aggregates_across_layout
     dashboard = build_test_dashboard layout: { 'top' => %w[block_a block_b],
                                                'left' => %w[block_a block_c] },
-                                     blocks: { 'block_a' => { libraries: %i[d3plus] },
-                                               'block_b' => { async: { libraries: %i[chartjs_meta] } },
-                                               'block_c' => { libraries: %i[mermaid] } }
+                                     blocks: { 'block_a' => %i[d3plus], 'block_b' => %i[chartjs_meta], 'block_c' => %i[mermaid] }
     result = dashboard_required_libraries dashboard
 
     assert_includes result, :d3plus
@@ -104,8 +83,7 @@ class DashboardsHelperTest < Additionals::HelperTest
   def test_dashboard_required_libraries_includes_addable_blocks_when_layout_editable
     User.current = users :users_001
     dashboard = build_test_dashboard layout: { 'top' => %w[block_a] },
-                                     blocks: { 'block_a' => { libraries: %i[d3plus] },
-                                               'block_b' => { async: { libraries: %i[chartjs_meta] } } }
+                                     blocks: { 'block_a' => %i[d3plus], 'block_b' => %i[chartjs_meta] }
 
     assert_includes dashboard_required_libraries(dashboard), :chartjs_meta
   end
@@ -113,8 +91,7 @@ class DashboardsHelperTest < Additionals::HelperTest
   def test_dashboard_required_libraries_skips_addable_blocks_when_layout_not_editable
     User.current = User.anonymous
     dashboard = build_test_dashboard layout: { 'top' => %w[block_a] },
-                                     blocks: { 'block_a' => { libraries: %i[d3plus] },
-                                               'block_b' => { async: { libraries: %i[chartjs_meta] } } }
+                                     blocks: { 'block_a' => %i[d3plus], 'block_b' => %i[chartjs_meta] }
 
     assert_equal %i[d3plus], dashboard_required_libraries(dashboard)
   end

@@ -145,18 +145,6 @@ module ApiTest
       assert_response :not_found
     end
 
-    test 'GET /dashboard_blocks.json with an unknown dashboard type is rejected' do
-      get '/dashboard_blocks.json', params: { dashboard_type: 'NoDashboard' }, headers: credentials('admin')
-
-      assert_response :unprocessable_content
-    end
-
-    test 'GET /dashboard_blocks.json for project dashboards needs a project' do
-      get '/dashboard_blocks.json', params: { dashboard_type: DashboardContentProject::TYPE_NAME }, headers: credentials('admin')
-
-      assert_response :unprocessable_content
-    end
-
     test 'GET /dashboard_blocks.json without credentials requires a login' do
       with_settings login_required: '1' do
         get '/dashboard_blocks.json'

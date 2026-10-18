@@ -28,7 +28,7 @@ class DashboardAsyncBlocksController < ApplicationController
 
   def show
     @settings[:sort] = params[:sort] if params[:sort].present?
-    partial_locals = build_dashboard_partial_locals @block, @block_definition, @settings, @dashboard
+    partial_locals = build_dashboard_partial_locals @block, @settings, @dashboard
 
     respond_to do |format|
       format.html do
@@ -42,7 +42,7 @@ class DashboardAsyncBlocksController < ApplicationController
   def create
     return render_403 if params[:sort].blank?
 
-    partial_locals = build_dashboard_partial_locals @block, @block_definition, @settings, @dashboard
+    partial_locals = build_dashboard_partial_locals @block, @settings, @dashboard
     partial_locals[:sort_options] = { sort: params[:sort] }
 
     respond_to do |format|
@@ -74,10 +74,8 @@ class DashboardAsyncBlocksController < ApplicationController
 
   def find_block
     @block = params['block']
-    @block_definition = @dashboard.content.find_block @block
-
-    render_404 if @block.blank?
-    render_403 if @block_definition.blank?
+    return render_404 if @block.blank?
+    return render_403 unless @dashboard.content.find_block @block
 
     @settings = @dashboard.layout_settings @block
   end

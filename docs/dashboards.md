@@ -82,7 +82,7 @@ def available?
 end
 ```
 
-A patch of `block_definitions` stops the boot with `DashboardBlocks::PatchError`: dashboard blocks are classes only.
+A `block_definitions` method of a dashboard content stops the boot with `DashboardBlocks::PatchError`: dashboard blocks are classes only, views get the block object.
 
 ### Locals of a Block View
 
@@ -90,8 +90,7 @@ A patch of `block_definitions` stops the boot with `DashboardBlocks::PatchError`
 | ----- | ------- |
 | `dashboard` | the dashboard |
 | `block` | id of the block, e.g. `my_block` or `my_block__2` for a second one |
-| `block_definition` | the definition hash of the block |
-| `dashboard_block` | the block object with the stored settings: read a declared setting typed and with its default, e.g. `dashboard_block.max_entries` |
+| `dashboard_block` | the block object with the stored settings: its label, its data and each declared setting typed and with its default, e.g. `dashboard_block.max_entries` |
 | `settings` | the stored settings of the block (symbol keys), as forms sent them |
 | `async` | the async configuration (async blocks only) |
 | `@project` | the project, `nil` on the welcome page |
@@ -161,6 +160,8 @@ end
 ```
 
 `QueryListBlock` provides both for all query lists (the columns of the query and a row of values per entry). Query chart blocks export nothing yet, their charts are used outside of dashboards too and have their own `payload`.
+
+`DashboardBlocksController` serves blocks without a dashboard (`/dashboard_blocks.json`, `/dashboard_blocks/<id>.json`): without a project those of the welcome page plus those only other dashboard types offer, a block of several types once with the first type offering it, so its own rules apply. A dashboard type with a restricted page of its own answers `DashboardContent.blocks_accessible?(user)`, e.g. HRM with the permission to view HRM; on dashboards the visibility of the dashboard decides.
 
 `Dashboard#block_export(block)` returns a block of the layout as a program reads it: `block`, `label`, the typed `settings` of the context and `data`; `nil` for a block that is not in the layout or not available to the user. `DashboardContent#available_block_schemas` tells with `exports_data` which blocks export their data. What the user may not see stays hidden, e.g. authors of anonymized activities.
 
@@ -238,14 +239,14 @@ end
 | `setting` | a declared setting, see [Declared Settings](#declared-settings) |
 | `settings_filter` | callable with `(settings, dashboard)`, called before saving, returns the settings to keep |
 | `max_occurs` | how often the block may be added, e.g. `DashboardContent::MAX_MULTIPLE_OCCURS` |
-| `definition` | further keys of the definition hash, e.g. for own views |
 
 | Instance method | Content |
 | --------------- | ------- |
 | `available?` | whether the block is offered, besides its permission |
 | `unique_params` | further values of the cache key of an async block |
-| `settings_definitions` | declared settings that depend on the project |
-| `to_definition` | the definition hash the views get, e.g. extended with translated keys |
+| `async` | the async options, e.g. extended with a cache lifetime that depends on the project (`super.merge cache_expires_in: ...`) |
+| `data`, `export_data` | the data of the block, see [Data of a Block](#data-of-a-block) |
+| further methods | what the views of the block need, e.g. `chart_class` of a chart block |
 
 Declarations are inherited. A base class of several blocks declares `abstract!`, then it is no block itself.
 
@@ -304,7 +305,7 @@ A migration that replaces blocks of existing dashboards uses `Additionals::Dashb
 
 | Symptom | Cause |
 | ------- | ----- |
-| `DashboardBlocks::PatchError` at boot | a plugin patches `block_definitions`; move its blocks to classes |
+| `DashboardBlocks::PatchError` at boot | a plugin still defines `block_definitions`; move its blocks to classes |
 | `relation "settings" does not exist` on `db:migrate` | a block class names a query or chart as a constant, not as a string |
 | `UndeclaredError` at boot | `lib/dashboard_blocks/` of a plugin without `loader.extends %w[dashboard_blocks]` |
 | `RuntimeError: It is not allowed to delete dashboard, which is system default` | the global system default cannot be deleted |

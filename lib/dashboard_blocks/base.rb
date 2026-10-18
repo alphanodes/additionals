@@ -15,7 +15,7 @@ module DashboardBlocks
   #
   # Block classes are loaded at boot, also by db:create and db:migrate: a
   # class (query, chart, service) is therefore named as a string and resolved
-  # when the definition is built, its class body may read the database.
+  # when the block is used, its class body may not read the database.
   #
   # Settings use the format of Additionals::SettingsSchema. What depends on the
   # user, the project or the data is an instance method (available?,
@@ -46,8 +46,6 @@ module DashboardBlocks
     class_attribute :block_id_value, :label_value, :permission_value, :partial_value, :async_options,
                     :settings_partial_value, :settings_filter_value, instance_writer: false
     class_attribute :without_settings, :admin_only_value, instance_writer: false, default: false
-    # Keys of a definition no declaration covers (yet)
-    class_attribute :extra_definition, instance_writer: false, default: {}
 
     extend RedminePluginKit::Extensions::Abstract
 
@@ -142,10 +140,6 @@ module DashboardBlocks
         callable ? self.settings_filter_value = callable : settings_filter_value
       end
 
-      def definition(**options)
-        self.extra_definition = extra_definition.merge options
-      end
-
       private
 
       # A setting may be declared again by a subclass, it must not hide
@@ -165,7 +159,8 @@ module DashboardBlocks
     attr_reader :dashboard_content
 
     delegate :project, :user, to: :dashboard_content
-    delegate :block_id, :label, to: :class
+    delegate :block_id, :label, :permission, :max_occurs, :partial, :settings_partial, :settings_filter,
+             :no_settings?, :admin_only?, to: :class
 
     # settings: the stored settings of the block, for its typed values
     def initialize(dashboard_content, settings: {}, dashboard: nil)
@@ -180,9 +175,29 @@ module DashboardBlocks
       true
     end
 
+    # Whether the user may use the block here: its permissions (all of them),
+    # admin only and its availability
+    def allowed?
+      return false if admin_only? && !user.admin?
+      return false if permission && !Array(permission).all? { |name| user.allowed_to? name, project, global: true }
+
+      available?
+    end
+
     # Values a cached block loaded after the page depends on, nil for none
     def unique_params
       nil
+    end
+
+    # Options of a block loaded after the page (render_async), nil for a block
+    # rendered with the page
+    def async
+      options = self.class.async
+      return if options.nil?
+
+      options = options.merge data_check_class: options[:data_check_class].constantize if options[:data_check_class].is_a? String
+      params = unique_params
+      params.nil? ? options : options.merge(unique_params: params)
     end
 
     # The data of the block for its settings, independent of the output: the
@@ -219,23 +234,6 @@ module DashboardBlocks
                                                            stored: @stored_settings, user:, project:, dashboard: @dashboard
     end
 
-    # The block as entry of DashboardContent#block_definitions
-    def to_definition
-      definition = { label: }
-      # Only a block with a condition of its own has one
-      definition[:if] = ->(_project) { available? } if self.class.instance_method(:available?).owner != Base
-      definition[:permission] = self.class.permission if self.class.permission
-      definition[:admin_only] = true if self.class.admin_only?
-      definition[:max_occurs] = self.class.max_occurs if self.class.max_occurs != 1
-      definition[:partial] = self.class.partial if self.class.partial
-      definition[:async] = async_definition if self.class.async
-      definition[:no_settings] = true if self.class.no_settings?
-      definition[:settings] = declared_settings if settings_definitions.any?
-      definition[:settings_partial] = self.class.settings_partial if self.class.settings_partial
-      definition[:settings_filter] = self.class.settings_filter if self.class.settings_filter
-      definition.merge self.class.extra_definition
-    end
-
     private
 
     # A value for a program: dates as ISO 8601, records by their name
@@ -254,13 +252,6 @@ module DashboardBlocks
         name = format(method_name, key).to_sym
         rules[option] = method name if respond_to?(name, true) && setting_readers.exclude?(name)
       end
-    end
-
-    def async_definition
-      async = self.class.async
-      async = async.merge data_check_class: async[:data_check_class].constantize if async[:data_check_class].is_a? String
-      params = unique_params
-      params.nil? ? async : async.merge(unique_params: params)
     end
   end
 end

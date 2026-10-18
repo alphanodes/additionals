@@ -36,10 +36,10 @@ class DashboardBlocksTest < Additionals::TestCase
     assert_empty(types.reject { |type| "DashboardContent#{type.to_s.camelize}".safe_constantize })
   end
 
-  def test_content_builds_its_definitions_from_the_blocks
-    definition = DashboardContentProject.new(project: projects(:projects_001)).block_definitions['projectissues']
+  def test_content_offers_the_blocks_of_its_type
+    block = DashboardContentProject.new(project: projects(:projects_001)).blocks['projectissues']
 
-    assert_equal 'dashboards/blocks/project_issues', definition[:partial]
+    assert_equal 'dashboards/blocks/project_issues', block.partial
   end
 
   def test_unavailable_block_is_not_offered
@@ -51,17 +51,17 @@ class DashboardBlocksTest < Additionals::TestCase
   end
 
   def test_query_list_block_translates_the_label_of_its_query
-    definition = DashboardContentWelcome.new.block_definitions['issuequery']
+    block = DashboardContentWelcome.new.blocks['issuequery']
 
-    assert_equal I18n.t(:label_issue_plural), definition[:query_block][:label]
+    assert_equal I18n.t(:label_issue_plural), block.query_block[:label]
   end
 
-  def test_contents_of_additionals_are_not_patched
+  def test_contents_of_additionals_define_no_block_definitions
     assert_nil DashboardBlocks.check_patches!([DashboardContent, DashboardContentWelcome, DashboardContentProject])
   end
 
-  def test_patch_of_block_definitions_is_an_error
-    patched = Class.new(DashboardContent) { prepend(Module.new { def block_definitions = super.merge('foreign' => {}) }) }
+  def test_block_definitions_of_a_plugin_are_an_error
+    patched = Class.new(DashboardContent) { def block_definitions = { 'foreign' => {} } }
 
     assert_raises DashboardBlocks::PatchError do
       DashboardBlocks.check_patches! [patched]
@@ -89,9 +89,9 @@ class DashboardBlocksTest < Additionals::TestCase
   end
 
   def test_rule_of_a_setting_is_a_method_of_the_block
-    definition = DashboardContentProject.new(project: projects(:projects_001)).block_definitions['news']
+    block = DashboardContentProject.new(project: projects(:projects_001)).blocks['news']
 
-    assert_equal :with_subprojects_available?, definition[:settings][:with_subprojects][:if].name
+    assert_equal :with_subprojects_available?, block.declared_settings[:with_subprojects][:if].name
   end
 
   def test_rule_of_a_setting_as_lambda_is_an_error

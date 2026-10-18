@@ -51,10 +51,6 @@ module DashboardBlocks
       end
     end
 
-    def to_definition
-      super.merge query_chart: { class: self.class.chart }
-    end
-
     # The chart of the stored settings, which falls back itself where a value
     # does not fit (charts are used outside of dashboards as well)
     def chart

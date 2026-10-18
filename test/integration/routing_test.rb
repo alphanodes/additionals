@@ -31,6 +31,14 @@ class RoutingTest < Redmine::RoutingTest
     should_route 'GET /global_search/semantic' => 'global_search#semantic'
   end
 
+  def test_dashboard_blocks
+    should_route 'GET /dashboard_blocks.json' => 'dashboard_blocks#index', format: 'json'
+    should_route 'GET /dashboard_blocks/news.json' => 'dashboard_blocks#show', id: 'news', format: 'json'
+    should_route 'GET /projects/foo/dashboard_blocks.json' => 'dashboard_blocks#index', project_id: 'foo', format: 'json'
+    should_route 'GET /projects/foo/dashboard_blocks/news.json' => 'dashboard_blocks#show',
+                 project_id: 'foo', id: 'news', format: 'json'
+  end
+
   def test_dashboards
     should_route 'GET /dashboards.xml' => 'dashboards#index', format: 'xml'
     should_route 'GET /dashboards.json' => 'dashboards#index', format: 'json'

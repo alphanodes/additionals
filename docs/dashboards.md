@@ -91,7 +91,8 @@ A patch of `block_definitions` stops the boot with `DashboardBlocks::PatchError`
 | `dashboard` | the dashboard |
 | `block` | id of the block, e.g. `my_block` or `my_block__2` for a second one |
 | `block_definition` | the definition hash of the block |
-| `settings` | the stored settings of the block (symbol keys) |
+| `dashboard_block` | the block object with the stored settings: read a declared setting typed and with its default, e.g. `dashboard_block.max_entries` |
+| `settings` | the stored settings of the block (symbol keys), as forms sent them |
 | `async` | the async configuration (async blocks only) |
 | `@project` | the project, `nil` on the welcome page |
 
@@ -112,27 +113,56 @@ class MyBlock < Base
 end
 ```
 
-Settings that depend on the project come from an instance method `settings_definitions`.
+A rule of a setting is a method of the block named after the setting, called with the schema (`schema[:key]` reads another setting, `project` and `user` come from the block). A lambda in `setting` is an error:
 
-The fields of the settings partial are named `settings[<block>][<key>]`. The helpers of additionals build them with label and value:
+```ruby
+setting :with_subprojects, type: :boolean, label: :label_cross_project_descendants
+
+private
+
+def with_subprojects_available?(_schema) = project.present? # if: whether the setting exists
+def interval_applies?(schema) = schema[:group_by] == 'created_on' # applies
+def query_id_values(_schema) = MyQuery.visible.map { |query| [query.name, query.id.to_s] } # values
+```
+
+Each setting gets a reader on the block with its typed value and default (`dashboard_block.max_entries`); a stored number out of its bounds reads as the default. A setting must not hide another method of the block, `reader:` names its reader otherwise (`setting :user, type: :string, reader: :login_user`). The fields of the settings partial are named `settings[<block>][<key>]`, the helpers of additionals build them with label and value:
 
 ```slim
 .box.tabular.settings
-  p = additionals_settings_textfield :title, value: settings[:title], tag_name: "settings[#{block}][title]"
-  p = additionals_settings_numberfield :max_entries, value: settings[:max_entries], tag_name: "settings[#{block}][max_entries]",
-                                                     min: 1, max: 100
-  p = additionals_settings_checkbox :show_closed, active_value: settings[:show_closed], tag_name: "settings[#{block}][show_closed]"
+  p = additionals_settings_textfield :title, value: dashboard_block.title, tag_name: "settings[#{block}][title]"
+  p = additionals_settings_numberfield :max_entries, value: dashboard_block.max_entries,
+                                                     tag_name: "settings[#{block}][max_entries]", min: 1, max: 100
+  p = additionals_settings_checkbox :show_closed, active_value: dashboard_block.show_closed,
+                                                  tag_name: "settings[#{block}][show_closed]"
 ```
 
-Read boolean settings with `RedminePluginKit.true?`: a checkbox sends `"0"`, which is truthy in Ruby.
+A block without declarations reads `settings` itself; then read booleans with `RedminePluginKit.true?`, a checkbox sends `"0"`, which is truthy in Ruby.
 
 ### Declared Settings
 
-A block declares its settings with `setting`, in the format of [`Additionals::SettingsSchema`](settings-schema.md). Saving them (`Dashboard#update_block_settings`) then drops unknown keys and stores nothing if a value is invalid; the settings form shows the errors. Query list blocks with the settings form of additionals get their settings automatically, blocks with `no_settings!` drop every setting. Blocks without declared settings keep whatever they get.
+A block declares its settings with `setting`, in the format of [`Additionals::SettingsSchema`](settings-schema.md). Saving them (`Dashboard#update_block_settings`) then drops unknown keys and stores nothing if a value is invalid; the settings form shows the errors. `QueryListBlock` declares the settings of its form (`query_id`, `columns`, `max_entries`, `auto_refresh`) for all query list blocks, a subclass with an own settings form declares its settings again; blocks with `no_settings!` drop every setting. Blocks without declared settings keep whatever they get.
 
 Saving runs in this order: `settings_filter` on the given settings, then the declared settings on them, completed by the stored ones. Only given values are checked against their values and bounds, stored ones only for required settings: a query the editor cannot see or a column removed since does not lock the block. A program may send a part of the settings.
 
 `DashboardContent#available_block_schemas` lists the blocks the user can add with `label`, `max_occurs` and their described settings, `#block_settings(block, values:)` returns the schema of one block.
+
+### Data of a Block
+
+A block loads what it shows in `data`, for its settings and independent of the output; its partial renders `dashboard_block.data` and fetches nothing itself. A block decides whether its data leaves the dashboard: `export_data` returns it as plain values (strings, numbers, booleans, arrays, hashes, dates as ISO 8601) for the API and AI or MCP tools, `nil` (the default) keeps it on the dashboard.
+
+```ruby
+def data
+  @data ||= MyEntry.visible(user).where(project:).limit(max_entries).to_a
+end
+
+def export_data
+  data.map { |entry| { id: entry.id, name: entry.name, created_on: entry.created_on.iso8601 } }
+end
+```
+
+`QueryListBlock` provides both for all query lists (the columns of the query and a row of values per entry). Query chart blocks export nothing yet, their charts are used outside of dashboards too and have their own `payload`.
+
+`Dashboard#block_export(block)` returns a block of the layout as a program reads it: `block`, `label`, the typed `settings` of the context and `data`; `nil` for a block that is not in the layout or not available to the user. `DashboardContent#available_block_schemas` tells with `exports_data` which blocks export their data. What the user may not see stays hidden, e.g. authors of anonymized activities.
 
 ### Async Blocks
 
@@ -189,6 +219,8 @@ class MyEntryChartBlock < QueryChartBlock
   chart 'MyEntryQueryChart'
 end
 ```
+
+`QueryChartBlock` declares all settings of the chart settings form. Its rules ask the chart class instead of restating it (`group_options`, `timeline?`, `calendar?`, `period_supported?`, `default_measure`, ...), so a chart class of another plugin is covered by overriding these. The chart class itself knows nothing of dashboards and keeps its own fallbacks, it is used elsewhere too (e.g. on a version). `offered` names what the form offers for the other values, e.g. no doughnut for a timeline; a stored value outside is still valid and falls back when the chart reads it.
 
 ### Block Declarations
 

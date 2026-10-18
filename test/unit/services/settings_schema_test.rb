@@ -57,6 +57,18 @@ class SettingsSchemaTest < Additionals::TestCase
     assert_equal "a\nb\n", schema_for({ text: { type: :text } }, text: "a\nb\n")[:text]
   end
 
+  def test_stored_number_out_of_bounds_reads_as_default
+    definitions = { days: { type: :integer, min: 1, max: 365, default: 7 } }
+
+    assert_equal 7, Additionals::SettingsSchema.new(definitions, {}, stored: { days: '1000' })[:days]
+  end
+
+  def test_stored_number_in_bad_format_reads_as_default
+    definitions = { days: { type: :integer, default: 7 } }
+
+    assert_equal 7, Additionals::SettingsSchema.new(definitions, {}, stored: { days: 'abc' })[:days]
+  end
+
   def test_boolean_from_form_value
     assert_equal({ on: '1' }, schema_for({ on: { type: :boolean } }, on: '1').settings)
   end

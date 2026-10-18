@@ -118,9 +118,11 @@ class AdditionalsQueryChartHelperTest < Additionals::HelperTest
 
   # The form is part of the dashboard pages and rendered with their helpers
   def render_settings_form(chart_class = Additionals::TestIssueQueryChart)
+    dashboard_block = Class.new(DashboardBlocks::QueryChartBlock) { chart chart_class.name }.new DashboardContentWelcome.new
     build_redmine_view(WelcomeController).render partial: 'dashboards/blocks/query_chart_settings',
                                                  locals: { block: 'chart',
                                                            settings: {},
+                                                           dashboard_block:,
                                                            block_definition: { query_chart: { class: chart_class } } }
   end
 end

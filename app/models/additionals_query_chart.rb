@@ -305,6 +305,16 @@ class AdditionalsQueryChart < AdditionalsChart
                  .sort_by! { |caption, _name| caption.to_s.downcase }
   end
 
+  # Split columns the settings offer for the group column: never the group
+  # column itself, and no second field with multiple values
+  def offered_split_names
+    split_columns.filter_map do |column|
+      next if column == group_column || (multiple_values? && multiple_values_column?(column))
+
+      column.name.to_s
+    end
+  end
+
   # Keys of the second column in the order of its field, small ones summed up
   # as OTHERS
   def split_keys

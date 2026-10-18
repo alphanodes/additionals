@@ -1,19 +1,17 @@
-- max_entries = settings[:max_entries].presence || DashboardContent::DEFAULT_MAX_ENTRIES
-
 .box.tabular.settings
   p
     = additionals_settings_textfield :title,
                                      label: :field_title,
-                                     value: dashboard_feed_title(settings[:title], block_definition),
+                                     value: dashboard_feed_title(dashboard_block.title, block_definition),
                                      tag_name: "settings[#{block}][title]"
   p
     = additionals_settings_urlfield :url,
-                                    value: settings[:url],
+                                    value: dashboard_block.url,
                                     label: :field_url,
                                     tag_name: "settings[#{block}][url]",
                                     required: true
   p
     = additionals_settings_numberfield :max_entries,
-                                       value: max_entries,
+                                       value: dashboard_block.max_entries,
                                        tag_name: "settings[#{block}][max_entries]",
                                        min: 1, max: 100, required: true

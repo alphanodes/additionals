@@ -1,5 +1,5 @@
-- query = klass.find_by id: settings[:query_id]
-- query.column_names = settings[:columns].map(&:to_sym) if query && settings[:columns].present?
+- query = klass.find_by id: dashboard_block.query_id
+- query.column_names = dashboard_block.columns.map(&:to_sym) if query && dashboard_block.columns.present?
 
 - if query
   .box
@@ -9,13 +9,13 @@
     .tabular.settings
       p
         = additionals_settings_numberfield :max_entries,
-                                           value: settings[:max_entries].presence || DashboardContent::DEFAULT_MAX_ENTRIES,
+                                           value: dashboard_block.max_entries,
                                            tag_name: "settings[#{block}][max_entries]",
                                            min: 1, max: 100, required: true
       p
         = additionals_settings_checkbox :auto_refresh,
                                         label: :label_enable_auto_refresh,
-                                        active_value: settings[:auto_refresh],
+                                        active_value: dashboard_block.auto_refresh,
                                         tag_name: "settings[#{block}][auto_refresh]"
 - else
   .box.tabular.settings
@@ -27,11 +27,11 @@
                                     required: true
     p
       = additionals_settings_numberfield :max_entries,
-                                         value: settings[:max_entries].presence || DashboardContent::DEFAULT_MAX_ENTRIES,
+                                         value: dashboard_block.max_entries,
                                          tag_name: "settings[#{block}][max_entries]",
                                          min: 1, max: 100, required: true
     p
       = additionals_settings_checkbox :auto_refresh,
                                       label: :label_enable_auto_refresh,
-                                      active_value: settings[:auto_refresh],
+                                      active_value: dashboard_block.auto_refresh,
                                       tag_name: "settings[#{block}][auto_refresh]"

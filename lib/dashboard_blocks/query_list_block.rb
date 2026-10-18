@@ -7,6 +7,13 @@ module DashboardBlocks
 
     max_occurs DashboardContent::MAX_MULTIPLE_OCCURS
 
+    # The settings form of additionals (dashboards/blocks/query_list); a block
+    # with an own settings form declares its settings again
+    setting :query_id, type: :enum, label: :label_query, required: true
+    setting :columns, type: :list, label: :field_column_names
+    setting :max_entries, **DashboardContent::MAX_ENTRIES_SETTING
+    setting :auto_refresh, type: :boolean, label: :label_enable_auto_refresh
+
     class_attribute :query_block_options, instance_writer: false
 
     class << self
@@ -19,7 +26,62 @@ module DashboardBlocks
 
     def to_definition
       options = self.class.query_block
-      super.merge query_block: options.merge(label: I18n.t(options[:label]), class: options[:class].to_s.constantize)
+      super.merge query_block: options.merge(label: I18n.t(options[:label]), class: query_class)
+    end
+
+    # The saved query of the settings with the chosen columns, nil if the user
+    # cannot see it
+    def query
+      return @query if defined? @query
+
+      @query = query_id.present? ? query_class.visible.find_by(id: query_id) : nil
+      return if @query.nil?
+
+      @query.project = project if self.class.query_block[:with_project]
+      @query.column_names = columns.map(&:to_sym) if columns.present?
+      @query
+    end
+
+    # The entries of the query, sorted by sort (the sort param of a list) if
+    # given; nil without a query
+    def data(sort: nil)
+      return if query.nil?
+
+      query.sort_criteria = sort if sort.present?
+      count = query.send self.class.query_block[:count_method] || 'query_count'
+      entries = count.positive? ? query.send(self.class.query_block[:entries_method] || 'entries', limit: max_entries) : []
+      { query:, count:, entries: }
+    end
+
+    # The columns of the query and a row of values per entry
+    def export_data
+      list = data
+      return if list.nil?
+
+      columns = list[:query].inline_columns
+      { query: list[:query].name,
+        count: list[:count],
+        columns: columns.map { |column| column.caption.to_s },
+        rows: list[:entries].map { |entry| columns.map { |column| export_value column.value_object(entry) } } }
+    end
+
+    private
+
+    def query_class
+      self.class.query_block[:class].to_s.constantize
+    end
+
+    def query_id_values(_schema)
+      DashboardContent.selectable_queries(query_class, project).map { |query| [query.name, query.id.to_s] }
+    end
+
+    # Columns of the chosen query as its settings form offers them (without a
+    # project), nil without a query: then there is nothing to check
+    def columns_values(schema)
+      query = query_class.find_by id: schema[:query_id] if schema[:query_id].present?
+      return if query.nil?
+
+      query.available_columns.filter_map { |column| [column.caption, column.name.to_s] unless column.frozen? }
     end
   end
 end

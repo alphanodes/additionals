@@ -1,11 +1,8 @@
 - dashboard_async_cache dashboard, block, async, settings do
-  - query = klass.visible.find_by id: settings[:query_id]
-  - if query
-    ruby:
-      query.project = @project if query_block[:with_project]
-      count = query.send(query_block[:count_method] || 'query_count')
-      query.column_names = settings[:columns].split(',').map(&:to_sym) if settings[:columns].present?
-      query.sort_criteria = params[:sort] if params[:sort].present?
+  - list = dashboard_block.data sort: params[:sort]
+  - if list
+    - query = list[:query]
+    - count = list[:count]
 
     h3.query-list-block
       = label_with_count dashboard_query_list_block_title(query, query_block, @project), count
@@ -20,8 +17,7 @@
       - @query = query
 
       = render(query_block[:list_partial],
-               query_block[:entities_var] => query.send(query_block[:entries_method] || 'entries',
-                                                                  limit: settings[:max_entries] || DashboardContent::DEFAULT_MAX_ENTRIES),
+               query_block[:entities_var] => list[:entries],
                query:,
                query_options: { sort_param: 'sort',
                                sort_link_options: { method: :post, remote: true } })

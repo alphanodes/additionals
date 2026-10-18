@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   resource :dashboard_async_blocks, only: %i[show create]
 
+  resources :dashboard_blocks, only: %i[index show], constraints: { id: /\w+/ }
+
   resources :dashboards do
     member do
       post :update_layout_setting
@@ -31,6 +33,7 @@ Rails.application.routes.draw do
       end
     end
     resource :dashboard_async_blocks, only: %i[show create]
+    resources :dashboard_blocks, only: %i[index show], constraints: { id: /\w+/ }
   end
 
   resource :global_search, only: [], controller: 'global_search' do

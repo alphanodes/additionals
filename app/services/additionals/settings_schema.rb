@@ -18,6 +18,9 @@ module Additionals
   # - type: string, text, integer, float, boolean, enum or list
   # - label, info: locale key, text or lambda
   # - values: allowed values, plain or [label, value], for enum and list
+  # - offered: the allowed values a form offers for the other values, e.g.
+  #   only some display types for a timeline. Other allowed values stay valid,
+  #   whoever reads them falls back.
   # - default, required, min, max
   # - if: whether the setting exists in the context at all; if not, it counts
   #   as an unknown key
@@ -38,11 +41,12 @@ module Additionals
     include Redmine::I18n
 
     TYPES = %i[string text integer float boolean enum list].freeze
-    OPTIONS = %i[type label info values default required min max if applies].freeze
+    OPTIONS = %i[type label info values offered default required min max if applies].freeze
     TRUE_VALUES = ['1', 'true', true, 1].freeze
     FALSE_VALUES = ['0', 'false', false, 0, ''].freeze
     INTEGER_FORMAT = /\A[+-]?\d+\z/
     FLOAT_FORMAT = /\A[+-]?\d+(\.\d+)?\z/
+    NUMBER_TYPES = %i[integer float].freeze
 
     attr_reader :context
 
@@ -55,21 +59,36 @@ module Additionals
       @values = cast_values(stored.to_h.symbolize_keys.except(*@given_keys), check: false).merge cast_values(values)
     end
 
-    # Typed value of a setting, its default if it is blank
+    # Typed value of a setting, its default if it is blank or a number out of
+    # its bounds (e.g. stored before they were declared)
     def [](key)
       key = key.to_sym
       definition = @definitions[key]
       return if definition.nil?
 
       value = @values[key]
-      return resolve definition[:default] if value.blank?
+      return default_for definition if value.blank? || !readable_number?(definition, value)
 
       typed_value definition[:type], value
+    end
+
+    # The given and stored values as stored, before any default, e.g. to build
+    # an object that knows the rules
+    def values
+      @values.dup
     end
 
     # Values to store: declared, available settings only
     def settings
       @values.slice(*available_keys)
+    end
+
+    # Settings that exist in the context
+    def available_keys
+      @available_keys ||= @definitions.keys.select do |key|
+        condition = @definitions[key][:if]
+        condition.nil? || resolve(condition)
+      end
     end
 
     # Unknown keys and settings that do not exist in the context
@@ -135,7 +154,7 @@ module Additionals
         value.to_s
       when :integer, :float
         number = value.to_s.strip
-        @invalid[key] = :not_a_number if number.present? && number !~ (type == :integer ? INTEGER_FORMAT : FLOAT_FORMAT)
+        @invalid[key] = :not_a_number if number.present? && number !~ number_format(type)
         number
       when :boolean
         cast_boolean key, value
@@ -156,6 +175,25 @@ module Additionals
       end
     end
 
+    # A boolean without a default is off
+    def default_for(definition)
+      default = resolve definition[:default]
+      default.nil? && definition[:type] == :boolean ? false : default
+    end
+
+    def readable_number?(definition, value)
+      type = definition[:type]
+      return true unless NUMBER_TYPES.include? type
+      return false unless value.to_s.strip.match? number_format(type)
+
+      number = typed_value type, value
+      (definition[:min].nil? || number >= definition[:min]) && (definition[:max].nil? || number <= definition[:max])
+    end
+
+    def number_format(type)
+      type == :integer ? INTEGER_FORMAT : FLOAT_FORMAT
+    end
+
     def typed_value(type, value)
       case type
       when :integer
@@ -166,13 +204,6 @@ module Additionals
         value == '1'
       else
         value
-      end
-    end
-
-    def available_keys
-      @available_keys ||= @definitions.keys.select do |key|
-        condition = @definitions[key][:if]
-        condition.nil? || resolve(condition)
       end
     end
 
@@ -237,6 +268,7 @@ module Additionals
         required: definition[:required] ? true : nil,
         default: resolve(definition[:default]),
         values: values_for(definition),
+        offered: definition.key?(:offered) ? Array(resolve(definition[:offered])).map(&:to_s) : nil,
         min: definition[:min],
         max: definition[:max],
         applies: applies?(key),

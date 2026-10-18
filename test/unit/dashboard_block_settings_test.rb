@@ -2,9 +2,9 @@
 
 require File.expand_path '../../test_helper', __FILE__
 
-# Blocks with declared settings next to a block with its own query list
-# settings form. Dashboard constantizes the content class from the
-# dashboard_type, so it lives at the top level and its name follows TYPE_NAME.
+# Blocks with declared settings next to blocks without declarations. Dashboard
+# constantizes the content class from the dashboard_type, so it lives at the
+# top level and its name follows TYPE_NAME.
 class DashboardContentSettingsStub < DashboardContent
   TYPE_NAME = 'SettingsStubDashboard'
 
@@ -135,7 +135,7 @@ class DashboardBlockSettingsTest < Additionals::TestCase
     assert_predicate schema, :valid?
   end
 
-  def test_block_with_own_query_list_settings_has_no_declared_settings
+  def test_block_without_declared_settings_has_no_schema
     assert_nil @dashboard.content.block_settings('own_query_list')
   end
 

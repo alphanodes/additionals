@@ -6,7 +6,7 @@ h3 = block_definition[:label]
       .box.tabular.settings
         p
           = additionals_settings_numberfield :day,
-                                              value: days,
+                                              value: spent_time[:days],
                                               label: :button_show,
                                               tag_name: "settings[#{block}][days]",
                                               min: 1, max: 365, required: true
@@ -21,12 +21,12 @@ ul.dashboard-list
   li.today
     = l :label_today
     ' :
-    = l_hours_short entries_today.sum(&:hours)
+    = l_hours_short spent_time[:today_hours]
 
   li.days
-    = l :label_last_n_days, days
+    = l :label_last_n_days, spent_time[:days]
     ' :
-    = l_hours_short entries_days.sum(&:hours)
+    = l_hours_short spent_time[:days_hours]
 
 = link_to l(:label_spent_time), _time_entries_path(@project, nil, user_id: 'me')
 '

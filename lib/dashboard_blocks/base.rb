@@ -19,10 +19,28 @@ module DashboardBlocks
   #
   # Settings use the format of Additionals::SettingsSchema. What depends on the
   # user, the project or the data is an instance method (available?,
-  # unique_params, settings_definitions), the rest is declared on the class and
-  # inherited.
+  # unique_params), the rest is declared on the class and inherited. A rule of
+  # a setting is a method named after it, called with the schema:
+  #
+  #   setting :with_subprojects, type: :boolean
+  #
+  #   def with_subprojects_available?(_schema) = project.present?
+  #
+  # <key>_available? decides whether the setting exists (if), <key>_applies?
+  # whether it applies to the other values (applies), <key>_values returns the
+  # allowed values (values), <key>_offered those a form offers (offered),
+  # <key>_default and <key>_label a default and label depending on the context.
+  # Each setting gets a reader of its typed value with its default, e.g.
+  # block.max_entries.
   class Base
+    # Options of a setting a block answers with a method, see setting_rules
+    RULE_METHODS = { if: '%s_available?', applies: '%s_applies?', values: '%s_values', offered: '%s_offered',
+                     default: '%s_default', label: '%s_label' }.freeze
+
     class_attribute :settings_definitions, instance_writer: false, default: {}
+    # Readers of the settings, never a rule even if named like one (e.g. a
+    # setting group_threshold_default next to group_threshold)
+    class_attribute :setting_readers, instance_writer: false, default: []
     class_attribute :declared_dashboard_types, instance_writer: false
     class_attribute :max_occurs_count, instance_writer: false, default: 1
     class_attribute :block_id_value, :label_value, :permission_value, :partial_value, :async_options,
@@ -84,8 +102,15 @@ module DashboardBlocks
         options.any? ? self.async_options = options : async_options
       end
 
-      def setting(name, **definition)
-        self.settings_definitions = settings_definitions.merge name.to_sym => definition
+      # reader: name of the reader of the typed value, e.g. :login_user for a
+      # setting user, which would hide the user of the block
+      def setting(name, reader: name, **definition)
+        name = name.to_sym
+        rules = definition.select { |_option, value| value.respond_to? :call }.keys
+        raise ArgumentError, "#{self}: setting #{name} declares #{rules.to_comma_list} as lambda, use a method" if rules.any?
+
+        define_setting_reader name, reader.to_sym
+        self.settings_definitions = settings_definitions.merge name => definition
       end
 
       # A block without any setting shows no settings form, a subclass may
@@ -102,6 +127,11 @@ module DashboardBlocks
         without_settings
       end
 
+      # Whether the block offers its data to programs, see export_data
+      def exports_data?
+        instance_method(:export_data).owner != Base
+      end
+
       def settings_partial(name = nil)
         name ? self.settings_partial_value = name : settings_partial_value
       end
@@ -115,6 +145,19 @@ module DashboardBlocks
       def definition(**options)
         self.extra_definition = extra_definition.merge options
       end
+
+      private
+
+      # A setting may be declared again by a subclass, it must not hide
+      # another method of the block
+      def define_setting_reader(name, reader)
+        if !settings_definitions.key?(name) && (method_defined?(reader) || private_method_defined?(reader))
+          raise ArgumentError, "#{self}: setting #{name} would replace the method #{reader} of the block, name its reader"
+        end
+
+        self.setting_readers = setting_readers | [reader]
+        define_method(reader) { settings_schema[name] }
+      end
     end
 
     abstract!
@@ -124,8 +167,11 @@ module DashboardBlocks
     delegate :project, :user, to: :dashboard_content
     delegate :block_id, :label, to: :class
 
-    def initialize(dashboard_content)
+    # settings: the stored settings of the block, for its typed values
+    def initialize(dashboard_content, settings: {}, dashboard: nil)
       @dashboard_content = dashboard_content
+      @stored_settings = settings.to_h.symbolize_keys
+      @dashboard = dashboard
     end
 
     # Whether the block can be added, besides its permission, e.g. only with
@@ -139,6 +185,40 @@ module DashboardBlocks
       nil
     end
 
+    # The data of the block for its settings, independent of the output: the
+    # partial renders it, export_data turns it into plain values. Nil for a
+    # block without data of its own.
+    def data
+      nil
+    end
+
+    # The data as plain values (strings, numbers, booleans, arrays and hashes)
+    # for the API and AI or MCP tools, nil if the block offers none. A block
+    # decides itself whether its data leaves the dashboard.
+    def export_data
+      nil
+    end
+
+    # What a program reads about the block: its label, typed settings and data
+    def export
+      { label:,
+        settings: settings_schema.available_keys.index_with { |key| export_value settings_schema[key] },
+        data: export_data }
+    end
+
+    # The declared settings with the rules the block answers with methods
+    def declared_settings
+      settings_definitions.to_h do |key, definition|
+        [key, definition.merge(setting_rules(key))]
+      end
+    end
+
+    # The stored settings, read typed and with their defaults
+    def settings_schema
+      @settings_schema ||= Additionals::SettingsSchema.new declared_settings, {},
+                                                           stored: @stored_settings, user:, project:, dashboard: @dashboard
+    end
+
     # The block as entry of DashboardContent#block_definitions
     def to_definition
       definition = { label: }
@@ -150,13 +230,31 @@ module DashboardBlocks
       definition[:partial] = self.class.partial if self.class.partial
       definition[:async] = async_definition if self.class.async
       definition[:no_settings] = true if self.class.no_settings?
-      definition[:settings] = settings_definitions if settings_definitions.any?
+      definition[:settings] = declared_settings if settings_definitions.any?
       definition[:settings_partial] = self.class.settings_partial if self.class.settings_partial
       definition[:settings_filter] = self.class.settings_filter if self.class.settings_filter
       definition.merge self.class.extra_definition
     end
 
     private
+
+    # A value for a program: dates as ISO 8601, records by their name
+    def export_value(value)
+      case value
+      when nil, String, Numeric, true, false then value
+      when Array then value.map { |entry| export_value entry }
+      when Hash then value.transform_values { |entry| export_value entry }
+      when Date, Time, ActiveSupport::TimeWithZone then value.iso8601
+      else value.to_s
+      end
+    end
+
+    def setting_rules(key)
+      RULE_METHODS.each_with_object({}) do |(option, method_name), rules|
+        name = format(method_name, key).to_sym
+        rules[option] = method name if respond_to?(name, true) && setting_readers.exclude?(name)
+      end
+    end
 
     def async_definition
       async = self.class.async

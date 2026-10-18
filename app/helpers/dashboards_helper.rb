@@ -321,6 +321,7 @@ module DashboardsHelper
   def build_dashboard_partial_locals(block, block_definition, settings, dashboard)
     partial_locals = { dashboard:,
                        settings:,
+                       dashboard_block: dashboard.content.dashboard_block(block, settings:, dashboard:),
                        block:,
                        block_definition:,
                        user: User.current }
@@ -465,7 +466,7 @@ module DashboardsHelper
                  css_class: 'suffixed')
   end
 
-  def render_legacy_left_block(_block, _block_definition, _settings, _dashboard)
+  def render_legacy_left_block(_block, _block_definition, _dashboard_block, _dashboard)
     if @project
       call_hook :view_projects_show_left, project: @project
     else
@@ -473,7 +474,7 @@ module DashboardsHelper
     end
   end
 
-  def render_legacy_right_block(_block, _block_definition, _settings, _dashboard)
+  def render_legacy_right_block(_block, _block_definition, _dashboard_block, _dashboard)
     if @project
       call_hook :view_projects_show_right, project: @project
     else
@@ -481,101 +482,18 @@ module DashboardsHelper
     end
   end
 
-  # copied from my_helper
-  def render_documents_block(block, _block_definition, settings, dashboard)
-    max_entries = settings[:max_entries] || DashboardContent::DEFAULT_MAX_ENTRIES
-
-    scope = Document.visible
-    scope = scope.where project: dashboard.project if dashboard.project
-
-    documents = scope.order(created_on: :desc)
-                     .limit(max_entries)
-                     .to_a
-
-    render 'dashboards/blocks/documents', block:, max_entries:, documents:
+  def render_documents_block(block, _block_definition, dashboard_block, _dashboard)
+    render 'dashboards/blocks/documents', block:, max_entries: dashboard_block.max_entries, documents: dashboard_block.data
   end
 
-  def render_news_block(block, _block_definition, settings, dashboard)
-    max_entries = settings[:max_entries] || DashboardContent::DEFAULT_MAX_ENTRIES
-    with_subprojects = RedminePluginKit.true? settings[:with_subprojects]
-    news = news_block_entries dashboard, max_entries, with_subprojects: with_subprojects
-
-    render 'dashboards/blocks/news', block:, max_entries:, news:,
-                                     with_subprojects: with_subprojects,
+  def render_news_block(block, _block_definition, dashboard_block, dashboard)
+    render 'dashboards/blocks/news', block:, max_entries: dashboard_block.max_entries, news: dashboard_block.data,
+                                     with_subprojects: dashboard_block.with_subprojects,
                                      content_project_id: dashboard.content_project&.id
   end
 
-  def news_block_entries(dashboard, max_entries, with_subprojects: false)
-    return News.latest User.current, max_entries if dashboard.content_project.nil?
-
-    project = dashboard.content_project
-    scope = if with_subprojects && !project.leaf?
-              News.visible.where project_id: project.self_and_descendants.ids
-            else
-              project.news
-            end
-
-    scope.limit(max_entries)
-         .includes(:author, :project)
-         .reorder(created_on: :desc)
-         .to_a
-  end
-
-  def render_my_spent_time_block(block, block_definition, settings, dashboard)
-    days = settings[:days].to_i
-    days = 7 if days < 1 || days > 365
-
-    scope = TimeEntry.where user_id: User.current.id
-    scope = scope.where project_id: dashboard.content_project.id unless dashboard.content_project.nil?
-
-    entries_today = scope.where spent_on: User.current.today
-    entries_days = scope.where spent_on: (User.current.today - (days - 1))..User.current.today
-
-    render('dashboards/blocks/my_spent_time',
-           block:,
-           block_definition:,
-           entries_today:,
-           entries_days:,
-           days:)
-  end
-
-  def activity_dashboard_data(settings, dashboard)
-    max_entries = (settings[:max_entries] || DashboardContent::DEFAULT_MAX_ENTRIES).to_i
-    user = User.current
-    options = {}
-    options[:author] = user if RedminePluginKit.true? settings[:me_only]
-    options[:project] = dashboard.content_project if dashboard.content_project.present?
-
-    Redmine::Activity::Fetcher.new(user, options)
-                              .events(nil, nil, limit: max_entries)
-                              .group_by { |event| user.time_to_date event.event_datetime }
-  end
-
-  def dashboard_feed_catcher(url, max_entries)
-    feed = { items: [], valid: false }
-    return feed if url.blank?
-
-    cnt = 0
-    max_entries = max_entries.present? ? max_entries.to_i : 10
-
-    begin
-      URI.parse(url).open do |rss_feed|
-        rss = RSS::Parser.parse rss_feed
-        rss.items.each do |item|
-          cnt += 1
-          feed[:items] << { title: item.title.try(:content).presence || item.title,
-                            link: item.link.try(:href).presence || item.link }
-          break if cnt >= max_entries
-        end
-      end
-    rescue StandardError => e
-      Rails.logger.info "dashboard_feed_catcher error for #{url}: #{e}"
-      return feed
-    end
-
-    feed[:valid] = true
-
-    feed
+  def render_my_spent_time_block(block, block_definition, dashboard_block, _dashboard)
+    render 'dashboards/blocks/my_spent_time', block:, block_definition:, spent_time: dashboard_block.data
   end
 
   def dashboard_feed_title(title, block_definition)
@@ -638,7 +556,7 @@ module DashboardsHelper
       send :"render_#{block_definition[:name]}_block",
            block,
            block_definition,
-           settings,
+           partial_locals[:dashboard_block],
            dashboard
     end
   end

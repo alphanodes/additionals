@@ -317,6 +317,38 @@ module Additionals
       end
     end
 
+    # The settings forms of the blocks send declared settings only
+    # (DashboardBlocks::Base.setting), so no setting is added to a form alone.
+    # Renders a dashboard with the blocks as admin: a welcome dashboard from a
+    # test of WelcomeController, a project dashboard from one of
+    # ProjectsController with project. Every block of blocks must show a form.
+    def assert_dashboard_block_settings_declared(blocks, project: nil, layout_settings: {})
+      @request.session[:user_id] = 1
+      User.current = User.find 1
+      type = project ? DashboardContentProject::TYPE_NAME : DashboardContentWelcome::TYPE_NAME
+      dashboard = Dashboard.create! name: 'Block settings', dashboard_type: type, author: User.current,
+                                    visibility: Dashboard::VISIBILITY_PUBLIC, layout: { 'left' => blocks }, layout_settings: layout_settings
+      dashboard.content_project = project if project
+      get project ? :show : :index, params: { id: project&.identifier, dashboard_id: dashboard.id }.compact
+
+      form_keys = dashboard_block_form_keys
+
+      assert_equal blocks.sort, (blocks & form_keys.keys).sort, 'blocks without a settings form'
+      undeclared = form_keys.filter_map do |block, keys|
+        missing = keys - dashboard.content.block_settings_definitions(block).to_h.keys
+        "#{block}: #{missing.to_comma_list}" if missing.any?
+      end
+
+      assert_empty undeclared, 'settings sent but not declared'
+    end
+
+    def dashboard_block_form_keys
+      css_select('[name^="settings["]').each_with_object(Hash.new { |hash, key| hash[key] = [] }) do |field, keys|
+        block, key = field['name'].match(/\Asettings\[(\w+)\]\[(\w+)\]/)&.captures
+        keys[block] |= [key.to_sym] if key
+      end
+    end
+
     # Return the columns that are displayed in the list
     def columns_in_projects_list
       css_select('table.projects thead th').map(&:text)

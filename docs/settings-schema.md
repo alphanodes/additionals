@@ -19,13 +19,14 @@ DEFINITIONS = {
 | `type` | `string`, `text`, `integer`, `float`, `boolean`, `enum` or `list` |
 | `label`, `info` | Locale key, text or lambda; use the keys of the settings form |
 | `values` | Allowed values of `enum` and `list`, plain or `[label, value]` |
-| `default` | Value read for a missing or blank setting, not stored |
+| `offered` | The allowed values a form offers for the other values; others stay valid and fall back where they are read |
+| `default` | Value read for a missing or blank setting, not stored; a boolean without one reads as `false` |
 | `required` | Blank is an error (only while the setting applies) |
 | `min`, `max` | Bounds of numbers |
 | `if` | Whether the setting exists in the context at all, otherwise it counts as an unknown key |
 | `applies` | Whether the setting applies to the other values |
 
-Lambdas get the schema: `schema[:key]` reads another setting (typed, with its default), `schema.context` the context it was built with.
+Dashboard blocks declare these rules as methods instead of lambdas (see [Settings](dashboards.md#settings)). Lambdas get the schema: `schema[:key]` reads another setting (typed, with its default), `schema.context` the context it was built with.
 
 ## Reading Values
 
@@ -37,12 +38,14 @@ schema.full_messages # => ['Maximum entries must be less than or equal to 100']
 schema.settings      # values to store, declared keys only
 schema.ignored_keys  # => [:chart], unknown keys a program sent
 schema[:max_entries] # => 10, typed and with its default
+schema.values        # => given and stored values as stored, e.g. to build an object that knows the rules
 schema.describe      # => [{ key: :url, type: :string, label: 'URL', required: true, applies: true }, ...]
 ```
 
 Some rules to know:
 
 - **Stored as forms send them:** booleans `"1"`/`"0"`, numbers as strings, blank means none. Code reading the stored settings works unchanged, a program may still send `true` or `10`.
+- **Stored numbers out of bounds read as default:** a value stored before its bounds were declared does not reach the reader.
 - **Invalid is rejected, not applicable is kept:** a value outside `values` or `min`/`max` is an error even if the setting does not apply. A setting that does not apply (`applies`) is kept, so a form switching back restores it, and it is not required.
 - **Rules belong to the model:** lambdas ask the object that already knows a rule instead of restating it, so subclasses overriding it are covered.
 

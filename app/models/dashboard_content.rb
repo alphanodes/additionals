@@ -17,8 +17,6 @@ class DashboardContent
   TITLE_SETTING = { type: :string, label: :field_title }.freeze
   MAX_ENTRIES_SETTING = { type: :integer, label: :label_max_entries, min: 1, max: 100,
                           default: DEFAULT_MAX_ENTRIES }.freeze
-  # Settings form of query list blocks without an own one
-  QUERY_LIST_SETTINGS_PARTIAL = 'dashboards/blocks/query_list'
 
   class << self
     def types
@@ -119,8 +117,7 @@ class DashboardContent
   end
 
   # Settings a block declares, nil if it declares none: such a block keeps
-  # every setting it gets. Query list blocks with the settings form of
-  # additionals declare the settings of that form.
+  # every setting it gets.
   def block_settings_definitions(block)
     settings_definitions_of block_definition(block)
   end
@@ -131,13 +128,21 @@ class DashboardContent
     settings_schema settings_definitions_of(block_definition(block)), values, dashboard, stored:
   end
 
-  # The blocks the user can add, with their settings, for programmatic clients
+  # The blocks the user can add, with their settings and whether they export
+  # their data, for programmatic clients
   def available_block_schemas(dashboard: nil)
     available_blocks.to_h do |name, definition|
       [name, { label: definition[:label],
                max_occurs: definition[:max_occurs] || 1,
+               exports_data: DashboardBlocks.find(name)&.exports_data? || false,
                settings: settings_schema(settings_definitions_of(definition), {}, dashboard)&.describe }]
     end
+  end
+
+  # The block object of a block id with its stored settings, nil for an
+  # unknown block
+  def dashboard_block(block, settings: {}, dashboard: nil)
+    DashboardBlocks.find(block_name(block))&.new self, settings:, dashboard:
   end
 
   # Returns the default layout for a new dashboard
@@ -178,39 +183,14 @@ class DashboardContent
   def settings_definitions_of(definition)
     return if definition.nil?
     return {} if definition[:no_settings]
-    return definition[:settings] if definition.key? :settings
 
-    query_list_settings definition[:query_block][:class] if default_query_list_settings? definition
+    definition[:settings]
   end
 
   def settings_schema(definitions, values, dashboard, stored: {})
     return if definitions.nil?
 
     Additionals::SettingsSchema.new definitions, values, stored:, user:, project:, dashboard:
-  end
-
-  def default_query_list_settings?(definition)
-    definition[:query_block].present? &&
-      definition[:settings_partial].blank? &&
-      definition.dig(:async, :partial).in?([nil, QUERY_LIST_SETTINGS_PARTIAL])
-  end
-
-  def query_list_settings(klass)
-    { query_id: { type: :enum, label: :label_query, required: true,
-                  values: ->(_schema) { self.class.selectable_queries(klass, project).map { |query| [query.name, query.id.to_s] } } },
-      columns: { type: :list, label: :field_column_names,
-                 values: ->(schema) { query_list_columns klass, schema[:query_id] } },
-      max_entries: MAX_ENTRIES_SETTING,
-      auto_refresh: { type: :boolean, label: :label_enable_auto_refresh } }
-  end
-
-  # Columns of the chosen query as its settings form offers them (without a
-  # project), nil without a query: then there is nothing to check
-  def query_list_columns(klass, query_id)
-    query = klass.find_by id: query_id if query_id.present?
-    return if query.nil?
-
-    query.available_columns.filter_map { |column| [column.caption, column.name.to_s] unless column.frozen? }
   end
 
   def issues_cache_key

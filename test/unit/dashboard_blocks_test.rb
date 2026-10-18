@@ -67,4 +67,70 @@ class DashboardBlocksTest < Additionals::TestCase
       DashboardBlocks.check_patches! [patched]
     end
   end
+
+  def test_block_reads_a_stored_setting_typed
+    block = DashboardContentWelcome.new.dashboard_block 'news', settings: { max_entries: '5' }
+
+    assert_equal 5, block.max_entries
+  end
+
+  def test_block_reads_the_default_of_a_missing_setting
+    assert_equal DashboardContent::DEFAULT_MAX_ENTRIES, DashboardContentWelcome.new.dashboard_block('news').max_entries
+  end
+
+  def test_block_reads_the_default_of_a_stored_number_out_of_bounds
+    block = DashboardContentWelcome.new.dashboard_block 'my_spent_time', settings: { days: '0' }
+
+    assert_equal 7, block.days
+  end
+
+  def test_block_of_an_unknown_id_is_nil
+    assert_nil DashboardContentWelcome.new.dashboard_block('unknown')
+  end
+
+  def test_rule_of_a_setting_is_a_method_of_the_block
+    definition = DashboardContentProject.new(project: projects(:projects_001)).block_definitions['news']
+
+    assert_equal :with_subprojects_available?, definition[:settings][:with_subprojects][:if].name
+  end
+
+  def test_rule_of_a_setting_as_lambda_is_an_error
+    assert_raises ArgumentError do
+      Class.new(DashboardBlocks::Base) { setting :title, type: :string, applies: ->(_schema) { true } }
+    end
+  end
+
+  def test_setting_must_not_replace_a_method_of_the_block
+    assert_raises ArgumentError do
+      Class.new(DashboardBlocks::Base) { setting :project, type: :string }
+    end
+  end
+
+  def test_setting_named_like_a_method_gets_an_own_reader
+    block = Class.new(DashboardBlocks::Base) { setting :user, type: :string, reader: :login_user }
+    content = DashboardContentWelcome.new
+
+    assert_equal 'jenkins', block.new(content, settings: { user: 'jenkins' }).login_user
+  end
+
+  def test_setting_named_like_a_rule_is_no_rule
+    block = Class.new DashboardBlocks::Base do
+      setting :threshold, type: :integer
+      setting :threshold_default, type: :boolean, default: true
+    end
+
+    assert_not block.new(DashboardContentWelcome.new).declared_settings[:threshold].key?(:default)
+  end
+
+  def test_subclass_may_declare_a_setting_again
+    block = Class.new(DashboardBlocks::NewsBlock) { setting :max_entries, **DashboardContent::MAX_ENTRIES_SETTING, max: 5 }
+
+    assert_equal 5, block.settings_definitions[:max_entries][:max]
+  end
+
+  def test_query_list_blocks_declare_the_settings_of_their_form
+    keys = DashboardContentWelcome.new.block_settings_definitions('issuequery').keys
+
+    assert_equal %i[query_id columns max_entries auto_refresh], keys
+  end
 end

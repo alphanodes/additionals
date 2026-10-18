@@ -1,8 +1,8 @@
 - dashboard_async_cache dashboard, block, async, settings do
 
-  - feed = dashboard_feed_catcher settings[:url], settings[:max_entries]
+  - feed = dashboard_block.data
   h3
-    = dashboard_feed_title settings[:title], block_definition
+    = dashboard_feed_title dashboard_block.title, block_definition
 
   - if feed[:valid]
     - if feed[:items].any?
@@ -11,7 +11,7 @@
           li = link_to_external item[:title], item[:link]
     - else
       p.nodata = l :label_no_data
-  - elsif settings[:url].blank?
+  - elsif dashboard_block.url.blank?
     p.nodata = l :label_no_data
   - else
     p.nodata = l :label_invalid_feed_data

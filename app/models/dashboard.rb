@@ -279,6 +279,16 @@ class Dashboard < ApplicationRecord
     Additionals::DashboardLayoutAssignment.new(self, spec).call
   end
 
+  # A block of the layout as a program reads it: its id, label, typed settings
+  # and data (DashboardBlocks::Base#export). Nil for a block that is not in
+  # the layout or not available to the user.
+  def block_export(block)
+    block = block.to_s
+    return unless layout.values.flatten.include?(block) && content.find_block(block)
+
+    { block: }.merge content.dashboard_block(block, settings: layout_settings(block), dashboard: self).export
+  end
+
   # Merges the settings into the stored ones of the block. A block with
   # declared settings drops unknown keys and stores nothing if a value is
   # invalid. Returns the errors per setting, empty if the settings are stored.

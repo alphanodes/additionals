@@ -53,53 +53,16 @@ class DashboardContent
     groups - FULL_WIDTH_GROUPS
   end
 
+  # The blocks this content offers by id, built from the block classes of all
+  # plugins (DashboardBlocks)
   def block_definitions
-    {
-      'issuequery' => { label: l(:label_query_with_name, l(:label_issue_plural)),
-                        permission: :view_issues,
-                        query_block: {
-                          label: l(:label_issue_plural),
-                          list_partial: 'issues/list',
-                          class: IssueQuery,
-                          link_helper: '_project_issues_path',
-                          count_method: 'issue_count',
-                          entries_method: 'issues',
-                          entities_var: :issues,
-                          with_project: true
-                        },
-                        max_occurs: MAX_MULTIPLE_OCCURS },
-      'text' => { label: l(:label_text_sync),
-                  max_occurs: MAX_MULTIPLE_OCCURS,
-                  settings: text_settings,
-                  partial: 'dashboards/blocks/text' },
-      'text_async' => { label: l(:label_text_async),
-                        max_occurs: MAX_MULTIPLE_OCCURS,
-                        settings: text_settings,
-                        async: { required_settings: %i[text],
-                                 partial: 'dashboards/blocks/text_async' } },
-      'news' => { label: l(:label_news_latest),
-                  permission: :view_news,
-                  settings: { max_entries: MAX_ENTRIES_SETTING.merge(max: 1000),
-                              with_subprojects: { type: :boolean, label: :label_cross_project_descendants,
-                                                  if: ->(_schema) { project.present? } } },
-                  if: proc { Redmine::AccessControl.active_module?(:news) } },
-      'documents' => { label: l(:label_document_plural),
-                       permission: :view_documents,
-                       settings: { max_entries: MAX_ENTRIES_SETTING.merge(max: 1000) },
-                       if: proc { Redmine::AccessControl.active_module?(:documents) } },
-      'my_spent_time' => { label: l(:label_my_spent_time),
-                           permission: :log_time,
-                           settings: { days: { type: :integer, label: :label_day_plural, min: 1, max: 365, default: 7 } } },
-      'feed' => { label: l(:label_additionals_feed),
-                  max_occurs: 20,
-                  settings: { title: TITLE_SETTING,
-                              url: { type: :string, label: :field_url, required: true },
-                              max_entries: MAX_ENTRIES_SETTING },
-                  async: { required_settings: %i[url],
-                           cache_expires_in: 600,
-                           skip_user_id: true,
-                           partial: 'dashboards/blocks/feed' } }
-    }
+    DashboardBlocks.for(self).to_h { |block| [block.block_id, block.to_definition] }
+  end
+
+  # Type of the dashboard blocks name in DashboardBlocks::Base.dashboards,
+  # e.g. :welcome for DashboardContentWelcome, nil for this base class
+  def dashboard_type
+    self.class.name.delete_prefix('DashboardContent').underscore.presence&.to_sym
   end
 
   # Returns the available blocks

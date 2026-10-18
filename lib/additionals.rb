@@ -272,6 +272,9 @@ module Additionals
       # Apply patches and helper
       loader.apply!
 
+      # Dashboard blocks of all plugins
+      DashboardBlocks.load!
+
       # Macros
       loader.load_macros!
 

@@ -83,6 +83,11 @@ class SettingsSchemaTest < Additionals::TestCase
     assert_equal "a\nb\n", schema_for({ text: { type: :text } }, text: "a\nb\n")[:text]
   end
 
+  # A default from plugin settings is stored as text, e.g. "25"
+  def test_default_of_a_number_given_as_text_reads_as_number
+    assert_equal 25, Additionals::SettingsSchema.new({ days: { type: :integer, default: '25' } })[:days]
+  end
+
   def test_stored_number_out_of_bounds_reads_as_default
     definitions = { days: { type: :integer, min: 1, max: 365, default: 7 } }
 
@@ -216,6 +221,13 @@ class SettingsSchemaTest < Additionals::TestCase
                                              { title: 'Mine' }, stored: { type: 'pie' })
 
     assert_equal({ type: 'pie', title: 'Mine' }, schema.settings)
+  end
+
+  # A rule can keep a stored value valid that would no longer be offered
+  def test_stored_value_stays_readable_beside_a_given_one
+    definitions = { days: { type: :integer } }
+
+    assert_equal '5', Additionals::SettingsSchema.new(definitions, { days: '9' }, stored: { days: '5' }).stored(:days)
   end
 
   def test_given_value_replaces_the_stored_one

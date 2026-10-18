@@ -246,6 +246,8 @@ module DashboardBlocks
       when Array then value.map { |entry| export_value entry }
       when Hash then value.transform_values { |entry| export_value entry }
       when Date, Time, ActiveSupport::TimeWithZone then value.iso8601
+      # As the field shows it, e.g. a user by name instead of the stored id
+      when CustomValue then export_value value.custom_field.format.formatted_custom_value(nil, value, false)
       else value.to_s
       end
     end

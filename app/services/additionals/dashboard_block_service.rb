@@ -11,7 +11,9 @@ module Additionals
   # (DashboardContent.blocks_accessible?). A block of several types counts once,
   # with the first type offering it: its own rules decide there. Settings are
   # those the caller gives, stored settings of dashboards never leave the
-  # server. A block may keep settings of the caller to some users
+  # server. Settings the filter of a block leaves out (settings_filter, e.g.
+  # without a permission) are named in settings_not_applied like those that do
+  # not apply. A block may keep settings of the caller to some users
   # (DashboardBlocks::Base#own_settings_allowed?, e.g. the URL of a feed).
   #
   #   service = Additionals::DashboardBlockService.new project: @project
@@ -50,14 +52,16 @@ module Additionals
       return Result.new status: :not_found, block: nil, errors: [] unless dashboard
       return Result.new status: :forbidden, block: nil, errors: [] unless dashboard.content.find_block(id).own_settings_allowed?
 
-      settings = dashboard.permitted_block_settings id, settings.to_h
+      given = settings.to_h.symbolize_keys
+      settings = dashboard.permitted_block_settings id, given
       schema = dashboard.content.block_settings id, values: settings, dashboard: dashboard
       errors = settings_errors schema
       return Result.new(status: :invalid, block: nil, errors:) if errors.any?
 
       export = dashboard.content.dashboard_block(id, settings: schema ? schema.settings : settings, dashboard:).export
-      Result.new status: :ok, errors: [],
-                 block: { id:, **export, settings_not_applied: schema&.not_applied_keys || [] }
+      # Also those the settings filter of the block leaves out, e.g. without a permission
+      not_applied = (schema&.not_applied_keys || []) | (given.keys - settings.keys)
+      Result.new status: :ok, errors: [], block: { id:, **export, settings_not_applied: not_applied }
     end
 
     private

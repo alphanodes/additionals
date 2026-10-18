@@ -78,8 +78,15 @@ module Additionals
       @invalid = {}
       values = values.to_h.symbolize_keys
       @given_keys = values.keys
-      @values = cast_values(stored.to_h.symbolize_keys.except(*@given_keys), check: false).merge cast_values(values)
+      @stored = stored.to_h.symbolize_keys
+      @values = cast_values(@stored.except(*@given_keys), check: false).merge cast_values(values)
       resolve_labels
+    end
+
+    # The stored value of a setting as stored, e.g. for a rule that keeps it
+    # valid although it would no longer be offered
+    def stored(key)
+      @stored[key.to_sym]
     end
 
     # Typed value of a setting, its default if it is blank or a number out of
@@ -230,9 +237,13 @@ module Additionals
     end
 
     # A boolean without a default is off
+    # A number given as text, e.g. from plugin settings, reads as number
     def default_for(definition)
       default = resolve definition[:default]
-      default.nil? && definition[:type] == :boolean ? false : default
+      return false if default.nil? && definition[:type] == :boolean
+      return typed_value definition[:type], default if default.is_a?(String) && NUMBER_TYPES.include?(definition[:type])
+
+      default
     end
 
     def readable_number?(definition, value)

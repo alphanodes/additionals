@@ -91,6 +91,19 @@ class DashboardBlockDataTest < Additionals::TestCase
     assert_nil block('welcome').export[:data]
   end
 
+  # Programs read what the list shows, a user by name instead of an id
+  def test_query_list_exports_custom_field_values_as_shown
+    field = IssueCustomField.create! name: 'Reviewer', field_format: 'user', is_for_all: true, trackers: Tracker.all
+    issue = issues :issues_001
+    issue.update! custom_field_values: { field.id.to_s => users(:users_002).id.to_s }
+    query = IssueQuery.create! name: 'Reviewed', visibility: Query::VISIBILITY_PUBLIC, user: User.current,
+                               filters: { 'issue_id' => { operator: '=', values: [issue.id.to_s] } }
+
+    data = block('issuequery', { query_id: query.id.to_s, columns: ["cf_#{field.id}"] }).export_data
+
+    assert_equal users(:users_002).name, data[:rows].first.last
+  end
+
   def test_dashboard_exports_a_block_of_its_layout
     dashboard = welcome_dashboard layout_settings: { 'text' => { title: 'Hello', text: 'World' } }
 

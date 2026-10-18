@@ -55,10 +55,11 @@ class AdditionalsConf
 
     private
 
-    # false is a value too, e.g. to switch off what is on by default
+    # false is a value too, e.g. to switch off what is on by default; an
+    # empty list or string is none
     def configured?(const_var)
       value = Redmine::Configuration[const_var.downcase]
-      !value.nil? && value != ''
+      value == false || value.present?
     end
   end
 end

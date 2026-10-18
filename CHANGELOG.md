@@ -13,6 +13,7 @@
 - The dashboards API (`/dashboards/<id>.json`) no longer shows the stored block settings to everyone who can see the dashboard. They could hold credentials, e.g. tokens of devops blocks. The API shows the layout with the blocks of each group instead, their settings only to users who may edit the dashboard. The dashboard list filters by `dashboard_type` and `project_id`
 - The feed block reads its feed with http or https only, follows a few redirects and stops after a few seconds or 1 MB. Before, a slow or huge feed tied up the server
 - A dashboard block of a dashboard the user may not see is denied (403) instead of answered as a block error
+- A setting of configuration.yml given as false is taken, e.g. to switch off what is on by default. Before, false fell back to the default like a missing setting
 - Dashboard layout and block settings can only be changed by users who may edit the dashboard. Before, everyone who could see a public dashboard could change its block settings, add, remove and reorder blocks
 - Dashboard blocks added or saved without a page reload run their scripts and find the libraries they need, e.g. the editor toolbar of text blocks, charts or settings that show or hide fields depending on a selection
 - Saving block settings of a dashboard for a single project keeps the news and spent time blocks limited to that project. Before, they showed entries of all projects until the next page reload

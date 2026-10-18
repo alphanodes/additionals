@@ -21,6 +21,14 @@ class AdditionalsConfTest < Additionals::TestCase
     end
   end
 
+  # An empty list in configuration.yml, e.g. from a template with an empty
+  # variable, would switch off what the default turns on
+  def test_empty_list_in_configuration_falls_back_to_default
+    Redmine::Configuration.with 'additionals_test_list' => [] do
+      assert_equal %w[database], AdditionalsConf.with_system_default('ADDITIONALS_TEST_LIST', type: 'array', default: %w[database])
+    end
+  end
+
   def test_missing_configuration_falls_back_to_default
     assert_equal 7, AdditionalsConf.with_system_default('ADDITIONALS_TEST_MISSING', default: 7)
   end

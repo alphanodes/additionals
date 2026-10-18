@@ -356,9 +356,11 @@ module Additionals
                                                            strip_insignificant_zeros: true)
     end
 
+    # On a dashboard the back url leads to the dashboard, with the project of
+    # the request if a list leaves it out: the dashboard of a project needs it
     def query_list_back_url_tag(project = nil, params = nil)
       url = if controller_name == 'dashboard_async_blocks' && request.query_parameters.key?('dashboard_id')
-              dashboard_link_path project,
+              dashboard_link_path project || @project,
                                   Dashboard.find_by(id: request.query_parameters['dashboard_id']),
                                   refresh: 1
             elsif params.nil?

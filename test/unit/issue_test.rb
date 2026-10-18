@@ -233,4 +233,30 @@ class IssueTest < Additionals::TestCase
       assert_save issue
     end
   end
+
+  def test_change_status_from_sidebar_sets_the_status
+    issue = issues :issues_001
+    issue.change_status_from_sidebar users(:users_002), 2
+
+    assert_equal 2, issue.status_id
+  end
+
+  def test_change_status_from_sidebar_assigns_the_user_for_a_status_that_asks_for_it
+    issue = issues :issues_001
+    with_plugin_settings 'additionals', issue_current_user_status: 1, issue_assign_to_x: ['2'] do
+      issue.change_status_from_sidebar users(:users_003), 2
+    end
+
+    assert_equal users(:users_003), issue.assigned_to
+  end
+
+  def test_change_status_from_sidebar_keeps_the_assignee_for_another_status
+    issue = issues :issues_001
+    issue.assigned_to = users :users_002
+    with_plugin_settings 'additionals', issue_current_user_status: 1, issue_assign_to_x: ['3'] do
+      issue.change_status_from_sidebar users(:users_003), 2
+    end
+
+    assert_equal users(:users_002), issue.assigned_to
+  end
 end

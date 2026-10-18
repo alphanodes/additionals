@@ -299,6 +299,7 @@ A migration that replaces blocks of existing dashboards uses `Additionals::Dashb
 
 - Fixtures need a global system default for both types; regular dashboards have `system_default: false`.
 - Destroying a project destroys its dashboards; a global system default linked to a project by mistake would be destroyed with it.
+- Every plugin with blocks covers them with two helpers of `Additionals::GlobalTestHelper`: `assert_dashboard_blocks_render(blocks, project:, layout_settings:)` in an integration test renders each block, also with the request of a block loaded after the page (another dashboard type with `dashboard_type:` and `path:`, e.g. HRM and `/hrm`); `assert_dashboard_block_settings_declared(blocks, project:)` in a functional test checks that the settings forms send declared settings only.
 - Blocks of other plugins appear only when those plugins are installed. Tests of additionals run without them.
 
 ## Pitfalls

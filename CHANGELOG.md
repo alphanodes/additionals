@@ -15,6 +15,7 @@
 - Saving block settings of a dashboard for a single project keeps the news and spent time blocks limited to that project. Before, they showed entries of all projects until the next page reload
 - Creating or changing a dashboard with an unknown dashboard type shows a validation error instead of failing with a server error
 - Dashboard blocks declare their settings in their class (`setting`, `Additionals::SettingsSchema`), query chart blocks included: unknown settings are not stored, invalid values show an error. Blocks load their data themselves (`data`, `export_data`); `Dashboard#assign_layout` and `#block_export` let programs set up and read dashboards
+- Query list blocks keep the project of a project dashboard for the link back from their list, also when the list of a plugin leaves it out. Such a block showed an error on project dashboards before
 - Plugins declare the options they add to saved queries (`Query#query_options_definitions`, `Additionals::SettingsSchema`), so programs can list and set them like the query form
 - Dashboard blocks can drop settings on save with the new block option `settings_filter`, e.g. those the current user may not change. `required_settings` of async blocks also accepts a proc
 - The assignee group filter of entity lists built on additionals queries filters by assignee. It used the author before

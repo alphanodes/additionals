@@ -6,7 +6,6 @@ class AdditionalsChangeStatusController < ApplicationController
 
   def update
     issue_old_status_id = @issue.status_id
-    issue_old_user = @issue.assigned_to
     new_status_id = params[:new_status_id].to_i
     allowed_status = @issue.sidebar_change_status_allowed_to User.current, new_status_id
 
@@ -15,9 +14,7 @@ class AdditionalsChangeStatusController < ApplicationController
       return
     end
 
-    @issue.init_journal User.current
-    @issue.status_id = new_status_id
-    @issue.assigned_to = User.current if @issue.status_x_affected?(new_status_id) && issue_old_user != User.current
+    @issue.change_status_from_sidebar User.current, new_status_id
 
     call_hook :controller_additionals_change_status_before_save,
               params:,

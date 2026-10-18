@@ -86,6 +86,14 @@ module Additionals
         project.active_new_ticket_message
       end
 
+      # Changes the status from the sidebar with a journal of the user, and
+      # assigns the issue to the user for a status that asks for it
+      def change_status_from_sidebar(user, new_status_id)
+        init_journal user
+        self.status_id = new_status_id
+        self.assigned_to = user if status_x_affected?(new_status_id) && assigned_to != user
+      end
+
       def status_x_affected?(new_status_id)
         return false unless Additionals.setting? :issue_current_user_status
         return false if Additionals.setting(:issue_assign_to_x).blank?

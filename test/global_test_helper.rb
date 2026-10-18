@@ -345,14 +345,16 @@ module Additionals
     # Every block renders on a dashboard as admin, and a block loaded after the
     # page also with the request the browser sends: no server error and no
     # error of the block. For an integration test; blocks of project
-    # dashboards with project.
-    def assert_dashboard_blocks_render(blocks, project: nil, layout_settings: {})
+    # dashboards with project, of another dashboard type (e.g. of a plugin)
+    # with dashboard_type and the path of its page.
+    def assert_dashboard_blocks_render(blocks, project: nil, layout_settings: {}, dashboard_type: nil, path: nil)
       log_user 'admin', 'admin'
       User.current = User.find 1
-      type = project ? DashboardContentProject::TYPE_NAME : DashboardContentWelcome::TYPE_NAME
-      dashboard = Dashboard.create! name: 'Blocks render', dashboard_type: type, author: User.current,
+      dashboard_type ||= project ? DashboardContentProject::TYPE_NAME : DashboardContentWelcome::TYPE_NAME
+      path ||= project ? "/projects/#{project.identifier}" : '/'
+      dashboard = Dashboard.create! name: 'Blocks render', dashboard_type:, author: User.current,
                                     visibility: Dashboard::VISIBILITY_PUBLIC, layout: { 'left' => blocks }, layout_settings: layout_settings
-      get project ? "/projects/#{project.identifier}" : '/', params: { dashboard_id: dashboard.id }
+      get path, params: { dashboard_id: dashboard.id }
 
       assert_response :success
       assert_empty dashboard_block_render_errors(blocks), 'blocks that do not render'

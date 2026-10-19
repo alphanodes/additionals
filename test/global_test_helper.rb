@@ -319,6 +319,7 @@ module Additionals
 
     # The settings forms of the blocks send declared settings only
     # (DashboardBlocks::Base.setting), so no setting is added to a form alone.
+    # A form built from the declared settings sends exactly those that apply.
     # Renders a dashboard with the blocks as admin: a welcome dashboard from a
     # test of WelcomeController, a project dashboard from one of
     # ProjectsController with project. Every block of blocks must show a form.
@@ -340,6 +341,7 @@ module Additionals
       end
 
       assert_empty undeclared, 'settings sent but not declared'
+      assert_empty dashboard_block_settings_without_field(dashboard, blocks, form_keys), 'declared settings without a field'
     end
 
     # Every block renders on a dashboard as admin, and a block loaded after the
@@ -372,6 +374,17 @@ module Additionals
         next "#{block}: #{response.status}" unless response.successful?
 
         "#{block}: block error" if css_select('#errorExplanation').any?
+      end
+    end
+
+    # Settings that apply but have no field in the form built from them
+    def dashboard_block_settings_without_field(dashboard, blocks, form_keys)
+      blocks.filter_map do |block|
+        dashboard_block = dashboard.content.dashboard_block block, settings: dashboard.layout_settings(block), dashboard: dashboard
+        next unless dashboard_block.generated_settings_form?
+
+        missing = dashboard_block.settings_schema.describe.select { |setting| setting[:applies] }.pluck(:key) - form_keys[block]
+        "#{block}: #{missing.to_comma_list}" if missing.any?
       end
     end
 

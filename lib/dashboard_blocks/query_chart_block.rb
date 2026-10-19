@@ -13,7 +13,7 @@ module DashboardBlocks
 
     max_occurs DashboardContent::MAX_MULTIPLE_OCCURS
 
-    # The settings form dashboards/blocks/query_chart_settings
+    settings_partial 'dashboards/blocks/query_chart_settings'
     setting :title, **DashboardContent::TITLE_SETTING
     setting :description, type: :text, label: :field_description
     setting :query_id, type: :enum, label: :label_query

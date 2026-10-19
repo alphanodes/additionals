@@ -21,7 +21,7 @@ DEFINITIONS = {
 | `values` | Allowed values of `enum` and `list`, plain or `[label, value]` |
 | `offered` | The allowed values a form offers for the other values; others stay valid and fall back where they are read |
 | `default` | Value read for a missing or blank setting, not stored; a boolean without one reads as `false` |
-| `required` | Blank is an error (only while the setting applies) |
+| `required` | Blank is an error (only while the setting applies); with a `default` only a value given blank, a missing one reads the default |
 | `min`, `max` | Bounds of numbers |
 | `if` | Whether the setting exists in the context at all, otherwise it counts as an unknown key |
 | `applies` | Whether the setting applies to the other values |

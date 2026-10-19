@@ -472,8 +472,8 @@ module DashboardsHelper
     end
   end
 
-  def render_documents_block(block, dashboard_block, _dashboard)
-    render 'dashboards/blocks/documents', block:, max_entries: dashboard_block.max_entries, documents: dashboard_block.data
+  def render_documents_block(_block, dashboard_block, _dashboard)
+    render 'dashboards/blocks/documents', documents: dashboard_block.data
   end
 
   def render_news_block(_block, dashboard_block, dashboard)
@@ -481,8 +481,8 @@ module DashboardsHelper
                                      content_project_id: dashboard.content_project&.id
   end
 
-  def render_my_spent_time_block(block, dashboard_block, _dashboard)
-    render 'dashboards/blocks/my_spent_time', block:, dashboard_block:, spent_time: dashboard_block.data
+  def render_my_spent_time_block(_block, dashboard_block, _dashboard)
+    render 'dashboards/blocks/my_spent_time', dashboard_block:, spent_time: dashboard_block.data
   end
 
   def dashboard_feed_title(dashboard_block)
@@ -502,7 +502,10 @@ module DashboardsHelper
   # as programs read them, with the existing settings fields
   def dashboard_block_settings_fields(dashboard_block, block)
     schema = dashboard_block.settings_schema
-    fields = schema.describe.map do |setting|
+    # A setting that does not apply keeps its stored value, the form leaves it out
+    fields = schema.describe.filter_map do |setting|
+      next unless setting[:applies]
+
       tag.p dashboard_block_setting_field(setting, schema[setting[:key]], "settings[#{block}][#{setting[:key]}]")
     end
     tag.div safe_join(fields), class: 'box tabular settings'
@@ -551,7 +554,7 @@ module DashboardsHelper
               additionals_settings_textarea key, value:, **options
             when :enum
               additionals_settings_select key, options_for_select(offered_setting_values(setting, value), value),
-                                          include_blank: !setting[:required], **options
+                                          include_blank: !setting[:required] && setting[:default].nil?, **options
             else
               raise ArgumentError, "No settings field for #{key} of type #{setting[:type]}, the block needs a form"
             end

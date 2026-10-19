@@ -7,7 +7,6 @@ module DashboardBlocks
     permission :view_news
     setting :max_entries, **DashboardContent::MAX_ENTRIES_SETTING, max: 1000
     setting :with_subprojects, type: :boolean, label: :label_cross_project_descendants
-    generate_settings_form!
 
     def available?
       Redmine::AccessControl.active_module? :news

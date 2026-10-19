@@ -1,19 +1,5 @@
 h3.icon.icon-document = l :label_document_plural
 
-- if @can_edit
-  .hidden id="#{block}-settings"
-    = remote_form_tag _update_layout_setting_dashboard_path(@project, @dashboard) do
-      .box.tabular.settings
-        p
-          = additionals_settings_numberfield :max_entries,
-                                             value: max_entries,
-                                             tag_name: "settings[#{block}][max_entries]",
-                                             min: 1, max: 1000, required: true
-      p
-        = submit_tag l(:button_save)
-        '
-        = link_to_function l(:button_cancel), "$('##{block}-settings').toggle()"
-
 - if documents.any?
   = render partial: 'documents/document', collection: documents
   p

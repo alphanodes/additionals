@@ -7,8 +7,9 @@ module DashboardBlocks
 
     max_occurs DashboardContent::MAX_MULTIPLE_OCCURS
 
-    # The settings form of additionals (dashboards/blocks/query_list); a block
-    # with an own settings form declares its settings again
+    # The settings form of additionals; a block with an own settings form
+    # declares its settings again
+    settings_partial 'dashboards/blocks/query_list_settings'
     setting :query_id, type: :enum, label: :label_query, required: true
     setting :columns, type: :list, label: :field_column_names
     setting :max_entries, **DashboardContent::MAX_ENTRIES_SETTING

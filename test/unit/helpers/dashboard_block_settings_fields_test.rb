@@ -6,7 +6,7 @@ require File.expand_path '../../../test_helper', __FILE__
 # type, filled with the stored values, which the schema reads back unchanged
 class DashboardBlockSettingsFieldsTest < Additionals::HelperTest
   STORED = { max_entries: '20', ratio: '1.5', with_closed: '1', title: 'Latest', text: "Line 1\nLine 2",
-             sort_by: 'date' }.freeze
+             sort_by: 'date', interval: 'month' }.freeze
 
   def setup
     super
@@ -72,6 +72,15 @@ class DashboardBlockSettingsFieldsTest < Additionals::HelperTest
     assert_nil field('[name="settings[test][only_on_projects]"]')
   end
 
+  # Not sent, so the stored value is kept
+  def test_setting_that_does_not_apply_has_no_field
+    assert_nil field('[name="settings[test][compact]"]')
+  end
+
+  def test_enum_with_a_default_offers_no_blank_value
+    assert_equal %w[week month], fields('select[name="settings[test][interval]"] option').pluck('value')
+  end
+
   def test_setting_without_field_needs_a_form_of_the_block
     block_class = Class.new(DashboardBlocks::Base) { setting :ids, type: :list, label: :label_issue_plural }
 
@@ -100,8 +109,14 @@ class DashboardBlockSettingsFieldsTest < Additionals::HelperTest
       setting :sort_by, type: :enum, label: :label_sort_by, info: :label_sort,
                         values: [%w[Name name], %w[Date date], %w[Size size]], offered: %w[name]
       setting :only_on_projects, type: :boolean, label: :field_project
+      setting :compact, type: :boolean, label: :label_compact
+      setting :interval, type: :enum, label: :label_chart_interval, values: %w[week month], default: 'week'
 
       private
+
+      def compact_applies?(_schema)
+        false
+      end
 
       def only_on_projects_available?(_schema)
         project.present?

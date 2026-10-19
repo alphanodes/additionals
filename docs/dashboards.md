@@ -97,7 +97,7 @@ A `block_definitions` method of a dashboard content stops the boot with `Dashboa
 
 ### Settings
 
-A block with settings names a `settings_partial` and declares its settings, so saving them validates and casts them (see [Declared Settings](#declared-settings)):
+A block declares its settings, so saving them validates and casts them (see [Declared Settings](#declared-settings)), and its settings form is built from them:
 
 ```ruby
 class MyBlock < Base
@@ -105,12 +105,13 @@ class MyBlock < Base
   label :label_my_block
   permission :view_issues
   partial 'dashboards/blocks/my_block'
-  settings_partial 'dashboards/blocks/my_block_settings'
   setting :title, **DashboardContent::TITLE_SETTING
   setting :max_entries, **DashboardContent::MAX_ENTRIES_SETTING
   setting :show_closed, type: :boolean, label: :label_show_closed
 end
 ```
+
+The form shows a field per setting with the existing settings fields (`additionals_settings_*`): a checkbox for `boolean`, a number field for `integer` and `float` with `min` and `max`, a text field for `string`, a text area for `text` and a select of the offered values for `enum`. It fills in the stored value or the default and marks required settings; a setting that does not apply is left out and keeps its stored value. The form opens at the top of the block below the settings icon, for blocks rendered with the page and async blocks alike (`dashboards/blocks/settings_form`). A block with a setting the form cannot show (e.g. a query or the columns of a list) names its own form with `settings_partial`; the renderer raises an error for such a type instead of showing a wrong field.
 
 A rule of a setting is a method of the block named after the setting, called with the schema (`schema[:key]` reads another setting, `project` and `user` come from the block). A lambda in `setting` is an error:
 
@@ -178,7 +179,6 @@ class MyBlock < Base
   block_id 'my_block'
   label :label_my_block
   permission :view_issues
-  settings_partial 'dashboards/blocks/my_block_settings'
   async partial: 'dashboards/blocks/my_block',
         cache_expires_in: 600,
         required_settings: %i[query_id],
@@ -241,7 +241,7 @@ A list never exports the columns named in `export_without` of `query_block` (`ex
 | `partial` | view of a synchronous block |
 | `async` | async loading, see below |
 | `no_settings!` | the block has no settings, stored ones are dropped; `settings_form!` brings the form back in a subclass |
-| `settings_partial` | form of the settings |
+| `settings_partial` | own form of the settings, for settings the built form cannot show |
 | `setting` | a declared setting, see [Declared Settings](#declared-settings) |
 | `settings_filter` | callable with `(settings, dashboard)`, called before saving, returns the settings to keep |
 | `max_occurs` | how often the block may be added, e.g. `DashboardContent::MAX_MULTIPLE_OCCURS` |

@@ -5,7 +5,7 @@ module DashboardBlocks
     block_id 'my_spent_time'
     label :label_my_spent_time
     permission :log_time
-    setting :days, type: :integer, label: :label_day_plural, min: 1, max: 365, default: 7
+    setting :days, type: :integer, label: :label_day_plural, min: 1, max: 365, required: true, default: 7
 
     # Hours of the user today and in the last days, in the project if any
     def data

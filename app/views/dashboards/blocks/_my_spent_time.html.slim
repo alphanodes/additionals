@@ -1,22 +1,5 @@
 h3 = dashboard_block.label
 
-- if @can_edit
-  .hidden id="#{block}-settings"
-    = remote_form_tag _update_layout_setting_dashboard_path(@project, @dashboard) do
-      .box.tabular.settings
-        p
-          = additionals_settings_numberfield :day,
-                                              value: spent_time[:days],
-                                              label: :button_show,
-                                              tag_name: "settings[#{block}][days]",
-                                              min: 1, max: 365, required: true
-          '
-          = l :label_day_plural
-      p
-        = submit_tag l(:button_save)
-        '
-        = link_to_function l(:button_cancel), "$('#my_spent_time-settings').toggle()"
-
 ul.dashboard-list
   li.today
     = l :label_today

@@ -41,7 +41,7 @@ module DashboardBlocks
     class_attribute :max_occurs_count, instance_writer: false, default: 1
     class_attribute :block_id_value, :label_value, :permission_value, :partial_value, :async_options,
                     :settings_partial_value, :settings_filter_value, instance_writer: false
-    class_attribute :without_settings, :admin_only_value, :generated_settings_form, instance_writer: false, default: false
+    class_attribute :without_settings, :admin_only_value, instance_writer: false, default: false
 
     extend RedminePluginKit::Extensions::Abstract
 
@@ -121,21 +121,13 @@ module DashboardBlocks
         without_settings
       end
 
-      # The settings form is built from the declared settings instead of a
-      # form of the block
-      def generate_settings_form!
-        self.generated_settings_form = true
-      end
-
-      def generated_settings_form?
-        generated_settings_form
-      end
-
       # Whether the block offers its data to programs, see export_data
       def exports_data?
         instance_method(:export_data).owner != Base
       end
 
+      # Own settings form of the block, for settings the form built from the
+      # declared settings cannot show
       def settings_partial(name = nil)
         name ? self.settings_partial_value = name : settings_partial_value
       end
@@ -166,7 +158,7 @@ module DashboardBlocks
 
     delegate :project, :user, to: :dashboard_content
     delegate :block_id, :label, :permission, :max_occurs, :partial, :settings_partial, :settings_filter,
-             :no_settings?, :admin_only?, :generated_settings_form?, to: :class
+             :no_settings?, :admin_only?, to: :class
 
     # settings: the stored settings of the block, for its typed values
     def initialize(dashboard_content, settings: {}, dashboard: nil)
@@ -239,6 +231,12 @@ module DashboardBlocks
     # The declared settings with the rules the block answers with methods
     def declared_settings
       Additionals::SettingsSchema.with_rule_methods settings_definitions, self, except: setting_readers
+    end
+
+    # Whether the settings form is built from the declared settings, i.e. the
+    # block names no form of its own (settings_partial)
+    def generated_settings_form?
+      settings_partial.blank?
     end
 
     # Whether the block declares the setting as required, e.g. to mark it in a

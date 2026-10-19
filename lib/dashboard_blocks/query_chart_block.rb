@@ -57,7 +57,35 @@ module DashboardBlocks
       @chart ||= self.class.chart.new project:, settings: @stored_settings
     end
 
+    def data
+      chart
+    end
+
+    # The table of values of the chart (AdditionalsQueryChart#value_columns),
+    # a timeline from its first period on with the start date of each period
+    # instead of its label
+    def export_data
+      return unless chart.group_column
+
+      export = { summary: chart.summary }
+      return export.merge unavailable: chart.unavailable_text if chart.unavailable_text
+
+      export[:interval] = chart.interval if chart.timeline?
+      export.merge columns: [chart.group_column.caption, *chart.value_columns],
+                   rows: chart.entries.map { |entry| export_row entry },
+                   totals: chart.value_totals.map { |value| export_number value }
+    end
+
     private
+
+    def export_row(entry)
+      [export_value(chart.timeline? ? entry.key : entry.label), *chart.entry_cells(entry).map { |cell| export_number cell.value }]
+    end
+
+    # Sums of hours or amounts are decimals, which JSON would turn into strings
+    def export_number(value)
+      value.is_a?(Integer) ? value : value.to_f.round(2)
+    end
 
     # The chart of the values a schema reads, built once per schema
     def chart_for(schema)

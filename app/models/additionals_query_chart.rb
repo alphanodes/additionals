@@ -74,6 +74,10 @@ class AdditionalsQueryChart < AdditionalsChart
     end
   end
 
+  # A value of the table of values. The part of a split links to the list of
+  # its entries and is left empty without any, like in a cross table.
+  TableCell = Data.define :value, :url, :part
+
   # Restricts a query to the default filters of its class on top of its own
   # filters. A filter of the same field cannot express that, it would replace
   # the one the query already has.
@@ -423,6 +427,30 @@ class AdditionalsQueryChart < AdditionalsChart
   # chart from left to right in the order of time
   def table_entries
     timeline? ? entries.reverse : entries
+  end
+
+  # The table of values with raw values, for the block and for programs: the
+  # captions of the value columns next to the group, the cells of an entry
+  # and the totals, column by column. A split has a column per part and the
+  # sum, a comparison one per series.
+  def value_columns
+    return split_keys.map { |key| split_label key } + [measure_label] if split?
+
+    compare? ? series_labels : [measure_label]
+  end
+
+  def entry_cells(entry)
+    cells = split? ? split_keys.map { |key| TableCell.new(entry.parts[key] || 0, entry.part_urls[key], true) } : []
+    cells << TableCell.new(entry.value, nil, false)
+    cells << TableCell.new(entry.compare_value, nil, false) if compare?
+    cells
+  end
+
+  def value_totals
+    totals = split? ? split_keys.map { |key| split_total key } : []
+    totals << total
+    totals << compare_total if compare?
+    totals
   end
 
   # With multiple values an entry is part of several groups, the total still

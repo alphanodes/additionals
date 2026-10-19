@@ -4,32 +4,19 @@ table.list.issue-report.values
   thead
     tr
       th = chart.group_column.caption
-      - if chart.split?
-        - chart.split_keys.each do |key|
-          th = chart.split_label key
-        th = chart.measure_label
-      - else
-        - chart.series_labels.each do |series_label|
-          th = chart.compare? ? series_label : chart.measure_label
+      - chart.value_columns.each do |caption|
+        th = caption
       th = l :label_percentage
   tbody
     - chart.table_entries.each do |entry|
       tr class="#{cycle 'odd', 'even'}"
         td.name = entry.url ? link_to(entry.label, entry.url) : entry.label
-        - if chart.split?
-          - chart.split_keys.each do |key|
-            td = query_chart_part_cell chart, entry, key
-        td = format_query_chart_value chart, entry.value
-        - if chart.compare?
-          td = format_query_chart_value chart, entry.compare_value
+        - chart.entry_cells(entry).each do |cell|
+          td = query_chart_cell chart, cell
         td = l :label_percent_value, value: chart.share(entry)
   tfoot
     tr.total
       td.name = l :label_total
-      - if chart.split?
-        - chart.split_keys.each do |key|
-          td = format_query_chart_value chart, chart.split_total(key)
-      td = format_query_chart_value chart, chart.total
-      - if chart.compare?
-        td = format_query_chart_value chart, chart.compare_total
+      - chart.value_totals.each do |value|
+        td = format_query_chart_value chart, value
       td

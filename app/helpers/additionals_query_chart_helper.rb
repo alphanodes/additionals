@@ -83,13 +83,12 @@ module AdditionalsQueryChartHelper
     end)
   end
 
-  # A cell of the cross table, linked to the list filtered by both values
-  def query_chart_part_cell(chart, entry, key)
-    value = entry.parts[key]
-    return '' if value.nil? || value.zero?
+  # A value of the table of values, a part of a split linked to the list
+  # filtered by both values
+  def query_chart_cell(chart, cell)
+    return '' if cell.part && cell.value.zero?
 
-    text = format_query_chart_value chart, value
-    url = entry.part_urls[key]
-    url ? link_to(text, url) : text
+    text = format_query_chart_value chart, cell.value
+    cell.url ? link_to(text, cell.url) : text
   end
 end

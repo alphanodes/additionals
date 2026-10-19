@@ -25,6 +25,19 @@ class AdditionalsQueryChartSplitTest < Additionals::TestCase
     assert_equal entry.value, entry.parts.values.sum
   end
 
+  # The table of the block and programs read the same columns
+  def test_table_has_a_cell_per_value_column
+    chart = split_chart
+
+    assert_equal chart.value_columns.size, chart.entry_cells(tracker_entry(chart)).size
+  end
+
+  def test_table_has_a_total_per_value_column
+    chart = split_chart
+
+    assert_equal chart.value_columns.size, chart.value_totals.size
+  end
+
   def test_split_keys_follow_the_order_of_the_field
     field = list_field
     add_values field, issues(:issues_001), %w[C]

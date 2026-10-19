@@ -41,7 +41,7 @@ module DashboardBlocks
     class_attribute :max_occurs_count, instance_writer: false, default: 1
     class_attribute :block_id_value, :label_value, :permission_value, :partial_value, :async_options,
                     :settings_partial_value, :settings_filter_value, instance_writer: false
-    class_attribute :without_settings, :admin_only_value, instance_writer: false, default: false
+    class_attribute :without_settings, :admin_only_value, :generated_settings_form, instance_writer: false, default: false
 
     extend RedminePluginKit::Extensions::Abstract
 
@@ -121,6 +121,16 @@ module DashboardBlocks
         without_settings
       end
 
+      # The settings form is built from the declared settings instead of a
+      # form of the block
+      def generate_settings_form!
+        self.generated_settings_form = true
+      end
+
+      def generated_settings_form?
+        generated_settings_form
+      end
+
       # Whether the block offers its data to programs, see export_data
       def exports_data?
         instance_method(:export_data).owner != Base
@@ -156,7 +166,7 @@ module DashboardBlocks
 
     delegate :project, :user, to: :dashboard_content
     delegate :block_id, :label, :permission, :max_occurs, :partial, :settings_partial, :settings_filter,
-             :no_settings?, :admin_only?, to: :class
+             :no_settings?, :admin_only?, :generated_settings_form?, to: :class
 
     # settings: the stored settings of the block, for its typed values
     def initialize(dashboard_content, settings: {}, dashboard: nil)

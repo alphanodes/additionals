@@ -243,6 +243,26 @@ class SettingsSchemaTest < Additionals::TestCase
     assert_includes schema.errors, :url
   end
 
+  # The default fills a required setting nobody gave, like the form shows it
+  def test_missing_required_setting_with_a_default_is_valid
+    assert_predicate schema_for({ max: { type: :integer, required: true, default: 10 } }, {}), :valid?
+  end
+
+  def test_required_setting_with_a_default_stored_blank_is_valid
+    schema = Additionals::SettingsSchema.new({ max: { type: :integer, required: true, default: 10 }, title: { type: :string } },
+                                             { title: 'Mine' }, stored: { max: '' })
+
+    assert_predicate schema, :valid?
+  end
+
+  def test_required_setting_with_a_default_given_blank_is_rejected
+    assert_includes schema_for({ max: { type: :integer, required: true, default: 10 } }, max: '').errors, :max
+  end
+
+  def test_missing_required_setting_with_a_default_of_a_rule_is_valid
+    assert_predicate schema_for({ max: { type: :integer, required: true, default: ->(_schema) { 10 } } }, {}), :valid?
+  end
+
   def test_default_is_read_for_a_missing_setting
     assert_equal 10, schema_for({ max: { type: :integer, default: 10 } }, {})[:max]
   end

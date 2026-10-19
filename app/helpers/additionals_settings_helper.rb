@@ -57,6 +57,7 @@ module AdditionalsSettingsHelper
   end
 
   def additionals_settings_textarea(name, **options)
+    tag_name = options.delete(:tag_name).presence || "settings[#{name}]"
     value = if options.key? :value
               options.delete :value
             elsif @settings.present?
@@ -66,8 +67,8 @@ module AdditionalsSettingsHelper
     options[:class] = 'wiki-edit' unless options.key? :class
     options[:rows] = addtionals_textarea_cols value unless options.key? :rows
 
-    safe_join [label_tag("settings[#{name}]", additionals_settings_label(name, options)),
-               text_area_tag("settings[#{name}]", value, **options)]
+    safe_join [label_tag(tag_name, additionals_settings_label(name, options)),
+               text_area_tag(tag_name, value, **options)]
   end
 
   # NOTE: overwrite redmine to use showSettingsTab instead of showTab to support tabs for plugins

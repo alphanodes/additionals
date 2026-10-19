@@ -289,6 +289,9 @@ module DashboardsHelper
     content = render_dashboard_block_content block, dashboard_block, dashboard, partial_locals
     return if content.blank?
 
+    # Above the content, where it opens below the settings icon
+    content = safe_join [dashboard_block_settings_form(block, dashboard_block, dashboard), content]
+
     if dashboard.layout_editable?
       icons = []
       unless dashboard_block.no_settings?
@@ -473,9 +476,8 @@ module DashboardsHelper
     render 'dashboards/blocks/documents', block:, max_entries: dashboard_block.max_entries, documents: dashboard_block.data
   end
 
-  def render_news_block(block, dashboard_block, dashboard)
-    render 'dashboards/blocks/news', block:, max_entries: dashboard_block.max_entries, news: dashboard_block.data,
-                                     with_subprojects: dashboard_block.with_subprojects,
+  def render_news_block(_block, dashboard_block, dashboard)
+    render 'dashboards/blocks/news', news: dashboard_block.data, with_subprojects: dashboard_block.with_subprojects,
                                      content_project_id: dashboard.content_project&.id
   end
 
@@ -496,6 +498,16 @@ module DashboardsHelper
   end
 
   # leading: options between the blank one and the queries
+  # Fields of the settings form of a block, built from its declared settings
+  # as programs read them, with the existing settings fields
+  def dashboard_block_settings_fields(dashboard_block, block)
+    schema = dashboard_block.settings_schema
+    fields = schema.describe.map do |setting|
+      tag.p dashboard_block_setting_field(setting, schema[setting[:key]], "settings[#{block}][#{setting[:key]}]")
+    end
+    tag.div safe_join(fields), class: 'box tabular settings'
+  end
+
   def options_for_query_select(klass, project, selected = nil, leading: nil)
     # sidebar_queries cannot be used, it includes the queries of subclasses
     queries = DashboardContent.selectable_queries(klass, project).to_a
@@ -524,6 +536,44 @@ module DashboardsHelper
 
   # Renders the content of a block: loaded after the page, its own partial or
   # a render_<block>_block helper
+  def dashboard_block_setting_field(setting, value, tag_name)
+    key = setting[:key]
+    options = { tag_name:, label: setting[:label], required: setting[:required] }
+    field = case setting[:type]
+            when :boolean
+              additionals_settings_checkbox key, active_value: value, **options
+            when :integer, :float
+              additionals_settings_numberfield key, value:, min: setting[:min], max: setting[:max],
+                                                    step: setting[:type] == :float ? 'any' : nil, **options
+            when :string
+              additionals_settings_textfield key, value:, **options
+            when :text
+              additionals_settings_textarea key, value:, **options
+            when :enum
+              additionals_settings_select key, options_for_select(offered_setting_values(setting, value), value),
+                                          include_blank: !setting[:required], **options
+            else
+              raise ArgumentError, "No settings field for #{key} of type #{setting[:type]}, the block needs a form"
+            end
+    setting[:description] ? safe_join([field, tag.em(setting[:description], class: 'info')]) : field
+  end
+
+  # The values a form offers, and the current one even if no longer offered
+  def offered_setting_values(setting, value)
+    values = setting[:values].to_a
+    values = values.select { |entry| setting[:offered].include?(entry[:value]) || entry[:value] == value } if setting[:offered]
+    values.map { |entry| [entry[:label], entry[:value]] }
+  end
+
+  # The settings form of a block rendered with the page, its async blocks have
+  # it in dashboards/blocks/async
+  def dashboard_block_settings_form(block, dashboard_block, dashboard)
+    return if dashboard_block.async || !dashboard_block.generated_settings_form? ||
+              dashboard_block.no_settings? || !dashboard.layout_editable?
+
+    render 'dashboards/blocks/settings_form', dashboard:, block:, dashboard_block:, hidden: true
+  end
+
   def render_dashboard_block_content(block, dashboard_block, dashboard, partial_locals)
     partial = dashboard_block.partial
 

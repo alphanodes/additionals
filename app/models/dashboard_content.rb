@@ -15,7 +15,7 @@ class DashboardContent
 
   # Settings many blocks share, see Additionals::SettingsSchema
   TITLE_SETTING = { type: :string, label: :field_title }.freeze
-  MAX_ENTRIES_SETTING = { type: :integer, label: :label_max_entries, min: 1, max: 100,
+  MAX_ENTRIES_SETTING = { type: :integer, label: :label_max_entries, min: 1, max: 100, required: true,
                           default: DEFAULT_MAX_ENTRIES }.freeze
 
   class << self

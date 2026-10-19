@@ -26,7 +26,7 @@ module ApiTest
     test 'GET /dashboard_blocks.json describes the settings of a block' do
       get '/dashboard_blocks.json', headers: credentials('admin')
 
-      assert_equal({ 'key' => 'max_entries', 'type' => 'integer', 'min' => 1, 'max' => 100, 'default' => 10 },
+      assert_equal({ 'key' => 'max_entries', 'type' => 'integer', 'min' => 1, 'max' => 100, 'default' => 10, 'required' => true },
                    listed_block('feed')['settings'].detect { |setting| setting['key'] == 'max_entries' }.except('label', 'applies'))
     end
 

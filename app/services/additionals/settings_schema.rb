@@ -22,7 +22,8 @@ module Additionals
   # - offered: the allowed values a form offers for the other values, e.g.
   #   only some display types for a timeline. Other allowed values stay valid,
   #   whoever reads them falls back.
-  # - default, required, min, max
+  # - default, required, min, max. A required setting with a default is only
+  #   missing if given blank
   # - if: whether the setting exists in the context at all; if not, it counts
   #   as an unknown key
   # - applies: whether the setting applies to the other values. One that does
@@ -283,12 +284,18 @@ module Additionals
       definition = @definitions[key]
       value = @values[key]
       if value.blank?
-        definition[:required] && applies?(key) ? [message(:blank)] : []
+        definition[:required] && applies?(key) && !defaulted?(key, definition) ? [message(:blank)] : []
       elsif @given_keys.include? key
         value_errors definition, value
       else
         []
       end
+    end
+
+    # A default fills a required setting nobody gave, only a given blank value
+    # empties it
+    def defaulted?(key, definition)
+      @given_keys.exclude?(key) && !resolve(definition[:default]).nil?
     end
 
     def value_errors(definition, value)

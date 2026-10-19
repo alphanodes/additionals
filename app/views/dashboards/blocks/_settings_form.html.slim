@@ -1,0 +1,18 @@
+/ The settings form of a block, shown with its settings icon: the fields of
+/ its declared settings, or of the partial of the block (fields_partial with
+/ fields_locals)
+div id="#{block}-settings" class=('hidden' if hidden)
+  / A multiple select only submits the options that are marked, and the columns in the
+  / right-hand list are not - so without this the column choice never reaches the server
+  / and the block keeps the columns of its query.
+  = remote_form_tag _update_layout_setting_dashboard_path(@project, dashboard),
+                    onsubmit: "$(this).find('select[id^=selected_] option').prop('selected', true)" do
+    - if dashboard_block.generated_settings_form?
+      = dashboard_block_settings_fields dashboard_block, block
+    - else
+      = render fields_partial, fields_locals
+
+    p
+      = submit_tag l(:button_save)
+      '
+      = link_to_function l(:button_cancel), "$('##{block}-settings').toggle()"

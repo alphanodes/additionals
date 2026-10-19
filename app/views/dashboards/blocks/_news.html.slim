@@ -1,25 +1,5 @@
 h3.icon.icon-news = sprite_icon 'news', l(:label_news_latest)
 
-- if @can_edit
-  .hidden id="#{block}-settings"
-    = remote_form_tag _update_layout_setting_dashboard_path(@project, @dashboard) do
-      .box.tabular.settings
-        p
-          = additionals_settings_numberfield :max_entries,
-                                             value: max_entries,
-                                             tag_name: "settings[#{block}][max_entries]",
-                                             min: 1, max: 1000, required: true
-        - if @project
-          p
-            = additionals_settings_checkbox :with_subprojects,
-                                            label: :label_cross_project_descendants,
-                                            active_value: with_subprojects,
-                                            tag_name: "settings[#{block}][with_subprojects]"
-      p
-        = submit_tag l(:button_save)
-        '
-        = link_to_function l(:button_cancel), "$('##{block}-settings').toggle()"
-
 - if news.any?
   - if with_subprojects
     - news.each do |entry|

@@ -172,6 +172,17 @@ class DashboardBlockDataTest < Additionals::TestCase
     assert_equal [true, false], [schemas['text'][:exports_data], schemas['welcome'][:exports_data]]
   end
 
+  # Tokens and keys never leave the server, not even to editors
+  def test_export_leaves_out_secret_settings
+    block_class = Class.new DashboardBlocks::Base do
+      setting :title, type: :string
+      setting :token, type: :string, secret: true
+    end
+    block = block_class.new DashboardContentWelcome.new, settings: { title: 'Mine', token: 'abc' }
+
+    assert_equal({ title: 'Mine' }, block.export(data: false)[:settings])
+  end
+
   private
 
   # A block with its stored settings, on a project dashboard with a project

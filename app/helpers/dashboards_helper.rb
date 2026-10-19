@@ -505,7 +505,7 @@ module DashboardsHelper
     # A setting left out keeps its stored value
     fields = dashboard_block.settings_form_fields.map do |setting|
       tag_name = "settings[#{block}][#{setting[:key]}]"
-      partial = definitions.dig setting[:key], :field
+      partial = definitions.dig(setting[:key], :field) || ('dashboards/settings/secret' if setting[:secret])
       field = if partial
                 render partial, setting:, value: schema[setting[:key]], tag_name:, dashboard_block:
               else
@@ -555,9 +555,9 @@ module DashboardsHelper
       additionals_settings_numberfield key, value:, min: setting[:min], max: setting[:max],
                                             step: setting[:type] == :float ? 'any' : nil, **options
     when :string
-      additionals_settings_textfield key, value:, **options
+      additionals_settings_textfield key, value:, placeholder: setting[:placeholder], **options
     when :text
-      additionals_settings_textarea key, value:, **options
+      additionals_settings_textarea key, value:, placeholder: setting[:placeholder], **options
     when :enum
       additionals_settings_select key, options_for_select(offered_setting_values(setting, value), value),
                                   include_blank: !setting[:required] && setting[:default].nil?, **options

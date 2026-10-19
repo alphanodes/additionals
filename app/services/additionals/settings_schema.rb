@@ -17,6 +17,8 @@ module Additionals
   # Options of a setting:
   # - type: string, text, integer, float, boolean, enum or list
   # - label, info: locale key, text or lambda
+  # - placeholder: shown in an empty field of a form, e.g. what the block shows
+  #   without the setting; locale key, text or lambda
   # - values: allowed values, plain or [label, value], for enum and list. A
   #   given unique label is stored as its value
   # - offered: the allowed values a form offers for the other values, e.g.
@@ -24,6 +26,8 @@ module Additionals
   #   whoever reads them falls back.
   # - default, required, min, max. A required setting with a default is only
   #   missing if given blank
+  # - secret: a token, key or password; its value is never described, and a
+  #   form built from the settings never fills it in
   # - field: partial of its field in a form built from the settings, for a
   #   setting the fields of the types cannot show (e.g. checkboxes of a list)
   # - if: whether the setting exists in the context at all; if not, it counts
@@ -46,11 +50,11 @@ module Additionals
 
     TYPES = %i[string text integer float boolean enum list].freeze
     LABELED_TYPES = %i[enum list].freeze
-    OPTIONS = %i[type label info values offered default required min max if applies field].freeze
+    OPTIONS = %i[type label info placeholder values offered default required min max if applies field secret].freeze
     # Options of a setting an object can answer with a method named after the
     # setting, see with_rule_methods
     RULE_METHODS = { if: '%s_available?', applies: '%s_applies?', values: '%s_values', offered: '%s_offered',
-                     default: '%s_default', label: '%s_label' }.freeze
+                     default: '%s_default', label: '%s_label', placeholder: '%s_placeholder' }.freeze
     TRUE_VALUES = ['1', 'true', true, 1].freeze
     FALSE_VALUES = ['0', 'false', false, 0, ''].freeze
     INTEGER_FORMAT = /\A[+-]?\d+\z/
@@ -339,6 +343,7 @@ module Additionals
         type: definition[:type],
         label: label_for(key),
         description: info_for(definition),
+        placeholder: text_of(definition[:placeholder]),
         required: definition[:required] ? true : nil,
         default: resolve(definition[:default]),
         values: values_for(definition),
@@ -346,12 +351,17 @@ module Additionals
         min: definition[:min],
         max: definition[:max],
         applies: applies?(key),
-        value: @values.key?(key) ? self[key] : nil }.compact
+        secret: definition[:secret] ? true : nil,
+        value: @values.key?(key) && !definition[:secret] ? self[key] : nil }.compact
     end
 
     def info_for(definition)
-      info = resolve definition[:info]
-      info.is_a?(Symbol) ? l(info) : info
+      text_of definition[:info]
+    end
+
+    def text_of(option)
+      text = resolve option
+      text.is_a?(Symbol) ? l(text) : text
     end
 
     def resolve(option)

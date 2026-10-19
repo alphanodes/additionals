@@ -263,6 +263,18 @@ class SettingsSchemaTest < Additionals::TestCase
     assert_predicate schema_for({ max: { type: :integer, required: true, default: ->(_schema) { 10 } } }, {}), :valid?
   end
 
+  def test_secret_is_described_without_its_value
+    schema = schema_for({ token: { type: :string, secret: true } }, token: 'abc')
+
+    assert_equal({ key: :token, type: :string, label: 'Token', applies: true, secret: true }, schema.describe.first)
+  end
+
+  def test_placeholder_is_described_as_text
+    schema = schema_for({ title: { type: :string, placeholder: :label_news_latest } }, {})
+
+    assert_equal I18n.t(:label_news_latest), schema.describe.first[:placeholder]
+  end
+
   def test_default_is_read_for_a_missing_setting
     assert_equal 10, schema_for({ max: { type: :integer, default: 10 } }, {})[:max]
   end

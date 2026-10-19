@@ -6,7 +6,8 @@ require File.expand_path '../../../test_helper', __FILE__
 # type, filled with the stored values, which the schema reads back unchanged
 class DashboardBlockSettingsFieldsTest < Additionals::HelperTest
   STORED = { max_entries: '20', ratio: '1.5', with_closed: '1', title: 'Latest', text: "Line 1\nLine 2",
-             sort_by: 'date', interval: 'month', projects: %w[1 3], groups: %w[2] }.freeze
+             sort_by: 'date', interval: 'month', projects: %w[1 3], groups: %w[2], token: 'abc123',
+             site: 'https://example.org', body: 'Hello' }.freeze
 
   def setup
     super
@@ -103,6 +104,43 @@ class DashboardBlockSettingsFieldsTest < Additionals::HelperTest
     assert_equal I18n.t(:label_group_plural), field('p:has(input[name="settings[test][groups][]"]) em.info').text
   end
 
+  def test_secret_is_never_filled_in
+    assert_not field('input[type=password][name="settings[test][token]"]').key?('value')
+  end
+
+  # Not sent until the edit icon shows it, so the stored secret stays
+  def test_stored_secret_is_disabled_until_edited
+    assert field('input[name="settings[test][token]"]').key?('disabled')
+  end
+
+  def test_stored_secret_offers_to_edit_it
+    assert field('[data-controller=additionals-secret-field] a[data-action="additionals-secret-field#edit"]')
+  end
+
+  def test_secret_without_stored_value_can_be_entered
+    assert_not field('input[name="settings[test][token]"]', stored: {}).key?('disabled')
+  end
+
+  def test_url_is_a_url_field
+    assert_equal 'https://example.org', field('input[type=url][name="settings[test][site]"]')['value']
+  end
+
+  def test_wiki_text_has_the_toolbar_of_the_text_formatting
+    assert_includes field('script').text, 'settings_test_body'
+  end
+
+  # Without a title the block shows its label
+  def test_title_shows_the_label_of_the_block_as_placeholder
+    assert_equal 'Settings test', field('input[name="settings[test][title]"]')['placeholder']
+  end
+
+  def test_title_of_a_text_block_has_no_placeholder
+    block = DashboardContentWelcome.new.dashboard_block 'text'
+
+    assert_nil Nokogiri::HTML5.fragment(@redmine_view.dashboard_block_settings_fields(block, 'text'))
+                              .at_css('input[name="settings[text][title]"]')['placeholder']
+  end
+
   def test_choice_without_declared_values_needs_a_field
     block_class = Class.new(DashboardBlocks::Base) { setting :ids, type: :enum, label: :label_issue_plural }
 
@@ -111,10 +149,10 @@ class DashboardBlockSettingsFieldsTest < Additionals::HelperTest
     end
   end
 
-  # What the form sends is what was stored
+  # What the form sends is what was stored, a secret not sent stays stored
   def test_sent_form_is_read_back_as_stored
     block = test_block STORED
-    schema = Additionals::SettingsSchema.new block.declared_settings, sent_values(rendered(block))
+    schema = Additionals::SettingsSchema.new block.declared_settings, sent_values(rendered(block)), stored: STORED.slice(:token)
 
     assert_equal STORED, schema.settings
   end
@@ -123,6 +161,7 @@ class DashboardBlockSettingsFieldsTest < Additionals::HelperTest
 
   def test_block(stored)
     block_class = Class.new DashboardBlocks::Base do
+      label { 'Settings test' }
       setting :max_entries, type: :integer, label: :label_max_entries, min: 1, max: 50, default: 10
       setting :ratio, type: :float, label: :field_estimated_hours
       setting :with_closed, type: :boolean, label: :label_closed_issues_plural
@@ -137,6 +176,9 @@ class DashboardBlockSettingsFieldsTest < Additionals::HelperTest
       setting :groups, type: :list, label: :label_group_plural, info: :label_group_plural, values: [%w[X 1], %w[Y 2]],
                        field: 'dashboards/settings/check_boxes'
       setting :queries, type: :enum, label: :label_query_plural, values: []
+      setting :token, type: :string, label: :label_api_access_key, secret: true
+      setting :site, type: :string, label: :field_url, field: 'dashboards/settings/url'
+      setting :body, type: :text, label: :field_description, field: 'dashboards/settings/wiki_text'
 
       private
 
@@ -166,7 +208,7 @@ class DashboardBlockSettingsFieldsTest < Additionals::HelperTest
   # The values a browser sends: the last of a name wins like with Rack, a
   # name with [] collects its values
   def sent_values(html)
-    html.css('[name^="settings[test]"]').each_with_object({}) do |element, values|
+    html.css('[name^="settings[test]"]:not([disabled])').each_with_object({}) do |element, values|
       key = element['name'][/\Asettings\[test\]\[(\w+)\]/, 1].to_sym
       sent = sent_value element
       next if sent.nil?

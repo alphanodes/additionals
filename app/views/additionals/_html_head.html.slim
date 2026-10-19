@@ -16,6 +16,7 @@
 = javascript_include_tag 'controllers/additionals_chart_controller', plugin: 'additionals', type: 'module'
 = javascript_include_tag 'controllers/additionals_chart_settings_controller', plugin: 'additionals', type: 'module'
 = javascript_include_tag 'controllers/render_async_controller', plugin: 'additionals', type: 'module'
+= javascript_include_tag 'controllers/additionals_secret_field_controller', plugin: 'additionals', type: 'module'
 - if User.current.logged? && Additionals.setting?(:global_search)
   = stylesheet_link_tag 'global_search', plugin: 'additionals'
   = javascript_include_tag 'controllers/global_search_controller', plugin: 'additionals', type: 'module'

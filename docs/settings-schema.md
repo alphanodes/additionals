@@ -18,6 +18,7 @@ DEFINITIONS = {
 | ------ | ----------- |
 | `type` | `string`, `text`, `integer`, `float`, `boolean`, `enum` or `list` |
 | `label`, `info` | Locale key, text or lambda; use the keys of the settings form |
+| `placeholder` | Shown in an empty field of a form, e.g. what is used without the setting; locale key, text or lambda |
 | `values` | Allowed values of `enum` and `list`, plain or `[label, value]` |
 | `offered` | The allowed values a form offers for the other values; others stay valid and fall back where they are read |
 | `default` | Value read for a missing or blank setting, not stored; a boolean without one reads as `false` |
@@ -26,6 +27,7 @@ DEFINITIONS = {
 | `if` | Whether the setting exists in the context at all, otherwise it counts as an unknown key |
 | `applies` | Whether the setting applies to the other values |
 | `field` | Partial of its field in a form built from the settings (dashboard blocks), for a setting the fields of the types cannot show |
+| `secret` | A token, key or password: `describe` leaves out its value, a form built from the settings never fills it in |
 
 Dashboard blocks declare these rules as methods instead of lambdas (see [Settings](dashboards.md#settings)). Lambdas get the schema: `schema[:key]` reads another setting (typed, with its default), `schema.context` the context it was built with.
 

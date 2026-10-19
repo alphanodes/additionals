@@ -224,7 +224,7 @@ module DashboardBlocks
     # Without data, the data is not loaded, e.g. for the layout of a dashboard.
     def export(data: true)
       export = { label:,
-                 settings: settings_schema.available_keys.index_with { |key| export_value settings_schema[key] } }
+                 settings: exported_setting_keys.index_with { |key| export_value settings_schema[key] } }
       data ? export.merge(data: export_data) : export
     end
 
@@ -258,6 +258,17 @@ module DashboardBlocks
     end
 
     private
+
+    # Without a title a block shows its label, e.g. as heading
+    def title_placeholder(_schema)
+      label if label_value
+    end
+
+    # Secret settings, e.g. tokens, never leave the server
+    def exported_setting_keys
+      secrets = declared_settings.select { |_key, definition| definition[:secret] }.keys
+      settings_schema.available_keys - secrets
+    end
 
     # What a chart of its own evaluation draws (AdditionalsChart#payload), for
     # programs: a column per dataset, a row per label with a value of each.

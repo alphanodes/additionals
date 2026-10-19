@@ -245,6 +245,26 @@ module DashboardBlocks
 
     private
 
+    # What a chart of its own evaluation draws (AdditionalsChart#payload), for
+    # programs: a column per dataset, a row per label with a value of each.
+    # Nil for a chart without values.
+    def export_chart(chart)
+      return unless chart.valid?
+
+      payload = chart.payload
+      datasets = payload[:datasets]
+      { measure: payload[:totalLabel],
+        columns: datasets.pluck(:label),
+        rows: payload[:labels].each_with_index.map do |label, index|
+          [export_value(label), *datasets.map { |dataset| export_number dataset[:data][index] }]
+        end }
+    end
+
+    # Sums of hours or amounts are decimals, which JSON would turn into strings
+    def export_number(value)
+      value.nil? || value.is_a?(Integer) ? value : value.to_f.round(2)
+    end
+
     # A value for a program: dates as ISO 8601, records by their name
     def export_value(value)
       case value

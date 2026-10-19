@@ -82,11 +82,6 @@ module DashboardBlocks
       [export_value(chart.timeline? ? entry.key : entry.label), *chart.entry_cells(entry).map { |cell| export_number cell.value }]
     end
 
-    # Sums of hours or amounts are decimals, which JSON would turn into strings
-    def export_number(value)
-      value.is_a?(Integer) ? value : value.to_f.round(2)
-    end
-
     # The chart of the values a schema reads, built once per schema
     def chart_for(schema)
       return chart if schema.equal? @settings_schema

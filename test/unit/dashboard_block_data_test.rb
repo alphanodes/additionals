@@ -104,6 +104,30 @@ class DashboardBlockDataTest < Additionals::TestCase
     assert_equal users(:users_002).name, data[:rows].first.last
   end
 
+  # Charts of their own evaluation export what they draw
+  def test_chart_exports_a_row_per_label
+    assert_equal [['A', 1], ['B', 2]], chart_block(Additionals::TestPayloadChart.new).export_data[:rows]
+  end
+
+  def test_chart_exports_a_column_per_dataset
+    assert_equal ['Pages'], chart_block(Additionals::TestPayloadChart.new).export_data[:columns]
+  end
+
+  def test_chart_exports_what_it_measures
+    assert_equal 'Quantity', chart_block(Additionals::TestPayloadChart.new).export_data[:measure]
+  end
+
+  # Sums of hours or amounts are decimals, which JSON would turn into strings
+  def test_chart_exports_decimals_as_numbers
+    chart = Additionals::TestPayloadChart.new data: [BigDecimal('1.234'), 2]
+
+    assert_in_delta 1.23, chart_block(chart).export_data[:rows].first.last
+  end
+
+  def test_chart_without_values_exports_no_data
+    assert_nil chart_block(Additionals::TestPayloadChart.new(data: [0, 0])).export_data
+  end
+
   def test_block_names_a_required_setting
     assert block('feed').setting_required?(:url)
   end
@@ -154,6 +178,15 @@ class DashboardBlockDataTest < Additionals::TestCase
   def block(id, settings = {}, project = nil)
     content = project ? DashboardContentProject.new(project:) : DashboardContentWelcome.new
     content.dashboard_block id, settings:
+  end
+
+  # A block showing a chart of its own evaluation
+  def chart_block(chart)
+    block_class = Class.new DashboardBlocks::Base do
+      define_method(:data) { chart }
+      define_method(:export_data) { export_chart data }
+    end
+    block_class.new DashboardContentWelcome.new
   end
 
   def welcome_dashboard(layout_settings: {})

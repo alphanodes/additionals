@@ -25,6 +25,7 @@ DEFINITIONS = {
 | `min`, `max` | Bounds of numbers |
 | `if` | Whether the setting exists in the context at all, otherwise it counts as an unknown key |
 | `applies` | Whether the setting applies to the other values |
+| `field` | Partial of its field in a form built from the settings (dashboard blocks), for a setting the fields of the types cannot show |
 
 Dashboard blocks declare these rules as methods instead of lambdas (see [Settings](dashboards.md#settings)). Lambdas get the schema: `schema[:key]` reads another setting (typed, with its default), `schema.context` the context it was built with.
 

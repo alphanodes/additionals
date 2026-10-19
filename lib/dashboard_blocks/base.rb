@@ -239,6 +239,12 @@ module DashboardBlocks
       settings_partial.blank?
     end
 
+    # The described settings a form built from them shows: those that apply,
+    # and only with something to choose
+    def settings_form_fields
+      settings_schema.describe.select { |setting| setting[:applies] && setting[:values] != [] }
+    end
+
     # Whether the block declares the setting as required, e.g. to mark it in a
     # settings form several blocks share
     def setting_required?(key)

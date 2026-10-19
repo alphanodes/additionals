@@ -1,0 +1,9 @@
+/ Field of a list setting as checkboxes, in a settings form built from the
+/ declared settings: setting as described, value the chosen values
+= label_tag tag_name, setting[:required] ? safe_join([setting[:label], tag.span('*', class: 'required')], ' ') : setting[:label]
+- setting[:values].each do |entry|
+  label.block
+    = check_box_tag "#{tag_name}[]", entry[:value], Array(value).include?(entry[:value]), id: nil
+    = entry[:label]
+/ Without the blank value a list without any checked entry is not sent
+= hidden_field_tag "#{tag_name}[]", '', id: nil

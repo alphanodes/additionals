@@ -383,7 +383,7 @@ module Additionals
         dashboard_block = dashboard.content.dashboard_block block, settings: dashboard.layout_settings(block), dashboard: dashboard
         next unless dashboard_block.generated_settings_form?
 
-        missing = dashboard_block.settings_schema.describe.select { |setting| setting[:applies] }.pluck(:key) - form_keys[block]
+        missing = dashboard_block.settings_form_fields.pluck(:key) - form_keys[block]
         "#{block}: #{missing.to_comma_list}" if missing.any?
       end
     end

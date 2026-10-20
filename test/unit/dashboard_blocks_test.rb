@@ -2,6 +2,15 @@
 
 require File.expand_path '../../test_helper', __FILE__
 
+# A dashboard type of a plugin that still defines blocks the old way. Named
+# with its TYPE_NAME: an anonymous class would stay among the descendants
+# of DashboardContent and break DashboardContent.types.
+class DashboardContentBlockDefinitionsStub < DashboardContent
+  TYPE_NAME = 'BlockDefinitionsStubDashboard'
+
+  def block_definitions = { 'foreign' => {} }
+end
+
 # Dashboard blocks as classes, collected from lib/dashboard_blocks of all plugins
 class DashboardBlocksTest < Additionals::TestCase
   def setup
@@ -61,10 +70,8 @@ class DashboardBlocksTest < Additionals::TestCase
   end
 
   def test_block_definitions_of_a_plugin_are_an_error
-    patched = Class.new(DashboardContent) { def block_definitions = { 'foreign' => {} } }
-
     assert_raises DashboardBlocks::PatchError do
-      DashboardBlocks.check_patches! [patched]
+      DashboardBlocks.check_patches! [DashboardContentBlockDefinitionsStub]
     end
   end
 

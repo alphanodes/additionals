@@ -290,7 +290,7 @@ module DashboardsHelper
     return if content.blank?
 
     # Above the content, where it opens below the settings icon
-    content = safe_join [dashboard_block_settings_form(block, dashboard_block, dashboard), content]
+    content = safe_join [dashboard_block_settings_form(block, dashboard_block, dashboard, partial_locals), content]
 
     if dashboard.layout_editable?
       icons = []
@@ -498,12 +498,14 @@ module DashboardsHelper
   end
 
   # Fields of the settings form of a block, built from its declared settings
-  # as programs read them, with the existing settings fields
-  def dashboard_block_settings_fields(dashboard_block, block)
+  # as programs read them, with the existing settings fields. An own form of a
+  # block can leave out settings (except) and add fields of its own (block).
+  def dashboard_block_settings_fields(dashboard_block, block, except: [], &)
     schema = dashboard_block.settings_schema
     definitions = dashboard_block.declared_settings
     # A setting left out keeps its stored value
-    fields = dashboard_block.settings_form_fields.map do |setting|
+    form_fields = dashboard_block.settings_form_fields.reject { |setting| except.include? setting[:key] }
+    fields = form_fields.map do |setting|
       tag_name = "settings[#{block}][#{setting[:key]}]"
       partial = definitions.dig(setting[:key], :field) || ('dashboards/settings/secret' if setting[:secret])
       field = if partial
@@ -513,6 +515,7 @@ module DashboardsHelper
               end
       tag.p setting[:description] ? safe_join([field, tag.em(setting[:description], class: 'info')]) : field
     end
+    fields << capture(&) if block_given?
     tag.div safe_join(fields), class: 'box tabular settings'
   end
 
@@ -584,11 +587,12 @@ module DashboardsHelper
 
   # The settings form of a block rendered with the page, its async blocks have
   # it in dashboards/blocks/async
-  def dashboard_block_settings_form(block, dashboard_block, dashboard)
+  def dashboard_block_settings_form(block, dashboard_block, dashboard, partial_locals)
     return if dashboard_block.async || !dashboard_block.generated_settings_form? ||
               dashboard_block.no_settings? || !dashboard.layout_editable?
 
-    render 'dashboards/blocks/settings_form', dashboard:, block:, dashboard_block:, hidden: true
+    render 'dashboards/blocks/settings_form', dashboard:, block:, dashboard_block:, hidden: true,
+                                              fields_locals: partial_locals
   end
 
   def render_dashboard_block_content(block, dashboard_block, dashboard, partial_locals)

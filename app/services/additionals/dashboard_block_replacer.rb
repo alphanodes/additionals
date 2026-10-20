@@ -40,7 +40,33 @@ module Additionals
         end
       end
 
+      # Renames a setting of blocks in all dashboards, e.g. when a block takes
+      # the name other blocks use for it. blocks: names of the blocks, a block
+      # placed more than once (block__2) counts as block. A blank value is
+      # dropped.
+      def rename_setting(blocks, from, to)
+        Dashboard.find_each do |dashboard|
+          options = dashboard.options
+          next unless options.is_a?(Hash) && options[:layout_settings].is_a?(Hash)
+
+          renamed = options[:layout_settings].count do |block, settings|
+            blocks.include?(block.to_s.sub(/__\d+\z/, '')) && settings.is_a?(Hash) && rename_key(settings, from, to)
+          end
+          dashboard.update_column :options, options if renamed.positive?
+        end
+      end
+
       private
+
+      # Settings keep the kind of their keys, symbols or strings
+      def rename_key(settings, from, to)
+        key = [from.to_sym, from.to_s].find { |name| settings.key? name }
+        return false if key.nil?
+
+        value = settings.delete key
+        settings[key.is_a?(Symbol) ? to.to_sym : to.to_s] = value if value.present?
+        true
+      end
 
       def replace_blocks(dashboard)
         options = dashboard.options

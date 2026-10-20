@@ -64,6 +64,41 @@ class DashboardBlockReplacerTest < Additionals::TestCase
                  Additionals::DashboardBlockReplacer.chart_settings('cf_1'))
   end
 
+  def test_rename_setting_moves_the_value
+    dashboard = dashboard_with %w[server], 'server' => { name: 'Web', labels: 'prod' }
+    Additionals::DashboardBlockReplacer.rename_setting %w[server], :name, :title
+
+    assert_equal({ labels: 'prod', title: 'Web' }, dashboard.reload.layout_settings('server'))
+  end
+
+  def test_rename_setting_of_a_block_placed_more_than_once
+    dashboard = dashboard_with %w[server server__1], 'server__1' => { name: 'Mail' }
+    Additionals::DashboardBlockReplacer.rename_setting %w[server], :name, :title
+
+    assert_equal({ title: 'Mail' }, dashboard.reload.layout_settings('server__1'))
+  end
+
+  def test_rename_setting_keeps_string_keys
+    dashboard = dashboard_with %w[server], 'server' => { 'name' => 'Web' }
+    Additionals::DashboardBlockReplacer.rename_setting %w[server], :name, :title
+
+    assert_equal({ 'title' => 'Web' }, dashboard.reload.layout_settings('server'))
+  end
+
+  def test_rename_setting_drops_a_blank_value
+    dashboard = dashboard_with %w[server], 'server' => { name: '' }
+    Additionals::DashboardBlockReplacer.rename_setting %w[server], :name, :title
+
+    assert_empty dashboard.reload.layout_settings('server')
+  end
+
+  def test_rename_setting_keeps_other_blocks
+    dashboard = dashboard_with %w[contact], 'contact' => { name: 'Mine' }
+    Additionals::DashboardBlockReplacer.rename_setting %w[server], :name, :title
+
+    assert_equal({ name: 'Mine' }, dashboard.reload.layout_settings('contact'))
+  end
+
   private
 
   def replace_old_chart_with(replacements)

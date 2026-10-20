@@ -275,6 +275,35 @@ class SettingsSchemaTest < Additionals::TestCase
     assert_equal I18n.t(:label_news_latest), schema.describe.first[:placeholder]
   end
 
+  def test_info_can_be_a_rule_method
+    object = Class.new { def url_info(_schema) = 'Address of the feed' }.new
+    definitions = Additionals::SettingsSchema.with_rule_methods({ url: { type: :string } }, object)
+
+    assert_equal 'Address of the feed', schema_for(definitions, {}).describe.first[:description]
+  end
+
+  # Programs get the text of an info with a link
+  def test_html_info_is_described_as_text
+    schema = schema_for({ token: { type: :string, info: 'Create it at <a href="https://example.org">example</a>.'.html_safe } }, {})
+
+    assert_equal 'Create it at example.', schema.describe.first[:description]
+  end
+
+  # A form shows its link
+  def test_html_info_is_kept_for_a_form
+    info = 'Create it at <a href="https://example.org">example</a>.'.html_safe
+    schema = schema_for({ token: { type: :string, info: } }, {})
+
+    assert_equal info, schema.describe(html: true).first[:description]
+  end
+
+  # Only an info marked as HTML safe is HTML, other text stays as it is
+  def test_text_info_is_not_sanitized
+    schema = schema_for({ hosts: { type: :string, info: 'Hosts, e.g. <name>' } }, {})
+
+    assert_equal 'Hosts, e.g. <name>', schema.describe.first[:description]
+  end
+
   def test_default_is_read_for_a_missing_setting
     assert_equal 10, schema_for({ max: { type: :integer, default: 10 } }, {})[:max]
   end

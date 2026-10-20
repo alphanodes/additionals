@@ -16,7 +16,8 @@ module Additionals
   #
   # Options of a setting:
   # - type: string, text, integer, float, boolean, enum or list
-  # - label, info: locale key, text or lambda
+  # - label, info: locale key, text or lambda. An info marked as HTML safe
+  #   (e.g. with a link) is described as text, unless for a form
   # - placeholder: shown in an empty field of a form, e.g. what the block shows
   #   without the setting; locale key, text or lambda
   # - values: allowed values, plain or [label, value], for enum and list. A
@@ -54,7 +55,8 @@ module Additionals
     # Options of a setting an object can answer with a method named after the
     # setting, see with_rule_methods
     RULE_METHODS = { if: '%s_available?', applies: '%s_applies?', values: '%s_values', offered: '%s_offered',
-                     default: '%s_default', label: '%s_label', placeholder: '%s_placeholder' }.freeze
+                     default: '%s_default', label: '%s_label', info: '%s_info',
+                     placeholder: '%s_placeholder' }.freeze
     TRUE_VALUES = ['1', 'true', true, 1].freeze
     FALSE_VALUES = ['0', 'false', false, 0, ''].freeze
     INTEGER_FORMAT = /\A[+-]?\d+\z/
@@ -153,8 +155,9 @@ module Additionals
       errors.flat_map { |key, messages| messages.map { |message| "#{label_for key} #{message}" } }
     end
 
-    def describe
-      available_keys.map { |key| description_for key }
+    # html: an info marked as HTML safe as it is, e.g. for a form
+    def describe(html: false)
+      available_keys.map { |key| description_for key, html: }
     end
 
     def label_for(key)
@@ -337,12 +340,12 @@ module Additionals
       end
     end
 
-    def description_for(key)
+    def description_for(key, html:)
       definition = @definitions[key]
       { key:,
         type: definition[:type],
         label: label_for(key),
-        description: info_for(definition),
+        description: info_for(definition, html:),
         placeholder: text_of(definition[:placeholder]),
         required: definition[:required] ? true : nil,
         default: resolve(definition[:default]),
@@ -355,8 +358,9 @@ module Additionals
         value: @values.key?(key) && !definition[:secret] ? self[key] : nil }.compact
     end
 
-    def info_for(definition)
-      text_of definition[:info]
+    def info_for(definition, html:)
+      info = text_of definition[:info]
+      html || !info.html_safe? ? info : ActionView::Base.full_sanitizer.sanitize(info)
     end
 
     def text_of(option)

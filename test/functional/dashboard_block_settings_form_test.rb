@@ -55,10 +55,36 @@ class DashboardBlockSettingsFormTest < Additionals::ControllerTest
     assert_select 'div#news-settings', count: 0
   end
 
+  # Opened on an existing block, the form names the block
+  def test_settings_form_of_an_existing_block_is_named
+    get :index, params: { dashboard_id: news_dashboard.id }
+
+    assert_select 'div#news-settings > h3', text: 'Latest news settings'
+  end
+
+  def test_settings_form_of_an_existing_async_block_is_named
+    get :index, params: { dashboard_id: feed_dashboard(url: 'https://example.org/feed.atom').id }
+
+    assert_select 'div#feed-settings.hidden > h3', text: "#{I18n.t :label_additionals_feed} settings"
+  end
+
+  # A new block shows its form below its name, a second name would repeat it
+  def test_settings_form_of_a_new_async_block_is_not_named
+    get :index, params: { dashboard_id: feed_dashboard.id }
+
+    assert_select 'div#feed-settings:not(.hidden):not(:has(> h3))'
+  end
+
   private
 
   def news_dashboard(locked: false)
     Dashboard.create! name: 'News', dashboard_type: DashboardContentWelcome::TYPE_NAME, author: User.current,
                       visibility: Dashboard::VISIBILITY_PUBLIC, layout: { 'left' => %w[news] }, locked:
+  end
+
+  def feed_dashboard(url: nil)
+    Dashboard.create! name: 'Feed', dashboard_type: DashboardContentWelcome::TYPE_NAME, author: User.current,
+                      visibility: Dashboard::VISIBILITY_PUBLIC, layout: { 'left' => %w[feed] },
+                      layout_settings: url ? { 'feed' => { url: } } : {}
   end
 end

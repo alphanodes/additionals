@@ -29,7 +29,8 @@ module DashboardBlocks
   # <key>_available? decides whether the setting exists (if), <key>_applies?
   # whether it applies to the other values (applies), <key>_values returns the
   # allowed values (values), <key>_offered those a form offers (offered),
-  # <key>_default and <key>_label a default and label depending on the context.
+  # <key>_default, <key>_label, <key>_info and <key>_placeholder a default,
+  # label, info and placeholder depending on the context.
   # Each setting gets a reader of its typed value with its default, e.g.
   # block.max_entries.
   class Base
@@ -40,7 +41,7 @@ module DashboardBlocks
     class_attribute :declared_dashboard_types, instance_writer: false
     class_attribute :max_occurs_count, instance_writer: false, default: 1
     class_attribute :block_id_value, :label_value, :permission_value, :partial_value, :async_options,
-                    :settings_partial_value, :settings_filter_value, instance_writer: false
+                    :settings_partial_value, :settings_info_value, :settings_filter_value, instance_writer: false
     class_attribute :without_settings, :admin_only_value, instance_writer: false, default: false
 
     extend RedminePluginKit::Extensions::Abstract
@@ -132,6 +133,13 @@ module DashboardBlocks
         name ? self.settings_partial_value = name : settings_partial_value
       end
 
+      # Partial below the fields of the settings form built from the declared
+      # settings, e.g. whether the connection to a service works. It gets the
+      # locals of the partials of the block.
+      def settings_info(name = nil)
+        name ? self.settings_info_value = name : settings_info_value
+      end
+
       # Called with the settings and the dashboard on save, returns the
       # settings to keep
       def settings_filter(callable = nil)
@@ -157,7 +165,7 @@ module DashboardBlocks
     attr_reader :dashboard_content
 
     delegate :project, :user, to: :dashboard_content
-    delegate :block_id, :label, :permission, :max_occurs, :partial, :settings_partial, :settings_filter,
+    delegate :block_id, :label, :permission, :max_occurs, :partial, :settings_partial, :settings_info, :settings_filter,
              :no_settings?, :admin_only?, to: :class
 
     # settings: the stored settings of the block, for its typed values
@@ -242,7 +250,7 @@ module DashboardBlocks
     # The described settings a form built from them shows: those that apply,
     # and only with something to choose
     def settings_form_fields
-      settings_schema.describe.select { |setting| setting[:applies] && setting[:values] != [] }
+      settings_schema.describe(html: true).select { |setting| setting[:applies] && setting[:values] != [] }
     end
 
     # Whether the block declares the setting as required, e.g. to mark it in a

@@ -115,7 +115,7 @@ Available names: `chartjs`, `chartjs_annotation`, `chartjs_colorschemes`, `chart
 * [redmine_db](https://alphanodes.com/redmine-db)
 * [redmine_devops](https://alphanodes.com/redmine-devops)
 * [redmine_gantt](https://alphanodes.com/redmine-gantt)
-* [redmine_git_hosting](http://redmine-git-hosting.io/)
+* [redmine_git_hosting](https://github.com/redmine-git-hosting/redmine_git_hosting)
 * [redmine_hedgedoc](https://github.com/alphanodes/redmine_hedgedoc)
 * [redmine_hrm](https://alphanodes.com/redmine-hrm)
 * [redmine_issue_checklists](https://alphanodes.com/redmine-issue-checklists)

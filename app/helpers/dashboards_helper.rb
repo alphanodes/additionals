@@ -409,7 +409,9 @@ module DashboardsHelper
     return unless query
 
     query.project = @project if qb[:with_project] && @project
-    count = query.send qb[:count_method] || 'query_count'
+    # A savepoint keeps a surrounding transaction usable if the query fails,
+    # PostgreSQL rejects every further statement of an aborted transaction
+    count = ActiveRecord::Base.transaction(requires_new: true) { query.send qb[:count_method] || 'query_count' }
     250 if count.to_i.positive?
   # A query whose SQL fails, e.g. with a filter of a plugin that is not
   # installed, must not break the page: the block shows the error when it loads

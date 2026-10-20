@@ -411,6 +411,11 @@ module DashboardsHelper
     query.project = @project if qb[:with_project] && @project
     count = query.send qb[:count_method] || 'query_count'
     250 if count.to_i.positive?
+  # A query whose SQL fails, e.g. with a filter of a plugin that is not
+  # installed, must not break the page: the block shows the error when it loads
+  rescue ActiveRecord::StatementInvalid => e
+    Rails.logger.warn { "[additionals] query #{settings[:query_id]} of a dashboard block failed: #{e.message}" }
+    nil
   end
 
   def dashboard_async_required_settings?(settings, async)

@@ -21,6 +21,7 @@
 - Deleting a project deletes all its dashboards, deleting a user keeps their public dashboards
 - Feed block reads http and https only, with limits for redirects, time and size
 - Fix query list blocks showing outdated content after changes via the context menu
+- Fix dashboards failing on a query list block with an invalid query
 - Fix scripts of dashboard blocks added or saved without page reload
 - Fix news and spent time blocks of project dashboards after saving their settings
 - Fix query list blocks on project dashboards

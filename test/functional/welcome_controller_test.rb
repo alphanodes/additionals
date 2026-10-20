@@ -163,4 +163,21 @@ class WelcomeControllerTest < Additionals::ControllerTest
 
     assert_response :missing
   end
+
+  # A saved query whose SQL fails, e.g. with a filter on a column of a plugin
+  # that is not installed: the block shows the error, not the whole page
+  def test_index_with_a_query_block_of_a_broken_query
+    @request.session[:user_id] = 1
+    query = IssueQuery.new name: 'Broken', user: users(:users_001), visibility: Query::VISIBILITY_PUBLIC,
+                           filters: { 'missing_column' => { operator: '=', values: ['1'] } }
+    query.save! validate: false
+    dashboard = Dashboard.create! name: 'Broken query', dashboard_type: DashboardContentWelcome::TYPE_NAME,
+                                  author: users(:users_001), visibility: Dashboard::VISIBILITY_PUBLIC,
+                                  layout: { 'top' => %w[issuequery] },
+                                  layout_settings: { 'issuequery' => { query_id: query.id.to_s } }
+
+    get :index, params: { dashboard_id: dashboard.id }
+
+    assert_response :success
+  end
 end

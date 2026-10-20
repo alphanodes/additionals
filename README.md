@@ -153,7 +153,6 @@ In the browser, `AdditionalsHelpers.loadLibrary(module_name)` loads a module on 
 
 The following modules are available :
 
-* actioncable
 * chartjs
 * chartjs_annotation
 * chartjs_colorschemes

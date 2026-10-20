@@ -10,14 +10,12 @@ module Additionals
   # This module is pure data + resolution. Tag generation, view context and
   # per-request "already loaded" tracking live in AdditionalsAssetLoaderHelper.
   module LibraryRegistry
-    Asset = Data.define :type, :path, :core, :plugin do
-      # core: false by default -- only Redmine-core assets (asset path under
-      # public/javascripts vs public/plugin_assets/additionals) set core:true.
+    Asset = Data.define :type, :path, :plugin do
       # plugin: which plugin ships the file (asset path lives under
       # public/plugin_assets/<plugin>). Defaults to 'additionals' so the
       # built-in atoms below stay unchanged; sister plugins registering their
-      # own packages pass their own plugin id. Ignored for core assets.
-      def initialize(type:, path:, core: false, plugin: 'additionals')
+      # own packages pass their own plugin id.
+      def initialize(type:, path:, plugin: 'additionals')
         super
       end
     end
@@ -32,7 +30,6 @@ module Additionals
       mermaid: %i[_mermaid_min _mermaid_load],
       dhtmlxgantt: %i[_dhtmlxgantt_css _dhtmlxgantt_js],
       query_chart: %i[_query_chart_css],
-      actioncable: %i[_actioncable_core],
       d3plus: %i[_d3plus_min],
       sortable: %i[_sortable_min],
       # Single-atom packages kept for granular use (e.g. blocks that want only
@@ -54,7 +51,6 @@ module Additionals
       _chartjs_chart_matrix:   Asset.new(type: :js,  path: 'vendor/chartjs-chart-matrix.min'),
       _d3plus_min:             Asset.new(type: :js,  path: 'vendor/d3plus.min'),
       _sortable_min:           Asset.new(type: :js,  path: 'vendor/sortable.min'),
-      _actioncable_core:       Asset.new(type: :js,  path: 'actioncable', core: true),
       _mermaid_min:            Asset.new(type: :js,  path: 'vendor/mermaid.min'),
       _mermaid_load:           Asset.new(type: :js,  path: 'mermaid_load'),
       _select2_js:             Asset.new(type: :js,  path: 'vendor/select2.min'),

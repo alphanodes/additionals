@@ -24,7 +24,7 @@ module AdditionalsAssetLoaderHelper
 
   # Same paths as javascript_include_tag and stylesheet_link_tag with plugin: of Redmine
   def additionals_asset_url(asset)
-    path = asset.core ? asset.path : "plugin_assets/#{asset.plugin}/#{asset.path}"
+    path = "plugin_assets/#{asset.plugin}/#{asset.path}"
     asset.type == :css ? stylesheet_path(path) : javascript_path(path)
   end
 
@@ -35,7 +35,7 @@ module AdditionalsAssetLoaderHelper
     additionals_loaded_assets << key
 
     case asset.type
-    when :js then javascript_include_tag asset.path, plugin: asset.core ? nil : asset.plugin
+    when :js then javascript_include_tag asset.path, plugin: asset.plugin
     when :css then stylesheet_link_tag asset.path, plugin: asset.plugin
     end
   end

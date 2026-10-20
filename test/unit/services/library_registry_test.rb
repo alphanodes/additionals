@@ -12,7 +12,7 @@ module Additionals
       assert_equal 1, result.size
       assert_equal :js, result.first.type
       assert_equal 'vendor/d3plus.min', result.first.path
-      assert_not result.first.core
+      assert_equal 'additionals', result.first.plugin
     end
 
     def test_resolves_composite_package_in_order
@@ -67,12 +67,6 @@ module Additionals
 
       assert_includes types, :css
       assert_includes types, :js
-    end
-
-    def test_marks_core_assets_with_core_flag
-      actioncable = Registry.resolve(:actioncable).first
-
-      assert actioncable.core, 'actioncable atom should set core:true'
     end
 
     def test_raises_for_unknown_package_name

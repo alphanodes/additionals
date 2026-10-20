@@ -55,14 +55,6 @@ class AdditionalsAssetLoaderHelperTest < Additionals::HelperTest
     assert_equal '', second.to_s
   end
 
-  def test_omits_plugin_param_for_core_assets
-    html = additionals_library_load :actioncable
-
-    # core assets resolve to Redmine core JS, not to plugin_assets/additionals
-    assert_match(/src=.+actioncable/, html)
-    assert_no_match %r{/plugin_assets/additionals/actioncable}, html
-  end
-
   def test_returns_html_safe_string
     html = additionals_library_load :d3plus
 

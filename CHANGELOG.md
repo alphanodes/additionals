@@ -3,6 +3,7 @@
 ## 4.7.0
 
 - Timelines of query chart blocks by a timestamp (e.g. created) count the day in the time zone of the user without relying on the database: MySQL without time zone tables showed no data for users with a time zone of their own, PostgreSQL depended on the time zone of its session
+- The library `actioncable` of the asset loader is removed, a plugin that needs ActionCable loads it itself
 - moment.js and the library `chartjs_moment` are removed. Charts label dates on the server in the date format of the user, a plugin that loads `chartjs_moment` brings its own date adapter
 - New base for query chart blocks: `AdditionalsQueryChart` shows how the entries of any query spread over the values of a column as doughnut, pie, bars, treemap or table, counted or summed up, split by a second column as stacked bars or cross table, with comparison query, top entries, small values summed up and links into the filtered list. A plugin defines such a block with `dashboard_block`, the `additionals-chart` Stimulus controller draws it
 - Query chart blocks offer to apply the default filters of the query class, e.g. open issues or valid entries, if the chart names them. `Additionals::DashboardBlockReplacer` replaces dashboard blocks in migrations

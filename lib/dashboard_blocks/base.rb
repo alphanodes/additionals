@@ -248,9 +248,11 @@ module DashboardBlocks
     end
 
     # The described settings a form built from them shows: those that apply,
-    # and only with something to choose
+    # and only with something to choose, unless they are required
     def settings_form_fields
-      settings_schema.describe(html: true).select { |setting| setting[:applies] && setting[:values] != [] }
+      settings_schema.describe(html: true).select do |setting|
+        setting[:applies] && (setting[:values] != [] || setting[:required])
+      end
     end
 
     # Whether the block declares the setting as required, e.g. to mark it in a

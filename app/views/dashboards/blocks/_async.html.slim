@@ -23,5 +23,6 @@
     $(function() {
       $('#ajax-indicator').hide();
     })
-- else
+/ The open settings form of a new block tells what is missing
+- elsif !(@can_edit && new_dashboard_block?(dashboard_block, settings))
   p.nodata = l :label_no_data

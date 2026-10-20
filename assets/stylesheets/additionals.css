@@ -606,6 +606,16 @@ select.dashboard-block-select {
 
 /* stylelint-disable selector-max-id */
 
+/* The column selection of a query list block has labels of its own, above
+   its lists, not in the label column of the form */
+#my-page.dashboard .tabular.settings .query-list-columns label {
+  display: block;
+  float: none;
+  margin-left: 0;
+  width: auto;
+  text-align: left;
+}
+
 /* A block settings form with a text with the toolbar of the text formatting
    uses the full width in every area, the labels stand above the fields */
 #my-page.dashboard .tabular.settings:has(textarea.settings-wiki-text) p {

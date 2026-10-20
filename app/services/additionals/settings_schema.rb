@@ -30,7 +30,8 @@ module Additionals
   # - secret: a token, key or password; its value is never described, and a
   #   form built from the settings never fills it in
   # - field: partial of its field in a form built from the settings, for a
-  #   setting the fields of the types cannot show (e.g. checkboxes of a list)
+  #   setting the fields of the types cannot show (e.g. checkboxes of a list);
+  #   wide: the field has the width of the form, with labels of its own
   # - if: whether the setting exists in the context at all; if not, it counts
   #   as an unknown key
   # - applies: whether the setting applies to the other values. One that does
@@ -51,7 +52,7 @@ module Additionals
 
     TYPES = %i[string text integer float boolean enum list].freeze
     LABELED_TYPES = %i[enum list].freeze
-    OPTIONS = %i[type label info placeholder values offered default required min max if applies field secret].freeze
+    OPTIONS = %i[type label info placeholder values offered default required min max if applies field wide secret].freeze
     # Options of a setting an object can answer with a method named after the
     # setting, see with_rule_methods
     RULE_METHODS = { if: '%s_available?', applies: '%s_applies?', values: '%s_values', offered: '%s_offered',

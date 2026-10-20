@@ -7,11 +7,9 @@ module DashboardBlocks
 
     max_occurs DashboardContent::MAX_MULTIPLE_OCCURS
 
-    # The settings form of additionals; a block with an own settings form
-    # declares its settings again
-    settings_partial 'dashboards/blocks/query_list_settings'
     setting :query_id, type: :enum, label: :label_query, required: true
-    setting :columns, type: :list, label: :field_column_names
+    # The column selection of the query, see columns_applies?
+    setting :columns, type: :list, label: :field_column_names, field: 'dashboards/settings/query_columns', wide: true
     setting :max_entries, **DashboardContent::MAX_ENTRIES_SETTING
     setting :auto_refresh, type: :boolean, label: :label_enable_auto_refresh
 
@@ -89,13 +87,23 @@ module DashboardBlocks
       DashboardContent.selectable_queries(query_class, project).map { |query| [query.name, query.id.to_s] }
     end
 
+    # The columns belong to the stored query, a new block chooses them after
+    # its query was saved
+    def columns_applies?(schema)
+      schema.stored(:query_id).present?
+    end
+
     # Columns of the chosen query as its settings form offers them (without a
-    # project), nil without a query: then there is nothing to check
+    # project), nil without a query: then there is nothing to check. The stored
+    # ones stay valid when another query of the block has not all of them,
+    # e.g. a custom field column.
     def columns_values(schema)
       query = query_class.find_by id: schema[:query_id] if schema[:query_id].present?
       return if query.nil?
 
-      query.available_columns.filter_map { |column| [column.caption, column.name.to_s] unless column.frozen? }
+      values = query.available_columns.filter_map { |column| [column.caption, column.name.to_s] unless column.frozen? }
+      stored = Array(schema.stored(:columns)) - values.map(&:last)
+      values + stored.map { |name| [name, name] }
     end
   end
 end

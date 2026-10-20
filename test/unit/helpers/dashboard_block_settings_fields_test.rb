@@ -154,6 +154,30 @@ class DashboardBlockSettingsFieldsTest < Additionals::HelperTest
     end
   end
 
+  # The form tells why it cannot be saved, e.g. without saved queries
+  def test_required_choice_without_values_is_disabled
+    assert other_field('select[disabled][name="settings[test][query_id]"]', query_id: { values: [] })
+  end
+
+  def test_required_choice_without_values_has_no_data_hint
+    assert_equal I18n.t(:label_no_data), other_field('p:has(select[name="settings[test][query_id]"]) em.info',
+                                                     query_id: { values: [] }).text
+  end
+
+  # A required choice without default is not preselected, the user chooses
+  def test_required_choice_without_default_offers_a_blank_value
+    options = other_fields 'select[name="settings[test][query_id]"] option', query_id: { values: [%w[Q 1]] }
+
+    assert_equal ['', '1'], options.pluck('value')
+  end
+
+  def test_wide_field_has_no_paragraph
+    field = other_field '[name^="settings[test][groups]"]',
+                        groups: { type: :list, values: [%w[X 1]], field: 'dashboards/settings/check_boxes', wide: true }
+
+    assert_empty field.ancestors('p')
+  end
+
   # What the form sends is what was stored, a secret not sent stays stored
   def test_sent_form_is_read_back_as_stored
     block = test_block STORED
@@ -196,6 +220,18 @@ class DashboardBlockSettingsFieldsTest < Additionals::HelperTest
       end
     end
     block_class.new DashboardContentWelcome.new, settings: stored
+  end
+
+  # A block with one required choice (query_id) or the given setting
+  def other_field(css, **settings)
+    other_fields(css, **settings).first
+  end
+
+  def other_fields(css, **settings)
+    key, options = settings.first
+    definition = { type: :enum, label: :label_query, required: true }.merge options
+    block_class = Class.new(DashboardBlocks::Base) { setting key, **definition }
+    rendered(block_class.new(DashboardContentWelcome.new)).css css
   end
 
   def rendered(block)

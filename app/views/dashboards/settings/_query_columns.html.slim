@@ -1,0 +1,8 @@
+/ Field of the columns of a query list (wide: true), the column selection of
+/ core with its own labels, for the stored query and columns
+- query = dashboard_block.query
+- if query
+  / The inner div lays out the lists side by side, as in the query form of core
+  #list-definition.query-list-columns
+    div
+      = render_query_columns_selection query, name: tag_name

@@ -125,13 +125,55 @@ class DashboardBlockSettingsFormTest < Additionals::ControllerTest
     assert_select '#block-feed .contextual a.icon-settings', count: 0
   end
 
+  # Its open settings form tells what is missing
+  def test_new_async_block_shows_no_no_data_hint
+    get :index, params: { dashboard_id: feed_dashboard.id }
+
+    assert_select '#block-feed p.nodata', count: 0
+  end
+
   def test_block_with_its_settings_has_a_settings_icon
     get :index, params: { dashboard_id: text_dashboard(text: 'Hello').id }
 
     assert_select '#block-text .contextual a.icon-settings'
   end
 
+  def test_query_of_a_query_list_is_labelled_query
+    get :index, params: { dashboard_id: query_list_dashboard.id }
+
+    assert_select 'label[for=settings_issuequery_query_id]', text: "#{I18n.t :label_query} *"
+  end
+
+  # The columns belong to a stored query
+  def test_new_query_list_offers_no_columns
+    get :index, params: { dashboard_id: query_list_dashboard.id }
+
+    assert_select '[name^="settings[issuequery][columns]"]', count: 0
+  end
+
+  def test_query_list_with_its_query_offers_its_columns
+    get :index, params: { dashboard_id: query_list_dashboard(query_id: queries(:queries_004).id.to_s).id }
+
+    assert_select '.query-list-columns select[name=?]', 'settings[issuequery][columns][]'
+  end
+
+  # Another query of the block keeps the columns chosen before, also one the
+  # other query does not have (here a custom field column that no longer exists)
+  def test_query_list_keeps_its_columns_with_another_query
+    dashboard = query_list_dashboard query_id: queries(:queries_004).id.to_s, columns: %w[subject cf_999]
+    errors = dashboard.update_block_settings 'issuequery', query_id: queries(:queries_005).id.to_s,
+                                                           columns: %w[subject cf_999]
+
+    assert_empty errors
+  end
+
   private
+
+  def query_list_dashboard(**settings)
+    Dashboard.create! name: 'Issues', dashboard_type: DashboardContentWelcome::TYPE_NAME, author: User.current,
+                      visibility: Dashboard::VISIBILITY_PUBLIC, layout: { 'top' => %w[issuequery] },
+                      layout_settings: settings.any? ? { 'issuequery' => settings } : {}
+  end
 
   def text_dashboard(text: nil, settings: nil)
     settings ||= text ? { text: } : nil

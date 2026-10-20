@@ -509,12 +509,15 @@ module DashboardsHelper
     fields = form_fields.map do |setting|
       tag_name = "settings[#{block}][#{setting[:key]}]"
       partial = definitions.dig(setting[:key], :field) || ('dashboards/settings/secret' if setting[:secret])
-      field = if partial
+      field = if setting[:values] == []
+                dashboard_block_setting_without_values setting, tag_name
+              elsif partial
                 render partial, setting:, value: schema[setting[:key]], tag_name:, dashboard_block:
               else
                 dashboard_block_setting_field setting, schema[setting[:key]], tag_name
               end
-      tag.p setting[:description] ? safe_join([field, tag.em(setting[:description], class: 'info')]) : field
+      field = safe_join [field, tag.em(setting[:description], class: 'info')] if setting[:description]
+      definitions.dig(setting[:key], :wide) ? field : tag.p(field)
     end
     fields << capture(&) if block_given?
     tag.div safe_join(fields), class: 'box tabular settings'
@@ -583,8 +586,10 @@ module DashboardsHelper
     when :text
       additionals_settings_textarea key, value:, placeholder: setting[:placeholder], **options
     when :enum
+      # Without a default the choice is the user's, a required one cannot be
+      # sent blank
       additionals_settings_select key, options_for_select(offered_setting_values(setting, value), value),
-                                  include_blank: !setting[:required] && setting[:default].nil?, **options
+                                  include_blank: setting[:default].nil?, **options
     when :list
       # Without the blank value a list without any chosen entry is not sent
       safe_join [hidden_field_tag("#{tag_name}[]", '', id: nil),
@@ -593,6 +598,13 @@ module DashboardsHelper
     else
       raise ArgumentError, "No settings field for #{key} of type #{setting[:type]}, the block needs a field for it"
     end
+  end
+
+  # A required choice without anything to choose, e.g. a query select without
+  # saved queries: shown disabled, so the form tells why it cannot be saved
+  def dashboard_block_setting_without_values(setting, tag_name)
+    select = additionals_settings_select setting[:key], '', tag_name:, label: setting[:label], required: true, disabled: true
+    safe_join [select, tag.em(l(:label_no_data), class: 'info')]
   end
 
   # The values a form offers, and the current one even if no longer offered

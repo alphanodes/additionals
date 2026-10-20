@@ -6,6 +6,7 @@
 - Dashboard blocks are classes in `lib/dashboard_blocks/` of their plugin, see `docs/dashboards.md`
 - Dashboard blocks declare their settings (`Additionals::SettingsSchema`), invalid settings are rejected
 - Settings forms of dashboard blocks are built from the declared settings
+- Query list blocks can change their query
 - Secret block settings (tokens, passwords) are never filled in or exported
 - New dashboard blocks open their settings form, cancel removes them again
 - Dashboard blocks provide their data to programs (`data`, `export_data`)

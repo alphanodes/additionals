@@ -5,7 +5,7 @@
 * Redmine.org plugin page: <https://www.redmine.org/plugins/additionals>
 * GitHub: <https://github.com/alphanodes/additionals>
 
-[![Rate at redmine.org](https://img.shields.io/badge/rate%20at-redmine.org-blue.svg?style=flat)](https://www.redmine.org/plugins/additionals) [![Run Linters](https://github.com/alphanodes/additionals/workflows/Run%20Linters/badge.svg)](https://github.com/alphanodes/additionals/actions?query=workflow%3A%22Run+Linters%22) [![Run Tests](https://github.com/alphanodes/additionals/workflows/Tests/badge.svg)](https://github.com/alphanodes/additionals/actions?query=workflow%3ATests) [![Vitest](https://github.com/alphanodes/additionals/workflows/Vitest/badge.svg)](https://github.com/alphanodes/additionals/actions?query=workflow%3AVitest)
+[![Rate at redmine.org](https://img.shields.io/badge/rate%20at-redmine.org-blue.svg?style=flat)](https://www.redmine.org/plugins/additionals) [![Run Linters](../../actions/workflows/linters.yml/badge.svg)](../../actions/workflows/linters.yml) [![Run Tests](../../actions/workflows/tests.yml/badge.svg)](../../actions/workflows/tests.yml) [![Vitest](../../actions/workflows/vitest.yml/badge.svg)](../../actions/workflows/vitest.yml)
 
 ## Features
 

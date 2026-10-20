@@ -14,7 +14,7 @@ module DashboardBlocks
 
     # The latest news of the project, with its subprojects if chosen
     def data
-      @data ||= project.nil? ? News.latest(user, max_entries) : project_news
+      @data ||= project.nil? ? News.latest(User.current, max_entries) : project_news
     end
 
     def export_data
@@ -27,7 +27,7 @@ module DashboardBlocks
     private
 
     def project_news
-      scope = with_subprojects && !project.leaf? ? News.visible(user).where(project_id: project.self_and_descendants.ids) : project.news
+      scope = with_subprojects && !project.leaf? ? News.visible.where(project_id: project.self_and_descendants.ids) : project.news
       scope.limit(max_entries).includes(:author, :project).reorder(created_on: :desc).to_a
     end
 

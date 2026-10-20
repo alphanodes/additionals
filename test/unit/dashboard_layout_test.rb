@@ -158,14 +158,16 @@ class DashboardLayoutTest < Additionals::TestCase
 
   def test_layout_export_marks_a_block_the_editor_cannot_use
     store_news_without_permission 'left' => %w[news]
+    User.current = users :users_002
 
-    assert_equal [{ block: 'news', available: false }], @dashboard.layout_export(users(:users_002))['left']
+    assert_equal [{ block: 'news', available: false }], @dashboard.layout_export['left']
   end
 
   def test_layout_export_leaves_out_a_block_a_reader_cannot_use
     store_news_without_permission 'left' => %w[news]
+    User.current = users :users_003
 
-    assert_empty @dashboard.layout_export(users(:users_003))['left']
+    assert_empty @dashboard.layout_export['left']
   end
 
   def test_invalid_setting_is_rejected_per_block_and_setting

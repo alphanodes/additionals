@@ -165,7 +165,8 @@ class DashboardBlockSettingsTest < Additionals::TestCase
 
   def test_available_block_schemas_respect_permissions
     Role.non_member.remove_permission! :view_issues
-    content = DashboardContentSettingsStub.new user: User.generate!
+    User.current = User.generate!
+    content = DashboardContentSettingsStub.new
 
     assert_not_includes content.available_block_schemas.keys, 'issuequery'
   end

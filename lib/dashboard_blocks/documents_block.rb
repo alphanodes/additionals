@@ -14,7 +14,7 @@ module DashboardBlocks
     # The latest documents of the project, of all projects without one
     def data
       @data ||= begin
-        scope = Document.visible user
+        scope = Document.visible User.current
         scope = scope.where project: project if project
         scope.order(created_on: :desc).limit(max_entries).includes(:project, :category).to_a
       end

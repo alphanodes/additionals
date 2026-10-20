@@ -288,22 +288,22 @@ class Dashboard < ApplicationRecord
   # The settings only for a user who may edit the dashboard: stored settings
   # can hold credentials (e.g. tokens of devops blocks). Nil for a block that
   # is not in the layout or not available to the user.
-  def block_export(block, data: true, user: User.current)
+  def block_export(block, data: true)
     block = block.to_s
     return unless layout.values.flatten.include?(block) && content.find_block(block)
 
     export = content.dashboard_block(block, settings: layout_settings(block), dashboard: self).export(data:)
-    { block: }.merge editable?(user) ? export : export.except(:settings)
+    { block: }.merge editable? ? export : export.except(:settings)
   end
 
   # The groups of the layout with their blocks as block_export without data.
   # A block the user cannot use here only for those who may edit the
   # dashboard, marked as not available: assign_layout keeps it.
-  def layout_export(user = User.current)
-    editable = editable? user
+  def layout_export
+    editable = editable?
     layout.transform_values do |blocks|
       Array(blocks).filter_map do |block|
-        block_export(block, data: false, user:) || ({ block:, available: false } if editable)
+        block_export(block, data: false) || ({ block:, available: false } if editable)
       end
     end
   end

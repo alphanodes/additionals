@@ -29,7 +29,7 @@ module DashboardBlocks
 
     # The server reads the URL, so only for those who may set it on a dashboard
     def own_settings_allowed?
-      user.allowed_to? :save_dashboards, project, global: true
+      User.current.allowed_to? :save_dashboards, project, global: true
     end
 
     private

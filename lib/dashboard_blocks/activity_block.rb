@@ -13,11 +13,11 @@ module DashboardBlocks
     def data
       @data ||= begin
         options = {}
-        options[:author] = user if me_only
+        options[:author] = User.current if me_only
         options[:project] = project if project
-        Redmine::Activity::Fetcher.new(user, options)
+        Redmine::Activity::Fetcher.new(User.current, options)
                                   .events(nil, nil, limit: max_entries)
-                                  .group_by { |event| user.time_to_date event.event_datetime }
+                                  .group_by { |event| User.current.time_to_date event.event_datetime }
       end
     end
 

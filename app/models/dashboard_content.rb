@@ -3,7 +3,7 @@
 class DashboardContent
   include Redmine::I18n
 
-  attr_accessor :user, :project
+  attr_accessor :project
 
   MAX_MULTIPLE_OCCURS = 8
   DEFAULT_MAX_ENTRIES = 10
@@ -41,7 +41,6 @@ class DashboardContent
   end
 
   def initialize(attr = {})
-    self.user = attr[:user].presence || User.current
     self.project = attr[:project].presence
   end
 
@@ -175,7 +174,7 @@ class DashboardContent
   def settings_schema(definitions, values, dashboard, stored: {})
     return if definitions.nil?
 
-    Additionals::SettingsSchema.new definitions, values, stored:, user:, project:, dashboard:
+    Additionals::SettingsSchema.new definitions, values, stored:, project:, dashboard:
   end
 
   def issues_cache_key

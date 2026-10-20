@@ -10,8 +10,8 @@ module DashboardBlocks
     # Hours of the user today and in the last days, in the project if any
     def data
       @data ||= begin
-        today = user.today
-        scope = TimeEntry.where user_id: user.id
+        today = User.current.today
+        scope = TimeEntry.where user_id: User.current.id
         scope = scope.where project_id: project.id if project
         { days:,
           today_hours: scope.where(spent_on: today).sum(:hours).to_f,

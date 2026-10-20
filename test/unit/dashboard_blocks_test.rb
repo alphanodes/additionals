@@ -114,10 +114,10 @@ class DashboardBlocksTest < Additionals::TestCase
   end
 
   def test_setting_named_like_a_method_gets_an_own_reader
-    block = Class.new(DashboardBlocks::Base) { setting :user, type: :string, reader: :login_user }
+    block = Class.new(DashboardBlocks::Base) { setting :project, type: :string, reader: :project_name }
     content = DashboardContentWelcome.new
 
-    assert_equal 'jenkins', block.new(content, settings: { user: 'jenkins' }).login_user
+    assert_equal 'Cookbook', block.new(content, settings: { project: 'Cookbook' }).project_name
   end
 
   def test_setting_named_like_a_rule_is_no_rule

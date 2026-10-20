@@ -97,8 +97,8 @@ module DashboardBlocks
         options.any? ? self.async_options = options : async_options
       end
 
-      # reader: name of the reader of the typed value, e.g. :login_user for a
-      # setting user, which would hide the user of the block
+      # reader: name of the reader of the typed value, e.g. :project_name for a
+      # setting project, which would hide the project of the block
       def setting(name, reader: name, **definition)
         name = name.to_sym
         rules = definition.select { |_option, value| value.respond_to? :call }.keys
@@ -164,7 +164,9 @@ module DashboardBlocks
 
     attr_reader :dashboard_content
 
-    delegate :project, :user, to: :dashboard_content
+    # A block computes its data for User.current, Redmine checks the visibility
+    # of queries and other records for it alone
+    delegate :project, to: :dashboard_content
     delegate :block_id, :label, :permission, :max_occurs, :partial, :settings_partial, :settings_info, :settings_filter,
              :no_settings?, :admin_only?, to: :class
 
@@ -184,8 +186,8 @@ module DashboardBlocks
     # Whether the user may use the block here: its permissions (all of them),
     # admin only and its availability
     def allowed?
-      return false if admin_only? && !user.admin?
-      return false if permission && !Array(permission).all? { |name| user.allowed_to? name, project, global: true }
+      return false if admin_only? && !User.current.admin?
+      return false if permission && !Array(permission).all? { |name| User.current.allowed_to? name, project, global: true }
 
       available?
     end
@@ -264,7 +266,7 @@ module DashboardBlocks
     # The stored settings, read typed and with their defaults
     def settings_schema
       @settings_schema ||= Additionals::SettingsSchema.new declared_settings, {},
-                                                           stored: @stored_settings, user:, project:, dashboard: @dashboard
+                                                           stored: @stored_settings, project:, dashboard: @dashboard
     end
 
     private

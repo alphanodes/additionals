@@ -1,4 +1,10 @@
 / Field of a text setting with the toolbar of the text formatting, in a
-/ settings form built from the declared settings
-= additionals_settings_textarea setting[:key], value:, tag_name:, label: setting[:label], required: setting[:required]
+/ settings form built from the declared settings. Its class lets the form
+/ use the full width the toolbar needs
+= additionals_settings_textarea setting[:key],
+                                value:,
+                                tag_name:,
+                                label: setting[:label],
+                                required: setting[:required],
+                                class: 'wiki-edit settings-wiki-text'
 = wikitoolbar_for sanitize_to_id(tag_name)

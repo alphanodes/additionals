@@ -129,6 +129,11 @@ class DashboardBlockSettingsFieldsTest < Additionals::HelperTest
     assert_includes field('script').text, 'settings_test_body'
   end
 
+  # The form uses the full width the toolbar needs by this class
+  def test_wiki_text_is_marked_for_the_full_width
+    assert field('textarea.settings-wiki-text[name="settings[test][body]"]')
+  end
+
   # Without a title the block shows its label
   def test_title_shows_the_label_of_the_block_as_placeholder
     assert_equal 'Settings test', field('input[name="settings[test][title]"]')['placeholder']

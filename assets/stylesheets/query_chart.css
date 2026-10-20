@@ -110,12 +110,14 @@
 }
 
 /* The interval of a date field and the bounds of a number field follow
-   their select in the same line, the label is no field label of the form */
+   their select in the same line, the label is no field label of the form.
+   The spaces around it are in the markup, rules of the settings areas set
+   the margin of every label */
 .tabular .query-chart-interval label,
 .tabular .query-chart-classes label {
   float: none;
   width: auto;
-  margin: 0 0.5em;
+  margin: 0;
   font-weight: normal;
 }
 

@@ -46,10 +46,14 @@
                                     data: { additionals_chart_settings_target: 'groupBy',
                                             action: 'additionals-chart-settings#update' }
       span.query-chart-interval data-additionals-chart-settings-target='interval'
+        '
         = label_tag tag_name.call(:interval), l(:label_chart_interval)
+        '
         = select_tag tag_name.call(:interval), options_for_query_chart_interval(chart.interval)
       span.query-chart-classes data-additionals-chart-settings-target='classes'
+        '
         = label_tag tag_name.call(:classes), l(:label_chart_classes)
+        '
         = text_field_tag tag_name.call(:classes), settings[:classes], size: 14, placeholder: l(:label_chart_classes_auto)
         em.info = l :info_chart_classes
     p

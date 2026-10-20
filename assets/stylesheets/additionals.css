@@ -605,6 +605,19 @@ select.dashboard-block-select {
 }
 
 /* stylelint-disable selector-max-id */
+
+/* A block settings form with a text with the toolbar of the text formatting
+   uses the full width in every area, the labels stand above the fields */
+#my-page.dashboard .tabular.settings:has(textarea.settings-wiki-text) p {
+  padding-left: 0;
+}
+
+#my-page.dashboard .tabular.settings:has(textarea.settings-wiki-text) label {
+  margin-left: 0;
+  width: 100%;
+  text-align: left;
+}
+
 #my-page.dashboard #list-left .tabular.settings p,
 #my-page.dashboard #list-right .tabular.settings p {
   padding-left: 0;

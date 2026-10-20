@@ -625,16 +625,17 @@ module DashboardsHelper
     values.map { |entry| [entry[:label], entry[:value]] }
   end
 
-  # The settings form of a block rendered with the page, its async blocks have
-  # it in dashboards/blocks/async. Without its required settings, e.g. a new
-  # block, it is open below the name of the block.
+  # The settings form of a block rendered with the page, built or its own
+  # (settings_partial), async blocks have it in dashboards/blocks/async.
+  # Without its required settings, e.g. a new block, it is open below the name
+  # of the block.
   def dashboard_block_settings_form(block, dashboard_block, dashboard, partial_locals)
-    return if dashboard_block.async || !dashboard_block.generated_settings_form? ||
-              dashboard_block.no_settings? || !dashboard.layout_editable?
+    return if dashboard_block.async || dashboard_block.no_settings? || !dashboard.layout_editable?
 
     hidden = dashboard_block.settings_schema.valid?
     render 'dashboards/blocks/settings_form', dashboard:, block:, dashboard_block:, hidden:, named: !hidden,
                                               new_block: new_dashboard_block?(dashboard_block, partial_locals[:settings]),
+                                              fields_partial: dashboard_block.settings_partial,
                                               fields_locals: partial_locals
   end
 

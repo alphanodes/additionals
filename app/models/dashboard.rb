@@ -184,8 +184,10 @@ class Dashboard < ApplicationRecord
   end
 
   def visible?(user = User.current)
-    # A dashboard type with a restricted page of its own, e.g. HRM
+    # Other plugins can add dashboard types with a page of their own, which
+    # may be restricted to some users
     return false if content_class && !content_class.blocks_accessible?(user)
+    return false if private_of_other_user? user
     return true if user.admin?
     return false unless project.nil? || user.allowed_to?(:view_project, project)
     return true if user == author
@@ -340,7 +342,7 @@ class Dashboard < ApplicationRecord
   end
 
   def editable?(user = User.current)
-    return false unless user
+    return false if !user || private_of_other_user?(user)
 
     user.admin? || (author == user && user.allowed_to?(:save_dashboards, project, global: true))
   end
@@ -478,12 +480,22 @@ class Dashboard < ApplicationRecord
     raise ProjectSystemDefaultChangeException if project_id.present?
   end
 
+  # Unlike Redmine core with private queries, admins do not get private
+  # dashboards of other users: their block settings may hold credentials.
+  def private_of_other_user?(user)
+    visibility == VISIBILITY_PRIVATE && author_id != user.id
+  end
+
+  # The checks protect a dashboard deleted on its own, not the dashboards of
+  # a deleted project, which go with it whoever owns them.
   def check_locked
+    return if destroyed_by_association
+
     raise 'It is not allowed to delete dashboard, because it is locked' if locked?
   end
 
   def check_destroy_system_default
-    return if deletable?
+    return if destroyed_by_association || deletable?
 
     raise 'It is not allowed to delete dashboard, because you have no permission' unless editable?
 

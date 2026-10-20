@@ -415,6 +415,16 @@ class DashboardsControllerTest < Additionals::ControllerTest
     assert_not dashboard.locked?, 'Dashboard should be unlocked after unlock action'
   end
 
+  # Private dashboards may hold credentials in their block settings, which
+  # admins must not reach through the dashboard of another user.
+  def test_edit_private_dashboard_of_other_user_denied_for_admin
+    @request.session[:user_id] = 1
+
+    get :edit, params: { id: dashboards(:private_welcome2).id }
+
+    assert_response :forbidden
+  end
+
   # Layout and block settings belong to those who may edit the dashboard,
   # seeing a public dashboard is not enough.
   def test_update_layout_setting_requires_editable_dashboard

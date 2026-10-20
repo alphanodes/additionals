@@ -15,6 +15,8 @@ module Additionals
 
       included do
         include InstanceMethods
+
+        before_destroy :remove_dashboard_references
       end
 
       class_methods do
@@ -83,6 +85,15 @@ module Additionals
                                   roles: { assignable: true })
           scope = scope.where members: { project_id: project.id } if project
           scope.exists?
+        end
+
+        private
+
+        # Like Redmine core with queries: private dashboards go with the user,
+        # the others stay for the users who share them.
+        def remove_dashboard_references
+          Dashboard.where(author_id: id, visibility: Dashboard::VISIBILITY_PRIVATE).delete_all
+          Dashboard.where(author_id: id).update_all author_id: User.anonymous.id
         end
       end
     end

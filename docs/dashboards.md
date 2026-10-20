@@ -46,7 +46,12 @@ Rules enforced by the model:
 - A system default is public (`VISIBILITY_PUBLIC`); dashboards are private, for roles or public.
 - Marking a dashboard as system default unsets the other system defaults of its type, for project dashboards of the same project (`update_system_defaults`).
 - A system default cannot turn back into a regular dashboard (`SystemDefaultChangeException`), the global project system default cannot get a project (`ProjectSystemDefaultChangeException`, see `project_id_can_change?`).
-- Deleting a locked dashboard or one that is not `deletable?` raises an error (`before_destroy`). Dashboards of a project are destroyed with it, the global ones stay.
+- Deleting a locked dashboard or one that is not `deletable?` raises an error (`before_destroy`). Dashboards of a project are destroyed with it, locked ones and private ones of other users included (`destroyed_by_association`), the global ones stay.
+- A deleted user takes the private dashboards along, the other ones get the anonymous user as author, like queries in Redmine core.
+
+### Private Dashboards and Admins
+
+Admins see and edit every dashboard except private dashboards of other users, neither in lists nor by ID. Block settings may hold credentials such as tokens. This deliberately differs from private queries in Redmine core, which admins can open and edit by ID; core only hides them from lists.
 
 ## Blocks
 

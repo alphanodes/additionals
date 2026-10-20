@@ -227,6 +227,21 @@ class DashboardTest < Additionals::TestCase
     assert_not dashboards(:system_default_welcome).layout_editable?(users(:users_001))
   end
 
+  def test_private_dashboard_of_other_user_not_visible_for_admin
+    assert_not dashboards(:private_welcome2).visible?(users(:users_001))
+  end
+
+  def test_private_dashboard_of_other_user_not_editable_for_admin
+    assert_not dashboards(:private_welcome2).editable?(users(:users_001))
+  end
+
+  def test_public_dashboard_of_other_user_editable_for_admin
+    dashboard = dashboards :private_welcome2
+    dashboard.update_columns visibility: Dashboard::VISIBILITY_PUBLIC
+
+    assert dashboard.editable?(users(:users_001))
+  end
+
   def test_layout_not_editable_without_edit_permission
     assert_not dashboards(:public_welcome).layout_editable?(users(:users_002))
   end

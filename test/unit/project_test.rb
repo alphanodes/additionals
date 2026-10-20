@@ -316,4 +316,21 @@ class ProjectTest < Additionals::TestCase
     users_all.each { |u| assert_kind_of User, u }
     users_tracker.each { |u| assert_kind_of User, u }
   end
+
+  def test_destroy_removes_private_dashboard_of_other_user
+    User.current = users :users_001
+    dashboard = dashboards :private_project2
+    projects(:projects_001).destroy
+
+    assert_not Dashboard.exists?(dashboard.id)
+  end
+
+  def test_destroy_removes_locked_dashboard
+    User.current = users :users_001
+    dashboard = dashboards :private_project
+    dashboard.update_columns locked: true
+    projects(:projects_001).destroy
+
+    assert_not Dashboard.exists?(dashboard.id)
+  end
 end

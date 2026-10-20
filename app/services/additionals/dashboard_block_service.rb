@@ -7,7 +7,8 @@ module Additionals
   # AI or MCP tools, so both answer the same.
   #
   # Without a project the blocks are those of the welcome page and those only
-  # other dashboard types offer (e.g. HRM), if the user may use that type
+  # other dashboard types offer (types other plugins add with a page of their
+  # own), if the user may use that type
   # (DashboardContent.blocks_accessible?). A block of several types counts once,
   # with the first type offering it: its own rules decide there. Settings are
   # those the caller gives, stored settings of dashboards never leave the

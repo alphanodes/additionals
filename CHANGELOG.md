@@ -14,6 +14,9 @@
 - The feed block reads its feed with http or https only, follows a few redirects and stops after a few seconds or 1 MB. Before, a slow or huge feed tied up the server
 - A dashboard block of a dashboard the user may not see is denied (403) instead of answered as a block error
 - A setting of configuration.yml given as false is taken, e.g. to switch off what is on by default. Before, false fell back to the default like a missing setting
+- Private dashboards of other users are no longer accessible to admins by ID, neither to view nor to edit. Their block settings may hold credentials
+- Deleting a project also deletes its locked dashboards and private dashboards of other users. Before, a locked dashboard stopped the deletion
+- Deleting a user keeps their public dashboards and dashboards for roles with the anonymous user as author. Before, all dashboards of the user were deleted, also those other users relied on
 - Dashboard layout and block settings can only be changed by users who may edit the dashboard. Before, everyone who could see a public dashboard could change its block settings, add, remove and reorder blocks
 - Dashboard blocks added or saved without a page reload run their scripts and find the libraries they need, e.g. the editor toolbar of text blocks, charts or settings that show or hide fields depending on a selection
 - Saving block settings of a dashboard for a single project keeps the news and spent time blocks limited to that project. Before, they showed entries of all projects until the next page reload

@@ -109,4 +109,19 @@ class UserTest < Additionals::TestCase
   def test_user_scope_for_anonymous_user
     assert_not_empty User.where(id: 6)
   end
+
+  def test_destroy_removes_private_dashboards
+    dashboard = dashboards :private_welcome2
+    users(:users_002).destroy
+
+    assert_not Dashboard.exists?(dashboard.id)
+  end
+
+  def test_destroy_keeps_public_dashboards_for_anonymous_user
+    dashboard = dashboards :private_project2
+    dashboard.update_columns visibility: Dashboard::VISIBILITY_PUBLIC
+    users(:users_002).destroy
+
+    assert_equal User.anonymous, dashboard.reload.author
+  end
 end

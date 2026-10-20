@@ -2,122 +2,94 @@
 
 ## 4.7.0
 
-- Timelines of query chart blocks by a timestamp (e.g. created) count the day in the time zone of the user without relying on the database: MySQL without time zone tables showed no data for users with a time zone of their own, PostgreSQL depended on the time zone of its session
-- The library `actioncable` of the asset loader is removed, a plugin that needs ActionCable loads it itself
-- moment.js and the library `chartjs_moment` are removed. Charts label dates on the server in the date format of the user, a plugin that loads `chartjs_moment` brings its own date adapter
-- New base for query chart blocks: `AdditionalsQueryChart` shows how the entries of any query spread over the values of a column as doughnut, pie, bars, treemap or table, counted or summed up, split by a second column as stacked bars or cross table, with comparison query, top entries, small values summed up and links into the filtered list. A plugin defines such a block with `dashboard_block`, the `additionals-chart` Stimulus controller draws it
-- Query chart blocks offer to apply the default filters of the query class, e.g. open issues or valid entries, if the chart names them. `Additionals::DashboardBlockReplacer` replaces dashboard blocks in migrations
-- `AdditionalsHelpers.loadLibrary(name)` loads a library of the asset loader on demand in the browser, once per page, e.g. for a dashboard block that needs it only with certain settings
-- Dashboard blocks are classes in `lib/dashboard_blocks/` of their plugin (`DashboardBlocks::Base`, `QueryListBlock`, `QueryChartBlock`), declared in `init.rb` with `loader.extends %w[dashboard_blocks]`. Views get the block object (`dashboard_block`) instead of a definition hash; `DashboardContent#block_definitions` is removed, a plugin defining it stops the boot with `DashboardBlocks::PatchError`. `docs/dashboards.md` shows how to move a block to a class
-- Global search providers inherit from `GlobalSearch::Provider` in `lib/global_search/` of their plugin, which declares it in `init.rb` with `loader.extends %w[global_search]` (redmine_plugin_kit 1.1.0). `GlobalSearch.register` is removed, and a provider that fails to load stops the boot instead of being skipped
-- Code reloading in development keeps working when a helper is named like a template with a deface override (e.g. `foo_wiki_edit_data` for `wiki/edit`). Before, Deface took such a helper for a compiled template and the reload stopped halfway
-- The dashboards API (`/dashboards/<id>.json`) no longer shows the stored block settings to everyone who can see the dashboard. They could hold credentials, e.g. tokens of devops blocks. The API shows the layout with the blocks of each group instead, their settings only to users who may edit the dashboard. The dashboard list filters by `dashboard_type` and `project_id`
-- The feed block reads its feed with http or https only, follows a few redirects and stops after a few seconds or 1 MB. Before, a slow or huge feed tied up the server
-- A dashboard block of a dashboard the user may not see is denied (403) instead of answered as a block error
-- A setting of configuration.yml given as false is taken, e.g. to switch off what is on by default. Before, false fell back to the default like a missing setting
-- Private dashboards of other users are no longer accessible to admins by ID, neither to view nor to edit. Their block settings may hold credentials
-- Deleting a project also deletes its locked dashboards and private dashboards of other users. Before, a locked dashboard stopped the deletion
-- Deleting a user keeps their public dashboards and dashboards for roles with the anonymous user as author. Before, all dashboards of the user were deleted, also those other users relied on
-- Dashboard layout and block settings can only be changed by users who may edit the dashboard. Before, everyone who could see a public dashboard could change its block settings, add, remove and reorder blocks
-- Dashboard blocks added or saved without a page reload run their scripts and find the libraries they need, e.g. the editor toolbar of text blocks, charts or settings that show or hide fields depending on a selection
-- Saving block settings of a dashboard for a single project keeps the news and spent time blocks limited to that project. Before, they showed entries of all projects until the next page reload
-- Creating or changing a dashboard with an unknown dashboard type shows a validation error instead of failing with a server error
-- Dashboard blocks declare their settings in their class (`setting`, `Additionals::SettingsSchema`), query chart blocks included: unknown settings are not stored, invalid values show an error. Blocks load their data themselves (`data`, `export_data`); `Dashboard#assign_layout` and `#block_export` let programs set up and read dashboards
-- The settings form of a dashboard block is built from its declared settings and opens at the top of the block. `settings_partial` names an own form only for settings the built form cannot show, `settings_info` a partial below the fields, e.g. the connection to a service. Opened on an existing block, the form names the block; a block rendered with the page that misses required settings, e.g. a new text block (its text is required now), opens its form below its name like an async block. An info can depend on the context (`<key>_info`) and hold a link, programs get its text. A required setting with a default reads the default when it is missing. Tokens, keys and passwords (`secret: true`) are never filled in and never exported. `DashboardBlockReplacer.rename_setting` renames a stored setting in migrations
-- Query list blocks keep the project of a project dashboard for the link back from their list, also when the list of a plugin leaves it out. Such a block showed an error on project dashboards before
-- Plugins declare the options they add to saved queries (`Query#query_options_definitions`, `Additionals::SettingsSchema`), so programs can list and set them like the query form
-- Dashboard blocks can drop settings on save with the new block option `settings_filter`, e.g. those the current user may not change. `required_settings` of async blocks also accepts a proc
-- The assignee group filter of entity lists built on additionals queries filters by assignee. It used the author before
-- User custom fields with the scope "all users" or "all active users" offer groups too, if the field allows them (Redmine 7.1 and newer). The built-in anonymous user is no longer offered
-- The assignee selection lists the author of the latest note among the involved principals, like Redmine 7.1, also in the plain assignee dropdown of Redmine 7.0. Involved principals who cannot be assigned are disabled in the search selection, too. Multiple value user fields no longer offer "<< me >>"
-- The assignee search selection only lists the involved principals of an issue the user can see
-- Select fields for users and groups offer groups before anything is typed. They used to appear only on search, because the start list showed the users who logged in last
-- Disabled entries of the dashboard actions menu look disabled with Redmine 7.1 too
-- With Redmine 7.1, issue attachments link to the note that added them, also in the attachments block of additionals (collapsed or not)
-- Requires Redmine 7.0.2 or higher, which fixes two security issues of Redmine core. Plugins built on additionals rely on this version
-- Names in select fields (users, contacts, tags) are shown as text. Html in a name could run scripts in the filter and field selections before
-- The `members` macro leaves out hidden roles and members by hidden roles only, like the members box, for users without the permission to see hidden roles
-- The `tabler` and `fa` macros accept only hex codes, color names and `var(--oc-...)`/`var(--a-...)` as `color`. Other values show a macro error instead of being written into the style attribute, where they could inject css
-- The `recently_updated` macro reports that it only works on wiki pages when used elsewhere, instead of failing with an internal error
-- The `vimeo` macro in link mode shows the Vimeo icon instead of the YouTube one
-- The `reddit` macro links user names to their profile at `https://www.reddit.com/user/<name>` instead of `/username/<name>`
-- Boolean macro options accept `false`: `download` of `attachment_link`, `with_sum` of `members`, `with_create_issue` of `projects` and `avatar`/`text` of `user` used to be switched on by any value
-- The `meteoblue` macro can switch off the values shown by default (pictogram, temperatures, precipitation, spot), supports `pressure` and shows the widget in German only for the German locale, no longer for every user without an own language
-- The `gmap` macro supports `q=` (making mode `place` usable) and passes `way_mode` as the travel mode of directions
-- `{{user(..., format=system)}}` uses the user format of the system settings, `{{gps}}` without coordinates shows its usage instead of an error
-- The `members`, `group_users`, `attachment_link` and `last_updated_at` macros show a hint like "(Group: not available)" when the referenced record is missing or not visible, the `user` macro when the user is missing. Before, they showed the raw macro call, an error or nothing. Plugins show the same hint with the new helper `macro_not_available`
-- The `group_users` and `last_updated_at` macros respect the visibility of groups and projects and the permission to view wiki pages, so they no longer reveal hidden groups or pages
-- `Additionals::Helpers#link_to_issue_with_subject` renders a whole issue line as one link, subject included. Core's `link_to_issue` appends the subject after the link, so the issue's state classes reach its number alone and `a.issue.closed` strikes through "#123" while the subject stays untouched. Wherever one line stands for one issue, the subject now carries the styling with it
-- `Additionals.name_sort_key` sorts names in any script independent of the database. Plugins sorted with `transliterate`, which turns Cyrillic, Chinese or Japanese characters into `?`, so such names ended up in random order
-- The test helper `count_sql_queries` takes `matching:` to count only the queries of one table, e.g. `count_sql_queries(matching: /additional_taggings/) { ... }` to show that a list loads its tags at once
+- Requires Redmine 7.0.2 or higher
+- Dashboard blocks are classes in `lib/dashboard_blocks/` of their plugin, see `docs/dashboards.md`
+- Dashboard blocks declare their settings (`Additionals::SettingsSchema`), invalid settings are rejected
+- Settings forms of dashboard blocks are built from the declared settings
+- Secret block settings (tokens, passwords) are never filled in or exported
+- New dashboard blocks open their settings form, cancel removes them again
+- Dashboard blocks provide their data to programs (`data`, `export_data`)
+- Add query chart blocks for any query (`AdditionalsQueryChart`)
+- Add `Additionals::DashboardBlockReplacer` for migrations of dashboard blocks
+- Add `AdditionalsHelpers.loadLibrary` to load an asset library on demand
+- Global search providers are classes in `lib/global_search/` of their plugin
+- Plugins declare the options they add to saved queries
+- Dashboards API shows block settings only to users who may edit the dashboard
+- Only users who may edit a dashboard can change its layout and block settings
+- Private dashboards of other users are no longer accessible to admins
+- Deleting a project deletes all its dashboards, deleting a user keeps their public dashboards
+- Feed block reads http and https only, with limits for redirects, time and size
+- Fix query list blocks showing outdated content after changes via the context menu
+- Fix scripts of dashboard blocks added or saved without page reload
+- Fix news and spent time blocks of project dashboards after saving their settings
+- Fix query list blocks on project dashboards
+- Fix timelines of query chart blocks by a timestamp in the time zone of the user
+- Fix the assignee group filter of entity lists
+- Fix false values of configuration.yml settings
+- Fix code reloading with deface overrides in development
+- Fix validation of the dashboard type
+- Fix disabled entries of the dashboard actions menu (Redmine 7.1)
+- Names in select fields are shown as text (XSS)
+- User custom fields "all users" offer groups too (Redmine 7.1)
+- Assignee selection lists the author of the latest note and only visible involved principals
+- User and group selects offer groups before typing
+- Issue attachments link to the note that added them (Redmine 7.1)
+- Password fields of settings are not filled in by the browser
+- Macros respect visibility and permissions, missing records show a hint
+- `tabler` and `fa` macros accept only safe colors
+- Macro fixes and options: `vimeo`, `reddit`, `meteoblue`, `gmap`, `user`, `gps`, `recently_updated`, boolean options
+- Add `link_to_issue_with_subject` and `Additionals.name_sort_key`
+- Test helper `count_sql_queries` accepts `matching:`
+- Bundled mermaid is used with Redmine 7.1 and newer
+- moment.js, `chartjs_moment` and `actioncable` removed from the asset loader
 - d3plus updated to 4.7.0
 - mermaid updated to 12.2.0
-- Redmine versions that render mermaid code blocks themselves (7.1 and newer) use the bundled mermaid, so `redmine:mermaid:install` is not needed and code blocks and macros render with the same version and configuration
-- Browsers no longer fill saved logins into password fields of plugin settings and dashboard blocks, so Firefox no longer offers to update a saved login when switching settings tabs. `additionals_settings_passwordfield` marks them as `autocomplete="new-password"`
-- Query list blocks on dashboards keep showing changes made via their context menu after returning to the dashboard. Before, the next visit showed the outdated cached block again until it expired
 
 ## 4.6.0
 
-- Bulk edit reports why records could not be saved, not just their ids: the flash now lists the validation errors grouped by message, the way core lists them above its bulk edit form. The message itself appeared as "translation missing" before, because `set_flash_from_bulk_save` asked for a key that never existed
-- `assert_locales_validness` accepts locale files that add to a locale owned by someone else (`<purpose>_<language>.yml`, e.g. a plugin's `redmine_core_de.yml`), instead of reporting them as an unknown language
-- Global search adds a type that is missing from the ranked hits with its best hit, instead of leaving it out. Redmine ranks every type together and by date, so a type with many recent records used to take the whole list, hiding an older wiki page behind the records referring to it. The ranked hits keep all their places, the list grows by those few entries
-- Global search offers a tab only for the types that have hits, and shows their number next to the label. While a tab filters and the query changes, only that tab keeps its number, because the others were not counted for the new query
-- Global search closes its list with "All N results" when the core search holds more than the list shows, and leaves the line out when every hit is already listed. It leads into the search of the project while the scope says so, as does the link at the top, instead of into the global one
-- Global search closes the scope panel with the next search. Opened just to look up the current scope, it used to cover the results with no way out of its own, because clicking the option already selected does nothing
-- Global search opens the first hit with Enter, without having to move the selection first. The link to the core search at the top is no longer part of the selection
-- Global search shows keyword results right away and loads provider (semantic) results in a request of their own (`/global_search/semantic`), started only once typing has settled. Providers declare the types they answer with `search_types`, an empty list while they are not set up
-- Global search passes the "My bookmarks" scope to providers as `projects:`, so semantic hits stay within the bookmarked projects
-- Global search escapes quotes in result and history values, which Redmine's `sanitizeHTML` leaves alone, so a value can no longer end an HTML attribute
-- Global search no longer redirects on its own for an id reference like `#1234`: the first hit, an issue if there is one, is preselected and marked, and Enter opens it, also when pressed before the results arrived
-- Global search deduplicates keyword and provider hits by url instead of id alone, so a semantic hit no longer disappears because an unrelated record of another type happens to share its id
-- Global search passes the selected search types on to its providers, so a provider can restrict itself to what was asked for
-- Global search no longer asks semantic providers for an id reference (`#1234`) or for a digit-only query the keyword search cannot find, since neither carries anything they could match on
-- Core icons rendered through `svg_icon_tag` (and helpers built on it, like `h2_page_icon`) come from the theme's own `icons.svg` when it provides the icon, the same way core icons do
-- Base values for the priority colour variables `--a-color-prio1` to `--a-color-prio3`, which so far only existed in themes, so anything colouring by priority keeps its colour without one
-- New javascript helpers `spriteIcon(name, options)` and `spriteIconPath(sprite)` build Tabler sprite icons from client side code, with the digested sprite paths exposed as the `ADDITIONALS_ICON_SPRITES` global (new `additionals_icon_sprites` helper)
-- Fix the spacing of an avatar rendered next to its name (`additionals-avatar`) on detail pages, where core's `div.issue .avatar` float applied to it
-- The `tabler` and `fa` macros accept a `repeat` option, e.g. `{{tabler(star-filled, repeat=3)}}` for a rating (capped at 20)
-- The plugin settings form falls back to the default of a setting that is missing from the stored hash, instead of rendering it empty and saving that value. Applies to every configurable plugin
-- The `recently_updated` macro accepts a `limit` argument; query and markup moved to `WikiPage.recently_updated` and the global helper `render_recently_updated_wiki_pages`
-- New global helpers `attribute_label`, which renders an attribute row label with the custom field description as tooltip, and `custom_field_value?`. Used by the wiki page, contact, user, tag and project information attribute lists
-- Require Redmine 7.0 or newer and drop Redmine 6.x compatibility
-- Replace FontAwesome with Redmine 7's Tabler SVG sprite icons throughout, legacy values (`fas_car`, ...) are still translated on the fly. `additionals_icon` and `additionals_icon_select` replace `font_awesome_icon` and `additionals_fontawesome_select`, `{{tabler}}` replaces `{{fa}}` (kept as alias), and the FontAwesome assets and `AdditionalsFontAwesome` model are removed
-- The `{{fa}}` / `{{tabler}}` macros resolve bare FontAwesome names (`{{fa(file-alt)}}`) through the icon map, the `size` option renders at the requested size again, and the missing sprite icons were added
-- The issue sidebar "change status" panel uses a hollow circle for open target statuses and a check circle for closed ones
-- Added selectable Shelly, Victron and Zabbix brand icons to the Tabler icon picker
-- CommonMark and Textile formatting now use Redmine 7's native Loofah scrubbers; the HTML::Pipeline-based smiley and emoji filters have been removed
-- Restyle the top-menu submenu dropdowns to match Redmine 7 core: submenus open on tap on touch devices and scroll when taller than the viewport
-- Assignee auto-watch on issue creation now uses Redmine core's `issue_assigned_to_me` preference
-- select2 fields match the height of Redmine 7 form controls, derived from the new `--a-control-height` / `--a-control-line-height` / `--a-control-padding-block` variables
-- `User.admin_column_field` falls back to `admin` while the `sudoer` column does not exist yet, so `redmine_sudo` can be installed together with other plugins in a single `redmine:plugins:migrate`
-- The `issue_assignee` and `custom_field_users` autocomplete endpoints honour the `me_value` parameter
-- `EntityMethods` enforces core's assignee rules for every entity that includes it: a non-assignable assignee is rejected by validation, a copy drops one the target project does not allow, and `me` resolves to the current user on every path (form, API, bulk edit, import)
-- Fix adding a dashboard block reloading the whole page instead of running through AJAX, since the jQuery submit bypassed the `remote-form` Stimulus controller
+- Requires Redmine 7.0, Redmine 6.x support dropped
+- Requires Ruby 3.3, MySQL 8.4 or PostgreSQL 16; MariaDB 11.8 supported
+- Replace FontAwesome with Tabler SVG sprite icons, legacy values are still translated
+- Add `{{tabler}}` macro (`{{fa}}` kept as alias) with `repeat` option
+- Add JavaScript helpers `spriteIcon` and `spriteIconPath`
+- Add Shelly, Victron and Zabbix icons to the icon picker
+- Theme icons override core icons of `svg_icon_tag`
+- Add priority color variables `--a-color-prio1` to `--a-color-prio3`
+- Global search: tabs with hit counts, link to all results, missing types added, Enter opens the first hit
+- Global search loads semantic provider results separately and passes scope and types to providers
+- Global search fixes for id references, duplicate hits and quotes in values
+- Bulk edit lists the validation errors of failed records
+- Plugin settings fall back to the default of a missing setting
+- Add attachment count column and filter for entities
+- Assignee rules of core apply to all entities
+- Issue attachments can be linked as `#attachments`
+- Add `attribute_label`, `custom_field_value?` and `sidebar-attributes` style
+- Add `limit` to the `recently_updated` macro
+- Add extension point `wiki_pdf_before_content`
+- Use native Loofah scrubbers of Redmine 7 for text formatting
+- Restyle top menu submenus like Redmine 7
+- select2 fields match the height of Redmine 7 form controls
+- Assignee auto-watch uses the core preference
+- Patches use `prepend` instead of `alias_method`
+- Fix adding a dashboard block without page reload
+- Fix avatar spacing next to names on detail pages
+- `assert_locales_validness` accepts locale files of other locales
 - d3plus updated to 4.3.0
-- mermaid 12.0.0 support: diagrams use mermaid's new default appearance (ELK layout, neo look, redux-color theme) with 1px lines and need Safari 17.4 or newer. A theme can still set `mermaidTheme`, `mermaidThemeVariables`, `mermaidLook` and `mermaidLayout`
-- New shared attachment count for entities including `EntityMethods`: the `attachments_count` reader with `load_attachments_count` preload, the `QueryAttachmentsCountColumn` list column and the `attachments_count` query filter
-- The issue attachments section can be linked to as `#attachments`, and the link expands a collapsed file list
-- MariaDB 11.8 or newer is documented and tested as a database of its own
-- Raised the minimum database versions to MySQL 8.4 and PostgreSQL 16, both covered in CI
-- Raised the minimum ruby version to 3.3; Redmine itself still accepts 3.2, but the plugin is no longer tested against it
-- New shared style `sidebar-attributes` for sidebar name/value lists: label in front of the value, long values wrapping below their label, no paragraph margins on custom field values. Used by the contact (servicedesk), user (hrm) and wiki page (wiki_guide) attributes
-- New extension point `wiki_pdf_before_content` in the wiki PDF export, for rendering content between the title line and the page body
-- Patches of Redmine classes use `prepend` instead of `alias_method`, which removes a common source of incompatibility with other plugins extending the same methods; the RedmineUp plugins have switched to `prepend` as well
+- mermaid 12.0.0 support
 
 ## 4.5.0
 
-- Add a configurable user scope to the core "user" custom field format (all users / all active users / project members / by role), selectable per field. Dependent plugins enable it via `customized_class_names << 'Entity'`
-- Raise a clear error in the dashboard defaults migration when no usable owner user is found, instead of a cryptic NoMethodError #186
-- Do not convert emoji shortcodes inside links (CommonMark), so URLs containing segments like `:v:` stay intact #176
-- Removed `Additionals.time_zone_correct` (asymmetric DST semantics); use Rails timezone mechanics (`in_time_zone`, `Time.use_zone`) instead
-- Replace the unmaintained `render_async` gem with a native Stimulus controller. The `render_async` / `render_async_cache` / `render_async_cache_key` helper API, `DashboardContent::RENDER_ASYNC_CACHE_EXPIRES_IN` and the `auto_refresh` block setting are unchanged
-- `DashboardAsyncBlocksController#show` responds with `format.html` instead of `format.js`; frontend requests use `Accept: text/html` plus `X-Requested-With: XMLHttpRequest`
-- Async blocks with `auto_refresh` pause polling while the browser tab is hidden and refresh immediately when it returns
-- Copy project dashboards when a project is copied via `Project#copy`
-- Fix `NoMethodError` in the `projectinformation` dashboard block when adding blocks to a system-default project dashboard outside any project context
-- Fix dashboard columns not stacking on mobile viewports below 899px (regression from #200)
-- Fix PostgreSQL error in `Project#assignable_principals` and `Principal.assignable_for_issues` when chained with `.sorted`
-- Add option to include subproject news in the dashboard news block #164
+- Add user scope to the core "user" custom field format
+- Replace the `render_async` gem with a Stimulus controller
+- Async blocks pause auto refresh while the browser tab is hidden
+- Copy project dashboards when a project is copied
+- Add option to include subproject news in the news block #164
+- Remove `Additionals.time_zone_correct`
+- Fix emoji shortcodes inside links #176
+- Fix dashboard defaults migration without owner user #186
+- Fix project information block on system default dashboards
+- Fix dashboard columns on mobile viewports
+- Fix PostgreSQL error of assignable principals sorted
 - d3plus updated to 3.1.6
 - mermaid 11.16.0 support
 

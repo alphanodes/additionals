@@ -6,6 +6,7 @@
 - if @can_edit && !dashboard_block.no_settings?
   = render 'dashboards/blocks/settings_form',
            dashboard:, block:, dashboard_block:, hidden: with_async,
+           new_block: new_dashboard_block?(dashboard_block, settings),
            fields_partial: dashboard_block.settings_partial,
            fields_locals: build_dashboard_partial_locals(block, settings, dashboard).merge(with_async:)
 

@@ -3,7 +3,8 @@
 / block (fields_partial). fields_locals are the locals of the partials of the
 / block. A hidden form opens on an existing block and names it, the form of
 / a new block stands below the name of the block (named: the frame shows it,
-/ an async block shows it itself).
+/ an async block shows it itself). Cancel removes a new block again
+/ (new_block, see dashboard_block_settings_cancel_link).
 div id="#{block}-settings" class=('hidden' if hidden)
   - if hidden
     h3 = l :settings_with_value, value: dashboard_block.label
@@ -24,4 +25,4 @@ div id="#{block}-settings" class=('hidden' if hidden)
     p
       = submit_tag l(:button_save)
       '
-      = link_to_function l(:button_cancel), "$('##{block}-settings').toggle()"
+      = dashboard_block_settings_cancel_link dashboard, block, new_block: local_assigns[:new_block]

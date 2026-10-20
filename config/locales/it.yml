@@ -247,6 +247,7 @@ it:
   label_query_delete: Elimina query
   label_query_edit: Modifica query
   label_query_name_search: Ricerca per nome
+  label_query_own_columns: "Sovrascrivi le colonne della query"
   label_query_with_name: "Quero: %{value}"
   label_quickstart: Quickstart
   label_recently_updated_pages: Pagine aggiornate
@@ -257,6 +258,7 @@ it:
   label_remove_help: "Remove 'Help' from top menu"
   label_search_by_name: Cerca per nome
   label_search_scope: "Ambito di ricerca"
+  label_setting_value_not_visible: "non visibile per te"
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
   label_shared_dashboard_plural: "Dashboards condivisi"

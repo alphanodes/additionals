@@ -8,10 +8,15 @@ module DashboardBlocks
     max_occurs DashboardContent::MAX_MULTIPLE_OCCURS
 
     setting :query_id, type: :enum, label: :label_query, required: true
-    # The column selection of the query, see columns_applies?
-    setting :columns, type: :list, label: :field_column_names, field: 'dashboards/settings/query_columns', wide: true
     setting :max_entries, **DashboardContent::MAX_ENTRIES_SETTING
     setting :auto_refresh, type: :boolean, label: :label_enable_auto_refresh
+    # Without own columns the list follows the columns of its query. Both
+    # belong to the stored query, another one drops them. Last in the form,
+    # the column selection opens below its checkbox.
+    setting :own_columns, type: :boolean, label: :label_query_own_columns, reset_by: :query_id
+    # The column selection of the query, see columns_applies?
+    setting :columns, type: :list, label: :field_column_names, field: 'dashboards/settings/query_columns', wide: true,
+                      shown_with: :own_columns, reset_by: :query_id
 
     class_attribute :query_block_options, instance_writer: false
 
@@ -49,7 +54,7 @@ module DashboardBlocks
       return if @query.nil?
 
       @query.project = project if self.class.query_block[:with_project]
-      @query.column_names = columns.map(&:to_sym) if columns.present?
+      @query.column_names = columns.map(&:to_sym) if own_columns && columns.present?
       @query
     end
 
@@ -91,6 +96,10 @@ module DashboardBlocks
     # its query was saved
     def columns_applies?(schema)
       schema.stored(:query_id).present?
+    end
+
+    def own_columns_applies?(schema)
+      columns_applies? schema
     end
 
     # Columns of the chosen query as its settings form offers them (without a

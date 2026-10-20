@@ -3,6 +3,8 @@
 require File.expand_path '../../../test_helper', __FILE__
 
 class SettingsSchemaTest < Additionals::TestCase
+  RESET_DEFINITIONS = { query_id: { type: :enum, values: %w[1 2] }, own: { type: :boolean, reset_by: :query_id } }.freeze
+
   # A query class with an option beyond core: the statuses a board view shows
   # as its columns, stored in the serialized options of the query
   class BoardQuery < IssueQuery
@@ -214,6 +216,60 @@ class SettingsSchemaTest < Additionals::TestCase
                                              { title: 'Mine' }, stored: { type: 'gone' })
 
     assert_predicate schema, :valid?
+  end
+
+  # E.g. a private query of another user the editor cannot choose
+  def test_stored_choice_sent_back_unchanged_is_valid
+    schema = Additionals::SettingsSchema.new({ query_id: { type: :enum, values: %w[1 2] } }, { query_id: '9' },
+                                             stored: { query_id: '9' })
+
+    assert_predicate schema, :valid?
+  end
+
+  def test_other_choice_than_the_stored_one_is_checked
+    schema = Additionals::SettingsSchema.new({ query_id: { type: :enum, values: %w[1 2] } }, { query_id: '8' },
+                                             stored: { query_id: '9' })
+
+    assert_includes schema.errors, :query_id
+  end
+
+  def test_stored_list_entries_sent_back_are_valid
+    schema = Additionals::SettingsSchema.new({ ids: { type: :list, values: %w[1 2] } }, { ids: %w[1 9] },
+                                             stored: { ids: %w[9] })
+
+    assert_predicate schema, :valid?
+  end
+
+  def test_change_of_the_reset_by_setting_drops_the_stored_value
+    schema = Additionals::SettingsSchema.new(RESET_DEFINITIONS, { query_id: '2' }, stored: { query_id: '1', own: '1' })
+
+    assert_equal({ query_id: '2' }, schema.settings)
+  end
+
+  def test_change_of_the_reset_by_setting_ignores_a_given_value
+    schema = Additionals::SettingsSchema.new(RESET_DEFINITIONS, { query_id: '2', own: '1' }, stored: { query_id: '1' })
+
+    assert_equal [:own], schema.not_applied_keys
+  end
+
+  def test_unchanged_reset_by_setting_keeps_the_stored_value
+    schema = Additionals::SettingsSchema.new(RESET_DEFINITIONS, { query_id: '1' }, stored: { query_id: '1', own: '1' })
+
+    assert_equal({ query_id: '1', own: '1' }, schema.settings)
+  end
+
+  # A new block sets both at once
+  def test_first_value_of_the_reset_by_setting_keeps_a_given_value
+    schema = Additionals::SettingsSchema.new(RESET_DEFINITIONS, { query_id: '1', own: '1' })
+
+    assert_equal({ query_id: '1', own: '1' }, schema.settings)
+  end
+
+  def test_description_names_the_dependencies_of_a_setting
+    definitions = { own: { type: :boolean }, columns: { type: :list, shown_with: :own, reset_by: :own } }
+    columns = Additionals::SettingsSchema.new(definitions).describe.find { |setting| setting[:key] == :columns }
+
+    assert_equal %i[own own], columns.values_at(:shown_with, :reset_by)
   end
 
   def test_stored_value_completes_the_given_ones

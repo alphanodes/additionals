@@ -37,6 +37,13 @@ fieldset.hide-attachments {
   margin-top: 8px;
 }
 
+/* A hint or error of a block without heading starts below the icons of the
+   block, which float on the right */
+.dashboard .mypage-box .nodata,
+.dashboard .mypage-box .dashboard-block-error {
+  clear: both;
+}
+
 #my-page.dashboard .settings input[type='text'],
 #my-page.dashboard .settings input[type='password'],
 #my-page.dashboard .settings input[type='url'] {

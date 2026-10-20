@@ -247,6 +247,7 @@
   label_query_delete: 刪除查詢
   label_query_edit: 編輯查詢
   label_query_name_search: "搜索名字"
+  label_query_own_columns: "覆寫查詢的欄位"
   label_query_with_name: "Query: %{value}"
   label_quickstart: Quickstart
   label_recently_updated_pages: Updated pages
@@ -257,6 +258,7 @@
   label_remove_help: "從頂部選單中移除 \"幫助\" 項"
   label_search_by_name: "按名稱搜尋"
   label_search_scope: "搜尋範圍"
+  label_setting_value_not_visible: "你無法檢視"
   label_settings_macros: "macros 語法"
   label_settings_menu: "選單"
   label_shared_dashboard_plural: Shared dashboards

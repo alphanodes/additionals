@@ -409,9 +409,15 @@ module DashboardsHelper
     return unless query
 
     query.project = @project if qb[:with_project] && @project
+    count_query = -> { query.send qb[:count_method] || 'query_count' }
     # A savepoint keeps a surrounding transaction usable if the query fails,
-    # PostgreSQL rejects every further statement of an aborted transaction
-    count = ActiveRecord::Base.transaction(requires_new: true) { query.send qb[:count_method] || 'query_count' }
+    # PostgreSQL rejects every further statement of an aborted transaction.
+    # Without one, e.g. a page request, no transaction is needed.
+    count = if ActiveRecord::Base.connection.transaction_open?
+              ActiveRecord::Base.transaction(requires_new: true) { count_query.call }
+            else
+              count_query.call
+            end
     250 if count.to_i.positive?
   # A query whose SQL fails, e.g. with a filter of a plugin that is not
   # installed, must not break the page: the block shows the error when it loads
@@ -524,10 +530,28 @@ module DashboardsHelper
                 dashboard_block_setting_field setting, schema[setting[:key]], tag_name
               end
       field = safe_join [field, tag.em(setting[:description], class: 'info')] if setting[:description]
-      definitions.dig(setting[:key], :wide) ? field : tag.p(field)
+      dashboard_block_setting_wrapper field, setting, block, schema, wide: definitions.dig(setting[:key], :wide)
     end
     fields << capture(&) if block_given?
-    tag.div safe_join(fields), class: 'box tabular settings'
+    tag.div safe_join(fields), class: 'box tabular settings',
+                               data: { controller: 'additionals-settings-dependency',
+                                       action: 'change->additionals-settings-dependency#update' }
+  end
+
+  # The paragraph of a field (a wide field has none), with the settings it
+  # depends on in the open form (see additionals_settings_dependency_controller):
+  # shown with a checkbox (shown_with), reset by a change of another field
+  # (reset_by)
+  def dashboard_block_setting_wrapper(field, setting, block, schema, wide:)
+    data = {}
+    data[:reset_by] = "settings_#{block}_#{setting[:reset_by]}" if setting[:reset_by]
+    if setting[:shown_with]
+      data[:shown_with] = "settings_#{block}_#{setting[:shown_with]}"
+      hidden = !schema[setting[:shown_with]]
+    end
+    return field if wide && data.empty?
+
+    content_tag wide ? :div : :p, field, data:, class: ('hidden' if hidden)
   end
 
   # A block added but never set up: it misses its required settings and has
@@ -577,8 +601,7 @@ module DashboardsHelper
     end
   end
 
-  # Renders the content of a block: loaded after the page, its own partial or
-  # a render_<block>_block helper
+  # The field of a declared setting, by its type
   def dashboard_block_setting_field(setting, value, tag_name)
     key = setting[:key]
     options = { tag_name:, label: setting[:label], required: setting[:required] }
@@ -614,7 +637,10 @@ module DashboardsHelper
     safe_join [select, tag.em(l(:label_no_data), class: 'info')]
   end
 
-  # The values a form offers, and the current one even if no longer offered
+  # The values a form offers, and the current one even if no longer offered.
+  # A stored value the editor cannot choose, e.g. a private query of another
+  # user, stays as an option without its name, so saving keeps it. Marked like
+  # the special entries of core (<< me >>).
   def offered_setting_values(setting, value)
     raise ArgumentError, "No values for #{setting[:key]}, the block needs a field for it" if setting[:values].nil?
 
@@ -622,7 +648,8 @@ module DashboardsHelper
     if setting[:offered]
       values = values.select { |entry| setting[:offered].include?(entry[:value]) || Array(value).include?(entry[:value]) }
     end
-    values.map { |entry| [entry[:label], entry[:value]] }
+    kept = Array(value).map(&:to_s).compact_blank - setting[:values].pluck(:value)
+    values.map { |entry| [entry[:label], entry[:value]] } + kept.map { |stored| ["<< #{l :label_setting_value_not_visible} >>", stored] }
   end
 
   # The settings form of a block rendered with the page, built or its own
@@ -639,6 +666,8 @@ module DashboardsHelper
                                               fields_locals: partial_locals
   end
 
+  # Renders the content of a block: loaded after the page, its own partial or
+  # a render_<block>_block helper
   def render_dashboard_block_content(block, dashboard_block, dashboard, partial_locals)
     partial = dashboard_block.partial
 

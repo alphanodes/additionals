@@ -280,8 +280,6 @@ class DashboardsController < ApplicationController
     end
     # blocks read the project from content_project, also on a project bound dashboard
     @dashboard.content_project = @project
-
-    @can_edit = @dashboard&.editable?
   rescue ActiveRecord::RecordNotFound
     render_404
   end

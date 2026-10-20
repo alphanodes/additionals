@@ -46,16 +46,35 @@ class DashboardAsyncBlocksControllerTest < Additionals::ControllerTest
     assert_select 'h3 + p#errorExplanation'
   end
 
+  # E.g. a private query of another user, the block still names itself
+  def test_query_list_block_with_a_query_the_user_cannot_see_has_its_heading
+    query = IssueQuery.create! name: 'Private', user: users(:users_002), visibility: Query::VISIBILITY_PRIVATE
+    request_query_block query
+
+    assert_select 'h3 + p.nodata'
+  end
+
+  # Stored before own columns, with a column removed since
+  def test_query_list_block_with_settings_of_before_shows_its_list
+    request_query_block queries(:queries_004), columns: %w[subject cf_999]
+
+    assert_select 'h3.query-list-block'
+  end
+
   private
 
   def request_broken_query_block
     query = IssueQuery.new name: 'Broken', user: users(:users_001), visibility: Query::VISIBILITY_PUBLIC,
                            filters: { 'missing_column' => { operator: '=', values: ['1'] } }
     query.save! validate: false
+    request_query_block query
+  end
+
+  def request_query_block(query, **settings)
     dashboard = Dashboard.create! name: 'Broken query', dashboard_type: DashboardContentWelcome::TYPE_NAME,
                                   author: users(:users_001), visibility: Dashboard::VISIBILITY_PUBLIC,
                                   layout: { 'top' => %w[issuequery] },
-                                  layout_settings: { 'issuequery' => { query_id: query.id.to_s } }
+                                  layout_settings: { 'issuequery' => { query_id: query.id.to_s, **settings } }
     @request.session[:user_id] = 1
     # As the frontend requests a block
     @request.headers['Accept'] = 'text/html'

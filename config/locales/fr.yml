@@ -247,6 +247,7 @@ fr:
   label_query_delete: Annuler la requête
   label_query_edit: Modifier la requête
   label_query_name_search: Rechercher un nom
+  label_query_own_columns: "Remplacer les colonnes du rapport"
   label_query_with_name: "Requête: %{value}"
   label_quickstart: Quickstart
   label_recently_updated_pages: Pages mises à jour
@@ -257,6 +258,7 @@ fr:
   label_remove_help: "Retirer 'Aide' du menu"
   label_search_by_name: Recherche par nom
   label_search_scope: "Portee de la recherche"
+  label_setting_value_not_visible: "non visible pour vous"
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
   label_shared_dashboard_plural: "Tableaux de bord partagés"

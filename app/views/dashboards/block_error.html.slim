@@ -2,7 +2,7 @@
 / like the content, so the icons of the block stay next to it
 - if @block_heading
   h3 = @block_heading
-p#errorExplanation
+p#errorExplanation.dashboard-block-error
   - if @query_invalid
     = l :error_query_statement_invalid
   - else

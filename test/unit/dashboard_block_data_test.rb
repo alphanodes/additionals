@@ -74,7 +74,7 @@ class DashboardBlockDataTest < Additionals::TestCase
 
   # Like the list, issues show their id first
   def test_query_list_exports_the_chosen_columns
-    data = block('issuequery', { query_id: queries(:queries_004).id.to_s, columns: %w[tracker subject] }).export_data
+    data = block('issuequery', { query_id: queries(:queries_004).id.to_s, own_columns: '1', columns: %w[tracker subject] }).export_data
 
     assert_equal [I18n.t(:field_tracker), I18n.t(:field_subject)], data[:columns].last(2)
   end
@@ -99,7 +99,7 @@ class DashboardBlockDataTest < Additionals::TestCase
     query = IssueQuery.create! name: 'Reviewed', visibility: Query::VISIBILITY_PUBLIC, user: User.current,
                                filters: { 'issue_id' => { operator: '=', values: [issue.id.to_s] } }
 
-    data = block('issuequery', { query_id: query.id.to_s, columns: ["cf_#{field.id}"] }).export_data
+    data = block('issuequery', { query_id: query.id.to_s, own_columns: '1', columns: ["cf_#{field.id}"] }).export_data
 
     assert_equal users(:users_002).name, data[:rows].first.last
   end

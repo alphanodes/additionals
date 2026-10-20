@@ -24,6 +24,8 @@
     - else
       p.nodata = l :label_no_data
   - else
+    / E.g. a query the user cannot see
+    h3 = dashboard_block.label
     p.nodata = l :label_no_data
 
   - if Additionals.setting? :open_external_urls

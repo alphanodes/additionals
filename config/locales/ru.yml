@@ -247,6 +247,7 @@ ru:
   label_query_delete: "Удалить query"
   label_query_edit: "Редактировать query"
   label_query_name_search: "Поиск имени"
+  label_query_own_columns: "Переопределить столбцы запроса"
   label_query_with_name: "Query: %{value}"
   label_quickstart: Quickstart
   label_recently_updated_pages: Обновленные страницы
@@ -257,6 +258,7 @@ ru:
   label_remove_help: "Удалить 'Help' из верхнего меню"
   label_search_by_name: "Поиск по имени"
   label_search_scope: "Область поиска"
+  label_setting_value_not_visible: "вам не видно"
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
   label_shared_dashboard_plural: "разделяемые приборные панели"

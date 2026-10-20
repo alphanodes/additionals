@@ -55,6 +55,14 @@ class DashboardBlockSettingsFormTest < Additionals::ControllerTest
     assert_select 'div#news-settings', count: 0
   end
 
+  # Like a block rendered with the page, e.g. a new block whose cancel would
+  # remove it from the locked dashboard
+  def test_locked_dashboard_has_no_settings_form_of_an_async_block
+    get :index, params: { dashboard_id: feed_dashboard(locked: true).id }
+
+    assert_select 'div#feed-settings', count: 0
+  end
+
   # Opened on an existing block, the form names the block
   def test_settings_form_of_an_existing_block_is_named
     get :index, params: { dashboard_id: news_dashboard.id }
@@ -157,14 +165,18 @@ class DashboardBlockSettingsFormTest < Additionals::ControllerTest
     assert_select '.query-list-columns select[name=?]', 'settings[issuequery][columns][]'
   end
 
-  # Another query of the block keeps the columns chosen before, also one the
-  # other query does not have (here a custom field column that no longer exists)
-  def test_query_list_keeps_its_columns_with_another_query
-    dashboard = query_list_dashboard query_id: queries(:queries_004).id.to_s, columns: %w[subject cf_999]
-    errors = dashboard.update_block_settings 'issuequery', query_id: queries(:queries_005).id.to_s,
-                                                           columns: %w[subject cf_999]
+  # Otherwise an empty selection is not sent and the stored columns stay
+  def test_query_list_sends_blank_columns_if_none_is_chosen
+    get :index, params: { dashboard_id: query_list_dashboard(query_id: queries(:queries_004).id.to_s).id }
 
-    assert_empty errors
+    assert_select 'input[type=hidden][name=?][value=""]', 'settings[issuequery][columns][]'
+  end
+
+  # Another query drops the own columns, the form resets them on a change
+  def test_query_list_with_its_query_offers_another_query
+    get :index, params: { dashboard_id: query_list_dashboard(query_id: queries(:queries_004).id.to_s).id }
+
+    assert_select 'select[name=?]', 'settings[issuequery][query_id]'
   end
 
   private
@@ -187,9 +199,9 @@ class DashboardBlockSettingsFormTest < Additionals::ControllerTest
                       visibility: Dashboard::VISIBILITY_PUBLIC, layout: { 'left' => %w[news] }, locked:
   end
 
-  def feed_dashboard(url: nil)
+  def feed_dashboard(url: nil, locked: false)
     Dashboard.create! name: 'Feed', dashboard_type: DashboardContentWelcome::TYPE_NAME, author: User.current,
                       visibility: Dashboard::VISIBILITY_PUBLIC, layout: { 'left' => %w[feed] },
-                      layout_settings: url ? { 'feed' => { url: } } : {}
+                      layout_settings: url ? { 'feed' => { url: } } : {}, locked:
   end
 end

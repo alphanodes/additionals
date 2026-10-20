@@ -138,6 +138,25 @@ class DashboardBlocksTest < Additionals::TestCase
   def test_query_list_blocks_declare_the_settings_of_their_form
     keys = DashboardContentWelcome.new.block_settings_definitions('issuequery').keys
 
-    assert_equal %i[query_id columns max_entries auto_refresh], keys
+    assert_equal %i[query_id max_entries auto_refresh own_columns columns], keys
+  end
+
+  # Without own columns the list follows the columns of its query
+  def test_query_list_shows_the_columns_of_its_query
+    queries(:queries_004).update! column_names: %i[tracker status]
+
+    assert_equal %i[tracker status], query_list(columns: %w[subject]).query.column_names
+  end
+
+  def test_query_list_shows_its_own_columns
+    query = query_list(own_columns: '1', columns: %w[subject]).query
+
+    assert_equal %i[subject], query.column_names
+  end
+
+  private
+
+  def query_list(**settings)
+    DashboardContentWelcome.new.dashboard_block 'issuequery', settings: { query_id: queries(:queries_004).id.to_s, **settings }
   end
 end

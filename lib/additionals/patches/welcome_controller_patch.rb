@@ -38,7 +38,6 @@ module Additionals
           end
 
           recently_used_dashboard_save @dashboard
-          @can_edit = @dashboard&.editable?
           @dashboard_sidebar = dashboard_sidebar? @dashboard, params
         end
       end

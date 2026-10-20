@@ -247,6 +247,7 @@ pl:
   label_query_delete: "Usuń query"
   label_query_edit: "Edycja query"
   label_query_name_search: "Wyszukaj nazwę"
+  label_query_own_columns: "Nadpisz kolumny kwerendy"
   label_query_with_name: "Query: %{value}"
   label_quickstart: Quickstart
   label_recently_updated_pages: Zaktualizowane strony
@@ -257,6 +258,7 @@ pl:
   label_remove_help: "Remove 'Help' from top menu"
   label_search_by_name: "Wyszukiwanie według nazwy"
   label_search_scope: "Zakres wyszukiwania"
+  label_setting_value_not_visible: "niewidoczne dla ciebie"
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
   label_shared_dashboard_plural: "Współdzielone tablice rozdzielcze"

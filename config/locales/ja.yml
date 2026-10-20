@@ -247,6 +247,7 @@ ja:
   label_query_delete: Delete query
   label_query_edit: Edit query
   label_query_name_search: "名前を検索"
+  label_query_own_columns: "クエリの項目を上書き"
   label_query_with_name: "Query: %{value}"
   label_quickstart: Quickstart
   label_recently_updated_pages: Updated pages
@@ -257,6 +258,7 @@ ja:
   label_remove_help: "「ヘルプ」をトップメニューから外す"
   label_search_by_name: "名前から探す"
   label_search_scope: "検索範囲"
+  label_setting_value_not_visible: "あなたには表示されません"
   label_settings_macros: "マクロ"
   label_settings_menu: "メニュー"
   label_shared_dashboard_plural: "共有ダッシュボード"

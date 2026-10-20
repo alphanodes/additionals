@@ -247,6 +247,7 @@ zh:
   label_query_delete: 删除查询
   label_query_edit: 编辑查询
   label_query_name_search: "搜索名字"
+  label_query_own_columns: "覆盖查询的列"
   label_query_with_name: "查询: %{value}"
   label_quickstart: Quickstart
   label_recently_updated_pages: Updated pages
@@ -257,6 +258,7 @@ zh:
   label_remove_help: "从顶部菜单栏中移除 '帮助' 项"
   label_search_by_name: 按名称搜索
   label_search_scope: "搜索范围"
+  label_setting_value_not_visible: "你不可见"
   label_settings_macros: "宏"
   label_settings_menu: "菜单"
   label_shared_dashboard_plural: 共享的仪表盘

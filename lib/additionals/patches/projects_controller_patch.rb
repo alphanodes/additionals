@@ -41,7 +41,6 @@ module Additionals
 
           @dashboard.content_project = @project
           recently_used_dashboard_save @dashboard, @project
-          @can_edit = @dashboard.editable?
           @dashboard_sidebar = dashboard_sidebar? @dashboard, params
         end
       end

@@ -247,6 +247,7 @@ cs:
   label_query_delete: "Smazat dotaz"
   label_query_edit: "Upravit dotaz"
   label_query_name_search: "Hledejte jméno"
+  label_query_own_columns: "Přepsat sloupce dotazu"
   label_query_with_name: "Query: %{value}"
   label_quickstart: Quickstart
   label_recently_updated_pages: Updated pages
@@ -257,6 +258,7 @@ cs:
   label_remove_help: "Remove 'Help' from top menu"
   label_search_by_name: "Hledat podle jména"
   label_search_scope: "Rozsah hledani"
+  label_setting_value_not_visible: "pro vás neviditelné"
   label_settings_macros: "Makra"
   label_settings_menu: "Menu"
   label_shared_dashboard_plural: "Sdíleno dashboards"

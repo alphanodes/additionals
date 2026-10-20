@@ -247,6 +247,7 @@ de:
   label_query_delete: Abfrage löschen
   label_query_edit: Abfrage bearbeiten
   label_query_name_search: Nach Name suchen
+  label_query_own_columns: "Spalten der Abfrage überschreiben"
   label_query_with_name: "Abfrage: %{value}"
   label_quickstart: Schnellstart
   label_recently_updated_pages: Zuletzt aktualisiert
@@ -257,6 +258,7 @@ de:
   label_remove_help: "Entferne 'Hilfe' aus dem Topmenü"
   label_search_by_name: Suche nach Namen
   label_search_scope: "Suchbereich"
+  label_setting_value_not_visible: "für Dich nicht sichtbar"
   label_settings_macros: "Makros"
   label_settings_menu: "Menü"
   label_shared_dashboard_plural: Geteilte Dashboards

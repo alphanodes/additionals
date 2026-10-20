@@ -171,6 +171,31 @@ class DashboardBlockSettingsFieldsTest < Additionals::HelperTest
     assert_equal ['', '1'], options.pluck('value')
   end
 
+  # A stored choice the editor cannot choose stays, without its name
+  def test_stored_choice_not_offered_stays_without_its_name
+    option = other_field 'select[name="settings[test][query_id]"] option[selected]',
+                         stored: { query_id: '9' }, query_id: { values: [%w[Q 1]] }
+
+    assert_equal ['9', "<< #{I18n.t :label_setting_value_not_visible} >>"], [option['value'], option.text]
+  end
+
+  def test_field_shown_with_a_checkbox_names_it
+    assert dependent_field('[name^="settings[test][names]"]', own: '1').ancestors('p[data-shown-with="settings_test_own"]').any?
+  end
+
+  # The checkbox is off, the form shows the field when it is turned on
+  def test_field_shown_with_a_checkbox_is_hidden_while_it_is_off
+    assert dependent_field('[name^="settings[test][names]"]', own: '0').ancestors('p.hidden').any?
+  end
+
+  def test_field_reset_by_another_names_it
+    assert dependent_field('p[data-reset-by="settings_test_query_id"] input[type=checkbox][name="settings[test][own]"]')
+  end
+
+  def test_settings_fields_follow_their_dependencies
+    assert rendered(test_block({})).at_css('div.settings[data-controller="additionals-settings-dependency"]')
+  end
+
   def test_wide_field_has_no_paragraph
     field = other_field '[name^="settings[test][groups]"]',
                         groups: { type: :list, values: [%w[X 1]], field: 'dashboards/settings/check_boxes', wide: true }
@@ -223,15 +248,25 @@ class DashboardBlockSettingsFieldsTest < Additionals::HelperTest
   end
 
   # A block with one required choice (query_id) or the given setting
-  def other_field(css, **settings)
-    other_fields(css, **settings).first
+  def other_field(css, stored: {}, **settings)
+    other_fields(css, stored:, **settings).first
   end
 
-  def other_fields(css, **settings)
+  def other_fields(css, stored: {}, **settings)
     key, options = settings.first
     definition = { type: :enum, label: :label_query, required: true }.merge options
     block_class = Class.new(DashboardBlocks::Base) { setting key, **definition }
-    rendered(block_class.new(DashboardContentWelcome.new)).css css
+    rendered(block_class.new(DashboardContentWelcome.new, settings: stored)).css css
+  end
+
+  # A choice, a checkbox reset by it and a list shown with the checkbox
+  def dependent_field(css, **stored)
+    block_class = Class.new DashboardBlocks::Base do
+      setting :query_id, type: :enum, label: :label_query, values: %w[1 2]
+      setting :own, type: :boolean, label: :label_query_own_columns, reset_by: :query_id
+      setting :names, type: :list, label: :field_column_names, values: %w[a b], shown_with: :own
+    end
+    rendered(block_class.new(DashboardContentWelcome.new, settings: { query_id: '1', **stored })).at_css css
   end
 
   def rendered(block)

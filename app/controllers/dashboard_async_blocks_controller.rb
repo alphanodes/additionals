@@ -66,8 +66,6 @@ class DashboardAsyncBlocksController < ApplicationController
       deny_access if @project.present? && !User.current.allowed_to?(:view_project, @project)
       @dashboard.content_project = @project
     end
-
-    @can_edit = @dashboard&.editable?
   rescue ActiveRecord::RecordNotFound
     render_404
   end

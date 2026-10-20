@@ -247,6 +247,7 @@ uk:
   label_query_delete: "Видалити query"
   label_query_edit: "Редагувати query"
   label_query_name_search: "Пошук імені"
+  label_query_own_columns: "Перевизначити колонки запиту"
   label_query_with_name: "Query: %{value}"
   label_quickstart: Quickstart
   label_recently_updated_pages: Updated pages
@@ -257,6 +258,7 @@ uk:
   label_remove_help: "Видалити 'Help' із верхнього меню"
   label_search_by_name: "Пошук по імені"
   label_search_scope: "Область пошуку"
+  label_setting_value_not_visible: "вам не видно"
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
   label_shared_dashboard_plural: "спільні приборні панелі"

@@ -36,6 +36,10 @@ module Additionals
   #   as an unknown key
   # - applies: whether the setting applies to the other values. One that does
   #   not apply is kept and not required, so switching back restores it.
+  # - shown_with: key of a boolean setting; a form shows the field only while
+  #   it is on, e.g. own columns of a query list
+  # - reset_by: key of another setting; a given change of it drops the stored
+  #   value and ignores a given one, e.g. columns of a list with another query
   #
   # Values, labels and rules can be lambdas, they get the schema to read the
   # other values (schema[:key]) and the context (schema.context).
@@ -52,7 +56,8 @@ module Additionals
 
     TYPES = %i[string text integer float boolean enum list].freeze
     LABELED_TYPES = %i[enum list].freeze
-    OPTIONS = %i[type label info placeholder values offered default required min max if applies field wide secret].freeze
+    OPTIONS = %i[type label info placeholder values offered default required min max if applies shown_with reset_by
+                 field wide secret].freeze
     # Options of a setting an object can answer with a method named after the
     # setting, see with_rule_methods
     RULE_METHODS = { if: '%s_available?', applies: '%s_applies?', values: '%s_values', offered: '%s_offered',
@@ -87,8 +92,12 @@ module Additionals
       @context = context
       @invalid = {}
       values = values.to_h.symbolize_keys
-      @given_keys = values.keys
       @stored = stored.to_h.symbolize_keys
+      @reset_keys = @definitions.keys.select { |key| reset_by_change? key, values }
+      @stored = @stored.except(*@reset_keys)
+      @not_applied_resets = values.keys & @reset_keys
+      values = values.except(*@reset_keys)
+      @given_keys = values.keys
       @values = cast_values(@stored.except(*@given_keys), check: false).merge cast_values(values)
       resolve_labels
     end
@@ -131,9 +140,10 @@ module Additionals
       end
     end
 
-    # Given settings that exist but do not apply to the other values
+    # Given settings that exist but do not apply to the other values or were
+    # reset by a change of another one (reset_by)
     def not_applied_keys
-      (@given_keys & available_keys).reject { |key| applies? key }
+      (@given_keys & available_keys).reject { |key| applies? key } + (@not_applied_resets & available_keys)
     end
 
     # Unknown keys and settings that do not exist in the context
@@ -288,6 +298,14 @@ module Additionals
       condition.nil? || resolve(condition) ? true : false
     end
 
+    # A setting whose reset_by setting is given with another value than stored
+    def reset_by_change?(key, values)
+      other = @definitions.dig key, :reset_by
+      return false if other.nil? || !values.key?(other) || @stored[other].blank?
+
+      values[other].to_s.strip != @stored[other].to_s
+    end
+
     def errors_for(key)
       return [message(@invalid[key])] if @invalid.key? key
 
@@ -296,7 +314,7 @@ module Additionals
       if value.blank?
         definition[:required] && applies?(key) && !defaulted?(key, definition) ? [message(:blank)] : []
       elsif @given_keys.include? key
-        value_errors definition, value
+        value_errors key, definition, value
       else
         []
       end
@@ -308,13 +326,15 @@ module Additionals
       @given_keys.exclude?(key) && !resolve(definition[:default]).nil?
     end
 
-    def value_errors(definition, value)
+    # A stored choice sent back unchanged stays valid, even if the user cannot
+    # choose it (e.g. a query of another user)
+    def value_errors(key, definition, value)
       case definition[:type]
       when :integer, :float
         range_errors definition, typed_value(definition[:type], value)
       when :enum, :list
         allowed = allowed_values definition
-        allowed.nil? || (Array(value) - allowed).empty? ? [] : [message(:inclusion)]
+        allowed.nil? || (Array(value) - allowed - Array(@stored[key]).map(&:to_s)).empty? ? [] : [message(:inclusion)]
       else
         []
       end
@@ -355,6 +375,8 @@ module Additionals
         min: definition[:min],
         max: definition[:max],
         applies: applies?(key),
+        shown_with: definition[:shown_with],
+        reset_by: definition[:reset_by],
         secret: definition[:secret] ? true : nil,
         value: @values.key?(key) && !definition[:secret] ? self[key] : nil }.compact
     end

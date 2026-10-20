@@ -7,7 +7,9 @@
 - Dashboard blocks declare their settings (`Additionals::SettingsSchema`), invalid settings are rejected
 - Settings forms of dashboard blocks are built from the declared settings
 - Query list blocks can change their query
+- Query list blocks follow the columns of their query unless they override them
 - Secret block settings (tokens, passwords) are never filled in or exported
+- Block settings keep a stored choice the editor cannot see, e.g. a private query
 - New dashboard blocks open their settings form, cancel removes them again
 - Dashboard blocks provide their data to programs (`data`, `export_data`)
 - Add query chart blocks for any query (`AdditionalsQueryChart`)

@@ -5,4 +5,6 @@
   / The inner div lays out the lists side by side, as in the query form of core
   #list-definition.query-list-columns
     div
+      / Without the blank value an empty selection is not sent and keeps the stored columns
+      = hidden_field_tag "#{tag_name}[]", '', id: nil
       = render_query_columns_selection query, name: tag_name

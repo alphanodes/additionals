@@ -247,6 +247,7 @@ ko:
   label_query_delete: 검색어 삭제
   label_query_edit: 검색어 수정
   label_query_name_search: 이름 검색
+  label_query_own_columns: "검색양식의 컬럼 덮어쓰기"
   label_query_with_name: "Query: %{value}"
   label_quickstart: Quickstart
   label_recently_updated_pages: Updated pages
@@ -257,6 +258,7 @@ ko:
   label_remove_help: "톱 메뉴에서 'Help' 항목 제거"
   label_search_by_name: 이름으로 검색
   label_search_scope: "검색 범위"
+  label_setting_value_not_visible: "나에게 보이지 않음"
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
   label_shared_dashboard_plural: Shared dashboards

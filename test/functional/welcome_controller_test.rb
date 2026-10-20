@@ -27,6 +27,8 @@ class WelcomeControllerTest < Additionals::ControllerTest
   # was given sit in the right-hand list unmarked. Without this the choice never reaches
   # the server and the block silently keeps the columns of its query.
   def test_block_settings_form_marks_its_selected_options_on_submit
+    # The settings forms show on an unlocked dashboard only
+    dashboards(:system_default_welcome).update_column :locked, false
     @request.session[:user_id] = 1
     get :index
 

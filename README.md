@@ -89,19 +89,18 @@ Uninstall all plugins that depend on `additionals` first.
 | [Select2](https://select2.org/) | 4.0.13 |
 | [Sortable](https://github.com/SortableJS/Sortable) | 1.15.7 |
 
-A view loads a library with all its JS and CSS files, each file once per page:
+Pages and dashboard blocks load only the libraries they need, each file once per page:
 
 ```ruby
-additionals_library_load :chartjs
+additionals_library_load :chartjs_meta
 ```
 
-In the browser, `AdditionalsHelpers.loadLibrary(name)` loads a library on demand and returns a promise, e.g. for a dashboard block that needs it only with certain settings.
-
-Available names: `chartjs`, `chartjs_annotation`, `chartjs_colorschemes`, `chartjs_datalabels`, `chartjs_matrix`, `chartjs_meta`, `d3plus`, `dhtmlxgantt`, `mermaid`, `select2`, `sortable`. Plugins can register libraries of their own with `Additionals::LibraryRegistry.register`.
+The [Library Loader](docs/libraries.md) lists all library names and describes loading in dashboard blocks and on demand in the browser, and how plugins register libraries of their own.
 
 ### Development guides
 
 * [Dashboard Development Guide](docs/dashboards.md): dashboard blocks and dashboard types
+* [Library Loader](docs/libraries.md): JavaScript and CSS libraries for pages and blocks
 * [Chart Development Guide](docs/charts.md): charts in blocks and pages
 * [Settings Schema](docs/settings-schema.md): declared settings for blocks and queries
 * [Updating mermaid](docs/updating-mermaid.md)

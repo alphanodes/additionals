@@ -71,12 +71,6 @@ window.AdditionalsHelpers = {
     return response.json();
   },
 
-  // Drops the unsaved flag of Redmine core's warnLeavingUnsaved after an async submit, which
-  // the core submit listener does not see. Core keeps the flag in jQuery's internal data
-  // store, so deleting a data-changed attribute (dataset) has no effect.
-  // A focused textarea is blurred first: its pending change event, which core's leave check
-  // triggers with blur() as well, would set the flag again. Focusing it again resets the
-  // value the browser compares against.
   // Loads a library of Additionals::LibraryRegistry on demand, once per page,
   // e.g. for a block that needs it with certain settings only. The assets of
   // a library build on each other and load in order.
@@ -88,6 +82,12 @@ window.AdditionalsHelpers = {
     return assets.reduce((loaded, asset) => loaded.then(() => loadAdditionalsAsset(asset)), Promise.resolve());
   },
 
+  // Drops the unsaved flag of Redmine core's warnLeavingUnsaved after an async submit, which
+  // the core submit listener does not see. Core keeps the flag in jQuery's internal data
+  // store, so deleting a data-changed attribute (dataset) has no effect.
+  // A focused textarea is blurred first: its pending change event, which core's leave check
+  // triggers with blur() as well, would set the flag again. Focusing it again resets the
+  // value the browser compares against.
   clearWarnLeavingUnsaved(textareas = 'textarea') {
     const $textareas = $(textareas);
     const focused = $textareas.toArray().includes(document.activeElement) ? document.activeElement : null;

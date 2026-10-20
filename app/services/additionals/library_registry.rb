@@ -68,10 +68,10 @@ module Additionals
       # are either Asset records (leaf files) or Symbols (names of other
       # packages to pull in).
       #
-      # Call this from a `config.to_prepare` block, NOT once at boot: this
-      # class lives under an autoload path and is reloaded in development,
-      # which wipes the registration. to_prepare re-runs after every reload
-      # and repopulates the freshly loaded class.
+      # Call this from the setup of the plugin or a `config.to_prepare` block,
+      # NOT once at boot: this class lives under an autoload path and is
+      # reloaded in development, which wipes the registration. Both re-run
+      # after every reload and repopulate the freshly loaded class.
       #
       # Raises if the name shadows a built-in package/atom so typos and
       # accidental collisions fail loudly. Re-registering the same name (e.g.

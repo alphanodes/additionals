@@ -91,7 +91,7 @@ class ProjectCopyDashboardsTest < Additionals::TestCase
   def test_copy_deep_dups_layout_and_layout_settings
     source_dashboard = dashboards :private_project
     source_dashboard.update! layout: { 'left' => %w[text], 'right' => %w[news] }
-    source_dashboard.update_block_settings 'text', title: 'Original title'
+    source_dashboard.update_block_settings 'text', title: 'Original title', text: 'Hello'
     source_dashboard.save!
 
     assert @target.copy(@source)

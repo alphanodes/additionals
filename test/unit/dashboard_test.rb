@@ -435,7 +435,7 @@ class DashboardTest < Additionals::TestCase
     source.update! layout: { left: %w[welcome text], right: %w[news] },
                    enable_sidebar: true,
                    description: 'Test description'
-    source.update_block_settings 'text', title: 'My Text Block'
+    source.update_block_settings 'text', title: 'My Text Block', text: 'Hello'
 
     dashboard = Dashboard.new
     dashboard.copy_from source

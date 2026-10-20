@@ -2,10 +2,13 @@
 / its declared settings with its settings info, or of the partial of the
 / block (fields_partial). fields_locals are the locals of the partials of the
 / block. A hidden form opens on an existing block and names it, the form of
-/ a new block stands below the name of the block.
+/ a new block stands below the name of the block (named: the frame shows it,
+/ an async block shows it itself).
 div id="#{block}-settings" class=('hidden' if hidden)
   - if hidden
     h3 = l :settings_with_value, value: dashboard_block.label
+  - elsif local_assigns[:named]
+    h3 = dashboard_block.label
   / A multiple select only submits the options that are marked, and the columns in the
   / right-hand list are not - so without this the column choice never reaches the server
   / and the block keeps the columns of its query.

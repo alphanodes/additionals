@@ -75,7 +75,26 @@ class DashboardBlockSettingsFormTest < Additionals::ControllerTest
     assert_select 'div#feed-settings:not(.hidden):not(:has(> h3))'
   end
 
+  # Like text_async, a new text block opens its form below its name
+  def test_settings_form_of_a_block_without_its_required_settings_is_open_below_its_name
+    get :index, params: { dashboard_id: text_dashboard.id }
+
+    assert_select 'div#text-settings:not(.hidden) > h3', text: 'Text'
+  end
+
+  def test_settings_form_of_a_block_with_its_required_settings_is_hidden
+    get :index, params: { dashboard_id: text_dashboard(text: 'Hello').id }
+
+    assert_select 'div#text-settings.hidden > h3', text: 'Text settings'
+  end
+
   private
+
+  def text_dashboard(text: nil)
+    Dashboard.create! name: 'Text', dashboard_type: DashboardContentWelcome::TYPE_NAME, author: User.current,
+                      visibility: Dashboard::VISIBILITY_PUBLIC, layout: { 'top' => %w[text] },
+                      layout_settings: text ? { 'text' => { text: } } : {}
+  end
 
   def news_dashboard(locked: false)
     Dashboard.create! name: 'News', dashboard_type: DashboardContentWelcome::TYPE_NAME, author: User.current,

@@ -586,12 +586,14 @@ module DashboardsHelper
   end
 
   # The settings form of a block rendered with the page, its async blocks have
-  # it in dashboards/blocks/async
+  # it in dashboards/blocks/async. Without its required settings, e.g. a new
+  # block, it is open below the name of the block.
   def dashboard_block_settings_form(block, dashboard_block, dashboard, partial_locals)
     return if dashboard_block.async || !dashboard_block.generated_settings_form? ||
               dashboard_block.no_settings? || !dashboard.layout_editable?
 
-    render 'dashboards/blocks/settings_form', dashboard:, block:, dashboard_block:, hidden: true,
+    hidden = dashboard_block.settings_schema.valid?
+    render 'dashboards/blocks/settings_form', dashboard:, block:, dashboard_block:, hidden:, named: !hidden,
                                               fields_locals: partial_locals
   end
 

@@ -23,7 +23,6 @@ class DashboardAsyncBlocksController < ApplicationController
     helper :helpdesk
   end
 
-  rescue_from Query::StatementInvalid, with: :query_statement_invalid
   rescue_from StandardError, with: :dashboard_with_invalid_block
 
   def show
@@ -81,6 +80,23 @@ class DashboardAsyncBlocksController < ApplicationController
     @settings = @dashboard.layout_settings @block
   end
 
+  def exception_chain(exception)
+    chain = []
+    while exception && chain.exclude?(exception)
+      chain << exception
+      exception = exception.cause
+    end
+    chain
+  end
+
+  def block_heading
+    return if @dashboard.nil? || @block.blank?
+
+    @settings&.dig(:title).presence || @dashboard.content.dashboard_block(@block, dashboard: @dashboard)&.label
+  rescue StandardError
+    nil
+  end
+
   def find_project_by_project_id
     begin
       @project = Project.find params[:project_id]
@@ -92,8 +108,13 @@ class DashboardAsyncBlocksController < ApplicationController
     @project
   end
 
+  # The error takes the place of the block content, below its heading like
+  # the content. A failing query (also raised while rendering the partial) is
+  # named as such, e.g. with a filter of a plugin that is not installed.
   def dashboard_with_invalid_block(exception)
     Rails.logger.error "Invalid dashboard block for #{@block} (#{exception.class.name}): #{exception.message}"
+    @query_invalid = exception_chain(exception).any?(ActiveRecord::StatementInvalid)
+    @block_heading = block_heading
     respond_to do |format|
       format.html do
         render template: 'dashboards/block_error', layout: false

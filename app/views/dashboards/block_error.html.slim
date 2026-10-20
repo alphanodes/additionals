@@ -1,4 +1,11 @@
+/ Shown in place of the content of a block that failed, below its heading
+/ like the content, so the icons of the block stay next to it
+- if @block_heading
+  h3 = @block_heading
 p#errorExplanation
-  ' An error occurred while executing dashboard block
-  = tag.i @block
-  '  and has been logged. Please report this error to your Redmine administrator.
+  - if @query_invalid
+    = l :error_query_statement_invalid
+  - else
+    ' An error occurred while executing dashboard block
+    = tag.i @block
+    '  and has been logged. Please report this error to your Redmine administrator.

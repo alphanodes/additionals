@@ -30,4 +30,37 @@ class DashboardAsyncBlocksControllerTest < Additionals::ControllerTest
 
     assert_response :forbidden
   end
+
+  # A saved query whose SQL fails, e.g. with a filter of a plugin that is not
+  # installed, is named as such
+  def test_block_with_a_broken_query_names_the_query_error
+    request_broken_query_block
+
+    assert_select 'p#errorExplanation', text: l(:error_query_statement_invalid)
+  end
+
+  # Like the content, so the icons of the block stay next to the heading
+  def test_block_error_has_the_heading_of_the_block
+    request_broken_query_block
+
+    assert_select 'h3 + p#errorExplanation'
+  end
+
+  private
+
+  def request_broken_query_block
+    query = IssueQuery.new name: 'Broken', user: users(:users_001), visibility: Query::VISIBILITY_PUBLIC,
+                           filters: { 'missing_column' => { operator: '=', values: ['1'] } }
+    query.save! validate: false
+    dashboard = Dashboard.create! name: 'Broken query', dashboard_type: DashboardContentWelcome::TYPE_NAME,
+                                  author: users(:users_001), visibility: Dashboard::VISIBILITY_PUBLIC,
+                                  layout: { 'top' => %w[issuequery] },
+                                  layout_settings: { 'issuequery' => { query_id: query.id.to_s } }
+    @request.session[:user_id] = 1
+    # As the frontend requests a block
+    @request.headers['Accept'] = 'text/html'
+    @request.headers['X-Requested-With'] = 'XMLHttpRequest'
+
+    get :show, params: { dashboard_id: dashboard.id, block: 'issuequery' }
+  end
 end

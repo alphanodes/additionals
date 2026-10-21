@@ -83,6 +83,7 @@ pl:
   info_chart_shares: "Wykres pierścieniowy, kołowy i treemap pokazują udziały w całości: podział i porównanie są dostępne dla słupków, linii, obszarów i tabeli."
   info_chart_split_by: "Dzieli każdy wpis według drugiego pola, jako słupki lub obszary skumulowane, linie lub tabelę krzyżową. Niedostępne dla wykresów kołowych i treemap, zastępuje porównanie."
   info_chart_with_table: "Wyświetlana obok wykresu, przy widoku Tabela zawsze."
+  info_chart_with_table_calendar: "Nie przy widoku Kalendarz, który sam pokazuje wartość każdego dnia."
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". Jeśli użytkownik nie jest w roli, która jest widoczna dla bieżącego użytkownika, rola ta wraz z użytkownikiem jest ukryta na stronie przeglądu projektu i na listach zapytań.
   info_issue_hide_max_attachments: "Jeśli liczba plików wprowadzonych w tym miejscu zostanie przekroczona, wszystkie załączniki do sprawy zostaną wyświetlone jako ukryte."
   info_issue_link_category: "Łączy kategorię (na stronie sprawy i w kolumnach list spraw) z listą spraw odpowiedniego projektu filtrowaną według tej kategorii."

@@ -20,6 +20,38 @@ class SetOwnColumnsOfQueryListBlocksTest < Additionals::TestCase
     assert_equal({ query_id: queries(:queries_004).id.to_s }, dashboard.reload.layout_settings('issuequery'))
   end
 
+  # The migration runs without a user, who sees no column of a hidden field
+  def test_up_drops_the_columns_of_the_query_also_with_a_hidden_custom_field
+    User.current = nil
+    field = IssueCustomField.create! name: 'Hidden', field_format: 'string', is_for_all: true, visible: false,
+                                     role_ids: [roles(:roles_001).id]
+    columns = ['tracker', "cf_#{field.id}"]
+    queries(:queries_004).update! column_names: columns
+    dashboard = dashboard_with 'issuequery' => { query_id: queries(:queries_004).id.to_s, columns: }
+    @migration.up
+
+    assert_equal({ query_id: queries(:queries_004).id.to_s }, dashboard.reload.layout_settings('issuequery'))
+  end
+
+  # A query without columns of its own shows its defaults
+  def test_up_drops_the_default_columns_of_the_query
+    query = queries :queries_004
+    dashboard = dashboard_with 'issuequery' => { query_id: query.id.to_s, columns: query.default_columns_names.map(&:to_s) }
+    @migration.up
+
+    assert_equal({ query_id: query.id.to_s }, dashboard.reload.layout_settings('issuequery'))
+  end
+
+  # Run again, e.g. after an earlier version marked them
+  def test_up_lets_own_columns_equal_to_those_of_the_query_follow_it
+    queries(:queries_004).update! column_names: %i[tracker subject]
+    dashboard = dashboard_with 'issuequery' => { query_id: queries(:queries_004).id.to_s, own_columns: '1',
+                                                 columns: %w[tracker subject] }
+    @migration.up
+
+    assert_equal({ query_id: queries(:queries_004).id.to_s }, dashboard.reload.layout_settings('issuequery'))
+  end
+
   def test_up_marks_other_columns_as_own
     queries(:queries_004).update! column_names: %i[tracker subject]
     dashboard = dashboard_with 'issuequery' => { query_id: queries(:queries_004).id.to_s, columns: %w[subject] }

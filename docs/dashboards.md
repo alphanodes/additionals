@@ -302,7 +302,7 @@ result.errors   # => { 'feed' => { max_entries: ['must be less than or equal to 
 result.ignored  # => { 'feed' => [:chart] }, unknown keys that were dropped
 ```
 
-Entries are block ids (`feed`, `feed__2`). A block without `settings` keeps its stored settings and is not validated, like a block added with `add_block`; given settings replace the stored ones and are validated completely. Every block is checked like `add_block` does (availability, permission, `max_occurs`, no duplicates); with any error nothing changes. Locked dashboards and dashboards the user may not edit return an error under `:base`.
+Entries are block ids (`feed`, `feed__2`). A block without `settings` keeps its stored settings and is not validated, like a block added with `add_block`; given settings replace the stored ones and are validated completely. `Dashboard#merge_layout` does the same, but given settings complete the stored ones like `update_block_settings`, so `reset_by` applies, e.g. a token is dropped with another URL (for tools changing a single setting). Every block is checked like `add_block` does (availability, permission, `max_occurs`, no duplicates); with any error nothing changes. Locked dashboards and dashboards the user may not edit return an error under `:base`.
 
 A stored block the user cannot use here (a block of another project, a missing permission) stays with its settings at its position, also when it is not given: a program does not see it and would otherwise remove it for every user of the dashboard. Given back it may move; its settings cannot change here. `Dashboard#layout_export` lists it as `{ block:, available: false }` for users who may edit the dashboard.
 

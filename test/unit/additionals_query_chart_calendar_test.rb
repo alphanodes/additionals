@@ -110,8 +110,11 @@ class AdditionalsQueryChartCalendarTest < Additionals::TestCase
     end
   end
 
-  def test_calendar_shows_no_table_of_values
-    assert_not calendar_chart(with_table: '1').with_table?
+  # The settings form keeps the choice for another display type
+  def test_calendar_shows_no_table_of_values_but_keeps_the_choice
+    chart = calendar_chart with_table: '1'
+
+    assert_equal [false, true], [chart.with_table?, chart.table_chosen?]
   end
 
   def test_url_of_a_day

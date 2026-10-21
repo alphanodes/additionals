@@ -176,7 +176,7 @@ class QueryChartBlockSettingsTest < Additionals::TestCase
   def schema_for(values = {}, chart_class: nil, with_period: false)
     chart_class ||= with_period ? 'Additionals::TestPeriodIssueQueryChart' : 'Additionals::TestIssueQueryChart'
     block = block_class(chart_class).new DashboardContentProject.new(project: @project)
-    Additionals::SettingsSchema.new block.declared_settings, values, user: User.current, project: @project
+    Additionals::SettingsSchema.new block.declared_settings, values, project: @project
   end
 
   def applies?(key, values)

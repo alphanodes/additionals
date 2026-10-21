@@ -436,15 +436,25 @@ class DashboardsControllerTest < Additionals::ControllerTest
     assert_response :forbidden
   end
 
+  # The settings forms are shown only on an unlocked dashboard
   def test_update_layout_setting_on_locked_dashboard_for_editor
     @request.session[:user_id] = 1
-    @request.headers['Accept'] = 'text/html'
-    @request.headers['X-Requested-With'] = 'XMLHttpRequest'
 
     post :update_layout_setting, params: { id: dashboards(:system_default_welcome).id,
                                            settings: { 'text' => { 'text' => 'Changed' } } }
 
-    assert_response :success
+    assert_response :forbidden
+  end
+
+  # Like add_block: settings of a block the user cannot use here do not
+  # change, e.g. of a service that is disabled
+  def test_update_layout_setting_of_a_block_not_available_here
+    @request.session[:user_id] = 1
+
+    post :update_layout_setting, params: { id: dashboards(:public_welcome).id,
+                                           settings: { 'projectinformation' => { 'title' => 'Changed' } } }
+
+    assert_response :not_found
   end
 
   def test_add_block_requires_editable_dashboard
@@ -493,6 +503,7 @@ class DashboardsControllerTest < Additionals::ControllerTest
     @request.headers['X-Requested-With'] = 'XMLHttpRequest'
 
     dashboard = dashboards :system_default_welcome
+    dashboard.update_column :locked, false
 
     post :update_layout_setting,
          params: { id: dashboard.id,

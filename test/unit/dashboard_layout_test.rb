@@ -47,6 +47,13 @@ class DashboardLayoutTest < Additionals::TestCase
     assert_equal({ url: FEED_URL }, @dashboard.layout_settings('feed'))
   end
 
+  def test_merge_layout_completes_the_stored_settings
+    @dashboard.update_block_settings 'feed', url: FEED_URL
+    @dashboard.merge_layout 'left' => [{ block: 'feed', settings: { max_entries: '5' } }]
+
+    assert_equal({ url: FEED_URL, max_entries: '5' }, @dashboard.layout_settings('feed'))
+  end
+
   def test_assign_layout_drops_the_settings_of_removed_blocks
     @dashboard.update_block_settings 'feed', url: FEED_URL
     @dashboard.assign_layout 'left' => %w[news]

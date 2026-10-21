@@ -51,6 +51,11 @@ function form({ groupBy = 'status', chartType = 'doughnut', period = '', compare
       <p id="order" data-additionals-chart-settings-target="order"></p>
       <p id="max_entries" data-additionals-chart-settings-target="maxEntries"></p>
       <p id="show_empty" data-additionals-chart-settings-target="showEmpty"></p>
+      <p data-additionals-chart-settings-target="withTable">
+        <input type="hidden" id="with_table_hidden" name="settings[issue_chart][with_table]" value="0">
+        <input type="checkbox" id="with_table" name="settings[issue_chart][with_table]" value="1" checked>
+        <em id="with_table_info" data-additionals-chart-settings-target="withTableInfo"></em>
+      </p>
       <select id="period_select" data-additionals-chart-settings-target="periodSelect"
               data-action="additionals-chart-settings#update">
         ${['', 'm', 'lm'].map((value) => option(value, period)).join('')}
@@ -222,6 +227,22 @@ describe('AdditionalsChartSettingsController', () => {
     await render({ groupBy: 'created_on', chartType: 'line' });
 
     expect(element('show_empty').hidden).toBe(true);
+  });
+
+  // Neither input is sent, the stored choice stays for other display types
+  it('disables the table of values of a calendar and tells why', async () => {
+    await render({ groupBy: 'created_on', chartType: 'calendar' });
+
+    expect([element('with_table').disabled, element('with_table_hidden').disabled]).toEqual([true, true]);
+    expect(element('with_table_info').hidden).toBe(false);
+  });
+
+  it('offers the table of values again for another display type', async () => {
+    await render({ groupBy: 'created_on', chartType: 'calendar' });
+    chooseType('line');
+
+    expect([element('with_table').disabled, element('with_table_hidden').disabled]).toEqual([false, false]);
+    expect(element('with_table_info').hidden).toBe(true);
   });
 
   it('disables the period of a date field', async () => {

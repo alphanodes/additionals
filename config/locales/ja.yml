@@ -83,6 +83,7 @@ ja:
   info_chart_shares: "ドーナツグラフ、円グラフ、ツリーマップは全体に対する割合を表示します。分割と比較は棒グラフ、折れ線グラフ、面グラフ、表で使用できます。"
   info_chart_split_by: "各項目を2つ目のフィールドで分割し、積み上げ棒グラフ、積み上げ面グラフ、折れ線グラフまたはクロス集計表で表示します。円グラフとツリーマップでは使用できず、比較の代わりになります。"
   info_chart_with_table: "グラフの横に表示されます。表示形式が「表」の場合は常に表示されます。"
+  info_chart_with_table_calendar: "表示形式が「カレンダー」の場合は表示されません。カレンダー自体が各日の値を示します。"
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.
   info_issue_hide_max_attachments: "ここに入力したファイル数を超えると、issueの添付ファイルはすべて非表示になります。"
   info_issue_link_category: "issueページおよびissue一覧の列のカテゴリを、該当プロジェクトのこのカテゴリで絞り込んだissue一覧にリンクします。"

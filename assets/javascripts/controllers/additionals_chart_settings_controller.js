@@ -29,7 +29,7 @@ function hide(element, hidden) {
 class AdditionalsChartSettingsController extends Controller {
   static targets = ['groupBy', 'interval', 'classes', 'chartType', 'tile', 'series', 'sharesNote', 'order',
     'maxEntries', 'showEmpty', 'periodSelect', 'periodInfo', 'splitSelect', 'compareSelect', 'compareInfo',
-    'compareSplitInfo', 'summary'];
+    'compareSplitInfo', 'withTable', 'withTableInfo', 'summary'];
 
   static values = {
     timelineGroups: Array,
@@ -109,6 +109,7 @@ class AdditionalsChartSettingsController extends Controller {
     this.showEmptyTargets.forEach((element) => hide(element, timeline));
     this.offerPeriod(timeline);
     this.offerPreviousPeriod(timeline);
+    this.offerTable();
 
     const series = this.seriesTypesValue.includes(this.chartType());
     this.seriesTargets.forEach((element) => hide(element, !series));
@@ -132,6 +133,18 @@ class AdditionalsChartSettingsController extends Controller {
     if (this.hasPeriodInfoTarget) {
       hide(this.periodInfoTarget, !timeline);
     }
+  }
+
+  // A calendar shows the value of each day itself, the stored choice stays
+  // for the other display types: its inputs are not sent
+  offerTable() {
+    const calendar = this.chartType() === CALENDAR;
+    this.withTableTargets.forEach((element) => {
+      element.querySelectorAll('input').forEach((input) => {
+        input.disabled = calendar;
+      });
+    });
+    this.withTableInfoTargets.forEach((element) => hide(element, !calendar));
   }
 
   offerPreviousPeriod(timeline) {

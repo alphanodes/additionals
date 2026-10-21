@@ -83,6 +83,7 @@
   info_chart_shares: "環形圖、圓餅圖和樹狀圖顯示整體中的占比：拆分和比較適用於長條圖、折線圖、面積圖和表格。"
   info_chart_split_by: "依第二個欄位拆分每個項目，以堆疊長條圖、堆疊面積圖、折線圖或交叉表顯示。不適用於圓餅圖和樹狀圖，會取代比較。"
   info_chart_with_table: "顯示在圖表旁邊，顯示方式為「表格」時一律顯示。"
+  info_chart_with_table_calendar: "顯示方式為「日曆」時不顯示，日曆本身已顯示每天的值。"
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.
   info_issue_hide_max_attachments: "如果超过此处输入的文件数量，则会隐藏显示问题的所有文件附件。"
   info_issue_link_category: "將問題頁面和問題清單欄位中的類別連結到對應專案依此類別篩選的問題清單。"

@@ -19,8 +19,9 @@ module Additionals
       end
     end
 
-    def initialize(dashboard, spec)
+    def initialize(dashboard, spec, keep_settings: false)
       @dashboard = dashboard
+      @keep_settings = keep_settings
       @content = dashboard.content
       @errors = {}
       @ignored = {}
@@ -158,8 +159,9 @@ module Additionals
       end
 
       settings = @dashboard.permitted_block_settings block, settings
-      schema = @content.block_settings block, values: settings, dashboard: @dashboard
-      return settings if schema.nil?
+      stored = @keep_settings ? @dashboard.layout_settings[block].to_h : {}
+      schema = @content.block_settings block, values: settings, stored:, dashboard: @dashboard
+      return stored.merge settings if schema.nil?
 
       @ignored[block] = schema.ignored_keys if schema.ignored_keys.any?
       (@errors[block] ||= {}).merge! schema.errors unless schema.valid?

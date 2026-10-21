@@ -83,6 +83,7 @@ cs:
   info_chart_shares: "Prstencový a koláčový graf a treemap zobrazují podíly celku: rozdělení a porovnání jsou k dispozici pro sloupce, čáry, plochy a tabulku."
   info_chart_split_by: "Rozdělí každou položku podle druhého pole, jako skládané pruhy či plochy, čáry nebo křížovou tabulku. Není k dispozici u koláčových grafů a treemap, nahrazuje porovnání."
   info_chart_with_table: "Zobrazí se vedle grafu, u zobrazení Tabulka vždy."
+  info_chart_with_table_calendar: "Ne u zobrazení Kalendář, které hodnotu každého dne zobrazuje samo."
   info_hidden_roles_html: "Skryté role lze použít pouze spolu s viditelností uživatele \"Members of visible projects\". Pokud uživatel není v roli, která je viditelná pro aktuálního uživatele, je tato role včetně uživatele skryta na stránce s přehledem projektu a v seznamech dotazů."
   info_issue_hide_max_attachments: "Pokud je zde zadán vyšší počet souborů, zobrazí se všechny přílohy k danému vydání skrytě."
   info_issue_link_category: "Propojí kategorii (na stránce úkolu a ve sloupcích seznamů úkolů) se seznamem úkolů příslušného projektu filtrovaným podle této kategorie."

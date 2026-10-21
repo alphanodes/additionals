@@ -105,9 +105,14 @@ module DashboardBlocks
     # Columns of the chosen query as its settings form offers them (without a
     # project), nil without a query: then there is nothing to check. The stored
     # ones stay valid when another query of the block has not all of them,
-    # e.g. a custom field column.
+    # e.g. a custom field column. A query the user cannot see only as the
+    # stored one of the block, the errors must not tell whether another exists.
     def columns_values(schema)
-      query = query_class.find_by id: schema[:query_id] if schema[:query_id].present?
+      query_id = schema[:query_id]
+      return if query_id.blank?
+
+      scope = query_id.to_s == schema.stored(:query_id).to_s ? query_class : query_class.visible
+      query = scope.find_by id: query_id
       return if query.nil?
 
       values = query.available_columns.filter_map { |column| [column.caption, column.name.to_s] unless column.frozen? }

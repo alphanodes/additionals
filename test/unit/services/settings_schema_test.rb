@@ -265,6 +265,20 @@ class SettingsSchemaTest < Additionals::TestCase
     assert_equal({ query_id: '1', own: '1' }, schema.settings)
   end
 
+  def test_change_of_the_reset_by_setting_drops_a_stored_secret_and_keeps_a_given_one
+    definitions = { url: { type: :string }, token: { type: :string, secret: true, reset_by: :url } }
+    stored = { url: 'https://example.org', token: 'old' }
+    cases = { { url: 'https://example.net' } => { url: 'https://example.net' },
+              { url: 'https://example.net', token: 'new' } => { url: 'https://example.net', token: 'new' } }
+
+    cases.each do |values, expected|
+      schema = Additionals::SettingsSchema.new(definitions, values, stored:)
+
+      assert_equal expected, schema.settings, values.inspect
+      assert_empty schema.not_applied_keys, values.inspect
+    end
+  end
+
   def test_description_names_the_dependencies_of_a_setting
     definitions = { own: { type: :boolean }, columns: { type: :list, shown_with: :own, reset_by: :own } }
     columns = Additionals::SettingsSchema.new(definitions).describe.find { |setting| setting[:key] == :columns }

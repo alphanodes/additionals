@@ -83,6 +83,7 @@ ko:
   info_chart_shares: "도넛, 파이, 트리맵은 전체에 대한 비율을 표시합니다. 분할과 비교는 막대, 선, 영역, 표에서 사용할 수 있습니다."
   info_chart_split_by: "각 항목을 두 번째 필드로 나누어 누적 막대, 누적 영역, 선 또는 교차 표로 표시합니다. 원형 차트와 트리맵에서는 사용할 수 없으며 비교를 대신합니다."
   info_chart_with_table: "차트 옆에 표시됩니다. 표시 형식이 '표'이면 항상 표시됩니다."
+  info_chart_with_table_calendar: "표시 형식이 '달력'이면 표시되지 않습니다. 달력이 각 날짜의 값을 직접 보여 줍니다."
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". 사용자가 현재 사용자에게 보이는 역할이 아닌 경우 사용자를 포함한이 역할은 프로젝트 개요 페이지와 쿼리 목록에서 숨겨집니다.
   info_issue_hide_max_attachments: "여기에 입력한 파일 수를 초과하는 경우 이슈의 모든 첨부 파일이 숨겨져 표시됩니다."
   info_issue_link_category: "이슈 페이지와 이슈 목록 열의 카테고리를 이 카테고리로 필터링된 해당 프로젝트의 이슈 목록에 연결합니다."

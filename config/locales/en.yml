@@ -83,6 +83,7 @@ en:
   info_chart_shares: "Doughnut, pie and treemap show shares of a whole: split and comparison are available for bars, lines, areas and the table."
   info_chart_split_by: "Splits each entry by a second field, as stacked bars or areas, lines or a cross table. Not available for doughnut, pie and treemap, replaces the comparison."
   info_chart_with_table: "Shown next to the chart, always for the display type Table."
+  info_chart_with_table_calendar: "Not for the display type Calendar, which shows the value of each day itself."
   info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.
   info_issue_hide_max_attachments: If the number of files entered here is exceeding all file attachments of an issue are displayed hidden.
   info_issue_link_category: Link the category (on the issue page and in issue list columns) to the issue list of the respective project filtered by this category.

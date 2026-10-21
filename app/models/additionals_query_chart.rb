@@ -238,7 +238,13 @@ class AdditionalsQueryChart < AdditionalsChart
   def with_table?
     return false if calendar?
 
-    table_only? || settings[:with_table].nil? || RedminePluginKit.true?(settings[:with_table])
+    table_only? || table_chosen?
+  end
+
+  # The choice of the settings form, kept for a calendar: another display type
+  # shows the table again
+  def table_chosen?
+    settings[:with_table].nil? || RedminePluginKit.true?(settings[:with_table])
   end
 
   # Date filter a period of the block applies to, e.g. the day of a time

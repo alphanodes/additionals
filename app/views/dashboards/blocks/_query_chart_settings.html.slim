@@ -126,12 +126,13 @@
                                           label: :label_chart_show_empty,
                                           active_value: chart.show_empty?,
                                           tag_name: tag_name.call(:show_empty)
-        p
+        p data-additionals-chart-settings-target='withTable'
           = additionals_settings_checkbox :with_table,
                                           label: :label_table_of_values,
-                                          active_value: chart.with_table?,
+                                          active_value: chart.table_chosen?,
                                           tag_name: tag_name.call(:with_table)
           em.info = l :info_chart_with_table
+          em.info data-additionals-chart-settings-target='withTableInfo' = l :info_chart_with_table_calendar
 
   fieldset.query-chart-section
     legend

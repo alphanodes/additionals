@@ -283,6 +283,12 @@ class Dashboard < ApplicationRecord
     Additionals::DashboardLayoutAssignment.new(self, spec).call
   end
 
+  # Like assign_layout, but given settings complete the stored ones like
+  # update_block_settings, e.g. for a tool changing a single setting
+  def merge_layout(spec)
+    Additionals::DashboardLayoutAssignment.new(self, spec, keep_settings: true).call
+  end
+
   # A block of the layout as a program reads it: its id, label, typed settings
   # and data (DashboardBlocks::Base#export), without data for its layout only.
   # The settings only for a user who may edit the dashboard: stored settings

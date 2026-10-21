@@ -135,6 +135,16 @@ class DashboardBlockSettingsTest < Additionals::TestCase
     assert_equal [:columns], errors.keys
   end
 
+  # The errors do not tell whether a private query of another user exists
+  def test_query_list_block_checks_no_columns_of_a_query_the_user_cannot_see
+    User.current = users :users_002
+    [queries(:queries_003).id, 999_999].each do |query_id|
+      errors = @dashboard.update_block_settings 'issuequery', query_id: query_id.to_s, columns: %w[secret]
+
+      assert_equal [:query_id], errors.keys, query_id
+    end
+  end
+
   def test_stored_query_the_editor_cannot_see_keeps_the_block_editable
     @dashboard.layout_settings['issuequery'] = { query_id: '999999' }
 

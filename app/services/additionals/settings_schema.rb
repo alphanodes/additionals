@@ -39,7 +39,9 @@ module Additionals
   # - shown_with: key of a boolean setting; a form shows the field only while
   #   it is on, e.g. own columns of a query list
   # - reset_by: key of another setting; a given change of it drops the stored
-  #   value and ignores a given one, e.g. columns of a list with another query
+  #   value and ignores a given one, e.g. columns of a list with another query.
+  #   A secret keeps a given value, it is always entered anew: a token of a
+  #   service is not sent to another url.
   #
   # Values, labels and rules can be lambdas, they get the schema to read the
   # other values (schema[:key]) and the context (schema.context).
@@ -95,8 +97,9 @@ module Additionals
       @stored = stored.to_h.symbolize_keys
       @reset_keys = @definitions.keys.select { |key| reset_by_change? key, values }
       @stored = @stored.except(*@reset_keys)
-      @not_applied_resets = values.keys & @reset_keys
-      values = values.except(*@reset_keys)
+      ignored_resets = @reset_keys.reject { |key| @definitions[key][:secret] }
+      @not_applied_resets = values.keys & ignored_resets
+      values = values.except(*ignored_resets)
       @given_keys = values.keys
       @values = cast_values(@stored.except(*@given_keys), check: false).merge cast_values(values)
       resolve_labels

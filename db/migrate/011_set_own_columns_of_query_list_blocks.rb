@@ -6,6 +6,8 @@
 # their query from now on. A block with other columns gets own columns and
 # keeps showing them, also whenever the columns of its query cannot be read
 # (e.g. the query was deleted or belongs to a plugin no longer installed).
+# Running it again lets blocks with own columns equal to those of their query
+# follow it, too.
 class SetOwnColumnsOfQueryListBlocks < ActiveRecord::Migration[7.2]
   def up
     Dashboard.find_each do |dashboard|
@@ -33,20 +35,27 @@ class SetOwnColumnsOfQueryListBlocks < ActiveRecord::Migration[7.2]
 
     if Array(settings[key]).map(&:to_s) == columns_of_query(query_id)
       settings.delete key
+      settings.delete :own_columns
+      settings.delete 'own_columns'
     else
       settings[key.is_a?(Symbol) ? :own_columns : 'own_columns'] = '1'
     end
     true
   end
 
-  # The columns the query shows, its defaults if it has none, without those
-  # always shown (frozen, e.g. the id) like the column selection; nil if they
-  # cannot be read
+  # The columns stored with the query, its defaults if it has none, without
+  # those always shown (frozen, e.g. the id) like the column selection; nil if
+  # they cannot be read. Not the columns it shows: these depend on the user,
+  # e.g. custom fields, and the migration runs without one. The block set
+  # exactly these names on the query, so it shows the same for every user.
   def columns_of_query(query_id)
     query = Query.find_by id: query_id
     return if query.nil?
 
-    query.columns.filter_map { |column| column.name.to_s unless column.frozen? }
+    frozen = query.available_columns.filter_map { |column| column.name if column.frozen? }
+    (Array(query.column_names).presence || query.default_columns_names).filter_map do |name|
+      name.to_s unless frozen.include? name.to_sym
+    end
   rescue StandardError
     nil
   end

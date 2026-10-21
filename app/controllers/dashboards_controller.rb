@@ -5,8 +5,7 @@ class DashboardsController < ApplicationController
 
   before_action :find_dashboard, except: %i[index new create]
   # Same rules as the controls on the dashboard page
-  before_action :require_editable, only: %i[update_layout_setting chart_summary]
-  before_action :require_layout_editable, only: %i[add_block remove_block order_blocks]
+  before_action :require_layout_editable, only: %i[add_block remove_block order_blocks update_layout_setting chart_summary]
   before_action :find_optional_project, only: %i[index new create]
 
   accept_api_auth :index, :show, :create, :update, :destroy
@@ -177,6 +176,8 @@ class DashboardsController < ApplicationController
   # Invalid settings are not saved, the open settings form shows the errors
   def update_layout_setting
     block_settings = params[:settings] || {}
+    # Like add_block: only blocks the user can use here
+    return render_404 unless block_settings.keys.all? { |block| @dashboard.content.find_block block }
 
     @block_errors = {}
     block_settings.each do |block, settings|
@@ -242,10 +243,6 @@ class DashboardsController < ApplicationController
   end
 
   private
-
-  def require_editable
-    render_403 unless @dashboard.editable?
-  end
 
   def require_layout_editable
     render_403 unless @dashboard.layout_editable?

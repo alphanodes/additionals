@@ -27,7 +27,7 @@ DEFINITIONS = {
 | `if` | Whether the setting exists in the context at all, otherwise it counts as an unknown key |
 | `applies` | Whether the setting applies to the other values |
 | `shown_with` | Key of a boolean setting: a form shows the field only while it is on, a hidden field is not sent |
-| `reset_by` | Key of another setting: a given change of it drops the stored value and ignores a given one (`not_applied_keys`) |
+| `reset_by` | Key of another setting: a given change of it drops the stored value and ignores a given one (`not_applied_keys`); a `secret` keeps a given value, e.g. a token with `reset_by: :url` |
 | `field` | Partial of its field in a form built from the settings (dashboard blocks), for a setting the fields of the types cannot show |
 | `secret` | A token, key or password: `describe` leaves out its value, a form built from the settings never fills it in |
 

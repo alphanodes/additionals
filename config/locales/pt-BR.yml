@@ -83,6 +83,7 @@ pt-BR:
   info_chart_shares: "Rosca, pizza e treemap mostram partes de um todo: divisão e comparação estão disponíveis para barras, linhas, áreas e a tabela."
   info_chart_split_by: "Divide cada entrada por um segundo campo, como barras ou áreas empilhadas, linhas ou tabela cruzada. Indisponível em gráficos de pizza e treemap, substitui a comparação."
   info_chart_with_table: "Exibida ao lado do gráfico, sempre com a exibição Tabela."
+  info_chart_with_table_calendar: "Não com a exibição Calendário, que já mostra o valor de cada dia."
   info_hidden_roles_html: "As funções ocultas só podem ser usadas junto com a visibilidade do usuário \"Members of visible projects\". Se o usuário não estiver em uma função que seja visível para o usuário atual, esta função, incluindo o usuário, está oculta na página de síntese do projeto e nas listas de consulta."
   info_issue_hide_max_attachments: "Se o número de arquivos inserido aqui for excedido, todos os anexos de arquivos de um problema serão exibidos ocultos."
   info_issue_link_category: "Vincula a categoria (na página do problema e nas colunas das listas de problemas) à lista de problemas do respectivo projeto filtrada por esta categoria."

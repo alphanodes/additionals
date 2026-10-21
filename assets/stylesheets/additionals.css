@@ -28,8 +28,13 @@ input[type='search']:active#search {
   font-size: var(--a-font-size-md);
 }
 
-span.dashboard-locked {
+/* The lock of a locked dashboard unlocks it, hovered like a link */
+a.dashboard-locked svg.icon-svg {
   stroke: var(--a-color-dark);
+}
+
+a.dashboard-locked:hover svg.icon-svg {
+  stroke: var(--oc-red-9);
 }
 
 fieldset.hide-attachments {

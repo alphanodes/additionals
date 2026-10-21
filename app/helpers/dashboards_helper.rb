@@ -219,6 +219,35 @@ module DashboardsHelper
     link_to sprite_icon('del', entity_headline(object_name: :label_dashboard, type: :delete)), url, options
   end
 
+  # Locks or unlocks the dashboard, an entry of its actions menu
+  def dashboard_lock_link(dashboard, project = nil)
+    if dashboard.locked?
+      link_to svg_icon_tag('unlock', label: :label_dashboard_unlock, plugin: ''),
+              dashboard_lock_action_path(dashboard, project, unlock: true),
+              data: { confirm: l(:text_dashboard_unlock_confirmation) }, method: :put, class: 'icon icon-unlock'
+    else
+      link_to svg_icon_tag('lock', label: :label_dashboard_lock, plugin: ''),
+              dashboard_lock_action_path(dashboard, project, unlock: false),
+              data: { confirm: l(:text_dashboard_lock_confirmation) }, method: :put, class: 'icon icon-lock'
+    end
+  end
+
+  # The lock shown on a locked dashboard, a click unlocks it like the entry
+  # of the actions menu
+  def dashboard_locked_icon(dashboard, project = nil)
+    link_to svg_icon_tag('lock', plugin: ''), dashboard_lock_action_path(dashboard, project, unlock: true),
+            data: { confirm: l(:text_dashboard_unlock_confirmation) }, method: :put,
+            class: 'dashboard-locked', title: l(:label_dashboard_unlock_by_click)
+  end
+
+  def dashboard_lock_action_path(dashboard, project, unlock:)
+    if project
+      unlock ? unlock_project_dashboard_path(project, dashboard) : lock_project_dashboard_path(project, dashboard)
+    else
+      unlock ? unlock_dashboard_path(dashboard) : lock_dashboard_path(dashboard)
+    end
+  end
+
   # Returns the select tag used to add or remove a block
   #
   # The change is routed straight to the surrounding form's `remote-form`

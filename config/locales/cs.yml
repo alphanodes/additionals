@@ -168,6 +168,7 @@ cs:
   label_dashboard_lock_is_active: "Dashboard Zámek je aktivní"
   label_dashboard_plural: Dashboards
   label_dashboard_unlock: Odstranit zámek dashboardu
+  label_dashboard_unlock_by_click: "Zámek dashboardu je aktivní, kliknutím jej odstraníte"
   label_day: den
   label_default_sort_by: "Výchozí třídění podle"
   label_disable_sidebar: "Zakázat sidebar"

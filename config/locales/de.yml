@@ -168,6 +168,7 @@ de:
   label_dashboard_lock_is_active: Dashboard Schutz ist aktiv
   label_dashboard_plural: Dashboards
   label_dashboard_unlock: Dashboard Schutz entfernen
+  label_dashboard_unlock_by_click: "Dashboard Schutz ist aktiv, klicken zum Entfernen"
   label_day: Tag
   label_default_sort_by: Standard-Sortierreihenfolge
   label_disable_sidebar: Sidebar deaktivieren

@@ -36,6 +36,26 @@ class WelcomeControllerTest < Additionals::ControllerTest
     assert_select 'form[action*=?][onsubmit*=?]', 'update_layout_setting', 'selected_'
   end
 
+  # The lock of a locked dashboard unlocks it like the entry of the actions menu
+  def test_lock_of_a_locked_dashboard_unlocks_it
+    @request.session[:user_id] = 1
+    get :index
+
+    assert_response :success
+    path = unlock_dashboard_path(dashboards(:system_default_welcome))
+
+    assert_select 'a.dashboard-locked[href=?][data-method=put][data-confirm]', path
+    assert_select 'a.icon-unlock[href=?]', path
+  end
+
+  def test_no_lock_for_those_who_cannot_edit_the_dashboard
+    @request.session[:user_id] = 2
+    get :index
+
+    assert_response :success
+    assert_select 'a.dashboard-locked', 0
+  end
+
   # Blocks added without a page reload bring the toolbar call of their text field, but
   # not the toolbar library, which the page has to provide.
   def test_index_loads_wiki_toolbar_on_editable_dashboard

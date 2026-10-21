@@ -168,6 +168,7 @@ pt-BR:
   label_dashboard_lock_is_active: "Dashboard Lock está ativo"
   label_dashboard_plural: Dashboards
   label_dashboard_unlock: Remover bloqueio do dashboard
+  label_dashboard_unlock_by_click: "O bloqueio do dashboard está ativo, clique para removê-lo"
   label_day: dia
   label_default_sort_by: "Classificação padrão por"
   label_disable_sidebar: "Desativar sidebar"

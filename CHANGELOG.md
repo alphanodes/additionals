@@ -19,6 +19,7 @@
 - Plugins declare the options they add to saved queries
 - Dashboards API shows block settings only to users who may edit the dashboard
 - Only users who may edit a dashboard can change its layout and block settings
+- A click on the lock of a locked dashboard unlocks it
 - Private dashboards of other users are no longer accessible to admins
 - Deleting a project deletes all its dashboards, deleting a user keeps their public dashboards
 - Feed block reads http and https only, with limits for redirects, time and size

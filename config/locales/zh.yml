@@ -168,6 +168,7 @@ zh:
   label_dashboard_lock_is_active: "Dashboard 锁定已激活"
   label_dashboard_plural: 仪表盘
   label_dashboard_unlock: 移除仪表盘锁定
+  label_dashboard_unlock_by_click: "仪表盘锁定已启用，点击即可移除"
   label_day: 天
   label_default_sort_by: "默认排序方式"
   label_disable_sidebar: 禁用侧边栏

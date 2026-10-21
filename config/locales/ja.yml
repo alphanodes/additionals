@@ -168,6 +168,7 @@ ja:
   label_dashboard_lock_is_active: "Dashboard ロックが有効"
   label_dashboard_plural: Dashboards
   label_dashboard_unlock: ダッシュボードのロックを解除
+  label_dashboard_unlock_by_click: "ダッシュボードのロックが有効です。クリックで解除します"
   label_day: "日"
   label_default_sort_by: "デフォルトの並べ替え"
   label_disable_sidebar: "サイドバーを無効にする"

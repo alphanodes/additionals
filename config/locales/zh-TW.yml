@@ -168,6 +168,7 @@
   label_dashboard_lock_is_active: "Dashboard 锁定已激活"
   label_dashboard_plural: Dashboards
   label_dashboard_unlock: 移除儀表板鎖定
+  label_dashboard_unlock_by_click: "儀表板鎖定已啟用，點擊即可移除"
   label_day: 天
   label_default_sort_by: "預設排序方式"
   label_disable_sidebar: Disable sidebar

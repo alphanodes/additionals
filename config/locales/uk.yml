@@ -168,6 +168,7 @@ uk:
   label_dashboard_lock_is_active: "Dashboard Блокування  активне"
   label_dashboard_plural: Dashboards
   label_dashboard_unlock: Зняти блокування панелі
+  label_dashboard_unlock_by_click: "Блокування панелі активне, натисніть, щоб зняти його"
   label_day: "день"
   label_default_sort_by: "Сортування  по замовчуванню"
   label_disable_sidebar: "Відключити бокову панель"

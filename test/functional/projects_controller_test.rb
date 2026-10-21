@@ -63,6 +63,18 @@ class ProjectsControllerTest < Additionals::ControllerTest
     assert_select 'p.warning span.icon-lock', 1
   end
 
+  # The lock of a locked dashboard unlocks it like the entry of the actions menu
+  def test_lock_of_a_locked_dashboard_unlocks_it
+    @request.session[:user_id] = 1
+    get :show, params: { id: 1 }
+
+    assert_response :success
+    path = unlock_project_dashboard_path(projects(:projects_001), dashboards(:system_default_project))
+
+    assert_select 'a.dashboard-locked[href=?][data-method=put][data-confirm]', path
+    assert_select 'a.icon-unlock[href=?]', path
+  end
+
   def test_show_with_invalid_dashboard
     get :show,
         params: { id: 1,

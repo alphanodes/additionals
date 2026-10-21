@@ -168,6 +168,7 @@ ko:
   label_dashboard_lock_is_active: "Dashboard 잠금이 활성화됨"
   label_dashboard_plural: Dashboards
   label_dashboard_unlock: 대시보드 잠금 해제
+  label_dashboard_unlock_by_click: "대시보드 잠금이 활성화되어 있습니다. 클릭하면 해제됩니다"
   label_day: 일
   label_default_sort_by: "기본 정렬 기준"
   label_disable_sidebar: "사이드바 비활성화"

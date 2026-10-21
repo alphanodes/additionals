@@ -295,7 +295,7 @@ module DashboardsHelper
     if dashboard.layout_editable?
       icons = []
       # A new block has its settings form open, closing it would leave it empty
-      unless dashboard_block.no_settings? || new_dashboard_block?(dashboard_block, settings)
+      unless dashboard_block.no_settings? || dashboard_block.new_block?
         icons << link_to_function(sprite_icon('settings', l(:label_options)),
                                   "$('##{block}-settings').toggle()",
                                   class: 'icon-only icon-settings',
@@ -426,19 +426,6 @@ module DashboardsHelper
     nil
   end
 
-  def dashboard_async_required_settings?(settings, async)
-    return true if async[:required_settings].blank?
-    return false if settings.blank?
-    # A proc decides itself, e.g. for blocks that need one of several settings
-    return async[:required_settings].call settings if async[:required_settings].respond_to? :call
-
-    async[:required_settings].each do |required_setting|
-      return false if settings.exclude?(required_setting) || settings[required_setting].blank?
-    end
-
-    true
-  end
-
   def dashboard_query_list_block_title(query, query_block, project)
     title = []
     title << query.project if project.nil? && query.project
@@ -554,18 +541,7 @@ module DashboardsHelper
     content_tag wide ? :div : :p, field, data:, class: ('hidden' if hidden)
   end
 
-  # A block added but never set up: it misses its required settings and has
-  # no stored settings. Its settings form is open without a settings icon, and
-  # cancel removes it again. A block that only lost a required setting is no
-  # new block, its other settings would be lost.
-  def new_dashboard_block?(dashboard_block, settings)
-    return false if settings.present? || dashboard_block.no_settings?
-
-    async = dashboard_block.async
-    async ? !dashboard_async_required_settings?(settings, async) : !dashboard_block.settings_schema.valid?
-  end
-
-  # Cancel closes the settings form, a new block (see new_dashboard_block?)
+  # Cancel closes the settings form, a new block (see DashboardBlocks::Base#new_block?)
   # is removed again instead, without asking: nothing was set up.
   def dashboard_block_settings_cancel_link(dashboard, block, new_block:)
     return link_to_function l(:button_cancel), "$('##{block}-settings').toggle()" unless new_block
@@ -661,7 +637,7 @@ module DashboardsHelper
 
     hidden = dashboard_block.settings_schema.valid?
     render 'dashboards/blocks/settings_form', dashboard:, block:, dashboard_block:, hidden:, named: !hidden,
-                                              new_block: new_dashboard_block?(dashboard_block, partial_locals[:settings]),
+                                              new_block: dashboard_block.new_block?,
                                               fields_partial: dashboard_block.settings_partial,
                                               fields_locals: partial_locals
   end

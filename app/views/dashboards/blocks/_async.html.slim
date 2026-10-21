@@ -1,4 +1,4 @@
-- with_async = dashboard_async_required_settings? settings, async
+- with_async = dashboard_block.async_settings_complete?
 
 - unless with_async
   h3 = settings[:title].presence || dashboard_block.label
@@ -7,7 +7,7 @@
 - if dashboard.layout_editable? && !dashboard_block.no_settings?
   = render 'dashboards/blocks/settings_form',
            dashboard:, block:, dashboard_block:, hidden: with_async,
-           new_block: new_dashboard_block?(dashboard_block, settings),
+           new_block: dashboard_block.new_block?,
            fields_partial: dashboard_block.settings_partial,
            fields_locals: build_dashboard_partial_locals(block, settings, dashboard).merge(with_async:)
 
@@ -25,5 +25,5 @@
       $('#ajax-indicator').hide();
     })
 / The open settings form of a new block tells what is missing
-- elsif !(dashboard.layout_editable? && new_dashboard_block?(dashboard_block, settings))
+- elsif !(dashboard.layout_editable? && dashboard_block.new_block?)
   p.nodata = l :label_no_data

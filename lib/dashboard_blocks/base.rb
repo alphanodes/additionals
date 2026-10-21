@@ -269,6 +269,27 @@ module DashboardBlocks
                                                            stored: @stored_settings, project:, dashboard: @dashboard
     end
 
+    # Whether an async block has the settings it needs to load (required_settings
+    # of async), a proc decides itself, e.g. for one of several settings
+    def async_settings_complete?
+      required = async&.dig :required_settings
+      return true if required.blank?
+      return false if @stored_settings.blank?
+      return required.call @stored_settings if required.respond_to? :call
+
+      required.all? { |key| @stored_settings[key].present? }
+    end
+
+    # A block added but never set up: it misses its required settings and has
+    # no stored settings. Its settings form is open without a settings icon, and
+    # cancel removes it again. A block that only lost a required setting is no
+    # new block, its other settings would be lost.
+    def new_block?
+      return false if @stored_settings.present? || no_settings?
+
+      async ? !async_settings_complete? : !settings_schema.valid?
+    end
+
     private
 
     # Without a title a block shows its label, e.g. as heading

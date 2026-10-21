@@ -154,7 +154,47 @@ class DashboardBlocksTest < Additionals::TestCase
     assert_equal %i[subject], query.column_names
   end
 
+  def test_async_settings_complete
+    one_of = ->(settings) { settings[:a].present? || settings[:b].present? }
+    cases = [[%i[text], { text: 'Foo' }, true],
+             [%i[text], { text: '' }, false],
+             [%i[text], {}, false],
+             [nil, {}, true],
+             [one_of, { b: 'Foo' }, true],
+             [one_of, { c: 'Foo' }, false]]
+
+    cases.each do |required, settings, complete|
+      block = async_block(required).new DashboardContentWelcome.new, settings: settings
+
+      assert_equal complete, block.async_settings_complete?, [required, settings].inspect
+    end
+  end
+
+  # A new block has its settings form open, cancel removes it again
+  def test_new_block
+    sync = Class.new(DashboardBlocks::Base) { setting :text, type: :string, required: true }
+    without = Class.new(DashboardBlocks::Base) { no_settings! }
+    cases = [[async_block(%i[text]), {}, true],
+             [async_block(%i[text]), { text: '' }, false],
+             [async_block(nil), {}, false],
+             [sync, {}, true],
+             [sync, { text: 'Foo' }, false],
+             [without, {}, false]]
+
+    cases.each_with_index do |(block_class, settings, new_block), index|
+      block = block_class.new DashboardContentWelcome.new, settings: settings
+
+      assert_equal new_block, block.new_block?, "case #{index}"
+    end
+  end
+
   private
+
+  def async_block(required)
+    Class.new DashboardBlocks::Base do
+      async partial: 'dashboards/blocks/text_async', required_settings: required
+    end
+  end
 
   def query_list(**settings)
     DashboardContentWelcome.new.dashboard_block 'issuequery', settings: { query_id: queries(:queries_004).id.to_s, **settings }

@@ -216,6 +216,17 @@ class GlobalHelperTest < Additionals::HelperTest
     assert_includes @redmine_view.entity_mail_attachments(issue.reload, nil), attachment
   end
 
+  # An entity that keeps its avatar as an attachment tells so by avatar_attachment?
+  def test_entity_mail_attachments_leave_out_the_avatar
+    issue = issues :issues_001
+    avatar = Attachment.create! container: issue,
+                                file: uploaded_test_file('testfile.txt', 'text/plain'),
+                                author: users(:users_001)
+    issue.reload.define_singleton_method(:avatar_attachment?) { |attachment| attachment == avatar }
+
+    assert_not_includes @redmine_view.entity_mail_attachments(issue, nil), avatar
+  end
+
   def test_entity_mail_attachments_returns_only_journal_added
     issue = issues :issues_001
     added = Attachment.create! container: issue,

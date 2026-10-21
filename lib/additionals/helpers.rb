@@ -400,7 +400,8 @@ module Additionals
     # added in this journal - so the notification shows what this change added,
     # not the entity's whole attachment history.
     def entity_mail_attachments(entity, journal)
-      return entity.attachments if journal.nil?
+      # An entity may keep its avatar as an attachment, which is no file of it
+      return entity.attachments.reject { |attachment| entity_avatar_attachment? entity, attachment } if journal.nil?
 
       added_ids = journal.details.filter_map do |detail|
         detail.prop_key.to_i if detail.property == 'attachment' && detail.value.present?
@@ -447,6 +448,10 @@ module Additionals
     end
 
     private
+
+    def entity_avatar_attachment?(entity, attachment)
+      entity.respond_to?(:avatar_attachment?) && entity.avatar_attachment?(attachment)
+    end
 
     def render_recently_updated_wiki_page_group(pages)
       tag.ul class: 'wiki-flat' do

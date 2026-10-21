@@ -91,7 +91,6 @@ module Additionals
       Bullet.add_safelist type: :n_plus_one_query, class_name: 'TimeEntry', association: :automation_schedule
       Bullet.add_safelist type: :n_plus_one_query, class_name: 'TimeEntry', association: :reporting_cost
       Bullet.add_safelist type: :n_plus_one_query, class_name: 'Tracker', association: :default_status
-      Bullet.add_safelist type: :n_plus_one_query, class_name: 'User', association: :local_avatar
       Bullet.add_safelist type: :n_plus_one_query, class_name: 'User', association: :preference
       Bullet.add_safelist type: :n_plus_one_query, class_name: 'Version', association: :attachments
       Bullet.add_safelist type: :n_plus_one_query, class_name: 'WikiContent', association: :page

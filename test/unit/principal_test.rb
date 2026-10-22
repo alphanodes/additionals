@@ -74,6 +74,46 @@ class PrincipalTest < Additionals::TestCase
                     'assignable_for_issues with groups must include at least as many principals as without groups'
   end
 
+  def test_visible_for_members_of_visible_projects_hides_members_of_hidden_roles
+    viewer = prepare_members_of_visible_projects_viewer
+
+    assert_equal [2, 3, 7], Principal.visible(viewer).order(:id).ids
+  end
+
+  def test_visible_for_members_of_visible_projects_with_show_hidden_roles_in_memberbox
+    viewer = prepare_members_of_visible_projects_viewer show_hidden_roles: true
+
+    assert_equal [2, 3, 4, 7], Principal.visible(viewer).order(:id).ids
+  end
+
+  def test_visible_for_user_with_a_role_with_all_users_visibility
+    viewer = prepare_members_of_visible_projects_viewer
+    Member.create! project: projects(:projects_002), principal: viewer, roles: [roles(:roles_002)]
+
+    assert_equal Principal.active.order(:id).ids, Principal.visible(viewer).order(:id).ids
+
+    # A role of an archived project does not count
+    assert projects(:projects_002).archive
+
+    assert_equal [2, 3, 7], Principal.visible(viewer.reload).order(:id).ids
+  end
+
+  def test_assignable_for_issues_for_members_of_visible_projects
+    User.current = prepare_members_of_visible_projects_viewer
+    project = projects :projects_001
+
+    assert_equal [2, 3, 7], Principal.assignable_for_issues(project).order(:id).ids
+    assert_equal [2, 3, 7], Principal.assignable_for_issues.order(:id).ids
+  end
+
+  def test_assignable_for_issues_for_members_of_visible_projects_with_show_hidden_roles_in_memberbox
+    User.current = prepare_members_of_visible_projects_viewer show_hidden_roles: true
+    project = projects :projects_001
+
+    assert_equal [2, 3, 4, 7], Principal.assignable_for_issues(project).order(:id).ids
+    assert_equal [2, 3, 4, 7], Principal.assignable_for_issues.order(:id).ids
+  end
+
   def test_assignable_for_issues_is_sortable
     project = projects :projects_005
     ids = Principal.assignable_for_issues(project).sorted.pluck(:id)
@@ -81,5 +121,24 @@ class PrincipalTest < Additionals::TestCase
 
     assert_equal expected, ids,
                  'assignable_for_issues does not respect Principal.sorted order when chained'
+  end
+
+  private
+
+  # Viewer (users_007) sees the members of the public projects 1, 3, 4 and 6: users_002 and
+  # users_003 (users_005 is locked) plus users_004 with a hidden role. The members of the
+  # private projects 2 and 5 (users_001, users_008, the groups) stay invisible.
+  def prepare_members_of_visible_projects_viewer(show_hidden_roles: false)
+    permissions = %i[view_project view_issues]
+    permissions << :show_hidden_roles_in_memberbox if show_hidden_roles
+    role = Role.generate! users_visibility: 'members_of_visible_projects', assignable: true, permissions: permissions
+    hidden_role = Role.generate! users_visibility: 'members_of_visible_projects', assignable: true, hide: true
+
+    project = projects :projects_001
+    viewer = users :users_007
+    Member.create! project: project, principal: viewer, roles: [role]
+    Member.create! project: project, principal: users(:users_004), roles: [hidden_role]
+
+    viewer
   end
 end

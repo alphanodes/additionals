@@ -44,9 +44,9 @@ module Additionals
             all
           else
             view_all_active = if user.memberships.any?
-                                user.memberships
-                                    .includes([:roles])
-                                    .any? { |m| m.roles.any? { |r| r.users_visibility == 'all' } }
+                                User.where(id: user.id)
+                                    .joins(memberships: :roles)
+                                    .exists?(roles: { users_visibility: 'all' })
                               else
                                 user.builtin_role.users_visibility == 'all'
                               end
@@ -54,22 +54,21 @@ module Additionals
             if view_all_active
               active
             else
-              # self and members of visible projects
-              scope = if user.allowed_to? :show_hidden_roles_in_memberbox, nil, global: true
-                        active.where("#{table_name}.id = ? OR #{table_name}.id IN (SELECT user_id " \
-                                     "FROM #{Member.table_name} WHERE project_id IN (?))",
-                                     user.id, user.visible_project_ids)
-                      else
-                        active.where("#{table_name}.id = ? OR #{table_name}.id IN (SELECT user_id " \
-                                     "FROM #{Member.table_name} JOIN #{MemberRole.table_name} " \
-                                     " ON #{Member.table_name}.id = #{MemberRole.table_name}.member_id" \
-                                     " JOIN #{Role.table_name} " \
-                                     " ON #{Role.table_name}.id = #{MemberRole.table_name}.role_id" \
-                                     " WHERE project_id IN (?) AND #{Role.table_name}.hide = ?)",
-                                     user.id, user.visible_project_ids, false)
-                      end
-
-              scope
+              # Self and members of visible projects. A correlated EXISTS instead of
+              # "id IN (SELECT user_id ...)": with many memberships the IN subquery
+              # materializes nearly all members rows. Own aliases, because
+              # assignable_for_issues already joins members, member_roles and roles.
+              if user.allowed_to? :show_hidden_roles_in_memberbox, nil, global: true
+                active.where("#{table_name}.id = ? OR EXISTS (SELECT 1 FROM #{Member.table_name} vm" \
+                             " WHERE vm.user_id = #{table_name}.id AND vm.project_id IN (?))",
+                             user.id, user.visible_project_ids)
+              else
+                active.where("#{table_name}.id = ? OR EXISTS (SELECT 1 FROM #{Member.table_name} vm" \
+                             " JOIN #{MemberRole.table_name} vmr ON vmr.member_id = vm.id" \
+                             " JOIN #{Role.table_name} vr ON vr.id = vmr.role_id" \
+                             " WHERE vm.user_id = #{table_name}.id AND vm.project_id IN (?) AND vr.hide = ?)",
+                             user.id, user.visible_project_ids, false)
+              end
             end
           end
         }

@@ -78,7 +78,7 @@ Uninstall all plugins that depend on `additionals` first.
 
 | Library | Version |
 | ------- | ------- |
-| [Chart.js](https://github.com/chartjs/Chart.js) | 4.5.1 |
+| [Chart.js](https://github.com/chartjs/Chart.js) | 4.6.1 |
 | [Chart.js plugin annotation](https://github.com/chartjs/chartjs-plugin-annotation) | 3.1.0 |
 | [Chart.js plugin colorschemes](https://github.com/nagix/chartjs-plugin-colorschemes) (patched for Chart.js 3+) | 0.4.0 |
 | [Chart.js plugin datalabels](https://github.com/chartjs/chartjs-plugin-datalabels) | 2.2.0 |

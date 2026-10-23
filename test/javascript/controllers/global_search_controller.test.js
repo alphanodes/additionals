@@ -439,6 +439,37 @@ describe('GlobalSearchController', () => {
       // Item should not have project since none was provided
       expect(items[1].querySelector('.global-search-item-project')).toBeNull();
     });
+
+    // The server searched only titles for short words: the dialog says so, and the link to
+    // the search page asks for titles as well, so the page counts what the dialog counted
+    it('tells when the server searched only titles for short words', () => {
+      ctx.i18n.shortWordsTitlesOnly = 'Only titles';
+      const data = { ...wrapKeyword([{ title: 'DP list', url: '/issues/1', type: 'Issues' }]), titles_only: true };
+
+      GlobalSearchController.prototype.renderResults.call(ctx, data, 'DP');
+
+      expect(ctx.resultsTarget.querySelector('.global-search-short-words').textContent).toBe('Only titles');
+      expect(ctx.resultsTarget.querySelector('.global-search-core-link a').getAttribute('href')).toContain('titles_only=1');
+    });
+
+    it('leaves the notice out when the user asked for titles only', () => {
+      ctx.titlesOnlyActive = true;
+      const data = { ...wrapKeyword([{ title: 'DP list', url: '/issues/1', type: 'Issues' }]), titles_only: true };
+
+      GlobalSearchController.prototype.renderResults.call(ctx, data, 'DP');
+
+      expect(ctx.resultsTarget.querySelector('.global-search-short-words')).toBeNull();
+    });
+
+    it('searches the full text again once a word is long enough', () => {
+      ctx.titlesOnlyForced = true;
+      const data = { ...wrapKeyword([{ title: 'DP9 list', url: '/issues/1', type: 'Issues' }]), titles_only: false };
+
+      GlobalSearchController.prototype.renderResults.call(ctx, data, 'DP9');
+
+      expect(ctx.resultsTarget.querySelector('.global-search-short-words')).toBeNull();
+      expect(ctx.resultsTarget.querySelector('.global-search-core-link a').getAttribute('href')).not.toContain('titles_only');
+    });
   });
 
   describe('search type tabs', () => {
@@ -2042,6 +2073,7 @@ describe('GlobalSearchController', () => {
         scopeSuffix: GlobalSearchController.prototype.scopeSuffix,
         coreSearchScope: GlobalSearchController.prototype.coreSearchScope,
         coreSearchParams: GlobalSearchController.prototype.coreSearchParams,
+        searchesTitlesOnly: GlobalSearchController.prototype.searchesTitlesOnly,
         hitsBehindTheLink: GlobalSearchController.prototype.hitsBehindTheLink,
         typeCounts: null,
         projectIdValue: '',

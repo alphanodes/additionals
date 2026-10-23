@@ -12,6 +12,8 @@ module AdditionalsGlobalSearchHelper
       'search-label': l(:label_search),
       'recent-searches': l(:label_global_search_recent_searches),
       'recent-projects': l(:label_global_search_recent_projects),
+      'short-words-titles-only': l(:label_global_search_short_words_titles_only,
+                                   value: GlobalSearch::MIN_FULL_TEXT_LENGTH),
       'clear-all': l(:label_global_search_clear_all),
       'scope-all': l(:label_global_search_in_all_projects),
       'scope-bookmarks': l(:label_global_search_in_my_bookmarks),

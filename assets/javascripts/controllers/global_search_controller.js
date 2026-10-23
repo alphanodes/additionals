@@ -39,11 +39,13 @@ class GlobalSearchController extends Controller {
       recentSearches: this.element.dataset.recentSearches || 'Recently searched',
       recentProjects: this.element.dataset.recentProjects || 'Recently used projects',
       clearAll: this.element.dataset.clearAll || 'Clear all',
+      shortWordsTitlesOnly: this.element.dataset.shortWordsTitlesOnly || 'Only titles are searched for short words',
     };
 
     this.defaultPlaceholder = this.hasInputTarget ? this.inputTarget.placeholder : '';
     this.activeSearchType = null;
     this.titlesOnlyActive = false;
+    this.titlesOnlyForced = false;
     this.initScope();
     this.initTitlesOnly();
 
@@ -482,6 +484,9 @@ class GlobalSearchController extends Controller {
       this.typeCountsKey = contextKey;
     }
     const semanticPending = !data.jump && this.semanticApplies(query, keyword.length);
+    // The server searches only titles for short words. The links to the search page then
+    // have to do the same, or the page lists more hits than the dialog counted.
+    this.titlesOnlyForced = Boolean(data.titles_only) && !this.titlesOnlyActive;
 
     this.keywordUrls = new Set(keyword.map(item => item.url));
     this.hasResults = hasKeyword;
@@ -491,6 +496,7 @@ class GlobalSearchController extends Controller {
     if (query) {
       html += this.renderSearchTypeTabs();
       html += this.renderCoreSearchLink(query);
+      html += this.renderShortWordsNotice();
     }
 
     if (!hasKeyword && !semanticPending && query) {
@@ -524,6 +530,18 @@ class GlobalSearchController extends Controller {
     const semanticIcon = this.element.dataset.semanticIcon || '';
     return '<div class="global-search-section-header global-search-semantic-header">' +
       `<span>${semanticIcon} ${this.escapeHtml(label || '')}</span></div>`;
+  }
+
+  renderShortWordsNotice() {
+    if (!this.titlesOnlyForced) {
+      return '';
+    }
+
+    return `<p class="global-search-short-words">${this.escapeHtml(this.i18n.shortWordsTitlesOnly)}</p>`;
+  }
+
+  searchesTitlesOnly() {
+    return this.titlesOnlyActive || this.titlesOnlyForced;
   }
 
   renderNoResults() {
@@ -619,7 +637,7 @@ class GlobalSearchController extends Controller {
     if (this.currentScope === 'project' && this.projectIdValue) {
       params.set('project_id', this.projectIdValue);
     }
-    if (this.titlesOnlyActive) {
+    if (this.searchesTitlesOnly()) {
       params.set('titles_only', '1');
     }
     if (this.activeSearchType) {
@@ -637,7 +655,7 @@ class GlobalSearchController extends Controller {
 
     const safeQuery = this.escapeHtml(query);
     const searchLabel = this.element.dataset.searchLabel || 'Search';
-    const titlesPrefix = this.titlesOnlyActive
+    const titlesPrefix = this.searchesTitlesOnly()
       ? (this.element.dataset.titlesOnlyPrefix || 'in titles')
       : null;
     const suffix = this.scopeSuffix();

@@ -190,6 +190,7 @@ ru:
   label_global_search_placeholder: "Введите для поиска..."
   label_global_search_recent_projects: "Недавно использованные проекты"
   label_global_search_recent_searches: "Недавние поиски"
+  label_global_search_short_words_titles_only: "Слова короче %{value} символов ищутся только в заголовках"
   label_global_sidebar: "Глобальная боковая панель"
   label_global_wiki_sidebar: "Глобальная боковая панель вики-проекта"
   label_go_to_top: "Go to top"

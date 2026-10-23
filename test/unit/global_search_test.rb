@@ -109,6 +109,30 @@ class GlobalSearchTest < Additionals::TestCase
     assert_kind_of Array, result[:keyword]
   end
 
+  # Punctuation separates words for a trigram index, so z-q is as short as zq
+  def test_search_with_short_words_searches_titles_only
+    in_subject = Issue.generate! subject: 'Report zq and z-q'
+    Issue.generate! subject: 'Plain entry', description: 'mentions zq and z-q only here'
+
+    %w[zq z-q].each do |query|
+      result = GlobalSearch.search query, user: users(:users_001)
+
+      assert result[:titles_only], "titles only for #{query}"
+      assert_equal [in_subject.id], result[:keyword].pluck(:id), query
+    end
+  end
+
+  def test_search_with_a_long_word_or_a_chinese_character_searches_full_text
+    in_description = Issue.generate! subject: 'Plain entry', description: 'mentions zqx, z-qxw and 漢 only here'
+
+    ['zqx', 'z-qxw', '漢', 'zq zqx'].each do |query|
+      result = GlobalSearch.search query, user: users(:users_001)
+
+      assert_not result[:titles_only], query
+      assert_equal [in_description.id], result[:keyword].pluck(:id), query
+    end
+  end
+
   def test_search_with_bookmarks_scope
     result = GlobalSearch.search 'test', user: User.current, scope: 'bookmarks'
 

@@ -2,6 +2,12 @@
 
 module GlobalSearch
   QUICK_JUMP_PATTERN = /\A#(\d+)\z/
+  # A trigram index only helps a word with three letters or digits in a row, punctuation
+  # separates words for it (e-i is two words of one letter). Without such a word every text
+  # column, journals and custom values included, would be read in full on every keystroke.
+  # Such a query only searches titles.
+  MIN_FULL_TEXT_LENGTH = 3
+  FULL_TEXT_WORD = /[[:alnum:]]{#{MIN_FULL_TEXT_LENGTH}}|\p{Han}/
 
   class << self
     # Providers are extra sources (e.g. semantic search of another plugin), a
@@ -28,8 +34,9 @@ module GlobalSearch
       end
 
       projects = resolve_projects scope, user, project
+      titles_only ||= short_words_only? query
       hits = keyword_search query, user: user, projects: projects, types: types, titles_only: titles_only, limit: limit
-      { keyword: hits[:results], counts: hits[:counts], jump: false }
+      { keyword: hits[:results], counts: hits[:counts], titles_only: titles_only, jump: false }
     end
 
     # The client deduplicates the hits against the keyword results it already shows, over
@@ -88,6 +95,12 @@ module GlobalSearch
         next
       end
       results.presence
+    end
+
+    # A Chinese character counts as a long word, as in the tokenizer of Redmine: one already
+    # carries meaning.
+    def short_words_only?(query)
+      Redmine::Search::Tokenizer.new(query).tokens.none? { |token| token.match? FULL_TEXT_WORD }
     end
 
     def searchable_classes(types: nil)

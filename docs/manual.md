@@ -20,7 +20,7 @@ All texts accept wiki syntax and macros. Only use content every user may see.
 * **Add "Go to top" link**: adds a link back to the top of long pages.
 * **Emoji support**: converts emoji codes like `:smile:` into emojis.
 * **Legacy smiley support**: converts smiley codes like `:)` into icons. Leave it off if another plugin already does this. Available codes: `:)`, `=)`, `:D`, `=D`, `:'(`, `:(`, `;)`, `:P`, `:O`, `:/`, `:S`, `:|`, `:X`, `:*`, `O:)`, `>:)`, `B)`, `(!)`, `(?)`, `(v)`, `(x)` and `(/)`.
-* **Global search**: a search dialog (Cmd+K or Ctrl+K) on all pages that jumps to issues by ID, searches in titles, in all or bookmarked projects and remembers recent searches and projects. Other plugins can add their own results.
+* **Global search**: a search dialog (Cmd+K or Ctrl+K) on all pages that jumps to issues by ID, searches in titles, in all or bookmarked projects and remembers recent searches and projects. Words shorter than 3 characters are only searched in titles, so the dialog stays fast on large instances. Other plugins can add their own results.
 * **Remove "Help" from top menu**: hides the help menu (see [Help menu](#help-menu)).
 * **Maximum number of LiveSearch results**: limits the results of the live search in lists of plugins that support it.
 

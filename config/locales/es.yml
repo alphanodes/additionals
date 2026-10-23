@@ -190,6 +190,7 @@ es:
   label_global_search_placeholder: "Escribe para buscar..."
   label_global_search_recent_projects: "Proyectos usados recientemente"
   label_global_search_recent_searches: "Búsquedas recientes"
+  label_global_search_short_words_titles_only: "Las palabras de menos de %{value} caracteres solo se buscan en los títulos"
   label_global_sidebar: "Barra lateral global"
   label_global_wiki_sidebar: "Barra lateral de wiki global"
   label_go_to_top: "Volver al inicio"

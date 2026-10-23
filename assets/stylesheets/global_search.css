@@ -176,6 +176,13 @@
   margin: 0;
 }
 
+.global-search-short-words {
+  padding: 0 12px 6px;
+  margin: 0;
+  font-size: var(--a-font-size-sm);
+  color: var(--a-color-muted);
+}
+
 .global-search-core-link {
   margin-bottom: 4px;
   padding-bottom: 4px;

@@ -111,8 +111,8 @@ module GlobalSearch
     def keyword_search(query, user:, projects: nil, types: nil, titles_only: false, limit: 10)
       scope = types.present? ? Array(types) & Redmine::Search.available_search_types : Redmine::Search.available_search_types
       # live_search: true marks this as a live preview call (modal autocomplete),
-      # distinct from the full /search page. Plugins like alphanodes_enterprise_support
-      # may use it to switch to faster query strategies. Upstream Redmine ignores it.
+      # distinct from the full /search page. Nothing evaluates it yet, neither Redmine
+      # nor a plugin. It stays on purpose as the hook for faster query strategies.
       fetcher = Redmine::Search::Fetcher.new query, user, scope, projects,
                                              all_words: true,
                                              titles_only: titles_only,

@@ -34,6 +34,7 @@
 - Fix code reloading with deface overrides in development
 - Fix validation of the dashboard type
 - Fix disabled entries of the dashboard actions menu (Redmine 7.1)
+- Fix the context menu staying above the dialog that one of its entries opens
 - Fix slow user visibility check (user and assignee selects, watchers) with many project memberships
 - Names in select fields are shown as text (XSS)
 - User custom fields "all users" offer groups too (Redmine 7.1)

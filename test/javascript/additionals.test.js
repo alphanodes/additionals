@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 
@@ -309,6 +309,43 @@ describe('additionals.js', () => {
 
       expect(document.getElementById('my_field').value).toBe('');
       expect(document.getElementById('other_field').value).toBe('');
+    });
+  });
+
+  describe('context menu with remote links', () => {
+    beforeEach(() => {
+      globalThis.contextMenuHide = vi.fn();
+      document.body.innerHTML = `
+        <div id="context-menu">
+          <a href="/issue_tags/edit" data-remote="true" class="remote">Add</a>
+          <a href="/issues/bulk_edit" class="plain">Edit</a>
+        </div>
+        <a href="/watchers/new" data-remote="true" class="outside">Add watcher</a>
+      `;
+    });
+
+    afterEach(() => {
+      delete globalThis.contextMenuHide;
+    });
+
+    // rails-ujs fires ajax:before on the link, bubbling, before it starts the request
+    function ajaxBefore(selector) {
+      document.querySelector(selector).dispatchEvent(new CustomEvent('ajax:before', { bubbles: true, cancelable: true }));
+    }
+
+    it('hides the menu only for its remote links', () => {
+      [['#context-menu a.remote', 1], ['#context-menu a.plain', 0], ['a.outside', 0]].forEach(([selector, calls]) => {
+        globalThis.contextMenuHide.mockClear();
+        ajaxBefore(selector);
+
+        expect(globalThis.contextMenuHide, selector).toHaveBeenCalledTimes(calls);
+      });
+    });
+
+    it('does nothing without the context menu script of core', () => {
+      delete globalThis.contextMenuHide;
+
+      expect(() => ajaxBefore('#context-menu a.remote')).not.toThrow();
     });
   });
 });

@@ -232,6 +232,17 @@ function insertTextAtCaret(field, value) {
   });
 })();
 
+// Core hides its context menu on any click, but rails-ujs stops the
+// propagation of clicks on remote links. So the menu stays above the dialog
+// such a link opens. ajax:before still bubbles up before the request starts.
+// TODO: remove this listener as soon as Redmine core hides the menu itself.
+/* global contextMenuHide */
+document.addEventListener('ajax:before', (event) => {
+  if (typeof contextMenuHide !== 'function' || !event.target.closest?.('#context-menu a[data-remote]')) { return; }
+
+  contextMenuHide();
+});
+
 // Configuration of every mermaid diagram, whoever renders it: the additionals
 // macros (mermaid_load.js) and, since Redmine 7.1, core for mermaid code
 // blocks. Core loads the library on its own, without mermaid_load.js, so the

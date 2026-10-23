@@ -557,7 +557,8 @@ function lineConfig(payload) {
     pointRadius: points ? LINE_POINT_RADIUS : 0,
     pointHoverRadius: LINE_POINT_RADIUS + 1,
     pointHitRadius: LINE_POINT_HIT_RADIUS,
-    order: dataset.onTop ? -1 : 0,
+    // A lower order is drawn above, a later line on top above an earlier one
+    order: dataset.onTop ? -1 - index : 0,
     // A single filled line fades out, stacked areas keep their flat color
     ...(dataset.fill === true && !payload.stacked ? { backgroundColor: areaGradient } : {}),
   }));

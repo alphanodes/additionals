@@ -123,7 +123,7 @@ All texts of a payload are formatted on the server, so no translation ends up in
 | `stepped: true` | the line runs in steps between the periods, e.g. working hours per day |
 | `style` | `dashed` or `dotted` line |
 | `fill: true` | the area below a line, fading out towards the axis (unless stacked) |
-| `onTop: true` | drawn above the others; legend and tooltip keep the order of the payload |
+| `onTop: true` | drawn above the others, a later one above an earlier one; legend and tooltip keep the order of the payload |
 | `markers` | per value `best` (gold star) or `worst` (an unobtrusive ↯) above a vertical bar, above the whole stack in stacked bars; the meaning belongs in `tooltips` |
 
 ### Treemap

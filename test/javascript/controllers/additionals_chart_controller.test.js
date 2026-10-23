@@ -653,7 +653,15 @@ describe('burndown lines', () => {
     const { datasets } = chartConfig(null, burndownPayload({ datasets: [{ label: 'Open', data: [3, 2, null], fill: true },
       { label: 'Total', data: [3, 2, null], onTop: true }] })).data;
 
-    expect(datasets.map((dataset) => dataset.order)).toEqual([0, -1]);
+    expect(datasets[1].order).toBeLessThan(datasets[0].order);
+  });
+
+  // Chart.js draws a lower order above a higher one
+  it('draws a later line on top above an earlier one', () => {
+    const { datasets } = chartConfig(null, burndownPayload({ datasets: [{ label: 'Total', data: [3, 2, null], onTop: true },
+      { label: 'Compare', data: [3, 2, null], onTop: true }] })).data;
+
+    expect(datasets[1].order).toBeLessThan(datasets[0].order);
   });
 
   it('keeps the legend in the order of the payload', () => {

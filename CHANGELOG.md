@@ -50,7 +50,7 @@
 - Test helper `count_sql_queries` accepts `matching:`
 - Bundled mermaid is used with Redmine 7.1 and newer
 - moment.js, `chartjs_moment` and `actioncable` removed from the asset loader
-- d3plus updated to 4.7.0
+- d3plus updated to 4.9.0
 - Chart.js updated to 4.6.1
 - Chart.js Plugin matrix updated to 3.1.0
 - mermaid updated to 12.2.0

@@ -13,6 +13,8 @@
 - New dashboard blocks open their settings form, cancel removes them again
 - Dashboard blocks provide their data to programs (`data`, `export_data`)
 - Add query chart blocks for any query (`AdditionalsQueryChart`)
+- Legend and tooltip of a chart can list its datasets in an order of their own (`legendOrder`)
+- A later line on top of a chart is drawn above an earlier one
 - Add `Additionals::DashboardBlockReplacer` for migrations of dashboard blocks
 - Add `AdditionalsHelpers.loadLibrary` to load an asset library on demand
 - Global search providers are classes in `lib/global_search/` of their plugin

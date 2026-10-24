@@ -414,7 +414,7 @@ function barConfig(canvas, payload) {
           // legend, the values would run into it
           position: horizontal ? 'top' : 'bottom',
           // A comparison line drawn on top keeps its place of the payload
-          labels: { sort: byDatasetIndex },
+          labels: { sort: byLegendOrder(payload) },
         },
         colorschemes: {
           scheme: payload.colorSchema,
@@ -451,7 +451,7 @@ function barConfig(canvas, payload) {
     options.plugins.datalabels = stacked.datalabels;
   }
   // The tooltip keeps the order of the payload, a comparison line on top included
-  config.options.plugins.tooltip.itemSort = byDatasetIndex;
+  config.options.plugins.tooltip.itemSort = byLegendOrder(payload);
   // Room above vertical bars for their markers. A marker may sit above an
   // empty period, so the tooltip covers the whole column and leaves out the
   // parts without value, but the one carrying the marker and its meaning.
@@ -543,8 +543,19 @@ export function legendLabels(chart) {
   });
 }
 
-function byDatasetIndex(a, b) {
-  return a.datasetIndex - b.datasetIndex;
+// Legend and tooltip list the datasets in the order of the payload, or by
+// their legendOrder, e.g. statuses stacked with the closed ones at the bottom
+// but listed as sorted; datasets without one follow in the order of the payload
+function byLegendOrder(payload) {
+  const key = (index) => {
+    const order = payload.datasets[index]?.legendOrder;
+    return order === undefined || order === null ? [1, index] : [0, order];
+  };
+  return (a, b) => {
+    const [groupA, orderA] = key(a.datasetIndex);
+    const [groupB, orderB] = key(b.datasetIndex);
+    return groupA - groupB || orderA - orderB || a.datasetIndex - b.datasetIndex;
+  };
 }
 
 // A timeline: one line or area per series, the tooltip names all series of a period
@@ -593,14 +604,14 @@ function lineConfig(payload) {
         legend: {
           display: payload.legend !== false && payload.datasets.length > 1,
           position: 'bottom',
-          labels: { sort: byDatasetIndex, generateLabels: legendLabels },
+          labels: { sort: byLegendOrder(payload), generateLabels: legendLabels },
         },
         colorschemes: {
           scheme: payload.colorSchema,
           fillAlpha: 0.5,
         },
         tooltip: {
-          itemSort: byDatasetIndex,
+          itemSort: byLegendOrder(payload),
           callbacks: {
             label: (context) => `${context.dataset.label}: ${valueText(payload, context.datasetIndex, context.dataIndex)}`,
             afterLabel: tooltipLine,

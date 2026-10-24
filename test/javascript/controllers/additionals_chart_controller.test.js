@@ -676,6 +676,16 @@ describe('burndown lines', () => {
     expect([{ datasetIndex: 1 }, { datasetIndex: 0 }].sort(itemSort).map((item) => item.datasetIndex)).toEqual([0, 1]);
   });
 
+  // E.g. statuses stacked with the closed ones at the bottom, listed as sorted
+  it('orders legend and tooltip by the legend order of the datasets', () => {
+    const { plugins } = chartConfig(null, burndownPayload({ datasets: [{ label: 'Closed', data: [1], legendOrder: 2 },
+      { label: 'New', data: [1], legendOrder: 1 }, { label: 'Compare', data: [1] }] })).options;
+    const items = [{ datasetIndex: 0 }, { datasetIndex: 1 }, { datasetIndex: 2 }];
+
+    expect([...items].sort(plugins.legend.labels.sort).map((item) => item.datasetIndex)).toEqual([1, 0, 2]);
+    expect([...items].sort(plugins.tooltip.itemSort).map((item) => item.datasetIndex)).toEqual([1, 0, 2]);
+  });
+
   it('fades a filled line out towards the axis', () => {
     expect(chartConfig(null, burndownPayload()).data.datasets[0].backgroundColor).toBe(areaGradient);
   });

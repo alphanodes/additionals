@@ -194,7 +194,8 @@ class DashboardsController < ApplicationController
   end
 
   # What a chart block shows with the values of its open settings form, which
-  # are not stored yet: the summary and the title it has without one
+  # are not stored yet: the summary with its values set off and the title it
+  # has without one
   # params[:block] : id of the block, params[:settings][block] : its settings
   def chart_summary
     block = params[:block].to_s
@@ -202,7 +203,7 @@ class DashboardsController < ApplicationController
 
     settings = @dashboard.permitted_block_settings block, params.dig(:settings, block)&.to_unsafe_h
     chart = @dashboard.content.dashboard_block(block, settings:, dashboard: @dashboard).chart
-    render json: { summary: chart.summary, title: chart.title }
+    render json: { summary_html: helpers.query_chart_summary(chart), title: chart.title }
   end
 
   # The block is added on top of the page

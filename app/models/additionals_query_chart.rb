@@ -401,13 +401,17 @@ class AdditionalsQueryChart < AdditionalsChart
   # What the chart shows, for its settings form: the measure per group with
   # split, comparison and display type, then the options that restrict the
   # entries. Values stay as they are, so the sentence fits every language.
-  def summary
+  # A block gets each value and returns it as it goes into the sentence,
+  # e.g. to set it off in the form (query_chart_summary).
+  def summary(&mark)
     return l :label_chart_summary_without_group unless group_column
 
-    details = summary_details.map { |key, value| l key, value: }.join
-    sentence = l summary_key, source: source_label, measure: measure_label, group: group_column.caption,
-                              interval: l(INTERVAL_LABELS[interval]), details: details
-    [sentence, *summary_restrictions].join ' '
+    mark ||= :itself.to_proc
+    details = summary_details.map { |key, value| l key, value: mark.call(value) }.join
+    sentence = l summary_key, source: mark.call(source_label), measure: mark.call(measure_label),
+                              group: mark.call(group_column.caption),
+                              interval: mark.call(l(INTERVAL_LABELS[interval])), details: details
+    [sentence, *summary_restrictions(mark)].join ' '
   end
 
   # Saved queries of the chart with a description, which tells the reader
@@ -567,10 +571,10 @@ class AdditionalsQueryChart < AdditionalsChart
   end
 
   # Sentences of their own, the options name themselves
-  def summary_restrictions
+  def summary_restrictions(mark)
     restrictions = []
-    restrictions << "#{l open_only_label}." if open_only?
-    restrictions << "#{period_caption}: #{l PERIOD_LABELS[period]}." if period
+    restrictions << "#{mark.call l(open_only_label)}." if open_only?
+    restrictions << "#{period_caption}: #{mark.call l(PERIOD_LABELS[period])}." if period
     restrictions
   end
 

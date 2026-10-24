@@ -157,6 +157,18 @@
 
 .query-chart-settings .query-chart-summary-text {
   font-size: var(--a-font-size-base);
+  line-height: 1.7;
+}
+
+/* The values the settings choose, set off from the words around them */
+.query-chart-settings .query-chart-summary-value {
+  padding: 0 0.4em;
+  border: 1px solid var(--oc-indigo-1);
+  border-radius: 3px;
+  background-color: var(--oc-indigo-0);
+  color: var(--oc-indigo-8);
+  font-weight: 600;
+  box-decoration-break: clone;
 }
 
 .query-chart-settings fieldset.query-chart-section > legend {

@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 module AdditionalsQueryChartHelper
+  # Not in any text of a summary
+  SUMMARY_VALUE_MARK = "\u0000"
+
   def options_for_query_chart_type(selected)
     options_for_select AdditionalsQueryChart::CHART_TYPES.map { |type| [l(:"label_chart_type_#{type}"), type] },
                        selected
@@ -23,6 +26,21 @@ module AdditionalsQueryChartHelper
     tag.div class: 'box tabular settings query-chart-settings',
             data: { controller: 'additionals-chart-settings',
                     action: 'change->additionals-chart-settings#refreshSummary', **data }, &
+  end
+
+  # The summary of the chart with its values set off, so the reader sees
+  # at a glance what the settings choose. Marks stand in for the values
+  # while the sentence is put together, the rest of it is escaped.
+  def query_chart_summary(chart)
+    values = []
+    text = chart.summary do |value|
+      values << value.to_s.delete(SUMMARY_VALUE_MARK)
+      "#{SUMMARY_VALUE_MARK}#{values.size - 1}#{SUMMARY_VALUE_MARK}"
+    end
+    parts = text.split(SUMMARY_VALUE_MARK).each_with_index.map do |part, index|
+      index.odd? ? tag.span(values[part.to_i], class: 'query-chart-summary-value') : part
+    end
+    safe_join parts
   end
 
   # As in the title of the block; bars of the horizontal type lie on their side

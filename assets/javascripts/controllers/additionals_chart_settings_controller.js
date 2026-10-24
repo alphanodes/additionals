@@ -79,8 +79,9 @@ class AdditionalsChartSettingsController extends Controller {
         return;
       }
 
-      const { summary, title } = await response.json();
-      this.summaryTarget.textContent = summary;
+      // The server escapes the values it sets off
+      const { summary_html: summaryHtml, title } = await response.json();
+      this.summaryTarget.innerHTML = summaryHtml;
       const titleField = this.element.querySelector('input[name$="[title]"]');
       if (titleField) {
         titleField.placeholder = title;

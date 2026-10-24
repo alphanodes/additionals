@@ -114,6 +114,20 @@ class AdditionalsQueryChartHelperTest < Additionals::HelperTest
     assert_not_empty Nokogiri::HTML.fragment(render_settings_form).css('input[name="settings[chart][min_share]"]')
   end
 
+  # The values stand out in the settings form, a name of a query stays text
+  def test_summary_sets_off_its_values
+    query = IssueQuery.create! name: '<b>Bugs</b>', user: users(:users_001), visibility: Query::VISIBILITY_PUBLIC
+    chart = Additionals::TestIssueQueryChart.new project: projects(:projects_001),
+                                                 settings: { group_by: 'tracker', query_id: query.id.to_s }
+    html = I18n.with_locale(:en) { @redmine_view.query_chart_summary chart }
+
+    assert_equal '<span class="query-chart-summary-value">&lt;b&gt;Bugs&lt;/b&gt;</span>: ' \
+                 '<span class="query-chart-summary-value">Quantity</span> per ' \
+                 '<span class="query-chart-summary-value">Tracker</span>, as ' \
+                 '<span class="query-chart-summary-value">Doughnut</span>.', html
+    assert_equal '<b>Bugs</b>: Quantity per Tracker, as Doughnut.', I18n.with_locale(:en) { chart.summary }
+  end
+
   private
 
   # The form is part of the dashboard pages and rendered with their helpers

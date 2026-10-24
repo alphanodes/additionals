@@ -105,7 +105,10 @@ function waitForSummary() {
 function mockSummary() {
   const fetchMock = vi.fn(() => Promise.resolve({
     ok: true,
-    json: () => Promise.resolve({ summary: 'Issues: Quantity over Created', title: 'Issues » Created' }),
+    json: () => Promise.resolve({
+      summary_html: 'Issues: Quantity over <span class="query-chart-summary-value">Created</span>',
+      title: 'Issues » Created',
+    }),
   }));
   vi.stubGlobal('fetch', fetchMock);
   return fetchMock;
@@ -391,6 +394,7 @@ describe('AdditionalsChartSettingsController', () => {
     await waitForSummary();
 
     expect(element('summary').textContent).toBe('Issues: Quantity over Created');
+    expect(element('summary').querySelector('.query-chart-summary-value').textContent).toBe('Created');
   });
 
   it('offers the title of the server as placeholder', async () => {

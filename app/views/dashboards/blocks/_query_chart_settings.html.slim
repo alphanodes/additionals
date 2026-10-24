@@ -22,24 +22,14 @@
                                         active_value: settings[:open_only],
                                         tag_name: tag_name.call(:open_only)
         em.info = l :info_chart_open_only
-    - if chart.period_offered?
-      p data-additionals-chart-settings-target='periodField'
+    - if chart.period_supported?
+      p
         = additionals_settings_select :period,
                                       options_for_query_chart_period(settings[:period]),
-                                      label: query_chart_period_label(chart),
+                                      label: "#{l :label_chart_period} (#{chart.period_caption})",
                                       tag_name: tag_name.call(:period),
                                       data: { additionals_chart_settings_target: 'periodSelect',
                                               action: 'additionals-chart-settings#update' }
-        span.query-chart-period-day data-additionals-chart-settings-target='periodFrom'
-          '
-          = label_tag tag_name.call(:period_from), l(:label_chart_period_from)
-          '
-          = date_field_tag tag_name.call(:period_from), settings[:period_from]
-        span.query-chart-period-day data-additionals-chart-settings-target='periodTo'
-          '
-          = label_tag tag_name.call(:period_to), l(:label_chart_period_to)
-          '
-          = date_field_tag tag_name.call(:period_to), settings[:period_to]
         em.info data-additionals-chart-settings-target='periodInfo' = l :info_chart_period_timeline
 
   fieldset.query-chart-section

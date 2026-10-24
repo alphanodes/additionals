@@ -5,7 +5,7 @@ import AdditionalsChartSettingsController from '../../../assets/javascripts/cont
 const SERIES_TYPES = ['bar_horizontal', 'bar_vertical', 'line', 'area', 'table'];
 
 // The settings form as the server renders it, created_on is a date field
-function form({ groupBy = 'status', chartType = 'doughnut', period = '', compare = '', split = '', periodField = true } = {}) {
+function form({ groupBy = 'status', chartType = 'doughnut', period = '', compare = '', split = '' } = {}) {
   const option = (value, selected) => `<option value="${value}"${value === selected ? ' selected' : ''}>${value}</option>`;
   const tile = (value) => `
     <label id="tile_${value}" data-additionals-chart-settings-target="tile">
@@ -23,8 +23,6 @@ function form({ groupBy = 'status', chartType = 'doughnut', period = '', compare
          data-additionals-chart-settings-timeline-only-types-value='["line","area","calendar"]'
          data-additionals-chart-settings-series-types-value='${JSON.stringify(SERIES_TYPES)}'
          data-additionals-chart-settings-previous-period-value="previous"
-         data-additionals-chart-settings-fixed-periods-value='["from","between"]'
-         data-additionals-chart-settings-period-field-value="${periodField}"
          data-additionals-chart-settings-no-timeline-reason-value="Shows no timeline"
          data-additionals-chart-settings-timeline-only-reason-value="Only for a date field">
       <span id="summary" data-additionals-chart-settings-target="summary">Stored summary</span>
@@ -58,15 +56,11 @@ function form({ groupBy = 'status', chartType = 'doughnut', period = '', compare
         <input type="checkbox" id="with_table" name="settings[issue_chart][with_table]" value="1" checked>
         <em id="with_table_info" data-additionals-chart-settings-target="withTableInfo"></em>
       </p>
-      <p id="period_field" data-additionals-chart-settings-target="periodField">
       <select id="period_select" data-additionals-chart-settings-target="periodSelect"
               data-action="additionals-chart-settings#update">
-        ${['', 'm', 'lm', 'from', 'between'].map((value) => option(value, period)).join('')}
+        ${['', 'm', 'lm'].map((value) => option(value, period)).join('')}
       </select>
-      <span id="period_from" data-additionals-chart-settings-target="periodFrom"><input type="date"></span>
-      <span id="period_to" data-additionals-chart-settings-target="periodTo"><input type="date"></span>
       <em id="period_info" data-additionals-chart-settings-target="periodInfo"></em>
-      </p>
     </div>
     </form>`;
 }
@@ -251,41 +245,10 @@ describe('AdditionalsChartSettingsController', () => {
     expect(element('with_table_info').hidden).toBe(true);
   });
 
-  // A timeline shows its periods itself, a fixed period bounds them
-  it('offers the fixed periods only for a date field', async () => {
+  it('disables the period of a date field', async () => {
     await render({ groupBy: 'created_on', chartType: 'line' });
-    const offered = Array.from(element('period_select').options).filter((option) => !option.disabled);
 
-    expect(offered.map((option) => option.value)).toEqual(['', 'from', 'between']);
-  });
-
-  // Without a date of the block the period bounds a timeline only
-  it('offers a period without a date of the block for a timeline only', async () => {
-    await render({ periodField: false });
-
-    expect(element('period_field').hidden).toBe(true);
-    choose('group_by', 'created_on');
-
-    expect([element('period_field').hidden, element('period_select').disabled]).toEqual([false, false]);
-  });
-
-  it('drops a relative period when a date field is chosen', async () => {
-    await render({ period: 'm' });
-    choose('group_by', 'created_on');
-
-    expect(element('period_select').value).toBe('');
-  });
-
-  it('shows the days of a fixed period only', async () => {
-    await render({ period: 'm' });
-
-    expect([element('period_from').hidden, element('period_to').hidden]).toEqual([true, true]);
-    choose('period_select', 'from');
-
-    expect([element('period_from').hidden, element('period_to').hidden]).toEqual([false, true]);
-    choose('period_select', 'between');
-
-    expect([element('period_from').hidden, element('period_to').hidden]).toEqual([false, false]);
+    expect(element('period_select').disabled).toBe(true);
   });
 
   it('tells why the period of a date field is disabled', async () => {

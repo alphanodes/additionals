@@ -556,14 +556,20 @@ module DashboardsHelper
 
   # The paragraph of a field (a wide field has none), with the settings it
   # depends on in the open form (see additionals_settings_dependency_controller):
-  # shown with a checkbox (shown_with), reset by a change of another field
-  # (reset_by)
+  # shown with a checkbox or with values of a select (shown_with), reset by a
+  # change of another field (reset_by)
   def dashboard_block_setting_wrapper(field, setting, block, schema, wide:)
     data = {}
     data[:reset_by] = "settings_#{block}_#{setting[:reset_by]}" if setting[:reset_by]
-    if setting[:shown_with]
-      data[:shown_with] = "settings_#{block}_#{setting[:shown_with]}"
-      hidden = !schema[setting[:shown_with]]
+    shown_with = setting[:shown_with]
+    if shown_with.is_a? Hash
+      key, values = shown_with.first
+      data[:shown_with] = "settings_#{block}_#{key}"
+      data[:shown_values] = Array(values).map(&:to_s).to_json
+      hidden = Array(values).map(&:to_s).exclude? schema[key].to_s
+    elsif shown_with
+      data[:shown_with] = "settings_#{block}_#{shown_with}"
+      hidden = !schema[shown_with]
     end
     return field if wide && data.empty?
 

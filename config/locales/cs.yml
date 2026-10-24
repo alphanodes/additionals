@@ -74,7 +74,7 @@ cs:
   info_chart_min_share: "Položky s menším podílem v procentech se sečtou jako \"Ostatní\", u datového pole pouze části rozdělení. Prázdné nebo 0 nic neslučuje."
   info_chart_open_only: "Působí navíc k filtrům dotazu."
   info_chart_parts_counted_several_times: "Položky s více hodnotami se počítají v každé své části, proto části pruhu dávají dohromady více než jeho hodnota."
-  info_chart_period_timeline: "Pro pole data jen pevné období: ohraničuje průběh, který zobrazuje období sám."
+  info_chart_period_timeline: "Pro pole data není k dispozici: průběh zobrazuje období sám."
   info_chart_query: "Bez dotazu se vyhodnotí všechny viditelné položky."
   info_chart_section_caption: "Volitelné, bez názvu blok uvádí, co vyhodnocuje."
   info_chart_section_data: "Které záznamy se vyhodnocují?"

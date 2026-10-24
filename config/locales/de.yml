@@ -74,7 +74,7 @@ de:
   info_chart_min_share: "Einträge mit einem kleineren Anteil in Prozent werden als \"Sonstige\" zusammengefasst, bei einem Datumsfeld nur die Teile der Aufteilung. Leer oder 0 fasst nichts zusammen."
   info_chart_open_only: "Wirkt zusätzlich zu den Filtern der Abfrage."
   info_chart_parts_counted_several_times: "Einträge mit mehreren Werten zählen in jedem ihrer Teile, die Teile eines Balkens ergeben deshalb mehr als seinen Wert."
-  info_chart_period_timeline: "Bei einem Datumsfeld nur ein fester Zeitraum: Er begrenzt den Verlauf, der die Zeiträume selbst zeigt."
+  info_chart_period_timeline: "Entfällt bei einem Datumsfeld: Der Verlauf zeigt die Zeiträume selbst."
   info_chart_query: "Ohne Abfrage werden alle sichtbaren Einträge ausgewertet."
   info_chart_section_caption: "Optional, ohne Titel nennt der Block, was er auswertet."
   info_chart_section_data: "Welche Einträge werden ausgewertet?"

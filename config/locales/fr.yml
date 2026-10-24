@@ -74,7 +74,7 @@ fr:
   info_chart_min_share: "Les entrées dont la part en pourcentage est inférieure sont regroupées sous « Autres », pour un champ de date uniquement les parties de la répartition. Vide ou 0 ne regroupe rien."
   info_chart_open_only: "S'applique en plus des filtres de la requête."
   info_chart_parts_counted_several_times: "Les entrées à plusieurs valeurs comptent dans chacune de leurs parts, les parts d'une barre dépassent donc sa valeur."
-  info_chart_period_timeline: "Pour un champ date, uniquement une période fixe : elle délimite l'évolution, qui affiche elle-même les périodes."
+  info_chart_period_timeline: "Indisponible pour un champ date : l'évolution affiche elle-même les périodes."
   info_chart_query: "Sans requête, toutes les entrées visibles sont évaluées."
   info_chart_section_caption: "Facultatif, sans titre le bloc indique ce qu'il évalue."
   info_chart_section_data: "Quelles entrées sont évaluées ?"

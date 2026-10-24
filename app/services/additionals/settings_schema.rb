@@ -38,8 +38,9 @@ module Additionals
   #   as an unknown key
   # - applies: whether the setting applies to the other values. One that does
   #   not apply is kept and not required, so switching back restores it.
-  # - shown_with: key of a boolean setting; a form shows the field only while
-  #   it is on, e.g. own columns of a query list
+  # - shown_with: key of a boolean setting, or { key => values } of an enum
+  #   setting; a form shows the field only while it is on or has one of the
+  #   values, e.g. own columns of a query list, the days of a fixed period
   # - reset_by: key of another setting; a given change of it drops the stored
   #   value and ignores a given one, e.g. columns of a list with another query.
   #   A secret keeps a given value, it is always entered anew: a token of a

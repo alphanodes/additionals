@@ -13,8 +13,8 @@
 - New dashboard blocks open their settings form, cancel removes them again
 - Dashboard blocks provide their data to programs (`data`, `export_data`)
 - Add query chart blocks for any query (`AdditionalsQueryChart`)
-- Query chart blocks count in a fixed period too (from a day, between two days), which also bounds any timeline
 - Block settings can be dates
+- Block settings can be shown with chosen values of a select (`shown_with`)
 - Legend and tooltip of a chart can list its datasets in an order of their own (`legendOrder`)
 - A later line on top of a chart is drawn above an earlier one
 - Add `Additionals::DashboardBlockReplacer` for migrations of dashboard blocks

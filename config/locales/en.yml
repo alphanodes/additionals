@@ -74,7 +74,7 @@ en:
   info_chart_min_share: "Entries with a smaller share in percent are summed up as \"Others\", for a date field only the parts of a split. Empty or 0 combines nothing."
   info_chart_open_only: "Applies on top of the filters of the query."
   info_chart_parts_counted_several_times: "Entries with several values count in each of their parts, so the parts of a bar add up to more than its value."
-  info_chart_period_timeline: "For a date field a fixed period only: it bounds the timeline, which shows the periods itself."
+  info_chart_period_timeline: "Not available for a date field: the timeline shows the periods itself."
   info_chart_query: "Without a query all visible entries are evaluated."
   info_chart_section_caption: "Optional, without a title the block names what it evaluates."
   info_chart_section_data: "Which entries are evaluated?"

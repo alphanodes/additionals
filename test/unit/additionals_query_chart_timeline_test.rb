@@ -268,40 +268,6 @@ class AdditionalsQueryChartTimelineTest < Additionals::TestCase
   end
 
   # A year mistyped as 0202 would fill the timeline with empty years
-  # A fixed period bounds the date of the timeline, not the one of the period
-  # of the block (created): its periods without entries show, too
-  def test_fixed_period_bounds_the_timeline
-    with_settings display_subprojects_issues: '0' do
-      chart = fixed_period_chart period: 'between', period_from: '2026-02-01', period_to: '2026-04-30'
-
-      assert_equal [0, 1, 0], chart.entries.map(&:value)
-    end
-  end
-
-  # A chart without a date of its period (period_field) still bounds a timeline
-  def test_fixed_period_bounds_a_timeline_without_a_period_field
-    with_settings display_subprojects_issues: '0' do
-      chart = timeline_chart period: 'between', period_from: '2026-02-01', period_to: '2026-04-30'
-
-      assert_equal [0, 1, 0], chart.entries.map(&:value)
-    end
-  end
-
-  # A relative period is none of a timeline, which shows its periods itself
-  def test_timeline_has_no_relative_period
-    assert_nil fixed_period_chart(period: 'm').period
-  end
-
-  # A period at the edge links to its days within the fixed period
-  def test_url_of_a_period_keeps_the_bounds_of_the_fixed_period
-    with_settings display_subprojects_issues: '0' do
-      chart = fixed_period_chart period: 'between', period_from: '2026-01-18', period_to: '2026-03-31'
-      params = Rack::Utils.parse_nested_query URI(chart.entries.first.url).query
-
-      assert_equal %w[2026-01-18 2026-01-31], params['v']['start_date']
-    end
-  end
-
   def test_timeline_has_at_most_max_periods
     set_start_dates '0202-01-01'
 
@@ -345,13 +311,6 @@ class AdditionalsQueryChartTimelineTest < Additionals::TestCase
   def timeline_chart(**settings)
     settings = { group_by: 'start_date', chart_type: 'line' }.merge settings
     Additionals::TestIssueQueryChart.new project: @project, settings:
-  end
-
-  # A chart with a period of the creation, which a timeline of another date
-  # does not count by
-  def fixed_period_chart(**settings)
-    settings = { group_by: 'start_date', chart_type: 'line' }.merge settings
-    Additionals::TestPeriodIssueQueryChart.new project: @project, settings:
   end
 
   def first_part_url

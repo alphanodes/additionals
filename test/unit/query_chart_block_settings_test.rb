@@ -51,33 +51,6 @@ class QueryChartBlockSettingsTest < Additionals::TestCase
     assert_equal([true, true], %i[split_by compare_query_id].map { |key| applies? key, schema })
   end
 
-  # A timeline shows its periods itself, a fixed period bounds them
-  def test_timeline_offers_the_fixed_periods_only
-    assert_equal %w[from between], offered(:period, { group_by: 'created_on' }, with_period: true)
-    assert_equal %w[w lw m lm y from between], offered(:period, { group_by: 'tracker' }, with_period: true)
-    assert applies?(:period, schema_for({ group_by: 'created_on', period: 'from', period_from: '2026-01-01' }, with_period: true))
-  end
-
-  # Without a date of its period a block has a fixed period of a timeline only
-  def test_block_without_a_period_field_bounds_a_timeline_only
-    assert_equal %w[from between], offered(:period, { group_by: 'created_on' })
-    assert_not applies?(:period, { group_by: 'tracker', period: 'from', period_from: '2026-01-01' })
-  end
-
-  # The days of a fixed period are required, the end no earlier than the start
-  def test_days_of_a_fixed_period_are_required_in_order
-    cases = { { period: 'm' } => [],
-              { period: 'from' } => %i[period_from],
-              { period: 'between', period_from: '2026-01-01' } => %i[period_to],
-              { period: 'between', period_from: '2026-02-01', period_to: '2026-01-31' } => %i[period_to],
-              { period: 'between', period_from: '2026-02-01', period_to: '2026-02-01' } => [] }
-    cases.each do |values, keys|
-      errors = schema_for({ group_by: 'tracker', **values }, with_period: true).errors
-
-      assert_equal keys, errors.keys & %i[period_from period_to], values.inspect
-    end
-  end
-
   def test_previous_period_is_offered_with_a_period
     assert_includes offered(:compare_query_id, { group_by: 'tracker', period: 'm' }, with_period: true),
                     AdditionalsQueryChart::PREVIOUS_PERIOD
@@ -90,6 +63,10 @@ class QueryChartBlockSettingsTest < Additionals::TestCase
   def test_previous_period_is_no_value_without_a_period_field
     assert_includes schema_for({ group_by: 'tracker', compare_query_id: AdditionalsQueryChart::PREVIOUS_PERIOD }).errors,
                     :compare_query_id
+  end
+
+  def test_period_exists_with_a_period_field_only
+    assert_not_includes keys(schema_for({ group_by: 'tracker' })), :period
   end
 
   def test_period_is_named_by_its_date

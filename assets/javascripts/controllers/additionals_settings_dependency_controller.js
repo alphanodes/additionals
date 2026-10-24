@@ -2,7 +2,8 @@ import { Controller } from '@hotwired/stimulus';
 
 // Fields of a settings form that depend on other fields, as the settings
 // declare them: a field with data-shown-with shows only while that checkbox
-// is on, its inputs are disabled while hidden so they are not sent. A field
+// is on, or while that select has one of data-shown-values; its inputs are
+// disabled while hidden so they are not sent. A field
 // with data-reset-by is reset when that other field changes, e.g. own columns
 // of a list when its query changes.
 class AdditionalsSettingsDependencyController extends Controller {
@@ -30,8 +31,10 @@ class AdditionalsSettingsDependencyController extends Controller {
 
   applyShownWith() {
     this.element.querySelectorAll('[data-shown-with]').forEach((field) => {
-      const checkbox = document.getElementById(field.dataset.shownWith);
-      const shown = Boolean(checkbox?.checked);
+      const other = document.getElementById(field.dataset.shownWith);
+      const shown = field.dataset.shownValues
+        ? JSON.parse(field.dataset.shownValues).includes(other?.value)
+        : Boolean(other?.checked);
       field.classList.toggle('hidden', !shown);
       // Only inputs disabled here are enabled again, e.g. a secret field
       // stays disabled until edited

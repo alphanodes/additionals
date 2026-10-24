@@ -16,8 +16,6 @@ module AdditionalsQueryChartHelper
                'timeline-only-types' => AdditionalsQueryChart::TIMELINE_ONLY_TYPES.to_json,
                'series-types' => AdditionalsQueryChart::SERIES_TYPES.to_json,
                'previous-period' => AdditionalsQueryChart::PREVIOUS_PERIOD,
-               'fixed-periods' => AdditionalsQueryChart::FIXED_PERIOD_LABELS.keys.to_json,
-               'period-field' => chart.period_supported?.to_s,
                'no-timeline-reason' => l(:label_chart_type_no_timeline),
                'timeline-only-reason' => l(:label_chart_type_timeline_only),
                'summary-url' => summary_url }
@@ -42,14 +40,8 @@ module AdditionalsQueryChartHelper
     options_for_select intervals, selected
   end
 
-  # Named by the date of the block, without one the period bounds a timeline only
-  def query_chart_period_label(chart)
-    chart.period_supported? ? "#{l :label_chart_period} (#{chart.period_caption})" : l(:label_chart_period)
-  end
-
   def options_for_query_chart_period(selected)
-    periods = AdditionalsQueryChart::PERIOD_LABELS.merge(AdditionalsQueryChart::FIXED_PERIOD_LABELS)
-                                                  .map { |code, label| [l(label), code] }
+    periods = AdditionalsQueryChart::PERIOD_LABELS.map { |code, label| [l(label), code] }
     options_for_select [[l(:label_all), '']] + periods, selected
   end
 

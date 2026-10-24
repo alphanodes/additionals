@@ -34,10 +34,6 @@ class AdditionalsQueryChart < AdditionalsChart
   PERIODS = { 'w' => 'week', 'lw' => 'week', 'm' => 'month', 'lm' => 'month', 'y' => 'year' }.freeze
   PERIOD_LABELS = { 'w' => :label_this_week, 'lw' => :label_last_week, 'm' => :label_this_month,
                     'lm' => :label_last_month, 'y' => :label_this_year }.freeze
-  # Fixed periods, from a day up to today or between two days (settings
-  # period_from, period_to). Unlike the relative ones they bound a timeline.
-  # The operators of the date filters of core name them
-  FIXED_PERIOD_LABELS = { 'from' => :label_greater_or_equal, 'between' => :label_between }.freeze
   # Comparison with the period before the one of the block
   PREVIOUS_PERIOD = 'previous'
   # More periods are no readable timeline, but a date entered wrongly, e.g. a
@@ -266,58 +262,19 @@ class AdditionalsQueryChart < AdditionalsChart
     options_query.available_filters[period_field]&.[](:name) if period_supported?
   end
 
-  # A timeline shows its periods itself, a fixed period bounds them, also
-  # without a date of the period of the block: it bounds the date of the
-  # timeline. A fixed period without its days is none.
+  # A timeline shows its periods itself
   def period
-    code = settings[:period]
-    if FIXED_PERIOD_LABELS.key? code
-      code if (timeline? || period_supported?) && fixed_range(code)
-    elsif period_supported? && !timeline? && PERIODS.key?(code)
-      code
-    end
+    period_supported? && !timeline? && PERIODS.key?(settings[:period]) ? settings[:period] : nil
   end
 
-  # A block offers a period with a date of its period, or for a timeline
-  def period_offered?
-    period_supported? || timeline_group_names.any?
-  end
-
-  def fixed_period?
-    FIXED_PERIOD_LABELS.key? period
-  end
-
-  # First and last day of a fixed period, nil with a day missing or the end
-  # before the start
-  def fixed_range(code = period)
-    from = setting_date :period_from
-    to = code == 'between' ? setting_date(:period_to) : User.current.today
-    [from, to] if from && to && from <= to
-  end
-
-  # The period as the title and the summary name it
-  def period_text
-    return l PERIOD_LABELS[period] unless fixed_period?
-
-    from, to = fixed_range.map { |day| format_date day }
-    period == 'from' ? l(:label_chart_period_since, date: from) : l(:label_date_from_to, start: from, end: to)
+  def previous_period?
+    period.present? && settings[:compare_query_id] == PREVIOUS_PERIOD
   end
 
   # The period of a distribution below its chart where an own title hides it
-  # from the one of the block; a timeline shows its days on the axis
+  # from the one of the block; a timeline has no period
   def period_note
-    "#{period_caption}: #{period_text}" if period && !timeline? && settings[:title].present?
-  end
-
-  # The date a period applies to: the one of the block, the date of a timeline
-  def period_scope_caption
-    timeline? ? group_column.caption : period_caption
-  end
-
-  # Compared with the period before, of a distribution only: a timeline of
-  # another period would not lie on the same axis
-  def previous_period?
-    period.present? && !timeline? && settings[:compare_query_id] == PREVIOUS_PERIOD
+    "#{period_caption}: #{l PERIOD_LABELS[period]}" if period && settings[:title].present?
   end
 
   # A comparison is a second series next to the first one, which only bars,
@@ -437,7 +394,7 @@ class AdditionalsQueryChart < AdditionalsChart
     parts = [source_label]
     parts << group_column.caption if group_column
     parts << split_column.caption if split?
-    parts << "#{period_scope_caption}: #{period_text}" if period
+    parts << "#{period_caption}: #{l PERIOD_LABELS[period]}" if period
     parts.join Additionals::LIST_SEPARATOR
   end
 
@@ -613,7 +570,7 @@ class AdditionalsQueryChart < AdditionalsChart
   def summary_restrictions
     restrictions = []
     restrictions << "#{l open_only_label}." if open_only?
-    restrictions << "#{period_scope_caption}: #{period_text}." if period
+    restrictions << "#{period_caption}: #{l PERIOD_LABELS[period]}." if period
     restrictions
   end
 
@@ -1009,8 +966,12 @@ class AdditionalsQueryChart < AdditionalsChart
   # maximum. Without entries before or after, a timeline would only start
   # or end later, so it shows the periods with entries.
   def timeline_periods(keys)
-    first, last = timeline_bounds keys
+    first, last = keys.minmax
     return [] unless last
+
+    last = timeline_end last
+    # Periods without entries at the start of the limited ones show, too
+    first = [first, *periods_start.values].min
 
     limit = max_periods(last) || MAX_PERIODS
     periods = [last]
@@ -1021,21 +982,6 @@ class AdditionalsQueryChart < AdditionalsChart
       periods << previous
     end
     periods.reverse
-  end
-
-  # First and last day of a timeline: of a fixed period, with its periods
-  # without entries, otherwise of the entries
-  def timeline_bounds(keys)
-    if fixed_period?
-      from, to = fixed_range
-      return [period_start(from), period_start(to)]
-    end
-
-    first, last = keys.minmax
-    return [] unless last
-
-    # Periods without entries at the start of the limited ones show, too
-    [[first, *periods_start.values].min, timeline_end(last)]
   end
 
   # Period the timeline ends with. Dates in the past only, e.g. created or
@@ -1057,38 +1003,10 @@ class AdditionalsQueryChart < AdditionalsChart
     @periods_applied = true
     return unless period
 
-    return restrict_timelines if timeline?
-
-    restrict_to_period query, period_filter
+    restrict_to_period query, [period, ['']]
     return unless compare_query
 
-    restrict_to_period compare_query, previous_period? ? ['><', previous_period_range.map(&:to_s)] : period_filter
-  end
-
-  # A day of the settings as the date fields send it, nil for none or another format
-  def setting_date(key)
-    value = settings[key].to_s
-    Date.iso8601 value if value.match? Additionals::SettingsSchema::DATE_FORMAT
-  rescue Date::Error
-    nil
-  end
-
-  # A relative period as the date filters of core name it, a fixed one by its days
-  def period_filter
-    fixed_period? ? ['><', fixed_range.map(&:to_s)] : [period, ['']]
-  end
-
-  # A fixed period bounds the date of a timeline in each query; the links of
-  # its periods filter their days themselves
-  def restrict_timelines
-    filter = filter_name_for group_column
-    return unless filter
-
-    [query, compare_query].compact.each do |series_query|
-      series_query.extend DatePeriodScope
-      series_query.period_statement = query_class.new(name: '_', filters: { filter => { operator: '><', values: fixed_range.map(&:to_s) } })
-                                                 .statement
-    end
+    restrict_to_period compare_query, previous_period? ? ['><', previous_period_range.map(&:to_s)] : [period, ['']]
   end
 
   def restrict_to_period(query, period_filter)
@@ -1103,8 +1021,6 @@ class AdditionalsQueryChart < AdditionalsChart
   # First and last day of a period as the date filters of core count it,
   # weeks starting like they do with the first day of the language
   def period_range(code)
-    return fixed_range code if FIXED_PERIOD_LABELS.key? code
-
     today = User.current.today
     case code
     when 'w', 'lw'
@@ -1118,17 +1034,11 @@ class AdditionalsQueryChart < AdditionalsChart
   end
 
   def previous_period_labels
-    ranges = [period_range(period), previous_period_range]
-    return ranges.map { |from, to| l :label_date_from_to, start: format_date(from), end: format_date(to) } if fixed_period?
-
-    ranges.map { |range| period_label range.first, PERIODS[period] }
+    [period_range(period), previous_period_range].map { |range| period_label range.first, PERIODS[period] }
   end
 
-  # As many days right before a fixed period
   def previous_period_range
     from, to = period_range period
-    return [from - (to - from + 1), from - 1] if fixed_period?
-
     case PERIODS[period]
     when 'week' then [from - 7, to - 7]
     when 'month' then [from.prev_month.beginning_of_month, from.prev_month.end_of_month]
@@ -1143,10 +1053,6 @@ class AdditionalsQueryChart < AdditionalsChart
   def period_filter_values(query, start)
     from = start
     to = period_end start
-    if fixed_period?
-      from = [from, fixed_range.first].max
-      to = [to, fixed_range.last].min
-    end
     first, last = day_ranges[query]
     if query.has_filter? filter_name_for(group_column)
       return unless first

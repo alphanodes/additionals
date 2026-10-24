@@ -251,10 +251,12 @@ module DashboardBlocks
     end
 
     # The described settings a form built from them shows: those that apply,
-    # and only with something to choose, unless they are required
+    # and only with something to choose, unless they are required. A setting
+    # shown with values of a select is there while it does not apply too, the
+    # form shows it when one of them is chosen.
     def settings_form_fields
       settings_schema.describe(html: true).select do |setting|
-        setting[:applies] && (setting[:values] != [] || setting[:required])
+        (setting[:applies] || setting[:shown_with].is_a?(Hash)) && (setting[:values] != [] || setting[:required])
       end
     end
 

@@ -77,4 +77,38 @@ describe('AdditionalsSettingsDependencyController', () => {
       expect(columns().classList.contains('hidden')).toBe(true);
     });
   });
+
+  // A field shown with values of a select, e.g. the days of a fixed period
+  describe('with a field shown with values of a select', () => {
+    let ctx;
+    beforeEach(() => {
+      document.body.innerHTML = `
+        <div id="settings">
+          <p><select id="settings_s_period">
+            <option value="">all</option><option value="from">from</option><option value="between">between</option>
+          </select></p>
+          <p data-shown-with="settings_s_period" data-shown-values='["between"]'><input type="date" id="period_to"></p>
+        </div>`;
+      ctx = { element: document.getElementById('settings') };
+      Object.setPrototypeOf(ctx, AdditionalsSettingsDependencyController.prototype);
+      ctx.connect();
+    });
+
+    const choose = (value) => {
+      const select = document.getElementById('settings_s_period');
+      select.value = value;
+      ctx.update({ target: select });
+    };
+    const field = () => document.querySelector('[data-shown-values]');
+
+    it('shows the field again after another value was chosen', () => {
+      choose('between');
+      choose('from');
+
+      expect([field().classList.contains('hidden'), document.getElementById('period_to').disabled]).toEqual([true, true]);
+      choose('between');
+
+      expect([field().classList.contains('hidden'), document.getElementById('period_to').disabled]).toEqual([false, false]);
+    });
+  });
 });

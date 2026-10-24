@@ -74,7 +74,7 @@ pt-BR:
   info_chart_min_share: "Entradas com participação percentual menor são agrupadas como \"Outros\", em um campo de data somente as partes da divisão. Vazio ou 0 não agrupa nada."
   info_chart_open_only: "Aplica-se além dos filtros da consulta."
   info_chart_parts_counted_several_times: "Entradas com vários valores contam em cada uma de suas partes, por isso as partes de uma barra somam mais que seu valor."
-  info_chart_period_timeline: "Para um campo de data, apenas um período fixo: ele delimita a evolução, que mostra os períodos por si só."
+  info_chart_period_timeline: "Indisponível para um campo de data: a evolução mostra os períodos por si só."
   info_chart_query: "Sem consulta, todas as entradas visíveis são avaliadas."
   info_chart_section_caption: "Opcional, sem título o bloco indica o que avalia."
   info_chart_section_data: "Quais entradas são avaliadas?"

@@ -192,6 +192,16 @@ class DashboardBlockSettingsFieldsTest < Additionals::HelperTest
     assert dependent_field('[name^="settings[test][names]"]', own: '0').ancestors('p.hidden').any?
   end
 
+  # A field shown with values of a select is in the form also while it does
+  # not apply, the form shows it when one of them is chosen
+  def test_field_shown_with_values_of_a_select_is_in_the_form_while_hidden
+    paragraph = period_field('[name="settings[test][day]"]', period: 'all').ancestors('p').first
+
+    assert_equal ['settings_test_period', '["from","between"]', true],
+                 [paragraph['data-shown-with'], paragraph['data-shown-values'], paragraph.classes.include?('hidden')]
+    assert_not period_field('[name="settings[test][day]"]', period: 'from').ancestors('p.hidden').any?
+  end
+
   def test_field_reset_by_another_names_it
     assert dependent_field('p[data-reset-by="settings_test_query_id"] input[type=checkbox][name="settings[test][own]"]')
   end
@@ -262,6 +272,17 @@ class DashboardBlockSettingsFieldsTest < Additionals::HelperTest
     definition = { type: :enum, label: :label_query, required: true }.merge options
     block_class = Class.new(DashboardBlocks::Base) { setting key, **definition }
     rendered(block_class.new(DashboardContentWelcome.new, settings: stored)).css css
+  end
+
+  # A select and a date shown with some of its values, which applies with them only
+  def period_field(css, **stored)
+    block_class = Class.new DashboardBlocks::Base do
+      setting :period, type: :enum, label: :label_chart_period, values: %w[all from between]
+      setting :day, type: :date, label: :label_chart_period_from, shown_with: { period: %w[from between] }
+
+      def day_applies?(schema) = schema[:period] != 'all'
+    end
+    rendered(block_class.new(DashboardContentWelcome.new, settings: stored)).at_css css
   end
 
   # A choice, a checkbox reset by it and a list shown with the checkbox

@@ -39,7 +39,7 @@ class GlobalSearchController extends Controller {
       recentSearches: this.element.dataset.recentSearches || 'Recently searched',
       recentProjects: this.element.dataset.recentProjects || 'Recently used projects',
       clearAll: this.element.dataset.clearAll || 'Clear all',
-      shortWordsTitlesOnly: this.element.dataset.shortWordsTitlesOnly || 'Only titles are searched for short words',
+      shortWordsTitlesOnly: this.element.dataset.shortWordsTitlesOnly || 'Only titles were searched',
     };
 
     this.defaultPlaceholder = this.hasInputTarget ? this.inputTarget.placeholder : '';

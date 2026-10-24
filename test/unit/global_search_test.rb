@@ -79,11 +79,13 @@ class GlobalSearchTest < Additionals::TestCase
     assert_not counts.key?('documents'), 'a type without hits is not reported'
   end
 
-  def test_search_with_short_query_returns_empty
-    result = GlobalSearch.search 'a', user: User.current
+  def test_search_with_single_characters_only_returns_empty
+    ['a', 'a b'].each do |query|
+      result = GlobalSearch.search query, user: User.current
 
-    assert_kind_of Hash, result
-    assert_equal [], result[:keyword]
+      assert_equal [], result[:keyword], query
+      assert_not result[:titles_only], query
+    end
   end
 
   def test_search_with_types_filter
@@ -111,10 +113,10 @@ class GlobalSearchTest < Additionals::TestCase
 
   # Punctuation separates words for a trigram index, so z-q is as short as zq
   def test_search_with_short_words_searches_titles_only
-    in_subject = Issue.generate! subject: 'Report zq and z-q'
-    Issue.generate! subject: 'Plain entry', description: 'mentions zq and z-q only here'
+    in_subject = Issue.generate! subject: 'Report zq, z-q, 漢字 and zq zw'
+    Issue.generate! subject: 'Plain entry', description: 'mentions zq, z-q, 漢字 and zq zw only here'
 
-    %w[zq z-q].each do |query|
+    ['zq', 'z-q', '漢字', '"zq zw"'].each do |query|
       result = GlobalSearch.search query, user: users(:users_001)
 
       assert result[:titles_only], "titles only for #{query}"
@@ -122,10 +124,10 @@ class GlobalSearchTest < Additionals::TestCase
     end
   end
 
-  def test_search_with_a_long_word_or_a_chinese_character_searches_full_text
-    in_description = Issue.generate! subject: 'Plain entry', description: 'mentions zqx, z-qxw and 漢 only here'
+  def test_search_with_a_long_word_searches_full_text
+    in_description = Issue.generate! subject: 'Plain entry', description: 'mentions zqx, z-qxw, 漢字語 and zq zqx only here'
 
-    ['zqx', 'z-qxw', '漢', 'zq zqx'].each do |query|
+    ['zqx', 'z-qxw', '漢字語', 'zq zqx', '"zq zqx"'].each do |query|
       result = GlobalSearch.search query, user: users(:users_001)
 
       assert_not result[:titles_only], query

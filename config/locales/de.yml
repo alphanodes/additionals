@@ -190,7 +190,7 @@ de:
   label_global_search_placeholder: "Tippen zum Suchen..."
   label_global_search_recent_projects: "Kürzlich verwendete Projekte"
   label_global_search_recent_searches: "Zuletzt gesucht"
-  label_global_search_short_words_titles_only: "Bei Wörtern mit weniger als %{value} Zeichen werden nur Titel durchsucht"
+  label_global_search_short_words_titles_only: "Nur in Titeln gesucht. Für die Volltextsuche ein Wort mit mindestens %{value} Zeichen eingeben"
   label_global_sidebar: "Projektübergreifender Sidebar Inhalt"
   label_global_wiki_sidebar: "Projektübergreifender Wiki-Sidebar Inhalt"
   label_go_to_top: "Nach oben"

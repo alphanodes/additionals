@@ -190,7 +190,7 @@ pl:
   label_global_search_placeholder: "Wpisz aby wyszukac..."
   label_global_search_recent_projects: "Ostatnio używane projekty"
   label_global_search_recent_searches: "Ostatnio wyszukiwane"
-  label_global_search_short_words_titles_only: "Słowa krótsze niż %{value} znaki są wyszukiwane tylko w tytułach"
+  label_global_search_short_words_titles_only: "Wyszukano tylko w tytułach. Aby przeszukać pełny tekst, wpisz słowo o długości co najmniej %{value} znaków"
   label_global_sidebar: "Globalny pasek boczny"
   label_global_wiki_sidebar: "Globalny pasek boczny Wiki"
   label_go_to_top: "Go to top"

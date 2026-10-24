@@ -16,7 +16,7 @@
 - Add `Additionals::DashboardBlockReplacer` for migrations of dashboard blocks
 - Add `AdditionalsHelpers.loadLibrary` to load an asset library on demand
 - Global search providers are classes in `lib/global_search/` of their plugin
-- Global search only searches titles for words shorter than 3 characters, which keeps it fast on large instances
+- Global search only searches titles if no word has at least 3 letters or digits in a row, which keeps it fast on large instances
 - Plugins declare the options they add to saved queries
 - Dashboards API shows block settings only to users who may edit the dashboard
 - Only users who may edit a dashboard can change its layout and block settings

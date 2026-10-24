@@ -190,7 +190,7 @@ uk:
   label_global_search_placeholder: "Введіть для пошуку..."
   label_global_search_recent_projects: "Нещодавно використані проєкти"
   label_global_search_recent_searches: "Нещодавні пошуки"
-  label_global_search_short_words_titles_only: "Слова, коротші за %{value} символи, шукаються лише в заголовках"
+  label_global_search_short_words_titles_only: "Пошук лише в заголовках. Для повнотекстового пошуку введіть слово довжиною щонайменше %{value} символи"
   label_global_sidebar: "Глобальна бокова панель"
   label_global_wiki_sidebar: "Глобальна бокова панель віки-проекту"
   label_go_to_top: "Go to top"

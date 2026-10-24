@@ -2,12 +2,13 @@
 
 module GlobalSearch
   QUICK_JUMP_PATTERN = /\A#(\d+)\z/
-  # A trigram index only helps a word with three letters or digits in a row, punctuation
-  # separates words for it (e-i is two words of one letter). Without such a word every text
-  # column, journals and custom values included, would be read in full on every keystroke.
-  # Such a query only searches titles.
+  # A query without a word of three letters or digits in a row only searches titles. On
+  # PostgreSQL a trigram index cannot narrow down shorter words (punctuation separates words
+  # for it, e-i is two words of one letter), so every text column, journals and custom values
+  # included, would be read in full on every keystroke. Other databases keep the same rule,
+  # the search behaves alike everywhere and titles are the more meaningful hits for such words.
   MIN_FULL_TEXT_LENGTH = 3
-  FULL_TEXT_WORD = /[[:alnum:]]{#{MIN_FULL_TEXT_LENGTH}}|\p{Han}/
+  FULL_TEXT_WORD = /[[:alnum:]]{#{MIN_FULL_TEXT_LENGTH}}/
 
   class << self
     # Providers are extra sources (e.g. semantic search of another plugin), a
@@ -97,10 +98,10 @@ module GlobalSearch
       results.presence
     end
 
-    # A Chinese character counts as a long word, as in the tokenizer of Redmine: one already
-    # carries meaning.
+    # Without any token (single characters only) nothing is searched at all
     def short_words_only?(query)
-      Redmine::Search::Tokenizer.new(query).tokens.none? { |token| token.match? FULL_TEXT_WORD }
+      tokens = Redmine::Search::Tokenizer.new(query).tokens
+      tokens.present? && tokens.none? { |token| token.match? FULL_TEXT_WORD }
     end
 
     def searchable_classes(types: nil)

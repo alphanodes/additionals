@@ -190,7 +190,7 @@ cs:
   label_global_search_placeholder: "Zadejte pro vyhledavani..."
   label_global_search_recent_projects: "Nedávno použité projekty"
   label_global_search_recent_searches: "Nedávno hledané"
-  label_global_search_short_words_titles_only: "Slova kratší než %{value} znaky se hledají pouze v názvech"
+  label_global_search_short_words_titles_only: "Hledáno pouze v názvech. Pro fulltextové vyhledávání zadejte slovo s alespoň %{value} znaky"
   label_global_sidebar: "Globální postranní panel"
   label_global_wiki_sidebar: "Globální postranní panel wiki"
   label_go_to_top: "Go to top"

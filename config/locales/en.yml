@@ -190,7 +190,7 @@ en:
   label_global_search_placeholder: "Type to search..."
   label_global_search_recent_projects: "Recently used projects"
   label_global_search_recent_searches: "Recently searched"
-  label_global_search_short_words_titles_only: "Only titles are searched for words with fewer than %{value} characters"
+  label_global_search_short_words_titles_only: "Only titles were searched. Enter a word with at least %{value} characters to search the full text"
   label_global_sidebar: "Global sidebar"
   label_global_wiki_sidebar: "Global wiki sidebar"
   label_go_to_top: "Go to top"

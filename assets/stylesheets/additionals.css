@@ -497,7 +497,14 @@ div.additionals-projects li.project.odd {
   margin: 0.5em 0 1em;
 }
 
+/* Label, value and note of each figure on rows shared by all figures of a
+   line: a label running over two lines keeps the values level */
 .additionals-key-figure {
+  display: grid;
+  grid-row: span 3;
+  grid-template-rows: subgrid;
+  row-gap: 0;
+  align-content: start;
   padding: 0.5em 0.75em;
   border: 1px solid var(--oc-gray-3);
   border-left-width: 3px;

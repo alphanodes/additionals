@@ -15,6 +15,7 @@
 - Add query chart blocks for any query (`AdditionalsQueryChart`)
 - Block settings can be dates
 - Block settings can be shown with chosen values of a select (`shown_with`)
+- Key figures above a chart can explain themselves on hover (`title`)
 - Legend and tooltip of a chart can list its datasets in an order of their own (`legendOrder`)
 - A later line on top of a chart is drawn above an earlier one
 - Add `Additionals::DashboardBlockReplacer` for migrations of dashboard blocks

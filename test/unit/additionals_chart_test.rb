@@ -51,6 +51,13 @@ class AdditionalsChartTest < Additionals::HelperTest
     assert_includes Nokogiri::HTML.fragment(html).at_css('.additionals-key-figure')['class'], 'key-figure-success'
   end
 
+  # A title explains a figure on hover, e.g. the days of a compared period
+  def test_key_figures_show_their_title_on_hover
+    html = render_key_figures [{ label: 'Done compared with the previous period', value: '5', title: '1/1/2025 - 1/31/2025' }]
+
+    assert_equal '1/1/2025 - 1/31/2025', Nokogiri::HTML.fragment(html).at_css('.additionals-key-figure')['title']
+  end
+
   def test_key_figures_show_their_note
     html = render_key_figures [{ label: 'Done', value: '20 %', note: '2 of 10' }]
 

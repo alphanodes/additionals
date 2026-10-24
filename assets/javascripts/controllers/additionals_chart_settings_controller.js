@@ -28,8 +28,8 @@ function hide(element, hidden) {
 
 class AdditionalsChartSettingsController extends Controller {
   static targets = ['groupBy', 'interval', 'classes', 'chartType', 'tile', 'series', 'sharesNote', 'order',
-    'maxEntries', 'showEmpty', 'periodSelect', 'periodInfo', 'splitSelect', 'compareSelect', 'compareInfo',
-    'compareSplitInfo', 'withTable', 'withTableInfo', 'summary'];
+    'maxEntries', 'showEmpty', 'periodField', 'periodSelect', 'periodInfo', 'periodFrom', 'periodTo', 'splitSelect',
+    'compareSelect', 'compareInfo', 'compareSplitInfo', 'withTable', 'withTableInfo', 'summary'];
 
   static values = {
     timelineGroups: Array,
@@ -38,6 +38,8 @@ class AdditionalsChartSettingsController extends Controller {
     timelineOnlyTypes: Array,
     seriesTypes: Array,
     previousPeriod: String,
+    fixedPeriods: Array,
+    periodField: { type: Boolean, default: true },
     noTimelineReason: String,
     timelineOnlyReason: String,
     summaryUrl: String,
@@ -125,14 +127,31 @@ class AdditionalsChartSettingsController extends Controller {
     return this.hasGroupByTarget && this.timelineGroupsValue.includes(this.groupByTarget.value);
   }
 
-  // A timeline shows the periods itself
+  // A timeline shows the periods itself, a fixed period bounds them: it
+  // offers no relative period. Without a date of the block a distribution has
+  // no period. The days show for a fixed period only.
   offerPeriod(timeline) {
-    if (this.hasPeriodSelectTarget) {
-      this.periodSelectTarget.disabled = timeline;
+    if (!this.hasPeriodSelectTarget) {
+      return;
+    }
+
+    const select = this.periodSelectTarget;
+    const periodOffered = timeline || this.periodFieldValue;
+    this.periodFieldTargets.forEach((element) => hide(element, !periodOffered));
+    select.disabled = !periodOffered;
+    Array.from(select.options).forEach((option) => {
+      const offered = !timeline || option.value === '' || this.fixedPeriodsValue.includes(option.value);
+      option.hidden = !offered;
+      option.disabled = !offered;
+    });
+    if (select.selectedOptions[0]?.disabled) {
+      select.value = '';
     }
     if (this.hasPeriodInfoTarget) {
       hide(this.periodInfoTarget, !timeline);
     }
+    this.periodFromTargets.forEach((element) => hide(element, !this.fixedPeriodsValue.includes(select.value)));
+    this.periodToTargets.forEach((element) => hide(element, select.value !== 'between'));
   }
 
   // A calendar shows the value of each day itself, the stored choice stays

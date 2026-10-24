@@ -15,7 +15,8 @@ module Additionals
   #   schema.describe  # plain hashes for programmatic clients
   #
   # Options of a setting:
-  # - type: string, text, integer, float, boolean, enum or list
+  # - type: string, text, integer, float, boolean, date, enum or list. A date
+  #   is stored as the date fields send it (2022-06-04) and reads as Date
   # - label, info: locale key, text or lambda. An info marked as HTML safe
   #   (e.g. with a link) is described as text, unless for a form
   # - placeholder: shown in an empty field of a form, e.g. what the block shows
@@ -26,7 +27,8 @@ module Additionals
   #   only some display types for a timeline. Other allowed values stay valid,
   #   whoever reads them falls back.
   # - default, required, min, max. A required setting with a default is only
-  #   missing if given blank
+  #   missing if given blank. A bound may depend on the other values, e.g.
+  #   the end of a period no earlier than its start
   # - secret: a token, key or password; its value is never described, and a
   #   form built from the settings never fills it in
   # - field: partial of its field in a form built from the settings, for a
@@ -56,7 +58,7 @@ module Additionals
   class SettingsSchema
     include Redmine::I18n
 
-    TYPES = %i[string text integer float boolean enum list].freeze
+    TYPES = %i[string text integer float boolean date enum list].freeze
     LABELED_TYPES = %i[enum list].freeze
     OPTIONS = %i[type label info placeholder values offered default required min max if applies shown_with reset_by
                  field wide secret].freeze
@@ -64,12 +66,13 @@ module Additionals
     # setting, see with_rule_methods
     RULE_METHODS = { if: '%s_available?', applies: '%s_applies?', values: '%s_values', offered: '%s_offered',
                      default: '%s_default', label: '%s_label', info: '%s_info',
-                     placeholder: '%s_placeholder' }.freeze
+                     placeholder: '%s_placeholder', min: '%s_min', max: '%s_max' }.freeze
     TRUE_VALUES = ['1', 'true', true, 1].freeze
     FALSE_VALUES = ['0', 'false', false, 0, ''].freeze
     INTEGER_FORMAT = /\A[+-]?\d+\z/
     FLOAT_FORMAT = /\A[+-]?\d+(\.\d+)?\z/
     NUMBER_TYPES = %i[integer float].freeze
+    DATE_FORMAT = /\A\d{4}-\d{2}-\d{2}\z/
 
     attr_reader :context
 
@@ -119,7 +122,7 @@ module Additionals
       return if definition.nil?
 
       value = @values[key]
-      return default_for definition if value.blank? || !readable_number?(definition, value)
+      return default_for definition if value.blank? || !readable_number?(definition, value) || !readable_date?(definition, value)
 
       typed_value definition[:type], value
     end
@@ -217,6 +220,10 @@ module Additionals
         number
       when :boolean
         cast_boolean key, value
+      when :date
+        date = value.to_s.strip
+        @invalid[key] = :not_a_date if date.present? && parse_date(date).nil?
+        date
       when :list
         list = value.is_a?(String) ? value.split(',') : Array(value)
         list.map { |entry| entry.to_s.strip }.compact_blank
@@ -276,7 +283,20 @@ module Additionals
       return false unless value.to_s.strip.match? number_format(type)
 
       number = typed_value type, value
-      (definition[:min].nil? || number >= definition[:min]) && (definition[:max].nil? || number <= definition[:max])
+      min = resolve definition[:min]
+      max = resolve definition[:max]
+      (min.nil? || number >= min) && (max.nil? || number <= max)
+    end
+
+    def readable_date?(definition, value)
+      definition[:type] != :date || parse_date(value.to_s.strip).present?
+    end
+
+    # Only the format of the date fields, a day that does not exist is none
+    def parse_date(value)
+      Date.iso8601 value if value.match? DATE_FORMAT
+    rescue Date::Error
+      nil
     end
 
     def number_format(type)
@@ -291,6 +311,8 @@ module Additionals
         value.to_f
       when :boolean
         value == '1'
+      when :date
+        parse_date value.to_s.strip
       else
         value
       end
@@ -333,7 +355,7 @@ module Additionals
     # choose it (e.g. a query of another user)
     def value_errors(key, definition, value)
       case definition[:type]
-      when :integer, :float
+      when :integer, :float, :date
         range_errors definition, typed_value(definition[:type], value)
       when :enum, :list
         allowed = allowed_values definition
@@ -343,10 +365,12 @@ module Additionals
       end
     end
 
-    def range_errors(definition, number)
+    def range_errors(definition, value)
+      min = resolve definition[:min]
+      max = resolve definition[:max]
       errors = []
-      errors << message(:greater_than_or_equal_to, count: definition[:min]) if definition[:min] && number < definition[:min]
-      errors << message(:less_than_or_equal_to, count: definition[:max]) if definition[:max] && number > definition[:max]
+      errors << message(:greater_than_or_equal_to, count: min) if min && value < min
+      errors << message(:less_than_or_equal_to, count: max) if max && value > max
       errors
     end
 
@@ -375,13 +399,19 @@ module Additionals
         default: resolve(definition[:default]),
         values: values_for(definition),
         offered: definition.key?(:offered) ? Array(resolve(definition[:offered])).map(&:to_s) : nil,
-        min: definition[:min],
-        max: definition[:max],
+        min: described_bound(definition[:min]),
+        max: described_bound(definition[:max]),
         applies: applies?(key),
         shown_with: definition[:shown_with],
         reset_by: definition[:reset_by],
         secret: definition[:secret] ? true : nil,
         value: @values.key?(key) && !definition[:secret] ? self[key] : nil }.compact
+    end
+
+    # A bound of a date as it is stored, the one of a number as it is
+    def described_bound(bound)
+      bound = resolve bound
+      bound.is_a?(Date) ? bound.iso8601 : bound
     end
 
     def info_for(definition, html:)

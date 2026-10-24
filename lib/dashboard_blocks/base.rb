@@ -29,8 +29,9 @@ module DashboardBlocks
   # <key>_available? decides whether the setting exists (if), <key>_applies?
   # whether it applies to the other values (applies), <key>_values returns the
   # allowed values (values), <key>_offered those a form offers (offered),
-  # <key>_default, <key>_label, <key>_info and <key>_placeholder a default,
-  # label, info and placeholder depending on the context.
+  # <key>_default, <key>_label, <key>_info, <key>_placeholder, <key>_min and
+  # <key>_max a default, label, info, placeholder and bounds depending on the
+  # context.
   # Each setting gets a reader of its typed value with its default, e.g.
   # block.max_entries.
   class Base

@@ -154,6 +154,32 @@ class SettingsSchemaTest < Additionals::TestCase
     assert_includes schema_for({ max: { type: :integer, min: 1 } }, max: '0').errors, :max
   end
 
+  def test_date_reads_as_date
+    assert_equal Date.new(2022, 6, 4), schema_for({ from: { type: :date } }, from: ' 2022-06-04 ')[:from]
+  end
+
+  # Stored as the date fields send it, no other format and no day that does not exist
+  def test_date_in_another_format_or_of_no_day_is_rejected
+    %w[04.06.2022 2022-02-30 2022-6-4 today].each do |value|
+      assert_includes schema_for({ from: { type: :date } }, from: value).errors, :from, value
+    end
+  end
+
+  def test_stored_date_in_bad_format_reads_as_default
+    definitions = { from: { type: :date, default: Date.new(2022, 1, 1) } }
+
+    assert_equal Date.new(2022, 1, 1), Additionals::SettingsSchema.new(definitions, {}, stored: { from: 'x' })[:from]
+  end
+
+  # A bound may depend on another setting, e.g. the end of a period on its start
+  def test_date_before_its_min_is_rejected
+    definitions = { from: { type: :date }, to: { type: :date, min: ->(schema) { schema[:from] } } }
+
+    assert_includes schema_for(definitions, from: '2022-06-04', to: '2022-06-03').errors, :to
+    assert_empty schema_for(definitions, from: '2022-06-04', to: '2022-06-04').errors
+    assert_equal '2022-06-04', schema_for(definitions, from: '2022-06-04', to: '').describe.last[:min]
+  end
+
   def test_enum_value_out_of_values_is_rejected
     assert_includes schema_for({ type: { type: :enum, values: %w[pie bar] } }, type: 'line').errors, :type
   end

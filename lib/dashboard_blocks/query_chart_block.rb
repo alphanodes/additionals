@@ -22,6 +22,8 @@ module DashboardBlocks
     setting :interval, type: :enum, label: :label_chart_interval
     setting :classes, type: :string, label: :label_chart_classes
     setting :period, type: :enum
+    setting :period_from, type: :date, label: :label_chart_period_from, required: true
+    setting :period_to, type: :date, label: :label_chart_period_to, required: true
     setting :split_by, type: :enum, label: :label_chart_split_by
     setting :measure, type: :enum, label: :label_chart_measure
     setting :chart_type, type: :enum, label: :label_display_type
@@ -130,20 +132,57 @@ module DashboardBlocks
     end
 
     def period_available?(schema)
-      chart_for(schema).period_supported?
+      chart_for(schema).period_offered?
     end
 
     def period_values(_schema)
-      AdditionalsQueryChart::PERIOD_LABELS.map { |code, label| [I18n.t(label), code] }
+      AdditionalsQueryChart::PERIOD_LABELS.merge(AdditionalsQueryChart::FIXED_PERIOD_LABELS)
+                                          .map { |code, label| [I18n.t(label), code] }
     end
 
-    # A timeline shows its periods itself
+    # A timeline shows its periods itself, a fixed period bounds them; a
+    # distribution counts in a period of the date of the block only
+    def period_offered(schema)
+      chart = chart_for schema
+      return AdditionalsQueryChart::FIXED_PERIOD_LABELS.keys if chart.timeline?
+
+      chart.period_supported? ? period_values(schema).map(&:last) : []
+    end
+
     def period_applies?(schema)
-      !chart_for(schema).timeline?
+      chart = chart_for schema
+      chart.timeline? ? fixed_period?(schema) : chart.period_supported?
     end
 
+    def period_from_available?(schema)
+      period_available? schema
+    end
+
+    def period_from_applies?(schema)
+      period_applies?(schema) && fixed_period?(schema)
+    end
+
+    def period_to_available?(schema)
+      period_available? schema
+    end
+
+    def period_to_applies?(schema)
+      period_applies?(schema) && schema[:period] == 'between'
+    end
+
+    # The end of a period no earlier than its start
+    def period_to_min(schema)
+      schema[:period_from]
+    end
+
+    def fixed_period?(schema)
+      AdditionalsQueryChart::FIXED_PERIOD_LABELS.key? schema[:period]
+    end
+
+    # Named by the date of the block, a timeline by its own date
     def period_label(schema)
-      "#{I18n.t :label_chart_period} (#{chart_for(schema).period_caption})"
+      caption = chart_for(schema).period_caption
+      caption ? "#{I18n.t :label_chart_period} (#{caption})" : I18n.t(:label_chart_period)
     end
 
     def split_by_values(schema)
@@ -192,10 +231,11 @@ module DashboardBlocks
       previous + queries_of(chart)
     end
 
-    # The previous period compares a block counting in a period
+    # The previous period compares a distribution counting in a period, a
+    # timeline of another period would not lie on the same axis
     def compare_query_id_offered(schema)
       values = compare_query_id_values(schema).map(&:last)
-      return values if schema[:period].present? && period_applies?(schema)
+      return values if schema[:period].present? && period_applies?(schema) && !chart_for(schema).timeline?
 
       values - [AdditionalsQueryChart::PREVIOUS_PERIOD]
     end

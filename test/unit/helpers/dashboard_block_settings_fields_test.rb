@@ -7,7 +7,7 @@ require File.expand_path '../../../test_helper', __FILE__
 class DashboardBlockSettingsFieldsTest < Additionals::HelperTest
   STORED = { max_entries: '20', ratio: '1.5', with_closed: '1', title: 'Latest', text: "Line 1\nLine 2",
              sort_by: 'date', interval: 'month', projects: %w[1 3], groups: %w[2], token: 'abc123',
-             site: 'https://example.org', body: 'Hello' }.freeze
+             site: 'https://example.org', body: 'Hello', since: '2022-06-04' }.freeze
 
   def setup
     super
@@ -27,6 +27,10 @@ class DashboardBlockSettingsFieldsTest < Additionals::HelperTest
     input = field 'input[name="settings[test][max_entries]"]'
 
     assert_equal %w[1 50], [input['min'], input['max']]
+  end
+
+  def test_date_is_a_date_field_with_the_stored_value
+    assert_equal '2022-06-04', field('input[type=date][name="settings[test][since]"]')['value']
   end
 
   def test_float_allows_decimals
@@ -217,6 +221,7 @@ class DashboardBlockSettingsFieldsTest < Additionals::HelperTest
     block_class = Class.new DashboardBlocks::Base do
       label { 'Settings test' }
       setting :max_entries, type: :integer, label: :label_max_entries, min: 1, max: 50, default: 10
+      setting :since, type: :date, label: :field_start_date
       setting :ratio, type: :float, label: :field_estimated_hours
       setting :with_closed, type: :boolean, label: :label_closed_issues_plural
       setting :title, type: :string, label: :field_title, required: true

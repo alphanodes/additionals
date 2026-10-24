@@ -618,6 +618,8 @@ module DashboardsHelper
                                             step: setting[:type] == :float ? 'any' : nil, **options
     when :string
       additionals_settings_textfield key, value:, placeholder: setting[:placeholder], **options
+    when :date
+      additionals_settings_datefield key, value:, min: setting[:min], max: setting[:max], **options
     when :text
       additionals_settings_textarea key, value:, placeholder: setting[:placeholder], **options
     when :enum

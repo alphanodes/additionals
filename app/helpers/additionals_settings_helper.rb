@@ -50,6 +50,11 @@ module AdditionalsSettingsHelper
     additionals_settings_input_field(:time_field_tag, name, **)
   end
 
+  # The date picker of the browser, stored as it sends the day (2022-06-04)
+  def additionals_settings_datefield(name, **)
+    additionals_settings_input_field(:date_field_tag, name, **)
+  end
+
   def additionals_settings_select(name, values, **options)
     tag_name = options.delete(:tag_name).presence || "settings[#{name}]"
     safe_join [label_tag(tag_name, additionals_settings_label(name, options)),

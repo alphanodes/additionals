@@ -24,6 +24,8 @@
         em.info = l :info_chart_counted_several_times
       - elsif chart.parts_counted_several_times?
         em.info = l :info_chart_parts_counted_several_times
+      - if chart.period_note
+        em.info.query-chart-period-note = chart.period_note
       = query_chart_query_descriptions chart
   - else
     p.nodata = chart.unavailable_text || l(:label_no_data)

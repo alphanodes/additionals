@@ -109,12 +109,13 @@
   margin: 0;
 }
 
-/* The interval of a date field and the bounds of a number field follow
-   their select in the same line, the label is no field label of the form.
-   The spaces around it are in the markup, rules of the settings areas set
-   the margin of every label */
+/* The interval of a date field, the bounds of a number field and the days
+   of a fixed period follow their select in the same line, the label is no
+   field label of the form. The spaces around it are in the markup, rules of
+   the settings areas set the margin of every label */
 .tabular .query-chart-interval label,
-.tabular .query-chart-classes label {
+.tabular .query-chart-classes label,
+.tabular .query-chart-period-day label {
   float: none;
   width: auto;
   margin: 0;

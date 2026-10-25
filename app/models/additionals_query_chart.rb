@@ -438,12 +438,9 @@ class AdditionalsQueryChart < AdditionalsChart
   end
 
   # Compared with the period before, both series are named by their period
+  # and follow the order of time, the previous one first
   def series_labels
-    return previous_period_labels if previous_period? && compare?
-
-    labels = [source_label]
-    labels << compare_query.name if compare?
-    labels
+    in_series_order own_series_labels
   end
 
   def entries
@@ -468,16 +465,16 @@ class AdditionalsQueryChart < AdditionalsChart
 
   def entry_cells(entry)
     cells = split? ? split_keys.map { |key| TableCell.new(entry.parts[key] || 0, entry.part_urls[key], true) } : []
-    cells << TableCell.new(entry.value, nil, false)
-    cells << TableCell.new(entry.compare_value, nil, false) if compare?
-    cells
+    series = [TableCell.new(entry.value, nil, false)]
+    series << TableCell.new(entry.compare_value, nil, false) if compare?
+    cells + in_series_order(series)
   end
 
   def value_totals
     totals = split? ? split_keys.map { |key| split_total key } : []
-    totals << total
-    totals << compare_total if compare?
-    totals
+    series = [total]
+    series << compare_total if compare?
+    totals + in_series_order(series)
   end
 
   # With multiple values an entry is part of several groups, the total still
@@ -632,14 +629,14 @@ class AdditionalsQueryChart < AdditionalsChart
     return split_keys.map { |key| split_dataset key } if split?
 
     datasets = [main_dataset]
-    datasets << series_dataset(series_labels.last, :compare_value, :compare_url) if compare?
-    datasets
+    datasets << series_dataset(own_series_labels.last, :compare_value, :compare_url) if compare?
+    in_series_order datasets
   end
 
   # The bars tell their share as the table does. Colors by direction only
   # here: the compared series keeps the color of the scheme to stay apart.
   def main_dataset
-    dataset = series_dataset series_labels.first, :value, :url
+    dataset = series_dataset own_series_labels.first, :value, :url
     dataset[:tooltips] = entries.map { |entry| "#{l :label_percentage}: #{share entry} %" } if bar_chart?
     dataset[:colors] = entries.map { |entry| direction_color entry.key } if diverging_classes?
     dataset
@@ -1096,6 +1093,20 @@ class AdditionalsQueryChart < AdditionalsChart
     when 'lm' then [today.prev_month.beginning_of_month, today.prev_month.end_of_month]
     else [today.beginning_of_year, today.end_of_year]
     end
+  end
+
+  # The series of the chart, then the one compared with
+  def own_series_labels
+    return previous_period_labels if previous_period? && compare?
+
+    labels = [source_label]
+    labels << compare_query.name if compare?
+    labels
+  end
+
+  # The period before comes first, as on a timeline
+  def in_series_order(series)
+    previous_period? && compare? ? series.reverse : series
   end
 
   def previous_period_labels

@@ -78,10 +78,16 @@ class AdditionalsQueryChartPeriodTest < Additionals::TestCase
     end
   end
 
-  def test_series_are_named_by_their_period
+  # Named by their period in the order of time, in the legend, the bars and
+  # the table of values alike: one issue in March, two in April
+  def test_series_are_named_by_their_period_previous_first
     in_april do
       I18n.with_locale :en do
-        assert_equal ['Apr 2026', 'Mar 2026'], period_chart(period: 'm', compare_query_id: 'previous').series_labels
+        chart = period_chart period: 'm', compare_query_id: 'previous'
+
+        assert_equal ['Mar 2026', 'Apr 2026'], chart.series_labels
+        assert_equal chart.series_labels, chart.payload[:datasets].pluck(:label)
+        assert_equal [1, 2], chart.value_totals
       end
     end
   end

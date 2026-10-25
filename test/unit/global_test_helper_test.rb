@@ -126,6 +126,19 @@ class GlobalTestHelperTest < Additionals::TestCase
     assert_not automation_owned?('app/models/automation_rules.rb')
   end
 
+  def test_locale_set_problems
+    complete = Additionals::GlobalTestHelper::REQUIRED_LOCALES
+
+    assert_empty locale_set_problems(complete)
+    assert_empty locale_set_problems(complete - %w[uk] + %w[bg], missing_locales: %w[uk], extra_locales: %w[bg])
+    assert_equal ['required locales missing: uk'], locale_set_problems(complete - %w[uk])
+    assert_equal ['undeclared extra locales: bg'], locale_set_problems(complete + %w[bg])
+    assert_equal ['missing_locales names locales that are present: uk'],
+                 locale_set_problems(complete, missing_locales: %w[uk])
+    assert_equal ['extra_locales names locales that are no extra: bg'],
+                 locale_set_problems(complete, extra_locales: %w[bg])
+  end
+
   def test_required_plugins_are_resolved_transitively
     assert_includes required_plugin_ids('additionals'), 'additionals'
   end

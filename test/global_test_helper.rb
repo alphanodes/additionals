@@ -16,11 +16,11 @@ ActiveSupport::TestCase.setup do
 end
 
 module Additionals
-  # Defines the two standard I18n tests (test_valid_languages and
-  # test_locales_validness) on the given test class. Plugins use this in their
+  # Defines the standard I18n tests on the given test class. Plugins use this in their
   # i18n_test.rb to avoid duplicating identical boilerplate; only the
   # plugin-specific metadata stays in the plugin's test file.
-  def self.define_i18n_tests(test_class, plugin:, control_string:, control_english:, allowed_missing: [])
+  def self.define_i18n_tests(test_class, plugin:, control_string:, control_english:, allowed_missing: [],
+                             missing_locales: [], extra_locales: [])
     test_class.class_eval do
       include Redmine::I18n unless include? Redmine::I18n
 
@@ -31,6 +31,10 @@ module Additionals
 
       define_method :test_locales_validness do
         assert_locales_validness plugin:, control_string:, control_english:
+      end
+
+      define_method :test_required_locales do
+        assert_required_locales plugin:, missing_locales:, extra_locales:
       end
 
       define_method :test_used_locale_keys_are_resolvable do
@@ -285,6 +289,18 @@ module Additionals
                    'an addition to one (expected <purpose>_<language>.yml)'
 
       locales.sort
+    end
+
+    # The locales every plugin of the family offers
+    REQUIRED_LOCALES = %w[cs de en es fr it ja ko pl pt-BR ru uk zh zh-TW].freeze
+
+    # Locales a plugin still lacks and locales it offers beyond REQUIRED_LOCALES
+    # are declared, so neither comes or goes unnoticed. A declaration that no
+    # longer holds fails as well, so the lists cannot go stale.
+    def assert_required_locales(plugin:, missing_locales: [], extra_locales: [])
+      problems = locale_set_problems(assert_plugin_locale_files(plugin), missing_locales:, extra_locales:)
+
+      assert_empty problems, "Plugin #{plugin}: #{problems.join '; '}"
     end
 
     def i18n_format_forest(forest)
@@ -736,6 +752,17 @@ module Additionals
     end
 
     private
+
+    def locale_set_problems(locales, missing_locales: [], extra_locales: [])
+      missing = REQUIRED_LOCALES - locales
+      extra = locales - REQUIRED_LOCALES
+
+      { 'required locales missing' => missing - missing_locales,
+        'undeclared extra locales' => extra - extra_locales,
+        'missing_locales names locales that are present' => missing_locales - missing,
+        'extra_locales names locales that are no extra' => extra_locales - extra }
+        .filter_map { |problem, names| "#{problem}: #{names.to_comma_list}" if names.any? }
+    end
 
     # One pass over all loaded modules, collecting the object_id of everything
     # that appears in any ancestor chain. Identity on purpose: some gems (xpath)

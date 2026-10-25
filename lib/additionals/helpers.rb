@@ -194,6 +194,22 @@ module Additionals
       tag.div textilizable(query, :description), class: 'query-description'
     end
 
+    # Where the values of a block come from: each saved query with a
+    # description, with its name linked to its list as the block yields it.
+    # A row of the info area below a chart, see .query-source.
+    def render_query_descriptions(queries)
+      described = queries.select { |query| query&.persisted? && query.description? }
+      described.uniq!(&:id)
+      safe_join(described.map do |query|
+        tag.div class: 'query-source' do
+          safe_join [tag.div(safe_join([svg_icon_tag('filter', size: 14), "#{l :label_query}:",
+                                        link_to(query.name, yield(query))]),
+                             class: 'flex-center query-source-name'),
+                     tag.div(textilizable(query, :description), class: 'wiki')]
+        end
+      end)
+    end
+
     def live_search_title_info(entity)
       fields = "LiveSearch::#{entity.to_s.classify}".constantize.info_fields
       all_fields = fields.map { |f| "#{f}:term" }.to_comma_list

@@ -299,4 +299,18 @@ class GlobalHelperTest < Additionals::HelperTest
     assert_not_include '<script>', html
     assert_include '&lt;script&gt;', html
   end
+
+  # Each saved query with a description once, linked as the block tells; an
+  # unsaved query and one without description are left out
+  def test_render_query_descriptions_name_the_described_queries
+    query = IssueQuery.create! name: 'Bugs', description: 'Bugs of the team', user: users(:users_001),
+                               visibility: Query::VISIBILITY_PUBLIC
+    plain = IssueQuery.create! name: 'Plain', user: users(:users_001), visibility: Query::VISIBILITY_PUBLIC
+    queries = [query, plain, IssueQuery.new(name: '_', description: 'unsaved'), nil, IssueQuery.find(query.id)]
+    html = Nokogiri::HTML.fragment(@redmine_view.render_query_descriptions(queries) { |entry| "/issues?query_id=#{entry.id}" })
+
+    assert_equal([["/issues?query_id=#{query.id}", 'Bugs', 'Bugs of the team']],
+                 html.css('.query-source').map { |row| [row.at_css('a')['href'], row.at_css('a').text, row.at_css('.wiki').text.strip] })
+    assert html.at_css('.query-source svg use[href*="icon--filter"]')
+  end
 end

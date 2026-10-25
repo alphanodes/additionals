@@ -392,6 +392,26 @@ module Additionals
       end
     end
 
+    # Per block the name and the description of the saved query it shows as
+    # where its values come from (render_query_descriptions), nil without;
+    # on the dashboard assert_dashboard_blocks_render created before
+    def dashboard_block_query_sources(blocks, query, project: nil)
+      dashboard = Dashboard.where(name: 'Blocks render').last
+      get project ? "/projects/#{project.identifier}" : '/', params: { dashboard_id: dashboard.id }
+      pages = blocks.index_with do |block|
+        url = css_select("#block-#{block} [data-render-async-url-value]").first&.[]('data-render-async-url-value')
+        url || css_select("#block-#{block}").to_html
+      end
+      pages.transform_values do |page|
+        if page.start_with? '/'
+          get page, xhr: true, headers: { 'Accept' => 'text/html' }
+          page = response.body
+        end
+        source = Nokogiri::HTML.fragment(page).at_css(".query-source:has(a[href*='query_id=#{query.id}'])")
+        source && [source.at_css('a').text, source.at_css('.wiki').text.strip]
+      end
+    end
+
     # Settings that apply but have no field in the form built from them
     def dashboard_block_settings_without_field(dashboard, blocks, form_keys)
       blocks.filter_map do |block|

@@ -26,6 +26,6 @@
         em.info = l :info_chart_parts_counted_several_times
       - if chart.period_note
         em.info.query-chart-period-note = chart.period_note
-      = query_chart_query_descriptions chart
+      = render_query_descriptions(chart.described_queries) { |query| chart.query_url query }
   - else
     p.nodata = chart.unavailable_text || l(:label_no_data)

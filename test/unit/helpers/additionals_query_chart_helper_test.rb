@@ -80,16 +80,6 @@ class AdditionalsQueryChartHelperTest < Additionals::HelperTest
     assert_includes Nokogiri::HTML.fragment(html).at_css('label[for="settings_chart_period"]').text, ::I18n.t(:field_created_on)
   end
 
-  def test_query_descriptions_link_the_query
-    query = IssueQuery.create! name: 'Bugs', description: 'Bugs of the team', user: users(:users_001),
-                               visibility: Query::VISIBILITY_PUBLIC
-    chart = Additionals::TestIssueQueryChart.new project: projects(:projects_001),
-                                                 settings: { group_by: 'tracker', query_id: query.id.to_s }
-    html = Nokogiri::HTML.fragment @redmine_view.query_chart_query_descriptions(chart)
-
-    assert_equal 'Bugs', html.at_css(".query-chart-query-description a[href*='query_id=#{query.id}']").text
-  end
-
   def test_settings_form_offers_a_description
     assert_not_empty Nokogiri::HTML.fragment(render_settings_form).css('textarea[name="settings[chart][description]"]')
   end

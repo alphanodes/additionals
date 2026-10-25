@@ -97,17 +97,6 @@ module AdditionalsQueryChartHelper
     payload.merge totalText: format_query_chart_value(chart, chart.total), valueTexts: texts
   end
 
-  # The descriptions of the saved queries a chart counts, each with the link
-  # to its list
-  def query_chart_query_descriptions(chart)
-    safe_join(chart.described_queries.map do |query|
-      tag.div class: 'query-chart-query-description' do
-        safe_join [tag.div(safe_join([l(:label_query), ': ', link_to(query.name, chart.query_url(query))])),
-                   tag.div(textilizable(query, :description), class: 'wiki')]
-      end
-    end)
-  end
-
   # A value of the table of values, a part of a split linked to the list
   # filtered by both values
   def query_chart_cell(chart, cell)

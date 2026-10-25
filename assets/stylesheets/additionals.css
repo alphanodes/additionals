@@ -75,6 +75,27 @@ em.info a.external {
   align-items: center;
 }
 
+/* Where the values of a block come from, a row of the info area below a
+   chart, small like all additional information there; the description
+   starts below the name, past the icon */
+.query-source {
+  margin-top: 0.5em;
+  font-size: var(--a-font-size-sm);
+}
+
+.query-source-name {
+  column-gap: 5px;
+}
+
+.query-source .wiki {
+  padding-left: 19px;
+  color: var(--a-color-muted);
+}
+
+.query-source .wiki p {
+  margin: 0;
+}
+
 .icon.icon-padding,
 .icon-svg.icon-padding {
   padding-right: 2px;

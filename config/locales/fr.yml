@@ -1,117 +1,111 @@
 # French strings
 fr:
-  label_show_variables: "Afficher les variables"
-  seconds:
-    one: seconde
-    other: "%{count} secondes"
-  minutes:
-    one: minute
-    other: minutes
-  hours:
-    one: heure
-    other: heures
-  days:
-    one: journée
-    other: journées
+  account_login_info: "Ce texte s'affiche sur la page de connexion et sert à donner des informations sur l'inscription. Ce paramètre s'applique à tous les projets."
   activerecord:
     errors:
+      messages:
+        invalid_icon_format: "n'est pas un code d'icône valide"
+        issue_cannot_close_with_open_children: "Cette demande ne peut être fermée que si toutes ses sous-tâches sont également fermées."
+        issue_changes_not_allowed: "Cette demande est fermée et vous n'avez pas le droit de la modifier."
+        issue_current_user_status: "Le statut sélectionné exige que vous soyez vous-même dans \"Assigné à\"."
+        issue_log_time_not_allowed: "est une demande fermée. Vous n'avez pas le droit d'y saisir du temps."
+        issue_requires_timelog: "Le statut de demande sélectionné exige du temps saisi."
+        relation_not_unique: "est assigné plusieurs fois."
       models:
         dashboard:
-            must_be_for_everyone: "doit être défini pour chaque utilisateur si le système par défaut est utilisé."
-      messages:
-        issue_cannot_close_with_open_children: "Cette tâche ne peut être clôturée que si toutes les sous-tâches sont également clôturées."
-        issue_current_user_status: "Le statut sélectionné exige que le \"cessionnaire\" soit vous-même."
-        issue_log_time_not_allowed: "est une tâche close. Vous n'avez pas le droit de vous connecter."
-        issue_changes_not_allowed: "Cette tâche est close, vous n'avez pas le droit de la modifier."
-        issue_requires_timelog: "Le statut de sortie sélectionné nécessite un enregistrement temporel."
-        invalid_icon_format: est un code font-awesome invalide
-        relation_not_unique: affectation multiple.
+          must_be_for_everyone: "doit s'appliquer à tous les utilisateurs si la valeur système par défaut est utilisée."
+  add_go_to_top_info: "Si vous avez beaucoup de pages longues, un lien de retour en haut de page est utile."
   additionals:
-    enabled: enabled
-    disabled: disabled
-  account_login_info: "Ce message texte sera affiché à la page de connexion et devrait être utilisé pour les informations d'inscription. Ces options sont actives dans tous les projets."
-  add_go_to_top_info: "Si vous avez beaucoup de pages longues, il est utile d'ajouter un lien pour revenir en haut de la page."
-  additionals_query_list_default_totals: "Montants par défaut pour la vue en liste"
-  additionals_query_list_defaults: "Colonnes par défaut pour la vue en liste"
-  alert_only_visible_by_admins: "Ne peut être vu que par les utilisateurs ayant les droits d'administrateur"
-  alert_only_visible_by_yourself: "Ne peut être vu que par vous"
-  button_assign_to_me: M'affecter
+    disabled: "désactivé"
+    enabled: "activé"
+  additionals_query_list_default_totals: "Totaux par défaut de la liste"
+  additionals_query_list_defaults: "Colonnes par défaut de la liste"
+  alert_only_visible_by_admins: "Visible uniquement par les utilisateurs disposant des droits d'administration"
+  alert_only_visible_by_yourself: "Visible uniquement par vous"
+  button_assign_to_me: "M'assigner"
   button_copy_object: "Copier %{object_name}"
-  button_merge: Fusionner
-  disabled_modules_info: "Les modules qui ne devraient pas être disponibles pour la sélection dans le cadre des projets. Si ces modules sont déjà activés dans des projets existants, vous devez d'abord modifier et sauvegarder à nouveau les paramètres projet respectifs."
-  emoji_support_info_html: 'Convertir les emojis en texte. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" class="external">Emoji cheat sheet</a> the available emoji codes can be used.'
-  error_issue_status_could_not_changed: "L'état de la tâche n'a pas pu être modifié"
-  error_issues_could_not_be_assigned_to_me: "La tâche n'a pas pu m'être affectée"
-  errors_no_or_invalid_arguments: "Pas d'arguments ou arguments invalides"
-  field_always_expose: "Toujours afficher le nom du tableau de bord"
+  button_merge: "Fusionner"
+  days:
+    one: "jour"
+    other: "jours"
+  disabled_modules_info: "Modules qui ne doivent pas être proposés dans les projets. Si ces modules sont déjà activés dans des projets existants, le changement n'y prend effet qu'après un nouvel enregistrement des paramètres du projet."
+  emoji_support_info_html: "Convertit les codes emoji du texte. Activez cette option si :heart:, :+1: etc. doivent être convertis en emojis. Les codes disponibles figurent dans l'<a href=\"https://www.webfx.com/tools/emoji-cheat-sheet/\" class=\"external\">Emoji cheat sheet</a>."
+  error_issue_status_could_not_changed: "Le statut de la demande n'a pas pu être modifié"
+  error_issues_could_not_be_assigned_to_me: "La demande n'a pas pu vous être assignée"
+  errors_no_or_invalid_arguments: "Arguments manquants ou invalides"
+  field_always_expose: "Toujours afficher le nom du dashboard"
   field_attachments_count: "Nombre de fichiers"
-  field_color: Couleur
-  field_dashboard_locked: Locked
-  field_enable_new_ticket_message: "Activer le message d'émission"
-  field_enable_sidebar: Activer le menu latéral
-  field_hide: "Cacher"
-  field_icon: Icône
-  field_issue_relation: Issue relation
-  field_issue_relation_plural: Relations entre tâches
-  field_notes_count: Total des commentaires
-  field_project_system_default: "Projet par défaut"
-  field_system_default: "Défaut du système"
+  field_color: "Couleur"
+  field_dashboard_locked: "Verrouillé"
+  field_enable_new_ticket_message: "Activer le message pour les nouvelles demandes"
+  field_enable_sidebar: "Activer la barre latérale"
+  field_hide: "Masquer"
+  field_icon: "Icône"
+  field_issue_relation: "Relation de la demande"
+  field_issue_relation_plural: "Relations de la demande"
+  field_notes_count: "Nombre de notes"
+  field_project_system_default: "Valeur par défaut du projet"
+  field_system_default: "Valeur système par défaut"
   field_visibility: "Visibilité"
-  field_website: Site Web
-  global_footer_info: 'Entrez un projet en bas de page wiki ici.'
-  global_search_info: "Si actif, une boite de dialogue de recherche globale (Cmd+K) est disponible sur toutes les pages."
-  global_sidebar_info: "Saisissez ici un message texte disponible pour l'ensemble du projet. Ce texte latéral sera affiché dans la vue d'ensemble du projet, les pages d'édition et les pages wiki."
-  global_wiki_sidebar_info: "Entrez ici un message texte disponible pour l'ensemble du projet pour votre barre latérale wiki. Ce texte de la barre latérale sera affiché uniquement sur les pages wiki. Use this space for Macros like \"Last changed pages\" for example. Dans le cas où une barre latérale spécifique au projet est utilisée (page wiki), celle-ci sera de préférence affichée dans la barre latérale."
-  google_maps_embed_api_html: "Si vous souhaitez utiliser la macro Gmap pour afficher les cartes de Goole, veuillez implémenter votre clé API Google Maps ici. Ensuite, vous pouvez utiliser la macro et divers paramètres. Pour plus d'informations sur l'utilisation des paramètres, voir <a href=\"https://developers.google.com/maps/documentation/embed/guide\">https://developers.google.com/maps/documentation/embed/guide</a>. La macro Gmap ne fonctionne qu'en combinaison avec la clé intégrée."
-  hidden_macros_in_toolbar_info: "Toutes les macros disponibles que l'utilisateur connecté peut utiliser sont listées via le bouton macro de la barre d'outils wiki. Les macros marquées ici ne sont pas proposées à la sélection. Ceci vous permet de limiter la portée de la liste. Les macros cachées restent utilisables dans le texte. Elles sont uniquement retirées de cette liste, pas désactivées."
-  info_chart_classes: "Vide répartit automatiquement les valeurs en environ cinq classes de même largeur. Des bornes fixes restent stables lorsque les données changent."
-  info_chart_compare_query: "Deuxième série à côté de la première. Affichée dans les diagrammes en barres et en lignes et dans le tableau des valeurs."
-  info_chart_compare_split: "Remplacée par la répartition."
-  info_chart_counted_several_times: "Les entrées à plusieurs valeurs comptent pour chacune d'elles. Le total compte chaque entrée une seule fois, les parts dépassent donc 100 % au total."
-  info_chart_description: "Affichée sous le titre. La mise en forme wiki est possible, p. ex. des liens vers des pages wiki ou des demandes."
-  info_chart_max_entries: "Affiche les entrées les plus grandes, le reste est regroupé sous « Autres ». Pour un champ de date, les dernières périodes. Vide ou 0 affiche toutes les entrées."
+  field_watched_by_me: "Observées par moi"
+  field_website: "Site web"
+  global_footer_info: "Saisissez ici un pied de page wiki commun à tous les projets, p. ex. un lien vers la politique de confidentialité."
+  global_search_info: "Si activé, une boîte de recherche globale (Cmd+K) est disponible sur toutes les pages."
+  global_sidebar_info: "Saisissez ici un texte commun à tous les projets. Ce texte de barre latérale s'affiche sur l'aperçu du projet, les pages de demandes et les pages wiki."
+  global_wiki_sidebar_info: "Saisissez ici un texte commun à tous les projets pour la barre latérale du wiki. Il s'affiche uniquement sur les pages wiki et peut servir, par exemple, à des macros comme \"Dernières pages modifiées\". Si un projet utilise sa propre barre latérale (page wiki), c'est celle-ci qui s'affiche."
+  google_maps_embed_api_html: "Pour afficher des cartes Google avec la macro Gmap, saisissez ici votre clé Google Maps Embed API. Plus d'informations sur les paramètres de la macro sur <a href=\"https://developers.google.com/maps/documentation/embed/guide\" class=\"external\">https://developers.google.com/maps/documentation/embed/guide</a>. Sans clé, la macro Gmap ne peut pas être utilisée."
+  hidden_macros_in_toolbar_info: "Toutes les macros que l'utilisateur connecté peut utiliser sont listées via le bouton macros de la barre d'outils wiki. Les macros cochées ici ne sont pas proposées. Cela permet de réduire la liste. Les macros masquées restent utilisables dans le texte ; elles sont seulement retirées de la liste, pas désactivées."
+  hours:
+    one: "heure"
+    other: "heures"
+  info_chart_classes: "Vide répartit automatiquement les valeurs en environ cinq classes de même largeur. Des bornes fixes restent stables quand les données changent."
+  info_chart_compare_query: "Seconde série à côté de la première. Affichée dans les graphiques en barres et en lignes et dans le tableau des valeurs."
+  info_chart_compare_split: "Remplacé par la répartition."
+  info_chart_counted_several_times: "Les entrées ayant plusieurs valeurs comptent pour chacune d'elles. Le total compte chaque entrée une fois, les parts dépassent donc 100 % au total."
+  info_chart_description: "Affiché sous le titre. La mise en forme wiki est possible, p. ex. des liens vers des pages wiki ou des demandes."
+  info_chart_max_entries: "Affiche les plus grandes entrées, le reste est regroupé dans \"Autres\". Pour un champ date, les dernières périodes. Vide ou 0 affiche toutes les entrées."
   info_chart_measure: "Les champs à valeurs multiples sont toujours comptés."
-  info_chart_min_share: "Les entrées dont la part en pourcentage est inférieure sont regroupées sous « Autres », pour un champ de date uniquement les parties de la répartition. Vide ou 0 ne regroupe rien."
+  info_chart_min_share: "Les entrées dont la part en pourcentage est plus petite sont regroupées dans \"Autres\", pour un champ date seulement les parties d'une répartition. Vide ou 0 ne regroupe rien."
   info_chart_open_only: "S'applique en plus des filtres de la requête."
-  info_chart_parts_counted_several_times: "Les entrées à plusieurs valeurs comptent dans chacune de leurs parts, les parts d'une barre dépassent donc sa valeur."
-  info_chart_period_timeline: "Indisponible pour un champ date : l'évolution affiche elle-même les périodes."
+  info_chart_parts_counted_several_times: "Les entrées ayant plusieurs valeurs comptent dans chacune de leurs parties, les parties d'une barre dépassent donc sa valeur."
+  info_chart_period_timeline: "Non disponible pour un champ date : la chronologie montre déjà les périodes."
   info_chart_query: "Sans requête, toutes les entrées visibles sont évaluées."
-  info_chart_section_caption: "Facultatif, sans titre le bloc indique ce qu'il évalue."
+  info_chart_section_caption: "Facultatif ; sans titre, le bloc indique ce qu'il évalue."
   info_chart_section_data: "Quelles entrées sont évaluées ?"
   info_chart_section_display: "À quoi ressemble le résultat ?"
   info_chart_section_evaluation: "Comment les entrées sont-elles regroupées ?"
-  info_chart_shares: "L'anneau, le diagramme circulaire et le treemap montrent les parts d'un tout : la répartition et la comparaison sont disponibles pour les barres, les lignes, les aires et le tableau."
-  info_chart_split_by: "Répartit chaque entrée selon un second champ, en barres ou aires empilées, en lignes ou en tableau croisé. Indisponible pour les diagrammes circulaires et le treemap, remplace la comparaison."
-  info_chart_with_table: "Affiché à côté du graphique, toujours avec l'affichage Tableau."
-  info_chart_with_table_calendar: "Pas avec l'affichage Calendrier, qui montre déjà la valeur de chaque jour."
-  info_hidden_roles_html: "Les rôles cachés ne peuvent être utilisés qu'avec la visibilité utilisateur \"Membres de projets visibles\". Si l'utilisateur n'est pas dans un rôle visible par l'utilisateur actuel, ce rôle, y compris l'utilisateur, est masqué sur la page de synthèse du projet et dans les listes de requêtes."
-  info_issue_hide_max_attachments: "Si le nombre de fichiers saisis ici est supérieur, toutes les pièces jointes d'une question sont affichées de manière masquée."
-  info_issue_link_category: "Lie la catégorie (sur la page de la demande et dans les colonnes des listes de demandes) à la liste des demandes du projet concerné filtrée par cette catégorie."
-  info_live_search_result_restriction: "Les résultats de LiveSearch sont limités à %{value} résultats limités. Essaie de décrire ta recherche plus précisément."
-  label_account_login_bottom: "Texte pour la page de connexion"
-  label_activate_quickstart: "Activer quickstart"
-  label_active_dashboard: "Tableau de bord actif"
+  info_chart_shares: "Les graphiques en anneau, en secteurs et la carte proportionnelle montrent des parts d'un tout : la répartition et la comparaison sont disponibles pour les barres, les lignes, les aires et le tableau."
+  info_chart_split_by: "Répartit chaque entrée selon un second champ, en barres ou aires empilées, en lignes ou en tableau croisé. Non disponible pour l'anneau, les secteurs et la carte proportionnelle ; remplace la comparaison."
+  info_chart_with_table: "Affiché à côté du graphique, toujours pour le type d'affichage Tableau."
+  info_chart_with_table_calendar: "Pas pour le type d'affichage Calendrier, qui montre lui-même la valeur de chaque jour."
+  info_hidden_roles_html: "Les rôles masqués ne peuvent être utilisés qu'avec la visibilité des utilisateurs \"Membres des projets visibles\". Si l'utilisateur n'a aucun rôle visible pour l'utilisateur courant, ce rôle et l'utilisateur sont masqués sur l'aperçu du projet et dans les listes de requêtes."
+  info_issue_hide_max_attachments: "Si une demande compte plus de fichiers que le nombre saisi ici, toutes ses pièces jointes sont affichées repliées."
+  info_issue_link_category: "Lie la catégorie (sur la page de la demande et dans les colonnes des listes de demandes) à la liste des demandes du projet filtrée par cette catégorie."
+  info_live_search_result_restriction: "Les résultats LiveSearch sont limités à %{value} entrées. Essayez d'affiner votre recherche."
+  label_account_login_bottom: "Texte de la page de connexion"
+  label_activate_quickstart: "Activer le démarrage rapide"
+  label_active_dashboard: "Dashboard actif"
   label_add_dashboard_block: "Ajouter un bloc"
-  label_add_go_to_top: 'Ajouter un lien "Revenir en haut"'
-  label_additionals: Additionals
-  label_additionals_feed: Flux Atom+RSS
-  label_additionals_message: Message
+  label_add_go_to_top: "Ajouter un lien \"Haut de page\""
+  label_additionals: "Additionals"
+  label_additionals_feed: "Flux Atom+RSS"
+  label_additionals_message: "Message"
   label_all_active_users: "Tous les utilisateurs actifs"
-  label_all_projects: Tous les projets
+  label_all_projects: "Tous les projets"
   label_all_users: "Tous les utilisateurs"
-  label_app_menu: Menu applicatif
-  label_auto_watch_on_issue_assigned: "Les tâches qui m'ont été confiées"
-  label_calendar_week: "CW %{week}"
-  label_change_is_private: Changer Privé/non privé
-  label_change_project: Changer le projet
-  label_change_to_dashboard: "Passer au tableau de bord"
+  label_app_menu: "Menu des applications"
+  label_auto_watch_on_issue_assigned: "Demandes qui me sont assignées"
+  label_calendar_week: "S%{week}"
+  label_change_is_private: "Changer privé/non privé"
+  label_change_project: "Changer de projet"
+  label_change_to_dashboard: "Passer au dashboard"
   label_chart_class_below: "moins de %{value}"
   label_chart_class_from: "%{value} et plus"
   label_chart_class_range: "de %{from} à moins de %{to}"
   label_chart_class_span: "de %{from} à %{to}"
   label_chart_classes: "Bornes"
   label_chart_classes_auto: "automatique"
-  label_chart_color_schema: Schéma de couleur graphique
+  label_chart_color_schema: "Palette de couleurs des graphiques"
   label_chart_compare_query: "Comparaison"
   label_chart_interval: "par"
   label_chart_interval_day: "Jour"
@@ -130,7 +124,7 @@ fr:
   label_chart_period_to: "Au"
   label_chart_previous_period: "Période précédente"
   label_chart_quarter: "T%{quarter} %{year}"
-  label_chart_section_caption: "Libellé"
+  label_chart_section_caption: "Légende"
   label_chart_section_data: "Données"
   label_chart_section_display: "Affichage"
   label_chart_section_evaluation: "Évaluation"
@@ -140,192 +134,198 @@ fr:
   label_chart_summary_classes: "%{source} : %{measure} par tranches de %{group}%{details}."
   label_chart_summary_compare: ", comparé à %{value}"
   label_chart_summary_display: ", en %{value}"
-  label_chart_summary_heading: "Ce que montre le bloc"
+  label_chart_summary_heading: "Ce bloc affiche"
   label_chart_summary_split: ", réparti par %{value}"
-  label_chart_summary_timeline: "%{source} : %{measure} selon %{group} par %{interval}%{details}."
+  label_chart_summary_timeline: "%{source} : %{measure} au fil de %{group} par %{interval}%{details}."
   label_chart_summary_without_group: "Aucun champ de regroupement n'est encore choisi."
-  label_chart_type_area: "Aire"
+  label_chart_type_area: "Aires"
   label_chart_type_bar_horizontal: "Barres horizontales"
   label_chart_type_bar_vertical: "Barres verticales"
   label_chart_type_calendar: "Calendrier"
   label_chart_type_doughnut: "Anneau"
-  label_chart_type_line: "Ligne"
-  label_chart_type_no_timeline: "N'affiche pas d'évolution dans le temps"
-  label_chart_type_pie: "Camembert"
+  label_chart_type_line: "Lignes"
+  label_chart_type_no_timeline: "N'affiche pas de chronologie"
+  label_chart_type_pie: "Secteurs"
   label_chart_type_table: "Tableau"
-  label_chart_type_timeline_only: "Uniquement avec un regroupement par date"
-  label_chart_type_treemap: "Treemap"
-  label_chart_valid_only: "Uniquement les entrées valides"
+  label_chart_type_timeline_only: "Uniquement en regroupant par date"
+  label_chart_type_treemap: "Carte proportionnelle"
+  label_chart_valid_only: "Entrées valides uniquement"
   label_chart_week: "S%{week}/%{year}"
-  label_chart_with_name: "Graphique: %{value}"
+  label_chart_with_name: "Graphique : %{value}"
   label_chartjs_colorscheme_info: "Liste des couleurs"
-  label_content_plural: Contenus
+  label_content_plural: "Contenus"
   label_copied_to_clipboard: "Copié !"
-  label_custom_field_editable_info: If disabled changes are only possible with API calls or via bulk edit.
-  label_daily: tous les jours
-  label_dashboard: Tableau de bord
-  label_dashboard_author: "Auteur: %{name}"
+  label_custom_field_editable_info: "Si désactivé, les modifications ne sont possibles que via l'API ou la modification en masse."
+  label_daily: "quotidien"
+  label_dashboard: "Dashboard"
+  label_dashboard_author: "Auteur : %{name}"
   label_dashboard_block_info_async: "Ce bloc est chargé de manière asynchrone et mis en cache pendant %{time}."
   label_dashboard_legacy_left: "Contenu standard à gauche"
-  label_dashboard_legacy_right: "Droit au contenu standard"
-  label_dashboard_lock: Activer le verrouillage du tableau de bord
-  label_dashboard_lock_is_active: "Dashboard blocage est activé"
-  label_dashboard_plural: Tableaux de bord
-  label_dashboard_unlock: Supprimer le verrouillage du tableau de bord
-  label_dashboard_unlock_by_click: "Le verrouillage du tableau de bord est actif, cliquez pour le supprimer"
-  label_day: Jour
+  label_dashboard_legacy_right: "Contenu standard à droite"
+  label_dashboard_lock: "Verrouiller le dashboard"
+  label_dashboard_lock_is_active: "Le dashboard est verrouillé"
+  label_dashboard_plural: "Dashboards"
+  label_dashboard_unlock: "Déverrouiller le dashboard"
+  label_dashboard_unlock_by_click: "Le dashboard est verrouillé, cliquez pour le déverrouiller"
+  label_day: "jour"
   label_default_sort_by: "Tri par défaut"
-  label_disable_sidebar: "Désactiver la sidebar"
+  label_disable_sidebar: "Désactiver la barre latérale"
   label_disabled_modules: "Modules désactivés"
-  label_docs_access_token: Jeton d'accès
+  label_docs_access_token: "Jeton d'accès"
   label_document_view_all: "Voir tous les documents"
-  label_emoji_support: Emoji Support
-  label_enable_auto_refresh: "Activer le rafraîchissement automatique"
-  label_enable_sidebar: "Activer la sidebar"
-  label_global_footer: "Pied de page projet"
+  label_emoji_support: "Prise en charge des emojis"
+  label_enable_auto_refresh: "Activer l'actualisation automatique"
+  label_enable_sidebar: "Activer la barre latérale"
+  label_global_footer: "Pied de page pour tous les projets"
   label_global_search: "Recherche globale"
-  label_global_search_all_results: "Tous les %{count} résultats"
+  label_global_search_all_results: "Les %{count} résultats"
   label_global_search_always_bookmarks: "Mes favoris (toujours)"
   label_global_search_always_global: "Tous les projets (toujours)"
   label_global_search_clear_all: "Tout effacer"
   label_global_search_in_all_projects: "dans tous les projets"
   label_global_search_in_my_bookmarks: "dans mes projets favoris"
   label_global_search_in_titles: "dans les titres"
-  label_global_search_placeholder: "Saisissez pour rechercher..."
-  label_global_search_recent_projects: "Projets récemment utilisés"
+  label_global_search_placeholder: "Tapez pour rechercher..."
+  label_global_search_recent_projects: "Projets utilisés récemment"
   label_global_search_recent_searches: "Recherches récentes"
-  label_global_search_short_words_titles_only: "Recherche limitée aux titres. Saisissez un mot d'au moins %{value} caractères pour rechercher dans le texte intégral"
-  label_global_sidebar: "Barre latéral globale"
-  label_global_wiki_sidebar: "Barre latéral global du wiki"
-  label_go_to_top: "Revenir en haut"
-  label_google_maps_api_key: Clé API de Google Maps
-  label_help_doc: Documentation
-  label_help_integration: "Intégration de notre aide en ligne"
-  label_help_manual: manuel
-  label_hidden_macros_in_toolbar: Cacher les macros
-  label_hour: Heure
-  label_icon_color: Couleur d'icône
-  label_inactive: Inactif
-  label_invalid_feed_data: "Données d'alimentation ou URL invalides"
-  label_is_non_private: non privé
-  label_issue_assign_to_me: Voir "M'affecter" sur les tâches
-  label_issue_auto_assign: "Si l'option \"Assigned to\" n'est pas attribuée à un utilisateur et que le statut de la nouvelle question est x, la question est automatiquement attribuée au premier groupe d'utilisateurs ayant le rôle prédéfini."
-  label_issue_change_status: Modifier le statut
-  label_issue_change_status_in_sidebar: Statuts des tâches dans la bare latérale
-  label_issue_current_user_status: "L'état actuel du problème x n'est autorisé que si \"Assignee\" est l'utilisateur actuel."
-  label_issue_fast_description_edit: "Édition rapide pour la description"
-  label_issue_freezed_with_close: "Interdire l'édition des tâches fermées (freeze)"
-  label_issue_genitive: "problème"
-  label_issue_hide_max_attachments: "Afficher les fichiers max."
+  label_global_search_short_words_titles_only: "Seuls les titres ont été recherchés. Saisissez un mot d'au moins %{value} caractères pour rechercher dans le texte intégral"
+  label_global_sidebar: "Barre latérale globale"
+  label_global_wiki_sidebar: "Barre latérale globale du wiki"
+  label_go_to_top: "Haut de page"
+  label_google_maps_api_key: "Clé Google Maps Embed API"
+  label_help_doc: "Documentation"
+  label_help_integration: "Intégration de l'aide en ligne"
+  label_help_manual: "Manuel"
+  label_hidden_macros_in_toolbar: "Macros masquées"
+  label_hour: "heure"
+  label_icon_color: "Couleur de l'icône"
+  label_inactive: "Inactif"
+  label_invalid_feed_data: "Données de flux ou URL invalides"
+  label_is_non_private: "non privé"
+  label_issue_assign_to_me: "Afficher \"M'assigner\" sur la demande"
+  label_issue_auto_assign: "Si \"Assigné à\" n'est pas renseigné et que le nouveau statut de la demande est x, la demande est assignée automatiquement au premier groupe contenant des utilisateurs du rôle prédéfini."
+  label_issue_change_status: "Changer le statut"
+  label_issue_change_status_in_sidebar: "Statut de la demande dans la barre latérale"
+  label_issue_current_user_status: "Le statut de demande x n'est autorisé que si \"Assigné à\" est l'utilisateur courant."
+  label_issue_fast_description_edit: "Modification rapide de la description"
+  label_issue_freezed_with_close: "Interdire la modification des demandes fermées (gel)"
+  label_issue_genitive: "de la demande"
+  label_issue_hide_max_attachments: "Fichiers affichés au maximum"
   label_issue_link_category: "Lier la catégorie"
   label_issue_link_category_title: "Afficher les demandes de cette catégorie"
-  label_issue_note_with_author: "Afficher l'auteur de la tâche avec une note"
-  label_issue_status_change: "Si \"Assignee\" est inchangé et que le statut de la question est passé de x à y, l'auteur est assigné à la question."
-  label_issue_timelog_required: Saisie de temps obligatoire pour une tâche
-  label_issues_summary: "Aperçu des tâches"
-  label_last_year: année dernière
-  label_legacy_smiley_support: Legacy smiley support
-  label_live_search_hints: "Recherches par champ disponibles: %{value}"
+  label_issue_note_with_author: "Afficher l'auteur de la demande dans les notes"
+  label_issue_status_change: "Si \"Assigné à\" ne change pas et que le statut de la demande passe de x à y, la demande est assignée à son auteur"
+  label_issue_timelog_required: "Saisie du temps obligatoire pour les demandes"
+  label_issues_summary: "Résumé des demandes"
+  label_last_year: "année précédente"
+  label_legacy_smiley_support: "Prise en charge des anciens smileys"
+  label_list_all_entries: "Lister tous les %{value}"
+  label_live_search_hints: "Recherches par champ disponibles : %{value}"
   label_macro_not_available: "(%{name} : non disponible)"
-  label_macro_plural: macros
-  label_max_entries: "Entrées maximales"
+  label_macro_plural: "Macros"
+  label_max_entries: "Nombre maximal d'entrées"
   label_max_live_search_results: "Nombre maximal de résultats LiveSearch"
-  label_menu_entry: "Menu item"
-  label_monthly: mensuel
+  label_menu_entry: "Élément de menu"
+  label_monthly: "mensuel"
   label_my_activity: "Mon activité"
-  label_my_dashboard_plural: "Mes tableaux de bord"
-  label_my_spent_time: Ma saisie de temps d'activité
-  label_new_dashboard: "Nouveau tableau de bord"
-  label_new_issue_on_profile: "Nouvelle tâche sur le profil de l'utilisateur"
-  label_new_ticket_message: "Note pour les nouvelles tâches"
-  label_no_permission: "Pas de permission"
+  label_my_dashboard_plural: "Mes dashboards"
+  label_my_spent_time: "Mon temps passé"
+  label_new_dashboard: "Nouveau dashboard"
+  label_new_issue_on_profile: "Nouvelle demande sur le profil utilisateur"
+  label_new_ticket_message: "Message pour les nouvelles demandes"
+  label_no_permission: "Pas d'autorisation"
   label_only_my_activities: "Seulement mon activité"
-  label_open_external_urls: Ouvrir des URL externes
+  label_open_external_urls: "Ouvrir les URL externes"
   label_open_in_google_docs: "Ouvrir dans Google Docs"
-  label_open_in_new_windows: Ouvrir dans une nouvelle fenêtre
-  label_pdf_wiki_settings: paramètres d'édition PDF d'une page Wiki
+  label_open_in_new_windows: "Ouvrir dans une nouvelle fenêtre"
+  label_pdf_wiki_settings: "Paramètres PDF du wiki"
   label_percent_value: "%{value} %"
-  label_percentage: Percentage
-  label_project_information: "Informations sur le projet"
-  label_project_list: "liste des projets"
+  label_percentage: "Pourcentage"
+  label_project_information: "Informations du projet"
+  label_project_list: "Liste des projets"
   label_project_scope: "du projet"
   label_project_setting: "Projet"
   label_quantity: "Quantité"
-  label_query_delete: Annuler la requête
-  label_query_edit: Modifier la requête
-  label_query_name_search: Rechercher un nom
-  label_query_own_columns: "Remplacer les colonnes du rapport"
-  label_query_with_name: "Requête: %{value}"
-  label_quickstart: Quickstart
-  label_recently_updated_pages: Pages mises à jour
-  label_reddit_subject: Sujet Reddit
-  label_reddit_user_account: Compte utilisateur Reddit
-  label_redmine_org_issue: Redmine.org issue
-  label_redmine_org_wiki: Redmine.org wiki page
-  label_remove_help: "Retirer 'Aide' du menu"
-  label_search_by_name: Recherche par nom
-  label_search_scope: "Portee de la recherche"
+  label_query_delete: "Supprimer la requête"
+  label_query_edit: "Modifier la requête"
+  label_query_name_search: "Rechercher par nom"
+  label_query_own_columns: "Remplacer les colonnes de la requête"
+  label_query_with_name: "Requête : %{value}"
+  label_quickstart: "Démarrage rapide"
+  label_recently_updated_pages: "Pages mises à jour"
+  label_reddit_subject: "Sujet Reddit"
+  label_reddit_user_account: "Compte utilisateur Reddit"
+  label_redmine_org_issue: "Demande sur Redmine.org"
+  label_redmine_org_wiki: "Page wiki sur Redmine.org"
+  label_remove_help: "Retirer 'Aide' du menu supérieur"
+  label_route: "Itinéraire"
+  label_search_by_name: "Rechercher par nom"
+  label_search_scope: "Périmètre de recherche"
   label_setting_value_not_visible: "non visible pour vous"
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
-  label_shared_dashboard_plural: "Tableaux de bord partagés"
-  label_show_all: Montrer tout
-  label_show_closed_issues: Montrer les issues fermés
+  label_shared_dashboard_plural: "Dashboards partagés"
+  label_show_all: "Tout afficher"
+  label_show_closed_issues: "Afficher les demandes fermées"
+  label_show_variables: "Afficher les variables"
   label_stats_new_today: "Nouveau aujourd'hui"
   label_stats_totals: "Total"
-  label_system_info: Info système
+  label_system_info: "Informations système"
+  label_table_of_values: "Tableau des valeurs"
   label_text_async: "Texte (asynchrone)"
-  label_text_sync: Texte
-  label_top_macros_help_html: "Vous obtenez ici une liste de toutes les macros Redmine disponibles de votre installation, qui sont fournies par Redmine et les plugins Redmine."
-  label_top_menu: Menu supérieur
-  label_top_menu_help_html: "Ici, vous pouvez définir de nouveaux éléments de menu du haut."
-  label_twitter_account: Compte Twitter
-  label_twitter_hashtag: Hashtag Twitter
-  label_uptime: Uptime
-  label_user_is_author_of: "Cet utilisateur est l'auteur de cette %{entity}."
+  label_text_sync: "Texte"
+  label_top_macros_help_html: "Voici la liste de toutes les macros Redmine disponibles dans votre installation, fournies par Redmine et ses plugins."
+  label_top_menu: "Menu supérieur"
+  label_top_menu_help_html: "Vous pouvez définir ici de nouveaux éléments du menu supérieur."
+  label_twitter_account: "Compte Twitter"
+  label_twitter_hashtag: "Hashtag Twitter"
+  label_uptime: "Temps de fonctionnement"
+  label_user_is_author_of: "Cet utilisateur est l'auteur de %{entity}."
   label_user_list: "Liste des utilisateurs"
-  label_visibility_groups: uniquement pour ces groupes
-  label_web_apis: APIs Web
-  label_weekly: hebdomadaire
-  label_wiki_pdf_remove_attachments: "Supprimer les pièces jointes de la vue PDF"
-  label_wiki_pdf_remove_title: "Supprimer le titre du wiki de la vue PDF"
-  label_yearly: annuellement
-  latest_entries_changes: "Derniers %{value} changements"
-  legacy_smiley_support_info_html: Convertir les smiley en texte. Activate this option if :), :-) etc are to be converted to smileys. If this setting is changed, the application server <strong>must be restarted</strong>.'
-  max_live_search_results_info: "Nombre maximal de résultats de recherche pour la LiveSearch. Remarque : le paramètre n'a d'effet que sur les plugins qui supportent LiveSearch."
-  menu_roles_info: "Seuls les membres des rôles sélectionnés verront cette entrée de menu."
-  new_ticket_message_info: "Une note sera montrée à tous ceux qui veulent ajouter un nouveau numéro. Par exemple, vous pouvez saisir des tests d'acceptation ou édicter des règles ici. Ces paramètres sont utilisés à l'échelle du projet."
-  notice_delete_error_with_messages: "Supprimer les problèmes avec les erreurs suivantes: %{errors}"
-  notice_failed_to_save_entries: "%{count} des %{total} %{name_plural} sélectionnés n'ont pu être sauvegardés: %{ids}."
-  notice_save_error_with_messages: "Sauvegarder les problèmes avec les erreurs suivantes: %{errors}"
-  notice_unsuccessful_delete: "Supprimer les problèmes"
-  notice_unsuccessful_save: "Sauvegarder les problèmes"
-  open_external_urls_info: "S'ils sont actifs, les URL externes s'ouvrent dans une nouvelle fenêtre/onglet."
-  permission_change_new_issue_author: "Définir l'auteur des nouveaux numéros"
-  permission_edit_closed_issues: "Éditer les dossiers fermés"
-  permission_edit_issue_author: "Modifier l'auteur"
-  permission_issue_timelog_never_required: Enregistrements de temps non requis
-  permission_save_dashboards: "Sauvegarder les tableaux de bord"
-  permission_set_system_dashboards: "Définir les tableaux de bord du système"
-  permission_share_dashboards: "Partager les tableaux de bord"
-  permission_show_hidden_roles_in_memberbox: "Afficher les rôles cachés"
-  remove_help_info: "Retire le lien 'Aide' du menu placé en haut de la page."
-  rule_issue_auto_assign_info: "Cas d'utilisation : L'auteur du problème ne sait pas à qui affecter le problème ou qui sera responsable de la résolution de la tâche. Dans ce cas, le problème par exemple avec le statut \"A faire\" est automatiquement affecté au premier groupe, qui contient un utilisateur du rôle de chef de projet présélectionné."
-  rule_issue_current_user_status_info_html: "Cette fonction, combinée avec le paramètre \"Issue status on sidebar\" attribue automatiquement à l'utilisateur actuel le nouveau statut sélectionné.<br />Use Case : Un utilisateur ne doit pouvoir régler le statut sur \"In Progress\" que pour lui-même, lorsqu'il travaille lui-même sur le ticket."
-  rule_issue_freezed_with_close_info: "Si cette option est activée, les numéros déjà fermés ne peuvent plus être édités et commentés. Pas même par courrier ou API. Cette restriction ne s'applique pas aux rôles utilisateurs avec l'autorisation \"Modifier les problèmes fermés\"."
-  rule_issue_status_change_info: "Cas d'utilisation: les problèmes doivent être automatiquement affectés à l'auteur, si l'état passe à \"Approuvé\"."
-  rule_issue_timelog_required_info_html: "Pour chaque ticket des trackers sélectionnés, une réservation temporelle est nécessaire si le ticket doit recevoir l'une des propriétés de statut définies. La réservation de temps n'est pas nécessaire si:<br />- aucun droit n'existe pour créer des réservations de temps <br />- l'utilisateur a l'autorisation \"Réservations de temps non nécessaires\" <br />Use case: Pour accepter un ticket avec le statut \"Vérifier\", le temps passé est également requis."
-  setting_export_limit: "Limite d'exportation"
-  settings_with_value: "Configuration %{value}"
+  label_visibility_groups: "uniquement pour ces groupes"
+  label_web_apis: "API web"
+  label_weekly: "hebdomadaire"
+  label_wiki_pdf_remove_attachments: "Retirer les pièces jointes de la vue PDF"
+  label_wiki_pdf_remove_title: "Retirer le titre du wiki de la vue PDF"
+  label_with_amount: "Nombre %{value}"
+  label_yearly: "annuel"
+  latest_entries_changes: "%{value} dernières modifications"
+  legacy_smiley_support_info_html: "Convertit les smileys du texte. Activez cette option si :), :-) etc. doivent être convertis en smileys. Si ce paramètre est modifié, le serveur d'applications <strong>doit être redémarré</strong>."
+  max_live_search_results_info: "Nombre maximal de résultats de recherche pour LiveSearch. Remarque : ce paramètre ne concerne que les plugins qui prennent en charge LiveSearch."
+  menu_roles_info: "Seuls les membres des rôles sélectionnés voient cet élément de menu."
+  minutes:
+    one: "minute"
+    other: "minutes"
+  new_ticket_message_info: "Un message s'affiche pour toute personne qui veut ajouter une nouvelle demande. Vous pouvez par exemple y indiquer des tests d'acceptation ou des règles pour les demandes. Ce paramètre s'applique à tous les projets."
+  notice_delete_error_with_messages: "La suppression a échoué avec les erreurs suivantes : %{errors}"
+  notice_failed_to_save_entries: "%{count} sur %{total} %{name_plural} sélectionnés n'ont pas pu être enregistrés : %{ids}."
+  notice_save_error_with_messages: "L'enregistrement a échoué avec les erreurs suivantes : %{errors}"
+  notice_unsuccessful_delete: "Suppression impossible"
+  notice_unsuccessful_save: "Enregistrement impossible"
+  open_external_urls_info: "Si activé, les URL externes s'ouvrent dans une nouvelle fenêtre ou un nouvel onglet."
+  permission_change_new_issue_author: "Définir l'auteur des nouvelles demandes"
+  permission_edit_closed_issues: "Modifier les demandes fermées"
+  permission_edit_issue_author: "Modifier l'auteur de la demande"
+  permission_issue_timelog_never_required: "Saisie du temps non obligatoire"
+  permission_save_dashboards: "Enregistrer des dashboards"
+  permission_set_system_dashboards: "Définir des dashboards système"
+  permission_share_dashboards: "Partager des dashboards"
+  permission_show_hidden_roles_in_memberbox: "Afficher les rôles masqués"
+  remove_help_info: "Retire l'élément 'Aide' du menu supérieur."
+  rule_issue_auto_assign_info: "Cas d'utilisation : l'auteur de la demande ne sait pas à qui l'assigner ni qui est chargé de la traiter. Dans ce cas, la demande, par exemple au statut \"To Do\", est assignée automatiquement au premier groupe contenant un utilisateur du rôle de chef de projet présélectionné."
+  rule_issue_current_user_status_info_html: "Avec le paramètre \"Statut de la demande dans la barre latérale\", cette fonction assigne automatiquement l'utilisateur courant lorsqu'il définit le nouveau statut sélectionné.<br />Cas d'utilisation : un utilisateur ne doit pouvoir se mettre le statut \"In Progress\" que lorsqu'il travaille lui-même sur la demande."
+  rule_issue_freezed_with_close_info: "Si cette option est activée, les demandes fermées ne peuvent plus être modifiées ni commentées, même par e-mail ou par l'API. Cette restriction ne s'applique pas aux rôles disposant de l'autorisation \"Modifier les demandes fermées\"."
+  rule_issue_status_change_info: "Cas d'utilisation : les demandes doivent être assignées automatiquement à leur auteur si le statut passe à \"Approval\"."
+  rule_issue_timelog_required_info_html: "Pour chaque demande des trackers sélectionnés, du temps saisi est nécessaire si la demande doit passer à l'un des statuts définis. La saisie du temps n'est pas nécessaire si :<br />- il n'y a pas le droit de saisir du temps<br />- l'utilisateur dispose de l'autorisation \"Saisie du temps non obligatoire\"<br />Cas d'utilisation : pour la réception d'une demande au statut \"To Verify\", le temps passé est aussi nécessaire."
+  seconds:
+    one: "seconde"
+    other: "%{count} secondes"
+  setting_export_limit: "Limite d'export"
+  settings_with_value: "Paramètres %{value}"
   text_available_variables: "Variables disponibles : %{variables}"
-  top_rules_help: "Ici, vous pouvez définir des règles, qui sont utilisées dans les tâches de tous les projets."
-  top_wiki_help: "Ici vous pouvez définir le contenu et les paramètres de votre Wiki."
-  wiki_pdf_remove_attachments_info: "Lorsqu'ils sont actifs, les fichiers Wiki joints ne seront pas affichés en vue PDF."
-  wiki_pdf_remove_title_info: "Lorsqu'elle est active, l'information sur le titre du wiki ne sera pas affichée dans la vue PDF."
-  label_route: Route
-  field_watched_by_me: "Surveillé par moi"
-  label_with_amount: "Montant %{value}"
-  label_list_all_entries: "Liste complète %{value}"
-  label_table_of_values: Tableau de la valeur
-  text_dashboard_lock_confirmation: Êtes-vous sûr de vouloir verrouiller ce tableau de bord?
-  text_dashboard_unlock_confirmation: Êtes-vous sûr de vouloir déverrouiller ce tableau de bord?
+  text_dashboard_lock_confirmation: "Voulez-vous vraiment verrouiller ce dashboard ?"
+  text_dashboard_unlock_confirmation: "Voulez-vous vraiment déverrouiller ce dashboard ?"
+  top_rules_help: "Vous pouvez définir ici des règles qui s'appliquent aux demandes de tous les projets."
+  top_wiki_help: "Vous pouvez définir ici le contenu et les paramètres du wiki."
+  wiki_pdf_remove_attachments_info: "Si activé, les fichiers joints à la page wiki ne s'affichent pas dans la vue PDF."
+  wiki_pdf_remove_title_info: "Si activé, le titre du wiki ne s'affiche pas dans la vue PDF."

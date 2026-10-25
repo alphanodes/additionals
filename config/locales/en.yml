@@ -1,69 +1,63 @@
 # English strings
 en:
-  label_show_variables: "Show variables"
-  seconds:
-    one: second
-    other: "%{count} seconds"
-  minutes:
-    one: minute
-    other: minutes
-  hours:
-    one: hour
-    other: hours
-  days:
-    one: day
-    other: days
+  account_login_info: "This text message will be shown at the login page and should be used for registration information. These settings are active in all projects."
   activerecord:
     errors:
+      messages:
+        invalid_icon_format: "is an invalid icon code"
+        issue_cannot_close_with_open_children: "This issue can only be closed if all subtasks are closed, too."
+        issue_changes_not_allowed: "This issue is closed, you are not allowed to change it."
+        issue_current_user_status: "The selected status requires that the \"Assignee\" is yourself."
+        issue_log_time_not_allowed: "is a closed issue. You are not allowed to log time on it."
+        issue_requires_timelog: "The selected issue status requires logged time."
+        relation_not_unique: "is assigned more than once."
       models:
         dashboard:
-            must_be_for_everyone: "must be set to any users if System Default is used."
-      messages:
-        issue_cannot_close_with_open_children: "This issue can only be closed, if all sub-issues are closed, too."
-        issue_current_user_status: "The selected status requires that the \"Assignee\" is yourself."
-        issue_log_time_not_allowed: "is a closed issue. You are not allowed to log time at it."
-        issue_changes_not_allowed: "This issue is closed, you do not have any right to change it."
-        issue_requires_timelog: "The selected issue status requires a time logging."
-        invalid_icon_format: is an invalid font-awesome code
-        relation_not_unique: multiple assigned.
+          must_be_for_everyone: "must be set to all users if system default is used."
+  add_go_to_top_info: "If you have a lot of long pages, it is helpful to add a jump to top link."
   additionals:
-    enabled: enabled
-    disabled: disabled
-  account_login_info: "This text message will be shown at the login page and should be used for registration information. These settings are active in all projects."
-  add_go_to_top_info: 'If you have a lot of long pages, it is helpful to add a jump to top link.'
-  additionals_query_list_default_totals: Default sums for list view
-  additionals_query_list_defaults: Default columns for list view
+    disabled: "disabled"
+    enabled: "enabled"
+  additionals_query_list_default_totals: "Default sums for list view"
+  additionals_query_list_defaults: "Default columns for list view"
   alert_only_visible_by_admins: "Can only be seen by users with admin permissions"
   alert_only_visible_by_yourself: "Can only be seen by you"
-  button_assign_to_me: Assign to me
+  button_assign_to_me: "Assign to me"
   button_copy_object: "Copy %{object_name}"
   button_merge: "Merge"
-  disabled_modules_info: "Modules which should not be available for selection within the projects. If these modules already activated in existing projects, you will have to change and re-save the respective project settings first."
-  emoji_support_info_html: 'Convert emojis in text. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" class="external">Emoji cheat sheet</a> the available emoji codes can be used.'
-  error_issue_status_could_not_changed: Issue state could not be changed
-  error_issues_could_not_be_assigned_to_me: Issue could not be assigned to me
-  errors_no_or_invalid_arguments: No or invalid arguments
-  field_always_expose: Always show dashboard name
-  field_attachments_count: Number of files
-  field_color: Color
-  field_dashboard_locked: Locked
-  field_enable_new_ticket_message: Activate issue message
-  field_enable_sidebar: Enable sidebar
-  field_hide: Hide
-  field_icon: Icon
-  field_issue_relation: Issue relation
-  field_issue_relation_plural: Issue relations
-  field_notes_count: Notes amount
-  field_project_system_default: Project default
-  field_system_default: System default
-  field_visibility: Visibility
-  field_website: Website
-  global_footer_info: 'Enter a project wide wiki footer here.'
+  days:
+    one: "day"
+    other: "days"
+  disabled_modules_info: "Modules that should not be available for selection in projects. If these modules are already enabled in existing projects, the change takes effect there only after the respective project settings are saved again."
+  emoji_support_info_html: "Convert emojis in text. Activate this option if :heart:, :+1: etc. are to be converted to emojis. The <a href=\"https://www.webfx.com/tools/emoji-cheat-sheet/\" class=\"external\">Emoji cheat sheet</a> lists the available emoji codes."
+  error_issue_status_could_not_changed: "Issue status could not be changed"
+  error_issues_could_not_be_assigned_to_me: "Issue could not be assigned to you"
+  errors_no_or_invalid_arguments: "No or invalid arguments"
+  field_always_expose: "Always show dashboard name"
+  field_attachments_count: "Number of files"
+  field_color: "Color"
+  field_dashboard_locked: "Locked"
+  field_enable_new_ticket_message: "Activate issue message"
+  field_enable_sidebar: "Enable sidebar"
+  field_hide: "Hide"
+  field_icon: "Icon"
+  field_issue_relation: "Issue relation"
+  field_issue_relation_plural: "Issue relations"
+  field_notes_count: "Number of notes"
+  field_project_system_default: "Project default"
+  field_system_default: "System default"
+  field_visibility: "Visibility"
+  field_watched_by_me: "Watched by me"
+  field_website: "Website"
+  global_footer_info: "Enter a project wide wiki footer here, e.g. a link to the privacy policy."
   global_search_info: "If active, a global search dialog (Cmd+K) is available on all pages."
   global_sidebar_info: "Enter a project wide available text message here. This sidebar text will be displayed at the project overview, the issue pages and the wiki pages."
-  global_wiki_sidebar_info: 'Enter a project wide available text message for your wiki sidebar, here. This sidebar text will be displayed at the wiki pages only. Use this space for Macros like "Last changed pages" for example. In case a project specific sidebar is used (wiki page), this will be preferably displayed in the sidebar instead.'
-  google_maps_embed_api_html: In case you want to use the Gmap macro in order to display Goole maps please implement your Google Maps API key here. Afterwards you can use the macro and various parameters. More information on how to use the parameters are provided at <a href="https://developers.google.com/maps/documentation/embed/guide" class="external">https://developers.google.com/maps/documentation/embed/guide</a>. The Gmap macro works only in combination with the embedded key here.
-  hidden_macros_in_toolbar_info: All available macros that the logged in user can use are listed via the macro button of the wiki toolbar. Macros marked here are not offered for selection. This allows you to limit the scope of the list. Hidden macros remain usable in the text. They are only removed from this list, not disabled.
+  global_wiki_sidebar_info: "Enter a project wide text for the wiki sidebar here. It is displayed on wiki pages only and can be used for macros like \"Last changed pages\", for example. If a project uses its own sidebar (wiki page), that one is displayed instead."
+  google_maps_embed_api_html: "To display Google Maps with the Gmap macro, enter your Google Maps Embed API key here. More information about the parameters of the macro is available at <a href=\"https://developers.google.com/maps/documentation/embed/guide\" class=\"external\">https://developers.google.com/maps/documentation/embed/guide</a>. Without a key the Gmap macro cannot be used."
+  hidden_macros_in_toolbar_info: "All available macros that the logged in user can use are listed via the macro button of the wiki toolbar. Macros marked here are not offered for selection. This allows you to limit the scope of the list. Hidden macros remain usable in the text. They are only removed from this list, not disabled."
+  hours:
+    one: "hour"
+    other: "hours"
   info_chart_classes: "Empty divides the values automatically into about five classes of the same width. Fixed bounds stay stable when the data changes."
   info_chart_compare_query: "Second series next to the first one. Shown in bar and line charts and in the table of values."
   info_chart_compare_split: "Replaced by the split."
@@ -84,34 +78,34 @@ en:
   info_chart_split_by: "Splits each entry by a second field, as stacked bars or areas, lines or a cross table. Not available for doughnut, pie and treemap, replaces the comparison."
   info_chart_with_table: "Shown next to the chart, always for the display type Table."
   info_chart_with_table_calendar: "Not for the display type Calendar, which shows the value of each day itself."
-  info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". If the user is not in a role that is visible to the current user, this role including user is hidden on the project overview page and in query lists.
-  info_issue_hide_max_attachments: If the number of files entered here is exceeding all file attachments of an issue are displayed hidden.
-  info_issue_link_category: Link the category (on the issue page and in issue list columns) to the issue list of the respective project filtered by this category.
-  info_live_search_result_restriction: "LiveSearch results are limited to %{value} entries. Try to filter your search a better way."
+  info_hidden_roles_html: "Hidden roles can only be used together with the user visibility \"Members of visible projects\". If the user is not in any role that is visible to the current user, this role including the user is hidden on the project overview page and in query lists."
+  info_issue_hide_max_attachments: "If an issue has more files than entered here, all its file attachments are displayed collapsed."
+  info_issue_link_category: "Link the category (on the issue page and in issue list columns) to the issue list of the respective project filtered by this category."
+  info_live_search_result_restriction: "LiveSearch results are limited to %{value} entries. Try to narrow down your search."
   label_account_login_bottom: "Text for login page"
-  label_activate_quickstart: Activate quickstart
-  label_active_dashboard: "Active Dashboard"
+  label_activate_quickstart: "Activate quickstart"
+  label_active_dashboard: "Active dashboard"
   label_add_dashboard_block: "Add block"
-  label_add_go_to_top: 'Add "Go to top" link'
-  label_additionals: Additionals
-  label_additionals_feed: Atom+RSS Feed
-  label_additionals_message: Message
+  label_add_go_to_top: "Add \"Go to top\" link"
+  label_additionals: "Additionals"
+  label_additionals_feed: "Atom+RSS Feed"
+  label_additionals_message: "Message"
   label_all_active_users: "All active users"
-  label_all_projects: All projects
+  label_all_projects: "All projects"
   label_all_users: "All users"
-  label_app_menu: App menu
-  label_auto_watch_on_issue_assigned: Issues assigned to me
+  label_app_menu: "App menu"
+  label_auto_watch_on_issue_assigned: "Issues assigned to me"
   label_calendar_week: "CW %{week}"
-  label_change_is_private: Change private/non-private
-  label_change_project: Change project
-  label_change_to_dashboard: "Switch to Dashboard"
+  label_change_is_private: "Change private/non-private"
+  label_change_project: "Change project"
+  label_change_to_dashboard: "Switch to dashboard"
   label_chart_class_below: "below %{value}"
   label_chart_class_from: "%{value} and above"
   label_chart_class_range: "%{from} to below %{to}"
   label_chart_class_span: "%{from} to %{to}"
   label_chart_classes: "Bounds"
   label_chart_classes_auto: "automatic"
-  label_chart_color_schema: Charts color scheme
+  label_chart_color_schema: "Chart color scheme"
   label_chart_compare_query: "Comparison"
   label_chart_interval: "per"
   label_chart_interval_day: "Day"
@@ -158,30 +152,30 @@ en:
   label_chart_valid_only: "Valid entries only"
   label_chart_week: "W%{week}/%{year}"
   label_chart_with_name: "Chart: %{value}"
-  label_chartjs_colorscheme_info: Color list
-  label_content_plural: Contents
-  label_copied_to_clipboard: Copied!
-  label_custom_field_editable_info: If disabled changes are only possible with API calls or via bulk edit.
-  label_daily: daily
-  label_dashboard: Dashboard
+  label_chartjs_colorscheme_info: "Color list"
+  label_content_plural: "Contents"
+  label_copied_to_clipboard: "Copied!"
+  label_custom_field_editable_info: "If disabled changes are only possible with API calls or via bulk edit."
+  label_daily: "daily"
+  label_dashboard: "Dashboard"
   label_dashboard_author: "Author: %{name}"
-  label_dashboard_block_info_async: This block is loaded asynchronous and cached for %{time}.
+  label_dashboard_block_info_async: "This block is loaded asynchronous and cached for %{time}."
   label_dashboard_legacy_left: "Standard content left"
   label_dashboard_legacy_right: "Standard content right"
-  label_dashboard_lock: Activate dashboard lock
-  label_dashboard_lock_is_active: Dashboard lock is active
-  label_dashboard_plural: Dashboards
-  label_dashboard_unlock: Remove dashboard lock
+  label_dashboard_lock: "Activate dashboard lock"
+  label_dashboard_lock_is_active: "Dashboard lock is active"
+  label_dashboard_plural: "Dashboards"
+  label_dashboard_unlock: "Remove dashboard lock"
   label_dashboard_unlock_by_click: "Dashboard lock is active, click to remove it"
-  label_day: day
-  label_default_sort_by: Default sort by
-  label_disable_sidebar: Disable sidebar
+  label_day: "day"
+  label_default_sort_by: "Default sort by"
+  label_disable_sidebar: "Disable sidebar"
   label_disabled_modules: "Disabled modules"
   label_docs_access_token: "Access token"
-  label_document_view_all: View all documents
-  label_emoji_support: Emoji support
-  label_enable_auto_refresh: Enable auto refresh
-  label_enable_sidebar: Enable sidebar
+  label_document_view_all: "View all documents"
+  label_emoji_support: "Emoji support"
+  label_enable_auto_refresh: "Enable auto refresh"
+  label_enable_sidebar: "Enable sidebar"
   label_global_footer: "Project wide footer"
   label_global_search: "Global search"
   label_global_search_all_results: "All %{count} results"
@@ -198,110 +192,118 @@ en:
   label_global_sidebar: "Global sidebar"
   label_global_wiki_sidebar: "Global wiki sidebar"
   label_go_to_top: "Go to top"
-  label_google_maps_api_key: Google Maps Embed API Key
-  label_help_doc: Documentation
-  label_help_integration: Online help integration
-  label_help_manual: manual
-  label_hidden_macros_in_toolbar: Hidden macros
-  label_hour: hour
-  label_icon_color: Icon color
-  label_inactive: Inactive
+  label_google_maps_api_key: "Google Maps Embed API Key"
+  label_help_doc: "Documentation"
+  label_help_integration: "Online help integration"
+  label_help_manual: "Manual"
+  label_hidden_macros_in_toolbar: "Hidden macros"
+  label_hour: "hour"
+  label_icon_color: "Icon color"
+  label_inactive: "Inactive"
   label_invalid_feed_data: "Invalid feed data or URL"
-  label_is_non_private: non-private
-  label_issue_assign_to_me: Show "Assign to me" on issue
-  label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
-  label_issue_change_status: Change status
-  label_issue_change_status_in_sidebar: Issue status on sidebar
+  label_is_non_private: "non-private"
+  label_issue_assign_to_me: "Show \"Assign to me\" on issue"
+  label_issue_auto_assign: "If \"Assignee\" is not set and the new issue status is x, the issue is automatically assigned to the first group with users of the predefined role."
+  label_issue_change_status: "Change status"
+  label_issue_change_status_in_sidebar: "Issue status in sidebar"
   label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
-  label_issue_fast_description_edit: Fast edit for description
-  label_issue_freezed_with_close: Disallow editing of closed issues (Freeze)
-  label_issue_genitive: issue
-  label_issue_hide_max_attachments: Show max. files
-  label_issue_link_category: Link category
-  label_issue_link_category_title: Show issues with this category
-  label_issue_note_with_author: Show issue author with note
-  label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
-  label_issue_timelog_required: Time log for issues required
+  label_issue_fast_description_edit: "Fast edit for description"
+  label_issue_freezed_with_close: "Disallow editing of closed issues (freeze)"
+  label_issue_genitive: "issue"
+  label_issue_hide_max_attachments: "Show max. files"
+  label_issue_link_category: "Link category"
+  label_issue_link_category_title: "Show issues with this category"
+  label_issue_note_with_author: "Show issue author with note"
+  label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changes from x to y, the issue is assigned to its author"
+  label_issue_timelog_required: "Time log for issues required"
   label_issues_summary: "Issue summary"
-  label_last_year: previous year
-  label_legacy_smiley_support: Legacy smiley support
+  label_last_year: "previous year"
+  label_legacy_smiley_support: "Legacy smiley support"
+  label_list_all_entries: "List all %{value}"
   label_live_search_hints: "Available field searches: %{value}"
   label_macro_not_available: "(%{name}: not available)"
-  label_macro_plural: Macros
+  label_macro_plural: "Macros"
   label_max_entries: "Maximum entries"
   label_max_live_search_results: "Maximum number of LiveSearch results"
   label_menu_entry: "Menu item"
-  label_monthly: monthly
+  label_monthly: "monthly"
   label_my_activity: "My activity"
-  label_my_dashboard_plural: My dashboards
+  label_my_dashboard_plural: "My dashboards"
   label_my_spent_time: "My spent time"
-  label_new_dashboard: New dashboard
-  label_new_issue_on_profile: New issue on user profile
+  label_new_dashboard: "New dashboard"
+  label_new_issue_on_profile: "New issue on user profile"
   label_new_ticket_message: "Note for new issues"
   label_no_permission: "No permission"
   label_only_my_activities: "Only my activity"
-  label_open_external_urls: Open external URLs
-  label_open_in_google_docs: Open in Google Docs
-  label_open_in_new_windows: Open in new window
-  label_pdf_wiki_settings: PDF Wiki settings
+  label_open_external_urls: "Open external URLs"
+  label_open_in_google_docs: "Open in Google Docs"
+  label_open_in_new_windows: "Open in new window"
+  label_pdf_wiki_settings: "PDF wiki settings"
   label_percent_value: "%{value}%"
-  label_percentage: Percentage
+  label_percentage: "Percentage"
   label_project_information: "Project information"
   label_project_list: "Project list"
-  label_project_scope: from project
-  label_project_setting: Project
+  label_project_scope: "from project"
+  label_project_setting: "Project"
   label_quantity: "Quantity"
-  label_query_delete: Delete query
-  label_query_edit: Edit query
-  label_query_name_search: Search for name
+  label_query_delete: "Delete query"
+  label_query_edit: "Edit query"
+  label_query_name_search: "Search for name"
   label_query_own_columns: "Override the columns of the query"
   label_query_with_name: "Query: %{value}"
-  label_quickstart: Quickstart
-  label_recently_updated_pages: Updated pages
-  label_reddit_subject: Reddit subject
-  label_reddit_user_account: Reddit user account
-  label_redmine_org_issue: Redmine.org issue
-  label_redmine_org_wiki: Redmine.org wiki page
+  label_quickstart: "Quickstart"
+  label_recently_updated_pages: "Updated pages"
+  label_reddit_subject: "Reddit subject"
+  label_reddit_user_account: "Reddit user account"
+  label_redmine_org_issue: "Redmine.org issue"
+  label_redmine_org_wiki: "Redmine.org wiki page"
   label_remove_help: "Remove 'Help' from top menu"
+  label_route: "Route"
   label_search_by_name: "Search by name"
   label_search_scope: "Search scope"
   label_setting_value_not_visible: "not visible to you"
   label_settings_macros: "Macros"
   label_settings_menu: "Menu"
-  label_shared_dashboard_plural: Shared dashboards
-  label_show_all: Show all
-  label_show_closed_issues: Show closed issues
+  label_shared_dashboard_plural: "Shared dashboards"
+  label_show_all: "Show all"
+  label_show_closed_issues: "Show closed issues"
+  label_show_variables: "Show variables"
   label_stats_new_today: "New today"
   label_stats_totals: "Total"
-  label_system_info: System info
-  label_text_async: Text (asynchronous)
-  label_text_sync: Text
+  label_system_info: "System info"
+  label_table_of_values: "Table of values"
+  label_text_async: "Text (asynchronous)"
+  label_text_sync: "Text"
   label_top_macros_help_html: "Here you get a list of all available Redmine macros of your installation, which are provided by Redmine and the Redmine plugins."
-  label_top_menu: Top menu
+  label_top_menu: "Top menu"
   label_top_menu_help_html: "Here you can define new top menu items."
-  label_twitter_account: Twitter account
-  label_twitter_hashtag: Twitter hashtag
-  label_uptime: Uptime
-  label_user_is_author_of: This user is the author of this %{entity}.
+  label_twitter_account: "Twitter account"
+  label_twitter_hashtag: "Twitter hashtag"
+  label_uptime: "Uptime"
+  label_user_is_author_of: "This user is the author of this %{entity}."
   label_user_list: "User list"
-  label_visibility_groups: only for these groups
-  label_web_apis: Web APIs
-  label_weekly: weekly
-  label_wiki_pdf_remove_attachments: Remove attachments from PDF view
-  label_wiki_pdf_remove_title: Remove Wiki title from PDF view
-  label_yearly: yearly
+  label_visibility_groups: "only for these groups"
+  label_web_apis: "Web APIs"
+  label_weekly: "weekly"
+  label_wiki_pdf_remove_attachments: "Remove attachments from PDF view"
+  label_wiki_pdf_remove_title: "Remove wiki title from PDF view"
+  label_with_amount: "Amount %{value}"
+  label_yearly: "yearly"
   latest_entries_changes: "Latest %{value} changes"
-  legacy_smiley_support_info_html: 'Convert smileys in text. Activate this option if :), :-) etc are to be converted to smileys. If this setting is changed, the application server <strong>must be restarted</strong>.'
+  legacy_smiley_support_info_html: "Convert smileys in text. Activate this option if :), :-) etc are to be converted to smileys. If this setting is changed, the application server <strong>must be restarted</strong>."
   max_live_search_results_info: "Number of maximum search results for LiveSearch. Note: Setting only affects plugins that support LiveSearch."
   menu_roles_info: "Only members of selected roles will see this menu entry."
+  minutes:
+    one: "minute"
+    other: "minutes"
   new_ticket_message_info: "A note will be shown to everyone who wants to add a new issue. For example you can enter acceptance tests or issue rules here. These settings are used project wide."
-  notice_delete_error_with_messages: "Delete problems with following errors: %{errors}"
-  notice_failed_to_save_entries: "%{count} of %{total} selected %{name_plural} could not be saved : %{ids}."
-  notice_save_error_with_messages: "Save problems with following errors: %{errors}"
-  notice_unsuccessful_delete: Delete problems
-  notice_unsuccessful_save: Save problems
-  open_external_urls_info: "If active, external URLs are opened in new window/tab."
-  permission_change_new_issue_author: Set author of new issues
+  notice_delete_error_with_messages: "Deleting failed with the following errors: %{errors}"
+  notice_failed_to_save_entries: "%{count} of %{total} selected %{name_plural} could not be saved: %{ids}."
+  notice_save_error_with_messages: "Saving failed with the following errors: %{errors}"
+  notice_unsuccessful_delete: "Could not be deleted"
+  notice_unsuccessful_save: "Could not be saved"
+  open_external_urls_info: "If active, external URLs are opened in a new window or tab."
+  permission_change_new_issue_author: "Set author of new issues"
   permission_edit_closed_issues: "Edit closed issues"
   permission_edit_issue_author: "Edit issue author"
   permission_issue_timelog_never_required: "Time logging not required"
@@ -310,22 +312,20 @@ en:
   permission_share_dashboards: "Share dashboards"
   permission_show_hidden_roles_in_memberbox: "Show hidden roles"
   remove_help_info: "Remove the item 'Help' from the top menu."
-  rule_issue_auto_assign_info: 'Use Case: The issue author does not know whom to assign the issue or who will be responsible for solving the task. In that case the issue for example with the status "To Do" is automatically assigned to the first group, which does contain a user of the pre-selected project manager role.'
-  rule_issue_current_user_status_info_html: "This function together with the setting \"Issue status on sidebar\" automatically assigns the current user to the newly selected status.<br />Use Case: A user should only be able to set the status to \"In Progress\" for oneself when working on the ticket by oneself."
-  rule_issue_freezed_with_close_info: If this option is activated, already closed issues can no longer be edited and commented. Not even via mail or API. This restriction does not apply to user roles with the "Edit closed issues" permission.
-  rule_issue_status_change_info: "Use Case: issues should be automatically assigned to author, if the status changes to \"Approval\"."
-  rule_issue_timelog_required_info_html: 'For each issue of the selected trackers, a time booking is necessary if the issue is to receive one of the defined status properties. The time booking is not required if:<br />- no rights exist for the creation of time bookings<br />- the user has the authorization "Time logging not required"<br />Use case: For the acceptance of an issue with the status "To Verify", the time spent is also required.'
+  rule_issue_auto_assign_info: "Use case: The issue author does not know whom to assign the issue to or who is responsible for solving the task. In that case the issue, for example with the status \"To Do\", is automatically assigned to the first group that contains a user of the preselected project manager role."
+  rule_issue_current_user_status_info_html: "Together with the setting \"Issue status in sidebar\", this function automatically assigns the current user when the newly selected status is set.<br />Use case: A user should only be able to set the status \"In Progress\" for themselves, when they work on the issue themselves."
+  rule_issue_freezed_with_close_info: "If this option is activated, already closed issues can no longer be edited and commented. Not even via mail or API. This restriction does not apply to user roles with the \"Edit closed issues\" permission."
+  rule_issue_status_change_info: "Use case: issues should be automatically assigned to their author if the status changes to \"Approval\"."
+  rule_issue_timelog_required_info_html: "For each issue of the selected trackers, logged time is required if the issue is to receive one of the defined statuses. Logged time is not required if:<br />- there is no permission to log time<br />- the user has the permission \"Time logging not required\"<br />Use case: For the acceptance of an issue with the status \"To Verify\", the time spent is also required."
+  seconds:
+    one: "second"
+    other: "%{count} seconds"
   setting_export_limit: "Export limit"
   settings_with_value: "%{value} settings"
   text_available_variables: "Available variables: %{variables}"
+  text_dashboard_lock_confirmation: "Are you sure you want to lock this dashboard?"
+  text_dashboard_unlock_confirmation: "Are you sure you want to unlock this dashboard?"
   top_rules_help: "Here you can define rules, which are used in issues of all projects."
   top_wiki_help: "Here you can define contents and settings for your Wiki."
-  wiki_pdf_remove_attachments_info: "When active the attached Wiki files will not be displayed in PDF view."
-  wiki_pdf_remove_title_info: "When active the Wiki title info will not be displayed in PDF view."
-  label_route: Route
-  field_watched_by_me: Watched by me
-  label_with_amount: "Amount %{value}"
-  label_list_all_entries: "List all %{value}"
-  label_table_of_values: Table of values
-  text_dashboard_lock_confirmation: Are you sure you want to lock this dashboard?
-  text_dashboard_unlock_confirmation: Are you sure you want to unlock this dashboard?
+  wiki_pdf_remove_attachments_info: "If active, the files attached to the wiki page are not displayed in the PDF view."
+  wiki_pdf_remove_title_info: "If active, the wiki title is not displayed in the PDF view."

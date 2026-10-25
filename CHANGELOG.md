@@ -57,6 +57,7 @@
 - Add `link_to_issue_with_subject` and `Additionals.name_sort_key`
 - Test helper `count_sql_queries` accepts `matching:`
 - I18n tests check that a plugin offers the required locales, deviations are declared with `missing_locales:` and `extra_locales:`
+- All translations revised for consistent terms, German texts use the informal du
 - Bundled mermaid is used with Redmine 7.1 and newer
 - moment.js, `chartjs_moment` and `actioncable` removed from the asset loader
 - d3plus updated to 4.9.0

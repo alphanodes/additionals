@@ -1,128 +1,120 @@
 # Korean strings
 ko:
-  label_show_variables: "변수 표시"
-  seconds:
-    one: "두번째"
-    other: "%{count} 초"
-  minutes:
-    one: 분
-    other: 분
-  hours:
-    one: 시간
-    other: 시간
-  days:
-    one: 일
-    other: 일
+  account_login_info: "이 텍스트는 로그인 페이지에 표시되며 가입 안내 등에 사용합니다. 이 설정은 모든 프로젝트에 적용됩니다."
   activerecord:
     errors:
+      messages:
+        invalid_icon_format: "은(는) 잘못된 아이콘 코드입니다"
+        issue_cannot_close_with_open_children: "이 일감은 모든 하위 일감이 완료된 경우에만 완료할 수 있습니다."
+        issue_changes_not_allowed: "이 일감은 완료되어 변경할 권한이 없습니다."
+        issue_current_user_status: "선택한 상태는 \"담당자\"가 본인이어야 합니다."
+        issue_log_time_not_allowed: "은(는) 완료된 일감입니다. 이 일감에는 소요시간을 기록할 수 없습니다."
+        issue_requires_timelog: "선택한 일감 상태에는 소요시간 기록이 필요합니다."
+        relation_not_unique: "이(가) 여러 번 할당되었습니다."
       models:
         dashboard:
-            must_be_for_everyone: "시스템 기본값을 사용하는 경우 각 사용자에 대해 설정해야 합니다."
-      messages:
-        issue_cannot_close_with_open_children: "이 문제는 모든 하위 이슈가 종료 된 경우에만 종료 할 수 있습니다."
-        issue_current_user_status: "The selected status requires that the \"Assignee\" is yourself."
-        issue_log_time_not_allowed: "닫힌 문제입니다. 당신은 그것에 시간을 기록 할 수 없습니다."
-        issue_changes_not_allowed: "이 문제는 종료되었습니다. 변경할 권한이 없습니다."
-        issue_requires_timelog: "선택한 문제 상태에는 시간 로깅이 필요합니다."
-        invalid_icon_format: "잘못된 글꼴 멋진 코드입니다"
-        relation_not_unique: "여러 할당."
+          must_be_for_everyone: "시스템 기본값을 사용하는 경우 모든 사용자에게 설정해야 합니다."
+  add_go_to_top_info: "긴 페이지가 많다면 맨 위로 이동하는 링크를 추가하면 편리합니다."
   additionals:
-    enabled: enabled
-    disabled: disabled
-  account_login_info: "이 문자 메시지는 로그인 페이지에 표시되며 등록 정보에 사용해야합니다. 이 설정은 모든 프로젝트에서 활성화됩니다."
-  add_go_to_top_info: '긴 페이지가 많은 경우 맨 위로 이동 링크를 추가하면 도움이됩니다.'
-  additionals_query_list_default_totals: 목록보기의 기본 합계
-  additionals_query_list_defaults: 목록보기의 기본 열
-  alert_only_visible_by_admins: "관리자 권한이 있는 사용자만 볼 수 있음"
-  alert_only_visible_by_yourself: "너만 볼 수 있어"
-  button_assign_to_me: 나에게 할당
+    disabled: "사용 안 함"
+    enabled: "사용"
+  additionals_query_list_default_totals: "목록 보기의 기본 합계"
+  additionals_query_list_defaults: "목록 보기의 기본 열"
+  alert_only_visible_by_admins: "관리자 권한이 있는 사용자만 볼 수 있습니다"
+  alert_only_visible_by_yourself: "본인만 볼 수 있습니다"
+  button_assign_to_me: "나에게 할당"
   button_copy_object: "%{object_name} 복사"
-  button_merge: "병합 "
-  disabled_modules_info: "프로젝트 내에서 선택할 수없는 모듈. 이러한 모듈이 기존 프로젝트에서 이미 활성화 된 경우 먼저 해당 프로젝트 설정을 변경하고 다시 저장해야합니다."
-  emoji_support_info_html: 'Convert emojis in text. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" class="external">Emoji cheat sheet</a> the available emoji codes can be used.'
-  error_issue_status_could_not_changed: "문제 상태를 변경할 수 없습니다"
-  error_issues_could_not_be_assigned_to_me: "나에게 문제를 할당 할 수 없습니다"
-  errors_no_or_invalid_arguments: "인수가 없거나 유효하지 않습니다"
-  field_always_expose: "항상 대시보드 이름 표시"
+  button_merge: "병합"
+  days:
+    other: "일"
+  disabled_modules_info: "프로젝트에서 선택할 수 없게 할 모듈입니다. 기존 프로젝트에서 이미 사용 중이라면, 해당 프로젝트 설정을 다시 저장한 후에 변경이 적용됩니다."
+  emoji_support_info_html: "텍스트의 이모지 코드를 변환합니다. :heart:, :+1: 등을 이모지로 변환하려면 이 옵션을 켜세요. 사용 가능한 이모지 코드는 <a href=\"https://www.webfx.com/tools/emoji-cheat-sheet/\" class=\"external\">Emoji cheat sheet</a>에서 확인할 수 있습니다."
+  error_issue_status_could_not_changed: "일감 상태를 변경할 수 없습니다"
+  error_issues_could_not_be_assigned_to_me: "일감을 나에게 할당할 수 없습니다"
+  errors_no_or_invalid_arguments: "인수가 없거나 잘못되었습니다"
+  field_always_expose: "대시보드 이름 항상 표시"
   field_attachments_count: "파일 수"
-  field_color: 색깔
-  field_dashboard_locked: Locked
-  field_enable_new_ticket_message: "작업 메시지 활성화"
-  field_enable_sidebar: 사이드바 표시
-  field_hide: 숨는 장소
-  field_icon: 상
-  field_issue_relation: Issue relation
-  field_issue_relation_plural: 이슈 관계
-  field_notes_count: 메모의 수
-  field_project_system_default: 프로젝트 디폴트
-  field_system_default: 시스템 디폴트
-  field_visibility: Visibility
-  field_website: 웹 사이트
-  global_footer_info: '여기에 프로젝트 전체 위키 바닥 글을 입력하십시오.'
-  global_search_info: "활성화하면 모든 페이지에서 글로벌 검색 대화상자(Cmd+K)를 사용할 수 있습니다."
-  global_sidebar_info: "여기에 프로젝트 전체 문자 메시지를 입력하십시오. 이 사이드 바 텍스트는 프로젝트 개요, 이슈 페이지 및 위키 페이지에 표시됩니다."
-  global_wiki_sidebar_info: '위키 사이드 바에 사용할 수있는 프로젝트 전체 문자 메시지를 여기에 입력하십시오. 이 사이드 바 텍스트는 위키 페이지에만 표시됩니다. 예를 들어 "마지막으로 변경된 페이지"와 같은 매크로에이 공간을 사용하십시오. 프로젝트 특정 사이드 바가 사용되는 경우 (위키 페이지), 대신 사이드 바에 표시되는 것이 좋습니다.'
-  google_maps_embed_api_html: 'Goole지도를 표시하기 위해 Gmap 매크로를 사용하려는 경우 여기에 Google Maps API 키를 구현하십시오. 그 후 매크로 및 다양한 매개 변수를 사용할 수 있습니다. 매개 변수를 사용하는 방법에 대한 자세한 내용은 <a href="https://developers.google.com/maps/documentation/embed/guide" class="external">https://developers.google.com/maps/documentation/embed/guide</a>. Gmap 매크로는 여기에 포함 된 키와 조합해서 만 작동합니다.'
-  hidden_macros_in_toolbar_info: 로그인 한 사용자가 사용할 수있는 모든 매크로가 위키 도구 모음의 매크로 버튼을 통해 나열됩니다. 여기에 표시된 매크로는 선택할 수 없습니다. 이를 통해 목록의 범위를 제한 할 수 있습니다. 숨긴 매크로는 텍스트에서 계속 사용할 수 있습니다. 이 목록에서만 제외될 뿐 비활성화되지 않습니다.
-  info_chart_classes: "비워 두면 값을 너비가 같은 약 다섯 개의 구간으로 자동으로 나눕니다. 고정 경계는 데이터가 바뀌어도 그대로 유지됩니다."
-  info_chart_compare_query: "첫 번째 계열 옆에 표시되는 두 번째 계열입니다. 막대 차트, 선 차트와 값 테이블에 표시됩니다."
+  field_color: "색상"
+  field_dashboard_locked: "잠금"
+  field_enable_new_ticket_message: "새 일감 안내문 사용"
+  field_enable_sidebar: "사이드바 사용"
+  field_hide: "숨기기"
+  field_icon: "아이콘"
+  field_issue_relation: "일감 관계"
+  field_issue_relation_plural: "일감 관계"
+  field_notes_count: "댓글 수"
+  field_project_system_default: "프로젝트 기본값"
+  field_system_default: "시스템 기본값"
+  field_visibility: "공개 범위"
+  field_watched_by_me: "내가 지켜보는 일감"
+  field_website: "웹사이트"
+  global_footer_info: "모든 프로젝트에 공통으로 쓰는 위키 바닥글을 여기에 입력하세요. 예를 들어 개인정보 처리방침 링크 등입니다."
+  global_search_info: "켜면 모든 페이지에서 전체 검색 대화상자(Cmd+K)를 사용할 수 있습니다."
+  global_sidebar_info: "모든 프로젝트에 공통으로 쓰는 텍스트를 여기에 입력하세요. 이 사이드바 텍스트는 프로젝트 개요, 일감 페이지, 위키 페이지에 표시됩니다."
+  global_wiki_sidebar_info: "위키 사이드바에 모든 프로젝트 공통으로 쓸 텍스트를 여기에 입력하세요. 위키 페이지에만 표시되며, 예를 들어 \"최근 변경된 페이지\" 같은 매크로에 사용할 수 있습니다. 프로젝트가 자체 사이드바(위키 페이지)를 사용하면 그 사이드바가 표시됩니다."
+  google_maps_embed_api_html: "Gmap 매크로로 Google 지도를 표시하려면 여기에 Google Maps Embed API 키를 입력하세요. 매크로 매개변수에 대한 자세한 내용은 <a href=\"https://developers.google.com/maps/documentation/embed/guide\" class=\"external\">https://developers.google.com/maps/documentation/embed/guide</a>를 참고하세요. 키가 없으면 Gmap 매크로를 사용할 수 없습니다."
+  hidden_macros_in_toolbar_info: "로그인한 사용자가 쓸 수 있는 모든 매크로는 위키 도구 모음의 매크로 버튼에 나열됩니다. 여기에서 선택한 매크로는 선택 목록에 나타나지 않습니다. 이렇게 목록을 줄일 수 있습니다. 숨긴 매크로도 텍스트에서는 계속 사용할 수 있으며, 목록에서만 빠질 뿐 비활성화되지 않습니다."
+  hours:
+    other: "시간"
+  info_chart_classes: "비워 두면 값을 자동으로 같은 너비의 약 5개 구간으로 나눕니다. 고정 경계는 데이터가 바뀌어도 그대로 유지됩니다."
+  info_chart_compare_query: "첫 번째 계열 옆에 두 번째 계열을 표시합니다. 막대 차트, 선 차트, 값 표에 표시됩니다."
   info_chart_compare_split: "분할로 대체됩니다."
-  info_chart_counted_several_times: "여러 값을 가진 항목은 각 값마다 집계됩니다. 합계는 각 항목을 한 번만 세므로 비율의 합이 100%를 넘습니다."
-  info_chart_description: "제목 아래에 표시됩니다. 위키 서식을 사용할 수 있습니다(예: 위키 페이지나 일감 링크)."
-  info_chart_max_entries: "가장 큰 항목을 표시하고 나머지는 \"기타\"로 합산합니다. 날짜 필드는 최근 기간을 표시합니다. 비어 있거나 0이면 모든 항목을 표시합니다."
-  info_chart_measure: "여러 값을 가진 필드는 항상 개수로 집계됩니다."
-  info_chart_min_share: "비율(%)이 이 값보다 작은 항목은 \"기타\"로 합산합니다. 날짜 필드는 분할된 부분만 합산합니다. 비어 있거나 0이면 합산하지 않습니다."
-  info_chart_open_only: "쿼리의 필터에 추가로 적용됩니다."
-  info_chart_parts_counted_several_times: "여러 값을 가진 항목은 각 부분마다 집계되므로 막대 부분의 합이 막대 값보다 큽니다."
-  info_chart_period_timeline: "날짜 필드에서는 사용할 수 없습니다. 추이 차트가 기간을 직접 표시합니다."
-  info_chart_query: "쿼리가 없으면 표시 가능한 모든 항목이 집계됩니다."
-  info_chart_section_caption: "선택 사항이며, 제목이 없으면 블록이 집계 내용을 표시합니다."
-  info_chart_section_data: "어떤 항목을 집계합니까?"
-  info_chart_section_display: "결과를 어떻게 표시합니까?"
-  info_chart_section_evaluation: "항목을 어떻게 묶습니까?"
-  info_chart_shares: "도넛, 파이, 트리맵은 전체에 대한 비율을 표시합니다. 분할과 비교는 막대, 선, 영역, 표에서 사용할 수 있습니다."
-  info_chart_split_by: "각 항목을 두 번째 필드로 나누어 누적 막대, 누적 영역, 선 또는 교차 표로 표시합니다. 원형 차트와 트리맵에서는 사용할 수 없으며 비교를 대신합니다."
-  info_chart_with_table: "차트 옆에 표시됩니다. 표시 형식이 '표'이면 항상 표시됩니다."
-  info_chart_with_table_calendar: "표시 형식이 '달력'이면 표시되지 않습니다. 달력이 각 날짜의 값을 직접 보여 줍니다."
-  info_hidden_roles_html: Hidden roles can only be used together with the user visibility "Members of visible projects". 사용자가 현재 사용자에게 보이는 역할이 아닌 경우 사용자를 포함한이 역할은 프로젝트 개요 페이지와 쿼리 목록에서 숨겨집니다.
-  info_issue_hide_max_attachments: "여기에 입력한 파일 수를 초과하는 경우 이슈의 모든 첨부 파일이 숨겨져 표시됩니다."
-  info_issue_link_category: "이슈 페이지와 이슈 목록 열의 카테고리를 이 카테고리로 필터링된 해당 프로젝트의 이슈 목록에 연결합니다."
-  info_live_search_result_restriction: "LiveSearch results are limited to %{value} Matches. Try to describe your search in more detail."
-  label_account_login_bottom: "로그인 페이지의 텍스트"
-  label_activate_quickstart: "활성화 quickstart"
-  label_active_dashboard: "Active Dashboard"
-  label_add_dashboard_block: "Add block"
-  label_add_go_to_top: 'Add "Go to top" link'
-  label_additionals: Additionals
-  label_additionals_feed: Atom+RSS Feed
-  label_additionals_message: "메시지"
+  info_chart_counted_several_times: "값이 여러 개인 항목은 각 값마다 계산됩니다. 합계는 항목마다 한 번만 세므로 비율의 합이 100 %를 넘습니다."
+  info_chart_description: "제목 아래에 표시됩니다. 위키 서식을 쓸 수 있으며, 예를 들어 위키 페이지나 일감 링크도 넣을 수 있습니다."
+  info_chart_max_entries: "가장 큰 항목을 표시하고 나머지는 \"기타\"로 합칩니다. 날짜 필드는 최근 기간을 표시합니다. 비우거나 0이면 모든 항목을 표시합니다."
+  info_chart_measure: "값이 여러 개인 필드는 항상 개수로 셉니다."
+  info_chart_min_share: "비율(%)이 이보다 작은 항목은 \"기타\"로 합칩니다. 날짜 필드는 분할한 부분에만 적용됩니다. 비우거나 0이면 합치지 않습니다."
+  info_chart_open_only: "검색양식의 필터에 더해 적용됩니다."
+  info_chart_parts_counted_several_times: "값이 여러 개인 항목은 각 부분에서 계산되므로, 막대 각 부분의 합이 막대 값보다 커집니다."
+  info_chart_period_timeline: "날짜 필드에는 사용할 수 없습니다. 추이 차트가 기간 자체를 보여 줍니다."
+  info_chart_query: "검색양식이 없으면 볼 수 있는 모든 항목을 집계합니다."
+  info_chart_section_caption: "선택 사항입니다. 제목이 없으면 블록이 집계 내용을 이름으로 표시합니다."
+  info_chart_section_data: "어떤 항목을 집계하나요?"
+  info_chart_section_display: "결과를 어떻게 표시하나요?"
+  info_chart_section_evaluation: "항목을 어떻게 합치나요?"
+  info_chart_shares: "도넛, 파이, 트리맵은 전체에 대한 비율을 보여 줍니다. 분할과 비교는 막대, 선, 영역, 표에서 사용할 수 있습니다."
+  info_chart_split_by: "각 항목을 두 번째 필드로 나누어 누적 막대, 누적 영역, 선 또는 교차표로 표시합니다. 도넛, 파이, 트리맵에서는 사용할 수 없으며 비교를 대체합니다."
+  info_chart_with_table: "차트 옆에 표시합니다. 표시 형식이 표이면 항상 표시합니다."
+  info_chart_with_table_calendar: "표시 형식이 달력이면 사용할 수 없습니다. 달력은 각 날짜의 값을 직접 보여 줍니다."
+  info_hidden_roles_html: "숨긴 역할은 사용자 공개 범위 \"볼 수 있는 프로젝트의 구성원\"과 함께 사용할 때만 쓸 수 있습니다. 현재 사용자가 볼 수 있는 역할에 사용자가 속하지 않으면, 이 역할과 사용자는 프로젝트 개요 페이지와 검색양식 목록에서 숨겨집니다."
+  info_issue_hide_max_attachments: "일감의 파일 수가 여기에 입력한 수를 넘으면 모든 첨부 파일이 접힌 상태로 표시됩니다."
+  info_issue_link_category: "범주(일감 페이지와 일감 목록 열)를 해당 프로젝트에서 이 범주로 필터링한 일감 목록에 연결합니다."
+  info_live_search_result_restriction: "LiveSearch 결과는 %{value}건으로 제한됩니다. 검색 범위를 좁혀 보세요."
+  label_account_login_bottom: "로그인 페이지 텍스트"
+  label_activate_quickstart: "빠른 시작 사용"
+  label_active_dashboard: "활성 대시보드"
+  label_add_dashboard_block: "블록 추가"
+  label_add_go_to_top: "\"맨 위로\" 링크 추가"
+  label_additionals: "Additionals"
+  label_additionals_feed: "Atom+RSS 피드"
+  label_additionals_message: "안내문"
   label_all_active_users: "모든 활성 사용자"
-  label_all_projects: 모든 프로젝트
+  label_all_projects: "모든 프로젝트"
   label_all_users: "모든 사용자"
-  label_app_menu: 앱 메뉴
-  label_auto_watch_on_issue_assigned: "나에게 배정된 티켓"
-  label_calendar_week: "CW %{week}"
-  label_change_is_private: 개인 / 비 개인 변경
+  label_app_menu: "앱 메뉴"
+  label_auto_watch_on_issue_assigned: "나에게 할당된 일감"
+  label_calendar_week: "%{week}주차"
+  label_change_is_private: "비공개/공개 변경"
   label_change_project: "프로젝트 변경"
   label_change_to_dashboard: "대시보드로 전환"
   label_chart_class_below: "%{value} 미만"
   label_chart_class_from: "%{value} 이상"
   label_chart_class_range: "%{from} 이상 %{to} 미만"
-  label_chart_class_span: "%{from}~%{to}"
+  label_chart_class_span: "%{from} ~ %{to}"
   label_chart_classes: "경계"
   label_chart_classes_auto: "자동"
-  label_chart_color_schema: 차트 색 구성표
+  label_chart_color_schema: "차트 색상표"
   label_chart_compare_query: "비교"
-  label_chart_interval: "집계 단위"
+  label_chart_interval: "당"
   label_chart_interval_day: "일"
   label_chart_interval_quarter: "분기"
   label_chart_level_above: "%{value} 초과"
   label_chart_level_up_to: "%{value} 이하"
   label_chart_measure: "지표"
-  label_chart_min_share: "작은 값 합산 (% 미만)"
+  label_chart_min_share: "작은 값 합치기 (% 미만)"
   label_chart_month: "%{year}년 %{month}"
   label_chart_order_field: "필드 순서"
-  label_chart_order_value: "큰 값 우선"
+  label_chart_order_value: "큰 값 먼저"
   label_chart_others: "기타"
   label_chart_period: "기간"
   label_chart_period_from: "시작"
@@ -130,20 +122,20 @@ ko:
   label_chart_period_to: "종료"
   label_chart_previous_period: "이전 기간"
   label_chart_quarter: "%{year}년 %{quarter}분기"
-  label_chart_section_caption: "표기"
+  label_chart_section_caption: "캡션"
   label_chart_section_data: "데이터"
   label_chart_section_display: "표시"
   label_chart_section_evaluation: "집계"
   label_chart_show_empty: "값이 없는 항목 표시"
   label_chart_split_by: "분할 기준"
   label_chart_summary: "%{source}: %{group}별 %{measure}%{details}."
-  label_chart_summary_classes: "%{source}: %{group} 범위별 %{measure}%{details}."
-  label_chart_summary_compare: ", %{value}와(과) 비교"
+  label_chart_summary_classes: "%{source}: %{group} 구간별 %{measure}%{details}."
+  label_chart_summary_compare: ", %{value}과(와) 비교"
   label_chart_summary_display: ", %{value}(으)로 표시"
-  label_chart_summary_heading: "블록에 표시되는 내용"
-  label_chart_summary_split: ", %{value}별 분할"
-  label_chart_summary_timeline: "%{source}: %{group}의 %{interval}별 %{measure} 추이%{details}."
-  label_chart_summary_without_group: "그룹화할 필드가 아직 선택되지 않았습니다."
+  label_chart_summary_heading: "이 블록이 보여 주는 내용"
+  label_chart_summary_split: ", %{value}(으)로 분할"
+  label_chart_summary_timeline: "%{source}: %{interval}별 %{group} 추이의 %{measure}%{details}."
+  label_chart_summary_without_group: "그룹화할 필드를 아직 선택하지 않았습니다."
   label_chart_type_area: "영역"
   label_chart_type_bar_horizontal: "가로 막대"
   label_chart_type_bar_vertical: "세로 막대"
@@ -156,176 +148,180 @@ ko:
   label_chart_type_timeline_only: "날짜로 그룹화한 경우에만"
   label_chart_type_treemap: "트리맵"
   label_chart_valid_only: "유효한 항목만"
-  label_chart_week: "%{year}년 %{week}주"
+  label_chart_week: "%{year}년 %{week}주차"
   label_chart_with_name: "차트: %{value}"
-  label_chartjs_colorscheme_info: 컬러리스트
-  label_content_plural: 내용
+  label_chartjs_colorscheme_info: "색상 목록"
+  label_content_plural: "콘텐츠"
   label_copied_to_clipboard: "복사되었습니다!"
-  label_custom_field_editable_info: "비활성화된 경우 변경은 API 호출 또는 대량 편집을 통해서만 가능합니다."
-  label_daily: 매일
-  label_dashboard: Dashboard
-  label_dashboard_author: "작가: %{name}"
-  label_dashboard_block_info_async: "이 블록은 비동기식으로 로드되며 %{time}에 대해 캐시됩니다."
-  label_dashboard_legacy_left: "표준 콘텐츠 왼쪽"
-  label_dashboard_legacy_right: "표준 콘텐츠 권리"
-  label_dashboard_lock: 대시보드 잠금 활성화
-  label_dashboard_lock_is_active: "Dashboard 잠금이 활성화됨"
-  label_dashboard_plural: Dashboards
-  label_dashboard_unlock: 대시보드 잠금 해제
-  label_dashboard_unlock_by_click: "대시보드 잠금이 활성화되어 있습니다. 클릭하면 해제됩니다"
-  label_day: 일
-  label_default_sort_by: "기본 정렬 기준"
-  label_disable_sidebar: "사이드바 비활성화"
-  label_disabled_modules: "비활성화 된 모듈"
-  label_docs_access_token: Access token
+  label_custom_field_editable_info: "사용하지 않으면 API 호출이나 일괄 편집으로만 변경할 수 있습니다."
+  label_daily: "매일"
+  label_dashboard: "대시보드"
+  label_dashboard_author: "작성자: %{name}"
+  label_dashboard_block_info_async: "이 블록은 비동기로 로드되며 %{time} 동안 캐시됩니다."
+  label_dashboard_legacy_left: "기본 콘텐츠 (왼쪽)"
+  label_dashboard_legacy_right: "기본 콘텐츠 (오른쪽)"
+  label_dashboard_lock: "대시보드 잠금"
+  label_dashboard_lock_is_active: "대시보드가 잠겨 있습니다"
+  label_dashboard_plural: "대시보드"
+  label_dashboard_unlock: "대시보드 잠금 해제"
+  label_dashboard_unlock_by_click: "대시보드가 잠겨 있습니다. 클릭하면 해제합니다"
+  label_day: "일"
+  label_default_sort_by: "기본 정렬"
+  label_disable_sidebar: "사이드바 사용 안 함"
+  label_disabled_modules: "사용 안 하는 모듈"
+  label_docs_access_token: "액세스 토큰"
   label_document_view_all: "모든 문서 보기"
-  label_emoji_support: Emoji support
-  label_enable_auto_refresh: "자동 새로고침 활성화 "
-  label_enable_sidebar: "사이드바 활성화"
-  label_global_footer: "넓은 바닥 글 프로젝트"
-  label_global_search: "글로벌 검색"
-  label_global_search_all_results: "전체 %{count}개 결과"
-  label_global_search_always_bookmarks: "북마크 (항상)"
+  label_emoji_support: "이모지 지원"
+  label_enable_auto_refresh: "자동 새로 고침 사용"
+  label_enable_sidebar: "사이드바 사용"
+  label_global_footer: "모든 프로젝트 공통 바닥글"
+  label_global_search: "전체 검색"
+  label_global_search_all_results: "전체 결과 %{count}건"
+  label_global_search_always_bookmarks: "내 북마크 (항상)"
   label_global_search_always_global: "모든 프로젝트 (항상)"
   label_global_search_clear_all: "모두 지우기"
   label_global_search_in_all_projects: "모든 프로젝트에서"
-  label_global_search_in_my_bookmarks: "북마크 프로젝트에서"
+  label_global_search_in_my_bookmarks: "북마크한 프로젝트에서"
   label_global_search_in_titles: "제목에서"
-  label_global_search_placeholder: "입력하여 검색..."
+  label_global_search_placeholder: "검색어 입력..."
   label_global_search_recent_projects: "최근 사용한 프로젝트"
   label_global_search_recent_searches: "최근 검색"
-  label_global_search_short_words_titles_only: "제목에서만 검색했습니다. 전체 텍스트를 검색하려면 %{value}자 이상의 단어를 입력하세요"
-  label_global_sidebar: "글로벌 사이드 바"
-  label_global_wiki_sidebar: "글로벌 위키 사이드 바"
+  label_global_search_short_words_titles_only: "제목만 검색했습니다. 전체 텍스트를 검색하려면 %{value}자 이상의 단어를 입력하세요"
+  label_global_sidebar: "전체 사이드바"
+  label_global_wiki_sidebar: "전체 위키 사이드바"
   label_go_to_top: "맨 위로"
-  label_google_maps_api_key: Google Maps Embed API Key
-  label_help_doc: Documentation
-  label_help_integration: 온라인 도움말 통합
-  label_help_manual: 조작
-  label_hidden_macros_in_toolbar: Hidden macros
-  label_hour: 시간
-  label_icon_color: 시간
+  label_google_maps_api_key: "Google Maps Embed API 키"
+  label_help_doc: "문서"
+  label_help_integration: "온라인 도움말 연동"
+  label_help_manual: "설명서"
+  label_hidden_macros_in_toolbar: "숨긴 매크로"
+  label_hour: "시간"
+  label_icon_color: "아이콘 색상"
   label_inactive: "비활성"
   label_invalid_feed_data: "잘못된 피드 데이터 또는 URL"
-  label_is_non_private: "비 개인"
-  label_issue_assign_to_me: Show "Assign to me" on issue
-  label_issue_auto_assign: "If \"Assigned to\" is not assigned to a user and the new issue status is x then the issue is auto assigned to the first group with users of the pre-defined role."
-  label_issue_change_status: 상태 변경
-  label_issue_change_status_in_sidebar: 사이드 바의 발행 상태
-  label_issue_current_user_status: "Current issue status x is only allowed if \"Assignee\" is the current user."
-  label_issue_fast_description_edit: "빠른 설명 편집"
-  label_issue_freezed_with_close: 닫힌 이슈 편집 금지 (고정)
-  label_issue_genitive: "일"
-  label_issue_hide_max_attachments: "최대 파일 수 표시"
-  label_issue_link_category: "카테고리 연결"
-  label_issue_link_category_title: "이 카테고리의 이슈 표시"
-  label_issue_note_with_author: "메모와 함께 작업 작성자 표시"
-  label_issue_status_change: "If \"Assignee\" is unchanged and the issue status changed from x to y, than the author is assigned to the issue"
-  label_issue_timelog_required: 필요한 문제에 대한 시간 로그
-  label_issues_summary: "작업 개요 "
-  label_last_year: 전년도
-  label_legacy_smiley_support: Legacy smiley support
-  label_live_search_hints: "사용 가능한 필드 검색 : %{value}"
+  label_is_non_private: "공개"
+  label_issue_assign_to_me: "일감에 \"나에게 할당\" 표시"
+  label_issue_auto_assign: "\"담당자\"가 지정되지 않았고 새 일감 상태가 x이면, 일감은 지정한 역할의 사용자가 있는 첫 번째 그룹에 자동으로 할당됩니다."
+  label_issue_change_status: "상태 변경"
+  label_issue_change_status_in_sidebar: "사이드바의 일감 상태"
+  label_issue_current_user_status: "일감 상태 x는 \"담당자\"가 현재 사용자일 때만 허용됩니다."
+  label_issue_fast_description_edit: "설명 빠른 편집"
+  label_issue_freezed_with_close: "완료된 일감 편집 금지 (동결)"
+  label_issue_genitive: "일감"
+  label_issue_hide_max_attachments: "표시할 최대 파일 수"
+  label_issue_link_category: "범주 연결"
+  label_issue_link_category_title: "이 범주의 일감 보기"
+  label_issue_note_with_author: "댓글에 일감 작성자 표시"
+  label_issue_status_change: "\"담당자\"가 변경되지 않고 일감 상태가 x에서 y로 바뀌면, 일감은 작성자에게 할당됩니다"
+  label_issue_timelog_required: "일감에 소요시간 기록 필요"
+  label_issues_summary: "일감 요약"
+  label_last_year: "작년"
+  label_legacy_smiley_support: "기존 스마일리 지원"
+  label_list_all_entries: "%{value} 모두 나열"
+  label_live_search_hints: "사용 가능한 필드 검색: %{value}"
   label_macro_not_available: "(%{name}: 사용할 수 없음)"
-  label_macro_plural: Macros
-  label_max_entries: "최대 항목"
-  label_max_live_search_results: "최대 LiveSearch 결과 수 "
-  label_menu_entry: "Menu item"
-  label_monthly: 월간 간행물
+  label_macro_plural: "매크로"
+  label_max_entries: "최대 항목 수"
+  label_max_live_search_results: "LiveSearch 최대 결과 수"
+  label_menu_entry: "메뉴 항목"
+  label_monthly: "매월"
   label_my_activity: "내 활동"
-  label_my_dashboard_plural: "내 대시 보드"
-  label_my_spent_time: My spent time
-  label_new_dashboard: New dashboard
-  label_new_issue_on_profile: 사용자 프로필의 새로운 문제
-  label_new_ticket_message: "새로운 문제에 대한 참고 사항"
-  label_no_permission: "비허가"
+  label_my_dashboard_plural: "내 대시보드"
+  label_my_spent_time: "내 소요시간"
+  label_new_dashboard: "새 대시보드"
+  label_new_issue_on_profile: "사용자 프로필에 새 일감"
+  label_new_ticket_message: "새 일감 안내문"
+  label_no_permission: "권한 없음"
   label_only_my_activities: "내 활동만"
-  label_open_external_urls: 외부 URL 열기
+  label_open_external_urls: "외부 URL 열기"
   label_open_in_google_docs: "Google 문서에서 열기"
-  label_open_in_new_windows: 새 창에서 열기
-  label_pdf_wiki_settings: PDF Wiki settings
+  label_open_in_new_windows: "새 창에서 열기"
+  label_pdf_wiki_settings: "위키 PDF 설정"
   label_percent_value: "%{value}%"
-  label_percentage: "백분율"
+  label_percentage: "비율"
   label_project_information: "프로젝트 정보"
   label_project_list: "프로젝트 목록"
   label_project_scope: "프로젝트에서"
-  label_project_setting: "계획"
+  label_project_setting: "프로젝트"
   label_quantity: "수량"
-  label_query_delete: 검색어 삭제
-  label_query_edit: 검색어 수정
-  label_query_name_search: 이름 검색
-  label_query_own_columns: "검색양식의 컬럼 덮어쓰기"
-  label_query_with_name: "Query: %{value}"
-  label_quickstart: Quickstart
-  label_recently_updated_pages: Updated pages
-  label_reddit_subject: Reddit 제목
-  label_reddit_user_account: Reddit user account
-  label_redmine_org_issue: Redmine.org issue
-  label_redmine_org_wiki: Redmine.org wiki page
-  label_remove_help: "톱 메뉴에서 'Help' 항목 제거"
-  label_search_by_name: 이름으로 검색
+  label_query_delete: "검색양식 삭제"
+  label_query_edit: "검색양식 편집"
+  label_query_name_search: "이름으로 검색"
+  label_query_own_columns: "검색양식의 열 재정의"
+  label_query_with_name: "검색양식: %{value}"
+  label_quickstart: "빠른 시작"
+  label_recently_updated_pages: "업데이트된 페이지"
+  label_reddit_subject: "Reddit 주제"
+  label_reddit_user_account: "Reddit 사용자 계정"
+  label_redmine_org_issue: "Redmine.org 일감"
+  label_redmine_org_wiki: "Redmine.org 위키 페이지"
+  label_remove_help: "상단 메뉴에서 '도움말' 제거"
+  label_route: "경로"
+  label_search_by_name: "이름으로 검색"
   label_search_scope: "검색 범위"
-  label_setting_value_not_visible: "나에게 보이지 않음"
-  label_settings_macros: "Macros"
-  label_settings_menu: "Menu"
-  label_shared_dashboard_plural: Shared dashboards
-  label_show_all: 모두 표시
-  label_show_closed_issues: "닫힌 이슈 표시"
-  label_stats_new_today: "오늘 새로운"
+  label_setting_value_not_visible: "볼 수 없음"
+  label_settings_macros: "매크로"
+  label_settings_menu: "메뉴"
+  label_shared_dashboard_plural: "공유 대시보드"
+  label_show_all: "모두 보기"
+  label_show_closed_issues: "완료된 일감 보기"
+  label_show_variables: "변수 보기"
+  label_stats_new_today: "오늘 새로 생성"
   label_stats_totals: "합계"
-  label_system_info: 시스템 정보
-  label_text_async: "텍스트(비동기)"
+  label_system_info: "시스템 정보"
+  label_table_of_values: "값 표"
+  label_text_async: "텍스트 (비동기)"
   label_text_sync: "텍스트"
-  label_top_macros_help_html: "다음은 Redmine 및 Redmine 플러그인에서 제공하는 설치에 사용 가능한 모든 Redmine 매크로 목록입니다."
-  label_top_menu: 톱 메뉴
-  label_top_menu_help_html: "여기에서 새로운 최상위 메뉴 항목을 정의 할 수 있습니다."
-  label_twitter_account: Twitter account
-  label_twitter_hashtag: Twitter hashtag
-  label_uptime: 가동 시간
+  label_top_macros_help_html: "이 설치에서 사용할 수 있는 모든 Redmine 매크로 목록입니다. Redmine과 플러그인이 제공합니다."
+  label_top_menu: "상단 메뉴"
+  label_top_menu_help_html: "여기에서 새 상단 메뉴 항목을 정의할 수 있습니다."
+  label_twitter_account: "Twitter 계정"
+  label_twitter_hashtag: "Twitter 해시태그"
+  label_uptime: "가동 시간"
   label_user_is_author_of: "이 사용자는 이 %{entity}의 작성자입니다."
   label_user_list: "사용자 목록"
-  label_visibility_groups: 이 그룹에만 해당
-  label_web_apis: Web APIs
-  label_weekly: 주간
-  label_wiki_pdf_remove_attachments: PDF보기에서 첨부 파일 제거
-  label_wiki_pdf_remove_title: PDF보기에서 위키 제목 제거
-  label_yearly: 매년
-  latest_entries_changes: "최근 %{value} 개의 변경 사항"
-  legacy_smiley_support_info_html: 'Convert smileys in text. Activate this option if :), :-) etc are to be converted to smileys. If this setting is changed, the application server <strong>must be restarted</strong>.'
-  max_live_search_results_info: "LiveSearch의 최대 검색 결과 수입니다. 참고: 설정은 LiveSearch를 지원하는 플러그인에만 영향을 미칩니다."
-  menu_roles_info: "선택한 역할의 멤버 만이 메뉴 항목을 볼 수 있습니다."
-  new_ticket_message_info: "새로운 호를 추가하려는 모든 사람에게 메모가 표시됩니다. 예를 들어 수락 테스트를 입력하거나 규칙을 발행 할 수 있습니다. 이 설정은 프로젝트 전체에서 사용됩니다. "
-  notice_delete_error_with_messages: "다음 오류가 있는 문제를 삭제합니다: %{errors}"
-  notice_failed_to_save_entries: "%{count} of %{total} selected %{name_plural} could not be saved: %{ids}."
-  notice_save_error_with_messages: "다음 오류와 함께 문제를 저장합니다: %{errors}"
-  notice_unsuccessful_delete: "문제 삭제"
-  notice_unsuccessful_save: "문제 저장"
-  open_external_urls_info: "활성화되면 외부 URL이 새 창 / 탭에서 열립니다."
-  permission_change_new_issue_author: 새로운 이슈의 저자 설정
-  permission_edit_closed_issues: "닫힌 이슈 편집"
-  permission_edit_issue_author: 이슈 작성자 편집
-  permission_issue_timelog_never_required: 시간 기록 불필요
-  permission_save_dashboards: Save dashboards
-  permission_set_system_dashboards: Set system dashboards
-  permission_share_dashboards: Share dashboards
-  permission_show_hidden_roles_in_memberbox: "숨겨진 역할 표시"
-  remove_help_info: "상단 메뉴에서 'Help' 항목을 제거"
-  rule_issue_auto_assign_info: 'Use Case: The issue author does not know whom to assign the issue or who will be responsible for solving the task. In that case the issue for example with the status "To Do" is automatically assigned to the first group, which does contain a user of the pre-selected project manager role.'
-  rule_issue_current_user_status_info_html: "This function together with the setting \"Issue status on sidebar\" automatically assigns the current user to the newly selected status.<br />Use Case: A user should only be able to set the status to \"In Progress\" for oneself when working on the ticket by oneself."
-  rule_issue_freezed_with_close_info: 이 옵션을 활성화하면 이미 닫힌 이슈를 더 이상 편집하고 주석을 달 수 없습니다. 메일이나 API를 통해서도 아닙니다. This restriction does not apply to user roles with the "Edit closed issues" permission.
-  rule_issue_status_change_info: "Use Case: issues should be automatically assigned to author, if the status changes to \"Approval\"."
-  rule_issue_timelog_required_info_html: '선택된 트래커의 각 티켓에 대해 티켓이 정의 된 상태 속성 중 하나를 수신하려면 시간 예약이 필요합니다. 다음과 같은 경우 시간 예약이 필요하지 않습니다:<br />- no rights exist for the creation of time bookings<br />- 사용자에게 권한이 있습니다 "Time logging not required"<br />사용 사례 : 상태가  "To Verify" 인 티켓을 수락하려면 소요 시간도 필요합니다.'
-  setting_export_limit: "Export limit"
+  label_visibility_groups: "이 그룹에만"
+  label_web_apis: "웹 API"
+  label_weekly: "매주"
+  label_wiki_pdf_remove_attachments: "PDF 보기에서 첨부 파일 제외"
+  label_wiki_pdf_remove_title: "PDF 보기에서 위키 제목 제외"
+  label_with_amount: "개수 %{value}"
+  label_yearly: "매년"
+  latest_entries_changes: "최근 변경 %{value}건"
+  legacy_smiley_support_info_html: "텍스트의 스마일리를 변환합니다. :), :-) 등을 스마일리로 변환하려면 이 옵션을 켜세요. 이 설정을 바꾸면 애플리케이션 서버를 <strong>다시 시작해야 합니다</strong>."
+  max_live_search_results_info: "LiveSearch의 최대 검색 결과 수입니다. 참고: 이 설정은 LiveSearch를 지원하는 플러그인에만 적용됩니다."
+  menu_roles_info: "선택한 역할의 구성원만 이 메뉴 항목을 볼 수 있습니다."
+  minutes:
+    other: "분"
+  new_ticket_message_info: "새 일감을 추가하려는 모든 사용자에게 표시되는 안내문입니다. 예를 들어 인수 테스트나 일감 작성 규칙을 적을 수 있습니다. 이 설정은 모든 프로젝트에 적용됩니다."
+  notice_delete_error_with_messages: "삭제에 실패했습니다. 오류: %{errors}"
+  notice_failed_to_save_entries: "선택한 %{name_plural} %{total}개 중 %{count}개를 저장하지 못했습니다: %{ids}."
+  notice_save_error_with_messages: "저장에 실패했습니다. 오류: %{errors}"
+  notice_unsuccessful_delete: "삭제할 수 없습니다"
+  notice_unsuccessful_save: "저장할 수 없습니다"
+  open_external_urls_info: "켜면 외부 URL을 새 창이나 탭에서 엽니다."
+  permission_change_new_issue_author: "새 일감의 작성자 지정"
+  permission_edit_closed_issues: "완료된 일감 편집"
+  permission_edit_issue_author: "일감 작성자 편집"
+  permission_issue_timelog_never_required: "소요시간 기록 필요 없음"
+  permission_save_dashboards: "대시보드 저장"
+  permission_set_system_dashboards: "시스템 대시보드 지정"
+  permission_share_dashboards: "대시보드 공유"
+  permission_show_hidden_roles_in_memberbox: "숨긴 역할 보기"
+  remove_help_info: "상단 메뉴에서 '도움말' 항목을 제거합니다."
+  rule_issue_auto_assign_info: "사용 예: 일감 작성자가 누구에게 일감을 할당해야 할지, 누가 담당할지 모르는 경우입니다. 이때 예를 들어 상태가 \"To Do\"인 일감은 지정한 프로젝트 관리자 역할의 사용자가 있는 첫 번째 그룹에 자동으로 할당됩니다."
+  rule_issue_current_user_status_info_html: "\"사이드바의 일감 상태\" 설정과 함께 사용하면, 새로 선택한 상태를 설정할 때 현재 사용자가 자동으로 할당됩니다.<br />사용 예: 사용자가 직접 일감을 처리할 때만 자신에게 \"In Progress\" 상태를 설정할 수 있어야 하는 경우입니다."
+  rule_issue_freezed_with_close_info: "이 옵션을 켜면 완료된 일감은 더 이상 편집하거나 댓글을 달 수 없습니다. 메일이나 API로도 할 수 없습니다. \"완료된 일감 편집\" 권한이 있는 역할에는 이 제한이 적용되지 않습니다."
+  rule_issue_status_change_info: "사용 예: 상태가 \"Approval\"로 바뀌면 일감을 작성자에게 자동으로 할당합니다."
+  rule_issue_timelog_required_info_html: "선택한 일감 유형의 각 일감은 지정한 상태 중 하나로 바꾸려면 소요시간 기록이 필요합니다. 다음 경우에는 소요시간 기록이 필요 없습니다:<br />- 소요시간을 기록할 권한이 없는 경우<br />- 사용자에게 \"소요시간 기록 필요 없음\" 권한이 있는 경우<br />사용 예: 상태가 \"To Verify\"인 일감을 승인할 때 소요시간도 필요한 경우입니다."
+  seconds:
+    other: "%{count}초"
+  setting_export_limit: "내보내기 한도"
   settings_with_value: "%{value} 설정"
-  text_available_variables: "사용할 수 있는 변수: %{variables}"
-  top_rules_help: "여기에서 모든 프로젝트의 문제에 사용되는 규칙을 정의 할 수 있습니다."
-  top_wiki_help: 여기에서 위키의 내용과 설정을 정의 할 수 있습니다.
-  wiki_pdf_remove_attachments_info: 활성화 된 경우 첨부 된 Wiki 파일은 PDF보기에 표시되지 않습니다.
-  wiki_pdf_remove_title_info: 활성화되면 위키 제목 정보가 PDF보기에 표시되지 않습니다.
-  label_route: Route
-  field_watched_by_me: "내가 시청"
-  label_with_amount: "금액 %{value}"
-  label_list_all_entries: "모두 나열 %{value}"
-  label_table_of_values: "값 테이블"
-  text_dashboard_lock_confirmation: 이 대시보드를 잠그시겠습니까?
-  text_dashboard_unlock_confirmation: 이 대시보드의 잠금을 해제하시겠습니까?
+  text_available_variables: "사용 가능한 변수: %{variables}"
+  text_dashboard_lock_confirmation: "이 대시보드를 잠그시겠습니까?"
+  text_dashboard_unlock_confirmation: "이 대시보드의 잠금을 해제하시겠습니까?"
+  top_rules_help: "모든 프로젝트의 일감에 적용할 규칙을 여기에서 정의할 수 있습니다."
+  top_wiki_help: "위키의 콘텐츠와 설정을 여기에서 정의할 수 있습니다."
+  wiki_pdf_remove_attachments_info: "켜면 위키 페이지에 첨부된 파일이 PDF 보기에 표시되지 않습니다."
+  wiki_pdf_remove_title_info: "켜면 위키 제목이 PDF 보기에 표시되지 않습니다."

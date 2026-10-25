@@ -1,69 +1,63 @@
 # German strings
 de:
-  label_show_variables: "Variablen anzeigen"
-  seconds:
-    one: Sekunde
-    other: "%{count} Sekunden"
-  minutes:
-    one: Minute
-    other: Minuten
-  hours:
-    one: Stunde
-    other: Stunden
-  days:
-    one: Tag
-    other: Tage
+  account_login_info: "Dieser Text wird auf der Anmeldeseite angezeigt, um z.B. Informationen für die Anmeldung oder Registrierung zu hinterlegen. Diese Einstellung gilt für alle Projekte."
   activerecord:
     errors:
+      messages:
+        invalid_icon_format: "ist ein ungültiger Icon-Code"
+        issue_cannot_close_with_open_children: "Das Ticket kann nicht geschlossen werden, bevor nicht alle Untertickets geschlossen wurden."
+        issue_changes_not_allowed: "Dieses Ticket ist geschlossen, und du hast keine Berechtigung, es zu ändern."
+        issue_current_user_status: "Der ausgewählte Status erfordert, dass \"Zugewiesen an\" du selbst bist."
+        issue_log_time_not_allowed: "ist ein geschlossenes Ticket, auf das du keinen Aufwand buchen darfst."
+        issue_requires_timelog: "Der ausgewählte Status erfordert, dass eine Zeitbuchung zum Ticket vorhanden ist."
+        relation_not_unique: "wurde mehrfach zugeordnet."
       models:
         dashboard:
-            must_be_for_everyone: muss für jeden Benutzer festgelegt werden, wenn System Standard verwendet wird.
-      messages:
-        issue_cannot_close_with_open_children: "Das Ticket kann nicht geschlossen werden, bevor nicht alle Untertickets geschlossen wurden."
-        issue_current_user_status: "Der ausgewählte Status erfordert, dass \"Zugewiesen an\" Dir selbst zugeordnet wird."
-        issue_log_time_not_allowed: "ist ein geschlossenes Ticket, auf dem Sie nicht berechtigt sind einen Aufwand zu buchen."
-        issue_changes_not_allowed: "Dieses Ticket ist geschlossenes und Sie besitzen keine Berechtigung es zu ändern."
-        issue_requires_timelog: "Der ausgewählte Status erfordert, dass eine Zeitbuchung zum Ticket vorhanden ist."
-        invalid_icon_format: ist ein ungültiger Font-Awesome Code
-        relation_not_unique: wurde mehrfach zugeordnet.
+          must_be_for_everyone: "muss für alle Benutzer gelten, wenn der Systemstandard verwendet wird."
+  add_go_to_top_info: "Bei langen Seiten ist es hilfreich, wenn ein Link zur Verfügung steht, mit dem man zum Seitenanfang springen kann."
   additionals:
-    enabled: aktiviert
-    disabled: deaktiviert
-  account_login_info: "Dieser Text wir auf der Anmeldeseite angezeigt, um z.B. Informationen für die Anmeldung oder Registrierung zu hinterlegen. Diese Einstellung ist projektübergreifend und ist in allen Projekten aktiv."
-  add_go_to_top_info: 'Bei langen Seiten ist es hilfreich, wenn ein Link zur Verfügung steht, mit dem man zum Seitenanfang springen kann.'
-  additionals_query_list_default_totals: Standard-Summen in der Listenansicht
-  additionals_query_list_defaults: Standard-Spalten Listenansicht
-  alert_only_visible_by_admins: Kann nur von Benutzer mit Admin-Rechten gesehen werden
-  alert_only_visible_by_yourself: Kann nur von Dir selbst gesehen werden
-  button_assign_to_me: Mir zuweisen
+    disabled: "deaktiviert"
+    enabled: "aktiviert"
+  additionals_query_list_default_totals: "Standard-Summen in der Listenansicht"
+  additionals_query_list_defaults: "Standard-Spalten in der Listenansicht"
+  alert_only_visible_by_admins: "Kann nur von Benutzern mit Admin-Rechten gesehen werden"
+  alert_only_visible_by_yourself: "Kann nur von dir selbst gesehen werden"
+  button_assign_to_me: "Mir zuweisen"
   button_copy_object: "%{object_name} kopieren"
   button_merge: "Zusammenführen"
-  disabled_modules_info: "Module, die nicht zur Auswahl innerhalb der Projekte zur Verfügung stehen sollen. Sind in bestehenden Projekten schon diese Module aktiviert worden, werden die Einstellungen für diese Projekte erst nach erneuten Abspeichern der jeweiligen Projekteinstellungen aktiv."
-  emoji_support_info_html: 'Emojis im Text konvertieren. Aktivere diese Option, wenn :heart:, :+1: etc in Emojis konvertiert werden sollen. Im <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" class="external">Emoji cheat sheet</a> können die zur Verfügung stehenden Emoji-Codes eingesetzt werden.'
-  error_issue_status_could_not_changed: Der Ticket-Status konnte nicht geändert werden
-  error_issues_could_not_be_assigned_to_me: Das Ticket konnte nicht mir zugeordnet werden
-  errors_no_or_invalid_arguments: Kein oder ungültiger Parameter
-  field_always_expose: Dashboard Name immer anzeigen
-  field_attachments_count: Anzahl Dateien
-  field_color: Farbe
-  field_dashboard_locked: Schutz aktivieren
-  field_enable_new_ticket_message: Aktiviere Hinweistext
-  field_enable_sidebar: Sidebar aktivieren
-  field_hide: Verstecken
-  field_icon: Symbol
-  field_issue_relation: Ticket Beziehung
-  field_issue_relation_plural: Ticket Beziehungen
-  field_notes_count: Anzahl Kommentare
-  field_project_system_default: Projektstandard
-  field_system_default: System Standard
-  field_visibility: Sichtbarkeit
-  field_website: Website
-  global_footer_info: 'Hier kann ein projektübergreifender Footer hinterlegt werden, z.B. um einen Verweis auf die Datenschutzbestimmungen zu setzen.'
+  days:
+    one: "Tag"
+    other: "Tage"
+  disabled_modules_info: "Module, die innerhalb der Projekte nicht zur Auswahl stehen sollen. Sind diese Module in bestehenden Projekten schon aktiviert, wirkt die Änderung dort erst nach erneutem Speichern der jeweiligen Projekteinstellungen."
+  emoji_support_info_html: "Emojis im Text umwandeln. Aktiviere diese Option, wenn :heart:, :+1: usw. in Emojis umgewandelt werden sollen. Im <a href=\"https://www.webfx.com/tools/emoji-cheat-sheet/\" class=\"external\">Emoji cheat sheet</a> findest du die verfügbaren Emoji-Codes."
+  error_issue_status_could_not_changed: "Der Ticket-Status konnte nicht geändert werden"
+  error_issues_could_not_be_assigned_to_me: "Das Ticket konnte dir nicht zugewiesen werden"
+  errors_no_or_invalid_arguments: "Keine oder ungültige Parameter"
+  field_always_expose: "Dashboard-Namen immer anzeigen"
+  field_attachments_count: "Anzahl Dateien"
+  field_color: "Farbe"
+  field_dashboard_locked: "Schutz aktivieren"
+  field_enable_new_ticket_message: "Hinweistext aktivieren"
+  field_enable_sidebar: "Seitenleiste aktivieren"
+  field_hide: "Ausblenden"
+  field_icon: "Symbol"
+  field_issue_relation: "Ticket-Beziehung"
+  field_issue_relation_plural: "Ticket-Beziehungen"
+  field_notes_count: "Anzahl Kommentare"
+  field_project_system_default: "Projektstandard"
+  field_system_default: "Systemstandard"
+  field_visibility: "Sichtbarkeit"
+  field_watched_by_me: "Von mir beobachtet"
+  field_website: "Website"
+  global_footer_info: "Hier kann ein projektübergreifender Footer hinterlegt werden, z.B. um einen Verweis auf die Datenschutzbestimmungen zu setzen."
   global_search_info: "Wenn aktiv, ist ein globaler Suchdialog (Cmd+K) auf allen Seiten verfügbar."
-  global_sidebar_info: "Hier kann für die Sidebar ein projektübergreifender Text hinterlegt werden. Der hier hinterlegte Sidebar Inhalt wird auf der Projektübersichtsseite, auf den Ticketseiten und den Wikiseiten angezeigt."
-  global_wiki_sidebar_info: 'Hier kann für die Wiki Sidebar ein projektübergreifender Text hinterlegt werden. Diese Sidebar wird nur auf den Wiki Seiten angezeigt und kann z.B. für  Makros wie "Zuletzt geänderte Seiten" verwendet werden. Wird eine projektspezifische Sidebar angelegt (über eine Wiki Seite), dann wird diese anstelle der projektübergreifenden Sidebar angezeigt.'
-  google_maps_embed_api_html: Wenn Du das Gmap Makro verwenden willst um Google Karten darzustellen, musst Du hier Deinen Google Maps Embed API Schlüssel eintragen. Mehr Informationen dazu findest Du unter <a href="https://developers.google.com/maps/documentation/embed/guide" class="external">https://developers.google.com/maps/documentation/embed/guide</a>. Wird hier kein Schlüssel eingetragen, kann das gmap Makro nicht verwendet werden.
-  hidden_macros_in_toolbar_info: Alle verfügbaren Makros, die der angemeldete Benutzer verwenden kann, werden über den Makro-Button der Wiki-Toolbar aufgelistet. Hier markierte Makros werden nicht zur Auswahl angeboten. Damit lässt sich der Listenumfang einschränken. Versteckte Makros bleiben im Text weiterhin nutzbar. Sie werden nur aus dieser Liste entfernt, nicht deaktiviert.
+  global_sidebar_info: "Hier kann für die Seitenleiste ein projektübergreifender Text hinterlegt werden. Er wird auf der Projektübersicht, den Ticketseiten und den Wiki-Seiten angezeigt."
+  global_wiki_sidebar_info: "Hier kann für die Wiki-Seitenleiste ein projektübergreifender Text hinterlegt werden. Er wird nur auf den Wiki-Seiten angezeigt und kann z.B. für Makros wie \"Zuletzt geänderte Seiten\" verwendet werden. Hat ein Projekt eine eigene Seitenleiste (über eine Wiki-Seite), wird diese stattdessen angezeigt."
+  google_maps_embed_api_html: "Wenn du das Gmap-Makro verwenden willst, um Google-Karten darzustellen, trag hier deinen Google Maps Embed API Key ein. Mehr Informationen dazu findest du unter <a href=\"https://developers.google.com/maps/documentation/embed/guide\" class=\"external\">https://developers.google.com/maps/documentation/embed/guide</a>. Ohne Schlüssel kann das Gmap-Makro nicht verwendet werden."
+  hidden_macros_in_toolbar_info: "Alle verfügbaren Makros, die der angemeldete Benutzer verwenden kann, werden über den Makro-Button der Wiki-Toolbar aufgelistet. Hier markierte Makros werden nicht zur Auswahl angeboten. Damit lässt sich der Listenumfang einschränken. Versteckte Makros bleiben im Text weiterhin nutzbar. Sie werden nur aus dieser Liste entfernt, nicht deaktiviert."
+  hours:
+    one: "Stunde"
+    other: "Stunden"
   info_chart_classes: "Leer teilt die Werte automatisch in etwa fünf gleich breite Klassen. Feste Grenzen bleiben stabil, wenn sich die Daten ändern."
   info_chart_compare_query: "Zweite Datenreihe neben der ersten. Wird bei Balken, Linien und in der Wertetabelle angezeigt."
   info_chart_compare_split: "Ersetzt durch die Aufteilung."
@@ -84,34 +78,34 @@ de:
   info_chart_split_by: "Teilt jeden Eintrag nach einem zweiten Feld auf, als gestapelte Balken oder Flächen, Linien oder Kreuztabelle. Nicht bei Ring-, Kreisdiagramm und Treemap, ersetzt den Vergleich."
   info_chart_with_table: "Wird neben dem Diagramm angezeigt, bei der Darstellung Tabelle immer."
   info_chart_with_table_calendar: "Nicht bei der Darstellung Kalender, die den Wert jedes Tages selbst zeigt."
-  info_hidden_roles_html: Versteckte Rollen können nur zusammen mit der Benutzersichtbarkeit "Mitglieder von sichtbaren Projekten" verwendet werden. Diese Option funktioniert nur, wenn der Benutzer in keiner Rolle ist die für den aktuellen Benutzer sichtbar ist. Passt alles wird diese Rolle inklusive Benutzer auf der Projektübersichtsseite und in Abfragelisten ausgeblendet.
-  info_issue_hide_max_attachments: Wird die hier angegebene Anzahl überschritten, werden alle Dateianhänge im Ticket eingeklappt/versteckt dargestellt.
-  info_issue_link_category: Verlinkt die Kategorie (auf der Ticket-Seite und in Spalten von Ticketlisten) mit der nach dieser Kategorie gefilterten Ticketliste des jeweiligen Projekts.
-  info_live_search_result_restriction: LiveSearch Ergebnisse sind auf %{value} Treffer begrenzt. Versuche Deine Suche genauer zu beschreiben.
+  info_hidden_roles_html: "Versteckte Rollen können nur zusammen mit der Benutzersichtbarkeit \"Mitglieder von sichtbaren Projekten\" verwendet werden. Ist der Benutzer in keiner Rolle, die für den aktuellen Benutzer sichtbar ist, wird diese Rolle samt Benutzer auf der Projektübersicht und in Abfragelisten ausgeblendet."
+  info_issue_hide_max_attachments: "Wird die hier angegebene Anzahl überschritten, werden alle Dateianhänge im Ticket eingeklappt/versteckt dargestellt."
+  info_issue_link_category: "Verlinkt die Kategorie (auf der Ticket-Seite und in Spalten von Ticketlisten) mit der nach dieser Kategorie gefilterten Ticketliste des jeweiligen Projekts."
+  info_live_search_result_restriction: "LiveSearch-Ergebnisse sind auf %{value} Treffer begrenzt. Versuch, deine Suche genauer einzugrenzen."
   label_account_login_bottom: "Text für Anmeldeseite"
-  label_activate_quickstart: Schnellstart aktivieren
-  label_active_dashboard: Aktives Dashboard
-  label_add_dashboard_block: Block hinzufügen
-  label_add_go_to_top: '"Nach oben" Link hinzufügen'
-  label_additionals: Additionals
-  label_additionals_feed: Atom+RSS Feed
-  label_additionals_message: Hinweistext
-  label_all_active_users: Alle aktiven Benutzer
-  label_all_projects: Alle Projekte
-  label_all_users: Alle Benutzer
-  label_app_menu: App Menü
-  label_auto_watch_on_issue_assigned: Tickets, die mir zugewiesen werden
+  label_activate_quickstart: "Schnellstart aktivieren"
+  label_active_dashboard: "Aktives Dashboard"
+  label_add_dashboard_block: "Block hinzufügen"
+  label_add_go_to_top: "\"Nach oben\"-Link hinzufügen"
+  label_additionals: "Additionals"
+  label_additionals_feed: "Atom+RSS Feed"
+  label_additionals_message: "Hinweistext"
+  label_all_active_users: "Alle aktiven Benutzer"
+  label_all_projects: "Alle Projekte"
+  label_all_users: "Alle Benutzer"
+  label_app_menu: "App-Menü"
+  label_auto_watch_on_issue_assigned: "Tickets, die mir zugewiesen werden"
   label_calendar_week: "KW %{week}"
-  label_change_is_private: Privat/Nicht-Privat ändern
-  label_change_project: Projekt ändern
-  label_change_to_dashboard: Zu Dashboard wechseln
+  label_change_is_private: "Privat/Nicht-Privat ändern"
+  label_change_project: "Projekt ändern"
+  label_change_to_dashboard: "Zu Dashboard wechseln"
   label_chart_class_below: "unter %{value}"
   label_chart_class_from: "ab %{value}"
   label_chart_class_range: "%{from} bis unter %{to}"
   label_chart_class_span: "%{from} bis %{to}"
   label_chart_classes: "Grenzen"
   label_chart_classes_auto: "automatisch"
-  label_chart_color_schema: Charts Farbschema
+  label_chart_color_schema: "Farbschema für Diagramme"
   label_chart_compare_query: "Vergleich"
   label_chart_interval: "je"
   label_chart_interval_day: "Tag"
@@ -157,34 +151,34 @@ de:
   label_chart_type_treemap: "Treemap"
   label_chart_valid_only: "Nur gültige Einträge"
   label_chart_week: "KW %{week}/%{year}"
-  label_chart_with_name: "Chart: %{value}"
-  label_chartjs_colorscheme_info: Farbschema Auflistung
-  label_content_plural: Inhalte
-  label_copied_to_clipboard: Kopiert!
-  label_custom_field_editable_info: Wenn deaktiviert, können Daten nur über die API oder über die Massenbearbeitung angegeben werden.
-  label_daily: täglich
-  label_dashboard: Dashboard
+  label_chart_with_name: "Diagramm: %{value}"
+  label_chartjs_colorscheme_info: "Liste der Farben"
+  label_content_plural: "Inhalte"
+  label_copied_to_clipboard: "Kopiert!"
+  label_custom_field_editable_info: "Wenn deaktiviert, können Werte nur über die API oder die Massenbearbeitung geändert werden."
+  label_daily: "täglich"
+  label_dashboard: "Dashboard"
   label_dashboard_author: "Autor: %{name}"
-  label_dashboard_block_info_async: Dieser Block wird asynchron geladen und %{time} gecached.
-  label_dashboard_legacy_left: Standard-Inhalt links
-  label_dashboard_legacy_right: Standard-Inhalt rechts
-  label_dashboard_lock: Dashboard Schutz aktivieren
-  label_dashboard_lock_is_active: Dashboard Schutz ist aktiv
-  label_dashboard_plural: Dashboards
-  label_dashboard_unlock: Dashboard Schutz entfernen
-  label_dashboard_unlock_by_click: "Dashboard Schutz ist aktiv, klicken zum Entfernen"
-  label_day: Tag
-  label_default_sort_by: Standard-Sortierreihenfolge
-  label_disable_sidebar: Sidebar deaktivieren
+  label_dashboard_block_info_async: "Dieser Block wird asynchron geladen und %{time} zwischengespeichert."
+  label_dashboard_legacy_left: "Standard-Inhalt links"
+  label_dashboard_legacy_right: "Standard-Inhalt rechts"
+  label_dashboard_lock: "Dashboard-Schutz aktivieren"
+  label_dashboard_lock_is_active: "Dashboard-Schutz ist aktiv"
+  label_dashboard_plural: "Dashboards"
+  label_dashboard_unlock: "Dashboard-Schutz entfernen"
+  label_dashboard_unlock_by_click: "Dashboard-Schutz ist aktiv, zum Entfernen klicken"
+  label_day: "Tag"
+  label_default_sort_by: "Standard-Sortierreihenfolge"
+  label_disable_sidebar: "Seitenleiste deaktivieren"
   label_disabled_modules: "Deaktivierte Module"
-  label_docs_access_token: Zugriffstoken
-  label_document_view_all: Alle Dokumente anzeigen
-  label_emoji_support: Emoji Support
-  label_enable_auto_refresh: Automatische Aktualisierung aktivieren
-  label_enable_sidebar: Sidebar aktivieren
+  label_docs_access_token: "Zugriffstoken"
+  label_document_view_all: "Alle Dokumente anzeigen"
+  label_emoji_support: "Emoji-Unterstützung"
+  label_enable_auto_refresh: "Automatische Aktualisierung aktivieren"
+  label_enable_sidebar: "Seitenleiste aktivieren"
   label_global_footer: "Projektübergreifender Footer"
   label_global_search: "Globale Suche"
-  label_global_search_all_results: "Alle %{count} Resultate"
+  label_global_search_all_results: "Alle %{count} Ergebnisse"
   label_global_search_always_bookmarks: "Meine Lesezeichen (immer)"
   label_global_search_always_global: "Alle Projekte (immer)"
   label_global_search_clear_all: "Alle löschen"
@@ -195,137 +189,143 @@ de:
   label_global_search_recent_projects: "Kürzlich verwendete Projekte"
   label_global_search_recent_searches: "Zuletzt gesucht"
   label_global_search_short_words_titles_only: "Nur in Titeln gesucht. Für die Volltextsuche ein Wort mit mindestens %{value} Zeichen eingeben"
-  label_global_sidebar: "Projektübergreifender Sidebar Inhalt"
-  label_global_wiki_sidebar: "Projektübergreifender Wiki-Sidebar Inhalt"
+  label_global_sidebar: "Projektübergreifender Inhalt der Seitenleiste"
+  label_global_wiki_sidebar: "Projektübergreifender Inhalt der Wiki-Seitenleiste"
   label_go_to_top: "Nach oben"
-  label_google_maps_api_key: Google Maps Embed API Key
-  label_help_doc: Dokumentation
-  label_help_integration: Online Hilfe Integration
-  label_help_manual: Handbuch
-  label_hidden_macros_in_toolbar: Versteckte Makros
-  label_hour: Stunde
-  label_icon_color: Symbolfarbe
-  label_inactive: Inaktiv
-  label_invalid_feed_data: Ungültige Feed Daten oder URL
-  label_is_non_private: Nicht-Privat
-  label_issue_assign_to_me: Ticket "Mir zuweisen" anzeigen
-  label_issue_auto_assign: "Wird \"Zugewiesen an\" nicht zugewiesen und der neue Ticketstatus ist x, dann wird die ersten Gruppe mit Benutzern der festgelegten Rolle das Ticket zugewiesen."
-  label_issue_change_status: Status ändern
-  label_issue_change_status_in_sidebar: Ticketstatus über Sidebar
-  label_issue_current_user_status: "Der Ticketstatus x ist nur erlaubt, wenn \"Zugewiesen an\" der aktuelle Benutzer zugewiesen wird."
-  label_issue_fast_description_edit: Schnellbearbeitung Beschreibung
-  label_issue_freezed_with_close: Bearbeitung geschlossener Tickets verbieten (Freeze)
-  label_issue_genitive: Tickets
-  label_issue_hide_max_attachments: Max. angezeigte Dateien
-  label_issue_link_category: Kategorie verlinken
-  label_issue_link_category_title: Tickets mit dieser Kategorie anzeigen
-  label_issue_note_with_author: Ticket-Autor zu Kommentar anzeigen
-  label_issue_status_change: "Wird \"Zugewiesen an\" nicht verändert und der Ticketstatus von x auf y geändert, dann wird das Ticket automatisch dem Ersteller zugewiesen"
-  label_issue_timelog_required: Zeiterfassung für Ticket erforderlich
-  label_issues_summary: Ticket Übersicht
-  label_last_year: voriges Jahr
-  label_legacy_smiley_support: Legacy Smiley Support
-  label_live_search_hints: "Verfügbare Feldsuche: %{value}"
+  label_google_maps_api_key: "Google Maps Embed API Key"
+  label_help_doc: "Dokumentation"
+  label_help_integration: "Integration der Online-Hilfe"
+  label_help_manual: "Handbuch"
+  label_hidden_macros_in_toolbar: "Versteckte Makros"
+  label_hour: "Stunde"
+  label_icon_color: "Symbolfarbe"
+  label_inactive: "Inaktiv"
+  label_invalid_feed_data: "Ungültige Feed-Daten oder URL"
+  label_is_non_private: "Nicht-Privat"
+  label_issue_assign_to_me: "\"Mir zuweisen\" im Ticket anzeigen"
+  label_issue_auto_assign: "Ist \"Zugewiesen an\" nicht gesetzt und der neue Ticketstatus ist x, wird das Ticket der ersten Gruppe mit Benutzern der festgelegten Rolle zugewiesen."
+  label_issue_change_status: "Status ändern"
+  label_issue_change_status_in_sidebar: "Ticketstatus in der Seitenleiste"
+  label_issue_current_user_status: "Der Ticketstatus x ist nur erlaubt, wenn \"Zugewiesen an\" der aktuelle Benutzer ist."
+  label_issue_fast_description_edit: "Schnellbearbeitung der Beschreibung"
+  label_issue_freezed_with_close: "Bearbeitung geschlossener Tickets verbieten (einfrieren)"
+  label_issue_genitive: "Tickets"
+  label_issue_hide_max_attachments: "Max. angezeigte Dateien"
+  label_issue_link_category: "Kategorie verlinken"
+  label_issue_link_category_title: "Tickets mit dieser Kategorie anzeigen"
+  label_issue_note_with_author: "Ticket-Autor bei Kommentaren anzeigen"
+  label_issue_status_change: "Bleibt \"Zugewiesen an\" unverändert und wechselt der Ticketstatus von x auf y, wird das Ticket automatisch dem Autor zugewiesen"
+  label_issue_timelog_required: "Zeiterfassung für Ticket erforderlich"
+  label_issues_summary: "Ticket-Übersicht"
+  label_last_year: "voriges Jahr"
+  label_legacy_smiley_support: "Unterstützung klassischer Smileys"
+  label_list_all_entries: "Alle %{value} auflisten"
+  label_live_search_hints: "Verfügbare Feldsuchen: %{value}"
   label_macro_not_available: "(%{name}: nicht verfügbar)"
-  label_macro_plural: Makros
-  label_max_entries: Maximale Einträge
-  label_max_live_search_results: "Maximale Anzahl LiveSearch Ergebnisse"
-  label_menu_entry: Menüpunkt
-  label_monthly: monatlich
-  label_my_activity: Meine Aktivität
-  label_my_dashboard_plural: Meine Dashboards
-  label_my_spent_time: Meine aufgewendete Zeit
-  label_new_dashboard: Neues Dashboard
-  label_new_issue_on_profile: Neues Ticket auf Benutzerprofil
+  label_macro_plural: "Makros"
+  label_max_entries: "Maximale Einträge"
+  label_max_live_search_results: "Maximale Anzahl LiveSearch-Ergebnisse"
+  label_menu_entry: "Menüpunkt"
+  label_monthly: "monatlich"
+  label_my_activity: "Meine Aktivität"
+  label_my_dashboard_plural: "Meine Dashboards"
+  label_my_spent_time: "Meine aufgewendete Zeit"
+  label_new_dashboard: "Neues Dashboard"
+  label_new_issue_on_profile: "Neues Ticket auf Benutzerprofil"
   label_new_ticket_message: "Hinweistext für neue Tickets"
-  label_no_permission: Keine Berechtigung
-  label_only_my_activities: Nur meine Aktivität
+  label_no_permission: "Keine Berechtigung"
+  label_only_my_activities: "Nur meine Aktivität"
   label_open_external_urls: "Externe URLs öffnen"
-  label_open_in_google_docs: In Google Docs öffnen
-  label_open_in_new_windows: In neuen Fenster öffnen
-  label_pdf_wiki_settings: PDF Wiki Einstellungen
+  label_open_in_google_docs: "In Google Docs öffnen"
+  label_open_in_new_windows: "In neuem Fenster öffnen"
+  label_pdf_wiki_settings: "PDF-Einstellungen für das Wiki"
   label_percent_value: "%{value} %"
-  label_percentage: Anteil
-  label_project_information: Projektinformation
-  label_project_list: Projektliste
-  label_project_scope: aus Projekt
-  label_project_setting: Projekt
-  label_quantity: Anzahl
-  label_query_delete: Abfrage löschen
-  label_query_edit: Abfrage bearbeiten
-  label_query_name_search: Nach Name suchen
+  label_percentage: "Anteil"
+  label_project_information: "Projektinformation"
+  label_project_list: "Projektliste"
+  label_project_scope: "aus Projekt"
+  label_project_setting: "Projekt"
+  label_quantity: "Anzahl"
+  label_query_delete: "Abfrage löschen"
+  label_query_edit: "Abfrage bearbeiten"
+  label_query_name_search: "Nach Name suchen"
   label_query_own_columns: "Spalten der Abfrage überschreiben"
   label_query_with_name: "Abfrage: %{value}"
-  label_quickstart: Schnellstart
-  label_recently_updated_pages: Zuletzt aktualisiert
-  label_reddit_subject: Reddit Thema
-  label_reddit_user_account: Reddit Benutzer
-  label_redmine_org_issue: Redmine.org Ticket
-  label_redmine_org_wiki: Redmine.org Wikiseite
-  label_remove_help: "Entferne 'Hilfe' aus dem Topmenü"
-  label_search_by_name: Suche nach Namen
+  label_quickstart: "Schnellstart"
+  label_recently_updated_pages: "Zuletzt aktualisiert"
+  label_reddit_subject: "Reddit-Thema"
+  label_reddit_user_account: "Reddit-Benutzer"
+  label_redmine_org_issue: "Redmine.org-Ticket"
+  label_redmine_org_wiki: "Redmine.org-Wikiseite"
+  label_remove_help: "'Hilfe' aus dem Top-Menü entfernen"
+  label_route: "Route"
+  label_search_by_name: "Nach Namen suchen"
   label_search_scope: "Suchbereich"
-  label_setting_value_not_visible: "für Dich nicht sichtbar"
+  label_setting_value_not_visible: "für dich nicht sichtbar"
   label_settings_macros: "Makros"
   label_settings_menu: "Menü"
-  label_shared_dashboard_plural: Geteilte Dashboards
-  label_show_all: Alle anzeigen
-  label_show_closed_issues: Geschlossene Tickets anzeigen
+  label_shared_dashboard_plural: "Geteilte Dashboards"
+  label_show_all: "Alle anzeigen"
+  label_show_closed_issues: "Geschlossene Tickets anzeigen"
+  label_show_variables: "Variablen anzeigen"
   label_stats_new_today: "Heute neu"
   label_stats_totals: "Gesamt"
-  label_system_info: Systeminformation
-  label_text_async: Text (asynchron)
-  label_text_sync: Text
-  label_top_macros_help_html: "Hier sind alle Makros aufgelistet, welche über Redmine selbst oder Plugins bereitgestellt werden (nicht nur über Additionals). Diese Makros können in allen Texten innerhalb Redmines verwendet werden (sofern diese im jeweiligen Kontext Sinn machen)."
-  label_top_menu: Top Menü
+  label_system_info: "Systeminformation"
+  label_table_of_values: "Wertetabelle"
+  label_text_async: "Text (asynchron)"
+  label_text_sync: "Text"
+  label_top_macros_help_html: "Hier sind alle Makros aufgelistet, die Redmine selbst oder Plugins bereitstellen (nicht nur Additionals). Diese Makros können in allen Texten innerhalb von Redmine verwendet werden, sofern sie im jeweiligen Zusammenhang sinnvoll sind."
+  label_top_menu: "Top-Menü"
   label_top_menu_help_html: "Hier können Menüpunkte festgelegt werden, die im Top-Menü angezeigt werden."
-  label_twitter_account: Twitter Benutzer
-  label_twitter_hashtag: Twitter Hashtag
-  label_uptime: Betriebszeit
-  label_user_is_author_of: Dieser Benutzer ist der Autor dieses %{entity}.
-  label_user_list: Benutzerliste
-  label_visibility_groups: nur für diese Gruppen
-  label_web_apis: Web APIs
-  label_weekly: wöchentlich
-  label_wiki_pdf_remove_attachments: Dateianhänge nicht anzeigen
-  label_wiki_pdf_remove_title: Wiki Titel nicht anzeigen
-  label_yearly: jährlich
+  label_twitter_account: "Twitter-Benutzer"
+  label_twitter_hashtag: "Twitter-Hashtag"
+  label_uptime: "Betriebszeit"
+  label_user_is_author_of: "Dieser Benutzer ist der Autor von %{entity}."
+  label_user_list: "Benutzerliste"
+  label_visibility_groups: "nur für diese Gruppen"
+  label_web_apis: "Web-APIs"
+  label_weekly: "wöchentlich"
+  label_wiki_pdf_remove_attachments: "Dateianhänge nicht anzeigen"
+  label_wiki_pdf_remove_title: "Wiki-Titel nicht anzeigen"
+  label_with_amount: "Anzahl %{value}"
+  label_yearly: "jährlich"
   latest_entries_changes: "Die letzten %{value} Änderungen"
-  legacy_smiley_support_info_html: 'Smileys im Text konvertieren. Aktiviere diese Option, wenn :), :-) etc in Smileys konvertiert werden sollen. Wird diese Einstellung verändert, <strong>muss der Anwendungsserver neu gestartet werden</strong>.'
+  legacy_smiley_support_info_html: "Smileys im Text konvertieren. Aktiviere diese Option, wenn :), :-) etc in Smileys konvertiert werden sollen. Wird diese Einstellung verändert, <strong>muss der Anwendungsserver neu gestartet werden</strong>."
   max_live_search_results_info: "Anzahl der maximalen Suchergebnisse für die LiveSearch. Hinweis: Einstellung wirkt sich nur auf Plugins aus, welche die LiveSearch unterstützen."
   menu_roles_info: "Nur den ausgewählten Rollen wird der Menüpunkt angezeigt. Sobald ein Mitglied in einem Projekt die Rolle besitzt, wird der Menüpunkt angezeigt."
-  new_ticket_message_info: "Ein Hinweis, der beim Erstellen neuer Tickets angezeigt wird. Es kann beispielsweise auf Akzeptanztests oder Richtlinien zum Erstellen der Tickets hingewiesen werden. Dieser Einstellung ist projektübergreifend und ist in allen Projekten aktiv."
+  minutes:
+    one: "Minute"
+    other: "Minuten"
+  new_ticket_message_info: "Ein Hinweis, der beim Erstellen neuer Tickets angezeigt wird, z.B. zu Akzeptanztests oder Richtlinien zum Erstellen von Tickets. Diese Einstellung gilt für alle Projekte."
   notice_delete_error_with_messages: "Löschen nicht erfolgreich. Folgende Fehler sind aufgetreten: %{errors}"
   notice_failed_to_save_entries: "%{count} von %{total} ausgewählten %{name_plural} konnte(n) nicht gespeichert werden: %{ids}."
   notice_save_error_with_messages: "Speichern nicht erfolgreich. Folgende Fehler sind aufgetreten: %{errors}"
-  notice_unsuccessful_delete: Konnte nicht gelöscht werden
-  notice_unsuccessful_save: Konnte nicht gespeichert werden
-  open_external_urls_info: "Wenn aktiviert, werden externe URLs im neuen Fenster/TAB geöffnet."
-  permission_change_new_issue_author: Autor bei Ticketerstellung festlegen
+  notice_unsuccessful_delete: "Konnte nicht gelöscht werden"
+  notice_unsuccessful_save: "Konnte nicht gespeichert werden"
+  open_external_urls_info: "Wenn aktiviert, werden externe URLs in einem neuen Fenster oder Tab geöffnet."
+  permission_change_new_issue_author: "Autor bei Ticketerstellung festlegen"
   permission_edit_closed_issues: "Geschlossene Tickets bearbeiten"
-  permission_edit_issue_author: Ticket Autor bearbeiten
-  permission_issue_timelog_never_required: Zeitbuchungen nicht erforderlich
-  permission_save_dashboards: Dashboards anlegen
-  permission_set_system_dashboards: System Dashboards festlegen
-  permission_share_dashboards: Dashboards teilen
-  permission_show_hidden_roles_in_memberbox: Versteckte Rollen anzeigen
-  remove_help_info: "Den Menüpunkt 'Hilfe' aus dem Topmenü entfernen."
-  rule_issue_auto_assign_info: 'Use Case: Der Ticketersteller weiss nicht, wem er das Ticket zurordnen soll bzw. welcher Benutzer zuständig für das Ticket ist. Das neue Ticket mit dem Status "To Do" wird in dem Fall automatisch der ersten Gruppe zugewiesen, die Benutzer mit der Rolle Managener enthält.'
-  rule_issue_current_user_status_info_html: "Diese Funktion zusammen mit der Einstellung \"Ticketstatus über Sidebar\" weist automatisch den aktuellen Benutzer dem neu ausgewählten Status zu.<br />Use Case: Ein Benutzer soll den Status auf \"In Progress\" nur für sich stellen können, wenn er selbst an dem Ticket arbeitet."
-  rule_issue_freezed_with_close_info: Wird diese Option aktiviert können bereits geschlossene Tickets nicht mehr bearbeitet und kommentiert werden. Auch nicht via Mail oder API. Für Benutzerrollen mit dem Recht "Geschlossene Tickets bearbeiten" gilt diese Einschränkung nicht.
-  rule_issue_status_change_info: "Use Case: Zur Abnahme der Tickets sollen alle Tickets automatisch dem Ersteller des Tickets zugeordnet werden, sofern kein anderer Benutzer ausgewählt wird."
-  rule_issue_timelog_required_info_html: 'Zu jedem Ticket der ausgewählten Tracker wird eine Zeitbuchung notwendig, wenn das Ticket eine der festgelegten Status-Eigenschaften erhalten soll. Nicht erforderlich ist die Zeitbuchung, wenn:<br />- keine Rechte für das Anlegen von Zeitbuchungen bestehen<br />- der Benutzer die Berechtigung "Zeitbuchungen nicht erforderlich" besitzt<br />Use case: Zur Abnahme eines Tickets mit dem Status "To Verify" werden auch die aufgewendeten Zeiten benötigt.'
+  permission_edit_issue_author: "Ticket-Autor bearbeiten"
+  permission_issue_timelog_never_required: "Zeitbuchungen nicht erforderlich"
+  permission_save_dashboards: "Dashboards speichern"
+  permission_set_system_dashboards: "System-Dashboards festlegen"
+  permission_share_dashboards: "Dashboards teilen"
+  permission_show_hidden_roles_in_memberbox: "Versteckte Rollen anzeigen"
+  remove_help_info: "Den Menüpunkt 'Hilfe' aus dem Top-Menü entfernen."
+  rule_issue_auto_assign_info: "Anwendungsfall: Der Autor eines Tickets weiß nicht, wem er es zuordnen soll bzw. wer dafür zuständig ist. Das neue Ticket, z.B. mit dem Status \"To Do\", wird dann automatisch der ersten Gruppe zugewiesen, die Benutzer mit der festgelegten Projektleiter-Rolle enthält."
+  rule_issue_current_user_status_info_html: "Zusammen mit der Einstellung \"Ticketstatus in der Seitenleiste\" weist diese Funktion beim neu ausgewählten Status automatisch den aktuellen Benutzer zu.<br />Anwendungsfall: Ein Benutzer soll den Status \"In Progress\" nur für sich setzen können, wenn er selbst an dem Ticket arbeitet."
+  rule_issue_freezed_with_close_info: "Wird diese Option aktiviert, können geschlossene Tickets nicht mehr bearbeitet und kommentiert werden, auch nicht per Mail oder API. Für Benutzerrollen mit dem Recht \"Geschlossene Tickets bearbeiten\" gilt diese Einschränkung nicht."
+  rule_issue_status_change_info: "Anwendungsfall: Zur Abnahme sollen Tickets automatisch ihrem Autor zugewiesen werden, sofern kein anderer Benutzer ausgewählt wird."
+  rule_issue_timelog_required_info_html: "Zu jedem Ticket der ausgewählten Tracker ist eine Zeitbuchung notwendig, wenn das Ticket einen der festgelegten Status erhalten soll. Nicht erforderlich ist die Zeitbuchung, wenn:<br />- keine Rechte zum Anlegen von Zeitbuchungen bestehen<br />- der Benutzer die Berechtigung \"Zeitbuchungen nicht erforderlich\" besitzt<br />Anwendungsfall: Zur Abnahme eines Tickets mit dem Status \"To Verify\" werden auch die aufgewendeten Zeiten benötigt."
+  seconds:
+    one: "Sekunde"
+    other: "%{count} Sekunden"
   setting_export_limit: "Maximale Anzahl für Export"
   settings_with_value: "%{value} Einstellungen"
   text_available_variables: "Verfügbare Variablen: %{variables}"
+  text_dashboard_lock_confirmation: "Möchtest du dieses Dashboard wirklich sperren?"
+  text_dashboard_unlock_confirmation: "Möchtest du die Sperre für dieses Dashboard wirklich aufheben?"
   top_rules_help: "Hier können Regeln konfiguriert werden, die den Umgang mit Tickets festlegen. Sobald eine Regel aktiviert wurde, wirkt sich diese auf alle Projekte aus."
-  top_wiki_help: Hier kannst Du Inhalte und Einstellungen bzg. der Wiki festlegen.
-  wiki_pdf_remove_attachments_info: Wenn aktiv, werden die an der Wiki Seite angehängten Dateien nicht in der PDF Ansicht angezeigt.
-  wiki_pdf_remove_title_info: Wenn aktiv, wird der Wiki Titel nicht in der PDF Ansicht angezeigt.
-  label_route: Route
-  field_watched_by_me: Von mir beobachtet
-  label_with_amount: "Anzahl %{value}"
-  label_list_all_entries: "Alle %{value} auflisten"
-  label_table_of_values: Wertetabelle
-  text_dashboard_lock_confirmation: Möchtest du dieses Dashboard wirklich sperren?
-  text_dashboard_unlock_confirmation: Möchtest du die Sperre für dieses Dashboard wirklich aufheben?
+  top_wiki_help: "Hier kannst du Inhalte und Einstellungen für das Wiki festlegen."
+  wiki_pdf_remove_attachments_info: "Wenn aktiv, werden die an die Wiki-Seite angehängten Dateien nicht in der PDF-Ansicht angezeigt."
+  wiki_pdf_remove_title_info: "Wenn aktiv, wird der Wiki-Titel nicht in der PDF-Ansicht angezeigt."

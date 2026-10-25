@@ -1,109 +1,101 @@
 # Simplified Chinese strings
 zh:
-  label_show_variables: "显示变量"
-  seconds:
-    one: 第二次
-    other: "%{count} 秒钟"
-  minutes:
-    one: 分钟
-    other: 分钟
-  hours:
-    one: 小时
-    other: 小时
-  days:
-    one: 天
-    other: 天
+  account_login_info: "此文本显示在登录页面上，可用于注册说明等信息。此设置对所有项目生效。"
   activerecord:
     errors:
+      messages:
+        invalid_icon_format: "是无效的图标代码"
+        issue_cannot_close_with_open_children: "只有所有子任务都已关闭时，才能关闭此问题。"
+        issue_changes_not_allowed: "此问题已关闭，你无权修改。"
+        issue_current_user_status: "所选状态要求\"指派给\"是你自己。"
+        issue_log_time_not_allowed: "是已关闭的问题，不允许在其上登记工时。"
+        issue_requires_timelog: "所选问题状态要求已登记工时。"
+        relation_not_unique: "被多次指派。"
       models:
         dashboard:
-            must_be_for_everyone: "如果使用系统默认值，必须为每个用户设置。"
-      messages:
-        issue_cannot_close_with_open_children: "只有关闭所有子任务以后，才能关闭对应的父任务。"
-        issue_current_user_status: "所选状态必须要将 \"指派给\" 设置给你自己。"
-        issue_log_time_not_allowed: "问题已关闭。您无法继续在该问题上登记工时信息。"
-        issue_changes_not_allowed: "问题已关闭，您无权修改该问题的内容。"
-        issue_requires_timelog: "所选择的问题状态需要登记工时。"
-        invalid_icon_format: 无效的 Font-awesome 代码。
-        relation_not_unique: multiple assigned.
+          must_be_for_everyone: "使用系统默认时，必须对所有用户设置。"
+  add_go_to_top_info: "如果有很多长页面，添加一个返回顶部的链接会很方便。"
   additionals:
-    enabled: enabled
-    disabled: disabled
-  account_login_info: "该文本信息将在登录页作为注册信息展现。该选项是全局选项。"
-  add_go_to_top_info: '如果您有很长的页面，添加"回到顶部"的功能将非常有用。'
-  additionals_query_list_default_totals: 列表视图的默认总计
-  additionals_query_list_defaults: 列表视图的默认列
-  alert_only_visible_by_admins: "只有拥有管理员权限的用户才能看到"
-  alert_only_visible_by_yourself: "只能被你看到"
-  button_assign_to_me: 指派给我
+    disabled: "已禁用"
+    enabled: "已启用"
+  additionals_query_list_default_totals: "列表视图的默认合计"
+  additionals_query_list_defaults: "列表视图的默认列"
+  alert_only_visible_by_admins: "仅具有管理员权限的用户可见"
+  alert_only_visible_by_yourself: "仅你自己可见"
+  button_assign_to_me: "指派给我"
   button_copy_object: "复制%{object_name}"
   button_merge: "合并"
-  disabled_modules_info: "项目中无法选择模块。如果这些模块已经在现有项目中激活，则必须首先更改并重新保存响应的项目设置。"
-  emoji_support_info_html: 'Convert emojis in text. Activate this option if :heart:, :+1: etc are to be converted to emojis. In the <a href="https://www.webfx.com/tools/emoji-cheat-sheet/" class="external">Emoji cheat sheet</a> the available emoji codes can be used.'
-  error_issue_status_could_not_changed: 无法改变问题状态
-  error_issues_could_not_be_assigned_to_me: 问题无法被指派给自己
-  errors_no_or_invalid_arguments: 参数无效或不存在。
-  field_always_expose: 始终显示仪表盘名称
-  field_attachments_count: 文件数量
-  field_color: 颜色
-  field_dashboard_locked: Locked
-  field_enable_new_ticket_message: "激活任务信息"
-  field_enable_sidebar: 启用侧边栏
-  field_hide: 隐藏
-  field_icon: 图标
-  field_issue_relation: Issue relation
-  field_issue_relation_plural: 问题关联关系
-  field_notes_count: 评论的数量
-  field_project_system_default: "项目默认值"
-  field_system_default: "系统默认值"
-  field_visibility: 可见性
-  field_website: 网站
-  global_footer_info: '请在此处输入项目范围内 Wiki 页尾信息。'
-  global_search_info: "启用后，全局搜索对话框(Cmd+K)在所有页面上可用。"
-  global_sidebar_info: "请在此处输入项目范围内侧边栏信息。自定义侧边栏信息将在项目概述页、问题列表页及 Wiki 页显示。"
-  global_wiki_sidebar_info: '请在此处输入项目范围内的 Wiki 侧边栏信息。该侧边栏信息将只显示在 Wiki 页内。在此空间内输入诸如 "Last changed pages" 的宏命令。若项目内使用指定的侧边栏（Wiki 页），则该信息将优先显示在侧边栏内。'
-  google_maps_embed_api_html: 如果你想使用 Gmap 宏以现实 Google 地图，请在此处使用你的 Google 地图 API Key。之后你就可以使用宏和多种参数。关于如何使用参数的更多信息请查看 <a href="https://developers.google.com/maps/documentation/embed/guide" class="external">https://developers.google.com/maps/documentation/embed/guide</a>. Gmap 宏只有在此处提供 Key 的情况下才可用。
-  hidden_macros_in_toolbar_info: 登录用户可以使用的所有可用宏都可通过 Wiki 页面工具栏 的 宏 按钮列出。请在此处选择不希望列出的宏。隐藏的宏仍可在文本中使用。它们只是从此列表中移除，并未被禁用。
-  info_chart_classes: "留空时自动将数值分为约五个宽度相同的区间。固定边界在数据变化时保持不变。"
-  info_chart_compare_query: "与第一个数据系列并列显示的第二个数据系列。在条形图、折线图和数值表中显示。"
-  info_chart_compare_split: "已由拆分取代。"
-  info_chart_counted_several_times: "具有多个值的条目会在每个值中计算。总计只计算每个条目一次，因此占比合计会超过 100%。"
-  info_chart_description: "显示在标题下方。可以使用 Wiki 格式，例如指向 Wiki 页面或问题的链接。"
-  info_chart_max_entries: "显示最大的条目，其余条目合并为\"其他\"。日期字段显示最近的期间。留空或 0 显示所有条目。"
-  info_chart_measure: "多选字段始终计数。"
-  info_chart_min_share: "占比（百分比）低于此值的条目合并为\"其他\"，日期字段仅合并拆分的部分。留空或 0 不合并。"
-  info_chart_open_only: "在查询的筛选条件之外额外生效。"
-  info_chart_parts_counted_several_times: "具有多个值的条目会在其每个部分中计算，因此条形各部分的合计会超过其数值。"
-  info_chart_period_timeline: "日期字段不可用：趋势图本身显示各时间段。"
-  info_chart_query: "不选择查询时，统计所有可见条目。"
-  info_chart_section_caption: "可选，没有标题时区块显示其统计内容。"
+  days:
+    other: "天"
+  disabled_modules_info: "在项目中不可选择的模块。如果这些模块已在现有项目中启用，需重新保存相应的项目设置后，更改才会在那里生效。"
+  emoji_support_info_html: "转换文本中的表情代码。若要将 :heart:、:+1: 等转换为表情符号，请启用此选项。可用的表情代码见 <a href=\"https://www.webfx.com/tools/emoji-cheat-sheet/\" class=\"external\">Emoji cheat sheet</a>。"
+  error_issue_status_could_not_changed: "无法更改问题状态"
+  error_issues_could_not_be_assigned_to_me: "无法将问题指派给你"
+  errors_no_or_invalid_arguments: "参数缺失或无效"
+  field_always_expose: "始终显示仪表盘名称"
+  field_attachments_count: "文件数"
+  field_color: "颜色"
+  field_dashboard_locked: "已锁定"
+  field_enable_new_ticket_message: "启用新建问题提示"
+  field_enable_sidebar: "启用侧边栏"
+  field_hide: "隐藏"
+  field_icon: "图标"
+  field_issue_relation: "问题关联"
+  field_issue_relation_plural: "问题关联"
+  field_notes_count: "说明数"
+  field_project_system_default: "项目默认"
+  field_system_default: "系统默认"
+  field_visibility: "可见性"
+  field_watched_by_me: "我关注的"
+  field_website: "网站"
+  global_footer_info: "在此输入适用于所有项目的 Wiki 页脚，例如指向隐私政策的链接。"
+  global_search_info: "启用后，所有页面都可使用全局搜索对话框 (Cmd+K)。"
+  global_sidebar_info: "在此输入适用于所有项目的文本。此侧边栏文本显示在项目概览、问题页面和 Wiki 页面上。"
+  global_wiki_sidebar_info: "在此输入适用于所有项目的 Wiki 侧边栏文本。它只显示在 Wiki 页面上，例如可用于\"最近更改的页面\"等宏。如果项目使用自己的侧边栏（Wiki 页面），则显示该侧边栏。"
+  google_maps_embed_api_html: "若要通过 Gmap 宏显示 Google 地图，请在此输入 Google Maps Embed API 密钥。宏参数的更多信息见 <a href=\"https://developers.google.com/maps/documentation/embed/guide\" class=\"external\">https://developers.google.com/maps/documentation/embed/guide</a>。没有密钥则无法使用 Gmap 宏。"
+  hidden_macros_in_toolbar_info: "当前登录用户可用的所有宏都列在 Wiki 工具栏的宏按钮中。此处选中的宏不会出现在选择列表中，从而缩小列表范围。隐藏的宏在文本中仍可使用，只是从列表中移除，并未禁用。"
+  hours:
+    other: "小时"
+  info_chart_classes: "留空时，将数值自动分为约五个等宽的区间。固定边界在数据变化时保持不变。"
+  info_chart_compare_query: "在第一个系列旁显示第二个系列。在柱状图、折线图和数值表中显示。"
+  info_chart_compare_split: "由拆分替代。"
+  info_chart_counted_several_times: "具有多个值的条目按每个值分别计数。总计中每个条目只计一次，因此各部分占比之和超过 100 %。"
+  info_chart_description: "显示在标题下方。可使用 Wiki 格式，例如指向 Wiki 页面或问题的链接。"
+  info_chart_max_entries: "显示最大的条目，其余汇总为\"其他\"。日期字段则显示最近的时段。留空或 0 显示所有条目。"
+  info_chart_measure: "多值字段始终按数量统计。"
+  info_chart_min_share: "占比（%）小于此值的条目汇总为\"其他\"，日期字段仅适用于拆分的部分。留空或 0 不合并。"
+  info_chart_open_only: "在查询的过滤器之外额外生效。"
+  info_chart_parts_counted_several_times: "具有多个值的条目在其每个部分中都计数，因此一个柱子各部分之和大于其值。"
+  info_chart_period_timeline: "日期字段不可用：时间线本身显示各个时段。"
+  info_chart_query: "未选择查询时，统计所有可见条目。"
+  info_chart_section_caption: "可选。没有标题时，区块以统计内容命名。"
   info_chart_section_data: "统计哪些条目？"
   info_chart_section_display: "结果如何显示？"
   info_chart_section_evaluation: "条目如何汇总？"
-  info_chart_shares: "环形图、饼图和树状图显示整体中的占比：拆分和对比适用于柱形图、折线图、面积图和表格。"
-  info_chart_split_by: "按第二个字段拆分每个条目，以堆叠条形图、堆叠面积图、折线图或交叉表显示。不适用于饼图和树状图，会替代对比。"
-  info_chart_with_table: "显示在图表旁边，显示方式为\"表格\"时始终显示。"
-  info_chart_with_table_calendar: "显示方式为\"日历\"时不显示，日历本身已显示每天的值。"
-  info_hidden_roles_html: 隐藏功能只能与"用户可见度"选项一起使用。如果某用户不在对当前用户可见的角色，则此用户及其角色在项目概述页和查询列表中将对当前用户隐藏。
-  info_issue_hide_max_attachments: "如果超过此处输入的文件数量，则会隐藏显示问题的所有文件附件。"
-  info_issue_link_category: "将问题页面和问题列表列中的类别链接到相应项目按此类别筛选的问题列表。"
-  info_live_search_result_restriction: "LiveSearch的结果仅限于 %{value}。命中率。尝试更详细地描述你的搜索。"
-  label_account_login_bottom: "用于登陆页的文本"
-  label_activate_quickstart: Activate quickstart
-  label_active_dashboard: "活动的仪表盘"
-  label_add_dashboard_block: "添加块"
-  label_add_go_to_top: '添加 "回到顶部" 链接'
-  label_additionals: Additionals
-  label_additionals_feed: "Atom+RSS Feed"
-  label_additionals_message: "讯息"
+  info_chart_shares: "环形图、饼图和矩形树图显示整体中的占比；拆分和比较可用于柱状图、折线图、面积图和表格。"
+  info_chart_split_by: "按第二个字段拆分每个条目，显示为堆叠柱状图或面积图、折线图或交叉表。环形图、饼图和矩形树图不可用，并替代比较。"
+  info_chart_with_table: "显示在图表旁边；显示类型为表格时始终显示。"
+  info_chart_with_table_calendar: "显示类型为日历时不可用，日历本身显示每天的值。"
+  info_hidden_roles_html: "隐藏角色只能与用户可见性\"可见项目的成员\"一起使用。如果用户不属于当前用户可见的任何角色，则该角色及其用户在项目概览页面和查询列表中隐藏。"
+  info_issue_hide_max_attachments: "如果问题的文件数超过此处输入的数量，则其所有附件折叠显示。"
+  info_issue_link_category: "将类别（在问题页面和问题列表的列中）链接到相应项目中按此类别过滤的问题列表。"
+  info_live_search_result_restriction: "LiveSearch 结果最多 %{value} 条。请缩小搜索范围。"
+  label_account_login_bottom: "登录页面文本"
+  label_activate_quickstart: "启用快速入门"
+  label_active_dashboard: "当前仪表盘"
+  label_add_dashboard_block: "添加区块"
+  label_add_go_to_top: "添加\"返回顶部\"链接"
+  label_additionals: "Additionals"
+  label_additionals_feed: "Atom+RSS 订阅源"
+  label_additionals_message: "提示"
   label_all_active_users: "所有活动用户"
-  label_all_projects: 所有项目
+  label_all_projects: "所有项目"
   label_all_users: "所有用户"
-  label_app_menu: 应用菜单
-  label_auto_watch_on_issue_assigned: "分配给我的机票"
-  label_calendar_week: "CW %{week}"
-  label_change_is_private: 修改私有/非私有
-  label_change_project: "变更项目"
+  label_app_menu: "应用菜单"
+  label_auto_watch_on_issue_assigned: "指派给我的问题"
+  label_calendar_week: "第%{week}周"
+  label_change_is_private: "更改私有/非私有"
+  label_change_project: "更改项目"
   label_change_to_dashboard: "切换到仪表盘"
   label_chart_class_below: "低于 %{value}"
   label_chart_class_from: "%{value} 及以上"
@@ -111,221 +103,225 @@ zh:
   label_chart_class_span: "%{from} 至 %{to}"
   label_chart_classes: "边界"
   label_chart_classes_auto: "自动"
-  label_chart_color_schema: 图表配色主题
-  label_chart_compare_query: "对比"
-  label_chart_interval: "汇总单位"
-  label_chart_interval_day: "日"
+  label_chart_color_schema: "图表配色方案"
+  label_chart_compare_query: "比较"
+  label_chart_interval: "每"
+  label_chart_interval_day: "天"
   label_chart_interval_quarter: "季度"
-  label_chart_level_above: "超过 %{value}"
+  label_chart_level_above: "高于 %{value}"
   label_chart_level_up_to: "最多 %{value}"
   label_chart_measure: "指标"
-  label_chart_min_share: "合并较小的值（低于 %）"
+  label_chart_min_share: "合并小值（低于 %）"
   label_chart_month: "%{year}年%{month}"
-  label_chart_order_field: "按字段顺序"
-  label_chart_order_value: "数值最大的在前"
+  label_chart_order_field: "字段顺序"
+  label_chart_order_value: "最大值优先"
   label_chart_others: "其他"
-  label_chart_period: "时间段"
+  label_chart_period: "时段"
   label_chart_period_from: "从"
   label_chart_period_since: "自 %{date} 起"
   label_chart_period_to: "至"
-  label_chart_previous_period: "上一时间段"
-  label_chart_quarter: "%{year} 年第 %{quarter} 季度"
-  label_chart_section_caption: "标注"
+  label_chart_previous_period: "上一时段"
+  label_chart_quarter: "%{year}年第%{quarter}季度"
+  label_chart_section_caption: "标题"
   label_chart_section_data: "数据"
   label_chart_section_display: "显示"
   label_chart_section_evaluation: "统计"
   label_chart_show_empty: "显示无值的条目"
   label_chart_split_by: "拆分依据"
-  label_chart_summary: "%{source}：按%{group}的%{measure}%{details}。"
-  label_chart_summary_classes: "%{source}：按%{group}区间的%{measure}%{details}。"
-  label_chart_summary_compare: "，与%{value}对比"
+  label_chart_summary: "%{source}：按%{group}统计的%{measure}%{details}。"
+  label_chart_summary_classes: "%{source}：按%{group}区间统计的%{measure}%{details}。"
+  label_chart_summary_compare: "，与%{value}比较"
   label_chart_summary_display: "，显示为%{value}"
-  label_chart_summary_heading: "区块显示的内容"
+  label_chart_summary_heading: "此区块显示"
   label_chart_summary_split: "，按%{value}拆分"
-  label_chart_summary_timeline: "%{source}：按%{group}每%{interval}的%{measure}趋势%{details}。"
+  label_chart_summary_timeline: "%{source}：%{group}随时间变化的%{measure}，每%{interval}%{details}。"
   label_chart_summary_without_group: "尚未选择分组字段。"
   label_chart_type_area: "面积图"
-  label_chart_type_bar_horizontal: "横向条形图"
-  label_chart_type_bar_vertical: "纵向柱形图"
+  label_chart_type_bar_horizontal: "水平柱状图"
+  label_chart_type_bar_vertical: "垂直柱状图"
   label_chart_type_calendar: "日历"
   label_chart_type_doughnut: "环形图"
   label_chart_type_line: "折线图"
-  label_chart_type_no_timeline: "不显示时间趋势"
+  label_chart_type_no_timeline: "不显示时间线"
   label_chart_type_pie: "饼图"
   label_chart_type_table: "表格"
-  label_chart_type_timeline_only: "仅在按日期分组时可用"
-  label_chart_type_treemap: "树状图"
+  label_chart_type_timeline_only: "仅在按日期分组时"
+  label_chart_type_treemap: "矩形树图"
   label_chart_valid_only: "仅有效条目"
-  label_chart_week: "%{year} 年第 %{week} 周"
-  label_chart_with_name: "图表: %{value}"
-  label_chartjs_colorscheme_info: "颜色清单"
-  label_content_plural: 内容
-  label_copied_to_clipboard: "已复制!"
-  label_custom_field_editable_info: "如果禁用，则只能通过调用 API 或批量编辑进行更改。"
-  label_daily: 每天
-  label_dashboard: 仪表盘
-  label_dashboard_author: "作者: %{name}"
-  label_dashboard_block_info_async: "这个区块是异步加载的，并缓存到 %{time}."
-  label_dashboard_legacy_left: "标准左侧内容"
-  label_dashboard_legacy_right: "标准右侧内容"
-  label_dashboard_lock: 激活仪表盘锁定
-  label_dashboard_lock_is_active: "Dashboard 锁定已激活"
-  label_dashboard_plural: 仪表盘
-  label_dashboard_unlock: 移除仪表盘锁定
-  label_dashboard_unlock_by_click: "仪表盘锁定已启用，点击即可移除"
-  label_day: 天
-  label_default_sort_by: "默认排序方式"
-  label_disable_sidebar: 禁用侧边栏
-  label_disabled_modules: "禁用模块"
-  label_docs_access_token: 访问令牌
-  label_document_view_all: "查看所有文件"
-  label_emoji_support: Emoji support
+  label_chart_week: "%{year}年第%{week}周"
+  label_chart_with_name: "图表：%{value}"
+  label_chartjs_colorscheme_info: "颜色列表"
+  label_content_plural: "内容"
+  label_copied_to_clipboard: "已复制！"
+  label_custom_field_editable_info: "禁用时，只能通过 API 调用或批量编辑进行更改。"
+  label_daily: "每天"
+  label_dashboard: "仪表盘"
+  label_dashboard_author: "作者：%{name}"
+  label_dashboard_block_info_async: "此区块异步加载，并缓存 %{time}。"
+  label_dashboard_legacy_left: "标准内容（左）"
+  label_dashboard_legacy_right: "标准内容（右）"
+  label_dashboard_lock: "锁定仪表盘"
+  label_dashboard_lock_is_active: "仪表盘已锁定"
+  label_dashboard_plural: "仪表盘"
+  label_dashboard_unlock: "解除仪表盘锁定"
+  label_dashboard_unlock_by_click: "仪表盘已锁定，点击解除"
+  label_day: "天"
+  label_default_sort_by: "默认排序"
+  label_disable_sidebar: "禁用侧边栏"
+  label_disabled_modules: "已禁用的模块"
+  label_docs_access_token: "访问令牌"
+  label_document_view_all: "查看所有文档"
+  label_emoji_support: "表情符号支持"
   label_enable_auto_refresh: "启用自动刷新"
-  label_enable_sidebar: 启用侧边栏
-  label_global_footer: "项目范围内的页脚设置"
+  label_enable_sidebar: "启用侧边栏"
+  label_global_footer: "所有项目通用的页脚"
   label_global_search: "全局搜索"
   label_global_search_all_results: "全部 %{count} 条结果"
-  label_global_search_always_bookmarks: "我的书签 (始终)"
-  label_global_search_always_global: "所有项目 (始终)"
+  label_global_search_always_bookmarks: "我的书签（始终）"
+  label_global_search_always_global: "所有项目（始终）"
   label_global_search_clear_all: "全部清除"
   label_global_search_in_all_projects: "在所有项目中"
-  label_global_search_in_my_bookmarks: "在我的书签项目中"
+  label_global_search_in_my_bookmarks: "在我加入书签的项目中"
   label_global_search_in_titles: "在标题中"
   label_global_search_placeholder: "输入以搜索..."
   label_global_search_recent_projects: "最近使用的项目"
   label_global_search_recent_searches: "最近搜索"
-  label_global_search_short_words_titles_only: "仅搜索了标题。如需全文搜索，请输入至少 %{value} 个字符的词"
-  label_global_sidebar: "全局侧边栏设置"
-  label_global_wiki_sidebar: "全局 Wiki 侧边栏设置"
-  label_go_to_top: "回到顶部"
-  label_google_maps_api_key: Google Maps 集成 API Key
-  label_help_doc: 文件
-  label_help_integration: 集成在线帮助
-  label_help_manual: 手册
-  label_hidden_macros_in_toolbar: 隐藏的宏
-  label_hour: 小时
-  label_icon_color: 图标颜色
-  label_inactive: "非活动"
-  label_invalid_feed_data: "无效的 feed 数据或 URL"
+  label_global_search_short_words_titles_only: "仅搜索了标题。请输入至少 %{value} 个字符的词以进行全文搜索"
+  label_global_sidebar: "全局侧边栏"
+  label_global_wiki_sidebar: "全局 Wiki 侧边栏"
+  label_go_to_top: "返回顶部"
+  label_google_maps_api_key: "Google Maps Embed API 密钥"
+  label_help_doc: "文档"
+  label_help_integration: "在线帮助集成"
+  label_help_manual: "手册"
+  label_hidden_macros_in_toolbar: "隐藏的宏"
+  label_hour: "小时"
+  label_icon_color: "图标颜色"
+  label_inactive: "未启用"
+  label_invalid_feed_data: "无效的订阅源数据或 URL"
   label_is_non_private: "非私有"
-  label_issue_assign_to_me: 在问题页显示“指派给我”
-  label_issue_auto_assign: "若 \"指派给\" 的值未设置为具体用户，且新建问题的状态为 X， 那么问题将自动指派给预定义角色用户的对应组。"
-  label_issue_change_status: 更新问题状态
-  label_issue_change_status_in_sidebar: 在侧边栏显示更新问题状态
-  label_issue_current_user_status: "当前问题状态 X 仅在 \"指派给\" 的值设置为当前用户时生效。"
+  label_issue_assign_to_me: "在问题中显示\"指派给我\""
+  label_issue_auto_assign: "如果\"指派给\"未设置且新的问题状态为 x，则问题自动指派给包含预设角色用户的第一个组。"
+  label_issue_change_status: "更改状态"
+  label_issue_change_status_in_sidebar: "侧边栏中的问题状态"
+  label_issue_current_user_status: "仅当\"指派给\"为当前用户时，才允许问题状态 x。"
   label_issue_fast_description_edit: "快速编辑描述"
-  label_issue_freezed_with_close: 禁止修改已关闭的问题 (冻结)
+  label_issue_freezed_with_close: "禁止编辑已关闭的问题（冻结）"
   label_issue_genitive: "问题"
-  label_issue_hide_max_attachments: "显示最大文件数"
+  label_issue_hide_max_attachments: "最多显示的文件数"
   label_issue_link_category: "链接类别"
   label_issue_link_category_title: "显示此类别的问题"
-  label_issue_note_with_author: "显示任务的作者与注释"
-  label_issue_status_change: "若 \"指派给\" 的值未修改，且问题状态要从 X 变更为 Y，那么该问题必须指派给问题作者自己。"
-  label_issue_timelog_required: 问题需要登记工时
-  label_issues_summary: "任务概述"
-  label_last_year: 去年
-  label_legacy_smiley_support: 表情符号支持
-  label_live_search_hints: "可用的字段搜索: %{value}"
-  label_macro_not_available: "(%{name}: 不可用)"
-  label_macro_plural: 宏
-  label_max_entries: "最大条目"
-  label_max_live_search_results: "LiveSearch结果的最大数量"
+  label_issue_note_with_author: "在说明中显示问题作者"
+  label_issue_status_change: "如果\"指派给\"未变且问题状态从 x 变为 y，则问题指派给其作者"
+  label_issue_timelog_required: "问题必须登记工时"
+  label_issues_summary: "问题概要"
+  label_last_year: "上一年"
+  label_legacy_smiley_support: "传统笑脸支持"
+  label_list_all_entries: "列出全部%{value}"
+  label_live_search_hints: "可用的字段搜索：%{value}"
+  label_macro_not_available: "（%{name}：不可用）"
+  label_macro_plural: "宏"
+  label_max_entries: "最大条目数"
+  label_max_live_search_results: "LiveSearch 最大结果数"
   label_menu_entry: "菜单项"
-  label_monthly: 每月
+  label_monthly: "每月"
   label_my_activity: "我的活动"
-  label_my_dashboard_plural: "新的仪表盘"
-  label_my_spent_time: 我的时间投入
-  label_new_dashboard: "新建仪表板"
-  label_new_issue_on_profile: 在用户主页显示新建问题
-  label_new_ticket_message: "用于新建问题时的提示信息"
-  label_no_permission: "不允许"
-  label_only_my_activities: "只有我的活动"
-  label_open_external_urls: "打开外部URL"
-  label_open_in_google_docs: 在 Google Docs 打开
-  label_open_in_new_windows: 在新窗口打开
-  label_pdf_wiki_settings: Wiki PDF 导出设置
+  label_my_dashboard_plural: "我的仪表盘"
+  label_my_spent_time: "我的耗时"
+  label_new_dashboard: "新建仪表盘"
+  label_new_issue_on_profile: "在用户资料中新建问题"
+  label_new_ticket_message: "新建问题提示"
+  label_no_permission: "无权限"
+  label_only_my_activities: "仅我的活动"
+  label_open_external_urls: "打开外部 URL"
+  label_open_in_google_docs: "在 Google 文档中打开"
+  label_open_in_new_windows: "在新窗口中打开"
+  label_pdf_wiki_settings: "Wiki 的 PDF 设置"
   label_percent_value: "%{value}%"
-  label_percentage: Percentage
+  label_percentage: "百分比"
   label_project_information: "项目信息"
   label_project_list: "项目列表"
   label_project_scope: "来自项目"
   label_project_setting: "项目"
-  label_quantity: "Quantity"
-  label_query_delete: 删除查询
-  label_query_edit: 编辑查询
-  label_query_name_search: "搜索名字"
+  label_quantity: "数量"
+  label_query_delete: "删除查询"
+  label_query_edit: "编辑查询"
+  label_query_name_search: "按名称搜索"
   label_query_own_columns: "覆盖查询的列"
-  label_query_with_name: "查询: %{value}"
-  label_quickstart: Quickstart
-  label_recently_updated_pages: Updated pages
-  label_reddit_subject: Reddit 主题
-  label_reddit_user_account: Reddit 账号
-  label_redmine_org_issue: Redmine.org 问题
-  label_redmine_org_wiki: Redmine.org Wiki 页面
-  label_remove_help: "从顶部菜单栏中移除 '帮助' 项"
-  label_search_by_name: 按名称搜索
+  label_query_with_name: "查询：%{value}"
+  label_quickstart: "快速入门"
+  label_recently_updated_pages: "已更新的页面"
+  label_reddit_subject: "Reddit 主题"
+  label_reddit_user_account: "Reddit 用户账号"
+  label_redmine_org_issue: "Redmine.org 问题"
+  label_redmine_org_wiki: "Redmine.org Wiki 页面"
+  label_remove_help: "从顶部菜单中移除\"帮助\""
+  label_route: "路线"
+  label_search_by_name: "按名称搜索"
   label_search_scope: "搜索范围"
-  label_setting_value_not_visible: "你不可见"
+  label_setting_value_not_visible: "你无权查看"
   label_settings_macros: "宏"
   label_settings_menu: "菜单"
-  label_shared_dashboard_plural: 共享的仪表盘
-  label_show_all: 显示所有
-  label_show_closed_issues: Show closed issues
-  label_stats_new_today: "今天的新产品"
-  label_stats_totals: "总"
-  label_system_info: 系统信息
+  label_shared_dashboard_plural: "共享的仪表盘"
+  label_show_all: "全部显示"
+  label_show_closed_issues: "显示已关闭的问题"
+  label_show_variables: "显示变量"
+  label_stats_new_today: "今日新建"
+  label_stats_totals: "总计"
+  label_system_info: "系统信息"
+  label_table_of_values: "数值表"
   label_text_async: "文本（异步）"
   label_text_sync: "文本"
-  label_top_macros_help_html: "此处列出了来自 Redmine 及 Redmine 插件中提供的所有可用的宏命令。"
-  label_top_menu: 顶部菜单栏
-  label_top_menu_help_html: "此处可以自定义顶部菜单项。在移除或修改菜单项后，请务必 <strong>重启 Redmine 服务</strong> 确保修改内容生效。"
-  label_twitter_account: Twitter 账号
-  label_twitter_hashtag: Twitter 哈希标签
-  label_uptime: 上线时间
-  label_user_is_author_of: "该用户是此%{entity}的作者。"
+  label_top_macros_help_html: "此处列出你的安装中所有可用的 Redmine 宏，由 Redmine 及其插件提供。"
+  label_top_menu: "顶部菜单"
+  label_top_menu_help_html: "在此可以定义新的顶部菜单项。"
+  label_twitter_account: "Twitter 账号"
+  label_twitter_hashtag: "Twitter 话题标签"
+  label_uptime: "运行时间"
+  label_user_is_author_of: "此用户是此%{entity}的作者。"
   label_user_list: "用户列表"
-  label_visibility_groups: 仅限于这些组
-  label_web_apis: Web APIs
-  label_weekly: 每周
-  label_wiki_pdf_remove_attachments: 从 PDF 中删除附件
-  label_wiki_pdf_remove_title: 从 PDF 中删除 Wiki 标题
-  label_yearly: 每年
-  latest_entries_changes: "最新的 %{value} 变更"
-  legacy_smiley_support_info_html: 'Convert smileys in text. Activate this option if :), :-) etc are to be converted to smileys. If this setting is changed, the application server <strong>must be restarted</strong>.'
-  max_live_search_results_info: "LiveSearch的最大搜索结果的数量。注意：设置只影响到支持LiveSearch的插件。"
-  menu_roles_info: "只有所选角色对应的用户才能看到菜单项。"
-  new_ticket_message_info: "每个新建问题的用户都会看到提示信息。例如，您可以输入可接受性测试或问题处理规则。这些配置在某个具体的项目范围内适用。"
-  notice_delete_error_with_messages: "删除有以下错误的问题： %{errors}"
-  notice_failed_to_save_entries: "%{count} of %{total} selected %{name_plural} could not be saved : %{ids}."
-  notice_save_error_with_messages: "保存有以下错误的问题： %{errors}"
-  notice_unsuccessful_delete: "删除问题"
-  notice_unsuccessful_save: "保存问题"
-  open_external_urls_info: "如果启用，则在新窗口/选项卡中打开外部URL。"
-  permission_change_new_issue_author: 设置新建问题时的问题作者
-  permission_edit_closed_issues: "修改已关闭的问题"
-  permission_edit_issue_author: 修改已创建问题的问题作者
-  permission_issue_timelog_never_required: 无需登记工时
+  label_visibility_groups: "仅限这些组"
+  label_web_apis: "Web API"
+  label_weekly: "每周"
+  label_wiki_pdf_remove_attachments: "在 PDF 视图中移除附件"
+  label_wiki_pdf_remove_title: "在 PDF 视图中移除 Wiki 标题"
+  label_with_amount: "数量 %{value}"
+  label_yearly: "每年"
+  latest_entries_changes: "最近 %{value} 次更改"
+  legacy_smiley_support_info_html: "转换文本中的笑脸符号。若要将 :)、:-) 等转换为笑脸，请启用此选项。更改此设置后，<strong>必须重启</strong>应用服务器。"
+  max_live_search_results_info: "LiveSearch 的最大搜索结果数。注意：此设置仅影响支持 LiveSearch 的插件。"
+  menu_roles_info: "只有所选角色的成员才能看到此菜单项。"
+  minutes:
+    other: "分钟"
+  new_ticket_message_info: "向所有要新建问题的用户显示的提示，例如验收测试或问题规则。此设置对所有项目生效。"
+  notice_delete_error_with_messages: "删除失败，错误如下：%{errors}"
+  notice_failed_to_save_entries: "所选 %{total} 个%{name_plural}中有 %{count} 个未能保存：%{ids}。"
+  notice_save_error_with_messages: "保存失败，错误如下：%{errors}"
+  notice_unsuccessful_delete: "无法删除"
+  notice_unsuccessful_save: "无法保存"
+  open_external_urls_info: "启用后，外部 URL 在新窗口或标签页中打开。"
+  permission_change_new_issue_author: "设置新问题的作者"
+  permission_edit_closed_issues: "编辑已关闭的问题"
+  permission_edit_issue_author: "编辑问题作者"
+  permission_issue_timelog_never_required: "无需登记工时"
   permission_save_dashboards: "保存仪表盘"
   permission_set_system_dashboards: "设置系统仪表盘"
   permission_share_dashboards: "共享仪表盘"
-  permission_show_hidden_roles_in_memberbox: "显示隐藏的角色"
-  remove_help_info: "从顶部菜单栏中隐藏 '帮助' 菜单项。"
-  rule_issue_auto_assign_info: '用例：问题作者不知道将问题分配给谁时，或不知道谁应当负责解决具体任务时。在那种情况下，状态为 "To Do" 的问题将自动指派给包含预选项目经理角色用户的第一组。'
-  rule_issue_current_user_status_info_html: 如果此功能与"在侧边栏显示更新问题状态"设置选项结合使用，则当前用户将在更改问题状态时自动被分配到问题。<br />用例：用户仅当是当前实际处理该问题的人员时，才允许将状态更改为"正在进行中"。
-  rule_issue_freezed_with_close_info: 如果激活此选项，则无法再编辑和评论已关闭的问题。甚至不通过邮件或 API。此限制不适用于具有"修改已关闭问题"权限的用户角色。
-  rule_issue_status_change_info: "用例：若问题的状态修改为 \"Approval\"，则自动分配给问题作者。"
-  rule_issue_timelog_required_info_html: '对于所选"问题跟踪"的问题，如果问题需要接受已定义状态之一，则需要"时间预期"。以下情况不需要"时间预期"<br />- 没有"创建时间预订"的权限<br />- 用户角色具有授权"无需登记工时"<br />用例：对于接受状态为"待验证"的问题，需要已花费时间。'
-  setting_export_limit: "导出限制"
+  permission_show_hidden_roles_in_memberbox: "显示隐藏角色"
+  remove_help_info: "从顶部菜单中移除\"帮助\"项。"
+  rule_issue_auto_assign_info: "使用场景：问题作者不知道该将问题指派给谁，或谁负责解决。此时，例如状态为\"To Do\"的问题会自动指派给包含预设项目经理角色用户的第一个组。"
+  rule_issue_current_user_status_info_html: "与设置\"侧边栏中的问题状态\"一起使用时，此功能会在设置新选择的状态时自动指派当前用户。<br />使用场景：用户只有在自己处理问题时，才能为自己设置\"In Progress\"状态。"
+  rule_issue_freezed_with_close_info: "启用此选项后，已关闭的问题不能再编辑和评论，通过邮件或 API 也不行。具有\"编辑已关闭的问题\"权限的角色不受此限制。"
+  rule_issue_status_change_info: "使用场景：当状态变为\"Approval\"时，问题自动指派给其作者。"
+  rule_issue_timelog_required_info_html: "所选跟踪标签的每个问题若要变为所定义的状态之一，必须已登记工时。以下情况无需登记工时：<br />- 没有登记工时的权限<br />- 用户具有\"无需登记工时\"权限<br />使用场景：验收状态为\"To Verify\"的问题时，也需要已花费的时间。"
+  seconds:
+    other: "%{count} 秒"
+  setting_export_limit: "导出上限"
   settings_with_value: "%{value}设置"
-  text_available_variables: "可用变量: %{variables}"
-  top_rules_help: "您可以在此定义用于问题处理的相关规则。"
-  top_wiki_help: 您可以在此定义 Wiki 的内容及设置。
-  wiki_pdf_remove_attachments_info: 当启用时，Wiki 附件将不会显示在 PDF 视图中。
-  wiki_pdf_remove_title_info: 当启用时，Wiki 标题信息将不会显示在 PDF 视图中。
-  label_route: Route
-  field_watched_by_me: "由我观看"
-  label_with_amount: "金额 %{value}"
-  label_list_all_entries: "列出所有 %{value}"
-  label_table_of_values: "数值表"
-  text_dashboard_lock_confirmation: 您确定要锁定此仪表盘吗？
-  text_dashboard_unlock_confirmation: 您确定要解锁此仪表盘吗？
+  text_available_variables: "可用变量：%{variables}"
+  text_dashboard_lock_confirmation: "确定要锁定此仪表盘吗？"
+  text_dashboard_unlock_confirmation: "确定要解除此仪表盘的锁定吗？"
+  top_rules_help: "在此可以定义适用于所有项目中问题的规则。"
+  top_wiki_help: "在此可以定义 Wiki 的内容和设置。"
+  wiki_pdf_remove_attachments_info: "启用后，Wiki 页面的附件不在 PDF 视图中显示。"
+  wiki_pdf_remove_title_info: "启用后，Wiki 标题不在 PDF 视图中显示。"

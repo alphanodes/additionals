@@ -315,6 +315,59 @@ describe('RemoteFormController', () => {
 
   // jsdom runs inserted scripts even when a browser would not, so these tests
   // check the replacement itself; the browser behaviour is covered by system tests.
+  describe('reveal', () => {
+    let scrolled;
+
+    beforeEach(() => {
+      document.body.innerHTML = '<div id="wrap"><div id="t">original</div></div>';
+      scrolled = [];
+      // jsdom has no layout: the top of an element and scrolling come from here
+      Element.prototype.scrollIntoView = function scrollIntoView(options) { scrolled.push([this.id, options]); };
+    });
+
+    afterEach(() => {
+      vi.restoreAllMocks();
+      delete Element.prototype.scrollIntoView;
+    });
+
+    const directive = (html, reveal) => {
+      const tmpl = document.createElement('template');
+      if (reveal) { tmpl.dataset.remoteUpdateReveal = ''; }
+      tmpl.innerHTML = html;
+      return tmpl;
+    };
+
+    const replaceWithTopAt = (top, reveal = true) => {
+      vi.spyOn(Element.prototype, 'getBoundingClientRect').mockReturnValue({ top });
+      RemoteFormController.prototype.execute.call({},
+        'replace', document.getElementById('t'), directive('<div id="new">x</div>', reveal));
+    };
+
+    it('scrolls the inserted element into view when its top is above the window', () => {
+      replaceWithTopAt(-500);
+
+      expect(scrolled).toEqual([['new', { block: 'start' }]]);
+    });
+
+    it('scrolls the inserted element into view when its top is below the window', () => {
+      replaceWithTopAt(window.innerHeight + 10);
+
+      expect(scrolled).toEqual([['new', { block: 'start' }]]);
+    });
+
+    it('does not scroll when the top of the inserted element is in view', () => {
+      replaceWithTopAt(100);
+
+      expect(scrolled).toEqual([]);
+    });
+
+    it('does not scroll without data-remote-update-reveal', () => {
+      replaceWithTopAt(-500, false);
+
+      expect(scrolled).toEqual([]);
+    });
+  });
+
   describe('activateScript', () => {
     it('replaces the script with a new element', () => {
       document.body.innerHTML = '<div id="wrap"><script type="text/x-test">x</script></div>';

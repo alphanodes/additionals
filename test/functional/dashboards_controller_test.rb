@@ -511,7 +511,7 @@ class DashboardsControllerTest < Additionals::ControllerTest
 
     assert_response :success
     assert_equal 'text/html', response.media_type
-    assert_select 'template[data-remote-update-action=?][data-remote-update-target=?]', 'replace', '#block-text'
+    assert_select 'template[data-remote-update-reveal][data-remote-update-action=?][data-remote-update-target=?]', 'replace', '#block-text'
   end
 
   def test_update_layout_setting_with_invalid_setting_is_unprocessable
@@ -530,7 +530,8 @@ class DashboardsControllerTest < Additionals::ControllerTest
   def test_update_layout_setting_with_invalid_setting_shows_the_error_in_the_form
     post_feed_settings 'max_entries' => '500'
 
-    assert_select 'template[data-remote-update-action=?][data-remote-update-target=?]', 'prepend', '#feed-settings'
+    assert_select 'template[data-remote-update-reveal][data-remote-update-action=?][data-remote-update-target=?]',
+                  'prepend', '#feed-settings'
   end
 
   def test_update_layout_setting_with_invalid_setting_names_the_setting

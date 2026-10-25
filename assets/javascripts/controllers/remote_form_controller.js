@@ -12,6 +12,10 @@ import { Controller } from '@hotwired/stimulus';
 //
 // Supported actions: replace, prepend, append, inner, remove.
 //
+// A directive with data-remote-update-reveal brings the first element it
+// inserts into view if its top is out of the window, e.g. a block that got
+// shorter above the button the form was submitted with.
+//
 // A form with invalid values answers 422 with directives showing the errors.
 // They are applied as well, but the form did not succeed.
 
@@ -89,6 +93,7 @@ class RemoteFormController extends Controller {
   execute(action, target, directive) {
     const fragment = directive.content.cloneNode(true);
     const scripts = [...fragment.querySelectorAll('script')];
+    const inserted = fragment.firstElementChild;
 
     switch (action) {
       case 'replace':
@@ -114,6 +119,16 @@ class RemoteFormController extends Controller {
     }
 
     scripts.filter(script => script.isConnected).forEach(RemoteFormController.activateScript);
+    if (directive.dataset.remoteUpdateReveal !== undefined && inserted?.isConnected) {
+      RemoteFormController.reveal(inserted);
+    }
+  }
+
+  static reveal(element) {
+    const { top } = element.getBoundingClientRect();
+    if (top < 0 || top > window.innerHeight) {
+      element.scrollIntoView({ block: 'start' });
+    }
   }
 
   // Scripts parsed via innerHTML are flagged as already started, and clones keep

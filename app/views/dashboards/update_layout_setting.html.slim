@@ -1,12 +1,12 @@
 - if @block_errors.any?
   - @block_errors.each do |block, errors|
     template data-remote-update-action='remove' data-remote-update-target="##{block}-settings .block-settings-errors"
-    template data-remote-update-action='prepend' data-remote-update-target="##{block}-settings"
+    template data-remote-update-action='prepend' data-remote-update-target="##{block}-settings" data-remote-update-reveal=true
       .flash.error.block-settings-errors
         ul
           - dashboard_block_settings_error_messages(@dashboard, block, errors).each do |message|
             li = message
 - else
   - @updated_blocks.each do |block|
-    template data-remote-update-action='replace' data-remote-update-target="#block-#{block}"
+    template data-remote-update-action='replace' data-remote-update-target="#block-#{block}" data-remote-update-reveal=true
       = render_dashboard_block block.to_s, @dashboard

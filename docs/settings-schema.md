@@ -16,19 +16,20 @@ DEFINITIONS = {
 
 | Option | Description |
 | ------ | ----------- |
-| `type` | `string`, `text`, `integer`, `float`, `boolean`, `enum` or `list` |
+| `type` | `string`, `text`, `integer`, `float`, `boolean`, `date`, `enum` or `list`; a `date` is stored as the date fields send it (2022-06-04) and reads as `Date` |
 | `label`, `info` | Locale key, text or lambda; use the keys of the settings form |
 | `placeholder` | Shown in an empty field of a form, e.g. what is used without the setting; locale key, text or lambda |
 | `values` | Allowed values of `enum` and `list`, plain or `[label, value]` |
 | `offered` | The allowed values a form offers for the other values; others stay valid and fall back where they are read |
 | `default` | Value read for a missing or blank setting, not stored; a boolean without one reads as `false` |
 | `required` | Blank is an error (only while the setting applies); with a `default` only a value given blank, a missing one reads the default |
-| `min`, `max` | Bounds of numbers |
+| `min`, `max` | Bounds of numbers and dates; a bound may depend on the other values, e.g. the end of a period no earlier than its start |
 | `if` | Whether the setting exists in the context at all, otherwise it counts as an unknown key |
 | `applies` | Whether the setting applies to the other values |
-| `shown_with` | Key of a boolean setting: a form shows the field only while it is on, a hidden field is not sent |
+| `shown_with` | Key of a boolean setting, or `{ key => values }` of an enum setting: a form shows the field only while it is on or has one of the values (e.g. the days of a fixed period), a hidden field is not sent |
 | `reset_by` | Key of another setting: a given change of it drops the stored value and ignores a given one (`not_applied_keys`); a `secret` keeps a given value, e.g. a token with `reset_by: :url` |
 | `field` | Partial of its field in a form built from the settings (dashboard blocks), for a setting the fields of the types cannot show |
+| `wide` | The field has the width of the form, with labels of its own |
 | `secret` | A token, key or password: `describe` leaves out its value, a form built from the settings never fills it in |
 
 Dashboard blocks declare these rules as methods instead of lambdas (see [Settings](dashboards.md#settings)). Lambdas get the schema: `schema[:key]` reads another setting (typed, with its default), `schema.context` the context it was built with.

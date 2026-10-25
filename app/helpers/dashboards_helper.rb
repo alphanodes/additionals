@@ -1,6 +1,23 @@
 # frozen_string_literal: true
 
 module DashboardsHelper
+  # Builder::XmlMarkup writes a Hash as attributes of the tag, so XML gets the
+  # settings as elements and lists as values, while JSON nests them as they are.
+  # Asked through the class: the XML builder turns any method call into a tag.
+  def api_block_settings(api, settings)
+    return api.settings settings unless Redmine::Views::Builders::Xml === api # rubocop:disable Style/CaseEquality
+
+    xml_api_value api, :settings, settings
+  end
+
+  def xml_api_value(api, name, value)
+    case value
+    when Hash then api.tag!(name) { value.each { |key, item| xml_api_value api, key, item } }
+    when Array then api.tag!(name, type: 'array') { value.each { |item| xml_api_value api, :value, item } }
+    else api.tag! name, value
+    end
+  end
+
   def dashboard_async_cache(dashboard, block, async, settings, &)
     cache(render_async_cache_key(_dashboard_async_blocks_path(@project, dashboard.async_params(block, async, settings))),
           expires_in: async[:cache_expires_in] || DashboardContent::RENDER_ASYNC_CACHE_EXPIRES_IN,

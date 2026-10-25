@@ -178,6 +178,8 @@ class DashboardsController < ApplicationController
     block_settings = params[:settings] || {}
     # Like add_block: only blocks the user can use here
     return render_404 unless block_settings.keys.all? { |block| @dashboard.content.find_block block }
+    # Settings of a block are an object, as the blocks API requires
+    return head :unprocessable_content unless block_settings.values.all? { |settings| settings.respond_to? :to_unsafe_hash }
 
     @block_errors = {}
     block_settings.each do |block, settings|

@@ -3,7 +3,7 @@
 ## 4.7.0
 
 - Requires Redmine 7.0.2 or higher
-- Dashboard blocks are classes in `lib/dashboard_blocks/` of their plugin, see `docs/dashboards.md`
+- Incompatible: dashboard blocks are classes in `lib/dashboard_blocks/` of their plugin, a `block_definitions` method stops the boot, see "Moving Blocks from `block_definitions`" in `docs/dashboards.md`
 - Dashboard blocks declare their settings (`Additionals::SettingsSchema`), invalid settings are rejected
 - Settings forms of dashboard blocks are built from the declared settings
 - Query list blocks can change their query
@@ -23,7 +23,7 @@
 - Classes of whole numbers in query chart blocks name their last value, e.g. "1 to 7"
 - Add `Additionals::DashboardBlockReplacer` for migrations of dashboard blocks
 - Add `AdditionalsHelpers.loadLibrary` to load an asset library on demand
-- Global search providers are classes in `lib/global_search/` of their plugin
+- Incompatible: global search providers are classes in `lib/global_search/` of their plugin
 - Global search only searches titles if no word has at least 3 letters or digits in a row, which keeps it fast on large instances
 - Plugins declare the options they add to saved queries
 - Dashboards API shows block settings only to users who may edit the dashboard

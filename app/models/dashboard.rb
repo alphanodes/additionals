@@ -112,8 +112,25 @@ class Dashboard < ApplicationRecord
       ["#{table}.name"]
     end
 
+    # dashboard_type comes from request params, so it must resolve to a registered content class
+    def content_class_of(type)
+      klass = "DashboardContent#{type.to_s.delete_suffix 'Dashboard'}".safe_constantize
+      klass if klass.is_a?(Class) && klass < DashboardContent && type == klass::TYPE_NAME
+    end
+
+    # Types of other plugins the user may not use (see #visible?). Read from the
+    # types in use, as their content classes load on demand only.
+    def restricted_types(user)
+      unscoped.distinct.pluck(:dashboard_type).select do |type|
+        content_class = content_class_of type
+        content_class && !content_class.blocks_accessible?(user)
+      end
+    end
+
     def visible(user = User.current, **options)
       scope = left_outer_joins :project
+      restricted = restricted_types user
+      scope = scope.where.not dashboard_type: restricted if restricted.any?
       scope = scope.where(projects: { id: nil }).or(scope.where(Project.allowed_to_condition(user, :view_project, options)))
 
       if user.admin?
@@ -452,10 +469,8 @@ class Dashboard < ApplicationRecord
     roles.clear
   end
 
-  # dashboard_type comes from request params, so it must resolve to a registered content class
   def content_class
-    klass = "DashboardContent#{dashboard_type.to_s.delete_suffix 'Dashboard'}".safe_constantize
-    klass if klass.is_a?(Class) && klass < DashboardContent && dashboard_type == klass::TYPE_NAME
+    self.class.content_class_of dashboard_type
   end
 
   def validate_dashboard_type

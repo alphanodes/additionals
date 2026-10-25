@@ -89,6 +89,24 @@ end
 
 A `block_definitions` method of a dashboard content stops the boot with `DashboardBlocks::PatchError`: dashboard blocks are classes only, views get the block object.
 
+### Moving Blocks from `block_definitions`
+
+Each entry of the hash becomes a class in `lib/dashboard_blocks/`, the key its `block_id`, and the patch of `block_definitions` goes away. A block only for the dashboard type of the content declares it with `dashboards`.
+
+| Key in `block_definitions` | In the block class |
+| -------------------------- | ------------------ |
+| `label: l(:label_x)` | `label :label_x` |
+| `permission:` | `permission` |
+| `admin_only: true` | `admin_only!` |
+| `if: proc { ... }` | instance method `available?` |
+| `partial:` | `partial` |
+| `async: { ... }` | `async` with the same options |
+| `no_settings: true` | `no_settings!` |
+| `max_occurs:` | `max_occurs` |
+| `query_block: { ... }` | `query_block` in a subclass of `QueryListBlock`, see [Query List Blocks](#query-list-blocks) |
+
+Views of the block read the block object instead of the hash (see [Locals of a Block View](#locals-of-a-block-view)), settings forms are built from declared settings.
+
 ### Locals of a Block View
 
 | Local | Content |

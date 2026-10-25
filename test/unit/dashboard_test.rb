@@ -20,6 +20,13 @@ class DashboardContentFilterStub < DashboardContent
   end
 end
 
+# A dashboard type with a page of its own that no user may use
+class DashboardContentRestrictedStub < DashboardContent
+  TYPE_NAME = 'RestrictedStubDashboard'
+
+  def self.blocks_accessible?(_user) = false
+end
+
 class DashboardTest < Additionals::TestCase
   def setup
     prepare_tests
@@ -38,6 +45,14 @@ class DashboardTest < Additionals::TestCase
     dashboard.update_block_settings 'other', 'title' => 'Mine', 'secret' => 'x'
 
     assert_equal({ title: 'Mine', secret: 'x' }, dashboard.layout_settings('other'))
+  end
+
+  # Lists, the API and copies leave out a restricted type as visible? does
+  def test_dashboards_of_a_restricted_type_are_not_visible
+    dashboard = dashboards :public_welcome
+    Dashboard.where(id: dashboard.id).update_all dashboard_type: DashboardContentRestrictedStub::TYPE_NAME
+
+    assert_equal [false, false], [Dashboard.visible.exists?(dashboard.id), dashboard.reload.visible?]
   end
 
   def test_create_welcome_dashboard

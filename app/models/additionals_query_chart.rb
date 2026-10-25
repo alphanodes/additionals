@@ -198,7 +198,7 @@ class AdditionalsQueryChart < AdditionalsChart
   # numbers know no bound between two of them, 2.5 is 3 for them.
   def class_bounds
     @class_bounds ||= begin
-      bounds = settings[:classes].to_s.split(/;|,\s+|\s+/).filter_map { |bound| Float(bound.tr(',', '.'), exception: false) }
+      bounds = class_bound_tokens.filter_map { |bound| Float(bound.tr(',', '.'), exception: false) }
       bounds.map!(&:ceil) if integer_column? group_column
       bounds.any? ? bounds.uniq.sort!.first(MAX_CLASSES) : automatic_class_bounds
     end
@@ -521,6 +521,12 @@ class AdditionalsQueryChart < AdditionalsChart
   end
 
   private
+
+  # Separated by semicolon, comma with space or space. A single comma between
+  # digits is a decimal comma (2,5), several cannot be one number (8,24,40).
+  def class_bound_tokens
+    settings[:classes].to_s.split(/;|,\s+|\s+/).flat_map { |token| token.count(',') > 1 ? token.split(',') : [token] }
+  end
 
   # Options only one chart type knows
   def type_payload

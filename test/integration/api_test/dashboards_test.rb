@@ -77,6 +77,19 @@ module ApiTest
       assert_select 'dashboard>layout>group>blocks>block>id', text: 'text_async'
     end
 
+    test 'GET /dashboards/:id.xml gives block settings as elements, lists as values' do
+      dashboard = Dashboard.create! name: 'Columns', dashboard_type: DashboardContentWelcome::TYPE_NAME,
+                                    author: users(:users_001), visibility: Dashboard::VISIBILITY_PUBLIC,
+                                    layout: { 'left' => %w[issuequery] },
+                                    layout_settings: { 'issuequery' => { query_id: queries(:queries_001).id.to_s, own_columns: '1',
+                                                                         columns: %w[tracker subject] } }
+
+      get "/dashboards/#{dashboard.id}.xml", headers: credentials('admin')
+
+      assert_select 'block>settings>columns[type="array"]>value', count: 2
+      assert_select 'block>settings>columns>value', text: 'subject'
+    end
+
     test 'GET /dashboards.json filters by dashboard type' do
       get '/dashboards.json', params: { dashboard_type: DashboardContentWelcome::TYPE_NAME }, headers: credentials('admin')
 

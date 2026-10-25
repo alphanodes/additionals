@@ -64,6 +64,11 @@ class AdditionalsQueryChartClassesTest < Additionals::TestCase
     assert_equal [2.5, 10.0], classes_chart(classes: '2,5; 10').class_bounds
   end
 
+  # Several commas in a row cannot be one decimal number
+  def test_bounds_separated_by_commas_only
+    assert_equal [8.0, 24.0, 40.0], classes_chart(classes: '8,24,40').class_bounds
+  end
+
   def test_bounds_are_sorted
     assert_equal [10.0, 20.0], classes_chart(classes: '20, 10').class_bounds
   end

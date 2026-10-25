@@ -520,6 +520,13 @@ class DashboardsControllerTest < Additionals::ControllerTest
     assert_response :unprocessable_content
   end
 
+  def test_update_layout_setting_with_settings_that_are_no_object_is_unprocessable
+    dashboard = post_feed_settings({})
+    post :update_layout_setting, params: { id: dashboard.id, settings: { 'feed' => 'x' } }
+
+    assert_response :unprocessable_content
+  end
+
   def test_update_layout_setting_with_invalid_setting_shows_the_error_in_the_form
     post_feed_settings 'max_entries' => '500'
 

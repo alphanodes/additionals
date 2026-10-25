@@ -183,6 +183,19 @@ class AdditionalsQueryChartClassesTest < Additionals::TestCase
     end
   end
 
+  # A span below 5 has steps below 1: they stay decimals, the database
+  # compares them as such (PostgreSQL divided 3/2 as integers)
+  def test_automatic_bounds_below_one_are_decimals
+    Issue.update_all estimated_hours: nil
+    issues = Issue.where(project: @project).order(:id).first 5
+    [0.5, 1, 1.5, 2, 2.5].each_with_index { |hours, index| estimate issues[index], hours }
+    chart = classes_chart classes: ''
+
+    assert_equal [1.0, 1.5, 2.0, 2.5], chart.class_bounds
+    assert(chart.class_bounds.all?(Float))
+    assert_equal [1, 1, 1, 1, 1], class_values(chart)
+  end
+
   def test_bounds_of_decimals_stay
     assert_equal [2.5, 10.0], classes_chart(classes: '2.5; 10').class_bounds
   end

@@ -614,15 +614,22 @@ class AdditionalsQueryChart < AdditionalsChart
   def payload_datasets
     return split_keys.map { |key| split_dataset key } if split?
 
-    datasets = [series_dataset(series_labels.first, :value, :url)]
+    datasets = [main_dataset]
     datasets << series_dataset(series_labels.last, :compare_value, :compare_url) if compare?
     datasets
   end
 
-  def series_dataset(label, value, url)
-    dataset = { label:, data: entries.map(&value), urls: entries.map(&url) }
+  # The bars tell their share as the table does. Colors by direction only
+  # here: the compared series keeps the color of the scheme to stay apart.
+  def main_dataset
+    dataset = series_dataset series_labels.first, :value, :url
+    dataset[:tooltips] = entries.map { |entry| "#{l :label_percentage}: #{share entry} %" } if bar_chart?
     dataset[:colors] = entries.map { |entry| direction_color entry.key } if diverging_classes?
     dataset
+  end
+
+  def series_dataset(label, value, url)
+    { label:, data: entries.map(&value), urls: entries.map(&url) }
   end
 
   # Classes of a number whose values below and above 0 mean opposites
@@ -824,21 +831,23 @@ class AdditionalsQueryChart < AdditionalsChart
     last = last.to_f
 
     step = class_step last - first
-    bound = ((first / step).floor * step) + step
+    # Each bound from its index: added up, 0.1 steps would drift to 0.30000000000000004
+    start = (first / step).floor + 1
     bounds = []
-    while bound <= last && bounds.size < MAX_PERIODS
+    while (bound = ((start + bounds.size) * step).round 10) <= last && bounds.size < MAX_PERIODS
       bounds << bound
-      bound += step
     end
     bounds.empty? ? [last] : bounds
   end
 
-  # 1, 2 or 5 times a power of ten, whole numbers for integer columns
+  # 1, 2 or 5 times a power of ten, whole numbers for integer columns. A
+  # float: 10**-1 is a Rational, written into SQL as 1/10, which PostgreSQL
+  # divides as integers.
   def class_step(span)
     raw = span.to_f / AUTOMATIC_CLASSES
     return 1 unless raw.positive?
 
-    magnitude = 10**Math.log10(raw).floor
+    magnitude = 10.0**Math.log10(raw).floor
     step = [1, 2, 5, 10].map { |factor| factor * magnitude }.detect { |candidate| candidate >= raw }
     integer_column?(group_column) ? [step.ceil, 1].max : step
   end

@@ -67,6 +67,23 @@ class AdditionalsQueryChartNumberColumnTest < Additionals::TestCase
                  chart(show_empty: '1').payload[:datasets].first[:colors]
   end
 
+  # Compared with another query, the second series keeps the color of the scheme
+  def test_compared_series_has_no_colors_by_direction
+    query = NumberIssueQuery.create! name: 'All', project: @project, user: User.current, visibility: IssueQuery::VISIBILITY_PUBLIC
+    datasets = chart(compare_query_id: query.id.to_s).payload[:datasets]
+
+    assert_equal [true, nil], [datasets.first[:colors].present?, datasets.second[:colors]]
+  end
+
+  # The bars tell their share as the table does
+  def test_bars_tell_their_share
+    chart = chart()
+
+    I18n.with_locale :en do
+      assert_equal(chart.entries.map { |entry| "Percentage: #{chart.share entry} %" }, chart.payload[:datasets].first[:tooltips])
+    end
+  end
+
   def test_no_colors_by_direction_for_other_numbers
     settings = { group_by: 'estimated_hours', classes: '5; 20', chart_type: 'bar_vertical' }
 

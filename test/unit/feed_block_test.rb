@@ -41,6 +41,14 @@ class FeedBlockTest < Additionals::TestCase
     assert_not feed('http://[::1]/feed.xml').data[:valid]
   end
 
+  # The unspecified address reaches the local host too, link-local the metadata of cloud hosts
+  def test_feed_of_other_local_addresses_is_not_read
+    urls = %w[http://0.0.0.0/feed.xml http://[::]/feed.xml http://169.254.169.254/feed.xml http://[::ffff:127.0.0.1]/feed.xml]
+    urls.each { |url| stub_request(:get, url).to_return body: RSS }
+
+    assert_equal([false] * urls.size, urls.map { |url| feed(url).data[:valid] })
+  end
+
   def test_feed_of_the_intranet_is_read
     stub_request(:get, 'http://10.0.0.5/feed.xml').to_return body: RSS
 

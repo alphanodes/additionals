@@ -8,6 +8,8 @@ module DashboardBlocks
     # Reading a feed must not tie up the server
     TIMEOUT = 5
     MAX_FEED_SIZE = 1.megabyte
+    UNSPECIFIED_IPV4 = IPAddr.new('0.0.0.0/8').freeze
+    UNSPECIFIED_IPV6 = IPAddr.new('::').freeze
     MAX_REDIRECTS = 3
 
     block_id 'feed'
@@ -73,9 +75,16 @@ module DashboardBlocks
     def remote_address(host)
       address = Addrinfo.getaddrinfo(host, nil, nil, :STREAM).first&.ip_address
       raise ArgumentError, "unknown host #{host}" if address.nil?
-      raise ArgumentError, "loopback address #{address}" if IPAddr.new(address).loopback?
+      raise ArgumentError, "local address #{address}" if local_address? IPAddr.new(address).native
 
       address
+    end
+
+    # The server itself: loopback, and the unspecified address (0.0.0.0, ::),
+    # which reaches the local host as well. Link-local too, where cloud hosts
+    # answer with their metadata. The intranet stays readable.
+    def local_address?(ip)
+      ip.loopback? || ip.link_local? || (ip.ipv4? ? UNSPECIFIED_IPV4.include?(ip) : ip == UNSPECIFIED_IPV6)
     end
 
     def read_limited(response)

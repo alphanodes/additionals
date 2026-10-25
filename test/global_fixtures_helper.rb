@@ -2,6 +2,8 @@
 
 module Additionals
   module GlobalFixturesHelper
+    EMPTY_FIXTURES_PATH = "#{File.dirname __FILE__}/fixtures/empty".freeze
+
     def plugin_fixture_path
       "#{File.dirname __FILE__}/fixtures"
     end
@@ -20,7 +22,11 @@ module Additionals
       # Rails' parallelize_setup hook calls our block with the worker number
       # (see ActiveSupport::Testing::Parallelization::Worker#after_fork). Accept
       # and ignore it via splat so direct .call (no args) also works.
-      load_plugin_fixtures = ->(*) { files_to_load.each { |x| ActiveRecord::FixtureSet.create_fixtures dir, x } }
+      emptied = emptied_tables table_names
+      load_plugin_fixtures = lambda do |*|
+        emptied.each { |x| ActiveRecord::FixtureSet.create_fixtures EMPTY_FIXTURES_PATH, x }
+        files_to_load.each { |x| ActiveRecord::FixtureSet.create_fixtures dir, x }
+      end
       load_plugin_fixtures.call
 
       # Rails parallel test workers each get their own database, connection
@@ -38,6 +44,16 @@ module Additionals
         # if use_transactional_tests = false custom fixtures in plugin directory does not work
         redmine_fixtures_list
       end
+    end
+
+    # Tables another plugin fills with fixtures that change what all plugins
+    # see: rows a run of its tests leaves behind are emptied, unless the
+    # plugin under test loads the table itself. Template projects are hidden
+    # from Issue.visible, Project.visible and others.
+    def emptied_tables(table_names)
+      return [] if !Redmine::Plugin.installed?('redmine_templates') || table_names.include?(:template_projects)
+
+      %i[template_projects]
     end
 
     # NOTE: overwrite it for custom fixtures

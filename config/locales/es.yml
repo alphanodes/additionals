@@ -108,6 +108,7 @@ es:
   label_chart_class_below: "menos de %{value}"
   label_chart_class_from: "%{value} o más"
   label_chart_class_range: "de %{from} a menos de %{to}"
+  label_chart_class_span: "de %{from} a %{to}"
   label_chart_classes: "Límites"
   label_chart_classes_auto: "automático"
   label_chart_color_schema: Charts color scheme

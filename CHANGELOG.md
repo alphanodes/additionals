@@ -19,6 +19,8 @@
 - Legend and tooltip of a chart can list its datasets in an order of their own (`legendOrder`)
 - A later line on top of a chart is drawn above an earlier one
 - A series of a bar chart can sit on an axis of its own on the right (`axis: 'secondary'`)
+- Query chart blocks group numbers computed by SQL (`QueryNumberColumn`), optionally colored by direction
+- Classes of whole numbers in query chart blocks name their last value, e.g. "1 to 7"
 - Add `Additionals::DashboardBlockReplacer` for migrations of dashboard blocks
 - Add `AdditionalsHelpers.loadLibrary` to load an asset library on demand
 - Global search providers are classes in `lib/global_search/` of their plugin

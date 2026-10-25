@@ -171,6 +171,18 @@ class AdditionalsQueryChartClassesTest < Additionals::TestCase
     assert_equal ['<=', ['2']], url_filter(chart.entries.first.url, "cf_#{field.id}")
   end
 
+  # Whole numbers name the last value of a class as its link filters it, a
+  # class of one value names that one; the first and the last stay open
+  def test_labels_of_whole_numbers_name_their_last_value
+    field = integer_field
+    CustomValue.create! custom_field: field, customized: @issues[0], value: '2'
+    chart = classes_chart group_by: "cf_#{field.id}", classes: '-7; 0; 1; 8', show_empty: '0'
+
+    I18n.with_locale :en do
+      assert_equal ['below -7', '-7 to -1', '0', '1 to 7', '8 and above'], chart.entries.map(&:label)
+    end
+  end
+
   def test_bounds_of_decimals_stay
     assert_equal [2.5, 10.0], classes_chart(classes: '2.5; 10').class_bounds
   end

@@ -108,6 +108,7 @@ cs:
   label_chart_class_below: "pod %{value}"
   label_chart_class_from: "od %{value}"
   label_chart_class_range: "%{from} až pod %{to}"
+  label_chart_class_span: "%{from} až %{to}"
   label_chart_classes: "Hranice"
   label_chart_classes_auto: "automaticky"
   label_chart_color_schema: "Barevné schéma grafů"

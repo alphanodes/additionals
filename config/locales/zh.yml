@@ -108,6 +108,7 @@ zh:
   label_chart_class_below: "低于 %{value}"
   label_chart_class_from: "%{value} 及以上"
   label_chart_class_range: "%{from} 至低于 %{to}"
+  label_chart_class_span: "%{from} 至 %{to}"
   label_chart_classes: "边界"
   label_chart_classes_auto: "自动"
   label_chart_color_schema: 图表配色主题

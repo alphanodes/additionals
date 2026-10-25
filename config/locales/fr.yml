@@ -108,6 +108,7 @@ fr:
   label_chart_class_below: "moins de %{value}"
   label_chart_class_from: "%{value} et plus"
   label_chart_class_range: "de %{from} à moins de %{to}"
+  label_chart_class_span: "de %{from} à %{to}"
   label_chart_classes: "Bornes"
   label_chart_classes_auto: "automatique"
   label_chart_color_schema: Schéma de couleur graphique

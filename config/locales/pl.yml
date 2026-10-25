@@ -108,6 +108,7 @@ pl:
   label_chart_class_below: "poniżej %{value}"
   label_chart_class_from: "od %{value}"
   label_chart_class_range: "od %{from} do poniżej %{to}"
+  label_chart_class_span: "od %{from} do %{to}"
   label_chart_classes: "Granice"
   label_chart_classes_auto: "automatycznie"
   label_chart_color_schema: Charts color scheme

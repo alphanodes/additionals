@@ -108,6 +108,7 @@ ja:
   label_chart_class_below: "%{value}未満"
   label_chart_class_from: "%{value}以上"
   label_chart_class_range: "%{from}以上%{to}未満"
+  label_chart_class_span: "%{from}～%{to}"
   label_chart_classes: "境界"
   label_chart_classes_auto: "自動"
   label_chart_color_schema: Charts color scheme

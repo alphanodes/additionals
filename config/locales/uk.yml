@@ -108,6 +108,7 @@ uk:
   label_chart_class_below: "менше %{value}"
   label_chart_class_from: "від %{value}"
   label_chart_class_range: "від %{from} до менше %{to}"
+  label_chart_class_span: "від %{from} до %{to}"
   label_chart_classes: "Межі"
   label_chart_classes_auto: "автоматично"
   label_chart_color_schema: Charts color scheme

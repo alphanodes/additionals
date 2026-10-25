@@ -108,6 +108,7 @@ ko:
   label_chart_class_below: "%{value} 미만"
   label_chart_class_from: "%{value} 이상"
   label_chart_class_range: "%{from} 이상 %{to} 미만"
+  label_chart_class_span: "%{from}~%{to}"
   label_chart_classes: "경계"
   label_chart_classes_auto: "자동"
   label_chart_color_schema: 차트 색 구성표

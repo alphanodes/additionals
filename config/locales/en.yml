@@ -108,6 +108,7 @@ en:
   label_chart_class_below: "below %{value}"
   label_chart_class_from: "%{value} and above"
   label_chart_class_range: "%{from} to below %{to}"
+  label_chart_class_span: "%{from} to %{to}"
   label_chart_classes: "Bounds"
   label_chart_classes_auto: "automatic"
   label_chart_color_schema: Charts color scheme

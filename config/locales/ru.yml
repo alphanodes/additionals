@@ -108,6 +108,7 @@ ru:
   label_chart_class_below: "меньше %{value}"
   label_chart_class_from: "от %{value}"
   label_chart_class_range: "от %{from} до меньше %{to}"
+  label_chart_class_span: "от %{from} до %{to}"
   label_chart_classes: "Границы"
   label_chart_classes_auto: "автоматически"
   label_chart_color_schema: Charts color scheme

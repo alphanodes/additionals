@@ -620,7 +620,31 @@ class AdditionalsQueryChart < AdditionalsChart
   end
 
   def series_dataset(label, value, url)
-    { label:, data: entries.map(&value), urls: entries.map(&url) }
+    dataset = { label:, data: entries.map(&value), urls: entries.map(&url) }
+    dataset[:colors] = entries.map { |entry| direction_color entry.key } if diverging_classes?
+    dataset
+  end
+
+  # Classes of a number whose values below and above 0 mean opposites
+  def diverging_classes?
+    number_classes? && group_column.is_a?(QueryNumberColumn) && group_column.diverging?
+  end
+
+  # Blue for a class below 0, red above, gray for the one with 0; entries
+  # without a value light gray, a color of the scheme would read as a direction
+  def direction_color(index)
+    return '--oc-gray-3' if index.nil?
+
+    bounds = class_bounds
+    upper = index < bounds.size ? bounds[index] : Float::INFINITY
+    lower = index.zero? ? -Float::INFINITY : bounds[index - 1]
+    if upper <= 0
+      '--oc-blue-6'
+    elsif lower.positive?
+      '--oc-red-6'
+    else
+      '--oc-gray-5'
+    end
   end
 
   def split_dataset(key)
@@ -706,12 +730,13 @@ class AdditionalsQueryChart < AdditionalsChart
     NUMBER_FILTER_TYPES.include? filter_type_for(column)
   end
 
-  # Numbers stored in a column of the entry or in a custom field. Computed
-  # columns, e.g. counts of notes, are subqueries per entry: grouping by them
-  # would count for every entry and each plugin builds them its own way.
+  # Numbers stored in a column of the entry or in a custom field, or computed
+  # by a QueryNumberColumn. Other computed columns, e.g. counts of notes, are
+  # subqueries per entry built each its own way: grouping by them would count
+  # for every entry.
   def number_column?(column)
     return false unless number_type?(column) && !multiple_values_column?(column)
-    return true if column.is_a? QueryCustomFieldColumn
+    return true if column.is_a?(QueryCustomFieldColumn) || column.is_a?(QueryNumberColumn)
 
     column.instance_of?(QueryColumn) && options_query.queried_class.column_names.include?(column.name.to_s)
   end
@@ -824,9 +849,19 @@ class AdditionalsQueryChart < AdditionalsChart
       l :label_chart_class_below, value: format_bound(bounds.first)
     elsif index == bounds.size
       l :label_chart_class_from, value: format_bound(bounds.last)
+    elsif integer_column? group_column
+      integer_class_label bounds[index - 1], bounds[index] - 1
     else
       l :label_chart_class_range, from: format_bound(bounds[index - 1]), to: format_bound(bounds[index])
     end
+  end
+
+  # Whole numbers know no value between two of them: a class names its last
+  # value as its link filters it, a class of one value names that one
+  def integer_class_label(first, last)
+    return format_bound first if first == last
+
+    l :label_chart_class_span, from: format_bound(first), to: format_bound(last)
   end
 
   # Operator and values of the filter of a class, see CLASS_BOUND_GAP
@@ -1212,7 +1247,10 @@ class AdditionalsQueryChart < AdditionalsChart
   end
 
   def number_statement(column)
-    column.is_a?(QueryCustomFieldColumn) ? column.custom_field.group_statement : column.name.to_s
+    return column.custom_field.group_statement if column.is_a? QueryCustomFieldColumn
+    return column.sql if column.is_a? QueryNumberColumn
+
+    column.name.to_s
   end
 
   # Joins the statements need, e.g. the values of a custom field
@@ -1336,6 +1374,7 @@ class AdditionalsQueryChart < AdditionalsChart
 
   # The number of a column as the database compares it
   def number_expression(klass, column)
+    return Arel::Nodes::Grouping.new Arel.sql(column.sql) if column.is_a? QueryNumberColumn
     return Arel::Table.new(klass.table_name)[column.name] unless column.is_a? QueryCustomFieldColumn
 
     Arel.sql column.custom_field.order_statement
@@ -1343,6 +1382,7 @@ class AdditionalsQueryChart < AdditionalsChart
 
   # NULL, and an empty value of a custom field, which the number would read as 0
   def no_number_condition(klass, column)
+    return Arel::Nodes::Grouping.new(Arel.sql(column.sql)).eq(nil) if column.is_a? QueryNumberColumn
     return Arel::Table.new(klass.table_name)[column.name].eq(nil) unless column.is_a? QueryCustomFieldColumn
 
     value = Arel::Table.new("cf_#{column.custom_field.id}")[:value]

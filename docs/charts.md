@@ -202,6 +202,14 @@ end
 ### How It Counts
 
 - **Grouping and totals come from core** (`result_count_by_group`, `total_by_group_for`), so visibility and filters behave like the grouped list. The SQL of a column comes from the query (`group_by_statement`), so a query class that groups a column its own way is respected.
+- **Numbers group in classes**: a stored number column, a number custom field or a `QueryNumberColumn`, a number computed by SQL (e.g. days between two dates). The query brings a filter of the same name, the links of the classes use it. With `diverging: true` its classes are colored by direction: blue below 0, gray for the class of 0, red above, entries without a value light gray, e.g. days early and late.
+
+  Classes of whole numbers name their last value (`1 to 7`, a class of one value just `0`), as their links filter them; classes of decimals stay `1 to below 8`.
+
+  ```ruby
+  QueryNumberColumn.new :delivery_delay, sql: delivery_delay_sql, diverging: true
+  ```
+
 - **Custom fields with multiple values** are counted separately, since core cannot group them. An entry counts in each of its groups, but once in the total, so the total matches the linked list; the shares refer to that total and the block explains when they add up to more than 100 %.
 - **A second column** (`split_by`) splits each entry into parts, shown as stacked bars or a cross table. ActiveRecord no longer turns association names into records when grouping by two columns, so the base groups by the foreign key and loads the records itself; at most one of the two columns may have multiple values.
 - **A date column makes a timeline:** core groups dates by day. Timestamps of a user with a time zone of their own the base groups itself: the database counts per hour as stored (per quarter hour where the user is apart from the stored time by part of an hour, e.g. India), Ruby moves them to the days of the user, independent of the time zone tables of MySQL and the session of PostgreSQL. The base sums the days up to weeks, months, quarters or years (`interval`), fills the periods without entries with 0 (up to today for dates in the past only, filter type `date_past`) and links a period with a `><` filter of its days. `max_entries` keeps the latest periods. The table of values lists them from the latest down (`table_entries`), the chart from left to right. A timeline can be shown as calendar.

@@ -184,6 +184,11 @@ function isLine(dataset) {
   return dataset.type === 'line';
 }
 
+// A series of another unit, e.g. counts next to days, on an axis of its own
+function isSecondary(dataset) {
+  return dataset.axis === 'secondary';
+}
+
 function estimatedTextWidth(text) {
   return Math.ceil(text.length * VALUE_LABEL_FONT_SIZE * DIGIT_WIDTH_FACTOR);
 }
@@ -464,6 +469,9 @@ function barConfig(canvas, payload) {
     options.plugins.tooltip.filter = (item) => isLine(item.dataset) || item.raw !== 0 || Boolean(item.dataset.markers?.[item.dataIndex]);
     config.plugins = [...config.plugins, markerPlugin(canvas)];
   }
+  if (!horizontal && payload.datasets.some(isSecondary)) {
+    secondaryAxis(config, payload);
+  }
   if (payload.percent) {
     const axis = config.options.scales[valueAxis];
     axis.max = 100;
@@ -471,6 +479,22 @@ function barConfig(canvas, payload) {
   }
 
   return config;
+}
+
+// The series of another unit on an axis on the right, titled by
+// secondaryLabel. Its lines across the chart would cross the ones of the
+// left axis, each axis counts its ticks by its own values.
+export function secondaryAxis(config, payload) {
+  const { scales } = config.options;
+  config.data.datasets = config.data.datasets.map((dataset) => (isSecondary(dataset) ? { ...dataset, yAxisID: 'y1' } : dataset));
+  scales.y.ticks = valueTicks({ datasets: payload.datasets.filter((dataset) => !isSecondary(dataset)) });
+  scales.y1 = {
+    position: 'right',
+    beginAtZero: true,
+    ticks: valueTicks({ datasets: payload.datasets.filter(isSecondary) }),
+    title: { display: true, text: payload.secondaryLabel },
+    grid: { drawOnChartArea: false },
+  };
 }
 
 // The series of a click in a period: the stacked area it lies in, the

@@ -108,6 +108,7 @@ All texts of a payload are formatted on the server, so no translation ends up in
 | `legend: false` | no legend for bars, lines and areas, e.g. where `colors` give the bars of one dataset different colors and the legend would show only the first |
 | `points: false` | no points on lines, a point still shows on hover |
 | `lines` | lines across the chart with a text: `[{ axis: 'x', value:, label: }]`, e.g. today on a burndown; on a category axis a value between two entries lies between them |
+| `secondaryLabel` | title of the axis on the right of vertical bars, for the datasets with `axis: 'secondary'` |
 
 ### Dataset Keys
 
@@ -120,6 +121,7 @@ All texts of a payload are formatted on the server, so no translation ends up in
 | `colors` | per value a CSS custom property for parts with a meaning of their own (e.g. overdue in red); `nil` keeps the color of the scheme |
 | `color` | one CSS custom property for a line or area |
 | `type: 'line'` | in a bar chart: a line above the bars as comparison (e.g. the year before, a target), outside the stacks and shares |
+| `axis: 'secondary'` | in vertical bars: the series on an axis of its own on the right, e.g. a count as bars next to days as lines; each axis counts its ticks by its own values |
 | `stepped: true` | the line runs in steps between the periods, e.g. working hours per day |
 | `style` | `dashed` or `dotted` line |
 | `fill: true` | the area below a line, fading out towards the axis (unless stacked) |

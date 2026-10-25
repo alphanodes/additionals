@@ -171,6 +171,39 @@ describe('chart configuration', () => {
     expect(config().options.indexAxis).toBe('y');
   });
 
+  // Days as lines on the left, a count as bars on the right
+  function secondaryPayload() {
+    return payload({
+      type: 'bar_vertical',
+      labels: ['Sep', 'Oct'],
+      secondaryLabel: 'Issues',
+      totalLabel: 'Days',
+      datasets: [{ label: 'Median', type: 'line', data: [2.5, null] },
+        { label: 'Closed', axis: 'secondary', data: [12, 0] }],
+    });
+  }
+
+  it('puts a series of another unit on an axis on the right', () => {
+    render(secondaryPayload());
+
+    expect(config().data.datasets.map((dataset) => dataset.yAxisID)).toEqual([undefined, 'y1']);
+    expect(config().options.scales.y1).toMatchObject({ position: 'right', title: { display: true, text: 'Issues' } });
+    // Its lines across the chart would cross the ones of the left axis
+    expect(config().options.scales.y1.grid.drawOnChartArea).toBe(false);
+  });
+
+  it('counts the ticks of each axis by its own values', () => {
+    render(secondaryPayload());
+
+    expect([config().options.scales.y.ticks.precision, config().options.scales.y1.ticks.precision]).toEqual([undefined, 0]);
+  });
+
+  it('keeps one value axis without a series of another unit', () => {
+    render(payload({ type: 'bar_vertical' }));
+
+    expect(config().options.scales.y1).toBeUndefined();
+  });
+
   it('lays vertical bars along the x axis', () => {
     render(payload({ type: 'bar_vertical' }));
 

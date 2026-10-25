@@ -10,7 +10,8 @@ class AdditionalsQueryChartNumberColumnTest < Additionals::TestCase
     SQL = "#{Issue.table_name}.estimated_hours - 10".freeze
 
     def available_columns
-      super + [QueryNumberColumn.new(:estimate_gap, sql: SQL, diverging: true, caption: :field_estimated_hours)]
+      super + [QueryNumberColumn.new(:estimate_gap, sql: SQL, diverging: true, classes: [-5, 0, 1, 10],
+                                                    caption: :field_estimated_hours)]
     end
 
     def initialize_available_filters
@@ -82,6 +83,17 @@ class AdditionalsQueryChartNumberColumnTest < Additionals::TestCase
     I18n.with_locale :en do
       assert_equal(chart.entries.map { |entry| "Percentage: #{chart.share entry} %" }, chart.payload[:datasets].first[:tooltips])
     end
+  end
+
+  # Without bounds of its own the chart takes those of the column, not
+  # automatic ones over the values
+  def test_without_bounds_the_classes_of_the_column
+    assert_equal [-5, 0, 1, 10], chart(classes: '').class_bounds
+  end
+
+  # Other plugins may add columns with classes of their own to the query
+  def test_the_form_knows_the_classes_of_the_column
+    assert_equal ['-5; 0; 1; 10', nil], chart.default_classes.values_at('estimate_gap', 'estimated_hours')
   end
 
   def test_no_colors_by_direction_for_other_numbers

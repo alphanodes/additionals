@@ -202,12 +202,12 @@ end
 ### How It Counts
 
 - **Grouping and totals come from core** (`result_count_by_group`, `total_by_group_for`), so visibility and filters behave like the grouped list. The SQL of a column comes from the query (`group_by_statement`), so a query class that groups a column its own way is respected.
-- **Numbers group in classes**: a stored number column, a number custom field or a `QueryNumberColumn`, a number computed by SQL (e.g. days between two dates). The query brings a filter of the same name, the links of the classes use it. With `diverging: true` its classes are colored by direction: blue below 0, gray for the class of 0, red above, entries without a value light gray, e.g. days early and late.
+- **Numbers group in classes**: a stored number column, a number custom field or a `QueryNumberColumn`, a number computed by SQL (e.g. days between two dates). The query brings a filter of the same name, the links of the classes use it. With `diverging: true` its classes are colored by direction: blue below 0, gray for the class of 0, red above, entries without a value light gray, e.g. days early and late. `classes:` gives the bounds of a block without bounds of its own, a division that belongs to the number instead of automatic steps over the values; the settings form names them as placeholder.
 
   Classes of whole numbers name their last value (`1 to 7`, a class of one value just `0`), as their links filter them; classes of decimals stay `1 to below 8`.
 
   ```ruby
-  QueryNumberColumn.new :delivery_delay, sql: delivery_delay_sql, diverging: true
+  QueryNumberColumn.new :delivery_delay, sql: delivery_delay_sql, diverging: true, classes: [-7, 0, 1, 8]
   ```
 
 - **Custom fields with multiple values** are counted separately, since core cannot group them. An entry counts in each of its groups, but once in the total, so the total matches the linked list; the shares refer to that total and the block explains when they add up to more than 100 %.

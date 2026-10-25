@@ -15,6 +15,8 @@ module AdditionalsQueryChartHelper
   def query_chart_settings_box(chart, summary_url:, &)
     values = { 'timeline-groups' => chart.timeline_group_names.to_json,
                'number-groups' => chart.number_group_names.to_json,
+               'default-classes' => chart.default_classes.to_json,
+               'automatic-classes' => l(:label_chart_classes_auto),
                'timeline-types' => AdditionalsQueryChart::TIMELINE_TYPES.to_json,
                'timeline-only-types' => AdditionalsQueryChart::TIMELINE_ONLY_TYPES.to_json,
                'series-types' => AdditionalsQueryChart::SERIES_TYPES.to_json,
@@ -26,6 +28,11 @@ module AdditionalsQueryChartHelper
     tag.div class: 'box tabular settings query-chart-settings',
             data: { controller: 'additionals-chart-settings',
                     action: 'change->additionals-chart-settings#refreshSummary', **data }, &
+  end
+
+  # What empty bounds mean for the chosen field: its own bounds or automatic ones
+  def query_chart_classes_placeholder(chart)
+    chart.default_classes[chart.group_column&.name.to_s] || l(:label_chart_classes_auto)
   end
 
   # The summary of the chart with its values set off, so the reader sees

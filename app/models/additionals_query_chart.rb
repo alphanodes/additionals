@@ -194,11 +194,13 @@ class AdditionalsQueryChart < AdditionalsChart
     @number_classes = group_column.present? && number_column?(group_column)
   end
 
-  # Bounds of the classes as given, or round steps over all values. Whole
-  # numbers know no bound between two of them, 2.5 is 3 for them.
+  # Bounds of the classes as given, else those of the column, else round
+  # steps over all values. Whole numbers know no bound between two of them,
+  # 2.5 is 3 for them.
   def class_bounds
     @class_bounds ||= begin
       bounds = class_bound_tokens.filter_map { |bound| Float(bound.tr(',', '.'), exception: false) }
+      bounds = Array(group_column.try(:classes)).dup if bounds.empty?
       bounds.map!(&:ceil) if integer_column? group_column
       bounds.any? ? bounds.uniq.sort!.first(MAX_CLASSES) : automatic_class_bounds
     end
@@ -378,6 +380,15 @@ class AdditionalsQueryChart < AdditionalsChart
   # Group columns whose values form classes, for the settings form
   def number_group_names
     group_columns.filter_map { |column| column.name.to_s if number_column? column }
+  end
+
+  # The bounds of the columns that bring them, as the settings form shows
+  # them in place of automatic ones
+  def default_classes
+    group_columns.each_with_object({}) do |column, defaults|
+      classes = column.try :classes
+      defaults[column.name.to_s] = classes.join('; ') if classes.present?
+    end
   end
 
   def group_options

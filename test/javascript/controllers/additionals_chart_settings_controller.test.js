@@ -18,7 +18,9 @@ function form({ groupBy = 'status', chartType = 'doughnut', period = '', compare
          data-action="change->additionals-chart-settings#refreshSummary"
          data-additionals-chart-settings-summary-url-value="/dashboards/1/chart_summary?block=issue_chart"
          data-additionals-chart-settings-timeline-groups-value='["created_on"]'
-         data-additionals-chart-settings-number-groups-value='["estimated_hours"]'
+         data-additionals-chart-settings-number-groups-value='["estimated_hours","delivery_delay"]'
+         data-additionals-chart-settings-default-classes-value='{"delivery_delay":"-7; 0; 1; 8"}'
+         data-additionals-chart-settings-automatic-classes-value="automatic"
          data-additionals-chart-settings-timeline-types-value='${JSON.stringify([...SERIES_TYPES, 'calendar'])}'
          data-additionals-chart-settings-timeline-only-types-value='["line","area","calendar"]'
          data-additionals-chart-settings-series-types-value='${JSON.stringify(SERIES_TYPES)}'
@@ -29,10 +31,12 @@ function form({ groupBy = 'status', chartType = 'doughnut', period = '', compare
       <input id="title" name="settings[issue_chart][title]">
       <select id="group_by" name="settings[issue_chart][group_by]" data-additionals-chart-settings-target="groupBy"
               data-action="additionals-chart-settings#update">
-        ${['status', 'created_on', 'estimated_hours'].map((value) => option(value, groupBy)).join('')}
+        ${['status', 'created_on', 'estimated_hours', 'delivery_delay'].map((value) => option(value, groupBy)).join('')}
       </select>
       <span id="interval" data-additionals-chart-settings-target="interval"></span>
-      <span id="classes" data-additionals-chart-settings-target="classes"></span>
+      <span id="classes" data-additionals-chart-settings-target="classes">
+        <input id="classes_input" data-additionals-chart-settings-target="classesInput" placeholder="automatic">
+      </span>
       <p id="split" data-additionals-chart-settings-target="series">
         <select id="split_select" data-additionals-chart-settings-target="splitSelect"
                 data-action="additionals-chart-settings#update">
@@ -206,6 +210,16 @@ describe('AdditionalsChartSettingsController', () => {
     await render({ groupBy: 'estimated_hours' });
 
     expect(element('classes').hidden).toBe(false);
+  });
+
+  // Empty bounds take those of the field, which the placeholder names
+  it('names the bounds of the chosen field in the placeholder', async () => {
+    await render({ groupBy: 'estimated_hours' });
+    choose('group_by', 'delivery_delay');
+    const ownBounds = element('classes_input').placeholder;
+    choose('group_by', 'estimated_hours');
+
+    expect([ownBounds, element('classes_input').placeholder]).toEqual(['-7; 0; 1; 8', 'automatic']);
   });
 
   it('hides the order of a number field', async () => {

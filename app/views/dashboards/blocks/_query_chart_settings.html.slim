@@ -54,7 +54,9 @@
         '
         = label_tag tag_name.call(:classes), l(:label_chart_classes)
         '
-        = text_field_tag tag_name.call(:classes), settings[:classes], size: 14, placeholder: l(:label_chart_classes_auto)
+        = text_field_tag tag_name.call(:classes), settings[:classes], size: 14,
+                         placeholder: query_chart_classes_placeholder(chart),
+                         data: { 'additionals-chart-settings-target' => 'classesInput' }
         em.info = l :info_chart_classes
     p
       = additionals_settings_select :measure,

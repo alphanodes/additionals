@@ -56,6 +56,15 @@
   background-color: var(--oc-white);
 }
 
+/* Core gives every column of a report table the same width and keeps its
+   headers on one line, so a long caption ran into the next column. They wrap
+   instead and stay readable in full. */
+.additionals-query-chart .additionals-table-of-values > .values th {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
 /* A cross table has a column per part. Core lays out report tables with a
    fixed width per column, which squeezes many parts into each other: the
    cross table takes its content width, a row of its own below the chart and

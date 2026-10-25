@@ -27,13 +27,15 @@ function hide(element, hidden) {
 }
 
 class AdditionalsChartSettingsController extends Controller {
-  static targets = ['groupBy', 'interval', 'classes', 'chartType', 'tile', 'series', 'sharesNote', 'order',
+  static targets = ['groupBy', 'interval', 'classes', 'classesInput', 'chartType', 'tile', 'series', 'sharesNote', 'order',
     'maxEntries', 'showEmpty', 'periodSelect', 'periodInfo', 'splitSelect', 'compareSelect', 'compareInfo',
     'compareSplitInfo', 'withTable', 'withTableInfo', 'summary'];
 
   static values = {
     timelineGroups: Array,
     numberGroups: Array,
+    defaultClasses: Object,
+    automaticClasses: String,
     timelineTypes: Array,
     timelineOnlyTypes: Array,
     seriesTypes: Array,
@@ -103,6 +105,10 @@ class AdditionalsChartSettingsController extends Controller {
     }
     if (this.hasClassesTarget) {
       hide(this.classesTarget, !classes);
+    }
+    if (this.hasClassesInputTarget && classes) {
+      // Empty bounds take those of the field, else automatic ones
+      this.classesInputTarget.placeholder = this.defaultClassesValue[this.groupByTarget.value] ?? this.automaticClassesValue;
     }
     // Periods and classes keep the order of their values
     this.orderTargets.forEach((element) => hide(element, timeline || classes));

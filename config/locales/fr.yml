@@ -58,7 +58,7 @@ fr:
   hours:
     one: "heure"
     other: "heures"
-  info_chart_classes: "Vide répartit automatiquement les valeurs en environ cinq classes de même largeur. Des bornes fixes restent stables quand les données changent."
+  info_chart_classes: "Vide utilise les bornes affichées dans le champ ; avec \"automatique\", environ cinq classes de même largeur. Des bornes fixes restent stables quand les données changent."
   info_chart_compare_query: "Seconde série à côté de la première. Affichée dans les graphiques en barres et en lignes et dans le tableau des valeurs."
   info_chart_compare_split: "Remplacé par la répartition."
   info_chart_counted_several_times: "Les entrées ayant plusieurs valeurs comptent pour chacune d'elles. Le total compte chaque entrée une fois, les parts dépassent donc 100 % au total."

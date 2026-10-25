@@ -58,7 +58,7 @@ es:
   hours:
     one: "hora"
     other: "horas"
-  info_chart_classes: "Vacío divide los valores automáticamente en unas cinco clases del mismo ancho. Los límites fijos se mantienen aunque cambien los datos."
+  info_chart_classes: "Vacío usa los límites que muestra el campo; con \"automático\", unas cinco clases del mismo ancho. Los límites fijos se mantienen aunque cambien los datos."
   info_chart_compare_query: "Segunda serie junto a la primera. Se muestra en gráficos de barras y de líneas y en la tabla de valores."
   info_chart_compare_split: "Sustituido por la división."
   info_chart_counted_several_times: "Las entradas con varios valores cuentan para cada uno de ellos. El total cuenta cada entrada una vez, por lo que las proporciones suman más del 100 %."

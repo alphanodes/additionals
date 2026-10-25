@@ -60,7 +60,7 @@ cs:
     one: "hodina"
     few: "hodiny"
     other: "hodin"
-  info_chart_classes: "Prázdné pole rozdělí hodnoty automaticky do zhruba pěti stejně širokých tříd. Pevné hranice zůstávají stejné, i když se data změní."
+  info_chart_classes: "Prázdné pole použije hranice zobrazené v poli, při \"automaticky\" zhruba pět stejně širokých tříd. Pevné hranice zůstávají stejné, i když se data změní."
   info_chart_compare_query: "Druhá řada vedle první. Zobrazí se ve sloupcových a spojnicových grafech a v tabulce hodnot."
   info_chart_compare_split: "Nahrazeno rozdělením."
   info_chart_counted_several_times: "Záznamy s více hodnotami se počítají u každé z nich. Celkový součet počítá každý záznam jednou, proto podíly dávají dohromady víc než 100 %."

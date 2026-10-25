@@ -56,7 +56,7 @@ zh:
   hidden_macros_in_toolbar_info: "当前登录用户可用的所有宏都列在 Wiki 工具栏的宏按钮中。此处选中的宏不会出现在选择列表中，从而缩小列表范围。隐藏的宏在文本中仍可使用，只是从列表中移除，并未禁用。"
   hours:
     other: "小时"
-  info_chart_classes: "留空时，将数值自动分为约五个等宽的区间。固定边界在数据变化时保持不变。"
+  info_chart_classes: "留空时使用字段中显示的边界；为\"自动\"时，将数值分为约五个等宽的区间。固定边界在数据变化时保持不变。"
   info_chart_compare_query: "在第一个系列旁显示第二个系列。在柱状图、折线图和数值表中显示。"
   info_chart_compare_split: "由拆分替代。"
   info_chart_counted_several_times: "具有多个值的条目按每个值分别计数。总计中每个条目只计一次，因此各部分占比之和超过 100 %。"

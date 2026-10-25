@@ -58,7 +58,7 @@ de:
   hours:
     one: "Stunde"
     other: "Stunden"
-  info_chart_classes: "Leer teilt die Werte automatisch in etwa fünf gleich breite Klassen. Feste Grenzen bleiben stabil, wenn sich die Daten ändern."
+  info_chart_classes: "Leer nimmt die im Feld angezeigten Grenzen, bei \"automatisch\" etwa fünf gleich breite Klassen. Feste Grenzen bleiben stabil, wenn sich die Daten ändern."
   info_chart_compare_query: "Zweite Datenreihe neben der ersten. Wird bei Balken, Linien und in der Wertetabelle angezeigt."
   info_chart_compare_split: "Ersetzt durch die Aufteilung."
   info_chart_counted_several_times: "Einträge mit mehreren Werten zählen bei jedem ihrer Werte. Der Gesamtwert zählt jeden Eintrag einmal, die Anteile ergeben deshalb zusammen mehr als 100 %."

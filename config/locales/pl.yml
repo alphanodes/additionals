@@ -62,7 +62,7 @@ pl:
     few: "godziny"
     many: "godzin"
     other: "godziny"
-  info_chart_classes: "Puste dzieli wartości automatycznie na około pięć klas o tej samej szerokości. Stałe granice nie zmieniają się, gdy zmieniają się dane."
+  info_chart_classes: "Puste używa granic widocznych w polu, przy \"automatycznie\" około pięciu klas o tej samej szerokości. Stałe granice nie zmieniają się, gdy zmieniają się dane."
   info_chart_compare_query: "Druga seria obok pierwszej. Wyświetlana na wykresach słupkowych i liniowych oraz w tabeli wartości."
   info_chart_compare_split: "Zastąpione podziałem."
   info_chart_counted_several_times: "Wpisy z wieloma wartościami liczą się dla każdej z nich. Suma liczy każdy wpis raz, dlatego udziały razem przekraczają 100 %."

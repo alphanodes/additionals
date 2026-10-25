@@ -56,7 +56,7 @@ zh-TW:
   hidden_macros_in_toolbar_info: "目前登入的使用者可用的所有巨集都列在 Wiki 工具列的巨集按鈕中。此處選取的巨集不會出現在選擇清單中，藉此縮小清單範圍。隱藏的巨集在文字中仍可使用，只是從清單中移除，並未停用。"
   hours:
     other: "小時"
-  info_chart_classes: "留空時，會將數值自動分為約五個等寬的區間。固定邊界在資料變動時保持不變。"
+  info_chart_classes: "留空時使用欄位中顯示的邊界；為「自動」時，將數值分為約五個等寬的區間。固定邊界在資料變動時保持不變。"
   info_chart_compare_query: "在第一個數列旁顯示第二個數列。在長條圖、折線圖和數值表中顯示。"
   info_chart_compare_split: "由拆分取代。"
   info_chart_counted_several_times: "具有多個值的項目會按每個值分別計數。總計中每個項目只計一次，因此各部分占比之和超過 100 %。"

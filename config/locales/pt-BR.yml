@@ -58,7 +58,7 @@ pt-BR:
   hours:
     one: "hora"
     other: "horas"
-  info_chart_classes: "Vazio divide os valores automaticamente em cerca de cinco classes de mesma largura. Limites fixos permanecem estáveis quando os dados mudam."
+  info_chart_classes: "Vazio usa os limites mostrados no campo; com \"automático\", cerca de cinco classes de mesma largura. Limites fixos permanecem estáveis quando os dados mudam."
   info_chart_compare_query: "Segunda série ao lado da primeira. Exibida em gráficos de barras e de linhas e na tabela de valores."
   info_chart_compare_split: "Substituído pela divisão."
   info_chart_counted_several_times: "Entradas com vários valores contam para cada um deles. O total conta cada entrada uma vez, por isso as proporções somam mais de 100 %."

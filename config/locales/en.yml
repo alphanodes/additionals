@@ -58,7 +58,7 @@ en:
   hours:
     one: "hour"
     other: "hours"
-  info_chart_classes: "Empty divides the values automatically into about five classes of the same width. Fixed bounds stay stable when the data changes."
+  info_chart_classes: "Empty takes the bounds shown in the field, with \"automatic\" about five classes of the same width. Fixed bounds stay stable when the data changes."
   info_chart_compare_query: "Second series next to the first one. Shown in bar and line charts and in the table of values."
   info_chart_compare_split: "Replaced by the split."
   info_chart_counted_several_times: "Entries with several values count for each of them. The total counts every entry once, so the shares add up to more than 100 %."

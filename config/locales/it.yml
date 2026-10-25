@@ -58,7 +58,7 @@ it:
   hours:
     one: "ora"
     other: "ore"
-  info_chart_classes: "Vuoto suddivide automaticamente i valori in circa cinque classi della stessa ampiezza. I limiti fissi restano stabili quando i dati cambiano."
+  info_chart_classes: "Vuoto usa i limiti mostrati nel campo; con \"automatico\", circa cinque classi della stessa ampiezza. I limiti fissi restano stabili quando i dati cambiano."
   info_chart_compare_query: "Seconda serie accanto alla prima. Mostrata nei grafici a barre e a linee e nella tabella dei valori."
   info_chart_compare_split: "Sostituito dalla suddivisione."
   info_chart_counted_several_times: "Le voci con più valori contano per ciascuno di essi. Il totale conta ogni voce una sola volta, quindi le quote sommate superano il 100 %."

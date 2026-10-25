@@ -281,7 +281,7 @@ zh:
   label_twitter_account: Twitter 账号
   label_twitter_hashtag: Twitter 哈希标签
   label_uptime: 上线时间
-  label_user_is_author_of: "这个用户是这个的作者 %{entity}."
+  label_user_is_author_of: "该用户是此%{entity}的作者。"
   label_user_list: "用户列表"
   label_visibility_groups: 仅限于这些组
   label_web_apis: Web APIs

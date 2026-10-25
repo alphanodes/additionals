@@ -281,7 +281,7 @@
   label_twitter_account: "Twitter 帳號"
   label_twitter_hashtag: "Twitter #標籤"
   label_uptime: "上線時間"
-  label_user_is_author_of: "这个用户是这个的作者 %{entity}."
+  label_user_is_author_of: "此使用者是此%{entity}的作者。"
   label_user_list: "用戶列表"
   label_visibility_groups: 僅限於這些群組
   label_web_apis: Web APIs

@@ -281,7 +281,7 @@ ja:
   label_twitter_account: Twitter アカウント
   label_twitter_hashtag: Twitter ハッシュタグ
   label_uptime: Uptime
-  label_user_is_author_of: "このユーザーは、この %{entity}."
+  label_user_is_author_of: "このユーザーはこの%{entity}の作成者です。"
   label_user_list: "ユーザ一覧"
   label_visibility_groups: これらのグループのみ
   label_web_apis: Web APIs

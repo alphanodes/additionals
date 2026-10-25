@@ -604,9 +604,13 @@ div.relation-list-header {
   width: 100%;
 }
 
+/* Both columns may get narrower than their content (a long line of a pre,
+   a chart): with the margins two columns of 50% would not fit side by side
+   and the right one would wrap below the left */
 .dashboard .splitcontentright,
 .dashboard .splitcontentleft {
   width: 50%;
+  min-width: 0;
 }
 
 select.dashboard-block-select {

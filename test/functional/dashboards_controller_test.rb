@@ -473,6 +473,19 @@ class DashboardsControllerTest < Additionals::ControllerTest
     assert_response :redirect
   end
 
+  # A dashboard for all projects shows the project of the request: not one
+  # its author may not see
+  def test_add_block_for_a_project_the_author_may_not_see
+    dashboard = Dashboard.create! name: 'All projects', dashboard_type: DashboardContentProject::TYPE_NAME,
+                                  author: users(:users_003), visibility: Dashboard::VISIBILITY_PRIVATE,
+                                  layout: { 'left' => %w[projectissues] }
+    @request.session[:user_id] = 3
+
+    post :add_block, params: { id: dashboard.id, project_id: projects(:projects_002).identifier, block: 'projectmembers' }, xhr: true
+
+    assert_response :forbidden
+  end
+
   def test_add_block_on_locked_dashboard_for_editor
     @request.session[:user_id] = 1
 

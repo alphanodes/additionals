@@ -60,6 +60,7 @@
 - I18n tests check that a plugin offers the required locales, deviations are declared with `missing_locales:` and `extra_locales:`
 - All translations revised for consistent terms, German texts use the informal du
 - The author badge of a note names no entry type, it showed a missing translation for most entries
+- Dashboards for all projects show a project only to users who may see it, also when blocks are added or set up
 - Bundled mermaid is used with Redmine 7.1 and newer
 - moment.js, `chartjs_moment` and `actioncable` removed from the asset loader
 - d3plus updated to 4.9.0

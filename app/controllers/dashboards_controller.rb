@@ -278,6 +278,10 @@ class DashboardsController < ApplicationController
     else
       @project = @dashboard.project
     end
+    # A dashboard for all projects shows the project of the request, which
+    # find_project does not check
+    return deny_access if @project && !User.current.allowed_to?(:view_project, @project)
+
     # blocks read the project from content_project, also on a project bound dashboard
     @dashboard.content_project = @project
   rescue ActiveRecord::RecordNotFound

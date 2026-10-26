@@ -50,9 +50,10 @@ class FeedBlockTest < Additionals::TestCase
   end
 
   def test_feed_of_the_intranet_is_read
-    stub_request(:get, 'http://10.0.0.5/feed.xml').to_return body: RSS
+    urls = %w[http://10.0.0.5/feed.xml http://[fd00::5]/feed.xml]
+    urls.each { |url| stub_request(:get, url).to_return body: RSS }
 
-    assert_predicate feed('http://10.0.0.5/feed.xml').data[:items], :any?
+    assert_equal([true] * urls.size, urls.map { |url| feed(url).data[:valid] })
   end
 
   def test_feed_beyond_the_size_limit_is_not_valid

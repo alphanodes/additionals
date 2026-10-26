@@ -56,9 +56,10 @@ module DashboardBlocks
     def fetch(uri, redirects = MAX_REDIRECTS)
       raise ArgumentError, "unsupported scheme #{uri.scheme}" unless %w[http https].include? uri.scheme
 
-      http = Net::HTTP.new uri.host, uri.port
+      # hostname: an IPv6 address without the brackets of the URL
+      http = Net::HTTP.new uri.hostname, uri.port
       # Connects to the address checked, a second lookup could answer another
-      http.ipaddr = remote_address uri.host
+      http.ipaddr = remote_address uri.hostname
       http.use_ssl = uri.scheme == 'https'
       http.open_timeout = TIMEOUT
       http.read_timeout = TIMEOUT

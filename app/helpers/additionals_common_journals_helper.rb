@@ -5,7 +5,7 @@ module AdditionalsCommonJournalsHelper
     return if entry.author_id != journal.user_id
 
     tag.span l(:field_author),
-             title: l(:label_user_is_author_of, entity: l("label_#{entry.class.name.underscore}_genitive")),
+             title: l(:label_user_is_author_of),
              class: 'badge badge-author'
   end
 end

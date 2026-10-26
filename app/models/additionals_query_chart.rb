@@ -425,12 +425,11 @@ class AdditionalsQueryChart < AdditionalsChart
     [sentence, *summary_restrictions(mark)].join ' '
   end
 
-  # Saved queries of the chart with a description, which tells the reader
-  # where the values come from
-  def described_queries
+  # Saved queries of the chart, which tell the reader where the values come from
+  def source_queries
     queries = [query]
     queries << compare_query if compare? && !previous_period? && compare_query.id != query&.id
-    queries.select { |series_query| series_query&.persisted? && series_query.description.present? }
+    queries.select { |series_query| series_query&.persisted? }
   end
 
   def query_url(query)

@@ -392,9 +392,9 @@ module Additionals
       end
     end
 
-    # Per block the name and the description of the saved query it shows as
-    # where its values come from (render_query_descriptions), nil without;
-    # on the dashboard assert_dashboard_blocks_render created before
+    # Per block the name and the description (nil without) of the saved query
+    # it shows as where its values come from (render_query_sources), nil for a
+    # block without it; on the dashboard assert_dashboard_blocks_render created before
     def dashboard_block_query_sources(blocks, query, project: nil)
       dashboard = Dashboard.where(name: 'Blocks render').last
       get project ? "/projects/#{project.identifier}" : '/', params: { dashboard_id: dashboard.id }
@@ -408,7 +408,7 @@ module Additionals
           page = response.body
         end
         source = Nokogiri::HTML.fragment(page).at_css(".query-source:has(a[href*='query_id=#{query.id}'])")
-        source && [source.at_css('a').text, source.at_css('.wiki').text.strip]
+        source && [source.at_css('a').text, source.at_css('.wiki')&.text&.strip]
       end
     end
 

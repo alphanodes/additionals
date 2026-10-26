@@ -300,17 +300,17 @@ class GlobalHelperTest < Additionals::HelperTest
     assert_include '&lt;script&gt;', html
   end
 
-  # Each saved query with a description once, linked as the block tells; an
-  # unsaved query and one without description are left out
-  def test_render_query_descriptions_name_the_described_queries
+  # Each saved query once, linked as the block tells, with its description if
+  # it has one; an unsaved query is left out
+  def test_render_query_sources_name_the_saved_queries
     query = IssueQuery.create! name: 'Bugs', description: 'Bugs of the team', user: users(:users_001),
                                visibility: Query::VISIBILITY_PUBLIC
     plain = IssueQuery.create! name: 'Plain', user: users(:users_001), visibility: Query::VISIBILITY_PUBLIC
     queries = [query, plain, IssueQuery.new(name: '_', description: 'unsaved'), nil, IssueQuery.find(query.id)]
-    html = Nokogiri::HTML.fragment(@redmine_view.render_query_descriptions(queries) { |entry| "/issues?query_id=#{entry.id}" })
+    html = Nokogiri::HTML.fragment(@redmine_view.render_query_sources(queries) { |entry| "/issues?query_id=#{entry.id}" })
 
-    assert_equal([["/issues?query_id=#{query.id}", 'Bugs', 'Bugs of the team']],
-                 html.css('.query-source').map { |row| [row.at_css('a')['href'], row.at_css('a').text, row.at_css('.wiki').text.strip] })
+    assert_equal([["/issues?query_id=#{query.id}", 'Bugs', 'Bugs of the team'], ["/issues?query_id=#{plain.id}", 'Plain', nil]],
+                 html.css('.query-source').map { |row| [row.at_css('a')['href'], row.at_css('a').text, row.at_css('.wiki')&.text&.strip] })
     assert html.at_css('.query-source svg use[href*="icon--filter"]')
   end
 end

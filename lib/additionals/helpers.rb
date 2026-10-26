@@ -194,18 +194,18 @@ module Additionals
       tag.div textilizable(query, :description), class: 'query-description'
     end
 
-    # Where the values of a block come from: each saved query with a
-    # description, with its name linked to its list as the block yields it.
+    # Where the values of a block come from: each saved query with its name
+    # linked to its list as the block yields it, and its description if any.
     # A row of the info area below a chart, see .query-source.
-    def render_query_descriptions(queries)
-      described = queries.select { |query| query&.persisted? && query.description? }
-      described.uniq!(&:id)
-      safe_join(described.map do |query|
+    def render_query_sources(queries)
+      saved = queries.select { |query| query&.persisted? }
+      saved.uniq!(&:id)
+      safe_join(saved.map do |query|
         tag.div class: 'query-source' do
           safe_join [tag.div(safe_join([svg_icon_tag('filter', size: 14), "#{l :label_query}:",
                                         link_to(query.name, yield(query))]),
                              class: 'flex-center query-source-name'),
-                     tag.div(textilizable(query, :description), class: 'wiki')]
+                     query_source_description(query)].compact
         end
       end)
     end
@@ -464,6 +464,12 @@ module Additionals
     end
 
     private
+
+    def query_source_description(query)
+      return unless query.description?
+
+      tag.div textilizable(query, :description), class: 'wiki'
+    end
 
     def entity_avatar_attachment?(entity, attachment)
       entity.respond_to?(:avatar_attachment?) && entity.avatar_attachment?(attachment)

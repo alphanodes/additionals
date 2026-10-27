@@ -86,6 +86,17 @@ class PrincipalTest < Additionals::TestCase
     assert_equal [2, 3, 4, 7], Principal.visible(viewer).order(:id).ids
   end
 
+  def test_visible_for_members_of_visible_projects_includes_self_without_memberships
+    Role.non_member.update! users_visibility: 'members_of_visible_projects'
+    viewer = User.generate!
+
+    assert_includes Principal.visible(viewer).ids, viewer.id
+
+    Role.non_member.add_permission! :show_hidden_roles_in_memberbox
+
+    assert_includes Principal.visible(viewer.reload).ids, viewer.id
+  end
+
   def test_visible_for_user_with_a_role_with_all_users_visibility
     viewer = prepare_members_of_visible_projects_viewer
     Member.create! project: projects(:projects_002), principal: viewer, roles: [roles(:roles_002)]

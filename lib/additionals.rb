@@ -25,6 +25,18 @@ module Additionals
       defined?(::URI::RFC2396_PARSER) ? ::URI::RFC2396_PARSER : ::URI::DEFAULT_PARSER
     end
 
+    # Absolute URL of this Redmine including a sub-URI path, from the host and
+    # protocol settings (parsed by core's Mailer), never from a request.
+    # chomp: core's parser keeps a lone trailing slash of the setting in the host
+    def redmine_url
+      ActionDispatch::Http::URL.full_url_for(::Mailer.default_url_options).chomp '/'
+    end
+
+    # Scheme, host and port only, e.g. for WebAuthn origins
+    def redmine_origin
+      ActionDispatch::Http::URL.full_url_for(::Mailer.default_url_options.except(:script_name)).chomp '/'
+    end
+
     def now_with_user_time_zone(user = User.current)
       if user.time_zone.nil?
         Time.current

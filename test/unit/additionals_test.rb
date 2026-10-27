@@ -45,6 +45,20 @@ class AdditionalsTest < Additionals::TestCase
     assert_equal [33_333, 33_334, 33_335, 33_336, 62_519], Additionals.split_ids('62519-33333', limit: 5)
   end
 
+  def test_redmine_url_and_redmine_origin
+    { 'redmine.example.com' => %w[https://redmine.example.com https://redmine.example.com],
+      'redmine.example.com:8443' => %w[https://redmine.example.com:8443 https://redmine.example.com:8443],
+      'redmine.example.com/redmine' => %w[https://redmine.example.com/redmine https://redmine.example.com],
+      'redmine.example.com:8443/redmine/' => %w[https://redmine.example.com:8443/redmine https://redmine.example.com:8443],
+      'redmine.example.com/' => %w[https://redmine.example.com https://redmine.example.com] }
+      .each do |host_name, (url, origin)|
+      with_settings protocol: 'https', host_name: host_name do
+        assert_equal url, Additionals.redmine_url, host_name
+        assert_equal origin, Additionals.redmine_origin, host_name
+      end
+    end
+  end
+
   def test_single_page_limit
     with_settings per_page_options: '10, 35, 50' do
       assert_equal 35, Additionals.single_page_limit

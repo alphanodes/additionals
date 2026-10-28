@@ -64,7 +64,7 @@
 - Dashboards for all projects show a project only to users who may see it, also when blocks are added or set up
 - Bundled mermaid is used with Redmine 7.1 and newer
 - moment.js, `chartjs_moment` and `actioncable` removed from the asset loader
-- d3plus updated to 4.9.0
+- d3plus updated to 4.10.0
 - Chart.js updated to 4.6.1
 - Chart.js Plugin matrix updated to 3.1.0
 - mermaid updated to 12.2.0

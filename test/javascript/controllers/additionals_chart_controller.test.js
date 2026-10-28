@@ -66,7 +66,7 @@ function mockTreemap() {
       return this;
     }
   }
-  ['data', 'groupBy', 'sum', 'thresholdName', 'label', 'shapeConfig', 'select', 'legend', 'zoom', 'search', 'tableView', 'on', 'tooltipConfig']
+  ['data', 'groupBy', 'sum', 'thresholdName', 'label', 'shapeConfig', 'select', 'legend', 'zoom', 'search', 'tableView', 'saveControl', 'on', 'tooltipConfig']
     .forEach((method) => {
       Treemap.prototype[method] = function chain(value, handler) {
         // on(event, handler) keeps the handler
@@ -86,7 +86,7 @@ function mockSankey() {
       return this;
     }
   }
-  ['select', 'zoom', 'search', 'tableView', 'nodes', 'links', 'nodeAlign', 'label', 'on', 'tooltipConfig']
+  ['select', 'zoom', 'search', 'tableView', 'saveControl', 'nodes', 'links', 'nodeAlign', 'label', 'on', 'tooltipConfig']
     .forEach((method) => {
       Sankey.prototype[method] = function chain(value, handler) {
         calls[method] = method === 'on' ? handler : value;
@@ -545,6 +545,16 @@ describe('chart configuration', () => {
     renderTreemap(document.createElement('div'), payload({ type: 'treemap' }));
 
     expect(calls.tooltipConfig.tbody).toEqual([]);
+  });
+
+  // d3plus labels its download button in English for most languages
+  it('draws treemap and sankey without the download button of d3plus', () => {
+    const treemap = mockTreemap();
+    renderTreemap(document.createElement('div'), payload({ type: 'treemap' }));
+    const sankey = mockSankey();
+    renderSankey(document.createElement('div'), sankeyPayload());
+
+    expect([treemap.saveControl, sankey.saveControl]).toEqual([false, false]);
   });
 });
 

@@ -1008,6 +1008,9 @@ export function renderTreemap(element, payload) {
     .zoom(false)
     .search(false)
     .tableView(false)
+    // No download button, as for the Chart.js charts; d3plus labels it in English
+    // for most languages
+    .saveControl(false)
     // The rest has no list of its own
     .on('click', (d) => openUrl(d && !isTreemapRest(d) ? d.link : null))
     .tooltipConfig({
@@ -1029,6 +1032,7 @@ export function renderSankey(element, payload) {
     .zoom(false)
     .search(false)
     .tableView(false)
+    .saveControl(false)
     // not "url": d3plus fetches a field of that name as data
     .nodes(nodes.map((node) => ({ id: node.id, name: node.name, link: node.url })))
     .links(links)

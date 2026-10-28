@@ -157,7 +157,6 @@ cs:
   label_chart_valid_only: "Jen platné záznamy"
   label_chart_week: "%{week}. týden/%{year}"
   label_chart_with_name: "Graf: %{value}"
-  label_chartjs_colorscheme_info: "Seznam barev"
   label_content_plural: "Obsah"
   label_copied_to_clipboard: "Zkopírováno!"
   label_custom_field_editable_info: "Je-li vypnuto, změny jsou možné jen přes API nebo hromadnou úpravu."

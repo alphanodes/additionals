@@ -159,7 +159,6 @@ uk:
   label_chart_valid_only: "Лише допустимі записи"
   label_chart_week: "Тиж. %{week}/%{year}"
   label_chart_with_name: "Діаграма: %{value}"
-  label_chartjs_colorscheme_info: "Список кольорів"
   label_content_plural: "Вміст"
   label_copied_to_clipboard: "Скопійовано!"
   label_custom_field_editable_info: "Якщо вимкнено, зміни можливі лише через API або масове редагування."

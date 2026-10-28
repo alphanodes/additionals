@@ -153,7 +153,6 @@ ja:
   label_chart_valid_only: "有効な項目のみ"
   label_chart_week: "%{year}年 第%{week}週"
   label_chart_with_name: "グラフ: %{value}"
-  label_chartjs_colorscheme_info: "色の一覧"
   label_content_plural: "コンテンツ"
   label_copied_to_clipboard: "コピーしました"
   label_custom_field_editable_info: "無効にすると、変更は API または一括編集でのみ行えます。"

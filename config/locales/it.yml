@@ -155,7 +155,6 @@ it:
   label_chart_valid_only: "Solo voci valide"
   label_chart_week: "Sett. %{week}/%{year}"
   label_chart_with_name: "Grafico: %{value}"
-  label_chartjs_colorscheme_info: "Elenco dei colori"
   label_content_plural: "Contenuti"
   label_copied_to_clipboard: "Copiato!"
   label_custom_field_editable_info: "Se disattivato, le modifiche sono possibili solo tramite API o modifica multipla."

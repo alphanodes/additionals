@@ -24,6 +24,33 @@ function formatNameWithIcon(opt) {
   return span;
 }
 
+/* A color scheme of Chart.js with its colors, for the list and the closed
+   field of a select2. Group headings and schemes the colorschemes plugin does
+   not know show their name only. */
+/* exported formatColorScheme */
+function formatColorScheme(opt) {
+  const span = document.createElement('span');
+  span.className = 'colorscheme-option';
+  const name = document.createElement('span');
+  name.textContent = opt.text;
+  span.append(name);
+
+  const [group, scheme] = (opt.id || '').split('.');
+  const colors = window.Chart?.colorschemes?.[group]?.[scheme];
+  if (colors) {
+    const swatches = document.createElement('span');
+    swatches.className = 'colorscheme-swatches';
+    colors.forEach((color) => {
+      const swatch = document.createElement('span');
+      swatch.className = 'colorscheme-swatch';
+      swatch.style.backgroundColor = color;
+      swatches.append(swatch);
+    });
+    span.append(swatches);
+  }
+  return span;
+}
+
 /* Escape a value for html built in javascript. Quotes are escaped as well,
    because Redmine's sanitizeHTML leaves them as they are and a value inside
    an attribute could end it. */

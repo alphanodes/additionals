@@ -61,6 +61,12 @@ module AdditionalsSettingsHelper
                select_tag(tag_name, values, **options)]
   end
 
+  def additionals_settings_colorscheme_select(name, **options)
+    tag_name = options.delete(:tag_name).presence || "settings[#{name}]"
+    safe_join [label_tag(tag_name, additionals_settings_label(name, options)),
+               chartjs_colorscheme_select_tag(tag_name, @settings[name], **options)]
+  end
+
   def additionals_settings_textarea(name, **options)
     tag_name = options.delete(:tag_name).presence || "settings[#{name}]"
     value = if options.key? :value

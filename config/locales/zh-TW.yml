@@ -153,7 +153,6 @@ zh-TW:
   label_chart_valid_only: "僅有效項目"
   label_chart_week: "%{year}年第%{week}週"
   label_chart_with_name: "圖表：%{value}"
-  label_chartjs_colorscheme_info: "顏色清單"
   label_content_plural: "內容"
   label_copied_to_clipboard: "已複製！"
   label_custom_field_editable_info: "停用時，只能透過 API 呼叫或大量編輯進行變更。"

@@ -155,7 +155,6 @@ fr:
   label_chart_valid_only: "Entrées valides uniquement"
   label_chart_week: "S%{week}/%{year}"
   label_chart_with_name: "Graphique : %{value}"
-  label_chartjs_colorscheme_info: "Liste des couleurs"
   label_content_plural: "Contenus"
   label_copied_to_clipboard: "Copié !"
   label_custom_field_editable_info: "Si désactivé, les modifications ne sont possibles que via l'API ou la modification en masse."

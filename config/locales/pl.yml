@@ -159,7 +159,6 @@ pl:
   label_chart_valid_only: "Tylko prawidłowe wpisy"
   label_chart_week: "Tydz. %{week}/%{year}"
   label_chart_with_name: "Wykres: %{value}"
-  label_chartjs_colorscheme_info: "Lista kolorów"
   label_content_plural: "Zawartość"
   label_copied_to_clipboard: "Skopiowano!"
   label_custom_field_editable_info: "Jeśli wyłączone, zmiany są możliwe tylko przez API lub edycję zbiorczą."

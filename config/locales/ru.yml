@@ -159,7 +159,6 @@ ru:
   label_chart_valid_only: "Только допустимые записи"
   label_chart_week: "Нед. %{week}/%{year}"
   label_chart_with_name: "Диаграмма: %{value}"
-  label_chartjs_colorscheme_info: "Список цветов"
   label_content_plural: "Содержимое"
   label_copied_to_clipboard: "Скопировано!"
   label_custom_field_editable_info: "Если выключено, изменения возможны только через API или массовое редактирование."

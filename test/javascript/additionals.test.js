@@ -47,6 +47,38 @@ describe('additionals.js', () => {
     });
   });
 
+  describe('formatColorScheme', () => {
+    beforeEach(() => {
+      globalThis.Chart = { colorschemes: { tableau: { Tableau10: ['#4e79a7', '#f28e2b', '#e15759'] } } };
+    });
+
+    afterEach(() => {
+      delete globalThis.Chart;
+    });
+
+    it('shows a scheme with its colors', () => {
+      const result = formatColorScheme({ id: 'tableau.Tableau10', text: 'tableau.Tableau10' });
+      const swatches = [...result.querySelectorAll('.colorscheme-swatch')].map((swatch) => swatch.style.backgroundColor);
+
+      expect([result.textContent, swatches]).toEqual(['tableau.Tableau10', ['rgb(78, 121, 167)', 'rgb(242, 142, 43)', 'rgb(225, 87, 89)']]);
+    });
+
+    // Group headings and schemes the library does not know have no colors
+    it('shows a heading or an unknown scheme as text only', () => {
+      const heading = formatColorScheme({ text: 'Tableau' });
+      const unknown = formatColorScheme({ id: 'tableau.Unknown', text: 'tableau.Unknown' });
+
+      expect([heading.querySelectorAll('.colorscheme-swatch').length, unknown.querySelectorAll('.colorscheme-swatch').length])
+        .toEqual([0, 0]);
+    });
+
+    it('shows the name as text, not as markup', () => {
+      const result = formatColorScheme({ id: 'x.y', text: '<img src=x onerror=alert(1)>' });
+
+      expect(result.querySelector('img')).toBeNull();
+    });
+  });
+
   describe('formatNameWithIcon', () => {
     it('returns name when loading', () => {
       const result = formatNameWithIcon({ loading: true, name: 'Loading...' });

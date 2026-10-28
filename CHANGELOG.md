@@ -67,6 +67,8 @@
 - moment.js, `chartjs_moment` and `actioncable` removed from the asset loader
 - Incompatible: treemap and sankey are drawn with Chart.js, d3plus is removed; the library `d3plus` is replaced by `chartjs_treemap` and `chartjs_sankey`
 - Treemap and sankey use the configured color scheme
+- Add `chartjs_colorscheme_select_tag` and `additionals_settings_colorscheme_select`: a select of the color schemes that shows the colors of each scheme
+- Incompatible: `chartjs_colorschemes_info_url` is removed, the select shows the colors itself
 - Chart.js updated to 4.6.1
 - Chart.js Plugin matrix updated to 3.1.0
 - mermaid updated to 12.2.0

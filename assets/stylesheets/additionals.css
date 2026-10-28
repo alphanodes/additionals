@@ -784,3 +784,25 @@ table.entity-list td.block_column pre {
 .available-variables a.var {
   white-space: nowrap;
 }
+
+/* A color scheme in a select2: its name, then its colors. The light ring keeps
+   light colors visible on white. */
+.colorscheme-option {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.colorscheme-swatches {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 2px;
+}
+
+.colorscheme-swatch {
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 10%);
+  height: 12px;
+  width: 12px;
+}

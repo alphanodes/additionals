@@ -153,7 +153,6 @@ ko:
   label_chart_valid_only: "유효한 항목만"
   label_chart_week: "%{year}년 %{week}주차"
   label_chart_with_name: "차트: %{value}"
-  label_chartjs_colorscheme_info: "색상 목록"
   label_content_plural: "콘텐츠"
   label_copied_to_clipboard: "복사되었습니다!"
   label_custom_field_editable_info: "사용하지 않으면 API 호출이나 일괄 편집으로만 변경할 수 있습니다."

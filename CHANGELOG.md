@@ -68,6 +68,7 @@
 - Incompatible: treemap and sankey are drawn with Chart.js, d3plus is removed; the library `d3plus` is replaced by `chartjs_treemap` and `chartjs_sankey`
 - Treemap and sankey use the configured color scheme
 - Add `chartjs_colorscheme_select_tag` and `additionals_settings_colorscheme_select`: a select of the color schemes that shows the colors of each scheme
+- The color scheme select offers of Brewer only the palettes for categories and names the schemes without the count of their colors where that stays unique; a scheme chosen before stays selectable
 - Incompatible: `chartjs_colorschemes_info_url` is removed, the select shows the colors itself
 - Chart.js updated to 4.6.1
 - Chart.js Plugin matrix updated to 3.1.0

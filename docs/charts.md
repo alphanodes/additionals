@@ -241,6 +241,7 @@ Handled in `additionals.css` and the controller, worth knowing before changing t
 - The `clip` option of chartjs-plugin-datalabels cuts values off at the edge. Instead `layout.padding` reserves room for the longest value, values wider than their vertical bar are slanted by 45 degrees, and the legend of vertical bars sits below the chart, since the padding lies above the legend.
 - Canvas knows no CSS `var()`: the controller reads custom properties with `getComputedStyle`, so a theme changes the colors of the charts as well.
 - d3plus writes tooltips as HTML: the controller escapes every name, Chart.js draws on a canvas and needs no escaping.
+- d3plus adds controls to every chart (zoom, search, table view, download). Treemap and sankey switch them off: zoom brings nothing there, lists have an export of their own, and d3plus labels the download button in English for most languages. A new d3plus chart does the same.
 
 ## Testing
 

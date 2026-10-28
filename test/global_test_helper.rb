@@ -687,6 +687,19 @@ module Additionals
       assert_empty inline, 'Charts drawn in a view instead of from a payload (AdditionalsChart#payload)'
     end
 
+    # A live search advertises its search terms with info_fields. A term without
+    # a filter finds nothing, and no feature test notices that.
+    def assert_live_search_fields_filterable(plugin_id)
+      directory = Redmine::Plugin.find(plugin_id).directory
+      missing = Dir.glob(File.join(directory, 'lib/live_search/*.rb')).flat_map do |file|
+        klass = "LiveSearch::#{File.basename(file, '.rb').camelize}".constantize
+        filters = klass.send(:minidusen_syntax).fields.keys
+        klass.info_fields.filter_map { |field| "#{klass.name}: #{field}" unless filters.include? field.to_s }
+      end
+
+      assert_empty missing, 'advertised in info_fields without a filter'
+    end
+
     def assert_deface_overrides_valid(name_prefix:, optional_templates: false)
       prefix = "#{name_prefix}-"
       invalid_overrides = []

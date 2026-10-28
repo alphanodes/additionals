@@ -19,11 +19,20 @@ class CustomFieldNumberListFormatTest < Additionals::TestCase
   end
 
   def test_possible_values_must_be_distinct_numbers
-    { %w[1 2 3] => true, %w[1 two 3] => false, %w[1 1.0 2] => false, %w[0.5 -1 1.25] => true }.each do |values, valid|
+    # Only digits with a dot: the database would read 1_000, 1e3 or .5 differently
+    { %w[1 2 3] => true, %w[1 two 3] => false, %w[1 1.0 2] => false, %w[0.5 -1 1.25] => true,
+      %w[1_000] => false, %w[1e3] => false, %w[.5] => false, %w[5.] => false, %w[0,5] => false }.each do |values, valid|
       field = IssueCustomField.new name: "Size #{values.join}", field_format: 'number_list', possible_values: values
 
       assert_equal valid, field.valid?, values.inspect
     end
+  end
+
+  # Values are compared as text, so each number is stored in one notation
+  def test_possible_values_are_stored_in_one_notation
+    field = IssueCustomField.create! name: 'Weights', field_format: 'number_list', possible_values: %w[1.0 0.50 2 10.250]
+
+    assert_equal %w[1 0.5 2 10.25], field.reload.possible_values
   end
 
   def test_value_has_to_be_in_the_list
@@ -45,16 +54,21 @@ class CustomFieldNumberListFormatTest < Additionals::TestCase
     I18n.with_locale :en do
       assert_equal '0.5', @field.format.formatted_value(nil, @field, '0.5')
     end
+
+    # No thousands delimiter, so an export stays readable as a number
+    I18n.with_locale :fr do
+      assert_equal '1500', @field.format.formatted_value(nil, @field, '1500')
+    end
   end
 
   # Prefix and suffix, text and icon, on pages and lists only: selections,
   # exports and APIs get the plain number
   def test_prefix_and_suffix_show_in_html_only
-    @field.update! value_prefix: '<b>', value_prefix_icon: 'star', value_suffix: 'SP', value_suffix_icon: 'coins'
+    @field.update! value_prefix: '<b>', value_prefix_icon: 'star', value_suffix: 'kg', value_suffix_icon: 'coins'
     html = @field.format.formatted_value build_redmine_view, @field, '5', nil, true
 
     assert_predicate html, :html_safe?
-    assert_match(/icon--star.*&lt;b&gt; 5 SP.*icon--coins/m, html)
+    assert_match(/icon--star.*&lt;b&gt; 5 kg.*icon--coins/m, html)
     # Classes for themes: the value and both icons can be styled on their own
     assert_match(/\A<span class="number-list-value number-list-value-5">/, html)
     assert_match(/class="[^"]*number-list-prefix-icon[^"]*".*class="[^"]*number-list-suffix-icon/m, html)

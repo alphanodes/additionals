@@ -64,11 +64,11 @@ class CustomFieldsControllerTest < Additionals::ControllerTest
     field = IssueCustomField.create! name: 'Size', field_format: 'number_list', possible_values: %w[1 2 3]
 
     put :update, params: { id: field.id, custom_field: { value_prefix: '$', value_prefix_icon: 'star',
-                                                         value_suffix: 'SP', value_suffix_icon: 'coins' } }
+                                                         value_suffix: 'kg', value_suffix_icon: 'coins' } }
 
     field.reload
 
-    assert_equal ['$', 'star', 'SP', 'coins'],
+    assert_equal ['$', 'star', 'kg', 'coins'],
                  [field.value_prefix, field.value_prefix_icon, field.value_suffix, field.value_suffix_icon]
   end
 end

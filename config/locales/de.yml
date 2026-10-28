@@ -330,7 +330,7 @@ de:
   text_available_variables: "Verfügbare Variablen: %{variables}"
   text_dashboard_lock_confirmation: "Möchtest du dieses Dashboard wirklich sperren?"
   text_dashboard_unlock_confirmation: "Möchtest du die Sperre für dieses Dashboard wirklich aufheben?"
-  text_number_list_affix_info: "Steht auf Seiten und in Listen vor bzw. hinter der Zahl, z.B. $ oder SP. Nicht in Auswahlen, Filtern und Exporten."
+  text_number_list_affix_info: "Steht auf Seiten und in Listen vor bzw. hinter der Zahl, z.B. $ oder kg. Nicht in Auswahlen, Filtern und Exporten."
   text_number_list_possible_values_info: "Eine Zahl pro Zeile, Dezimalzahlen mit Punkt (z.B. 0.5)."
   top_rules_help: "Hier können Regeln konfiguriert werden, die den Umgang mit Tickets festlegen. Sobald eine Regel aktiviert wurde, wirkt sich diese auf alle Projekte aus."
   top_wiki_help: "Hier kannst du Inhalte und Einstellungen für das Wiki festlegen."

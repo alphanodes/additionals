@@ -326,7 +326,7 @@ ja:
   text_available_variables: "利用できる変数: %{variables}"
   text_dashboard_lock_confirmation: "このダッシュボードをロックしてもよろしいですか?"
   text_dashboard_unlock_confirmation: "このダッシュボードのロックを解除してもよろしいですか?"
-  text_number_list_affix_info: "ページや一覧で数値の前または後ろに表示されます（例: $ や SP）。選択肢、フィルター、エクスポートには表示されません。"
+  text_number_list_affix_info: "ページや一覧で数値の前または後ろに表示されます（例: $ や kg）。選択肢、フィルター、エクスポートには表示されません。"
   text_number_list_possible_values_info: "1行に1つの数値を入力します。小数は点で区切ります（例: 0.5）。"
   top_rules_help: "すべてのプロジェクトのチケットに適用するルールをここで定義できます。"
   top_wiki_help: "Wiki のコンテンツと設定をここで定義できます。"

@@ -18,15 +18,24 @@ module Redmine
 
       # Up to three decimals, like the numeric cast of core (decimal(30,3))
       PRECISION = 3
+      # Digits with an optional dot, as the database casts them: 1_000, 1e3 or
+      # .5 would be read differently by MySQL and PostgreSQL
+      NUMBER_REGEXP = /\A[+-]?\d+(\.\d+)?\z/
 
       class << self
         # The stored value as a number: an Integer for whole numbers, so 13
-        # stays 13 instead of 13.0, a Float otherwise
+        # stays 13 instead of 13.0, a Float otherwise. Totals come as numbers.
         def number(value)
-          decimal = BigDecimal value.to_s.strip, exception: false
-          return if decimal.nil? || !decimal.finite?
+          return number_of(BigDecimal(value.to_s)) if value.is_a? Numeric
 
-          decimal.frac.zero? ? decimal.to_i : decimal.to_f
+          text = value.to_s.strip
+          number_of BigDecimal(text) if text.match? NUMBER_REGEXP
+        end
+
+        # One notation per number, as stored and compared: 1.0 is 1, 0.50 is 0.5
+        def canonical(value)
+          number = number value
+          number.nil? ? value : number.to_s
         end
 
         # Class of a displayed value, so a theme can style single values:
@@ -41,7 +50,14 @@ module Redmine
           return value.to_s if number.nil?
 
           ActiveSupport::NumberHelper.number_to_rounded number, precision: PRECISION,
-                                                                strip_insignificant_zeros: true
+                                                                strip_insignificant_zeros: true,
+                                                                delimiter: ''
+        end
+
+        private
+
+        def number_of(decimal)
+          decimal.frac.zero? ? decimal.to_i : decimal.to_f
         end
       end
 
@@ -61,6 +77,13 @@ module Redmine
         errors
       end
 
+      # Values are compared as text (filters, group links, selected option), so
+      # every number is stored in one notation
+      def before_custom_field_save(custom_field)
+        super
+        custom_field.possible_values = Array.wrap(custom_field.possible_values).map { |value| self.class.canonical value }
+      end
+
       def cast_single_value(_custom_field, value, _customized = nil)
         self.class.number value
       end
@@ -72,7 +95,7 @@ module Redmine
 
       # The number in the language of the user. A string, so format_object does
       # not turn 0.5 into "0.50" like it does with floats. Prefix and suffix
-      # ("$ 500", "21 SP") belong to pages and lists only: selections show the
+      # ("$ 500", "12 kg") belong to pages and lists only: selections show the
       # number next to the field name, exports and APIs need the plain number.
       def formatted_value(view, custom_field, value, _customized = nil, html = false) # rubocop:disable Style/OptionalBooleanParameter
         text = self.class.localized value

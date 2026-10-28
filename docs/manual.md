@@ -121,7 +121,7 @@ The format _Number list_ offers a list of fixed numbers, e.g. a scale of 1, 2, 3
 
 The field is edited like a list, as a select or radio buttons, and evaluated like a number: lists can sum it up (option _Totals_), sort and group it by number (2 before 13) and filter by its values. It holds one value per object. Values show in the number format of the user's language, e.g. 0,5 in German.
 
-_Prefix_ and _Suffix_ add a text and an icon before or after the number, e.g. "$ 500" or "21 SP". They show on pages and in lists only; selections, filters, exports and the API get the plain number.
+_Prefix_ and _Suffix_ add a text and an icon before or after the number, e.g. "$ 500" or "12 kg". They show on pages and in lists only; selections, filters, exports and the API get the plain number.
 
 For themes, a displayed value carries the classes `number-list-value` and `number-list-value-<value>` (`number-list-value-13`, `number-list-value-0-5`), its icons `number-list-prefix-icon` and `number-list-suffix-icon`. Example: `td.cf_25 .number-list-value-40 .number-list-suffix-icon { stroke: var(--oc-red-8); }`.
 

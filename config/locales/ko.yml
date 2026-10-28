@@ -326,7 +326,7 @@ ko:
   text_available_variables: "사용 가능한 변수: %{variables}"
   text_dashboard_lock_confirmation: "이 대시보드를 잠그시겠습니까?"
   text_dashboard_unlock_confirmation: "이 대시보드의 잠금을 해제하시겠습니까?"
-  text_number_list_affix_info: "페이지와 목록에서 숫자 앞이나 뒤에 표시됩니다(예: $ 또는 SP). 선택 항목, 필터, 내보내기에는 표시되지 않습니다."
+  text_number_list_affix_info: "페이지와 목록에서 숫자 앞이나 뒤에 표시됩니다(예: $ 또는 kg). 선택 항목, 필터, 내보내기에는 표시되지 않습니다."
   text_number_list_possible_values_info: "한 줄에 숫자 하나를 입력합니다. 소수는 점으로 구분합니다(예: 0.5)."
   top_rules_help: "모든 프로젝트의 일감에 적용할 규칙을 여기에서 정의할 수 있습니다."
   top_wiki_help: "위키의 콘텐츠와 설정을 여기에서 정의할 수 있습니다."

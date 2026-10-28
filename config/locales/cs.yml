@@ -334,7 +334,7 @@ cs:
   text_available_variables: "Dostupné proměnné: %{variables}"
   text_dashboard_lock_confirmation: "Opravdu chcete tento dashboard zamknout?"
   text_dashboard_unlock_confirmation: "Opravdu chcete tento dashboard odemknout?"
-  text_number_list_affix_info: "Zobrazí se před číslem nebo za ním na stránkách a v seznamech, např. $ nebo SP. Ne ve výběrech, filtrech a exportech."
+  text_number_list_affix_info: "Zobrazí se před číslem nebo za ním na stránkách a v seznamech, např. $ nebo kg. Ne ve výběrech, filtrech a exportech."
   text_number_list_possible_values_info: "Jedno číslo na řádek, desetinná čísla s tečkou (např. 0.5)."
   top_rules_help: "Zde můžete definovat pravidla, která platí pro úkoly ve všech projektech."
   top_wiki_help: "Zde můžete definovat obsah a nastavení wiki."

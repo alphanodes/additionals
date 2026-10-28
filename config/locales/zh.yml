@@ -326,7 +326,7 @@ zh:
   text_available_variables: "可用变量：%{variables}"
   text_dashboard_lock_confirmation: "确定要锁定此仪表盘吗？"
   text_dashboard_unlock_confirmation: "确定要解除此仪表盘的锁定吗？"
-  text_number_list_affix_info: "在页面和列表中显示在数字之前或之后，例如 $ 或 SP。不显示在选项、过滤器和导出中。"
+  text_number_list_affix_info: "在页面和列表中显示在数字之前或之后，例如 $ 或 kg。不显示在选项、过滤器和导出中。"
   text_number_list_possible_values_info: "每行一个数字，小数用点分隔（例如 0.5）。"
   top_rules_help: "在此可以定义适用于所有项目中问题的规则。"
   top_wiki_help: "在此可以定义 Wiki 的内容和设置。"

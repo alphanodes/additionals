@@ -330,7 +330,7 @@ pt-BR:
   text_available_variables: "Variáveis disponíveis: %{variables}"
   text_dashboard_lock_confirmation: "Tem certeza de que deseja bloquear este dashboard?"
   text_dashboard_unlock_confirmation: "Tem certeza de que deseja desbloquear este dashboard?"
-  text_number_list_affix_info: "Exibido antes ou depois do número em páginas e listas, ex.: $ ou SP. Não em seleções, filtros e exportações."
+  text_number_list_affix_info: "Exibido antes ou depois do número em páginas e listas, ex.: $ ou kg. Não em seleções, filtros e exportações."
   text_number_list_possible_values_info: "Um número por linha, decimais com ponto (ex.: 0.5)."
   top_rules_help: "Aqui você pode definir regras que valem para as tarefas de todos os projetos."
   top_wiki_help: "Aqui você pode definir conteúdos e configurações da wiki."

@@ -15,6 +15,7 @@
 * **Issue rules**: freeze closed issues, assign automatically on status changes, require logged time for selected statuses
 * **Issue shortcuts**: _Assign to me_, status change in the sidebar, fast edit of the description, new issue from a user profile, linked categories
 * **Note for new issues**, global and per project
+* **Custom field format "Number list"**: fixed numbers to choose from, summed up and sorted as numbers
 * **Global contents**: text on the login page, global sidebar, footer and wiki sidebar
 * **Hidden roles** in member boxes and lists, auto-watch of issues assigned to you, change of the issue author
 * **Help menu** with links to the documentation of Redmine and installed plugins

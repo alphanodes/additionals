@@ -219,6 +219,7 @@ module Additionals
                           ApplicationController
                           ApplicationHelper
                           AutoCompletesController
+                          CustomField
                           Issue
                           TimeEntry
                           Mailer
@@ -267,21 +268,10 @@ module Additionals
                                 AdditionalsQueryChartHelper,
                                 AdditionalsSelect2Helper]
 
-      Redmine::WikiFormatting.format_names.each do |format|
-        case format
-        when 'common_mark'
-          loader.add_patch [{ target: Redmine::WikiFormatting::CommonMark::Formatter, patch: 'FormatterCommonMark' }]
-          loader.add_patch [{ target: Redmine::WikiFormatting::CommonMark::Helper, patch: 'FormattingHelper' }]
-        when 'textile'
-          loader.add_patch [{ target: textile_rules_class, patch: 'FormatterTextile' },
-                            { target: Redmine::WikiFormatting::Textile::Helper, patch: 'FormattingHelper' }]
-        end
-      end
+      add_wiki_formatting_patches
 
-      # Load Loofah scrubbers for CommonMark formatting
-      loader.require_files File.join('wiki_formatting', 'common_mark', '**/*_scrubber.rb')
-
-      # Apply patches and helper
+      # Custom field formats, patches and helper
+      loader.load_custom_field_format!
       loader.apply!
 
       # Dashboard blocks of all plugins
@@ -295,6 +285,22 @@ module Additionals
 
       # Global search providers of all plugins
       GlobalSearch.load!
+    end
+
+    def add_wiki_formatting_patches
+      Redmine::WikiFormatting.format_names.each do |format|
+        case format
+        when 'common_mark'
+          loader.add_patch [{ target: Redmine::WikiFormatting::CommonMark::Formatter, patch: 'FormatterCommonMark' }]
+          loader.add_patch [{ target: Redmine::WikiFormatting::CommonMark::Helper, patch: 'FormattingHelper' }]
+        when 'textile'
+          loader.add_patch [{ target: textile_rules_class, patch: 'FormatterTextile' },
+                            { target: Redmine::WikiFormatting::Textile::Helper, patch: 'FormattingHelper' }]
+        end
+      end
+
+      # Load Loofah scrubbers for CommonMark formatting
+      loader.require_files File.join('wiki_formatting', 'common_mark', '**/*_scrubber.rb')
     end
 
     # Read adapter from database.yml without opening a connection, so the check

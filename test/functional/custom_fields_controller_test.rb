@@ -2,8 +2,8 @@
 
 require File.expand_path '../../test_helper', __FILE__
 
-# Verifies the additionals form partial of the "user" format that adds the
-# user scope selector (all / active / project / roles).
+# Verifies the additionals form partials: the "user" format with its user
+# scope selector (all / active / project / roles) and the number list.
 class CustomFieldsControllerTest < Additionals::ControllerTest
   def setup
     @request.session[:user_id] = 1
@@ -39,5 +39,36 @@ class CustomFieldsControllerTest < Additionals::ControllerTest
     get :edit, params: { id: field.id }
 
     assert_select 'select#custom_field_possible_principals option[value=group][selected=selected]'
+  end
+
+  # The number list offers its values, a default and the display style, but no
+  # multiple values, no links and no search
+  def test_edit_number_list_field_renders_its_own_options
+    field = IssueCustomField.create! name: 'Size', field_format: 'number_list', possible_values: %w[1 2 3]
+
+    get :edit, params: { id: field.id }
+
+    assert_response :success
+    assert_select 'textarea[name=?]', 'custom_field[possible_values]', text: "1\n2\n3"
+    assert_select 'input[name=?]', 'custom_field[default_value]'
+    assert_select 'select[name=?]', 'custom_field[edit_tag_style]'
+    %w[value_prefix_icon value_suffix_icon].each do |attribute|
+      assert_select 'select[name=?]', "custom_field[#{attribute}]"
+    end
+    %w[multiple url_pattern searchable].each do |attribute|
+      assert_select 'input[name=?]', "custom_field[#{attribute}]", 0
+    end
+  end
+
+  def test_update_number_list_field_saves_prefix_and_suffix
+    field = IssueCustomField.create! name: 'Size', field_format: 'number_list', possible_values: %w[1 2 3]
+
+    put :update, params: { id: field.id, custom_field: { value_prefix: '$', value_prefix_icon: 'star',
+                                                         value_suffix: 'SP', value_suffix_icon: 'coins' } }
+
+    field.reload
+
+    assert_equal ['$', 'star', 'SP', 'coins'],
+                 [field.value_prefix, field.value_prefix_icon, field.value_suffix, field.value_suffix_icon]
   end
 end

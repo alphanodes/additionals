@@ -25,7 +25,7 @@ describe('additionals_stimulus.js', () => {
     beforeEach(() => {
       run += 1;
       window.ADDITIONALS_LIBRARIES = {
-        d3plus: [{ type: 'js', url: url('d3plus.js') }],
+        chartjs_treemap: [{ type: 'js', url: url('treemap.js') }],
         chartjs_matrix: [{ type: 'js', url: url('chart.js') }, { type: 'js', url: url('matrix.js') }],
         select2: [{ type: 'css', url: url('select2.css') }],
       };
@@ -41,10 +41,10 @@ describe('additionals_stimulus.js', () => {
     });
 
     it('adds the script of a library to the page', async () => {
-      window.AdditionalsHelpers.loadLibrary('d3plus');
+      window.AdditionalsHelpers.loadLibrary('chartjs_treemap');
       await tick();
 
-      expect(scripts().map((script) => script.getAttribute('src'))).toEqual([url('d3plus.js')]);
+      expect(scripts().map((script) => script.getAttribute('src'))).toEqual([url('treemap.js')]);
     });
 
     it('loads a stylesheet as link', async () => {
@@ -55,7 +55,7 @@ describe('additionals_stimulus.js', () => {
     });
 
     it('resolves once the library is loaded', async () => {
-      const loaded = window.AdditionalsHelpers.loadLibrary('d3plus');
+      const loaded = window.AdditionalsHelpers.loadLibrary('chartjs_treemap');
       await tick();
       finish('load');
 
@@ -74,8 +74,8 @@ describe('additionals_stimulus.js', () => {
     });
 
     it('adds a library requested twice only once', async () => {
-      window.AdditionalsHelpers.loadLibrary('d3plus');
-      window.AdditionalsHelpers.loadLibrary('d3plus');
+      window.AdditionalsHelpers.loadLibrary('chartjs_treemap');
+      window.AdditionalsHelpers.loadLibrary('chartjs_treemap');
       await tick();
 
       expect(scripts()).toHaveLength(1);
@@ -84,18 +84,18 @@ describe('additionals_stimulus.js', () => {
     // e.g. from the libraries the server put into the head
     it('skips an asset the page has already', async () => {
       const script = document.createElement('script');
-      script.setAttribute('src', url('d3plus.js'));
+      script.setAttribute('src', url('treemap.js'));
       document.head.appendChild(script);
 
-      await expect(window.AdditionalsHelpers.loadLibrary('d3plus')).resolves.toBeUndefined();
+      await expect(window.AdditionalsHelpers.loadLibrary('chartjs_treemap')).resolves.toBeUndefined();
     });
 
     it('tries a failed library again on the next request', async () => {
-      const failed = window.AdditionalsHelpers.loadLibrary('d3plus');
+      const failed = window.AdditionalsHelpers.loadLibrary('chartjs_treemap');
       await tick();
       finish('error');
-      await expect(failed).rejects.toThrow(`Could not load ${url('d3plus.js')}`);
-      window.AdditionalsHelpers.loadLibrary('d3plus');
+      await expect(failed).rejects.toThrow(`Could not load ${url('treemap.js')}`);
+      window.AdditionalsHelpers.loadLibrary('chartjs_treemap');
       await tick();
 
       expect(scripts()).toHaveLength(1);

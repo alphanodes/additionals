@@ -1,7 +1,7 @@
 /* global Chart */
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import AdditionalsChartController, {
-  chartConfig, renderTreemap, renderSankey, valueTicks, tooltipLine, withColors, shareDatasets, lineAnnotations, colorWithAlpha, areaGradient, legendLabels, schemeFill, pageLocale, formatNumber, markerTop, markerPlugin, matrixConfig, calendarConfig, calendarLevel, calendarLegend, calendarMonthLabels,
+  chartConfig, treemapConfig, treemapTiles, treemapLabelLayout, contrastingText, percentText, sankeyConfig, sankeyNodeAt, valueTicks, tooltipLine, withColors, shareDatasets, lineAnnotations, colorWithAlpha, areaGradient, legendLabels, schemeFill, pageLocale, formatNumber, markerTop, markerPlugin, matrixConfig, calendarConfig, calendarLevel, calendarLegend, calendarMonthLabels,
 } from '../../../assets/javascripts/controllers/additionals_chart_controller.js';
 
 function payload(overrides = {}) {
@@ -56,54 +56,29 @@ function partContext(bar) {
   };
 }
 
-// d3plus.Treemap is called with new and configured by chained calls. The mock
-// keeps the argument of each call.
-function mockTreemap() {
-  const calls = {};
-  class Treemap {
-    render() {
-      calls.render = true;
-      return this;
-    }
-  }
-  ['data', 'groupBy', 'sum', 'thresholdName', 'label', 'shapeConfig', 'select', 'legend', 'zoom', 'search', 'tableView', 'saveControl', 'on', 'tooltipConfig']
-    .forEach((method) => {
-      Treemap.prototype[method] = function chain(value, handler) {
-        // on(event, handler) keeps the handler
-        calls[method] = method === 'on' ? handler : value;
-        return this;
-      };
-    });
-  globalThis.d3plus = { Treemap };
-  return calls;
-}
-
-function mockSankey() {
-  const calls = {};
-  class Sankey {
-    render() {
-      calls.render = true;
-      return this;
-    }
-  }
-  ['select', 'zoom', 'search', 'tableView', 'saveControl', 'nodes', 'links', 'nodeAlign', 'label', 'on', 'tooltipConfig']
-    .forEach((method) => {
-      Sankey.prototype[method] = function chain(value, handler) {
-        calls[method] = method === 'on' ? handler : value;
-        return this;
-      };
-    });
-  globalThis.d3plus = { Sankey };
-  return calls;
-}
-
+// Projects with A and B, A with C and D
 function sankeyPayload() {
   return {
     type: 'sankey',
     sankey: {
-      nodes: [{ id: 'root', name: 'Projects' }, { id: 'a', name: '<b>A</b>', url: '/projects/a' }],
-      links: [{ source: 'root', target: 'a' }],
+      nodes: [{ id: 'root', name: 'Projects' }, { id: 'a', name: '<b>A</b>', url: '/projects/a' },
+        { id: 'b', name: 'B', url: '/projects/b' }, { id: 'c', name: 'C', url: '/projects/c' }, { id: 'd', name: 'D', url: '/projects/d' }],
+      links: [{ source: 'root', target: 'a' }, { source: 'root', target: 'b' }, { source: 'a', target: 'c' }, { source: 'a', target: 'd' }],
     },
+  };
+}
+
+// A drawn sankey of the payload: each flow 50 high, its source node ends at
+// x, its target node starts at x2
+function sankeyChart(sankey, elementsAt = () => []) {
+  const places = [[10, 100, 0, 0], [10, 100, 100, 100], [110, 200, 0, 0], [110, 200, 50, 50]];
+  return {
+    data: sankey.data,
+    canvas: document.createElement('canvas'),
+    getElementsAtEventForMode: elementsAt,
+    getDatasetMeta: () => ({
+      data: places.map(([x, x2, y, y2]) => ({ getProps: () => ({ x, x2, y, y2, height: 50 }) })),
+    }),
   };
 }
 
@@ -118,10 +93,6 @@ function config() {
 }
 
 describe('chart configuration', () => {
-  beforeEach(() => {
-    delete globalThis.d3plus;
-  });
-
   afterEach(() => {
     vi.restoreAllMocks();
   });
@@ -440,121 +411,183 @@ describe('chart configuration', () => {
     expect(config().data.datasets[0].pointRadius).toBe(0);
   });
 
-  it('draws a treemap with d3plus instead of Chart.js', () => {
-    const calls = mockTreemap();
-    renderTreemap(document.createElement('div'), payload({ type: 'treemap' }));
+  it('draws a treemap with the treemap plugin of Chart.js', () => {
+    const treemap = treemapConfig(document.createElement('canvas'), payload({ type: 'treemap' }));
 
-    expect(calls.render).toBe(true);
+    expect([treemap.type, treemap.data.datasets[0].key]).toEqual(['treemap', 'value']);
   });
 
-  // d3plus fetches a data field named url as JSON, one request per tile
-  it('hands the links to d3plus without a url field', () => {
-    const calls = mockTreemap();
-    renderTreemap(document.createElement('div'), payload({ type: 'treemap' }));
+  it('writes the name bold at the top left and the share smaller below it', () => {
+    // jsdom measures no text, every character is half its font size wide
+    vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue({
+      font: '12px sans-serif',
+      measureText(text) { return { width: text.length * Number.parseInt(this.font.match(/(\d+)px/)[1], 10) * 0.5 }; },
+    });
+    const { labels } = treemapConfig(document.createElement('canvas'), payload({ type: 'treemap' })).data.datasets[0];
+    const context = { dataIndex: 0, raw: { w: 400, h: 300, v: 3, _data: { tile: 'Bug' } } };
+    const fonts = labels.font(context);
 
-    expect(calls.data.some((tile) => 'url' in tile)).toBe(false);
+    expect([labels.align, labels.position, fonts.map((font) => font.weight), fonts[1].size < fonts[0].size])
+      .toEqual(['left', 'top', ['600', undefined], true]);
+  });
+
+  // The server sends the largest entry first, the rest belongs at the end
+  it('keeps the tiles in the order of the server', () => {
+    const treemap = treemapConfig(document.createElement('canvas'), payload({ type: 'treemap' }));
+
+    expect(treemap.data.datasets[0].unsorted).toBe(true);
   });
 
   // Two versions "1.0" of different projects must not become one tile
   it('keeps tiles with the same name apart', () => {
-    const calls = mockTreemap();
-    renderTreemap(document.createElement('div'), payload({ type: 'treemap' }));
+    const tiles = treemapTiles(payload({ type: 'treemap', labels: ['1.0', '1.0'] }));
 
-    expect(calls.groupBy).toBe('id');
+    expect(tiles.map((tile) => tile.value)).toEqual([3, 1]);
   });
 
-  // d3plus writes its tooltip as HTML
-  it('escapes the names in the tooltip of a treemap', () => {
-    const calls = mockTreemap();
-    renderTreemap(document.createElement('div'), payload({ type: 'treemap', labels: ['<img src=x onerror=alert(1)>', 'Feature'] }));
+  it('labels a tile with its name or the text of the server instead', () => {
+    const named = treemapTiles(payload({ type: 'treemap' }));
+    const sized = treemapTiles(payload({ type: 'treemap', tileLabels: ['8 MB', '1 MB'] }));
 
-    expect(calls.tooltipConfig.title({ name: '<img src=x onerror=alert(1)>' })).toBe('&lt;img src=x onerror=alert(1)&gt;');
+    expect([named[0].tile, sized[0].tile, sized[0].name]).toEqual(['Bug', '8 MB', 'Bug']);
   });
 
-  it('names the rest of small tiles as the server says', () => {
-    const calls = mockTreemap();
-    renderTreemap(document.createElement('div'), payload({ type: 'treemap', restLabel: 'Rest' }));
+  it('merges the tiles below 0.01 % into the rest named by the server', () => {
+    const tiles = treemapTiles(payload({ type: 'treemap', restLabel: 'Rest', labels: ['A', 'B', 'C'],
+      datasets: [{ data: [100000, 5, 4], urls: ['/a', '/b', '/c'] }], total: 100009 }));
 
-    expect(calls.label({ _isAggregation: true, name: ['Bug', 'Feature'] })).toBe('Rest');
+    expect(tiles.map((tile) => [tile.name, tile.value, Boolean(tile.rest)])).toEqual([['A', 100000, false], ['Rest', 9, true]]);
   });
 
-  it('names a tile of merged names the rest', () => {
-    const calls = mockTreemap();
-    renderTreemap(document.createElement('div'), payload({ type: 'treemap', restLabel: 'Rest' }));
+  // A single small tile keeps its own name and link
+  it('keeps a single small tile on its own', () => {
+    const tiles = treemapTiles(payload({ type: 'treemap', restLabel: 'Rest', labels: ['A', 'B'],
+      datasets: [{ data: [100000, 5], urls: ['/a', '/b'] }], total: 100005 }));
 
-    expect(calls.label({ name: ['Bug', 'Feature'] })).toBe('Rest');
+    expect(tiles.map((tile) => tile.name)).toEqual(['A', 'B']);
   });
 
-  it('shows the name of a tile as it is, without markup', () => {
-    const calls = mockTreemap();
-    renderTreemap(document.createElement('div'), payload({ type: 'treemap' }));
+  // A rest without a name would be a tile nobody can read
+  it('merges no tiles without a name for the rest', () => {
+    const tiles = treemapTiles(payload({ type: 'treemap', labels: ['A', 'B', 'C'],
+      datasets: [{ data: [100000, 5, 4], urls: ['/a', '/b', '/c'] }], total: 100009 }));
 
-    expect(calls.shapeConfig.labelConfig.html).toBe(false);
+    expect(tiles).toHaveLength(3);
   });
 
-  it('labels a tile with its name', () => {
-    const calls = mockTreemap();
-    renderTreemap(document.createElement('div'), payload({ type: 'treemap' }));
+  it('puts the largest tile first', () => {
+    const tiles = treemapTiles(payload({ type: 'treemap', labels: ['Small', 'Large'], datasets: [{ data: [1, 3] }] }));
 
-    expect(calls.label(calls.data[0])).toBe('Bug');
+    expect(tiles.map((tile) => tile.name)).toEqual(['Large', 'Small']);
   });
 
-  it('labels a tile with the text of the server instead', () => {
-    const calls = mockTreemap();
-    renderTreemap(document.createElement('div'), payload({ type: 'treemap', tileLabels: ['8 MB', '1 MB'] }));
-
-    expect(calls.label(calls.data[0])).toBe('8 MB');
-  });
-
-  it('keeps the name as title of a tile with a text of its own', () => {
-    const calls = mockTreemap();
-    renderTreemap(document.createElement('div'), payload({ type: 'treemap', tileLabels: ['8 MB', '1 MB'] }));
-
-    expect(calls.tooltipConfig.title(calls.data[0])).toBe('Bug');
-  });
-
-  it('names the rest of small tiles where d3plus labels it itself', () => {
-    const calls = mockTreemap();
-    renderTreemap(document.createElement('div'), payload({ type: 'treemap', restLabel: 'Rest' }));
-
-    expect(calls.thresholdName()).toBe('Rest');
-  });
-
-  it('opens no list for the rest of small tiles', () => {
+  it('opens the entry of a clicked tile, but nothing for the rest', () => {
     const open = vi.spyOn(window, 'open').mockImplementation(() => null);
-    const calls = mockTreemap();
-    renderTreemap(document.createElement('div'), payload({ type: 'treemap' }));
-    calls.on({ _isAggregation: true, name: ['Bug'], link: ['/issues?tracker=1'] });
+    const treemap = treemapConfig(document.createElement('canvas'), payload({ type: 'treemap' }));
+    const click = (tile) => treemap.options.onClick(null, [], {
+      getElementsAtEventForMode: () => [{ index: 0 }],
+      data: { datasets: [{ data: [{ _data: tile }] }] },
+    });
+    click({ url: '/issues?tracker=1' });
+    click({ rest: true, url: null });
 
-    expect(open).not.toHaveBeenCalled();
+    expect(open.mock.calls).toEqual([['/issues?tracker=1']]);
     open.mockRestore();
   });
 
-  it('adds the tooltip line of a tile, escaped', () => {
-    const calls = mockTreemap();
-    renderTreemap(document.createElement('div'), payload({
-      type: 'treemap',
-      datasets: [{ label: 'Issues', data: [3, 1], tooltips: ['Project: <b>A</b>', null] }],
-    }));
+  // While the tiles grow, a click must find the tile at its final place
+  it('looks for a clicked tile at its final place', () => {
+    const treemap = treemapConfig(document.createElement('canvas'), payload({ type: 'treemap' }));
+    const find = vi.fn(() => []);
+    treemap.options.onClick(null, [], { getElementsAtEventForMode: find, data: { datasets: [{ data: [] }] } });
 
-    expect(calls.tooltipConfig.body(calls.data[0])).toBe('Quantity: 3 (75%)<br>Project: &lt;b&gt;A&lt;/b&gt;');
+    expect(find.mock.calls[0][3]).toBe(true);
   });
 
-  it('leaves out the untranslated share row of d3plus', () => {
-    const calls = mockTreemap();
-    renderTreemap(document.createElement('div'), payload({ type: 'treemap' }));
+  it('names value, share and the tooltip line of a tile in its tooltip', () => {
+    const data = payload({ type: 'treemap', datasets: [{ label: 'Issues', data: [3, 1], tooltips: ['Project: <b>A</b>', null] }] });
+    const treemap = treemapConfig(document.createElement('canvas'), data);
+    const [tile] = treemapTiles(data);
+    const { callbacks } = treemap.options.plugins.tooltip;
+    const item = { raw: { _data: tile, v: 3 } };
 
-    expect(calls.tooltipConfig.tbody).toEqual([]);
+    expect([callbacks.title([item]), callbacks.label(item)]).toEqual(['Bug', ['Quantity: 3 (75%)', 'Project: <b>A</b>']]);
   });
 
-  // d3plus labels its download button in English for most languages
-  it('draws treemap and sankey without the download button of d3plus', () => {
-    const treemap = mockTreemap();
-    renderTreemap(document.createElement('div'), payload({ type: 'treemap' }));
-    const sankey = mockSankey();
-    renderSankey(document.createElement('div'), sankeyPayload());
+  it('names only the share in the tooltip of the rest', () => {
+    const treemap = treemapConfig(document.createElement('canvas'), payload({ type: 'treemap' }));
+    const item = { raw: { _data: { name: 'Rest', rest: true, value: 1 }, v: 1 } };
 
-    expect([treemap.saveControl, sankey.saveControl]).toEqual([false, false]);
+    expect(treemap.options.plugins.tooltip.callbacks.label(item)).toEqual(['Quantity: 25%']);
+  });
+
+  it('writes the share with a decimal where it is small', () => {
+    expect([percentText(1, 300), percentText(0, 0)]).toEqual(['0.3%', '0%']);
+  });
+});
+
+describe('treemap labels', () => {
+  // Every character as wide as half its font size
+  const measure = (text, size) => text.length * size * 0.5;
+
+  it('writes name and share as large as the tile allows', () => {
+    expect(treemapLabelLayout(['Office', '4.1%'], 400, 300, measure)).toEqual({ size: 28, lines: ['Office', '4.1%'] });
+  });
+
+  it('makes the text smaller to fit a narrow tile', () => {
+    expect(treemapLabelLayout(['Office', '4.1%'], 60, 300, measure).size).toBe(17);
+  });
+
+  it('wraps a long name at spaces', () => {
+    expect(treemapLabelLayout(['Munich Folk Theatre', '4.1%'], 200, 300, measure).lines).toEqual(['Munich Folk', 'Theatre', '4.1%']);
+  });
+
+  // Subjects of issues rarely fit, as much of them as the tile holds tells more than nothing
+  it('shortens a name that does not fit to the lines the tile holds', () => {
+    expect(treemapLabelLayout(['Nameserver change for the web project of the city', '1.5%'], 100, 60, measure))
+      .toEqual({ size: 11, lines: ['Nameserver', 'change for the…', '1.5%'] });
+  });
+
+  it('splits a word too long for a line where the tile has more lines', () => {
+    expect(treemapLabelLayout(['Stornoformular funktioniert', '4.1%'], 70, 100, measure))
+      .toEqual({ size: 13, lines: ['Stornofo-', 'rmular', 'funktion-', 'iert', '4.1%'] });
+  });
+
+  // "Kraft-Wärme" split after its own hyphen must not show two
+  it('adds no second hyphen where a split word has one', () => {
+    const lines = Array.from({ length: 40 }, (_v, index) => treemapLabelLayout(['Kraft-Waermekopplung', '1%'], 40 + index, 80, measure))
+      .flatMap((layout) => layout?.lines || []);
+
+    expect(lines.filter((line) => line.includes('--'))).toEqual([]);
+  });
+
+  it('shortens a word longer than the tile', () => {
+    expect(treemapLabelLayout(['Notificationservice', '0.4%'], 60, 40, measure)).toEqual({ size: 11, lines: ['Notifica…', '0.4%'] });
+  });
+
+  it('writes a shortened name smaller where that shows more of it', () => {
+    expect(treemapLabelLayout(['Daily Standup Meeting', '0.6%'], 52, 55, measure))
+      .toEqual({ size: 11, lines: ['Daily', 'Standup…', '0.6%'] });
+  });
+
+  // A short last line must not throw away the lines above it
+  it('ends a short last line in the ellipsis', () => {
+    expect(treemapLabelLayout(['Kalender B: Planung', '1%'], 52, 50, measure)).toEqual({ size: 11, lines: ['Kalender', 'B:…', '1%'] });
+  });
+
+  it('shows only the share where no name fits', () => {
+    expect(treemapLabelLayout(['Office', '4.1%'], 30, 30, measure)).toEqual({ size: 11, lines: ['4.1%'] });
+  });
+
+  // Text below the smallest size cannot be read, the name is in the tooltip
+  it('leaves a tile empty where not even the share fits', () => {
+    expect([treemapLabelLayout(['Office', '4.1%'], 15, 300, measure),
+      treemapLabelLayout(['Office', '4.1%'], 300, 12, measure)]).toEqual([null, null]);
+  });
+
+  it('writes dark text on light tiles and light text on dark ones', () => {
+    expect(['#ffdd71', '#b10318', 'rgb(255, 255, 255)', '#000'].map((color) => contrastingText(color, 'dark', 'light')))
+      .toEqual(['dark', 'light', 'dark', 'light']);
   });
 });
 
@@ -630,41 +663,96 @@ describe('language of the page', () => {
 });
 
 describe('sankey', () => {
-  afterEach(() => {
-    delete globalThis.d3plus;
+  it('draws a sankey with the sankey plugin of Chart.js, without names at the nodes', () => {
+    const sankey = sankeyConfig(document.createElement('canvas'), sankeyPayload());
+
+    expect([sankey.type, sankey.data.datasets[0].nodeLabels.display]).toEqual(['sankey', false]);
   });
 
-  // d3plus fetches a data field named url as JSON
-  it('hands the links of the nodes to d3plus without a url field', () => {
-    const calls = mockSankey();
-    renderSankey(document.createElement('div'), sankeyPayload());
+  it('makes a parent as thick as its children', () => {
+    const sankey = sankeyConfig(document.createElement('canvas'), sankeyPayload());
 
-    expect(calls.nodes.some((node) => 'url' in node)).toBe(false);
+    expect(sankey.data.datasets[0].data.map(({ from, to, flow }) => [from, to, flow]))
+      .toEqual([['root', 'a', 2], ['root', 'b', 1], ['a', 'c', 1], ['a', 'd', 1]]);
   });
 
-  it('opens the page of a clicked node', () => {
+  // A family stands out at every level, also where one branch holds almost all
+  it('gives the children of a parent one color, the next family the next color', () => {
+    window.Chart = { colorschemes: { test: { dark: ['#aa0000', '#006600', '#0000aa'] } } };
+    const { colorTo } = sankeyConfig(document.createElement('canvas'), { ...sankeyPayload(), colorSchema: 'test.dark' }).data.datasets[0];
+    const colors = [['root', 'a'], ['root', 'b'], ['a', 'c'], ['a', 'd']].map(([from, to]) => colorTo({ raw: { from, to } }));
+    delete window.Chart;
+
+    expect(colors).toEqual(['#aa0000', '#aa0000', '#006600', '#006600']);
+  });
+
+  // Light colors of sequential schemes vanish on white, e.g. the yellow of YlGnBu
+  it('leaves out colors of the scheme too light for thin flows', () => {
+    window.Chart = { colorschemes: { test: { light: ['#ffffd9', '#edf8b1', '#41b6c4', '#081d58'] } } };
+    const { colorTo } = sankeyConfig(document.createElement('canvas'), { ...sankeyPayload(), colorSchema: 'test.light' }).data.datasets[0];
+    const colors = [['root', 'a'], ['a', 'c']].map(([from, to]) => colorTo({ raw: { from, to } }));
+    delete window.Chart;
+
+    expect(colors).toEqual(['#41b6c4', '#081d58']);
+  });
+
+  // The plugin delays each flow by 20 ms, a large tree took several seconds to appear
+  it('lets even a large tree appear within a short time', () => {
+    const many = { type: 'sankey', sankey: { nodes: [{ id: 'root', name: 'Projects' }], links: [] } };
+    for (let index = 0; index < 500; index += 1) {
+      many.sankey.nodes.push({ id: `p${index}`, name: `P${index}` });
+      many.sankey.links.push({ source: 'root', target: `p${index}` });
+    }
+    const { delay } = sankeyConfig(document.createElement('canvas'), many).data.datasets[0].animations.progress;
+
+    expect(delay({ type: 'data', dataIndex: 499, parsed: { x: 0 } })).toBeLessThanOrEqual(500);
+  });
+
+  it('puts each level of the hierarchy in a column of its own', () => {
+    const sankey = sankeyConfig(document.createElement('canvas'), sankeyPayload());
+
+    expect(sankey.data.datasets[0].column).toEqual({ root: 0, a: 1, b: 1, c: 2, d: 2 });
+  });
+
+  // The plugin knows flows only
+  it('finds a node at the ends of its flows', () => {
+    const chart = sankeyChart(sankeyConfig(document.createElement('canvas'), sankeyPayload()));
+
+    expect([sankeyNodeAt(chart, 105, 20), sankeyNodeAt(chart, 5, 20), sankeyNodeAt(chart, 50, 20)])
+      .toEqual([{ key: 'a', index: 0 }, { key: 'root', index: 0 }, null]);
+  });
+
+  it('names the node or both ends of a flow in the tooltip', () => {
+    const sankey = sankeyConfig(document.createElement('canvas'), sankeyPayload());
+    const { title } = sankey.options.plugins.tooltip.callbacks;
+    const item = (node) => ({ chart: { $additionalsSankeyNode: node }, raw: { from: 'root', to: 'a' } });
+
+    expect([title([item('a')]), title([item(null)])]).toEqual(['<b>A</b>', 'Projects → <b>A</b>']);
+  });
+
+  it('opens a clicked node, for a flow the node it leads to, nothing for the root', () => {
     const open = vi.spyOn(window, 'open').mockImplementation(() => null);
-    const calls = mockSankey();
-    renderSankey(document.createElement('div'), sankeyPayload());
-    calls.on(calls.nodes[1]);
+    const sankey = sankeyConfig(document.createElement('canvas'), sankeyPayload());
+    const [events] = sankey.plugins;
+    const click = (x, y, flows = []) => events.afterEvent(sankeyChart(sankey, () => flows), { event: { type: 'click', x, y } });
+    click(105, 20);
+    click(150, 20, [{ datasetIndex: 0, index: 2 }]);
+    click(5, 20);
 
-    expect(open).toHaveBeenCalledWith('/projects/a');
+    expect(open.mock.calls).toEqual([['/projects/a'], ['/projects/c']]);
     open.mockRestore();
   });
 
-  it('escapes the names in the tooltip', () => {
-    const calls = mockSankey();
-    renderSankey(document.createElement('div'), sankeyPayload());
+  it('shows the hand where a click opens a project', () => {
+    const sankey = sankeyConfig(document.createElement('canvas'), sankeyPayload());
+    const [events] = sankey.plugins;
+    const cursor = (x, y) => {
+      const chart = sankeyChart(sankey);
+      events.afterEvent(chart, { event: { type: 'mousemove', x, y } });
+      return chart.canvas.style.cursor;
+    };
 
-    expect(calls.tooltipConfig.title({ name: '<b>A</b>' })).toBe('&lt;b&gt;A&lt;/b&gt;');
-  });
-
-  it('names both ends of a link in the tooltip', () => {
-    const calls = mockSankey();
-    renderSankey(document.createElement('div'), sankeyPayload());
-
-    expect(calls.tooltipConfig.title({ source: { data: { name: 'Projects' } }, target: { data: { name: 'A' } } }))
-      .toBe('Projects &rarr; A');
+    expect([cursor(105, 20), cursor(5, 20)]).toEqual(['pointer', '']);
   });
 });
 
@@ -1275,7 +1363,8 @@ describe('AdditionalsChartController', () => {
     };
     ctx.connect = prototype.connect.bind(ctx);
     ctx.disconnect = prototype.disconnect.bind(ctx);
-    ctx.drawD3plus = prototype.drawD3plus.bind(ctx);
+    ctx.drawSankey = prototype.drawSankey.bind(ctx);
+    ctx.drawTreemap = prototype.drawTreemap.bind(ctx);
     ctx.drawCalendar = prototype.drawCalendar.bind(ctx);
     ctx.drawWithLines = prototype.drawWithLines.bind(ctx);
     ctx.drawMatrix = prototype.drawMatrix.bind(ctx);
@@ -1290,7 +1379,8 @@ describe('AdditionalsChartController', () => {
     });
     // The legend of a calendar colors its levels
     globalThis.Chart.helpers = { color: () => ({ alpha: () => ({ rgbString: () => 'rgb(0, 0, 0)' }) }) };
-    delete globalThis.d3plus;
+    globalThis.Chart.Interaction = { modes: {} };
+    globalThis.Chart.Tooltip = { positioners: {} };
   });
 
   afterEach(() => {
@@ -1315,10 +1405,10 @@ describe('AdditionalsChartController', () => {
     expect(chart.destroy).toHaveBeenCalled();
   });
 
-  it('reports a failed d3plus load in the console', async () => {
+  it('reports a failed load of a plugin in the console', async () => {
     const error = vi.spyOn(console, 'error').mockImplementation(() => {});
     AdditionalsHelpers.loadLibrary.mockReturnValue(Promise.reject(new Error('Could not load')));
-    controller(payload({ type: 'treemap' }), { canvas: false }).connect();
+    controller(sankeyPayload()).connect();
     await new Promise((resolve) => { setTimeout(resolve, 0); });
 
     expect(error).toHaveBeenCalled();
@@ -1348,35 +1438,46 @@ describe('AdditionalsChartController', () => {
     expect(AdditionalsHelpers.loadLibrary).toHaveBeenCalledWith('chartjs_matrix');
   });
 
-  it('loads d3plus for a treemap', () => {
-    mockTreemap();
-    controller(payload({ type: 'treemap' }), { canvas: false }).connect();
+  it('loads the treemap plugin for a treemap', () => {
+    controller(payload({ type: 'treemap' })).connect();
 
-    expect(AdditionalsHelpers.loadLibrary).toHaveBeenCalledWith('d3plus');
+    expect(AdditionalsHelpers.loadLibrary).toHaveBeenCalledWith('chartjs_treemap');
   });
 
-  it('draws the treemap once d3plus is there', async () => {
-    const calls = mockTreemap();
-    await controller(payload({ type: 'treemap' }), { canvas: false }).drawD3plus(payload({ type: 'treemap' }));
+  it('draws the treemap on its canvas once the plugin is there', async () => {
+    const ctrl = controller(payload({ type: 'treemap' }));
+    await ctrl.drawTreemap(payload({ type: 'treemap' }));
 
-    expect(calls.render).toBe(true);
+    expect([Chart.mock.calls[0][0], Chart.mock.calls[0][1].type]).toEqual([ctrl.canvasTarget, 'treemap']);
   });
 
-  it('draws a sankey with d3plus', async () => {
-    const calls = mockSankey();
-    await controller(sankeyPayload(), { canvas: false }).drawD3plus(sankeyPayload());
+  it('loads the sankey plugin for a sankey', () => {
+    controller(sankeyPayload()).connect();
 
-    expect(calls.render).toBe(true);
+    expect(AdditionalsHelpers.loadLibrary).toHaveBeenCalledWith('chartjs_sankey');
   });
 
-  // The block may be reloaded while d3plus is loading
+  it('draws the sankey on its canvas once the plugin is there', async () => {
+    const ctrl = controller(sankeyPayload());
+    await ctrl.drawSankey(sankeyPayload());
+
+    expect([Chart.mock.calls[0][0], Chart.mock.calls[0][1].type]).toEqual([ctrl.canvasTarget, 'sankey']);
+  });
+
+  // Tooltip and pointer need to know nodes, which the plugin does not
+  it('registers how a sankey finds its nodes', async () => {
+    await controller(sankeyPayload()).drawSankey(sankeyPayload());
+
+    expect(Chart.Interaction.modes.additionalsSankey).toBeTypeOf('function');
+  });
+
+  // The block may be reloaded while the plugin is loading
   it('draws no treemap into a removed block', async () => {
-    const calls = mockTreemap();
-    const ctrl = controller(payload({ type: 'treemap' }), { canvas: false });
+    const ctrl = controller(payload({ type: 'treemap' }));
     ctrl.element.remove();
-    await ctrl.drawD3plus(payload({ type: 'treemap' }));
+    await ctrl.drawTreemap(payload({ type: 'treemap' }));
 
-    expect(calls.render).toBeUndefined();
+    expect(Chart).not.toHaveBeenCalled();
   });
 
   it('draws no calendar into a removed block', async () => {
@@ -1418,17 +1519,6 @@ describe('AdditionalsChartController', () => {
     await new Promise((resolve) => { setTimeout(resolve, 0); });
 
     expect(Chart).toHaveBeenCalledTimes(1);
-  });
-
-  it('releases d3plus when the block goes away', async () => {
-    mockTreemap();
-    const destroy = vi.fn();
-    globalThis.d3plus.Treemap.prototype.destroy = destroy;
-    const ctrl = controller(payload({ type: 'treemap' }), { canvas: false });
-    await ctrl.drawD3plus(payload({ type: 'treemap' }));
-    ctrl.disconnect();
-
-    expect(destroy).toHaveBeenCalled();
   });
 
   it('removes the legend of a calendar when the block goes away', async () => {

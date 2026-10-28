@@ -30,7 +30,7 @@ class JavascriptLibraryTest < Additionals::IntegrationTest
     assert_response :success
     assert_select "script:match('src',?)", %r{/bootstrap.*\.js}, count: 0
     assert_select "script:match('src',?)", %r{/bootstrap\.min.*\.js}, count: 0
-    assert_select "script:match('src',?)", %r{/d3plus.full\.min.*\.js}, count: 0
+    assert_select "script:match('src',?)", %r{/chartjs-chart-(treemap|sankey).*\.js}, count: 0
     assert_select "script:match('src',?)", %r{/mermaid_load.*\.js}, count: 0
     assert_select "script:match('src',?)", %r{/mermaid\.min.*\.js}, count: 0
   end

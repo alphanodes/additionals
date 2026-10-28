@@ -14,8 +14,7 @@
                 style="height: #{chart.height}px;"
                 data-controller='additionals-chart'
                 data-additionals-chart-payload-value=query_chart_payload(chart).to_json]
-              - unless chart.treemap?
-                canvas data-additionals-chart-target='canvas'
+              canvas data-additionals-chart-target='canvas'
         - if chart.with_table?
           .additionals-table-of-values class=('cross-table' if chart.split?)
             = render 'dashboards/blocks/query_chart_table', chart:

@@ -1,6 +1,6 @@
 # Chart Development Guide
 
-Every chart of `additionals` and the plugins built on it is drawn the same way: a Ruby class returns the data as a payload, the `additionals-chart` Stimulus controller draws it with Chart.js or d3plus. Views contain no chart JavaScript. For dashboard blocks in general see the [Dashboard Development Guide](dashboards.md).
+Every chart of `additionals` and the plugins built on it is drawn the same way: a Ruby class returns the data as a payload, the `additionals-chart` Stimulus controller draws it with Chart.js. Views contain no chart JavaScript. For dashboard blocks in general see the [Dashboard Development Guide](dashboards.md).
 
 ```mermaid
 flowchart LR
@@ -9,7 +9,6 @@ flowchart LR
     P --> V["partial additionals/charts/chart<br/>data-additionals-chart-payload-value"]
     V --> S[additionals-chart<br/>Stimulus controller]
     S --> CJ[Chart.js]
-    S --> D3[d3plus<br/>treemap, sankey]
 ```
 
 There are two ways to a chart:
@@ -56,7 +55,7 @@ h3.icon = svg_icon_tag chart.icon, label: :label_wiki_activities
 | `additionals/charts/charts` | several charts side by side, below each other in a narrow column (`charts:`, `id:`) |
 | `additionals/charts/key_figures` | key figures above a chart, see [Key Figures](#key-figures) |
 
-The page or block loads the libraries: `additionals_library_load :chartjs_meta` (Chart.js with the datalabels and annotation plugins), or `libraries: %i[chartjs_meta]` in the block definition. The controller loads what only some charts need when they need it: d3plus for treemap and sankey, the matrix plugin for matrix and calendar, the annotation plugin for `lines`.
+The page or block loads the libraries: `additionals_library_load :chartjs_meta` (Chart.js with the datalabels and annotation plugins), or `libraries: %i[chartjs_meta]` in the block definition. The controller loads what only some charts need when they need it: the treemap plugin, the sankey plugin, the matrix plugin for matrix and calendar, the annotation plugin for `lines`.
 
 A class may answer `chart_data_present?(project:)` with one cheap `EXISTS` query; a lazy block with `data_check_class` then reserves the height of a chart (see [Async Blocks](dashboards.md#async-blocks)).
 
@@ -134,10 +133,10 @@ All texts of a payload are formatted on the server, so no translation ends up in
 | Key | Content |
 | --- | ------- |
 | `labels` | names of the tiles, the titles of their tooltips |
-| `tileLabels` | another text on the tiles, e.g. the size of a file whose name rarely fits. Tiles show names as they are, d3plus reads no tags in them |
-| `restLabel` | name of the tile into which d3plus merges the tiles below 0.01 % (shown as "Rest < 0.01%"); it links nowhere |
+| `tileLabels` | another text on the tiles, e.g. the size of a file whose name rarely fits. Tiles show names as they are, markup included |
+| `restLabel` | name of the tile into which the tiles below 0.01 % merge, from two of them on; it links nowhere. Without it no tiles merge |
 
-d3plus adds the share as a second line on every tile; it cannot be replaced. The tooltip names value and share.
+A tile shows its name in bold at the top left and below it the share in a smaller, lighter font, as large as they fit; tiles have rounded corners and a gap between them. A name that does not fit wraps, long words are split, and what is left over ends in "…"; a tile too small for that shows the share only, a tiny one nothing. The tooltip names value and share.
 
 ### Sankey
 
@@ -147,7 +146,7 @@ d3plus adds the share as a second line on every tile; it cannot be replaced. The
             links: [{ source: 'root', target: 1 }] } }
 ```
 
-A hierarchy as flows from the left. d3plus v4 draws no node labels, the names are in the tooltip.
+A hierarchy as flows from the left, each level a column of its own. A flow is as thick as the entries without children below it, so a parent is as thick as its children. The children of a parent share a color of the color scheme, so at every level a family stands out, also where one branch holds almost all. The nodes carry no names, those are in the tooltip. A click on a node opens its URL, on a flow the URL of the node it leads to.
 
 ### Matrix
 
@@ -240,11 +239,13 @@ Handled in `additionals.css` and the controller, worth knowing before changing t
 - Header and total of the scrolling table of values only stick with `overflow: clip` instead of core's `overflow: hidden` (which makes the table its own scroll container), separate borders and a `z-index` on `thead`/`tfoot`.
 - The `clip` option of chartjs-plugin-datalabels cuts values off at the edge. Instead `layout.padding` reserves room for the longest value, values wider than their vertical bar are slanted by 45 degrees, and the legend of vertical bars sits below the chart, since the padding lies above the legend.
 - Canvas knows no CSS `var()`: the controller reads custom properties with `getComputedStyle`, so a theme changes the colors of the charts as well.
-- d3plus writes tooltips as HTML: the controller escapes every name, Chart.js draws on a canvas and needs no escaping.
-- d3plus adds controls to every chart (zoom, search, table view, download). Treemap and sankey switch them off: zoom brings nothing there, lists have an export of their own, and d3plus labels the download button in English for most languages. A new d3plus chart does the same.
+- Charts draw on a canvas, which shows names with markup as they are: nothing is escaped.
+- Chart.js finds a clicked element at its current place. While the tiles of a treemap or the flows of a sankey still grow, a click would find nothing there, so both look at the final place (`useFinalPosition`).
+- The sankey plugin places the nodes itself. With an order of its own (`priority`) it stacks each column from the top without regard to the parents, which crosses the flows of large trees; without it every tree stays free of crossings. Its animation delays each flow by 20 ms, which the controller caps, else a tree of some hundred projects took seconds to appear.
+- The sankey plugin knows flows only. The controller finds a node at the ends of its flows (`sankeyNodeAt`) and handles clicks and the pointer in a plugin of its own, as Chart.js calls no `onClick` right of the chart area, where the nodes of the last column lie. An update of the plugin may change this geometry; the system test of `redmine_reporting` clicks a node of the last column.
 
 ## Testing
 
 - **Ruby:** test the payload of a chart class, not the drawing: labels, values, texts, colors, `valid?`, key figures.
 - **JavaScript:** the controller has Vitest tests in `test/javascript/controllers/additionals_chart_controller.test.js`; a new payload option gets its test there.
-- **Conventions:** `assert_charts_drawn_from_payload '<plugin>'` (from the global test helper) fails as soon as a view of the plugin creates a chart itself (`new Chart(`, `new d3plus.`). Plugins with charts call it in their convention test.
+- **Conventions:** `assert_charts_drawn_from_payload '<plugin>'` (from the global test helper) fails as soon as a view of the plugin creates a chart itself (`new Chart(`). Plugins with charts call it in their convention test.

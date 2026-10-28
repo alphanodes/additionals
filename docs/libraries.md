@@ -10,7 +10,7 @@
 | `chartjs_meta` | `chartjs` with the datalabels and annotation plugins, the usual choice for charts |
 | `chartjs_annotation`, `chartjs_colorschemes`, `chartjs_datalabels` | A single Chart.js plugin |
 | `chartjs_matrix` | The matrix chart type of Chart.js |
-| `d3plus` | d3plus |
+| `chartjs_sankey`, `chartjs_treemap` | The sankey or treemap chart type of Chart.js, with `chartjs` |
 | `dhtmlxgantt` | dhtmlxGantt with its styles |
 | `mermaid` | mermaid with the loader for mermaid code blocks |
 | `query_chart` | Styles of query chart blocks and their settings form |
@@ -25,7 +25,7 @@ A view loads one or more libraries; every file is included at most once per resp
 
 ```slim
 = additionals_library_load :chartjs_meta
-= additionals_library_load %i[chartjs_meta d3plus]
+= additionals_library_load %i[chartjs_meta sortable]
 ```
 
 Dashboard blocks do not call the helper. They declare their libraries, and the dashboard loads those of all its blocks in the page head:
@@ -38,13 +38,13 @@ Blocks that are added or saved without a page reload depend on this: their parti
 
 ## Loading in the browser
 
-Where the page cannot know in advance whether a library is needed, e.g. a chart type that needs d3plus only with certain settings, the browser loads it on demand:
+Where the page cannot know in advance whether a library is needed, e.g. a chart type that needs a plugin only with certain settings, the browser loads it on demand:
 
 ```js
-await AdditionalsHelpers.loadLibrary('d3plus');
+await AdditionalsHelpers.loadLibrary('chartjs_treemap');
 ```
 
-The promise resolves when all files are loaded, in their order. Files already in the page are skipped, a library is requested only once per page. The URLs of all libraries are in `ADDITIONALS_LIBRARIES`, which additionals writes into every page head. The chart controller loads d3plus and the Chart.js plugins this way (see the [Chart Development Guide](charts.md)).
+The promise resolves when all files are loaded, in their order. Files already in the page are skipped, a library is requested only once per page. The URLs of all libraries are in `ADDITIONALS_LIBRARIES`, which additionals writes into every page head. The chart controller loads the Chart.js plugins this way (see the [Chart Development Guide](charts.md)).
 
 ## Libraries of other plugins
 

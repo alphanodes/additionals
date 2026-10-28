@@ -3,13 +3,13 @@ import { Controller } from '@hotwired/stimulus';
 
 // Draws a chart block from the payload the server renders into a data
 // attribute (AdditionalsQueryChart#payload), so no value is interpolated into
-// JavaScript. Chart.js draws doughnut, pie, bars, lines, areas, matrix and
-// calendar, d3plus the treemap and the sankey. A click on a slice opens the
-// list filtered by its value.
+// JavaScript. Chart.js draws doughnut, pie, bars, lines, areas, matrix,
+// calendar, treemap and sankey. A click on a slice opens the list filtered by
+// its value.
 //
-// Chart.js and its plugins come from the libraries of the block. d3plus, only
-// needed for a treemap or a sankey, and the matrix plugin, only needed for a
-// matrix or a calendar, are loaded on demand through the library registry.
+// Chart.js and its plugins come from the libraries of the block. The plugins
+// only some charts need (matrix and calendar, treemap, sankey) are loaded on
+// demand through the library registry.
 // Blocks loaded asynchronously connect like any other element, and a reloaded
 // or removed block releases its chart.
 
@@ -52,6 +52,47 @@ const CALENDAR_GAP = 2;
 const CALENDAR_MONTH_GAP = 4;
 // Gap between the cells of a matrix of rows and columns
 const MATRIX_GAP = 4;
+// Tiles of a treemap below this share of the total merge into the rest
+const TREEMAP_REST_SHARE = 0.0001;
+// Text on a tile is as large as it fits, smaller than the minimum it is left out
+const TREEMAP_FONT_MAX = 28;
+const TREEMAP_FONT_MIN = 11;
+// A name that does not fit is shortened in this size, with at least a few characters
+const TREEMAP_FONT_SHORT = 13;
+const TREEMAP_SHORT_MIN_CHARS = 3;
+const TREEMAP_LINE_HEIGHT = 1.2;
+const TREEMAP_PADDING = 4;
+const TREEMAP_SPACING = 2;
+const TREEMAP_RADIUS = 4;
+// The name is bold, the share below it smaller and a bit lighter
+const TREEMAP_NAME_WEIGHT = '600';
+const TREEMAP_SHARE_SCALE = 0.75;
+const TREEMAP_SHARE_ALPHA = 0.75;
+// A tile under the pointer lightens up
+const TREEMAP_HOVER_ALPHA = 0.82;
+// A tile is drawn smaller than its area by the spacing on both sides and the
+// rounding to whole pixels, the text must fit the drawn tile
+const TREEMAP_INSET = (2 * TREEMAP_SPACING) + 1;
+// Relative luminance above which dark text has the better contrast (WCAG)
+const LIGHT_LUMINANCE = 0.179;
+// Width of the nodes of a sankey and how far a pointer may miss one; a node
+// is never harder to hit than one of this height
+const SANKEY_NODE_WIDTH = 10;
+// Room between the nodes of a column
+const SANKEY_NODE_PADDING = 24;
+const SANKEY_FLOW_ALPHA = 0.35;
+// Lightest color of the scheme a flow is drawn in, as relative luminance
+const SANKEY_MAX_LUMINANCE = 0.6;
+// Delay of the flows while the sankey appears: per column, per flow and for
+// all flows of a column at most, in ms
+const SANKEY_COLUMN_DELAY = 150;
+const SANKEY_FLOW_DELAY = 20;
+const SANKEY_FLOWS_DELAY = 500;
+const SANKEY_HIT_TOLERANCE = 2;
+const SANKEY_MIN_HIT_HEIGHT = 4;
+// Names of the interaction mode and the tooltip position of a sankey
+const SANKEY_MODE = 'additionalsSankey';
+const SANKEY_POSITIONER = 'additionalsPointer';
 
 // Reads a CSS custom property from an element. Canvas cannot resolve var().
 function cssVar(el, name) {
@@ -529,17 +570,22 @@ function lineFill(payload, index) {
 // A color with an opacity, for #rgb, #rrggbb and rgb() as CSS custom
 // properties and color schemes hold them; other notations are returned unchanged
 export function colorWithAlpha(color, alpha) {
+  const parts = rgbParts(color);
+  return parts ? `rgba(${parts.join(', ')}, ${alpha})` : color;
+}
+
+// Red, green and blue of #rgb, #rrggbb and rgb(), null for other notations
+function rgbParts(color) {
   const rgb = /^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/.exec(color || '');
   if (rgb) {
-    return `rgba(${rgb[1]}, ${rgb[2]}, ${rgb[3]}, ${alpha})`;
+    return rgb.slice(1).map(Number);
   }
   const hex = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(color || '');
   if (!hex) {
-    return color;
+    return null;
   }
   const digits = hex[1].length === 3 ? hex[1].replace(/./g, '$&$&') : hex[1];
-  const [red, green, blue] = digits.match(/../g).map((part) => parseInt(part, 16));
-  return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+  return digits.match(/../g).map((part) => parseInt(part, 16));
 }
 
 // A filled line fades out towards the axis. The chart area is only known
@@ -956,102 +1002,432 @@ export function calendarLegend(payload) {
   return legend;
 }
 
-// Tiles below a tiny share d3plus merges into one, its fields become lists
-function isTreemapRest(d) {
-  return Boolean(d._isAggregation) || Array.isArray(d.name);
+// Share in percent in the language of the page, with a decimal for small ones
+export function percentText(value, total) {
+  const fraction = total > 0 ? value / total : 0;
+  return new Intl.NumberFormat(pageLocale(), { style: 'percent', maximumFractionDigits: 1 }).format(fraction);
 }
 
-function treemapName(payload, d) {
-  return isTreemapRest(d) ? payload.restLabel || '' : d.name;
-}
-
-// The tile shows its name or the text the server chose for it, e.g. a size
-function treemapLabel(payload, d) {
-  return isTreemapRest(d) ? treemapName(payload, d) : d.tile;
-}
-
-function treemapTooltip(payload, d) {
-  const value = `${payload.totalLabel}: `;
-  if (isTreemapRest(d)) {
-    return escapeHtml(`${value}${share(d.value, payload.total)}%`);
-  }
-  return [`${value}${d.text} (${share(d.value, payload.total)}%)`, d.extra]
-    .filter(Boolean).map(escapeHtml).join('<br>');
-}
-
-export function renderTreemap(element, payload) {
-  const data = payload.labels.map((label, index) => ({
-    // Two versions "1.0" or users of the same name stay separate tiles
-    id: index,
-    name: label,
-    tile: payload.tileLabels?.[index] ?? label,
+// The tiles of a treemap, largest first. With a name for the rest from the
+// server, tiles below 0.01 % of the total merge into it, from two of them on.
+export function treemapTiles(payload) {
+  const [dataset] = payload.datasets;
+  const tiles = payload.labels.map((name, index) => ({
+    name,
+    // The tile shows its name or the text the server chose for it, e.g. a size
+    tile: payload.tileLabels?.[index] ?? name,
+    value: dataset.data[index],
     text: valueText(payload, 0, index),
-    value: payload.datasets[0].data[index],
-    // not "url": d3plus fetches a field of that name as data
-    link: entryUrl(payload, 0, index),
-    extra: payload.datasets[0].tooltips?.[index] || '',
-  }));
+    url: entryUrl(payload, 0, index),
+    extra: dataset.tooltips?.[index] || '',
+  })).sort((a, b) => b.value - a.value);
+  const small = payload.restLabel ? tiles.filter((tile) => tile.value < payload.total * TREEMAP_REST_SHARE) : [];
+  if (small.length < 2) {
+    return tiles;
+  }
+  // Sorted by value, the small tiles are the last ones
+  const rest = { name: payload.restLabel, tile: payload.restLabel, rest: true, value: small.reduce((sum, tile) => sum + tile.value, 0) };
+  return [...tiles.slice(0, tiles.length - small.length), rest];
+}
 
-  return new window.d3plus.Treemap()
-    .data(data)
-    .groupBy('id')
-    .sum('value')
-    // d3plus labels the rest itself, in English otherwise
-    .thresholdName(() => payload.restLabel || '')
-    // d3plus v4 takes tile labels from .label(), shapeConfig would show the id
-    .label((d) => treemapLabel(payload, d))
-    // Names as they are: d3plus reads tags like <b> in a label as markup and
-    // shows a "&" next to one as "&amp;"
-    .shapeConfig({ labelConfig: { html: false } })
-    .select(element)
-    .legend(false)
-    .zoom(false)
-    .search(false)
-    .tableView(false)
-    // No download button, as for the Chart.js charts; d3plus labels it in English
-    // for most languages
-    .saveControl(false)
-    // The rest has no list of its own
-    .on('click', (d) => openUrl(d && !isTreemapRest(d) ? d.link : null))
-    .tooltipConfig({
-      // d3plus writes its tooltip as HTML, unlike Chart.js which draws on a canvas
-      title: (d) => escapeHtml(treemapName(payload, d)),
-      body: (d) => treemapTooltip(payload, d),
-      // d3plus adds an own, untranslated share row otherwise
-      tbody: [],
-    })
-    .render();
+// A word too long for a line in parts, each but the last ending in a hyphen
+function splitWord(word, fits) {
+  const parts = [];
+  let rest = word;
+  while (!fits(rest)) {
+    let length = rest.length - 1;
+    // A part that ends at a hyphen of the word keeps that one
+    const part = (end) => (rest[end - 1] === '-' ? rest.slice(0, end) : `${rest.slice(0, end)}-`);
+    while (length > 1 && !fits(part(length))) {
+      length -= 1;
+    }
+    if (length <= 1) {
+      break;
+    }
+    parts.push(part(length));
+    rest = rest.slice(length);
+  }
+  return [...parts, rest];
+}
+
+// Lines of whole words; with split, a word too long for a line is split
+function wrapWords(text, fits, split = false) {
+  return text.split(/\s+/).reduce((lines, word) => {
+    const joined = lines.length > 0 ? `${lines[lines.length - 1]} ${word}` : null;
+    if (joined && fits(joined)) {
+      lines[lines.length - 1] = joined;
+    } else {
+      lines.push(...(split ? splitWord(word, fits) : [word]));
+    }
+    return lines;
+  }, []);
+}
+
+// A line ending in an ellipsis, cut where it does not fit with it, without
+// a hyphen or space before the ellipsis; null where not even a few
+// characters fit
+function shortenedLine(line, fits) {
+  const minimum = Math.min(TREEMAP_SHORT_MIN_CHARS, line.length);
+  for (let { length } = line; length >= minimum; length -= 1) {
+    const shortened = `${line.slice(0, length).replace(/[-\s]+$/, '')}…`;
+    if (fits(shortened)) {
+      return shortened;
+    }
+  }
+  return null;
+}
+
+// The wrapped name in at most the given number of lines, the last one ending
+// in an ellipsis where text is left out. Where that line cannot hold it, the
+// line before ends in it.
+function shortenedName(wrapped, rows, fits) {
+  const lines = [];
+  for (let index = 0; index < Math.min(rows, wrapped.length); index += 1) {
+    const line = wrapped[index];
+    if (fits(line) && !(index === rows - 1 && wrapped.length > rows)) {
+      lines.push(line);
+    } else {
+      const shortened = shortenedLine(line, fits);
+      if (shortened) {
+        return [...lines, shortened];
+      }
+      const previous = lines.length > 0 ? shortenedLine(lines[lines.length - 1], fits) : null;
+      return previous ? [...lines.slice(0, -1), previous] : null;
+    }
+  }
+  return lines;
+}
+
+// What a tile shows, in this order: the whole name as large as it fits, the
+// name in a readable size with long words split and shortened where it is
+// still too long, the further lines (the share) alone.
+// Smaller text cannot be read, then the tile stays empty (null) and its name
+// is in the tooltip.
+export function treemapLabelLayout(lines, width, height, measure) {
+  const room = width - (2 * TREEMAP_PADDING);
+  const rows = (size) => Math.floor((height - (2 * TREEMAP_PADDING)) / (size * TREEMAP_LINE_HEIGHT));
+  const fitsAt = (size) => (line) => measure(line, size) <= room;
+  const [name, ...others] = lines;
+  for (let size = TREEMAP_FONT_MAX; size >= TREEMAP_FONT_MIN; size -= 1) {
+    const wrapped = [...wrapWords(String(name), fitsAt(size)), ...others];
+    if (wrapped.every(fitsAt(size)) && wrapped.length <= rows(size)) {
+      return { size, lines: wrapped };
+    }
+  }
+  const readable = [TREEMAP_FONT_SHORT, TREEMAP_FONT_MIN].map((size) => {
+    const fits = fitsAt(size);
+    const nameRows = rows(size) - others.length;
+    const shortened = nameRows > 0 && others.every(fits) ? shortenedName(wrapWords(String(name), fits, true), nameRows, fits) : null;
+    return shortened && { size, lines: [...shortened, ...others], complete: !shortened[shortened.length - 1].endsWith('…'), shown: shortened.join('').replace(/[-…]/g, '').length };
+  }).filter(Boolean);
+  if (readable.length > 0) {
+    // The larger size where the name fits, else the one that shows more of it
+    const { size, lines: shown } = readable.find((layout) => layout.complete) ||
+      readable.reduce((best, layout) => (layout.shown > best.shown ? layout : best));
+    return { size, lines: shown };
+  }
+  if (others.length > 0 && others.every(fitsAt(TREEMAP_FONT_MIN)) && others.length <= rows(TREEMAP_FONT_MIN)) {
+    return { size: TREEMAP_FONT_MIN, lines: others };
+  }
+  return null;
+}
+
+// Width of a text in the font of the page, bold as the name is drawn; the
+// smaller share fits then as well. The context is only created when a label
+// is laid out, which a page without canvas support never does.
+function textMeasure(family) {
+  const context = document.createElement('canvas').getContext('2d');
+  return (text, size) => {
+    context.font = `${TREEMAP_NAME_WEIGHT} ${size}px ${family}`;
+    return context.measureText(text).width;
+  };
+}
+
+// Relative luminance of a color as WCAG defines it, null for notations
+// rgbParts does not read
+function luminance(color) {
+  const parts = rgbParts(color);
+  if (!parts) {
+    return null;
+  }
+  const [red, green, blue] = parts.map((part) => part / 255)
+    .map((part) => (part <= 0.03928 ? part / 12.92 : ((part + 0.055) / 1.055) ** 2.4));
+  return (0.2126 * red) + (0.7152 * green) + (0.0722 * blue);
+}
+
+// Dark text where it has the better contrast to the color; colors of other
+// notations get the dark text
+export function contrastingText(color, dark, light) {
+  const value = luminance(color);
+  return value === null || value > LIGHT_LUMINANCE ? dark : light;
+}
+
+// A style per line of a tile: the name lines get one, the share below them
+// another; a tile showing the share only writes it as a name
+function treemapLineStyles(layout, nameStyle, shareStyle) {
+  if (!layout) {
+    return nameStyle(TREEMAP_FONT_MIN);
+  }
+  const last = layout.lines.length - 1;
+  return layout.lines.map((_line, index) => (index === last && last > 0 ? shareStyle(layout.size) : nameStyle(layout.size)));
+}
+
+function treemapTooltip(payload, tile, value) {
+  const valueShare = percentText(value, payload.total);
+  if (tile.rest) {
+    return [`${payload.totalLabel}: ${valueShare}`];
+  }
+  return [`${payload.totalLabel}: ${tile.text} (${valueShare})`, tile.extra].filter(Boolean);
+}
+
+// Each entry as a tile whose area is its share of the total. Canvas shows a
+// name with markup as it is, so nothing needs escaping.
+export function treemapConfig(canvas, payload) {
+  const colors = schemeColors(payload) || [schemeColor(payload)];
+  const tileColor = (context) => colors[context.dataIndex % colors.length];
+  const family = getComputedStyle(document.body).fontFamily;
+  const dark = cssVar(canvas, '--oc-gray-9');
+  const light = cssVar(canvas, '--oc-white');
+  // The plugin asks for font and text of a tile separately, both come from
+  // one layout per tile and size
+  const layouts = new Map();
+  let measure = null;
+  const layout = ({ dataIndex, raw }) => {
+    const key = `${dataIndex}:${raw.w}:${raw.h}`;
+    if (!layouts.has(key)) {
+      measure ||= textMeasure(family);
+      const lines = [raw._data.tile, percentText(raw.v, payload.total)];
+      layouts.set(key, treemapLabelLayout(lines, raw.w - TREEMAP_INSET, raw.h - TREEMAP_INSET, measure));
+    }
+    return layouts.get(key);
+  };
+
+  return {
+    type: 'treemap',
+    data: {
+      datasets: [{
+        tree: treemapTiles(payload),
+        key: 'value',
+        // Sorted already, so the rest stays last
+        unsorted: true,
+        spacing: TREEMAP_SPACING,
+        borderWidth: 0,
+        borderRadius: TREEMAP_RADIUS,
+        backgroundColor: tileColor,
+        hoverBackgroundColor: (context) => colorWithAlpha(tileColor(context), TREEMAP_HOVER_ALPHA),
+        labels: {
+          display: true,
+          overflow: 'hidden',
+          padding: TREEMAP_PADDING,
+          align: 'left',
+          position: 'top',
+          color: (context) => {
+            const text = contrastingText(tileColor(context), dark, light);
+            return treemapLineStyles(layout(context), () => text, () => colorWithAlpha(text, TREEMAP_SHARE_ALPHA));
+          },
+          font: (context) => treemapLineStyles(
+            layout(context),
+            (size) => ({ family, size, weight: TREEMAP_NAME_WEIGHT }),
+            (size) => ({ family, size: Math.max(TREEMAP_FONT_MIN, Math.round(size * TREEMAP_SHARE_SCALE)) }),
+          ),
+          formatter: (context) => layout(context)?.lines ?? '',
+        },
+      }],
+    },
+    options: {
+      locale: pageLocale(),
+      responsive: true,
+      maintainAspectRatio: false,
+      // The tile at its final place: Chart.js looks at the current one, where a
+      // click while the tiles grow finds none. The rest has no list of its own.
+      onClick: (event, _elements, chart) => {
+        const [element] = chart.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
+        const tile = element ? chart.data.datasets[0].data[element.index]?._data : null;
+        openUrl(tile && !tile.rest ? tile.url : null);
+      },
+      plugins: {
+        legend: { display: false },
+        // The tiles have their colors already
+        colorschemes: false,
+        tooltip: {
+          displayColors: false,
+          callbacks: {
+            title: (items) => items[0].raw._data.name,
+            label: (context) => treemapTooltip(payload, context.raw._data, context.raw.v),
+          },
+        },
+      },
+    },
+  };
+}
+
+// The hierarchy of a sankey as flows of Chart.js: each flow as thick as the
+// entries without children below its target, so a parent is as thick as its
+// children, and each level in a column of its own. The plugin places the
+// nodes itself; that keeps every tree free of crossing flows. The children of
+// a parent form a family, numbered in the order of the tree.
+function sankeyTree(payload) {
+  const { nodes, links } = payload.sankey;
+  const children = new Map();
+  links.forEach(({ source, target }) => {
+    children.set(String(source), [...(children.get(String(source)) || []), String(target)]);
+  });
+  const leaves = new Map();
+  const leavesBelow = (key) => {
+    if (!leaves.has(key)) {
+      const below = children.get(key) || [];
+      leaves.set(key, below.length > 0 ? below.reduce((sum, child) => sum + leavesBelow(child), 0) : 1);
+    }
+    return leaves.get(key);
+  };
+  const column = {};
+  const family = new Map();
+  let families = 0;
+  const place = (key, depth) => {
+    column[key] = depth;
+    const below = children.get(key) || [];
+    if (below.length > 0) {
+      const index = families;
+      families += 1;
+      below.forEach((child) => family.set(child, index));
+    }
+    below.forEach((child) => place(child, depth + 1));
+  };
+  const targets = new Set(links.map(({ target }) => String(target)));
+  nodes.map(({ id }) => String(id)).filter((key) => !targets.has(key)).forEach((key) => place(key, 0));
+  return {
+    nodes: new Map(nodes.map((node) => [String(node.id), node])),
+    flows: links.map(({ source, target }) => ({ from: String(source), to: String(target), flow: leavesBelow(String(target)) })),
+    column,
+    family,
+  };
+}
+
+// The node at a point. The plugin knows flows only, so a node is found at the
+// ends of its flows: an incoming one ends at its left edge, an outgoing one
+// starts at its right edge. Flows at their final place, they may still move.
+export function sankeyNodeAt(chart, x, y) {
+  const flows = chart.data.datasets[0].data;
+  const elements = chart.getDatasetMeta(0).data;
+  for (let index = 0; index < elements.length; index += 1) {
+    const flow = elements[index].getProps(['x', 'x2', 'y', 'y2', 'height'], true);
+    const bottom = Math.max(flow.height, SANKEY_MIN_HIT_HEIGHT);
+    const node = [{ key: flows[index].to, left: flow.x2, top: flow.y2 },
+      { key: flows[index].from, left: flow.x - SANKEY_NODE_WIDTH, top: flow.y }]
+      .find(({ left, top }) => x >= left - SANKEY_HIT_TOLERANCE && x <= left + SANKEY_NODE_WIDTH + SANKEY_HIT_TOLERANCE &&
+        y >= top - SANKEY_HIT_TOLERANCE && y <= top + bottom + SANKEY_HIT_TOLERANCE);
+    if (node) {
+      return { key: node.key, index };
+    }
+  }
+  return null;
+}
+
+// Interaction mode of a sankey: the flow at a point, else a flow of the node
+// there. The chart remembers the node for tooltip and click.
+export function sankeyItemsAt(chart, event) {
+  const flows = chart.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
+  if (flows.length > 0) {
+    chart.$additionalsSankeyNode = null;
+    return flows.slice(0, 1);
+  }
+  const node = sankeyNodeAt(chart, event.x, event.y);
+  chart.$additionalsSankeyNode = node ? node.key : null;
+  return node ? [{ element: chart.getDatasetMeta(0).data[node.index], datasetIndex: 0, index: node.index }] : [];
+}
+
+// A node opens itself, a flow its target: in a tree the node it leads to
+function sankeyUrl(chart, nodes, items) {
+  if (items.length === 0) {
+    return null;
+  }
+  const key = chart.$additionalsSankeyNode || chart.data.datasets[0].data[items[0].index].to;
+  return nodes.get(key)?.url || null;
+}
+
+function registerSankeyInteraction() {
+  Chart.Interaction.modes[SANKEY_MODE] = sankeyItemsAt;
+  Chart.Tooltip.positioners[SANKEY_POSITIONER] = (_elements, position) => position;
 }
 
 // A hierarchy as flows from the left, e.g. projects and their subprojects.
-// The sankey of d3plus v4 draws no node labels, the names are in the tooltip.
-export function renderSankey(element, payload) {
-  const { nodes, links } = payload.sankey;
-  return new window.d3plus.Sankey()
-    .select(element)
-    .zoom(false)
-    .search(false)
-    .tableView(false)
-    .saveControl(false)
-    // not "url": d3plus fetches a field of that name as data
-    .nodes(nodes.map((node) => ({ id: node.id, name: node.name, link: node.url })))
-    .links(links)
-    // one column per level instead of pushing every leaf to the right edge
-    .nodeAlign('left')
-    // only names the node for screen readers
-    .label((d) => d.name)
-    .on('click', (d) => openUrl(d && d.link))
-    .tooltipConfig({
-      tbody: [],
-      // d3plus writes its tooltip as HTML
-      title: (d) => (d.source && d.target
-        ? `${escapeHtml(d.source.data.name)} &rarr; ${escapeHtml(d.target.data.name)}`
-        : escapeHtml(d.name)),
-    })
-    .render();
-}
+// The nodes carry no names, those are in the tooltip.
+export function sankeyConfig(canvas, payload) {
+  const tree = sankeyTree(payload);
+  const scheme = schemeColors(payload) || [schemeColor(payload)];
+  // Thin flows in the light colors of a scheme vanish on white, e.g. the
+  // yellow of YlGnBu; a scheme of light colors only keeps them all
+  const readable = scheme.filter((color) => (luminance(color) ?? 0) <= SANKEY_MAX_LUMINANCE);
+  const colors = readable.length > 0 ? readable : scheme;
+  const rootColor = cssVar(canvas, '--oc-gray-6');
+  // One color per family: at every level it shows which projects belong
+  // together, also where one branch holds almost all of them
+  const nodeColor = (key) => (tree.family.has(key) ? colors[tree.family.get(key) % colors.length] : rootColor);
+  const name = (key) => tree.nodes.get(key)?.name || '';
+  const flowDelay = Math.min(SANKEY_FLOW_DELAY, SANKEY_FLOWS_DELAY / Math.max(tree.flows.length, 1));
 
-const D3PLUS_RENDERERS = { treemap: renderTreemap, sankey: renderSankey };
+  return {
+    type: 'sankey',
+    data: {
+      datasets: [{
+        data: tree.flows,
+        column: tree.column,
+        nodePadding: SANKEY_NODE_PADDING,
+        nodeLabels: { display: false },
+        nodeWidth: SANKEY_NODE_WIDTH,
+        borderWidth: 0,
+        size: 'max',
+        colorMode: 'gradient',
+        alpha: SANKEY_FLOW_ALPHA,
+        // The plugin delays each flow by 20 ms, a large tree took seconds to appear
+        animations: {
+          progress: {
+            delay: (context) => (context.type === 'data' ? (context.parsed.x * SANKEY_COLUMN_DELAY) + (context.dataIndex * flowDelay) : undefined),
+          },
+        },
+        colorFrom: (context) => nodeColor(context.raw?.from),
+        colorTo: (context) => nodeColor(context.raw?.to),
+      }],
+    },
+    options: {
+      locale: pageLocale(),
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: SANKEY_MODE, intersect: true },
+      plugins: {
+        legend: { display: false },
+        // The flows have their colors already
+        colorschemes: false,
+        tooltip: {
+          position: SANKEY_POSITIONER,
+          displayColors: false,
+          callbacks: {
+            title: ([item]) => (item.chart.$additionalsSankeyNode
+              ? name(item.chart.$additionalsSankeyNode)
+              : `${name(item.raw.from)} → ${name(item.raw.to)}`),
+            label: () => [],
+          },
+        },
+      },
+    },
+    // The nodes of the last column lie right of the chart area, where Chart.js
+    // calls no onClick, so clicks and the pointer are handled for the whole canvas
+    plugins: [{
+      id: 'additionalsSankeyNodes',
+      afterEvent: (chart, { event }) => {
+        if (event.type !== 'click' && event.type !== 'mousemove') {
+          return;
+        }
+        const url = sankeyUrl(chart, tree.nodes, sankeyItemsAt(chart, event));
+        if (event.type === 'click') {
+          openUrl(url);
+        } else {
+          chart.canvas.style.cursor = url ? 'pointer' : '';
+        }
+      },
+    }],
+  };
+}
 
 class AdditionalsChartController extends Controller {
   static targets = ['canvas'];
@@ -1065,9 +1441,11 @@ class AdditionalsChartController extends Controller {
     // loading must not draw twice, the draw of the older connection is void
     this.connection = {};
     const payload = this.payloadValue;
-    if (D3PLUS_RENDERERS[payload.type]) {
-      // Without d3plus the block stays empty, the reason belongs in the console
-      this.drawD3plus(payload).catch((error) => console.error(error));
+    // Without a plugin the block stays empty, the reason belongs in the console
+    if (payload.type === 'treemap' && this.hasCanvasTarget) {
+      this.drawTreemap(payload).catch((error) => console.error(error));
+    } else if (payload.type === 'sankey' && this.hasCanvasTarget) {
+      this.drawSankey(payload).catch((error) => console.error(error));
     } else if (payload.type === 'matrix' && this.hasCanvasTarget) {
       this.drawMatrix(payload).catch((error) => console.error(error));
     } else if (payload.type === 'calendar' && this.hasCanvasTarget) {
@@ -1092,9 +1470,6 @@ class AdditionalsChartController extends Controller {
       this.chart.destroy();
       this.chart = null;
     }
-    // d3plus observes the size of the block and the fonts of the page
-    this.viz?.destroy();
-    this.viz = null;
     this.legend?.remove();
     this.legend = null;
   }
@@ -1105,6 +1480,12 @@ class AdditionalsChartController extends Controller {
     const { connection } = this;
     await AdditionalsHelpers.loadLibrary(library);
     return this.element.isConnected && this.connection === connection;
+  }
+
+  async drawTreemap(payload) {
+    if (await this.loaded('chartjs_treemap')) {
+      this.chart = new Chart(this.canvasTarget, treemapConfig(this.canvasTarget, payload));
+    }
   }
 
   async drawMatrix(payload) {
@@ -1122,9 +1503,10 @@ class AdditionalsChartController extends Controller {
     this.element.after(this.legend);
   }
 
-  async drawD3plus(payload) {
-    if (await this.loaded('d3plus')) {
-      this.viz = D3PLUS_RENDERERS[payload.type](this.element, payload);
+  async drawSankey(payload) {
+    if (await this.loaded('chartjs_sankey')) {
+      registerSankeyInteraction();
+      this.chart = new Chart(this.canvasTarget, sankeyConfig(this.canvasTarget, payload));
     }
   }
 }

@@ -26,11 +26,13 @@ module Additionals
       chartjs: %i[_chartjs_core_umd _chartjs_colorschemes],
       chartjs_meta: %i[chartjs _chartjs_datalabels _chartjs_annotation],
       chartjs_matrix: %i[_chartjs_chart_matrix],
+      # Loaded on demand also by pages without other charts, e.g. list views
+      chartjs_treemap: %i[chartjs _chartjs_chart_treemap],
+      chartjs_sankey: %i[chartjs _chartjs_chart_sankey],
       select2: %i[_select2_css _select2_js _select2_helpers],
       mermaid: %i[_mermaid_min _mermaid_load],
       dhtmlxgantt: %i[_dhtmlxgantt_css _dhtmlxgantt_js],
       query_chart: %i[_query_chart_css],
-      d3plus: %i[_d3plus_min],
       sortable: %i[_sortable_min],
       # Single-atom packages kept for granular use (e.g. blocks that want only
       # one chartjs plugin on top of the chartjs base).
@@ -49,7 +51,8 @@ module Additionals
       _chartjs_datalabels:     Asset.new(type: :js,  path: 'vendor/chartjs-plugin-datalabels.min'),
       _chartjs_annotation:     Asset.new(type: :js,  path: 'vendor/chartjs-plugin-annotation.min'),
       _chartjs_chart_matrix:   Asset.new(type: :js,  path: 'vendor/chartjs-chart-matrix.min'),
-      _d3plus_min:             Asset.new(type: :js,  path: 'vendor/d3plus.min'),
+      _chartjs_chart_treemap:  Asset.new(type: :js,  path: 'vendor/chartjs-chart-treemap.min'),
+      _chartjs_chart_sankey:   Asset.new(type: :js,  path: 'vendor/chartjs-chart-sankey.min'),
       _sortable_min:           Asset.new(type: :js,  path: 'vendor/sortable.min'),
       _mermaid_min:            Asset.new(type: :js,  path: 'vendor/mermaid.min'),
       _mermaid_load:           Asset.new(type: :js,  path: 'mermaid_load'),

@@ -7,11 +7,11 @@ module Additionals
     Registry = Additionals::LibraryRegistry
 
     def test_resolves_single_atom_package
-      result = Registry.resolve :d3plus
+      result = Registry.resolve :chartjs_matrix
 
       assert_equal 1, result.size
       assert_equal :js, result.first.type
-      assert_equal 'vendor/d3plus.min', result.first.path
+      assert_equal 'vendor/chartjs-chart-matrix.min', result.first.path
       assert_equal 'additionals', result.first.plugin
     end
 
@@ -76,19 +76,19 @@ module Additionals
     end
 
     def test_resolve_accepts_single_symbol_or_array
-      single = Registry.resolve :d3plus
-      arr = Registry.resolve [:d3plus]
+      single = Registry.resolve :chartjs_matrix
+      arr = Registry.resolve [:chartjs_matrix]
 
       assert_equal single.map(&:path), arr.map(&:path)
     end
 
     def test_resolve_accepts_string_names
-      assert_equal Registry.resolve(:d3plus).map(&:path),
-                   Registry.resolve('d3plus').map(&:path)
+      assert_equal Registry.resolve(:chartjs_matrix).map(&:path),
+                   Registry.resolve('chartjs_matrix').map(&:path)
     end
 
     def test_default_atom_plugin_is_additionals
-      assert_equal 'additionals', Registry.resolve(:d3plus).first.plugin
+      assert_equal 'additionals', Registry.resolve(:chartjs_matrix).first.plugin
     end
 
     def test_register_makes_package_resolvable
@@ -105,16 +105,16 @@ module Additionals
 
     def test_register_can_reference_built_in_packages
       Registry.register :test_pkg,
-                        [:d3plus, Registry::Asset.new(type: :css, path: 'my-styles', plugin: 'redmine_test')]
+                        [:chartjs_matrix, Registry::Asset.new(type: :css, path: 'my-styles', plugin: 'redmine_test')]
       paths = Registry.resolve(:test_pkg).map(&:path)
 
-      assert_equal %w[vendor/d3plus.min my-styles], paths
+      assert_equal %w[vendor/chartjs-chart-matrix.min my-styles], paths
     ensure
       Registry.send(:registered).delete :test_pkg
     end
 
     def test_names_contain_built_in_packages
-      assert_includes Registry.names, :d3plus
+      assert_includes Registry.names, :chartjs_matrix
     end
 
     def test_names_contain_registered_packages

@@ -38,9 +38,9 @@ class DashboardsHelperTest < Additionals::HelperTest
   end
 
   def test_block_libraries_of_a_block_loaded_after_the_page
-    block = DashboardContentStub.test_block('chart', %i[d3plus mermaid]).new DashboardContentStub.new
+    block = DashboardContentStub.test_block('chart', %i[chartjs_treemap mermaid]).new DashboardContentStub.new
 
-    assert_equal %i[d3plus mermaid], block_libraries(block)
+    assert_equal %i[chartjs_treemap mermaid], block_libraries(block)
   end
 
   def test_dashboard_required_libraries_handles_nil_dashboard
@@ -50,10 +50,10 @@ class DashboardsHelperTest < Additionals::HelperTest
   def test_dashboard_required_libraries_aggregates_across_layout
     dashboard = build_test_dashboard layout: { 'top' => %w[block_a block_b],
                                                'left' => %w[block_a block_c] },
-                                     blocks: { 'block_a' => %i[d3plus], 'block_b' => %i[chartjs_meta], 'block_c' => %i[mermaid] }
+                                     blocks: { 'block_a' => %i[chartjs_treemap], 'block_b' => %i[chartjs_meta], 'block_c' => %i[mermaid] }
     result = dashboard_required_libraries dashboard
 
-    assert_includes result, :d3plus
+    assert_includes result, :chartjs_treemap
     assert_includes result, :chartjs_meta
     assert_includes result, :mermaid
     assert_equal result.size, result.uniq.size
@@ -63,7 +63,7 @@ class DashboardsHelperTest < Additionals::HelperTest
   def test_dashboard_required_libraries_includes_addable_blocks_when_layout_editable
     User.current = users :users_001
     dashboard = build_test_dashboard layout: { 'top' => %w[block_a] },
-                                     blocks: { 'block_a' => %i[d3plus], 'block_b' => %i[chartjs_meta] }
+                                     blocks: { 'block_a' => %i[chartjs_treemap], 'block_b' => %i[chartjs_meta] }
 
     assert_includes dashboard_required_libraries(dashboard), :chartjs_meta
   end
@@ -71,9 +71,9 @@ class DashboardsHelperTest < Additionals::HelperTest
   def test_dashboard_required_libraries_skips_addable_blocks_when_layout_not_editable
     User.current = User.anonymous
     dashboard = build_test_dashboard layout: { 'top' => %w[block_a] },
-                                     blocks: { 'block_a' => %i[d3plus], 'block_b' => %i[chartjs_meta] }
+                                     blocks: { 'block_a' => %i[chartjs_treemap], 'block_b' => %i[chartjs_meta] }
 
-    assert_equal %i[d3plus], dashboard_required_libraries(dashboard)
+    assert_equal %i[chartjs_treemap], dashboard_required_libraries(dashboard)
   end
 
   def test_dashboard_required_libraries_skips_unknown_blocks

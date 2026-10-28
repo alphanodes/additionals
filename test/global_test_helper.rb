@@ -681,7 +681,7 @@ module Additionals
     def assert_charts_drawn_from_payload(plugin_id)
       directory = Redmine::Plugin.find(plugin_id).directory
       inline = Dir.glob('app/views/**/*.{slim,erb}', base: directory).select do |view|
-        File.read(File.join(directory, view)).match?(/new\s+(Chart\s*\(|d3plus\.)/)
+        File.read(File.join(directory, view)).match?(/new\s+Chart\s*\(/)
       end
 
       assert_empty inline, 'Charts drawn in a view instead of from a payload (AdditionalsChart#payload)'

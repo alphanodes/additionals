@@ -6,10 +6,10 @@ class AdditionalsAssetLoaderHelperTest < Additionals::HelperTest
   include AdditionalsAssetLoaderHelper
 
   def test_emits_javascript_include_tag_for_js_package
-    html = additionals_library_load :d3plus
+    html = additionals_library_load :chartjs_matrix
 
     assert_match(/<script\b/, html)
-    assert_match(/src=.+d3plus.min/, html)
+    assert_match(/src=.+chartjs-chart-matrix\.min/, html)
     assert_match %r{/plugin_assets/additionals/}, html
   end
 
@@ -32,9 +32,9 @@ class AdditionalsAssetLoaderHelperTest < Additionals::HelperTest
   end
 
   def test_accepts_array_and_concatenates_packages
-    html = additionals_library_load %i[d3plus sortable]
+    html = additionals_library_load %i[chartjs_matrix sortable]
 
-    assert_match(/src=.+d3plus/, html)
+    assert_match(/src=.+chartjs-chart-matrix/, html)
     assert_match(/src=.+sortable\.min/, html)
   end
 
@@ -48,15 +48,15 @@ class AdditionalsAssetLoaderHelperTest < Additionals::HelperTest
   end
 
   def test_deduplicates_across_calls_within_same_request
-    first = additionals_library_load :d3plus
-    second = additionals_library_load :d3plus
+    first = additionals_library_load :chartjs_matrix
+    second = additionals_library_load :chartjs_matrix
 
-    assert_match(/src=.+d3plus/, first)
+    assert_match(/src=.+chartjs-chart-matrix/, first)
     assert_equal '', second.to_s
   end
 
   def test_returns_html_safe_string
-    html = additionals_library_load :d3plus
+    html = additionals_library_load :chartjs_matrix
 
     assert_predicate html, :html_safe?
   end
@@ -76,9 +76,9 @@ class AdditionalsAssetLoaderHelperTest < Additionals::HelperTest
 
   # loadLibrary skips an asset the page has already, so both must name it alike
   def test_library_url_matches_the_included_script
-    src = additionals_library_load(:d3plus)[/src="([^"]+)"/, 1]
+    src = additionals_library_load(:chartjs_matrix)[/src="([^"]+)"/, 1]
 
-    assert_equal src, additionals_library_urls[:d3plus].first[:url]
+    assert_equal src, additionals_library_urls[:chartjs_matrix].first[:url]
   end
 
   def test_library_url_of_a_stylesheet_matches_the_included_link

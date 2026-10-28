@@ -75,11 +75,13 @@ const TREEMAP_HOVER_ALPHA = 0.82;
 const TREEMAP_INSET = (2 * TREEMAP_SPACING) + 1;
 // Relative luminance above which dark text has the better contrast (WCAG)
 const LIGHT_LUMINANCE = 0.179;
-// Width of the nodes of a sankey and how far a pointer may miss one; a node
-// is never harder to hit than one of this height
+// Width of the nodes of a sankey and how far a pointer may miss a node or a
+// flow; a node is never harder to hit than one of this height
 const SANKEY_NODE_WIDTH = 10;
+const SANKEY_HIT_TOLERANCE = 4;
+const SANKEY_MIN_HIT_HEIGHT = 4;
 // Room between the nodes of a column
-const SANKEY_NODE_PADDING = 24;
+const SANKEY_NODE_PADDING = 8;
 const SANKEY_FLOW_ALPHA = 0.35;
 // Lightest color of the scheme a flow is drawn in, as relative luminance
 const SANKEY_MAX_LUMINANCE = 0.6;
@@ -88,8 +90,6 @@ const SANKEY_MAX_LUMINANCE = 0.6;
 const SANKEY_COLUMN_DELAY = 150;
 const SANKEY_FLOW_DELAY = 20;
 const SANKEY_FLOWS_DELAY = 500;
-const SANKEY_HIT_TOLERANCE = 2;
-const SANKEY_MIN_HIT_HEIGHT = 4;
 // Names of the interaction mode and the tooltip position of a sankey
 const SANKEY_MODE = 'additionalsSankey';
 const SANKEY_POSITIONER = 'additionalsPointer';
@@ -1326,14 +1326,28 @@ export function sankeyNodeAt(chart, x, y) {
 // Interaction mode of a sankey: the flow at a point, else a flow of the node
 // there. The chart remembers the node for tooltip and click.
 export function sankeyItemsAt(chart, event) {
-  const flows = chart.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
-  if (flows.length > 0) {
-    chart.$additionalsSankeyNode = null;
-    return flows.slice(0, 1);
-  }
   const node = sankeyNodeAt(chart, event.x, event.y);
-  chart.$additionalsSankeyNode = node ? node.key : null;
-  return node ? [{ element: chart.getDatasetMeta(0).data[node.index], datasetIndex: 0, index: node.index }] : [];
+  const flows = sankeyFlowsAt(chart, event, 0);
+  chart.$additionalsSankeyNode = flows.length === 0 && node ? node.key : null;
+  if (chart.$additionalsSankeyNode) {
+    return [{ element: chart.getDatasetMeta(0).data[node.index], datasetIndex: 0, index: node.index }];
+  }
+  return flows.length > 0 ? flows : sankeyFlowsAt(chart, event, SANKEY_HIT_TOLERANCE);
+}
+
+// The flow under the pointer, else the nearest one at most the given distance
+// above or below it: a flow to a single project is only a few pixels high
+function sankeyFlowsAt(chart, event, maxDistance) {
+  for (let distance = 0; distance <= maxDistance; distance += 1) {
+    const offsets = distance === 0 ? [0] : [-distance, distance];
+    for (const offset of offsets) {
+      const flows = chart.getElementsAtEventForMode({ ...event, y: event.y + offset }, 'nearest', { intersect: true }, true);
+      if (flows.length > 0) {
+        return flows.slice(0, 1);
+      }
+    }
+  }
+  return [];
 }
 
 // A node opens itself, a flow its target: in a tree the node it leads to

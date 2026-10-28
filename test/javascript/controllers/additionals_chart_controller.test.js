@@ -743,6 +743,21 @@ describe('sankey', () => {
     open.mockRestore();
   });
 
+  // A flow to a single project is a few pixels high, it must not take an exact aim
+  it('opens the flow a few pixels beside the pointer, not one farther away', () => {
+    const open = vi.spyOn(window, 'open').mockImplementation(() => null);
+    const sankey = sankeyConfig(document.createElement('canvas'), sankeyPayload());
+    const [events] = sankey.plugins;
+    // The flow from A to C is under the pointer at a height of 25 only
+    const flowAt = (event) => (event.y === 25 ? [{ datasetIndex: 0, index: 2 }] : []);
+    const click = (y) => events.afterEvent(sankeyChart(sankey, flowAt), { event: { type: 'click', x: 150, y } });
+    click(22);
+    click(15);
+
+    expect(open.mock.calls).toEqual([['/projects/c']]);
+    open.mockRestore();
+  });
+
   it('shows the hand where a click opens a project', () => {
     const sankey = sankeyConfig(document.createElement('canvas'), sankeyPayload());
     const [events] = sankey.plugins;

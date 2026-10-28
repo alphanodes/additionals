@@ -30,6 +30,7 @@ zh:
   disabled_modules_info: "在项目中不可选择的模块。如果这些模块已在现有项目中启用，需重新保存相应的项目设置后，更改才会在那里生效。"
   emoji_support_info_html: "转换文本中的表情代码。若要将 :heart:、:+1: 等转换为表情符号，请启用此选项。可用的表情代码见 <a href=\"https://www.webfx.com/tools/emoji-cheat-sheet/\" class=\"external\">Emoji cheat sheet</a>。"
   error_deletion_blocked: "%{name} 仍在使用中，无法删除：%{reasons}"
+  error_entries_deletion_blocked: "仍在使用的条目未被删除：%{count} / %{total}"
   error_issue_status_could_not_changed: "无法更改问题状态"
   error_issues_could_not_be_assigned_to_me: "无法将问题指派给你"
   errors_no_or_invalid_arguments: "参数缺失或无效"

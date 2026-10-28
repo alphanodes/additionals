@@ -30,6 +30,7 @@ ko:
   disabled_modules_info: "프로젝트에서 선택할 수 없게 할 모듈입니다. 기존 프로젝트에서 이미 사용 중이라면, 해당 프로젝트 설정을 다시 저장한 후에 변경이 적용됩니다."
   emoji_support_info_html: "텍스트의 이모지 코드를 변환합니다. :heart:, :+1: 등을 이모지로 변환하려면 이 옵션을 켜세요. 사용 가능한 이모지 코드는 <a href=\"https://www.webfx.com/tools/emoji-cheat-sheet/\" class=\"external\">Emoji cheat sheet</a>에서 확인할 수 있습니다."
   error_deletion_blocked: "%{name}은(는) 아직 사용 중이므로 삭제할 수 없습니다: %{reasons}"
+  error_entries_deletion_blocked: "사용 중인 항목은 삭제되지 않았습니다: %{count} / %{total}"
   error_issue_status_could_not_changed: "일감 상태를 변경할 수 없습니다"
   error_issues_could_not_be_assigned_to_me: "일감을 나에게 할당할 수 없습니다"
   errors_no_or_invalid_arguments: "인수가 없거나 잘못되었습니다"

@@ -31,6 +31,7 @@ fr:
   disabled_modules_info: "Modules qui ne doivent pas être proposés dans les projets. Si ces modules sont déjà activés dans des projets existants, le changement n'y prend effet qu'après un nouvel enregistrement des paramètres du projet."
   emoji_support_info_html: "Convertit les codes emoji du texte. Activez cette option si :heart:, :+1: etc. doivent être convertis en emojis. Les codes disponibles figurent dans l'<a href=\"https://www.webfx.com/tools/emoji-cheat-sheet/\" class=\"external\">Emoji cheat sheet</a>."
   error_deletion_blocked: "%{name} ne peut pas être supprimé tant que des références existent : %{reasons}"
+  error_entries_deletion_blocked: "Les entrées encore utilisées n'ont pas été supprimées : %{count} sur %{total}."
   error_issue_status_could_not_changed: "Le statut de la demande n'a pas pu être modifié"
   error_issues_could_not_be_assigned_to_me: "La demande n'a pas pu vous être assignée"
   errors_no_or_invalid_arguments: "Arguments manquants ou invalides"

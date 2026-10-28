@@ -45,6 +45,10 @@ module Additionals
       included do
         class_attribute :deletion_blockers, instance_writer: false, default: {}
 
+        # Set when the owner of the entry goes and takes it along outside of an
+        # association, e.g. the private entries of a deleted user
+        attr_accessor :deleted_with_owner
+
         # prepend: before the dependent callbacks of the associations
         before_destroy :check_deletion_blockers, prepend: true
       end
@@ -58,6 +62,25 @@ module Additionals
         # entry as a plain string
         def custom_values_of_formats(*formats)
           CustomValue.where custom_field_id: CustomField.where(field_format: formats).select(:id)
+        end
+
+        # The projects of the records custom values belong to: a project itself or
+        # anything with a project_id (issues, versions, time entries, ...). Values
+        # of users and other records without a project name none.
+        def projects_of_custom_values(custom_values)
+          custom_values.distinct.pluck(:customized_type, :customized_id)
+                       .group_by(&:first)
+                       .flat_map do |type, pairs|
+                         klass = type.safe_constantize
+                         ids = pairs.map(&:last)
+                         if klass == Project
+                           ids
+                         elsif klass&.column_names&.include? 'project_id'
+                           klass.where(id: ids).pluck(:project_id)
+                         else
+                           []
+                         end
+                       end
         end
 
         # Entries something still refers to
@@ -110,9 +133,10 @@ module Additionals
 
       # Counted again: references may have moved right before the destroy.
       # An entry deleted along with its owner (dependent: :destroy, e.g. the
-      # entries of a deleted project) goes with it, the owner decides.
+      # entries of a deleted project, or deleted_with_owner) goes with it, the
+      # owner decides.
       def check_deletion_blockers
-        return if destroyed_by_association
+        return if destroyed_by_association || deleted_with_owner
 
         @deletion_blocker_counts = nil
         return unless deletion_blocked?

@@ -27,18 +27,20 @@ module Additionals
 
           skip_field_info = false
 
+          # Core renders flash messages as HTML, and error messages may contain the
+          # name of the record, so they are escaped
           message = case msg
                     when :save_error
                       if obj.present? && obj.errors.full_messages.present?
                         skip_field_info = true
-                        l :notice_save_error_with_messages, errors: obj.errors.full_messages.to_comma_list
+                        l :notice_save_error_with_messages, errors: ERB::Util.html_escape(obj.errors.full_messages.to_comma_list).to_str
                       else
                         l :notice_unsuccessful_save
                       end
                     when :delete_error
                       if obj.present? && obj.errors.full_messages.present?
                         skip_field_info = true
-                        l :notice_delete_error_with_messages, errors: obj.errors.full_messages.to_comma_list
+                        l :notice_delete_error_with_messages, errors: ERB::Util.html_escape(obj.errors.full_messages.to_comma_list).to_str
                       else
                         l :notice_unsuccessful_delete
                       end

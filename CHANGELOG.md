@@ -5,6 +5,7 @@
 - Requires Redmine 7.0.2 or higher
 - Add `Additionals.redmine_url` and `Additionals.redmine_origin` for absolute URLs built from the host settings
 - Add `Additionals::Concerns::DeletionBlockers`: an entry other records refer to can only be deleted once nothing refers to it any more, with the query filter `deletable` and the column `deletion_blocked_by`
+- Error messages in `flash_msg` (`save_error`, `delete_error`) are escaped, as the flash is rendered as HTML
 - Incompatible: dashboard blocks are classes in `lib/dashboard_blocks/` of their plugin, a `block_definitions` method stops the boot, see "Moving Blocks from `block_definitions`" in `docs/dashboards.md`
 - Dashboard blocks declare their settings (`Additionals::SettingsSchema`), invalid settings are rejected
 - Settings forms of dashboard blocks are built from the declared settings

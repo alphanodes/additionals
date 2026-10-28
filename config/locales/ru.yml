@@ -33,6 +33,7 @@ ru:
   disabled_modules_info: "Модули, которые не должны быть доступны для выбора в проектах. Если эти модули уже включены в существующих проектах, изменение вступит там в силу только после повторного сохранения настроек проекта."
   emoji_support_info_html: "Преобразует коды эмодзи в тексте. Включите эту опцию, если :heart:, :+1: и т. п. нужно преобразовывать в эмодзи. Доступные коды смотрите в <a href=\"https://www.webfx.com/tools/emoji-cheat-sheet/\" class=\"external\">Emoji cheat sheet</a>."
   error_deletion_blocked: "%{name}: нельзя удалить, пока существуют ссылки: %{reasons}"
+  error_entries_deletion_blocked: "Используемые записи не были удалены: %{count} из %{total}."
   error_issue_status_could_not_changed: "Не удалось изменить статус задачи"
   error_issues_could_not_be_assigned_to_me: "Не удалось назначить задачу вам"
   errors_no_or_invalid_arguments: "Аргументы отсутствуют или недопустимы"

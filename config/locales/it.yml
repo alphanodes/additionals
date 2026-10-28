@@ -31,6 +31,7 @@ it:
   disabled_modules_info: "Moduli che non devono essere selezionabili nei progetti. Se questi moduli sono già attivi in progetti esistenti, la modifica ha effetto lì solo dopo aver salvato di nuovo le impostazioni del progetto."
   emoji_support_info_html: "Converte i codici emoji nel testo. Attiva questa opzione se :heart:, :+1: ecc. devono essere convertiti in emoji. I codici disponibili si trovano nell'<a href=\"https://www.webfx.com/tools/emoji-cheat-sheet/\" class=\"external\">Emoji cheat sheet</a>."
   error_deletion_blocked: "%{name} non può essere eliminato finché esistono riferimenti: %{reasons}"
+  error_entries_deletion_blocked: "Le voci ancora in uso non sono state eliminate: %{count} su %{total}."
   error_issue_status_could_not_changed: "Non è stato possibile cambiare lo stato della segnalazione"
   error_issues_could_not_be_assigned_to_me: "Non è stato possibile assegnarti la segnalazione"
   errors_no_or_invalid_arguments: "Argomenti mancanti o non validi"

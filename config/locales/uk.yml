@@ -33,6 +33,7 @@ uk:
   disabled_modules_info: "Модулі, які не мають бути доступні для вибору в проєктах. Якщо ці модулі вже ввімкнені в наявних проєктах, зміна набуде там чинності лише після повторного збереження налаштувань проєкту."
   emoji_support_info_html: "Перетворює коди емодзі в тексті. Увімкніть цю опцію, якщо :heart:, :+1: тощо потрібно перетворювати на емодзі. Доступні коди дивіться в <a href=\"https://www.webfx.com/tools/emoji-cheat-sheet/\" class=\"external\">Emoji cheat sheet</a>."
   error_deletion_blocked: "%{name}: не можна видалити, поки існують посилання: %{reasons}"
+  error_entries_deletion_blocked: "Записи, що використовуються, не видалено: %{count} з %{total}."
   error_issue_status_could_not_changed: "Не вдалося змінити статус задачі"
   error_issues_could_not_be_assigned_to_me: "Не вдалося призначити задачу вам"
   errors_no_or_invalid_arguments: "Аргументи відсутні або недопустимі"

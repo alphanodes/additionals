@@ -213,6 +213,11 @@ module Additionals
         end
 
         def sql_for_deletable_field(_field, operator, value)
+          # both values: every entry, or none for "is not"
+          if value.uniq.size > 1
+            return operator == '=' ? Additionals::SQL_WITH_TRUE_CONDITION : Additionals::SQL_NO_RESULT_CONDITION
+          end
+
           deletable = (operator == '=') == (value.first == '1')
           "#{queried_table_name}.id #{deletable ? 'NOT IN' : 'IN'} (#{queried_class.with_deletion_blockers.select(:id).to_sql})"
         end

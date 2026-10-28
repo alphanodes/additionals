@@ -32,6 +32,7 @@ cs:
   disabled_modules_info: "Moduly, které nemají být v projektech k dispozici. Pokud jsou v existujících projektech už zapnuté, změna se tam projeví až po novém uložení nastavení projektu."
   emoji_support_info_html: "Převádí emoji kódy v textu. Zapněte tuto volbu, pokud se mají :heart:, :+1: apod. převádět na emoji. Dostupné kódy najdete v <a href=\"https://www.webfx.com/tools/emoji-cheat-sheet/\" class=\"external\">Emoji cheat sheet</a>."
   error_deletion_blocked: "%{name}: nelze smazat, dokud existují odkazy: %{reasons}"
+  error_entries_deletion_blocked: "Záznamy, které se ještě používají, nebyly smazány: %{count} z %{total}."
   error_issue_status_could_not_changed: "Stav úkolu se nepodařilo změnit"
   error_issues_could_not_be_assigned_to_me: "Úkol se nepodařilo přiřadit vám"
   errors_no_or_invalid_arguments: "Chybějící nebo neplatné argumenty"

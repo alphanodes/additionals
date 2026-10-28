@@ -202,6 +202,21 @@ module Additionals
           add_available_filter 'last_notes', **options
         end
 
+        # Deletion blockers count references in every project, so filter and
+        # column are only for those who may delete (see DeletionBlockers)
+        def deletion_visible?(permission)
+          User.current.allowed_to? permission, project, global: true
+        end
+
+        def initialize_deletable_filter(permission)
+          add_available_filter 'deletable', type: :list, values: bool_values if deletion_visible? permission
+        end
+
+        def sql_for_deletable_field(_field, operator, value)
+          deletable = (operator == '=') == (value.first == '1')
+          "#{queried_table_name}.id #{deletable ? 'NOT IN' : 'IN'} (#{queried_class.with_deletion_blockers.select(:id).to_sql})"
+        end
+
         def initialize_notes_count_filter
           add_available_filter 'notes_count',
                                type: :integer

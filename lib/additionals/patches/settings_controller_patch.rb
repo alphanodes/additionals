@@ -10,6 +10,8 @@ module Additionals
         prepend InstanceOverwriteMethods
 
         helper :additionals_settings
+        # The color scheme select of the settings helpers builds on it
+        helper :additionals_chartjs
       end
 
       module InstanceOverwriteMethods

@@ -219,7 +219,6 @@ module Additionals
                           ApplicationController
                           ApplicationHelper
                           AutoCompletesController
-                          CustomField
                           Issue
                           TimeEntry
                           Mailer
@@ -270,8 +269,7 @@ module Additionals
 
       add_wiki_formatting_patches
 
-      # Custom field formats, patches and helper
-      loader.load_custom_field_format!
+      # Apply patches and helper
       loader.apply!
 
       # Dashboard blocks of all plugins

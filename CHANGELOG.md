@@ -3,6 +3,7 @@
 ## 4.7.0
 
 - Requires Redmine 7.0.2 or higher
+- Add `AdditionalsWikiToolbar` for buttons of plugins in the wiki toolbar, with the jsToolBar of Redmine 7.0 and the server rendered toolbar of Redmine 7.1 alike; the macro button uses it
 - Add `Additionals.redmine_url` and `Additionals.redmine_origin` for absolute URLs built from the host settings
 - Add `Additionals::Concerns::DeletionBlockers`: an entry other records refer to can only be deleted once nothing refers to it any more, with the query filter `deletable` and the column `deletion_blocked_by`
 - Error messages in `flash_msg` (`save_error`, `delete_error`) are escaped, as the flash is rendered as HTML

@@ -22,7 +22,7 @@ module Additionals
 
           content_for :header_tags do
             javascript_include_tag('additionals_macro_button', plugin: 'additionals') +
-              javascript_tag("jsToolBar.prototype.macroList = #{@additionals_macro_list.to_json};")
+              javascript_tag("additionalsMacroButton(#{@additionals_macro_list.to_json});")
           end
         end
       end

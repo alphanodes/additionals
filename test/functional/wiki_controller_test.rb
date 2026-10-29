@@ -54,6 +54,21 @@ class WikiControllerTest < Additionals::ControllerTest
     assert_select 'div.test-wiki-bottom', text: 'Hook content'
   end
 
+  # With the jsToolBar of Redmine 7.0 and the server rendered toolbar of Redmine 7.1
+  # (https://www.redmine.org/issues/43259) alike
+  def test_edit_offers_the_macro_button_of_the_toolbar
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! title: __method__.to_s
+
+    get :edit,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select 'head script[src*=?]', 'additionals_wiki_toolbar', 1
+    assert_select 'head script[src*=?]', 'additionals_macro_button', 1
+    assert_select 'head script', text: /additionalsMacroButton\(\[.*"child_pages".*\]\)/
+  end
+
   def test_edit_with_hook_view_wiki_form_bottom
     Redmine::Hook.add_listener ViewWikiFormBottomRenderOn
     @request.session[:user_id] = WIKI_MACRO_USER_ID

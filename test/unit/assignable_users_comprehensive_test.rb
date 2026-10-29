@@ -177,7 +177,7 @@ class AssignableUsersComprehensiveTest < Additionals::TestCase
     time_assignable = entry.assignable_users
 
     # General entities through EntityMethods use project assignable users
-    require_relative 'entity_methods_assignable_users_test'
+    require File.expand_path '../entity_methods_assignable_users_test', __FILE__
     entity = TestEntity.new project: projects(:projects_001)
     entity_assignable = entity.assignable_users
 

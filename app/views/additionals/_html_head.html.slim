@@ -8,6 +8,9 @@
 - if defined? Redmine::Mermaid
   = javascript_tag "window.MermaidAssetUrl = #{asset_path('plugin_assets/additionals/vendor/mermaid.min.js').to_json};"
 = javascript_include_tag 'additionals', plugin: 'additionals'
+/ Buttons of plugins in the wiki toolbar, registered from :header_tags, which
+/ the layout renders after this head
+= javascript_include_tag 'additionals_wiki_toolbar', plugin: 'additionals'
 = javascript_include_tag 'additionals_stimulus', plugin: 'additionals'
 = javascript_include_tag 'top_menu_dropdown', plugin: 'additionals'
 = javascript_include_tag 'controllers/clipboard_feedback_controller', plugin: 'additionals', type: 'module'

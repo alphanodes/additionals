@@ -57,14 +57,16 @@ class WelcomeControllerTest < Additionals::ControllerTest
   end
 
   # Blocks added without a page reload bring the toolbar call of their text field, but
-  # not the toolbar library, which the page has to provide.
+  # not the head of the toolbar, which the page has to provide. wikiImageMimeTypes
+  # is part of that head with the jsToolBar library (Redmine 7.0) and with the
+  # server rendered toolbar (https://www.redmine.org/issues/43259) alike.
   def test_index_loads_wiki_toolbar_on_editable_dashboard
     @request.session[:user_id] = 1
     get :index,
         params: { dashboard_id: dashboards(:private_welcome) }
 
     assert_response :success
-    assert_select 'head script[src*=?]', 'jstoolbar/jstoolbar'
+    assert_select 'head script', text: /wikiImageMimeTypes/
   end
 
   def test_index_without_wiki_toolbar_on_not_editable_dashboard
@@ -72,7 +74,7 @@ class WelcomeControllerTest < Additionals::ControllerTest
     get :index
 
     assert_response :success
-    assert_select 'head script[src*=?]', 'jstoolbar/jstoolbar', count: 0
+    assert_select 'head script', text: /wikiImageMimeTypes/, count: 0
   end
 
   def test_show_with_left_text_block

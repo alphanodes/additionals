@@ -8,14 +8,22 @@ module Additionals
       included do
         # Adds a configurable user scope to the core "user" custom field format.
         # Core only ever lists project members, which is useless for entities
-        # where the assigned user is usually not a project member (e.g. a
-        # customer login assigned to a contact or database entry).
+        # where the assigned user is usually not a project member.
         #
         # user_scope values:
-        #   '1' => all visible users (incl. locked - e.g. expired customer logins)
+        #   '1' => all visible users, locked ones included
         #   '4' => all active visible users
         #   '2' / '3' / nil => core behaviour (project members, optionally by role)
         field_attributes :user_scope
+
+        # The scope is offered only for the entities a plugin registers here,
+        # like customized_class_names. User fields of all other entities keep
+        # the core form and behaviour.
+        class_attribute :user_scope_class_names
+        self.user_scope_class_names = []
+
+        format = self
+        CustomField.safe_attributes 'user_scope', if: ->(custom_field, _user) { format.user_scope_for? custom_field }
 
         # Replace the core user form partial with our own that adds the scope
         # selector. Using form_partial (not a Deface override) avoids duplicated
@@ -24,6 +32,12 @@ module Additionals
 
         include InstanceMethods
         prepend InstanceOverwriteMethods
+      end
+
+      class_methods do
+        def user_scope_for?(custom_field)
+          user_scope_class_names.include? custom_field.class.customized_class&.name
+        end
       end
 
       module InstanceMethods
@@ -36,6 +50,8 @@ module Additionals
         # Principals of the project independent user scopes '1' and '4',
         # nil for the project-based scopes handled by core
         def additionals_scope_principals(custom_field)
+          return unless self.class.user_scope_for? custom_field
+
           scope = case custom_field.user_scope.to_s
                   when '1' then Principal.visible
                   when '4' then Principal.active.visible

@@ -568,9 +568,11 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
     outsider = User.generate! firstname: 'Xavier', lastname: 'Scopeoutsider'
     cf = IssueCustomField.create! name: 'Scope All CF', field_format: 'user', is_for_all: true, user_scope: '1'
 
-    get :custom_field_users,
-        params: { project_id: 1, custom_field_id: cf.id, q: 'Scopeoutsider' },
-        xhr: true
+    with_user_scope_for 'Issue' do
+      get :custom_field_users,
+          params: { project_id: 1, custom_field_id: cf.id, q: 'Scopeoutsider' },
+          xhr: true
+    end
 
     assert_response :success
     assert_includes custom_field_users_ids(response.body), outsider.id
@@ -581,9 +583,11 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
     locked = User.generate! firstname: 'Laura', lastname: 'Scopelocked', status: User::STATUS_LOCKED
     cf = IssueCustomField.create! name: 'Scope All Locked CF', field_format: 'user', is_for_all: true, user_scope: '1'
 
-    get :custom_field_users,
-        params: { project_id: 1, custom_field_id: cf.id, q: 'Scopelocked' },
-        xhr: true
+    with_user_scope_for 'Issue' do
+      get :custom_field_users,
+          params: { project_id: 1, custom_field_id: cf.id, q: 'Scopelocked' },
+          xhr: true
+    end
 
     assert_response :success
     assert_includes custom_field_users_ids(response.body), locked.id
@@ -594,9 +598,11 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
     outsider = User.generate! firstname: 'Yara', lastname: 'Activeoutsider'
     cf = IssueCustomField.create! name: 'Scope Active CF', field_format: 'user', is_for_all: true, user_scope: '4'
 
-    get :custom_field_users,
-        params: { project_id: 1, custom_field_id: cf.id, q: 'Activeoutsider' },
-        xhr: true
+    with_user_scope_for 'Issue' do
+      get :custom_field_users,
+          params: { project_id: 1, custom_field_id: cf.id, q: 'Activeoutsider' },
+          xhr: true
+    end
 
     assert_response :success
     assert_includes custom_field_users_ids(response.body), outsider.id
@@ -607,9 +613,11 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
     locked = User.generate! firstname: 'Nora', lastname: 'Activelocked', status: User::STATUS_LOCKED
     cf = IssueCustomField.create! name: 'Scope Active Locked CF', field_format: 'user', is_for_all: true, user_scope: '4'
 
-    get :custom_field_users,
-        params: { project_id: 1, custom_field_id: cf.id, q: 'Activelocked' },
-        xhr: true
+    with_user_scope_for 'Issue' do
+      get :custom_field_users,
+          params: { project_id: 1, custom_field_id: cf.id, q: 'Activelocked' },
+          xhr: true
+    end
 
     assert_response :success
     assert_not_includes custom_field_users_ids(response.body), locked.id
@@ -640,9 +648,11 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
     cf = IssueCustomField.create! name: 'Scope All Group CF', field_format: 'user', is_for_all: true,
                                   user_scope: '1', possible_principals: 'user_group'
 
-    get :custom_field_users,
-        params: { project_id: 1, custom_field_id: cf.id, q: 'A Team' },
-        xhr: true
+    with_user_scope_for 'Issue' do
+      get :custom_field_users,
+          params: { project_id: 1, custom_field_id: cf.id, q: 'A Team' },
+          xhr: true
+    end
 
     assert_includes custom_field_users_ids(response.body), 10
   end
@@ -668,10 +678,12 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
     cf = IssueCustomField.create! name: 'Start List Group CF', field_format: 'user', is_for_all: true,
                                   user_scope: '1', possible_principals: 'user_group'
 
-    with_select2_init_entries 2 do
-      get :custom_field_users,
-          params: { project_id: 1, custom_field_id: cf.id },
-          xhr: true
+    with_user_scope_for 'Issue' do
+      with_select2_init_entries 2 do
+        get :custom_field_users,
+            params: { project_id: 1, custom_field_id: cf.id },
+            xhr: true
+      end
     end
 
     assert_includes custom_field_users_ids(response.body), 10

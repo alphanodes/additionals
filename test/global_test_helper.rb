@@ -201,6 +201,18 @@ module Additionals
       end
     end
 
+    # Offers the user scope on user fields of the given customized classes for
+    # the block, as a plugin does for its own entities (e.g. 'Issue', where no
+    # plugin registers it)
+    def with_user_scope_for(*class_names)
+      format = Redmine::FieldFormat::UserFormat
+      saved = format.user_scope_class_names
+      format.user_scope_class_names = saved | class_names
+      yield
+    ensure
+      format.user_scope_class_names = saved
+    end
+
     def assert_sorted_equal(list1, list2, comment = nil)
       assert_equal list1.sort, list2.sort, comment
     end

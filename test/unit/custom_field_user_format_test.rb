@@ -3,10 +3,34 @@
 require File.expand_path '../../test_helper', __FILE__
 
 class CustomFieldUserFormatTest < Additionals::TestCase
+  # The scope is offered for the entities a plugin registers, issue fields
+  # stand in for them here
   def setup
     User.current = users :users_001
     @issue = issues :issues_001
     @locked_user = User.where(status: User::STATUS_LOCKED).first
+    @saved_scope_class_names = Redmine::FieldFormat::UserFormat.user_scope_class_names
+    Redmine::FieldFormat::UserFormat.user_scope_class_names = @saved_scope_class_names | ['Issue']
+  end
+
+  def teardown
+    Redmine::FieldFormat::UserFormat.user_scope_class_names = @saved_scope_class_names
+  end
+
+  def test_unregistered_entity_keeps_core_project_members_despite_a_stored_scope
+    field = IssueCustomField.create! name: 'Owner', field_format: 'user', user_scope: '1'
+
+    Redmine::FieldFormat::UserFormat.user_scope_class_names -= ['Issue']
+    records = field.format.possible_values_records field, @issue
+
+    assert_equal @issue.project.users.sorted.to_a, records.to_a
+  end
+
+  def test_user_scope_is_a_safe_attribute_only_for_registered_entities
+    admin = users :users_001
+
+    assert_includes IssueCustomField.new.safe_attribute_names(admin), 'user_scope'
+    assert_not_includes TimeEntryCustomField.new.safe_attribute_names(admin), 'user_scope'
   end
 
   def test_scope_all_lists_every_visible_user_including_locked

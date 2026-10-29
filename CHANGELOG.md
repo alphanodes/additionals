@@ -3,6 +3,7 @@
 ## 4.7.0
 
 - Requires Redmine 7.0.2 or higher
+- Incompatible: the user scope of user custom fields (all users, all active users) is only offered for the entities a plugin registers in `user_scope_class_names`, user fields of all other entities keep the core form and behaviour
 - Add `AdditionalsWikiToolbar` for buttons of plugins in the wiki toolbar, with the jsToolBar of Redmine 7.0 and the server rendered toolbar of Redmine 7.1 alike; the macro button uses it
 - Add `Additionals.redmine_url` and `Additionals.redmine_origin` for absolute URLs built from the host settings
 - Add `Additionals::Concerns::DeletionBlockers`: an entry other records refer to can only be deleted once nothing refers to it any more, with the query filter `deletable` and the column `deletion_blocked_by`

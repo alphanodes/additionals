@@ -285,7 +285,7 @@ module Additionals
 
     # Redmine loads every config/locales/*.yml of a plugin, so besides the locales
     # themselves a plugin may ship additions to a locale owned by someone else
-    # (redmine_core_de.yml adds German translations to Redmine core strings).
+    # (e.g. redmine_core_de.yml with German translations of Redmine core strings).
     # Those are named <purpose>_<language>.yml and are no locale of their own.
     def assert_plugin_locale_files(plugin)
       languages = valid_languages.map(&:to_s)
@@ -492,7 +492,7 @@ module Additionals
     # partial: overrides built from :text have no partial and would be skipped silently.
     #
     # @param name_prefix [String] prefix every override name of the plugin starts with,
-    #   e.g. 'reporting' for 'reporting-add-counter-fieldset'
+    #   e.g. 'my-plugin' for 'my-plugin-add-issue-field'
     # @param optional_templates [Boolean] pass true when the plugin overrides templates of an
     #   optional third party plugin. Such a template is absent wherever that plugin is not
     #   installed - the CI for example - and the override simply never applies there, which is
@@ -502,7 +502,7 @@ module Additionals
     #
     # Example usage in plugin test:
     #   def test_deface_overrides_have_valid_hashes
-    #     assert_deface_overrides_valid name_prefix: 'wiki-guide'
+    #     assert_deface_overrides_valid name_prefix: 'my-plugin'
     #   end
     #
     # Asserts that every patch a plugin ships really reached a class.
@@ -514,7 +514,7 @@ module Additionals
     # loader itself is no help here, it clears its patch list after applying.
     #
     # `conditional:` names the patches that are registered behind a condition
-    # (`add_patch 'ContactQuery' if AdditionalsPlugin.active_servicedesk?`).
+    # (`add_patch 'WikiPage' if Redmine::Plugin.installed? 'other_plugin'`).
     # Those are inactive wherever the condition is false - the CI installs far
     # fewer plugins than a developer machine - so they are not reported. Naming
     # them is the point: it keeps the set of patches that this environment does
@@ -522,8 +522,7 @@ module Additionals
     #
     # Example usage in plugin test:
     #   def test_patches_are_applied
-    #     assert_plugin_patches_applied RedmineDb,
-    #                                   conditional: %w[Contact ContactQuery Password WikiPage]
+    #     assert_plugin_patches_applied MyPlugin, conditional: %w[WikiPage]
     #   end
     #
     # conditional names the patches that are registered behind an optional

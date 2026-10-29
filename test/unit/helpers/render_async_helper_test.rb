@@ -106,6 +106,23 @@ class RenderAsyncHelperTest < Additionals::HelperTest
     end
   end
 
+  def test_render_async_cache_keeps_polling_container_for_cached_view_with_interval
+    with_fragment_cache do
+      controller.write_fragment render_async_cache_key('/cached'), '<p>from cache</p>'
+      html = render_async_cache '/cached', interval: 30_000, min_height: 500, lazy: true
+
+      assert_include 'data-render-async-interval-value="30000"', html
+      assert_include 'data-render-async-loaded-value="true"', html
+      assert_include '<p>from cache</p>', html
+      assert_not_include 'min-height', html
+      assert_not_include 'render-async-lazy-value', html
+    end
+  end
+
+  def test_render_async_skips_loaded_value_when_not_set
+    assert_not_include 'render-async-loaded-value', render_async('/path')
+  end
+
   def test_render_async_cache_returns_cached_view_as_html_safe
     with_fragment_cache do
       controller.write_fragment render_async_cache_key('/cached'), '<p>from cache</p>'

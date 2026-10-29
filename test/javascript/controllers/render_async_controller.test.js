@@ -335,6 +335,57 @@ describe('RenderAsyncController', () => {
       expect(stillThere.querySelector('span.new')).not.toBeNull();
       expect(stillThere.textContent).not.toContain('old');
     });
+
+    it('drops the placeholder min-height of the kept element when interval > 0', () => {
+      ctx.intervalValue = 1000;
+      element.style.minHeight = '500px';
+
+      RenderAsyncController.prototype.replaceContent.call(ctx, '<span class="new">new</span>');
+
+      expect(document.getElementById('async-block').style.minHeight).toBe('');
+    });
+  });
+
+  describe('connect with loaded content', () => {
+    let ctx;
+
+    beforeEach(() => {
+      vi.useFakeTimers();
+      vi.stubGlobal('fetch', vi.fn(() => new Promise(() => {})));
+      document.body.innerHTML = '<div id="async-block"><p>from cache</p></div>';
+
+      // Stimulus' element getter needs a real application, so the real
+      // methods run on a plain object.
+      const methods = Object.getOwnPropertyNames(RenderAsyncController.prototype)
+        .filter(name => name !== 'constructor')
+        .map(name => [name, RenderAsyncController.prototype[name]]);
+      ctx = Object.assign(Object.fromEntries(methods), {
+        element: document.getElementById('async-block'),
+        urlValue: '/async',
+        intervalValue: 1000,
+        hasToggleSelectorValue: false,
+        toggleSelectorValue: '',
+        lazyValue: false,
+        loadedValue: true,
+      });
+    });
+
+    afterEach(() => {
+      RenderAsyncController.prototype.disconnect.call(ctx);
+      vi.unstubAllGlobals();
+      vi.useRealTimers();
+    });
+
+    it('keeps the cached content and refreshes only after the interval', () => {
+      RenderAsyncController.prototype.connect.call(ctx);
+
+      expect(fetch).not.toHaveBeenCalled();
+      expect(ctx.element.textContent).toBe('from cache');
+
+      vi.advanceTimersByTime(1000);
+
+      expect(fetch).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('handleError', () => {

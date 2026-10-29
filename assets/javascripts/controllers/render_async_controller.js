@@ -10,6 +10,8 @@ class RenderAsyncController extends Controller {
     toggleEvent: { type: String, default: 'click' },
     errorMessage: { type: String, default: '' },
     lazy: { type: Boolean, default: false },
+    // Content is already rendered (cache hit), only polling has to start
+    loaded: { type: Boolean, default: false },
   };
 
   connect() {
@@ -30,6 +32,8 @@ class RenderAsyncController extends Controller {
       this.toggleTargets.forEach(target => {
         target.addEventListener(this.toggleEventValue, this.toggleHandler);
       });
+    } else if (this.loadedValue) {
+      this.startPolling();
     } else if (this.lazyValue) {
       this.observeLazyTrigger();
     } else {
@@ -110,9 +114,7 @@ class RenderAsyncController extends Controller {
       .then(html => this.replaceContent(html))
       .catch(error => this.handleError(error));
 
-    if (this.intervalValue > 0 && this.intervalId === null) {
-      this.intervalId = setInterval(this.boundLoad, this.intervalValue);
-    }
+    this.startPolling();
   }
 
   replaceContent(html) {
@@ -123,7 +125,10 @@ class RenderAsyncController extends Controller {
 
     // Polling needs the controller element to survive across refreshes,
     // so we swap children. Otherwise we replace the element entirely.
+    // The min-height only reserves space while loading, the kept element
+    // would otherwise stay that high below shorter content.
     if (this.intervalValue > 0) {
+      this.element.style.minHeight = '';
       this.element.replaceChildren(fragment);
     } else {
       this.element.replaceWith(fragment);
@@ -184,6 +189,12 @@ class RenderAsyncController extends Controller {
 
     if (this.errorMessageValue) {
       this.element.outerHTML = this.errorMessageValue;
+    }
+  }
+
+  startPolling() {
+    if (this.intervalValue > 0 && this.intervalId === null) {
+      this.intervalId = setInterval(this.boundLoad, this.intervalValue);
     }
   }
 

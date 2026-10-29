@@ -13,11 +13,15 @@ module AdditionalsRenderAsyncHelper
 
   # Reads like the cache helper of the block writes it, so RAILS_CACHE_ID or
   # RAILS_APP_VERSION in the fragment key are respected.
-  def render_async_cache(path, **, &)
+  # A polling block keeps its controller element on a cache hit, otherwise its
+  # auto refresh would never start. It is loaded already, so it neither waits
+  # for the viewport nor reserves a min-height.
+  def render_async_cache(path, **options, &)
     cached_view = controller.read_fragment render_async_cache_key(path)
-    return render_async(path, **, &) if cached_view.blank?
+    return render_async(path, **options, &) if cached_view.blank?
+    return cached_view unless options[:interval].to_i.positive?
 
-    cached_view
+    render_async(path, **options.except(:lazy, :min_height), loaded: true) { cached_view }
   end
 
   def render_async(path, **options, &block)
@@ -40,6 +44,7 @@ module AdditionalsRenderAsyncHelper
     end
 
     data_attrs['render-async-lazy-value'] = 'true' if options[:lazy]
+    data_attrs['render-async-loaded-value'] = 'true' if options[:loaded]
 
     error_message = options[:error_message]
     data_attrs['render-async-error-message-value'] = error_message if error_message.present?

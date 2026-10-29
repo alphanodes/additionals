@@ -13,7 +13,7 @@ module ContactsForm
     Deface::Override.new virtual_path: 'contacts/_form',
                          name: 'additionals-contacts-form-hook',
                          insert_bottom: 'div#contact_data',
-                         original: '72f1567f63cd4871d835a302ec750004c298e38f',
+                         original: '775cefe80a27105be2baf47256dbc08423fa6e4f',
                          partial: 'hooks/view_contacts_form'
   end
 end

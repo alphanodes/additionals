@@ -1501,16 +1501,15 @@ class AdditionalsQueryChart < AdditionalsChart
     [0, field_position(key, column), key.to_s.downcase]
   end
 
+  # The position of a record, else the one in the values of a list field: by
+  # its text, as a field format may cast its values to numbers
   def field_position(key, column)
-    if key.respond_to? :position
-      key.position.to_i
-    elsif key.is_a?(String) && column.is_a?(QueryCustomFieldColumn)
-      column.custom_field.possible_values.index(key) || 0
-    elsif key == false
-      1
-    else
-      0
-    end
+    return key.position.to_i if key.respond_to? :position
+
+    position = Array(column.custom_field.possible_values).index key.to_s if column.is_a?(QueryCustomFieldColumn) && key != false
+    return position if position
+
+    key == false ? 1 : 0
   end
 
   # Small values first, then the largest entries up to the maximum. What does

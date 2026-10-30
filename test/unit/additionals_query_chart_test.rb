@@ -176,6 +176,18 @@ class AdditionalsQueryChartTest < Additionals::TestCase
     assert_equal keys.sort_by(&:position), keys
   end
 
+  # A field format may cast its list values to numbers: they keep the order of
+  # the list instead of the one of their text (13 before 2)
+  def test_order_of_a_list_field_follows_its_values_also_for_numbers
+    field = IssueCustomField.generate! field_format: 'list', possible_values: %w[1 2 13], is_for_all: true,
+                                       trackers: Tracker.all
+    column = IssueQuery.new.groupable_columns.detect { |c| c.name == :"cf_#{field.id}" }
+    chart = issue_chart group_by: "cf_#{field.id}"
+
+    assert_equal([0, 1, 2], [1, 2, 13].map { |key| chart.send(:field_position, key, column) })
+    assert_equal([0, 1, 2], %w[1 2 13].map { |key| chart.send(:field_position, key, column) })
+  end
+
   def test_order_by_value_shows_the_largest_value_first
     values = issue_chart(group_by: 'tracker', order: 'value').entries.map(&:value)
 

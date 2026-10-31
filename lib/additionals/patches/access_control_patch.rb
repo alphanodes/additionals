@@ -55,15 +55,6 @@ module Additionals
         end
         @modules_permissions[modules]
       end
-
-      # TODO: this does not work probably
-      # at the moment only elments are hidden, no permission is disabled for non-available module
-      def permission_disabled(name)
-        p = super
-        return p if p.nil? || p.project_module.nil?
-
-        p if available_project_modules.include? p.project_module
-      end
     end
   end
 end

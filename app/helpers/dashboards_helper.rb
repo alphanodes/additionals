@@ -419,7 +419,8 @@ module DashboardsHelper
   # Returns nil when no data is expected — the placeholder stays small
   # and rendering follows the natural content height (e.g. "no data" text).
   def resolve_async_min_height(settings, async)
-    return AdditionalsChart::CHART_HEADER_HEIGHT + AdditionalsChart::CHART_DEFAULT_HEIGHT if data_check_present? async
+    chart = data_check_chart async
+    return chart.chart_height if chart
 
     query_min_height = query_block_min_height settings, async
     return query_min_height if query_min_height
@@ -432,19 +433,20 @@ module DashboardsHelper
     end
   end
 
+  # The chart class of the block when it has data for the project, otherwise nil.
   # `data_check_class` may be declared as a Class (when reachable at patch
   # load time) or as a String (when reachable only at render time via a soft
   # plugin dependency). Constantize lazily so neither side has to know.
   # Soft-dependency block definitions are already gated by their `:if`
   # predicate -- if we still land in the rescue, it's almost certainly a
   # typo or missing plugin install. Warn instead of swallowing silently.
-  def data_check_present?(async)
+  def data_check_chart(async)
     klass = async[:data_check_class]
     klass = klass.constantize if klass.is_a? String
-    klass.respond_to?(:chart_data_present?) && klass.chart_data_present?(project: @project)
+    klass if klass.respond_to?(:chart_data_present?) && klass.chart_data_present?(project: @project)
   rescue NameError => e
     Rails.logger.warn { "[additionals] data_check_class could not be resolved: #{async[:data_check_class].inspect} (#{e.message})" }
-    false
+    nil
   end
 
   def query_block_min_height(settings, async)

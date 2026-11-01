@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require File.expand_path "#{File.dirname __FILE__}/locale_key_usage"
+require File.expand_path "#{File.dirname __FILE__}/plugin_check_usage"
 
 # Reset process-global state before every test so test order does not affect
 # outcomes when tests run in the same parallel worker. I18n part mirrors
@@ -591,6 +592,23 @@ module Additionals
 
       assert_empty unused,
                    "Patches that reach nothing:\n#{unused.join "\n"}"
+    end
+
+    # Plugins ask AdditionalsPlugin.active_<name>? whether another plugin is
+    # there. Redmine::Plugin.installed? would skip the module lock, init.rb runs
+    # while later plugins are not registered yet, and a check at load time
+    # (class body, setup, migration) has to pass force: true, because the
+    # module lock may change while the process runs.
+    def assert_plugin_checks_through_additionals(plugin_id)
+      directory = Redmine::Plugin.find(plugin_id).directory
+      own_implementation = plugin_id.to_s == 'additionals' ? %w[app/models/additionals_plugin.rb] : []
+
+      assert_empty PluginCheckUsage.direct_installed_checks(directory, except: own_implementation),
+                   'Redmine::Plugin.installed? instead of AdditionalsPlugin.active_<name>?'
+      assert_no_match(/AdditionalsPlugin\.active_/, File.read(File.join(directory, 'init.rb')),
+                      'init.rb checks for a plugin while the plugins still register')
+      assert_empty PluginCheckUsage.unforced_load_time_checks(directory),
+                   'AdditionalsPlugin check at load time without force: true'
     end
 
     # Charts are drawn by the additionals-chart Stimulus controller from the

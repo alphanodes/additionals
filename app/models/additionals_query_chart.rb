@@ -215,10 +215,6 @@ class AdditionalsQueryChart < AdditionalsChart
     self.class.type_icon chart_type
   end
 
-  def line_chart?
-    LINE_TYPES.include? chart_type
-  end
-
   def table_only?
     chart_type == 'table'
   end

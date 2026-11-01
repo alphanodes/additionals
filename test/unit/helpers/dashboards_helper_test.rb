@@ -33,6 +33,20 @@ end
 class DashboardsHelperTest < Additionals::HelperTest
   include DashboardsHelper
 
+  # A chart with data reserves its own height, so the lazy loader sees the final layout
+  def test_resolve_async_min_height_takes_the_height_of_a_chart_with_data
+    tall_chart = Class.new AdditionalsChart do
+      def self.chart_data_present?(**) = true
+      def self.chart_height = 600
+    end
+    plain_chart = Class.new(AdditionalsChart) { def self.chart_data_present?(**) = true }
+    empty_chart = Class.new AdditionalsChart
+
+    assert_equal 600, resolve_async_min_height({}, { data_check_class: tall_chart })
+    assert_equal AdditionalsChart.chart_height, resolve_async_min_height({}, { data_check_class: plain_chart })
+    assert_nil resolve_async_min_height({}, { data_check_class: empty_chart })
+  end
+
   def test_block_libraries_of_a_block_rendered_with_the_page_are_empty
     assert_equal [], block_libraries(DashboardContentStub.test_block('plain', nil).new(DashboardContentStub.new))
   end

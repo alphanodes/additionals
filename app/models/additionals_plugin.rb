@@ -14,37 +14,21 @@ class AdditionalsPlugin
       end
     end
 
-    # if force: true, no access control check for disabled module
+    # active_<name>? for any plugin redmine_<name>, also of other developers: it is
+    # installed and the project module <name> is not disabled. A plugin without a
+    # module of its name counts as active, such a module cannot be disabled.
+    # With force: true the module is not checked at all.
     def default_plugin_check?(method_name, force: true)
       plugin_name = method_name.to_s[7..-2]
-      Redmine::Plugin.installed?("redmine_#{plugin_name}") && (force || Redmine::AccessControl.active_module?(plugin_name.to_sym))
+      return false unless Redmine::Plugin.installed? "redmine_#{plugin_name}"
+
+      mod = plugin_name.to_sym
+      force || !module_of_plugin?(mod) || Redmine::AccessControl.active_module?(mod)
     end
 
-    def active_reporting?
-      @active_reporting ||= Redmine::Plugin.installed? 'redmine_reporting'
-    end
+    # Plugins whose modules are named other than the plugin
 
-    def active_hrm?
-      @active_hrm ||= Redmine::Plugin.installed? 'redmine_hrm'
-    end
-
-    def active_sudo?
-      @active_sudo ||= Redmine::Plugin.installed? 'redmine_sudo'
-    end
-
-    def active_servicedesk?
-      @active_servicedesk ||= Redmine::Plugin.installed? 'redmine_servicedesk'
-    end
-
-    def active_templates?
-      @active_templates ||= Redmine::Plugin.installed? 'redmine_templates'
-    end
-
-    def active_canned_responses?(force: true)
-      Redmine::Plugin.installed?('redmine_servicedesk') && (force || Redmine::AccessControl.active_module?(:canned_responses))
-    end
-
-    def active_invoices?(force: true)
+    def active_servicedesk_invoices?(force: true)
       Redmine::Plugin.installed?('redmine_servicedesk') && (force || Redmine::AccessControl.active_module?(:invoices))
     end
 
@@ -62,6 +46,15 @@ class AdditionalsPlugin
     end
 
     private
+
+    # Redmine creates the modules of a plugin while registering it, before it
+    # counts as installed, so the answer for an installed plugin never changes
+    def module_of_plugin?(mod)
+      @module_of_plugin ||= {}
+      return @module_of_plugin[mod] if @module_of_plugin.key? mod
+
+      @module_of_plugin[mod] = Redmine::AccessControl.available_project_modules_all.include? mod
+    end
 
     def validate_default_plugin_name?(method_name)
       method_name.to_s.start_with?('active_') && method_name.to_s.end_with?('?')

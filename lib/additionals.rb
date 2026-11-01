@@ -45,17 +45,6 @@ module Additionals
       end
     end
 
-    def hash_remove_with_default(field, options, default = nil)
-      value = nil
-      if options.key? field
-        value = options[field]
-        options.delete field
-      elsif !default.nil?
-        value = default
-      end
-      [value, options]
-    end
-
     def single_page_limit
       Setting.per_page_options_array.second || Setting.per_page_options_array.first || 25
     end

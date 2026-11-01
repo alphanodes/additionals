@@ -12,10 +12,6 @@ module Additionals
       end
 
       module InstanceMethods
-        def column_with_prefix?(prefix)
-          columns.detect { |c| c.name.to_s.start_with? "#{prefix}." }.present?
-        end
-
         def available_column_names(only_sortable: false, only_groupable: false, only_totalable: false, type: nil)
           method_name = ['available_']
           if type

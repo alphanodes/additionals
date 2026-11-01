@@ -41,4 +41,10 @@ class PluginConventionsTest < Additionals::TestCase
   def test_charts_are_drawn_from_a_payload
     assert_charts_drawn_from_payload 'additionals'
   end
+
+  # Whether another plugin is there is asked through AdditionalsPlugin, at load
+  # time with force: true
+  def test_plugin_checks_go_through_additionals
+    assert_plugin_checks_through_additionals 'additionals'
+  end
 end

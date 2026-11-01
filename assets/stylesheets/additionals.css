@@ -673,7 +673,9 @@ div.drdn-items a.disabled:hover,
   cursor: not-allowed;
 }
 
+div.drdn-items a.disabled .icon-svg,
 .dropdown-content .dropdown-items a.disabled .icon-svg,
+div.drdn-items a.disabled:hover .icon-svg,
 .dropdown-content .dropdown-items a.disabled:hover .icon-svg { stroke: var(--a-color-disabled); }
 
 table.entity-list td.block_column {

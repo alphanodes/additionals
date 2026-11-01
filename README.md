@@ -96,7 +96,7 @@ Pages and dashboard blocks load only the libraries they need, each file once per
 additionals_library_load :chartjs_meta
 ```
 
-The [Library Loader](docs/libraries.md) lists all library names and describes loading in dashboard blocks and on demand in the browser, and how plugins register libraries of their own.
+The [Library Loader](docs/libraries.md) lists all library names and describes loading in dashboard blocks and on demand in the browser, how plugins register libraries of their own, and how the bundled libraries are updated from npm (`redmine:additionals:vendor:update`), which also keeps the versions above current.
 
 ### Development guides
 

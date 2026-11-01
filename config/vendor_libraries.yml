@@ -1,0 +1,83 @@
+---
+chartjs:
+  package: chart.js
+  version: 4.6.1
+  title: Chart.js
+  files:
+  - source: dist/chart.umd.js
+    target: assets/javascripts/vendor/chart.umd.js
+    sha256: 338399fb5bafe598d21cfc471b0590b61ceb321a985fade4f68499b151f67fbf
+  - source: dist/chart.umd.js.map
+    target: assets/javascripts/vendor/chart.umd.js.map
+    sha256: e0c579dcae8eb2327451f820bff4751eaaddedfd01a8f960a5c0d36ed0e2bf4a
+chartjs_annotation:
+  package: chartjs-plugin-annotation
+  version: 3.1.0
+  title: Chart.js plugin annotation
+  files:
+  - source: dist/chartjs-plugin-annotation.min.js
+    target: assets/javascripts/vendor/chartjs-plugin-annotation.min.js
+    sha256: ff03786a60f6c93ccacfe0fbb6c2e3c671d7930856a3689f2f393113d8d655ec
+chartjs_datalabels:
+  package: chartjs-plugin-datalabels
+  version: 2.2.0
+  title: Chart.js plugin datalabels
+  files:
+  - source: dist/chartjs-plugin-datalabels.min.js
+    target: assets/javascripts/vendor/chartjs-plugin-datalabels.min.js
+    sha256: 20c08f3d9c6d2ef76df6d6a6f1127c0013339fe32add24222276c398c6308c38
+chartjs_matrix:
+  package: chartjs-chart-matrix
+  version: 3.1.0
+  title: Chart.js chart matrix
+  files:
+  - source: dist/chartjs-chart-matrix.min.js
+    target: assets/javascripts/vendor/chartjs-chart-matrix.min.js
+    sha256: 7e0cafdcfed5636319fb779f209230d38b6a3703b4b5f462ecb501fc6008f661
+chartjs_sankey:
+  package: chartjs-chart-sankey
+  version: 0.19.1
+  title: Chart.js chart sankey
+  files:
+  - source: dist/chartjs-chart-sankey.min.js
+    target: assets/javascripts/vendor/chartjs-chart-sankey.min.js
+    sha256: a97a4163961809013892d2951b030cf5a21c2112ff43ed2202a2849088ba5bcd
+chartjs_treemap:
+  package: chartjs-chart-treemap
+  version: 4.2.2
+  title: Chart.js chart treemap
+  files:
+  - source: dist/chartjs-chart-treemap.min.js
+    target: assets/javascripts/vendor/chartjs-chart-treemap.min.js
+    sha256: 71fcd404f61e0eddc0fa9f8e15618b8679aed844b565a0c8442910d789c8fc60
+dhtmlxgantt:
+  package: dhtmlx-gantt
+  version: 9.1.4
+  title: dhtmlxGantt
+  files:
+  - source: codebase/dhtmlxgantt.js
+    target: assets/javascripts/vendor/dhtmlxgantt.js
+    sha256: 00c0cfec1219e3f5cf7ae534a7b5916335b80ccf40a8ef5169e7d5e4807768da
+  - source: codebase/dhtmlxgantt.css
+    target: assets/stylesheets/dhtmlxgantt.css
+    sha256: b538141aac6b42f66100ce97d48584b9516e3acbbceb97d6321277c8508f3a30
+mermaid:
+  package: mermaid
+  version: 12.2.0
+  title: mermaid
+  guide: docs/updating-mermaid.md
+  files:
+  - source: dist/mermaid.min.js
+    target: assets/javascripts/vendor/mermaid.min.js
+    sha256: a8a6a6f805b074a8261a2825c86f99c8054acb3b35f50bb7e24a4f9f2c3c3b9f
+  - source: dist/mermaid.min.js.map
+    target: assets/javascripts/vendor/mermaid.min.js.map
+    sha256: a5b0405411969d4fd8e2301ad6da2f6918ca1a619a6c820eb77b4dfc423376db
+sortable:
+  package: sortablejs
+  version: 1.15.7
+  title: Sortable
+  files:
+  - source: Sortable.min.js
+    target: assets/javascripts/vendor/sortable.min.js
+    sha256: bf4241bc73fef7f11c59a283a69fe8051cdd31c6d8ff5a2b9ba219e7831fcf76

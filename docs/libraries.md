@@ -64,3 +64,17 @@ end
 * A name of a built-in library raises an `ArgumentError`, registering the same name again replaces it.
 
 This is the way to load a stylesheet that only some pages need: a `stylesheet_link_tag` in an async partial lands outside the head and is sometimes missing after a reload.
+
+## Updating libraries
+
+Libraries taken unchanged from an npm package are listed in `config/vendor_libraries.yml` with their version, the files copied from the package and their SHA-256. Two rake tasks for maintainers update them, an installation never downloads anything:
+
+```shell
+bundle exec rake redmine:additionals:vendor:outdated
+bundle exec rake redmine:additionals:vendor:update NAME=chartjs,chartjs_annotation
+bundle exec rake redmine:additionals:vendor:update NAME=mermaid VERSION=12.2.0
+```
+
+`update` checks the tarball against the integrity npm publishes, replaces the files and records the version in the manifest and in the libraries table of the README. A test fails when a listed file or a version in the README differs from the manifest, so a file changed by hand does not go unnoticed. Review the diff, test the pages using the library and add a CHANGELOG entry; a library with its own guide (mermaid: [Updating the bundled Mermaid library](updating-mermaid.md)) names it after the update.
+
+The patched colorschemes plugin and Select2 with its adapted styles are not listed and are updated by hand.

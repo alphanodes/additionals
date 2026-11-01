@@ -1,6 +1,6 @@
 # Updating the bundled Mermaid library
 
-`additionals` ships Mermaid's official browser bundle at `assets/javascripts/vendor/mermaid.min.js` (plus its `.map`). This guide explains how to update it to a new Mermaid release.
+`additionals` ships Mermaid's official browser bundle at `assets/javascripts/vendor/mermaid.min.js` (plus its `.map`). This guide explains what to check when updating it to a new Mermaid release.
 
 ## Which file and why
 
@@ -17,24 +17,20 @@ The official file is preferred over a bundle built by ourselves: upstream builds
 
 ## Update steps
 
-Work in a scratch directory, not in the repository.
-
-1. Download and unpack the release:
+1. Update the library from npm (see [Updating libraries](libraries.md#updating-libraries)), which also records the version in `config/vendor_libraries.yml` and `README.md`:
 
    ```shell
-   npm pack mermaid@<version>
-   tar xzf mermaid-<version>.tgz
+   bundle exec rake redmine:additionals:vendor:update NAME=mermaid
    ```
 
-2. Copy `package/dist/mermaid.min.js` and `package/dist/mermaid.min.js.map` into `assets/javascripts/vendor/`.
-
-3. Bump the version references:
-   - the Mermaid line in `README.md`
-   - a new `CHANGELOG.md` entry: `- mermaid <version> support`
+2. Add a `CHANGELOG.md` entry: `- mermaid <version> support`
+3. Go through [Verifying the update](#verifying-the-update).
 
 ## Fallback: building the bundle
 
-Only needed if a release no longer ships `dist/mermaid.min.js`. The options below reproduce upstream's IIFE build (see `.esbuild/util.ts` in the Mermaid repository):
+Only needed if a release no longer ships `dist/mermaid.min.js`. A self-built bundle cannot be updated by the rake task: remove `mermaid` from `config/vendor_libraries.yml`, keep its version in `README.md` by hand and list it with the libraries maintained by hand in [Updating libraries](libraries.md#updating-libraries).
+
+The options below reproduce upstream's IIFE build (see `.esbuild/util.ts` in the Mermaid repository):
 
 ```js
 // entry.mjs

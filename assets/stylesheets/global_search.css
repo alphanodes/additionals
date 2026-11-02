@@ -162,7 +162,7 @@
 
 .global-search-hint {
   text-align: center;
-  color: var(--a-color-muted);
+  color: var(--a-color-text-muted);
   font-size: var(--a-font-size-base);
   padding: 32px 16px;
   margin: 0;
@@ -170,7 +170,7 @@
 
 .global-search-no-results {
   text-align: center;
-  color: var(--a-color-muted);
+  color: var(--a-color-text-muted);
   font-size: var(--a-font-size-base);
   padding: 12px 16px;
   margin: 0;
@@ -180,7 +180,7 @@
   padding: 0 12px 6px;
   margin: 0;
   font-size: var(--a-font-size-sm);
-  color: var(--a-color-muted);
+  color: var(--a-color-text-muted);
 }
 
 .global-search-core-link {
@@ -204,7 +204,7 @@
   border-radius: 12px;
   font-size: var(--a-font-size-sm);
   text-decoration: none;
-  color: var(--a-color-muted);
+  color: var(--a-color-text-muted);
   background: var(--a-color-white);
   white-space: nowrap;
 }
@@ -226,7 +226,7 @@
 .global-search-tab-count {
   margin-left: 4px;
   font-size: var(--a-font-size-sm);
-  color: var(--a-color-muted);
+  color: var(--a-color-text-muted);
 }
 
 .global-search-item {
@@ -257,7 +257,7 @@
 }
 
 .global-search-all-results .global-search-item-title {
-  color: var(--a-color-muted);
+  color: var(--a-color-text-muted);
 }
 
 .global-search-item-shortcut {
@@ -268,7 +268,7 @@
   border-radius: 4px;
   font-family: inherit;
   font-size: var(--a-font-size-sm);
-  color: var(--a-color-muted);
+  color: var(--a-color-text-muted);
   background: var(--a-color-white);
 }
 
@@ -276,11 +276,11 @@
   padding: 10px 12px;
   margin: 0;
   font-size: var(--a-font-size-sm);
-  color: var(--a-color-muted);
+  color: var(--a-color-text-muted);
 }
 
 .global-search-core-link .global-search-item-title {
-  color: var(--a-color-muted);
+  color: var(--a-color-text-muted);
 }
 
 .global-search-item mark {
@@ -292,7 +292,7 @@
 .global-search-item-meta {
   display: block;
   font-size: var(--a-font-size-sm);
-  color: var(--a-color-muted);
+  color: var(--a-color-text-muted);
   margin-top: 2px;
 }
 
@@ -318,7 +318,7 @@
   padding: 10px 12px 4px;
   font-size: var(--a-font-size-sm);
   font-weight: 600;
-  color: var(--a-color-muted);
+  color: var(--a-color-text-muted);
   border-top: 1px solid var(--a-color-border-light);
   margin-top: 4px;
 }
@@ -341,7 +341,7 @@
 
 .global-search-clear-link {
   font-weight: 400;
-  color: var(--a-color-muted);
+  color: var(--a-color-text-muted);
   text-decoration: none;
   cursor: pointer;
 }

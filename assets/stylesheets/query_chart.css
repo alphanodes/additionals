@@ -90,7 +90,7 @@
   flex-wrap: wrap;
   gap: 0.25em 1em;
   justify-content: flex-end;
-  color: var(--a-color-muted);
+  color: var(--a-color-text-muted);
   font-size: var(--a-font-size-sm);
 }
 
@@ -147,7 +147,7 @@
 .query-chart-settings .query-chart-summary-heading {
   display: block;
   margin-bottom: 0.3em;
-  color: var(--a-color-muted);
+  color: var(--a-color-text-muted);
   font-size: var(--a-font-size-sm);
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -176,7 +176,7 @@
 
 .query-chart-settings fieldset.query-chart-section > legend small {
   margin-left: 0.5em;
-  color: var(--a-color-muted);
+  color: var(--a-color-text-muted);
   font-size: var(--a-font-size-sm);
   font-weight: normal;
 }
@@ -187,7 +187,7 @@
 }
 
 .query-chart-settings .query-chart-note {
-  color: var(--a-color-muted);
+  color: var(--a-color-text-muted);
   font-style: italic;
 }
 

@@ -46,4 +46,19 @@ class AdditionalsWikiToolbarHelperTest < Additionals::HelperTest
       assert_not_includes @redmine_view.custom_field_tag_with_label(:issue, custom_value), 'jsToolBar'
     end
   end
+
+  # Only a field with full text formatting gets the toolbar, even on request
+  def test_custom_field_tag_with_label_renders_no_toolbar_for_a_field_without_formatting
+    field = IssueCustomField.create! name: 'Plain text', field_format: 'text', text_formatting: '',
+                                     is_for_all: true, trackers: Tracker.all
+    custom_value = @issue.custom_field_values.detect { |value| value.custom_field == field }
+
+    with_settings text_formatting: 'common_mark' do
+      html = @redmine_view.custom_field_tag_with_label :issue, custom_value, wiki_toolbar: true
+
+      assert_select_in html, "textarea#issue_custom_field_values_#{field.id}"
+      assert_not_includes html, 'jstBlock'
+      assert_not_includes html, 'jsToolBar'
+    end
+  end
 end

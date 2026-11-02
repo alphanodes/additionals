@@ -134,8 +134,6 @@ module Additionals
       assert_select spec
     end
 
-    # Assert against the top menu, matching both the Redmine 6.x (#top-menu) and
-    # the Redmine master (nav.top-menu) layout.
     # The textarea with the wiki toolbar, in the response or in the given html:
     # inside the server rendered toolbar of Redmine 7.1, behind it the script of
     # the jsToolBar of Redmine 7.0 (https://www.redmine.org/issues/43259)
@@ -158,6 +156,8 @@ module Additionals
       end
     end
 
+    # Assert against the top menu, matching both the Redmine 6.x (#top-menu) and
+    # the Redmine master (nav.top-menu) layout.
     def assert_top_menu(selector, *, &)
       assert_select("#top-menu #{selector}, nav.top-menu #{selector}", *, &)
     end

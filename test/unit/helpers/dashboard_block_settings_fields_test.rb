@@ -129,14 +129,12 @@ class DashboardBlockSettingsFieldsTest < Additionals::HelperTest
     assert_equal 'https://example.org', field('input[type=url][name="settings[test][site]"]')['value']
   end
 
-  # TODO(Redmine 7.0 EOL): keep the toolbar element only, the jsToolBar script is
-  # gone since the server rendered toolbar (https://www.redmine.org/issues/43259)
+  # The toolbar is a block, so the field sits in div.form-field, not in a paragraph
   def test_wiki_text_has_the_toolbar_of_the_text_formatting
-    if defined? Redmine::WikiToolbar
-      assert field('div.form-field div.jstBlock[data-controller=wiki-toolbar] textarea#settings_test_body')
-    else
-      assert_includes field('script').text, 'settings_test_body'
-    end
+    html = rendered(test_block(STORED)).to_html
+
+    assert_select_in html, 'div.form-field textarea#settings_test_body'
+    assert_wiki_toolbar 'settings_test_body', html
   end
 
   # The form uses the full width the toolbar needs by this class

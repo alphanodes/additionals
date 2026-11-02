@@ -637,11 +637,13 @@ select.dashboard-block-select {
 }
 
 /* Fields with the wiki toolbar sit in div.form-field instead of p, as the
-   toolbar is a block (https://www.redmine.org/issues/43259).
+   toolbar is a block (https://www.redmine.org/issues/43259). Same as the core
+   rules of Redmine 7.1, but with lower specificity by :where(): on Redmine 7.1
+   core and themes win, as this file loads after them.
    Redmine 7.0 EOL: drop, Redmine 7.1 styles them itself */
-div.form-field { margin-block: 1em; }
+:where(div.form-field) { margin-block: 1em; }
 
-.tabular div.form-field {
+:where(.tabular) div.form-field {
   min-block-size: 2em;
   margin: 0;
   padding-block: 3px;
@@ -650,7 +652,11 @@ div.form-field { margin-block: 1em; }
   overflow: hidden;
 }
 
-.tabular.settings div.form-field { padding-inline-start: 300px; }
+:where(.tabular.settings) div.form-field {
+  padding-inline-start: 300px;
+  /* stylelint-disable-next-line scale-unlimited/declaration-strict-value -- value of Redmine 7.1 core */
+  font-size: 93%;
+}
 
 /* A block settings form with a text with the toolbar of the text formatting
    uses the full width in every area, the labels stand above the fields */
@@ -781,8 +787,8 @@ table.entity-list td.block_column pre {
   .gototop { display: none; }
 
   /* Redmine 7.0 EOL: drop, see div.form-field above */
-  .tabular div.form-field,
-  .tabular.settings div.form-field { padding-inline-start: 0; }
+  :where(.tabular) div.form-field,
+  :where(.tabular.settings) div.form-field { padding-inline-start: 0; }
 
   .dashboard .splitcontentleft,
   .dashboard .splitcontentright,

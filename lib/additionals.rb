@@ -208,6 +208,7 @@ module Additionals
                           ApplicationController
                           ApplicationHelper
                           AutoCompletesController
+                          CustomFieldsHelper
                           Issue
                           TimeEntry
                           Mailer

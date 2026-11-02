@@ -9,11 +9,38 @@ module Additionals
     #
     # principals_options_for_select brings the assignee list of Redmine 7.1
     # to Redmine 7.0 (https://www.redmine.org/issues/44021), see below.
+    #
+    # WikiToolbarMethods brings the textarea helpers of the wiki toolbar of
+    # Redmine 7.1 (https://www.redmine.org/issues/43259) to Redmine 7.0, so
+    # plugins use one API for both. Redmine 7.1 brings its own, which stay.
     module ApplicationHelperPatch
       extend ActiveSupport::Concern
 
       included do
         prepend InstanceOverwriteMethods
+        # TODO(Redmine 7.0 EOL): drop WikiToolbarMethods
+        include WikiToolbarMethods unless method_defined? :wiki_toolbar
+      end
+
+      module WikiToolbarMethods
+        def wiki_textarea_tag(name, content = nil, options = {})
+          options = options.dup
+          preview_url = options.delete(:preview_url) || preview_text_path
+          options = wiki_textarea_options options
+          wiki_toolbar options[:id] || sanitize_to_id(name), preview_url: do
+            textarea_tag name, content, options
+          end
+        end
+
+        # The jsToolBar of Redmine 7.0 is drawn by a script behind its textarea
+        def wiki_toolbar(field_id, preview_url: preview_text_path, &)
+          capture(&) + wikitoolbar_for(field_id, preview_url).to_s
+        end
+
+        def wiki_textarea_options(options)
+          options.merge class: ['wiki-edit', options[:class]].compact.join(' ').split.uniq.join(' '),
+                        data: wiki_textarea_stimulus_attributes.merge(options[:data] || {})
+        end
       end
 
       module InstanceOverwriteMethods

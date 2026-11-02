@@ -136,6 +136,28 @@ module Additionals
 
     # Assert against the top menu, matching both the Redmine 6.x (#top-menu) and
     # the Redmine master (nav.top-menu) layout.
+    # The textarea with the wiki toolbar, in the response or in the given html:
+    # inside the server rendered toolbar of Redmine 7.1, behind it the script of
+    # the jsToolBar of Redmine 7.0 (https://www.redmine.org/issues/43259)
+    # TODO(Redmine 7.0 EOL): keep the toolbar element only
+    def assert_wiki_toolbar(field_id, html = nil, preview_url: nil)
+      if defined? Redmine::WikiToolbar
+        selector = +'div.jstBlock[data-controller=wiki-toolbar]'
+        selector << "[data-wiki-toolbar-preview-url-value=\"#{preview_url}\"]" if preview_url
+        if html
+          assert_select_in html, "#{selector} textarea##{field_id}"
+        else
+          assert_select "#{selector} textarea##{field_id}"
+        end
+      else
+        body = html || response.body
+
+        assert_select_in body, "textarea##{field_id}"
+        assert_includes body, "new jsToolBar(document.getElementById('#{field_id}'))"
+        assert_includes body, "setPreviewUrl('#{preview_url}')" if preview_url
+      end
+    end
+
     def assert_top_menu(selector, *, &)
       assert_select("#top-menu #{selector}, nav.top-menu #{selector}", *, &)
     end

@@ -636,9 +636,26 @@ select.dashboard-block-select {
   text-align: left;
 }
 
+/* Fields with the wiki toolbar sit in div.form-field instead of p, as the
+   toolbar is a block (https://www.redmine.org/issues/43259).
+   Redmine 7.0 EOL: drop, Redmine 7.1 styles them itself */
+div.form-field { margin-block: 1em; }
+
+.tabular div.form-field {
+  min-block-size: 2em;
+  margin: 0;
+  padding-block: 3px;
+  padding-inline: 180px 0;
+  clear: inline-start;
+  overflow: hidden;
+}
+
+.tabular.settings div.form-field { padding-inline-start: 300px; }
+
 /* A block settings form with a text with the toolbar of the text formatting
    uses the full width in every area, the labels stand above the fields */
-#my-page.dashboard .tabular.settings:has(textarea.settings-wiki-text) p {
+#my-page.dashboard .tabular.settings:has(textarea.settings-wiki-text) p,
+#my-page.dashboard .tabular.settings div.form-field:has(textarea.settings-wiki-text) {
   padding-left: 0;
 }
 
@@ -762,6 +779,10 @@ table.entity-list td.block_column pre {
 
 @media screen and (max-width: 899px) {
   .gototop { display: none; }
+
+  /* Redmine 7.0 EOL: drop, see div.form-field above */
+  .tabular div.form-field,
+  .tabular.settings div.form-field { padding-inline-start: 0; }
 
   .dashboard .splitcontentleft,
   .dashboard .splitcontentright,

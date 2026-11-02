@@ -133,7 +133,7 @@ class DashboardBlockSettingsFieldsTest < Additionals::HelperTest
   # gone since the server rendered toolbar (https://www.redmine.org/issues/43259)
   def test_wiki_text_has_the_toolbar_of_the_text_formatting
     if defined? Redmine::WikiToolbar
-      assert field('div.jstBlock[data-controller=wiki-toolbar][data-wiki-toolbar-field-id-value=settings_test_body]')
+      assert field('div.form-field div.jstBlock[data-controller=wiki-toolbar] textarea#settings_test_body')
     else
       assert_includes field('script').text, 'settings_test_body'
     end
@@ -253,7 +253,7 @@ class DashboardBlockSettingsFieldsTest < Additionals::HelperTest
       setting :queries, type: :enum, label: :label_query_plural, values: []
       setting :token, type: :string, label: :label_api_access_key, secret: true
       setting :site, type: :string, label: :field_url, field: 'dashboards/settings/url'
-      setting :body, type: :text, label: :field_description, field: 'dashboards/settings/wiki_text'
+      setting :body, type: :text, label: :field_description, field: 'dashboards/settings/wiki_text', wide: true
 
       private
 

@@ -7,6 +7,22 @@ module Additionals
 
       included do
         prepend InstanceOverwriteMethods
+        # TODO(Redmine 7.0 EOL): drop WikiToolbarMethods, Redmine 7.1 brings
+        # wiki_textarea (https://www.redmine.org/issues/43259)
+        include WikiToolbarMethods unless method_defined? :wiki_textarea
+      end
+
+      module WikiToolbarMethods
+        # Same as Redmine 7.1: a textarea with the wiki toolbar
+        def wiki_textarea(field, options = {})
+          options = options.dup
+          preview_url = options.delete(:preview_url) || @template.preview_text_path
+          options = @template.wiki_textarea_options options
+          field_id = options[:id] || "#{@object_name}_#{field}"
+          @template.wiki_toolbar field_id, preview_url: do
+            textarea field, options
+          end
+        end
       end
 
       module InstanceOverwriteMethods

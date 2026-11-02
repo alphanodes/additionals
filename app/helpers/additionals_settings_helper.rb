@@ -75,11 +75,13 @@ module AdditionalsSettingsHelper
               @settings[name]
             end
 
+    wiki_toolbar = options.delete :wiki_toolbar
     options[:class] = 'wiki-edit' unless options.key? :class
     options[:rows] = addtionals_textarea_cols value unless options.key? :rows
 
-    safe_join [label_tag(tag_name, additionals_settings_label(name, options)),
-               text_area_tag(tag_name, value, **options)]
+    label = label_tag tag_name, additionals_settings_label(name, options)
+    # With wiki_toolbar: the textarea with the toolbar of the text formatting
+    safe_join [label, wiki_toolbar ? wiki_textarea_tag(tag_name, value, options) : text_area_tag(tag_name, value, **options)]
   end
 
   # NOTE: overwrite redmine to use showSettingsTab instead of showTab to support tabs for plugins

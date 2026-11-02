@@ -7,7 +7,8 @@ module DashboardBlocks
     max_occurs DashboardContent::MAX_MULTIPLE_OCCURS
     async required_settings: %i[text], partial: 'dashboards/blocks/text_async'
     setting :title, **DashboardContent::TITLE_SETTING
-    setting :text, type: :text, label: :label_text_sync, required: true, field: 'dashboards/settings/wiki_text'
+    setting :text, type: :text, label: :label_text_sync, required: true, field: 'dashboards/settings/wiki_text',
+                   wide: true
 
     # The text as written, its formatting is up to the reader
     def export_data

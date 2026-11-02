@@ -1,0 +1,10 @@
+= form_tag url_for(controller: controller_path, action: 'update', id: @journal),
+           remote: true, method: 'put', id: "journal-#{@journal.id}-form" do
+  = label_tag 'notes', l(:description_notes), class: 'hidden-for-sighted', for: "journal_#{@journal.id}_notes"
+  = wiki_textarea_tag 'journal[notes]', @journal.notes, id: "journal_#{@journal.id}_notes",
+                                                        rows: addtionals_textarea_cols(@journal.notes, max: 100)
+  p
+    = submit_tag l(:button_save)
+    '
+    = link_to_function l(:button_cancel),
+                       "$('#journal-#{@journal.id}-form').remove(); $('#journal-#{@journal.id}-notes').show()"

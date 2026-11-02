@@ -12,6 +12,7 @@
 - Incompatible: the user scope of user custom fields (all users, all active users) is only offered for the entities a plugin registers in `user_scope_class_names`, user fields of all other entities keep the core form and behaviour
 - Add `AdditionalsWikiToolbar` for buttons of plugins in the wiki toolbar, with the jsToolBar of Redmine 7.0 and the server rendered toolbar of Redmine 7.1 alike; the macro button uses it
 - Add the textarea helpers of the wiki toolbar of Redmine 7.1 to Redmine 7.0 (`wiki_textarea_tag`, `f.wiki_textarea`, `wiki_toolbar:` of `custom_field_tag_with_label`), as Redmine 7.1 deprecates `wikitoolbar_for`; such a field sits in `div.form-field` instead of `p`
+- The edit form of journal notes (`additionals_journals/_notes_form`) is provided centrally, plugins with entity journals need no copy of their own
 - Add `Additionals.redmine_url` and `Additionals.redmine_origin` for absolute URLs built from the host settings
 - Add `Additionals::Concerns::DeletionBlockers`: an entry other records refer to can only be deleted once nothing refers to it any more, with the query filter `deletable` and the column `deletion_blocked_by`
 - Error messages in `flash_msg` (`save_error`, `delete_error`) are escaped, as the flash is rendered as HTML

@@ -57,12 +57,15 @@ fieldset.hide-attachments {
 
 /* Icons */
 
-.external-links a.external,
-em.info a.external {
-  background-image: url('/external.png');
-  padding-left: 14px;
-  background-position: 0% 60%;
-  background-repeat: no-repeat;
+/* Own copy of the Tabler icon: Redmine 7.1 dropped external.png for it (https://www.redmine.org/issues/44691) */
+.external-links a.external::after,
+em.info a.external::after {
+  /* A word joiner keeps the icon from overflowing when a long URL wraps. */
+  content: '\2060';
+  margin-inline-start: 0.1em;
+  padding-inline-start: 1em;
+  background-color: var(--oc-gray-6);
+  mask: url('../images/external-link.svg') no-repeat center / 100% 100%;
 }
 
 .flex-buttons {

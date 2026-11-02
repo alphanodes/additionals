@@ -28,7 +28,7 @@ The [manual](docs/manual.md) describes all functions and settings.
 
 | Name             | Requirement                                       |
 | ---------------- | ------------------------------------------------- |
-| Redmine          | >= 7.0.2                                          |
+| Redmine          | >= 7.0.3                                          |
 | Ruby             | >= 3.3                                            |
 | Database         | MySQL >= 8.4, MariaDB >= 11.8 or PostgreSQL >= 16 |
 

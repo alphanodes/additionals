@@ -36,7 +36,7 @@ Redmine::Plugin.register :additionals do
   end
 
   # the Redmine version of all plugins built on additionals is checked here
-  requires_redmine version_or_higher: '7.0.2'
+  requires_redmine version_or_higher: '7.0.3'
 
   menu :admin_menu,
        :additionals,

@@ -451,3 +451,28 @@
      single-row filter field matches the native select next to it */
   padding: 0 5px;
 }
+
+/* Renderers of the select field controller (additionals_select_controller.js) */
+
+.additionals-select-contact {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 8px;
+  align-items: center;
+}
+
+/* the avatar of the server spans name and address */
+.additionals-select-contact > :not(.additionals-select-contact-name, .additionals-select-contact-email) {
+  grid-row: 1 / span 2;
+}
+
+.additionals-select-contact-name,
+.additionals-select-contact-email {
+  grid-column: 2;
+}
+
+.additionals-select-contact-email {
+  min-height: 1em;
+  color: var(--a-color-muted);
+  font-size: var(--a-font-size-sm);
+}

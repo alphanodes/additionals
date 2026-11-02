@@ -14,6 +14,8 @@ end
 
 class AdditionalsIconsHelperTest < Additionals::HelperTest
   include AdditionalsIconsHelper
+  include AdditionalsSelectHelper
+  include AdditionalsAssetLoaderHelper
 
   def setup
     AdditionalsIcon.reset!
@@ -117,12 +119,13 @@ class AdditionalsIconsHelperTest < Additionals::HelperTest
     assert_match(/my-icon/, html)
   end
 
-  def test_additionals_icon_select_tag_renders_select_with_options
-    html = additionals_icon_select_tag 'menu_symbol', 'car', class: 'select2-icon-field menu'
+  def test_additionals_icon_select_tag_renders_an_icon_select_field
+    select = Nokogiri::HTML.fragment(additionals_icon_select_tag('menu_symbol', 'car', class: 'menu')).at('select')
 
-    assert_match %r{<select[^>]*name="menu_symbol"}, html
-    assert_match(/select2-icon-field menu/, html)
-    assert_match %r{<option[^>]*selected="selected"[^>]*value="car"}, html
+    assert_equal 'menu_symbol', select['name']
+    assert_equal 'menu', select['class']
+    assert_equal %w[additionals-select icon], [select['data-controller'], select['data-additionals-select-renderer-value']]
+    assert_equal 'car', select.at('option[selected]')['value']
   end
 
   def test_additionals_icon_select_tag_resolves_legacy_selected
@@ -131,16 +134,28 @@ class AdditionalsIconsHelperTest < Additionals::HelperTest
     assert_match %r{<option[^>]*selected="selected"[^>]*value="car"}, html
   end
 
-  def test_additionals_icon_loader_renders_select2_init
-    js = additionals_icon_loader field_class: 'select2-menu-icon-field'
+  def test_additionals_icon_select_renders_an_icon_select_field
+    select = with_settings default_language: 'en' do
+      Nokogiri::HTML.fragment(additionals_icon_select(icon_form_builder, nil, icon_field: :reporting_icon)).at('select')
+    end
 
-    assert_match(/select2-menu-icon-field/, js)
-    assert_match(/formatIconOption/, js)
+    assert_equal %w[additionals-select icon disabled true],
+                 [select['data-controller'], select['data-additionals-select-renderer-value'],
+                  select['data-additionals-select-placeholder-value'], select['data-additionals-select-allow-clear-value']]
+  end
+
+  # a required icon cannot be removed, the field offers no way to clear it
+  def test_additionals_icon_select_without_clearing_for_a_required_icon
+    html = additionals_icon_select icon_form_builder, 'car', icon_field: :reporting_icon, required: true
+    select = Nokogiri::HTML.fragment(html).at 'select'
+
+    assert_nil select['data-additionals-select-allow-clear-value']
+    assert_nil select.at('option[value=""]')
   end
 
   def test_additionals_icon_select_labels_a_renamed_icon_field
     html = with_settings default_language: 'en' do
-      additionals_icon_select icon_form_builder, nil, icon_field: :reporting_icon, loader: false
+      additionals_icon_select icon_form_builder, nil, icon_field: :reporting_icon
     end
 
     # without the shared label the form builder would humanize the attribute name
@@ -150,7 +165,7 @@ class AdditionalsIconsHelperTest < Additionals::HelperTest
 
   def test_additionals_icon_select_label_can_be_overwritten
     html = with_settings default_language: 'en' do
-      additionals_icon_select icon_form_builder, nil, icon_field: :reporting_icon, label: :field_name, loader: false
+      additionals_icon_select icon_form_builder, nil, icon_field: :reporting_icon, label: :field_name
     end
 
     assert_match %r{<label[^>]*>Name</label>}, html

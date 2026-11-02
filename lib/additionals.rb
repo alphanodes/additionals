@@ -255,7 +255,7 @@ module Additionals
                                 AdditionalsIconsHelper,
                                 AdditionalsMenuHelper,
                                 AdditionalsQueryChartHelper,
-                                AdditionalsSelect2Helper]
+                                AdditionalsSelectHelper]
 
       add_wiki_formatting_patches
 

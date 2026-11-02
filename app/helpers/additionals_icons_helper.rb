@@ -33,8 +33,8 @@ module AdditionalsIconsHelper
     title.present? ? tag.span(content, title:) : content
   end
 
-  # Tabler icon picker: a select2 dropdown with SVG previews, populated client
-  # side from the curated selectable list (no AJAX).
+  # Tabler icon picker with SVG previews, populated from the curated
+  # selectable list (no search on the server)
   def additionals_icon_select(form, selected, **options)
     icon_field = options.delete(:icon_field) || :icon
     name = options.delete(:name) || icon_field
@@ -44,60 +44,28 @@ module AdditionalsIconsHelper
     required = options.delete :required
     include_blank = options.delete :include_blank
     include_blank = !required if include_blank.nil?
-    field_class = options.delete(:class) || 'select2-icon-field'
-    # loader: false skips the per-field select2 init (a shared
-    # additionals_icon_loader initializes all matching fields instead)
-    loader = options.delete :loader
-    loader = true if loader.nil?
     selected = AdditionalsIcon.resolve selected if selected.present?
-
-    if include_blank
-      options[:placeholder] ||= l :label_disabled
-      options[:allow_clear] = true unless options.key? :allow_clear
-    end
-    options[:width] ||= '250px'
 
     select = form.select name,
                          options_for_select(additionals_icon_select_options(selected), selected),
                          { include_blank:, label: },
-                         class: field_class
-    return select unless loader
-
-    safe_join [select,
-               render(layout: false,
-                      partial: 'additionals/select2_icon_call',
-                      formats: [:js],
-                      locals: { field_class:, options: })]
+                         class: options.delete(:class),
+                         data: additionals_select_data(**additionals_icon_field_options(include_blank, options))
+    safe_join [additionals_library_load(:select2), select]
   end
 
-  # Raw select_tag variant of the icon picker, for repeated rows that are not
-  # backed by a form builder (e.g. custom menu item symbols). Renders only the
-  # <select>; initialize the select2 behaviour once via additionals_icon_loader.
+  # Icon picker without a form builder, e.g. for repeated rows of custom menu
+  # item symbols
   def additionals_icon_select_tag(name, selected, **options)
     include_blank = options.delete :include_blank
     include_blank = true if include_blank.nil?
-    field_class = options.delete(:class) || 'select2-icon-field'
     selected = AdditionalsIcon.resolve selected if selected.present?
 
-    select_options = { include_blank:, class: field_class }
-    select_options[:id] = options[:id] if options.key? :id
-
-    select_tag name,
-               options_for_select(additionals_icon_select_options(selected), selected),
-               **select_options
-  end
-
-  # One-shot select2 initializer for all icon selects matching field_class.
-  # Use once at the bottom of a form that renders additionals_icon_select_tag rows.
-  def additionals_icon_loader(field_class: 'select2-icon-field', **options)
-    options[:placeholder] ||= l :label_disabled
-    options[:allow_clear] = true unless options.key? :allow_clear
-    options[:width] ||= '250px'
-
-    render layout: false,
-           partial: 'additionals/select2_icon_call',
-           formats: [:js],
-           locals: { field_class:, options: }
+    additionals_select_tag name,
+                           options_for_select(additionals_icon_select_options(selected), selected),
+                           include_blank:,
+                           **additionals_icon_field_options(include_blank, options),
+                           **options
   end
 
   def svg_icon_tag(icon_name,
@@ -158,8 +126,20 @@ module AdditionalsIconsHelper
 
   private
 
-  # Build [name, value, {data-href}] tuples so select2 can render an SVG
-  # preview per option (the sprite href is resolved server side).
+  # An icon can be removed again where the field may stay empty
+  def additionals_icon_field_options(include_blank, options)
+    field_options = { renderer: 'icon', width: options.delete(:width) || '250px' }
+    placeholder = options.delete :placeholder
+    allow_clear = options.delete :allow_clear
+    if include_blank
+      field_options[:placeholder] = placeholder || l(:label_disabled)
+      field_options[:allow_clear] = allow_clear.nil? || allow_clear
+    end
+    field_options
+  end
+
+  # Build [name, value, {data-href}] tuples so the icon renderer can show an
+  # SVG preview per option (the sprite href carries the asset digest).
   def additionals_icon_select_options(selected)
     sprites = additionals_icon_sprites
     selectable = AdditionalsIcon.selectable

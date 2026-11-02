@@ -12,6 +12,7 @@ module Additionals
     # needs the single extend line and nothing else.
     def self.extended(base)
       base.include SessionHelper
+      base.include SelectFieldHelper
     end
 
     # Locally the tests run headless so Chrome does not steal focus. Set
@@ -112,6 +113,66 @@ module Additionals
         # would then run anonymously and fail several steps later with a
         # message that points anywhere but here.
         assert_selector '#account .dropdown-trigger', wait: 10
+      end
+    end
+
+    # Select fields of additionals as a user works with them. Tests of plugins
+    # use these instead of the markup of the library behind the fields, which
+    # only additionals knows.
+    module SelectFieldHelper
+      # Opens the select field inside +container+ (selector or element), types
+      # +search+ (if any) and picks the entry +text+. Entries with more than
+      # their name (contacts with an address) need exact: false.
+      def choose_select_entry(container, text, search: nil, exact: true)
+        # removing a chosen entry already opens the field, a click would close it
+        within(container) { find('.select2-selection').click unless has_css? '.select2-container--open', wait: 0 }
+        type_into_open_select search if search
+        choose_open_select_entry text, exact:
+      end
+
+      # Types +text+ into the search of the open field. Opening moves the focus
+      # into the search field, a single select only right after it opened. An
+      # empty multiple field makes that search field too small to count as
+      # visible, so the keys go to the focused field, as they do for a user.
+      def type_into_open_select(text)
+        page.document.assert_selector '.select2-container--open .select2-search__field:focus', visible: :all
+        page.active_element.send_keys text
+      end
+
+      # Picks the entry +text+ of the open list, e.g. of a menu opened by a
+      # button (AdditionalsSelect.menu)
+      def choose_open_select_entry(text, exact: true)
+        select_entry(text, exact:).click
+      end
+
+      # The open list offers the entry +text+
+      def assert_select_entry(text, exact: true)
+        assert select_entry(text, exact:)
+      end
+
+      # Removes the chosen entry +text+ of the multiple select field inside
+      # +container+
+      def remove_select_entry(container, text)
+        # the title holds the text of the entry alone, without the remove button
+        within container do
+          choice = find('.select2-selection__choice') { |element| element[:title] == text }
+          choice.find('.select2-selection__choice__remove').click
+        end
+      end
+
+      # Types +name+ into the tag field inside +container+ and takes it, as a
+      # new tag or as the existing one of that name
+      def add_select_tag(container, name)
+        choose_select_entry container, name, search: name
+      end
+
+      private
+
+      # The entries open at the end of the body, also for a field inside a
+      # dialog, so they are searched outside any within block; groups of
+      # entries are skipped
+      def select_entry(text, exact:)
+        page.document.find '.select2-results__option[role="option"]', text:, exact_text: exact
       end
     end
   end

@@ -29,7 +29,7 @@ module Additionals
       # Loaded on demand also by pages without other charts, e.g. list views
       chartjs_treemap: %i[chartjs _chartjs_chart_treemap],
       chartjs_sankey: %i[chartjs _chartjs_chart_sankey],
-      select2: %i[_select2_css _select2_js _select2_helpers],
+      select2: %i[_select2_css _select2_js _select_filters],
       mermaid: %i[_mermaid_min _mermaid_load],
       dhtmlxgantt: %i[_dhtmlxgantt_css _dhtmlxgantt_js],
       query_chart: %i[_query_chart_css],
@@ -57,7 +57,7 @@ module Additionals
       _mermaid_min:            Asset.new(type: :js,  path: 'vendor/mermaid.min'),
       _mermaid_load:           Asset.new(type: :js,  path: 'mermaid_load'),
       _select2_js:             Asset.new(type: :js,  path: 'vendor/select2.min'),
-      _select2_helpers:        Asset.new(type: :js,  path: 'select2_helpers'),
+      _select_filters:         Asset.new(type: :js,  path: 'additionals_select_filters'),
       _dhtmlxgantt_js:         Asset.new(type: :js,  path: 'vendor/dhtmlxgantt'),
       _select2_css:            Asset.new(type: :css, path: 'select2'),
       _dhtmlxgantt_css:        Asset.new(type: :css, path: 'dhtmlxgantt'),

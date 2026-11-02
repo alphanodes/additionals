@@ -2,6 +2,7 @@
 
 require File.expand_path "#{File.dirname __FILE__}/locale_key_usage"
 require File.expand_path "#{File.dirname __FILE__}/plugin_check_usage"
+require File.expand_path "#{File.dirname __FILE__}/select_library_usage"
 
 # Reset process-global state before every test so test order does not affect
 # outcomes when tests run in the same parallel worker. I18n part mirrors
@@ -631,6 +632,16 @@ module Additionals
                       'init.rb checks for a plugin while the plugins still register')
       assert_empty PluginCheckUsage.unforced_load_time_checks(directory),
                    'AdditionalsPlugin check at load time without force: true'
+    end
+
+    # Select fields are rendered by the helpers of additionals and handled
+    # through its events and AdditionalsSelect. Only additionals knows the
+    # library behind them, a plugin talking to it would break with an update
+    # or a switch of the library.
+    def assert_select_fields_through_additionals(plugin_id)
+      hits = SelectLibraryUsage.hits Redmine::Plugin.find(plugin_id).directory
+
+      assert_empty hits, "select field library used directly:\n#{hits.join "\n"}"
     end
 
     # Charts are drawn by the additionals-chart Stimulus controller from the

@@ -47,72 +47,6 @@ describe('additionals.js', () => {
     });
   });
 
-  describe('formatColorScheme', () => {
-    beforeEach(() => {
-      globalThis.Chart = { colorschemes: { tableau: { Tableau10: ['#4e79a7', '#f28e2b', '#e15759'] } } };
-    });
-
-    afterEach(() => {
-      delete globalThis.Chart;
-    });
-
-    it('shows a scheme with its colors', () => {
-      const result = formatColorScheme({ id: 'tableau.Tableau10', text: 'tableau.Tableau10' });
-      const swatches = [...result.querySelectorAll('.colorscheme-swatch')].map((swatch) => swatch.style.backgroundColor);
-
-      expect([result.textContent, swatches]).toEqual(['tableau.Tableau10', ['rgb(78, 121, 167)', 'rgb(242, 142, 43)', 'rgb(225, 87, 89)']]);
-    });
-
-    // Group headings and schemes the library does not know have no colors
-    it('shows a heading or an unknown scheme as text only', () => {
-      const heading = formatColorScheme({ text: 'Tableau' });
-      const unknown = formatColorScheme({ id: 'tableau.Unknown', text: 'tableau.Unknown' });
-
-      expect([heading.querySelectorAll('.colorscheme-swatch').length, unknown.querySelectorAll('.colorscheme-swatch').length])
-        .toEqual([0, 0]);
-    });
-
-    it('shows the name as text, not as markup', () => {
-      const result = formatColorScheme({ id: 'x.y', text: '<img src=x onerror=alert(1)>' });
-
-      expect(result.querySelector('img')).toBeNull();
-    });
-  });
-
-  describe('formatNameWithIcon', () => {
-    it('returns name when loading', () => {
-      const result = formatNameWithIcon({ loading: true, name: 'Loading...' });
-
-      expect(result).toBe('Loading...');
-    });
-
-    it('returns span with name_with_icon when present', () => {
-      const result = formatNameWithIcon({ name_with_icon: '<b>Icon</b> Name' });
-
-      expect(result.tagName).toBe('SPAN');
-      expect(result.innerHTML).toBe('<b>Icon</b> Name');
-    });
-
-    it('returns span with text as fallback', () => {
-      const result = formatNameWithIcon({ text: 'Plain text' });
-
-      expect(result.tagName).toBe('SPAN');
-      expect(result.innerHTML).toBe('Plain text');
-    });
-
-    it('does not parse the text fallback as html', () => {
-      const result = formatNameWithIcon({ text: 'Xss <img src=x onerror="alert(1)">' });
-
-      expect(result.querySelector('img')).toBeNull();
-    });
-
-    it('shows markup in the text fallback as text', () => {
-      const result = formatNameWithIcon({ text: 'Xss <img src=x>' });
-
-      expect(result.textContent).toBe('Xss <img src=x>');
-    });
-  });
-
   describe('escapeHtml', () => {
     it('escapes markup and both quote types', () => {
       expect(escapeHtml('<a href="x" title=\'y\'>&</a>')).toBe('&lt;a href=&quot;x&quot; title=&#39;y&#39;&gt;&amp;&lt;/a&gt;');
@@ -174,32 +108,6 @@ describe('additionals.js', () => {
 
     it('returns an empty string for a blank name', () => {
       expect(spriteIcon('')).toBe('');
-    });
-  });
-
-  describe('formatIconOption', () => {
-    it('returns span with an svg icon when id and data-href are present', () => {
-      const element = document.createElement('option');
-      element.dataset.href = '/assets/additionals/icons.svg#icon--home';
-      const result = formatIconOption({ id: 'home', text: 'Home', element });
-
-      expect(result.tagName).toBe('SPAN');
-      expect(result.innerHTML).toContain('icon--home');
-      expect(result.innerHTML).toContain('Home');
-    });
-
-    it('returns span with only text when data-href is missing', () => {
-      const element = document.createElement('option');
-      const result = formatIconOption({ id: 'home', text: 'Home', element });
-
-      expect(result.tagName).toBe('SPAN');
-      expect(result.innerHTML).toBe('Home');
-    });
-
-    it('returns text when id is undefined', () => {
-      const result = formatIconOption({ text: 'No icon' });
-
-      expect(result).toBe('No icon');
     });
   });
 

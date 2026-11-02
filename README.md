@@ -104,6 +104,7 @@ The [Library Loader](docs/libraries.md) lists all library names and describes lo
 * [Library Loader](docs/libraries.md): JavaScript and CSS libraries for pages and blocks
 * [Chart Development Guide](docs/charts.md): charts in blocks and pages
 * [Settings Schema](docs/settings-schema.md): declared settings for blocks and queries
+* [Select Fields](docs/select-fields.md): select fields with search, tags and query filters
 * [Updating mermaid](docs/updating-mermaid.md)
 
 ### Plugins using additionals

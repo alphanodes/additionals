@@ -6,51 +6,6 @@ function openExternalUrlsInTab() {
   });
 }
 
-/* exported formatNameWithIcon */
-function formatNameWithIcon(opt) {
-  if (opt.loading) {
-    return opt.name;
-  }
-
-  const span = document.createElement('span');
-  if (opt.name_with_icon === undefined) {
-    // text is a plain value (user, tag or contact name), parsing it as html
-    // would run event handlers even on this detached span
-    span.textContent = opt.text;
-  } else {
-    // name_with_icon is html built and escaped on the server side
-    span.innerHTML = opt.name_with_icon;
-  }
-  return span;
-}
-
-/* A color scheme of Chart.js with its colors, for the list and the closed
-   field of a select2. Group headings and schemes the colorschemes plugin does
-   not know show their name only. */
-/* exported formatColorScheme */
-function formatColorScheme(opt) {
-  const span = document.createElement('span');
-  span.className = 'colorscheme-option';
-  const name = document.createElement('span');
-  name.textContent = opt.text;
-  span.append(name);
-
-  const [group, scheme] = (opt.id || '').split('.');
-  const colors = window.Chart?.colorschemes?.[group]?.[scheme];
-  if (colors) {
-    const swatches = document.createElement('span');
-    swatches.className = 'colorscheme-swatches';
-    colors.forEach((color) => {
-      const swatch = document.createElement('span');
-      swatch.className = 'colorscheme-swatch';
-      swatch.style.backgroundColor = color;
-      swatches.append(swatch);
-    });
-    span.append(swatches);
-  }
-  return span;
-}
-
 /* Escape a value for html built in javascript. Quotes are escaped as well,
    because Redmine's sanitizeHTML leaves them as they are and a value inside
    an attribute could end it. */
@@ -112,31 +67,6 @@ function spriteIcon(name, options) {
   svg.appendChild(use);
 
   return svg.outerHTML;
-}
-
-/* Render a select2 option for the Tabler icon picker: SVG sprite icon + name.
-   The full sprite href is provided per option via data-href. */
-/* exported formatIconOption */
-function formatIconOption(icon) {
-  if (icon.id === undefined || icon.id === '') {
-    return icon.text;
-  }
-
-  const href = icon.element && icon.element.dataset ? icon.element.dataset.href : null;
-  const span = document.createElement('span');
-  if (href) {
-    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('class', 's18 icon-svg');
-    svg.setAttribute('aria-hidden', 'true');
-    const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
-    use.setAttribute('href', href);
-    svg.appendChild(use);
-    span.appendChild(svg);
-    span.appendChild(document.createTextNode(` ${icon.text}`));
-  } else {
-    span.textContent = icon.text;
-  }
-  return span;
 }
 
 /* Use this instead of showTab from Redmine, because on tabs are supported for plugin settings */

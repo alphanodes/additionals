@@ -14,7 +14,7 @@
 | `dhtmlxgantt` | dhtmlxGantt with its styles |
 | `mermaid` | mermaid with the loader for mermaid code blocks |
 | `query_chart` | Styles of query chart blocks and their settings form |
-| `select2` | Select2 with its styles and the helpers of additionals |
+| `select2` | Select2 with its styles and the filter registry of the [select fields](select-fields.md) |
 | `sortable` | SortableJS |
 
 Versions are listed in the [README](../README.md#libraries). A name lists its files in loading order, a file required by several names is loaded once. Unknown names raise an `ArgumentError`, so a typo fails instead of loading nothing.

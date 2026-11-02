@@ -122,6 +122,19 @@ class QueryTest < Additionals::TestCase
            'Select2 user filter should resolve user IDs to name-id pairs'
   end
 
+  # Select fields of query filters are registered by the field format too,
+  # which the browser only learns from these options
+  def test_available_filters_as_json_tells_the_field_format
+    query = IssueQuery.new name: '_'
+    query.available_filters
+    query.add_available_filter 'cf_formatted', type: :list, field_format: 'my_format', values: []
+
+    json = query.available_filters_as_json
+
+    assert_equal 'my_format', json['cf_formatted']['field_format']
+    assert_not json['status_id'].key?('field_format')
+  end
+
   def test_add_filter_keeps_core_filter_for_non_select2_field
     query = IssueQuery.new name: '_'
 

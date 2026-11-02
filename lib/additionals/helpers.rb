@@ -283,35 +283,10 @@ module Additionals
       end
 
       ajax_params = options.delete(:ajax_params) || {}
-      if options[:project].present?
-        ajax_params[:project_id] = options[:project]
-      elsif @project
-        ajax_params[:project_id] = @project
-      end
+      project = options.delete(:project).presence || @project
+      ajax_params[:project_id] = project if project
 
-      s = []
-      if options[:multiple]
-        # Only append the array brackets when the name does not already end in
-        # "[]" (as it does for multiple custom fields), otherwise the hidden
-        # field name becomes "[][]" and Rack parses a nested ["", ...] value.
-        hidden_name = name.to_s.end_with?('[]') ? name : "#{name}[]"
-        s << hidden_field_tag(hidden_name, '', id: nil)
-      end
-      # No blank option for multiple selects: the hidden field above already
-      # clears the value, and a blank <option> gets selected by select2's
-      # "clear all" button, showing up as a stray empty choice
-      s << select_tag(name,
-                      option_tags,
-                      include_blank: !options[:multiple] && options[:include_blank],
-                      multiple: options[:multiple],
-                      disabled: options[:disabled])
-      s << render(layout: false,
-                  partial: 'additionals/select2_ajax_call',
-                  formats: [:js],
-                  locals: { field_name_id: sanitize_to_id(name),
-                            ajax_url: send(:"#{type}_path", ajax_params),
-                            options: options })
-      safe_join s
+      additionals_select_tag name, option_tags, url: send(:"#{type}_path", ajax_params), **options
     end
 
     def project_list_css_classes(project, level)

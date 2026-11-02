@@ -135,10 +135,6 @@ Naming/VariableNumber:
   Exclude:
     - 'test/**/*'
 
-Style/StringConcatenation:
-  Exclude:
-    - 'app/views/additionals/_select2_ajax_call.*'
-
 Layout/LineContinuationLeadingSpace:
   Enabled: false
 

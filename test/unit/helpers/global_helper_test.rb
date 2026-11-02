@@ -165,39 +165,20 @@ class GlobalHelperTest < Additionals::HelperTest
     assert_equal 'redmine.org/test', Nokogiri::HTML.parse(@redmine_view.link_to_url('https://redmine.org/test')).xpath('//a').first.text
   end
 
-  def test_autocomplete_select_entries_keeps_blank_option_for_single
+  def test_autocomplete_select_entries_searches_the_endpoint_with_its_parameters
     html = @redmine_view.autocomplete_select_entries 'foo', 'assignee_auto_completes', nil,
-                                                     multiple: false, include_blank: true
+                                                     project: 'ecookbook', ajax_params: { with_me: true }
+    select = Nokogiri::HTML.fragment(html).at 'select'
 
-    assert_match(/<option value=""/, html)
+    assert_equal 'additionals-select', select['data-controller']
+    assert_equal '/auto_completes/assignee?project_id=ecookbook&with_me=true', select['data-additionals-select-url-value']
   end
 
-  def test_autocomplete_select_entries_omits_blank_option_for_multiple
-    html = @redmine_view.autocomplete_select_entries 'foo', 'assignee_auto_completes', nil,
-                                                     multiple: true, include_blank: true
+  def test_autocomplete_select_entries_takes_records_as_chosen_entries
+    html = @redmine_view.autocomplete_select_entries 'foo', 'assignee_auto_completes', User.where(id: 2), multiple: true
+    option = Nokogiri::HTML.fragment(html).at('select option')
 
-    assert_no_match(/<option value=""/, html)
-    assert_match(/<input[^>]*type="hidden"[^>]*name="foo\[\]"/, html)
-  end
-
-  def test_autocomplete_select_entries_hidden_field_does_not_double_bracket_array_name
-    html = @redmine_view.autocomplete_select_entries 'foo[]', 'assignee_auto_completes', nil,
-                                                     multiple: true, include_blank: true
-
-    assert_match(/<input[^>]*type="hidden"[^>]*name="foo\[\]"/, html)
-    assert_no_match(/name="foo\[\]\[\]"/, html)
-  end
-
-  # The select2 ajax url is interpolated into a JS string literal. HTML escaping
-  # would turn the "&" between query parameters into "&amp;", so everything
-  # behind the first parameter would arrive as part of its value.
-  def test_autocomplete_select_entries_keeps_ampersand_in_ajax_url
-    html = @redmine_view.autocomplete_select_entries 'foo', 'assignee_auto_completes', nil,
-                                                     multiple: false,
-                                                     ajax_params: { with_me: true, active_only: true }
-
-    assert_match(/url: "[^"]*active_only=true&with_me=true/, html)
-    assert_no_match(/url: "[^"]*&amp;/, html)
+    assert_equal ['2', 'selected', 'John Smith'], [option['value'], option['selected'], option.text]
   end
 
   def test_render_label_sum_keeps_html_safe_label_intact

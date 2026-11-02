@@ -38,6 +38,16 @@ module Additionals
       end
 
       module InstanceOverwriteMethods
+        # Select fields of query filters are also registered by custom field
+        # format (additionals_select_filter), which core leaves out here
+        def available_filters_as_json
+          json = super
+          json.each do |field, options|
+            field_format = available_filters[field][:field_format]
+            options['field_format'] = field_format if field_format
+          end
+        end
+
         def add_filter(field, operator, values = nil)
           super
           return unless available_filters[field]

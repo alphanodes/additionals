@@ -13,8 +13,7 @@ class AdditionalsChartjsHelperTest < Additionals::HelperTest
     html = @redmine_view.chartjs_colorscheme_select_tag 'settings[chart_color_schema]', 'tableau.Tableau10'
 
     assert_select_in html, 'select[name=?] option[value=?][selected]', 'settings[chart_color_schema]', 'tableau.Tableau10'
-    assert_match(/select2Tag\('settings_chart_color_schema', .*"format_state":"formatColorScheme"/, html)
-    assert_match(/"format_selection":"formatColorScheme"/, html)
+    assert_select_in html, 'select[data-controller=additionals-select][data-additionals-select-renderer-value=color_scheme]'
   end
 
   # The gradients of Brewer are made for maps, a category of a chart needs a

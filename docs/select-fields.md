@@ -99,6 +99,8 @@ Redmine builds the rows of query filters in the browser. `additionals_select_fil
 
 Rows a plugin builds itself in the browser turn their select into a field with `additionalsSelectApply(select, options)`, the options in camelCase as in `additionalsSelectFilters`; `values` names the chosen values when a single select becomes multiple.
 
+Pages for people without access to Redmine (e.g. public pages of a plugin) answer `additionals_select_fields?` with false in their controller; `additionals_select_filter` then renders nothing there.
+
 ## Tests
 
 System tests use the helpers of `Additionals::GlobalSystemTestHelper` instead of the markup of the library: `choose_select_entry(container, text, search:, exact:)`, `add_select_tag(container, name)`, `remove_select_entry(container, text)`, and for a field or menu opened otherwise `type_into_open_select(text)`, `choose_open_select_entry(text)` and `assert_select_entry(text)`.

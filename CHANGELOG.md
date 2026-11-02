@@ -3,6 +3,9 @@
 ## 4.7.0
 
 - Requires Redmine 7.0.3 or higher
+- The user and group lists of the autocomplete endpoints answer only for projects the user may see; before, they listed the members of private projects to anybody
+- Autocomplete endpoints return at most as many entries as the API limit (`AdditionalsConf.autocomplete_limit`)
+- Pages that answer `additionals_select_fields?` with false register no select fields for query filters and load no library for them
 - Add select fields with search, tags and query filters through the Stimulus controller `additionals-select` (`additionals_select_tag`, `additionals_select_filter`, `AdditionalsSelect`), see `docs/select-fields.md`
 - Select fields send a native `change` event, so Stimulus actions and listeners of plugins see changed values
 - Incompatible: `additionals_select2_tag`, `additionals_transform_to_select2`, `additionals_icon_loader` and the JavaScript helpers of Select2 (`select2Tag`, `fixScopedTags`, `formatNameWithIcon`, ...) are removed, plugins use the select fields of additionals

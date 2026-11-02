@@ -12,6 +12,33 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
     @request.headers['Accept'] = 'application/json'
   end
 
+  USER_LIST_ACTIONS = %i[issue_assignee assignee authors grouped_users grouped_principals].freeze
+
+  # The users of a private project are only listed for those who see it
+  def test_user_lists_of_a_private_project_are_hidden_from_non_members
+    @request.session[:user_id] = users(:users_004).id
+
+    USER_LIST_ACTIONS.each do |action|
+      # each request of a test needs the header again
+      @request.headers['Accept'] = 'application/json'
+      get action, params: { project_id: projects(:projects_002).id }, xhr: true
+
+      assert_response :not_found, action
+    end
+  end
+
+  def test_user_lists_of_a_private_project_are_shown_to_members
+    @request.session[:user_id] = users(:users_002).id
+
+    USER_LIST_ACTIONS.each do |action|
+      # each request of a test needs the header again
+      @request.headers['Accept'] = 'application/json'
+      get action, params: { project_id: projects(:projects_002).id }, xhr: true
+
+      assert_response :success, action
+    end
+  end
+
   def test_issue_assignee
     with_settings issue_group_assignment: '0' do
       get :issue_assignee, xhr: true

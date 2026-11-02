@@ -9,12 +9,20 @@ module Additionals
         include InstanceMethods
 
         before_action :enable_smileys
+        helper_method :additionals_select_fields?
         helper :additionals_js_heads
         helper :additionals_render_async
         helper :additionals_remote_form
       end
 
       module InstanceMethods
+        # Whether the page uses select fields of additionals. Pages for people
+        # without access to Redmine (e.g. public pages of a plugin) answer
+        # false: they register no query filters and load no library for them.
+        def additionals_select_fields?
+          true
+        end
+
         def render_flash_mail(mail, name = nil)
           content = "#{name} (#{mail})"
           return content if name.blank?

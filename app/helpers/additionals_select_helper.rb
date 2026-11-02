@@ -46,6 +46,8 @@ module AdditionalsSelectHelper
     keys = { type:, fieldFormat: field_format, field: }.compact
     raise ArgumentError, 'exactly one of type, field_format or field is required' unless keys.size == 1
 
+    return unless additionals_select_fields?
+
     kind, name = keys.first
     options = field_options.compact
                            .transform_keys { |key| key.to_s.camelize :lower }

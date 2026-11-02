@@ -3,6 +3,14 @@
 require File.expand_path '../../test_helper', __FILE__
 
 class AdditionalsConfTest < Additionals::TestCase
+  # A limit asked for by a request is kept between 1 and the API limit
+  def test_autocomplete_limit
+    { nil => 50, '' => 50, '20' => 20, '0' => 1, '-3' => 1, '100000' => AdditionalsConf.api_limit }.each do |value, expected|
+      assert_equal expected, AdditionalsConf.autocomplete_limit(value), value.inspect
+    end
+    assert_equal 10, AdditionalsConf.autocomplete_limit(nil, default: 10)
+  end
+
   def test_configuration_false_overrides_default_true
     Redmine::Configuration.with 'additionals_test_flag' => false do
       assert_not AdditionalsConf.with_system_default('ADDITIONALS_TEST_FLAG', type: 'bool', default: true)

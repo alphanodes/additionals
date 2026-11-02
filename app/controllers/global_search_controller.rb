@@ -18,7 +18,7 @@ class GlobalSearchController < ApplicationController
                                   scope: params[:scope],
                                   types: params[:types],
                                   titles_only: params[:titles_only].present?,
-                                  limit: params[:limit]&.to_i || 10
+                                  limit: AdditionalsConf.autocomplete_limit(params[:limit], default: 10)
 
     render json: results
   rescue StandardError => e

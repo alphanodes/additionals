@@ -11,6 +11,10 @@ module Additionals
         include InstanceMethods
 
         before_action :find_search_term
+        # Core finds the project without asking whether the user may see it;
+        # the lists of users and groups would show the members of a private
+        # project to anybody
+        before_action :require_visible_project
       end
 
       module InstanceMethods
@@ -103,6 +107,10 @@ module Additionals
 
           scope.where "#{Member.table_name}.id IN (SELECT DISTINCT member_id" \
                       " FROM #{MemberRole.table_name} WHERE role_id IN (?))", role_ids
+        end
+
+        def require_visible_project
+          render_404 if @project && !@project.visible?
         end
 
         def find_search_term

@@ -13,6 +13,14 @@ class AdditionalsConf
       @select2_init_entries ||= with_system_default 'SELECT2_INIT_ENTRIES'
     end
 
+    # Number of entries an autocomplete returns: the limit a request asks for,
+    # kept between 1 and the API limit, or +default+
+    def autocomplete_limit(value, default: select2_init_entries)
+      return default if value.blank?
+
+      value.to_i.clamp 1, api_limit
+    end
+
     # Retrieves configuration values with flexible override mechanism
     #
     # Priority order (highest to lowest):

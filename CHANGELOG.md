@@ -4,6 +4,7 @@
 
 - Requires Redmine 7.0.3 or higher
 - Show the external link icon in info texts on Redmine 7.1 too, which dropped `external.png`
+- Add `Additionals::Holidays` as the one answer for holidays of all plugins: the non-working dates of Redmine 7.1, none on Redmine 7.0, a plugin managing holidays can prepend its own
 - Incompatible: the user scope of user custom fields (all users, all active users) is only offered for the entities a plugin registers in `user_scope_class_names`, user fields of all other entities keep the core form and behaviour
 - Add `AdditionalsWikiToolbar` for buttons of plugins in the wiki toolbar, with the jsToolBar of Redmine 7.0 and the server rendered toolbar of Redmine 7.1 alike; the macro button uses it
 - Add the textarea helpers of the wiki toolbar of Redmine 7.1 to Redmine 7.0 (`wiki_textarea_tag`, `f.wiki_textarea`, `wiki_toolbar:` of `custom_field_tag_with_label`), as Redmine 7.1 deprecates `wikitoolbar_for`; such a field sits in `div.form-field` instead of `p`

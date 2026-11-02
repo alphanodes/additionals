@@ -51,7 +51,7 @@ module AdditionalsIconsHelper
                          { include_blank:, label: },
                          class: options.delete(:class),
                          data: additionals_select_data(**additionals_icon_field_options(include_blank, options))
-    safe_join [additionals_library_load(:select2), select]
+    safe_join [additionals_library_load(:select_fields), select]
   end
 
   # Icon picker without a form builder, e.g. for repeated rows of custom menu

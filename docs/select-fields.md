@@ -26,10 +26,10 @@ flowchart LR
                          scoped_tags: true
 ```
 
-`additionals_select_data(data = nil, **field_options)` returns the data attributes for a select of a form builder. Load the library yourself with `additionals_library_load :select2`:
+`additionals_select_data(data = nil, **field_options)` returns the data attributes for a select of a form builder. Load the library yourself with `additionals_library_load :select_fields`:
 
 ```slim
-= additionals_library_load :select2
+= additionals_library_load :select_fields
 = f.select :recipients, options, {}, multiple: true, data: additionals_select_data(url: my_addresses_path, free_input: true)
 ```
 
@@ -73,7 +73,7 @@ The renderers are a fixed list. Text of the server is shown as text; only `name_
 | `additionals-select:select` | An entry was chosen, `event.detail.item` is the entry of the server |
 | `additionals-select:close` | The list closes |
 
-The list closes before the choice is told: `additionals-select:close` comes before `additionals-select:select`.
+The order of `additionals-select:close` and `additionals-select:select` is not fixed, so a listener does not depend on it.
 
 ## JavaScript API
 
@@ -82,7 +82,7 @@ The list closes before the choice is told: `additionals-select:close` comes befo
 | Function | Purpose |
 | --- | --- |
 | `open(select)` | Opens the list |
-| `refresh(select)` | Shows a value set from JavaScript (`select.value = ...`) and sends `change` |
+| `refresh(select)` | Shows a value set from JavaScript (`select.value = ...`, an appended `<option>`) and sends `change` once; any other field just gets `change`. Plugins call it after every value they set, never `.trigger('change')` |
 | `destroy(select)` | Removes the field of the library |
 | `menu({ anchor, entries, placeholder, onSelect, onClose })` | Opens a list of `entries` (`{ id, text }`) below `anchor` to pick one; it goes away after a choice, with Escape or a click outside |
 

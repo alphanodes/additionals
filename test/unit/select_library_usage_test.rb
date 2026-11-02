@@ -36,6 +36,35 @@ class SelectLibraryUsageTest < Additionals::TestCase
                  Additionals::SelectLibraryUsage.hits(@directory)
   end
 
+  # The next library (Tom Select) and the former name of the library package
+  # are no business of plugins either, also in further file types
+  def test_finds_the_next_library_and_the_former_package_name
+    write 'assets/javascripts/plugin_x.mjs', "new TomSelect(field, {});\nfield.tomselect.open();\n"
+    write 'assets/stylesheets/plugin_x.scss', ".box .ts-control { color: red; }\n"
+    write 'app/views/foo/_head.html.slim', "= additionals_library_load :select2\n"
+    write 'assets/javascripts/plugin_y.js', "if (field.dataset['select2']) {}\n"
+
+    assert_equal ['app/views/foo/_head.html.slim:1: former helper of additionals',
+                  'assets/javascripts/plugin_x.mjs:1: call or class of the library',
+                  'assets/javascripts/plugin_x.mjs:2: call or class of the library',
+                  'assets/javascripts/plugin_y.js:1: data of the library',
+                  'assets/stylesheets/plugin_x.scss:1: call or class of the library'],
+                 Additionals::SelectLibraryUsage.hits(@directory)
+  end
+
+  # Only the files of the select fields in additionals know the library
+  def test_additionals_knows_the_library_only_in_its_select_field_files
+    allowed = %w[assets/javascripts/controllers/additionals_select_controller.js
+                 assets/stylesheets/select2.css
+                 test/global_system_test_helper.rb
+                 test/javascript/controllers/additionals_select_controller.test.js
+                 test/select_library_usage.rb
+                 test/unit/select_library_usage_test.rb]
+    files = Additionals::SelectLibraryUsage.hits(Redmine::Plugin.find(:additionals).directory).to_set { |hit| hit.split(':').first }
+
+    assert_empty files - allowed
+  end
+
   # Names that only mention the library are no use of it, bundled files are
   # not ours
   def test_ignores_names_and_bundled_libraries

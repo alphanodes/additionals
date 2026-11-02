@@ -29,7 +29,7 @@ module Additionals
       # Loaded on demand also by pages without other charts, e.g. list views
       chartjs_treemap: %i[chartjs _chartjs_chart_treemap],
       chartjs_sankey: %i[chartjs _chartjs_chart_sankey],
-      select2: %i[_select2_css _select2_js _select_filters],
+      select_fields: %i[_select2_css _select2_js _select_filters],
       mermaid: %i[_mermaid_min _mermaid_load],
       dhtmlxgantt: %i[_dhtmlxgantt_css _dhtmlxgantt_js],
       query_chart: %i[_query_chart_css],

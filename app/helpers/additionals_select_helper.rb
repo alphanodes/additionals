@@ -26,7 +26,7 @@ module AdditionalsSelectHelper
     options[:include_blank] = false if multiple
     options[:data] = additionals_select_data options[:data], **field_options
 
-    s = [additionals_library_load(:select2), select_tag(name, option_tags, options)]
+    s = [additionals_library_load(:select_fields), select_tag(name, option_tags, options)]
     # Only append the array brackets when the name does not already end in
     # "[]" (as it does for multiple custom fields), otherwise the hidden field
     # name becomes "[][]" and Rack parses a nested ["", ...] value.
@@ -52,13 +52,13 @@ module AdditionalsSelectHelper
     options = field_options.compact
                            .transform_keys { |key| key.to_s.camelize :lower }
                            .transform_values { |value| additionals_select_value value }
-    safe_join [additionals_library_load(:select2),
+    safe_join [additionals_library_load(:select_fields),
                javascript_tag("additionalsSelectRegisterFilter(#{kind.to_s.to_json}, #{name.to_s.to_json}, #{options.to_json});")]
   end
 
   # data attributes of a select field, for selects of a form builder
   # (form.select ..., data: additionals_select_data(renderer: 'icon')), which
-  # need the library loaded with additionals_library_load(:select2)
+  # need the library loaded with additionals_library_load(:select_fields)
   def additionals_select_data(data = nil, **field_options)
     data = (data || {}).dup
     data[:controller] = [data[:controller], 'additionals-select'].compact_blank.join ' '

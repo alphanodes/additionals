@@ -82,9 +82,9 @@ class AdditionalsAssetLoaderHelperTest < Additionals::HelperTest
   end
 
   def test_library_url_of_a_stylesheet_matches_the_included_link
-    href = additionals_library_load(:select2)[/href="([^"]+)"/, 1]
+    href = additionals_library_load(:select_fields)[/href="([^"]+)"/, 1]
 
-    assert_equal href, additionals_library_urls[:select2].first[:url]
+    assert_equal href, additionals_library_urls[:select_fields].first[:url]
   end
 
   def test_library_urls_keep_the_order_of_a_package

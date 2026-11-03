@@ -52,7 +52,7 @@ module Additionals
           super
           return unless available_filters[field]
 
-          initialize_user_values_for_select2 field, values
+          initialize_user_values_for_select_field field, values
 
           # NOTE: true is required for short filter support!
           true
@@ -61,7 +61,7 @@ module Additionals
         def add_available_filter(field, options)
           super
           values = filters&.dig(field, :values) || []
-          initialize_user_values_for_select2 field, values
+          initialize_user_values_for_select_field field, values
 
           @available_filters
         end
@@ -193,8 +193,8 @@ module Additionals
           sql
         end
 
-        def initialize_user_values_for_select2(field, values)
-          return if Principal::SELECT2_FIELDS.exclude? @available_filters[field][:type]
+        def initialize_user_values_for_select_field(field, values)
+          return if Principal::SELECT_FIELD_FILTER_TYPES.exclude? @available_filters[field][:type]
 
           @available_filters[field][:values] = Principal.sorted.ids_to_names_with_ids values
         end

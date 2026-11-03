@@ -60,7 +60,7 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
     end
 
     assert_response :success
-    # When HRM is installed, assignee options are loaded via Select2 AJAX, not rendered as HTML options
+    # When HRM is installed, assignee options are loaded by the select field from the server, not rendered as HTML options
     unless AdditionalsPlugin.active_hrm?
       assert_select 'select#issue_assigned_to_id' do
         assert_select 'option', text: user_with_workflow.name
@@ -148,7 +148,7 @@ class IssuesAssignableUsersTest < Additionals::ControllerTest
     get :new, params: { project_id: project.id, tracker_id: tracker.id }
 
     assert_response :success
-    # When HRM is installed, assignee options are loaded via Select2 AJAX, not rendered as HTML options
+    # When HRM is installed, assignee options are loaded by the select field from the server, not rendered as HTML options
     unless AdditionalsPlugin.active_hrm?
       assert_select 'select#issue_assigned_to_id' do
         assert_select 'option', { text: user_with_hidden_role.name, count: 0 },

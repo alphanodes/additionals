@@ -27,18 +27,18 @@ class SelectLibraryUsageTest < Additionals::TestCase
 
     assert_equal ['app/views/foo/_body_bottom.html.slim:2: former helper of additionals',
                   'app/views/foo/_form.html.slim:1: former helper of additionals',
-                  'assets/javascripts/plugin_x.js:1: call or jQuery event of the library',
-                  'assets/javascripts/plugin_x.js:2: event of the library',
-                  'assets/javascripts/plugin_x.js:3: call or jQuery event of the library',
-                  'assets/javascripts/plugin_x.js:4: data of the library',
-                  'assets/stylesheets/plugin_x.css:1: CSS class of the library',
-                  'test/system_browser/foo_test.rb:1: CSS class of the library'],
+                  'assets/javascripts/plugin_x.js:1: call or jQuery event of the former library (Select2)',
+                  'assets/javascripts/plugin_x.js:2: event of the former library (Select2)',
+                  'assets/javascripts/plugin_x.js:3: call or jQuery event of the former library (Select2)',
+                  'assets/javascripts/plugin_x.js:4: data of the former library (Select2)',
+                  'assets/stylesheets/plugin_x.css:1: CSS class of the former library (Select2)',
+                  'test/system_browser/foo_test.rb:1: CSS class of the former library (Select2)'],
                  Additionals::SelectLibraryUsage.hits(@directory)
   end
 
-  # The next library (Tom Select) and the former name of the library package
+  # The library (Tom Select) and the former name of the library package
   # are no business of plugins either, also in further file types
-  def test_finds_the_next_library_and_the_former_package_name
+  def test_finds_the_library_and_the_former_package_name
     write 'assets/javascripts/plugin_x.mjs', "new TomSelect(field, {});\nfield.tomselect.open();\n"
     write 'assets/stylesheets/plugin_x.scss', ".box .ts-control { color: red; }\n"
     write 'app/views/foo/_head.html.slim', "= additionals_library_load :select2\n"
@@ -47,7 +47,7 @@ class SelectLibraryUsageTest < Additionals::TestCase
     assert_equal ['app/views/foo/_head.html.slim:1: former helper of additionals',
                   'assets/javascripts/plugin_x.mjs:1: call or class of the library',
                   'assets/javascripts/plugin_x.mjs:2: call or class of the library',
-                  'assets/javascripts/plugin_y.js:1: data of the library',
+                  'assets/javascripts/plugin_y.js:1: data of the former library (Select2)',
                   'assets/stylesheets/plugin_x.scss:1: call or class of the library'],
                  Additionals::SelectLibraryUsage.hits(@directory)
   end
@@ -71,7 +71,7 @@ class SelectLibraryUsageTest < Additionals::TestCase
   def test_ignores_names_and_bundled_libraries
     write 'app/helpers/foo_helper.rb', <<~RUBY
       def entries_for_select2 = render_grouped_users_with_select2(users)
-      LIMIT = AdditionalsConf.autocomplete_entries
+      LIMIT = AdditionalsConf.select2_init_entries
       field = additionals_select_tag 'foo', nil, renderer: 'avatar'
     RUBY
     write 'assets/javascripts/vendor/select2.js', "$.fn.select2 = function () {};\n"

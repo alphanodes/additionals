@@ -21,9 +21,9 @@ module AdditionalsQueriesHelper
   # contract (Query resolves it per user at runtime). Form fields writing to an *_id column
   # MUST pass me_value: User.current.id instead - a literal 'me' casts to integer 0 there and
   # produces an invalid foreign key (see Redmine core's principals_options_for_select).
-  def render_grouped_users_with_select2(users, search_term: nil, with_me: true, with_ano: false, me_value: 'me',
-                                        involved_principals: nil, use_assignment_frequency: false,
-                                        apply_assignee_format: false)
+  def render_grouped_users_for_select_field(users, search_term: nil, with_me: true, with_ano: false, me_value: 'me',
+                                            involved_principals: nil, use_assignment_frequency: false,
+                                            apply_assignee_format: false)
     @users = { active: [], groups: [], registered: [], locked: [] }
     # Involved principals outside the scope cannot be assigned, like in core they are shown disabled
     assignable_ids = involved_principals.present? ? users.where(id: involved_principals.map(&:id)).ids : []
@@ -65,7 +65,7 @@ module AdditionalsQueriesHelper
 
     # Ordered [label, user_hashes] optgroup sections rendered by the partial.
     # For assignee contexts the order/grouping follows Setting.assignee_dropdown_display_format.
-    @grouped_user_sections = grouped_user_select2_sections apply_assignee_format: apply_assignee_format
+    @grouped_user_sections = grouped_user_sections apply_assignee_format: apply_assignee_format
 
     respond_to do |format|
       format.html { head :not_acceptable }
@@ -295,7 +295,7 @@ module AdditionalsQueriesHelper
   # grouped users of select fields. Without assignee format the legacy order
   # (active, groups, registered, locked) is preserved. In an assignee context
   # the order/grouping follows Setting.assignee_dropdown_display_format.
-  def grouped_user_select2_sections(apply_assignee_format:)
+  def grouped_user_sections(apply_assignee_format:)
     groups_section = [l(:label_group_plural), @users[:groups]] if @users[:groups].present?
 
     return legacy_grouped_user_sections unless apply_assignee_format && groups_section

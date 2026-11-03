@@ -5,15 +5,15 @@ module Additionals
     module PrincipalPatch
       extend ActiveSupport::Concern
 
-      SELECT2_FIELDS = %i[principal
-                          user
-                          assignee
-                          issue_assignee
-                          author
-                          author_optional
-                          user_with_me
-                          global_user
-                          internal_user].freeze
+      SELECT_FIELD_FILTER_TYPES = %i[principal
+                                     user
+                                     assignee
+                                     issue_assignee
+                                     author
+                                     author_optional
+                                     user_with_me
+                                     global_user
+                                     internal_user].freeze
 
       included do
         scope :assignable, -> { active.visible.where type: %w[User Group] }

@@ -119,7 +119,7 @@ class QueryTest < Additionals::TestCase
 
     # additionals resolves the select field values on top of it
     assert query.available_filters['author_id'][:values].any? { |_name, id| id == user.id.to_s },
-           'Select2 user filter should resolve user IDs to name-id pairs'
+           'User filter with a select field should resolve user IDs to name-id pairs'
   end
 
   # Select fields of query filters are registered by the field format too,
@@ -163,7 +163,7 @@ class QueryTest < Additionals::TestCase
     assert query.available_filters.key?('author_id')
   end
 
-  def test_add_available_filter_with_select2_field_resolves_values
+  def test_add_available_filter_with_select_field_resolves_values
     user = users :users_002
     query = IssueQuery.new name: '_'
     query.filters = { 'author_id' => { operator: '=', values: [user.id.to_s] } }
@@ -173,7 +173,7 @@ class QueryTest < Additionals::TestCase
     filter = query.available_filters['author_id']
 
     assert filter[:values].any? { |_name, id| id == user.id.to_s },
-           'Select2 user filter should resolve user IDs to name-id pairs'
+           'User filter with a select field should resolve user IDs to name-id pairs'
   end
 
   def test_add_available_filter_with_non_select_field_and_nil_filters

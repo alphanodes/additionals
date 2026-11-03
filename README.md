@@ -155,3 +155,4 @@ You should have received a copy of the GNU General Public License along with thi
 
 * [Tabler Icons](https://tabler.io/icons), Copyright (c) 2020- Paweł Kuna, MIT License
 * [mermaid](https://github.com/mermaid-js/mermaid/blob/develop/LICENSE), includes code from DOMPurify, licensed under the Mozilla Public License 2.0 and the Apache License 2.0
+* [Tom Select](https://github.com/orchidjs/tom-select), licensed under the [Apache License 2.0](https://github.com/orchidjs/tom-select/blob/master/LICENSE)

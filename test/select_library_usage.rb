@@ -2,7 +2,7 @@
 
 module Additionals
   # Finds code of a plugin that talks to the library behind the select fields
-  # of additionals (Select2, next Tom Select) instead of going through
+  # of additionals (Tom Select, before Select2) instead of going through
   # additionals: calls of the library, its events and CSS classes, and the
   # helpers and names additionals had for it before. Only additionals may know the library, so an update or a switch of
   # the library stays a change in additionals. Plain Ruby without Rails, like
@@ -13,10 +13,10 @@ module Additionals
     IGNORED_FILES = %r{(\A|/)(vendor|node_modules)/|\.min\.js\z}
 
     PATTERNS = {
-      'call or jQuery event of the library' => /\.select2(?![\w-])/,
-      'event of the library' => /\bselect2:\w/,
-      'CSS class of the library' => /\bselect2-[a-z]/,
-      'data of the library' => /[(\[]\s*['"]select2['"]\s*[)\]]/,
+      'call or jQuery event of the former library (Select2)' => /\.select2(?![\w-])/,
+      'event of the former library (Select2)' => /\bselect2:\w/,
+      'CSS class of the former library (Select2)' => /\bselect2-[a-z]/,
+      'data of the former library (Select2)' => /[(\[]\s*['"]select2['"]\s*[)\]]/,
       'call or class of the library' => /\bTomSelect\b|\.tomselect\b|\bts-(wrapper|control|dropdown|dropdown-content|hidden-accessible)\b/,
       'former helper of additionals' => /\b(additionals_select2_tag|additionals_transform_to_select2|additionals_icon_loader|
                                             select2Tag|initSelect2|fixScopedTags|select2Filters|setSelect2Filter|

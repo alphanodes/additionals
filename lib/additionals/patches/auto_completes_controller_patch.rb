@@ -30,20 +30,20 @@ module Additionals
             render_params[:involved_principals] = issue_involved_principals(issue) if issue
           end
 
-          render_grouped_users_with_select2(scope, use_assignment_frequency: true, apply_assignee_format: true, **render_params)
+          render_grouped_users_for_select_field(scope, use_assignment_frequency: true, apply_assignee_format: true, **render_params)
         end
 
         def assignee
           scope = @project ? @project.assignable_principals.visible : Principal.assignable
 
-          render_grouped_users_with_select2 scope, search_term: @search_term, use_assignment_frequency: true,
-                                                   apply_assignee_format: true
+          render_grouped_users_for_select_field scope, search_term: @search_term, use_assignment_frequency: true,
+                                                       apply_assignee_format: true
         end
 
         def authors
           scope = @project ? @project.users.visible : User.active.visible
 
-          render_grouped_users_with_select2 scope, search_term: @search_term
+          render_grouped_users_for_select_field scope, search_term: @search_term
         end
 
         def custom_field_users
@@ -58,7 +58,7 @@ module Additionals
                             with_me: !cf.multiple? && cf.format.additionals_principal_types(cf).include?('User') }
           render_params[:me_value] = params[:me_value] if params.key? :me_value
 
-          render_grouped_users_with_select2(scope, **render_params)
+          render_grouped_users_for_select_field(scope, **render_params)
         end
 
         def grouped_users
@@ -71,7 +71,7 @@ module Additionals
                             with_me: RedminePluginKit.true?(params[:with_me]) }
           render_params[:me_value] = params[:me_value] if params.key? :me_value
 
-          render_grouped_users_with_select2(scope, **render_params)
+          render_grouped_users_for_select_field(scope, **render_params)
         end
 
         # user and groups
@@ -85,7 +85,7 @@ module Additionals
                             apply_assignee_format: RedminePluginKit.true?(params[:assignee_format]) }
           render_params[:me_value] = params[:me_value] if params.key? :me_value
 
-          render_grouped_users_with_select2(scope, **render_params)
+          render_grouped_users_for_select_field(scope, **render_params)
         end
 
         private

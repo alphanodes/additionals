@@ -1,19 +1,21 @@
 import { describe, it, expect, beforeAll, afterAll, afterEach, vi } from 'vitest';
-import { readFileSync } from 'fs';
-import { resolve } from 'path';
 import { Application } from '@hotwired/stimulus';
 import jQuery from 'jquery';
 import AdditionalsSelectController, {
   AdditionalsSelect, RENDERERS, tagGroup, withoutScopedSiblings, createTag, resultsWithValueKey,
 } from '../../../assets/javascripts/controllers/additionals_select_controller.js';
 
+import {
+  loadSelectLibrary, hideSelectLibrary, serverAnswers, hasSelectField, fieldElement, openField, closeField, isOpen,
+  typeInto, searchPlaceholder, entryTexts, entry, groupsOfList, isEntryDisabled, chooseEntry, pressKey, clickOutside,
+  chosenTexts, shownElement, shownText, placeholderText, removeChosen, canClear, clearField,
+} from '../support/select_field.js';
+
 // The controller is tested against the real library, as the pages use it: its
 // job is the translation between our interface and the library, which a mock
-// of the library could not show.
-globalThis.jQuery = jQuery;
-globalThis.$ = jQuery;
-const globalEval = eval; // eslint-disable-line no-eval
-globalEval(readFileSync(resolve(__dirname, '../../../assets/javascripts/vendor/select2.min.js'), 'utf-8'));
+// of the library could not show. The driver is the only part of the tests
+// that knows the library.
+loadSelectLibrary();
 
 const wait = (ms = 0) => new Promise((done) => { setTimeout(done, ms); });
 
@@ -44,53 +46,9 @@ async function render(html) {
   return document.querySelector('select');
 }
 
-// The server answers searches with +entries+
-function serverAnswers(entries) {
-  return vi.spyOn(jQuery, 'ajax').mockImplementation(() => {
-    const request = jQuery.Deferred().resolve(entries).promise();
-    request.abort = () => {};
-    return request;
-  });
-}
-
-function open(select) {
-  jQuery(select).select2('open');
-}
-
-function searchField(select) {
-  const instance = jQuery(select).data('select2');
-  return instance.selection.$search || instance.dropdown.$search;
-}
-
-function type(select, text) {
-  searchField(select).val(text).trigger('input');
-}
-
-function entry(text) {
-  return Array.from(document.querySelectorAll('.select2-results__option'))
-    .find((option) => option.textContent.trim() === text);
-}
-
-// as a user does: the press of the button, then its release chooses
-function choose(text, options = {}) {
-  entry(text).dispatchEvent(new MouseEvent('mousedown', { bubbles: true, ...options }));
-  jQuery(entry(text)).trigger(jQuery.Event('mouseup', options));
-}
-
-function press(element, key, which) {
-  element.dispatchEvent(new KeyboardEvent('keydown', { key, keyCode: which, which, bubbles: true }));
-}
-
-// a click somewhere else on the page closes the list
-function clickOutside() {
-  document.body.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
-  jQuery(document.body).trigger('mousedown');
-}
-
-function chosenTexts(select) {
-  const container = jQuery(select).data('select2').$container[0];
-  return Array.from(container.querySelectorAll('.select2-selection__choice'))
-    .map((choice) => choice.getAttribute('title') || choice.textContent.replace('×', '').trim());
+// The values of the select, as a form sends them
+function values(select) {
+  return Array.from(select.selectedOptions).map((option) => option.value);
 }
 
 describe('AdditionalsSelectController', () => {
@@ -98,7 +56,7 @@ describe('AdditionalsSelectController', () => {
     it('turns the select into a select field of the library', async () => {
       const select = await render('<select data-controller="additionals-select"><option value="1">One</option></select>');
 
-      expect(jQuery(select).data('select2')).toBeDefined();
+      expect(hasSelectField(select)).toBe(true);
     });
 
     it('removes the select field when the select leaves the page', async () => {
@@ -106,42 +64,42 @@ describe('AdditionalsSelectController', () => {
       select.remove();
       await wait();
 
-      expect(jQuery(select).data('select2')).toBeUndefined();
+      expect(hasSelectField(select)).toBe(false);
     });
 
     it('marks the field with a class of its own for the styles of plugins', async () => {
       const select = await render('<select data-controller="additionals-select"></select>');
 
-      expect(jQuery(select).data('select2').$container[0].classList.contains('additionals-select-field')).toBe(true);
+      expect(fieldElement(select).classList.contains('additionals-select-field')).toBe(true);
     });
 
     it('sets the field up again when a value changes', async () => {
       const select = await render('<select data-controller="additionals-select"><option value="1">One</option></select>');
       select.setAttribute('data-additionals-select-tags-value', 'true');
       await wait();
+      openField(select);
+      typeInto(select, 'New tag');
 
-      expect(jQuery(select).data('select2').options.get('tags')).toBe(true);
+      expect(entryTexts()).toContain('New tag');
     });
 
     it('waits for the library when it comes after the field', async () => {
-      const { select2 } = jQuery.fn;
-      delete jQuery.fn.select2;
+      const restoreLibrary = hideSelectLibrary();
       const select = await render('<select data-controller="additionals-select"></select>');
-      jQuery.fn.select2 = select2;
+      restoreLibrary();
       document.dispatchEvent(new Event('additionals-select:library-loaded'));
 
-      expect(jQuery(select).data('select2')).toBeDefined();
+      expect(hasSelectField(select)).toBe(true);
     });
 
     it('leaves the select as it is without the library', async () => {
-      const { select2 } = jQuery.fn;
-      delete jQuery.fn.select2;
+      const restoreLibrary = hideSelectLibrary();
       try {
         const select = await render('<select data-controller="additionals-select"></select>');
 
-        expect(select.classList.contains('select2-hidden-accessible')).toBe(false);
+        expect(hasSelectField(select)).toBe(false);
       } finally {
-        jQuery.fn.select2 = select2;
+        restoreLibrary();
       }
     });
   });
@@ -163,8 +121,8 @@ describe('AdditionalsSelectController', () => {
       jQuery(select).on('change', jquery);
       jQuery('#form').on('change', 'select', delegated);
 
-      open(select);
-      choose('Two');
+      openField(select);
+      chooseEntry('Two');
 
       expect(select.value).toBe('2');
       expect([native.mock.calls.length, jquery.mock.calls.length, delegated.mock.calls.length, select.dataset.inline])
@@ -179,10 +137,10 @@ describe('AdditionalsSelectController', () => {
       const listener = vi.fn();
       select.addEventListener('additionals-select:select', listener);
 
-      open(select);
-      type(select, 'Ku');
+      openField(select);
+      typeInto(select, 'Ku');
       await wait(SEARCH_WAIT);
-      choose('Kurt');
+      chooseEntry('Kurt');
 
       expect(listener.mock.calls[0][0].detail.item).toEqual({ id: 7, text: 'Kurt', email: 'kurt@example.com' });
     });
@@ -194,8 +152,8 @@ describe('AdditionalsSelectController', () => {
       const listener = vi.fn();
       select.addEventListener('additionals-select:close', listener);
 
-      open(select);
-      jQuery(select).select2('close');
+      openField(select);
+      closeField(select);
 
       expect(listener).toHaveBeenCalledTimes(1);
     });
@@ -208,15 +166,15 @@ describe('AdditionalsSelectController', () => {
         <select multiple data-controller="additionals-select" data-additionals-select-url-value="/people"
                 data-additionals-select-value-key-value="email"></select>`);
 
-      open(select);
-      type(select, 'K');
+      openField(select);
+      typeInto(select, 'K');
       await wait(SEARCH_WAIT);
 
       expect(entry('No mail')).toBeUndefined();
 
-      choose('Kurt');
+      chooseEntry('Kurt');
 
-      expect(jQuery(select).val()).toEqual(['kurt@example.com']);
+      expect(values(select)).toEqual(['kurt@example.com']);
     });
   });
 
@@ -230,10 +188,10 @@ describe('AdditionalsSelectController', () => {
           <option value="prio::high">prio::high</option>
         </select>`);
 
-      open(select);
-      choose('prio::high');
+      openField(select);
+      chooseEntry('prio::high');
 
-      expect(jQuery(select).val()).toEqual(['area::web', 'plain', 'prio::high']);
+      expect(values(select)).toEqual(['area::web', 'plain', 'prio::high']);
       expect(chosenTexts(select)).toEqual(['area::web', 'plain', 'prio::high']);
     });
 
@@ -244,10 +202,10 @@ describe('AdditionalsSelectController', () => {
           <option value="prio::high">prio::high</option>
         </select>`);
       const seen = [];
-      select.addEventListener('change', () => seen.push(jQuery(select).val()));
+      select.addEventListener('change', () => seen.push(values(select)));
 
-      open(select);
-      choose('prio::high');
+      openField(select);
+      chooseEntry('prio::high');
 
       expect(seen).toEqual([['prio::high']]);
     });
@@ -262,11 +220,11 @@ describe('AdditionalsSelectController', () => {
       const change = vi.fn();
       select.addEventListener('change', change);
 
-      open(select);
-      type(select, ' new@example.com ');
-      jQuery(select).select2('close');
+      openField(select);
+      typeInto(select, ' new@example.com ');
+      closeField(select);
 
-      expect(jQuery(select).val()).toEqual(['known@example.com', 'new@example.com']);
+      expect(values(select)).toEqual(['known@example.com', 'new@example.com']);
       expect(change).toHaveBeenCalledTimes(1);
     });
 
@@ -277,12 +235,12 @@ describe('AdditionalsSelectController', () => {
                 data-additionals-select-free-input-value="true" data-additionals-select-value-key-value="email">
         </select>`);
 
-      open(select);
-      type(select, 'Kurt');
+      openField(select);
+      typeInto(select, 'Kurt');
       await wait(SEARCH_WAIT + 50);
-      choose('Kurt Albert');
+      chooseEntry('Kurt Albert');
 
-      expect(jQuery(select).val()).toEqual(['kurt@example.com']);
+      expect(values(select)).toEqual(['kurt@example.com']);
     });
 
     it('chooses the found entry with Enter, the typed text comes after it', async () => {
@@ -292,12 +250,12 @@ describe('AdditionalsSelectController', () => {
                 data-additionals-select-free-input-value="true" data-additionals-select-value-key-value="email">
         </select>`);
 
-      open(select);
-      type(select, 'Kurt');
+      openField(select);
+      typeInto(select, 'Kurt');
       await wait(SEARCH_WAIT + 50);
-      press(searchField(select)[0], 'Enter', 13);
+      pressKey(select, 'Enter');
 
-      expect(jQuery(select).val()).toEqual(['kurt@example.com']);
+      expect(values(select)).toEqual(['kurt@example.com']);
     });
 
     it('takes typed text only when it fits the pattern', async () => {
@@ -305,14 +263,14 @@ describe('AdditionalsSelectController', () => {
         <select multiple data-controller="additionals-select" data-additionals-select-free-input-value="true"
                 data-additionals-select-free-input-pattern-value="@"></select>`);
 
-      open(select);
-      type(select, 'max');
-      jQuery(select).select2('close');
-      open(select);
-      type(select, 'max@example.com');
-      jQuery(select).select2('close');
+      openField(select);
+      typeInto(select, 'max');
+      closeField(select);
+      openField(select);
+      typeInto(select, 'max@example.com');
+      closeField(select);
 
-      expect(jQuery(select).val()).toEqual(['max@example.com']);
+      expect(values(select)).toEqual(['max@example.com']);
     });
 
     it('ignores a pattern that is no regular expression', async () => {
@@ -320,22 +278,22 @@ describe('AdditionalsSelectController', () => {
         <select multiple data-controller="additionals-select" data-additionals-select-free-input-value="true"
                 data-additionals-select-free-input-pattern-value="(@"></select>`);
 
-      open(select);
-      expect(() => type(select, 'max@example.com')).not.toThrow();
-      jQuery(select).select2('close');
+      openField(select);
+      expect(() => typeInto(select, 'max@example.com')).not.toThrow();
+      closeField(select);
 
-      expect(jQuery(select).val()).toEqual(['max@example.com']);
+      expect(values(select)).toEqual(['max@example.com']);
     });
 
     it('takes nothing when the field is left with Escape', async () => {
       const select = await render(`
         <select multiple data-controller="additionals-select" data-additionals-select-free-input-value="true"></select>`);
 
-      open(select);
-      type(select, 'new@example.com');
-      press(searchField(select)[0], 'Escape', 27);
+      openField(select);
+      typeInto(select, 'new@example.com');
+      pressKey(select, 'Escape');
 
-      expect(jQuery(select).val()).toEqual([]);
+      expect(values(select)).toEqual([]);
     });
 
     it('takes nothing when a chosen entry is removed from the list', async () => {
@@ -345,11 +303,11 @@ describe('AdditionalsSelectController', () => {
           <option value="b@example.com" selected>b@example.com</option>
         </select>`);
 
-      open(select);
-      type(select, 'a@');
-      choose('a@example.com');
+      openField(select);
+      typeInto(select, 'a@');
+      chooseEntry('a@example.com');
 
-      expect(jQuery(select).val()).toEqual(['b@example.com']);
+      expect(values(select)).toEqual(['b@example.com']);
     });
 
     it('keeps a chosen entry that the typed text found again', async () => {
@@ -359,23 +317,34 @@ describe('AdditionalsSelectController', () => {
           <option value="kurt@example.com" selected>kurt@example.com</option>
         </select>`);
 
-      open(select);
-      type(select, 'kurt');
-      choose('kurt@example.com');
-      jQuery(select).select2('close');
+      openField(select);
+      typeInto(select, 'kurt');
+      chooseEntry('kurt@example.com');
+      closeField(select);
 
-      expect(jQuery(select).val()).toBe('kurt@example.com');
+      expect(select.value).toBe('kurt@example.com');
     });
 
     it('takes the typed text when the field is left with a click elsewhere', async () => {
       const select = await render(`
         <select multiple data-controller="additionals-select" data-additionals-select-free-input-value="true"></select>`);
 
-      open(select);
-      type(select, 'new@example.com');
+      openField(select);
+      typeInto(select, 'new@example.com');
       clickOutside();
 
-      expect(jQuery(select).val()).toEqual(['new@example.com']);
+      expect(values(select)).toEqual(['new@example.com']);
+    });
+
+    it('takes the typed text when the field is left with Tab', async () => {
+      const select = await render(`
+        <select multiple data-controller="additionals-select" data-additionals-select-free-input-value="true"></select>`);
+
+      openField(select);
+      typeInto(select, 'new@example.com');
+      pressKey(select, 'Tab');
+
+      expect([values(select), isOpen(select)]).toEqual([['new@example.com'], false]);
     });
 
     it('takes typed text again after an Escape on the closed field and a choice with Ctrl', async () => {
@@ -384,13 +353,13 @@ describe('AdditionalsSelectController', () => {
           <option value="a@example.com">a@example.com</option>
         </select>`);
 
-      press(searchField(select)[0], 'Escape', 27);
-      open(select);
-      choose('a@example.com', { ctrlKey: true });
-      type(select, 'new@example.com');
+      pressKey(select, 'Escape');
+      openField(select);
+      chooseEntry('a@example.com', { ctrlKey: true });
+      typeInto(select, 'new@example.com');
       clickOutside();
 
-      expect(jQuery(select).val()).toEqual(['a@example.com', 'new@example.com']);
+      expect(values(select)).toEqual(['a@example.com', 'new@example.com']);
     });
 
     it('does not take back an entry removed with Backspace', async () => {
@@ -400,11 +369,11 @@ describe('AdditionalsSelectController', () => {
           <option value="b@example.com" selected>b@example.com</option>
         </select>`);
 
-      open(select);
-      press(searchField(select)[0], 'Backspace', 8);
+      openField(select);
+      pressKey(select, 'Backspace');
       clickOutside();
 
-      expect(jQuery(select).val()).toEqual(['a@example.com']);
+      expect(values(select)).toEqual(['a@example.com']);
     });
 
     it('replaces the tag of the same group with typed text too', async () => {
@@ -414,11 +383,11 @@ describe('AdditionalsSelectController', () => {
           <option value="prio::low" selected>prio::low</option>
         </select>`);
 
-      open(select);
-      type(select, 'prio::high');
+      openField(select);
+      typeInto(select, 'prio::high');
       clickOutside();
 
-      expect(jQuery(select).val()).toEqual(['prio::high']);
+      expect(values(select)).toEqual(['prio::high']);
     });
 
     it('takes nothing without typed text', async () => {
@@ -427,10 +396,248 @@ describe('AdditionalsSelectController', () => {
           <option value="known@example.com" selected>known@example.com</option>
         </select>`);
 
-      open(select);
-      jQuery(select).select2('close');
+      openField(select);
+      closeField(select);
 
-      expect(jQuery(select).val()).toEqual(['known@example.com']);
+      expect(values(select)).toEqual(['known@example.com']);
+    });
+  });
+
+  describe('entries of the server', () => {
+    const url = 'data-additionals-select-url-value="/search"';
+
+    it('loads the list without a term when the field opens, then the list of each search', async () => {
+      const server = serverAnswers((term) => [{ id: 1, text: `Found ${term}` }]);
+      const select = await render(`<select data-controller="additionals-select" ${url}></select>`);
+
+      openField(select);
+      await wait(SEARCH_WAIT);
+      typeInto(select, 'Ku');
+      await wait(SEARCH_WAIT);
+
+      expect(server.terms).toEqual(['', 'Ku']);
+      expect(entryTexts()).toEqual(['Found Ku']);
+    });
+
+    it('asks the server only from the minimal length of the search on', async () => {
+      const server = serverAnswers([{ id: 1, text: 'Kurt' }]);
+      const select = await render(`
+        <select data-controller="additionals-select" ${url} data-additionals-select-min-input-length-value="2"></select>`);
+
+      openField(select);
+      typeInto(select, 'K');
+      await wait(SEARCH_WAIT);
+      typeInto(select, 'Ku');
+      await wait(SEARCH_WAIT);
+
+      expect(server.terms).toEqual(['Ku']);
+    });
+
+    // the server also finds by fields the entry does not show (login, address)
+    it('shows each entry of the answer, also without the search in its text', async () => {
+      serverAnswers([{ id: 1, text: 'Kurt Albert' }, { id: 2, text: 'Anna' }]);
+      const select = await render(`<select data-controller="additionals-select" ${url}></select>`);
+
+      openField(select);
+      typeInto(select, 'mail@example');
+      await wait(SEARCH_WAIT);
+
+      expect(entryTexts()).toEqual(['Kurt Albert', 'Anna']);
+    });
+
+    it('shows the groups of the answer, an entry in each of its groups', async () => {
+      serverAnswers([
+        { text: 'Watchers', children: [{ id: 1, text: 'Kurt' }, { id: 2, text: 'Anna' }] },
+        { text: 'Active', children: [{ id: 1, text: 'Kurt' }, { id: 3, text: 'Locked', disabled: true }] },
+      ]);
+      const select = await render(`<select multiple data-controller="additionals-select" ${url}></select>`);
+
+      openField(select);
+      typeInto(select, 'a');
+      await wait(SEARCH_WAIT);
+
+      expect(groupsOfList()).toEqual([
+        { text: 'Watchers', entries: ['Kurt', 'Anna'] },
+        { text: 'Active', entries: ['Kurt', 'Locked'] },
+      ]);
+      expect(isEntryDisabled('Locked')).toBe(true);
+
+      chooseEntry('Locked');
+
+      expect(values(select)).toEqual([]);
+    });
+
+    it('shows all entries of a long answer', async () => {
+      serverAnswers(Array.from({ length: 60 }, (_, index) => ({ id: index + 1, text: `Entry ${index + 1}` })));
+      const select = await render(`<select data-controller="additionals-select" ${url}></select>`);
+
+      openField(select);
+      typeInto(select, 'Entry');
+      await wait(SEARCH_WAIT);
+
+      expect(entryTexts()).toHaveLength(60);
+    });
+  });
+
+  describe('list', () => {
+    it('shows all options of a long select', async () => {
+      const options = Array.from({ length: 60 }, (_, index) => `<option value="${index}">Option ${index}</option>`).join('');
+      const select = await render(`<select data-controller="additionals-select">${options}</select>`);
+
+      openField(select);
+
+      expect(entryTexts()).toHaveLength(60);
+    });
+
+    it('chooses the entry reached with the arrow keys by Enter', async () => {
+      const select = await render(`
+        <select multiple data-controller="additionals-select">
+          <option value="1">One</option><option value="2">Two</option><option value="3">Three</option>
+        </select>`);
+
+      openField(select);
+      pressKey(select, 'ArrowDown');
+      pressKey(select, 'ArrowDown');
+      pressKey(select, 'ArrowUp');
+      pressKey(select, 'Enter');
+
+      expect(values(select)).toEqual(['2']);
+    });
+
+    it('closes with Escape and with a click elsewhere, without a choice', async () => {
+      const select = await render(`
+        <select data-controller="additionals-select"><option value="1">One</option><option value="2">Two</option></select>`);
+
+      openField(select);
+      pressKey(select, 'Escape');
+      const afterEscape = isOpen(select);
+      openField(select);
+      clickOutside();
+
+      expect([afterEscape, isOpen(select), select.value]).toEqual([false, false, '1']);
+    });
+
+    // the placeholder stands for the empty option, allow_clear goes back to it
+    it('offers no empty option', async () => {
+      const select = await render(`
+        <select data-controller="additionals-select">
+          <option value=""></option><option value="1" selected>One</option>
+        </select>`);
+
+      openField(select);
+
+      expect(entryTexts()).toEqual(['One']);
+    });
+  });
+
+  describe('placeholder', () => {
+    it('is shown by an empty field', async () => {
+      const single = await render(`
+        <select data-controller="additionals-select" data-additionals-select-placeholder-value="Choose a user">
+          <option value=""></option><option value="1">One</option>
+        </select>
+        <select id="multiple" multiple data-controller="additionals-select"
+                data-additionals-select-placeholder-value="Choose users"><option value="1">One</option></select>`);
+
+      expect([placeholderText(single), placeholderText(document.getElementById('multiple'))])
+        .toEqual(['Choose a user', 'Choose users']);
+    });
+
+    it('labels the search of the list', async () => {
+      window.ADDITIONALS_LABEL_SEARCH = 'Search';
+      try {
+        const select = await render('<select data-controller="additionals-select"><option value="1">One</option></select>');
+        openField(select);
+
+        expect(searchPlaceholder(select)).toBe('Search');
+      } finally {
+        delete window.ADDITIONALS_LABEL_SEARCH;
+      }
+    });
+  });
+
+  describe('allow clear', () => {
+    it('empties a single field and tells the listeners once', async () => {
+      const select = await render(`
+        <select data-controller="additionals-select" data-additionals-select-allow-clear-value="true"
+                data-additionals-select-placeholder-value="None">
+          <option value=""></option><option value="1" selected>One</option>
+        </select>`);
+      const change = vi.fn();
+      select.addEventListener('change', change);
+
+      expect(canClear(select)).toBe(true);
+
+      clearField(select);
+
+      expect([select.value, shownText(select), change.mock.calls.length]).toEqual(['', 'None', 1]);
+    });
+
+    it('is not offered without the option', async () => {
+      const select = await render(`
+        <select data-controller="additionals-select"><option value=""></option><option value="1" selected>One</option></select>`);
+
+      expect(canClear(select)).toBe(false);
+    });
+  });
+
+  describe('chosen entries', () => {
+    it('removes an entry with its button and tells the listeners once', async () => {
+      const select = await render(`
+        <select multiple data-controller="additionals-select">
+          <option value="1" selected>One</option><option value="2" selected>Two</option>
+        </select>`);
+      const change = vi.fn();
+      select.addEventListener('change', change);
+
+      removeChosen(select, 'One');
+
+      expect([values(select), chosenTexts(select), change.mock.calls.length]).toEqual([['2'], ['Two'], 1]);
+    });
+
+    it('removes the last entry with Backspace in the empty search', async () => {
+      const select = await render(`
+        <select multiple data-controller="additionals-select">
+          <option value="1" selected>One</option><option value="2" selected>Two</option>
+        </select>`);
+
+      openField(select);
+      pressKey(select, 'Backspace');
+
+      expect(values(select)).toEqual(['1']);
+    });
+
+    it('shows the icon of the chosen option', async () => {
+      const select = await render(`
+        <select data-controller="additionals-select" data-additionals-select-renderer-value="icon">
+          <option value="bug" data-href="/assets/icons-1.svg#icon--bug" selected>bug</option>
+        </select>`);
+
+      expect(shownElement(select).querySelector('.additionals-select-icon use').getAttribute('href'))
+        .toBe('/assets/icons-1.svg#icon--bug');
+    });
+  });
+
+  describe('tags', () => {
+    const tagField = '<select multiple data-controller="additionals-select" data-additionals-select-tags-value="true"></select>';
+
+    it('offers typed text as a new tag', async () => {
+      const select = await render(tagField);
+
+      openField(select);
+      typeInto(select, 'urgent');
+      chooseEntry('urgent');
+
+      expect(values(select)).toEqual(['urgent']);
+    });
+
+    it('takes the text before a comma as a tag of its own', async () => {
+      const select = await render(tagField);
+
+      openField(select);
+      typeInto(select, 'alpha,beta,');
+
+      expect(chosenTexts(select)).toEqual(['alpha', 'beta']);
     });
   });
 
@@ -443,11 +650,26 @@ describe('AdditionalsSelectController', () => {
       const change = vi.fn();
       select.addEventListener('change', change);
 
-      jQuery(select).val(['2']);
+      select.options[1].selected = true;
       AdditionalsSelect.refresh(select);
 
       expect(chosenTexts(select)).toEqual(['Two']);
       expect(change).toHaveBeenCalledTimes(1);
+    });
+
+    it('refresh shows an option appended from JavaScript as chosen value', async () => {
+      const multiple = await render(`
+        <select multiple data-controller="additionals-select"><option value="1" selected>One</option></select>
+        <select id="single" data-controller="additionals-select"><option value="1">One</option></select>`);
+      const single = document.getElementById('single');
+
+      multiple.append(new Option('Two', '2', true, true));
+      AdditionalsSelect.refresh(multiple);
+      single.append(new Option('Two', '2', true, true));
+      AdditionalsSelect.refresh(single);
+
+      expect(chosenTexts(multiple)).toEqual(['One', 'Two']);
+      expect(shownText(single)).toBe('Two');
     });
 
     it('refresh does nothing without a field', () => {
@@ -459,7 +681,7 @@ describe('AdditionalsSelectController', () => {
 
       AdditionalsSelect.open(select);
 
-      expect(jQuery(select).data('select2').isOpen()).toBe(true);
+      expect(isOpen(select)).toBe(true);
     });
 
     it('destroy removes the select field of the library', async () => {
@@ -467,7 +689,20 @@ describe('AdditionalsSelectController', () => {
 
       AdditionalsSelect.destroy(select);
 
-      expect(jQuery(select).data('select2')).toBeUndefined();
+      expect(hasSelectField(select)).toBe(false);
+    });
+
+    it('destroy keeps the options and values of the select', async () => {
+      const select = await render(`
+        <select multiple data-controller="additionals-select">
+          <option value="1">One</option><option value="2">Two</option>
+        </select>`);
+      openField(select);
+      chooseEntry('Two');
+
+      AdditionalsSelect.destroy(select);
+
+      expect([Array.from(select.options).map((option) => option.text), values(select)]).toEqual([['One', 'Two'], ['2']]);
     });
 
     describe('menu', () => {
@@ -479,12 +714,12 @@ describe('AdditionalsSelectController', () => {
         const onClose = vi.fn();
         const select = AdditionalsSelect.menu({ anchor: document.getElementById('anchor'), entries, onSelect, onClose });
 
-        choose('Second');
+        chooseEntry('Second');
 
         expect(onSelect).toHaveBeenCalledWith({ id: '2', text: 'Second' });
         expect(onClose).not.toHaveBeenCalled();
         expect(select.isConnected).toBe(false);
-        expect(document.querySelector('.select2-container')).toBeNull();
+        expect(document.querySelector('.additionals-select-field')).toBeNull();
       });
 
       // a button near the right edge of the window opens the menu to its left
@@ -499,7 +734,7 @@ describe('AdditionalsSelectController', () => {
         });
         try {
           const select = AdditionalsSelect.menu({ anchor, entries });
-          const container = jQuery(select).data('select2').$container[0];
+          const container = fieldElement(select);
 
           expect([container.style.left, container.style.top]).toEqual(['530px', '50px']);
         } finally {
@@ -507,12 +742,22 @@ describe('AdditionalsSelectController', () => {
         }
       });
 
+      it('goes away without a choice with Escape or a click elsewhere', () => {
+        const onClose = vi.fn();
+        const withEscape = AdditionalsSelect.menu({ entries, onClose });
+        pressKey(withEscape, 'Escape');
+        const withClick = AdditionalsSelect.menu({ entries, onClose });
+        clickOutside();
+
+        expect([withEscape.isConnected, withClick.isConnected, onClose.mock.calls.length]).toEqual([false, false, 2]);
+      });
+
       it('goes away without a choice when it closes', () => {
         const onSelect = vi.fn();
         const onClose = vi.fn();
         const select = AdditionalsSelect.menu({ entries, onSelect, onClose });
 
-        jQuery(select).select2('close');
+        closeField(select);
 
         expect(onClose).toHaveBeenCalledTimes(1);
         expect(onSelect).not.toHaveBeenCalled();

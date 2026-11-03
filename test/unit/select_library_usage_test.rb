@@ -57,7 +57,7 @@ class SelectLibraryUsageTest < Additionals::TestCase
     allowed = %w[assets/javascripts/controllers/additionals_select_controller.js
                  assets/stylesheets/select2.css
                  test/global_system_test_helper.rb
-                 test/javascript/controllers/additionals_select_controller.test.js
+                 test/javascript/support/select_field.js
                  test/select_library_usage.rb
                  test/unit/select_library_usage_test.rb]
     files = Additionals::SelectLibraryUsage.hits(Redmine::Plugin.find(:additionals).directory).to_set { |hit| hit.split(':').first }

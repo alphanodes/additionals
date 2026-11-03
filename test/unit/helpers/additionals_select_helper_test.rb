@@ -55,6 +55,34 @@ class AdditionalsSelectHelperTest < Additionals::HelperTest
     assert_nil Nokogiri::HTML.fragment(html).at('input[type=hidden]')
   end
 
+  # Clearing goes back to the blank option; without one nothing is selected,
+  # the form leaves the field out and the old value stays
+  def test_single_select_with_allow_clear_gets_one_blank_option
+    chosen = @redmine_view.options_for_select [%w[One 1]], '1'
+    with_blank = @redmine_view.options_for_select [['', ''], %w[One 1]], '1'
+
+    # option tags written by hand may quote the blank value with '
+    hand_written = ActiveSupport::SafeBuffer.new("<option value=''></option>") + chosen
+
+    blank_options = [chosen, with_blank, hand_written].map do |option_tags|
+      html = @redmine_view.additionals_select_tag 'foo', option_tags, allow_clear: true
+      Nokogiri::HTML.fragment(html).css('option[value=""]').size
+    end
+
+    assert_equal [1, 1, 1], blank_options
+  end
+
+  # an include_blank of the caller stays as it is
+  def test_allow_clear_keeps_include_blank_of_the_caller
+    option_tags = @redmine_view.options_for_select [%w[One 1]], '1'
+    blanks = ['none', false].map do |include_blank|
+      html = @redmine_view.additionals_select_tag 'foo', option_tags, allow_clear: true, include_blank: include_blank
+      Nokogiri::HTML.fragment(html).at('option[value=""]')&.text
+    end
+
+    assert_equal ['none', nil], blanks
+  end
+
   # The hidden field clears a multiple select, a blank option would show up as
   # an empty choice after "clear all"
   def test_multiple_select_clears_through_a_hidden_field

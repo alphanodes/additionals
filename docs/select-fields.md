@@ -47,11 +47,13 @@ flowchart LR
 | `renderer` | How entries look, see below |
 | `value_key` | Property of the server entries that becomes the value; entries without it cannot be chosen |
 | `placeholder` | Text of the empty field |
-| `allow_clear` | Shows a button that empties the field |
+| `allow_clear` | Shows a button that empties the field; a single field gets a blank option for it, so the empty value is sent |
 | `min_input_length` | Characters to type before searching |
 | `width` | Width of the field, default `90%` |
 
 A value changed after the field is set up (e.g. `data-additionals-select-tags-value` set from JavaScript) sets the field up again.
+
+The list offers no blank option, the placeholder stands for it; a field that may be emptied uses `allow_clear`.
 
 ## Renderers
 
@@ -103,6 +105,8 @@ Pages for people without access to Redmine (e.g. public pages of a plugin) answe
 
 ## Tests
 
-System tests use the helpers of `Additionals::GlobalSystemTestHelper` instead of the markup of the library: `choose_select_entry(container, text, search:, exact:)`, `add_select_tag(container, name)`, `remove_select_entry(container, text)`, and for a field or menu opened otherwise `type_into_open_select(text)`, `choose_open_select_entry(text)` and `assert_select_entry(text)`.
+System tests use the helpers of `Additionals::GlobalSystemTestHelper` instead of the markup of the library: `choose_select_entry(container, text, search:, exact:)`, `add_select_tag(container, name)`, `remove_select_entry(container, text)`, `clear_select_field(container)` and `assert_select_chosen(container, *texts)`; for a field or menu opened otherwise `open_select_field(container)`, `type_into_open_select(text_or_key)`, `leave_select_field`, `choose_open_select_entry(text)`, `assert_select_entry(text)` and `assert_no_select_entry(text)`. Only `SELECT_FIELD_MARKUP` in that helper knows the markup of the library.
+
+The JavaScript tests of additionals work a field through the driver `test/javascript/support/select_field.js` (open, type, choose, keys, click elsewhere, read the chosen entries) and check the behavior of this document, not the state of the library.
 
 `assert_select_fields_through_additionals(plugin_id)` in the convention test of a plugin fails for code that uses the library directly: its calls, events and CSS classes, and the former helpers of `additionals`.

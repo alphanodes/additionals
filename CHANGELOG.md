@@ -8,6 +8,7 @@
 - Pages that answer `additionals_select_fields?` with false register no select fields for query filters and load no library for them
 - Add select fields with search, tags and query filters through the Stimulus controller `additionals-select` (`additionals_select_tag`, `additionals_select_filter`, `AdditionalsSelect`), see `docs/select-fields.md`
 - Select fields send a native `change` event, so Stimulus actions and listeners of plugins see changed values
+- A single select field with `allow_clear` saves the cleared value, it gets a blank option of its own; before, the old value stayed
 - Incompatible: the library of the select fields is loaded as `select_fields` instead of `select2` (`additionals_library_load :select_fields`)
 - Incompatible: `additionals_select2_tag`, `additionals_transform_to_select2`, `additionals_icon_loader` and the JavaScript helpers of Select2 (`select2Tag`, `fixScopedTags`, `formatNameWithIcon`, ...) are removed, plugins use the select fields of additionals
 - Show the external link icon in info texts on Redmine 7.1 too, which dropped `external.png`

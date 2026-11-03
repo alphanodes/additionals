@@ -5,6 +5,7 @@ module AdditionalsSelectHelper
   # others go to the <select> element
   SELECT_FIELD_OPTIONS = %i[url tags scoped_tags free_input free_input_pattern renderer value_key
                             placeholder allow_clear min_input_length width].freeze
+  BLANK_OPTION = /<option[^>]*\svalue=(""|'')/
 
   # Select field with search, entries from the server (+url+), tags and
   # multiple values. The field is set up in the browser by the Stimulus
@@ -24,6 +25,7 @@ module AdditionalsSelectHelper
     # select the blank option and show it as a stray empty choice. This mirrors
     # Redmine core's select_edit_tag convention.
     options[:include_blank] = false if multiple
+    options[:include_blank] = true if options[:include_blank].nil? && clear_needs_blank_option?(field_options, multiple, option_tags)
     options[:data] = additionals_select_data options[:data], **field_options
 
     s = [additionals_library_load(:select_fields), select_tag(name, option_tags, options)]
@@ -71,6 +73,12 @@ module AdditionalsSelectHelper
   end
 
   private
+
+  # Clearing a single field goes back to its blank option. Without one nothing
+  # is selected, the form leaves the field out and the old value stays.
+  def clear_needs_blank_option?(field_options, multiple, option_tags)
+    field_options[:allow_clear] && !multiple && !option_tags.to_s.match?(BLANK_OPTION)
+  end
 
   # A Regexp (free_input_pattern) is checked in the browser by its source
   def additionals_select_value(value)

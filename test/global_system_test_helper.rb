@@ -118,25 +118,51 @@ module Additionals
 
     # Select fields of additionals as a user works with them. Tests of plugins
     # use these instead of the markup of the library behind the fields, which
-    # only additionals knows.
+    # only additionals knows - here, in SELECT_FIELD_MARKUP.
     module SelectFieldHelper
+      SELECT_FIELD_MARKUP = {
+        field: '.additionals-select-field',
+        multiple: '.select2-selection--multiple',
+        opener: '.select2-selection',
+        open_field: '.select2-container--open',
+        focused_search: '.select2-container--open .select2-search__field:focus',
+        entry: '.select2-results__option[role="option"]',
+        choice: '.select2-selection__choice',
+        choice_remove: '.select2-selection__choice__remove',
+        shown: '.select2-selection__rendered',
+        clear: '.select2-selection__clear'
+      }.freeze
+
       # Opens the select field inside +container+ (selector or element), types
       # +search+ (if any) and picks the entry +text+. Entries with more than
       # their name (contacts with an address) need exact: false.
       def choose_select_entry(container, text, search: nil, exact: true)
-        # removing a chosen entry already opens the field, a click would close it
-        within(container) { find('.select2-selection').click unless has_css? '.select2-container--open', wait: 0 }
+        open_select_field container
         type_into_open_select search if search
         choose_open_select_entry text, exact:
       end
 
-      # Types +text+ into the search of the open field. Opening moves the focus
-      # into the search field, a single select only right after it opened. An
-      # empty multiple field makes that search field too small to count as
-      # visible, so the keys go to the focused field, as they do for a user.
+      # Opens the select field inside +container+
+      def open_select_field(container)
+        # removing a chosen entry already opens the field, a click would close it
+        within container do
+          find(SELECT_FIELD_MARKUP[:opener]).click unless has_css? SELECT_FIELD_MARKUP[:open_field], wait: 0
+        end
+      end
+
+      # Types +text+ (or keys like :backspace) into the search of the open
+      # field. Opening moves the focus into the search field, a single select
+      # only right after it opened. An empty multiple field makes that search
+      # field too small to count as visible, so the keys go to the focused
+      # field, as they do for a user.
       def type_into_open_select(text)
-        page.document.assert_selector '.select2-container--open .select2-search__field:focus', visible: :all
+        page.document.assert_selector SELECT_FIELD_MARKUP[:focused_search], visible: :all
         page.active_element.send_keys text
+      end
+
+      # Leaves the open field with Tab, as a user goes on to the next field
+      def leave_select_field
+        page.active_element.send_keys :tab
       end
 
       # Picks the entry +text+ of the open list, e.g. of a menu opened by a
@@ -150,14 +176,47 @@ module Additionals
         assert select_entry(text, exact:)
       end
 
+      # No open list offers the entry +text+, e.g. after a menu went away
+      def assert_no_select_entry(text, exact: true)
+        page.document.assert_no_selector SELECT_FIELD_MARKUP[:entry], text:, exact_text: exact
+      end
+
+      # The select field inside +container+ shows exactly the chosen entries
+      # +texts+, in this order; none for an empty field
+      def assert_select_chosen(container, *texts)
+        within container do
+          field = find SELECT_FIELD_MARKUP[:field]
+          if field.has_css? SELECT_FIELD_MARKUP[:multiple], wait: 0
+            # the title holds the text of the entry alone, without the remove button
+            # retried until the field shows them, it may still be rendering
+            field.synchronize do
+              chosen = field.all(SELECT_FIELD_MARKUP[:choice], wait: 0).pluck(:title)
+              raise Capybara::ExpectationNotMet, "chosen #{chosen.inspect}, expected #{texts.inspect}" if chosen != texts
+            end
+
+            assert_equal texts, field.all(SELECT_FIELD_MARKUP[:choice]).pluck(:title)
+          elsif texts.empty?
+            # shows the placeholder or nothing, never a chosen entry
+            field.assert_selector(SELECT_FIELD_MARKUP[:shown]) { |shown| shown[:title].blank? }
+          else
+            field.assert_selector(SELECT_FIELD_MARKUP[:shown]) { |shown| shown[:title] == texts.first }
+          end
+        end
+      end
+
       # Removes the chosen entry +text+ of the multiple select field inside
       # +container+
       def remove_select_entry(container, text)
-        # the title holds the text of the entry alone, without the remove button
         within container do
-          choice = find('.select2-selection__choice') { |element| element[:title] == text }
-          choice.find('.select2-selection__choice__remove').click
+          choice = find(SELECT_FIELD_MARKUP[:choice]) { |element| element[:title] == text }
+          choice.find(SELECT_FIELD_MARKUP[:choice_remove]).click
         end
+      end
+
+      # Empties the single select field inside +container+ with its clear
+      # button (allow_clear)
+      def clear_select_field(container)
+        within(container) { find(SELECT_FIELD_MARKUP[:clear]).click }
       end
 
       # Types +name+ into the tag field inside +container+ and takes it, as a
@@ -172,7 +231,7 @@ module Additionals
       # dialog, so they are searched outside any within block; groups of
       # entries are skipped
       def select_entry(text, exact:)
-        page.document.find '.select2-results__option[role="option"]', text:, exact_text: exact
+        page.document.find SELECT_FIELD_MARKUP[:entry], text:, exact_text: exact
       end
     end
   end

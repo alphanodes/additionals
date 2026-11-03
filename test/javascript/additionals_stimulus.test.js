@@ -27,7 +27,7 @@ describe('additionals_stimulus.js', () => {
       window.ADDITIONALS_LIBRARIES = {
         chartjs_treemap: [{ type: 'js', url: url('treemap.js') }],
         chartjs_matrix: [{ type: 'js', url: url('chart.js') }, { type: 'js', url: url('matrix.js') }],
-        select_fields: [{ type: 'css', url: url('select2.css') }],
+        select_fields: [{ type: 'css', url: url('tom-select.css') }],
       };
     });
 
@@ -51,7 +51,7 @@ describe('additionals_stimulus.js', () => {
       window.AdditionalsHelpers.loadLibrary('select_fields');
       await tick();
 
-      expect(document.head.querySelector(`link[rel="stylesheet"][href="${url('select2.css')}"]`)).not.toBeNull();
+      expect(document.head.querySelector(`link[rel="stylesheet"][href="${url('tom-select.css')}"]`)).not.toBeNull();
     });
 
     it('resolves once the library is loaded', async () => {

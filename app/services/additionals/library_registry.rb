@@ -29,7 +29,7 @@ module Additionals
       # Loaded on demand also by pages without other charts, e.g. list views
       chartjs_treemap: %i[chartjs _chartjs_chart_treemap],
       chartjs_sankey: %i[chartjs _chartjs_chart_sankey],
-      select_fields: %i[_select2_css _select2_js _select_filters],
+      select_fields: %i[_tom_select_css _tom_select_redmine_css _tom_select_js _select_filters],
       mermaid: %i[_mermaid_min _mermaid_load],
       dhtmlxgantt: %i[_dhtmlxgantt_css _dhtmlxgantt_js],
       query_chart: %i[_query_chart_css],
@@ -56,12 +56,11 @@ module Additionals
       _sortable_min:           Asset.new(type: :js,  path: 'vendor/sortable.min'),
       _mermaid_min:            Asset.new(type: :js,  path: 'vendor/mermaid.min'),
       _mermaid_load:           Asset.new(type: :js,  path: 'mermaid_load'),
-      _select2_js:             Asset.new(type: :js,  path: 'vendor/select2.min'),
       _tom_select_js:          Asset.new(type: :js,  path: 'vendor/tom-select.complete.min'),
       _select_filters:         Asset.new(type: :js,  path: 'additionals_select_filters'),
       _dhtmlxgantt_js:         Asset.new(type: :js,  path: 'vendor/dhtmlxgantt'),
-      _select2_css:            Asset.new(type: :css, path: 'select2'),
       _tom_select_css:         Asset.new(type: :css, path: 'tom-select'),
+      _tom_select_redmine_css: Asset.new(type: :css, path: 'tom-select-redmine'),
       _dhtmlxgantt_css:        Asset.new(type: :css, path: 'dhtmlxgantt'),
       _query_chart_css:        Asset.new(type: :css, path: 'query_chart')
     }.freeze

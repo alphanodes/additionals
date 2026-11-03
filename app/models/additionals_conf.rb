@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AdditionalsConf
-  SELECT2_INIT_ENTRIES = 50
+  AUTOCOMPLETE_ENTRIES = 50
   API_LIMIT = 100
 
   class << self
@@ -9,13 +9,13 @@ class AdditionalsConf
       @api_limit ||= with_system_default 'API_LIMIT'
     end
 
-    def select2_init_entries
-      @select2_init_entries ||= with_system_default 'SELECT2_INIT_ENTRIES'
+    def autocomplete_entries
+      @autocomplete_entries ||= with_system_default 'AUTOCOMPLETE_ENTRIES'
     end
 
     # Number of entries an autocomplete returns: the limit a request asks for,
     # kept between 1 and the API limit, or +default+
-    def autocomplete_limit(value, default: select2_init_entries)
+    def autocomplete_limit(value, default: autocomplete_entries)
       return default if value.blank?
 
       value.to_i.clamp 1, api_limit

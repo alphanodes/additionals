@@ -317,7 +317,7 @@ module Additionals
       if user.type == 'Group'
         if no_link || !AdditionalsPlugin.active_hrm?
           # escaped here: callers use the result as html, also outside of views
-          # (name_with_icon of the select2 json)
+          # (name_with_icon of the select field json)
           ERB::Util.html_escape user.name
         else
           link_to_hrm_group user

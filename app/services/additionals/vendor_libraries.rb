@@ -12,7 +12,7 @@ module Additionals
   # from an npm package: package, version, the files taken from the tarball
   # and their SHA-256. The files are committed and shipped with the plugin,
   # nothing is downloaded on an installation. Libraries changed by hand
-  # (colorschemes, Select2) are not listed and stay maintained by hand.
+  # (colorschemes) are not listed and stay maintained by hand.
   #
   # Maintainer tool behind the redmine:additionals:vendor rake tasks.
   class VendorLibraries

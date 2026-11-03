@@ -55,7 +55,7 @@ class SelectLibraryUsageTest < Additionals::TestCase
   # Only the files of the select fields in additionals know the library
   def test_additionals_knows_the_library_only_in_its_select_field_files
     allowed = %w[assets/javascripts/controllers/additionals_select_controller.js
-                 assets/stylesheets/select2.css
+                 assets/stylesheets/tom-select-redmine.css
                  assets/stylesheets/tom-select.css
                  test/global_system_test_helper.rb
                  test/javascript/support/select_field.js
@@ -71,7 +71,7 @@ class SelectLibraryUsageTest < Additionals::TestCase
   def test_ignores_names_and_bundled_libraries
     write 'app/helpers/foo_helper.rb', <<~RUBY
       def entries_for_select2 = render_grouped_users_with_select2(users)
-      LIMIT = AdditionalsConf.select2_init_entries
+      LIMIT = AdditionalsConf.autocomplete_entries
       field = additionals_select_tag 'foo', nil, renderer: 'avatar'
     RUBY
     write 'assets/javascripts/vendor/select2.js', "$.fn.select2 = function () {};\n"

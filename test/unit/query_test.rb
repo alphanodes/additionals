@@ -106,7 +106,7 @@ class QueryTest < Additionals::TestCase
     end
   end
 
-  def test_add_filter_stores_filter_and_resolves_select2_values
+  def test_add_filter_stores_filter_and_resolves_select_field_values
     user = users :users_002
     query = IssueQuery.new name: '_'
 
@@ -117,7 +117,7 @@ class QueryTest < Additionals::TestCase
     assert_equal '=', query.filters['author_id'][:operator]
     assert_equal [user.id.to_s], query.filters['author_id'][:values]
 
-    # additionals resolves the select2 values on top of it
+    # additionals resolves the select field values on top of it
     assert query.available_filters['author_id'][:values].any? { |_name, id| id == user.id.to_s },
            'Select2 user filter should resolve user IDs to name-id pairs'
   end
@@ -135,7 +135,7 @@ class QueryTest < Additionals::TestCase
     assert_not json['status_id'].key?('field_format')
   end
 
-  def test_add_filter_keeps_core_filter_for_non_select2_field
+  def test_add_filter_keeps_core_filter_for_non_select_field
     query = IssueQuery.new name: '_'
 
     assert query.add_filter('subject', '~', ['recipe'])
@@ -176,7 +176,7 @@ class QueryTest < Additionals::TestCase
            'Select2 user filter should resolve user IDs to name-id pairs'
   end
 
-  def test_add_available_filter_with_non_select2_field_and_nil_filters
+  def test_add_available_filter_with_non_select_field_and_nil_filters
     query = IssueQuery.new name: '_'
     query.filters = nil
 

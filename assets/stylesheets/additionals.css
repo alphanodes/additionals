@@ -817,7 +817,7 @@ table.entity-list td.block_column pre {
   white-space: nowrap;
 }
 
-/* A color scheme in a select2: its name, then its colors. The light ring keeps
+/* A color scheme in a select field: its name, then its colors. The light ring keeps
    light colors visible on white. */
 .colorscheme-option {
   align-items: center;

@@ -122,15 +122,13 @@ module Additionals
     module SelectFieldHelper
       SELECT_FIELD_MARKUP = {
         field: '.additionals-select-field',
-        multiple: '.select2-selection--multiple',
-        opener: '.select2-selection',
-        open_field: '.select2-container--open',
-        focused_search: '.select2-container--open .select2-search__field:focus',
-        entry: '.select2-results__option[role="option"]',
-        choice: '.select2-selection__choice',
-        choice_remove: '.select2-selection__choice__remove',
-        shown: '.select2-selection__rendered',
-        clear: '.select2-selection__clear'
+        opener: '.ts-control',
+        open_field: '.dropdown-active',
+        focused_search: '.focus .ts-control > input:focus, .ts-dropdown .dropdown-input:focus',
+        entry: '.ts-dropdown .option, .ts-dropdown .create',
+        choice: '.ts-control > .item',
+        choice_remove: '.remove',
+        clear: '.clear-button'
       }.freeze
 
       # Opens the select field inside +container+ (selector or element), types
@@ -151,10 +149,9 @@ module Additionals
       end
 
       # Types +text+ (or keys like :backspace) into the search of the open
-      # field. Opening moves the focus into the search field, a single select
-      # only right after it opened. An empty multiple field makes that search
-      # field too small to count as visible, so the keys go to the focused
-      # field, as they do for a user.
+      # field. Opening moves the focus into the search field; the list of a
+      # multiple field may stay closed while it has nothing to offer yet. The
+      # keys go to the focused field, as they do for a user.
       def type_into_open_select(text)
         page.document.assert_selector SELECT_FIELD_MARKUP[:focused_search], visible: :all
         page.active_element.send_keys text
@@ -186,21 +183,14 @@ module Additionals
       def assert_select_chosen(container, *texts)
         within container do
           field = find SELECT_FIELD_MARKUP[:field]
-          if field.has_css? SELECT_FIELD_MARKUP[:multiple], wait: 0
-            # the title holds the text of the entry alone, without the remove button
-            # retried until the field shows them, it may still be rendering
-            field.synchronize do
-              chosen = field.all(SELECT_FIELD_MARKUP[:choice], wait: 0).pluck(:title)
-              raise Capybara::ExpectationNotMet, "chosen #{chosen.inspect}, expected #{texts.inspect}" if chosen != texts
-            end
-
-            assert_equal texts, field.all(SELECT_FIELD_MARKUP[:choice]).pluck(:title)
-          elsif texts.empty?
-            # shows the placeholder or nothing, never a chosen entry
-            field.assert_selector(SELECT_FIELD_MARKUP[:shown]) { |shown| shown[:title].blank? }
-          else
-            field.assert_selector(SELECT_FIELD_MARKUP[:shown]) { |shown| shown[:title] == texts.first }
+          # the title holds the text of the entry alone, without the remove
+          # button; retried until the field shows them, it may still be rendering
+          field.synchronize do
+            chosen = field.all(SELECT_FIELD_MARKUP[:choice], wait: 0).pluck(:title)
+            raise Capybara::ExpectationNotMet, "chosen #{chosen.inspect}, expected #{texts.inspect}" if chosen != texts
           end
+
+          assert_equal texts, field.all(SELECT_FIELD_MARKUP[:choice]).pluck(:title)
         end
       end
 

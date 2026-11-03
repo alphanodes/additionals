@@ -87,7 +87,6 @@ Uninstall all plugins that depend on `additionals` first.
 | [Chart.js chart treemap](https://github.com/kurkle/chartjs-chart-treemap) | 4.2.2 |
 | [dhtmlxGantt](https://dhtmlx.com/docs/products/dhtmlxGantt/) | 9.1.4 |
 | [mermaid](https://github.com/mermaid-js/mermaid) | 12.2.0 |
-| [Select2](https://select2.org/) | 4.0.13 |
 | [Sortable](https://github.com/SortableJS/Sortable) | 1.15.7 |
 | [Tom Select](https://github.com/orchidjs/tom-select) | 2.6.2 |
 

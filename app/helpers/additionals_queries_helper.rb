@@ -33,7 +33,7 @@ module AdditionalsQueriesHelper
 
     sorted_users = if search_term.present?
                      users.like(search_term)
-                          .limit(AdditionalsConf.select2_init_entries)
+                          .limit(AdditionalsConf.autocomplete_entries)
                           .to_a
                           .sort_by(&:name)
                    elsif use_assignment_frequency
@@ -292,7 +292,7 @@ module AdditionalsQueriesHelper
   private
 
   # Builds the ordered list of [label, user_hashes] optgroup sections for the
-  # grouped_users select2 partial. Without assignee format the legacy order
+  # grouped users of select fields. Without assignee format the legacy order
   # (active, groups, registered, locked) is preserved. In an assignee context
   # the order/grouping follows Setting.assignee_dropdown_display_format.
   def grouped_user_select2_sections(apply_assignee_format:)
@@ -367,7 +367,7 @@ module AdditionalsQueriesHelper
   # Users ordered by their last login and groups by name, each up to the limit.
   # Groups never log in, ordered together with the users they would never make the list.
   def select_recent_users_and_groups(scope)
-    limit = AdditionalsConf.select2_init_entries
+    limit = AdditionalsConf.autocomplete_entries
     principals = scope.select("users.*, #{User.table_name}.last_login_on IS NULL AS select_order")
                       .where(type: 'User')
                       .order("select_order ASC, #{User.table_name}.last_login_on DESC")
@@ -378,7 +378,7 @@ module AdditionalsQueriesHelper
   end
 
   def select_by_assignment_frequency(scope)
-    limit = AdditionalsConf.select2_init_entries
+    limit = AdditionalsConf.autocomplete_entries
 
     # Subquery: principal IDs ranked by issue assignment count
     frequency_ids = Issue.where(assigned_to_id: scope.select(:id))

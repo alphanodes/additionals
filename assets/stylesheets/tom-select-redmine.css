@@ -1,0 +1,264 @@
+/* Select fields of additionals in Redmine, on top of tom-select.css of the
+   package: sizes like the form controls of Redmine, colors of variables.css.
+   Plugins and themes style .additionals-select-field, not the classes of the
+   library. */
+
+.additionals-select-field {
+  box-sizing: border-box;
+  display: inline-block;
+  max-width: 100%;
+  position: relative;
+  vertical-align: middle;
+}
+
+.additionals-select-field .ts-control {
+  align-items: center;
+  background-color: var(--a-color-white);
+  border: var(--a-control-border-width) solid var(--a-color-input-border);
+  border-radius: var(--a-control-border-radius);
+  box-sizing: border-box;
+  font-family: var(--fonts-main);
+  font-size: var(--a-font-size-md);
+  gap: 3px;
+
+  /* same box model as a native select: content line + core padding */
+  line-height: var(--a-control-line-height);
+  min-height: var(--a-control-height);
+  padding: var(--a-control-padding-block) 8px;
+}
+
+.additionals-select-field .ts-control > input,
+.additionals-select-field .items-placeholder {
+  color: var(--a-color-dark);
+  font: inherit;
+}
+
+.additionals-select-field .ts-control > input::placeholder,
+.additionals-select-field .items-placeholder::placeholder {
+  color: var(--a-color-muted);
+}
+
+/* the search fills what the chosen entries leave on their line; forms of
+   Redmine give text fields a width of their own, which would push it onto a
+   line of its own and change the height of the field on focus */
+.additionals-select-field .ts-control > input {
+  flex: 1 1 0%;
+  min-width: 4rem;
+}
+
+.additionals-select-field.has-items .ts-control > input {
+  margin: 0 !important;
+}
+
+.additionals-select-field.multi .ts-control {
+  cursor: text;
+}
+
+.additionals-select-field.disabled .ts-control {
+  background-color: var(--a-color-bg-light);
+  opacity: 1;
+}
+
+/* single field: the chosen entry with the arrow of a native select of core,
+   also while its list is open (tom-select.css resets the background then) */
+.additionals-select-field.single .ts-control,
+.additionals-select-field.single.input-active .ts-control {
+  background-color: var(--a-color-white);
+  background-image: url('/chevron-down.svg');
+  background-position: calc(100% - 2px) 50%;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  flex-wrap: nowrap;
+  padding-right: 20px;
+}
+
+.additionals-select-field.single .ts-control > .item {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* chosen entries of a multiple field */
+.additionals-select-field.multi .ts-control > .item {
+  background-color: var(--a-color-bg-light);
+  border: 0;
+  border-radius: 2px;
+  color: inherit;
+  cursor: default;
+  line-height: var(--a-control-line-height);
+  margin: 0;
+
+  /* long entries are cut, the title shows them whole */
+  max-width: 100%;
+  overflow: hidden;
+
+  /* tom-select.css takes the padding on the right for its button there */
+  padding: 0 2px !important;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.additionals-select-field.multi .ts-control > .item.active {
+  background-color: var(--a-color-highlight);
+  color: inherit;
+}
+
+.additionals-select-field.plugin-remove_button .item .remove {
+  border: 0 !important;
+  color: var(--a-color-muted);
+  cursor: pointer;
+  margin: 0 !important;
+
+  /* in front of the text, as before */
+  order: -1;
+  padding: 0 2px 0 0;
+}
+
+.additionals-select-field.plugin-remove_button .item .remove:hover {
+  background: none;
+  color: var(--a-color-dark);
+}
+
+/* the clear button stays in sight while there is a value to clear */
+.additionals-select-field.plugin-clear_button .clear-button {
+  color: var(--a-color-dark);
+  right: 6px;
+  transition: none;
+}
+
+.additionals-select-field.plugin-clear_button.single .clear-button {
+  right: 20px;
+}
+
+.additionals-select-field.plugin-clear_button.has-items .clear-button {
+  opacity: 1;
+}
+
+.additionals-select-field.multi.has-items .ts-control {
+  padding: var(--a-control-padding-block) 22px var(--a-control-padding-block) 2px;
+}
+
+.additionals-select-field.plugin-clear_button.single.has-items .ts-control {
+  padding-right: 34px;
+}
+
+/* the list hangs at the body, above dialogs */
+.additionals-select-dropdown {
+  background-color: var(--a-color-white);
+  border: var(--a-control-border-width) solid var(--a-color-input-border);
+  border-radius: 0 0 var(--a-control-border-radius) var(--a-control-border-radius);
+  box-sizing: border-box;
+  color: var(--a-color-black);
+  font-family: var(--fonts-main);
+  font-size: var(--a-font-size-md);
+  margin: 0;
+  text-align: left;
+  z-index: 1051;
+}
+
+.additionals-select-dropdown .ts-dropdown-content {
+  max-height: 200px;
+}
+
+.additionals-select-dropdown .option,
+.additionals-select-dropdown .create,
+.additionals-select-dropdown .no-results {
+  padding: 4px 6px;
+}
+
+.additionals-select-dropdown .option.selected {
+  background-color: var(--a-color-bg-light);
+}
+
+.additionals-select-dropdown .active,
+.additionals-select-dropdown .active.create {
+  background-color: var(--a-color-highlight);
+  color: inherit;
+}
+
+.additionals-select-dropdown .option[aria-disabled='true'] {
+  color: var(--a-color-muted);
+  opacity: 1;
+}
+
+.additionals-select-dropdown .create,
+.additionals-select-dropdown .no-results {
+  color: var(--a-color-text-muted);
+}
+
+/* loading takes the height of an entry, so the list does not jump when the
+   answer comes */
+.additionals-select-dropdown .spinner {
+  display: block;
+  height: var(--a-control-line-height);
+  margin: 0;
+  padding: 4px 6px;
+  width: var(--a-control-line-height);
+}
+
+.additionals-select-dropdown .spinner::after {
+  border-color: var(--a-color-muted) transparent;
+  border-width: 2px;
+  box-sizing: border-box;
+  height: 100%;
+  margin: 0;
+  width: 100%;
+}
+
+.additionals-select-dropdown .optgroup-header {
+  background-color: var(--a-color-white);
+  color: var(--a-color-dark);
+  font-weight: bold;
+  padding: 6px;
+}
+
+.additionals-select-dropdown .optgroup .option {
+  padding-left: 1em;
+}
+
+.additionals-select-dropdown .dropdown-input-wrap {
+  padding: 4px;
+}
+
+.additionals-select-dropdown .dropdown-input {
+  border: var(--a-control-border-width) solid var(--a-color-muted);
+  box-sizing: border-box;
+  font: inherit;
+  padding: 2px 4px;
+}
+
+/* query filters */
+.filter .additionals-select-field {
+  margin: 1px;
+  min-width: 200px;
+}
+
+/* a menu (AdditionalsSelect.menu) is as wide as it needs */
+.additionals-select-menu-field {
+  min-width: 15em;
+}
+
+/* Renderers of the select field controller (additionals_select_controller.js) */
+
+.additionals-select-contact {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 8px;
+  align-items: center;
+}
+
+/* the avatar of the server spans name and address */
+.additionals-select-contact > :not(.additionals-select-contact-name, .additionals-select-contact-email) {
+  grid-row: 1 / span 2;
+}
+
+.additionals-select-contact-name,
+.additionals-select-contact-email {
+  grid-column: 2;
+}
+
+.additionals-select-contact-email {
+  min-height: 1em;
+  color: var(--a-color-muted);
+  font-size: var(--a-font-size-sm);
+}

@@ -91,7 +91,7 @@ module Additionals
         private
 
         # Mirrors the user scope of Additionals::Patches::UserFormatPatch#possible_values_records
-        # so the select2 AJAX suggestions match the plain <select> options:
+        # so the suggestions of select fields match the plain <select> options:
         #   '1' => all visible principals (incl. locked), '4' => all active visible principals,
         #   else => project members (optionally narrowed by the configured roles).
         # Principals are users, groups or both, depending on the custom field (https://www.redmine.org/issues/21026).

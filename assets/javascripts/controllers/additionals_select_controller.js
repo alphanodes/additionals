@@ -1,12 +1,11 @@
 import { Controller } from '@hotwired/stimulus';
 
 // Select fields with search, entries from the server, tags and multiple
-// values. The library behind them (Select2) is known to this file only:
+// values. The library behind them (Tom Select) is known to this file only:
 // plugins render fields with the helpers of additionals, listen to events on
 // the original <select> and use AdditionalsSelect from JavaScript.
 
 const SEARCH_DELAY = 250;
-const NAMESPACE = '.additionalsSelect';
 const DEFAULT_WIDTH = '90%';
 // sent by additionals_select_filters.js, which is loaded right after the
 // library, also into content that comes later (render_async, dialogs)
@@ -24,7 +23,6 @@ function textSpan(text) {
 }
 
 function nameWithIcon(item) {
-  if (item.loading) { return item.text; }
   if (item.name_with_icon === undefined) { return textSpan(item.text); }
 
   const span = document.createElement('span');
@@ -39,8 +37,6 @@ function avatarSpan(item) {
 }
 
 function withAvatar(item) {
-  if (item.loading) { return item.text; }
-
   const span = avatarSpan(item);
   span.classList.add('additionals-select-avatar');
   span.append(`\u00a0${item.text ?? ''}`);
@@ -48,8 +44,6 @@ function withAvatar(item) {
 }
 
 function contact(item) {
-  if (item.loading) { return item.text; }
-
   const span = avatarSpan(item);
   span.className = 'additionals-select-contact';
   const name = document.createElement('span');
@@ -72,11 +66,9 @@ function contactSelection(item) {
 }
 
 // The sprite path carries an asset digest, the server puts it on the option
+// (data-href)
 function icon(item) {
-  if (item.id === undefined || item.id === '') { return item.text; }
-
-  const href = item.element?.dataset?.href;
-  if (!href) { return textSpan(item.text); }
+  if (!item.href) { return textSpan(item.text); }
 
   const span = document.createElement('span');
   span.className = 'additionals-select-icon';
@@ -84,7 +76,7 @@ function icon(item) {
   svg.setAttribute('class', 's18 icon-svg');
   svg.setAttribute('aria-hidden', 'true');
   const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
-  use.setAttribute('href', href);
+  use.setAttribute('href', item.href);
   svg.append(use);
   span.append(svg, ` ${item.text}`);
   return span;
@@ -97,7 +89,7 @@ function colorScheme(item) {
   span.className = 'colorscheme-option';
   span.append(textSpan(item.text));
 
-  const [group, scheme] = (item.id || '').split('.');
+  const [group, scheme] = String(item.id || '').split('.');
   const colors = window.Chart?.colorschemes?.[group]?.[scheme];
   if (colors) {
     const swatches = document.createElement('span');
@@ -120,6 +112,15 @@ const RENDERERS = {
   icon: { result: icon, selection: icon },
   color_scheme: { result: colorScheme, selection: colorScheme },
 };
+
+// The library takes a string of a template as html: text becomes a node, and
+// every template gets an element of its own to put its classes on
+function templateElement(content, className) {
+  const element = document.createElement('div');
+  if (className) { element.className = className; }
+  element.append(typeof content === 'string' ? textSpan(content) : content);
+  return element;
+}
 
 // --- Tags --------------------------------------------------------------------
 
@@ -158,69 +159,7 @@ function createTag(params) {
   return { id: term, text: term };
 }
 
-// --- Library -----------------------------------------------------------------
-
-function libraryAvailable() {
-  return typeof window.jQuery === 'function' && typeof window.jQuery.fn.select2 === 'function';
-}
-
-function searchLabel() {
-  return typeof window.ADDITIONALS_LABEL_SEARCH === 'undefined' ? '' : window.ADDITIONALS_LABEL_SEARCH;
-}
-
-// Entries of the server without the fields the library adds to them
-function cleanItem(data) {
-  const item = {};
-  Object.keys(data).forEach((key) => {
-    if (key.startsWith('_') || ['element', 'selected', 'disabled'].includes(key)) { return; }
-    // entries of <option> elements get the empty title of the option
-    if (key === 'title' && data.title === '') { return; }
-
-    item[key] = data[key];
-  });
-  return item;
-}
-
-function buildLibraryOptions(config) {
-  const renderer = RENDERERS[config.renderer] || RENDERERS.name_with_icon;
-  const options = {
-    placeholder: config.placeholder || '',
-    allowClear: Boolean(config.allowClear),
-    minimumInputLength: config.minInputLength || 0,
-    width: config.width || DEFAULT_WIDTH,
-    templateResult: renderer.result,
-    tags: Boolean(config.tags),
-  };
-  if (renderer.selection) { options.templateSelection = renderer.selection; }
-  if (config.dropdownParent) { options.dropdownParent = config.dropdownParent; }
-
-  if (config.tags) {
-    options.tokenSeparators = [','];
-    options.createTag = createTag;
-  }
-  if (config.freeInput) {
-    // found entries come first, Enter takes them; typed text that fits the
-    // pattern is offered after them
-    options.insertTag = (data, tag) => { data.push(tag); };
-    options.createTag = (params) => {
-      const tag = createTag(params);
-      return tag && fitsPattern(tag.id, config.freeInputPattern) ? tag : null;
-    };
-  }
-
-  if (config.url) {
-    options.ajax = {
-      url: config.url,
-      dataType: 'json',
-      delay: SEARCH_DELAY,
-      data: (params) => ({ q: params.term }),
-      processResults: (data) => ({ results: resultsWithValueKey(data, config.valueKey) }),
-      cache: true,
-    };
-  }
-
-  return options;
-}
+// --- Entries of the server ---------------------------------------------------
 
 // The property +valueKey+ of an entry becomes its value, entries without it
 // cannot be chosen (e.g. people without an address for a field of addresses)
@@ -230,58 +169,257 @@ function resultsWithValueKey(data, valueKey) {
   return data.filter((item) => item[valueKey]).map((item) => ({ ...item, id: item[valueKey] }));
 }
 
-// The library triggers "change" through jQuery only, which never reaches
-// listeners added with addEventListener (Stimulus actions among them). The
-// change is sent as a native event instead, which jQuery handlers, native
-// listeners and inline onchange attributes all receive exactly once.
-function sendNativeChange(select, instance) {
-  const { $element } = instance;
-  const { trigger } = $element;
-  $element.trigger = function (event, ...args) {
-    if (event === 'change') {
-      select.dispatchEvent(new Event('change', { bubbles: true }));
-      return this;
+// The answer of the server as entries and groups of the library. An entry in
+// several groups (e.g. watchers and active users) is one entry with all its
+// groups; +order+ keeps the ids in the order of the answer.
+function libraryEntries(data, valueKey) {
+  const entries = new Map();
+  const groups = [];
+  const add = (item, group) => {
+    const id = String(item.id);
+    const known = entries.get(id);
+    if (known) {
+      if (group) { known.option.optgroup = [...[].concat(known.option.optgroup || []), group]; }
+      return;
     }
-    return trigger.call(this, event, ...args);
+    entries.set(id, { item, option: { ...item, id, optgroup: group } });
+  };
+
+  (Array.isArray(data) ? data : []).forEach((entry, index) => {
+    if (!Array.isArray(entry.children)) {
+      resultsWithValueKey([entry], valueKey).forEach((item) => add(item));
+      return;
+    }
+    const group = `group-${index}`;
+    groups.push({ value: group, label: entry.text });
+    resultsWithValueKey(entry.children, valueKey).forEach((item) => add(item, group));
+  });
+
+  return { entries, groups };
+}
+
+function searchUrl(url, term) {
+  const target = new URL(url, window.location.href);
+  if (term) { target.searchParams.set('q', term); }
+  return target.toString();
+}
+
+// --- Library -----------------------------------------------------------------
+
+function libraryAvailable() {
+  return typeof window.TomSelect === 'function';
+}
+
+function searchLabel() {
+  return typeof window.ADDITIONALS_LABEL_SEARCH === 'undefined' ? '' : window.ADDITIONALS_LABEL_SEARCH;
+}
+
+function libraryPlugins(config, multiple) {
+  const plugins = multiple ? ['remove_button'] : ['dropdown_input'];
+  if (config.allowClear) { plugins.push('clear_button'); }
+  return plugins;
+}
+
+function buildLibraryOptions(config, multiple) {
+  const renderer = RENDERERS[config.renderer] || RENDERERS.name_with_icon;
+  const options = {
+    valueField: 'id',
+    labelField: 'text',
+    searchField: ['text'],
+    plugins: libraryPlugins(config, multiple),
+    placeholder: config.placeholder || '',
+    hidePlaceholder: true,
+    hideSelected: false,
+    closeAfterSelect: true,
+    maxOptions: null,
+    refreshThrottle: 0,
+    dropdownParent: 'body',
+    // a single field without a value is no deletion of it
+    onDelete: () => multiple,
+    render: {
+      option: (data) => templateElement(renderer.result(data)),
+      // the title holds the text alone, without the button that removes it
+      item: (data) => {
+        const element = templateElement(renderer.selection ? renderer.selection(data) : data.text);
+        element.title = data.text ?? '';
+        return element;
+      },
+      // the entry for typed text shows the text only
+      option_create: (data) => templateElement(data.input, 'create'),
+    },
+  };
+
+  if (config.tags) {
+    options.create = (input) => createTag({ term: input });
+    options.createFilter = function (input) {
+      const tag = createTag({ term: input });
+      return tag !== null && !this.options[tag.id] && (!config.freeInput || fitsPattern(tag.id, config.freeInputPattern));
+    };
+  }
+
+  return options;
+}
+
+// What the user typed into the field and has not chosen yet
+function typedTerm(instance) {
+  return instance.control_input.value.trim();
+}
+
+function chosenValues(select) {
+  return Array.from(select.selectedOptions).map((option) => option.value).filter((value) => value !== '');
+}
+
+// The entry behind +value+ as the server sent it, or as its <option> has it
+function itemOf(field, value) {
+  return field.serverItems.get(value) || { id: value, text: field.instance.options[value]?.text ?? value };
+}
+
+// Entries of the server: the list shows exactly the answer of the last search,
+// in its order, and asks the server again on each search and on each opening
+function serverOptions(field, config) {
+  return {
+    loadThrottle: SEARCH_DELAY,
+    shouldLoad: (query) => query.length >= (config.minInputLength || 0),
+    load: (query, callback) => {
+      fetch(searchUrl(config.url, query), {
+        headers: { Accept: 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+        credentials: 'same-origin',
+      })
+        .then((response) => (response.ok ? response.json() : []))
+        .catch(() => [])
+        .then((data) => {
+          const { instance } = field;
+          // an answer after the list closed (e.g. after a choice) would open
+          // it again; the next opening asks the server anew
+          if (!instance.isOpen) {
+            instance.loading = Math.max(instance.loading - 1, 0);
+            if (!instance.loading) { instance.wrapper.classList.remove(instance.settings.loadingClass); }
+            return;
+          }
+
+          const { entries, groups } = libraryEntries(data, config.valueKey);
+          entries.forEach(({ item }, id) => field.serverItems.set(id, item));
+          field.answer = Array.from(entries.keys());
+          instance.clearOptions();
+          instance.clearOptionGroups();
+          callback(Array.from(entries.values()).map(({ option }) => option), groups);
+        });
+    },
   };
 }
 
+function bindServer(field) {
+  const { instance } = field;
+
+  // the same search again may find something else by now
+  instance.hook('before', 'load', () => { instance.loadedSearches = {}; });
+
+  instance.search = function (query) {
+    this.lastQuery = query;
+    const items = field.answer.filter((id) => this.options[id]).map((id) => ({ id, score: 1 }));
+    this.currentResults = { items, query: '', tokens: [], options: {}, total: items.length };
+    return this.currentResults;
+  };
+
+  instance.on('dropdown_open', () => {
+    const query = typedTerm(instance);
+    if (instance.settings.shouldLoad(query)) { instance.load(query); }
+  });
+}
+
 function initLibrary(select, config) {
-  const $select = window.jQuery(select);
-  $select.select2(buildLibraryOptions(config));
-  const instance = $select.data('select2');
-  sendNativeChange(select, instance);
+  const { multiple } = select;
+  // the field gets the classes of the select from the library, which would
+  // count it as a select of the page (e.g. ".values .value" of query filters)
+  const classes = Array.from(select.classList);
+  const field = { instance: null, serverItems: new Map(), answer: [] };
+  const options = buildLibraryOptions(config, multiple);
+  if (config.url) { Object.assign(options, serverOptions(field, config)); }
+
+  const instance = new window.TomSelect(select, options);
+  field.instance = instance;
+
+  instance.wrapper.classList.remove(...classes);
   // plugins place and size the field by this class, not by the markup of
   // the library
-  instance.$container[0].classList.add('additionals-select-field');
+  instance.wrapper.classList.add('additionals-select-field');
+  instance.dropdown.classList.add('additionals-select-dropdown');
+  if (config.width !== 'auto') { instance.wrapper.style.width = config.width || DEFAULT_WIDTH; }
 
-  // a message instead of entries ("searching", "no results") changes the
-  // height of the list, which would otherwise stay where it opened
-  instance.on('results:message', function () {
-    this.dropdown._resizeDropdown();
-    this.dropdown._positionDropdown();
-  });
+  if (config.url) { bindServer(field); }
 
-  const label = searchLabel();
-  if (label) {
-    $select.on(`select2:open${NAMESPACE}`, () => {
-      instance.$dropdown.find('.select2-search__field').attr('placeholder', label);
+  // typed text of free input comes after the found entries
+  if (config.freeInput) {
+    instance.hook('after', 'refreshOptions', () => {
+      const create = instance.dropdown_content.querySelector('.create');
+      if (create) { instance.dropdown_content.append(create); }
     });
   }
 
-  return instance;
+  // Closing the list of a single field gives the focus back to the field,
+  // which closes it once more inside and would open it again
+  let closing = 0;
+  instance.hook('before', 'close', () => { closing += 1; });
+  instance.hook('after', 'close', () => { closing -= 1; });
+  const { open } = instance;
+  instance.open = function () {
+    if (closing === 0) { open.call(this); }
+  };
+
+  // a click on a chosen entry opens the list like a click elsewhere in the
+  // field, it does not mark the entry
+  instance.onItemSelect = () => false;
+
+  // a chosen entry of a multiple field is chosen again to remove it
+  const { onOptionSelect } = instance;
+  instance.onOptionSelect = function (event, option) {
+    const { value } = option.dataset;
+    if (multiple && value !== undefined && this.items.includes(value)) {
+      this.removeItem(value);
+      this.close();
+      return;
+    }
+    onOptionSelect.call(this, event, option);
+  };
+
+  if (!multiple) {
+    const search = instance.dropdown.querySelector('.dropdown-input');
+    if (search) { search.placeholder = searchLabel(); }
+  }
+
+  return field;
 }
 
+// Takes the options, values and state of the select into the field. The
+// sync() of the library reads the select with its default fields, not with
+// the fields of this field (id, text).
+function syncLibrary(instance, select) {
+  Array.from(select.options).forEach((option) => {
+    if (option.value === '' || instance.options[option.value]) { return; }
+
+    instance.addOption({ ...option.dataset, id: option.value, text: option.text, disabled: option.disabled, $option: option });
+  });
+  const values = chosenValues(select);
+  instance.setValue(select.multiple ? values : values.slice(0, 1), true);
+  if (select.disabled) {
+    instance.disable();
+  } else {
+    instance.enable();
+  }
+  instance.lastQuery = null;
+}
+
+// The library puts the options of the select back as they were before it,
+// the options and values of now stay
 function destroyLibrary(select) {
-  const $select = window.jQuery(select);
-  $select.off(NAMESPACE);
-  if ($select.data('select2')) { $select.select2('destroy'); }
-}
+  const { tomselect } = select;
+  if (!tomselect) { return; }
 
-// Text typed into the field which is not chosen yet
-function typedTerm(instance) {
-  const $search = instance.selection.$search || instance.dropdown.$search;
-  return $search ? String($search.val() || '').trim() : '';
+  const nodes = Array.from(select.children);
+  const values = Array.from(select.selectedOptions).map((option) => option.value);
+  tomselect.destroy();
+  select.replaceChildren(...nodes);
+  Array.from(select.options).forEach((option) => { option.selected = values.includes(option.value); });
 }
 
 // --- Controller --------------------------------------------------------------
@@ -309,8 +447,10 @@ class AdditionalsSelectController extends Controller {
       return;
     }
 
-    this.instance = initLibrary(this.element, this.config());
+    this.field = initLibrary(this.element, this.config());
+    this.instance = this.field.instance;
     this.bindEvents();
+    this.followSelect();
   }
 
   disconnect() {
@@ -321,8 +461,11 @@ class AdditionalsSelectController extends Controller {
     }
     if (!this.instance) { return; }
 
+    this.observer?.disconnect();
+    this.element.removeEventListener('change', this.syncOnChange);
     destroyLibrary(this.element);
     this.instance = null;
+    this.field = null;
   }
 
   config() {
@@ -342,48 +485,80 @@ class AdditionalsSelectController extends Controller {
   }
 
   bindEvents() {
-    const $select = window.jQuery(this.element);
+    const { instance } = this;
 
-    $select.on(`select2:select${NAMESPACE}`, (event) => {
-      this.dispatch('select', { detail: { item: cleanItem(event.params.data) } });
+    // only a choice of the user is told, not values set from a program
+    let choosing = false;
+    instance.hook('before', 'onOptionSelect', () => { choosing = true; });
+    instance.hook('after', 'onOptionSelect', () => { choosing = false; });
+    instance.on('item_add', (value) => {
+      if (choosing) { this.dispatch('select', { detail: { item: itemOf(this.field, value) } }); }
     });
 
-    $select.on(`select2:selecting${NAMESPACE}`, (event) => {
-      this.lastAction = 'choose';
-      // before the library takes the tag, so its "change" tells the end result
-      if (this.scopedTagsValue) { this.dropScopedSiblings(String(event.params.args.data.id)); }
+    // before the library takes the tag, so its "change" tells the end result
+    if (this.scopedTagsValue) {
+      instance.hook('before', 'addItem', (value, silent) => {
+        if (!silent) { this.dropScopedSiblings(String(value)); }
+      });
+    }
+
+    if (this.freeInputValue) { this.bindFreeInput(); }
+
+    // closing the list of a single field moves the focus, which closes it a
+    // second time inside the library
+    let closed = true;
+    instance.on('dropdown_open', () => { closed = false; });
+    instance.on('dropdown_close', () => {
+      if (closed) { return; }
+
+      closed = true;
+      this.dispatch('close');
     });
+  }
 
-    // Removing an entry with Backspace puts its text into the search field,
-    // which must not bring it back when the field is left
-    $select.on(`select2:unselecting${NAMESPACE}`, () => { this.lastAction = 'choose'; });
-    $select.on(`select2:unselect${NAMESPACE}`, (event) => { this.removedText = event.params.data.text; });
+  /* Changes of the select from a program (appended options, values set from
+     JavaScript and told by "change", disabled) are taken by the field. */
+  followSelect() {
+    this.syncOnChange = () => {
+      const values = chosenValues(this.element);
+      if (values.join('\n') !== this.instance.items.join('\n')) { syncLibrary(this.instance, this.element); }
+    };
+    this.element.addEventListener('change', this.syncOnChange);
 
-    if (this.freeInputValue) { this.bindFreeInput($select); }
-
-    $select.on(`select2:close${NAMESPACE}`, () => this.dispatch('close'));
+    this.observer = new MutationObserver((mutations) => {
+      const unknownOption = mutations.some((mutation) => Array.from(mutation.addedNodes).some((node) => (
+        node.tagName === 'OPTION' && node.value !== '' && !this.instance.options[node.value])));
+      const disabled = mutations.some((mutation) => mutation.attributeName === 'disabled');
+      if (unknownOption || disabled) { syncLibrary(this.instance, this.element); }
+    });
+    this.observer.observe(this.element, { childList: true, subtree: true, attributes: true, attributeFilter: ['disabled'] });
   }
 
   /* Free input takes the typed text when the field is left. The library
-     clears the search when the list closes and tells a choice only after
-     that (none at all for an entry already chosen), so what the user did
-     last while the list was open decides: a choice in the list, Enter or
-     Escape keep the text out; a click elsewhere, Tab or closing from a
-     program take it. */
-  bindFreeInput($select) {
+     clears the search when the list closes, so the text is read right before.
+     What the user did last while the list was open decides: a choice in the
+     list, Enter or Escape keep the text out; a click elsewhere, Tab or closing
+     from a program take it. */
+  bindFreeInput() {
+    const { instance } = this;
     this.noteLastAction = (event) => { this.lastAction = this.actionOf(event); };
 
-    $select.on(`select2:open${NAMESPACE}`, () => {
+    instance.on('dropdown_open', () => {
       this.lastAction = null;
       document.addEventListener('mousedown', this.noteLastAction, true);
       document.addEventListener('keydown', this.noteLastAction, true);
     });
 
-    $select.on(`select2:closing${NAMESPACE}`, () => {
-      if (this.lastAction !== 'choose' && this.lastAction !== 'cancel') { this.takeTypedValue(); }
+    let typed = '';
+    instance.hook('before', 'close', () => {
+      typed = instance.isOpen && this.lastAction !== 'choose' && this.lastAction !== 'cancel' ? typedTerm(instance) : '';
     });
-
-    $select.on(`select2:close${NAMESPACE}`, () => this.stopNotingActions());
+    instance.hook('after', 'close', () => {
+      const term = typed;
+      typed = '';
+      this.stopNotingActions();
+      if (term !== '') { this.takeTypedValue(term); }
+    });
   }
 
   actionOf(event) {
@@ -392,10 +567,10 @@ class AdditionalsSelectController extends Controller {
 
       return event.key === 'Enter' ? 'choose' : null;
     }
-    const { $container, $dropdown } = this.instance;
-    if ($dropdown[0].contains(event.target) && event.target.closest('.select2-results__option')) { return 'choose'; }
+    const { wrapper, dropdown } = this.instance;
+    if (dropdown.contains(event.target) && event.target.closest('[data-selectable]')) { return 'choose'; }
     // removing a chosen entry (x) keeps the field open, it is no leaving
-    if ($container[0].contains(event.target) || $dropdown[0].contains(event.target)) { return null; }
+    if (wrapper.contains(event.target) || dropdown.contains(event.target)) { return null; }
 
     return 'leave';
   }
@@ -409,51 +584,35 @@ class AdditionalsSelectController extends Controller {
 
   // A tag "a::b" replaces a chosen tag of the same group, like "a::c"
   dropScopedSiblings(tag) {
-    const values = this.currentValues();
+    const values = [...this.instance.items];
     const kept = withoutScopedSiblings(values, tag);
-    if (kept.length === values.length) { return; }
-
-    Array.from(this.element.options).forEach((option) => {
-      if (option.selected && !kept.includes(option.value)) { option.selected = false; }
-    });
+    values.filter((value) => !kept.includes(value)).forEach((value) => this.instance.removeItem(value, true));
   }
 
   // Leaving the field takes what was typed, as a user expects from a field for
   // mail addresses
-  takeTypedValue() {
-    const term = typedTerm(this.instance);
-    if (term === '' || term.includes(',') || term === this.removedText ||
-        !fitsPattern(term, this.freeInputPatternValue)) { return; }
+  takeTypedValue(term) {
+    if (term.includes(',') || !fitsPattern(term, this.freeInputPatternValue)) { return; }
 
-    let values = this.currentValues();
+    let values = [...this.instance.items];
     if (values.includes(term)) { return; }
     if (this.scopedTagsValue) { values = withoutScopedSiblings(values, term); }
 
-    if (!Array.from(this.element.options).some((option) => option.value === term)) {
-      this.element.append(new Option(term, term, false, false));
-    }
-    this.setValues(this.element.multiple ? [...values, term] : [term]);
-  }
-
-  currentValues() {
-    const value = window.jQuery(this.element).val();
-    if (Array.isArray(value)) { return value; }
-
-    return value ? [value] : [];
-  }
-
-  setValues(values) {
-    window.jQuery(this.element).val(values);
-    this.refresh();
+    if (!this.instance.options[term]) { this.instance.addOption({ id: term, text: term }, true); }
+    this.instance.setValue(this.element.multiple ? [...values, term] : [term]);
   }
 
   // Shows values set from JavaScript and tells the listeners
   refresh() {
+    if (this.instance) { syncLibrary(this.instance, this.element); }
     this.element.dispatchEvent(new Event('change', { bubbles: true }));
   }
 
   open() {
-    this.instance?.open();
+    if (!this.instance) { return; }
+
+    this.instance.open();
+    this.instance.refreshOptions(false);
   }
 }
 
@@ -500,33 +659,42 @@ function menu({ anchor, entries, placeholder = '', onSelect, onClose } = {}) {
   entries.forEach((entry) => select.append(new Option(entry.text, entry.id)));
   document.body.append(select);
 
-  // as wide as its longest entry, which the select itself measures
-  const instance = initLibrary(select, { placeholder, width: 'resolve' });
-  if (anchor) { placeBelow(instance.$container[0], anchor); }
+  const field = initLibrary(select, { placeholder, width: 'auto' });
+  const { instance } = field;
+  instance.wrapper.classList.add('additionals-select-menu-field');
+  if (anchor) { placeBelow(instance.wrapper, anchor); }
 
-  let chosen = false;
+  let done = false;
   const finish = () => {
+    done = true;
     destroyLibrary(select);
     select.remove();
   };
 
-  // The library closes the list before it tells the choice, so a choice is
-  // known from "selecting" on
-  const $select = window.jQuery(select);
-  $select.on(`select2:selecting${NAMESPACE}`, () => { chosen = true; });
-  $select.on(`select2:select${NAMESPACE}`, (event) => {
-    const item = cleanItem(event.params.data);
+  instance.on('item_add', (value) => {
+    if (done) { return; }
+
+    const item = itemOf(field, value);
     finish();
     if (onSelect) { onSelect(item); }
   });
-  $select.on(`select2:close${NAMESPACE}`, () => {
-    if (chosen) { return; }
+  instance.on('dropdown_close', () => {
+    if (done) { return; }
 
     finish();
     if (onClose) { onClose(); }
   });
 
+  // a click elsewhere closes the menu at once, also before the library has
+  // taken the focus
+  const closeOutside = (event) => {
+    if (!instance.wrapper.contains(event.target) && !instance.dropdown.contains(event.target)) { instance.close(); }
+  };
+  document.addEventListener('mousedown', closeOutside, true);
+  instance.on('destroy', () => document.removeEventListener('mousedown', closeOutside, true));
+
   instance.open();
+  instance.refreshOptions(false);
   return select;
 }
 

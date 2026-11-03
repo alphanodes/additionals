@@ -46,12 +46,12 @@ class AdditionalsChartjsHelperTest < Additionals::HelperTest
     assert_select_in html, 'optgroup[label=Brewer] option[value=?][selected]', 'brewer.YlGnBu9'
   end
 
-  # The colors come from the library in the browser, select2 shows them
-  def test_colorscheme_select_loads_the_colors_and_select2
+  # The colors come from the library in the browser, the select field shows them
+  def test_colorscheme_select_loads_the_colors_and_the_select_fields
     html = @redmine_view.chartjs_colorscheme_select_tag 'settings[chart_color_schema]', 'tableau.Tableau10'
 
     assert_match(/src=.+chart\.umd/, html)
     assert_match(/src=.+chartjs-plugin-colorschemes/, html)
-    assert_match(/src=.+select2\.min/, html)
+    Additionals::LibraryRegistry.resolve(:select_fields).each { |asset| assert_includes html, asset.path }
   end
 end

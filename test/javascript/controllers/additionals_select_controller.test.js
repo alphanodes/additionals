@@ -467,6 +467,20 @@ describe('AdditionalsSelectController', () => {
       expect(values(select)).toEqual([]);
     });
 
+    // e.g. a tag chosen before the answer to its search arrived
+    it('stays closed when an answer comes after the list closed', async () => {
+      serverAnswers([{ id: 1, text: 'Kurt' }]);
+      const select = await render(`<select multiple data-controller="additionals-select" ${url}></select>`);
+
+      openField(select);
+      await wait();
+      typeInto(select, 'Ku');
+      closeField(select);
+      await wait(SEARCH_WAIT);
+
+      expect(isOpen(select)).toBe(false);
+    });
+
     it('shows all entries of a long answer', async () => {
       serverAnswers(Array.from({ length: 60 }, (_, index) => ({ id: index + 1, text: `Entry ${index + 1}` })));
       const select = await render(`<select data-controller="additionals-select" ${url}></select>`);
@@ -791,9 +805,7 @@ describe('renderers', () => {
   });
 
   it('show an icon from the sprite of the option', () => {
-    const option = document.createElement('option');
-    option.dataset.href = '/assets/icons-123.svg#icon--bug';
-    const rendered = RENDERERS.icon.result({ id: 'bug', text: 'bug', element: option });
+    const rendered = RENDERERS.icon.result({ id: 'bug', text: 'bug', href: '/assets/icons-123.svg#icon--bug' });
 
     expect(rendered.querySelector('use').getAttribute('href')).toBe('/assets/icons-123.svg#icon--bug');
     expect(rendered.textContent.trim()).toBe('bug');

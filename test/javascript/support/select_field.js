@@ -6,24 +6,24 @@
 import { vi } from 'vitest';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
-import jQuery from 'jquery';
 
 const KEY_CODES = { Enter: 13, Escape: 27, Backspace: 8, Tab: 9, ArrowDown: 40, ArrowUp: 38 };
 
 // Loads the library into the page, as the pages of Redmine do
 export function loadSelectLibrary() {
-  globalThis.jQuery = jQuery;
-  globalThis.$ = jQuery;
+  // jsdom takes the focus from the page when no element has it, a browser
+  // keeps it; the library ignores leaving a field while the page has no focus
+  document.hasFocus = () => true;
   const globalEval = eval; // eslint-disable-line no-eval
-  globalEval(readFileSync(resolve(__dirname, '../../../assets/javascripts/vendor/select2.min.js'), 'utf-8'));
+  globalEval(readFileSync(resolve(__dirname, '../../../assets/javascripts/vendor/tom-select.complete.min.js'), 'utf-8'));
 }
 
 // Takes the library from the page, as on pages that load it later; the
 // returned function brings it back
 export function hideSelectLibrary() {
-  const { select2 } = jQuery.fn;
-  delete jQuery.fn.select2;
-  return () => { jQuery.fn.select2 = select2; };
+  const library = window.TomSelect;
+  delete window.TomSelect;
+  return () => { window.TomSelect = library; };
 }
 
 // The server answers each search with +answer+, or with what +answer+
@@ -31,19 +31,17 @@ export function hideSelectLibrary() {
 // string for a request without term.
 export function serverAnswers(answer) {
   const terms = [];
-  vi.spyOn(jQuery, 'ajax').mockImplementation((options) => {
-    const term = options.data?.q ?? '';
+  vi.spyOn(globalThis, 'fetch').mockImplementation((url) => {
+    const term = new URL(url).searchParams.get('q') ?? '';
     terms.push(term);
     const entries = typeof answer === 'function' ? answer(term) : answer;
-    const request = jQuery.Deferred().resolve(entries).promise();
-    request.abort = () => {};
-    return request;
+    return Promise.resolve({ ok: true, json: () => Promise.resolve(entries) });
   });
   return { terms };
 }
 
 function instanceOf(select) {
-  return jQuery(select).data('select2');
+  return select.tomselect;
 }
 
 // The select is turned into a select field
@@ -53,42 +51,61 @@ export function hasSelectField(select) {
 
 // The element of the select field that is shown in place of the select
 export function fieldElement(select) {
-  return instanceOf(select).$container[0];
+  return instanceOf(select).wrapper;
+}
+
+// The library takes the focus a moment after it opens, as a user's click
+// would have it at once
+function takeFocus(instance) {
+  instance.ignoreFocus = false;
+  instance.onFocus();
 }
 
 export function openField(select) {
-  jQuery(select).select2('open');
+  const instance = instanceOf(select);
+  instance.open();
+  takeFocus(instance);
 }
 
 // Closes the list from a program, not by a user
 export function closeField(select) {
-  jQuery(select).select2('close');
+  instanceOf(select).close();
 }
 
 export function isOpen(select) {
-  return instanceOf(select).isOpen();
+  return instanceOf(select).isOpen;
 }
 
 function searchField(select) {
-  const instance = instanceOf(select);
-  return (instance.selection.$search || instance.dropdown.$search)[0];
+  return instanceOf(select).control_input;
 }
 
-// Types +text+ into the search of the field
+// Types +text+ into the search of the field, key by key
 export function typeInto(select, text) {
-  jQuery(searchField(select)).val(text).trigger('input');
+  const search = searchField(select);
+  search.value = '';
+  Array.from(text).forEach((character) => {
+    const code = character.charCodeAt(0);
+    const press = new KeyboardEvent('keypress', { key: character, keyCode: code, which: code, bubbles: true, cancelable: true });
+    if (!search.dispatchEvent(press)) { return; }
+
+    search.value += character;
+    search.dispatchEvent(new Event('input', { bubbles: true }));
+  });
 }
 
 // The placeholder of the search field, a single field has its own in the list
 export function searchPlaceholder(select) {
-  const instance = instanceOf(select);
-  const field = instance.dropdown.$search || instance.selection.$search;
-  return field[0].getAttribute('placeholder');
+  return searchField(select).getAttribute('placeholder');
+}
+
+function openDropdowns() {
+  return Array.from(document.querySelectorAll('.ts-dropdown')).filter((dropdown) => dropdown.style.display !== 'none');
 }
 
 // Entries of the open list, without headings of groups
 function listEntries() {
-  return Array.from(document.querySelectorAll('.select2-results__option[role="option"], .select2-results__option[role="treeitem"]'));
+  return openDropdowns().flatMap((dropdown) => Array.from(dropdown.querySelectorAll('.option, .create')));
 }
 
 export function entryTexts() {
@@ -101,77 +118,82 @@ export function entry(text) {
 
 // Headings of the groups in the open list, each with the texts of its entries
 export function groupsOfList() {
-  return Array.from(document.querySelectorAll('.select2-results__option[role="group"]')).map((group) => ({
-    text: group.querySelector('.select2-results__group').textContent.trim(),
-    entries: Array.from(group.querySelectorAll('.select2-results__option')).map((option) => option.textContent.trim()),
-  }));
+  return openDropdowns().flatMap((dropdown) => Array.from(dropdown.querySelectorAll('.optgroup')).map((group) => ({
+    text: group.querySelector('.optgroup-header').textContent.trim(),
+    entries: Array.from(group.querySelectorAll('.option')).map((option) => option.textContent.trim()),
+  })));
 }
 
 export function isEntryDisabled(text) {
   return entry(text).getAttribute('aria-disabled') === 'true';
 }
 
-// As a user does: the press of the button, then its release chooses
+// As a user does: the press of the button, its release and the click
 export function chooseEntry(text, options = {}) {
   const option = entry(text);
-  option.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, ...options }));
-  jQuery(option).trigger(jQuery.Event('mouseup', options));
+  ['mousedown', 'mouseup', 'click'].forEach((type) => {
+    option.dispatchEvent(new MouseEvent(type, { bubbles: true, cancelable: true, ...options }));
+  });
 }
 
-// A key pressed in the field: in its search while it has one, else on the field
+// A key pressed in the field: in its search while it has one in sight, else
+// on the field. Tab leaves the field, as the browser does.
 export function pressKey(select, key) {
   const instance = instanceOf(select);
-  const target = instance.selection.$search?.[0] ||
-    (instance.isOpen() ? instance.dropdown.$search[0] : instance.$selection[0]);
+  const target = instance.isOpen || instance.settings.mode === 'multi' ? instance.control_input : instance.focus_node;
   const which = KEY_CODES[key];
-  target.dispatchEvent(new KeyboardEvent('keydown', { key, keyCode: which, which, bubbles: true }));
+  const event = new KeyboardEvent('keydown', { key, keyCode: which, which, bubbles: true, cancelable: true });
+  if (target.dispatchEvent(event) && key === 'Tab') { instance.blur(); }
 }
 
 // A click somewhere else on the page
 export function clickOutside() {
-  document.body.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
-  jQuery(document.body).trigger('mousedown');
+  document.body.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true }));
+}
+
+function chosenItems(select) {
+  return Array.from(fieldElement(select).querySelectorAll('.ts-control > .item'));
+}
+
+function itemText(item) {
+  const copy = item.cloneNode(true);
+  copy.querySelector('.remove')?.remove();
+  return copy.textContent.trim();
 }
 
 // Texts of the chosen entries of a multiple field
 export function chosenTexts(select) {
-  return Array.from(fieldElement(select).querySelectorAll('.select2-selection__choice'))
-    .map((choice) => choice.getAttribute('title') || choice.textContent.replace('×', '').trim());
+  return chosenItems(select).map(itemText);
 }
 
 // What a single field shows: the chosen entry or its placeholder
 export function shownElement(select) {
-  return fieldElement(select).querySelector('.select2-selection__rendered');
+  return chosenItems(select)[0] || fieldElement(select).querySelector('.items-placeholder');
 }
 
 export function shownText(select) {
-  const shown = shownElement(select).cloneNode(true);
-  shown.querySelector('.select2-selection__clear')?.remove();
-  return shown.textContent.trim();
+  const shown = shownElement(select);
+  return shown.classList.contains('item') ? itemText(shown) : shown.getAttribute('placeholder');
 }
 
 // The placeholder of an empty field
 export function placeholderText(select) {
-  const placeholder = fieldElement(select).querySelector('.select2-selection__placeholder');
-  if (placeholder) { return placeholder.textContent.trim(); }
-
-  return fieldElement(select).querySelector('.select2-search__field')?.getAttribute('placeholder') ?? null;
+  const instance = instanceOf(select);
+  const input = instance.settings.mode === 'multi' ? instance.control_input : fieldElement(select).querySelector('.items-placeholder');
+  return input?.getAttribute('placeholder') ?? null;
 }
 
 // Removes the chosen entry +text+ of a multiple field with its button
 export function removeChosen(select, text) {
-  const choice = Array.from(fieldElement(select).querySelectorAll('.select2-selection__choice'))
-    .find((element) => element.getAttribute('title') === text);
-  choice.querySelector('.select2-selection__choice__remove')
-    .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+  const item = chosenItems(select).find((element) => itemText(element) === text);
+  item.querySelector('.remove').dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
 }
 
 // The field offers to clear its value
 export function canClear(select) {
-  return fieldElement(select).querySelector('.select2-selection__clear') !== null;
+  return fieldElement(select).querySelector('.clear-button') !== null;
 }
 
 export function clearField(select) {
-  fieldElement(select).querySelector('.select2-selection__clear')
-    .dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
+  fieldElement(select).querySelector('.clear-button').dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
 }

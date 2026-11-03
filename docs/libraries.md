@@ -77,4 +77,4 @@ bundle exec rake redmine:additionals:vendor:update NAME=mermaid VERSION=12.2.0
 
 `update` checks the tarball against the integrity npm publishes, replaces the files and records the version in the manifest and in the libraries table of the README. A test fails when a listed file or a version in the README differs from the manifest, so a file changed by hand does not go unnoticed. Review the diff, test the pages using the library and add a CHANGELOG entry; a library with its own guide (mermaid: [Updating the bundled Mermaid library](updating-mermaid.md)) names it after the update.
 
-The patched colorschemes plugin and Select2 with its adapted styles are not listed and are updated by hand.
+The patched colorschemes plugin is not listed and is updated by hand.

@@ -8,7 +8,7 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
   def setup
     prepare_tests
     Setting.default_language = 'en'
-    # Frontend callers (select2, jQuery autocomplete) ask for JSON, so do the tests.
+    # Frontend callers (select fields, jQuery autocomplete) ask for JSON, so do the tests.
     @request.headers['Accept'] = 'application/json'
   end
 
@@ -706,7 +706,7 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
                                   user_scope: '1', possible_principals: 'user_group'
 
     with_user_scope_for 'Issue' do
-      with_select2_init_entries 2 do
+      with_autocomplete_entries 2 do
         get :custom_field_users,
             params: { project_id: 1, custom_field_id: cf.id },
             xhr: true
@@ -720,7 +720,7 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
     @request.session[:user_id] = 1
 
     with_settings issue_group_assignment: '1' do
-      with_select2_init_entries 1 do
+      with_autocomplete_entries 1 do
         get :grouped_principals,
             params: { project_id: 2 },
             xhr: true
@@ -732,7 +732,7 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
 
   private
 
-  # Flattens the grouped select2 JSON payload into a plain list of user ids.
+  # Flattens the grouped JSON payload into a plain list of user ids.
   def involved_principals(body)
     group = ActiveSupport::JSON.decode(body).detect { |entry| entry['text'] == l(:label_involved_principals) }
     group ? group['children'] : []
@@ -742,11 +742,11 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
     custom_field_users_raw_ids(body).map(&:to_i)
   end
 
-  def with_select2_init_entries(limit, &)
-    AdditionalsConf.instance_variable_set :@select2_init_entries, nil
-    Redmine::Configuration.with('select2_init_entries' => limit, &)
+  def with_autocomplete_entries(limit, &)
+    AdditionalsConf.instance_variable_set :@autocomplete_entries, nil
+    Redmine::Configuration.with('autocomplete_entries' => limit, &)
   ensure
-    AdditionalsConf.instance_variable_set :@select2_init_entries, nil
+    AdditionalsConf.instance_variable_set :@autocomplete_entries, nil
   end
 
   def custom_field_users_raw_ids(body)

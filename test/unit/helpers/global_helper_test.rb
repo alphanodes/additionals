@@ -121,7 +121,7 @@ class GlobalHelperTest < Additionals::HelperTest
     assert_include 'Redmine Admin', html
   end
 
-  # The result is used as html, also as name_with_icon of the select2 json
+  # The result is used as html, also as name_with_icon of the select field json
   def test_user_with_avatar_escapes_group_name
     group = Group.find 10
     group.update_column :lastname, '<img src=x onerror="alert(1)">'

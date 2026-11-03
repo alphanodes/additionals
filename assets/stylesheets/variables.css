@@ -94,10 +94,11 @@
 
   /* Form control geometry — mirrors Redmine Core (application.css):
    * input, select, button { padding-block: 4px } + 1px border.
-   * Use these so custom controls (select2, ...) line up with native ones
+   * Use these so custom controls (select fields, ...) line up with native ones
    * instead of hardcoding a pixel height that breaks on the next core change. */
   --a-control-padding-block: 4px;
   --a-control-border-width: 1px;
+  --a-control-border-radius: 3px;
 
   /* Matches the rendered line box of a native select (font-size: 0.8125rem,
    * line-height: normal) — keeps custom controls at the same 25px as core. */

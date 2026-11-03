@@ -1,6 +1,6 @@
 # Select Fields
 
-Select fields with search, entries from the server, tags and multiple values all go through `additionals`. A view renders a `<select>` with the Stimulus controller `additionals-select`, which sets the field up in the browser. Plugins never talk to the library behind the fields (Select2): its calls, events and CSS classes are known to `additionals` only, so an update or a switch of the library stays a change in `additionals`.
+Select fields with search, entries from the server, tags and multiple values all go through `additionals`. A view renders a `<select>` with the Stimulus controller `additionals-select`, which sets the field up in the browser. Plugins never talk to the library behind the fields (Tom Select): its calls, events and CSS classes are known to `additionals` only, so an update or a switch of the library stays a change in `additionals`.
 
 ```mermaid
 flowchart LR
@@ -9,7 +9,7 @@ flowchart LR
     R -->|row of a query filter| S
     J[additionalsSelectApply] --> S
     S --> C[additionals-select<br/>Stimulus controller]
-    C --> L[Select2]
+    C --> L[Tom Select]
 ```
 
 ## Helpers

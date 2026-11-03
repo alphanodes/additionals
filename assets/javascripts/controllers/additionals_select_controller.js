@@ -178,7 +178,10 @@ function resultsWithValueKey(data, valueKey) {
 
 // The answer of the server as entries and groups of the library. An entry in
 // several groups (e.g. watchers and active users) is one entry with all its
-// groups; +order+ keeps the ids in the order of the answer.
+// groups; +order+ keeps the ids in the order of the answer. An entry on top
+// without a group stays there: "<< me >>" of a form field carries the id of
+// the user, who is in a group of the answer too, and the library knows each
+// value once.
 function libraryEntries(data, valueKey) {
   const entries = new Map();
   const groups = [];
@@ -186,7 +189,9 @@ function libraryEntries(data, valueKey) {
     const id = String(item.id);
     const known = entries.get(id);
     if (known) {
-      if (group) { known.option.optgroup = [...[].concat(known.option.optgroup || []), group]; }
+      if (group && known.option.optgroup !== undefined) {
+        known.option.optgroup = [...[].concat(known.option.optgroup), group];
+      }
       return;
     }
     entries.set(id, { item, option: { ...item, id, optgroup: group } });

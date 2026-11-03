@@ -102,6 +102,17 @@ describe('additionals_select_filters.js', () => {
     expect(select('author_id').multiple).toBe(false);
   });
 
+  // a select of the browser has its first option chosen, the filter would
+  // take a value nobody chose (e.g. a project of an action of automation)
+  it('chooses nothing in a single select without a value of the filter', () => {
+    additionalsSelectRegisterFilter('type', 'author', { url: '/users', multiple: false });
+    additionalsSelectRegisterFilter('type', 'list', { url: '/statuses', multiple: false });
+    buildFilterRow('author_id', '=', []);
+    buildFilterRow('status_id', '=', ['1']);
+
+    expect([select('author_id').value, select('status_id').value]).toEqual(['', '1']);
+  });
+
   it('chooses nothing by itself when the filter has no values yet', () => {
     additionalsSelectRegisterFilter('type', 'author', { url: '/users' });
     additionalsSelectRegisterFilter('type', 'list', { url: '/statuses' });

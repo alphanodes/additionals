@@ -39,7 +39,7 @@ flowchart LR
 
 | Option | Purpose |
 | --- | --- |
-| `url` | Entries come from this URL (JSON `[{ id, text, ... }]`, parameter `q` with the search) |
+| `url` | Entries come from this URL (JSON `[{ id, text, ... }]`, groups as `{ text, children }`, parameter `q` with the search); an entry on top without a group stays there when a group repeats its id, e.g. `<< me >>` of a form field |
 | `tags` | Typed text becomes a value of its own; a comma separates values |
 | `scoped_tags` | Like `tags`, a tag `group::value` replaces a chosen tag of the same group |
 | `free_input` | Typed text becomes a value: offered after the found entries, and taken when the field is left with a click elsewhere or Tab (not after a choice, Enter or Escape), e.g. for mail addresses |
@@ -94,7 +94,7 @@ The list opens with a click, Enter or the arrow down, not when the field only ge
 
 ## Query filters
 
-Redmine builds the rows of query filters in the browser. `additionals_select_filter` registers a select field for the values of filters, by filter type, by custom field format or by filter name; the name wins over the format, which wins over the type. It takes the field options above, filters choose multiple values unless `multiple: false`. A filter type of a plugin gets the operators of an optional list. A field of a filter row is as wide as its entries, unless the registration gives a `width`.
+Redmine builds the rows of query filters in the browser. `additionals_select_filter` registers a select field for the values of filters, by filter type, by custom field format or by filter name; the name wins over the format, which wins over the type. It takes the field options above, filters choose multiple values unless `multiple: false`. A filter type of a plugin gets the operators of an optional list. A field of a filter row is as wide as its entries, unless the registration gives a `width`. A single field of a filter row without a value chooses nothing, the browser would choose its first entry.
 
 ```slim
 = additionals_select_filter type: 'author', url: grouped_users_auto_completes_path(project_id: @project)

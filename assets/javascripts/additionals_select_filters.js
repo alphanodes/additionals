@@ -79,6 +79,13 @@ function additionalsSelectEnsureSelect(row, field, values, multiple) {
   return select;
 }
 
+// A single select of the browser has its first option chosen: without a value
+// of the filter it gets a blank one, so the filter takes nothing nobody chose
+function additionalsSelectNothingChosen(select) {
+  if (!Array.from(select.options).some((option) => option.value === '')) { select.prepend(new Option('', '')); }
+  select.value = '';
+}
+
 function additionalsSelectFilterRow(field, values) {
   const options = additionalsSelectFilterOptions(field);
   if (!options) { return; }
@@ -91,7 +98,11 @@ function additionalsSelectFilterRow(field, values) {
   const multiple = options.multiple !== false;
   const select = additionalsSelectEnsureSelect(row, field, values || [], multiple);
   // the values of the filter, not what a single select chose by itself
-  if (multiple) { additionalsSelectMultiple(select, (values || []).map(String)); }
+  if (multiple) {
+    additionalsSelectMultiple(select, (values || []).map(String));
+  } else if (!values || values.length === 0) {
+    additionalsSelectNothingChosen(select);
+  }
   // the cell of a filter is as wide as its content: a share of it would
   // always lack that share and wrap the last chosen entry
   additionalsSelectApply(select, { width: 'auto', ...options });

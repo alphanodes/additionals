@@ -572,6 +572,25 @@ describe('AdditionalsSelectController', () => {
       expect(values(select)).toEqual([]);
     });
 
+    // "<< me >>" of a form field carries the id of the user, who is in a
+    // group of the answer too: the entry stays on top, without the group
+    it('keeps an entry on top that the answer repeats in a group', async () => {
+      serverAnswers([
+        { id: 3, text: '<< me >>' },
+        { text: 'Involved', children: [{ id: 2, text: 'Anna' }, { id: 3, text: 'Claudia' }] },
+        { text: 'Active', children: [{ id: 3, text: 'Claudia' }, { id: 4, text: 'Kurt' }] },
+      ]);
+      const select = await render(`<select data-controller="additionals-select" ${url}></select>`);
+
+      openField(select);
+      await wait(SEARCH_WAIT);
+
+      expect([entryTexts(), groupsOfList()]).toEqual([
+        ['<< me >>', 'Anna', 'Kurt'],
+        [{ text: 'Involved', entries: ['Anna'] }, { text: 'Active', entries: ['Kurt'] }],
+      ]);
+    });
+
     it('shows the answer to the last search when an earlier answer comes later', async () => {
       vi.spyOn(globalThis, 'fetch').mockImplementation((target) => {
         const term = new URL(target).searchParams.get('q') ?? '';

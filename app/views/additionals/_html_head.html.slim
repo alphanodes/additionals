@@ -1,6 +1,6 @@
 - additionals_top_menu_setup
 = stylesheet_link_tag 'additionals', plugin: 'additionals'
-= javascript_tag "var ADDITIONALS_LABEL_SEARCH = #{l(:label_search).to_json};"
+= javascript_tag "var ADDITIONALS_SELECT_LABELS = #{additionals_select_labels.to_json};"
 = javascript_tag "var ADDITIONALS_ICON_SPRITES = #{additionals_icon_sprites.to_json};"
 = javascript_tag "var ADDITIONALS_LIBRARIES = #{additionals_library_urls.to_json};"
 / Redmine core (since 7.1) loads this library to render mermaid code blocks. It uses the

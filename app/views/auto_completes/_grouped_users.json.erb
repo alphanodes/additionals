@@ -1,8 +1,8 @@
 [
 <% if with_me %>
   <%= raw({ 'id' => me_value,
-            'text' => l(:label_me),
-            'name' => l(:label_me),
+            'text' => Query.label_me,
+            'name' => Query.label_me,
             'value' => me_value }.to_json) %>
   <% sep_required = true %>
 <% end %>

@@ -49,7 +49,8 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
       assert_kind_of Array, json
       assert_equal 2, json.count
 
-      assert_equal 'me', json.first['id']
+      # the chosen entry shows the text, the same as the select of a query
+      assert_equal ['me', Query.label_me], json.first.values_at('id', 'text')
       assert_equal 'active', json.second['text']
       assert_equal 4, json.second['children'].count
     end

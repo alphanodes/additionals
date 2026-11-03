@@ -105,6 +105,27 @@ export function listTop(select) {
   return instanceOf(select).dropdown.style.top;
 }
 
+// The list is +height+ high, as the browser lays it out
+export function setListHeight(select, height) {
+  Object.defineProperty(instanceOf(select).dropdown, 'offsetHeight', { configurable: true, get: () => height });
+}
+
+// The message of the open list instead of entries (e.g. nothing found)
+export function listMessage() {
+  return openDropdowns().map((dropdown) => dropdown.querySelector('.no-results')?.textContent.trim()).find(Boolean) ?? null;
+}
+
+// Title of the button that empties the field and whether Tab stops on it
+export function clearButton(select) {
+  const button = fieldElement(select).querySelector('.clear-button');
+  return { title: button.getAttribute('title'), tabStop: button.tabIndex >= 0 };
+}
+
+// Title of the button that removes the chosen entry +text+
+export function removeButtonTitle(select, text) {
+  return chosenItems(select).find((element) => itemText(element) === text).querySelector('.remove').getAttribute('title');
+}
+
 // The user scrolls inside the open list
 export function scrollList(select) {
   instanceOf(select).dropdown_content.dispatchEvent(new Event('scroll'));

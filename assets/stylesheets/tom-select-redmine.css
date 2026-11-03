@@ -50,6 +50,35 @@
   margin: 0 !important;
 }
 
+/* tom-select.css takes the search of a multiple field without focus out of
+   the layout; it stays, only unseen, so the field keeps its width and height
+   when it gets or loses the focus and a click next to it hits its target */
+.additionals-select-field.multi.input-hidden .ts-control > input {
+  left: auto;
+  opacity: 0;
+  position: static;
+}
+
+/* long chosen entries are cut, the field keeps its width */
+.additionals-select-field .ts-control,
+.additionals-select-field .ts-control > .item {
+  min-width: 0;
+}
+
+.additionals-select-field .ts-control > .item > :first-child {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* an icon is as high as a line of text */
+.additionals-select-field .ts-control .additionals-select-icon svg {
+  height: var(--a-control-line-height);
+  vertical-align: top;
+  width: var(--a-control-line-height);
+}
+
 .additionals-select-field.multi .ts-control {
   cursor: text;
 }
@@ -160,6 +189,17 @@
   max-height: 200px;
 }
 
+/* a multiple field with nothing to show yet (no entries, a search below
+   min_input_length) opens no empty box */
+.additionals-select-dropdown.multi:has(> .ts-dropdown-content:empty) {
+  display: none !important;
+}
+
+/* above the field where the window has no room below it */
+.additionals-select-dropdown.additionals-select-dropup {
+  border-radius: var(--a-control-border-radius) var(--a-control-border-radius) 0 0;
+}
+
 .additionals-select-dropdown .option,
 .additionals-select-dropdown .create,
 .additionals-select-dropdown .no-results {
@@ -168,6 +208,9 @@
 
 .additionals-select-dropdown .option.selected {
   background-color: var(--a-color-bg-light);
+
+  /* apart from the entry reached with the arrow keys */
+  font-weight: bold;
 }
 
 .additionals-select-dropdown .active,

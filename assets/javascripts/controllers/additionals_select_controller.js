@@ -214,14 +214,27 @@ function libraryAvailable() {
   return typeof window.TomSelect === 'function';
 }
 
-function searchLabel() {
-  return typeof window.ADDITIONALS_LABEL_SEARCH === 'undefined' ? '' : window.ADDITIONALS_LABEL_SEARCH;
+// Texts of the page language (additionals_select_labels), the library has
+// English ones of its own
+function selectLabel(name) {
+  return window.ADDITIONALS_SELECT_LABELS?.[name] || '';
 }
 
 function libraryPlugins(config, multiple) {
-  const plugins = multiple ? ['remove_button'] : ['dropdown_input'];
-  if (config.allowClear) { plugins.push('clear_button'); }
+  const plugins = {};
+  if (multiple) {
+    plugins.remove_button = selectLabel('remove') ? { title: selectLabel('remove') } : {};
+  } else {
+    plugins.dropdown_input = {};
+  }
+  // the button empties the field with a click, Tab goes on to the next field
+  if (config.allowClear) { plugins.clear_button = { tabindex: -1, ...(selectLabel('clear') ? { title: selectLabel('clear') } : {}) }; }
   return plugins;
+}
+
+// A search keeps the order of the list, as a select does
+function inListOrder(a, b) {
+  return this.items[a.id].$order - this.items[b.id].$order;
 }
 
 function buildLibraryOptions(config, multiple) {
@@ -237,6 +250,7 @@ function buildLibraryOptions(config, multiple) {
     hideSelected: false,
     closeAfterSelect: true,
     maxOptions: null,
+    sortField: inListOrder,
     refreshThrottle: 0,
     dropdownParent: 'body',
     // a single field without a value is no deletion of it
@@ -251,6 +265,12 @@ function buildLibraryOptions(config, multiple) {
       },
       // the entry for typed text shows the text only
       option_create: (data) => templateElement(data.input, 'create'),
+      // nothing found is no message while typed text is offered as new entry
+      no_results(data) {
+        if (this.canCreate(data.input)) { return null; }
+
+        return templateElement(selectLabel('noResults') || 'No results found', 'no-results');
+      },
     },
   };
 
@@ -452,6 +472,20 @@ function initLibrary(select, config) {
     onKeyDown.call(this, event);
   };
 
+  // the list opens above the field where the window has no room below it but
+  // above, as a native select does
+  instance.hook('after', 'positionDropdown', () => {
+    const { dropdown } = instance;
+    const rect = instance.control.getBoundingClientRect();
+    const below = window.innerHeight - rect.bottom;
+    const above = dropdown.offsetHeight > below && rect.top > below;
+    dropdown.classList.toggle('additionals-select-dropup', above);
+    if (above) { dropdown.style.top = `${rect.top + window.scrollY - dropdown.offsetHeight}px`; }
+  });
+  instance.hook('after', 'refreshOptions', () => {
+    if (instance.isOpen) { instance.positionDropdown(); }
+  });
+
   // the list hangs at the body and follows the field when a container around
   // it scrolls (a dialog, the sidebar), not only the window
   const followScroll = (event) => {
@@ -479,7 +513,7 @@ function initLibrary(select, config) {
 
   if (!multiple) {
     const search = instance.dropdown.querySelector('.dropdown-input');
-    if (search) { search.placeholder = searchLabel(); }
+    if (search) { search.placeholder = selectLabel('search'); }
   }
 
   return field;
@@ -772,6 +806,8 @@ function menu({ anchor, entries, placeholder = '', onSelect, onClose } = {}) {
   entries.forEach((entry) => select.append(new Option(entry.text, entry.id)));
   document.body.append(select);
 
+  // the focus goes back where it was after Escape, not to the page
+  const before = document.activeElement;
   const field = initLibrary(select, { placeholder, width: 'auto' });
   const { instance } = field;
   instance.wrapper.classList.add('additionals-select-menu-field');
@@ -795,6 +831,7 @@ function menu({ anchor, entries, placeholder = '', onSelect, onClose } = {}) {
     if (done) { return; }
 
     finish();
+    if (document.activeElement === document.body && before?.isConnected) { before.focus(); }
     if (onClose) { onClose(); }
   });
 

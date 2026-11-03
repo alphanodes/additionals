@@ -9,6 +9,14 @@ class AdditionalsSelectHelperTest < Additionals::HelperTest
     @redmine_view = build_redmine_view
   end
 
+  def test_labels_of_select_fields_come_in_the_language_of_the_page
+    labels = I18n.with_locale(:de) { @redmine_view.additionals_select_labels }
+
+    assert_equal({ search: I18n.t(:label_search, locale: :de), noResults: I18n.t(:label_no_data, locale: :de),
+                   clear: I18n.t(:button_clear, locale: :de), remove: I18n.t(:button_remove, locale: :de) },
+                 labels)
+  end
+
   def test_select_field_gets_controller_and_values_of_the_field
     select = select_of @redmine_view.additionals_select_tag('foo', nil, url: '/search?a=1&b=2', tags: true,
                                                                         free_input: true, free_input_pattern: '@',

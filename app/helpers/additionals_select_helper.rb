@@ -72,6 +72,15 @@ module AdditionalsSelectHelper
     data
   end
 
+  # Texts of the select fields in the language of the page, the library has
+  # English ones of its own
+  def additionals_select_labels
+    { search: l(:label_search),
+      noResults: l(:label_no_data),
+      clear: l(:button_clear),
+      remove: l(:button_remove) }
+  end
+
   private
 
   # Clearing a single field goes back to its blank option. Without one nothing

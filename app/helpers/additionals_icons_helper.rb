@@ -132,7 +132,7 @@ module AdditionalsIconsHelper
     placeholder = options.delete :placeholder
     allow_clear = options.delete :allow_clear
     if include_blank
-      field_options[:placeholder] = placeholder || l(:label_disabled)
+      field_options[:placeholder] = placeholder || l(:label_none)
       field_options[:allow_clear] = allow_clear.nil? || allow_clear
     end
     field_options

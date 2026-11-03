@@ -10,6 +10,7 @@ import {
   typeInto, searchPlaceholder, entryTexts, entry, groupsOfList, isEntryDisabled, chooseEntry, pressKey, clickOutside,
   chosenTexts, shownElement, shownText, placeholderText, removeChosen, canClear, clearField,
   clickField, focusField, isDisabled, moveField, listTop, listParent, searchHasFocus, scrollList,
+  setListHeight, listMessage, clearButton, removeButtonTitle,
 } from '../support/select_field.js';
 
 // The controller is tested against the real library, as the pages use it: its
@@ -756,6 +757,34 @@ describe('AdditionalsSelectController', () => {
       expect(values(select)).toEqual(['2']);
     });
 
+    it('keeps the order of its options when searching', async () => {
+      const select = await render(`
+        <select multiple data-controller="additionals-select">
+          <option value="1">Pineapple</option><option value="2">Apple</option><option value="3">Pear</option>
+        </select>`);
+
+      openField(select);
+      typeInto(select, 'apple');
+
+      expect(entryTexts()).toEqual(['Pineapple', 'Apple']);
+    });
+
+    it('opens above the field where the window has no room below it', async () => {
+      const select = await render(`
+        <select data-controller="additionals-select"><option value="1">One</option></select>
+        <select id="high" data-controller="additionals-select"><option value="1">One</option></select>`);
+      const high = document.getElementById('high');
+      moveField(select, window.innerHeight - 60);
+      setListHeight(select, 200);
+      moveField(high, 100);
+      setListHeight(high, 200);
+
+      openField(select);
+      openField(high);
+
+      expect([listTop(select), listTop(high)]).toEqual([`${window.innerHeight - 260}px`, '100px']);
+    });
+
     it('closes after a choice, also in a multiple field', async () => {
       const select = await render(`
         <select multiple data-controller="additionals-select"><option value="1">One</option><option value="2">Two</option></select>`);
@@ -872,16 +901,43 @@ describe('AdditionalsSelectController', () => {
         .toEqual(['Choose a user', 'Choose users']);
     });
 
-    it('labels the search of the list', async () => {
-      window.ADDITIONALS_LABEL_SEARCH = 'Search';
-      try {
-        const select = await render('<select data-controller="additionals-select"><option value="1">One</option></select>');
-        openField(select);
+  });
 
-        expect(searchPlaceholder(select)).toBe('Search');
-      } finally {
-        delete window.ADDITIONALS_LABEL_SEARCH;
-      }
+  // the texts of the page language, the library has English ones of its own
+  describe('labels', () => {
+    beforeAll(() => {
+      window.ADDITIONALS_SELECT_LABELS = { search: 'Suche', noResults: 'Nichts', clear: 'Leeren', remove: 'Entfernen' };
+    });
+
+    afterAll(() => { delete window.ADDITIONALS_SELECT_LABELS; });
+
+    it('label the search of the list and tell that nothing was found', async () => {
+      const select = await render('<select data-controller="additionals-select"><option value="1">One</option></select>');
+
+      openField(select);
+      typeInto(select, 'xyz');
+
+      expect([searchPlaceholder(select), listMessage()]).toEqual(['Suche', 'Nichts']);
+    });
+
+    it('label the buttons that empty the field and remove an entry', async () => {
+      const single = await render(`
+        <select data-controller="additionals-select" data-additionals-select-allow-clear-value="true">
+          <option value=""></option><option value="1" selected>One</option>
+        </select>
+        <select id="multiple" multiple data-controller="additionals-select"><option value="1" selected>One</option></select>`);
+
+      expect([clearButton(single), removeButtonTitle(document.getElementById('multiple'), 'One')])
+        .toEqual([{ title: 'Leeren', tabStop: false }, 'Entfernen']);
+    });
+
+    it('tell nothing was found only while no new entry is offered', async () => {
+      const select = await render('<select multiple data-controller="additionals-select" data-additionals-select-tags-value="true"></select>');
+
+      openField(select);
+      typeInto(select, 'urgent');
+
+      expect([entryTexts(), listMessage()]).toEqual([['urgent'], null]);
     });
   });
 
@@ -1091,6 +1147,18 @@ describe('AdditionalsSelectController', () => {
         pressKey(select, 'Enter');
 
         expect(onSelect).toHaveBeenCalledWith({ id: '2', text: 'Second' });
+      });
+
+      it('gives the focus back after Escape', () => {
+        document.body.innerHTML = '<button id="anchor">open</button>';
+        const anchor = document.getElementById('anchor');
+        anchor.focus();
+        const select = AdditionalsSelect.menu({ anchor, entries });
+        document.activeElement.blur();
+
+        pressKey(select, 'Escape');
+
+        expect(document.activeElement).toBe(anchor);
       });
 
       // a button near the right edge of the window opens the menu to its left

@@ -139,7 +139,7 @@ class AdditionalsIconsHelperTest < Additionals::HelperTest
       Nokogiri::HTML.fragment(additionals_icon_select(icon_form_builder, nil, icon_field: :reporting_icon)).at('select')
     end
 
-    assert_equal %w[additionals-select icon disabled true],
+    assert_equal %w[additionals-select icon none true],
                  [select['data-controller'], select['data-additionals-select-renderer-value'],
                   select['data-additionals-select-placeholder-value'], select['data-additionals-select-allow-clear-value']]
   end

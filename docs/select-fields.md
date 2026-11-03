@@ -94,7 +94,7 @@ The list opens with a click, Enter or the arrow down, not when the field only ge
 
 ## Query filters
 
-Redmine builds the rows of query filters in the browser. `additionals_select_filter` registers a select field for the values of filters, by filter type, by custom field format or by filter name; the name wins over the format, which wins over the type. It takes the field options above, filters choose multiple values unless `multiple: false`. A filter type of a plugin gets the operators of an optional list.
+Redmine builds the rows of query filters in the browser. `additionals_select_filter` registers a select field for the values of filters, by filter type, by custom field format or by filter name; the name wins over the format, which wins over the type. It takes the field options above, filters choose multiple values unless `multiple: false`. A filter type of a plugin gets the operators of an optional list. A field of a filter row is as wide as its entries, unless the registration gives a `width`.
 
 ```slim
 = additionals_select_filter type: 'author', url: grouped_users_auto_completes_path(project_id: @project)

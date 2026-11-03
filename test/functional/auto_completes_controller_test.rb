@@ -72,6 +72,19 @@ class AutoCompletesControllerTest < Additionals::ControllerTest
     assert_equal '2', json.first['value']
   end
 
+  # A form field offers "<< me >>" only to who may be chosen in it, as core
+  # does; a query filter (me_value 'me') offers it to everybody
+  def test_issue_assignee_offers_me_only_to_who_may_be_assigned
+    offered = [[users(:users_002), 2], [users(:users_004), 4], [users(:users_004), 'me']].map do |user, me_value|
+      @request.session[:user_id] = user.id
+      @request.headers['Accept'] = 'application/json'
+      get :issue_assignee, params: { project_id: projects(:projects_001).id, me_value: }, xhr: true
+      ActiveSupport::JSON.decode(response.body).first['text'] == Query.label_me
+    end
+
+    assert_equal [true, false, true], offered
+  end
+
   def test_issue_assignee_with_groups_enabled
     with_settings issue_group_assignment: '1' do
       get :issue_assignee, xhr: true

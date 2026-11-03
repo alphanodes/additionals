@@ -63,6 +63,18 @@ describe('additionals_select_filters.js', () => {
     expect(Array.from(field.selectedOptions).map((option) => option.text)).toEqual(['John Smith']);
   });
 
+  // a share of a cell that is as wide as its content would always lack that
+  // share and put the last chosen entry onto a line of its own
+  it('makes a field of a filter row as wide as its entries unless the registration sets a width', () => {
+    additionalsSelectRegisterFilter('type', 'author', { url: '/users' });
+    additionalsSelectRegisterFilter('fieldFormat', 'db_entry', { url: '/entries', width: '50%' });
+    buildFilterRow('author_id', '=', ['2']);
+    buildFilterRow('cf_1', '=', []);
+
+    expect([select('author_id').dataset.additionalsSelectWidthValue, select('cf_1').dataset.additionalsSelectWidthValue])
+      .toEqual(['auto', '50%']);
+  });
+
   it('uses the select Redmine built and hides its multiple toggle', () => {
     additionalsSelectRegisterFilter('fieldFormat', 'db_entry', { url: '/entries' });
     buildFilterRow('cf_1', '=', []);

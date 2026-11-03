@@ -72,7 +72,8 @@ module AdditionalsQueriesHelper
       format.json do
         render layout: false,
                partial: 'auto_completes/grouped_users',
-               locals: { with_me: with_me && (search_term.blank? || l(:label_me).downcase.include?(search_term.downcase)),
+               locals: { with_me: with_me && offer_me_entry?(users, me_value) &&
+                                  (search_term.blank? || l(:label_me).downcase.include?(search_term.downcase)),
                          with_ano: with_ano && (search_term.blank? || l(:label_user_anonymous).downcase.include?(search_term.downcase)),
                          me_value:,
                          sep_required: false }
@@ -295,6 +296,13 @@ module AdditionalsQueriesHelper
   # grouped users of select fields. Without assignee format the legacy order
   # (active, groups, registered, locked) is preserved. In an assignee context
   # the order/grouping follows Setting.assignee_dropdown_display_format.
+  # "<< me >>" of a form field (+me_value+ is an id) stands for the user, who
+  # may only be chosen where the list holds the user, as core does it; in a
+  # query filter ('me') it stands for whoever looks at the query
+  def offer_me_entry?(users, me_value)
+    me_value.to_s == 'me' || users.exists?(id: User.current.id)
+  end
+
   def grouped_user_sections(apply_assignee_format:)
     groups_section = [l(:label_group_plural), @users[:groups]] if @users[:groups].present?
 

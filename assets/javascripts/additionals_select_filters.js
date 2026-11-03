@@ -92,7 +92,9 @@ function additionalsSelectFilterRow(field, values) {
   const select = additionalsSelectEnsureSelect(row, field, values || [], multiple);
   // the values of the filter, not what a single select chose by itself
   if (multiple) { additionalsSelectMultiple(select, (values || []).map(String)); }
-  additionalsSelectApply(select, options);
+  // the cell of a filter is as wide as its content: a share of it would
+  // always lack that share and wrap the last chosen entry
+  additionalsSelectApply(select, { width: 'auto', ...options });
 }
 
 /* Registers +options+ for filters (Ruby: additionals_select_filter). A filter

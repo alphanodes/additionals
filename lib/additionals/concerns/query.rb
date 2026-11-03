@@ -427,15 +427,19 @@ module Additionals
           options
         end
 
+        # Entries related (=) or not related (!) to one of the ids in +values+:
+        # one id per value from a select field, or several in a text like
+        # '1, 2'
         def sql_for_entity_relation(_field, operator, values, rel_klass:, rel_field_id:, queried_field_id:)
           subquery = "SELECT 1 FROM #{rel_klass.table_name} WHERE #{rel_klass.table_name}.#{queried_field_id} = #{queried_table_name}.id"
           case operator
-          when '='
-            int_values = values.first.to_s.scan(/[+-]?\d+/).map(&:to_i).join(',')
-            if int_values.present?
-              "EXISTS(#{subquery} AND #{rel_klass.table_name}.#{rel_field_id} IN(#{int_values}))"
+          when '=', '!'
+            ids = Array(values).join(',').scan(/\d+/).uniq
+            if ids.none?
+              operator == '=' ? Additionals::SQL_NO_RESULT_CONDITION : Additionals::SQL_WITH_TRUE_CONDITION
             else
-              Additionals::SQL_NO_RESULT_CONDITION
+              related = "EXISTS(#{subquery} AND #{rel_klass.table_name}.#{rel_field_id} IN(#{ids.join ','}))"
+              operator == '=' ? related : "NOT #{related}"
             end
           when '<='
             "EXISTS(#{subquery} AND #{rel_klass.table_name}.#{rel_field_id} <= #{values.first.to_f})"

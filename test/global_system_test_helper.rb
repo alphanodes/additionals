@@ -140,11 +140,15 @@ module Additionals
         choose_open_select_entry text, exact:
       end
 
-      # Opens the select field inside +container+
+      # Opens the select field inside +container+. The click goes to the upper
+      # left corner of the field, where no chosen entry and no button lies; a
+      # click on an open field would close it.
       def open_select_field(container)
-        # removing a chosen entry already opens the field, a click would close it
         within container do
-          find(SELECT_FIELD_MARKUP[:opener]).click unless has_css? SELECT_FIELD_MARKUP[:open_field], wait: 0
+          opener = find SELECT_FIELD_MARKUP[:opener]
+          next if opener.find(:xpath, '..').matches_css? SELECT_FIELD_MARKUP[:open_field], wait: 0
+
+          opener.click x: 3 - (opener.native.size.width / 2), y: 2 - (opener.native.size.height / 2)
         end
       end
 
@@ -170,7 +174,7 @@ module Additionals
 
       # The open list offers the entry +text+
       def assert_select_entry(text, exact: true)
-        assert select_entry(text, exact:)
+        page.document.assert_selector SELECT_FIELD_MARKUP[:entry], text:, exact_text: exact
       end
 
       # No open list offers the entry +text+, e.g. after a menu went away
@@ -179,18 +183,15 @@ module Additionals
       end
 
       # The select field inside +container+ shows exactly the chosen entries
-      # +texts+, in this order; none for an empty field
+      # +texts+, in this order, as the user sees them; none for an empty field.
+      # Retried until the field shows them, it may still be rendering.
       def assert_select_chosen(container, *texts)
         within container do
           field = find SELECT_FIELD_MARKUP[:field]
-          # the title holds the text of the entry alone, without the remove
-          # button; retried until the field shows them, it may still be rendering
           field.synchronize do
-            chosen = field.all(SELECT_FIELD_MARKUP[:choice], wait: 0).pluck(:title)
+            chosen = field.all(SELECT_FIELD_MARKUP[:choice], wait: 0).map { |choice| choice.find(:xpath, './*[1]').text }
             raise Capybara::ExpectationNotMet, "chosen #{chosen.inspect}, expected #{texts.inspect}" if chosen != texts
           end
-
-          assert_equal texts, field.all(SELECT_FIELD_MARKUP[:choice]).pluck(:title)
         end
       end
 
@@ -219,9 +220,10 @@ module Additionals
 
       # The entries open at the end of the body, also for a field inside a
       # dialog, so they are searched outside any within block; groups of
-      # entries are skipped
+      # entries are skipped. An entry in several groups (e.g. a watcher who is
+      # an active member too) is taken from the first.
       def select_entry(text, exact:)
-        page.document.find SELECT_FIELD_MARKUP[:entry], text:, exact_text: exact
+        page.document.find SELECT_FIELD_MARKUP[:entry], text:, exact_text: exact, match: :first
       end
     end
   end

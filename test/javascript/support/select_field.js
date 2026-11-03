@@ -105,18 +105,35 @@ export function listTop(select) {
   return instanceOf(select).dropdown.style.top;
 }
 
+// The element the list of the field hangs at
+export function listParent(select) {
+  return instanceOf(select).dropdown.parentElement;
+}
+
+// The search of the field has the focus, the user types into it at once
+export function searchHasFocus(select) {
+  return document.activeElement === searchField(select);
+}
+
 function searchField(select) {
   return instanceOf(select).control_input;
 }
 
-// Types +text+ into the search of the field, key by key
+// The key code of a keydown names the key, not the character: letters as
+// capitals, digits as such; other keys differ by keyboard and get none
+function keyDownCode(character) {
+  return /^[a-z0-9]$/i.test(character) ? character.toUpperCase().charCodeAt(0) : 0;
+}
+
+// Types +text+ into the search of the field, key by key: a key the field
+// keeps (keydown or keypress) types nothing
 export function typeInto(select, text) {
   const search = searchField(select);
   search.value = '';
   Array.from(text).forEach((character) => {
-    const code = character.charCodeAt(0);
-    const press = new KeyboardEvent('keypress', { key: character, keyCode: code, which: code, bubbles: true, cancelable: true });
-    if (!search.dispatchEvent(press)) { return; }
+    const key = (type, code) => new KeyboardEvent(type, { key: character, keyCode: code, which: code, bubbles: true, cancelable: true });
+    if (!search.dispatchEvent(key('keydown', keyDownCode(character))) ||
+        !search.dispatchEvent(key('keypress', character.charCodeAt(0)))) { return; }
 
     search.value += character;
     search.dispatchEvent(new Event('input', { bubbles: true }));

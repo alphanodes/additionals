@@ -88,7 +88,9 @@ The order of `additionals-select:close` and `additionals-select:select` is not f
 | `destroy(select)` | Removes the field of the library |
 | `menu({ anchor, entries, placeholder, onSelect, onClose })` | Opens a list of `entries` (`{ id, text }`) below `anchor` to pick one; it goes away after a choice, with Escape or a click outside |
 
-Every field carries the class `additionals-select-field` for styles that place or size it. Fields in content loaded later (dialogs, `render_async`) are set up as well, also when the library comes with that content.
+Every field carries the class `additionals-select-field` for styles that place or size it. Fields in content loaded later (dialogs, `render_async`) are set up as well, also when the library comes with that content. The list hangs at the body, lies above dialogs and follows the field when a container around it scrolls; its search takes the focus in modal dialogs too.
+
+The list opens with a click, Enter or the arrow down, not when the field only gets the focus (e.g. with Tab). A field follows its select: options appended or removed, values set and told by `change`, and `disabled`.
 
 ## Query filters
 

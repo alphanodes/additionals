@@ -9,7 +9,7 @@ import {
   loadSelectLibrary, hideSelectLibrary, serverAnswers, hasSelectField, fieldElement, openField, closeField, isOpen,
   typeInto, searchPlaceholder, entryTexts, entry, groupsOfList, isEntryDisabled, chooseEntry, pressKey, clickOutside,
   chosenTexts, shownElement, shownText, placeholderText, removeChosen, canClear, clearField,
-  clickField, focusField, isDisabled, moveField, listTop,
+  clickField, focusField, isDisabled, moveField, listTop, listParent, searchHasFocus,
 } from '../support/select_field.js';
 
 // The controller is tested against the real library, as the pages use it: its
@@ -74,14 +74,40 @@ describe('AdditionalsSelectController', () => {
       expect(fieldElement(select).classList.contains('additionals-select-field')).toBe(true);
     });
 
-    it('sets the field up again when a value changes', async () => {
-      const select = await render('<select data-controller="additionals-select"><option value="1">One</option></select>');
+    // Core and plugins count the selects of a filter row by their class
+    it('does not give the field the classes of the select', async () => {
+      const select = await render('<select class="value own" data-controller="additionals-select"></select>');
+
+      expect(['value', 'own'].map((name) => fieldElement(select).classList.contains(name))).toEqual([false, false]);
+    });
+
+    it('takes its width from the option, 90% without it', async () => {
+      const wide = await render(`
+        <select data-controller="additionals-select" data-additionals-select-width-value="300px"></select>
+        <select id="plain" data-controller="additionals-select"></select>`);
+
+      expect([fieldElement(wide).style.width, fieldElement(document.getElementById('plain')).style.width])
+        .toEqual(['300px', '90%']);
+    });
+
+    // so it lies above dialogs and is not cut off by their borders
+    it('hangs its list at the body', async () => {
+      const select = await render('<div class="box"><select data-controller="additionals-select"></select></div>');
+
+      expect(listParent(select)).toBe(document.body);
+    });
+
+    it('sets the field up again when a value changes, with its values', async () => {
+      const select = await render(`
+        <select multiple data-controller="additionals-select"><option value="1">One</option><option value="2">Two</option></select>`);
+      openField(select);
+      chooseEntry('Two');
       select.setAttribute('data-additionals-select-tags-value', 'true');
       await wait();
       openField(select);
       typeInto(select, 'New tag');
 
-      expect(entryTexts()).toContain('New tag');
+      expect([entryTexts(), chosenTexts(select)]).toEqual([['New tag'], ['Two']]);
     });
 
     it('waits for the library when it comes after the field', async () => {
@@ -144,6 +170,26 @@ describe('AdditionalsSelectController', () => {
       expect([whenDisabled, isDisabled(select)]).toEqual([true, false]);
     });
 
+    it('shows a value set from JavaScript that is told by change, without refresh', async () => {
+      const select = await render(`
+        <select multiple data-controller="additionals-select"><option value="1">One</option><option value="2">Two</option></select>`);
+
+      select.options[1].selected = true;
+      select.dispatchEvent(new Event('change'));
+
+      expect(chosenTexts(select)).toEqual(['Two']);
+    });
+
+    it('offers an option appended to the select, without refresh', async () => {
+      const select = await render('<select multiple data-controller="additionals-select"><option value="1">One</option></select>');
+
+      select.append(new Option('Two', '2'));
+      await wait();
+      openField(select);
+
+      expect(entryTexts()).toEqual(['One', 'Two']);
+    });
+
     it('no longer offers an option removed from the select', async () => {
       const select = await render(`
         <select multiple data-controller="additionals-select">
@@ -171,6 +217,20 @@ describe('AdditionalsSelectController', () => {
       chooseEntry('Kurt');
 
       expect(listener.mock.calls[0][0].detail.item).toEqual({ id: 7, text: 'Kurt', email: 'kurt@example.com' });
+    });
+  });
+
+  describe('additionals-select:select only for a choice of the user', () => {
+    it('is not sent for values set from JavaScript', async () => {
+      const select = await render(`
+        <select multiple data-controller="additionals-select"><option value="1">One</option><option value="2">Two</option></select>`);
+      const listener = vi.fn();
+      select.addEventListener('additionals-select:select', listener);
+
+      select.options[1].selected = true;
+      AdditionalsSelect.refresh(select);
+
+      expect(listener).not.toHaveBeenCalled();
     });
   });
 
@@ -281,9 +341,10 @@ describe('AdditionalsSelectController', () => {
       openField(select);
       typeInto(select, 'Kurt');
       await wait(SEARCH_WAIT + 50);
+      const offered = entryTexts();
       pressKey(select, 'Enter');
 
-      expect(values(select)).toEqual(['kurt@example.com']);
+      expect([offered, values(select)]).toEqual([['Kurt Albert', 'Kurt'], ['kurt@example.com']]);
     });
 
     it('takes typed text only when it fits the pattern', async () => {
@@ -375,21 +436,6 @@ describe('AdditionalsSelectController', () => {
       expect([values(select), isOpen(select)]).toEqual([['new@example.com'], false]);
     });
 
-    it('takes typed text again after an Escape on the closed field and a choice with Ctrl', async () => {
-      const select = await render(`
-        <select multiple data-controller="additionals-select" data-additionals-select-free-input-value="true">
-          <option value="a@example.com">a@example.com</option>
-        </select>`);
-
-      pressKey(select, 'Escape');
-      openField(select);
-      chooseEntry('a@example.com', { ctrlKey: true });
-      typeInto(select, 'new@example.com');
-      clickOutside();
-
-      expect(values(select)).toEqual(['a@example.com', 'new@example.com']);
-    });
-
     it('does not take back an entry removed with Backspace', async () => {
       const select = await render(`
         <select multiple data-controller="additionals-select" data-additionals-select-free-input-value="true">
@@ -462,6 +508,21 @@ describe('AdditionalsSelectController', () => {
     });
 
     // the server also finds by fields the entry does not show (login, address)
+    it('asks the server again for the same search, its answer may have changed', async () => {
+      const server = serverAnswers([{ id: 1, text: 'Kurt' }]);
+      const select = await render(`<select data-controller="additionals-select" ${url}></select>`);
+
+      openField(select);
+      typeInto(select, 'Ku');
+      await wait(SEARCH_WAIT);
+      closeField(select);
+      openField(select);
+      typeInto(select, 'Ku');
+      await wait(SEARCH_WAIT);
+
+      expect(server.terms.filter((term) => term === 'Ku')).toHaveLength(2);
+    });
+
     it('shows each entry of the answer, also without the search in its text', async () => {
       serverAnswers([{ id: 1, text: 'Kurt Albert' }, { id: 2, text: 'Anna' }]);
       const select = await render(`<select data-controller="additionals-select" ${url}></select>`);
@@ -620,6 +681,26 @@ describe('AdditionalsSelectController', () => {
       pressKey(select, 'Enter');
 
       expect(values(select)).toEqual(['2']);
+    });
+
+    it('closes after a choice, also in a multiple field', async () => {
+      const select = await render(`
+        <select multiple data-controller="additionals-select"><option value="1">One</option><option value="2">Two</option></select>`);
+
+      openField(select);
+      chooseEntry('One');
+
+      expect(isOpen(select)).toBe(false);
+    });
+
+    it('keeps the value of a single field on Backspace in the empty search', async () => {
+      const select = await render(`
+        <select data-controller="additionals-select"><option value="1" selected>One</option><option value="2">Two</option></select>`);
+
+      openField(select);
+      pressKey(select, 'Backspace');
+
+      expect(select.value).toBe('1');
     });
 
     it('closes with Escape and with a click elsewhere, without a choice', async () => {
@@ -785,6 +866,18 @@ describe('AdditionalsSelectController', () => {
       expect(values(select)).toEqual(['urgent']);
     });
 
+    it('offers a tag that exists once, not as new tag too', async () => {
+      const select = await render(`
+        <select multiple data-controller="additionals-select" data-additionals-select-tags-value="true">
+          <option value="urgent">urgent</option>
+        </select>`);
+
+      openField(select);
+      typeInto(select, 'urgent');
+
+      expect(entryTexts()).toEqual(['urgent']);
+    });
+
     it('takes the text before a comma as a tag of its own', async () => {
       const select = await render(tagField);
 
@@ -834,8 +927,9 @@ describe('AdditionalsSelectController', () => {
       const select = await render('<select data-controller="additionals-select"><option value="1">One</option></select>');
 
       AdditionalsSelect.open(select);
+      await wait();
 
-      expect(isOpen(select)).toBe(true);
+      expect([isOpen(select), searchHasFocus(select)]).toEqual([true, true]);
     });
 
     it('destroy removes the select field of the library', async () => {
@@ -851,12 +945,15 @@ describe('AdditionalsSelectController', () => {
         <select multiple data-controller="additionals-select">
           <option value="1">One</option><option value="2">Two</option>
         </select>`);
+      select.append(new Option('Three', '3'));
+      AdditionalsSelect.refresh(select);
       openField(select);
-      chooseEntry('Two');
+      chooseEntry('Three');
 
       AdditionalsSelect.destroy(select);
 
-      expect([Array.from(select.options).map((option) => option.text), values(select)]).toEqual([['One', 'Two'], ['2']]);
+      expect([Array.from(select.options).map((option) => option.text), values(select)])
+        .toEqual([['One', 'Two', 'Three'], ['3']]);
     });
 
     describe('menu', () => {
@@ -874,6 +971,16 @@ describe('AdditionalsSelectController', () => {
         expect(onClose).not.toHaveBeenCalled();
         expect(select.isConnected).toBe(false);
         expect(document.querySelector('.additionals-select-field')).toBeNull();
+      });
+
+      it('chooses with the arrow keys and Enter', () => {
+        const onSelect = vi.fn();
+        const select = AdditionalsSelect.menu({ entries, onSelect });
+
+        pressKey(select, 'ArrowDown');
+        pressKey(select, 'Enter');
+
+        expect(onSelect).toHaveBeenCalledWith({ id: '2', text: 'Second' });
       });
 
       // a button near the right edge of the window opens the menu to its left

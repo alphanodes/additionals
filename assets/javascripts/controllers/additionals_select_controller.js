@@ -599,16 +599,7 @@ class AdditionalsSelectController extends Controller {
 
     if (this.freeInputValue) { this.bindFreeInput(); }
 
-    // closing the list of a single field moves the focus, which closes it a
-    // second time inside the library
-    let closed = true;
-    instance.on('dropdown_open', () => { closed = false; });
-    instance.on('dropdown_close', () => {
-      if (closed) { return; }
-
-      closed = true;
-      this.dispatch('close');
-    });
+    instance.on('dropdown_close', () => this.dispatch('close'));
   }
 
   /* Changes of the select from a program (appended options, values set from
@@ -692,9 +683,9 @@ class AdditionalsSelectController extends Controller {
   takeTypedValue(term) {
     if (term.includes(',') || !fitsPattern(term, this.freeInputPatternValue)) { return; }
 
-    let values = [...this.instance.items];
+    // a tag of the same group goes in the hook before addItem
+    const values = [...this.instance.items];
     if (values.includes(term)) { return; }
-    if (this.scopedTagsValue) { values = withoutScopedSiblings(values, term); }
 
     if (!this.instance.options[term]) { this.instance.addOption({ id: term, text: term }, true); }
     this.instance.setValue(this.element.multiple ? [...values, term] : [term]);

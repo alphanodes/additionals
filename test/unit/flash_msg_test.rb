@@ -10,6 +10,12 @@ class FlashMsgTest < Additionals::TestCase
     set_language_if_valid 'en'
   end
 
+  def test_mail_message_names_the_address
+    message = ApplicationController.new.flash_msg :notice_email_sent, mail: 'kurt@example.com'
+
+    assert_equal 'An email was sent to kurt@example.com', message
+  end
+
   # Core renders flash messages as HTML
   def test_error_messages_are_escaped
     record = IssueCategory.new

@@ -23,11 +23,9 @@ module Additionals
           true
         end
 
+        # The address alone, with a name "Name (address)"
         def render_flash_mail(mail, name = nil)
-          content = "#{name} (#{mail})"
-          return content if name.blank?
-
-          "#{name} #{content}"
+          name.present? ? "#{name} (#{mail})" : mail.to_s
         end
 
         def flash_msg(msg, value: nil, code: nil, mail: nil, obj: nil, field: :id)

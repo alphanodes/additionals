@@ -7,6 +7,7 @@
 - Autocomplete endpoints return at most as many entries as the API limit (`AdditionalsConf.autocomplete_limit`)
 - Pages that answer `additionals_select_fields?` with false register no select fields for query filters and load no library for them
 - Add select fields with search, tags and query filters through the Stimulus controller `additionals-select` (`additionals_select_tag`, `additionals_select_filter`, `AdditionalsSelect`), see `docs/select-fields.md`
+- Notices about a sent mail name the address without brackets and a contact with its name once
 - Select fields use Tom Select instead of Select2: no jQuery plugin, own CSS classes, so they no longer clash with the Select2 of other plugins on the same page
 - Select fields send a native `change` event, so Stimulus actions and listeners of plugins see changed values
 - A single select field with `allow_clear` saves the cleared value, it gets a blank option of its own; before, the old value stayed

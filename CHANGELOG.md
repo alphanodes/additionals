@@ -95,7 +95,7 @@
 - Fix auto refresh of async blocks shown from the cache and the empty space below them after loading
 - Chart.js updated to 4.6.1
 - Chart.js Plugin matrix updated to 3.1.0
-- mermaid updated to 12.2.0
+- mermaid updated to 12.3.0
 
 ## 4.6.0
 

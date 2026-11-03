@@ -63,16 +63,16 @@ dhtmlxgantt:
     sha256: b538141aac6b42f66100ce97d48584b9516e3acbbceb97d6321277c8508f3a30
 mermaid:
   package: mermaid
-  version: 12.2.0
+  version: 12.3.0
   title: mermaid
   guide: docs/updating-mermaid.md
   files:
   - source: dist/mermaid.min.js
     target: assets/javascripts/vendor/mermaid.min.js
-    sha256: a8a6a6f805b074a8261a2825c86f99c8054acb3b35f50bb7e24a4f9f2c3c3b9f
+    sha256: 336df803d87a38b70a01e736e666c8f7601d2ce42f5e47c8fafe5d721074b9a3
   - source: dist/mermaid.min.js.map
     target: assets/javascripts/vendor/mermaid.min.js.map
-    sha256: a5b0405411969d4fd8e2301ad6da2f6918ca1a619a6c820eb77b4dfc423376db
+    sha256: f6b1ad03024f1433e068c54e79c6e0cfb3e8a6ec7fa6113e130462f8752ee2a9
 sortable:
   package: sortablejs
   version: 1.15.7

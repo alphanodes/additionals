@@ -15,6 +15,9 @@ module Additionals
                                      global_user
                                      internal_user].freeze
 
+      # Filter types whose list offers "<< me >>", as the filters of users of core
+      FILTER_TYPES_WITH_ME = (SELECT_FIELD_FILTER_TYPES - %i[user internal_user]).freeze
+
       included do
         scope :assignable, -> { active.visible.where type: %w[User Group] }
 

@@ -47,6 +47,7 @@ flowchart LR
 | `renderer` | How entries look, see below |
 | `value_key` | Property of the server entries that becomes the value; entries without it cannot be chosen |
 | `placeholder` | Text of the empty field |
+| `suggestion` | A chosen value that gives way to the first entry the user chooses (multiple fields), shown as a suggestion until then (class `additionals-select-suggestion`), e.g. `me` of a new filter |
 | `allow_clear` | Shows a button that empties the field; a single field gets a blank option for it, so the empty value is sent |
 | `min_input_length` | Characters to type before searching |
 | `width` | Width of the field, default `90%` |
@@ -94,7 +95,7 @@ The list opens with a click, Enter or the arrow down, not when the field only ge
 
 ## Query filters
 
-Redmine builds the rows of query filters in the browser. `additionals_select_filter` registers a select field for the values of filters, by filter type, by custom field format or by filter name; the name wins over the format, which wins over the type. It takes the field options above, filters choose multiple values unless `multiple: false`. A filter type of a plugin gets the operators of an optional list. A field of a filter row is as wide as its entries, unless the registration gives a `width`. A single field of a filter row without a value chooses nothing, the browser would choose its first entry.
+Redmine builds the rows of query filters in the browser. `additionals_select_filter` registers a select field for the values of filters, by filter type, by custom field format or by filter name; the name wins over the format, which wins over the type. It takes the field options above, filters choose multiple values unless `multiple: false`. A filter type of a plugin gets the operators of an optional list. A field of a filter row is as wide as its entries, unless the registration gives a `width`. A new filter row of users chooses `<< me >>` as core does, where the server offers it for filter types of users (`Principal::FILTER_TYPES_WITH_ME`); where `<< me >>` is the only value, also in a loaded filter, the first entry the user chooses replaces it. Any other single field of a filter row without a value chooses nothing, the browser would choose its first entry.
 
 ```slim
 = additionals_select_filter type: 'author', url: grouped_users_auto_completes_path(project_id: @project)

@@ -14,7 +14,7 @@ var additionalsSelectFilters = window.additionalsSelectFilters || { type: {}, fi
 window.additionalsSelectFilters = additionalsSelectFilters;
 
 var ADDITIONALS_SELECT_VALUE_KEYS = ['url', 'tags', 'scopedTags', 'freeInput', 'freeInputPattern', 'renderer', // eslint-disable-line no-var
-  'valueKey', 'placeholder', 'allowClear', 'minInputLength', 'width'];
+  'valueKey', 'placeholder', 'allowClear', 'minInputLength', 'width', 'suggestion'];
 
 // The options of the filter +field+: a field name wins over its field format,
 // which wins over its filter type
@@ -79,6 +79,19 @@ function additionalsSelectEnsureSelect(row, field, values, multiple) {
   return select;
 }
 
+// "<< me >>" of a filter of users is the value core switches with one choice:
+// a new filter (no values yet) takes it, as the select of core chooses its
+// first value (the server offers it, QueryPatch), and where it is the only
+// value the first choice of the user replaces it
+function additionalsSelectSuggestion(field, values) {
+  const chosen = (values || []).map(String);
+  if (chosen.length === 1 && chosen[0] === 'me') { return 'me'; }
+  if (chosen.length > 0) { return null; }
+
+  const offered = (availableFilters[field].values || []).some((value) => Array.isArray(value) && value[1] === 'me');
+  return offered ? 'me' : null;
+}
+
 // A single select of the browser has its first option chosen: without a value
 // of the filter it gets a blank one, so the filter takes nothing nobody chose
 function additionalsSelectNothingChosen(select) {
@@ -98,14 +111,16 @@ function additionalsSelectFilterRow(field, values) {
   const multiple = options.multiple !== false;
   const select = additionalsSelectEnsureSelect(row, field, values || [], multiple);
   // the values of the filter, not what a single select chose by itself
-  if (multiple) {
-    additionalsSelectMultiple(select, (values || []).map(String));
-  } else if (!values || values.length === 0) {
+  const suggestion = additionalsSelectSuggestion(field, values);
+  if (multiple) { additionalsSelectMultiple(select, (values || []).map(String)); }
+  if (suggestion) {
+    Array.from(select.options).forEach((option) => { option.selected = option.value === suggestion; });
+  } else if (!multiple && (!values || values.length === 0)) {
     additionalsSelectNothingChosen(select);
   }
   // the cell of a filter is as wide as its content: a share of it would
   // always lack that share and wrap the last chosen entry
-  additionalsSelectApply(select, { width: 'auto', ...options });
+  additionalsSelectApply(select, { width: 'auto', ...options, ...(suggestion ? { suggestion } : {}) });
 }
 
 /* Registers +options+ for filters (Ruby: additionals_select_filter). A filter

@@ -10,7 +10,7 @@ import {
   typeInto, searchPlaceholder, entryTexts, entry, groupsOfList, isEntryDisabled, chooseEntry, pressKey, clickOutside,
   chosenTexts, shownElement, shownText, placeholderText, removeChosen, canClear, clearField,
   clickField, focusField, isDisabled, moveField, listTop, listParent, searchHasFocus, scrollList,
-  setListHeight, listMessage, clearButton, removeButtonTitle, tabStartsFrom, announcement, listAllowsSeveral,
+  setListHeight, listMessage, clearButton, removeButtonTitle, tabStartsFrom, announcement, listAllowsSeveral, suggestedTexts,
 } from '../support/select_field.js';
 
 // The controller is tested against the real library, as the pages use it: its
@@ -1042,6 +1042,29 @@ describe('AdditionalsSelectController', () => {
       pressKey(select, 'Delete');
 
       expect(select.value).toBe('1');
+    });
+  });
+
+  // "<< me >>" chosen for a new filter (as core does) is a suggestion: the
+  // first entry the user chooses replaces it, later ones are added
+  describe('suggestion', () => {
+    it('is replaced by the first entry the user chooses', async () => {
+      const select = await render(`
+        <select multiple data-controller="additionals-select" data-additionals-select-suggestion-value="me">
+          <option value="me" selected>&lt;&lt; me &gt;&gt;</option><option value="2">Two</option><option value="3">Three</option>
+        </select>`);
+      const change = vi.fn();
+      select.addEventListener('change', change);
+
+      const suggested = suggestedTexts(select);
+      openField(select);
+      chooseEntry('Two');
+      const first = values(select);
+      openField(select);
+      chooseEntry('<< me >>');
+
+      expect([suggested, first, values(select), suggestedTexts(select), change.mock.calls.length])
+        .toEqual([['<< me >>'], ['2'], ['2', 'me'], [], 2]);
     });
   });
 

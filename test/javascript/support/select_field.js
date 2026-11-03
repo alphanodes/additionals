@@ -280,6 +280,11 @@ export function chosenTexts(select) {
   return chosenItems(select).map(itemText);
 }
 
+// Chosen entries shown as a suggestion, which the first choice replaces
+export function suggestedTexts(select) {
+  return chosenItems(select).filter((item) => item.classList.contains('additionals-select-suggestion')).map(itemText);
+}
+
 // What a single field shows: the chosen entry or its placeholder
 export function shownElement(select) {
   return chosenItems(select)[0] || fieldElement(select).querySelector('.items-placeholder');

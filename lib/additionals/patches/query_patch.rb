@@ -39,12 +39,17 @@ module Additionals
 
       module InstanceOverwriteMethods
         # Select fields of query filters are also registered by custom field
-        # format (additionals_select_filter), which core leaves out here
+        # format (additionals_select_filter), which core leaves out here.
+        # A filter of users without a value offers "<< me >>", which core
+        # chooses when the filter is added (the first value of its select);
+        # only the browser gets it, tools take the values of a filter as its
+        # full list.
         def available_filters_as_json
           json = super
           json.each do |field, options|
-            field_format = available_filters[field][:field_format]
-            options['field_format'] = field_format if field_format
+            filter = available_filters[field]
+            options['field_format'] = filter[:field_format] if filter[:field_format]
+            options['values'] = [::Query.label_me_value] if offers_me_to_new_filter? filter, options
           end
         end
 
@@ -191,6 +196,11 @@ module Additionals
 
           Additionals.debug sql if debug
           sql
+        end
+
+        def offers_me_to_new_filter?(filter, options)
+          User.current.logged? && options['values'].blank? &&
+            Principal::FILTER_TYPES_WITH_ME.include?(filter[:type])
         end
 
         def initialize_user_values_for_select_field(field, values)

@@ -135,6 +135,26 @@ class QueryTest < Additionals::TestCase
     assert_not json['status_id'].key?('field_format')
   end
 
+  # Core chooses "<< me >>" when a filter of users is added, its select takes
+  # the first value. The browser learns the entry from these options; the
+  # values of the filter stay as they are, tools take them as its full list.
+  def test_available_filters_as_json_offers_me_for_new_filters_of_users
+    offered = [[users(:users_002), nil], [users(:users_002), ['3']], [User.anonymous, nil]].map do |user, chosen|
+      User.current = user
+      query = IssueQuery.new name: '_'
+      query.available_filters
+      query.add_available_filter 'author_like', type: :author, values: []
+      query.add_available_filter 'user_like', type: :user, values: []
+      query.add_filter 'author_like', '=', chosen if chosen
+      json = query.available_filters_as_json
+      [json['author_like']['values'], json['user_like']['values'], query.available_filters['author_like'][:values]]
+    end
+
+    assert_equal [[[Query.label_me_value], [], []],
+                  [[['Dave Lopper', '3']], [], [['Dave Lopper', '3']]],
+                  [[], [], []]], offered
+  end
+
   def test_add_filter_keeps_core_filter_for_non_select_field
     query = IssueQuery.new name: '_'
 

@@ -521,6 +521,30 @@ function initLibrary(select, config) {
   // field, it does not mark the entry
   instance.onItemSelect = () => false;
 
+  // A value chosen as a suggestion (e.g. "<< me >>" of a new filter, as core
+  // does) gives way to the first entry the user chooses, as the value of a
+  // single select would; after that the field adds entries as usual
+  // The entry of the suggestion is shown as one until then.
+  if (multiple && config.suggestion) {
+    let { suggestion } = config;
+    const showSuggestion = (shown) => {
+      instance.getItem(config.suggestion)?.classList.toggle('additionals-select-suggestion', shown);
+    };
+    const endSuggestion = () => {
+      suggestion = null;
+      showSuggestion(false);
+    };
+    showSuggestion(true);
+    instance.hook('before', 'addItem', (value, silent) => {
+      if (silent || suggestion === null) { return; }
+
+      const replaced = suggestion;
+      endSuggestion();
+      if (value !== replaced && instance.items.includes(replaced)) { instance.removeItem(replaced, true); }
+    });
+    instance.on('item_remove', endSuggestion);
+  }
+
   // a chosen entry of a multiple field is chosen again to remove it
   const { onOptionSelect } = instance;
   instance.onOptionSelect = function (event, option) {
@@ -633,6 +657,7 @@ class AdditionalsSelectController extends Controller {
     allowClear: Boolean,
     minInputLength: Number,
     width: String,
+    suggestion: String,
   };
 
   connect() {
@@ -679,6 +704,7 @@ class AdditionalsSelectController extends Controller {
       allowClear: this.allowClearValue,
       minInputLength: this.minInputLengthValue,
       width: this.widthValue,
+      suggestion: this.suggestionValue,
     };
   }
 

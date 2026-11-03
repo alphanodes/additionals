@@ -43,6 +43,7 @@ beforeEach(() => {
 });
 
 const select = (field) => document.querySelector(`#tr_${field} select.value`);
+const chosen = (field) => Array.from(select(field).selectedOptions).map((option) => option.value);
 
 describe('additionals_select_filters.js', () => {
   it('gives a filter type of a plugin the operators of an optional list', () => {
@@ -111,6 +112,35 @@ describe('additionals_select_filters.js', () => {
     buildFilterRow('status_id', '=', ['1']);
 
     expect([select('author_id').value, select('status_id').value]).toEqual(['', '1']);
+  });
+
+  // as core, whose select takes its first value, "<< me >>"; a filter with
+  // values or without "<< me >>" keeps what it has
+  it('chooses "<< me >>" in a new filter that offers it', () => {
+    additionalsSelectRegisterFilter('type', 'author', { url: '/users' });
+    additionalsSelectRegisterFilter('type', 'list', { url: '/statuses' });
+    globalThis.availableFilters.author_id.values = [['<< me >>', 'me']];
+    globalThis.availableFilters.cf_2 = { type: 'author', values: [['<< me >>', 'me'], ['Jane', '3']] };
+    buildFilterRow('author_id', '=', []);
+    buildFilterRow('cf_2', '=', ['3']);
+    buildFilterRow('status_id', '=', []);
+
+    expect([chosen('author_id'), chosen('cf_2'), chosen('status_id')]).toEqual([['me'], ['3'], []]);
+    expect(select('author_id').dataset.additionalsSelectSuggestionValue).toBe('me');
+    expect(select('cf_2').dataset.additionalsSelectSuggestionValue).toBeUndefined();
+  });
+
+  // "<< me >>" alone is the value core switches with one choice, also in a
+  // filter loaded with it; next to other values it stays a value like them
+  it('lets the first choice replace "<< me >>" where it is the only value', () => {
+    additionalsSelectRegisterFilter('type', 'author', { url: '/users' });
+    globalThis.availableFilters.author_id.values = [['<< me >>', 'me'], ['Jane', '3']];
+    globalThis.availableFilters.cf_2 = { type: 'author', values: [['<< me >>', 'me'], ['Jane', '3']] };
+    buildFilterRow('author_id', '=', ['me']);
+    buildFilterRow('cf_2', '=', ['me', '3']);
+
+    expect([select('author_id').dataset.additionalsSelectSuggestionValue, select('cf_2').dataset.additionalsSelectSuggestionValue])
+      .toEqual(['me', undefined]);
   });
 
   it('chooses nothing by itself when the filter has no values yet', () => {

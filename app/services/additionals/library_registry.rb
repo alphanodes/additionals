@@ -57,9 +57,11 @@ module Additionals
       _mermaid_min:            Asset.new(type: :js,  path: 'vendor/mermaid.min'),
       _mermaid_load:           Asset.new(type: :js,  path: 'mermaid_load'),
       _select2_js:             Asset.new(type: :js,  path: 'vendor/select2.min'),
+      _tom_select_js:          Asset.new(type: :js,  path: 'vendor/tom-select.complete.min'),
       _select_filters:         Asset.new(type: :js,  path: 'additionals_select_filters'),
       _dhtmlxgantt_js:         Asset.new(type: :js,  path: 'vendor/dhtmlxgantt'),
       _select2_css:            Asset.new(type: :css, path: 'select2'),
+      _tom_select_css:         Asset.new(type: :css, path: 'tom-select'),
       _dhtmlxgantt_css:        Asset.new(type: :css, path: 'dhtmlxgantt'),
       _query_chart_css:        Asset.new(type: :css, path: 'query_chart')
     }.freeze

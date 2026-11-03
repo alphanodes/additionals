@@ -89,6 +89,7 @@ Uninstall all plugins that depend on `additionals` first.
 | [mermaid](https://github.com/mermaid-js/mermaid) | 12.2.0 |
 | [Select2](https://select2.org/) | 4.0.13 |
 | [Sortable](https://github.com/SortableJS/Sortable) | 1.15.7 |
+| [Tom Select](https://github.com/orchidjs/tom-select) | 2.6.2 |
 
 Pages and dashboard blocks load only the libraries they need, each file once per page:
 

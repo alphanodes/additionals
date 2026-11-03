@@ -56,6 +56,7 @@ class SelectLibraryUsageTest < Additionals::TestCase
   def test_additionals_knows_the_library_only_in_its_select_field_files
     allowed = %w[assets/javascripts/controllers/additionals_select_controller.js
                  assets/stylesheets/select2.css
+                 assets/stylesheets/tom-select.css
                  test/global_system_test_helper.rb
                  test/javascript/support/select_field.js
                  test/select_library_usage.rb

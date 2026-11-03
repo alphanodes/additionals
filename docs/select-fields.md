@@ -102,7 +102,7 @@ Redmine builds the rows of query filters in the browser. `additionals_select_fil
 = additionals_select_filter field_format: 'my_format', url: my_entries_auto_complete_path(project_id: @project)
 ```
 
-Rows a plugin builds itself in the browser turn their select into a field with `additionalsSelectApply(select, options)`, the options in camelCase as in `additionalsSelectFilters`; `values` names the chosen values when a single select becomes multiple.
+Rows a plugin builds itself in the browser turn their select into a field with `additionalsSelectApply(select, options)`, the options in camelCase as in `additionalsSelectFilters`; `values` names the chosen values; for a single select an empty list chooses nothing, the browser would choose its first option.
 
 Pages for people without access to Redmine (e.g. public pages of a plugin) answer `additionals_select_fields?` with false in their controller; `additionals_select_filter` then renders nothing there.
 

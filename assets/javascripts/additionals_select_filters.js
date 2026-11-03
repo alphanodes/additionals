@@ -29,11 +29,17 @@ function additionalsSelectFilterOptions(field) {
 
 /* Turns +select+ into a select field with +options+ (keys like the values of
    the controller: url, tags, renderer, minInputLength, ...). Also used for
-   rows a plugin builds itself. +values+ are the chosen values when a single
-   select becomes multiple. */
+   rows a plugin builds itself. +values+ are the chosen values: given for a
+   single select, an empty list chooses nothing, the browser would choose
+   its first option. */
 /* exported additionalsSelectApply */
 function additionalsSelectApply(select, options) {
-  if (options.multiple !== false) { additionalsSelectMultiple(select, options.values && options.values.map(String)); }
+  const values = options.values && options.values.map(String);
+  if (options.multiple !== false) {
+    additionalsSelectMultiple(select, values);
+  } else if (values) {
+    additionalsSelectSingle(select, values);
+  }
 
   ADDITIONALS_SELECT_VALUE_KEYS.forEach((key) => {
     const value = options[key];
@@ -44,6 +50,13 @@ function additionalsSelectApply(select, options) {
   });
   // last, so the controller connects with all values set
   select.setAttribute('data-controller', 'additionals-select');
+}
+
+/* A single select with the values of its row gets a blank option, the empty
+   value of the field, and chooses the first of +values+ or nothing */
+function additionalsSelectSingle(select, values) {
+  if (!Array.from(select.options).some((option) => option.value === '')) { select.prepend(new Option('', '')); }
+  select.value = values.length > 0 ? values[0] : '';
 }
 
 /* Makes +select+ take multiple values. A single select always has an option

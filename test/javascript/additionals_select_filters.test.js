@@ -182,6 +182,24 @@ describe('additionals_select_filters.js', () => {
     expect(changed).toHaveBeenCalledTimes(1);
   });
 
+  // a select of the browser has its first option chosen, a row a plugin builds
+  // (e.g. an action of automation) would take a value nobody chose; without
+  // values the select stays as it is (e.g. a select of a form)
+  it('chooses nothing in a single select of a row a plugin builds with no values', () => {
+    document.body.innerHTML = `
+      <select id="empty"><option value="1">One</option><option value="2">Two</option></select>
+      <select id="chosen"><option value="1">One</option><option value="2">Two</option></select>
+      <select id="form"><option value="1">One</option><option value="2" selected>Two</option></select>`;
+    const field = (id) => document.getElementById(id);
+    additionalsSelectApply(field('empty'), { url: '/projects', multiple: false, values: [], allowClear: true });
+    additionalsSelectApply(field('chosen'), { url: '/projects', multiple: false, values: ['2'] });
+    additionalsSelectApply(field('form'), { url: '/users', multiple: false });
+
+    expect(['empty', 'chosen', 'form'].map((id) => [field(id).value, field(id).options[0].value]))
+      .toEqual([['', ''], ['2', ''], ['2', '1']]);
+    expect(field('empty').dataset.additionalsSelectAllowClearValue).toBe('true');
+  });
+
   it('keeps the first option when it is the value given to additionalsSelectApply', () => {
     document.body.innerHTML = '<select><option value="1">One</option><option value="2">Two</option></select>';
     const field = document.querySelector('select');

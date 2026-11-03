@@ -8,6 +8,9 @@ import { Controller } from '@hotwired/stimulus';
 const SEARCH_DELAY = 250;
 const DEFAULT_WIDTH = '90%';
 const ENTER_KEY = 13;
+const ARROW_DOWN_KEY = 40;
+// names a data attribute can take
+const DATA_KEY = /^[a-z][a-z0-9_]*$/i;
 // sent by additionals_select_filters.js, which is loaded right after the
 // library, also into content that comes later (render_async, dialogs)
 const LIBRARY_LOADED = 'additionals-select:library-loaded';
@@ -318,9 +321,12 @@ function serverOptions(field, config) {
           field.answer = { query, ids: Array.from(entries.keys()) };
           instance.clearOptions();
           instance.clearOptionGroups();
-          // a chosen entry keeps its <option>, the library would add a second one
-          const options = Array.from(entries.values()).map(({ option }) => (
-            instance.options[option.id] ? { ...option, $option: instance.options[option.id].$option } : option));
+          // an entry keeps the <option> it has in the select (chosen now or
+          // before), the library would add a second one
+          const options = Array.from(entries.values()).map(({ option }) => {
+            const element = Array.from(instance.input.options).find((item) => item.value === option.id);
+            return element ? { ...option, $option: element } : option;
+          });
           callback(options, groups);
         });
     },
@@ -336,7 +342,9 @@ function keepServerData(field) {
     if (!item || !option) { return; }
 
     Object.entries(item).forEach(([key, data]) => {
-      if (key !== 'id' && key !== 'text' && ['string', 'number'].includes(typeof data)) { option.dataset[key] = data; }
+      if (DATA_KEY.test(key) && key !== 'id' && key !== 'text' && ['string', 'number'].includes(typeof data)) {
+        option.dataset[key] = data;
+      }
     });
   });
 }
@@ -421,6 +429,8 @@ function initLibrary(select, config) {
   // The list opens with a click, Enter or the arrow down, not when the field
   // only gets the focus (e.g. with Tab); a click on the open field closes it
   instance.onClick = function () {
+    // entries marked with the arrow keys are no longer marked, as in the library
+    if (this.activeItems.length) { this.clearActiveItems(); }
     if (this.isFocused && this.isOpen) {
       this.blur();
       return;
@@ -429,10 +439,11 @@ function initLibrary(select, config) {
     this.refreshOptions(false);
   };
 
-  // Enter on the closed field opens its list instead of submitting the form
+  // Enter or the arrow down on the closed field opens its list, also when it
+  // has no entries yet (entries of the server); Enter submits no form then
   const { onKeyDown } = instance;
   instance.onKeyDown = function (event) {
-    if (event.keyCode === ENTER_KEY && !this.isOpen && !this.isLocked) {
+    if ([ENTER_KEY, ARROW_DOWN_KEY].includes(event.keyCode) && !this.isOpen && !this.isLocked) {
       event.preventDefault();
       this.open();
       this.refreshOptions(false);
@@ -443,7 +454,9 @@ function initLibrary(select, config) {
 
   // the list hangs at the body and follows the field when a container around
   // it scrolls (a dialog, the sidebar), not only the window
-  const followScroll = () => instance.positionDropdown();
+  const followScroll = (event) => {
+    if (!instance.dropdown.contains(event.target)) { instance.positionDropdown(); }
+  };
   instance.on('dropdown_open', () => document.addEventListener('scroll', followScroll, true));
   instance.on('dropdown_close', () => document.removeEventListener('scroll', followScroll, true));
   instance.on('destroy', () => document.removeEventListener('scroll', followScroll, true));
@@ -513,6 +526,13 @@ function destroyLibrary(select) {
   tomselect.destroy();
   select.replaceChildren(...nodes);
   Array.from(select.options).forEach((option) => { option.selected = values.includes(option.value); });
+}
+
+// The options of an added or removed node: itself or those of its group
+function optionsOf(node) {
+  if (node.tagName === 'OPTION') { return [node]; }
+
+  return node.tagName === 'OPTGROUP' ? Array.from(node.querySelectorAll('option')) : [];
 }
 
 // --- Controller --------------------------------------------------------------
@@ -613,10 +633,10 @@ class AdditionalsSelectController extends Controller {
 
     this.observer = new MutationObserver((mutations) => {
       const unknownOption = mutations.some((mutation) => Array.from(mutation.addedNodes).some((node) => (
-        node.tagName === 'OPTION' && node.value !== '' && !this.instance.options[node.value])));
+        optionsOf(node).some((option) => option.value !== '' && !this.instance.options[option.value]))));
       // the library moves chosen options to the end, only gone ones count
       const removedOption = mutations.some((mutation) => Array.from(mutation.removedNodes).some((node) => (
-        node.tagName === 'OPTION' && !this.element.contains(node))));
+        optionsOf(node).length > 0 && !this.element.contains(node))));
       const disabled = mutations.some((mutation) => mutation.attributeName === 'disabled');
       if (unknownOption || removedOption || disabled) { this.sync(); }
     });

@@ -148,7 +148,7 @@ module Additionals
           opener = find SELECT_FIELD_MARKUP[:opener]
           next if opener.find(:xpath, '..').matches_css? SELECT_FIELD_MARKUP[:open_field], wait: 0
 
-          opener.click x: 3 - (opener.native.size.width / 2), y: 2 - (opener.native.size.height / 2)
+          opener.click x: 3, y: 2, offset: :top_left
         end
       end
 
@@ -221,9 +221,14 @@ module Additionals
       # The entries open at the end of the body, also for a field inside a
       # dialog, so they are searched outside any within block; groups of
       # entries are skipped. An entry in several groups (e.g. a watcher who is
-      # an active member too) is taken from the first.
+      # an active member too) is taken from the first; different entries with
+      # the text stay ambiguous.
       def select_entry(text, exact:)
-        page.document.find SELECT_FIELD_MARKUP[:entry], text:, exact_text: exact, match: :first
+        entries = page.document.all SELECT_FIELD_MARKUP[:entry], text:, exact_text: exact, minimum: 1
+        values = entries.to_set { |entry| entry['data-value'] }
+        raise Capybara::Ambiguous, "#{values.size} entries match #{text.inspect}" if values.size > 1
+
+        entries.first
       end
     end
   end

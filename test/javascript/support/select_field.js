@@ -7,7 +7,7 @@ import { vi } from 'vitest';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 
-const KEY_CODES = { Enter: 13, Escape: 27, Backspace: 8, Tab: 9, ArrowDown: 40, ArrowUp: 38 };
+const KEY_CODES = { Enter: 13, Escape: 27, Backspace: 8, Tab: 9, ArrowDown: 40, ArrowUp: 38, ArrowLeft: 37 };
 
 // Loads the library into the page, as the pages of Redmine do
 export function loadSelectLibrary() {
@@ -105,6 +105,11 @@ export function listTop(select) {
   return instanceOf(select).dropdown.style.top;
 }
 
+// The user scrolls inside the open list
+export function scrollList(select) {
+  instanceOf(select).dropdown_content.dispatchEvent(new Event('scroll'));
+}
+
 // The element the list of the field hangs at
 export function listParent(select) {
   return instanceOf(select).dropdown.parentElement;
@@ -185,11 +190,12 @@ export function chooseEntry(text, options = {}) {
 // A key pressed in the field: in its search while it has one in sight, else
 // on the field. Tab leaves the field, as the browser does. Returns whether
 // the field kept the key from the page (e.g. Enter from submitting the form).
-export function pressKey(select, key) {
+// +modifiers+ like { shiftKey: true } are held down with the key.
+export function pressKey(select, key, modifiers = {}) {
   const instance = instanceOf(select);
   const target = instance.isOpen || instance.settings.mode === 'multi' ? instance.control_input : instance.focus_node;
   const which = KEY_CODES[key];
-  const event = new KeyboardEvent('keydown', { key, keyCode: which, which, bubbles: true, cancelable: true });
+  const event = new KeyboardEvent('keydown', { key, keyCode: which, which, bubbles: true, cancelable: true, ...modifiers });
   const passed = target.dispatchEvent(event);
   if (passed && key === 'Tab') { instance.blur(); }
   return !passed;

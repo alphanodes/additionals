@@ -9,7 +9,7 @@ import {
   loadSelectLibrary, hideSelectLibrary, serverAnswers, hasSelectField, fieldElement, openField, closeField, isOpen,
   typeInto, searchPlaceholder, entryTexts, entry, groupsOfList, isEntryDisabled, chooseEntry, pressKey, clickOutside,
   chosenTexts, shownElement, shownText, placeholderText, removeChosen, canClear, clearField,
-  clickField, focusField, isDisabled, moveField, listTop, listParent, searchHasFocus,
+  clickField, focusField, isDisabled, moveField, listTop, listParent, searchHasFocus, scrollList,
 } from '../support/select_field.js';
 
 // The controller is tested against the real library, as the pages use it: its
@@ -188,6 +188,21 @@ describe('AdditionalsSelectController', () => {
       openField(select);
 
       expect(entryTexts()).toEqual(['One', 'Two']);
+    });
+
+    it('follows a group of options removed from or appended to the select', async () => {
+      const select = await render(`
+        <select multiple data-controller="additionals-select"><optgroup label="Old"><option value="1">One</option></optgroup></select>`);
+
+      select.querySelector('optgroup').remove();
+      const group = document.createElement('optgroup');
+      group.label = 'New';
+      group.append(new Option('Two', '2'));
+      select.append(group);
+      await wait();
+      openField(select);
+
+      expect(entryTexts()).toEqual(['Two']);
     });
 
     it('no longer offers an option removed from the select', async () => {
@@ -606,6 +621,64 @@ describe('AdditionalsSelectController', () => {
       expect(select.querySelectorAll('option[value="7"]')).toHaveLength(1);
     });
 
+    it('keeps one option per entry when it is removed and chosen again', async () => {
+      serverAnswers([{ id: 7, text: 'Kurt' }]);
+      const select = await render(`<select multiple data-controller="additionals-select" ${url}></select>`);
+
+      openField(select);
+      typeInto(select, 'Ku');
+      await wait(SEARCH_WAIT);
+      chooseEntry('Kurt');
+      removeChosen(select, 'Kurt');
+      openField(select);
+      typeInto(select, 'Kur');
+      await wait(SEARCH_WAIT);
+      chooseEntry('Kurt');
+
+      expect(select.querySelectorAll('option[value="7"]')).toHaveLength(1);
+    });
+
+    it('keeps the entries of the server when the select changes', async () => {
+      serverAnswers([{ id: 7, text: 'Kurt' }, { id: 8, text: 'Anna' }]);
+      const select = await render(`<select multiple data-controller="additionals-select" ${url}></select>`);
+
+      openField(select);
+      typeInto(select, 'a');
+      await wait(SEARCH_WAIT);
+      select.append(new Option('Other', '9'));
+      await wait();
+
+      expect(entryTexts()).toEqual(['Kurt', 'Anna']);
+    });
+
+    it('shows no former start list when opened again', async () => {
+      let answer = 'Start 1';
+      serverAnswers(() => [{ id: answer, text: answer }]);
+      const select = await render(`<select data-controller="additionals-select" ${url}></select>`);
+
+      openField(select);
+      await wait(SEARCH_WAIT);
+      closeField(select);
+      answer = 'Start 2';
+      openField(select);
+      const atOnce = entryTexts();
+      await wait(SEARCH_WAIT);
+
+      expect([atOnce, entryTexts()]).toEqual([[], ['Start 2']]);
+    });
+
+    it('takes an entry with any data of the server', async () => {
+      serverAnswers([{ id: 7, text: 'Kurt', 'foo-bar': 'x', 'two words': 'y' }]);
+      const select = await render(`<select multiple data-controller="additionals-select" ${url}></select>`);
+
+      openField(select);
+      typeInto(select, 'Ku');
+      await wait(SEARCH_WAIT);
+      chooseEntry('Kurt');
+
+      expect(values(select)).toEqual(['7']);
+    });
+
     it('keeps what a chosen entry shows when the field is set up again', async () => {
       serverAnswers([{ id: 7, text: 'Kurt', email: 'kurt@example.com' }]);
       const select = await render(`
@@ -728,6 +801,16 @@ describe('AdditionalsSelectController', () => {
       expect([afterFocus, isOpen(select)]).toEqual([[false, 0], true]);
     });
 
+    it('opens a field with entries of the server with the arrow down', async () => {
+      serverAnswers([{ id: 1, text: 'Kurt' }]);
+      const select = await render('<select data-controller="additionals-select" data-additionals-select-url-value="/search"></select>');
+
+      focusField(select);
+      pressKey(select, 'ArrowDown');
+
+      expect(isOpen(select)).toBe(true);
+    });
+
     it('opens with Enter on the closed field instead of submitting the form', async () => {
       const select = await render(`
         <form><select multiple data-controller="additionals-select"><option value="1">One</option></select></form>`);
@@ -750,6 +833,17 @@ describe('AdditionalsSelectController', () => {
       document.getElementById('box').dispatchEvent(new Event('scroll'));
 
       expect([before, listTop(select)]).toEqual(['100px', '40px']);
+    });
+
+    it('stays where it is when the list itself scrolls', async () => {
+      const select = await render('<select data-controller="additionals-select"><option value="1">One</option></select>');
+      moveField(select, 100);
+      openField(select);
+
+      moveField(select, 40);
+      scrollList(select);
+
+      expect(listTop(select)).toBe('100px');
     });
 
     // the placeholder stands for the empty option, allow_clear goes back to it
@@ -828,6 +922,22 @@ describe('AdditionalsSelectController', () => {
       removeChosen(select, 'One');
 
       expect([values(select), chosenTexts(select), change.mock.calls.length]).toEqual([['2'], ['Two'], 1]);
+    });
+
+    it('forgets entries marked with the arrow keys when the field is clicked', async () => {
+      const select = await render(`
+        <select multiple data-controller="additionals-select">
+          <option value="1" selected>One</option><option value="2" selected>Two</option><option value="3" selected>Three</option>
+        </select>`);
+
+      openField(select);
+      closeField(select);
+      pressKey(select, 'ArrowLeft', { shiftKey: true });
+      pressKey(select, 'ArrowLeft', { shiftKey: true });
+      clickField(select);
+      pressKey(select, 'Backspace');
+
+      expect(values(select)).toEqual(['1', '2']);
     });
 
     it('removes the last entry with Backspace in the empty search', async () => {

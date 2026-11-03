@@ -7,7 +7,7 @@ import { vi } from 'vitest';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 
-const KEY_CODES = { Enter: 13, Escape: 27, Backspace: 8, Tab: 9, ArrowDown: 40, ArrowUp: 38, ArrowLeft: 37 };
+const KEY_CODES = { Enter: 13, Escape: 27, Backspace: 8, Delete: 46, Tab: 9, ArrowDown: 40, ArrowUp: 38, ArrowLeft: 37 };
 
 // Loads the library into the page, as the pages of Redmine do
 export function loadSelectLibrary() {
@@ -220,6 +220,44 @@ export function pressKey(select, key, modifiers = {}) {
   const passed = target.dispatchEvent(event);
   if (passed && key === 'Tab') { instance.blur(); }
   return !passed;
+}
+
+// Where the browser goes on from with Tab: the element that has the focus
+// once the field had the key, 'field', 'list' or 'page'
+export function tabStartsFrom(select) {
+  const instance = instanceOf(select);
+  const target = instance.isOpen || instance.settings.mode === 'multi' ? instance.control_input : instance.focus_node;
+  target.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab', keyCode: KEY_CODES.Tab, which: KEY_CODES.Tab, bubbles: true, cancelable: true }));
+  const focused = document.activeElement;
+  let place = 'page';
+  if (instance.dropdown.contains(focused)) {
+    place = 'list';
+  } else if (instance.wrapper.contains(focused)) {
+    place = 'field';
+  }
+  instance.blur();
+  return place;
+}
+
+function textOfIds(ids) {
+  return (ids || '').split(' ').map((id) => document.getElementById(id)?.textContent.trim()).filter(Boolean).join(' ');
+}
+
+// What a screen reader learns from the element that has the focus: its role,
+// its name and the entry marked in the list
+export function announcement() {
+  const focused = document.activeElement;
+  const marked = document.getElementById(focused.getAttribute('aria-activedescendant'));
+  return {
+    role: focused.getAttribute('role'),
+    name: focused.getAttribute('aria-label') || textOfIds(focused.getAttribute('aria-labelledby')),
+    marked: marked?.textContent.trim() ?? null,
+  };
+}
+
+// The list tells screen readers that several entries may be chosen
+export function listAllowsSeveral(select) {
+  return instanceOf(select).dropdown_content.getAttribute('aria-multiselectable') === 'true';
 }
 
 // A click somewhere else on the page

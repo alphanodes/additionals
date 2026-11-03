@@ -10,7 +10,7 @@ import {
   typeInto, searchPlaceholder, entryTexts, entry, groupsOfList, isEntryDisabled, chooseEntry, pressKey, clickOutside,
   chosenTexts, shownElement, shownText, placeholderText, removeChosen, canClear, clearField,
   clickField, focusField, isDisabled, moveField, listTop, listParent, searchHasFocus, scrollList,
-  setListHeight, listMessage, clearButton, removeButtonTitle,
+  setListHeight, listMessage, clearButton, removeButtonTitle, tabStartsFrom, announcement, listAllowsSeveral,
 } from '../support/select_field.js';
 
 // The controller is tested against the real library, as the pages use it: its
@@ -805,6 +805,17 @@ describe('AdditionalsSelectController', () => {
       expect(select.value).toBe('1');
     });
 
+    // the list hangs at the end of the page, Tab from its search would start
+    // there instead of at the field
+    it('leaves a single field with Tab from the field, not from its list', async () => {
+      const select = await render(`
+        <select data-controller="additionals-select"><option value="1">One</option><option value="2">Two</option></select>`);
+
+      openField(select);
+
+      expect([tabStartsFrom(select), isOpen(select), select.value]).toEqual(['field', false, '1']);
+    });
+
     it('closes with Escape and with a click elsewhere, without a choice', async () => {
       const select = await render(`
         <select data-controller="additionals-select"><option value="1">One</option><option value="2">Two</option></select>`);
@@ -941,6 +952,29 @@ describe('AdditionalsSelectController', () => {
     });
   });
 
+  describe('screen readers', () => {
+    it('hear the name of a single field and the marked entry in its search', async () => {
+      const select = await render(`
+        <label for="assignee">Assignee</label>
+        <select id="assignee" data-controller="additionals-select">
+          <option value="1" selected>One</option><option value="2">Two</option>
+        </select>`);
+
+      openField(select);
+      pressKey(select, 'ArrowDown');
+
+      expect(announcement()).toEqual({ role: 'combobox', name: 'Assignee', marked: 'Two' });
+    });
+
+    it('learn that the list of a multiple field takes several entries', async () => {
+      const multiple = await render('<select multiple data-controller="additionals-select"><option value="1">One</option></select>');
+      document.body.insertAdjacentHTML('beforeend', '<select id="single" data-controller="additionals-select"><option value="1">One</option></select>');
+      await wait();
+
+      expect([listAllowsSeveral(multiple), listAllowsSeveral(document.getElementById('single'))]).toEqual([true, false]);
+    });
+  });
+
   describe('allow clear', () => {
     it('empties a single field and tells the listeners once', async () => {
       const select = await render(`
@@ -963,6 +997,32 @@ describe('AdditionalsSelectController', () => {
         <select data-controller="additionals-select"><option value=""></option><option value="1" selected>One</option></select>`);
 
       expect(canClear(select)).toBe(false);
+    });
+
+    it('empties a single field with Backspace or Delete while its list is closed', async () => {
+      const html = `
+        <select data-controller="additionals-select" data-additionals-select-allow-clear-value="true">
+          <option value=""></option><option value="1" selected>One</option>
+        </select>`;
+      const emptied = [];
+      for (const key of ['Backspace', 'Delete']) {
+        const select = await render(html);
+        const change = vi.fn();
+        select.addEventListener('change', change);
+        const kept = pressKey(select, key);
+        emptied.push([key, select.value, change.mock.calls.length, kept]);
+      }
+
+      expect(emptied).toEqual([['Backspace', '', 1, true], ['Delete', '', 1, true]]);
+    });
+
+    it('keeps a single field without the option on Delete', async () => {
+      const select = await render(`
+        <select data-controller="additionals-select"><option value=""></option><option value="1" selected>One</option></select>`);
+
+      pressKey(select, 'Delete');
+
+      expect(select.value).toBe('1');
     });
   });
 

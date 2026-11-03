@@ -9,6 +9,9 @@ const SEARCH_DELAY = 250;
 const DEFAULT_WIDTH = '90%';
 const ENTER_KEY = 13;
 const ARROW_DOWN_KEY = 40;
+const TAB_KEY = 9;
+const BACKSPACE_KEY = 8;
+const DELETE_KEY = 46;
 // names a data attribute can take
 const DATA_KEY = /^[a-z][a-z0-9_]*$/i;
 // sent by additionals_select_filters.js, which is loaded right after the
@@ -469,6 +472,20 @@ function initLibrary(select, config) {
       this.refreshOptions(false);
       return;
     }
+    // the search of a single field sits in the list at the end of the page:
+    // closing it first gives the focus to the field, so the browser goes on
+    // from there to the next or previous field
+    if (event.keyCode === TAB_KEY && this.isOpen && !multiple) {
+      this.close();
+      return;
+    }
+    // a field that may be emptied with its button may be with the keyboard too
+    if ([BACKSPACE_KEY, DELETE_KEY].includes(event.keyCode) && config.allowClear && !multiple &&
+        !this.isOpen && !this.isLocked && this.items.length) {
+      event.preventDefault();
+      this.clear();
+      return;
+    }
     onKeyDown.call(this, event);
   };
 
@@ -511,12 +528,39 @@ function initLibrary(select, config) {
     onOptionSelect.call(this, event, option);
   };
 
-  if (!multiple) {
-    const search = instance.dropdown.querySelector('.dropdown-input');
-    if (search) { search.placeholder = selectLabel('search'); }
+  if (multiple) {
+    instance.dropdown_content.setAttribute('aria-multiselectable', 'true');
+  } else {
+    describeSearch(instance);
   }
 
   return field;
+}
+
+// The search of a single field has the focus while its list is open: it
+// carries the name of the field and the entry marked in the list, which the
+// library sets on the field only
+function describeSearch(instance) {
+  const search = instance.control_input;
+  const { control } = instance;
+  search.placeholder = selectLabel('search');
+  search.setAttribute('role', 'combobox');
+  search.setAttribute('aria-autocomplete', 'list');
+  search.setAttribute('aria-expanded', 'true');
+  ['aria-controls', 'aria-labelledby', 'aria-label'].forEach((name) => {
+    const value = control.getAttribute(name) || instance.input.getAttribute(name);
+    if (value) { search.setAttribute(name, value); }
+  });
+  const markEntry = () => {
+    const marked = control.getAttribute('aria-activedescendant');
+    if (marked) {
+      search.setAttribute('aria-activedescendant', marked);
+    } else {
+      search.removeAttribute('aria-activedescendant');
+    }
+  };
+  instance.hook('after', 'setActiveOption', markEntry);
+  instance.hook('after', 'clearActiveOption', markEntry);
 }
 
 // Takes the options, values and state of the select into the field. The

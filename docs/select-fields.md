@@ -90,7 +90,7 @@ The order of `additionals-select:close` and `additionals-select:select` is not f
 
 Every field carries the class `additionals-select-field` for styles that place or size it. Fields in content loaded later (dialogs, `render_async`) are set up as well, also when the library comes with that content. The list hangs at the body, lies above dialogs and follows the field when a container around it scrolls; its search takes the focus in modal dialogs too.
 
-The list opens with a click, Enter or the arrow down, not when the field only gets the focus (e.g. with Tab). A field follows its select: options appended or removed, values set and told by `change`, and `disabled`.
+The list opens with a click, Enter or the arrow down, not when the field only gets the focus (e.g. with Tab). Tab on an open list closes it and goes on to the next field, Backspace or Delete empty a closed single field with `allow_clear`. The search of a single field carries the name of the field and the marked entry for screen readers. A field follows its select: options appended or removed, values set and told by `change`, and `disabled`.
 
 ## Query filters
 

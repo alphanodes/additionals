@@ -7,6 +7,7 @@ import { Controller } from '@hotwired/stimulus';
 
 const SEARCH_DELAY = 250;
 const DEFAULT_WIDTH = '90%';
+const ENTER_KEY = 13;
 // sent by additionals_select_filters.js, which is loaded right after the
 // library, also into content that comes later (render_async, dialogs)
 const LIBRARY_LOADED = 'additionals-select:library-loaded';
@@ -228,6 +229,7 @@ function buildLibraryOptions(config, multiple) {
     searchField: ['text'],
     plugins: libraryPlugins(config, multiple),
     placeholder: config.placeholder || '',
+    openOnFocus: false,
     hidePlaceholder: true,
     hideSelected: false,
     closeAfterSelect: true,
@@ -274,13 +276,31 @@ function itemOf(field, value) {
   return field.serverItems.get(value) || { id: value, text: field.instance.options[value]?.text ?? value };
 }
 
-// Entries of the server: the list shows exactly the answer of the last search,
-// in its order, and asks the server again on each search and on each opening
+// A request whose answer is not wanted any longer: the loading state of the
+// library ends without taking the answer
+function dropAnswer(instance) {
+  instance.loading = Math.max(instance.loading - 1, 0);
+  if (!instance.loading) { instance.wrapper.classList.remove(instance.settings.loadingClass); }
+}
+
+// Entries of the server: the list shows exactly the answer to the search in
+// the field, in its order, and asks the server again on each search and on
+// each opening. Answers arrive in any order, only the one to the last request
+// counts; one that arrives after the list closed (e.g. after a choice) would
+// open it again, the next opening asks anew.
 function serverOptions(field, config) {
   return {
     loadThrottle: SEARCH_DELAY,
     shouldLoad: (query) => query.length >= (config.minInputLength || 0),
     load: (query, callback) => {
+      const { instance } = field;
+      if (field.gone) {
+        dropAnswer(instance);
+        return;
+      }
+
+      field.request += 1;
+      const { request } = field;
       fetch(searchUrl(config.url, query), {
         headers: { Accept: 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
         credentials: 'same-origin',
@@ -288,35 +308,52 @@ function serverOptions(field, config) {
         .then((response) => (response.ok ? response.json() : []))
         .catch(() => [])
         .then((data) => {
-          const { instance } = field;
-          // an answer after the list closed (e.g. after a choice) would open
-          // it again; the next opening asks the server anew
-          if (!instance.isOpen) {
-            instance.loading = Math.max(instance.loading - 1, 0);
-            if (!instance.loading) { instance.wrapper.classList.remove(instance.settings.loadingClass); }
+          if (field.gone || request !== field.request || !instance.isOpen) {
+            dropAnswer(instance);
             return;
           }
 
           const { entries, groups } = libraryEntries(data, config.valueKey);
           entries.forEach(({ item }, id) => field.serverItems.set(id, item));
-          field.answer = Array.from(entries.keys());
+          field.answer = { query, ids: Array.from(entries.keys()) };
           instance.clearOptions();
           instance.clearOptionGroups();
-          callback(Array.from(entries.values()).map(({ option }) => option), groups);
+          // a chosen entry keeps its <option>, the library would add a second one
+          const options = Array.from(entries.values()).map(({ option }) => (
+            instance.options[option.id] ? { ...option, $option: instance.options[option.id].$option } : option));
+          callback(options, groups);
         });
     },
   };
 }
 
+// The <option> of a chosen entry of the server carries its data, so the field
+// shows it the same after it is set up again (e.g. the address of a contact)
+function keepServerData(field) {
+  field.instance.items.forEach((value) => {
+    const item = field.serverItems.get(value);
+    const option = field.instance.options[value]?.$option;
+    if (!item || !option) { return; }
+
+    Object.entries(item).forEach(([key, data]) => {
+      if (key !== 'id' && key !== 'text' && ['string', 'number'].includes(typeof data)) { option.dataset[key] = data; }
+    });
+  });
+}
+
 function bindServer(field) {
   const { instance } = field;
+
+  instance.on('change', () => keepServerData(field));
 
   // the same search again may find something else by now
   instance.hook('before', 'load', () => { instance.loadedSearches = {}; });
 
+  // only the answer to the search in the field, none to an earlier one
   instance.search = function (query) {
     this.lastQuery = query;
-    const items = field.answer.filter((id) => this.options[id]).map((id) => ({ id, score: 1 }));
+    const ids = field.answer.query === query ? field.answer.ids : [];
+    const items = ids.filter((id) => this.options[id]).map((id) => ({ id, score: 1 }));
     this.currentResults = { items, query: '', tokens: [], options: {}, total: items.length };
     return this.currentResults;
   };
@@ -325,14 +362,29 @@ function bindServer(field) {
     const query = typedTerm(instance);
     if (instance.settings.shouldLoad(query)) { instance.load(query); }
   });
+  instance.on('dropdown_close', () => { field.answer = { query: null, ids: [] }; });
+}
+
+// A modal dialog of jQuery UI keeps the focus inside the dialog. The list of
+// a field hangs at the body, its search may take the focus too.
+function allowListsInDialogs() {
+  const dialog = window.jQuery?.ui?.dialog;
+  if (!dialog || dialog.prototype.additionalsSelectAllowed) { return; }
+
+  const { _allowInteraction: allowInteraction } = dialog.prototype;
+  dialog.prototype._allowInteraction = function (event) {
+    return Boolean(event.target.closest?.('.additionals-select-dropdown')) || allowInteraction.call(this, event);
+  };
+  dialog.prototype.additionalsSelectAllowed = true;
 }
 
 function initLibrary(select, config) {
+  allowListsInDialogs();
   const { multiple } = select;
   // the field gets the classes of the select from the library, which would
   // count it as a select of the page (e.g. ".values .value" of query filters)
   const classes = Array.from(select.classList);
-  const field = { instance: null, serverItems: new Map(), answer: [] };
+  const field = { instance: null, serverItems: new Map(), answer: { query: null, ids: [] }, request: 0, gone: false };
   const options = buildLibraryOptions(config, multiple);
   if (config.url) { Object.assign(options, serverOptions(field, config)); }
 
@@ -366,6 +418,36 @@ function initLibrary(select, config) {
     if (closing === 0) { open.call(this); }
   };
 
+  // The list opens with a click, Enter or the arrow down, not when the field
+  // only gets the focus (e.g. with Tab); a click on the open field closes it
+  instance.onClick = function () {
+    if (this.isFocused && this.isOpen) {
+      this.blur();
+      return;
+    }
+    this.open();
+    this.refreshOptions(false);
+  };
+
+  // Enter on the closed field opens its list instead of submitting the form
+  const { onKeyDown } = instance;
+  instance.onKeyDown = function (event) {
+    if (event.keyCode === ENTER_KEY && !this.isOpen && !this.isLocked) {
+      event.preventDefault();
+      this.open();
+      this.refreshOptions(false);
+      return;
+    }
+    onKeyDown.call(this, event);
+  };
+
+  // the list hangs at the body and follows the field when a container around
+  // it scrolls (a dialog, the sidebar), not only the window
+  const followScroll = () => instance.positionDropdown();
+  instance.on('dropdown_open', () => document.addEventListener('scroll', followScroll, true));
+  instance.on('dropdown_close', () => document.removeEventListener('scroll', followScroll, true));
+  instance.on('destroy', () => document.removeEventListener('scroll', followScroll, true));
+
   // a click on a chosen entry opens the list like a click elsewhere in the
   // field, it does not mark the entry
   instance.onItemSelect = () => false;
@@ -393,18 +475,29 @@ function initLibrary(select, config) {
 // Takes the options, values and state of the select into the field. The
 // sync() of the library reads the select with its default fields, not with
 // the fields of this field (id, text).
-function syncLibrary(instance, select) {
+// Options removed from the select go too, except for fields with entries of
+// the server, which are no options of the select. The state changes only when
+// it differs: setting it writes the attribute, which would sync again.
+function syncLibrary(instance, select, { fromServer = false } = {}) {
+  const values = Array.from(select.options).map((option) => option.value);
+  if (!fromServer) {
+    Object.keys(instance.options).filter((value) => !values.includes(value)).forEach((value) => {
+      instance.removeOption(value, true);
+    });
+  }
   Array.from(select.options).forEach((option) => {
     if (option.value === '' || instance.options[option.value]) { return; }
 
     instance.addOption({ ...option.dataset, id: option.value, text: option.text, disabled: option.disabled, $option: option });
   });
-  const values = chosenValues(select);
-  instance.setValue(select.multiple ? values : values.slice(0, 1), true);
-  if (select.disabled) {
-    instance.disable();
-  } else {
-    instance.enable();
+  const chosen = chosenValues(select);
+  instance.setValue(select.multiple ? chosen : chosen.slice(0, 1), true);
+  if (select.disabled !== instance.isDisabled) {
+    if (select.disabled) {
+      instance.disable();
+    } else {
+      instance.enable();
+    }
   }
   instance.lastQuery = null;
 }
@@ -463,6 +556,8 @@ class AdditionalsSelectController extends Controller {
 
     this.observer?.disconnect();
     this.element.removeEventListener('change', this.syncOnChange);
+    // a search on its way asks nothing and takes no answer any longer
+    this.field.gone = true;
     destroyLibrary(this.element);
     this.instance = null;
     this.field = null;
@@ -521,15 +616,18 @@ class AdditionalsSelectController extends Controller {
   followSelect() {
     this.syncOnChange = () => {
       const values = chosenValues(this.element);
-      if (values.join('\n') !== this.instance.items.join('\n')) { syncLibrary(this.instance, this.element); }
+      if (values.join('\n') !== this.instance.items.join('\n')) { this.sync(); }
     };
     this.element.addEventListener('change', this.syncOnChange);
 
     this.observer = new MutationObserver((mutations) => {
       const unknownOption = mutations.some((mutation) => Array.from(mutation.addedNodes).some((node) => (
         node.tagName === 'OPTION' && node.value !== '' && !this.instance.options[node.value])));
+      // the library moves chosen options to the end, only gone ones count
+      const removedOption = mutations.some((mutation) => Array.from(mutation.removedNodes).some((node) => (
+        node.tagName === 'OPTION' && !this.element.contains(node))));
       const disabled = mutations.some((mutation) => mutation.attributeName === 'disabled');
-      if (unknownOption || disabled) { syncLibrary(this.instance, this.element); }
+      if (unknownOption || removedOption || disabled) { this.sync(); }
     });
     this.observer.observe(this.element, { childList: true, subtree: true, attributes: true, attributeFilter: ['disabled'] });
   }
@@ -602,9 +700,13 @@ class AdditionalsSelectController extends Controller {
     this.instance.setValue(this.element.multiple ? [...values, term] : [term]);
   }
 
+  sync() {
+    syncLibrary(this.instance, this.element, { fromServer: Boolean(this.urlValue) });
+  }
+
   // Shows values set from JavaScript and tells the listeners
   refresh() {
-    if (this.instance) { syncLibrary(this.instance, this.element); }
+    if (this.instance) { this.sync(); }
     this.element.dispatchEvent(new Event('change', { bubbles: true }));
   }
 

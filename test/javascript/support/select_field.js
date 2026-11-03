@@ -76,6 +76,35 @@ export function isOpen(select) {
   return instanceOf(select).isOpen;
 }
 
+// A click on the field, as a user opens or closes its list
+export function clickField(select) {
+  const { control } = instanceOf(select);
+  ['mousedown', 'mouseup', 'click'].forEach((type) => {
+    control.dispatchEvent(new MouseEvent(type, { bubbles: true, cancelable: true }));
+  });
+}
+
+// The field gets the focus without a click, e.g. with Tab from the field
+// before it
+export function focusField(select) {
+  const instance = instanceOf(select);
+  (instance.settings.mode === 'multi' ? instance.control_input : instance.focus_node).focus();
+}
+
+export function isDisabled(select) {
+  return instanceOf(select).isDisabled;
+}
+
+// The field moves to +top+ on the page (e.g. its container scrolled), the
+// position of its open list is read with listTop
+export function moveField(select, top) {
+  instanceOf(select).control.getBoundingClientRect = () => ({ top, bottom: top + 25, left: 10, right: 210, width: 200, height: 25 });
+}
+
+export function listTop(select) {
+  return instanceOf(select).dropdown.style.top;
+}
+
 function searchField(select) {
   return instanceOf(select).control_input;
 }
@@ -137,13 +166,16 @@ export function chooseEntry(text, options = {}) {
 }
 
 // A key pressed in the field: in its search while it has one in sight, else
-// on the field. Tab leaves the field, as the browser does.
+// on the field. Tab leaves the field, as the browser does. Returns whether
+// the field kept the key from the page (e.g. Enter from submitting the form).
 export function pressKey(select, key) {
   const instance = instanceOf(select);
   const target = instance.isOpen || instance.settings.mode === 'multi' ? instance.control_input : instance.focus_node;
   const which = KEY_CODES[key];
   const event = new KeyboardEvent('keydown', { key, keyCode: which, which, bubbles: true, cancelable: true });
-  if (target.dispatchEvent(event) && key === 'Tab') { instance.blur(); }
+  const passed = target.dispatchEvent(event);
+  if (passed && key === 'Tab') { instance.blur(); }
+  return !passed;
 }
 
 // A click somewhere else on the page

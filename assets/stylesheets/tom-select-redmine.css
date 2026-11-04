@@ -102,10 +102,15 @@
 
 /* tom-select.css sets the padding at the end of the control with !important
    from these variables, a padding-right here would have no effect. A zero keeps
-   its unit, the library adds it to a length. */
+   its unit, the library adds it to a length. The clear button only gets room
+   while it is shown (below), not already from the library. */
+.additionals-select-field.single,
+.additionals-select-field.multi {
+  --ts-pr-clear-button: 0px;
+}
+
 .additionals-select-field.single {
   --ts-pr-caret: 20px;
-  --ts-pr-clear-button: 0px;
 }
 
 .additionals-select-field.single .ts-control > .item {
@@ -190,11 +195,11 @@
 
 /* room for the clear button at the end, as long as it is shown: next to the
    arrow of a single field, at the end of a multiple one */
-.additionals-select-field.plugin-clear_button.single.has-items {
+.additionals-select-field.plugin-clear_button.single.has-items:not(.disabled) {
   --ts-pr-clear-button: 14px;
 }
 
-.additionals-select-field.plugin-clear_button.multi.has-items {
+.additionals-select-field.plugin-clear_button.multi.has-items:not(.disabled) {
   --ts-pr-clear-button: 22px;
 }
 
@@ -350,7 +355,7 @@
 }
 
 /* the chosen scheme fills the field, so that its colors stand at the end as in the list */
-.additionals-select-field .ts-control > .item:has(> .colorscheme-option) {
+.additionals-select-field.single .ts-control > .item:has(> .colorscheme-option) {
   flex: 1 1 auto;
 }
 

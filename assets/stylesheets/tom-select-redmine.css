@@ -40,9 +40,12 @@
 
 /* the search fills what the chosen entries leave on their line; forms of
    Redmine give text fields a width of their own, which would push it onto a
-   line of its own and change the height of the field on focus */
+   line of its own and change the height of the field on focus. Firefox gives
+   a text field at least a "normal" line, higher than the line of the control:
+   an empty field would be higher than one with a value. */
 .additionals-select-field .ts-control > input {
   flex: 1 1 0%;
+  height: var(--a-control-line-height);
   min-width: 4rem;
 }
 
@@ -83,9 +86,11 @@
   cursor: text;
 }
 
-.additionals-select-field.disabled .ts-control {
-  background-color: var(--a-color-bg-light);
-  opacity: 1;
+/* the field with the focus has the border of a focused select of core; the
+   search of a multiple field has the focus and shows none itself */
+.additionals-select-field.focus .ts-control {
+  border-color: var(--oc-blue-5);
+  outline: none;
 }
 
 /* single field: the chosen entry with the arrow of a native select of core,
@@ -111,6 +116,14 @@
 
 .additionals-select-field.single {
   --ts-pr-caret: 20px;
+}
+
+/* a disabled field looks like a disabled select of core, also against the
+   rules of the single field above */
+.additionals-select-field.disabled:is(.single, .multi) .ts-control {
+  background-color: var(--oc-gray-2);
+  color: var(--a-color-muted);
+  opacity: 1;
 }
 
 .additionals-select-field.single .ts-control > .item {
@@ -151,6 +164,22 @@
   color: inherit;
 }
 
+/* chosen entries of a disabled field, with colors of variables.css instead of
+   those of tom-select.css */
+.additionals-select-field.multi.disabled .ts-control > .item {
+  background-color: var(--a-color-white);
+  border: 0;
+  color: inherit;
+}
+
+/* tom-select.css sets the cursor of a disabled field and its parts with
+   !important */
+.additionals-select-field.disabled:is(.single, .multi) .ts-control,
+.additionals-select-field.disabled:is(.single, .multi) .ts-control > .item,
+.additionals-select-field.disabled:is(.single, .multi) .ts-control > input {
+  cursor: not-allowed !important;
+}
+
 .additionals-select-field.plugin-remove_button .item .remove {
   border: 0 !important;
   color: var(--a-color-muted);
@@ -183,7 +212,9 @@
   opacity: 1;
 }
 
-/* a disabled field has no value to clear */
+/* an empty or disabled field has no value to clear; only unseen, the button
+   would still take the clicks that open the list */
+.additionals-select-field.plugin-clear_button:not(.has-items) .clear-button,
 .additionals-select-field.plugin-clear_button.disabled .clear-button {
   display: none;
 }
@@ -245,7 +276,9 @@
   font-weight: bold;
 }
 
+/* also the chosen entry shows when the arrow keys reach it */
 .additionals-select-dropdown .active,
+.additionals-select-dropdown .option.selected.active,
 .additionals-select-dropdown .active.create {
   background-color: var(--a-color-highlight);
   color: inherit;

@@ -126,6 +126,8 @@ module Additionals
         open_field: '.dropdown-active',
         focused_search: '.focus .ts-control > input:focus, .ts-dropdown .dropdown-input:focus',
         entry: '.ts-dropdown .option, .ts-dropdown .create',
+        marked_entry: '.ts-dropdown .option.active',
+        list: '.ts-dropdown-content',
         choice: '.ts-control > .item',
         choice_remove: '.remove',
         clear: '.clear-button'
@@ -169,18 +171,28 @@ module Additionals
       # Picks the entry +text+ of the open list, e.g. of a menu opened by a
       # button (AdditionalsSelect.menu)
       def choose_open_select_entry(text, exact: true)
-        entry = select_entry(text, exact:)
-        # The list scrolls smoothly (tom-select.css), also to the chosen entry
-        # when it opens. The driver clicks where the entry was when its own
-        # scroll started, which hits a neighbour while the list still moves.
-        # An instant scroll stops the animation and leaves the list in place.
-        page.execute_script "arguments[0].scrollIntoView({ block: 'nearest', behavior: 'instant' })", entry
-        entry.click
+        select_entry(text, exact:).click
       end
 
       # The open list offers the entry +text+
       def assert_select_entry(text, exact: true)
         page.document.assert_selector SELECT_FIELD_MARKUP[:entry], text:, exact_text: exact
+      end
+
+      # The open list marks the entry +text+ and shows it at once, e.g. the
+      # chosen entry of a single field right after opening the list. Checked
+      # once, not retried: a list that only scrolls there later fails.
+      def assert_marked_select_entry_in_sight(text)
+        entry = page.document.find SELECT_FIELD_MARKUP[:marked_entry], text:, exact_text: true
+        in_sight = page.evaluate_script <<~JS, entry
+          ((entry) => {
+            const box = entry.getBoundingClientRect();
+            const list = entry.closest('#{SELECT_FIELD_MARKUP[:list]}').getBoundingClientRect();
+            return box.top >= list.top && box.bottom <= list.bottom;
+          })(arguments[0])
+        JS
+
+        assert in_sight, "#{text.inspect} is marked, but out of sight"
       end
 
       # No open list offers the entry +text+, e.g. after a menu went away

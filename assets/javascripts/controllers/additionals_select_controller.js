@@ -414,6 +414,16 @@ function allowListsInDialogs() {
   dialog.prototype.additionalsSelectAllowed = true;
 }
 
+// Opens the list also when it has no entries yet (entries of the server). The
+// marked entry, the chosen one of a single field, is in sight at once: the
+// library jumps there only when it opens the list itself, otherwise the list
+// glides there (scroll-behavior of tom-select.css) or stays at its top.
+function openList(instance) {
+  instance.open();
+  instance.refreshOptions(false);
+  if (instance.activeOption) { instance.scrollToOption(instance.activeOption, 'auto'); }
+}
+
 function initLibrary(select, config) {
   allowListsInDialogs();
   const { multiple } = select;
@@ -463,8 +473,7 @@ function initLibrary(select, config) {
       this.blur();
       return;
     }
-    this.open();
-    this.refreshOptions(false);
+    openList(this);
   };
 
   // Enter or the arrow down on the closed field opens its list, also when it
@@ -473,8 +482,7 @@ function initLibrary(select, config) {
   instance.onKeyDown = function (event) {
     if ([ENTER_KEY, ARROW_DOWN_KEY].includes(event.keyCode) && !this.isOpen && !this.isLocked) {
       event.preventDefault();
-      this.open();
-      this.refreshOptions(false);
+      openList(this);
       return;
     }
     // the search of a single field sits in the list at the end of the page:
@@ -839,8 +847,7 @@ class AdditionalsSelectController extends Controller {
   open() {
     if (!this.instance) { return; }
 
-    this.instance.open();
-    this.instance.refreshOptions(false);
+    openList(this.instance);
   }
 }
 
@@ -924,8 +931,7 @@ function menu({ anchor, entries, placeholder = '', onSelect, onClose } = {}) {
   document.addEventListener('mousedown', closeOutside, true);
   instance.on('destroy', () => document.removeEventListener('mousedown', closeOutside, true));
 
-  instance.open();
-  instance.refreshOptions(false);
+  openList(instance);
   return select;
 }
 

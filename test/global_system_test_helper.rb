@@ -210,6 +210,20 @@ module Additionals
         within(container) { find(SELECT_FIELD_MARKUP[:clear]).click }
       end
 
+      # The empty select field inside +container+ prompts with +text+
+      def assert_select_placeholder(container, text)
+        within container do
+          assert_selector "#{SELECT_FIELD_MARKUP[:opener]} input", visible: :all do |input|
+            input[:placeholder] == text
+          end
+        end
+      end
+
+      # The select field inside +container+ has no button to empty it
+      def assert_no_select_clear(container)
+        within(container) { assert_no_selector SELECT_FIELD_MARKUP[:clear], visible: :all }
+      end
+
       # Types +name+ into the tag field inside +container+ and takes it, as a
       # new tag or as the existing one of that name
       def add_select_tag(container, name)

@@ -104,7 +104,7 @@ describe('additionals_select_filters.js', () => {
   });
 
   // a select of the browser has its first option chosen, the filter would
-  // take a value nobody chose (e.g. a project of an action of automation)
+  // take a value nobody chose (e.g. a project of an action of a rule)
   it('chooses nothing in a single select without a value of the filter', () => {
     additionalsSelectRegisterFilter('type', 'author', { url: '/users', multiple: false });
     additionalsSelectRegisterFilter('type', 'list', { url: '/statuses', multiple: false });
@@ -169,19 +169,23 @@ describe('additionals_select_filters.js', () => {
     document.removeEventListener('additionals-select:library-loaded', loaded);
   });
 
+  // Redmine calls enableValues for each operator change too, only a field it
+  // empties changes
   it('shows the emptied value when Redmine switches the values of a filter off', () => {
     additionalsSelectRegisterFilter('type', 'list', { url: '/statuses' });
     buildFilterRow('status_id', '=', ['1']);
     const changed = vi.fn();
     select('status_id').addEventListener('change', changed);
 
+    enableValues('status_id', [0]);
+    const kept = changed.mock.calls.length;
     enableValues('status_id', []);
 
-    expect(changed).toHaveBeenCalledTimes(1);
+    expect([kept, changed.mock.calls.length, chosen('status_id')]).toEqual([0, 1, []]);
   });
 
   // a select of the browser has its first option chosen, a row a plugin builds
-  // (e.g. an action of automation) would take a value nobody chose; without
+  // (e.g. an action of a rule) would take a value nobody chose; without
   // values the select stays as it is (e.g. a select of a form)
   it('chooses nothing in a single select of a row a plugin builds with no values', () => {
     document.body.innerHTML = `

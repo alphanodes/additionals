@@ -43,8 +43,11 @@ class SelectLibraryUsageTest < Additionals::TestCase
     write 'assets/stylesheets/plugin_x.scss', ".box .ts-control { color: red; }\n"
     write 'app/views/foo/_head.html.slim', "= additionals_library_load :select2\n"
     write 'assets/javascripts/plugin_y.js', "if (field.dataset['select2']) {}\n"
+    write 'app/helpers/foo_helper.rb', "users = render_grouped_users_with_select2 users\nLIMIT = AdditionalsConf.select2_init_entries\n"
 
-    assert_equal ['app/views/foo/_head.html.slim:1: former helper of additionals',
+    assert_equal ['app/helpers/foo_helper.rb:1: former helper of additionals',
+                  'app/helpers/foo_helper.rb:2: former helper of additionals',
+                  'app/views/foo/_head.html.slim:1: former helper of additionals',
                   'assets/javascripts/plugin_x.mjs:1: call or class of the library',
                   'assets/javascripts/plugin_x.mjs:2: call or class of the library',
                   'assets/javascripts/plugin_y.js:1: data of the former library (Select2)',
@@ -70,8 +73,8 @@ class SelectLibraryUsageTest < Additionals::TestCase
   # not ours
   def test_ignores_names_and_bundled_libraries
     write 'app/helpers/foo_helper.rb', <<~RUBY
-      def entries_for_select2 = render_grouped_users_with_select2(users)
-      LIMIT = AdditionalsConf.select2_init_entries
+      def entries_for_select2 = render_users(users)
+      LIMIT = AdditionalsConf.autocomplete_entries
       field = additionals_select_tag 'foo', nil, renderer: 'avatar'
     RUBY
     write 'assets/javascripts/vendor/select2.js', "$.fn.select2 = function () {};\n"

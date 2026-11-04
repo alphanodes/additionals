@@ -103,13 +103,6 @@ function additionalsSelectSuggestion(field, values) {
   return offered ? 'me' : null;
 }
 
-// A single select of the browser has its first option chosen: without a value
-// of the filter it gets a blank one, so the filter takes nothing nobody chose
-function additionalsSelectNothingChosen(select) {
-  if (!Array.from(select.options).some((option) => option.value === '')) { select.prepend(new Option('', '')); }
-  select.value = '';
-}
-
 function additionalsSelectFilterRow(field, values) {
   const options = additionalsSelectFilterOptions(field);
   if (!options) { return; }
@@ -127,7 +120,8 @@ function additionalsSelectFilterRow(field, values) {
   if (suggestion) {
     Array.from(select.options).forEach((option) => { option.selected = option.value === suggestion; });
   } else if (!multiple && (!values || values.length === 0)) {
-    additionalsSelectNothingChosen(select);
+    // the browser chose its first option, the filter takes nothing nobody chose
+    additionalsSelectSingle(select, []);
   }
   // the cell of a filter is as wide as its content: a share of it would
   // always lack that share and wrap the last chosen entry
@@ -146,18 +140,30 @@ function additionalsSelectRegisterFilter(kind, name, options) {
 
 /* Redmine empties the values of a filter it switches off (unchecked, operator
    without values) without telling anybody: the select field would still show
-   the former values. */
-function additionalsSelectRefreshRow(field) {
-  document.querySelectorAll(`#${additionalsSelectRowId(field)} select[data-controller~="additionals-select"]`)
-    .forEach((select) => select.dispatchEvent(new Event('change', { bubbles: true })));
+   the former values. It calls enableValues for each change of the operator,
+   so only a field whose values it emptied is told. */
+function additionalsSelectRowSelects(field) {
+  return Array.from(document.querySelectorAll(
+    `#${additionalsSelectRowId(field)} select[data-controller~="additionals-select"]`,
+  ));
+}
+
+function additionalsSelectChosen(select) {
+  return Array.from(select.selectedOptions, (option) => option.value).join('\n');
 }
 
 if (typeof enableValues === 'function' && !window.additionalsSelectEnableValuesWrapped) {
   window.additionalsSelectEnableValuesWrapped = true;
   const additionalsSelectEnableValues = enableValues;
   enableValues = function (field, indexes) {
+    const selects = additionalsSelectRowSelects(field);
+    const before = selects.map(additionalsSelectChosen);
     additionalsSelectEnableValues(field, indexes);
-    additionalsSelectRefreshRow(field);
+    selects.forEach((select, index) => {
+      if (additionalsSelectChosen(select) !== before[index]) {
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    });
   };
 }
 

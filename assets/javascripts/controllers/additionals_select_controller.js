@@ -522,18 +522,18 @@ function initLibrary(select, config) {
   instance.onItemSelect = () => false;
 
   // A value chosen as a suggestion (e.g. "<< me >>" of a new filter, as core
-  // does) gives way to the first entry the user chooses, as the value of a
-  // single select would; after that the field adds entries as usual
-  // The entry of the suggestion is shown as one until then.
-  if (multiple && config.suggestion) {
-    let { suggestion } = config;
-    const showSuggestion = (shown) => {
-      instance.getItem(config.suggestion)?.classList.toggle('additionals-select-suggestion', shown);
-    };
-    const endSuggestion = () => {
-      suggestion = null;
-      showSuggestion(false);
-    };
+  // does) gives way to the first other entry the user chooses, as the value
+  // of a single select would, or is taken when the user chooses it; after
+  // that the field adds entries as usual. Until then it is shown as one.
+  let suggestion = multiple && config.suggestion ? config.suggestion : null;
+  const showSuggestion = (shown) => {
+    instance.getItem(config.suggestion)?.classList.toggle('additionals-select-suggestion', shown);
+  };
+  const endSuggestion = () => {
+    suggestion = null;
+    showSuggestion(false);
+  };
+  if (suggestion !== null) {
     showSuggestion(true);
     instance.hook('before', 'addItem', (value, silent) => {
       if (silent || suggestion === null) { return; }
@@ -545,10 +545,16 @@ function initLibrary(select, config) {
     instance.on('item_remove', endSuggestion);
   }
 
-  // a chosen entry of a multiple field is chosen again to remove it
+  // a chosen entry of a multiple field is chosen again to remove it; the
+  // suggestion chosen by the user is taken instead
   const { onOptionSelect } = instance;
   instance.onOptionSelect = function (event, option) {
     const { value } = option.dataset;
+    if (value !== undefined && value === suggestion) {
+      endSuggestion();
+      this.close();
+      return;
+    }
     if (multiple && value !== undefined && this.items.includes(value)) {
       this.removeItem(value);
       this.close();

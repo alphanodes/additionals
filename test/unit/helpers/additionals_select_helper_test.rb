@@ -20,7 +20,8 @@ class AdditionalsSelectHelperTest < Additionals::HelperTest
   def test_select_field_gets_controller_and_values_of_the_field
     select = select_of @redmine_view.additionals_select_tag('foo', nil, url: '/search?a=1&b=2', tags: true,
                                                                         free_input: true, free_input_pattern: '@',
-                                                                        renderer: 'avatar', min_input_length: 2)
+                                                                        renderer: 'avatar', min_input_length: 2,
+                                                                        suggestion: 'me')
 
     assert_equal({ 'data-controller' => 'additionals-select',
                    'data-additionals-select-url-value' => '/search?a=1&b=2',
@@ -28,7 +29,8 @@ class AdditionalsSelectHelperTest < Additionals::HelperTest
                    'data-additionals-select-free-input-value' => 'true',
                    'data-additionals-select-free-input-pattern-value' => '@',
                    'data-additionals-select-renderer-value' => 'avatar',
-                   'data-additionals-select-min-input-length-value' => '2' },
+                   'data-additionals-select-min-input-length-value' => '2',
+                   'data-additionals-select-suggestion-value' => 'me' },
                  data_attributes(select))
   end
 

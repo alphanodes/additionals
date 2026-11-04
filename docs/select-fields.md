@@ -47,7 +47,7 @@ flowchart LR
 | `renderer` | How entries look, see below |
 | `value_key` | Property of the server entries that becomes the value; entries without it cannot be chosen |
 | `placeholder` | Text of the empty field |
-| `suggestion` | A chosen value that gives way to the first entry the user chooses (multiple fields), shown as a suggestion until then (class `additionals-select-suggestion`), e.g. `me` of a new filter |
+| `suggestion` | A chosen value that gives way to the first other entry the user chooses (multiple fields) or is taken when the user chooses it, shown as a suggestion until then (class `additionals-select-suggestion`), e.g. `me` of a new filter |
 | `allow_clear` | Shows a button that empties the field; a single field gets a blank option for it, so the empty value is sent |
 | `min_input_length` | Characters to type before searching |
 | `width` | Width of the field, default `90%` |

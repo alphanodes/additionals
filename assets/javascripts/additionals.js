@@ -123,7 +123,7 @@ function addTabToFromAction(form, name) {
 //
 // Clicking the link reveals the list, clicking a variable inserts it. The
 // target field is either named by data-insert-target, or - where the fields
-// are dynamic, as in invoice lines or automation actions - it is the field
+// are dynamic, as in rows a user adds - it is the field
 // with class "variable-value" the user edited last.
 //
 // Delegated on document, so forms replaced by ajax keep working. Loaded

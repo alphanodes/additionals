@@ -4,7 +4,7 @@ module AdditionalsSelectHelper
   # Options of additionals_select_tag that configure the select field, all
   # others go to the <select> element
   SELECT_FIELD_OPTIONS = %i[url tags scoped_tags free_input free_input_pattern renderer value_key
-                            placeholder allow_clear min_input_length width].freeze
+                            placeholder allow_clear min_input_length width suggestion].freeze
   BLANK_OPTION = /<option[^>]*\svalue=(""|'')/
 
   # Select field with search, entries from the server (+url+), tags and

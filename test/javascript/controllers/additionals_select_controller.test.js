@@ -577,8 +577,8 @@ describe('AdditionalsSelectController', () => {
     it('keeps an entry on top that the answer repeats in a group', async () => {
       serverAnswers([
         { id: 3, text: '<< me >>' },
-        { text: 'Involved', children: [{ id: 2, text: 'Anna' }, { id: 3, text: 'Claudia' }] },
-        { text: 'Active', children: [{ id: 3, text: 'Claudia' }, { id: 4, text: 'Kurt' }] },
+        { text: 'Involved', children: [{ id: 2, text: 'Anna' }, { id: 3, text: 'Berta' }] },
+        { text: 'Active', children: [{ id: 3, text: 'Berta' }, { id: 4, text: 'Kurt' }] },
       ]);
       const select = await render(`<select data-controller="additionals-select" ${url}></select>`);
 
@@ -1065,6 +1065,23 @@ describe('AdditionalsSelectController', () => {
 
       expect([suggested, first, values(select), suggestedTexts(select), change.mock.calls.length])
         .toEqual([['<< me >>'], ['2'], ['2', 'me'], [], 2]);
+    });
+
+    // choosing the suggested entry takes it, it does not remove it as a
+    // second choice of a chosen entry would
+    it('becomes a value when the user chooses it', async () => {
+      const select = await render(`
+        <select multiple data-controller="additionals-select" data-additionals-select-suggestion-value="me">
+          <option value="me" selected>&lt;&lt; me &gt;&gt;</option><option value="2">Two</option>
+        </select>`);
+      const change = vi.fn();
+      select.addEventListener('change', change);
+
+      openField(select);
+      chooseEntry('<< me >>');
+
+      expect([values(select), chosenTexts(select), suggestedTexts(select), change.mock.calls.length])
+        .toEqual([['me'], ['<< me >>'], [], 0]);
     });
   });
 

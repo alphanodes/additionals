@@ -170,6 +170,16 @@ module Additionals
         .map { |a| a['class'].to_s.split.last }
     end
 
+    # The values of the filter +field+ in the link of the page to a filtered
+    # list (link_to_query_filter), sorted; nil without such a link
+    def query_filter_link_values(field)
+      css_select('a.icon-list').each do |link|
+        params = Rack::Utils.parse_nested_query URI(link['href']).query
+        return Array(params.dig('v', field)).sort if Array(params['f']).include? field
+      end
+      nil
+    end
+
     def assert_select_totalable_columns(columns)
       assert_select 'p.query-totals' do
         columns.each do |column_name|

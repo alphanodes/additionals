@@ -22,7 +22,8 @@ module Additionals
                                             select2Tag|initSelect2|fixScopedTags|select2Filters|setSelect2Filter|
                                             buildSelect2Options|formatStateWith\w+|formatSelectionWithEmails|
                                             formatNameWithIcon|formatIconOption|formatColorScheme|
-                                            additionals_field_formats|additionals_filter_urls)\b|
+                                            additionals_field_formats|additionals_filter_urls|
+                                            render_grouped_users_with_select2|select2_init_entries|SELECT2_INIT_ENTRIES)\b|
                                             library_load[\s(]+:select2\b/x
     }.freeze
 

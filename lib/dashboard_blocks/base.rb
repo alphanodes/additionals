@@ -98,6 +98,20 @@ module DashboardBlocks
         options.any? ? self.async_options = options : async_options
       end
 
+      # The chart class of the data check, which sizes the placeholder of the
+      # block; nil without one. A string resolves only now, its plugin may be
+      # loaded later. Another class would fail at render time for users with
+      # data only, so it fails always.
+      def data_check_chart
+        name = async&.dig :data_check_class
+        return if name.nil?
+
+        klass = name.is_a?(String) ? name.safe_constantize : name
+        return klass if klass.is_a?(Class) && klass <= AdditionalsChart
+
+        raise ArgumentError, "#{self.name || 'block'}: data_check_class #{name} is #{klass ? 'no AdditionalsChart' : 'unknown'}"
+      end
+
       # reader: name of the reader of the typed value, e.g. :project_name for a
       # setting project, which would hide the project of the block
       def setting(name, reader: name, **definition)
@@ -212,7 +226,7 @@ module DashboardBlocks
       options = self.class.async
       return if options.nil?
 
-      options = options.merge data_check_class: data_check_class(options[:data_check_class]) if options[:data_check_class]
+      options = options.merge data_check_class: self.class.data_check_chart if options[:data_check_class]
       params = unique_params
       params.nil? ? options : options.merge(unique_params: params)
     end
@@ -319,16 +333,6 @@ module DashboardBlocks
         rows: payload[:labels].each_with_index.map do |label, index|
           [export_value(label), *datasets.map { |dataset| export_number dataset[:data][index] }]
         end }
-    end
-
-    # The chart class whose data check sizes the placeholder of the block. A
-    # string resolves only now, its plugin may be loaded later. Another class
-    # would fail at render time for users with data only, so it fails always.
-    def data_check_class(name)
-      klass = name.is_a?(String) ? name.constantize : name
-      return klass if klass.is_a?(Class) && klass <= AdditionalsChart
-
-      raise ArgumentError, "#{self.class.name || 'block'}: data_check_class #{klass} is no AdditionalsChart"
     end
 
     # Sums of hours or amounts are decimals, which JSON would turn into strings

@@ -423,6 +423,18 @@ module Additionals
 
       assert_response :success
       assert_empty dashboard_block_render_errors(blocks), 'blocks that do not render'
+      assert_empty dashboard_block_data_check_errors, 'blocks with an invalid data_check_class'
+    end
+
+    # All loaded blocks, also those no render test shows (behind a permission,
+    # a module or another plugin): an invalid data check fails at render time
+    def dashboard_block_data_check_errors
+      DashboardBlocks.all.filter_map do |block|
+        block.data_check_chart
+        nil
+      rescue ArgumentError => e
+        e.message
+      end
     end
 
     # Reads the page first: each request of a block replaces the response

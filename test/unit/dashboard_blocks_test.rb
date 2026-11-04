@@ -173,11 +173,17 @@ class DashboardBlocksTest < Additionals::TestCase
   # The placeholder takes its height from the chart of the data check. Any
   # other class fails on every render, not only for a user with data.
   def test_data_check_class_is_a_chart
-    chart = async_block(nil, data_check_class: 'AdditionalsChart').new DashboardContentWelcome.new
-    other = async_block(nil, data_check_class: 'Issue').new DashboardContentWelcome.new
+    chart = async_block nil, data_check_class: 'AdditionalsChart'
 
-    assert_equal AdditionalsChart, chart.async[:data_check_class]
-    assert_raises(ArgumentError) { other.async }
+    assert_equal [AdditionalsChart, AdditionalsChart],
+                 [chart.data_check_chart, chart.new(DashboardContentWelcome.new).async[:data_check_class]]
+    assert_nil async_block(nil).data_check_chart
+
+    { 'Issue' => /Issue is no AdditionalsChart/, 'NoSuchChart' => /NoSuchChart is unknown/ }.each do |name, message|
+      error = assert_raises(ArgumentError) { async_block(nil, data_check_class: name).new(DashboardContentWelcome.new).async }
+
+      assert_match message, error.message
+    end
   end
 
   # A new block has its settings form open, cancel removes it again

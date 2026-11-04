@@ -292,7 +292,7 @@ Declarations are inherited. A base class of several blocks declares `abstract!`,
 | `required_settings` | settings without which the block shows nothing; an array or a callable with `(settings)` for one of several |
 | `skip_user_id` | the same content for all users, e.g. a feed |
 | `lazy` | load when the block scrolls into view |
-| `data_check_class` | class (or class name) with `chart_data_present?(project:)`: with data, the placeholder of a lazy chart gets the height of a chart |
+| `data_check_class` | subclass (or its name) of `AdditionalsChart`, other classes are rejected: if its `chart_data_present?(project:)` finds data, the placeholder of a lazy chart gets its `chart_height` |
 | `min_height` | height of the placeholder in pixels, or `->(project, settings) { ... }` |
 | `libraries` | JavaScript libraries the content needs |
 

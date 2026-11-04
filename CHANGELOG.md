@@ -3,100 +3,25 @@
 ## 4.7.0
 
 - Requires Redmine 7.0.3 or higher
-- The user and group lists of the autocomplete endpoints answer only for projects the user may see; before, they listed the members of private projects to anybody
-- Autocomplete endpoints return at most as many entries as the API limit (`AdditionalsConf.autocomplete_limit`)
-- Pages that answer `additionals_select_fields?` with false register no select fields for query filters and load no library for them
-- Add select fields with search, tags and query filters through the Stimulus controller `additionals-select` (`additionals_select_tag`, `additionals_select_filter`, `AdditionalsSelect`), see `docs/select-fields.md`
-- Notices about a sent mail name the address without brackets and a contact with its name once
-- The live search field above query lists offers no browser history, which covered the filtered list
-- Select fields use Tom Select instead of Select2: no jQuery plugin, own CSS classes, so they no longer clash with the Select2 of other plugins on the same page
-- Select fields send a native `change` event, so Stimulus actions and listeners of plugins see changed values
-- A single select field with `allow_clear` saves the cleared value, it gets a blank option of its own; before, the old value stayed
-- Incompatible: the configuration `select2_init_entries` (`SELECT2_INIT_ENTRIES`) is called `autocomplete_entries` (`AUTOCOMPLETE_ENTRIES`)
-- Incompatible: the library of the select fields is loaded as `select_fields` instead of `select2` (`additionals_library_load :select_fields`)
-- Incompatible: `additionals_select2_tag`, `additionals_transform_to_select2`, `additionals_icon_loader` and the JavaScript helpers of Select2 (`select2Tag`, `fixScopedTags`, `formatNameWithIcon`, ...) are removed, plugins use the select fields of additionals
-- Show the external link icon in info texts on Redmine 7.1 too, which dropped `external.png`
-- Add `Additionals::Holidays` as the one answer for holidays of all plugins: the non-working dates of Redmine 7.1, none on Redmine 7.0, a plugin managing holidays can prepend its own
-- Secondary text uses the darker grey of Redmine 7.1 (`--a-color-text-muted`) for better readability
-- Incompatible: the user scope of user custom fields (all users, all active users) is only offered for the entities a plugin registers in `user_scope_class_names`, user fields of all other entities keep the core form and behaviour
-- Add `AdditionalsWikiToolbar` for buttons of plugins in the wiki toolbar, with the jsToolBar of Redmine 7.0 and the server rendered toolbar of Redmine 7.1 alike; the macro button uses it
-- Add the textarea helpers of the wiki toolbar of Redmine 7.1 to Redmine 7.0 (`wiki_textarea_tag`, `f.wiki_textarea`, `wiki_toolbar:` of `custom_field_tag_with_label`), as Redmine 7.1 deprecates `wikitoolbar_for`; such a field sits in `div.form-field` instead of `p`
-- The edit form of journal notes (`additionals_journals/_notes_form`) is provided centrally, plugins with entity journals need no copy of their own
-- Add `Additionals.redmine_url` and `Additionals.redmine_origin` for absolute URLs built from the host settings
-- Add `Additionals::Concerns::DeletionBlockers`: an entry other records refer to can only be deleted once nothing refers to it any more, with the query filter `deletable` and the column `deletion_blocked_by`
-- Error messages in `flash_msg` (`save_error`, `delete_error`) are escaped, as the flash is rendered as HTML
-- Incompatible: dashboard blocks are classes in `lib/dashboard_blocks/` of their plugin, a `block_definitions` method stops the boot, see "Moving Blocks from `block_definitions`" in `docs/dashboards.md`
-- Dashboard blocks declare their settings (`Additionals::SettingsSchema`), invalid settings are rejected
-- Settings forms of dashboard blocks are built from the declared settings
-- Query list blocks can change their query
-- Query list blocks follow the columns of their query unless they override them
-- Secret block settings (tokens, passwords) are never filled in or exported
-- Block settings keep a stored choice the editor cannot see, e.g. a private query
-- New dashboard blocks open their settings form, cancel removes them again
-- Dashboard blocks provide their data to programs (`data`, `export_data`)
-- Add query chart blocks for any query (`AdditionalsQueryChart`)
-- Block settings can be dates
-- Block settings can be shown with chosen values of a select (`shown_with`)
-- Key figures above a chart can explain themselves on hover (`title`)
-- Legend and tooltip of a chart can list its datasets in an order of their own (`legendOrder`)
-- A later line on top of a chart is drawn above an earlier one
-- A series of a bar chart can sit on an axis of its own on the right (`axis: 'secondary'`)
-- Query chart blocks group numbers computed by SQL (`QueryNumberColumn`), optionally colored by direction and with bounds of their own
-- Headers of the table of values wrap instead of running into the next column
-- Classes of whole numbers in query chart blocks name their last value, e.g. "1 to 7"
-- Add `Additionals::DashboardBlockReplacer` for migrations of dashboard blocks
-- Add `AdditionalsHelpers.loadLibrary` to load an asset library on demand
-- Incompatible: global search providers are classes in `lib/global_search/` of their plugin
-- Global search only searches titles if no word has at least 3 letters or digits in a row, which keeps it fast on large instances
-- Plugins declare the options they add to saved queries
-- Dashboards API shows block settings only to users who may edit the dashboard
-- Only users who may edit a dashboard can change its layout and block settings
-- A click on the lock of a locked dashboard unlocks it
-- Private dashboards of other users are no longer accessible to admins
-- Deleting a project deletes all its dashboards, deleting a user keeps their public dashboards
-- Feed block reads http and https only, with limits for redirects, time and size
-- Fix query list blocks showing outdated content after changes via the context menu
-- Fix dashboards failing on a query list block with an invalid query
-- Fix scripts of dashboard blocks added or saved without page reload
-- Fix news and spent time blocks of project dashboards after saving their settings
-- Fix query list blocks on project dashboards
-- Fix timelines of query chart blocks by a timestamp in the time zone of the user
-- Fix the assignee group filter of entity lists
-- Fix false values of configuration.yml settings
-- Fix code reloading with deface overrides in development
-- Fix validation of the dashboard type
-- Fix disabled entries of the dashboard actions menu (Redmine 7.1)
-- Fix the context menu staying above the dialog that one of its entries opens
-- Fix slow user visibility check (user and assignee selects, watchers) with many project memberships
-- Names in select fields are shown as text (XSS)
-- User custom fields "all users" offer groups too (Redmine 7.1)
-- Assignee selection lists the author of the latest note and only visible involved principals
-- User and group selects offer groups before typing
+- Select fields search faster and no longer clash with other plugins; user and group selects offer groups before typing
+- Assignee selection offers the author of the latest note
+- Dashboards: block settings are checked, query list blocks can change their query and columns, new chart blocks for any query
+- A locked dashboard is unlocked with a click on its lock
+- Treemap and sankey charts use the configured color scheme, legends and value tables are easier to read
+- Global search stays fast on large instances
+- Holidays of Redmine 7.1 apply in all plugins
 - Issue attachments link to the note that added them (Redmine 7.1)
-- Password fields of settings are not filled in by the browser
-- Macros respect visibility and permissions, missing records show a hint
-- `tabler` and `fa` macros accept only safe colors
-- Macro fixes and options: `vimeo`, `reddit`, `meteoblue`, `gmap`, `user`, `gps`, `recently_updated`, boolean options
-- Add `link_to_issue_with_subject` and `Additionals.name_sort_key`
-- Test helper `count_sql_queries` accepts `matching:`
-- I18n tests check that a plugin offers the required locales, deviations are declared with `missing_locales:` and `extra_locales:`
-- All translations revised for consistent terms, German texts use the informal du
-- The author badge of a note names no entry type, it showed a missing translation for most entries
-- Dashboards for all projects show a project only to users who may see it, also when blocks are added or set up
-- Bundled mermaid is used with Redmine 7.1 and newer
-- moment.js, `chartjs_moment` and `actioncable` removed from the asset loader
-- Incompatible: treemap and sankey are drawn with Chart.js, d3plus is removed; the library `d3plus` is replaced by `chartjs_treemap` and `chartjs_sankey`
-- Treemap and sankey use the configured color scheme
-- Add `chartjs_colorscheme_select_tag` and `additionals_settings_colorscheme_select`: a select of the color schemes that shows the colors of each scheme
-- The color scheme select offers of Brewer only the palettes for categories and names the schemes without the count of their colors where that stays unique; a scheme chosen before stays selectable
-- Incompatible: `chartjs_colorschemes_info_url` is removed, the select shows the colors itself
-- Incompatible: `Additionals.hash_remove_with_default` and `column_with_prefix?` of queries are removed, nothing used them any more
-- A chart class with its own `chart_height` sets the height reserved for its dashboard block while it loads
-- `AdditionalsPlugin.active_<name>?` is true for an installed plugin without a project module of its name, such a module cannot be disabled
-- Fix auto refresh of async blocks shown from the cache and the empty space below them after loading
-- Chart.js updated to 4.6.1
-- Chart.js Plugin matrix updated to 3.1.0
-- mermaid updated to 12.3.0
+- Macros: fixes and new options for `vimeo`, `reddit`, `meteoblue`, `gmap`, `user`, `gps` and `recently_updated`
+- Secondary text is darker for better readability
+- All translations revised, German texts use the informal du
+- Security: select fields, dashboards and macros only show what the user may see; admins no longer open private dashboards of other users; names and error messages are escaped
+- Deleting a project deletes its dashboards, deleting a user keeps their public dashboards
+- Fix query list blocks with outdated content, invalid queries or on project dashboards, and the auto refresh of blocks
+- Fix slow user and assignee selects with many project memberships
+- Fix a cleared single select field keeping its old value
+- Fix timelines of chart blocks in the time zone of the user
+- For plugin developers: dashboard blocks and global search providers are classes, the Select2 helpers are replaced by the select fields of additionals, see `docs/`
+- Chart.js 4.6.1, mermaid 12.3.0
 
 ## 4.6.0
 

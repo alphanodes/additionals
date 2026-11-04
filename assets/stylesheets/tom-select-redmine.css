@@ -98,7 +98,13 @@
   background-repeat: no-repeat;
   cursor: pointer;
   flex-wrap: nowrap;
-  padding-right: 20px;
+}
+
+/* tom-select.css sets the padding at the end of the control with !important
+   from these variables, a padding-right here would have no effect */
+.additionals-select-field.single {
+  --ts-pr-caret: 20px;
+  --ts-pr-clear-button: 0px;
 }
 
 .additionals-select-field.single .ts-control > .item {
@@ -170,12 +176,17 @@
   opacity: 1;
 }
 
-.additionals-select-field.multi.has-items .ts-control {
-  padding: var(--a-control-padding-block) 22px var(--a-control-padding-block) 2px;
+.additionals-select-field.multi.has-items {
+  --ts-pr-min: 22px;
 }
 
-.additionals-select-field.plugin-clear_button.single.has-items .ts-control {
-  padding-right: 34px;
+.additionals-select-field.multi.has-items .ts-control {
+  padding-block: var(--a-control-padding-block);
+  padding-left: 2px;
+}
+
+.additionals-select-field.plugin-clear_button.single.has-items {
+  --ts-pr-clear-button: 14px;
 }
 
 /* the list hangs at the body, above dialogs */

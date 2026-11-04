@@ -826,6 +826,11 @@ table.entity-list td.block_column pre {
   justify-content: space-between;
 }
 
+/* the chosen scheme fills the field, so that its colors stand at the end as in the list */
+.additionals-select-field .ts-control > .item:has(> .colorscheme-option) {
+  flex: 1 1 auto;
+}
+
 .colorscheme-swatches {
   display: inline-flex;
   flex-shrink: 0;

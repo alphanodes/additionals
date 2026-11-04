@@ -624,27 +624,30 @@ class GlobalSearchController extends Controller {
 
   // The dialog searches the project while its scope says so, and then the link has to lead
   // there as well: a count taken in the project next to a link into the global search
-  // contradicts itself.
-  coreSearchParams(query) {
+  // contradicts itself. The core search page reads the project from its path only, so the
+  // server hands over the project link and the link adds the search to it.
+  coreSearchHref(query) {
+    const { dataset } = this.element;
+    const inProject = this.currentScope === 'project' && dataset.coreSearchProjectUrl;
+    const [path, linkQuery = ''] = (inProject ? dataset.coreSearchProjectUrl : dataset.coreSearchUrl).split('?');
+    const searchParams = new URLSearchParams(linkQuery);
+    searchParams.set('q', query);
     // The dialog searches attachments, the core search page leaves them out unless asked. The
     // page behind the link therefore has to be asked, or it answers with fewer hits than the
     // number next to the link - a file named "Oberklausen.pdf" answers a search for "klaus".
-    const params = new URLSearchParams({ q: query, attachments: '1' });
+    searchParams.set('attachments', '1');
     const coreScope = this.coreSearchScope();
     if (coreScope) {
-      params.set('scope', coreScope);
-    }
-    if (this.currentScope === 'project' && this.projectIdValue) {
-      params.set('project_id', this.projectIdValue);
+      searchParams.set('scope', coreScope);
     }
     if (this.searchesTitlesOnly()) {
-      params.set('titles_only', '1');
+      searchParams.set('titles_only', '1');
     }
     if (this.activeSearchType) {
-      params.set(this.activeSearchType, '1');
+      searchParams.set(this.activeSearchType, '1');
     }
 
-    return params;
+    return `${path}?${searchParams}`;
   }
 
   renderCoreSearchLink(query) {
@@ -667,7 +670,7 @@ class GlobalSearchController extends Controller {
     } else if (suffix) {
       scopeText = ` ${this.escapeHtml(suffix)}`;
     }
-    const url = `${this.escapeHtml(coreUrl)}?${this.coreSearchParams(query)}`;
+    const url = this.escapeHtml(this.coreSearchHref(query));
 
     return '<div class="global-search-core-link">' +
       `<a href="${url}" class="global-search-item">` +
@@ -688,7 +691,7 @@ class GlobalSearchController extends Controller {
     const label = (this.element.dataset.allResults || 'All %{count} results').replace('%{count}', total);
 
     return '<div class="global-search-all-results">' +
-      `<a href="${this.escapeHtml(coreUrl)}?${this.coreSearchParams(query)}" class="global-search-item">` +
+      `<a href="${this.escapeHtml(this.coreSearchHref(query))}" class="global-search-item">` +
       `<span class="global-search-item-title">${this.escapeHtml(label)}</span>` +
       '</a></div>';
   }

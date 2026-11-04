@@ -27,6 +27,7 @@ module AdditionalsGlobalSearchHelper
       'semantic-types': GlobalSearch.provider_search_types(user: User.current).to_json,
       'semantic-label': GlobalSearch.provider_label(user: User.current),
       'core-search-url': search_path,
+      'core-search-project-url': (search_path id: @project if @project),
       action: 'click->global-search#closeOnOverlay' }
   end
 

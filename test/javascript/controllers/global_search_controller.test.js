@@ -690,13 +690,25 @@ describe('GlobalSearchController', () => {
       expect(html).toContain('wiki_pages=1');
     });
 
-    // A count taken in the project next to a link into the global search contradicts itself
-    it('leads into the project while the scope says so', () => {
-      const ctx = linkContext({ currentScope: 'project', projectIdValue: 'ecookbook' });
+    // Which projects the page behind the link searches, the server decides with the project
+    // link it hands over; the link only adds the search to it.
+    it('builds on the project link of the server while the scope says so', () => {
+      const ctx = linkContext({
+        currentScope: 'project',
+        dataset: { coreSearchProjectUrl: '/projects/ecookbook/search' },
+      });
 
       const html = GlobalSearchController.prototype.renderAllResultsLink.call(ctx, 'ansible', 10);
 
-      expect(html).toContain('project_id=ecookbook');
+      expect(html).toContain('href="/projects/ecookbook/search?q=ansible&amp;attachments=1"');
+    });
+
+    it('leaves the project link aside outside the project scope', () => {
+      const ctx = linkContext({ dataset: { coreSearchProjectUrl: '/projects/ecookbook/search' } });
+
+      const html = GlobalSearchController.prototype.renderAllResultsLink.call(ctx, 'ansible', 10);
+
+      expect(html).toContain('href="/search?q=ansible&amp;attachments=1&amp;scope=all"');
     });
   });
 
@@ -2072,7 +2084,7 @@ describe('GlobalSearchController', () => {
         escapeHtml: GlobalSearchController.prototype.escapeHtml,
         scopeSuffix: GlobalSearchController.prototype.scopeSuffix,
         coreSearchScope: GlobalSearchController.prototype.coreSearchScope,
-        coreSearchParams: GlobalSearchController.prototype.coreSearchParams,
+        coreSearchHref: GlobalSearchController.prototype.coreSearchHref,
         searchesTitlesOnly: GlobalSearchController.prototype.searchesTitlesOnly,
         hitsBehindTheLink: GlobalSearchController.prototype.hitsBehindTheLink,
         typeCounts: null,

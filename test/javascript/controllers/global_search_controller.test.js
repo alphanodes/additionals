@@ -644,7 +644,6 @@ describe('GlobalSearchController', () => {
         currentScope: 'global',
         activeSearchType: null,
         titlesOnlyActive: false,
-        projectIdValue: '',
         typeCounts: { issues: 120, wiki_pages: 27 },
         ...props,
       });
@@ -661,8 +660,8 @@ describe('GlobalSearchController', () => {
     it('leaves out what the core search does not search in a project', () => {
       const ctx = linkContext({
         currentScope: 'project',
-        projectIdValue: 'foo',
         dataset: {
+          coreSearchProjectUrl: '/projects/foo/search',
           searchTypesProject: JSON.stringify(linkTypes.filter(type => type.id !== 'projects')),
         },
         typeCounts: { issues: 120, wiki_pages: 27, projects: 1 },
@@ -701,6 +700,23 @@ describe('GlobalSearchController', () => {
       const html = GlobalSearchController.prototype.renderAllResultsLink.call(ctx, 'ansible', 10);
 
       expect(html).toContain('href="/projects/ecookbook/search?q=ansible&amp;attachments=1"');
+    });
+
+    // Titles only and the active tab narrow the page as they narrow the dialog, and the query
+    // stays one value of the link however it is written
+    it('keeps the project link with all options and an odd query', () => {
+      const ctx = linkContext({
+        currentScope: 'project',
+        activeSearchType: 'issues',
+        titlesOnlyActive: true,
+        dataset: { coreSearchProjectUrl: '/projects/ecookbook/search' },
+      });
+
+      const html = GlobalSearchController.prototype.renderAllResultsLink.call(ctx, 'a&b "<x>', 10);
+
+      expect(html).toContain(
+        'href="/projects/ecookbook/search?q=a%26b+%22%3Cx%3E&amp;attachments=1&amp;titles_only=1&amp;issues=1"',
+      );
     });
 
     it('leaves the project link aside outside the project scope', () => {
@@ -2088,7 +2104,6 @@ describe('GlobalSearchController', () => {
         searchesTitlesOnly: GlobalSearchController.prototype.searchesTitlesOnly,
         hitsBehindTheLink: GlobalSearchController.prototype.hitsBehindTheLink,
         typeCounts: null,
-        projectIdValue: '',
       };
     });
 
@@ -2120,12 +2135,6 @@ describe('GlobalSearchController', () => {
       ctx.activeSearchType = 'wiki_pages';
       const html = GlobalSearchController.prototype.renderCoreSearchLink.call(ctx, 'test');
       expect(html).toContain('wiki_pages=1');
-    });
-
-    it('does not include scope for project scope', () => {
-      ctx.currentScope = 'project';
-      const html = GlobalSearchController.prototype.renderCoreSearchLink.call(ctx, 'test');
-      expect(html).not.toContain('scope=');
     });
 
     it('returns empty string when no coreSearchUrl', () => {

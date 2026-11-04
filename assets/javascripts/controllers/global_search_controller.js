@@ -624,14 +624,18 @@ class GlobalSearchController extends Controller {
 
   // The dialog searches the project while its scope says so, and then the link has to lead
   // there as well: a count taken in the project next to a link into the global search
-  // contradicts itself. The core search page reads the project from its path only, so the
-  // server hands over the project link and the link adds the search to it.
+  // contradicts itself. The core search takes the project from the id in its route, not from
+  // a project_id, so the server hands over the project link as Rails builds it.
+  // Without a link to build on there is no link at all (null).
   coreSearchHref(query) {
     const { dataset } = this.element;
     const inProject = this.currentScope === 'project' && dataset.coreSearchProjectUrl;
-    const [path, linkQuery = ''] = (inProject ? dataset.coreSearchProjectUrl : dataset.coreSearchUrl).split('?');
-    const searchParams = new URLSearchParams(linkQuery);
-    searchParams.set('q', query);
+    const path = inProject ? dataset.coreSearchProjectUrl : dataset.coreSearchUrl;
+    if (!path) {
+      return null;
+    }
+
+    const searchParams = new URLSearchParams({ q: query });
     // The dialog searches attachments, the core search page leaves them out unless asked. The
     // page behind the link therefore has to be asked, or it answers with fewer hits than the
     // number next to the link - a file named "Oberklausen.pdf" answers a search for "klaus".
@@ -651,8 +655,8 @@ class GlobalSearchController extends Controller {
   }
 
   renderCoreSearchLink(query) {
-    const coreUrl = this.element.dataset.coreSearchUrl;
-    if (!coreUrl) {
+    const href = this.coreSearchHref(query);
+    if (!href) {
       return '';
     }
 
@@ -670,10 +674,8 @@ class GlobalSearchController extends Controller {
     } else if (suffix) {
       scopeText = ` ${this.escapeHtml(suffix)}`;
     }
-    const url = this.escapeHtml(this.coreSearchHref(query));
-
     return '<div class="global-search-core-link">' +
-      `<a href="${url}" class="global-search-item">` +
+      `<a href="${this.escapeHtml(href)}" class="global-search-item">` +
       `<span class="global-search-item-title">${this.escapeHtml(searchLabel)} <strong>${safeQuery}</strong>${scopeText}</span>` +
       '</a></div>';
   }
@@ -681,9 +683,9 @@ class GlobalSearchController extends Controller {
   // Closes the list when the core search holds more than it shows. With every hit already
   // listed the link would promise something that is not there, so it stays away.
   renderAllResultsLink(query, shown) {
-    const coreUrl = this.element.dataset.coreSearchUrl;
     const total = this.hitsBehindTheLink();
-    if (!query || !coreUrl || total <= shown) {
+    const href = query ? this.coreSearchHref(query) : null;
+    if (!href || total <= shown) {
       return '';
     }
 
@@ -691,7 +693,7 @@ class GlobalSearchController extends Controller {
     const label = (this.element.dataset.allResults || 'All %{count} results').replace('%{count}', total);
 
     return '<div class="global-search-all-results">' +
-      `<a href="${this.escapeHtml(this.coreSearchHref(query))}" class="global-search-item">` +
+      `<a href="${this.escapeHtml(href)}" class="global-search-item">` +
       `<span class="global-search-item-title">${this.escapeHtml(label)}</span>` +
       '</a></div>';
   }

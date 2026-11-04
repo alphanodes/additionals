@@ -15,12 +15,12 @@ class GlobalSearchCoreLinkTest < Additionals::IntegrationTest
   test 'dialog and core page search exactly the project' do
     with_plugin_settings 'additionals', global_search: 1 do
       dialog = dialog_data 'ecookbook'
-      page_ids = core_page_issue_ids dialog, 'issue'
+      page_ids, page_count = core_page_results dialog, 'issue'
 
       assert_includes page_ids, issues(:issues_007).id
       assert_not_includes page_ids, issues(:issues_004).id
       assert_not_includes page_ids, issues(:issues_005).id
-      assert_equal dialog_count(dialog, 'issue'), @core_result_count
+      assert_equal dialog_count(dialog, 'issue'), page_count
     end
   end
 
@@ -48,13 +48,13 @@ class GlobalSearchCoreLinkTest < Additionals::IntegrationTest
     types.sum { |type| counts[type].to_i }
   end
 
-  # Follows the link of the dialog to the core search page
-  def core_page_issue_ids(dialog, query)
-    link = URI dialog['data-core-search-project-url']
-    get link.path, params: Rack::Utils.parse_query(link.query).merge('q' => query, 'attachments' => '1')
+  # Follows the link of the dialog to the core search page: the issues of the first page of
+  # hits and the number of all hits
+  def core_page_results(dialog, query)
+    get dialog['data-core-search-project-url'], params: { q: query, attachments: '1' }
 
     assert_response :success
-    @core_result_count = css_select('#content h3').text[/\((\d+)\)/, 1].to_i
-    css_select('#search-results dt a').filter_map { |link| link['href'][%r{\A/issues/(\d+)\z}, 1]&.to_i }
+    ids = css_select('#search-results dt a').filter_map { |link| link['href'][%r{\A/issues/(\d+)\z}, 1]&.to_i }
+    [ids, css_select('#content h3').text[/\((\d+)\)/, 1].to_i]
   end
 end

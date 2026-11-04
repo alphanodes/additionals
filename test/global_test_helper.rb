@@ -666,24 +666,6 @@ module Additionals
       assert_empty inline, 'Charts drawn in a view instead of from a payload (AdditionalsChart#payload)'
     end
 
-    # The data_check_class of a block loaded after the page is a chart: the
-    # placeholder takes its height from it once data is there. Any other class
-    # breaks the whole dashboard, but only for a user with data, so no render
-    # test with empty fixtures notices it.
-    def assert_dashboard_data_checks_are_charts(plugin_id)
-      directory = Redmine::Plugin.find(plugin_id).directory
-      invalid = Dir.glob(File.join(directory, 'lib/dashboard_blocks/*.rb')).filter_map do |file|
-        block = "DashboardBlocks::#{File.basename(file, '.rb').camelize}".constantize
-        next unless block.is_a?(Class) && block < DashboardBlocks::Base
-
-        check = block.async&.dig :data_check_class
-        check = check.constantize if check.is_a? String
-        "#{block.name}: #{check}" if check && !(check <= AdditionalsChart)
-      end
-
-      assert_empty invalid, 'data_check_class is no AdditionalsChart'
-    end
-
     # A live search advertises its search terms with info_fields. A term without
     # a filter finds nothing, and no feature test notices that.
     def assert_live_search_fields_filterable(plugin_id)

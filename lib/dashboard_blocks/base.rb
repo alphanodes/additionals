@@ -212,7 +212,7 @@ module DashboardBlocks
       options = self.class.async
       return if options.nil?
 
-      options = options.merge data_check_class: options[:data_check_class].constantize if options[:data_check_class].is_a? String
+      options = options.merge data_check_class: data_check_class(options[:data_check_class]) if options[:data_check_class]
       params = unique_params
       params.nil? ? options : options.merge(unique_params: params)
     end
@@ -319,6 +319,16 @@ module DashboardBlocks
         rows: payload[:labels].each_with_index.map do |label, index|
           [export_value(label), *datasets.map { |dataset| export_number dataset[:data][index] }]
         end }
+    end
+
+    # The chart class whose data check sizes the placeholder of the block. A
+    # string resolves only now, its plugin may be loaded later. Another class
+    # would fail at render time for users with data only, so it fails always.
+    def data_check_class(name)
+      klass = name.is_a?(String) ? name.constantize : name
+      return klass if klass.is_a?(Class) && klass <= AdditionalsChart
+
+      raise ArgumentError, "#{self.class.name || 'block'}: data_check_class #{klass} is no AdditionalsChart"
     end
 
     # Sums of hours or amounts are decimals, which JSON would turn into strings

@@ -42,12 +42,6 @@ class PluginConventionsTest < Additionals::TestCase
     assert_charts_drawn_from_payload 'additionals'
   end
 
-  # A dashboard block whose data check is no chart breaks the dashboard for
-  # users with data only, the render tests with empty fixtures miss it
-  def test_dashboard_data_checks_are_charts
-    assert_dashboard_data_checks_are_charts 'additionals'
-  end
-
   # Whether another plugin is there is asked through AdditionalsPlugin, at load
   # time with force: true
   def test_plugin_checks_go_through_additionals

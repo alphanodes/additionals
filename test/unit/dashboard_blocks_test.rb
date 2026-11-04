@@ -170,6 +170,16 @@ class DashboardBlocksTest < Additionals::TestCase
     end
   end
 
+  # The placeholder takes its height from the chart of the data check. Any
+  # other class fails on every render, not only for a user with data.
+  def test_data_check_class_is_a_chart
+    chart = async_block(nil, data_check_class: 'AdditionalsChart').new DashboardContentWelcome.new
+    other = async_block(nil, data_check_class: 'Issue').new DashboardContentWelcome.new
+
+    assert_equal AdditionalsChart, chart.async[:data_check_class]
+    assert_raises(ArgumentError) { other.async }
+  end
+
   # A new block has its settings form open, cancel removes it again
   def test_new_block
     sync = Class.new(DashboardBlocks::Base) { setting :text, type: :string, required: true }
@@ -190,9 +200,9 @@ class DashboardBlocksTest < Additionals::TestCase
 
   private
 
-  def async_block(required)
+  def async_block(required, **options)
     Class.new DashboardBlocks::Base do
-      async partial: 'dashboards/blocks/text_async', required_settings: required
+      async partial: 'dashboards/blocks/text_async', required_settings: required, **options
     end
   end
 

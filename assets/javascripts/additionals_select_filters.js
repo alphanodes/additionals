@@ -92,14 +92,12 @@ function additionalsSelectEnsureSelect(row, field, values, multiple) {
   return select;
 }
 
-// "<< me >>" of a filter of users is the value core switches with one choice:
-// a new filter (no values yet) takes it, as the select of core chooses its
-// first value (the server offers it, QueryPatch), and where it is the only
-// value the first choice of the user replaces it
+// "<< me >>" of a filter of users: a new filter (no values yet) takes it, as
+// the select of core chooses its first value (the server offers it,
+// QueryPatch), and the first choice of the user replaces it. A filter loaded
+// with values (applied or saved) has chosen them, "<< me >>" included.
 function additionalsSelectSuggestion(field, values) {
-  const chosen = (values || []).map(String);
-  if (chosen.length === 1 && chosen[0] === 'me') { return 'me'; }
-  if (chosen.length > 0) { return null; }
+  if (values && values.length > 0) { return null; }
 
   const offered = (availableFilters[field].values || []).some((value) => Array.isArray(value) && value[1] === 'me');
   return offered ? 'me' : null;

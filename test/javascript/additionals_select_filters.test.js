@@ -130,17 +130,15 @@ describe('additionals_select_filters.js', () => {
     expect(select('cf_2').dataset.additionalsSelectSuggestionValue).toBeUndefined();
   });
 
-  // "<< me >>" alone is the value core switches with one choice, also in a
-  // filter loaded with it; next to other values it stays a value like them
-  it('lets the first choice replace "<< me >>" where it is the only value', () => {
+  // a filter loaded with "<< me >>" (applied or saved) has chosen it, so it is
+  // a value like any other there and a further choice adds to it
+  it('keeps "<< me >>" of a loaded filter as a value', () => {
     additionalsSelectRegisterFilter('type', 'author', { url: '/users' });
     globalThis.availableFilters.author_id.values = [['<< me >>', 'me'], ['Jane', '3']];
-    globalThis.availableFilters.cf_2 = { type: 'author', values: [['<< me >>', 'me'], ['Jane', '3']] };
     buildFilterRow('author_id', '=', ['me']);
-    buildFilterRow('cf_2', '=', ['me', '3']);
 
-    expect([select('author_id').dataset.additionalsSelectSuggestionValue, select('cf_2').dataset.additionalsSelectSuggestionValue])
-      .toEqual(['me', undefined]);
+    expect(chosen('author_id')).toEqual(['me']);
+    expect(select('author_id').dataset.additionalsSelectSuggestionValue).toBeUndefined();
   });
 
   it('chooses nothing by itself when the filter has no values yet', () => {

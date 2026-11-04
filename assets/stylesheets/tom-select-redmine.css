@@ -128,12 +128,10 @@
 }
 
 /* a suggestion (e.g. "<< me >>" of a new filter), which the first choice
-   replaces; the outline keeps the size of the entry */
+   replaces */
 .additionals-select-field.multi .ts-control > .item.additionals-select-suggestion {
   background-color: transparent;
   color: var(--a-color-muted);
-  outline: 1px dashed var(--a-color-muted);
-  outline-offset: -1px;
 }
 
 .additionals-select-field.multi .ts-control > .item.active {

@@ -169,7 +169,13 @@ module Additionals
       # Picks the entry +text+ of the open list, e.g. of a menu opened by a
       # button (AdditionalsSelect.menu)
       def choose_open_select_entry(text, exact: true)
-        select_entry(text, exact:).click
+        entry = select_entry(text, exact:)
+        # The list scrolls smoothly (tom-select.css), also to the chosen entry
+        # when it opens. The driver clicks where the entry was when its own
+        # scroll started, which hits a neighbour while the list still moves.
+        # An instant scroll stops the animation and leaves the list in place.
+        page.execute_script "arguments[0].scrollIntoView({ block: 'nearest', behavior: 'instant' })", entry
+        entry.click
       end
 
       # The open list offers the entry +text+

@@ -1621,9 +1621,10 @@ class AdditionalsQueryChart < AdditionalsChart
   end
 
   # The filters of the query, with open only joined with the default filters.
-  # The group fields are left out, the slice sets them.
+  # The group fields are left out, the slice sets them. Values are strings as
+  # in a URL: a query may seed its defaults with integers (UserQuery's status).
   def url_filters(query, key_filters)
-    filters = query.filters.to_h { |field, options| [field, [options[:operator], Array(options[:values])]] }
+    filters = query.filters.to_h { |field, options| [field, url_filter(options)] }
     period_filter = query.try :period_filter
     if period_filter
       # A date filter of the query and the period cannot be joined into one
@@ -1637,11 +1638,15 @@ class AdditionalsQueryChart < AdditionalsChart
     default_filters.each do |field, options|
       next if key_filters.include? field
 
-      default = [options[:operator], Array(options[:values])]
+      default = url_filter options
       filters[field] = filters.key?(field) ? join_url_filters(field, filters[field], default) : default
       return nil unless filters[field]
     end
     filters
+  end
+
+  def url_filter(options)
+    [options[:operator], Array(options[:values]).map(&:to_s)]
   end
 
   # Both filters of a field as one, nil if a list filter cannot express that

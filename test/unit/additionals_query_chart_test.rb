@@ -325,13 +325,20 @@ class AdditionalsQueryChartTest < Additionals::TestCase
   def test_url_of_open_only_removes_excluded_values_of_a_default_filter
     query = project_query 'status' => { operator: '=', values: %w[1 5] }
 
-    assert_equal ['1'], url_values(project_chart_url(query, excluding_default: true), 'status')
+    assert_equal ['1'], url_values(project_chart_url(query, default: ['!', [Project::STATUS_CLOSED.to_s]]), 'status')
+  end
+
+  # UserQuery seeds its status as an integer, a saved query holds strings
+  def test_url_of_open_only_joins_a_default_filter_seeded_with_integers
+    query = project_query 'status' => { operator: '=', values: %w[1 5] }
+
+    assert_equal ['1'], url_values(project_chart_url(query, default: ['=', [Project::STATUS_ACTIVE]]), 'status')
   end
 
   def test_url_of_open_only_joins_two_exclusions
     query = project_query 'status' => { operator: '!', values: %w[9] }
 
-    assert_equal %w[5 9], url_values(project_chart_url(query, excluding_default: true), 'status').sort
+    assert_equal %w[5 9], url_values(project_chart_url(query, default: ['!', [Project::STATUS_CLOSED.to_s]]), 'status').sort
   end
 
   def test_url_filters_by_the_value_of_the_entry
@@ -582,19 +589,19 @@ class AdditionalsQueryChartTest < Additionals::TestCase
     ProjectQuery.create! name: 'Status', user: users(:users_001), visibility: Query::VISIBILITY_PUBLIC, filters:
   end
 
-  # The link of the first slice with open only; excluding_default makes the
-  # default filter "status is not closed" instead of "status is active"
-  def project_chart_url(query, excluding_default: false)
-    klass = excluding_default ? excluding_default_project_chart : Additionals::TestProjectQueryChart
+  # The link of the first slice with open only; default replaces the default
+  # status filter "status is active" with [operator, values]
+  def project_chart_url(query, default: nil)
+    klass = default ? project_chart_with_default_status(*default) : Additionals::TestProjectQueryChart
     klass.new(project: nil, settings: { group_by: 'is_public', query_id: query.id.to_s, open_only: '1' }).entries.first.url
   end
 
-  def excluding_default_project_chart
+  def project_chart_with_default_status(operator, values)
     Class.new Additionals::TestProjectQueryChart do
       private
 
-      def default_filters
-        { 'status' => { operator: '!', values: [Project::STATUS_CLOSED.to_s] } }
+      define_method :default_filters do
+        { 'status' => { operator:, values: } }
       end
     end
   end

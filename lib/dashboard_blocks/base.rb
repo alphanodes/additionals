@@ -226,7 +226,7 @@ module DashboardBlocks
       options = self.class.async
       return if options.nil?
 
-      options = options.merge data_check_class: self.class.data_check_chart if options[:data_check_class]
+      options = options.merge data_check_class: checked_data_check_chart if options[:data_check_class]
       params = unique_params
       params.nil? ? options : options.merge(unique_params: params)
     end
@@ -308,6 +308,18 @@ module DashboardBlocks
     end
 
     private
+
+    # A data check that is no chart fails in development and tests (the render tests of
+    # every plugin check all blocks); in production the block goes without it rather
+    # than taking the whole dashboard down
+    def checked_data_check_chart
+      self.class.data_check_chart
+    rescue ArgumentError => e
+      raise if Rails.env.local?
+
+      Rails.logger.error e.message
+      nil
+    end
 
     # Without a title a block shows its label, e.g. as heading
     def title_placeholder(_schema)

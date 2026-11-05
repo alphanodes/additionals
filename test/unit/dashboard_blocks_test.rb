@@ -184,6 +184,10 @@ class DashboardBlocksTest < Additionals::TestCase
 
       assert_match message, error.message
     end
+
+    Rails.stubs(:env).returns ActiveSupport::EnvironmentInquirer.new('production')
+
+    assert_nil async_block(nil, data_check_class: 'Issue').new(DashboardContentWelcome.new).async[:data_check_class]
   end
 
   # A new block has its settings form open, cancel removes it again

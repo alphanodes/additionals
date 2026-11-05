@@ -35,20 +35,26 @@ module Additionals
         def label_me
           "<< #{l :label_me} >>"
         end
+
+        # Options of +filter+ for the browser beyond those of core: select
+        # fields of filters are also registered by custom field format
+        # (additionals_select_filter). For everything that builds filter
+        # options of its own, e.g. the conditions of automation rules.
+        def filter_json_options(filter)
+          filter[:field_format] ? { 'field_format' => filter[:field_format] } : {}
+        end
       end
 
       module InstanceOverwriteMethods
-        # Select fields of query filters are also registered by custom field
-        # format (additionals_select_filter), which core leaves out here.
-        # A filter of users without a value offers "<< me >>", which core
-        # chooses when the filter is added (the first value of its select);
-        # only the browser gets it, tools take the values of a filter as its
-        # full list.
+        # Adds the options core leaves out (filter_json_options). A filter of
+        # users without a value offers "<< me >>", which core chooses when the
+        # filter is added (the first value of its select); only the browser
+        # gets it, tools take the values of a filter as its full list.
         def available_filters_as_json
           json = super
           json.each do |field, options|
             filter = available_filters[field]
-            options['field_format'] = filter[:field_format] if filter[:field_format]
+            options.merge! ::Query.filter_json_options(filter)
             options['values'] = [::Query.label_me_value] if offers_me_to_new_filter? filter, options
           end
         end

@@ -252,8 +252,9 @@
   max-height: 200px;
 }
 
-/* a multiple field with nothing to show yet (no entries, a search below
-   min_input_length) opens no empty box */
+/* a multiple field with nothing to show yet (entries of the server before a
+   search, a search below min_input_length) opens no empty box; a field
+   without any entry says so (not_loading of the select field controller) */
 .additionals-select-dropdown.multi:has(> .ts-dropdown-content:empty) {
   display: none !important;
 }

@@ -776,6 +776,28 @@ describe('AdditionalsSelectController', () => {
       expect(values(select)).toEqual(['2']);
     });
 
+    // A field without any entry would open nothing and look broken. Fields
+    // with entries of the server, new entries or entries of their own stay as
+    // they are.
+    it('tells that it has no entries only when it can offer none', async () => {
+      const fields = {
+        multiple: '<select multiple data-controller="additionals-select"></select>',
+        single: '<select data-controller="additionals-select"><option value=""></option></select>',
+        withEntries: '<select multiple data-controller="additionals-select"><option value="1">One</option></select>',
+        tags: '<select multiple data-controller="additionals-select" data-additionals-select-tags-value="true"></select>',
+        server: '<select multiple data-controller="additionals-select" data-additionals-select-url-value="/search"></select>',
+      };
+      const messages = {};
+      for (const [name, html] of Object.entries(fields)) {
+        const select = await render(html);
+        openField(select);
+        messages[name] = listMessage();
+        closeField(select);
+      }
+
+      expect(messages).toEqual({ multiple: 'No results found', single: 'No results found', withEntries: null, tags: null, server: null });
+    });
+
     it('keeps the order of its options when searching', async () => {
       const select = await render(`
         <select multiple data-controller="additionals-select">

@@ -279,6 +279,13 @@ function buildLibraryOptions(config, multiple) {
 
         return templateElement(selectLabel('noResults') || 'No results found', 'no-results');
       },
+      // a field without any entry of its own, none of the server and no new
+      // ones says so, instead of opening nothing
+      not_loading() {
+        if (config.url || config.tags || Object.keys(this.options).some((value) => value !== '')) { return null; }
+
+        return templateElement(selectLabel('noResults') || 'No results found', 'no-results');
+      },
     },
   };
 

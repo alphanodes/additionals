@@ -39,7 +39,7 @@ module Additionals
         # Options of +filter+ for the browser beyond those of core: select
         # fields of filters are also registered by custom field format
         # (additionals_select_filter). For everything that builds filter
-        # options of its own, e.g. the conditions of automation rules.
+        # options of its own instead of available_filters_as_json.
         def filter_json_options(filter)
           filter[:field_format] ? { 'field_format' => filter[:field_format] } : {}
         end

@@ -1348,6 +1348,8 @@ describe('AdditionalsSelectController', () => {
 });
 
 describe('renderers', () => {
+  afterEach(() => { delete window.additionalsSelectRenderers; });
+
   const html = (node) => (typeof node === 'string' ? node : node.outerHTML);
   const attack = '<img src=x onerror=alert(1)>';
 
@@ -1382,7 +1384,6 @@ describe('renderers', () => {
     expect([marks(fieldElement(select)), marks(document.querySelector('.additionals-select-dropdown')),
       fieldElement(document.getElementById('unknown')).textContent.replace('×', '').trim()])
       .toEqual([['One'], ['One', 'Two'], 'One']);
-    delete window.additionalsSelectRenderers;
   });
 
   it('show a contact with its address once', () => {

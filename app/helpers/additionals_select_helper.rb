@@ -11,7 +11,8 @@ module AdditionalsSelectHelper
   # multiple values. The field is set up in the browser by the Stimulus
   # controller additionals-select; plugins never talk to the library behind it.
   #
-  # renderer: name_with_icon (default), avatar, contact, icon or color_scheme
+  # renderer: name_with_icon (default), avatar, contact, icon, color_scheme or
+  # one a plugin registers in the browser (additionalsSelectRenderers)
   # value_key: property of the server entries that becomes the value
   # free_input: takes typed text as value (free_input_pattern: a regular
   # expression the text has to match)

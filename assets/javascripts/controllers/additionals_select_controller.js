@@ -246,7 +246,9 @@ function inListOrder(a, b) {
 }
 
 function buildLibraryOptions(config, multiple) {
-  const renderer = RENDERERS[config.renderer] || RENDERERS.name_with_icon;
+  // plugins add renderers of their own to the global additionalsSelectRenderers
+  // (e.g. tags with their colors), looked up when the field is set up
+  const renderer = RENDERERS[config.renderer] || window.additionalsSelectRenderers?.[config.renderer] || RENDERERS.name_with_icon;
   const options = {
     valueField: 'id',
     labelField: 'text',

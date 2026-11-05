@@ -152,6 +152,12 @@
   white-space: nowrap;
 }
 
+/* a chosen entry whose renderer draws a pill of its own (class
+   additionals-select-pill, e.g. a tag with its color) shows no chip around it */
+.additionals-select-field.multi .ts-control > .item:has(> .additionals-select-pill) {
+  background-color: transparent;
+}
+
 /* a suggestion (e.g. "<< me >>" of a new filter), which the first choice
    replaces */
 .additionals-select-field.multi .ts-control > .item.additionals-select-suggestion {

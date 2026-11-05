@@ -1364,6 +1364,27 @@ describe('renderers', () => {
       .toContain('<img class="gravatar">');
   });
 
+  // Plugins register renderers of their own, e.g. tags with their colors;
+  // the field looks them up when it is set up, a name nobody knows shows text
+  it('take renderers other plugins register', async () => {
+    const mark = (item) => Object.assign(document.createElement('mark'), { textContent: item.text });
+    window.additionalsSelectRenderers = { mark: { result: mark, selection: mark } };
+    const select = await render(`
+      <select multiple data-controller="additionals-select" data-additionals-select-renderer-value="mark">
+        <option value="1" selected>One</option><option value="2">Two</option>
+      </select>
+      <select id="unknown" multiple data-controller="additionals-select" data-additionals-select-renderer-value="nobody">
+        <option value="1" selected>One</option>
+      </select>`);
+    openField(select);
+    const marks = (node) => Array.from(node.querySelectorAll('mark'), (element) => element.textContent);
+
+    expect([marks(fieldElement(select)), marks(document.querySelector('.additionals-select-dropdown')),
+      fieldElement(document.getElementById('unknown')).textContent.replace('×', '').trim()])
+      .toEqual([['One'], ['One', 'Two'], 'One']);
+    delete window.additionalsSelectRenderers;
+  });
+
   it('show a contact with its address once', () => {
     expect(RENDERERS.contact.selection({ text: 'Kurt', email: 'kurt@example.com' })).toBe('Kurt <kurt@example.com>');
     expect(RENDERERS.contact.selection({ text: 'kurt@example.com', email: 'kurt@example.com' })).toBe('kurt@example.com');

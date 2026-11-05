@@ -58,7 +58,7 @@ The list offers no blank option, the placeholder stands for it; a field that may
 
 ## Renderers
 
-The renderers are a fixed list. Text of the server is shown as text; only `name_with_icon` and `avatar` are HTML, which the server builds and escapes.
+Text of the server is shown as text; only `name_with_icon` and `avatar` are HTML, which the server builds and escapes. A plugin adds a renderer of its own to the global object `additionalsSelectRenderers` (`{ name: { result(item), selection(item) } }`, each returning an element or text), e.g. additional_tags for tags with their colors; a script loaded with the page may register it before the fields are set up. An element with the class `additionals-select-pill` draws its own pill, a chosen entry then shows no chip around it.
 
 | Renderer | Entries |
 | --- | --- |

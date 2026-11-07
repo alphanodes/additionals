@@ -441,6 +441,20 @@ describe('AdditionalsSelectController', () => {
       expect(values(select)).toEqual(['new@example.com']);
     });
 
+    // Going on to another select field leaves this one as a click elsewhere
+    // does, the other field takes the focus from it when pressed
+    it('takes the typed text when another select field is pressed', async () => {
+      const select = await render(`
+        <select multiple data-controller="additionals-select" data-additionals-select-free-input-value="true"></select>
+        <select id="other" data-controller="additionals-select"><option value="1">One</option></select>`);
+
+      openField(select);
+      typeInto(select, 'new@example.com');
+      pressField(document.getElementById('other'));
+
+      expect(values(select)).toEqual(['new@example.com']);
+    });
+
     it('takes the typed text when the field is left with Tab', async () => {
       const select = await render(`
         <select multiple data-controller="additionals-select" data-additionals-select-free-input-value="true"></select>`);
@@ -885,8 +899,9 @@ describe('AdditionalsSelectController', () => {
     // Pressing the field takes the focus from a field elsewhere, as for a
     // select of the browser: the library keeps it there (preventDefault), and
     // Firefox puts it back into a field showing its input history, which
-    // closes the list. A disabled field leaves the focus where it is.
-    it('takes the focus from a field elsewhere when pressed, unless disabled', async () => {
+    // closes the list. A disabled field leaves the focus where it is, and so
+    // does the open field pressed again: its own search keeps it.
+    it('takes the focus from a field elsewhere when pressed, unless disabled or its own', async () => {
       const select = await render(`
         <input id="name" type="text">
         <select data-controller="additionals-select"><option value="1">One</option></select>
@@ -897,8 +912,11 @@ describe('AdditionalsSelectController', () => {
         pressField(field);
         return document.activeElement === name;
       };
+      const kept = [nameKeepsFocus(select), nameKeepsFocus(document.getElementById('locked'))];
+      openField(select);
+      pressField(select);
 
-      expect([nameKeepsFocus(select), nameKeepsFocus(document.getElementById('locked'))]).toEqual([false, true]);
+      expect([...kept, searchHasFocus(select), isOpen(select)]).toEqual([false, true, true, true]);
     });
 
     it('opens a field with entries of the server with the arrow down', async () => {

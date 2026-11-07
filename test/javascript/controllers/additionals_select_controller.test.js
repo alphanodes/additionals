@@ -1367,23 +1367,32 @@ describe('renderers', () => {
   });
 
   // Plugins register renderers of their own, e.g. tags with their colors;
-  // the field looks them up when it is set up, a name nobody knows shows text
+  // the field looks them up when it is set up. A chosen entry without
+  // selection shows its text, a built-in renderer is not replaced, and a name
+  // nobody knows (also one every object inherits) shows text.
   it('take renderers other plugins register', async () => {
     const mark = (item) => Object.assign(document.createElement('mark'), { textContent: item.text });
-    window.additionalsSelectRenderers = { mark: { result: mark, selection: mark } };
-    const select = await render(`
-      <select multiple data-controller="additionals-select" data-additionals-select-renderer-value="mark">
+    window.additionalsSelectRenderers = { mark: { result: mark, selection: mark }, listed: { result: mark }, icon: { result: mark, selection: mark } };
+    const field = (id, renderer) => `
+      <select id="${id}" multiple data-controller="additionals-select" data-additionals-select-renderer-value="${renderer}">
         <option value="1" selected>One</option><option value="2">Two</option>
-      </select>
-      <select id="unknown" multiple data-controller="additionals-select" data-additionals-select-renderer-value="nobody">
-        <option value="1" selected>One</option>
-      </select>`);
+      </select>`;
+    const select = await render(['mark', 'listed', 'icon', 'nobody', 'constructor'].map((name) => field(name, name)).join(''));
     openField(select);
     const marks = (node) => Array.from(node.querySelectorAll('mark'), (element) => element.textContent);
+    const listMarks = marks(document.querySelector('.additionals-select-dropdown'));
+    closeField(select);
+    const inherited = document.getElementById('constructor');
+    openField(inherited);
+    const inheritedList = entryTexts();
+    closeField(inherited);
+    const chosen = (id) => {
+      const element = fieldElement(document.getElementById(id));
+      return [marks(element), element.querySelector('.item').textContent.replace('×', '').trim()];
+    };
 
-    expect([marks(fieldElement(select)), marks(document.querySelector('.additionals-select-dropdown')),
-      fieldElement(document.getElementById('unknown')).textContent.replace('×', '').trim()])
-      .toEqual([['One'], ['One', 'Two'], 'One']);
+    expect([listMarks, inheritedList, chosen('mark'), chosen('listed'), chosen('icon'), chosen('nobody'), chosen('constructor')])
+      .toEqual([['One', 'Two'], ['One', 'Two'], [['One'], 'One'], [[], 'One'], [[], 'One'], [[], 'One'], [[], 'One']]);
   });
 
   it('show a contact with its address once', () => {

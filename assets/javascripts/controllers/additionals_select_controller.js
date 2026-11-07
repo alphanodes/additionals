@@ -245,10 +245,18 @@ function inListOrder(a, b) {
   return this.items[a.id].$order - this.items[b.id].$order;
 }
 
+// Plugins add renderers of their own to the global additionalsSelectRenderers
+// (e.g. tags with their colors), looked up when the field is set up. Built-in
+// ones come first; own keys only, so a name like "constructor" is no renderer.
+function lookupRenderer(name) {
+  if (Object.hasOwn(RENDERERS, name)) { return RENDERERS[name]; }
+
+  const registered = window.additionalsSelectRenderers;
+  return registered && Object.hasOwn(registered, name) ? registered[name] : RENDERERS.name_with_icon;
+}
+
 function buildLibraryOptions(config, multiple) {
-  // plugins add renderers of their own to the global additionalsSelectRenderers
-  // (e.g. tags with their colors), looked up when the field is set up
-  const renderer = RENDERERS[config.renderer] || window.additionalsSelectRenderers?.[config.renderer] || RENDERERS.name_with_icon;
+  const renderer = lookupRenderer(config.renderer);
   const options = {
     valueField: 'id',
     labelField: 'text',

@@ -179,6 +179,14 @@
   background-color: transparent;
 }
 
+/* the pill covers the chip, so the entry marked for removal (e.g. all with
+   Ctrl+A, then Backspace) is shown by an outline of the pill instead; inside
+   it, as the entry is as high as the pill and clips what lies outside */
+.additionals-select-field.multi .ts-control > .item.active > .additionals-select-pill {
+  outline: 2px solid var(--oc-blue-5);
+  outline-offset: -2px;
+}
+
 /* tom-select.css sets the cursor of a disabled field and its parts with
    !important */
 .additionals-select-field.disabled:is(.single, .multi) .ts-control,

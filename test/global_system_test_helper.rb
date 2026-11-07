@@ -13,6 +13,7 @@ module Additionals
     def self.extended(base)
       base.include SessionHelper
       base.include SelectFieldHelper
+      base.setup :configure_remote_file_uploads
     end
 
     # Locally the tests run headless so Chrome does not steal focus. Set
@@ -86,6 +87,14 @@ module Additionals
     end
 
     module SessionHelper
+      # Selenium's remote default detects paths in every text field, including
+      # Capybara's short typing chunks (e.g. "log"). Let Capybara enable its
+      # detector only around attach_file and restore it afterwards instead.
+      def configure_remote_file_uploads
+        driver = page.driver
+        driver.browser.file_detector = nil if driver.is_a?(Capybara::Selenium::Driver) && driver.options[:browser] == :remote
+      end
+
       # Signs in through the login page.
       #
       # Deliberately not scoped to "#login-form form" the way Redmine core does

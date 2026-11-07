@@ -10,14 +10,11 @@ module Additionals
       end
 
       module InstanceOverwriteMethods
-        # Redmine renders a gravatar without any dimension of its own: the size
-        # only reaches the image url, and image_tag is called with :size removed
-        # (lib/plugins/gravatar/lib/gravatar.rb). An avatar that fails to load -
-        # gravatar.com unreachable, blocked or simply slow - therefore collapses
-        # to nothing and the surrounding line jumps once the image arrives.
-        #
-        # Adding the size class core already uses for its initials avatars gives
-        # the image its box from css instead, so it holds its place either way.
+        # Core gives a gravatar its width and height attributes
+        # (https://www.redmine.org/issues/44645), but not the size class it uses
+        # for initials avatars. The .avatar.sNN rules of core and the plugins
+        # size an avatar by that class, so without it a gravatar would follow
+        # its attributes alone wherever those rules differ from them.
         # It patches gravatar rather than AvatarsHelper#avatar so that it also
         # covers the calls that do not go through the avatar helper.
         def gravatar(email, options = {})

@@ -140,8 +140,11 @@ class GlobalHelperTest < Additionals::HelperTest
   def test_avatar_gravatar_keeps_the_size_class_once_when_it_is_already_set
     with_settings gravatar_enabled: '1' do
       html = @redmine_view.avatar users(:users_002), size: 32, class: 's32'
+      # Only the image itself: core may repeat the classes in data attributes,
+      # e.g. for the initials that replace a missing gravatar
+      classes = Nokogiri::HTML.fragment(html).at('img')['class'].split
 
-      assert_equal 1, html.scan(/\bs32\b/).size
+      assert_equal 1, classes.count('s32')
     end
   end
 

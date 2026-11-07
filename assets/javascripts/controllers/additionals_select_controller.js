@@ -481,6 +481,19 @@ function initLibrary(select, config) {
     if (closing === 0) { open.call(this); }
   };
 
+  // Pressing the field takes the focus from a field elsewhere, as the browser
+  // does for its own select. The library keeps it there (preventDefault on
+  // mousedown) and moves it by script afterwards; Firefox then puts it back
+  // into a field showing its input history (e.g. the first field, focused by
+  // Redmine when the page loads), which closes the list again.
+  instance.wrapper.addEventListener('mousedown', () => {
+    const focused = document.activeElement;
+    if (instance.isLocked || !focused || focused === document.body) { return; }
+    if (instance.wrapper.contains(focused) || instance.dropdown.contains(focused)) { return; }
+
+    focused.blur();
+  }, true);
+
   // The list opens with a click, Enter or the arrow down, not when the field
   // only gets the focus (e.g. with Tab); a click on the open field closes it
   instance.onClick = function () {

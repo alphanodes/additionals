@@ -84,6 +84,11 @@ export function clickField(select) {
   });
 }
 
+// The mouse button goes down on the field, before the click
+export function pressField(select) {
+  instanceOf(select).control.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true }));
+}
+
 // The field gets the focus without a click, e.g. with Tab from the field
 // before it
 export function focusField(select) {

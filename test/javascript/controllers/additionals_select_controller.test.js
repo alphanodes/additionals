@@ -6,7 +6,7 @@ import AdditionalsSelectController, {
 } from '../../../assets/javascripts/controllers/additionals_select_controller.js';
 
 import {
-  loadSelectLibrary, hideSelectLibrary, serverAnswers, hasSelectField, fieldElement, openField, closeField, isOpen,
+  loadSelectLibrary, hideSelectLibrary, serverAnswers, hasSelectField, fieldElement, openField, closeField, isOpen, pressField,
   typeInto, searchPlaceholder, entryTexts, entry, groupsOfList, isEntryDisabled, chooseEntry, pressKey, clickOutside,
   chosenTexts, shownElement, shownText, placeholderText, removeChosen, canClear, clearField,
   clickField, focusField, isDisabled, moveField, listTop, listParent, searchHasFocus, scrollList,
@@ -880,6 +880,25 @@ describe('AdditionalsSelectController', () => {
       clickField(select);
 
       expect([afterFocus, isOpen(select)]).toEqual([[false, 0], true]);
+    });
+
+    // Pressing the field takes the focus from a field elsewhere, as for a
+    // select of the browser: the library keeps it there (preventDefault), and
+    // Firefox puts it back into a field showing its input history, which
+    // closes the list. A disabled field leaves the focus where it is.
+    it('takes the focus from a field elsewhere when pressed, unless disabled', async () => {
+      const select = await render(`
+        <input id="name" type="text">
+        <select data-controller="additionals-select"><option value="1">One</option></select>
+        <select id="locked" disabled data-controller="additionals-select"><option value="1">One</option></select>`);
+      const name = document.getElementById('name');
+      const nameKeepsFocus = (field) => {
+        name.focus();
+        pressField(field);
+        return document.activeElement === name;
+      };
+
+      expect([nameKeepsFocus(select), nameKeepsFocus(document.getElementById('locked'))]).toEqual([false, true]);
     });
 
     it('opens a field with entries of the server with the arrow down', async () => {

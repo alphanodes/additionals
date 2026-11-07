@@ -83,18 +83,18 @@ sortable:
     sha256: bf4241bc73fef7f11c59a283a69fe8051cdd31c6d8ff5a2b9ba219e7831fcf76
 tom_select:
   package: tom-select
-  version: 2.6.2
+  version: 2.7.0
   title: Tom Select
   files:
   - source: dist/js/tom-select.complete.min.js
     target: assets/javascripts/vendor/tom-select.complete.min.js
-    sha256: 8f9d7d3420e938c2c9817818b56df43ea46feae5bf1f5a2e828863c034df0e37
+    sha256: 5c1315fe8e62c7b9342cbf82c4d5454b83ab97d507a2e9803dbaef72433438bc
   - source: dist/js/tom-select.complete.min.js.map
     target: assets/javascripts/vendor/tom-select.complete.min.js.map
-    sha256: 1dba4701c4ac3c8caee0c0e7e94bfdb7eae421ea444b79107a64ff263e445821
+    sha256: d424125580b1cfc4db59a6e6692bf711998b88194b217a4d0cece2d472e6b27a
   - source: dist/css/tom-select.css
     target: assets/stylesheets/tom-select.css
-    sha256: 9927adfdda16f802eed295c3dd0f4845cfb3db2038b62324546a3b6a96a15624
+    sha256: 2218278b5ed04d847304abfc5578b7658d02d5b580ec32e9fbf63f49be52436c
   - source: dist/css/tom-select.css.map
     target: assets/stylesheets/tom-select.css.map
-    sha256: ad386cd4c46dfb220019df64ed353c7fdfe59392345beb3e6dc2fbd96d38dab7
+    sha256: ae8d74b22fb143e4669f46d6d07eca780475f46f2ddb71fd3f87ed259001e4f6

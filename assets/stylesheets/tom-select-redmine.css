@@ -223,12 +223,15 @@
   right: var(--ts-pr-caret);
 }
 
+/* tom-select.css takes clicks on the button only while the field has the
+   focus or the pointer, a shown button takes them always (also the first tap
+   on a touch screen) */
 .additionals-select-field.plugin-clear_button.has-items .clear-button {
   opacity: 1;
+  pointer-events: auto;
 }
 
-/* an empty or disabled field has no value to clear; only unseen, the button
-   would still take the clicks that open the list */
+/* an empty or disabled field has no value to clear, so no button either */
 .additionals-select-field.plugin-clear_button:not(.has-items) .clear-button,
 .additionals-select-field.plugin-clear_button.disabled .clear-button {
   display: none;

@@ -320,7 +320,7 @@ es:
   rule_issue_status_change_info: "Caso de uso: las peticiones deben asignarse automáticamente a su autor si el estado cambia a \"Approval\"."
   rule_issue_timelog_required_info_html: "En cada petición de los tipos seleccionados hace falta tiempo registrado si la petición va a pasar a uno de los estados definidos. El tiempo registrado no es necesario si:<br />- no hay permiso para registrar tiempo<br />- el usuario tiene el permiso \"Registro de tiempo no obligatorio\"<br />Caso de uso: para la aceptación de una petición con el estado \"To Verify\" también se necesita el tiempo dedicado."
   seconds:
-    one: "segundo"
+    one: "%{count} segundo"
     other: "%{count} segundos"
   setting_export_limit: "Límite de exportación"
   settings_with_value: "Ajustes de %{value}"

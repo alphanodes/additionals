@@ -326,7 +326,7 @@ pl:
   rule_issue_status_change_info: "Przypadek użycia: zagadnienia mają być automatycznie przypisywane autorowi, gdy status zmieni się na \"Approval\"."
   rule_issue_timelog_required_info_html: "Każde zagadnienie wybranych typów wymaga zarejestrowanego czasu, jeśli ma otrzymać jeden z określonych statusów. Zarejestrowany czas nie jest wymagany, jeśli:<br />- brak uprawnień do rejestrowania czasu<br />- użytkownik ma uprawnienie \"Rejestracja czasu niewymagana\"<br />Przypadek użycia: przy odbiorze zagadnienia ze statusem \"To Verify\" potrzebny jest też przepracowany czas."
   seconds:
-    one: "sekunda"
+    one: "%{count} sekunda"
     few: "%{count} sekundy"
     many: "%{count} sekund"
     other: "%{count} sekundy"

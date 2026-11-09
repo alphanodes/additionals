@@ -320,7 +320,7 @@ fr:
   rule_issue_status_change_info: "Cas d'utilisation : les demandes doivent être assignées automatiquement à leur auteur si le statut passe à \"Approval\"."
   rule_issue_timelog_required_info_html: "Pour chaque demande des trackers sélectionnés, du temps saisi est nécessaire si la demande doit passer à l'un des statuts définis. La saisie du temps n'est pas nécessaire si :<br />- il n'y a pas le droit de saisir du temps<br />- l'utilisateur dispose de l'autorisation \"Saisie du temps non obligatoire\"<br />Cas d'utilisation : pour la réception d'une demande au statut \"To Verify\", le temps passé est aussi nécessaire."
   seconds:
-    one: "seconde"
+    one: "%{count} seconde"
     other: "%{count} secondes"
   setting_export_limit: "Limite d'export"
   settings_with_value: "Paramètres %{value}"

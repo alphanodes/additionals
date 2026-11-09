@@ -320,7 +320,7 @@ de:
   rule_issue_status_change_info: "Anwendungsfall: Zur Abnahme sollen Tickets automatisch ihrem Autor zugewiesen werden, sofern kein anderer Benutzer ausgewählt wird."
   rule_issue_timelog_required_info_html: "Zu jedem Ticket der ausgewählten Tracker ist eine Zeitbuchung notwendig, wenn das Ticket einen der festgelegten Status erhalten soll. Nicht erforderlich ist die Zeitbuchung, wenn:<br />- keine Rechte zum Anlegen von Zeitbuchungen bestehen<br />- der Benutzer die Berechtigung \"Zeitbuchungen nicht erforderlich\" besitzt<br />Anwendungsfall: Zur Abnahme eines Tickets mit dem Status \"To Verify\" werden auch die aufgewendeten Zeiten benötigt."
   seconds:
-    one: "Sekunde"
+    one: "%{count} Sekunde"
     other: "%{count} Sekunden"
   setting_export_limit: "Maximale Anzahl für Export"
   settings_with_value: "%{value} Einstellungen"

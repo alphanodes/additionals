@@ -320,7 +320,7 @@ it:
   rule_issue_status_change_info: "Caso d'uso: le segnalazioni devono essere assegnate automaticamente al loro autore se lo stato passa ad \"Approval\"."
   rule_issue_timelog_required_info_html: "Per ogni segnalazione dei tracker selezionati serve tempo registrato se la segnalazione deve passare a uno degli stati definiti. Il tempo registrato non serve se:<br />- non c'è il permesso di registrare tempo<br />- l'utente ha il permesso \"Registrazione del tempo non obbligatoria\"<br />Caso d'uso: per l'accettazione di una segnalazione con lo stato \"To Verify\" serve anche il tempo impiegato."
   seconds:
-    one: "secondo"
+    one: "%{count} secondo"
     other: "%{count} secondi"
   setting_export_limit: "Limite di esportazione"
   settings_with_value: "Impostazioni di %{value}"

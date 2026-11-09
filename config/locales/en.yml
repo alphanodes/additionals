@@ -320,7 +320,7 @@ en:
   rule_issue_status_change_info: "Use case: issues should be automatically assigned to their author if the status changes to \"Approval\"."
   rule_issue_timelog_required_info_html: "For each issue of the selected trackers, logged time is required if the issue is to receive one of the defined statuses. Logged time is not required if:<br />- there is no permission to log time<br />- the user has the permission \"Time logging not required\"<br />Use case: For the acceptance of an issue with the status \"To Verify\", the time spent is also required."
   seconds:
-    one: "second"
+    one: "%{count} second"
     other: "%{count} seconds"
   setting_export_limit: "Export limit"
   settings_with_value: "%{value} settings"

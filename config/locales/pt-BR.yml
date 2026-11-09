@@ -320,7 +320,7 @@ pt-BR:
   rule_issue_status_change_info: "Caso de uso: as tarefas devem ser atribuídas automaticamente ao seu autor se a situação mudar para \"Approval\"."
   rule_issue_timelog_required_info_html: "Cada tarefa dos tipos selecionados precisa de tempo registrado se for receber uma das situações definidas. O tempo registrado não é necessário se:<br />- não houver permissão para registrar tempo<br />- o usuário tiver a permissão \"Registro de tempo não obrigatório\"<br />Caso de uso: na aceitação de uma tarefa com a situação \"To Verify\", o tempo gasto também é necessário."
   seconds:
-    one: "segundo"
+    one: "%{count} segundo"
     other: "%{count} segundos"
   setting_export_limit: "Limite de exportação"
   settings_with_value: "Configurações de %{value}"

@@ -323,7 +323,7 @@ cs:
   rule_issue_status_change_info: "Příklad použití: úkoly se mají automaticky přiřadit autorovi, pokud se stav změní na \"Approval\"."
   rule_issue_timelog_required_info_html: "U každého úkolu vybraných front je nutné vykázat čas, pokud má úkol získat některý z určených stavů. Vykázání času není nutné, pokud:<br />- chybí oprávnění vykazovat čas<br />- uživatel má oprávnění \"Vykázání času není povinné\"<br />Příklad použití: Při převzetí úkolu ve stavu \"To Verify\" je potřeba i strávený čas."
   seconds:
-    one: "sekunda"
+    one: "%{count} sekunda"
     few: "%{count} sekundy"
     other: "%{count} sekund"
   setting_export_limit: "Limit exportu"

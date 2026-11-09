@@ -237,8 +237,9 @@ module Additionals
         within(container) { find(SELECT_FIELD_MARKUP[:clear]).click }
       end
 
-      # The clear button of the select field inside +container+ takes clicks
-      # while neither the pointer nor the focus is on the field
+      # The clear button of the select field inside +container+ takes clicks by
+      # itself. Pointer and focus on the field enable it as well, so call this
+      # before anything moved them there.
       def assert_select_clear_takes_clicks(container)
         within container do
           assert_equal 'auto', find(SELECT_FIELD_MARKUP[:clear]).style('pointer-events')['pointer-events']

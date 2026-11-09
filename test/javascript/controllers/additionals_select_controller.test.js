@@ -1264,23 +1264,32 @@ describe('AdditionalsSelectController', () => {
     });
 
     it('stays empty when a value without an option is set from JavaScript', async () => {
-      const tellings = [
-        (select) => AdditionalsSelect.refresh(select),
-        (select) => select.dispatchEvent(new Event('change', { bubbles: true })),
+      const changes = [
+        // told by refresh
+        (select) => { select.value = '99'; AdditionalsSelect.refresh(select); },
+        // told by change
+        (select) => { select.value = '99'; select.dispatchEvent(new Event('change', { bubbles: true })); },
+        // the chosen option goes as well
+        (select) => { select.options[2].remove(); select.value = '99'; AdditionalsSelect.refresh(select); },
+        // all options are replaced
+        (select) => {
+          select.innerHTML = '<option value=""></option><option value="7">Seven</option>';
+          select.value = '2';
+          AdditionalsSelect.refresh(select);
+        },
       ];
       const results = [];
-      for (const tell of tellings) {
+      for (const change of changes) {
         const select = await render(`
           <select data-controller="additionals-select">
             <option value=""></option><option value="1">First</option><option value="2" selected>Second</option>
           </select>`);
 
-        select.value = '99';
-        tell(select);
+        change(select);
         results.push([select.value, chosenTexts(select)]);
       }
 
-      expect(results).toEqual([['', []], ['', []]]);
+      expect(results).toEqual(Array(changes.length).fill(['', []]));
     });
 
     it('refresh does nothing without a field', () => {

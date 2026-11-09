@@ -212,6 +212,16 @@ describe('additionals_select_filters.js', () => {
     expect(Array.from(field.selectedOptions).map((option) => option.value)).toEqual(['1']);
   });
 
+  it('starts empty when additionalsSelectApply gets a value without an option', () => {
+    document.body.innerHTML = '<select><option value="1">One</option><option value="2">Two</option></select>';
+    const field = document.querySelector('select');
+
+    additionalsSelectApply(field, { url: '/entries', multiple: false, values: ['99'] });
+
+    expect(field.value).toBe('');
+    expect(field.selectedIndex).toBe(0);
+  });
+
   it('leaves filters without registration as Redmine built them', () => {
     buildFilterRow('status_id', '=', []);
 

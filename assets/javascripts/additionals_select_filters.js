@@ -57,6 +57,9 @@ function additionalsSelectApply(select, options) {
 function additionalsSelectSingle(select, values) {
   if (!Array.from(select.options).some((option) => option.value === '')) { select.prepend(new Option('', '')); }
   select.value = values.length > 0 ? values[0] : '';
+  // a value without an option chooses nothing, the library would then take
+  // the first option as value
+  if (select.selectedIndex === -1) { select.value = ''; }
 }
 
 /* Makes +select+ take multiple values. A single select always has an option

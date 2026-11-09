@@ -98,11 +98,10 @@ class GlobalHelperTest < Additionals::HelperTest
   # does it for issue attributes.
   def test_attribute_label_with_custom_field_description
     field = IssueCustomField.generate! name: 'Height', description: 'In meters'
-    html = @redmine_view.attribute_label field
-
-    assert_include 'title="In meters"', html
-    assert_include 'class="label field-description"', html
-    assert_include 'Height:', html
+    # Only the name carries the tooltip, as in Redmine: .label has a fixed
+    # width in issue details, which the dotted underline would span
+    assert_equal '<span class="label"><span class="field-description" title="In meters">Height</span>:</span>',
+                 @redmine_view.attribute_label(field)
   end
 
   def test_attribute_label_with_custom_field_without_description

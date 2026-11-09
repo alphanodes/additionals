@@ -129,7 +129,9 @@ module Additionals
     # A custom field carries its description as tooltip, the same way Redmine does
     # it for the attributes of an issue (see custom_field_name_tag). Rebuilt here
     # instead of calling that helper, because CustomFieldsHelper is only available
-    # in some controllers, while this helper is global.
+    # in some controllers, while this helper is global. As in Redmine, only the
+    # name carries the tooltip: issue details give .label a fixed width, which
+    # the dotted underline would otherwise span.
     #
     # @param label [String, Symbol, CustomField] text, locale key or custom field
     # @param title [String, nil] tooltip, taken from the custom field if not given
@@ -141,10 +143,9 @@ module Additionals
       end
 
       label = l label if label.is_a? Symbol
+      label = tag.span label, class: 'field-description', title: title if title.present?
 
-      tag.span "#{label}:",
-               class: ['label', title.present? ? 'field-description' : nil].compact,
-               title: title.presence
+      tag.span safe_join([label, ':']), class: 'label'
     end
 
     def label_with_count(label, info, only_positive: false)

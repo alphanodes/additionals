@@ -1263,6 +1263,26 @@ describe('AdditionalsSelectController', () => {
       expect(shownText(single)).toBe('Two');
     });
 
+    it('stays empty when a value without an option is set from JavaScript', async () => {
+      const tellings = [
+        (select) => AdditionalsSelect.refresh(select),
+        (select) => select.dispatchEvent(new Event('change', { bubbles: true })),
+      ];
+      const results = [];
+      for (const tell of tellings) {
+        const select = await render(`
+          <select data-controller="additionals-select">
+            <option value=""></option><option value="1">First</option><option value="2" selected>Second</option>
+          </select>`);
+
+        select.value = '99';
+        tell(select);
+        results.push([select.value, chosenTexts(select)]);
+      }
+
+      expect(results).toEqual([['', []], ['', []]]);
+    });
+
     it('refresh does nothing without a field', () => {
       expect(() => AdditionalsSelect.refresh(null)).not.toThrow();
     });

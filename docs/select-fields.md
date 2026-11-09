@@ -108,7 +108,7 @@ Pages for people without access to Redmine (e.g. public pages of a plugin) answe
 
 ## Tests
 
-System tests use the helpers of `Additionals::GlobalSystemTestHelper` instead of the markup of the library: `choose_select_entry(container, text, search:, exact:)`, `add_select_tag(container, name)`, `remove_select_entry(container, text)`, `clear_select_field(container)` and `assert_select_chosen(container, *texts)`; for a field or menu opened otherwise `open_select_field(container)`, `type_into_open_select(text_or_key)`, `leave_select_field`, `choose_open_select_entry(text)`, `assert_select_entry(text)` and `assert_no_select_entry(text)`. Only `SELECT_FIELD_MARKUP` in that helper knows the markup of the library.
+System tests use the helpers of `Additionals::GlobalSystemTestHelper` instead of the markup of the library: `choose_select_entry(container, text, search:, exact:)`, `add_select_tag(container, name)`, `remove_select_entry(container, text)`, `clear_select_field(container)`, `assert_select_clear_takes_clicks(container)` and `assert_select_chosen(container, *texts)`; for a field or menu opened otherwise `open_select_field(container)`, `type_into_open_select(text_or_key)`, `leave_select_field`, `choose_open_select_entry(text)`, `assert_select_entry(text)` and `assert_no_select_entry(text)`. Only `SELECT_FIELD_MARKUP` in that helper knows the markup of the library.
 
 The JavaScript tests of additionals work a field through the driver `test/javascript/support/select_field.js` (open, type, choose, keys, click elsewhere, read the chosen entries) and check the behavior of this document, not the state of the library.
 

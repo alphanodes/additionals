@@ -654,6 +654,13 @@ function syncLibrary(instance, select, { fromServer = false } = {}) {
 
     instance.addOption({ ...option.dataset, id: option.value, text: option.text, disabled: option.disabled, $option: option });
   });
+  // A value without an option leaves a single select with nothing chosen. The
+  // library would move the empty option without choosing it, and the browser
+  // would choose the first other option in its place.
+  if (!select.multiple && select.selectedIndex === -1) {
+    const empty = Array.from(select.options).find((option) => option.value === '');
+    if (empty) { empty.selected = true; }
+  }
   const chosen = chosenValues(select);
   instance.setValue(select.multiple ? chosen : chosen.slice(0, 1), true);
   if (select.disabled !== instance.isDisabled) {

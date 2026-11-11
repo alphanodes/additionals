@@ -23,7 +23,8 @@ module Additionals
           true
         end
 
-        # The address alone, with a name "Name (address)"
+        # The address alone, with a name "Name (address)". Plain text, flash_msg
+        # escapes it.
         def render_flash_mail(mail, name = nil)
           name.present? ? "#{name} (#{mail})" : mail.to_s
         end
@@ -33,20 +34,20 @@ module Additionals
 
           skip_field_info = false
 
-          # Core renders flash messages as HTML, and error messages may contain the
-          # name of the record, so they are escaped
+          # Core renders flash messages as HTML, and values, mail addresses and
+          # error messages may contain user input, so they are escaped
           message = case msg
                     when :save_error
                       if obj.present? && obj.errors.full_messages.present?
                         skip_field_info = true
-                        l :notice_save_error_with_messages, errors: ERB::Util.html_escape(obj.errors.full_messages.to_comma_list).to_str
+                        l :notice_save_error_with_messages, errors: flash_escape(obj.errors.full_messages.to_comma_list)
                       else
                         l :notice_unsuccessful_save
                       end
                     when :delete_error
                       if obj.present? && obj.errors.full_messages.present?
                         skip_field_info = true
-                        l :notice_delete_error_with_messages, errors: ERB::Util.html_escape(obj.errors.full_messages.to_comma_list).to_str
+                        l :notice_delete_error_with_messages, errors: flash_escape(obj.errors.full_messages.to_comma_list)
                       else
                         l :notice_unsuccessful_delete
                       end
@@ -58,17 +59,17 @@ module Additionals
                       l :notice_successful_delete
                     else
                       if mail.present?
-                        l msg, render_flash_mail(mail)
+                        l msg, flash_escape(render_flash_mail(mail))
                       elsif value.present?
-                        l msg, value
+                        l msg, flash_escape(value)
                       elsif code.present?
-                        l msg, "<em>#{value}</em>"
+                        l msg, "<em>#{flash_escape code}</em>"
                       else
                         l msg
                       end
                     end
 
-          message << " (#{obj.send field})" if !skip_field_info && obj
+          message << " (#{flash_escape obj.send(field)})" if !skip_field_info && obj
 
           message
         end
@@ -79,6 +80,12 @@ module Additionals
                     rules_class::RULES.include?(:inline_smileys)
 
           rules_class::RULES << :inline_smileys
+        end
+
+        private
+
+        def flash_escape(text)
+          ERB::Util.html_escape(text.to_s).to_str
         end
       end
     end

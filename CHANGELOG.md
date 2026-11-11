@@ -14,7 +14,7 @@
 - Macros: fixes and new options for `vimeo`, `reddit`, `meteoblue`, `gmap`, `user`, `gps` and `recently_updated`
 - Secondary text is darker for better readability
 - All translations revised, German texts use the informal du
-- Security: select fields, dashboards and macros only show what the user may see; admins no longer open private dashboards of other users; names and error messages are escaped
+- Security: select fields, dashboards and macros only show what the user may see; admins no longer open private dashboards of other users; names, error messages and the values in notices (`flash_msg`) are escaped
 - Deleting a project deletes its dashboards, deleting a user keeps their public dashboards
 - Fix the links of the global search to the Redmine search page, which searched all projects instead of the current one
 - Fix query list blocks with outdated content, invalid queries or on project dashboards, and the auto refresh of blocks

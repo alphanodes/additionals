@@ -747,7 +747,7 @@ class AdditionalsSelectController extends Controller {
     return {
       url: this.urlValue,
       // free input needs tags, the typed text becomes a value of its own
-      tags: this.tagsValue || this.scopedTagsValue || this.freeInputValue,
+      tags: this.tagsValue || this.freeInputValue,
       freeInput: this.freeInputValue,
       freeInputPattern: this.freeInputPatternValue,
       renderer: this.rendererValue,

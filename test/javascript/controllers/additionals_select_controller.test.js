@@ -313,6 +313,24 @@ describe('AdditionalsSelectController', () => {
 
       expect(seen).toEqual([['prio::high']]);
     });
+
+    it('takes typed text as a new tag only with tags', async () => {
+      const options = '<option value="prio::low">prio::low</option>';
+      const scopedOnly = await render(`
+        <select multiple data-controller="additionals-select" data-additionals-select-scoped-tags-value="true">${options}</select>`);
+      openField(scopedOnly);
+      typeInto(scopedOnly, 'prio::new');
+      const withoutTags = entryTexts();
+      closeField(scopedOnly);
+
+      const withTags = await render(`
+        <select multiple data-controller="additionals-select" data-additionals-select-scoped-tags-value="true"
+                data-additionals-select-tags-value="true">${options}</select>`);
+      openField(withTags);
+      typeInto(withTags, 'prio::new');
+
+      expect([withoutTags, entryTexts()]).toEqual([[], ['prio::new']]);
+    });
   });
 
   describe('free input', () => {

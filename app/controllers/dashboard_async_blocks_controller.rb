@@ -28,6 +28,9 @@ class DashboardAsyncBlocksController < ApplicationController
   def show
     @settings[:sort] = params[:sort] if params[:sort].present?
     partial_locals = build_dashboard_partial_locals @block, @settings, @dashboard
+    # A block decides per user whether it loads after the page (e.g. only with
+    # a record the user can see); without, it has nothing to load here
+    return head :not_found unless partial_locals[:async]
 
     respond_to do |format|
       format.html do

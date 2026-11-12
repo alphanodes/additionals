@@ -31,6 +31,17 @@ class DashboardAsyncBlocksControllerTest < Additionals::ControllerTest
     assert_response :forbidden
   end
 
+  # A block rendered with the page has nothing to load after it, which is no
+  # error of the block
+  def test_block_that_does_not_load_after_the_page_is_not_found
+    @request.session[:user_id] = 1
+    @request.headers['X-Requested-With'] = 'XMLHttpRequest'
+
+    get :show, params: { dashboard_id: @welcome_dashboard.id, block: 'text' }
+
+    assert_response :not_found
+  end
+
   # A saved query whose SQL fails, e.g. with a filter of a plugin that is not
   # installed, is named as such
   def test_block_with_a_broken_query_names_the_query_error

@@ -194,8 +194,9 @@ module DashboardBlocks
 
     # Links of the block next to its settings icon, only for editors of the
     # dashboard, e.g. to edit what the block shows. Each a hash with icon (of
-    # the core sprite), label and url (a path or the options of url_for, which
-    # keep the subdirectory of Redmine).
+    # the core sprite), label and url (options of url_for or the result of a
+    # route helper, never a path built by hand: both keep the subdirectory of
+    # Redmine).
     def contextual_links
       []
     end

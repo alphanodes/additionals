@@ -196,6 +196,18 @@ The API requires a logged in user, also where Redmine requires no login: computi
 
 `Dashboard#block_export(block)` returns a block of the layout as a program reads it: `block`, `label`, the typed `settings` of the context and `data`, with `data: false` without loading the data; `nil` for a block that is not in the layout or not available to the user. The `settings` only for a user who may edit the dashboard, because stored settings can hold credentials (e.g. tokens of devops blocks). `Dashboard#layout_export` returns the groups of the layout with their blocks this way, as the dashboards API shows it (`/dashboards/<id>.json`); see Assigning a Layout for blocks the user cannot use here. `Additionals::DashboardService#dashboards(project:, dashboard_type:)` lists the dashboards a user can see like the dashboard choice of a project, for the API and tools. `DashboardContent#available_block_schemas` tells with `exports_data` which blocks export their data. What the user may not see stays hidden, e.g. authors of anonymized activities.
 
+### Links for Editors
+
+`contextual_links` adds links next to the settings icon of a block, e.g. to edit the record the block shows. Like the other icons there, they are shown only to users who may edit the dashboard, readers never see them. Each link is a hash with `icon` (a name of the core sprite), `label` and `url`; give `url` as options of `url_for` or a route helper result, never as a path built by hand, so the subdirectory of Redmine is kept. A link to an action the user may not perform is left out by the block.
+
+```ruby
+def contextual_links
+  return [] unless entry&.editable?
+
+  [{ icon: 'edit', label: I18n.t(:button_edit), url: { controller: 'my_entries', action: 'edit', id: entry.id } }]
+end
+```
+
 ### Async Blocks
 
 An async block renders an empty frame first and loads its content with a request of its own, so a slow block does not hold up the page:

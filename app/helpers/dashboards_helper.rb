@@ -339,7 +339,7 @@ module DashboardsHelper
     content = safe_join [dashboard_block_settings_form(block, dashboard_block, dashboard, partial_locals), content]
 
     if dashboard.layout_editable?
-      icons = []
+      icons = dashboard_block_contextual_links dashboard_block
       # A new block has its settings form open, closing it would leave it empty
       unless dashboard_block.no_settings? || dashboard_block.new_block?
         icons << link_to_function(sprite_icon('settings', l(:label_options)),
@@ -367,6 +367,14 @@ module DashboardsHelper
     end
 
     tag.div content, class: "mypage-box dashboard-block block-#{dashboard_block.block_id}", id: "block-#{block}"
+  end
+
+  # The links of a block for editors of the dashboard, next to its settings
+  # icon (DashboardBlocks::Base#contextual_links)
+  def dashboard_block_contextual_links(dashboard_block)
+    dashboard_block.contextual_links.map do |link|
+      link_to sprite_icon(link[:icon], link[:label]), link[:url], class: "icon-only icon-#{link[:icon]}", title: link[:label]
+    end
   end
 
   # Locals of the partials of a block: dashboard_block is the block with the

@@ -47,6 +47,25 @@ class DashboardsHelperTest < Additionals::HelperTest
     assert_nil resolve_async_min_height({}, { data_check_class: empty_chart })
   end
 
+  def test_contextual_links_of_a_block_link_its_icon_with_the_label_as_title
+    block_class = Class.new DashboardBlocks::Base do
+      def contextual_links
+        [{ icon: 'edit', label: 'Edit the page', url: { controller: 'wiki', action: 'edit', project_id: 'ecookbook', id: 'Page' } }]
+      end
+    end
+    links = build_redmine_view(WelcomeController).dashboard_block_contextual_links block_class.new(DashboardContentWelcome.new)
+    link = Nokogiri::HTML5.fragment(safe_join(links)).at_css 'a'
+
+    assert_equal 1, links.size
+    assert_equal ['/projects/ecookbook/wiki/Page/edit', 'icon-only icon-edit', 'Edit the page'],
+                 [link['href'], link['class'], link['title']]
+    assert link.at_css('svg use[href*="#icon--edit"]')
+  end
+
+  def test_block_has_no_contextual_links_by_default
+    assert_empty DashboardContentStub.test_block('plain', nil).new(DashboardContentStub.new).contextual_links
+  end
+
   def test_block_libraries_of_a_block_rendered_with_the_page_are_empty
     assert_equal [], block_libraries(DashboardContentStub.test_block('plain', nil).new(DashboardContentStub.new))
   end

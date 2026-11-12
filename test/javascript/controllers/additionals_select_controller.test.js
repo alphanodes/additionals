@@ -731,6 +731,22 @@ describe('AdditionalsSelectController', () => {
       expect(values(select)).toEqual(['7']);
     });
 
+    it('shows the selection text of a chosen entry, also when the field is set up again', async () => {
+      serverAnswers([{ text: 'Office', children: [{ id: 7, text: 'Process', selection: 'Office » Process' }] }]);
+      const select = await render(`<select data-controller="additionals-select" ${url}></select>`);
+
+      openField(select);
+      await wait(SEARCH_WAIT);
+
+      expect(groupsOfList()).toEqual([{ text: 'Office', entries: ['Process'] }]);
+
+      chooseEntry('Process');
+      select.setAttribute('data-additionals-select-placeholder-value', 'Choose a page');
+      await wait();
+
+      expect(chosenTexts(select)).toEqual(['Office » Process']);
+    });
+
     it('keeps what a chosen entry shows when the field is set up again', async () => {
       serverAnswers([{ id: 7, text: 'Kurt', email: 'kurt@example.com' }]);
       const select = await render(`

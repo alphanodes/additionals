@@ -39,7 +39,7 @@ flowchart LR
 
 | Option | Purpose |
 | --- | --- |
-| `url` | Entries come from this URL (JSON `[{ id, text, ... }]`, groups as `{ text, children }`, parameter `q` with the search); an entry on top without a group stays there when a group repeats its id, e.g. `<< me >>` of a form field |
+| `url` | Entries come from this URL (JSON `[{ id, text, ... }]`, groups as `{ text, children }`, parameter `q` with the search); an entry on top without a group stays there when a group repeats its id, e.g. `<< me >>` of a form field; an entry may bring `selection`, the text of the chosen entry, e.g. with its group, which the list shows as heading |
 | `tags` | Typed text becomes a value of its own; a comma separates values |
 | `scoped_tags` | A tag `group::value` replaces a chosen tag of the same group; typed text only becomes a tag with `tags` |
 | `free_input` | Typed text becomes a value: offered after the found entries, and taken when the field is left with a click elsewhere or Tab (not after a choice, Enter or Escape), e.g. for mail addresses |

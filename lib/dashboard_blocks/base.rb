@@ -193,7 +193,7 @@ module DashboardBlocks
     end
 
     # Links of the block next to its settings icon, only for editors of the
-    # dashboard, e.g. to edit what the block shows. Each a hash with icon (of
+    # dashboard while it is not locked, e.g. to edit what the block shows. Each a hash with icon (of
     # the core sprite), label and url (options of url_for or the result of a
     # route helper, never a path built by hand: both keep the subdirectory of
     # Redmine).

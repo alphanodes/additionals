@@ -280,6 +280,22 @@ describe('AdditionalsSelectController', () => {
 
       expect(values(select)).toEqual(['kurt@example.com']);
     });
+
+    it('takes the property of the entries in groups as value', async () => {
+      serverAnswers([{ text: 'Office', children: [{ id: 7, text: 'Process', reference: 'office:Process' }] }]);
+      const select = await render(`
+        <select data-controller="additionals-select" data-additionals-select-url-value="/pages"
+                data-additionals-select-value-key-value="reference"></select>`);
+
+      openField(select);
+      await wait(SEARCH_WAIT);
+
+      expect(groupsOfList()).toEqual([{ text: 'Office', entries: ['Process'] }]);
+
+      chooseEntry('Process');
+
+      expect(values(select)).toEqual(['office:Process']);
+    });
   });
 
   describe('scoped tags', () => {

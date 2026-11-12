@@ -198,7 +198,7 @@ The API requires a logged in user, also where Redmine requires no login: computi
 
 ### Links for Editors
 
-`contextual_links` adds links next to the settings icon of a block, e.g. to edit the record the block shows. Like the other icons there, they are shown only to users who may edit the dashboard, readers never see them. Each link is a hash with `icon` (a name of the core sprite), `label` and `url`; give `url` as options of `url_for` or a route helper result, never as a path built by hand, so the subdirectory of Redmine is kept. A link to an action the user may not perform is left out by the block.
+`contextual_links` adds links next to the settings icon of a block, e.g. to edit the record the block shows. Like the other icons there, they are shown only to users who may edit the layout of the dashboard, not on a locked one; readers never see them. Each link is a hash with `icon` (a name of the core sprite), `label` and `url`; give `url` as options of `url_for` or a route helper result, never as a path built by hand, so the subdirectory of Redmine is kept. A link to an action the user may not perform is left out by the block.
 
 ```ruby
 def contextual_links
@@ -235,6 +235,8 @@ The partial wraps its content in `dashboard_async_cache dashboard, block, async,
 **Why the cache expires by time.** Async blocks expire after `cache_expires_in` on purpose, they are not invalidated when data changes. What a block shows depends on much more than its main records: a query block also reflects time entries, journals, custom field values, memberships and permissions. Change-based invalidation would have to know all of these sources, and a missed one would leave a block wrong until the cache expires. A short TTL is wrong for seconds at most, wherever a change comes from, and returning from an entry edited via the context menu of a query list block drops the cached block.
 
 **A cached block with auto refresh keeps its frame.** On a cache hit the page shows the cached content right away. Without auto refresh it is shown without the frame, with auto refresh inside it (`loaded`), so the frame polls from the first interval on without loading again. The `min-height` of the frame only reserves space while loading and is dropped with the first content.
+
+A block may decide per user whether it loads after the page: an `async` method of its own that returns `nil` (e.g. without a record the user can see) renders its `partial` with the page instead, and a request of the frame of such a block is answered with 404. A partial that renders nothing leaves the block out.
 
 `unique_params` (an instance method) is the cheap way to react to changes: each value becomes part of the cache key, so a new value leads to a new entry. Use values from indexed columns, because they are evaluated on every request. `MAX(updated_on)` of a table without an index on that column reads the whole table, e.g. `issues` in Redmine core.
 

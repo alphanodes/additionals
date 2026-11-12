@@ -255,6 +255,14 @@ function lookupRenderer(name) {
   return registered && Object.hasOwn(registered, name) ? registered[name] : RENDERERS.name_with_icon;
 }
 
+// What a chosen entry shows: the text of the server for it, else the
+// selection of the renderer, else its text
+function chosenEntry(data, renderer) {
+  if (data.selection) { return data.selection; }
+
+  return renderer.selection ? renderer.selection(data) : data.text;
+}
+
 function buildLibraryOptions(config, multiple) {
   const renderer = lookupRenderer(config.renderer);
   const options = {
@@ -277,11 +285,11 @@ function buildLibraryOptions(config, multiple) {
       option: (data) => templateElement(renderer.result(data)),
       // the title holds the text alone, without the button that removes it.
       // An entry of the server may bring a text of its own for the chosen
-      // entry (selection), e.g. with its group, which the list shows above it.
+      // entry (selection), e.g. with its group, which the list shows above it:
+      // it comes before the selection of the renderer, field and title agree.
       item: (data) => {
-        const text = data.selection || data.text;
-        const element = templateElement(renderer.selection ? renderer.selection(data) : text);
-        element.title = text ?? '';
+        const element = templateElement(chosenEntry(data, renderer));
+        element.title = data.selection || data.text || '';
         return element;
       },
       // the entry for typed text shows the text only

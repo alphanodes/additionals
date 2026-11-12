@@ -39,7 +39,7 @@ flowchart LR
 
 | Option | Purpose |
 | --- | --- |
-| `url` | Entries come from this URL (JSON `[{ id, text, ... }]`, groups as `{ text, children }`, parameter `q` with the search); an entry on top without a group stays there when a group repeats its id, e.g. `<< me >>` of a form field; an entry may bring `selection`, the text of the chosen entry, e.g. with its group, which the list shows as heading |
+| `url` | Entries come from this URL (JSON `[{ id, text, ... }]`, groups as `{ text, children }`, parameter `q` with the search); an entry on top without a group stays there when a group repeats its id, e.g. `<< me >>` of a form field; an entry may bring `selection`, the text of the chosen entry, e.g. with its group, which the list shows as heading; an option the page renders preselected shows its own text, so the helper renders it with that text |
 | `tags` | Typed text becomes a value of its own; a comma separates values |
 | `scoped_tags` | A tag `group::value` replaces a chosen tag of the same group; typed text only becomes a tag with `tags` |
 | `free_input` | Typed text becomes a value: offered after the found entries, and taken when the field is left with a click elsewhere or Tab (not after a choice, Enter or Escape), e.g. for mail addresses |
@@ -58,7 +58,7 @@ The list offers no blank option, the placeholder stands for it; a field that may
 
 ## Renderers
 
-Text of the server is shown as text; only `name_with_icon` and `avatar` are HTML, which the server builds and escapes. A plugin adds a renderer of its own to the global object `additionalsSelectRenderers` (`{ name: { result(item), selection(item) } }`, each returning an element or text; `result` draws the entry of the list, the optional `selection` the chosen entry, which otherwise shows its text; a built-in renderer of the same name comes first), e.g. additional_tags for tags with their colors; a script loaded with the page may register it before the fields are set up. An element with the class `additionals-select-pill` draws its own pill, a chosen entry then shows no chip around it.
+Text of the server is shown as text; only `name_with_icon` and `avatar` are HTML, which the server builds and escapes. A plugin adds a renderer of its own to the global object `additionalsSelectRenderers` (`{ name: { result(item), selection(item) } }`, each returning an element or text; `result` draws the entry of the list, the optional `selection` the chosen entry, which otherwise shows its text; a `selection` text the server sends with an entry comes before both; a built-in renderer of the same name comes first), e.g. additional_tags for tags with their colors; a script loaded with the page may register it before the fields are set up. An element with the class `additionals-select-pill` draws its own pill, a chosen entry then shows no chip around it.
 
 | Renderer | Entries |
 | --- | --- |

@@ -8,7 +8,7 @@ import AdditionalsSelectController, {
 import {
   loadSelectLibrary, hideSelectLibrary, serverAnswers, hasSelectField, fieldElement, openField, closeField, isOpen, pressField,
   typeInto, searchPlaceholder, entryTexts, entry, groupsOfList, isEntryDisabled, chooseEntry, pressKey, clickOutside,
-  chosenTexts, shownElement, shownText, placeholderText, removeChosen, canClear, clearField,
+  chosenTexts, chosenTitles, shownElement, shownText, placeholderText, removeChosen, canClear, clearField,
   clickField, focusField, isDisabled, moveField, listTop, listParent, searchHasFocus, scrollList,
   setListHeight, listMessage, clearButton, removeButtonTitle, tabStartsFrom, announcement, listAllowsSeveral, suggestedTexts,
 } from '../support/select_field.js';
@@ -745,6 +745,19 @@ describe('AdditionalsSelectController', () => {
       await wait();
 
       expect(chosenTexts(select)).toEqual(['Office » Process']);
+    });
+
+    it('shows the selection text of the server before the selection of the renderer, also as title', async () => {
+      serverAnswers([{ id: 7, text: 'Kurt', email: 'kurt@example.com', selection: 'Office » Kurt' }]);
+      const select = await render(`
+        <select data-controller="additionals-select" ${url} data-additionals-select-renderer-value="contact"></select>`);
+
+      openField(select);
+      typeInto(select, 'Ku');
+      await wait(SEARCH_WAIT);
+      pressKey(select, 'Enter');
+
+      expect([chosenTexts(select), chosenTitles(select)]).toEqual([['Office » Kurt'], ['Office » Kurt']]);
     });
 
     it('keeps what a chosen entry shows when the field is set up again', async () => {

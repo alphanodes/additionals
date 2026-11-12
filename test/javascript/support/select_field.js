@@ -280,6 +280,11 @@ function itemText(item) {
   return copy.textContent.trim();
 }
 
+// Titles of the chosen entries, shown when the pointer rests on them
+export function chosenTitles(select) {
+  return chosenItems(select).map((item) => item.title);
+}
+
 // Texts of the chosen entries of a multiple field
 export function chosenTexts(select) {
   return chosenItems(select).map(itemText);

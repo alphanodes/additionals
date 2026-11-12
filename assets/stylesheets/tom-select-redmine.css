@@ -252,7 +252,8 @@
   --ts-pr-clear-button: 22px;
 }
 
-/* the list hangs at the body, above dialogs */
+/* the list hangs at the body, above dialogs; the top menu flyout in
+   additionals.css stays above it */
 .additionals-select-dropdown {
   background-color: var(--a-color-white);
   border: var(--a-control-border-width) solid var(--a-color-input-border);

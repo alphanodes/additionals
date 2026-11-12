@@ -399,11 +399,13 @@ span.macro-not-available {
 
 .top-menu li ul.menu-children.visible { display: block; }
 
+/* Above the list of an open select field (1051 in tom-select-redmine.css),
+   which hangs at the body and would cover the flyout otherwise. */
 .top-menu .menu-children {
   display: none;
   position: absolute;
   min-width: 160px;
-  z-index: 45;
+  z-index: 1052;
   background-color: var(--oc-white);
   border: 1px solid var(--oc-gray-4);
   border-radius: 4px;

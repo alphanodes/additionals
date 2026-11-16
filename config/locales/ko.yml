@@ -26,6 +26,7 @@ ko:
   button_copy_object: "%{object_name} 복사"
   button_merge: "병합"
   days:
+    one: "일"
     other: "일"
   disabled_modules_info: "프로젝트에서 선택할 수 없게 할 모듈입니다. 기존 프로젝트에서 이미 사용 중이라면, 해당 프로젝트 설정을 다시 저장한 후에 변경이 적용됩니다."
   emoji_support_info_html: "텍스트의 이모지 코드를 변환합니다. :heart:, :+1: 등을 이모지로 변환하려면 이 옵션을 켜세요. 사용 가능한 이모지 코드는 <a href=\"https://www.webfx.com/tools/emoji-cheat-sheet/\" class=\"external\">Emoji cheat sheet</a>에서 확인할 수 있습니다."
@@ -59,6 +60,7 @@ ko:
   google_maps_embed_api_html: "Gmap 매크로로 Google 지도를 표시하려면 여기에 Google Maps Embed API 키를 입력하세요. 매크로 매개변수에 대한 자세한 내용은 <a href=\"https://developers.google.com/maps/documentation/embed/guide\" class=\"external\">https://developers.google.com/maps/documentation/embed/guide</a>를 참고하세요. 키가 없으면 Gmap 매크로를 사용할 수 없습니다."
   hidden_macros_in_toolbar_info: "로그인한 사용자가 쓸 수 있는 모든 매크로는 위키 도구 모음의 매크로 버튼에 나열됩니다. 여기에서 선택한 매크로는 선택 목록에 나타나지 않습니다. 이렇게 목록을 줄일 수 있습니다. 숨긴 매크로도 텍스트에서는 계속 사용할 수 있으며, 목록에서만 빠질 뿐 비활성화되지 않습니다."
   hours:
+    one: "시간"
     other: "시간"
   info_chart_classes: "비워 두면 칸에 표시된 경계를 사용합니다. \"자동\"이면 값을 같은 너비의 약 5개 구간으로 나눕니다. 고정 경계는 데이터가 바뀌어도 그대로 유지됩니다."
   info_chart_compare_query: "첫 번째 계열 옆에 두 번째 계열을 표시합니다. 막대 차트, 선 차트, 값 표에 표시됩니다."
@@ -294,6 +296,7 @@ ko:
   max_live_search_results_info: "LiveSearch의 최대 검색 결과 수입니다. 참고: 이 설정은 LiveSearch를 지원하는 플러그인에만 적용됩니다."
   menu_roles_info: "선택한 역할의 구성원만 이 메뉴 항목을 볼 수 있습니다."
   minutes:
+    one: "분"
     other: "분"
   new_ticket_message_info: "새 일감을 추가하려는 모든 사용자에게 표시되는 안내문입니다. 예를 들어 인수 테스트나 일감 작성 규칙을 적을 수 있습니다. 이 설정은 모든 프로젝트에 적용됩니다."
   notice_delete_error_with_messages: "삭제에 실패했습니다. 오류: %{errors}"
@@ -317,6 +320,7 @@ ko:
   rule_issue_status_change_info: "사용 예: 상태가 \"Approval\"로 바뀌면 일감을 작성자에게 자동으로 할당합니다."
   rule_issue_timelog_required_info_html: "선택한 일감 유형의 각 일감은 지정한 상태 중 하나로 바꾸려면 소요시간 기록이 필요합니다. 다음 경우에는 소요시간 기록이 필요 없습니다:<br />- 소요시간을 기록할 권한이 없는 경우<br />- 사용자에게 \"소요시간 기록 필요 없음\" 권한이 있는 경우<br />사용 예: 상태가 \"To Verify\"인 일감을 승인할 때 소요시간도 필요한 경우입니다."
   seconds:
+    one: "%{count}초"
     other: "%{count}초"
   setting_export_limit: "내보내기 한도"
   settings_with_value: "%{value} 설정"

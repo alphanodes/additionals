@@ -26,6 +26,7 @@ ja:
   button_copy_object: "%{object_name}をコピー"
   button_merge: "統合"
   days:
+    one: "日"
     other: "日"
   disabled_modules_info: "プロジェクトで選択できないようにするモジュールです。既存のプロジェクトでこれらのモジュールがすでに有効な場合、変更はそのプロジェクトの設定を保存し直した後に反映されます。"
   emoji_support_info_html: "テキスト内の絵文字コードを変換します。:heart:、:+1: などを絵文字に変換する場合はこのオプションを有効にしてください。使用できる絵文字コードは <a href=\"https://www.webfx.com/tools/emoji-cheat-sheet/\" class=\"external\">Emoji cheat sheet</a> で確認できます。"
@@ -59,6 +60,7 @@ ja:
   google_maps_embed_api_html: "Gmap マクロで Google マップを表示するには、ここに Google Maps Embed API キーを入力してください。マクロのパラメーターについては <a href=\"https://developers.google.com/maps/documentation/embed/guide\" class=\"external\">https://developers.google.com/maps/documentation/embed/guide</a> を参照してください。キーがないと Gmap マクロは使用できません。"
   hidden_macros_in_toolbar_info: "ログインしているユーザーが使えるマクロはすべて、Wiki ツールバーのマクロボタンから一覧表示されます。ここで選択したマクロは選択肢に表示されません。これにより一覧を絞り込めます。非表示にしたマクロもテキスト内では引き続き使用できます。一覧から外れるだけで、無効にはなりません。"
   hours:
+    one: "時間"
     other: "時間"
   info_chart_classes: "空欄の場合、欄に表示された境界を使います。「自動」の場合は、値をほぼ同じ幅の約5つの階級に分けます。固定の境界はデータが変わっても変わりません。"
   info_chart_compare_query: "1つ目の系列の隣に2つ目の系列を表示します。棒グラフ、折れ線グラフ、値の表に表示されます。"
@@ -294,6 +296,7 @@ ja:
   max_live_search_results_info: "LiveSearch の最大検索結果件数です。注意: この設定は LiveSearch に対応したプラグインにのみ影響します。"
   menu_roles_info: "選択したロールのメンバーだけがこのメニュー項目を表示できます。"
   minutes:
+    one: "分"
     other: "分"
   new_ticket_message_info: "新しいチケットを追加するすべてのユーザーに表示する注意事項です。例えば受け入れテストやチケットのルールを記述できます。この設定はすべてのプロジェクトに適用されます。"
   notice_delete_error_with_messages: "削除に失敗しました。エラー: %{errors}"
@@ -317,6 +320,7 @@ ja:
   rule_issue_status_change_info: "利用例: ステータスが「Approval」に変わったら、チケットを作成者に自動で割り当てます。"
   rule_issue_timelog_required_info_html: "選択したトラッカーの各チケットで、定義したステータスのいずれかにする場合は作業時間の記録が必要です。次の場合は作業時間の記録は不要です:<br />- 作業時間を記録する権限がない<br />- ユーザーが「作業時間の記録を不要にする」権限を持っている<br />利用例: ステータスが「To Verify」のチケットを承認する際に、作業時間も必要な場合。"
   seconds:
+    one: "%{count}秒"
     other: "%{count}秒"
   setting_export_limit: "エクスポートの上限"
   settings_with_value: "%{value}の設定"

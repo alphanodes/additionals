@@ -315,6 +315,12 @@ module Additionals
 
       assert_empty inconsistent,
                    "Plugin #{plugin}: inconsistent interpolations:\n#{i18n_format_forest inconsistent}"
+
+      without_one = locale_plurals_without_one plugin, locales
+
+      assert_empty without_one,
+                   "Plugin #{plugin}: plural forms without 'one', count 1 raises I18n::InvalidPluralizationData:\n" \
+                   "#{without_one.join "\n"}"
     ensure
       set_language_if_valid 'en'
     end
@@ -337,6 +343,28 @@ module Additionals
                    'an addition to one (expected <purpose>_<language>.yml)'
 
       locales.sort
+    end
+
+    # The keys of a pluralized translation
+    PLURAL_KEYS = %w[zero one two few many other].freeze
+
+    # Redmine loads no plural rules, so count 1 asks for 'one' in every
+    # language, also in those without a singular such as ja or zh. i18n-tasks
+    # follows the rules of these languages and accepts 'other' alone there.
+    def locale_plurals_without_one(plugin, locales)
+      locales.flat_map do |lang|
+        data = YAML.safe_load_file Rails.root.join("plugins/#{plugin}/config/locales/#{lang}.yml"), aliases: true
+        plural_paths_without_one(data[lang]).map { |key| "#{lang}: #{key}" }
+      end
+    end
+
+    def plural_paths_without_one(node, path = [])
+      return [] unless node.is_a? Hash
+
+      keys = node.keys.map(&:to_s)
+      return keys.include?('one') ? [] : [path.join('.')] if keys.include?('other') && (keys - PLURAL_KEYS).empty?
+
+      node.flat_map { |key, value| plural_paths_without_one value, path + [key] }
     end
 
     # The locales every plugin of the family offers

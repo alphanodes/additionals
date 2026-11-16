@@ -26,6 +26,7 @@ zh:
   button_copy_object: "复制%{object_name}"
   button_merge: "合并"
   days:
+    one: "天"
     other: "天"
   disabled_modules_info: "在项目中不可选择的模块。如果这些模块已在现有项目中启用，需重新保存相应的项目设置后，更改才会在那里生效。"
   emoji_support_info_html: "转换文本中的表情代码。若要将 :heart:、:+1: 等转换为表情符号，请启用此选项。可用的表情代码见 <a href=\"https://www.webfx.com/tools/emoji-cheat-sheet/\" class=\"external\">Emoji cheat sheet</a>。"
@@ -59,6 +60,7 @@ zh:
   google_maps_embed_api_html: "若要通过 Gmap 宏显示 Google 地图，请在此输入 Google Maps Embed API 密钥。宏参数的更多信息见 <a href=\"https://developers.google.com/maps/documentation/embed/guide\" class=\"external\">https://developers.google.com/maps/documentation/embed/guide</a>。没有密钥则无法使用 Gmap 宏。"
   hidden_macros_in_toolbar_info: "当前登录用户可用的所有宏都列在 Wiki 工具栏的宏按钮中。此处选中的宏不会出现在选择列表中，从而缩小列表范围。隐藏的宏在文本中仍可使用，只是从列表中移除，并未禁用。"
   hours:
+    one: "小时"
     other: "小时"
   info_chart_classes: "留空时使用字段中显示的边界；为\"自动\"时，将数值分为约五个等宽的区间。固定边界在数据变化时保持不变。"
   info_chart_compare_query: "在第一个系列旁显示第二个系列。在柱状图、折线图和数值表中显示。"
@@ -294,6 +296,7 @@ zh:
   max_live_search_results_info: "LiveSearch 的最大搜索结果数。注意：此设置仅影响支持 LiveSearch 的插件。"
   menu_roles_info: "只有所选角色的成员才能看到此菜单项。"
   minutes:
+    one: "分钟"
     other: "分钟"
   new_ticket_message_info: "向所有要新建问题的用户显示的提示，例如验收测试或问题规则。此设置对所有项目生效。"
   notice_delete_error_with_messages: "删除失败，错误如下：%{errors}"
@@ -317,6 +320,7 @@ zh:
   rule_issue_status_change_info: "使用场景：当状态变为\"Approval\"时，问题自动指派给其作者。"
   rule_issue_timelog_required_info_html: "所选跟踪标签的每个问题若要变为所定义的状态之一，必须已登记工时。以下情况无需登记工时：<br />- 没有登记工时的权限<br />- 用户具有\"无需登记工时\"权限<br />使用场景：验收状态为\"To Verify\"的问题时，也需要已花费的时间。"
   seconds:
+    one: "%{count} 秒"
     other: "%{count} 秒"
   setting_export_limit: "导出上限"
   settings_with_value: "%{value}设置"

@@ -26,6 +26,7 @@ zh-TW:
   button_copy_object: "複製%{object_name}"
   button_merge: "合併"
   days:
+    one: "天"
     other: "天"
   disabled_modules_info: "在專案中不可選擇的模組。如果這些模組已在現有專案中啟用，需重新儲存相應的專案設定後，變更才會在那裡生效。"
   emoji_support_info_html: "轉換文字中的表情代碼。若要將 :heart:、:+1: 等轉換為表情符號，請啟用此選項。可用的表情代碼請見 <a href=\"https://www.webfx.com/tools/emoji-cheat-sheet/\" class=\"external\">Emoji cheat sheet</a>。"
@@ -59,6 +60,7 @@ zh-TW:
   google_maps_embed_api_html: "若要透過 Gmap 巨集顯示 Google 地圖，請在此輸入 Google Maps Embed API 金鑰。巨集參數的更多資訊請見 <a href=\"https://developers.google.com/maps/documentation/embed/guide\" class=\"external\">https://developers.google.com/maps/documentation/embed/guide</a>。沒有金鑰就無法使用 Gmap 巨集。"
   hidden_macros_in_toolbar_info: "目前登入的使用者可用的所有巨集都列在 Wiki 工具列的巨集按鈕中。此處選取的巨集不會出現在選擇清單中，藉此縮小清單範圍。隱藏的巨集在文字中仍可使用，只是從清單中移除，並未停用。"
   hours:
+    one: "小時"
     other: "小時"
   info_chart_classes: "留空時使用欄位中顯示的邊界；為「自動」時，將數值分為約五個等寬的區間。固定邊界在資料變動時保持不變。"
   info_chart_compare_query: "在第一個數列旁顯示第二個數列。在長條圖、折線圖和數值表中顯示。"
@@ -294,6 +296,7 @@ zh-TW:
   max_live_search_results_info: "LiveSearch 的最大搜尋結果數。注意：此設定僅影響支援 LiveSearch 的外掛程式。"
   menu_roles_info: "只有所選角色的成員才能看到此選單項目。"
   minutes:
+    one: "分鐘"
     other: "分鐘"
   new_ticket_message_info: "向所有要新增議題的使用者顯示的提示，例如驗收測試或議題規則。此設定對所有專案生效。"
   notice_delete_error_with_messages: "刪除失敗，錯誤如下：%{errors}"
@@ -317,6 +320,7 @@ zh-TW:
   rule_issue_status_change_info: "使用情境：當狀態變為「Approval」時，議題會自動分派給其作者。"
   rule_issue_timelog_required_info_html: "所選追蹤標籤的每個議題若要變為所定義的狀態之一，必須已記錄工時。以下情況不需記錄工時：<br />- 沒有記錄工時的權限<br />- 使用者具有「不需記錄工時」權限<br />使用情境：驗收狀態為「To Verify」的議題時，也需要已耗用的工時。"
   seconds:
+    one: "%{count} 秒"
     other: "%{count} 秒"
   setting_export_limit: "匯出上限"
   settings_with_value: "%{value}設定"

@@ -40,13 +40,19 @@
 
 /* the search fills what the chosen entries leave on their line; forms of
    Redmine give text fields a width of their own, which would push it onto a
-   line of its own and change the height of the field on focus. Firefox gives
-   a text field at least a "normal" line, higher than the line of the control:
-   an empty field would be higher than one with a value. */
+   line of its own and change the height of the field on focus. */
 .additionals-select-field .ts-control > input {
   flex: 1 1 0%;
-  height: var(--a-control-line-height);
   min-width: 4rem;
+}
+
+/* Firefox gives a text field at least a "normal" line, higher than the line
+   of the control. A single field searches in its dropdown and hides this
+   input when open, so it keeps the line of the control to not change its
+   height. A multiple field searches here and must not get a fixed height,
+   Firefox would clip text and caret to it. */
+.additionals-select-field.single .ts-control > input {
+  height: var(--a-control-line-height);
 }
 
 .additionals-select-field.has-items .ts-control > input {

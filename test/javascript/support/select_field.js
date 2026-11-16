@@ -123,12 +123,23 @@ export function listMessage() {
 // Title of the button that empties the field and whether Tab stops on it
 export function clearButton(select) {
   const button = fieldElement(select).querySelector('.clear-button');
-  return { title: button.getAttribute('title'), tabStop: button.tabIndex >= 0 };
+  return { label: button.getAttribute('aria-label'), title: button.getAttribute('title'), tabStop: button.tabIndex >= 0 };
 }
 
 // Title of the button that removes the chosen entry +text+
-export function removeButtonTitle(select, text) {
-  return chosenItems(select).find((element) => itemText(element) === text).querySelector('.remove').getAttribute('title');
+// The button that removes a chosen entry of a multiple field
+function removeButton(select, text) {
+  return chosenItems(select).find((element) => itemText(element) === text).querySelector('.remove');
+}
+
+export function removeButtonLabel(select, text) {
+  const button = removeButton(select, text);
+  return { label: button.getAttribute('aria-label'), title: button.getAttribute('title') };
+}
+
+// The element of a chosen entry
+export function chosenElement(select, text) {
+  return chosenItems(select).find((element) => itemText(element) === text);
 }
 
 // The user scrolls inside the open list
@@ -278,11 +289,6 @@ function itemText(item) {
   const copy = item.cloneNode(true);
   copy.querySelector('.remove')?.remove();
   return copy.textContent.trim();
-}
-
-// Titles of the chosen entries, shown when the pointer rests on them
-export function chosenTitles(select) {
-  return chosenItems(select).map((item) => item.title);
 }
 
 // Texts of the chosen entries of a multiple field

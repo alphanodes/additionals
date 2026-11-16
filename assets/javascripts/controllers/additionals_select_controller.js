@@ -228,15 +228,28 @@ function selectLabel(name) {
   return window.ADDITIONALS_SELECT_LABELS?.[name] || '';
 }
 
+// The buttons that remove an entry and empty the field are a cross next to
+// what they remove, which tells what they do. A tooltip would only cover the
+// entries next to it, screen readers get the name.
+function crossButton(options) {
+  const button = document.createElement('div');
+  button.className = options.className;
+  button.setAttribute('role', options.role);
+  button.setAttribute('aria-label', options.name);
+  button.tabIndex = options.tabindex;
+  button.textContent = '×';
+  return button;
+}
+
 function libraryPlugins(config, multiple) {
   const plugins = {};
   if (multiple) {
-    plugins.remove_button = selectLabel('remove') ? { title: selectLabel('remove') } : {};
+    plugins.remove_button = { name: selectLabel('remove') || 'Remove', html: crossButton };
   } else {
     plugins.dropdown_input = {};
   }
   // the button empties the field with a click, Tab goes on to the next field
-  if (config.allowClear) { plugins.clear_button = { tabindex: -1, ...(selectLabel('clear') ? { title: selectLabel('clear') } : {}) }; }
+  if (config.allowClear) { plugins.clear_button = { tabindex: -1, name: selectLabel('clear') || 'Clear', html: crossButton }; }
   return plugins;
 }
 
@@ -283,15 +296,11 @@ function buildLibraryOptions(config, multiple) {
     onDelete: () => multiple,
     render: {
       option: (data) => templateElement(renderer.result(data)),
-      // the title holds the text alone, without the button that removes it.
       // An entry of the server may bring a text of its own for the chosen
       // entry (selection), e.g. with its group, which the list shows above it:
-      // it comes before the selection of the renderer, field and title agree.
-      item: (data) => {
-        const element = templateElement(chosenEntry(data, renderer));
-        element.title = data.selection || data.text || '';
-        return element;
-      },
+      // it comes before the selection of the renderer. No title, the entry
+      // shows its text (a cut one gets it, see followCutEntries).
+      item: (data) => templateElement(chosenEntry(data, renderer)),
       // the entry for typed text shows the text only
       option_create: (data) => templateElement(data.input, 'create'),
       // nothing found is no message while typed text is offered as new entry
@@ -698,6 +707,34 @@ function destroyLibrary(select) {
   Array.from(select.options).forEach((option) => { option.selected = values.includes(option.value); });
 }
 
+// Redmine gives elements with a title its jQuery UI tooltip, but only those on
+// the page when it loads (setupHoverTooltips of Core)
+function tooltipsAvailable() {
+  return typeof window.setupHoverTooltips === 'function' && Boolean(window.$?.fn?.tooltip);
+}
+
+// A chosen entry shows its text, a tooltip would only repeat it. A cut one
+// gets its whole text, checked when the pointer comes as the width of the
+// field may change. An open tooltip took the title until the pointer leaves.
+function titleCutEntry(item) {
+  const text = item.firstElementChild || item;
+  const cut = [item, text].some((element) => element.scrollWidth > element.clientWidth);
+  if (!cut || item.title || item.hasAttribute('aria-describedby')) { return; }
+
+  item.title = text.textContent.trim();
+  if (!tooltipsAvailable()) { return; }
+
+  window.setupHoverTooltips(item.parentElement);
+  // the pointer is on the entry already, the tooltip would wait for the next
+  window.$(item).tooltip('open');
+}
+
+// jQuery UI hides a tooltip on mouseleave only, which a removed entry never
+// fires - its tooltip would stay on screen for good
+function closeTooltip(item) {
+  if (item && tooltipsAvailable() && window.$(item).tooltip('instance')) { window.$(item).tooltip('close'); }
+}
+
 // The options of an added or removed node: itself or those of its group
 function optionsOf(node) {
   if (node.tagName === 'OPTION') { return [node]; }
@@ -735,6 +772,7 @@ class AdditionalsSelectController extends Controller {
     this.instance = this.field.instance;
     this.bindEvents();
     this.followSelect();
+    this.followCutEntries();
   }
 
   disconnect() {
@@ -746,6 +784,7 @@ class AdditionalsSelectController extends Controller {
     if (!this.instance) { return; }
 
     this.observer?.disconnect();
+    this.instance.control.querySelectorAll('[aria-describedby]').forEach(closeTooltip);
     this.element.removeEventListener('change', this.syncOnChange);
     // a search on its way asks nothing and takes no answer any longer
     this.field.gone = true;
@@ -813,6 +852,19 @@ class AdditionalsSelectController extends Controller {
       if (unknownOption || removedOption || disabled) { this.sync(); }
     });
     this.observer.observe(this.element, { childList: true, subtree: true, attributes: true, attributeFilter: ['disabled'] });
+  }
+
+  // Cut entries get their tooltip when the pointer comes, an open one is
+  // closed when its entry is removed (also by clearing the field) or replaced
+  // (an answer of the server with a chosen entry updates its option)
+  followCutEntries() {
+    const { instance } = this;
+    instance.control.addEventListener('mouseover', (event) => {
+      const item = event.target.closest('[data-value]');
+      if (item?.parentElement === instance.control) { titleCutEntry(item); }
+    });
+    instance.on('item_remove', (value, item) => closeTooltip(item));
+    instance.hook('before', 'updateOption', (value) => closeTooltip(instance.getItem(value)));
   }
 
   /* Free input takes the typed text when the field is left. The library

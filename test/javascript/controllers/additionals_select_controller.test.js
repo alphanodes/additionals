@@ -8,9 +8,10 @@ import AdditionalsSelectController, {
 import {
   loadSelectLibrary, hideSelectLibrary, serverAnswers, hasSelectField, fieldElement, openField, closeField, isOpen, pressField,
   typeInto, searchPlaceholder, entryTexts, entry, groupsOfList, isEntryDisabled, chooseEntry, pressKey, clickOutside,
-  chosenTexts, chosenTitles, shownElement, shownText, placeholderText, removeChosen, canClear, clearField,
+  chosenTexts, shownElement, shownText, placeholderText, removeChosen, canClear, clearField,
   clickField, focusField, isDisabled, moveField, listTop, listParent, searchHasFocus, scrollList,
-  setListHeight, listMessage, clearButton, removeButtonTitle, tabStartsFrom, announcement, listAllowsSeveral, suggestedTexts,
+  setListHeight, listMessage, clearButton, removeButtonLabel, chosenElement, tabStartsFrom, announcement, listAllowsSeveral,
+  suggestedTexts,
 } from '../support/select_field.js';
 
 // The controller is tested against the real library, as the pages use it: its
@@ -763,7 +764,7 @@ describe('AdditionalsSelectController', () => {
       expect(chosenTexts(select)).toEqual(['Office » Process']);
     });
 
-    it('shows the selection text of the server before the selection of the renderer, also as title', async () => {
+    it('shows the selection text of the server before the selection of the renderer', async () => {
       serverAnswers([{ id: 7, text: 'Kurt', email: 'kurt@example.com', selection: 'Office » Kurt' }]);
       const select = await render(`
         <select data-controller="additionals-select" ${url} data-additionals-select-renderer-value="contact"></select>`);
@@ -773,7 +774,7 @@ describe('AdditionalsSelectController', () => {
       await wait(SEARCH_WAIT);
       pressKey(select, 'Enter');
 
-      expect([chosenTexts(select), chosenTitles(select)]).toEqual([['Office » Kurt'], ['Office » Kurt']]);
+      expect(chosenTexts(select)).toEqual(['Office » Kurt']);
     });
 
     it('keeps what a chosen entry shows when the field is set up again', async () => {
@@ -1072,15 +1073,16 @@ describe('AdditionalsSelectController', () => {
       expect([searchPlaceholder(select), listMessage()]).toEqual(['Suche', 'Nichts']);
     });
 
-    it('label the buttons that empty the field and remove an entry', async () => {
+    // a cross next to what it removes needs no tooltip, screen readers get the name
+    it('label the buttons that empty the field and remove an entry for screen readers only', async () => {
       const single = await render(`
         <select data-controller="additionals-select" data-additionals-select-allow-clear-value="true">
           <option value=""></option><option value="1" selected>One</option>
         </select>
         <select id="multiple" multiple data-controller="additionals-select"><option value="1" selected>One</option></select>`);
 
-      expect([clearButton(single), removeButtonTitle(document.getElementById('multiple'), 'One')])
-        .toEqual([{ title: 'Leeren', tabStop: false }, 'Entfernen']);
+      expect([clearButton(single), removeButtonLabel(document.getElementById('multiple'), 'One')])
+        .toEqual([{ label: 'Leeren', title: null, tabStop: false }, { label: 'Entfernen', title: null }]);
     });
 
     it('tell nothing was found only while no new entry is offered', async () => {
@@ -1204,6 +1206,124 @@ describe('AdditionalsSelectController', () => {
 
       expect([values(select), chosenTexts(select), suggestedTexts(select), change.mock.calls.length])
         .toEqual([['me'], ['<< me >>'], [], 0]);
+    });
+  });
+
+  // Redmine Core sets up its jQuery UI tooltips when the page loads
+  describe('tooltips of Redmine', () => {
+    const openTooltips = () => Array.from(document.querySelectorAll('.ui-tooltip')).map((tooltip) => tooltip.textContent);
+
+    beforeAll(async () => {
+      // jQuery UI extends the global jQuery, as the one of Core does
+      window.jQuery = jQuery;
+      window.$ = jQuery;
+      await import('jquery-ui/dist/jquery-ui.js');
+      jQuery.fx.off = true;
+      // setupHoverTooltips of Core (application-legacy.js)
+      window.setupHoverTooltips = (container) => {
+        jQuery(container || 'body').find('[title]:not(.no-tooltip)').tooltip({
+          show: { delay: 400 },
+          position: { my: 'center bottom-5', at: 'center top' },
+        });
+      };
+    });
+
+    afterAll(() => {
+      delete window.$;
+      delete window.jQuery;
+      delete window.setupHoverTooltips;
+      jQuery.fx.off = false;
+    });
+
+    function renderMultiple() {
+      return render(`
+        <select multiple data-controller="additionals-select" data-additionals-select-allow-clear-value="true">
+          <option value="1" selected>One</option><option value="2" selected>Two</option>
+        </select>`);
+    }
+
+    // jsdom has no layout: the text of the entry gets wider than its room
+    function cut(select, text) {
+      Object.defineProperty(chosenElement(select, text).firstElementChild, 'scrollWidth', { value: 200 });
+    }
+
+    function pointAt(select, text) {
+      chosenElement(select, text).firstElementChild.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));
+    }
+
+    it('gives a whole chosen entry no tooltip, it would only repeat its text', async () => {
+      const select = await renderMultiple();
+      pointAt(select, 'One');
+
+      expect([chosenElement(select, 'One').hasAttribute('title'), openTooltips()]).toEqual([false, []]);
+    });
+
+    it('shows the whole text of a cut entry in the tooltip', async () => {
+      const select = await renderMultiple();
+      cut(select, 'One');
+      pointAt(select, 'One');
+
+      expect(openTooltips()).toEqual(['One']);
+    });
+
+    // jQuery UI closes a tooltip on mouseleave only, which a removed element never fires
+    it('closes the tooltip of a cut entry when it is removed', async () => {
+      const select = await renderMultiple();
+      cut(select, 'One');
+      pointAt(select, 'One');
+
+      expect(openTooltips()).toEqual(['One']);
+
+      removeChosen(select, 'One');
+      await wait();
+
+      expect(openTooltips()).toEqual([]);
+    });
+
+    it('closes the tooltip of a cut entry when the field is cleared', async () => {
+      const select = await renderMultiple();
+      cut(select, 'Two');
+      pointAt(select, 'Two');
+
+      expect(openTooltips()).toEqual(['Two']);
+
+      clearField(select);
+      await wait();
+
+      expect([values(select), openTooltips()]).toEqual([[], []]);
+    });
+
+    // an answer of the server with a chosen entry replaces it in the field
+    it('closes the tooltip of a cut entry when a search replaces it', async () => {
+      serverAnswers([{ id: 7, text: 'Kurt' }]);
+      const select = await render(`
+        <select multiple data-controller="additionals-select" data-additionals-select-url-value="/search">
+          <option value="7" selected>Kurt</option>
+        </select>`);
+      cut(select, 'Kurt');
+      pointAt(select, 'Kurt');
+
+      expect(openTooltips()).toEqual(['Kurt']);
+
+      const before = chosenElement(select, 'Kurt');
+      openField(select);
+      typeInto(select, 'Ku');
+      await wait(SEARCH_WAIT);
+
+      expect([before.isConnected, openTooltips()]).toEqual([false, []]);
+    });
+
+    it('closes the tooltip of a cut entry when the select leaves the page', async () => {
+      const select = await renderMultiple();
+      cut(select, 'One');
+      pointAt(select, 'One');
+
+      expect(openTooltips()).toEqual(['One']);
+
+      select.remove();
+      await wait();
+
+      expect(openTooltips()).toEqual([]);
     });
   });
 

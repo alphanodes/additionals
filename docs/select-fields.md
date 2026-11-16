@@ -35,6 +35,27 @@ flowchart LR
 
 `additionals_icon_select` and `additionals_icon_select_tag` (icon picker) as well as `autocomplete_select_entries` (users, groups and other records) are built on these helpers.
 
+### Users and groups
+
+`autocomplete_select_entries(name, type, option_tags, **options)` renders a select that loads its entries from the route `<type>_path`. `option_tags` takes the chosen records as a relation, a single record or prepared option tags; `project:` (default `@project`) limits the entries to a project. Use it for user and group fields of plugin forms instead of `principals_options_for_select`: the endpoint searches on the server and works in forms with and without a project.
+
+```ruby
+def my_user_select_tag(name, selected_ids, multiple: false, project: nil)
+  preselected = selected_ids.present? ? Principal.where(id: selected_ids) : nil
+  autocomplete_select_entries name, 'grouped_users_auto_completes', preselected,
+                              multiple:, include_blank: true, project: project&.identifier
+end
+```
+
+| Endpoint | Entries (with project / without) |
+| --- | --- |
+| `grouped_users_auto_completes` | visible members / all visible users, e.g. watchers |
+| `authors_auto_completes` | visible members / active visible users |
+| `assignee_auto_completes` | assignable principals of the project / all assignable principals |
+| `issue_assignee_auto_completes` | `Principal.assignable_for_issues`, respects the workflow of the tracker |
+| `grouped_principals_auto_completes` | users and groups, assignable as above |
+| `custom_field_users_auto_completes` | the users of a user custom field (`custom_field_id`) |
+
 ## Field options
 
 | Option | Purpose |

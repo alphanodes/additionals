@@ -46,17 +46,16 @@
   min-width: 4rem;
 }
 
-/* Firefox gives a text field at least a "normal" line, higher than the line
-   of the control. A single field searches in its dropdown and hides this
-   input when open, so it keeps the line of the control to not change its
-   height. A multiple field searches here and must not get a fixed height,
-   Firefox would clip text and caret to it. */
-.additionals-select-field.single .ts-control > input {
-  height: var(--a-control-line-height);
-}
-
-.additionals-select-field.has-items .ts-control > input {
-  margin: 0 !important;
+/* Firefox gives a text field at least a "normal" line of its font, higher
+   than the line of the control, and ignores a line-height of its own. A fixed
+   height would clip text and caret, so the search covers the line of the
+   control and half of its padding above and below, and takes exactly one
+   line in every browser, also alone on a line of its own. A font with a
+   higher line makes the field higher instead of clipping it. tom-select.css
+   sets margin and min-height with !important. */
+.additionals-select-field:is(.single, .multi) .ts-control > input {
+  margin: calc(var(--a-control-padding-block) / -2) 0 !important;
+  min-height: calc(var(--a-control-line-height) + var(--a-control-padding-block)) !important;
 }
 
 /* tom-select.css takes the search of a multiple field without focus out of

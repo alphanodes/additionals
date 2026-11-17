@@ -28,7 +28,7 @@ All texts accept wiki syntax and macros. Only use content every user may see.
 
 ### Disabled modules
 
-Selected modules are hidden in the project settings, so project managers cannot enable them, even if they are enabled in the global settings. Projects that already use such a module keep it until their project settings are saved again.
+Selected modules are hidden in the project settings, so project managers cannot enable them, even if they are enabled in the global settings. In projects that already use such a module, its functions are no longer available, effective immediately.
 
 ## Wiki
 

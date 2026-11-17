@@ -30,7 +30,7 @@ pl:
     few: "dni"
     many: "dni"
     other: "dnia"
-  disabled_modules_info: "Moduły, które nie mają być dostępne do wyboru w projektach. Jeśli są już włączone w istniejących projektach, zmiana zadziała tam dopiero po ponownym zapisaniu ustawień projektu."
+  disabled_modules_info: "Moduły, które nie mają być dostępne do wyboru w projektach. W projektach, w których są już włączone, ich funkcje przestają być dostępne ze skutkiem natychmiastowym."
   emoji_support_info_html: "Zamienia kody emoji w tekście. Włącz tę opcję, jeśli :heart:, :+1: itp. mają być zamieniane na emoji. Dostępne kody znajdziesz w <a href=\"https://www.webfx.com/tools/emoji-cheat-sheet/\" class=\"external\">Emoji cheat sheet</a>."
   error_deletion_blocked: "%{name}: nie można usunąć, dopóki istnieją odwołania: %{reasons}"
   error_entries_deletion_blocked: "Wpisy, które są jeszcze używane, nie zostały usunięte: %{count} z %{total}."

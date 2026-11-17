@@ -28,7 +28,7 @@ zh-TW:
   days:
     one: "天"
     other: "天"
-  disabled_modules_info: "在專案中不可選擇的模組。如果這些模組已在現有專案中啟用，需重新儲存相應的專案設定後，變更才會在那裡生效。"
+  disabled_modules_info: "在專案中不可選擇的模組。在已啟用這些模組的專案中，其功能將立即無法使用。"
   emoji_support_info_html: "轉換文字中的表情代碼。若要將 :heart:、:+1: 等轉換為表情符號，請啟用此選項。可用的表情代碼請見 <a href=\"https://www.webfx.com/tools/emoji-cheat-sheet/\" class=\"external\">Emoji cheat sheet</a>。"
   error_deletion_blocked: "%{name} 仍在使用中，無法刪除：%{reasons}"
   error_entries_deletion_blocked: "仍在使用的項目未被刪除：%{count} / %{total}"

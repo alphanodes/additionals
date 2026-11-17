@@ -80,14 +80,14 @@ class RedmineAccessControlTest < Additionals::TestCase
   end
 
   # Redmine hands over the module names of the project, they stay as they are
-  def test_modules_permissions_keep_the_given_module_names
+  def test_modules_permissions_without_disabled_modules
     modules = %w[news issue_tracking]
-
-    with_plugin_settings 'additionals', disabled_modules: %i[news] do
-      Redmine::AccessControl.modules_permissions modules
+    permission_modules = with_plugin_settings 'additionals', disabled_modules: %i[news] do
+      Redmine::AccessControl.modules_permissions(modules).map(&:project_module)
     end
 
-    assert_equal %w[news issue_tracking], modules
+    assert_equal [false, true, %w[news issue_tracking]],
+                 [permission_modules.include?(:news), permission_modules.include?(:issue_tracking), modules]
   end
 
   def test_active_entity_module

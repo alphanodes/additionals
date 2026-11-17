@@ -28,7 +28,7 @@ it:
   days:
     one: "giorno"
     other: "giorni"
-  disabled_modules_info: "Moduli che non devono essere selezionabili nei progetti. Se questi moduli sono già attivi in progetti esistenti, la modifica ha effetto lì solo dopo aver salvato di nuovo le impostazioni del progetto."
+  disabled_modules_info: "Moduli che non devono essere selezionabili nei progetti. Nei progetti in cui sono già attivi, le loro funzioni non sono più disponibili con effetto immediato."
   emoji_support_info_html: "Converte i codici emoji nel testo. Attiva questa opzione se :heart:, :+1: ecc. devono essere convertiti in emoji. I codici disponibili si trovano nell'<a href=\"https://www.webfx.com/tools/emoji-cheat-sheet/\" class=\"external\">Emoji cheat sheet</a>."
   error_deletion_blocked: "%{name} non può essere eliminato finché esistono riferimenti: %{reasons}"
   error_entries_deletion_blocked: "Le voci ancora in uso non sono state eliminate: %{count} su %{total}."

@@ -46,14 +46,12 @@ module Additionals
         super.reject { |m| disabled_project_modules.include? m }
       end
 
-      # NOTE: This works for users and admin in projects
-      # (but not in global context)
+      # Disabled modules give no permissions in projects, for users and admins
+      # (not in global context). Not cached, a lock applies at once and in all
+      # processes; Redmine remembers the permissions of a project per request.
       def modules_permissions(modules)
-        @modules_permissions ||= Hash.new do |h, key|
-          key.reject! { |m| disabled_project_modules.include? m.to_sym }
-          h[key] = super key
-        end
-        @modules_permissions[modules]
+        disabled = disabled_project_modules.map(&:to_s)
+        super(modules.reject { |mod| disabled.include? mod.to_s })
       end
     end
   end

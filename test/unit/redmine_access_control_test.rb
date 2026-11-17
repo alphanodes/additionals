@@ -64,6 +64,32 @@ class RedmineAccessControlTest < Additionals::TestCase
     Redmine::AccessControl.remove_instance_variable :@settings_table_ready
   end
 
+  # The lock of a module applies to the permissions at once, also for module
+  # lists asked before, not only after a restart
+  def test_modules_permissions_follow_disabled_modules
+    project = projects :projects_001
+    project.enable_module! :news
+
+    assert Project.find(project.id).allows_to?(:view_news)
+
+    with_plugin_settings 'additionals', disabled_modules: %i[news] do
+      assert_not Project.find(project.id).allows_to?(:view_news)
+    end
+
+    assert Project.find(project.id).allows_to?(:view_news)
+  end
+
+  # Redmine hands over the module names of the project, they stay as they are
+  def test_modules_permissions_keep_the_given_module_names
+    modules = %w[news issue_tracking]
+
+    with_plugin_settings 'additionals', disabled_modules: %i[news] do
+      Redmine::AccessControl.modules_permissions modules
+    end
+
+    assert_equal %w[news issue_tracking], modules
+  end
+
   def test_active_entity_module
     assert Redmine::AccessControl.active_entity_module?(Wiki)
 

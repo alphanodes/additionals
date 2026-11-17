@@ -36,6 +36,10 @@ class AdditionalsPlugin
       Redmine::Plugin.installed?('redmine_servicedesk') && (force || Redmine::AccessControl.active_module?(:helpdesk))
     end
 
+    def active_servicedesk_helpdesk_form?(force: true)
+      Redmine::Plugin.installed?('redmine_servicedesk') && (force || Redmine::AccessControl.active_module?(:helpdesk_form))
+    end
+
     def active_servicedesk_contacts?(force: true)
       Redmine::Plugin.installed?('redmine_servicedesk') && (force || Redmine::AccessControl.active_module?(:contacts))
     end

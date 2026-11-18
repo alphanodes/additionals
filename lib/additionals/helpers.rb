@@ -40,6 +40,32 @@ module Additionals
       tag.span l(:label_macro_not_available, name:), class: 'macro-not-available'
     end
 
+    # Renders a list macro (see Additionals::FieldList) as html.
+    #
+    # The lines may use wiki syntax and macros, so the generated text goes
+    # through the formatter once, like the core collapse macro does - and a
+    # line may hold a list again. Nesting is limited and a template page may
+    # not list itself, like the core include macro refuses a circular
+    # inclusion.
+    #
+    # @param list [Additionals::FieldList]
+    # @param obj [Object] the object the macro was called for
+    # @param css_class [String] class of the surrounding div
+    def render_field_list(list, obj, css_class:)
+      with_field_list_nesting list.template_page do
+        wiki_text = list.to_wiki_text
+        count_field_list_lines list.line_count
+        next tag.div l(:label_no_data), class: "#{css_class} no_entries" if wiki_text.blank?
+
+        html = textilizable wiki_text, object: obj, headings: false
+        html = list.mark_list html if list.marked?
+
+        tag.div html, class: css_class
+      end
+    rescue Additionals::FieldList::NotAvailable
+      macro_not_available :label_wiki_page
+    end
+
     def link_to_query_filter(url, title:)
       link_to svg_icon_tag('filter', label: :button_filter),
               url,
@@ -440,6 +466,36 @@ module Additionals
     end
 
     private
+
+    # The limit of a list holds for a list and all lists nested in its lines
+    # together: three levels of 500 lines each would otherwise render 125
+    # million lines.
+    def count_field_list_lines(count)
+      @additionals_field_list_lines += count
+      return if @additionals_field_list_lines <= Additionals::FieldList::MAX_ENTRIES
+
+      raise Additionals::FieldList::Error.new(:error_field_list_too_many_entries, count: Additionals::FieldList::MAX_ENTRIES)
+    end
+
+    # The template pages of the lists being rendered, outermost first; nil
+    # for a list without one. Kept on the view, which every nested macro of a
+    # page shares.
+    def with_field_list_nesting(page)
+      stack = (@additionals_field_list_pages ||= [])
+      @additionals_field_list_lines = 0 if stack.empty?
+      raise l(:error_circular_inclusion) if page && stack.include?(page.id)
+
+      if stack.size >= Additionals::FieldList::MAX_NESTING
+        raise Additionals::FieldList::Error.new(:error_field_list_nested_too_deep, depth: Additionals::FieldList::MAX_NESTING)
+      end
+
+      stack.push page&.id
+      begin
+        yield
+      ensure
+        stack.pop
+      end
+    end
 
     def query_source_description(query)
       return unless query.description?

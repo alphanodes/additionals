@@ -732,6 +732,20 @@ class FieldTemplateTest < Additionals::TestCase
     assert_not renderer.marked? '{%subject%}'
   end
 
+  # A template is checked without fields, so a page can keep one for any list
+  def test_check_syntax_accepts_unknown_placeholders_and_refuses_broken_syntax
+    assert_nil Additionals::FieldTemplate.check_syntax('- {%Whatever%}[ {%?Other=A|B%}]')
+
+    cases = { '- {%subject' => :error_field_template_placeholder_not_readable,
+              '- {%?subject=%}' => :error_field_template_condition_without_value,
+              '- {%joint(", ", a)%}' => :error_field_template_unknown_function }
+    cases.each do |template, key|
+      error = assert_raises(Additionals::FieldTemplate::Error, template) { Additionals::FieldTemplate.check_syntax template }
+
+      assert_equal key, error.key, template
+    end
+  end
+
   private
 
   def source(**)

@@ -26,18 +26,23 @@ class FieldListTest < Additionals::TestCase
       end
     end
 
-    def initialize(args, template, fields:, issues:)
+    def initialize(args, template, fields:, issues:, project: nil)
       @fields = fields
       @issue_ids = issues.map(&:id)
-      @template = template
 
-      super(args)
+      super(args, template, project:)
       sort_field
     end
 
     private
 
-    attr_reader :template
+    def default_template
+      '- {%subject%}'
+    end
+
+    def block_language
+      'issue_list'
+    end
 
     def reserved_options
       %w[sort]
@@ -383,14 +388,90 @@ class FieldListTest < Additionals::TestCase
     end
   end
 
-  private
+  def test_reads_the_template_from_the_block_of_a_wiki_page
+    with_settings text_formatting: 'common_mark' do
+      template_page
 
-  def lines(template, *, issues: [@computer, @mouse, @keyboard])
-    build_list(template, *, issues:).to_wiki_text.split "\n"
+      assert_equal ['- Computer!', '- Keyboard!', '- Mouse!'],
+                   lines(nil, 'template=CookBook documentation', project: projects(:projects_001))
+      assert_equal ['- Computer!', '- Keyboard!', '- Mouse!'], lines(nil, 'template=ecookbook:CookBook_documentation')
+    end
   end
 
-  def build_list(template, *args, issues: [@computer, @mouse, @keyboard])
-    IssueList.new args, template, fields: @fields, issues:
+  def test_block_of_the_macro_wins_over_the_template_page
+    with_settings text_formatting: 'common_mark' do
+      template_page
+      list = build_list '- {%subject%}?', 'template=ecookbook:CookBook_documentation'
+
+      assert_nil list.template_page
+      assert_equal "- Computer?\n- Keyboard?\n- Mouse?", list.to_wiki_text
+    end
+  end
+
+  def test_raises_for_an_option_without_value
+    error = assert_raises Additionals::FieldList::Error do
+      build_list nil, 'template='
+    end
+
+    assert_equal :error_field_list_argument_without_value, error.key
+  end
+
+  def test_falls_back_to_the_default_template
+    assert_equal ['- Computer', '- Keyboard', '- Mouse'], lines(nil)
+  end
+
+  # Neither a missing page nor a hidden one may give away whether it exists
+  def test_a_missing_or_hidden_template_page_is_not_available
+    assert_raises Additionals::FieldList::NotAvailable do
+      build_list(nil, 'template=ecookbook:Nope').template_page
+    end
+
+    User.current = User.anonymous
+
+    assert_raises Additionals::FieldList::NotAvailable do
+      build_list(nil, 'template=onlinestore:Start_page').template_page
+    end
+  end
+
+  def test_raises_for_a_template_page_without_block
+    with_settings text_formatting: 'common_mark' do
+      template_page 'No template here.'
+      error = assert_raises Additionals::FieldList::Error do
+        build_list(nil, 'template=ecookbook:CookBook_documentation').to_wiki_text
+      end
+
+      assert_equal :error_field_template_block_missing, error.key
+      assert_equal({ page: 'CookBook documentation', language: 'issue_list' }, error.params)
+    end
+  end
+
+  def test_render_field_list_renders_the_lines_as_html
+    html = build_redmine_view.render_field_list build_list('- {%subject%}'), nil, css_class: 'issue-list'
+
+    assert_equal 3, Nokogiri::HTML5.fragment(html).css('div.issue-list li').size
+  end
+
+  def test_render_field_list_shows_a_notice_for_a_template_page_which_is_not_available
+    html = build_redmine_view.render_field_list build_list(nil, 'template=ecookbook:Nope'), nil, css_class: 'issue-list'
+
+    assert_equal 1, Nokogiri::HTML5.fragment(html).css('span.macro-not-available').size
+  end
+
+  private
+
+  def lines(template, *, issues: [@computer, @mouse, @keyboard], project: nil)
+    build_list(template, *, issues:, project:).to_wiki_text.split "\n"
+  end
+
+  def build_list(template, *args, issues: [@computer, @mouse, @keyboard], project: nil)
+    IssueList.new args, template, fields: @fields, issues:, project:
+  end
+
+  # The documentation page of the first project, holding a template block
+  def template_page(text = "Explained here.\n\n```issue_list\n- {%subject%}!\n```\n")
+    page = wiki_pages :wiki_pages_001
+    page.content.update_column :text, text
+    page
   end
 
   def numbered(computer, mouse)

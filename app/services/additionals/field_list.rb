@@ -12,11 +12,17 @@ module Additionals
   # afterwards, by mark_list - the list element is built by the formatter and
   # can be labelled nowhere else.
   #
-  # A subclass calls super(args) first, which reads the arguments into
-  # @options and @filters, and implements the private hooks below which raise
+  # A subclass calls super first, which reads the arguments into @options and
+  # @filters, and implements the private hooks below which raise
   # NotImplementedError here.
+  #
+  # The template of a line is, in this order: the block of the macro, the
+  # block of the wiki page named by template=PAGE (see FieldTemplateBlock),
+  # the default_template of the subclass.
   class FieldList
     MAX_ENTRIES = 500
+    # how deep a line may hold a list again, the outermost one counted
+    MAX_NESTING = 3
     ITEM_MARKER = '- '
     MARK_LIST_CLASS = 'additionals-list-marks'
     MARK_LIST_TYPE = 'none'
@@ -29,6 +35,8 @@ module Additionals
     # operators come first, so "!=" is not read as a name ending in "!".
     ARGUMENT_RE = /\A([^=!~]*?)\s*(!=|!~|=|~)(.*)\z/m
     OPTION_OPERATOR = '='
+    # an option of every list, so a template is kept once for many pages
+    TEMPLATE_OPTION = 'template'
     VALUE_SEPARATOR = '|'
     DESCENDING_PREFIX = '-'
     # Where a line needs no hard break, or where markdown would print its
@@ -51,13 +59,33 @@ module Additionals
 
     class Error < Additionals::LocalizedError; end
 
+    # The page of template=PAGE does not exist or the reader may not see it.
+    # Both end in the same notice, so the list gives away neither.
+    class NotAvailable < StandardError; end
+
     # How wide the column of the marks has to be, in characters of the longest
     # one. Taken from the records which are listed, so a list of "9." to "12a."
     # does not reserve the room a three digit one needs.
     attr_reader :mark_width
 
-    def initialize(args)
+    # How many lines the list rendered, known after to_wiki_text
+    attr_reader :line_count
+
+    # block_template is the text of the macro block, project the one a page
+    # name without a project of its own belongs to.
+    def initialize(args, block_template = nil, project: nil)
+      @block_template = block_template
+      @project = project
       parse_args args
+    end
+
+    # The wiki page the template comes from, nil where the macro brings one of
+    # its own or names none. Asked before rendering, so the caller can keep a
+    # template page from listing itself.
+    def template_page
+      return if @block_template.present? || @options[TEMPLATE_OPTION].blank?
+
+      @template_page ||= find_template_page @options[TEMPLATE_OPTION]
     end
 
     def to_wiki_text
@@ -65,6 +93,7 @@ module Additionals
       # a template without a mark answers with the whole line, so both kinds
       # of list are rendered the same way and only put together differently
       lines = sorted(checked_records.to_a).map { |record| renderer.marked_line template, record }
+      @line_count = lines.size
       return join_lines lines.map(&:text) unless @marked
 
       @mark_width = lines.filter_map { |line| line.mark&.length }.max
@@ -115,9 +144,15 @@ module Additionals
       raise NotImplementedError, "#{self.class.name} has to select its records"
     end
 
-    # The template of a line
-    def template
-      raise NotImplementedError, "#{self.class.name} has to name its template"
+    # The template of a line without a block and without template=PAGE
+    def default_template
+      raise NotImplementedError, "#{self.class.name} has to name its default template"
+    end
+
+    # The language of the code block which holds the template on a wiki page,
+    # the name of the macro
+    def block_language
+      raise NotImplementedError, "#{self.class.name} has to name the language of its template block"
     end
 
     # The FieldTemplate which renders a line, with escape_macros: true
@@ -151,6 +186,27 @@ module Additionals
       @sort_field = (find_field name, 'sort' if name.present? && !sort_attributes.key?(name.downcase))
     end
 
+    def template
+      @template ||= @block_template.presence || page_template || default_template
+    end
+
+    def page_template
+      page = template_page
+      return if page.nil?
+
+      FieldTemplateBlock.find(page.content.text, block_language) ||
+        raise(Error.new(:error_field_template_block_missing, page: page.pretty_title, language: block_language))
+    end
+
+    # Resolved like a wiki link of core: "Page" in the wiki of the project,
+    # "project:Page" in another one.
+    def find_template_page(name)
+      page = Wiki.find_page name, project: @project
+      raise NotAvailable if page.nil? || !page.visible?
+
+      page
+    end
+
     def sort_name
       @options['sort'].to_s.delete_prefix DESCENDING_PREFIX
     end
@@ -170,8 +226,9 @@ module Additionals
 
       Array(args).each do |arg|
         name, operator, value = read_argument arg
-        if reserved_options.include? name.downcase
+        if option? name
           raise Error.new(:error_field_list_operator_not_supported, operator:, name:) unless operator == OPTION_OPERATOR
+          raise Error.new(:error_field_list_argument_without_value, argument: arg) if value.empty?
 
           @options[name.downcase] = value
         else
@@ -180,6 +237,11 @@ module Additionals
           @filters << Filter.new(name, operator, filter_values(arg, value))
         end
       end
+    end
+
+    def option?(name)
+      key = name.downcase
+      key == TEMPLATE_OPTION || reserved_options.include?(key)
     end
 
     # An empty value could never be meant - "Field=" or "Field=A|" would only

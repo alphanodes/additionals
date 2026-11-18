@@ -60,6 +60,18 @@ module Additionals
       @escape_macros = escape_macros
     end
 
+    # Checks what a template has to get right whatever it is rendered with:
+    # its brackets, its conditions and its functions. Whether a placeholder
+    # names a field is left to rendering, where the fields are known.
+    def self.check_syntax(template)
+      new(FieldTemplateSource.new).check_syntax template
+    end
+
+    def check_syntax(template)
+      tree template
+      nil
+    end
+
     def render(template, record)
       render_nodes(tree(template), record).text
     end

@@ -391,6 +391,31 @@ span.macro-not-available {
   font-style: italic;
 }
 
+/* A list macro whose lines carry a number of their own (Additionals::FieldList):
+   the number is text in the document, so it survives the pdf export and the
+   browser search. Only its column comes from here - without this file the
+   numbers are still there, just left aligned. The width is set per list by the
+   macro, from its longest mark.
+
+   A hanging indent, not a flex row: flex turns every inline element of a line
+   into a column of its own, which takes a line apart wherever it holds a link
+   or an emphasis. */
+ul.additionals-list-marks {
+  padding-left: 1em;
+}
+
+ul.additionals-list-marks > li {
+  padding-left: calc(var(--a-list-mark-width, 2ch) + 0.4em);
+  text-indent: calc(-1 * (var(--a-list-mark-width, 2ch) + 0.4em));
+}
+
+ul.additionals-list-marks > li > span:first-child {
+  display: inline-block;
+  width: var(--a-list-mark-width, 2ch);
+  margin-right: 0.4em;
+  text-align: right;
+}
+
 /* Top-menu submenu flyouts. On pointer devices they open on hover; touch
    devices toggle the `visible` class via JS (see top_menu_dropdown.js). */
 @media (hover: hover) {

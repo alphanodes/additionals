@@ -86,7 +86,7 @@ class RedminePluginKitLoaderTest < Additionals::TestCase
     files = loader.require_files spec
 
     assert files.any?
-    assert(files.detect { |file| file.include? 'fa_macro' })
+    assert(files.detect { |file| file.include? 'tabler_macro' })
   end
 
   def test_require_files_for_app
@@ -151,6 +151,6 @@ class RedminePluginKitLoaderTest < Additionals::TestCase
     macros = loader.load_macros!
 
     assert macros.any?
-    assert(macros.detect { |macro| macro.include? 'fa_macro' })
+    assert(macros.detect { |macro| macro.include? 'tabler_macro' })
   end
 end

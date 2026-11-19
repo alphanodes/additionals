@@ -4,7 +4,7 @@ module Additionals
   module WikiMacros
     # Hosts the {{tabler}} icon macro and its backward compatible {{fa}} alias.
     # Both render a Tabler sprite icon.
-    module FaMacro
+    module TablerMacro
       # Options accepted by both macros
       OPTIONS = %i[class title text size color link repeat].freeze
 
@@ -112,10 +112,10 @@ module Additionals
         DESCRIPTION
 
         macro :tabler do |_obj, args|
-          args, options = extract_macro_options args, *Additionals::WikiMacros::FaMacro::OPTIONS
+          args, options = extract_macro_options args, *Additionals::WikiMacros::TablerMacro::OPTIONS
           raise 'The correct usage is {{tabler(<ICON>, class=CLASS, title=TITLE, text=TEXT, size=SIZE, color=COLOR)}}' if args.empty?
 
-          Additionals::WikiMacros::FaMacro.render self, args, options
+          Additionals::WikiMacros::TablerMacro.render self, args, options
         end
 
         desc <<-DESCRIPTION
@@ -130,10 +130,10 @@ module Additionals
         DESCRIPTION
 
         macro :fa do |_obj, args|
-          args, options = extract_macro_options args, *Additionals::WikiMacros::FaMacro::OPTIONS
+          args, options = extract_macro_options args, *Additionals::WikiMacros::TablerMacro::OPTIONS
           raise 'The correct usage is {{fa(<ICON>, class=CLASS, title=TITLE, text=TEXT, size=SIZE, color=COLOR)}}' if args.empty?
 
-          Additionals::WikiMacros::FaMacro.render self, args, options
+          Additionals::WikiMacros::TablerMacro.render self, args, options
         end
       end
     end

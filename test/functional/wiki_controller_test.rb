@@ -602,7 +602,7 @@ class WikiControllerTest < Additionals::ControllerTest
     assert_select 'svg.icon-svg.additionals-macro-icon use[href*=?]', 'icon--car'
   end
 
-  def test_show_with_fa_macro
+  def test_show_with_fa_alias_macro
     @request.session[:user_id] = WIKI_MACRO_USER_ID
     page = WikiPage.generate! content: '{{fa(fas_car)}}',
                               title: __method__.to_s
@@ -636,7 +636,7 @@ class WikiControllerTest < Additionals::ControllerTest
 
     assert_response :success
     assert_select 'div.wiki svg.additionals-macro-icon use[href*=?]', 'icon--star-filled',
-                  count: Additionals::WikiMacros::FaMacro::MAX_REPEAT
+                  count: Additionals::WikiMacros::TablerMacro::MAX_REPEAT
   end
 
   def test_show_with_tabler_macro_and_invalid_repeat
@@ -667,9 +667,9 @@ class WikiControllerTest < Additionals::ControllerTest
     end
   end
 
-  def test_show_with_fa_macro_options
+  def test_show_with_tabler_macro_options
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    page = WikiPage.generate! content: '{{fa(car, color=#ff0000, text=Drive, link=https://www.redmine.org)}}',
+    page = WikiPage.generate! content: '{{tabler(car, color=#ff0000, text=Drive, link=https://www.redmine.org)}}',
                               title: __method__.to_s
 
     get :show,
@@ -710,9 +710,9 @@ class WikiControllerTest < Additionals::ControllerTest
 
   # The color ends up in a style attribute, so it must not be able to add
   # further css declarations.
-  def test_show_with_fa_macro_rejects_css_injection_in_color
+  def test_show_with_tabler_macro_rejects_css_injection_in_color
     @request.session[:user_id] = WIKI_MACRO_USER_ID
-    page = WikiPage.generate! content: '{{fa(car, color=red; background:url(https://evil.example/x.png))}}',
+    page = WikiPage.generate! content: '{{tabler(car, color=red; background:url(https://evil.example/x.png))}}',
                               title: __method__.to_s
 
     get :show,

@@ -443,6 +443,15 @@ class FieldListTest < Additionals::TestCase
     end
   end
 
+  # the wiki of the page has to be there for the reader, even for an admin
+  def test_a_template_page_in_a_project_without_wiki_module_is_not_available
+    projects(:projects_001).enabled_modules.where(name: 'wiki').delete_all
+
+    assert_raises Additionals::FieldList::NotAvailable do
+      build_list(nil, 'template=ecookbook:CookBook_documentation').template_page
+    end
+  end
+
   def test_raises_for_a_template_page_without_block
     with_settings text_formatting: 'common_mark' do
       template_page 'No template here.'

@@ -41,6 +41,7 @@ de:
   error_field_template_block_ambiguous: "Mehr als ein Vorlagenblock gefunden: %{language}"
   error_field_template_block_missing: "Kein Vorlagenblock %{language} auf der Seite: %{page}"
   error_field_template_condition_without_value: "Bedingung ohne Wert: %{name}"
+  error_field_template_group_not_closed: "Eckige Klammer um einen Platzhalter ist nicht geschlossen: %{name}"
   error_field_template_invalid_join: "join erwartet ein Trennzeichen in Anführungszeichen und dahinter die Felder: %{name}"
   error_field_template_placeholder_not_allowed: "Platzhalter in dieser Vorlage nicht erlaubt: %{name}"
   error_field_template_placeholder_not_readable: "Platzhalter ist nicht lesbar: %{name}"

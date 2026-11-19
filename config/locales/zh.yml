@@ -41,6 +41,7 @@ zh:
   error_field_template_block_ambiguous: "找到多个模板块：%{language}"
   error_field_template_block_missing: "页面中没有 %{language} 模板块：%{page}"
   error_field_template_condition_without_value: "条件没有值：%{name}"
+  error_field_template_group_not_closed: "占位符外的方括号未闭合：%{name}"
   error_field_template_invalid_join: "join 需要一个带引号的分隔符及其后的字段：%{name}"
   error_field_template_placeholder_not_allowed: "此模板中不允许使用此占位符：%{name}"
   error_field_template_placeholder_not_readable: "无法读取占位符：%{name}"

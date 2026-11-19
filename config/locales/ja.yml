@@ -41,6 +41,7 @@ ja:
   error_field_template_block_ambiguous: "テンプレートブロックが複数見つかりました: %{language}"
   error_field_template_block_missing: "ページに %{language} のテンプレートブロックがありません: %{page}"
   error_field_template_condition_without_value: "値のない条件です: %{name}"
+  error_field_template_group_not_closed: "プレースホルダーを囲む角かっこが閉じられていません: %{name}"
   error_field_template_invalid_join: "join には引用符で囲んだ区切り文字と、その後ろにフィールドが必要です: %{name}"
   error_field_template_placeholder_not_allowed: "このテンプレートでは使用できないプレースホルダーです: %{name}"
   error_field_template_placeholder_not_readable: "プレースホルダーを読み取れません: %{name}"

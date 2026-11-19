@@ -42,6 +42,7 @@ cs:
   error_field_template_block_ambiguous: "Nalezeno více bloků šablony: %{language}"
   error_field_template_block_missing: "Na stránce chybí blok šablony %{language}: %{page}"
   error_field_template_condition_without_value: "Podmínka bez hodnoty: %{name}"
+  error_field_template_group_not_closed: "Hranatá závorka kolem zástupného symbolu není uzavřena: %{name}"
   error_field_template_invalid_join: "join očekává oddělovač v uvozovkách a za ním pole: %{name}"
   error_field_template_placeholder_not_allowed: "Zástupný symbol není v této šabloně povolen: %{name}"
   error_field_template_placeholder_not_readable: "Zástupný symbol nelze přečíst: %{name}"

@@ -41,6 +41,7 @@ en:
   error_field_template_block_ambiguous: "More than one template block found: %{language}"
   error_field_template_block_missing: "No template block %{language} on the page: %{page}"
   error_field_template_condition_without_value: "Condition without a value: %{name}"
+  error_field_template_group_not_closed: "Square bracket around a placeholder is not closed: %{name}"
   error_field_template_invalid_join: "join expects a separator in quotes and the fields behind it: %{name}"
   error_field_template_placeholder_not_allowed: "Placeholder not allowed in this template: %{name}"
   error_field_template_placeholder_not_readable: "Placeholder is not readable: %{name}"

@@ -762,6 +762,13 @@ class FieldTemplateTest < Additionals::TestCase
     assert_equal 'Dave Lopper', renderer.render('{%Assignee%}', @mouse)
   end
 
+  # spaces around a name or a condition change nothing
+  def test_spaces_around_a_placeholder_or_a_condition_are_ignored
+    set_values @computer, @owner => 'Jane'
+
+    assert_equal 'Jane ok', render('{% Owner %}[ {%? Owner = jane %}ok]')
+  end
+
   private
 
   def source(**)

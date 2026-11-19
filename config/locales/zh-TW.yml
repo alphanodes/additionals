@@ -41,6 +41,7 @@ zh-TW:
   error_field_template_block_ambiguous: "找到多個範本區塊：%{language}"
   error_field_template_block_missing: "頁面中沒有 %{language} 範本區塊：%{page}"
   error_field_template_condition_without_value: "條件沒有值：%{name}"
+  error_field_template_group_not_closed: "預留位置外的方括號未閉合：%{name}"
   error_field_template_invalid_join: "join 需要一個帶引號的分隔符號及其後的欄位：%{name}"
   error_field_template_placeholder_not_allowed: "此範本中不允許使用此預留位置：%{name}"
   error_field_template_placeholder_not_readable: "無法讀取預留位置：%{name}"

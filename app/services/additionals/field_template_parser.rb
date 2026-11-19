@@ -12,7 +12,10 @@ module Additionals
   # rest.
   #
   # Unbalanced brackets are text, the way they were typed: a template is written
-  # by hand and may well contain a bracket which is not meant as a part.
+  # by hand and may well contain a bracket which is not meant as a part. An
+  # opening bracket which is never closed but holds a placeholder is refused,
+  # though - that is a part whose closing bracket was forgotten, and its
+  # conditions would quietly stop working.
   class FieldTemplateParser
     PLACEHOLDER_RE = /\{%([^%]+)%\}/
     # a single brace is text, so a macro call like {{toc}} passes through
@@ -61,6 +64,8 @@ module Additionals
     def initialize(template)
       @scanner = StringScanner.new template.to_s
       @stack = [[]]
+      # where each open part begins, for the message about one never closed
+      @group_starts = []
     end
 
     def parse
@@ -82,6 +87,7 @@ module Additionals
         raise FieldTemplate::Error.new(:error_field_template_placeholder_not_readable,
                                        name: @scanner.rest[0, ERROR_EXCERPT])
       elsif @scanner.scan GROUP_OPEN_RE
+        @group_starts << (@scanner.pos - 1)
         @stack << []
       elsif @scanner.scan GROUP_CLOSE_RE
         close_group
@@ -91,9 +97,11 @@ module Additionals
     end
 
     # A name with brackets behind it is a function call, everything else is a
-    # plain placeholder.
+    # plain placeholder. Spaces around it are no part of it: "{% name %}" means
+    # the same as "{%name%}", and a message would hardly show them.
     def placeholder(name)
-      match = FUNCTION_RE.match name.strip
+      name = name.strip
+      match = FUNCTION_RE.match name
       return Placeholder.new name if match.nil?
 
       Function.new match[1], arguments(match[2]), name
@@ -133,6 +141,7 @@ module Additionals
       return add Text.new(GROUP_CLOSE) if @stack.size == 1
 
       children = @stack.pop
+      @group_starts.pop
       return add Group.new(children) unless @scanner.match? LINK_RE
 
       add Text.new(GROUP_OPEN)
@@ -145,8 +154,20 @@ module Additionals
     def close_open_groups
       while @stack.size > 1
         children = @stack.pop
+        start = @group_starts.pop
+        if holds_placeholder? children
+          raise FieldTemplate::Error.new(:error_field_template_group_not_closed,
+                                         name: @scanner.string[start, ERROR_EXCERPT])
+        end
+
         add Text.new(GROUP_OPEN)
         children.each { |child| add child }
+      end
+    end
+
+    def holds_placeholder?(nodes)
+      nodes.any? do |node|
+        node.is_a?(Placeholder) || node.is_a?(Function) || (node.is_a?(Group) && holds_placeholder?(node.children))
       end
     end
   end

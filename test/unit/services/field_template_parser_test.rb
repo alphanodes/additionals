@@ -45,10 +45,24 @@ class FieldTemplateParserTest < Additionals::TestCase
   end
 
   def test_an_opening_bracket_which_is_never_closed_is_text
-    nodes = parse '[a {%name%}'
+    nodes = parse '{%name%} [sic'
 
-    assert_equal '[a ', nodes.first.text
-    assert_equal 'name', nodes.second.name
+    assert_equal 'name', nodes.first.name
+    assert_equal ' [sic', nodes.second.text
+  end
+
+  # a part whose closing bracket was forgotten: its condition would quietly
+  # stop working and the bracket would show up in every line
+  def test_refuses_a_part_never_closed_which_holds_a_placeholder
+    { '- {%link%}[ {%?tags=Done%}x' => '[ {%?tags=Done%}x',
+      '[a {%name%}' => '[a {%name%}',
+      '{%name%}[ ({%join(", ", A, B)%})' => '[ ({%join(", ", A, B)%})',
+      '[[{%name%}] x' => '[[{%name%}] x' }.each do |template, excerpt|
+      error = assert_raises(Additionals::FieldTemplate::Error, template) { parse template }
+
+      assert_equal :error_field_template_group_not_closed, error.key, template
+      assert_equal({ name: excerpt }, error.params, template)
+    end
   end
 
   # a macro in the template must pass through untouched
@@ -135,6 +149,35 @@ class FieldTemplateParserTest < Additionals::TestCase
 
     assert_equal :error_field_template_placeholder_not_readable, error.key
     assert_equal '{%cf_1=100%%}', error.params[:name]
+  end
+
+  # what a placeholder or a part which is not closed reports, and from where
+  def test_reports_where_a_placeholder_or_a_part_is_not_closed
+    cases = { '{%name%} {%Location' => [:error_field_template_placeholder_not_readable, '{%Location'],
+              "{%name%} {%#{'x' * 40}" => [:error_field_template_placeholder_not_readable, "{%#{'x' * 30}"],
+              'a] [{%name%} b' => [:error_field_template_group_not_closed, '[{%name%} b'],
+              '[ [{%name%}](/x) b' => [:error_field_template_group_not_closed, '[ [{%name%}](/x) b'] }
+    cases.each do |template, (key, excerpt)|
+      error = assert_raises(Additionals::FieldTemplate::Error, template) { parse template }
+
+      assert_equal key, error.key, template
+      assert_equal({ name: excerpt }, error.params, template)
+    end
+  end
+
+  # the brackets of a link are text, the part around it stays a part
+  def test_reads_a_link_inside_an_optional_part
+    group = parse('[ [{%Name%}](/issues/{%id%})]').first
+
+    assert_kind_of Additionals::FieldTemplateParser::Group, group
+    assert_equal([' [', 'Name', '](/issues/', 'id', ')'], group.children.map { |node| node.try(:text) || node.name })
+  end
+
+  def test_drops_empty_arguments_and_spaces_around_a_name
+    function = parse('{% join(", ", , A) %}').first
+
+    assert_equal [', ', 'A'], function.arguments.map(&:value)
+    assert_equal 'name', parse('{% name %}').first.name
   end
 
   def test_placeholder_names_lists_them_in_order_without_a_tree

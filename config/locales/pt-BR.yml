@@ -41,6 +41,7 @@ pt-BR:
   error_field_template_block_ambiguous: "Foi encontrado mais de um bloco de modelo: %{language}"
   error_field_template_block_missing: "Nenhum bloco de modelo %{language} na página: %{page}"
   error_field_template_condition_without_value: "Condição sem valor: %{name}"
+  error_field_template_group_not_closed: "O colchete em torno do espaço reservado não foi fechado: %{name}"
   error_field_template_invalid_join: "join espera um separador entre aspas e os campos em seguida: %{name}"
   error_field_template_placeholder_not_allowed: "Espaço reservado não permitido neste modelo: %{name}"
   error_field_template_placeholder_not_readable: "Não é possível ler o espaço reservado: %{name}"

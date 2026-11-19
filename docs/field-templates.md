@@ -60,7 +60,7 @@ Before the lines are rendered, `preload_references` loads the records of every r
 
 Every list understands `template=PAGE`, so many pages share one template. The page is resolved like a core wiki link (`project:Page` for another wiki) and has to be visible to the reader, otherwise the macro shows the same notice for a missing and a hidden page. `FieldTemplateBlock` reads the template from the one code block of the page whose language is `block_language`, a fence in CommonMark, `<pre><code class="...">` in Textile; a second block is an error. The template of a line is the block of the macro, then the template page, then `default_template`.
 
-A line may hold a list again. `render_field_list` refuses a template page which is being rendered already, like the core `include` macro, and nesting deeper than three lists; the limit of 500 records is shared by a list and the lists in its lines and checked before a nested list reads its records. In Textile the mark of a numbered list is a `%...%` span, as Textile escapes html. A plugin checks a template block when a page is saved; `FieldTemplate.check_syntax` covers what holds for every list (brackets, conditions, functions), the placeholders need the fields of the list.
+A line may hold a list again. `render_field_list` refuses a template page which is being rendered already, like the core `include` macro, and nesting deeper than three lists; the limit of 500 records is shared by a list and the lists in its lines and checked before a nested list reads its records. In Textile the mark of a numbered list is a `%...%` span, as Textile escapes html. A plugin checks a template block when a page is saved; `FieldTemplate.check_syntax` covers what holds for every list (placeholders and parts which are not closed, conditions, functions), the placeholders need the fields of the list.
 
 Errors are `Additionals::LocalizedError`: they carry a locale key and its parameters, and `to_s` builds the sentence in the language of whoever reads it. A test names the case by `error.key` without knowing the language.
 
@@ -97,7 +97,7 @@ Only the template tree can tell a number from a placeholder from a fixed `1.` so
 
 ### Form and meaning are separate
 
-`FieldTemplateParser` turns a template into a tree of text, placeholders, functions and parts and does not know what a name means; `FieldTemplate` walks the tree and asks the source. A syntax error is raised where it stands, a template is parsed once per renderer and reused for every record, and the rule of a part works on what is left after its inner parts were dropped. Unbalanced brackets are text as typed.
+`FieldTemplateParser` turns a template into a tree of text, placeholders, functions and parts and does not know what a name means; `FieldTemplate` walks the tree and asks the source. A syntax error is raised where it stands, a template is parsed once per renderer and reused for every record, and the rule of a part works on what is left after its inner parts were dropped. Unbalanced brackets are text as typed, except an opening one which is never closed but holds a placeholder: that is a part whose closing bracket was forgotten, and it is refused, as its conditions would quietly stop working. A wiki link around a placeholder (`[[{%name%}]]`) is read as two parts and cannot be written; a markdown link can.
 
 ### Conditions and values follow different rules
 

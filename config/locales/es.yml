@@ -41,6 +41,7 @@ es:
   error_field_template_block_ambiguous: "Se ha encontrado más de un bloque de plantilla: %{language}"
   error_field_template_block_missing: "No hay ningún bloque de plantilla %{language} en la página: %{page}"
   error_field_template_condition_without_value: "Condición sin valor: %{name}"
+  error_field_template_group_not_closed: "No se ha cerrado el corchete alrededor de un marcador de posición: %{name}"
   error_field_template_invalid_join: "join espera un separador entre comillas y detrás los campos: %{name}"
   error_field_template_placeholder_not_allowed: "Marcador de posición no permitido en esta plantilla: %{name}"
   error_field_template_placeholder_not_readable: "No se puede leer el marcador de posición: %{name}"

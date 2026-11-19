@@ -41,6 +41,7 @@ fr:
   error_field_template_block_ambiguous: "Plus d'un bloc de modèle trouvé : %{language}"
   error_field_template_block_missing: "Aucun bloc de modèle %{language} sur la page : %{page}"
   error_field_template_condition_without_value: "Condition sans valeur : %{name}"
+  error_field_template_group_not_closed: "Crochet autour d'un espace réservé non fermé : %{name}"
   error_field_template_invalid_join: "join attend un séparateur entre guillemets et les champs derrière : %{name}"
   error_field_template_placeholder_not_allowed: "Espace réservé non autorisé dans ce modèle : %{name}"
   error_field_template_placeholder_not_readable: "Espace réservé non lisible : %{name}"

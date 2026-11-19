@@ -43,6 +43,7 @@ ru:
   error_field_template_block_ambiguous: "Найдено несколько блоков шаблона: %{language}"
   error_field_template_block_missing: "На странице нет блока шаблона %{language}: %{page}"
   error_field_template_condition_without_value: "Условие без значения: %{name}"
+  error_field_template_group_not_closed: "Квадратная скобка вокруг заполнителя не закрыта: %{name}"
   error_field_template_invalid_join: "join требует разделитель в кавычках, а за ним поля: %{name}"
   error_field_template_placeholder_not_allowed: "Заполнитель не разрешён в этом шаблоне: %{name}"
   error_field_template_placeholder_not_readable: "Не удаётся прочитать заполнитель: %{name}"

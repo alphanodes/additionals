@@ -43,6 +43,7 @@ pl:
   error_field_template_block_ambiguous: "Znaleziono więcej niż jeden blok szablonu: %{language}"
   error_field_template_block_missing: "Brak bloku szablonu %{language} na stronie: %{page}"
   error_field_template_condition_without_value: "Warunek bez wartości: %{name}"
+  error_field_template_group_not_closed: "Nawias kwadratowy wokół symbolu zastępczego nie jest zamknięty: %{name}"
   error_field_template_invalid_join: "join wymaga separatora w cudzysłowie, a za nim pól: %{name}"
   error_field_template_placeholder_not_allowed: "Symbol zastępczy niedozwolony w tym szablonie: %{name}"
   error_field_template_placeholder_not_readable: "Nie można odczytać symbolu zastępczego: %{name}"

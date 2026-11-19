@@ -43,6 +43,7 @@ uk:
   error_field_template_block_ambiguous: "Знайдено кілька блоків шаблону: %{language}"
   error_field_template_block_missing: "На сторінці немає блоку шаблону %{language}: %{page}"
   error_field_template_condition_without_value: "Умова без значення: %{name}"
+  error_field_template_group_not_closed: "Квадратну дужку навколо заповнювача не закрито: %{name}"
   error_field_template_invalid_join: "join очікує роздільник у лапках і поля після нього: %{name}"
   error_field_template_placeholder_not_allowed: "Заповнювач не дозволено в цьому шаблоні: %{name}"
   error_field_template_placeholder_not_readable: "Заповнювач не можна прочитати: %{name}"

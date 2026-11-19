@@ -41,6 +41,7 @@ ko:
   error_field_template_block_ambiguous: "서식 블록이 두 개 이상 있습니다: %{language}"
   error_field_template_block_missing: "페이지에 %{language} 서식 블록이 없습니다: %{page}"
   error_field_template_condition_without_value: "값이 없는 조건입니다: %{name}"
+  error_field_template_group_not_closed: "자리 표시자를 감싼 대괄호가 닫히지 않았습니다: %{name}"
   error_field_template_invalid_join: "join에는 따옴표로 묶은 구분 기호와 그 뒤의 필드가 필요합니다: %{name}"
   error_field_template_placeholder_not_allowed: "이 서식에서는 사용할 수 없는 자리 표시자입니다: %{name}"
   error_field_template_placeholder_not_readable: "자리 표시자를 읽을 수 없습니다: %{name}"

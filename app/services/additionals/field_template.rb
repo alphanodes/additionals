@@ -379,9 +379,13 @@ module Additionals
     def placeholder_parts(name)
       return [name] unless name.start_with? CONDITION_PREFIX
 
+      # "{%? Sun = Afternoon %}" names the field Sun, like "{%?Sun=Afternoon%}"
       body = name.delete_prefix CONDITION_PREFIX
       match = CONDITION_RE.match body
-      match ? match.captures : [body]
+      return [body.strip] if match.nil?
+
+      field, operator, value = match.captures
+      [field.strip, operator, value]
     end
 
     # Everything is matched case insensitively; an unknown placeholder has to

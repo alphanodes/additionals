@@ -46,6 +46,13 @@ module Additionals
       true
     end
 
+    # false for a custom field the reader may not see. It prints nothing and
+    # counts as empty in a condition, so a template written by someone who
+    # sees it still works for everyone else without telling what it holds.
+    def field_readable?(_field)
+      true
+    end
+
     # The label of a referenced record, where it is known by something else
     # than its name. nil leaves it to the template.
     def readable(_value)

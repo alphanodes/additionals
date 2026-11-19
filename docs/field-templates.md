@@ -48,12 +48,13 @@ Additionals::FieldTemplate.new(ServerTemplateSource.new(type), escape_macros: tr
 | `condition_value` | Value a condition compares with, where it differs from the printed one (a status key instead of its translated label) |
 | `placeholder_enabled?` | `false` lets a name print nothing, e.g. a field turned off for this kind of record |
 | `readable` | Label of a referenced record known by something else than its name |
+| `field_readable?` | `false` for a custom field the reader may not see: it prints nothing and counts as empty in a condition |
 
 Two templates of the same record with different placeholders (a short name and a longer line) are two sources over the same record.
 
 A list macro subclasses `Additionals::FieldList`, passes the arguments, the block of the macro and the project to `super`, and implements `reserved_options`, `records` (the visible, filtered scope), `default_template`, `block_language`, `renderer`, `available_fields`, `sort_field` and `default_sort_value`. Arguments, the limit of 500 records, the sort and the numbers of a numbered list come from the base class. A filter argument is a `Filter` of name, operator (`=`, `!=`, `~`, `!~`) and values (separated by `|`, any is enough); `filter_by_custom_field` applies one to a custom field, `apply_filter` is the frame for any other value (tags, for example). The sort option names a custom field or one of the `sort_attributes` of the subclass, `-` sorts descending; a list field sorts by the order of its values, empty values go last. Filters compare through `Redmine::Database.like`, so on PostgreSQL with `unaccent` they ignore accents as well as case, unlike a condition of the template, which only ignores case. In markdown, a line which is no list item, heading or html line ends with a hard break, so every record keeps a line of its own.
 
-The macro renders the list with the view helper `render_field_list list, obj, css_class:`, which formats the lines, shows "No data to display" and the notice of an unavailable template page.
+Before the lines are rendered, `preload_references` loads the records of every reference field the template names (users, versions, wiki pages, ...) once for all records, instead of one query per value as the field format does. The macro renders the list with the view helper `render_field_list list, obj, css_class:`, which formats the lines, shows "No data to display" and the notice of an unavailable template page.
 
 ### Template Pages
 

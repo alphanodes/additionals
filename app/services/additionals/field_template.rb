@@ -72,6 +72,18 @@ module Additionals
       nil
     end
 
+    # A field which references records (a user, a version, a wiki page, ...)
+    # loads each of them on its own when a value is read, which is one query
+    # per line of a list. Loaded here once per field for all records instead.
+    def preload_references(records, template)
+      @references = referenced_fields(template).to_h do |field|
+        ids = records.flat_map { |record| Array record.custom_field_value(field.id) }
+        ids = ids.filter_map { |id| id.presence&.to_i }
+        ids.uniq!
+        [field.id, reference_class(field).where(id: ids).index_by(&:id)]
+      end
+    end
+
     def render(template, record)
       render_nodes(tree(template), record).text
     end
@@ -316,7 +328,7 @@ module Additionals
     # Where an attribute is stored as something nobody knows, its source names
     # a key instead which does not change with the language.
     def compared_value(record, field, placeholder)
-      return record.custom_field_value field.id if field
+      return (record.custom_field_value field.id if @source.field_readable? field) if field
       return '' unless readable? placeholder
 
       return @source.condition_value record, placeholder.downcase if reserved? placeholder
@@ -403,13 +415,54 @@ module Additionals
     # an id, a date the database format, a boolean "0" or "1". Every format
     # casts its value back to a ruby object, which is formatted from here on.
     def custom_field_value(record, field)
+      return '' unless @source.field_readable? field
+
       value = record.custom_field_value field.id
       return '' if value.blank?
 
-      values = Array field.format.cast_value(field, value, record)
+      values = casted_values field, value, record
       values.compact!
       values.map! { |casted| readable casted }
       values.to_comma_list
+    end
+
+    def casted_values(field, value, record)
+      references = @references&.[] field.id
+      return Array(value).filter_map { |id| references[id.to_i] } if references
+
+      Array field.format.cast_value(field, value, record)
+    end
+
+    # The fields a template names, by placeholder and as arguments of a
+    # function, which load references the way core does: one record per
+    # value. A format which casts on its own is left to do so.
+    def referenced_fields(template)
+      fields = referenced_names(tree(template)).filter_map { |name| field_for name unless reserved? name }
+      fields.uniq!
+      fields.select { |field| reference_class field }
+    end
+
+    def referenced_names(nodes)
+      nodes.flat_map do |node|
+        case node
+        when FieldTemplateParser::Placeholder then [field_name(node.name)]
+        when FieldTemplateParser::Function then node.arguments.filter_map { |argument| argument.value unless argument.literal }
+        when FieldTemplateParser::Group then referenced_names node.children
+        else []
+        end
+      end
+    end
+
+    # The class whose records a field references, nil where its format casts
+    # on its own. A user field casts to a principal from Redmine 7.1 on, which
+    # admits groups; under 7.0 it holds users only, which Principal finds as
+    # well.
+    def reference_class(field)
+      format = field.format
+      return Principal if format.is_a? Redmine::FieldFormat::UserFormat
+      return unless format.is_a? Redmine::FieldFormat::RecordList
+
+      format.target_class if format.class.instance_method(:cast_single_value).owner == Redmine::FieldFormat::RecordList
     end
 
     # The source answers first, for a record it knows by another label than

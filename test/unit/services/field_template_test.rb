@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 require File.expand_path '../../../test_helper', __FILE__
+require 'active_record/testing/query_assertions'
 
 class FieldTemplateTest < Additionals::TestCase
+  include ActiveRecord::Assertions::QueryAssertions
+
   include Redmine::I18n
 
   # A source over core issues, the way a plugin describes its records. The
@@ -15,11 +18,12 @@ class FieldTemplateTest < Additionals::TestCase
                      'author' => :field_author,
                      'status' => :field_status }.freeze
 
-    def initialize(fields, scope: :full, disabled: [])
+    def initialize(fields, scope: :full, disabled: [], hidden: [])
       super()
       @fields = fields
       @scope = scope
       @disabled = disabled
+      @hidden = hidden
     end
 
     def placeholders
@@ -54,6 +58,10 @@ class FieldTemplateTest < Additionals::TestCase
 
     def placeholder_enabled?(name)
       @disabled.exclude? name
+    end
+
+    def field_readable?(field)
+      @hidden.exclude? field
     end
   end
 
@@ -743,6 +751,29 @@ class FieldTemplateTest < Additionals::TestCase
       error = assert_raises(Additionals::FieldTemplate::Error, template) { Additionals::FieldTemplate.check_syntax template }
 
       assert_equal key, error.key, template
+    end
+  end
+
+  # A template written by someone who sees a field still works for a reader
+  # who does not, without telling what the field holds
+  def test_a_field_the_reader_may_not_see_prints_nothing_and_counts_as_empty
+    set_values @computer, @owner => 'Alice'
+    renderer = Additionals::FieldTemplate.new IssueSource.new(@fields, hidden: [@owner])
+
+    assert_equal '- Computer none', renderer.render('- {%subject%}[ {%Owner%}][ {%?Owner=Alice%}Alice][ {%?Owner=none%}none]', @computer)
+  end
+
+  # one query per referenced field instead of one per record and value
+  def test_preload_references_loads_the_records_of_a_field_once
+    set_values @computer, @assignee => users(:users_002).id.to_s
+    set_values @mouse, @assignee => users(:users_003).id.to_s
+    template = '- {%subject%} {%join(", ", Assignee)%}'
+    renderer = self.renderer
+    renderer.preload_references [@computer, @mouse], template
+
+    assert_no_queries_match(/\bFROM\W+users\b/) do
+      assert_equal '- Computer John Smith', renderer.render(template, @computer)
+      assert_equal '- Mouse Dave Lopper', renderer.render(template, @mouse)
     end
   end
 

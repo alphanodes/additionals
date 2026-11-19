@@ -92,7 +92,9 @@ module Additionals
       @marked = renderer.marked? template
       # a template without a mark answers with the whole line, so both kinds
       # of list are rendered the same way and only put together differently
-      lines = sorted(checked_records.to_a).map { |record| renderer.marked_line template, record }
+      records = sorted checked_records.to_a
+      renderer.preload_references records, template
+      lines = records.map { |record| renderer.marked_line template, record }
       @line_count = lines.size
       return join_lines lines.map(&:text) unless @marked
 

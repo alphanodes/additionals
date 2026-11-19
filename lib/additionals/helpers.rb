@@ -53,8 +53,8 @@ module Additionals
     # @param css_class [String] class of the surrounding div
     def render_field_list(list, obj, css_class:)
       with_field_list_nesting list.template_page do
-        wiki_text = list.to_wiki_text
-        count_field_list_lines list.line_count
+        wiki_text = list.to_wiki_text limit: Additionals::FieldList::MAX_ENTRIES - @additionals_field_list_lines
+        @additionals_field_list_lines += list.line_count
         next tag.div l(:label_no_data), class: "#{css_class} no_entries" if wiki_text.blank?
 
         html = textilizable wiki_text, object: obj, headings: false
@@ -467,21 +467,13 @@ module Additionals
 
     private
 
-    # The limit of a list holds for a list and all lists nested in its lines
-    # together: three levels of 500 lines each would otherwise render 125
-    # million lines.
-    def count_field_list_lines(count)
-      @additionals_field_list_lines += count
-      return if @additionals_field_list_lines <= Additionals::FieldList::MAX_ENTRIES
-
-      raise Additionals::FieldList::Error.new(:error_field_list_too_many_entries, count: Additionals::FieldList::MAX_ENTRIES)
-    end
-
     # The template pages of the lists being rendered, outermost first; nil
     # for a list without one. Kept on the view, which every nested macro of a
     # page shares.
     def with_field_list_nesting(page)
       stack = (@additionals_field_list_pages ||= [])
+      # the limit of a list holds for the list and the lists nested in its
+      # lines together: three levels of 500 lines would be 125 million
       @additionals_field_list_lines = 0 if stack.empty?
       raise l(:error_circular_inclusion) if page && stack.include?(page.id)
 

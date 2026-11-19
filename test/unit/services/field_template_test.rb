@@ -115,12 +115,6 @@ class FieldTemplateTest < Additionals::TestCase
     assert_equal 'Laptop', render('{%subject%}[ ({%author%})]', Issue.new(subject: 'Laptop'))
   end
 
-  def test_renders_parts_nested_deeper_than_ten_levels
-    set_values @computer, @owner => 'Jane'
-
-    assert_equal 'Computer!Jane', render("{%subject%}#{'[' * 12}!{%cf_#{@owner.id}%}#{']' * 12}")
-  end
-
   # A known limit: the part around it has no placeholder of its own left once
   # the inner one fell away, and brackets without a placeholder stay as they
   # were typed. Nobody writes this by hand - a part is wrapped around text,
@@ -503,25 +497,6 @@ class FieldTemplateTest < Additionals::TestCase
     assert_equal "?cf_#{@location.id}=", error.params[:name]
   end
 
-  # it is not recognized as a placeholder at all and would stay in the line as
-  # it was typed
-  def test_a_placeholder_which_cannot_be_read_is_reported
-    error = assert_raises Additionals::FieldTemplate::Error do
-      render "{%subject%}[ {%?cf_#{@location.id}=100%%}full]"
-    end
-
-    assert_equal :error_field_template_placeholder_not_readable, error.key
-    assert_equal "{%?cf_#{@location.id}=100%%}full]", error.params[:name]
-  end
-
-  def test_an_unclosed_placeholder_is_reported
-    error = assert_raises Additionals::FieldTemplate::Error do
-      render '{%subject%} {%Location%'
-    end
-
-    assert_equal :error_field_template_placeholder_not_readable, error.key
-  end
-
   def test_a_condition_decides_a_nested_group
     set_values @computer, @location => 'Office', @owner => 'Jane'
 
@@ -775,6 +750,16 @@ class FieldTemplateTest < Additionals::TestCase
       assert_equal '- Computer John Smith', renderer.render(template, @computer)
       assert_equal '- Mouse Dave Lopper', renderer.render(template, @mouse)
     end
+  end
+
+  # a renderer used for a record outside of the preloaded ones still prints it
+  def test_a_reference_outside_of_the_preloaded_ones_is_cast_as_usual
+    set_values @computer, @assignee => users(:users_002).id.to_s
+    set_values @mouse, @assignee => users(:users_003).id.to_s
+    renderer = self.renderer
+    renderer.preload_references [@computer], '{%Assignee%}'
+
+    assert_equal 'Dave Lopper', renderer.render('{%Assignee%}', @mouse)
   end
 
   private

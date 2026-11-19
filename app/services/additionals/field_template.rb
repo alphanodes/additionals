@@ -72,11 +72,17 @@ module Additionals
       nil
     end
 
+    # The printed value of a custom field, as a template prints it
+    def field_text(record, field)
+      custom_field_value record, field
+    end
+
     # A field which references records (a user, a version, a wiki page, ...)
     # loads each of them on its own when a value is read, which is one query
     # per line of a list. Loaded here once per field for all records instead.
-    def preload_references(records, template)
-      @references = referenced_fields(template).to_h do |field|
+    # fields are further fields to load, the field a list is sorted by.
+    def preload_references(records, template, fields = [])
+      @references = (referenced_fields(template) | fields.select { |field| reference_class field }).to_h do |field|
         ids = records.flat_map { |record| Array record.custom_field_value(field.id) }
         ids = ids.filter_map { |id| id.presence&.to_i }
         ids.uniq!
@@ -428,7 +434,10 @@ module Additionals
 
     def casted_values(field, value, record)
       references = @references&.[] field.id
-      return Array(value).filter_map { |id| references[id.to_i] } if references
+      if references
+        # a record outside of the preloaded ones is cast like it would be
+        return Array(value).filter_map { |id| references.fetch(id.to_i) { field.format.cast_value field, id, record } }
+      end
 
       Array field.format.cast_value(field, value, record)
     end

@@ -23,7 +23,12 @@ module Additionals
     MAX_ENTRIES = 500
     # how deep a line may hold a list again, the outermost one counted
     MAX_NESTING = 3
-    ITEM_MARKER = '- '
+    # a list item and its mark, in markdown as html and in textile as a span
+    # of its own - textile escapes html
+    MARKDOWN_ITEM = '- <span>%<mark>s </span>%<text>s'
+    TEXTILE_ITEM = '* %%%<mark>s%% %<text>s'
+    # ASCII punctuation, which textile only leaves alone as a numeric entity
+    PUNCTUATION_RE = /[!-\/:-@\[-`{-~]/
     MARK_LIST_CLASS = 'additionals-list-marks'
     MARK_LIST_TYPE = 'none'
     MARK_WIDTH_PROPERTY = '--a-list-mark-width'
@@ -85,15 +90,20 @@ module Additionals
     def template_page
       return if @block_template.present? || @options[TEMPLATE_OPTION].blank?
 
-      @template_page ||= find_template_page @options[TEMPLATE_OPTION]
+      @template_page ||= find_visible_page @options[TEMPLATE_OPTION]
     end
 
-    def to_wiki_text
+    # limit is what is left of the records a list and the lists in its lines
+    # may render together, see render_field_list
+    def to_wiki_text(limit: MAX_ENTRIES)
       @marked = renderer.marked? template
+      # an unknown sort field is reported whether or not there are records
+      sort_field
       # a template without a mark answers with the whole line, so both kinds
       # of list are rendered the same way and only put together differently
-      records = sorted checked_records.to_a
-      renderer.preload_references records, template
+      records = checked_records(limit).to_a
+      renderer.preload_references records, template, [sort_field].compact
+      records = sorted records
       lines = records.map { |record| renderer.marked_line template, record }
       @line_count = lines.size
       return join_lines lines.map(&:text) unless @marked
@@ -202,7 +212,7 @@ module Additionals
 
     # Resolved like a wiki link of core: "Page" in the wiki of the project,
     # "project:Page" in another one.
-    def find_template_page(name)
+    def find_visible_page(name)
       page = Wiki.find_page name, project: @project
       raise NotAvailable if page.nil? || !page.visible?
 
@@ -230,6 +240,7 @@ module Additionals
         name, operator, value = read_argument arg
         if option? name
           raise Error.new(:error_field_list_operator_not_supported, operator:, name:) unless operator == OPTION_OPERATOR
+          raise Error.new(:error_field_list_duplicate_argument, argument: arg) if @options.key? name.downcase
           raise Error.new(:error_field_list_argument_without_value, argument: arg) if value.empty?
 
           @options[name.downcase] = value
@@ -310,9 +321,9 @@ module Additionals
     # A shortened list would silently claim to be complete, and shortening it
     # meaningfully would need sorting in sql plus an offset. Whoever hits this
     # has to narrow the list down instead.
-    def checked_records
+    def checked_records(limit)
       scope = records
-      raise Error.new(:error_field_list_too_many_entries, count: MAX_ENTRIES) if scope.count > MAX_ENTRIES
+      raise Error.new(:error_field_list_too_many_entries, count: MAX_ENTRIES) if scope.count > limit
 
       scope
     end
@@ -345,7 +356,14 @@ module Additionals
     # the column and takes the distance from the stylesheet, while the pdf
     # export and a page without the stylesheet keep it and stay readable.
     def list_item(line)
-      "#{ITEM_MARKER}<span>#{ERB::Util.html_escape line.mark} </span>#{line.text}"
+      if Setting.text_formatting == FieldTemplateBlock::COMMON_MARK
+        format MARKDOWN_ITEM, mark: ERB::Util.html_escape(line.mark), text: line.text
+      else
+        # an empty span is no span in textile, a line without a mark keeps its
+        # column with a space
+        mark = line.mark.present? ? line.mark.gsub(PUNCTUATION_RE) { |char| "&##{char.ord};" } : '&#160;'
+        format TEXTILE_ITEM, mark:, text: line.text
+      end
     end
 
     # Lines are joined by a line break, which markdown reads as a space: a
@@ -367,24 +385,38 @@ module Additionals
     # record which has no number yet does not jump to the top of the list.
     # Records of the same value, and those without one, keep the default
     # order among each other, in both directions.
+    # Without sort= by the default value, read like any text: naturally and
+    # without regard to case, so "Part 2" comes before "Part 10".
     def sorted(records)
-      return records.sort_by { |record| default_sort_value record } if @options['sort'].blank?
+      return records.sort_by { |record| default_sort_key record } if @options['sort'].blank?
 
       filled, empty = records.map { |record| [record, sort_value(record)] }.partition { |_record, value| value.present? }
-      keyed = filled.map { |record, value| [record, sort_key(value), default_sort_value(record)] }
+      keyed = filled.map { |record, value| [record, sort_key(value), default_sort_key(record)] }
       keyed.sort! do |(_, key_a, default_a), (_, key_b, default_b)|
         order = descending? ? key_b <=> key_a : key_a <=> key_b
         order.zero? ? (default_a <=> default_b).to_i : order
       end
 
-      keyed.map(&:first) + empty.map(&:first).sort_by { |record| default_sort_value record }
+      keyed.map(&:first) + empty.map(&:first).sort_by { |record| default_sort_key record }
     end
 
+    def default_sort_key(record)
+      natural_sort_key default_sort_value(record).to_s
+    end
+
+    # A field which references records (a user, a wiki page, ...) stores ids,
+    # which say nothing about the order a reader expects: it is sorted by
+    # what the line shows.
     def sort_value(record)
       attribute = sort_attributes[sort_name.downcase]
       return attribute.call record if attribute
+      return renderer.field_text record, sort_field if reference_sort_field?
 
       Array(record.custom_field_value(sort_field.id)).compact_blank
+    end
+
+    def reference_sort_field?
+      sort_field.format.is_a?(Redmine::FieldFormat::RecordList) && sort_field.field_format != 'enumeration'
     end
 
     # A number field is compared as a number, a list field by the order of its
@@ -409,7 +441,7 @@ module Additionals
     end
 
     def natural_sort_key(text)
-      text.scan(/\d+|\D+/).map do |part|
+      text.downcase.scan(/\d+|\D+/).map do |part|
         part.match?(/\A\d/) ? [0, part.to_i, ''] : [1, 0, part]
       end
     end

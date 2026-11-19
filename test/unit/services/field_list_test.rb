@@ -2,7 +2,17 @@
 
 require File.expand_path '../../../test_helper', __FILE__
 
+Redmine::WikiFormatting::Macros.register do
+  desc 'Lists the first three issues, for the tests of nested lists'
+  macro :additionals_test_issue_list do |obj, args, text|
+    list = FieldListTest::IssueList.new args, text, fields: [], issues: Issue.where(id: [1, 2, 3]), project: Project.find(1)
+    render_field_list list, obj, css_class: 'issue-list'
+  end
+end
+
 class FieldListTest < Additionals::TestCase
+  include Redmine::I18n
+
   # A list over core issues, the way a plugin builds its list macro. Which
   # records there are is up to the list, so it takes them as given.
   class IssueList < Additionals::FieldList
@@ -31,7 +41,6 @@ class FieldListTest < Additionals::TestCase
       @issue_ids = issues.map(&:id)
 
       super(args, template, project:)
-      sort_field
     end
 
     private
@@ -122,9 +131,10 @@ class FieldListTest < Additionals::TestCase
     end
   end
 
+  # reported whether or not there is a record to sort
   def test_raises_for_an_unknown_field
     error = assert_raises Additionals::FieldList::Error do
-      build_list '- {%subject%}', 'sort=Nope'
+      build_list('- {%subject%}', 'sort=Nope', issues: []).to_wiki_text
     end
 
     assert_equal :error_field_list_unknown_field, error.key
@@ -457,6 +467,75 @@ class FieldListTest < Additionals::TestCase
     assert_equal 1, Nokogiri::HTML5.fragment(html).css('span.macro-not-available').size
   end
 
+  def test_raises_for_an_option_given_twice
+    error = assert_raises Additionals::FieldList::Error do
+      build_list '- {%subject%}', 'sort=subject', 'sort=Position'
+    end
+
+    assert_equal :error_field_list_duplicate_argument, error.key
+  end
+
+  # read like text: naturally and without regard to case
+  def test_sorts_by_default_naturally_and_without_regard_to_case
+    @computer.update_columns subject: 'Part 10'
+    @mouse.update_columns subject: 'part 2'
+    @keyboard.update_columns subject: 'Part 1'
+
+    assert_equal ['- Part 1', '- part 2', '- Part 10'], lines('- {%subject%}')
+  end
+
+  # the ids a reference field stores say nothing about the order
+  def test_sorts_a_reference_field_by_the_name_it_shows
+    owner = build_field 'Owner', 'user'
+    @fields << owner
+    set_values @computer, owner => users(:users_003).id.to_s
+    set_values @mouse, owner => users(:users_002).id.to_s
+
+    assert_equal ['- Computer', '- Mouse', '- Keyboard'], lines('- {%subject%}', 'sort=Owner')
+  end
+
+  def test_renders_the_marks_of_a_numbered_list_in_textile
+    numbered '38', '12a'
+
+    with_settings text_formatting: 'textile' do
+      html = build_redmine_view.render_field_list build_list('[{%Number%}. ]{%subject%}', 'sort=Number'), nil, css_class: 'issue-list'
+      items = Nokogiri::HTML5.fragment(html).css('ul.additionals-list-marks > li')
+
+      assert_equal([['12a.', '12a. Mouse'], ['38.', '38. Computer'], ["\u00a0", 'Keyboard']], items.map do |item|
+        [item.at_css('span').text, item.text.squish]
+      end)
+    end
+  end
+
+  # A line may hold a list again, but neither endlessly nor the template page
+  # which is rendered already
+  def test_render_field_list_limits_nested_lists
+    with_settings text_formatting: 'common_mark' do
+      template_page "```issue_list\n- {%subject%} {{additionals_test_issue_list(template=ecookbook:CookBook_documentation)}}\n```"
+
+      html = render_test_macro 'template=ecookbook:CookBook_documentation'
+
+      assert_includes html, ERB::Util.html_escape(l(:error_circular_inclusion))
+
+      # every level takes its line from the next template page
+      %w[Level_2 Level_3 Level_4].each_cons 2 do |page, next_page|
+        add_template_page page, "- {%subject%} {{additionals_test_issue_list(template=ecookbook:#{next_page})}}"
+      end
+      add_template_page 'Level_4', '- {%subject%}'
+      html = render_test_macro "\n- {%subject%} {{additionals_test_issue_list(template=ecookbook:Level_2)}}\n"
+
+      assert_includes html, ERB::Util.html_escape(l(:error_field_list_nested_too_deep, depth: 3))
+    end
+  end
+
+  def test_render_field_list_limits_the_lines_of_nested_lists_together
+    stub_const Additionals::FieldList, :MAX_ENTRIES, 4 do
+      html = render_test_macro "\n- {%subject%} {{additionals_test_issue_list}}\n"
+
+      assert_includes html, ERB::Util.html_escape(l(:error_field_list_too_many_entries, count: 4))
+    end
+  end
+
   private
 
   def lines(template, *, issues: [@computer, @mouse, @keyboard], project: nil)
@@ -499,5 +578,22 @@ class FieldListTest < Additionals::TestCase
     values.each do |field, value|
       Array(value).each { |single| CustomValue.create! customized: issue, custom_field: field, value: single }
     end
+  end
+
+  def add_template_page(title, line)
+    page = WikiPage.new wiki: projects(:projects_001).wiki, title: title
+    page.content = WikiContent.new text: "```issue_list\n#{line}\n```", author: users(:users_001)
+    page.save!
+  end
+
+  # The macro renders the list of the test, so lists can be nested the way a
+  # template nests them in a wiki page
+  def render_test_macro(args_or_block)
+    text = if args_or_block.start_with? "\n"
+             "{{additionals_test_issue_list#{args_or_block}}}"
+           else
+             "{{additionals_test_issue_list(#{args_or_block})}}"
+           end
+    build_redmine_view.textilizable text
   end
 end

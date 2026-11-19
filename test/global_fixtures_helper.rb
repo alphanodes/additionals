@@ -4,6 +4,18 @@ module Additionals
   module GlobalFixturesHelper
     EMPTY_FIXTURES_PATH = "#{File.dirname __FILE__}/fixtures/empty".freeze
 
+    # Core freezes the time before every test and loads its fixtures then, so
+    # their timestamps and ERB dates match the time of the tests. Plugin
+    # fixtures are loaded outside of a test - in a parallel worker possibly
+    # minutes after the time was frozen - and need the frozen time as well,
+    # or a record without timestamps in its fixture looks newer than one
+    # changed by the test.
+    def self.at_frozen_time(&)
+      return yield unless ActiveSupport::TestCase.const_defined? :FROZEN_TIME
+
+      Object.new.extend(ActiveSupport::Testing::TimeHelpers).travel_to(ActiveSupport::TestCase::FROZEN_TIME, &)
+    end
+
     def plugin_fixture_path
       "#{File.dirname __FILE__}/fixtures"
     end
@@ -24,8 +36,10 @@ module Additionals
       # and ignore it via splat so direct .call (no args) also works.
       emptied = emptied_tables table_names
       load_plugin_fixtures = lambda do |*|
-        emptied.each { |x| ActiveRecord::FixtureSet.create_fixtures EMPTY_FIXTURES_PATH, x }
-        files_to_load.each { |x| ActiveRecord::FixtureSet.create_fixtures dir, x }
+        GlobalFixturesHelper.at_frozen_time do
+          emptied.each { |x| ActiveRecord::FixtureSet.create_fixtures EMPTY_FIXTURES_PATH, x }
+          files_to_load.each { |x| ActiveRecord::FixtureSet.create_fixtures dir, x }
+        end
       end
       load_plugin_fixtures.call
 

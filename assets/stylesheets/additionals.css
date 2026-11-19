@@ -121,7 +121,7 @@ svg.icon-svg.additionals-spin {
    option set on the wrapper), filled icons with their area */
 svg.icon-svg.additionals-macro-icon { stroke: currentcolor; }
 
-svg.icon-svg-filled.additionals-macro-icon {
+svg.icon-svg.icon-svg-filled.additionals-macro-icon {
   fill: currentcolor;
   stroke: none;
 }

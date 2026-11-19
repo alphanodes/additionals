@@ -11,7 +11,7 @@
 - Global search stays fast on large instances
 - Holidays of Redmine 7.1 apply in all plugins
 - Issue attachments link to the note that added them (Redmine 7.1)
-- Macros: fixes and new options for `vimeo`, `reddit`, `meteoblue`, `gmap`, `user`, `gps` and `recently_updated`; `tabler` shows filled icons filled
+- Macros: fixes and new options for `vimeo`, `reddit`, `meteoblue`, `gmap`, `user`, `gps` and `recently_updated`; `tabler` renders filled icons such as `star-filled` as filled shapes
 - Secondary text is darker for better readability
 - All translations revised, German texts use the informal du
 - Security: select fields, dashboards and macros only show what the user may see; admins no longer open private dashboards of other users; names, error messages and the values in notices (`flash_msg`) are escaped

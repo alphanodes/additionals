@@ -54,12 +54,13 @@ module Additionals
           css_classes = ['additionals-macro-icon']
           css_classes += options[:class].split if options[:class].present?
 
+          name = AdditionalsIcon.resolve args[0]
           icon_options = { css_class: css_classes.join(' ') }
-          icon_options[:style] = :filled if AdditionalsIcon.filled? args[0]
+          icon_options[:style] = :filled if AdditionalsIcon.filled? name
           size = icon_size options[:size]
           icon_options[:size] = size if size
 
-          icon = view.additionals_icon args[0], **icon_options
+          icon = view.additionals_icon name, **icon_options
           # Text and wrapper apply to the group, not to every single icon.
           content = view.safe_join Array.new(repeat_count(options[:repeat]), icon)
           content = view.safe_join [content, options[:text]], ' ' if options[:text].present?

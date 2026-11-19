@@ -59,6 +59,12 @@ class AdditionalsIcon
       sprite_names.include?(name) || custom_names.include?(name)
     end
 
+    # Whether the icon is a filled shape (style: filled in icon_source.yml). Such
+    # a symbol has no strokes and stays invisible unless it is rendered filled.
+    def filled?(value)
+      filled_names.include? resolve(value)
+    end
+
     # Whether the Redmine core sprite has the icon, which differs between Redmine versions
     def core?(name)
       core_sprite_names.include? name.to_s
@@ -87,7 +93,7 @@ class AdditionalsIcon
 
     # Reset memoized data (used by tests)
     def reset!
-      @mapping = @sprite_names = @core_sprite_names = @custom_names = @selectable = @sprite_files = nil
+      @mapping = @icon_source = @sprite_names = @filled_names = @core_sprite_names = @custom_names = @selectable = @sprite_files = nil
     end
 
     private
@@ -109,7 +115,15 @@ class AdditionalsIcon
     end
 
     def sprite_names
-      @sprite_names ||= loader.yaml_config_load('icon_source.yml').to_set { |entry| entry['name'] }
+      @sprite_names ||= icon_source.to_set { |entry| entry['name'] }
+    end
+
+    def filled_names
+      @filled_names ||= icon_source.select { |entry| entry['style'] == 'filled' }.to_set { |entry| entry['name'] }
+    end
+
+    def icon_source
+      @icon_source ||= loader.yaml_config_load 'icon_source.yml'
     end
 
     def core_sprite_names

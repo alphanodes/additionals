@@ -472,6 +472,9 @@
   svg: circle-check
 - name: circle-dot
   svg: circle-dot
+- name: circle-filled
+  svg: circle
+  style: filled
 - name: circle-minus
   svg: circle-minus
 - name: circle-plus

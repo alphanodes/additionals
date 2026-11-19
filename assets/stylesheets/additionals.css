@@ -117,9 +117,14 @@ svg.icon-svg.additionals-spin {
   to { transform: rotate(360deg); }
 }
 
-/* {{fa}} wiki macro icon: follow the surrounding text color (or the color
-   option set on the wrapper) */
+/* {{tabler}} wiki macro icon: follow the surrounding text color (or the color
+   option set on the wrapper), filled icons with their area */
 svg.icon-svg.additionals-macro-icon { stroke: currentcolor; }
+
+svg.icon-svg-filled.additionals-macro-icon {
+  fill: currentcolor;
+  stroke: none;
+}
 
 svg.icon-svg.smiley {
   fill: var(--a-color-smiley);

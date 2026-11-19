@@ -55,6 +55,7 @@ module Additionals
           css_classes += options[:class].split if options[:class].present?
 
           icon_options = { css_class: css_classes.join(' ') }
+          icon_options[:style] = :filled if AdditionalsIcon.filled? args[0]
           size = icon_size options[:size]
           icon_options[:size] = size if size
 

@@ -600,6 +600,20 @@ class WikiControllerTest < Additionals::ControllerTest
 
     assert_response :success
     assert_select 'svg.icon-svg.additionals-macro-icon use[href*=?]', 'icon--car'
+    assert_select 'svg.icon-svg-filled', count: 0
+  end
+
+  # A filled icon is a shape without strokes and only shows up when it is filled.
+  def test_show_with_tabler_macro_and_filled_icon
+    @request.session[:user_id] = WIKI_MACRO_USER_ID
+    page = WikiPage.generate! content: '{{tabler(circle-filled)}}',
+                              title: __method__.to_s
+
+    get :show,
+        params: { project_id: 1, id: page.title }
+
+    assert_response :success
+    assert_select 'div.wiki svg.icon-svg-filled.additionals-macro-icon use[href*=?]', 'icon--circle-filled'
   end
 
   def test_show_with_fa_alias_macro

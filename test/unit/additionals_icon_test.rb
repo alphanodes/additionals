@@ -75,6 +75,15 @@ class AdditionalsIconTest < Additionals::TestCase
     assert_equal 'icons', AdditionalsIcon.sprite('brand-gitlab')
   end
 
+  def test_filled
+    assert AdditionalsIcon.filled?('star-filled')
+    assert AdditionalsIcon.filled?('circle-filled')
+    assert_not AdditionalsIcon.filled?('car')
+    assert_not AdditionalsIcon.filled?('matomo')
+    assert_not AdditionalsIcon.filled?('fas_car')
+    assert_not AdditionalsIcon.filled?(nil)
+  end
+
   def test_known
     assert AdditionalsIcon.known?('car')
     assert AdditionalsIcon.known?('brand-gitlab')

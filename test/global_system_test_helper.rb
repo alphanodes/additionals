@@ -216,7 +216,7 @@ module Additionals
         within container do
           field = find SELECT_FIELD_MARKUP[:field]
           field.synchronize do
-            chosen = field.all(SELECT_FIELD_MARKUP[:choice], wait: 0).map { |choice| choice.find(:xpath, './*[1]').text }
+            chosen = field.all(SELECT_FIELD_MARKUP[:choice], wait: 0).map { |choice| chosen_text choice }
             raise Capybara::ExpectationNotMet, "chosen #{chosen.inspect}, expected #{texts.inspect}" if chosen != texts
           end
         end
@@ -226,7 +226,7 @@ module Additionals
       # +container+
       def remove_select_entry(container, text)
         within container do
-          choice = find(SELECT_FIELD_MARKUP[:choice]) { |element| element[:title] == text }
+          choice = find(SELECT_FIELD_MARKUP[:choice]) { |element| chosen_text(element) == text }
           choice.find(SELECT_FIELD_MARKUP[:choice_remove]).click
         end
       end
@@ -279,6 +279,13 @@ module Additionals
         raise Capybara::Ambiguous, "#{values.size} entries match #{text.inspect}" if values.size > 1
 
         entries.first
+      end
+
+      # The text a chosen entry shows, without its remove button (labeled for
+      # screen readers only). Not its title: only a cut entry gets one, and
+      # only once the pointer comes.
+      def chosen_text(choice)
+        choice.find(:xpath, './*[1]').text
       end
     end
   end

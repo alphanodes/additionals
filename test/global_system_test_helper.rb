@@ -34,6 +34,7 @@ module Additionals
     # visible. The test is then red in the job and green on every developer
     # machine.
     def use_plugin_system_test_driver(screen_size: [1400, 1400])
+      ChromeStorageReset.apply!
       return if ENV['REDMINE_HEADLESS'] == 'false'
 
       driven_by :selenium, using: browser_name, screen_size:, options: remote_options do |driver_option|
@@ -84,6 +85,49 @@ module Additionals
         'profile.password_manager_leak_detection' => false,
         'profile.password_manager_enabled' => false,
         'credentials_enable_service' => false }
+    end
+
+    # TODO(Capybara > 3.40): remove once a release fixes
+    # https://github.com/teamcapybara/capybara/issues/2865
+    #
+    # After every test Capybara clears cookies and storage of all origins with
+    # the origin '*'. Chrome 158 rejects it, so every test ends with an error
+    # in its teardown. Older browsers (the pinned one of the CI) keep the call
+    # as it is, Chrome 158 clears the cookies of all origins and the other
+    # storage of the application, the only origin the tests visit.
+    module ChromeStorageReset
+      def self.apply!
+        target = Capybara::Selenium::Driver::ChromeDriver
+        return if target.ancestors.any? { |mod| mod.name == name }
+
+        target.prepend self
+      end
+
+      private
+
+      def execute_cdp(cmd, params = {})
+        return super unless cmd == 'Storage.clearDataForOrigin' && params[:origin] == '*'
+
+        begin
+          super
+        rescue Selenium::WebDriver::Error::InvalidArgumentError
+          clear_storage_of_application params[:storageTypes]
+        end
+      end
+
+      def clear_storage_of_application(storage_types)
+        execute_cdp 'Network.clearBrowserCookies'
+        other_types = storage_types.split(',') - ['cookies']
+        return if other_types.empty?
+
+        execute_cdp 'Storage.clearDataForOrigin', origin: application_origin, storageTypes: other_types.join(',')
+      end
+
+      # Core sets the app host for every run, in the CI to the name the
+      # browser container reaches the application by
+      def application_origin
+        Capybara.app_host || Capybara.current_session.server.base_url
+      end
     end
 
     module SessionHelper

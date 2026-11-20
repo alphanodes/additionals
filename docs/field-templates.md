@@ -97,7 +97,7 @@ Only the template tree can tell a number from a placeholder from a fixed `1.` so
 
 ### Form and meaning are separate
 
-`FieldTemplateParser` turns a template into a tree of text, placeholders, functions and parts and does not know what a name means; `FieldTemplate` walks the tree and asks the source. A syntax error is raised where it stands, a template is parsed once per renderer and reused for every record, and the rule of a part works on what is left after its inner parts were dropped. Unbalanced brackets are text as typed, except an opening one which is never closed but holds a placeholder: that is a part whose closing bracket was forgotten, and it is refused, as its conditions would quietly stop working. A wiki link around a placeholder (`[[{%name%}]]`) is read as two parts and cannot be written; a markdown link can.
+`FieldTemplateParser` turns a template into a tree of text, placeholders, functions and parts and does not know what a name means; `FieldTemplate` walks the tree and asks the source. A syntax error is raised where it stands, a template is parsed once per renderer and reused for every record, and the rule of a part works on what is left after its inner parts were dropped. Unbalanced brackets are text as typed, except an opening one which is never closed but holds a placeholder: that is a part whose closing bracket was forgotten, and it is refused where a template is saved (`strict: true`, which `check_syntax` sets), as its conditions would quietly stop working. Rendering reads it as text, so a template saved before keeps working until it is edited. A wiki link around a placeholder (`[[{%name%}]]`) is read as two parts and cannot be written; a markdown link can.
 
 ### Conditions and values follow different rules
 

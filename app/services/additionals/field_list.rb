@@ -400,8 +400,10 @@ module Additionals
       keyed.map(&:first) + empty.map(&:first).sort_by { |record| default_sort_key record }
     end
 
+    # Two records the default value cannot tell apart ("Foo" and "foo") are
+    # ordered by their id, so they do not swap places between two views.
     def default_sort_key(record)
-      natural_sort_key default_sort_value(record).to_s
+      [natural_sort_key(default_sort_value(record).to_s), record.id.to_i]
     end
 
     # A field which references records (a user, a wiki page, ...) stores ids,

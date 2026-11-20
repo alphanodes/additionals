@@ -54,17 +54,20 @@ module Additionals
 
     # escape_macros is for templates whose result is rendered as wiki text: a
     # macro call stored in a field would otherwise be executed with the rights
-    # of whoever reads the page, and a self reference would recurse.
-    def initialize(source, escape_macros: false)
+    # of whoever reads the page, and a self reference would recurse. strict is
+    # for checking a template before it is saved (see FieldTemplateParser).
+    def initialize(source, escape_macros: false, strict: false)
       @source = source
       @escape_macros = escape_macros
+      @strict = strict
     end
 
     # Checks what a template has to get right whatever it is rendered with:
     # its brackets, its conditions and its functions. Whether a placeholder
-    # names a field is left to rendering, where the fields are known.
+    # names a field is left to rendering, where the fields are known. Meant
+    # for a template about to be saved, so it is read strictly.
     def self.check_syntax(template)
-      new(FieldTemplateSource.new).check_syntax template
+      new(FieldTemplateSource.new, strict: true).check_syntax template
     end
 
     def check_syntax(template)
@@ -80,13 +83,16 @@ module Additionals
     # A field which references records (a user, a version, a wiki page, ...)
     # loads each of them on its own when a value is read, which is one query
     # per line of a list. Loaded here once per field for all records instead.
-    # fields are further fields to load, the field a list is sorted by.
+    # fields are further fields to load, the field a list is sorted by. An id
+    # whose record is gone (a deleted user) is remembered as missing, so it is
+    # not looked up once more for every line.
     def preload_references(records, template, fields = [])
       @references = (referenced_fields(template) | fields.select { |field| reference_class field }).to_h do |field|
         ids = records.flat_map { |record| Array record.custom_field_value(field.id) }
         ids = ids.filter_map { |id| id.presence&.to_i }
         ids.uniq!
-        [field.id, reference_class(field).where(id: ids).index_by(&:id)]
+        found = reference_class(field).where(id: ids).index_by(&:id)
+        [field.id, ids.index_with { |id| found[id] }]
       end
     end
 
@@ -174,7 +180,7 @@ module Additionals
     # Read once per template: a list renders the same one for every record.
     def tree(template)
       @trees ||= {}
-      @trees[template] ||= FieldTemplateParser.parse(template).tap { |nodes| check_conditions nodes }
+      @trees[template] ||= FieldTemplateParser.parse(template, strict: @strict).tap { |nodes| check_conditions nodes }
     end
 
     # Asked while the template is read and not while a value is resolved: a

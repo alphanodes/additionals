@@ -5,7 +5,7 @@ require File.expand_path '../../../test_helper', __FILE__
 Redmine::WikiFormatting::Macros.register do
   desc 'Lists the first three issues, for the tests of nested lists'
   macro :additionals_test_issue_list do |obj, args, text|
-    list = FieldListTest::IssueList.new args, text, fields: [], issues: Issue.where(id: [1, 2, 3]), project: Project.find(1)
+    list = FieldListTest::IssueList.new args, text, fields: [], issues: Issue.where(id: [1, 2, 3]).select(:id), project: Project.find(1)
     render_field_list list, obj, css_class: 'issue-list'
   end
 end
@@ -484,13 +484,18 @@ class FieldListTest < Additionals::TestCase
     assert_equal :error_field_list_duplicate_argument, error.key
   end
 
-  # read like text: naturally and without regard to case
+  # read like text: naturally and without regard to case; what only differs
+  # in case is ordered by id
   def test_sorts_by_default_naturally_and_without_regard_to_case
     @computer.update_columns subject: 'Part 10'
     @mouse.update_columns subject: 'part 2'
     @keyboard.update_columns subject: 'Part 1'
 
     assert_equal ['- Part 1', '- part 2', '- Part 10'], lines('- {%subject%}')
+
+    @mouse.update_columns subject: 'part 10'
+
+    assert_equal ['- Part 1', '- Part 10', '- part 10'], lines('- {%subject%}')
   end
 
   # the ids a reference field stores say nothing about the order
@@ -537,11 +542,16 @@ class FieldListTest < Additionals::TestCase
     end
   end
 
+  # counted before a nested list loads its records: only the outer one does
   def test_render_field_list_limits_the_lines_of_nested_lists_together
     stub_const Additionals::FieldList, :MAX_ENTRIES, 4 do
-      html = render_test_macro "\n- {%subject%} {{additionals_test_issue_list}}\n"
+      html = nil
+      loaded = count_sql_queries matching: /SELECT\W+issues\W+\*/ do
+        html = render_test_macro "\n- {%subject%} {{additionals_test_issue_list}}\n"
+      end
 
       assert_includes html, ERB::Util.html_escape(l(:error_field_list_too_many_entries, count: 4))
+      assert_equal 1, loaded
     end
   end
 

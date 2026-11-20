@@ -52,17 +52,21 @@ class FieldTemplateParserTest < Additionals::TestCase
   end
 
   # a part whose closing bracket was forgotten: its condition would quietly
-  # stop working and the bracket would show up in every line
-  def test_refuses_a_part_never_closed_which_holds_a_placeholder
+  # stop working and the bracket would show up in every line. Refused where a
+  # template is saved; rendering reads it as text, so a template saved before
+  # keeps working.
+  def test_refuses_a_part_never_closed_which_holds_a_placeholder_when_strict
     { '- {%link%}[ {%?tags=Done%}x' => '[ {%?tags=Done%}x',
       '[a {%name%}' => '[a {%name%}',
       '{%name%}[ ({%join(", ", A, B)%})' => '[ ({%join(", ", A, B)%})',
       '[[{%name%}] x' => '[[{%name%}] x' }.each do |template, excerpt|
-      error = assert_raises(Additionals::FieldTemplate::Error, template) { parse template }
+      error = assert_raises(Additionals::FieldTemplate::Error, template) { parse template, strict: true }
 
       assert_equal :error_field_template_group_not_closed, error.key, template
       assert_equal({ name: excerpt }, error.params, template)
     end
+
+    assert_equal(['[a ', 'name'], parse('[a {%name%}').map { |node| node.try(:text) || node.name })
   end
 
   # a macro in the template must pass through untouched
@@ -158,7 +162,7 @@ class FieldTemplateParserTest < Additionals::TestCase
               'a] [{%name%} b' => [:error_field_template_group_not_closed, '[{%name%} b'],
               '[ [{%name%}](/x) b' => [:error_field_template_group_not_closed, '[ [{%name%}](/x) b'] }
     cases.each do |template, (key, excerpt)|
-      error = assert_raises(Additionals::FieldTemplate::Error, template) { parse template }
+      error = assert_raises(Additionals::FieldTemplate::Error, template) { parse template, strict: true }
 
       assert_equal key, error.key, template
       assert_equal({ name: excerpt }, error.params, template)
@@ -182,13 +186,13 @@ class FieldTemplateParserTest < Additionals::TestCase
 
   def test_placeholder_names_lists_them_in_order_without_a_tree
     assert_equal %w[name ?cf_1 cf_2],
-                 Additionals::FieldTemplateParser.placeholder_names('{%name%}[ {%?cf_1%}({%cf_2%})]')
+                 Additionals::FieldTemplateParser.placeholder_names('{% name %}[ {%?cf_1%}({%cf_2%})]')
   end
 
   private
 
-  def parse(template)
-    Additionals::FieldTemplateParser.parse template
+  def parse(template, strict: false)
+    Additionals::FieldTemplateParser.parse template, strict:
   end
 
   def assert_none_of_them_is_a_group(nodes)

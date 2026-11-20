@@ -12,10 +12,11 @@ module Additionals
   # rest.
   #
   # Unbalanced brackets are text, the way they were typed: a template is written
-  # by hand and may well contain a bracket which is not meant as a part. An
-  # opening bracket which is never closed but holds a placeholder is refused,
-  # though - that is a part whose closing bracket was forgotten, and its
-  # conditions would quietly stop working.
+  # by hand and may well contain a bracket which is not meant as a part. Where
+  # a template is saved, an opening bracket which is never closed but holds a
+  # placeholder is refused, though - that is a part whose closing bracket was
+  # forgotten, and its conditions would quietly stop working. Rendering stays
+  # lenient, so a template saved before keeps working until it is edited.
   class FieldTemplateParser
     PLACEHOLDER_RE = /\{%([^%]+)%\}/
     # a single brace is text, so a macro call like {{toc}} passes through
@@ -50,19 +51,22 @@ module Additionals
     Group = Struct.new :children
 
     class << self
-      def parse(template)
-        new(template).parse
+      # strict refuses what is most likely a mistake, for a template which is
+      # about to be saved
+      def parse(template, strict: false)
+        new(template, strict:).parse
       end
 
       # The names in the order they appear, without building a tree and without
       # judging them. For a message which lists the fields a name is built from.
       def placeholder_names(template)
-        template.to_s.scan(PLACEHOLDER_RE).flatten
+        template.to_s.scan(PLACEHOLDER_RE).map { |(name)| name.strip }
       end
     end
 
-    def initialize(template)
+    def initialize(template, strict: false)
       @scanner = StringScanner.new template.to_s
+      @strict = strict
       @stack = [[]]
       # where each open part begins, for the message about one never closed
       @group_starts = []
@@ -155,7 +159,7 @@ module Additionals
       while @stack.size > 1
         children = @stack.pop
         start = @group_starts.pop
-        if holds_placeholder? children
+        if @strict && holds_placeholder?(children)
           raise FieldTemplate::Error.new(:error_field_template_group_not_closed,
                                          name: @scanner.string[start, ERROR_EXCERPT])
         end

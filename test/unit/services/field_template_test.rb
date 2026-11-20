@@ -720,6 +720,7 @@ class FieldTemplateTest < Additionals::TestCase
     assert_nil Additionals::FieldTemplate.check_syntax('- {%Whatever%}[ {%?Other=A|B%}]')
 
     cases = { '- {%subject' => :error_field_template_placeholder_not_readable,
+              '- {%subject%}[ {%Other%}' => :error_field_template_group_not_closed,
               '- {%?subject=%}' => :error_field_template_condition_without_value,
               '- {%joint(", ", a)%}' => :error_field_template_unknown_function }
     cases.each do |template, key|
@@ -738,17 +739,22 @@ class FieldTemplateTest < Additionals::TestCase
     assert_equal '- Computer none', renderer.render('- {%subject%}[ {%Owner%}][ {%?Owner=Alice%}Alice][ {%?Owner=none%}none]', @computer)
   end
 
-  # one query per referenced field instead of one per record and value
+  # one query per referenced field instead of one per record and value, also
+  # for a user who was deleted since
   def test_preload_references_loads_the_records_of_a_field_once
+    deleted = issues :issues_003
+    deleted.subject = 'Keyboard'
     set_values @computer, @assignee => users(:users_002).id.to_s
     set_values @mouse, @assignee => users(:users_003).id.to_s
-    template = '- {%subject%} {%join(", ", Assignee)%}'
+    set_values deleted, @assignee => '999999'
+    template = '- {%subject%}[ {%join(", ", Assignee)%}]'
     renderer = self.renderer
-    renderer.preload_references [@computer, @mouse], template
+    renderer.preload_references [@computer, @mouse, deleted], template
 
     assert_no_queries_match(/\bFROM\W+users\b/) do
       assert_equal '- Computer John Smith', renderer.render(template, @computer)
       assert_equal '- Mouse Dave Lopper', renderer.render(template, @mouse)
+      assert_equal '- Keyboard', renderer.render(template, deleted)
     end
   end
 

@@ -124,9 +124,17 @@ module Additionals
       end
 
       # Core sets the app host for every run, in the CI to the name the
-      # browser container reaches the application by
+      # browser container reaches the application by. Locally it has no port,
+      # as CAPYBARA_SERVER_PORT is unset, and Capybara puts in the one of its
+      # own server when it visits (Session#visit). The origin is the browser's
+      # only after doing the same.
       def application_origin
-        Capybara.app_host || Capybara.current_session.server.base_url
+        server = Capybara.current_session.server
+        return server.base_url unless Capybara.app_host
+
+        uri = Addressable::URI.parse Capybara.app_host
+        uri.port ||= server.port if server && Capybara.always_include_port
+        uri.origin
       end
     end
 

@@ -99,7 +99,44 @@ class GlobalSystemTestHelperTest < Additionals::TestCase
     assert_requested(@typing.with { |request| JSON.parse(request.body)['text'] == 'log' })
   end
 
+  # Chrome 158 rejects Capybara's storage reset for the origin "*", so the
+  # storage of the application is cleared instead. Locally core sets the app
+  # host without a port, and the origin has to be the one the browser visited.
+  def test_storage_reset_clears_the_origin_the_browser_visited
+    Additionals::GlobalSystemTestHelper::ChromeStorageReset.apply!
+    origins = []
+    stub_request(:post, 'http://selenium.example.test/session/upload-contract/goog/cdp/execute').to_return do |request|
+      params = JSON.parse(request.body)['params']
+      if params['origin'] == '*'
+        { status: 400, body: { value: { error: 'invalid argument', message: 'Invalid origin', stacktrace: '' } }.to_json,
+          headers: { 'Content-Type' => 'application/json' } }
+      else
+        origins << params['origin'] if params.key? 'origin'
+        { body: { value: {} }.to_json, headers: { 'Content-Type' => 'application/json' } }
+      end
+    end
+    server = page.server
+    # Capybara extends the driver for Chrome only once the browser has started
+    page.driver.browser
+
+    with_capybara_app_host "http://#{server.host}:" do
+      page.driver.send :execute_cdp, 'Storage.clearDataForOrigin', origin: '*', storageTypes: 'cookies,local_storage'
+    end
+
+    assert_equal ["http://#{server.host}:#{server.port}"], origins
+  end
+
   private
+
+  def with_capybara_app_host(host)
+    previous = [Capybara.app_host, Capybara.always_include_port]
+    # Rails switches this on for every system test (ActionDispatch::SystemTesting::Server)
+    Capybara.always_include_port = true
+    Capybara.app_host = host
+    yield
+  ensure
+    Capybara.app_host, Capybara.always_include_port = previous
+  end
 
   def field
     driver = page.driver

@@ -143,6 +143,7 @@ ja:
   label_chart_period_to: "終了"
   label_chart_previous_period: "前の期間"
   label_chart_quarter: "%{year}年 第%{quarter}四半期"
+  label_chart_rest_count: "エントリ数"
   label_chart_section_caption: "キャプション"
   label_chart_section_data: "データ"
   label_chart_section_display: "表示"

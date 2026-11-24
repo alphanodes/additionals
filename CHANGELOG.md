@@ -7,7 +7,7 @@
 - Assignee selection offers the author of the latest note
 - Dashboards: block settings are checked, query list blocks can change their query and columns, new chart blocks for any query
 - A locked dashboard is unlocked with a click on its lock
-- Treemap and sankey charts use the configured color scheme, legends and value tables are easier to read
+- Treemap and sankey charts use the configured color scheme, legends and value tables are easier to read; the tooltip of the rest tile of a treemap names the number of merged entries
 - Global search stays fast on large instances
 - Holidays of Redmine 7.1 apply in all plugins
 - Issue attachments link to the note that added them (Redmine 7.1)

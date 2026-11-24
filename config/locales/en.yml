@@ -143,6 +143,7 @@ en:
   label_chart_period_to: "To"
   label_chart_previous_period: "Previous period"
   label_chart_quarter: "Q%{quarter} %{year}"
+  label_chart_rest_count: "Number of entries"
   label_chart_section_caption: "Caption"
   label_chart_section_data: "Data"
   label_chart_section_display: "Display"

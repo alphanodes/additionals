@@ -135,6 +135,7 @@ All texts of a payload are formatted on the server, so no translation ends up in
 | `labels` | names of the tiles, the titles of their tooltips |
 | `tileLabels` | another text on the tiles, e.g. the size of a file whose name rarely fits. Tiles show names as they are, markup included |
 | `restLabel` | name of the tile into which the tiles below 0.01 % merge, from two of them on; it links nowhere. Without it no tiles merge |
+| `restCountLabel` | title of the number of merged entries in the tooltip of the rest, e.g. "Number of entries" |
 
 A tile shows its name in bold at the top left and below it the share in a smaller, lighter font, as large as they fit; tiles have rounded corners and a gap between them. A name that does not fit wraps, long words are split, and what is left over ends in "…"; a tile too small for that shows the share only, a tiny one nothing. The tooltip names value and share.
 
@@ -241,6 +242,7 @@ Handled in `additionals.css` and the controller, worth knowing before changing t
 - Canvas knows no CSS `var()`: the controller reads custom properties with `getComputedStyle`, so a theme changes the colors of the charts as well.
 - Charts draw on a canvas, which shows names with markup as they are: nothing is escaped.
 - Chart.js finds a clicked element at its current place. While the tiles of a treemap or the flows of a sankey still grow, a click would find nothing there, so both look at the final place (`useFinalPosition`).
+- The data of a treemap dataset are the entries, the plugin lays them out as parsed tiles: tooltips read `item.parsed`, a click `getParsed(index)` of the dataset controller, the entry is `_data` of a tile. The rest is the `others` tile of the plugin (`isOthers`), its `_data` holds the label and the merged entries.
 - The sankey plugin places the nodes itself. With an order of its own (`priority`) it stacks each column from the top without regard to the parents, which crosses the flows of large trees; without it every tree stays free of crossings. Its animation delays each flow by 20 ms, which the controller caps, else a tree of some hundred projects took seconds to appear.
 - The sankey plugin knows flows only. The controller finds a node at the ends of its flows (`sankeyNodeAt`) and handles clicks and the pointer in a plugin of its own, as Chart.js calls no `onClick` right of the chart area, where the nodes of the last column lie. An update of the plugin may change this geometry; the system test of `redmine_reporting` clicks a node of the last column.
 

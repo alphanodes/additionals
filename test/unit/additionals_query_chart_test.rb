@@ -196,7 +196,9 @@ class AdditionalsQueryChartTest < Additionals::TestCase
 
   def test_treemap_names_the_rest_of_small_tiles
     I18n.with_locale :en do
-      assert_equal 'Others', issue_chart(group_by: 'tracker', chart_type: 'treemap').payload[:restLabel]
+      payload = issue_chart(group_by: 'tracker', chart_type: 'treemap').payload
+
+      assert_equal ['Others', 'Number of entries'], payload.values_at(:restLabel, :restCountLabel)
     end
   end
 

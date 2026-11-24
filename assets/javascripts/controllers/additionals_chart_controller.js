@@ -53,6 +53,7 @@ const CALENDAR_MONTH_GAP = 4;
 // Gap between the cells of a matrix of rows and columns
 const MATRIX_GAP = 4;
 // Tiles of a treemap below this share of the total merge into the rest
+// (the "others" tile of the treemap plugin), from two of them on
 const TREEMAP_REST_SHARE = 0.0001;
 // Text on a tile is as large as it fits, smaller than the minimum it is left out
 const TREEMAP_FONT_MAX = 28;
@@ -64,6 +65,9 @@ const TREEMAP_LINE_HEIGHT = 1.2;
 const TREEMAP_PADDING = 4;
 const TREEMAP_SPACING = 2;
 const TREEMAP_RADIUS = 4;
+// A small tile rounds at most a quarter of the shorter side it is drawn
+// with, else it looks like a dot
+const TREEMAP_RADIUS_SHARE = 0.25;
 // The name is bold, the share below it smaller and a bit lighter
 const TREEMAP_NAME_WEIGHT = '600';
 const TREEMAP_SHARE_SCALE = 0.75;
@@ -1008,11 +1012,11 @@ export function percentText(value, total) {
   return new Intl.NumberFormat(pageLocale(), { style: 'percent', maximumFractionDigits: 1 }).format(fraction);
 }
 
-// The tiles of a treemap, largest first. With a name for the rest from the
-// server, tiles below 0.01 % of the total merge into it, from two of them on.
+// The tiles of a treemap, largest first; the plugin merges the small ones
+// into the rest
 export function treemapTiles(payload) {
   const [dataset] = payload.datasets;
-  const tiles = payload.labels.map((name, index) => ({
+  return payload.labels.map((name, index) => ({
     name,
     // The tile shows its name or the text the server chose for it, e.g. a size
     tile: payload.tileLabels?.[index] ?? name,
@@ -1021,13 +1025,14 @@ export function treemapTiles(payload) {
     url: entryUrl(payload, 0, index),
     extra: dataset.tooltips?.[index] || '',
   })).sort((a, b) => b.value - a.value);
-  const small = payload.restLabel ? tiles.filter((tile) => tile.value < payload.total * TREEMAP_REST_SHARE) : [];
-  if (small.length < 2) {
-    return tiles;
+}
+
+// The entry of a laid out tile; the rest the plugin merged links nowhere
+export function treemapTile(node) {
+  if (node?.isOthers) {
+    return { name: node._data.label, tile: node._data.label, rest: true, count: node._data.others.length };
   }
-  // Sorted by value, the small tiles are the last ones
-  const rest = { name: payload.restLabel, tile: payload.restLabel, rest: true, value: small.reduce((sum, tile) => sum + tile.value, 0) };
-  return [...tiles.slice(0, tiles.length - small.length), rest];
+  return node?._data ?? null;
 }
 
 // A word too long for a line in parts, each but the last ending in a hyphen
@@ -1175,7 +1180,7 @@ function treemapLineStyles(layout, nameStyle, shareStyle) {
 function treemapTooltip(payload, tile, value) {
   const valueShare = percentText(value, payload.total);
   if (tile.rest) {
-    return [`${payload.totalLabel}: ${valueShare}`];
+    return [`${payload.totalLabel}: ${valueShare}`, payload.restCountLabel ? `${payload.restCountLabel}: ${formatNumber(tile.count)}` : null].filter(Boolean);
   }
   return [`${payload.totalLabel}: ${tile.text} (${valueShare})`, tile.extra].filter(Boolean);
 }
@@ -1196,7 +1201,7 @@ export function treemapConfig(canvas, payload) {
     const key = `${dataIndex}:${raw.w}:${raw.h}`;
     if (!layouts.has(key)) {
       measure ||= textMeasure(family);
-      const lines = [raw._data.tile, percentText(raw.v, payload.total)];
+      const lines = [treemapTile(raw).tile, percentText(raw.v, payload.total)];
       layouts.set(key, treemapLabelLayout(lines, raw.w - TREEMAP_INSET, raw.h - TREEMAP_INSET, measure));
     }
     return layouts.get(key);
@@ -1206,13 +1211,15 @@ export function treemapConfig(canvas, payload) {
     type: 'treemap',
     data: {
       datasets: [{
-        tree: treemapTiles(payload),
+        data: treemapTiles(payload),
         key: 'value',
         // Sorted already, so the rest stays last
         unsorted: true,
+        // A rest without a name would be a tile nobody can read
+        others: payload.restLabel ? { threshold: TREEMAP_REST_SHARE, label: payload.restLabel } : false,
         spacing: TREEMAP_SPACING,
         borderWidth: 0,
-        borderRadius: TREEMAP_RADIUS,
+        borderRadius: ({ raw }) => (raw ? Math.max(0, Math.min(TREEMAP_RADIUS, (Math.min(raw.w, raw.h) - TREEMAP_INSET) * TREEMAP_RADIUS_SHARE)) : TREEMAP_RADIUS),
         backgroundColor: tileColor,
         hoverBackgroundColor: (context) => colorWithAlpha(tileColor(context), TREEMAP_HOVER_ALPHA),
         labels: {
@@ -1240,9 +1247,10 @@ export function treemapConfig(canvas, payload) {
       maintainAspectRatio: false,
       // The tile at its final place: Chart.js looks at the current one, where a
       // click while the tiles grow finds none. The rest has no list of its own.
+      // The data of the dataset are the entries, the tiles are the parsed ones.
       onClick: (event, _elements, chart) => {
         const [element] = chart.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
-        const tile = element ? chart.data.datasets[0].data[element.index]?._data : null;
+        const tile = element ? treemapTile(chart.getDatasetMeta(0).controller.getParsed(element.index)) : null;
         openUrl(tile && !tile.rest ? tile.url : null);
       },
       plugins: {
@@ -1252,8 +1260,8 @@ export function treemapConfig(canvas, payload) {
         tooltip: {
           displayColors: false,
           callbacks: {
-            title: (items) => items[0].raw._data.name,
-            label: (context) => treemapTooltip(payload, context.raw._data, context.raw.v),
+            title: (items) => treemapTile(items[0].parsed).name,
+            label: (context) => treemapTooltip(payload, treemapTile(context.parsed), context.parsed.v),
           },
         },
       },

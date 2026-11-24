@@ -1,7 +1,7 @@
 /* global Chart */
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import AdditionalsChartController, {
-  chartConfig, treemapConfig, treemapTiles, treemapLabelLayout, contrastingText, percentText, sankeyConfig, sankeyNodeAt, valueTicks, tooltipLine, withColors, shareDatasets, lineAnnotations, colorWithAlpha, areaGradient, legendLabels, schemeFill, pageLocale, formatNumber, markerTop, markerPlugin, matrixConfig, calendarConfig, calendarLevel, calendarLegend, calendarMonthLabels,
+  chartConfig, treemapConfig, treemapTiles, treemapTile, treemapLabelLayout, contrastingText, percentText, sankeyConfig, sankeyNodeAt, valueTicks, tooltipLine, withColors, shareDatasets, lineAnnotations, colorWithAlpha, areaGradient, legendLabels, schemeFill, pageLocale, formatNumber, markerTop, markerPlugin, matrixConfig, calendarConfig, calendarLevel, calendarLegend, calendarMonthLabels,
 } from '../../../assets/javascripts/controllers/additionals_chart_controller.js';
 
 function payload(overrides = {}) {
@@ -411,10 +411,12 @@ describe('chart configuration', () => {
     expect(config().data.datasets[0].pointRadius).toBe(0);
   });
 
-  it('draws a treemap with the treemap plugin of Chart.js', () => {
-    const treemap = treemapConfig(document.createElement('canvas'), payload({ type: 'treemap' }));
+  it('draws a treemap of the entries with the treemap plugin of Chart.js', () => {
+    const data = payload({ type: 'treemap' });
+    const treemap = treemapConfig(document.createElement('canvas'), data);
+    const [dataset] = treemap.data.datasets;
 
-    expect([treemap.type, treemap.data.datasets[0].key]).toEqual(['treemap', 'value']);
+    expect([treemap.type, dataset.key, dataset.data]).toEqual(['treemap', 'value', treemapTiles(data)]);
   });
 
   it('writes the name bold at the top left and the share smaller below it', () => {
@@ -452,27 +454,19 @@ describe('chart configuration', () => {
     expect([named[0].tile, sized[0].tile, sized[0].name]).toEqual(['Bug', '8 MB', 'Bug']);
   });
 
-  it('merges the tiles below 0.01 % into the rest named by the server', () => {
-    const tiles = treemapTiles(payload({ type: 'treemap', restLabel: 'Rest', labels: ['A', 'B', 'C'],
-      datasets: [{ data: [100000, 5, 4], urls: ['/a', '/b', '/c'] }], total: 100009 }));
-
-    expect(tiles.map((tile) => [tile.name, tile.value, Boolean(tile.rest)])).toEqual([['A', 100000, false], ['Rest', 9, true]]);
-  });
-
-  // A single small tile keeps its own name and link
-  it('keeps a single small tile on its own', () => {
-    const tiles = treemapTiles(payload({ type: 'treemap', restLabel: 'Rest', labels: ['A', 'B'],
-      datasets: [{ data: [100000, 5], urls: ['/a', '/b'] }], total: 100005 }));
-
-    expect(tiles.map((tile) => tile.name)).toEqual(['A', 'B']);
-  });
-
   // A rest without a name would be a tile nobody can read
-  it('merges no tiles without a name for the rest', () => {
-    const tiles = treemapTiles(payload({ type: 'treemap', labels: ['A', 'B', 'C'],
-      datasets: [{ data: [100000, 5, 4], urls: ['/a', '/b', '/c'] }], total: 100009 }));
+  it('lets the plugin merge the tiles below 0.01 % into the rest named by the server', () => {
+    const others = (data) => treemapConfig(document.createElement('canvas'), payload(data)).data.datasets[0].others;
 
-    expect(tiles).toHaveLength(3);
+    expect([others({ type: 'treemap', restLabel: 'Rest' }), others({ type: 'treemap' })])
+      .toEqual([{ threshold: 0.0001, label: 'Rest' }, false]);
+  });
+
+  it('reads the entry of a tile and the rest the plugin merged', () => {
+    const [tile] = treemapTiles(payload({ type: 'treemap' }));
+
+    expect([treemapTile({ _data: tile }), treemapTile({ isOthers: true, _data: { label: 'Rest', others: [tile] } }), treemapTile(undefined)])
+      .toEqual([tile, { name: 'Rest', tile: 'Rest', rest: true, count: 1 }, null]);
   });
 
   it('puts the largest tile first', () => {
@@ -484,12 +478,12 @@ describe('chart configuration', () => {
   it('opens the entry of a clicked tile, but nothing for the rest', () => {
     const open = vi.spyOn(window, 'open').mockImplementation(() => null);
     const treemap = treemapConfig(document.createElement('canvas'), payload({ type: 'treemap' }));
-    const click = (tile) => treemap.options.onClick(null, [], {
+    const click = (node) => treemap.options.onClick(null, [], {
       getElementsAtEventForMode: () => [{ index: 0 }],
-      data: { datasets: [{ data: [{ _data: tile }] }] },
+      getDatasetMeta: () => ({ controller: { getParsed: () => node } }),
     });
-    click({ url: '/issues?tracker=1' });
-    click({ rest: true, url: null });
+    click({ _data: { url: '/issues?tracker=1' } });
+    click({ isOthers: true, _data: { label: 'Rest', others: [] } });
 
     expect(open.mock.calls).toEqual([['/issues?tracker=1']]);
     open.mockRestore();
@@ -499,7 +493,7 @@ describe('chart configuration', () => {
   it('looks for a clicked tile at its final place', () => {
     const treemap = treemapConfig(document.createElement('canvas'), payload({ type: 'treemap' }));
     const find = vi.fn(() => []);
-    treemap.options.onClick(null, [], { getElementsAtEventForMode: find, data: { datasets: [{ data: [] }] } });
+    treemap.options.onClick(null, [], { getElementsAtEventForMode: find });
 
     expect(find.mock.calls[0][3]).toBe(true);
   });
@@ -509,16 +503,29 @@ describe('chart configuration', () => {
     const treemap = treemapConfig(document.createElement('canvas'), data);
     const [tile] = treemapTiles(data);
     const { callbacks } = treemap.options.plugins.tooltip;
-    const item = { raw: { _data: tile, v: 3 } };
+    // The raw data of a tooltip item is the entry, the laid out tile is parsed
+    const item = { raw: tile, parsed: { _data: tile, v: 3 } };
 
     expect([callbacks.title([item]), callbacks.label(item)]).toEqual(['Bug', ['Quantity: 3 (75%)', 'Project: <b>A</b>']]);
   });
 
-  it('names only the share in the tooltip of the rest', () => {
-    const treemap = treemapConfig(document.createElement('canvas'), payload({ type: 'treemap' }));
-    const item = { raw: { _data: { name: 'Rest', rest: true, value: 1 }, v: 1 } };
+  it('names share and number of merged entries in the tooltip of the rest', () => {
+    const item = { parsed: { isOthers: true, _data: { label: 'Rest', others: Array.from({ length: 1448 }) }, v: 1 } };
+    const tooltip = (data) => treemapConfig(document.createElement('canvas'), payload(data)).options.plugins.tooltip.callbacks;
 
-    expect(treemap.options.plugins.tooltip.callbacks.label(item)).toEqual(['Quantity: 25%']);
+    expect([tooltip({ type: 'treemap', restCountLabel: 'Number of entries' }).title([item]),
+      tooltip({ type: 'treemap', restCountLabel: 'Number of entries' }).label(item),
+      tooltip({ type: 'treemap' }).label(item)])
+      .toEqual(['Rest', ['Quantity: 25%', 'Number of entries: 1,448'], ['Quantity: 25%']]);
+  });
+
+  // A small tile with the full radius looks like a dot
+  it('rounds a small tile at most a quarter of its shorter side', () => {
+    const { borderRadius } = treemapConfig(document.createElement('canvas'), payload({ type: 'treemap' })).data.datasets[0];
+
+    // Drawn 5 px smaller than laid out: spacing on both sides and rounding
+    expect([borderRadius({ raw: { w: 300, h: 200 } }), borderRadius({ raw: { w: 13, h: 30 } }), borderRadius({ raw: { w: 3, h: 3 } }), borderRadius({})])
+      .toEqual([4, 2, 0, 4]);
   });
 
   it('writes the share with a decimal where it is small', () => {

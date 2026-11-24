@@ -145,6 +145,7 @@ cs:
   label_chart_period_to: "Do"
   label_chart_previous_period: "Předchozí období"
   label_chart_quarter: "Q%{quarter} %{year}"
+  label_chart_rest_count: "Počet záznamů"
   label_chart_section_caption: "Popisek"
   label_chart_section_data: "Data"
   label_chart_section_display: "Zobrazení"

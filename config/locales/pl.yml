@@ -147,6 +147,7 @@ pl:
   label_chart_period_to: "Do"
   label_chart_previous_period: "Poprzedni okres"
   label_chart_quarter: "Q%{quarter} %{year}"
+  label_chart_rest_count: "Liczba wpisów"
   label_chart_section_caption: "Podpis"
   label_chart_section_data: "Dane"
   label_chart_section_display: "Wyświetlanie"

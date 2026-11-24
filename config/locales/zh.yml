@@ -143,6 +143,7 @@ zh:
   label_chart_period_to: "至"
   label_chart_previous_period: "上一时段"
   label_chart_quarter: "%{year}年第%{quarter}季度"
+  label_chart_rest_count: "条目数"
   label_chart_section_caption: "标题"
   label_chart_section_data: "数据"
   label_chart_section_display: "显示"

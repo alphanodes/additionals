@@ -536,7 +536,7 @@ class AdditionalsQueryChart < AdditionalsChart
     if calendar?
       { calendar: calendar_payload }
     elsif treemap?
-      { restLabel: l(:label_chart_others) }
+      { restLabel: l(:label_chart_others), restCountLabel: l(:label_chart_rest_count) }
     else
       {}
     end

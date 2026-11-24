@@ -143,6 +143,7 @@ ko:
   label_chart_period_to: "종료"
   label_chart_previous_period: "이전 기간"
   label_chart_quarter: "%{year}년 %{quarter}분기"
+  label_chart_rest_count: "항목 수"
   label_chart_section_caption: "캡션"
   label_chart_section_data: "데이터"
   label_chart_section_display: "표시"

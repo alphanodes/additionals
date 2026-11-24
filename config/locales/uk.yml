@@ -147,6 +147,7 @@ uk:
   label_chart_period_to: "По"
   label_chart_previous_period: "Попередній період"
   label_chart_quarter: "%{quarter} кв. %{year}"
+  label_chart_rest_count: "Кількість записів"
   label_chart_section_caption: "Підпис"
   label_chart_section_data: "Дані"
   label_chart_section_display: "Відображення"

@@ -36,26 +36,27 @@ chartjs_matrix:
     sha256: 7e0cafdcfed5636319fb779f209230d38b6a3703b4b5f462ecb501fc6008f661
 chartjs_sankey:
   package: chartjs-chart-sankey
-  version: 0.19.1
+  version: 0.22.2
   title: Chart.js chart sankey
   files:
   - source: dist/chartjs-chart-sankey.min.js
     target: assets/javascripts/vendor/chartjs-chart-sankey.min.js
-    sha256: a97a4163961809013892d2951b030cf5a21c2112ff43ed2202a2849088ba5bcd
+    sha256: 335caa6a402537c549321d54f04afb67e9e1f9a0016972bce2bf2b4a3e5da383
 chartjs_treemap:
   package: chartjs-chart-treemap
-  version: 4.2.2
+  version: 5.0.2
   title: Chart.js chart treemap
   files:
   - source: dist/chartjs-chart-treemap.min.js
     target: assets/javascripts/vendor/chartjs-chart-treemap.min.js
-    sha256: 71fcd404f61e0eddc0fa9f8e15618b8679aed844b565a0c8442910d789c8fc60
+    sha256: 52644d2bf744b4f01bf95e3f9b0327341465988f6928e81d66076ff13e874632
 dhtmlxgantt:
   package: dhtmlx-gantt
   version: 9.1.4
   title: dhtmlxGantt
   constraint: "~> 9.1"
-  reason: version 10 removed features from the community edition which are still in use
+  reason: version 10 removed features from the community edition which are still in
+    use
   files:
   - source: codebase/dhtmlxgantt.js
     target: assets/javascripts/vendor/dhtmlxgantt.js

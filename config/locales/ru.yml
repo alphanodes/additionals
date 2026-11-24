@@ -147,6 +147,7 @@ ru:
   label_chart_period_to: "По"
   label_chart_previous_period: "Предыдущий период"
   label_chart_quarter: "%{quarter} кв. %{year}"
+  label_chart_rest_count: "Количество записей"
   label_chart_section_caption: "Подпись"
   label_chart_section_data: "Данные"
   label_chart_section_display: "Отображение"

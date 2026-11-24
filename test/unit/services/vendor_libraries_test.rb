@@ -158,7 +158,8 @@ module Additionals
       write_manifest 'constraint' => '~> 1.0', 'reason' => 'version 2 drops a used feature'
       vendor = Additionals::VendorLibraries.new root: @root
       stub_request(:get, "#{REGISTRY}/demo-lib")
-        .to_return body: { versions: { '1.0.0' => {}, '1.4.0' => {}, '1.5.0-beta.1' => {}, '2.0.0' => {} } }.to_json
+        .to_return body: { versions: { '1.0.0' => {}, '1.4.0' => {}, '1.4.1' => { deprecated: 'broken' }, '1.5.0-beta.1' => {},
+                                       '2.0.0' => {} } }.to_json
       stub_package '1.4.0', build_tarball('package/dist/demo.min.js' => 'new'), version: '1.4.0'
 
       assert_equal([%w[demo 1.4.0]], vendor.outdated.map { |library, latest| [library.name, latest] })
@@ -167,6 +168,17 @@ module Additionals
       stored = Additionals::VendorLibraries.new(root: @root).find 'demo'
 
       assert_equal ['~> 1.0', 'version 2 drops a used feature'], [stored.constraint.to_s, stored.reason]
+    end
+
+    # npm takes a deprecated version only where no other one fits
+    def test_constraint_takes_deprecated_version_without_another_one
+      write_manifest 'constraint' => '~> 1.0'
+      stub_request(:get, "#{REGISTRY}/demo-lib")
+        .to_return body: { versions: { '1.2.0' => { deprecated: 'old' }, '1.3.0' => { deprecated: 'old' } } }.to_json
+
+      outdated = Additionals::VendorLibraries.new(root: @root).outdated
+
+      assert_equal([%w[demo 1.3.0]], outdated.map { |library, latest| [library.name, latest] })
     end
 
     def test_update_refuses_version_outside_constraint

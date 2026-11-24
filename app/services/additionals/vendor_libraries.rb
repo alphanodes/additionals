@@ -157,18 +157,19 @@ module Additionals
       raise Error, e.message
     end
 
-    # Newest stable version on npm within the constraint of the library
+    # Newest stable version on npm within the constraint of the library. Like
+    # npm, a deprecated version only where no other one is within it.
     def newest_allowed_version(library)
-      versions = package_document(library.package).fetch('versions', {}).keys
-      allowed = versions.filter_map do |version|
+      allowed = package_document(library.package).fetch('versions', {}).filter_map do |version, metadata|
         next unless Gem::Version.correct? version
 
         parsed = Gem::Version.new version
-        parsed if !parsed.prerelease? && library.constraint.satisfied_by?(parsed)
+        [parsed, metadata.is_a?(Hash) && metadata['deprecated'].present?] if !parsed.prerelease? && library.constraint.satisfied_by?(parsed)
       end
       raise Error, "no version of #{library.package} within #{library.constraint}" if allowed.empty?
 
-      allowed.max.to_s
+      current = allowed.reject(&:last)
+      (current.presence || allowed).map(&:first).max.to_s
     end
 
     def newer?(version, current)

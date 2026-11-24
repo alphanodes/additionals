@@ -132,9 +132,15 @@ function addTabToFromAction(form, name) {
 
 // Inserts text where the cursor is, keeping the scroll position. Global,
 // because views insert the answer of an ajax request the same way.
+// A visual editor keeps the textarea hidden and its text elsewhere. The two
+// events tell it about the insertion: before it, to move the caret of the
+// textarea to its own, and after it, to show the result. Nobody listens to
+// them without such an editor, and the insertion stays the same.
 /* exported insertTextAtCaret */
 function insertTextAtCaret(field, value) {
   if (!field) { return; }
+
+  field.dispatchEvent(new CustomEvent('additionals:before-insert-text', { bubbles: true }));
 
   if (field.selectionStart === undefined) {
     field.value += value;
@@ -150,15 +156,20 @@ function insertTextAtCaret(field, value) {
   }
 
   field.focus();
+  field.dispatchEvent(new CustomEvent('additionals:text-inserted', { bubbles: true }));
 }
 
 (() => {
   let lastVarField = null;
 
-  // focus does not bubble, so it is captured instead of delegated
-  document.addEventListener('focus', (event) => {
+  const rememberVarField = (event) => {
     if (event.target.classList?.contains('variable-value')) { lastVarField = event.target; }
-  }, true);
+  };
+
+  // focus does not bubble, so it is captured instead of delegated
+  document.addEventListener('focus', rememberVarField, true);
+  // a visual editor has the focus in a frame of its own and names its field
+  document.addEventListener('additionals:field-focus', rememberVarField);
 
   document.addEventListener('click', (event) => {
     const link = event.target.closest('a.show-variables');

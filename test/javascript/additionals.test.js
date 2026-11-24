@@ -242,6 +242,38 @@ describe('additionals.js', () => {
       expect(document.getElementById('other_field').value).toBe('{%name%}');
     });
 
+    // A visual editor keeps the text somewhere else and the textarea hidden.
+    // It learns about an insertion before and after, so it can put the caret of
+    // the textarea where its own one is and show the result afterwards. With
+    // nobody listening, the insertion stays exactly as it was.
+    it('announces an insertion before and after it happens', () => {
+      setupDom({ target: 'my_field' });
+      const field = document.getElementById('my_field');
+      const seen = [];
+      field.addEventListener('additionals:before-insert-text', () => {
+        seen.push(['before', field.value]);
+        field.value = 'ab';
+        field.setSelectionRange(1, 1);
+      });
+      field.addEventListener('additionals:text-inserted', () => { seen.push(['after', field.value]); });
+
+      click('a.var');
+
+      expect(seen).toEqual([['before', ''], ['after', 'a{%name%}b']]);
+    });
+
+    // The visual editor has the focus in a frame of its own, so it names the
+    // field the variables are meant for itself.
+    it('inserts into the field a visual editor names as focused', () => {
+      setupDom();
+      document.getElementById('other_field')
+        .dispatchEvent(new CustomEvent('additionals:field-focus', { bubbles: true }));
+
+      click('a.var');
+
+      expect(document.getElementById('other_field').value).toBe('{%name%}');
+    });
+
     it('leaves the fields alone when nothing was focused', () => {
       setupDom();
 

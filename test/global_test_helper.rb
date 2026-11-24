@@ -694,6 +694,25 @@ module Additionals
       assert_empty hits, "select field library used directly:\n#{hits.join "\n"}"
     end
 
+    # permission :name, controller: :action, read: true puts read: true into the
+    # actions hash, Redmine then knows an action "read/true" and the option is
+    # lost: a read permission fails in closed projects, require: :member lets
+    # non-members in. No error, no warning - only this notices. The actions
+    # need braces as soon as options follow.
+    def assert_permission_options_applied(plugin_id)
+      directory = Redmine::Plugin.find(plugin_id).directory
+      names = Dir.glob('{init.rb,lib/**/*.rb}', base: directory).flat_map do |file|
+        File.read(File.join(directory, file)).scan(/\bpermission\s+:(\w+)/).flatten
+      end
+      stray = names.uniq.filter_map do |name|
+        permission = Redmine::AccessControl.permission name.to_sym
+        options = permission&.actions&.grep %r{\A(?:read|require|public|project_module)/}
+        "#{name}: #{options.to_comma_list}" if options.present?
+      end
+
+      assert_empty stray, "Permission options taken as actions, put the actions in braces:\n#{stray.join "\n"}"
+    end
+
     # Charts are drawn by the additionals-chart Stimulus controller from the
     # payload of an AdditionalsChart. A chart built in a view escapes the
     # shared look, the tests of the controller and the escaping of names.

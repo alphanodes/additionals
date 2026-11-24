@@ -1,15 +1,15 @@
 ---
 chartjs:
   package: chart.js
-  version: 4.6.1
+  version: 4.6.2
   title: Chart.js
   files:
   - source: dist/chart.umd.js
     target: assets/javascripts/vendor/chart.umd.js
-    sha256: 338399fb5bafe598d21cfc471b0590b61ceb321a985fade4f68499b151f67fbf
+    sha256: 6dfb08548aaa3dd2792d8614d087f2f9c69be841b2e21127ccf400f9c66e9619
   - source: dist/chart.umd.js.map
     target: assets/javascripts/vendor/chart.umd.js.map
-    sha256: e0c579dcae8eb2327451f820bff4751eaaddedfd01a8f960a5c0d36ed0e2bf4a
+    sha256: 6fba6e28f81d05483430c26cbfdb26b33fd50049dc3399c99be0372fa32013b4
 chartjs_annotation:
   package: chartjs-plugin-annotation
   version: 3.1.0
@@ -54,6 +54,8 @@ dhtmlxgantt:
   package: dhtmlx-gantt
   version: 9.1.4
   title: dhtmlxGantt
+  constraint: "~> 9.1"
+  reason: version 10 removed features from the community edition which are still in use
   files:
   - source: codebase/dhtmlxgantt.js
     target: assets/javascripts/vendor/dhtmlxgantt.js

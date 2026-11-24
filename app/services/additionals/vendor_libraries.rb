@@ -12,7 +12,9 @@ module Additionals
   # from an npm package: package, version, the files taken from the tarball
   # and their SHA-256. The files are committed and shipped with the plugin,
   # nothing is downloaded on an installation. Libraries changed by hand
-  # (colorschemes) are not listed and stay maintained by hand.
+  # (colorschemes) are not listed and stay maintained by hand. A library with
+  # a constraint (a RubyGems requirement such as "~> 9.1") is only updated to
+  # versions within it, its reason says why.
   #
   # Maintainer tool behind the redmine:additionals:vendor rake tasks.
   class VendorLibraries
@@ -20,7 +22,7 @@ module Additionals
     README = 'README.md'
     REGISTRY_URL = 'https://registry.npmjs.org'
 
-    Library = Data.define :name, :package, :version, :title, :guide, :files
+    Library = Data.define :name, :package, :version, :title, :guide, :constraint, :reason, :files
     LibraryFile = Data.define :source, :target, :sha256
 
     class Error < StandardError; end
@@ -40,12 +42,17 @@ module Additionals
         raise(Error, "unknown library #{name}, known: #{libraries.map(&:name).to_comma_list}")
     end
 
-    # Libraries with a newer version on npm, as [library, latest_version] pairs
+    # Libraries with a newer version on npm, as [library, latest_version] pairs.
+    # For a library with a constraint, latest is the newest version within it.
     def outdated
       libraries.filter_map do |library|
-        latest = package_metadata(library.package)['version']
+        latest = library.constraint ? newest_allowed_version(library) : package_metadata(library.package)['version']
         [library, latest] if newer? latest, library.version
       end
+    end
+
+    def constrained
+      libraries.select(&:constraint)
     end
 
     # Bundled files whose content does not match the manifest
@@ -60,11 +67,11 @@ module Additionals
     end
 
     # Replaces the files of a library with those of the given version (default:
-    # latest) and records the version in the manifest and the README.
-    # Returns the updated library.
+    # latest, within the constraint of the library) and records the version in
+    # the manifest and the README. Returns the updated library.
     def update(name, version: nil)
       library = find name
-      metadata = package_metadata library.package, version.presence || 'latest'
+      metadata = package_metadata library.package, target_version(library, version.presence)
       contents = extract_files library, download_tarball(library, metadata)
       updated = library.with version: metadata['version'],
                              files: library.files.map { |f| f.with sha256: Digest::SHA256.hexdigest(contents[f.source]) }
@@ -85,6 +92,8 @@ module Additionals
                     version: attrs['version'].to_s,
                     title: attrs['title'],
                     guide: attrs['guide'],
+                    constraint: requirement(name, attrs['constraint']),
+                    reason: attrs['reason'],
                     files: attrs['files'].map { |f| LibraryFile.new(**f.symbolize_keys) }
       end
     end
@@ -101,6 +110,38 @@ module Additionals
       raise Error, "cannot write #{path}: #{e.message}"
     end
 
+    def requirement(name, constraint)
+      return if constraint.blank?
+
+      Gem::Requirement.new(*constraint.to_s.strip_split)
+    rescue Gem::Requirement::BadRequirementError => e
+      raise Error, "invalid constraint of #{name}: #{e.message}"
+    end
+
+    def target_version(library, version)
+      return version || 'latest' unless library.constraint
+      return newest_allowed_version library unless version
+      return version if library.constraint.satisfied_by? Gem::Version.new(version)
+
+      raise Error, "#{library.name} #{version} is outside its constraint #{library.constraint}: #{library.reason}"
+    rescue ArgumentError => e
+      raise Error, e.message
+    end
+
+    # Newest stable version on npm within the constraint of the library
+    def newest_allowed_version(library)
+      versions = package_document(library.package).fetch('versions', {}).keys
+      allowed = versions.filter_map do |version|
+        next unless Gem::Version.correct? version
+
+        parsed = Gem::Version.new version
+        parsed if !parsed.prerelease? && library.constraint.satisfied_by?(parsed)
+      end
+      raise Error, "no version of #{library.package} within #{library.constraint}" if allowed.empty?
+
+      allowed.max.to_s
+    end
+
     def newer?(version, current)
       Gem::Version.new(version) > Gem::Version.new(current)
     rescue ArgumentError => e
@@ -111,6 +152,8 @@ module Additionals
       libraries.to_h do |library|
         attrs = { 'package' => library.package, 'version' => library.version, 'title' => library.title }
         attrs['guide'] = library.guide if library.guide
+        attrs['constraint'] = library.constraint.to_s if library.constraint
+        attrs['reason'] = library.reason if library.reason
         attrs['files'] = library.files.map { |f| f.to_h.stringify_keys }
         [library.name, attrs]
       end.to_yaml
@@ -136,6 +179,13 @@ module Additionals
 
     def package_metadata(package, version = 'latest')
       JSON.parse fetch("#{REGISTRY_URL}/#{package.sub '/', '%2F'}/#{version}")
+    rescue JSON::ParserError => e
+      raise Error, "invalid metadata of #{package}: #{e.message}"
+    end
+
+    # All versions of a package, in the abbreviated form npm offers for installers
+    def package_document(package)
+      JSON.parse fetch("#{REGISTRY_URL}/#{package.sub '/', '%2F'}", accept: 'application/vnd.npm.install-v1+json')
     rescue JSON::ParserError => e
       raise Error, "invalid metadata of #{package}: #{e.message}"
     end
@@ -173,21 +223,21 @@ module Additionals
       raise Error, "cannot read the tarball of #{library.package}: #{e.message}"
     end
 
-    def fetch(url, redirects_left = 5)
+    def fetch(url, redirects_left = 5, accept: nil)
       raise Error, "too many redirects for #{url}" if redirects_left.zero?
 
       uri = URI.parse url
       raise Error, "#{url}: only https is allowed" unless uri.scheme == 'https'
 
       response = Net::HTTP.start uri.host, uri.port, use_ssl: true, open_timeout: 15, read_timeout: 120 do |http|
-        http.get uri.request_uri
+        http.get uri.request_uri, accept ? { 'Accept' => accept } : {}
       end
       case response
       when Net::HTTPSuccess then response.body
       when Net::HTTPRedirection
         raise Error, "#{url}: redirect without location" if response['location'].blank?
 
-        fetch URI.join(url, response['location']).to_s, redirects_left - 1
+        fetch URI.join(url, response['location']).to_s, redirects_left - 1, accept:
       else raise Error, "#{url}: #{response.code} #{response.message}"
       end
     rescue URI::Error, SocketError, SystemCallError, IOError, Timeout::Error, OpenSSL::SSL::SSLError => e

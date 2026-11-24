@@ -16,11 +16,7 @@ module Additionals
       File.write File.join(@root, 'assets/javascripts/vendor/demo.min.js'), 'old'
       File.write File.join(@root, 'README.md'), "| Library | Version |\n| ------- | ------- |\n" \
                                                 "| [Demo](https://example.com/demo) (patched) | 1.0.0 |\n"
-      File.write File.join(@root, 'config/vendor_libraries.yml'), {
-        'demo' => { 'package' => 'demo-lib', 'version' => '1.0.0', 'title' => 'Demo', 'guide' => 'docs/demo.md',
-                    'files' => [{ 'source' => 'dist/demo.min.js', 'target' => 'assets/javascripts/vendor/demo.min.js',
-                                  'sha256' => Digest::SHA256.hexdigest('old') }] }
-      }.to_yaml
+      write_manifest
       @vendor = Additionals::VendorLibraries.new root: @root
     end
 
@@ -128,6 +124,38 @@ module Additionals
       assert_raises(Additionals::VendorLibraries::Error) { @vendor.outdated }
     end
 
+    def test_constraint_limits_outdated_and_update
+      write_manifest 'constraint' => '~> 1.0', 'reason' => 'version 2 drops a used feature'
+      vendor = Additionals::VendorLibraries.new root: @root
+      stub_request(:get, "#{REGISTRY}/demo-lib")
+        .to_return body: { versions: { '1.0.0' => {}, '1.4.0' => {}, '1.5.0-beta.1' => {}, '2.0.0' => {} } }.to_json
+      stub_package '1.4.0', build_tarball('package/dist/demo.min.js' => 'new'), version: '1.4.0'
+
+      assert_equal([%w[demo 1.4.0]], vendor.outdated.map { |library, latest| [library.name, latest] })
+      assert_equal '1.4.0', vendor.update('demo').version
+
+      stored = Additionals::VendorLibraries.new(root: @root).find 'demo'
+
+      assert_equal ['~> 1.0', 'version 2 drops a used feature'], [stored.constraint.to_s, stored.reason]
+    end
+
+    def test_update_refuses_version_outside_constraint
+      write_manifest 'constraint' => '~> 1.0', 'reason' => 'version 2 drops a used feature'
+      @vendor = Additionals::VendorLibraries.new root: @root
+
+      assert_unchanged_after_error(/demo 2.0.0 is outside its constraint ~> 1.0: version 2 drops a used feature/) do
+        @vendor.update 'demo', version: '2.0.0'
+      end
+    end
+
+    def test_invalid_constraint
+      write_manifest 'constraint' => 'nine'
+
+      error = assert_raises(Additionals::VendorLibraries::Error) { Additionals::VendorLibraries.new(root: @root).libraries }
+
+      assert_match(/invalid constraint of demo/, error.message)
+    end
+
     def test_modified_files_and_readme_mismatches
       File.write File.join(@root, 'assets/javascripts/vendor/demo.min.js'), 'changed by hand'
       File.write File.join(@root, 'README.md'), "| [Demo](https://example.com/demo) | 0.9.0 |\n"
@@ -146,9 +174,17 @@ module Additionals
       assert_equal '1.0.0', Additionals::VendorLibraries.new(root: @root).find('demo').version
     end
 
-    def stub_package(version, tarball, integrity: "sha512-#{Digest::SHA512.base64digest tarball}")
-      stub_request(:get, "#{REGISTRY}/demo-lib/#{version}")
-        .to_return body: { name: 'demo-lib', version: '2.0.0', dist: { tarball: TARBALL_URL, integrity: integrity } }.to_json
+    def write_manifest(extra = {})
+      File.write File.join(@root, 'config/vendor_libraries.yml'), {
+        'demo' => { 'package' => 'demo-lib', 'version' => '1.0.0', 'title' => 'Demo', 'guide' => 'docs/demo.md', **extra,
+                    'files' => [{ 'source' => 'dist/demo.min.js', 'target' => 'assets/javascripts/vendor/demo.min.js',
+                                  'sha256' => Digest::SHA256.hexdigest('old') }] }
+      }.to_yaml
+    end
+
+    def stub_package(path, tarball, version: '2.0.0', integrity: "sha512-#{Digest::SHA512.base64digest tarball}")
+      stub_request(:get, "#{REGISTRY}/demo-lib/#{path}")
+        .to_return body: { name: 'demo-lib', version: version, dist: { tarball: TARBALL_URL, integrity: integrity } }.to_json
       stub_request(:get, TARBALL_URL).to_return body: tarball
     end
 

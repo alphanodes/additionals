@@ -37,6 +37,7 @@ namespace :redmine do
         outdated = vendor.outdated
         outdated.each { |library, latest| puts "#{library.name}: #{library.version} -> #{latest}" }
         puts 'All libraries are up to date.' if outdated.empty?
+        vendor.constrained.each { |library| puts "#{library.name}: limited to #{library.constraint}, #{library.reason}" }
         vendor.modified_files.each { |file| puts "Modified by hand: #{file.target}" }
       rescue Additionals::VendorLibraries::Error => e
         abort e.message
@@ -48,7 +49,8 @@ namespace :redmine do
 
       NAME is one or more names of config/vendor_libraries.yml, separated by
       commas. VERSION installs a given version instead of the latest one, only
-      with a single NAME.
+      with a single NAME. A library with a constraint in the manifest is only
+      updated within it.
 
       Examples:
         bundle exec rake redmine:additionals:vendor:update NAME=mermaid

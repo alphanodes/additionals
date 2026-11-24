@@ -25,7 +25,7 @@
 - Fix timelines of chart blocks in the time zone of the user
 - The configuration `select2_init_entries` (`SELECT2_INIT_ENTRIES`) is now called `autocomplete_entries` (`AUTOCOMPLETE_ENTRIES`)
 - For plugin developers: dashboard blocks and global search providers are classes, the Select2 helpers are replaced by the select fields of additionals, see `docs/`
-- Chart.js 4.6.1, mermaid 12.3.0
+- Chart.js 4.6.2, mermaid 12.3.0
 
 ## 4.6.0
 

@@ -23,6 +23,7 @@
 - Fix disabled project modules keeping their permissions until a restart
 - Fix submenus of the top menu hidden behind an open select field
 - Fix timelines of chart blocks in the time zone of the user
+- Fix Mermaid diagrams in a collapsed block or a hidden tab, which showed as an empty picture once opened
 - The configuration `select2_init_entries` (`SELECT2_INIT_ENTRIES`) is now called `autocomplete_entries` (`AUTOCOMPLETE_ENTRIES`)
 - For plugin developers: dashboard blocks and global search providers are classes, the Select2 helpers are replaced by the select fields of additionals, see `docs/`
 - Chart.js 4.6.2, mermaid 12.3.0

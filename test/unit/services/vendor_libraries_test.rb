@@ -31,6 +31,8 @@ module Additionals
 
       assert_empty vendor.modified_files.map(&:target)
       assert_empty vendor.readme_mismatches.map(&:name)
+      # Propshaft warns about each one whenever it compiles the file
+      assert_empty vendor.missing_source_maps.map(&:target)
     end
 
     def test_update_replaces_files_and_records_version
@@ -124,6 +126,34 @@ module Additionals
       assert_raises(Additionals::VendorLibraries::Error) { @vendor.outdated }
     end
 
+    def test_update_removes_comment_of_source_map_not_shipped
+      stub_package 'latest', build_tarball('package/dist/demo.min.js' => "code();\n//# sourceMappingURL=demo.min.js.map\n")
+
+      @vendor.update 'demo'
+
+      assert_equal "code();\n", File.read(File.join(@root, 'assets/javascripts/vendor/demo.min.js'))
+      assert_empty Additionals::VendorLibraries.new(root: @root).modified_files
+    end
+
+    def test_update_keeps_comment_of_shipped_source_map
+      js = "code();\n//# sourceMappingURL=demo.min.js.map\n"
+      write_manifest({}, [{ 'source' => 'dist/demo.min.js.map', 'target' => 'assets/javascripts/vendor/demo.min.js.map',
+                            'sha256' => Digest::SHA256.hexdigest('old') }])
+      stub_package 'latest', build_tarball('package/dist/demo.min.js' => js, 'package/dist/demo.min.js.map' => '{}')
+
+      vendor = Additionals::VendorLibraries.new root: @root
+      vendor.update 'demo'
+
+      assert_equal js, File.read(File.join(@root, 'assets/javascripts/vendor/demo.min.js'))
+      assert_empty vendor.missing_source_maps
+    end
+
+    def test_missing_source_maps
+      File.write File.join(@root, 'assets/javascripts/vendor/demo.min.js'), "code();\n/*# sourceMappingURL=demo.min.js.map */"
+
+      assert_equal ['assets/javascripts/vendor/demo.min.js'], @vendor.missing_source_maps.map(&:target)
+    end
+
     def test_constraint_limits_outdated_and_update
       write_manifest 'constraint' => '~> 1.0', 'reason' => 'version 2 drops a used feature'
       vendor = Additionals::VendorLibraries.new root: @root
@@ -174,11 +204,11 @@ module Additionals
       assert_equal '1.0.0', Additionals::VendorLibraries.new(root: @root).find('demo').version
     end
 
-    def write_manifest(extra = {})
+    def write_manifest(extra = {}, more_files = [])
       File.write File.join(@root, 'config/vendor_libraries.yml'), {
         'demo' => { 'package' => 'demo-lib', 'version' => '1.0.0', 'title' => 'Demo', 'guide' => 'docs/demo.md', **extra,
                     'files' => [{ 'source' => 'dist/demo.min.js', 'target' => 'assets/javascripts/vendor/demo.min.js',
-                                  'sha256' => Digest::SHA256.hexdigest('old') }] }
+                                  'sha256' => Digest::SHA256.hexdigest('old') }, *more_files] }
       }.to_yaml
     end
 

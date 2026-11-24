@@ -14,13 +14,17 @@ module Additionals
   # nothing is downloaded on an installation. Libraries changed by hand
   # (colorschemes) are not listed and stay maintained by hand. A library with
   # a constraint (a RubyGems requirement such as "~> 9.1") is only updated to
-  # versions within it, its reason says why.
+  # versions within it, its reason says why. A comment pointing to a source
+  # map which the library does not ship is removed, else Propshaft warns
+  # about the missing map whenever it compiles the file.
   #
   # Maintainer tool behind the redmine:additionals:vendor rake tasks.
   class VendorLibraries
     MANIFEST = 'config/vendor_libraries.yml'
     README = 'README.md'
     REGISTRY_URL = 'https://registry.npmjs.org'
+    # The source map comment at the end of a file, as Propshaft looks for it
+    SOURCE_MAP = %r{\n?(?://|/\*)# sourceMappingURL=(\S+?\.map)(?:\s*\*/)?\s*\z}
 
     Library = Data.define :name, :package, :version, :title, :guide, :constraint, :reason, :files
     LibraryFile = Data.define :source, :target, :sha256
@@ -60,6 +64,16 @@ module Additionals
       libraries.flat_map { |library| library.files.select { |file| modified? file } }
     end
 
+    # Bundled files pointing to a source map which is not bundled
+    def missing_source_maps
+      libraries.flat_map do |library|
+        library.files.select do |file|
+          path = File.join root, file.target
+          File.file?(path) && source_map_missing?(library, file, File.binread(path))
+        end
+      end
+    end
+
     # Libraries whose version in the README differs from the manifest
     def readme_mismatches
       readme = File.read File.join(root, README)
@@ -72,7 +86,7 @@ module Additionals
     def update(name, version: nil)
       library = find name
       metadata = package_metadata library.package, target_version(library, version.presence)
-      contents = extract_files library, download_tarball(library, metadata)
+      contents = without_missing_source_maps library, extract_files(library, download_tarball(library, metadata))
       updated = library.with version: metadata['version'],
                              files: library.files.map { |f| f.with sha256: Digest::SHA256.hexdigest(contents[f.source]) }
       readme = updated_readme updated
@@ -96,6 +110,21 @@ module Additionals
                     reason: attrs['reason'],
                     files: attrs['files'].map { |f| LibraryFile.new(**f.symbolize_keys) }
       end
+    end
+
+    def without_missing_source_maps(library, contents)
+      library.files.to_h do |file|
+        content = contents[file.source]
+        [file.source, source_map_missing?(library, file, content) ? content.sub(SOURCE_MAP, "\n") : content]
+      end
+    end
+
+    def source_map_missing?(library, file, content)
+      map = content[SOURCE_MAP, 1]
+      return false unless map
+
+      target = File.join File.dirname(file.target), map
+      library.files.none? { |shipped| shipped.target == target }
     end
 
     def replace_library(updated)

@@ -77,6 +77,8 @@ bundle exec rake redmine:additionals:vendor:update NAME=mermaid VERSION=12.2.0
 
 `update` checks the tarball against the integrity npm publishes, replaces the files and records the version in the manifest and in the libraries table of the README. A test fails when a listed file or a version in the README differs from the manifest, so a file changed by hand does not go unnoticed. Review the diff, test the pages using the library and add a CHANGELOG entry; a library with its own guide (mermaid: [Updating the bundled Mermaid library](updating-mermaid.md)) names it after the update.
 
+A source map ships when the package has one; list it in `files` like `chart.umd.js.map`. `update` removes the comment pointing to a map the library does not ship, as Propshaft warns about the missing map whenever it compiles the file, and the test checks that no bundled file points to one.
+
 A library that must stay on a major version gets a `constraint` (a RubyGems requirement such as `"~> 9.1"`) and a `reason` in the manifest: `outdated` and `update` then only consider versions within it, `outdated` names the reason, and `update` refuses a `VERSION` outside it. dhtmlxGantt stays on 9.1, version 10 removed features from the community edition.
 
 The patched colorschemes plugin is not listed and is updated by hand.

@@ -33,7 +33,7 @@ chartjs_matrix:
   files:
   - source: dist/chartjs-chart-matrix.min.js
     target: assets/javascripts/vendor/chartjs-chart-matrix.min.js
-    sha256: 7e0cafdcfed5636319fb779f209230d38b6a3703b4b5f462ecb501fc6008f661
+    sha256: 2e17b70de6f0c0b270eb950a21641f80f74d5aa78326f0dafa09668aa8995d0c
 chartjs_sankey:
   package: chartjs-chart-sankey
   version: 0.22.2
@@ -50,6 +50,9 @@ chartjs_treemap:
   - source: dist/chartjs-chart-treemap.min.js
     target: assets/javascripts/vendor/chartjs-chart-treemap.min.js
     sha256: 52644d2bf744b4f01bf95e3f9b0327341465988f6928e81d66076ff13e874632
+  - source: dist/chartjs-chart-treemap.min.js.map
+    target: assets/javascripts/vendor/chartjs-chart-treemap.min.js.map
+    sha256: 795c5123f8bc0aa8da8573ea6c9ab3f40e683bdd6d76445b5f29496b14eee662
 dhtmlxgantt:
   package: dhtmlx-gantt
   version: 9.1.4
@@ -60,7 +63,7 @@ dhtmlxgantt:
   files:
   - source: codebase/dhtmlxgantt.js
     target: assets/javascripts/vendor/dhtmlxgantt.js
-    sha256: 00c0cfec1219e3f5cf7ae534a7b5916335b80ccf40a8ef5169e7d5e4807768da
+    sha256: b30e51c61c357e37e4ab0966d67aa96a22650772286e42027ce605e0c00b262b
   - source: codebase/dhtmlxgantt.css
     target: assets/stylesheets/dhtmlxgantt.css
     sha256: b538141aac6b42f66100ce97d48584b9516e3acbbceb97d6321277c8508f3a30

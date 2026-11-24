@@ -12,7 +12,7 @@
 | `chartjs_matrix` | The matrix chart type of Chart.js |
 | `chartjs_sankey`, `chartjs_treemap` | The sankey or treemap chart type of Chart.js, with `chartjs` |
 | `dhtmlxgantt` | dhtmlxGantt with its styles |
-| `mermaid` | mermaid with the loader for mermaid code blocks |
+| `mermaid` | mermaid with `AdditionalsMermaid.render`, which draws the diagrams |
 | `query_chart` | Styles of query chart blocks and their settings form |
 | `select_fields` | The library behind the [select fields](select-fields.md) with its styles and the filter registry |
 | `sortable` | SortableJS |

@@ -83,7 +83,7 @@ Uninstall all plugins that depend on `additionals` first.
 | [Chart.js plugin colorschemes](https://github.com/nagix/chartjs-plugin-colorschemes) (patched for Chart.js 3+) | 0.4.0 |
 | [Chart.js plugin datalabels](https://github.com/chartjs/chartjs-plugin-datalabels) | 2.2.0 |
 | [Chart.js chart matrix](https://github.com/kurkle/chartjs-chart-matrix) | 3.1.0 |
-| [Chart.js chart sankey](https://github.com/kurkle/chartjs-chart-sankey) | 0.22.2 |
+| [Chart.js chart sankey](https://github.com/kurkle/chartjs-chart-sankey) | 0.23.1 |
 | [Chart.js chart treemap](https://github.com/kurkle/chartjs-chart-treemap) | 5.0.2 |
 | [dhtmlxGantt](https://dhtmlx.com/docs/products/dhtmlxGantt/) | 9.1.4 |
 | [mermaid](https://github.com/mermaid-js/mermaid) | 12.3.0 |

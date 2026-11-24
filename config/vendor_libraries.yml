@@ -36,12 +36,12 @@ chartjs_matrix:
     sha256: 2e17b70de6f0c0b270eb950a21641f80f74d5aa78326f0dafa09668aa8995d0c
 chartjs_sankey:
   package: chartjs-chart-sankey
-  version: 0.22.2
+  version: 0.23.1
   title: Chart.js chart sankey
   files:
   - source: dist/chartjs-chart-sankey.min.js
     target: assets/javascripts/vendor/chartjs-chart-sankey.min.js
-    sha256: 335caa6a402537c549321d54f04afb67e9e1f9a0016972bce2bf2b4a3e5da383
+    sha256: 6a63c85888347576490981cc93f9d07075a6f333fb4e68d5a830ad7ae0127792
 chartjs_treemap:
   package: chartjs-chart-treemap
   version: 5.0.2

@@ -21,12 +21,23 @@
   let renderCount = 0;
   let queue = Promise.resolve();
   const pending = new Map();
+  const resolvers = new Map();
 
   const pageLoaded = new Promise((resolve) => {
     if (document.readyState === 'complete') {
       resolve();
     } else {
       window.addEventListener('load', resolve, { once: true });
+    }
+  });
+
+  // The library may still be loading, e.g. when Redmine core and the detector
+  // of redmine_reporting load it at the same time; additionals.js announces it
+  const libraryLoaded = new Promise((resolve) => {
+    if (typeof mermaid === 'undefined') {
+      document.addEventListener('additionals:mermaid-loaded', resolve, { once: true });
+    } else {
+      resolve();
     }
   });
 
@@ -51,7 +62,32 @@
     return Boolean(node.previousElementSibling?.querySelector?.('code[data-controller~="mermaid"]'));
   }
 
+  function settle(node) {
+    pending.delete(node);
+    resolvers.get(node)?.();
+    resolvers.delete(node);
+  }
+
+  async function drawError(node, source, error) {
+    console.error('Failed to render mermaid diagram:', error);
+    // mermaid.render leaves its own output in the node, mermaid.run reads the
+    // source from it and shows the error in place of the diagram
+    node.textContent = source;
+    node.removeAttribute('data-processed');
+    await mermaid.run({ nodes: [node], suppressErrors: true });
+    // Without error rendering (core turns it off since Redmine 7.1) the source stays visible
+    if (!node.innerHTML.trim()) {node.textContent = source;}
+  }
+
+  // Returns false if the diagram waits again to be shown
   async function draw(node) {
+    // Removed or hidden again while waiting in the queue
+    if (!node.isConnected) {return true;}
+    if (!shown(node)) {
+      waitUntilShown(node);
+      return false;
+    }
+
     const source = dedent(node.textContent).trim();
     // Displays the diagram (see shown), mermaid measures its text inside it
     node.dataset.processed = 'true';
@@ -60,45 +96,67 @@
       node.innerHTML = svg;
       bindFunctions?.(node);
     } catch (error) {
-      // mermaid.run shows the error in place of the diagram, as far as the
-      // configuration allows (core turns it off since Redmine 7.1)
-      console.error('Failed to render mermaid diagram:', error);
-      node.removeAttribute('data-processed');
-      await mermaid.run({ nodes: [node], suppressErrors: true });
+      await drawError(node, source, error);
     }
+    return true;
   }
 
-  function enqueue(node, resolve) {
-    queue = queue.then(() => draw(node)).finally(() => {
-      pending.delete(node);
-      resolve();
-    });
+  // A failure of one diagram must not stop the ones queued after it
+  function enqueue(node) {
+    queue = queue
+      .then(() => draw(node))
+      .catch((error) => {
+        console.error('Failed to render mermaid diagram:', error);
+        return true;
+      })
+      .then((done) => {
+        if (done) {settle(node);}
+      });
   }
 
   // One observer for all diagrams waiting to be shown
   let visibilityObserver;
   const waiting = new Map();
 
-  function waitUntilShown(node, resolve) {
+  function schedule(node) {
+    if (shown(node)) {
+      enqueue(node);
+    } else {
+      waitUntilShown(node);
+    }
+  }
+
+  // Diagrams removed or moved while waiting. A hidden element that is removed
+  // reports no change of its size, so this runs on every render call as well.
+  function releaseRemoved() {
+    const moved = [];
+    waiting.forEach((nodes, target) => {
+      const staying = nodes.filter(node => node.isConnected && node.parentElement === target);
+      nodes.forEach((node) => {
+        if (!staying.includes(node)) {moved.push(node);}
+      });
+      if (staying.length) {
+        waiting.set(target, staying);
+        return;
+      }
+
+      visibilityObserver.unobserve(target);
+      waiting.delete(target);
+    });
+    moved.forEach(node => (node.isConnected ? schedule(node) : settle(node)));
+  }
+
+  function waitUntilShown(node) {
     visibilityObserver ??= new ResizeObserver((entries) => {
       entries.forEach(({ target }) => {
         if (target.getClientRects().length === 0) {return;}
 
-        visibilityObserver.unobserve(target);
-        (waiting.get(target) || []).forEach(entry => enqueue(...entry));
-        waiting.delete(target);
-      });
-      // Content replaced while hidden: nothing left to wait for
-      waiting.forEach((waitingNodes, target) => {
-        if (target.isConnected) {return;}
-
+        const nodes = waiting.get(target) || [];
         visibilityObserver.unobserve(target);
         waiting.delete(target);
-        waitingNodes.forEach(([waitingNode, done]) => {
-          pending.delete(waitingNode);
-          done();
-        });
+        nodes.forEach(enqueue);
       });
+      releaseRemoved();
     });
 
     const parent = node.parentElement;
@@ -106,28 +164,21 @@
       waiting.set(parent, []);
       visibilityObserver.observe(parent);
     }
-    waiting.get(parent).push([node, resolve]);
+    waiting.get(parent).push(node);
   }
 
   function renderNode(node) {
     if (node.dataset.processed === 'true' || !node.parentElement || coreDiagram(node)) {return Promise.resolve();}
     if (pending.has(node)) {return pending.get(node);}
 
-    const promise = new Promise((resolve) => {
-      pageLoaded.then(() => {
-        if (shown(node)) {
-          enqueue(node, resolve);
-        } else {
-          waitUntilShown(node, resolve);
-        }
-      });
-    });
+    const promise = new Promise((resolve) => { resolvers.set(node, resolve); });
     pending.set(node, promise);
+    Promise.all([pageLoaded, libraryLoaded]).then(() => schedule(node));
     return promise;
   }
 
   async function render(target) {
-    if (typeof mermaid === 'undefined') {return;}
+    releaseRemoved();
 
     let nodes;
     if (typeof target === 'string') {

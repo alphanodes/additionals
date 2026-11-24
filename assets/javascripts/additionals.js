@@ -284,6 +284,8 @@ document.addEventListener('ajax:before', (event) => {
     set(value) {
       library = value;
       if (keepAdditionalsMermaidConfig(value)) { value.initialize({ startOnLoad: false }); }
+      // mermaid_load.js waits for it, if it was loaded first
+      document.dispatchEvent(new Event('additionals:mermaid-loaded'));
     },
   });
 })();

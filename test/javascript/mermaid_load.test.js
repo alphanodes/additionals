@@ -153,41 +153,122 @@ describe('AdditionalsMermaid', () => {
     expect(libraryRender).not.toHaveBeenCalled();
   });
 
-  it('shows the error of an invalid diagram through mermaid.run', async () => {
+  // mermaid.render leaves its own output in the node: mermaid.run gets the
+  // source back and shows the real error in place of the diagram
+  it('shows the error of an invalid diagram through mermaid.run with its source', async () => {
+    document.body.innerHTML = '<div><div class="mermaid" id="broken">graph LR\n A --></div></div>';
+    const diagram = document.getElementById('broken');
+    setShown(diagram, true);
+    libraryRender.mockImplementationOnce((id, source, container) => {
+      container.innerHTML = `<div id="d${id}"><svg></svg></div>`;
+      return Promise.reject(new Error('Parse error'));
+    });
+    let sourceForRun;
+    libraryRun.mockImplementationOnce(({ nodes }) => {
+      sourceForRun = nodes[0].textContent;
+      nodes[0].innerHTML = '<svg class="error"></svg>';
+      return Promise.resolve();
+    });
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+    try {
+      await render(diagram);
+    } finally {
+      consoleError.mockRestore();
+    }
+
+    expect(sourceForRun).toBe('graph LR\n A -->');
+    expect(diagram.innerHTML).toBe('<svg class="error"></svg>');
+  });
+
+  // Redmine core turns off error rendering since 7.1
+  it('keeps the source of an invalid diagram visible if mermaid shows no error', async () => {
     document.body.innerHTML = '<div><div class="mermaid" id="broken">graph LR\n A --></div></div>';
     const diagram = document.getElementById('broken');
     setShown(diagram, true);
     libraryRender.mockRejectedValueOnce(new Error('Parse error'));
-    vi.spyOn(console, 'error').mockImplementation(() => {});
+    libraryRun.mockImplementationOnce(({ nodes }) => {
+      nodes[0].innerHTML = '';
+      nodes[0].dataset.processed = 'true';
+      return Promise.resolve();
+    });
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
 
-    await render(diagram);
+    try {
+      await render(diagram);
+    } finally {
+      consoleError.mockRestore();
+    }
 
-    expect(libraryRun).toHaveBeenCalledWith({ nodes: [diagram], suppressErrors: true });
-    expect(diagram.dataset.processed).toBeUndefined();
+    expect(diagram.textContent).toBe('graph LR\n A -->');
   });
 
-  it('stops waiting for a diagram whose content was replaced', async () => {
+  // A failure that escapes must not stop the diagrams queued after it
+  it('draws the next diagrams after a failure', async () => {
+    document.body.innerHTML = '<div><div class="mermaid" id="broken">x</div><div class="mermaid" id="next">graph LR</div></div>';
+    setShown(document.getElementById('broken'), true);
+    libraryRender.mockRejectedValueOnce(new Error('Parse error'));
+    libraryRun.mockRejectedValueOnce(new Error('parseError handler failed'));
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+    try {
+      await render('#broken');
+      await render('#next');
+    } finally {
+      consoleError.mockRestore();
+    }
+
+    expect(document.querySelector('#next svg')).not.toBeNull();
+  });
+
+  // A hidden element that is removed reports no change of its size: the next
+  // render call releases it, e.g. when a preview replaces the content
+  it('releases a waiting diagram whose content was replaced on the next render call', async () => {
     document.body.innerHTML = '<div id="box"><div><div class="mermaid" id="gone">graph LR</div></div></div>';
     const diagram = document.getElementById('gone');
     setShown(diagram, false);
+    let released = false;
 
-    const rendering = render(diagram);
+    render(diagram).then(() => { released = true; });
     await flush();
     const [observer] = observers.slice(-1);
     const parent = diagram.parentElement;
     document.getElementById('box').innerHTML = '';
-    observer.report();
-    await rendering;
+    await render([]);
+    await flush();
 
+    expect(released).toBe(true);
     expect(observer.targets.has(parent)).toBe(false);
     expect(libraryRender).not.toHaveBeenCalled();
+  });
+
+  it('waits again for a diagram that is hidden again while queued', async () => {
+    document.body.innerHTML = '<div><div class="mermaid" id="first">graph LR</div></div><div><div class="mermaid" id="second">graph TD</div></div>';
+    const first = document.getElementById('first');
+    const second = document.getElementById('second');
+    setShown(first, true);
+    setShown(second, true);
+    let finishFirst;
+    libraryRender.mockImplementationOnce(id => new Promise((done) => {
+      finishFirst = () => done({ svg: `<svg id="${id}"></svg>` });
+    }));
+
+    render(first);
+    render(second);
+    await flush();
+    setShown(second, false);
+    finishFirst();
+    await flush();
+
+    expect(libraryRender.mock.calls.map(call => call[2])).toEqual([first]);
+    expect([...observers.at(-1).targets]).toContain(second.parentElement);
   });
 
   // Dialogs loaded with AJAX include the script again
   it('can be loaded twice', () => {
     const context = vm.createContext({
       window: { addEventListener: vi.fn() },
-      document: { readyState: 'complete', querySelectorAll: () => [] },
+      document: { readyState: 'complete', querySelectorAll: () => [], addEventListener: vi.fn() },
       Promise,
     });
 
@@ -196,5 +277,31 @@ describe('AdditionalsMermaid', () => {
 
     expect(() => vm.runInContext(scriptSource('mermaid_load.js'), context)).not.toThrow();
     expect(context.window.AdditionalsMermaid).toBe(api);
+  });
+
+  // Redmine core and the detector of redmine_reporting may load the library at
+  // the same time, this script can be faster than the library
+  it('waits for the library', async () => {
+    const run = vi.fn(() => Promise.resolve());
+    const libraryRenderLater = vi.fn(id => Promise.resolve({ svg: `<svg id="${id}"></svg>` }));
+    document.body.innerHTML = '<div><div class="mermaid" id="early">graph LR</div></div>';
+    const diagram = document.getElementById('early');
+    setShown(diagram, true);
+    const context = vm.createContext({
+      window: { addEventListener: vi.fn() }, document, Element, Promise, ResizeObserver, Event, console,
+    });
+    vm.runInContext(scriptSource('mermaid_load.js'), context);
+
+    const rendering = context.window.AdditionalsMermaid.render(diagram);
+    await flush();
+
+    expect(diagram.querySelector('svg')).toBeNull();
+
+    context.mermaid = { initialize: vi.fn(), render: libraryRenderLater, run };
+    document.dispatchEvent(new Event('additionals:mermaid-loaded'));
+    await rendering;
+
+    expect(libraryRenderLater).toHaveBeenCalled();
+    expect(diagram.querySelector('svg')).not.toBeNull();
   });
 });

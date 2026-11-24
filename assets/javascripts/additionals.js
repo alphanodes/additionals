@@ -272,7 +272,7 @@ document.addEventListener('ajax:before', (event) => {
   // twice. Only the last one stays global and gets initialized by its loader,
   // but each one starts rendering all diagrams on window load, the earlier
   // one with mermaid's defaults. So every library is initialized right away
-  // without starting on load; mermaid_load.js turns that on for the global one.
+  // without starting on load; mermaid_load.js renders the diagrams itself.
   let library = globalThis.mermaid;
   keepAdditionalsMermaidConfig(library);
 

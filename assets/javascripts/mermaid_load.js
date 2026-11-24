@@ -18,27 +18,58 @@ function initAllMermaidMacro() {
 // The diagram itself may be hidden until it is rendered (stylesheets of
 // plugins hide .mermaid without data-processed), so its parent tells whether
 // it is displayed.
-const mermaidNodeShown = node => node.parentElement?.getClientRects().length > 0;
+function mermaidNodeShown(node) {
+  return node.parentElement?.getClientRects().length > 0;
+}
+
+// One observer for all diagrams waiting to be shown. The diagrams shown at the
+// same time (e.g. in one collapsed block) are rendered by one mermaid.run
+// call: mermaid takes the SVG id from Date.now(), so two calls at the same time
+// can give two diagrams the same id and draw one into the other.
+function mermaidVisibilityObserver() {
+  if (renderMermaidNodes.visibilityObserver) {return renderMermaidNodes.visibilityObserver;}
+
+  const watched = new Set();
+  const observer = new ResizeObserver((entries) => {
+    const nodes = [];
+    entries.forEach(({ target }) => {
+      if (target.getClientRects().length === 0) {return;}
+
+      observer.unobserve(target);
+      watched.delete(target);
+      target.querySelectorAll(':scope > [data-mermaid-waiting]').forEach((node) => {
+        delete node.dataset.mermaidWaiting;
+        nodes.push(node);
+      });
+    });
+    // Content replaced while hidden: nothing left to wait for
+    watched.forEach((target) => {
+      if (target.isConnected) {return;}
+
+      observer.unobserve(target);
+      watched.delete(target);
+    });
+    renderMermaidNodes(nodes);
+  });
+  observer.watch = (target) => {
+    watched.add(target);
+    observer.observe(target);
+  };
+  renderMermaidNodes.visibilityObserver = observer;
+  return observer;
+}
 
 function renderMermaidNodes(nodes) {
   const shown = [];
   nodes.forEach((node) => {
+    if (node.dataset.processed === 'true' || node.dataset.mermaidWaiting) {return;}
+
     if (mermaidNodeShown(node)) {
       shown.push(node);
-      return;
+    } else if (node.parentElement) {
+      node.dataset.mermaidWaiting = 'true';
+      mermaidVisibilityObserver().watch(node.parentElement);
     }
-    if (node.dataset.mermaidWaiting || !node.parentElement) {return;}
-
-    node.dataset.mermaidWaiting = 'true';
-    // The size of the parent changes from zero when it is shown
-    const observer = new ResizeObserver(() => {
-      if (!mermaidNodeShown(node)) {return;}
-
-      observer.disconnect();
-      delete node.dataset.mermaidWaiting;
-      renderMermaidNodes([node]);
-    });
-    observer.observe(node.parentElement);
   });
 
   if (shown.length === 0) {return Promise.resolve();}

@@ -3,23 +3,33 @@ import {
 } from 'vitest';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
+import vm from 'vm';
 
 // Page order: additionals.js (html head), the mermaid library, mermaid_load.js
 const globalEval = eval; // eslint-disable-line no-eval
-const evalScript = name => globalEval(readFileSync(resolve(__dirname, `../../assets/javascripts/${name}`), 'utf-8'));
+const scriptSource = name => readFileSync(resolve(__dirname, `../../assets/javascripts/${name}`), 'utf-8');
+const evalScript = name => globalEval(scriptSource(name));
 
 // jsdom has no layout: whether a diagram is displayed is set per element, and
-// the ResizeObserver reports when it is shown.
+// the ResizeObserver reports the elements whose size changed.
 const observers = [];
 globalThis.ResizeObserver = class {
   constructor(callback) {
     this.callback = callback;
-    this.disconnect = vi.fn();
+    this.targets = new Set();
     observers.push(this);
   }
 
   observe(element) {
-    this.element = element;
+    this.targets.add(element);
+  }
+
+  unobserve(element) {
+    this.targets.delete(element);
+  }
+
+  report(...elements) {
+    this.callback(elements.map(target => ({ target })));
   }
 };
 
@@ -40,7 +50,6 @@ const configOnLoad = libraryInitialize.mock.calls.at(-1)[0];
 
 describe('mermaid_load', () => {
   beforeEach(() => {
-    observers.length = 0;
     document.body.innerHTML = '';
   });
 
@@ -63,27 +72,76 @@ describe('mermaid_load', () => {
     expect(libraryRun).toHaveBeenCalledWith({ nodes: [document.getElementById('new')], suppressErrors: true });
   });
 
-  // A diagram in a collapsed block has no size, mermaid would lay it out as an empty 16x16 picture
-  it('renders a diagram that is not displayed once it is shown', async () => {
-    document.body.innerHTML = '<div class="collapsed-text"><div class="mermaid" id="hidden">graph LR</div></div>';
-    const diagram = document.getElementById('hidden');
-    setShown(diagram, false);
+  it('skips diagrams that are already rendered', async () => {
+    document.body.innerHTML = '<div><div class="mermaid" data-processed="true">done</div></div>';
+    setShown(document.querySelector('.mermaid'), false);
+
+    await globalThis.renderMermaidMacro('.mermaid');
+
+    expect(libraryRun).not.toHaveBeenCalled();
+    expect(observers.every(observer => observer.targets.size === 0)).toBe(true);
+  });
+
+  // A diagram in a collapsed block has no size, mermaid would lay it out as an
+  // empty 16x16 picture. All diagrams shown at the same time are rendered by
+  // one mermaid.run call, two calls could give them the same SVG id.
+  it('renders the diagrams that are not displayed together once they are shown', async () => {
+    document.body.innerHTML = `
+      <div class="collapsed-text">
+        <div class="pre-wrapper"><div class="mermaid" id="first">graph LR</div></div>
+        <div class="pre-wrapper"><div class="mermaid" id="second">graph TD</div></div>
+      </div>`;
+    const first = document.getElementById('first');
+    const second = document.getElementById('second');
+    setShown(first, false);
+    setShown(second, false);
 
     await globalThis.renderMermaidMacro('.mermaid');
     await globalThis.renderMermaidMacro('.mermaid');
 
     expect(libraryRun).not.toHaveBeenCalled();
     expect(observers).toHaveLength(1);
-    expect(observers[0].element).toBe(diagram.parentElement);
+    const [observer] = observers;
+    expect([...observer.targets]).toEqual([first.parentElement, second.parentElement]);
 
-    observers[0].callback();
+    observer.report(first.parentElement, second.parentElement);
 
     expect(libraryRun).not.toHaveBeenCalled();
 
-    setShown(diagram, true);
-    observers[0].callback();
+    setShown(first, true);
+    setShown(second, true);
+    observer.report(first.parentElement, second.parentElement);
 
-    expect(observers[0].disconnect).toHaveBeenCalled();
-    expect(libraryRun).toHaveBeenCalledWith({ nodes: [diagram], suppressErrors: true });
+    expect(libraryRun).toHaveBeenCalledTimes(1);
+    expect(libraryRun).toHaveBeenCalledWith({ nodes: [first, second], suppressErrors: true });
+    expect(observer.targets.size).toBe(0);
+  });
+
+  it('stops waiting for a diagram whose content was replaced', async () => {
+    document.body.innerHTML = '<div id="box"><div><div class="mermaid" id="gone">graph LR</div></div></div>';
+    const diagram = document.getElementById('gone');
+    setShown(diagram, false);
+
+    await globalThis.renderMermaidMacro('#gone');
+    const [observer] = observers.slice(-1);
+    const parent = diagram.parentElement;
+    document.getElementById('box').innerHTML = '';
+
+    observer.report();
+
+    expect(observer.targets.has(parent)).toBe(false);
+    expect(libraryRun).not.toHaveBeenCalled();
+  });
+
+  // Dialogs loaded with AJAX include the script again
+  it('can be loaded twice', () => {
+    const context = vm.createContext({
+      window: { addEventListener: vi.fn() },
+      document: { readyState: 'complete', querySelectorAll: () => [] },
+    });
+
+    vm.runInContext(scriptSource('mermaid_load.js'), context);
+
+    expect(() => vm.runInContext(scriptSource('mermaid_load.js'), context)).not.toThrow();
   });
 });

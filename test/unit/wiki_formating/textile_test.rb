@@ -36,6 +36,16 @@ module WikiFormatting
       end
     end
 
+    # The pattern of all emoji codes takes milliseconds to build and every
+    # rendered text gets a new filter or scrubber, so it is built once per process.
+    def test_emoji_pattern_is_built_once_for_all_formatters
+      # object ids, since a failing assert_same would print the whole pattern
+      pattern_id = @formatter.new('a').emoji_pattern.object_id
+
+      assert_equal pattern_id, @formatter.new('b').emoji_pattern.object_id
+      assert_equal pattern_id, Additionals::WikiFormatting::CommonMark::EmojiScrubber.new.emoji_pattern.object_id
+    end
+
     def test_smileys_and_emojies
       with_plugin_settings 'additionals', legacy_smiley_support: 1,
                                           emoji_support: 1 do

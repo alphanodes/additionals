@@ -75,9 +75,14 @@ module Additionals
       text.match? emoji_pattern
     end
 
-    def emoji_pattern
+    # Built once per process: TanukiEmoji assembles the pattern of all emoji
+    # codes on every call (about 7 ms), while the textile filter and the
+    # emoji scrubber including this module are created for every rendered text.
+    def self.emoji_pattern
       @emoji_pattern ||= TanukiEmoji.index.alpha_code_pattern
     end
+
+    delegate :emoji_pattern, to: 'Additionals::Formatter'
 
     def inline_emojify(text)
       return text unless with_emoji? text

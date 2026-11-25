@@ -9,7 +9,7 @@
 - A locked dashboard is unlocked with a click on its lock
 - Treemap and sankey charts use the configured color scheme, legends and value tables are easier to read; the tooltip of the rest tile of a treemap names the number of merged entries
 - Global search stays fast on large instances
-- Formatted text with emoji support enabled renders faster, Textile pages several times faster
+- Formatted text with emoji or smiley support enabled renders several times faster
 - Holidays of Redmine 7.1 apply in all plugins
 - Issue attachments link to the note that added them (Redmine 7.1)
 - Macros: fixes and new options for `vimeo`, `reddit`, `meteoblue`, `gmap`, `user`, `gps` and `recently_updated`; `tabler` renders filled icons such as `star-filled` as filled shapes

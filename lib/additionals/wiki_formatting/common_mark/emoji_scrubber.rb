@@ -14,10 +14,12 @@ module Additionals
           return if ancestor? node, %w[pre code a]
 
           content = node.text
-          return unless with_emoji?(content) || content.match(emoji_unicode_pattern)
+          unicode = unicode_emoji? content
+          named = with_emoji? content
+          return unless unicode || named
 
-          html = emoji_unicode_element_unicode_filter content
-          html = emoji_name_element_unicode_filter html
+          html = unicode ? emoji_unicode_element_unicode_filter(content) : content
+          html = emoji_name_element_unicode_filter html if named
 
           return if html == content
 
@@ -49,15 +51,37 @@ module Additionals
           end
         end
 
-        # Build a regexp that matches all valid unicode emojis names.
-        def self.emoji_unicode_pattern
-          @emoji_unicode_pattern ||= TanukiEmoji.index.codepoints_pattern
+        class << self
+          # Build a regexp that matches all valid unicode emojis names.
+          def emoji_unicode_pattern
+            @emoji_unicode_pattern ||= TanukiEmoji.index.codepoints_pattern
+          end
+
+          # The first non-ASCII character of every emoji, from the same codepoints
+          # TanukiEmoji builds emoji_unicode_pattern from. A text without any of
+          # them holds no emoji, and this small class is checked far faster than
+          # the pattern of all emojis - most text nodes never need the latter.
+          def emoji_unicode_hint
+            @emoji_unicode_hint ||= begin
+              chars = TanukiEmoji.index.all.each_with_object Set.new do |emoji, set|
+                [emoji.codepoints, *emoji.codepoints_alternates].each do |codepoints|
+                  char = codepoints[/[^[:ascii:]]/]
+                  set << char if char
+                end
+              end
+              Regexp.new "[#{chars.map { |char| Regexp.escape char }.join}]"
+            end
+          end
         end
 
         private
 
         def emoji_unicode_pattern
           self.class.emoji_unicode_pattern
+        end
+
+        def unicode_emoji?(text)
+          text.match?(self.class.emoji_unicode_hint) && text.match?(emoji_unicode_pattern)
         end
 
         # Optimized ancestor check with early exit pattern

@@ -27,6 +27,10 @@ module Additionals
 
     NON_SMILEY_COLOR = %w[exclamation question check success failure].freeze
 
+    # Compiled once: an interpolated regexp literal is compiled anew on every
+    # evaluation, which cost 22 compilations per text node.
+    SMILEY_PATTERNS = SMILEYS.transform_values { |regexp| /(\s|^|>|\))(!)?(#{regexp})(?=\W|$|<)/m }.freeze
+
     def render_inline_smileys(text)
       return text if text.blank?
 
@@ -36,8 +40,8 @@ module Additionals
     end
 
     def inline_smileys(text)
-      SMILEYS.each do |name, regexp|
-        text.gsub!(/(\s|^|>|\))(!)?(#{regexp})(?=\W|$|<)/m) do
+      SMILEY_PATTERNS.each do |name, pattern|
+        text.gsub! pattern do
           leading = Regexp.last_match 1
           esc = Regexp.last_match 2
           smiley = Regexp.last_match 3
@@ -71,8 +75,10 @@ module Additionals
       ActionController::Base.helpers.content_tag 'additionals-emoji', emoji.codepoints, options
     end
 
+    # An emoji code needs a colon; checking for it first spares most texts the
+    # pattern of all emoji codes.
     def with_emoji?(text)
-      text.match? emoji_pattern
+      text.include?(':') && text.match?(emoji_pattern)
     end
 
     # Built once per process: TanukiEmoji assembles the pattern of all emoji

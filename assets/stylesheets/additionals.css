@@ -160,6 +160,9 @@ ul.dashboard-list {
   vertical-align: top;
   white-space: nowrap;
   width: 50%;
+
+  /* the table shrinks to its content, the longest label would touch its value */
+  padding-right: 0.5em;
 }
 
 .labeled-list > .line > .value {

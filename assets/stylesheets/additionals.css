@@ -162,7 +162,7 @@ ul.dashboard-list {
   width: 50%;
 
   /* the table shrinks to its content, the longest label would touch its value */
-  padding-right: 0.5em;
+  padding-inline-end: 0.5em;
 }
 
 .labeled-list > .line > .value {

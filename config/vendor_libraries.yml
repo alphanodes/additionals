@@ -36,12 +36,12 @@ chartjs_matrix:
     sha256: 2e17b70de6f0c0b270eb950a21641f80f74d5aa78326f0dafa09668aa8995d0c
 chartjs_sankey:
   package: chartjs-chart-sankey
-  version: 0.23.1
+  version: 0.24.1
   title: Chart.js chart sankey
   files:
   - source: dist/chartjs-chart-sankey.min.js
     target: assets/javascripts/vendor/chartjs-chart-sankey.min.js
-    sha256: 6a63c85888347576490981cc93f9d07075a6f333fb4e68d5a830ad7ae0127792
+    sha256: f83a784803e99f2972665b337e4ea215311a1f403414faa79de4e4ec08e45bf6
 chartjs_treemap:
   package: chartjs-chart-treemap
   version: 5.0.2
@@ -69,16 +69,16 @@ dhtmlxgantt:
     sha256: b538141aac6b42f66100ce97d48584b9516e3acbbceb97d6321277c8508f3a30
 mermaid:
   package: mermaid
-  version: 12.3.0
+  version: 12.4.0
   title: mermaid
   guide: docs/updating-mermaid.md
   files:
   - source: dist/mermaid.min.js
     target: assets/javascripts/vendor/mermaid.min.js
-    sha256: 336df803d87a38b70a01e736e666c8f7601d2ce42f5e47c8fafe5d721074b9a3
+    sha256: c0891e4c0413d0710ad193b431d8cbbe9d031636e51c467d11daa4721ba22094
   - source: dist/mermaid.min.js.map
     target: assets/javascripts/vendor/mermaid.min.js.map
-    sha256: f6b1ad03024f1433e068c54e79c6e0cfb3e8a6ec7fa6113e130462f8752ee2a9
+    sha256: 4771cc84d0c13680a976b98774067511a3b572de6ba3fc18d769958a36d51f39
 sortable:
   package: sortablejs
   version: 1.15.7

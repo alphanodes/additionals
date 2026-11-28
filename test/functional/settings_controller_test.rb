@@ -11,6 +11,7 @@ class SettingsControllerTest < Additionals::ControllerTest
 
   def teardown
     Setting.plugin_additionals = @saved_settings
+    super
   end
 
   # A hash as it was stored before the setting existed: the key is simply not in it.

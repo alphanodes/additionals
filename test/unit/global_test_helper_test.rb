@@ -5,6 +5,23 @@ require File.expand_path '../../test_helper', __FILE__
 # The assertions in global_test_helper.rb are used by every plugin of the family,
 # so their own contract is tested here rather than in one of the plugins.
 class GlobalTestHelperTest < Additionals::TestCase
+  # A test whose teardown skips super, as many tests of the family do
+  class TeardownWithoutSuperTest < ActiveSupport::TestCase
+    def teardown
+      nil
+    end
+
+    def test_request
+      stub_request(:get, 'https://example.com/').to_return status: 200
+      Net::HTTP.get URI('https://example.com/')
+    end
+  end
+
+  def test_requests_do_not_leak_from_a_teardown_without_super
+    assert_predicate TeardownWithoutSuperTest.new(:test_request).run, :passed?
+    assert_not_requested :get, 'https://example.com/'
+  end
+
   # A plugin may override a template of an optional third party plugin. Where
   # that plugin is not installed the template is absent and the override never
   # applies - not a defect, so optional_templates lets the assertion pass. The

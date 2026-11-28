@@ -19,6 +19,14 @@ ActiveSupport::TestCase.setup do
   User.current = nil
 end
 
+# webmock/minitest resets its stubs and the history of requests in the teardown
+# method of Minitest::Test, which a `def teardown` without super skips: stubs and
+# requests of one test then leak into the next one (assert_requested counts them).
+# The callback runs whatever a subclass does.
+ActiveSupport::TestCase.teardown do
+  WebMock.reset! if defined? WebMock
+end
+
 module Additionals
   # Defines the standard I18n tests on the given test class. Plugins use this in their
   # i18n_test.rb to avoid duplicating identical boilerplate; only the

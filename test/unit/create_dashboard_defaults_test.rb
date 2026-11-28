@@ -9,6 +9,7 @@ require File.expand_path '../../../db/migrate/005_create_dashboard_defaults.rb',
 class CreateDashboardDefaultsTest < Additionals::TestCase
   def teardown
     ENV.delete 'DEFAULT_USER_ID'
+    super
   end
 
   def test_dashboard_author_returns_first_active_admin

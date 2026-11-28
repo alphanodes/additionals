@@ -15,6 +15,7 @@ class CustomFieldUserFormatTest < Additionals::TestCase
 
   def teardown
     Redmine::FieldFormat::UserFormat.user_scope_class_names = @saved_scope_class_names
+    super
   end
 
   def test_unregistered_entity_keeps_core_project_members_despite_a_stored_scope
